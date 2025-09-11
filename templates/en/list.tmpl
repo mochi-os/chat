@@ -1,0 +1,10 @@
+{{define "title"}}Chats{{end}}
+{{template "head" .}}
+<p class="header"><a href="/">Mochi</a> | Chat</p>
+
+<p>{{if len .}}{{range .}}<a href="/chat/{{.id}}/{{.name}}">{{.name}}</a><br/>{{end}}
+{{else}}You have no chats{{end}}</p>
+
+<p><a href="/chat/new">New chat</a></p>
+
+{{template "foot" .}}

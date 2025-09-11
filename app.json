@@ -1,0 +1,36 @@
+{
+	"name": "chat",
+	"version": "1.0",
+
+	"engine": "starlark",
+	"protocol": 1,
+
+	"database": {"file": "chat.db", "create": "database_create"},
+
+	"icons": [
+		{"path": "chat", "name": "Chat", "icon": "chat.png"}
+	],
+
+	"paths": {
+		"chat": {
+			"actions": {
+				"": {"function": "action_list"},
+				"create": {"function": "action_create"},
+				"new": {"function": "action_new"},
+				":chat": {"function": "action_view"},
+				":chat/:name": {"function": "action_view"},
+				":chat/messages": {"function": "action_messages"},
+				":chat/send": {"function": "action_send"}
+			}
+		}
+	},
+
+	"services": {
+		"chat": {
+			"events": {
+				"message": {"function": "event_message"},
+				"new": {"function": "event_new"}
+			}
+		}
+	}
+}
