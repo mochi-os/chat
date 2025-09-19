@@ -12,7 +12,7 @@
 <script>
 const r = new XMLHttpRequest();
 r.onload = function() { messages_receive( this.responseText ) }
-r.open( 'GET', '/chat/{{.Chat.ID}}/messages' );
+r.open( 'GET', '/chat/{{.chat.id}}/messages' );
 r.send();
 const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
 const ws = new WebSocket( protocol + '//' + window.location.host + '/websocket' );
@@ -78,7 +78,7 @@ function message_render( c ) {
 }
 
 function message_send() {
-	fetch( window.location.origin + '/chat/{{.Chat.ID}}/send', { method: 'post', body: new FormData( document.getElementById( 'form' ) ) } );
+	fetch( window.location.origin + '/chat/{{.chat.id}}/send', { method: 'post', body: new FormData( document.getElementById( 'form' ) ) } );
 	document.getElementById( 'body' ).value = '';
 	document.getElementById( 'attachments' ).value = '';
 }
