@@ -2,6 +2,7 @@
 # Copyright Alistair Cunningham 2024-2025
 
 
+# Create database
 def database_create():
 	mochi.db.query("create table chats ( id text not null primary key, identity text not null, name text not null, updated integer not null )")
 	mochi.db.query("create index chats_updated on chats( updated )")
@@ -13,6 +14,7 @@ def database_create():
 	return 1
 
 
+# Create new chat
 def action_create(action, inputs):
 	chat = mochi.text.uid()
 	name = inputs.get("name")
@@ -36,29 +38,70 @@ def action_create(action, inputs):
 	mochi.action.redirect("/chat/" + chat)
 
 
+# List chats
 def action_list(action, inputs):
 	mochi.action.write("list", action["format"], mochi.db.query("select * from chats order by updated desc"))
 
 
+# Enter details of new chat
 def action_new(action, inputs):
 	mochi.action.write("new", action["format"], {"name": action["identity.name"], "friends": mochi.service.call("friends", "list")})
 
 
+# Send previous messages to client
+#TODO
 def action_messages(action, inputs):
 	pass
 
 
+# Send a message
+#TODO
 def action_send(action, inputs):
 	pass
 
 
+# View a chat
 def action_view(action, inputs):
-	pass
+	chat = mochi.db.query("select * from chats where id=?", inputs.get("chat"))[0]
+	if not chat:
+		mochi.action.error(404, "Chat not found")
+		return
+	
+	mochi.service.call("notifications", "clear.object", "chat", chat["id"])
+	mochi.action.write("view", action["format"], {"chat": chat})
 
 
+# Recieve a chat message from another member
+#TODO
 def event_message(event, content):
 	pass
 
 
+# Received a new chat event
 def event_new(event, content):
-	pass
+	f = mochi.service.call("friends", "get", event["from"])
+	if not f:
+		return
+	
+	chat = content.get("id")
+	if not mochi.text.valid(chat, "id"):
+		return
+	
+	if mochi.db.exists("select id from chats where id=?", chat):
+		# Duplicate chat
+		return
+	
+	name = content.get("name")
+	if not mochi.text.valid(name, "name"):
+		return
+	
+	mochi.db.query("replace into chats ( id, identity, name, updated ) values ( ?, ?, ?, ? )", chat, event["to"], name, mochi.time.now())
+
+	for member in mochi.event.segment():
+		if not mochi.text.valid(member["id"], "entity"):
+			continue
+		if not mochi.text.valid(member["name"], "name"):
+			continue
+		mochi.db.query("replace into members ( chat, member, name ) values ( ?, ?, ? )", chat, member["id"], member["name"])
+
+	mochi.service.call("notifications", "create", "chat", "new", chat, "New chat from " + f["name"] + ": " + name, "/chat/" + chat)
