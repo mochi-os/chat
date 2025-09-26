@@ -1,4 +1,4 @@
-{{define "title"}}{{.Chat.Name}}{{end}}
+{{define "title"}}{{.chat.name}}{{end}}
 {{template "head" .}}
 <p class="header"><a href="/">Mochi</a> | <a href="/chat">Chat</a> | {{.Chat.Name}}</p>
 
@@ -33,15 +33,14 @@ function keypress( event ) {
 }
 
 function message_receive( j ) {
-	const m = JSON.parse( j )
-	const c = JSON.parse( m.content );
-	message_render( c );
+	const m = JSON.parse( j );
+	message_render( m.content );
 }
 
 function messages_receive( j ) {
-	const ms = JSON.parse( j )
-	for ( var i = 0; i < ms.length; i++ ) { 
-		message_render( ms[i] );
+	const m = JSON.parse( j )
+	for ( var i = 0; i < m.messages.length; i++ ) { 
+		message_render( m.messages[i] );
 	}
 }
 

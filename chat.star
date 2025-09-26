@@ -49,15 +49,40 @@ def action_new(action, inputs):
 
 
 # Send previous messages to client
-#TODO
 def action_messages(action, inputs):
-	pass
+	chat = mochi.db.query("select * from chats where id=?", inputs.get("chat"))[0]
+	if not chat:
+		mochi.action.error(404, "Chat not found")
+		return
+
+	messages = mochi.db.query("select * from messages where chat=? order by id", chat["id"])
+	
+	for m in messages:
+		m["attachments"] = mochi.attachments.get("chat/" + chat["id"] + "/" + m["id"])
+
+	mochi.action.write("", "json", {"messages": messages})
 
 
 # Send a message
-#TODO
 def action_send(action, inputs):
-	pass
+	chat = mochi.db.query("select * from chats where id=?", inputs.get("chat"))[0]
+	if not chat:
+		mochi.action.error(404, "Chat not found")
+		return
+
+	body = inputs.get("body")
+	if not mochi.text.valid(body, "text"):
+		mochi.action.error(400, "Invalid message")
+		return
+	
+	id = mochi.text.uid()
+	mochi.db.query("replace into messages ( id, chat, member, name, body, created ) values ( ?, ?, ?, ?, ?, ? )", id, chat["id"], action["identity.id"], action["identity.name"], body, mochi.time.now())
+
+	attachments = mochi.attachments.put("attachments", "chat/" + chat["id"] + "/" + id, action["identity.id"], True)
+	mochi.action.websocket.write("chat", {"name": action["identity.name"], "body": body, "attachments": attachments})
+
+	for member in mochi.db.query("select * from members where chat=? and member!=?", chat["id"], action["identity.id"]):
+		mochi.message.send({"from": action["identity.id"], "to": member["member"], "service": "chat", "event": "message"}, {"chat": chat["id"], "message": id, "body": body, "attachments": attachments})
 
 
 # View a chat
@@ -72,9 +97,30 @@ def action_view(action, inputs):
 
 
 # Recieve a chat message from another member
-#TODO
 def event_message(event, content):
-	pass
+	chat = mochi.db.query("select * from chats where id=?", content.get("chat"))[0]
+	if not chat:
+		return
+
+	member = mochi.db.query("select * from members where chat=? and member=?", chat["id"], event["from"])[0]
+	if not member:
+		return
+	
+	id = content.get("message")
+	if not mochi.text.valid(id, "id"):
+		return
+	
+	body = content.get("body")
+	if not mochi.text.valid(body, "text"):
+		return
+	
+	mochi.db.query("replace into messages ( id, chat, member, name, body, created ) values ( ?, ?, ?, ?, ?, ? )", id, chat["id"], member["member"], member["name"], body, mochi.time.now())
+
+	attachments = content.get("attachments")
+	mochi.attachments.save(attachments, "chat/" + chat["id"] + "/" + id, event["from"])
+
+	mochi.action.websocket.write("chat", {"name": member["name"], "body": body, "attachments": attachments})
+	mochi.service.call("notifications", "create", "chat", "message", chat["id"], member["name"] + ": " + body, "/chat/" + chat["id"])
 
 
 # Received a new chat event
