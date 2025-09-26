@@ -50,7 +50,7 @@ def action_new(action, inputs):
 
 # Send previous messages to client
 def action_messages(action, inputs):
-	chat = mochi.db.query("select * from chats where id=?", inputs.get("chat"))[0]
+	chat = mochi.db.row("select * from chats where id=?", inputs.get("chat"))
 	if not chat:
 		mochi.action.error(404, "Chat not found")
 		return
@@ -65,7 +65,7 @@ def action_messages(action, inputs):
 
 # Send a message
 def action_send(action, inputs):
-	chat = mochi.db.query("select * from chats where id=?", inputs.get("chat"))[0]
+	chat = mochi.db.row("select * from chats where id=?", inputs.get("chat"))
 	if not chat:
 		mochi.action.error(404, "Chat not found")
 		return
@@ -87,7 +87,7 @@ def action_send(action, inputs):
 
 # View a chat
 def action_view(action, inputs):
-	chat = mochi.db.query("select * from chats where id=?", inputs.get("chat"))[0]
+	chat = mochi.db.row("select * from chats where id=?", inputs.get("chat"))
 	if not chat:
 		mochi.action.error(404, "Chat not found")
 		return
@@ -98,11 +98,11 @@ def action_view(action, inputs):
 
 # Recieve a chat message from another member
 def event_message(event, content):
-	chat = mochi.db.query("select * from chats where id=?", content.get("chat"))[0]
+	chat = mochi.db.row("select * from chats where id=?", content.get("chat"))
 	if not chat:
 		return
 
-	member = mochi.db.query("select * from members where chat=? and member=?", chat["id"], event["from"])[0]
+	member = mochi.db.row("select * from members where chat=? and member=?", chat["id"], event["from"])
 	if not member:
 		return
 	
