@@ -82,7 +82,7 @@ def action_send(action, inputs):
 	mochi.action.websocket.write("chat", {"name": action["identity.name"], "body": body, "attachments": attachments})
 
 	for member in mochi.db.query("select * from members where chat=? and member!=?", chat["id"], action["identity.id"]):
-		mochi.message.send({"from": action["identity.id"], "to": member["member"], "service": "chat", "event": "message"}, {"chat": chat["id"], "message": id, "body": body, "attachments": attachments})
+		mochi.message.send({"from": action["identity.id"], "to": member["member"], "service": "chat", "event": "message"}, {"chat": chat["id"], "message": id, "body": body}, attachments)
 
 
 # View a chat
@@ -116,7 +116,8 @@ def event_message(event, content):
 	
 	mochi.db.query("replace into messages ( id, chat, member, name, body, created ) values ( ?, ?, ?, ?, ?, ? )", id, chat["id"], member["member"], member["name"], body, mochi.time.now())
 
-	attachments = content.get("attachments")
+	attachments = mochi.event.segment()
+	mochi.log.debug("got attachments '%+v'", attachments)
 	mochi.attachments.save(attachments, "chat/" + chat["id"] + "/" + id, event["from"])
 
 	mochi.action.websocket.write("chat", {"name": member["name"], "body": body, "attachments": attachments})
