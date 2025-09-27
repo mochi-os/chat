@@ -15,6 +15,7 @@ r.onload = function() { messages_receive( this.responseText ) }
 r.open( 'GET', '/chat/{{.chat.id}}/messages' );
 r.send();
 const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
+var reload_shown = false;
 const ws = new WebSocket( protocol + '//' + window.location.host + '/websocket?key={{.chat.key}}' );
 ws.addEventListener( 'message', (event) => { message_receive( event.data ) } );
 ws.addEventListener( 'error', (err) => { reload() } );
@@ -84,14 +85,12 @@ function message_send() {
 	document.getElementById( 'attachments' ).value = '';
 }
 
-async function reload() {
-	await sleep(1000);
-	alert('Connection to server lost. Click OK to reconnect.');
-    location.reload();
-}
-
-function sleep(ms) {
-	return new Promise(resolve => setTimeout(resolve, ms));
+function reload() {
+	if ( !reload_shown ) {
+		reload_shown = true;
+		alert('Connection to server lost. Click OK to reconnect.');
+    	location.reload();
+	}
 }
 
 </script>

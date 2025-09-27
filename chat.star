@@ -48,7 +48,7 @@ def action_new(action, inputs):
 	mochi.action.write("new", action["format"], {"name": action["identity.name"], "friends": mochi.service.call("friends", "list")})
 
 
-# Send previous messages to client
+# Send latest previous messages to client
 def action_messages(action, inputs):
 	chat = mochi.db.row("select * from chats where id=?", inputs.get("chat"))
 	if not chat:
