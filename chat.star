@@ -59,6 +59,7 @@ def action_messages(action, inputs):
 	
 	for m in messages:
 		m["attachments"] = mochi.attachments.get("chat/" + chat["id"] + "/" + m["id"])
+		m["created_local"] = mochi.time.local(m["created"])
 
 	mochi.action.write("", "json", {"messages": messages})
 
@@ -79,10 +80,10 @@ def action_send(action, inputs):
 	mochi.db.query("replace into messages ( id, chat, member, name, body, created ) values ( ?, ?, ?, ?, ?, ? )", id, chat["id"], action["identity.id"], action["identity.name"], body, mochi.time.now())
 
 	attachments = mochi.attachments.put("attachments", "chat/" + chat["id"] + "/" + id, action["identity.id"], True)
-	mochi.action.websocket.write("chat", {"name": action["identity.name"], "body": body, "attachments": attachments})
+	mochi.action.websocket.write("chat", {"created_local": mochi.time.local(mochi.time.now()), "name": action["identity.name"], "body": body, "attachments": attachments})
 
 	for member in mochi.db.query("select * from members where chat=? and member!=?", chat["id"], action["identity.id"]):
-		mochi.message.send({"from": action["identity.id"], "to": member["member"], "service": "chat", "event": "message"}, {"chat": chat["id"], "message": id, "body": body}, attachments)
+		mochi.message.send({"from": action["identity.id"], "to": member["member"], "service": "chat", "event": "message"}, {"chat": chat["id"], "message": id, "created": mochi.time.now(), "body": body}, attachments)
 
 
 # View a chat
@@ -110,17 +111,20 @@ def event_message(event, content):
 	if not mochi.text.valid(id, "id"):
 		return
 	
+	created = content.get("created")
+	if not mochi.text.valid(created, "integer"):
+		return
+	
 	body = content.get("body")
 	if not mochi.text.valid(body, "text"):
 		return
 	
-	mochi.db.query("replace into messages ( id, chat, member, name, body, created ) values ( ?, ?, ?, ?, ?, ? )", id, chat["id"], member["member"], member["name"], body, mochi.time.now())
+	mochi.db.query("replace into messages ( id, chat, member, name, body, created ) values ( ?, ?, ?, ?, ?, ? )", id, chat["id"], member["member"], member["name"], body, created)
 
 	attachments = mochi.event.segment()
-	mochi.log.debug("got attachments '%+v'", attachments)
 	mochi.attachments.save(attachments, "chat/" + chat["id"] + "/" + id, event["from"])
 
-	mochi.action.websocket.write("chat", {"name": member["name"], "body": body, "attachments": attachments})
+	mochi.action.websocket.write("chat", {"created_local": mochi.time.local(created), "name": member["name"], "body": body, "attachments": attachments})
 	mochi.service.call("notifications", "create", "chat", "message", chat["id"], member["name"] + ": " + body, "/chat/" + chat["id"])
 
 

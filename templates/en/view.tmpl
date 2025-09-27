@@ -46,9 +46,9 @@ function messages_receive( j ) {
 
 function message_render( c ) {
     const m = document.getElementById( 'messages' );
-    m.innerHTML += '<br/>' + escape( c.name + ': ' + c.body );
+    m.innerHTML += '<br/>' + escape( c.created_local + ' ' + c.name + ': ' + c.body );
 
-	if ( c.attachments != null ) {
+	if ( c.attachments != null && c.attachments.length > 0 ) {
 		var div = document.createElement( 'div' );
 		div.style = 'overflow-x: auto; white-space: nowrap;';
 		for ( var i = 0; i < c.attachments.length; i++ ) {
