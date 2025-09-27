@@ -84,9 +84,14 @@ function message_send() {
 	document.getElementById( 'attachments' ).value = '';
 }
 
-function reload() {
+async function reload() {
+	await sleep(1000);
 	alert('Connection to server lost. Click OK to reconnect.');
     location.reload();
+}
+
+function sleep(ms) {
+	return new Promise(resolve => setTimeout(resolve, ms));
 }
 
 </script>

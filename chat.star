@@ -55,7 +55,7 @@ def action_messages(action, inputs):
 		mochi.action.error(404, "Chat not found")
 		return
 
-	messages = mochi.db.query("select * from messages where chat=? order by id", chat["id"])
+	messages = mochi.db.query("select * from ( select * from messages where chat=? order by id desc limit 1000 ) as ss order by id", chat["id"])
 	
 	for m in messages:
 		m["attachments"] = mochi.attachments.get("chat/" + chat["id"] + "/" + m["id"])
