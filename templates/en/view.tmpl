@@ -15,7 +15,7 @@ r.onload = function() { messages_receive( this.responseText ) }
 r.open( 'GET', '/chat/{{.chat.id}}/messages' );
 r.send();
 const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
-const ws = new WebSocket( protocol + '//' + window.location.host + '/websocket' );
+const ws = new WebSocket( protocol + '//' + window.location.host + '/websocket?key={{.chat.key}}' );
 ws.addEventListener( 'message', (event) => { message_receive( event.data ) } );
 
 function escape( s ) {
@@ -34,7 +34,7 @@ function keypress( event ) {
 
 function message_receive( j ) {
 	const m = JSON.parse( j );
-	message_render( m.content );
+	message_render( m );
 }
 
 function messages_receive( j ) {
@@ -44,15 +44,15 @@ function messages_receive( j ) {
 	}
 }
 
-function message_render( c ) {
-    const m = document.getElementById( 'messages' );
-    m.innerHTML += '<br/>' + escape( c.created_local + ' ' + c.name + ': ' + c.body );
+function message_render( m ) {
+    const ms = document.getElementById( 'messages' );
+    ms.innerHTML += '<br/>' + escape( m.created_local + ' ' + m.name + ': ' + m.body );
 
-	if ( c.attachments != null && c.attachments.length > 0 ) {
+	if ( m.attachments != null && m.attachments.length > 0 ) {
 		var div = document.createElement( 'div' );
 		div.style = 'overflow-x: auto; white-space: nowrap;';
-		for ( var i = 0; i < c.attachments.length; i++ ) {
-			const at = c.attachments[i];
+		for ( var i = 0; i < m.attachments.length; i++ ) {
+			const at = m.attachments[i];
 			var a = document.createElement( 'a' );
 			a.href = '/attachments/' + escape( at.entity ) + '/' + escape( at.id ) + '/' + escape( at.name );
 			a.style = 'z-index: 2;';
@@ -70,7 +70,7 @@ function message_render( c ) {
 			div.appendChild( a );
 			div.innerHTML += '&nbsp;';
 		}
-		m.appendChild( div );
+		ms.appendChild( div );
 	}
 
     window.scrollTo( 0, document.body.scrollHeight );
