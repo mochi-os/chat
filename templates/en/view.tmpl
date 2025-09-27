@@ -17,6 +17,8 @@ r.send();
 const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
 const ws = new WebSocket( protocol + '//' + window.location.host + '/websocket?key={{.chat.key}}' );
 ws.addEventListener( 'message', (event) => { message_receive( event.data ) } );
+ws.addEventListener( 'error', (err) => { reload() } );
+ws.addEventListener( 'close', (event) => { reload() } );
 
 function escape( s ) {
 	if ( s == undefined ) {
@@ -81,6 +83,12 @@ function message_send() {
 	document.getElementById( 'body' ).value = '';
 	document.getElementById( 'attachments' ).value = '';
 }
+
+function reload() {
+	alert('Connection to server lost. Click OK to reconnect.');
+    location.reload();
+}
+
 </script>
 
 {{template "foot" .}}
