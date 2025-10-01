@@ -58,7 +58,7 @@ def action_messages(action, inputs):
 	messages = mochi.db.query("select * from ( select * from messages where chat=? order by id desc limit 1000 ) as ss order by id", chat["id"])
 	
 	for m in messages:
-		m["attachments"] = mochi.attachments.get("chat/" + chat["id"] + "/" + m["id"])
+		m["attachments"] = mochi.attachment.get("chat/" + chat["id"] + "/" + m["id"])
 		m["created_local"] = mochi.time.local(m["created"])
 
 	mochi.action.write("", "json", {"messages": messages})
@@ -79,7 +79,7 @@ def action_send(action, inputs):
 	id = mochi.uid()
 	mochi.db.query("replace into messages ( id, chat, member, name, body, created ) values ( ?, ?, ?, ?, ?, ? )", id, chat["id"], action["identity.id"], action["identity.name"], body, mochi.time.now())
 
-	attachments = mochi.attachments.put("attachments", "chat/" + chat["id"] + "/" + id, action["identity.id"], True)
+	attachments = mochi.attachment.put("attachments", "chat/" + chat["id"] + "/" + id, action["identity.id"], True)
 	mochi.action.websocket.write(chat["key"], {"created_local": mochi.time.local(mochi.time.now()), "name": action["identity.name"], "body": body, "attachments": attachments})
 
 	for member in mochi.db.query("select * from members where chat=? and member!=?", chat["id"], action["identity.id"]):
@@ -122,7 +122,7 @@ def event_message(event, content):
 	mochi.db.query("replace into messages ( id, chat, member, name, body, created ) values ( ?, ?, ?, ?, ?, ? )", id, chat["id"], member["member"], member["name"], body, created)
 
 	attachments = mochi.event.segment()
-	mochi.attachments.save(attachments, "chat/" + chat["id"] + "/" + id, event["from"])
+	mochi.attachment.save(attachments, "chat/" + chat["id"] + "/" + id, event["from"])
 
 	mochi.action.websocket.write(chat["key"], {"created_local": mochi.time.local(created), "name": member["name"], "body": body, "attachments": attachments})
 	mochi.service.call("notifications", "create", "chat", "message", chat["id"], member["name"] + ": " + body, "/chat/" + chat["id"])
