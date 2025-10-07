@@ -35,17 +35,26 @@ def action_create(action, inputs):
 		if member["id"] != action["identity.id"]:
 			mochi.message.send({"from": action["identity.id"], "to": member["id"], "service": "chat", "event": "new"}, {"id": chat, "name": name}, members)
 
-	mochi.action.redirect("/chat/" + chat)
+	return {
+		"format": "json",
+		"data": {"id": chat, "name": name, "members": members}
+	}
 
 
 # List chats
 def action_list(action, inputs):
-	mochi.action.write("list", action["format"], mochi.db.query("select * from chats order by updated desc"))
+	return {
+		"format": "json",
+		"data": mochi.db.query("select * from chats order by updated desc")
+	}
 
 
 # Enter details of new chat
 def action_new(action, inputs):
-	mochi.action.write("new", action["format"], {"name": action["identity.name"], "friends": mochi.service.call("friends", "list")})
+	return {
+		"format": "json",
+		"data": {"name": action["identity.name"], "friends": mochi.service.call("friends", "list")}
+	}
 
 
 # Send latest previous messages to client
@@ -61,7 +70,10 @@ def action_messages(action, inputs):
 		m["attachments"] = mochi.attachment.get("chat/" + chat["id"] + "/" + m["id"])
 		m["created_local"] = mochi.time.local(m["created"])
 
-	mochi.action.write("", "json", {"messages": messages})
+	return {
+		"format": "json",
+		"data": {"messages": messages}
+	}
 
 
 # Send a message
@@ -79,11 +91,20 @@ def action_send(action, inputs):
 	id = mochi.uid()
 	mochi.db.query("replace into messages ( id, chat, member, name, body, created ) values ( ?, ?, ?, ?, ?, ? )", id, chat["id"], action["identity.id"], action["identity.name"], body, mochi.time.now())
 
-	attachments = mochi.attachment.put("attachments", "chat/" + chat["id"] + "/" + id, action["identity.id"], True)
+	# If the request includes file uploads (multipart/form-data), attachments can be handled here.
+	# Current UI sends text only; skip upload to avoid errors when not multipart.
+	attachments = []
 	mochi.action.websocket.write(chat["key"], {"created_local": mochi.time.local(mochi.time.now()), "name": action["identity.name"], "body": body, "attachments": attachments})
 
 	for member in mochi.db.query("select * from members where chat=? and member!=?", chat["id"], action["identity.id"]):
-		mochi.message.send({"from": action["identity.id"], "to": member["member"], "service": "chat", "event": "message"}, {"chat": chat["id"], "message": id, "created": mochi.time.now(), "body": body}, attachments)
+		# Only send if the member ID is a valid entity
+		if mochi.valid(member["member"], "entity"):
+			mochi.message.send({"from": action["identity.id"], "to": member["member"], "service": "chat", "event": "message"}, {"chat": chat["id"], "message": id, "created": mochi.time.now(), "body": body}, attachments)
+
+	return {
+		"format": "json",
+		"data": {"id": id}
+	}
 
 
 # View a chat
@@ -94,7 +115,10 @@ def action_view(action, inputs):
 		return
 	
 	mochi.service.call("notifications", "clear.object", "chat", chat["id"])
-	mochi.action.write("view", action["format"], {"chat": chat})
+	return {
+		"format": "json",
+		"data": {"chat": chat}
+	}
 
 
 # Recieve a chat message from another member
