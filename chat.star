@@ -1,7 +1,6 @@
 # Mochi Chat app
 # Copyright Alistair Cunningham 2024-2025
 
-
 # Create database
 def database_create():
 	mochi.db.query("create table chats ( id text not null primary key, identity text not null, name text not null, key text not null, updated integer not null )")
@@ -12,7 +11,6 @@ def database_create():
 	mochi.db.query("create table messages ( id text not null primary key, chat references chats( id ), member text not null, name text not null, body text not null, created integer not null )")
 	mochi.db.query("create index messages_chat_created on messages( chat, created )")
 	return 1
-
 
 # Create new chat
 def action_create(action, inputs):
@@ -40,7 +38,6 @@ def action_create(action, inputs):
 		"data": {"id": chat, "name": name, "members": members}
 	}
 
-
 # List chats
 def action_list(action, inputs):
 	return {
@@ -48,14 +45,12 @@ def action_list(action, inputs):
 		"data": mochi.db.query("select * from chats order by updated desc")
 	}
 
-
 # Enter details of new chat
 def action_new(action, inputs):
 	return {
 		"format": "json",
 		"data": {"name": action["identity.name"], "friends": mochi.service.call("friends", "list")}
 	}
-
 
 # Send latest previous messages to client
 def action_messages(action, inputs):
@@ -74,7 +69,6 @@ def action_messages(action, inputs):
 		"format": "json",
 		"data": {"messages": messages}
 	}
-
 
 # Send a message
 def action_send(action, inputs):
@@ -106,7 +100,6 @@ def action_send(action, inputs):
 		"data": {"id": id}
 	}
 
-
 # View a chat
 def action_view(action, inputs):
 	chat = mochi.db.row("select * from chats where id=?", inputs.get("chat"))
@@ -119,7 +112,6 @@ def action_view(action, inputs):
 		"format": "json",
 		"data": {"chat": chat}
 	}
-
 
 # Recieve a chat message from another member
 def event_message(event, content):
@@ -150,7 +142,6 @@ def event_message(event, content):
 
 	mochi.action.websocket.write(chat["key"], {"created_local": mochi.time.local(created), "name": member["name"], "body": body, "attachments": attachments})
 	mochi.service.call("notifications", "create", "chat", "message", chat["id"], member["name"] + ": " + body, "/chat/" + chat["id"])
-
 
 # Received a new chat event
 def event_new(event, content):
