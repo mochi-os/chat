@@ -119,7 +119,7 @@ def event_message(e):
 	if not chat:
 		return
 
-	member = mochi.db.row("select * from members where chat=? and member=?", chat["id"], e.from)
+	member = mochi.db.row("select * from members where chat=? and member=?", chat["id"], e.content("from"))
 	if not member:
 		return
     
@@ -138,14 +138,14 @@ def event_message(e):
 	mochi.db.query("replace into messages ( id, chat, member, name, body, created ) values ( ?, ?, ?, ?, ?, ? )", id, chat["id"], member["member"], member["name"], body, created)
 
 	attachments = mochi.event.segment()
-	mochi.attachment.save(attachments, "chat/" + chat["id"] + "/" + id, e.from)
+	mochi.attachment.save(attachments, "chat/" + chat["id"] + "/" + id, e.content("from"))
 
 	e.websocket.write(chat["key"], {"created_local": mochi.time.local(created), "name": member["name"], "body": body, "attachments": attachments})
 	mochi.service.call("notifications", "create", "chat", "message", chat["id"], member["name"] + ": " + body, "/chat/" + chat["id"])
 
 # Received a new chat event
 def event_new(e):
-	f = mochi.service.call("friends", "get", e.from)
+	f = mochi.service.call("friends", "get", e.content("from"))
 	if not f:
 		return
     
@@ -161,7 +161,7 @@ def event_new(e):
 	if not mochi.valid(name, "name"):
 		return
     
-	mochi.db.query("replace into chats ( id, identity, name, key, updated ) values ( ?, ?, ?, ?, ? )", chat, e.to, name, mochi.random.alphanumeric(12), mochi.time.now())
+	mochi.db.query("replace into chats ( id, identity, name, key, updated ) values ( ?, ?, ?, ?, ? )", chat, e.content("to"), name, mochi.random.alphanumeric(12), mochi.time.now())
 
 	for member in mochi.event.segment():
 		if not mochi.valid(member["id"], "entity"):
