@@ -34,21 +34,18 @@ def action_create(a):
 			mochi.message.send({"from": a.user.identity.id, "to": member["id"], "service": "chat", "event": "new"}, {"id": chat, "name": name}, members)
 
 	return {
-		"format": "json",
 		"data": {"id": chat, "name": name, "members": members}
 	}
 
 # List chats
 def action_list(a):
 	return {
-		"format": "json",
 		"data": mochi.db.query("select * from chats order by updated desc")
 	}
 
 # Enter details of new chat
 def action_new(a):
 	return {
-		"format": "json",
 		"data": {"name": a.user.identity.name, "friends": mochi.service.call("friends", "list")}
 	}
 
@@ -66,7 +63,6 @@ def action_messages(a):
 		m["created_local"] = mochi.time.local(m["created"])
 
 	return {
-		"format": "json",
 		"data": {"messages": messages}
 	}
 
@@ -96,7 +92,6 @@ def action_send(a):
 			mochi.message.send({"from": a.user.identity.id, "to": member["member"], "service": "chat", "event": "message"}, {"chat": chat["id"], "message": id, "created": mochi.time.now(), "body": body}, attachments)
 
 	return {
-		"format": "json",
 		"data": {"id": id}
 	}
 
@@ -109,7 +104,6 @@ def action_view(a):
     
 	mochi.service.call("notifications", "clear.object", "chat", chat["id"])
 	return {
-		"format": "json",
 		"data": {"chat": chat}
 	}
 
