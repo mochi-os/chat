@@ -20,18 +20,18 @@ def action_create(a):
 		a.error(400, "Invalid chat name")
 		return
 
-	mochi.db.query("replace into chats ( id, identity, name, key, updated ) values ( ?, ?, ?, ?, ? )", chat, a.identity.id, name, mochi.random.alphanumeric(12), mochi.time.now())
-	mochi.db.query("replace into members ( chat, member, name ) values ( ?, ?, ? )", chat, a.identity.id, a.identity.name)
+	mochi.db.query("replace into chats ( id, identity, name, key, updated ) values ( ?, ?, ?, ?, ? )", chat, a.user.identity.id, name, mochi.random.alphanumeric(12), mochi.time.now())
+	mochi.db.query("replace into members ( chat, member, name ) values ( ?, ?, ? )", chat, a.user.identity.id, a.user.identity.name)
 
-	members = [{"id": a.identity.id, "name": a.identity.name}]
+	members = [{"id": a.user.identity.id, "name": a.user.identity.name}]
 	for friend in mochi.service.call("friends", "list"):
 		if a.input(friend["id"]):
 			mochi.db.query("replace into members ( chat, member, name ) values ( ?, ?, ? )", chat, friend["id"], friend["name"])
 			members.append({"id": friend["id"], "name": friend["name"]})
 
 	for member in members:
-		if member["id"] != a.identity.id:
-			mochi.message.send({"from": a.identity.id, "to": member["id"], "service": "chat", "event": "new"}, {"id": chat, "name": name}, members)
+		if member["id"] != a.user.identity.id:
+			mochi.message.send({"from": a.user.identity.id, "to": member["id"], "service": "chat", "event": "new"}, {"id": chat, "name": name}, members)
 
 	return {
 		"data": {"id": chat, "name": name, "members": members}
@@ -46,7 +46,7 @@ def action_list(a):
 # Enter details of new chat
 def action_new(a):
 	return {
-		"data": {"name": a.identity.name, "friends": mochi.service.call("friends", "list")}
+		"data": {"name": a.user.identity.name, "friends": mochi.service.call("friends", "list")}
 	}
 
 # Send latest previous messages to client
@@ -79,17 +79,17 @@ def action_send(a):
 		return
     
 	id = mochi.uid()
-	mochi.db.query("replace into messages ( id, chat, member, name, body, created ) values ( ?, ?, ?, ?, ?, ? )", id, chat["id"], a.identity.id, a.identity.name, body, mochi.time.now())
+	mochi.db.query("replace into messages ( id, chat, member, name, body, created ) values ( ?, ?, ?, ?, ?, ? )", id, chat["id"], a.user.identity.id, a.user.identity.name, body, mochi.time.now())
 
 	# If the request includes file uploads (multipart/form-data), attachments can be handled here.
 	# Current UI sends text only; skip upload to avoid errors when not multipart.
 	attachments = []
-	a.websocket.write(chat["key"], {"created_local": mochi.time.local(mochi.time.now()), "name": a.identity.name, "body": body, "attachments": attachments})
+	a.websocket.write(chat["key"], {"created_local": mochi.time.local(mochi.time.now()), "name": a.user.identity.name, "body": body, "attachments": attachments})
 
-	for member in mochi.db.query("select * from members where chat=? and member!=?", chat["id"], a.identity.id):
+	for member in mochi.db.query("select * from members where chat=? and member!=?", chat["id"], a.user.identity.id):
 		# Only send if the member ID is a valid entity
 		if mochi.valid(member["member"], "entity"):
-			mochi.message.send({"from": a.identity.id, "to": member["member"], "service": "chat", "event": "message"}, {"chat": chat["id"], "message": id, "created": mochi.time.now(), "body": body}, attachments)
+			mochi.message.send({"from": a.user.identity.id, "to": member["member"], "service": "chat", "event": "message"}, {"chat": chat["id"], "message": id, "created": mochi.time.now(), "body": body}, attachments)
 
 	return {
 		"data": {"id": id}
