@@ -1,0 +1,239 @@
+openapi: "3.0.3"
+info:
+  title: "Chat App API"
+  version: "0.1.0"
+  description: |
+    HTTP API for the `chat` app 
+paths:
+  "/api/chat/create":
+    post:
+      summary: Create a new chat
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [name]
+              properties:
+                name:
+                  type: string
+                  description: "Chat name"
+                members:
+                  type: array
+                  description: "Optional list of member entity IDs to add to the chat"
+                  items:
+                    type: string
+      responses:
+        "200":
+          description: Chat created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateChatResponse'
+
+  "/api/chat/list":
+    post:
+      summary: List chats
+      responses:
+        "200":
+          description: List of chats
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListChatsResponse'
+
+  "/api/chat/new":
+    post:
+      summary: Helper data for creating a new chat (defaults)
+      responses:
+        "200":
+          description: Defaults including user's name and friends list
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NewChatResponse'
+
+  "/api/chat/messages":
+    post:
+      summary: Retrieve messages for a chat
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [chat]
+              properties:
+                chat:
+                  type: string
+                  description: "Chat id"
+      responses:
+        "200":
+          description: Messages for the chat
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessagesResponse'
+
+  "/api/chat/send":
+    post:
+      summary: Send a message to a chat
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [chat, body]
+              properties:
+                chat:
+                  type: string
+                  description: "Chat id"
+                body:
+                  type: string
+                  description: "Message body"
+      responses:
+        "200":
+          description: Message sent
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SendMessageResponse'
+
+  "/api/chat/view":
+    post:
+      summary: View a chat's details
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [chat]
+              properties:
+                chat:
+                  type: string
+                  description: "Chat id"
+      responses:
+        "200":
+          description: Chat details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ViewChatResponse'
+
+components:
+  schemas:
+    Member:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+
+    Chat:
+      type: object
+      properties:
+        id:
+          type: string
+        identity:
+          type: string
+        name:
+          type: string
+        key:
+          type: string
+        updated:
+          type: integer
+        members:
+          type: array
+          items:
+            $ref: '#/components/schemas/Member'
+
+    Message:
+      type: object
+      properties:
+        id:
+          type: string
+        chat:
+          type: string
+        member:
+          type: string
+        name:
+          type: string
+        body:
+          type: string
+        created:
+          type: integer
+        created_local:
+          type: string
+        attachments:
+          type: array
+          items:
+            type: object
+
+    CreateChatResponse:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            id:
+              type: string
+            name:
+              type: string
+            members:
+              type: array
+              items:
+                $ref: '#/components/schemas/Member'
+
+    ListChatsResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Chat'
+
+    NewChatResponse:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            name:
+              type: string
+            friends:
+              type: array
+              items:
+                $ref: '#/components/schemas/Member'
+
+    MessagesResponse:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            messages:
+              type: array
+              items:
+                $ref: '#/components/schemas/Message'
+
+    SendMessageResponse:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            id:
+              type: string
+
+    ViewChatResponse:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            chat:
+              $ref: '#/components/schemas/Chat'
