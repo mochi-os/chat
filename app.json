@@ -2,7 +2,7 @@
 	"version": "1.0",
 	"label": "app_name",
 	"engine": {"architecture": "starlark", "version": 2},
-	"files": [ "chat.star", "database.star" ],
+	"files": [ "chat.star" ],
 
 	"database": {
 		"version": 1,
@@ -19,8 +19,11 @@
 	"paths": {
 		"chat": {
 			"actions": {
-				"": {"function": "action_list", "public": true},
+				"": {"file": "web/dist/index.html"},
+				"assets": {"files": "web/dist/assets"},
 				"create": {"function": "action_create", "public": true},
+				"images": {"files": "web/dist/images"},
+				"list": {"function": "action_list", "public": true},
 				"new": {"function": "action_new", "public": true},
 				":chat": {"function": "action_view", "public": true},
 				":chat/:name": {"function": "action_view", "public": true},
