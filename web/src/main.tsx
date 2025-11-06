@@ -69,7 +69,7 @@ const queryClient = new QueryClient({
 const router = createRouter({
   routeTree,
   context: { queryClient },
-  basepath: '/apps/chat/',
+  basepath: './',
   defaultPreload: 'intent',
   defaultPreloadStaleTime: 0,
 })
