@@ -15,8 +15,8 @@ export const APP_ROUTES = {
   },
   // Chat app
   CHAT: {
-    BASE: '/apps/chat/',
-    HOME: '/apps/chat/',
+    BASE: './',
+    HOME: './',
   },
   // Friends app
   FRIENDS: {
