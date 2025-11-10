@@ -10,7 +10,6 @@ def database_create():
 
 	mochi.db.query("create table messages ( id text not null primary key, chat references chats( id ), member text not null, name text not null, body text not null, created integer not null )")
 	mochi.db.query("create index messages_chat_created on messages( chat, created )")
-	return 1
 
 # Create new chat
 def action_create(a):
