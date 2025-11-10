@@ -1,51 +1,49 @@
 // feat(auth): implement login-header based auth flow
 import { createFileRoute } from '@tanstack/react-router'
 import { APP_ROUTES } from '@/config/routes'
-import { useAuthStore } from '@/stores/auth-store'
 import { AuthenticatedLayout } from '@/components/layout/authenticated-layout'
+import { apiClient, isAuthError } from '@/lib/apiClient'
 
 /**
  * Protected Route Guard
  *
  * This guard runs before any /_authenticated/* route loads.
- * It checks for authentication and redirects to login if not authenticated.
+ * It verifies authentication via API call since cookies are HttpOnly.
  *
  * Authentication Strategy:
- * 1. Check store for credentials (rawLogin or accessToken)
- * 2. Sync from cookies if needed (handles page refresh)
- * 3. Redirect to core auth app if no credentials found (cross-app navigation)
+ * 1. Make API call to verify authentication (browser sends HttpOnly cookies automatically)
+ * 2. Redirect to login if authentication fails (401)
+ * 3. Allow route to load if authenticated
  *
- * Note: Cross-app navigation uses window.location.href for full page reload
+ * Note: Cookies are HttpOnly (not readable by JavaScript), but browser sends them automatically
  */
 export const Route = createFileRoute('/_authenticated')({
-  beforeLoad: ({ location }) => {
-    // Get auth state from store
-    const store = useAuthStore.getState()
+  beforeLoad: async ({ location }) => {
+    // Verify authentication via API call
+    // HttpOnly cookies are sent automatically by the browser
+    try {
+      await apiClient.get('/chat/list')
+      // API call succeeded - user is authenticated
+      return
+    } catch (error) {
+      // API call failed - check if it's an auth error
+      if (isAuthError(error)) {
+        // Not authenticated - redirect to login
+        const authUrl = import.meta.env.VITE_AUTH_URL || APP_ROUTES.CORE.SIGN_IN
+        const returnUrl = encodeURIComponent(location.href)
+        const redirectUrl = `${authUrl}?redirect=${returnUrl}`
 
-    // Sync from cookies if not initialized (handles page refresh)
-    if (!store.isInitialized) {
-      store.syncFromCookie()
-    }
+        // Use window.location.href for cross-app navigation (full page reload)
+        window.location.href = redirectUrl
 
-    // Check if authenticated (has login OR token)
-    const isAuthenticated = store.isAuthenticated
+        // Prevent route from loading
+        throw new Error('Unauthorized')
+      }
 
-    // If not authenticated, redirect to core auth app (cross-app navigation)
-    if (!isAuthenticated) {
-      // Build redirect URL with return path
-      const authUrl = import.meta.env.VITE_AUTH_URL || APP_ROUTES.CORE.SIGN_IN
-      const returnUrl = encodeURIComponent(location.href)
-      const redirectUrl = `${authUrl}?redirect=${returnUrl}`
-
-      // Use window.location.href for cross-app navigation (full page reload)
-      window.location.href = redirectUrl
-
-      // Return early to prevent route from loading
+      // Other error (network, server, etc.) - allow route to load
+      // Components can handle these errors
       return
     }
-
-    // Authenticated, allow navigation
-    return
   },
   component: AuthenticatedLayout,
 })
