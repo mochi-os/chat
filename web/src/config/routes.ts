@@ -20,8 +20,8 @@ export const APP_ROUTES = {
   },
   // Friends app
   FRIENDS: {
-    BASE: '/apps/friends/',
-    HOME: '/apps/friends/',
+    BASE: '/friends/',
+    HOME: '/friends/',
   },
   // Home app (future)
   HOME: {

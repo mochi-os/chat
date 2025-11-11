@@ -1,13 +1,11 @@
 import { createContext, useContext, useState } from 'react'
-import { getCookie, setCookie } from '@/lib/cookies'
 
 export type Collapsible = 'offcanvas' | 'icon' | 'none'
 export type Variant = 'inset' | 'sidebar' | 'floating'
 
-// Cookie constants following the pattern from sidebar.tsx
-const LAYOUT_COLLAPSIBLE_COOKIE_NAME = 'layout_collapsible'
-const LAYOUT_VARIANT_COOKIE_NAME = 'layout_variant'
-const LAYOUT_COOKIE_MAX_AGE = 60 * 60 * 24 * 7 // 7 days
+// Storage keys for layout preferences
+const LAYOUT_COLLAPSIBLE_STORAGE_KEY = 'layout_collapsible'
+const LAYOUT_VARIANT_STORAGE_KEY = 'layout_variant'
 
 // Default values
 const DEFAULT_VARIANT = 'inset'
@@ -33,27 +31,23 @@ type LayoutProviderProps = {
 
 export function LayoutProvider({ children }: LayoutProviderProps) {
   const [collapsible, _setCollapsible] = useState<Collapsible>(() => {
-    const saved = getCookie(LAYOUT_COLLAPSIBLE_COOKIE_NAME)
+    const saved = localStorage.getItem(LAYOUT_COLLAPSIBLE_STORAGE_KEY)
     return (saved as Collapsible) || DEFAULT_COLLAPSIBLE
   })
 
   const [variant, _setVariant] = useState<Variant>(() => {
-    const saved = getCookie(LAYOUT_VARIANT_COOKIE_NAME)
+    const saved = localStorage.getItem(LAYOUT_VARIANT_STORAGE_KEY)
     return (saved as Variant) || DEFAULT_VARIANT
   })
 
   const setCollapsible = (newCollapsible: Collapsible) => {
     _setCollapsible(newCollapsible)
-    setCookie(LAYOUT_COLLAPSIBLE_COOKIE_NAME, newCollapsible, {
-      maxAge: LAYOUT_COOKIE_MAX_AGE,
-    })
+    localStorage.setItem(LAYOUT_COLLAPSIBLE_STORAGE_KEY, newCollapsible)
   }
 
   const setVariant = (newVariant: Variant) => {
     _setVariant(newVariant)
-    setCookie(LAYOUT_VARIANT_COOKIE_NAME, newVariant, {
-      maxAge: LAYOUT_COOKIE_MAX_AGE,
-    })
+    localStorage.setItem(LAYOUT_VARIANT_STORAGE_KEY, newVariant)
   }
 
   const resetLayout = () => {

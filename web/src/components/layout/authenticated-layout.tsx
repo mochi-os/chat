@@ -1,9 +1,6 @@
 import { Outlet } from '@tanstack/react-router'
-import { useEffect } from 'react'
 import { getCookie } from '@/lib/cookies'
 import { cn } from '@/lib/utils'
-import { useAuthStore } from '@/stores/auth-store'
-import { loadUserProfile } from '@/services/auth-service'
 import { LayoutProvider } from '@/context/layout-provider'
 import { SearchProvider } from '@/context/search-provider'
 import { SidebarInset, SidebarProvider } from '@/components/ui/sidebar'
@@ -16,15 +13,6 @@ type AuthenticatedLayoutProps = {
 
 export function AuthenticatedLayout({ children }: AuthenticatedLayoutProps) {
   const defaultOpen = getCookie('sidebar_state') !== 'false'
-  const { accessToken, user } = useAuthStore()
-
-  // Optional: Load user profile if authenticated but user data not loaded
-  useEffect(() => {
-    if (accessToken && !user) {
-      // Load user profile from /me endpoint (when implemented)
-      loadUserProfile()
-    }
-  }, [accessToken, user])
 
   return (
     <SearchProvider>
