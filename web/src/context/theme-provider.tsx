@@ -3,7 +3,7 @@ import { createContext, useContext, useEffect, useState, useMemo } from 'react'
 type Theme = 'dark' | 'light' | 'system'
 type ResolvedTheme = Exclude<Theme, 'system'>
 
-const DEFAULT_THEME = 'system'
+const DEFAULT_THEME = 'light'
 const THEME_STORAGE_KEY = 'vite-ui-theme'
 
 type ThemeProviderProps = {

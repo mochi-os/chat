@@ -226,9 +226,6 @@ export function NotificationsDropdown() {
   const unreadNotifications = mockNotifications.filter((n) => !n.read)
   const unreadCount = unreadNotifications.length
 
-  const displayedNotifications =
-    activeTab === 'all' ? allNotifications : unreadNotifications
-
   const handleMarkAllAsRead = () => {
     // In a real app, this would update the notifications state
     console.log('Mark all as read')
@@ -303,7 +300,7 @@ export function NotificationsDropdown() {
 
             {/* Notifications List */}
             <TabsContent value='all' className='mt-0'>
-              <ScrollArea className='h-[500px]'>
+              <ScrollArea className='h-[400px]'>
                 <div className='p-2'>
                   {allNotifications.length === 0 ? (
                     <div className='flex flex-col items-center justify-center py-12 text-center'>
@@ -329,7 +326,7 @@ export function NotificationsDropdown() {
               </ScrollArea>
             </TabsContent>
             <TabsContent value='unread' className='mt-0'>
-              <ScrollArea className='h-[500px]'>
+              <ScrollArea className='h-[400px]'>
                 <div className='p-2'>
                   {unreadNotifications.length === 0 ? (
                     <div className='flex flex-col items-center justify-center py-12 text-center'>
