@@ -1,11 +1,9 @@
-import { Link } from '@tanstack/react-router'
 import useDialogState from '@/hooks/use-dialog-state'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Button } from '@/components/ui/button'
 import {
   DropdownMenu,
   DropdownMenuContent,
-  DropdownMenuGroup,
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
@@ -38,7 +36,8 @@ export function ProfileDropdown() {
             </div>
           </DropdownMenuLabel>
           <DropdownMenuSeparator />
-          <DropdownMenuGroup>
+          {/* Settings menu items removed - settings feature not available in chat app */}
+          {/* <DropdownMenuGroup>
             <DropdownMenuItem asChild>
               <Link to='/settings'>
                 Profile
@@ -59,7 +58,7 @@ export function ProfileDropdown() {
             </DropdownMenuItem>
             <DropdownMenuItem>New Team</DropdownMenuItem>
           </DropdownMenuGroup>
-          <DropdownMenuSeparator />
+          <DropdownMenuSeparator /> */}
           <DropdownMenuItem onClick={() => setOpen(true)}>
             Sign out
             <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
