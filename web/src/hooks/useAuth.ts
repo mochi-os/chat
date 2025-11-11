@@ -1,65 +1,47 @@
-import { useAuthStore, type AuthUser } from '@/stores/auth-store'
+import { useAuthStore } from '@/stores/auth-store'
 
 // feat(auth): implement login-header based auth flow
 /**
  * Hook to access authentication state and actions
  * 
  * Provides convenient access to:
- * - Authentication state (user, credentials, loading, etc.)
- * - Authentication actions (setAuth, logout, etc.)
+ * - Authentication state (login, email, loading, etc.)
+ * - Authentication actions (syncFromCookie, logout, etc.)
  * 
  * Usage:
  * ```tsx
- * const { user, isAuthenticated, isLoading, logout } = useAuth()
+ * const { login, email, isAuthenticated, isLoading, logout } = useAuth()
  * 
  * if (isLoading) return <Loading />
  * if (!isAuthenticated) return <Login />
  * 
- * return <div>Welcome {user?.email}</div>
+ * return <div>Welcome {email}</div>
  * ```
  */
 export function useAuth() {
-  const user = useAuthStore((state) => state.user)
-  const rawLogin = useAuthStore((state) => state.rawLogin)
-  const accessToken = useAuthStore((state) => state.accessToken)
+  const login = useAuthStore((state) => state.login)
+  const email = useAuthStore((state) => state.email)
   const isLoading = useAuthStore((state) => state.isLoading)
   const isAuthenticated = useAuthStore((state) => state.isAuthenticated)
   const isInitialized = useAuthStore((state) => state.isInitialized)
 
-  const setAuth = useAuthStore((state) => state.setAuth)
-  const setUser = useAuthStore((state) => state.setUser)
-  const setRawLogin = useAuthStore((state) => state.setRawLogin)
-  const setAccessToken = useAuthStore((state) => state.setAccessToken)
   const setLoading = useAuthStore((state) => state.setLoading)
   const syncFromCookie = useAuthStore((state) => state.syncFromCookie)
   const clearAuth = useAuthStore((state) => state.clearAuth)
 
   return {
     // State
-    user,
-    rawLogin,
-    accessToken,
+    login,
+    email,
     isLoading,
     isAuthenticated,
     isInitialized,
 
     // Actions
-    setAuth,
-    setUser,
-    setRawLogin,
-    setAccessToken,
     setLoading,
     syncFromCookie,
     logout: clearAuth,
   }
-}
-
-/**
- * Type-safe user getter
- * Returns user or null
- */
-export function useUser(): AuthUser | null {
-  return useAuthStore((state) => state.user)
 }
 
 /**
@@ -75,4 +57,3 @@ export function useIsAuthenticated(): boolean {
 export function useIsAuthLoading(): boolean {
   return useAuthStore((state) => state.isLoading)
 }
-

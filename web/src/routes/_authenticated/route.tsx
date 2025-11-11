@@ -22,6 +22,7 @@ export const Route = createFileRoute('/_authenticated')({
     // Verify authentication via API call
     // HttpOnly cookies are sent automatically by the browser
     try {
+      debugger;
       await apiClient.get('/chat/list')
       // API call succeeded - user is authenticated
       return

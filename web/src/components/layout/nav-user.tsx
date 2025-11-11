@@ -1,9 +1,5 @@
-import { Link } from '@tanstack/react-router'
 import {
-  BadgeCheck,
-  Bell,
   ChevronsUpDown,
-  CreditCard,
   LogOut,
 } from 'lucide-react'
 import { useAuthStore } from '@/stores/auth-store'
@@ -12,7 +8,6 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import {
   DropdownMenu,
   DropdownMenuContent,
-  DropdownMenuGroup,
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
@@ -30,18 +25,18 @@ export function NavUser() {
   const { isMobile } = useSidebar()
   const [open, setOpen] = useDialogState()
 
-  // Get user from auth store
-  const user = useAuthStore((state) => state.user)
+  // Get email from auth store
+  const email = useAuthStore((state) => state.email)
 
-  // Fallback values
-  const displayName = user?.name || 'User'
-  const displayEmail = user?.email || 'user@example.com'
-  const displayAvatar = user?.avatar || ''
+  // Derive name from email (part before "@")
+  const displayName = email ? email.split('@')[0] : 'User'
+  const displayEmail = email || 'user@example.com'
+  const displayAvatar = '' // No avatar in cookies
 
   // Generate initials from name
   const initials = displayName
     .split(' ')
-    .map((n) => n[0])
+    .map((n: string) => n[0])
     .join('')
     .toUpperCase()
     .slice(0, 2)
@@ -99,7 +94,8 @@ export function NavUser() {
                 </DropdownMenuItem>
               </DropdownMenuGroup>
               <DropdownMenuSeparator /> */}
-              <DropdownMenuGroup>
+              {/* Settings menu items removed - settings feature not available in chat app */}
+              {/* <DropdownMenuGroup>
                 <DropdownMenuItem asChild>
                   <Link to='/settings/account'>
                     <BadgeCheck />
@@ -119,7 +115,7 @@ export function NavUser() {
                   </Link>
                 </DropdownMenuItem>
               </DropdownMenuGroup>
-              <DropdownMenuSeparator />
+              <DropdownMenuSeparator /> */}
               <DropdownMenuItem
                 onClick={() => setOpen(true)}
                 variant='destructive'

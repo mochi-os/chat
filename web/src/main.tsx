@@ -64,6 +64,14 @@ const queryClient = new QueryClient({
   }),
 })
 
+const getBasepath = () => {
+  const pathname = window.location.pathname;
+  // Extract basepath: /chat/ -> /chat/, /chat/some-route -> /chat/
+  // Match pattern: /<app-name>/ (with trailing slash)
+  const match = pathname.match(/^(\/[^/]+\/)/);
+  return match ? match[1] : '/';
+};
+
 // Create a new router instance
 // Dynamically detect basepath from current location
 // This allows the app to work regardless of deployment path (configured in app.json)
