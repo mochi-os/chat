@@ -34,6 +34,7 @@ import { Main } from '@/components/layout/main'
 // import { ProfileDropdown } from '@/components/profile-dropdown' // Commented for future use
 import { Search } from '@/components/search'
 import { ThemeSwitch } from '@/components/theme-switch'
+import { NotificationsDropdown } from '@/components/notifications-dropdown'
 import { NewChat } from './components/new-chat'
 
 export function Chats() {
@@ -84,9 +85,9 @@ export function Chats() {
         ? 'Failed to send message. Please try again.'
         : null
 
-  // Get current user from auth store
-  const user = useAuthStore((state) => state.user)
-  const currentUserEmail = user?.email || ''
+  // Get current user email from auth store
+  const email = useAuthStore((state) => state.email)
+  const currentUserEmail = email || ''
 
   // TODO: Update user loading logic for new auth flow
   // - Remove legacy cookie checking
@@ -166,8 +167,7 @@ export function Chats() {
       message.name === currentUserId ||
       message.member === currentUserId ||
       message.name === 'You' ||
-      message.name === user?.email ||
-      message.member === user?.accountNo ||
+      message.name === currentUserEmail ||
       message.member === currentUserEmail
 
     return isCurrentUser
@@ -194,6 +194,7 @@ export function Chats() {
       <Header>
         <Search />
         <div className='ms-auto flex items-center space-x-4'>
+          <NotificationsDropdown />
           <ThemeSwitch />
           {/* <ConfigDrawer /> */}
           {/* <ProfileDropdown /> */}

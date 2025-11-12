@@ -64,12 +64,18 @@ const queryClient = new QueryClient({
   }),
 })
 
-// Create a new router instance
-// Note: basepath matches vite.config.ts base path
+const getBasepath = () => {
+  const pathname = window.location.pathname;
+  // Extract basepath: /chat/ -> /chat/, /chat/some-route -> /chat/
+  // Match pattern: /<app-name>/ (with trailing slash)
+  const match = pathname.match(/^(\/[^/]+\/)/);
+  return match ? match[1] : '/';
+};
+
 const router = createRouter({
   routeTree,
   context: { queryClient },
-  basepath: './',
+  basepath: getBasepath(),
   defaultPreload: 'intent',
   defaultPreloadStaleTime: 0,
 })
@@ -81,7 +87,8 @@ declare module '@tanstack/react-router' {
   }
 }
 
-// Initialize auth state from cookie on app start
+// Initialize auth state from cookie on app start BEFORE router loads
+// This ensures cookies are synced before any route guards run
 useAuthStore.getState().initialize()
 
 // Render the app
