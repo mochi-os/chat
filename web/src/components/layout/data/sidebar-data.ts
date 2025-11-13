@@ -1,5 +1,6 @@
 import {
   AudioWaveform,
+  Bell,
   Command,
   GalleryVerticalEnd,
   Home,
@@ -43,16 +44,21 @@ export const sidebarData: SidebarData = {
           external: true,
         },
         {
-          title: 'Chats',
-          url: '/',
-          badge: '3',
+          title: 'Chat',
+          url: APP_ROUTES.CHAT.HOME,
           icon: MessagesSquare,
         },
         {
           title: 'Friends',
           url: APP_ROUTES.FRIENDS.HOME,
           icon: UserPlus,
-          external: true, // Cross-app navigation
+          external: true,
+        },
+        {
+          title: 'Notifications',
+          url: APP_ROUTES.NOTIFICATIONS.HOME,
+          icon: Bell,
+          external: true,
         },
       ],
     },
