@@ -33,7 +33,6 @@ import { Header } from '@/components/layout/header'
 import { Main } from '@/components/layout/main'
 // import { ProfileDropdown } from '@/components/profile-dropdown' // Commented for future use
 import { Search } from '@/components/search'
-import { ThemeSwitch } from '@/components/theme-switch'
 import { NotificationsDropdown } from '@/components/notifications-dropdown'
 import { NewChat } from './components/new-chat'
 
@@ -195,7 +194,6 @@ export function Chats() {
         <Search />
         <div className='ms-auto flex items-center space-x-4'>
           <NotificationsDropdown />
-          <ThemeSwitch />
           {/* <ConfigDrawer /> */}
           {/* <ProfileDropdown /> */}
         </div>
