@@ -2,6 +2,7 @@ import { useCallback } from 'react'
 import Cookies from 'js-cookie'
 import { toast } from 'sonner'
 import { useAuth } from './useAuth'
+import { requestHelpers } from '@/lib/request'
 
 export function useLogout() {
   const { logout: clearAuth, setLoading, isLoading } = useAuth()
@@ -9,6 +10,16 @@ export function useLogout() {
   const logout = useCallback(async () => {
     try {
       setLoading(true)
+
+      // Call backend logout API to delete login from database
+      try {
+        await requestHelpers.get('/api/logout')
+      } catch (error) {
+        // Log error but continue with local cleanup
+        if (import.meta.env.DEV) {
+          console.error('[Logout] Backend logout failed:', error)
+        }
+      }
 
       // Remove both cookies
       Cookies.remove('login', { path: '/' })
