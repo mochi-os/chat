@@ -2,13 +2,24 @@ import { useCallback } from 'react'
 import Cookies from 'js-cookie'
 import { toast } from 'sonner'
 import { useAuth } from './useAuth'
-
+import { requestHelpers } from '@/lib/request'
+import endpoints from '@/api/endpoints'
 export function useLogout() {
   const { logout: clearAuth, setLoading, isLoading } = useAuth()
 
   const logout = useCallback(async () => {
     try {
       setLoading(true)
+
+      // Call backend logout API to delete login from database
+      try {
+       await requestHelpers.get(endpoints.auth.logout)
+      } catch (error) {
+        // Log error but continue with local cleanup
+        if (import.meta.env.DEV) {
+          console.error('[Logout] Backend logout failed:', error)
+        }
+      }
 
       // Remove both cookies
       Cookies.remove('login', { path: '/' })
@@ -21,7 +32,7 @@ export function useLogout() {
       toast.success('Logged out successfully')
 
       // Redirect to core auth app (cross-app navigation)
-      window.location.href = import.meta.env.VITE_AUTH_SIGN_IN_URL
+      window.location.href = import.meta.env.VITE_AUTH_LOGIN_URL
     } catch (_error) {
       // Even if backend call fails, clear local auth
       Cookies.remove('login', { path: '/' })
@@ -31,7 +42,7 @@ export function useLogout() {
       toast.error('Logged out (with errors)')
 
       // Redirect to core auth app (cross-app navigation)
-      window.location.href = import.meta.env.VITE_AUTH_SIGN_IN_URL
+      window.location.href = import.meta.env.VITE_AUTH_LOGIN_URL
     } finally {
       setLoading(false)
     }
