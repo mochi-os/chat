@@ -23,9 +23,6 @@ const logDevError = (message: string, error: unknown) => {
 export const apiClient = axios.create({
   baseURL: API_BASE_URL,
   timeout: 30000, // 30 seconds
-  headers: {
-    'Content-Type': 'application/json',
-  },
 })
 
 /**
@@ -46,9 +43,13 @@ apiClient.interceptors.request.use(
     // Determine which credentials to use (store takes precedence)
     const login = storeLogin || cookieLogin
 
-    // Set Authorization header with Bearer scheme
+    // Set Authorization header with Bearer scheme unless caller already provided one
     config.headers = config.headers ?? {}
-    if (login) {
+    const existingAuthHeader =
+      (config.headers as Record<string, unknown>).Authorization ??
+      (config.headers as Record<string, unknown>).authorization
+
+    if (login && existingAuthHeader === undefined) {
       // Add Bearer prefix if not already present
       ;(config.headers as Record<string, string>).Authorization =
         login.startsWith('Bearer ') ? login : `Bearer ${login}`

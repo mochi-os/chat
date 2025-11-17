@@ -1,6 +1,6 @@
 const endpoints = {
   chat: {
-    list: '/chat',
+    list: '/chat/list',
     new: '/chat/new',
     create: '/chat/create',
     messages: (chatId: string) => `/chat/${chatId}/messages`,

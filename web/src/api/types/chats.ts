@@ -103,13 +103,3 @@ export interface SendMessageResponse {
   id: string
   [key: string]: unknown
 }
-
-export interface UpdateChatRequest {
-  name?: string
-  [key: string]: unknown
-}
-
-export interface MutationSuccessResponse {
-  success: boolean
-  message?: string
-}

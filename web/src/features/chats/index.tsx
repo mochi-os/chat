@@ -22,6 +22,7 @@ import {
   useChatsQuery,
   useSendMessageMutation,
 } from '@/hooks/useChats'
+import useChatWebsocket from '@/hooks/useChatWebsocket'
 import { useAuthStore } from '@/stores/auth-store'
 import { cn } from '@/lib/utils'
 import { Avatar, AvatarFallback } from '@/components/ui/avatar'
@@ -62,6 +63,12 @@ export function Chats() {
       setNewMessage('')
     },
   })
+  const {
+    status: websocketStatus,
+    error: websocketError,
+    retries: websocketRetries,
+    forceReconnect: forceWebsocketReconnect,
+  } = useChatWebsocket(selectedChat?.id, selectedChat?.key)
   const isLoadingChats = chatsQuery.isLoading
   const isLoadingMessages = messagesQuery.isLoading
   const isSending = sendMessageMutation.isPending
@@ -157,6 +164,50 @@ export function Chats() {
       ),
     [chatMessages]
   )
+
+  const websocketStatusMeta = useMemo(() => {
+    if (!selectedChat) {
+      return {
+        label: 'Realtime idle',
+        dotClass: 'bg-muted-foreground',
+        textClass: 'text-muted-foreground',
+      }
+    }
+
+    switch (websocketStatus) {
+      case 'ready':
+        return {
+          label: 'Live updates',
+          dotClass: 'bg-emerald-500 animate-ping',
+          textClass: 'text-emerald-600 dark:text-emerald-400',
+        }
+      case 'connecting':
+      case 'closing':
+        return {
+          label:
+            websocketRetries > 0
+              ? `Reconnecting (${websocketRetries})`
+              : 'Connecting…',
+          dotClass: 'bg-amber-500 animate-pulse',
+          textClass: 'text-amber-600 dark:text-amber-400',
+        }
+      case 'error':
+        return {
+          label:
+            websocketError === 'offline'
+              ? 'Offline — waiting for network'
+              : 'Realtime disconnected',
+          dotClass: 'bg-red-500',
+          textClass: 'text-red-600 dark:text-red-400',
+        }
+      default:
+        return {
+          label: 'Realtime idle',
+          dotClass: 'bg-muted-foreground',
+          textClass: 'text-muted-foreground',
+        }
+    }
+  }, [selectedChat, websocketError, websocketRetries, websocketStatus])
 
   // Check if message is from current user
   const isCurrentUserMessage = (message: ChatMessage) => {
@@ -365,6 +416,31 @@ export function Chats() {
                       <span className='text-muted-foreground col-start-2 row-span-2 row-start-2 line-clamp-1 block max-w-32 text-xs text-nowrap text-ellipsis lg:max-w-none lg:text-sm'>
                         {selectedChat.identity}
                       </span>
+                      <div className='mt-1 flex flex-wrap items-center gap-2 text-xs'>
+                        <span
+                          className={cn(
+                            'inline-flex items-center gap-1',
+                            websocketStatusMeta.textClass
+                          )}
+                        >
+                          <span
+                            className={cn(
+                              'h-2 w-2 rounded-full',
+                              websocketStatusMeta.dotClass
+                            )}
+                          />
+                          {websocketStatusMeta.label}
+                        </span>
+                        {websocketStatus === 'error' && (
+                          <button
+                            type='button'
+                            className='text-muted-foreground underline decoration-dotted underline-offset-2 transition hover:text-foreground'
+                            onClick={() => forceWebsocketReconnect()}
+                          >
+                            Retry
+                          </button>
+                        )}
+                      </div>
                     </div>
                   </div>
                 </div>

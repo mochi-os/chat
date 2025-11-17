@@ -13,6 +13,7 @@ import { handleServerError } from '@/lib/handle-server-error'
 // import { DirectionProvider } from './context/direction-provider' // Commented for future use (RTL support)
 // import { FontProvider } from './context/font-provider' // Commented for future use (Font switching)
 import { ThemeProvider } from './context/theme-provider'
+import { WebsocketProvider } from './context/websocket-provider'
 // Generated Routes
 import { routeTree } from './routeTree.gen'
 // Styles
@@ -101,7 +102,9 @@ if (!rootElement.innerHTML) {
         <ThemeProvider>
           {/* <FontProvider> */}
             {/* <DirectionProvider> */}
-              <RouterProvider router={router} />
+              <WebsocketProvider>
+                <RouterProvider router={router} />
+              </WebsocketProvider>
             {/* </DirectionProvider> */}
           {/* </FontProvider> */}
         </ThemeProvider>

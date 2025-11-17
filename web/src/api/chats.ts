@@ -2,6 +2,7 @@ import endpoints from '@/api/endpoints'
 import type {
   Chat,
   ChatMessage,
+  ChatMessageAttachment,
   CreateChatRequest,
   CreateChatResponse,
   GetChatsRaw,
@@ -9,10 +10,8 @@ import type {
   GetMessagesRaw,
   GetMessagesResponse,
   GetNewChatResponse,
-  MutationSuccessResponse,
   SendMessageRequest,
   SendMessageResponse,
-  UpdateChatRequest,
 } from '@/api/types/chats'
 import { requestHelpers } from '@/lib/request'
 
@@ -195,7 +194,9 @@ const listChats = async (): Promise<GetChatsResponse> => {
 }
 
 const getChatDetail = (chatId: string) =>
-  requestHelpers.get<Chat>(endpoints.chat.detail(chatId))
+  requestHelpers.get<Chat>(endpoints.chat.detail(chatId), {
+    params: { chat: chatId },
+  })
 
 const listChatMessages = async (
   chatId: string,
@@ -234,29 +235,8 @@ const sendChatMessage = (chatId: string, payload: SendMessageRequest) =>
     },
   })
 
-const updateChat = (chatId: string, payload: UpdateChatRequest) =>
-  requestHelpers.put<MutationSuccessResponse>(
-    endpoints.chat.detail(chatId),
-    payload
-  )
-
-const removeChat = (chatId: string) =>
-  requestHelpers.delete<MutationSuccessResponse>(endpoints.chat.detail(chatId))
-
 const getFriendsForNewChat = () =>
   requestHelpers.get<GetNewChatResponse>(endpoints.chat.new)
-
-const joinChat = (chatId: string) =>
-  requestHelpers.post<MutationSuccessResponse>(
-    `${endpoints.chat.detail(chatId)}/join`,
-    null
-  )
-
-const leaveChat = (chatId: string) =>
-  requestHelpers.post<MutationSuccessResponse>(
-    `${endpoints.chat.detail(chatId)}/leave`,
-    null
-  )
 
 export const chatsApi = {
   list: listChats,
@@ -264,25 +244,20 @@ export const chatsApi = {
   messages: listChatMessages,
   create: createChat,
   sendMessage: sendChatMessage,
-  update: updateChat,
-  remove: removeChat,
   getFriendsForNewChat,
-  join: joinChat,
-  leave: leaveChat,
 }
 
 export type {
   Chat,
+  ChatMessageAttachment,
   ChatMessage,
   CreateChatRequest,
   CreateChatResponse,
   GetChatsResponse,
   GetMessagesResponse,
   GetNewChatResponse,
-  MutationSuccessResponse,
   SendMessageRequest,
   SendMessageResponse,
-  UpdateChatRequest,
 }
 
 export default chatsApi
