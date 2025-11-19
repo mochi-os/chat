@@ -66,12 +66,13 @@ const DEFAULT_MAX_RETRIES = 10
 const DEFAULT_IDLE_DISCONNECT = 10_000
 
 const toWssUrl = (rawUrl: string): string => {
-  const url = new URL(rawUrl)
-  if (url.protocol === 'http:') {
-    url.protocol = 'ws:'
-  } else if (url.protocol === 'https:') {
-    url.protocol = 'wss:'
+  if (typeof window === 'undefined') {
+    throw new Error('window is not defined')
   }
+  const origin = window.location.origin
+  const url = new URL(rawUrl || origin, origin)
+  if (url.protocol === 'http:') url.protocol = 'ws:'
+  else if (url.protocol === 'https:') url.protocol = 'wss:'
   url.pathname = '/websocket'
   return url.toString()
 }

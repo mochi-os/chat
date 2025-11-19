@@ -94,9 +94,11 @@ export interface GetNewChatResponse {
   }
 }
 
+export type SendMessageAttachment = File | Blob
+
 export interface SendMessageRequest {
   body: string
-  attachments?: ChatMessageAttachment[]
+  attachments?: SendMessageAttachment[]
 }
 
 export interface SendMessageResponse {

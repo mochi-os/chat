@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { Fragment } from 'react/jsx-runtime'
 import { format } from 'date-fns'
 import {
@@ -7,24 +7,28 @@ import {
   Edit,
   Paperclip,
   Phone,
-  ImagePlus,
-  Plus,
   Search as SearchIcon,
   Send,
   Video,
   MessagesSquare,
   Loader2,
   CheckCheck,
+  FileText,
+  X,
 } from 'lucide-react'
-import { type Chat, type ChatMessage } from '@/api/chats'
+import {
+  type Chat,
+  type ChatMessage,
+  type ChatMessageAttachment,
+} from '@/api/chats'
+import { useAuthStore } from '@/stores/auth-store'
+import { cn } from '@/lib/utils'
+import useChatWebsocket from '@/hooks/useChatWebsocket'
 import {
   useChatMessagesQuery,
   useChatsQuery,
   useSendMessageMutation,
 } from '@/hooks/useChats'
-import useChatWebsocket from '@/hooks/useChatWebsocket'
-import { useAuthStore } from '@/stores/auth-store'
-import { cn } from '@/lib/utils'
 import { Avatar, AvatarFallback } from '@/components/ui/avatar'
 import { Button } from '@/components/ui/button'
 import { ScrollArea } from '@/components/ui/scroll-area'
@@ -32,10 +36,109 @@ import { Separator } from '@/components/ui/separator'
 // import { ConfigDrawer } from '@/components/config-drawer' // Commented for future use
 import { Header } from '@/components/layout/header'
 import { Main } from '@/components/layout/main'
+import { NotificationsDropdown } from '@/components/notifications-dropdown'
 // import { ProfileDropdown } from '@/components/profile-dropdown' // Commented for future use
 import { Search } from '@/components/search'
-import { NotificationsDropdown } from '@/components/notifications-dropdown'
 import { NewChat } from './components/new-chat'
+
+type AttachmentKind = 'image' | 'video' | 'file'
+
+interface PendingAttachment {
+  id: string
+  file: File
+  kind: AttachmentKind
+  previewUrl?: string
+}
+
+const IMAGE_EXTENSIONS = new Set([
+  'jpg',
+  'jpeg',
+  'png',
+  'gif',
+  'bmp',
+  'svg',
+  'webp',
+  'heic',
+  'avif',
+])
+const VIDEO_EXTENSIONS = new Set([
+  'mp4',
+  'mov',
+  'mkv',
+  'avi',
+  'webm',
+  'm4v',
+  'mpeg',
+  'mpg',
+])
+
+const getFileExtension = (value?: string) => {
+  if (!value) return undefined
+  const withoutQuery = value.split('?')[0]
+  const parts = withoutQuery.split('.')
+  if (parts.length < 2) return undefined
+  return parts.pop()?.toLowerCase()
+}
+
+const detectAttachmentKind = (
+  mime?: string,
+  fallbackName?: string
+): AttachmentKind => {
+  const normalizedMime = mime?.toLowerCase() ?? ''
+  if (normalizedMime.startsWith('image/')) {
+    return 'image'
+  }
+  if (normalizedMime.startsWith('video/')) {
+    return 'video'
+  }
+  const extension = getFileExtension(fallbackName)
+  if (extension) {
+    if (IMAGE_EXTENSIONS.has(extension)) {
+      return 'image'
+    }
+    if (VIDEO_EXTENSIONS.has(extension)) {
+      return 'video'
+    }
+  }
+  return 'file'
+}
+
+const createPendingAttachment = (file: File): PendingAttachment => {
+  const kind = detectAttachmentKind(file.type, file.name)
+  return {
+    id: `${file.name}-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
+    file,
+    kind,
+    previewUrl: kind === 'file' ? undefined : URL.createObjectURL(file),
+  }
+}
+
+const revokePendingAttachmentPreview = (attachment: PendingAttachment) => {
+  if (attachment.previewUrl) {
+    URL.revokeObjectURL(attachment.previewUrl)
+  }
+}
+
+const detectRemoteAttachmentKind = (
+  attachment: ChatMessageAttachment
+): AttachmentKind =>
+  detectAttachmentKind(attachment.type, attachment.name ?? attachment.url)
+
+const formatFileSize = (bytes?: number): string | undefined => {
+  if (bytes === undefined) {
+    return undefined
+  }
+  if (bytes === 0) {
+    return '0 B'
+  }
+  if (bytes < 1024) {
+    return `${bytes} B`
+  }
+  if (bytes < 1024 * 1024) {
+    return `${Math.round(bytes / 1024)} KB`
+  }
+  return `${(bytes / (1024 * 1024)).toFixed(1)} MB`
+}
 
 export function Chats() {
   const [searchQuery, setSearchQuery] = useState('')
@@ -47,6 +150,39 @@ export function Chats() {
     useState(false)
   const [newMessage, setNewMessage] = useState('')
   const [currentUserId] = useState<string>('shakeel') // Temporary: set current user ID
+  const messagesEndRef = useRef<HTMLDivElement | null>(null)
+  const [pendingAttachments, setPendingAttachments] = useState<
+    PendingAttachment[]
+  >([])
+  const fileInputRef = useRef<HTMLInputElement | null>(null)
+  const pendingAttachmentsRef = useRef<PendingAttachment[]>([])
+
+  const handleAttachmentSelection = useCallback((files: FileList | null) => {
+    if (!files?.length) {
+      return
+    }
+    setPendingAttachments((current) => [
+      ...current,
+      ...Array.from(files).map((file) => createPendingAttachment(file)),
+    ])
+  }, [])
+
+  const handleRemoveAttachment = useCallback((attachmentId: string) => {
+    setPendingAttachments((current) => {
+      const attachment = current.find((item) => item.id === attachmentId)
+      if (attachment) {
+        revokePendingAttachmentPreview(attachment)
+      }
+      return current.filter((item) => item.id !== attachmentId)
+    })
+  }, [])
+
+  const clearAttachments = useCallback(() => {
+    setPendingAttachments((current) => {
+      current.forEach((item) => revokePendingAttachmentPreview(item))
+      return []
+    })
+  }, [])
 
   const chatsQuery = useChatsQuery()
   const chats = useMemo(
@@ -61,6 +197,7 @@ export function Chats() {
   const sendMessageMutation = useSendMessageMutation({
     onSuccess: () => {
       setNewMessage('')
+      clearAttachments()
     },
   })
   const {
@@ -90,10 +227,25 @@ export function Chats() {
       : sendMessageMutation.error
         ? 'Failed to send message. Please try again.'
         : null
+  const hasPendingAttachments = pendingAttachments.length > 0
+  const isSendDisabled =
+    (!newMessage.trim() && !hasPendingAttachments) || isSending
 
   // Get current user email from auth store
   const email = useAuthStore((state) => state.email)
   const currentUserEmail = email || ''
+
+  useEffect(() => {
+    pendingAttachmentsRef.current = pendingAttachments
+  }, [pendingAttachments])
+
+  useEffect(() => {
+    return () => {
+      pendingAttachmentsRef.current.forEach((attachment) => {
+        revokePendingAttachmentPreview(attachment)
+      })
+    }
+  }, [])
 
   // TODO: Update user loading logic for new auth flow
   // - Remove legacy cookie checking
@@ -148,20 +300,17 @@ export function Chats() {
   // Group messages by date
   const groupedMessages = useMemo(
     () =>
-      chatMessages.reduce(
-        (acc: Record<string, ChatMessage[]>, message) => {
-          const date = new Date(message.created * 1000) // Convert Unix timestamp to Date
-          const key = format(date, 'd MMM, yyyy')
+      chatMessages.reduce((acc: Record<string, ChatMessage[]>, message) => {
+        const date = new Date(message.created * 1000) // Convert Unix timestamp to Date
+        const key = format(date, 'd MMM, yyyy')
 
-          if (!acc[key]) {
-            acc[key] = []
-          }
-          acc[key].push(message)
+        if (!acc[key]) {
+          acc[key] = []
+        }
+        acc[key].push(message)
 
-          return acc
-        },
-        {}
-      ),
+        return acc
+      }, {}),
     [chatMessages]
   )
 
@@ -224,14 +373,36 @@ export function Chats() {
   }
 
   // Handle sending a new message
+  useEffect(() => {
+    if (!selectedChat) return
+
+    const node = messagesEndRef.current
+    if (!node) return
+
+    node.scrollIntoView({
+      block: 'end',
+      behavior: messagesQuery.isLoading ? 'auto' : 'smooth',
+    })
+  }, [chatMessages, selectedChat, messagesQuery.isLoading])
+
   const handleSendMessage = async (e: React.FormEvent) => {
     e.preventDefault()
-    if (!newMessage.trim() || !selectedChat || isSending) return
+    const trimmedMessage = newMessage.trim()
+    if (
+      (!trimmedMessage && !hasPendingAttachments) ||
+      !selectedChat ||
+      isSending
+    ) {
+      return
+    }
 
     try {
       await sendMessageMutation.mutateAsync({
         chatId: selectedChat.id,
-        body: newMessage.trim(),
+        body: trimmedMessage,
+        attachments: hasPendingAttachments
+          ? pendingAttachments.map((attachment) => attachment.file)
+          : undefined,
       })
     } catch (_error) {
       // Error is surfaced via tanstack query mutation state
@@ -251,7 +422,7 @@ export function Chats() {
       </Header>
 
       <Main fixed>
-        <section className='flex h-full gap-6'>
+        <section className='flex h-full min-h-0 gap-6'>
           {/* Left Side */}
           <div className='flex w-full flex-col gap-2 sm:w-56 lg:w-72 2xl:w-80'>
             <div className='bg-background sticky top-0 z-10 -mx-4 px-4 pb-3 shadow-md sm:static sm:z-auto sm:mx-0 sm:p-0 sm:shadow-none'>
@@ -382,6 +553,7 @@ export function Chats() {
             <div
               className={cn(
                 'bg-background absolute inset-0 start-full z-50 hidden w-full flex-1 flex-col border shadow-xs sm:static sm:z-auto sm:flex sm:rounded-md',
+                'min-h-0',
                 mobileSelectedChat && 'start-0 flex'
               )}
             >
@@ -413,9 +585,9 @@ export function Chats() {
                       <span className='col-start-2 row-span-2 text-sm font-medium lg:text-base'>
                         {selectedChat.name}
                       </span>
-                      <span className='text-muted-foreground col-start-2 row-span-2 row-start-2 line-clamp-1 block max-w-32 text-xs text-nowrap text-ellipsis lg:max-w-none lg:text-sm'>
+                      {/* <span className='text-muted-foreground col-start-2 row-span-2 row-start-2 line-clamp-1 block max-w-32 text-xs text-nowrap text-ellipsis lg:max-w-none lg:text-sm'>
                         {selectedChat.identity}
-                      </span>
+                      </span> */}
                       <div className='mt-1 flex flex-wrap items-center gap-2 text-xs'>
                         <span
                           className={cn(
@@ -434,7 +606,7 @@ export function Chats() {
                         {websocketStatus === 'error' && (
                           <button
                             type='button'
-                            className='text-muted-foreground underline decoration-dotted underline-offset-2 transition hover:text-foreground'
+                            className='text-muted-foreground hover:text-foreground underline decoration-dotted underline-offset-2 transition'
                             onClick={() => forceWebsocketReconnect()}
                           >
                             Retry
@@ -472,10 +644,10 @@ export function Chats() {
               </div>
 
               {/* Conversation */}
-              <div className='flex flex-1 flex-col gap-2 rounded-md px-4 pt-0 pb-4'>
-                <div className='flex size-full flex-1'>
-                  <div className='chat-text-container relative -me-4 flex flex-1 flex-col overflow-y-hidden'>
-                    <ScrollArea className='flex h-full w-full grow flex-col justify-start gap-4 py-2 pe-4 pb-4'>
+              <div className='flex min-h-0 flex-1 flex-col gap-2 rounded-md px-4 pt-0 pb-4'>
+                <div className='flex size-full min-h-0 flex-1'>
+                  <div className='chat-text-container relative -me-4 flex min-h-0 flex-1 flex-col overflow-y-hidden'>
+                    <ScrollArea className='flex h-full w-full flex-1 flex-col justify-start gap-4 py-2 pe-4 pb-4'>
                       {isLoadingMessages ? (
                         <div className='flex items-center justify-center py-8'>
                           <Loader2 className='h-6 w-6 animate-spin' />
@@ -551,6 +723,23 @@ export function Chats() {
                                       {message.body}
                                     </div>
 
+                                    {message.attachments?.length ? (
+                                      <div className='mt-3 flex flex-wrap gap-3'>
+                                        {message.attachments.map(
+                                          (attachment, attachmentIndex) => (
+                                            <MessageAttachmentPreview
+                                              key={
+                                                attachment.id ??
+                                                `${message.id}-attachment-${attachmentIndex}`
+                                              }
+                                              attachment={attachment}
+                                              index={attachmentIndex}
+                                            />
+                                          )
+                                        )}
+                                      </div>
+                                    ) : null}
+
                                     {/* Timestamp and read receipts */}
                                     <div
                                       className={cn(
@@ -582,40 +771,83 @@ export function Chats() {
                           </Fragment>
                         ))
                       )}
+                      <div ref={messagesEndRef} />
                     </ScrollArea>
                   </div>
                 </div>
                 {/* Message Input */}
                 <form
                   onSubmit={handleSendMessage}
-                  className='flex w-full flex-none gap-2'
+                  className='flex w-full flex-none flex-col gap-2'
                 >
-                  <div className='border-input bg-card focus-within:ring-ring flex flex-1 items-center gap-2 rounded-full border px-4 py-2 focus-within:ring-1 focus-within:outline-hidden'>
-                    <div className='flex items-center gap-1'>
+                  {hasPendingAttachments && (
+                    <div className='border-muted bg-muted/40 text-foreground flex w-full flex-wrap gap-3 rounded-3xl border border-dashed px-4 py-3'>
+                      {pendingAttachments.map((attachment) => {
+                        const sizeLabel = formatFileSize(attachment.file.size)
+                        return (
+                          <div
+                            key={attachment.id}
+                            className='border-input bg-background/80 flex min-w-0 items-center gap-3 rounded-2xl border px-3 py-2 shadow-sm'
+                          >
+                            {attachment.previewUrl &&
+                            attachment.kind === 'image' ? (
+                              <img
+                                src={attachment.previewUrl}
+                                alt={attachment.file.name}
+                                className='h-12 w-12 rounded-xl object-cover'
+                              />
+                            ) : attachment.previewUrl &&
+                              attachment.kind === 'video' ? (
+                              <video
+                                src={attachment.previewUrl}
+                                className='h-12 w-12 rounded-xl object-cover'
+                                muted
+                                loop
+                                playsInline
+                              />
+                            ) : (
+                              <div className='bg-muted text-muted-foreground flex h-12 w-12 items-center justify-center rounded-xl'>
+                                <FileText className='h-5 w-5' />
+                              </div>
+                            )}
+                            <div className='min-w-0 flex-1'>
+                              <p className='truncate text-xs font-medium'>
+                                {attachment.file.name}
+                              </p>
+                              {sizeLabel && (
+                                <p className='text-muted-foreground text-[10px]'>
+                                  {sizeLabel}
+                                </p>
+                              )}
+                            </div>
+                            <Button
+                              type='button'
+                              variant='ghost'
+                              size='icon'
+                              className='hover:bg-destructive/10 text-muted-foreground h-6 w-6 rounded-full'
+                              onClick={() =>
+                                handleRemoveAttachment(attachment.id)
+                              }
+                            >
+                              <X className='h-3.5 w-3.5' />
+                              <span className='sr-only'>
+                                Remove {attachment.file.name}
+                              </span>
+                            </Button>
+                          </div>
+                        )
+                      })}
+                    </div>
+                  )}
+                  <div className='border-input bg-card focus-within:ring-ring flex w-full items-center gap-2 rounded-full border px-4 py-2 focus-within:ring-1 focus-within:outline-hidden'>
+                    <div className='flex items-center'>
                       <Button
                         size='icon'
                         type='button'
                         variant='ghost'
                         className='h-8 w-8 rounded-full'
-                      >
-                        <Plus size={16} className='stroke-muted-foreground' />
-                      </Button>
-                      <Button
-                        size='icon'
-                        type='button'
-                        variant='ghost'
-                        className='h-8 w-8 rounded-full'
-                      >
-                        <ImagePlus
-                          size={16}
-                          className='stroke-muted-foreground'
-                        />
-                      </Button>
-                      <Button
-                        size='icon'
-                        type='button'
-                        variant='ghost'
-                        className='h-8 w-8 rounded-full'
+                        onClick={() => fileInputRef.current?.click()}
+                        aria-label='Add attachment'
                       >
                         <Paperclip
                           size={16}
@@ -637,7 +869,7 @@ export function Chats() {
                       type='submit'
                       size='icon'
                       className='bg-primary hover:bg-primary/90 h-8 w-8 rounded-full'
-                      disabled={!newMessage.trim() || isSending}
+                      disabled={isSendDisabled}
                     >
                       {isSending ? (
                         <Loader2 size={16} className='animate-spin' />
@@ -645,9 +877,21 @@ export function Chats() {
                         <Send size={16} />
                       )}
                     </Button>
+                    <input
+                      ref={fileInputRef}
+                      type='file'
+                      multiple
+                      className='hidden'
+                      onChange={(event) => {
+                        handleAttachmentSelection(event.target.files)
+                        if (event.target) {
+                          event.target.value = ''
+                        }
+                      }}
+                    />
                   </div>
                   {sendMessageErrorMessage && (
-                    <p className='text-destructive text-xs text-right w-full pe-2'>
+                    <p className='text-destructive w-full pe-2 text-right text-xs'>
                       {sendMessageErrorMessage}
                     </p>
                   )}
@@ -683,5 +927,88 @@ export function Chats() {
         />
       </Main>
     </>
+  )
+}
+
+interface MessageAttachmentPreviewProps {
+  attachment: ChatMessageAttachment
+  index: number
+}
+
+const MessageAttachmentPreview = ({
+  attachment,
+  index,
+}: MessageAttachmentPreviewProps) => {
+  const kind = detectRemoteAttachmentKind(attachment)
+  const fallbackLabel = `Attachment ${index + 1}`
+  const label = attachment.name ?? attachment.url ?? fallbackLabel
+  const previewUrl =
+    typeof attachment.url === 'string' && attachment.url.length > 0
+      ? attachment.url
+      : undefined
+  const sizeLabel =
+    typeof attachment.size === 'number'
+      ? formatFileSize(attachment.size)
+      : undefined
+  const canRenderMedia =
+    Boolean(previewUrl) && (kind === 'image' || kind === 'video')
+
+  const mediaPreview = canRenderMedia ? (
+    kind === 'image' ? (
+      <img
+        src={previewUrl}
+        alt={label}
+        className='h-16 w-16 rounded-xl object-cover'
+      />
+    ) : (
+      <video
+        src={previewUrl}
+        className='h-16 w-16 rounded-xl object-cover'
+        muted
+        loop
+        playsInline
+      />
+    )
+  ) : (
+    <div className='bg-muted text-muted-foreground flex h-16 w-16 items-center justify-center rounded-xl'>
+      {kind === 'video' ? (
+        <Video className='h-5 w-5' />
+      ) : (
+        <FileText className='h-5 w-5' />
+      )}
+    </div>
+  )
+
+  const textSection = (
+    <div className='min-w-0 flex-1'>
+      <p className='truncate text-xs font-medium'>{label}</p>
+      {sizeLabel && (
+        <p className='text-muted-foreground text-[10px]'>{sizeLabel}</p>
+      )}
+      {previewUrl && (
+        <p className='text-primary text-[11px] font-medium'>Open</p>
+      )}
+    </div>
+  )
+
+  if (previewUrl) {
+    return (
+      <a
+        href={previewUrl}
+        target='_blank'
+        rel='noreferrer'
+        className='border-input hover:border-primary/60 hover:bg-primary/5 flex max-w-[250px] items-center gap-3 rounded-2xl border px-3 py-2 transition'
+      >
+        {mediaPreview}
+        {textSection}
+      </a>
+    )
+  }
+
+  return (
+    <div className='border-input flex max-w-[250px] items-center gap-3 rounded-2xl border px-3 py-2'>
+      {mediaPreview}
+      {textSection}
+    </div>
   )
 }

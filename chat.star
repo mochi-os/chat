@@ -83,7 +83,7 @@ def action_send(a):
 	# If the request includes file uploads (multipart/form-data), attachments can be handled here.
 	# Current UI sends text only; skip upload to avoid errors when not multipart.
 	attachments = []
-	a.websocket.write(chat["key"], {"created_local": mochi.time.local(mochi.time.now()), "name": a.user.identity.name, "body": body, "attachments": attachments})
+	mochi.websocket.write(chat["key"], {"created_local": mochi.time.local(mochi.time.now()), "name": a.user.identity.name, "body": body, "attachments": attachments})
 
 	for member in mochi.db.query("select * from members where chat=? and member!=?", chat["id"], a.user.identity.id):
 		# Only send if the member ID is a valid entity
@@ -133,7 +133,7 @@ def event_message(e):
 	attachments = mochi.event.segment()
 	mochi.attachment.save(attachments, "chat/" + chat["id"] + "/" + id, e.content("from"))
 
-	e.websocket.write(chat["key"], {"created_local": mochi.time.local(created), "name": member["name"], "body": body, "attachments": attachments})
+	mochi.websocket.write(chat["key"], {"created_local": mochi.time.local(created), "name": member["name"], "body": body, "attachments": attachments})
 	mochi.service.call("notifications", "create", "chat", "message", chat["id"], member["name"] + ": " + body, "/chat/" + chat["id"])
 
 # Received a new chat event

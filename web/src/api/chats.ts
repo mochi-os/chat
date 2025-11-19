@@ -227,13 +227,38 @@ const createChat = (payload: CreateChatRequest) => {
   )
 }
 
-const sendChatMessage = (chatId: string, payload: SendMessageRequest) =>
-  requestHelpers.post<SendMessageResponse>(endpoints.chat.send(chatId), null, {
-    params: {
-      chat: chatId,
-      body: payload.body,
-    },
-  })
+const sendChatMessage = (chatId: string, payload: SendMessageRequest) => {
+  const hasAttachments = Boolean(payload.attachments?.length)
+
+  if (hasAttachments) {
+    const formData = new FormData()
+    formData.append('body', payload.body ?? '')
+    payload.attachments?.forEach((file) => {
+      formData.append('attachments', file)
+    })
+
+    return requestHelpers.post<SendMessageResponse>(
+      endpoints.chat.send(chatId),
+      formData,
+      {
+        params: {
+          chat: chatId,
+        },
+      }
+    )
+  }
+
+  return requestHelpers.post<SendMessageResponse>(
+    endpoints.chat.send(chatId),
+    null,
+    {
+      params: {
+        chat: chatId,
+        body: payload.body,
+      },
+    }
+  )
+}
 
 const getFriendsForNewChat = () =>
   requestHelpers.get<GetNewChatResponse>(endpoints.chat.new)
