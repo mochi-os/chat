@@ -94,22 +94,14 @@ export interface GetNewChatResponse {
   }
 }
 
+export type SendMessageAttachment = File | Blob
+
 export interface SendMessageRequest {
   body: string
-  attachments?: ChatMessageAttachment[]
+  attachments?: SendMessageAttachment[]
 }
 
 export interface SendMessageResponse {
   id: string
   [key: string]: unknown
-}
-
-export interface UpdateChatRequest {
-  name?: string
-  [key: string]: unknown
-}
-
-export interface MutationSuccessResponse {
-  success: boolean
-  message?: string
 }
