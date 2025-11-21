@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react'
-import { Loader2, MessageSquare, Search, UserPlus, X } from 'lucide-react'
+import { Loader2, MessageSquare, Search, UserPlus, X, Check } from 'lucide-react'
 import { toast } from 'sonner'
 import { useNewChatFriendsQuery, useCreateChatMutation } from '@/hooks/useChats'
 import { Badge } from '@/components/ui/badge'
@@ -281,6 +281,7 @@ export function NewChat({ onOpenChange, open }: NewChatProps) {
                 disabled={createChatMutation.isPending}
                 className='min-w-[80px]'
               >
+                <X className='size-4' />
                 Cancel
               </Button>
               <Button
@@ -290,12 +291,12 @@ export function NewChat({ onOpenChange, open }: NewChatProps) {
               >
                 {createChatMutation.isPending ? (
                   <>
-                    <Loader2 className='mr-2 h-4 w-4 animate-spin' />
+                    <Loader2 className='size-4 animate-spin' />
                     Creating...
                   </>
                 ) : (
                   <>
-                    <MessageSquare className='mr-2 h-4 w-4' />
+                    <Check className='size-4' />
                     Create Chat
                   </>
                 )}
