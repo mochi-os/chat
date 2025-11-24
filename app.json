@@ -1,8 +1,12 @@
 {
 	"version": "1.0",
 	"label": "app_name",
-	"engine": {"architecture": "starlark", "version": 2},
-	"files": [ "chat.star" ],
+	"classes": ["chat"],
+	"paths": ["chat"],
+	"services": ["chat"],
+
+	"architecture": {"engine": "starlark", "version": 2},
+	"execute": ["chat.star"],
 
 	"database": {
 		"schema": 1,
@@ -11,32 +15,24 @@
 	},
 
 	"icons": [
-		{"path": "chat", "label": "app_name", "icon": "chat.png"}
+		{"action": "", "label": "app_name", "file": "chat.png"}
 	],
 
-	"paths": {
-		"chat": {
-			"actions": {
-				"": {"file": "web/dist/index.html"},
-				"assets": {"files": "web/dist/assets"},
-				"create": {"function": "action_create", "public": true},
-				"images": {"files": "web/dist/images"},
-				"list": {"function": "action_list", "public": true},
-				"new": {"function": "action_new", "public": true},
-				":chat": {"function": "action_view", "public": true},
-				":chat/:name": {"function": "action_view", "public": true},
-				":chat/messages": {"function": "action_messages", "public": true},
-				":chat/send": {"function": "action_send", "public": true}
-			}
-		}
+	"actions": {
+		"": {"file": "web/dist/index.html"},
+		"assets": {"files": "web/dist/assets"},
+		"create": {"function": "action_create"},
+		"images": {"files": "web/dist/images"},
+		"list": {"function": "action_list"},
+		"new": {"function": "action_new"},
+		":chat": {"function": "action_view"},
+		":chat/:name": {"function": "action_view"},
+		":chat/messages": {"function": "action_messages"},
+		":chat/send": {"function": "action_send"}
 	},
 
-	"services": {
-		"chat": {
-			"events": {
-				"message": {"function": "event_message"},
-				"new": {"function": "event_new"}
-			}
-		}
+	"events": {
+		"message": {"function": "event_message"},
+		"new": {"function": "event_new"}
 	}
 }
