@@ -5,6 +5,8 @@ import {
   GalleryVerticalEnd,
   Home,
   MessagesSquare,
+  Newspaper,
+  MessageSquare,
   UserPlus,
 } from 'lucide-react'
 import { APP_ROUTES } from '@/config/routes'
@@ -58,6 +60,18 @@ export const sidebarData: SidebarData = {
           title: 'Notifications',
           url: APP_ROUTES.NOTIFICATIONS.HOME,
           icon: Bell,
+          external: true,
+        },
+        {
+          title: 'Feeds',
+          url: APP_ROUTES.FEEDS.HOME,
+          icon: Newspaper,
+          external: true,
+        },
+        {
+          title: 'Forums',
+          url: APP_ROUTES.FORUMS.HOME,
+          icon: MessageSquare,
           external: true,
         },
       ],
