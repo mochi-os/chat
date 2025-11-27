@@ -23,11 +23,33 @@ def action_create(a):
 	mochi.db.query("replace into members ( chat, member, name ) values ( ?, ?, ? )", chat, a.user.identity.id, a.user.identity.name)
 
 	members = [{"id": a.user.identity.id, "name": a.user.identity.name}]
-	for friend in mochi.service.call("friends", "list"):
-		if a.input(friend["id"]):
-			mochi.db.query("replace into members ( chat, member, name ) values ( ?, ?, ? )", chat, friend["id"], friend["name"])
-			members.append({"id": friend["id"], "name": friend["name"]})
+	
+	# Handle direct member ID input (for form-data with 'id' field)
+	member_id = a.input("id")
+	member_name = a.input("name_member")
+	if member_id and mochi.valid(member_id, "entity"):
+		# Look up the member in friends or directory to get their name
+		friend = mochi.service.call("friends", "get", member_id)
+		if friend:
+			member_name = friend["name"]
+		elif not member_name:
+			# Try directory lookup if not a friend
+			dir_entry = mochi.directory.get(member_id)
+			if dir_entry:
+				member_name = dir_entry["name"]
+			else:
+				member_name = "Unknown"
+		
+		mochi.db.query("replace into members ( chat, member, name ) values ( ?, ?, ? )", chat, member_id, member_name)
+		members.append({"id": member_id, "name": member_name})
+	else:
+		#(original behavior)
+		for friend in mochi.service.call("friends", "list"):
+			if a.input(friend["id"]):
+				mochi.db.query("replace into members ( chat, member, name ) values ( ?, ?, ? )", chat, friend["id"], friend["name"])
+				members.append({"id": friend["id"], "name": friend["name"]})
 
+	
 	for member in members:
 		if member["id"] != a.user.identity.id:
 			mochi.message.send({"from": a.user.identity.id, "to": member["id"], "service": "chat", "event": "new"}, {"id": chat, "name": name}, members)
