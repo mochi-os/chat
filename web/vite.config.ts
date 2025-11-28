@@ -1,25 +1,24 @@
-import path from 'path'
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react-swc'
+import { defineConfig, mergeConfig } from 'vite'
 import tailwindcss from '@tailwindcss/vite'
 import { tanstackRouter } from '@tanstack/router-plugin/vite'
+import createBaseViteConfig from '@mochi/config/vite'
 
-export default defineConfig({
-  base: './',
-  plugins: [
-    tanstackRouter({
-      target: 'react',
-      autoCodeSplitting: true,
+export default defineConfig(() =>
+  mergeConfig(
+    createBaseViteConfig({
+      plugins: [
+        tanstackRouter({
+          target: 'react',
+          autoCodeSplitting: true,
+        }),
+        tailwindcss(),
+      ],
+      build: {
+        outDir: 'dist',
+      },
     }),
-    react(),
-    tailwindcss(),
-  ],
-  resolve: {
-    alias: {
-      '@': path.resolve(__dirname, './src'),
-    },
-  },
-  build: {
-    outDir: 'dist',
-  },
-})
+    {
+      base: './',
+    }
+  )
+)

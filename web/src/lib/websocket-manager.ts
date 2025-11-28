@@ -1,4 +1,5 @@
 import type { ChatMessageAttachment } from '@/api/chats'
+import { env } from '@mochi/config/env'
 
 const devConsole = globalThis.console
 
@@ -93,10 +94,7 @@ export class ChatWebsocketManager {
   constructor(options: ChatWebsocketManagerOptions = {}) {
     const fallbackUrl =
       typeof window !== 'undefined' ? window.location.origin : 'http://localhost'
-    this.baseUrl =
-      options.baseUrl ??
-      import.meta.env.VITE_WEBSOCKET_URL ??
-      fallbackUrl
+    this.baseUrl = options.baseUrl ?? env.websocketUrl ?? fallbackUrl
     this.idleDisconnectMs =
       options.idleDisconnectMs ?? DEFAULT_IDLE_DISCONNECT
     this.baseDelayMs = options.baseDelayMs ?? DEFAULT_BASE_DELAY
@@ -263,7 +261,7 @@ export class ChatWebsocketManager {
         this.handleMessage(entry, event)
       }
       socket.onerror = (event) => {
-        if (import.meta.env.DEV) {
+        if (env.debug) {
           devConsole?.warn?.(
             `[WebSocket] ${entry.chatId} error`,
             event
@@ -275,7 +273,7 @@ export class ChatWebsocketManager {
         this.handleClose(entry, event)
       }
     } catch (error) {
-      if (import.meta.env.DEV) {
+      if (env.debug) {
         devConsole?.error?.(
           `[WebSocket] Failed to connect for ${entry.chatId}`,
           error
@@ -322,7 +320,7 @@ export class ChatWebsocketManager {
         try {
           listener(chatEvent)
         } catch (error) {
-          if (import.meta.env.DEV) {
+          if (env.debug) {
             devConsole?.error?.(
               `[WebSocket] listener error for ${entry.chatId}`,
               error
@@ -346,7 +344,7 @@ export class ChatWebsocketManager {
         .text()
         .then((text) => deliver(this.safeParse(text)))
         .catch((error) => {
-          if (import.meta.env.DEV) {
+          if (env.debug) {
             devConsole?.error?.(
               `[WebSocket] Failed to parse blob message for ${entry.chatId}`,
               error
@@ -371,7 +369,7 @@ export class ChatWebsocketManager {
         return parsed as ChatWebsocketMessagePayload
       }
     } catch (error) {
-      if (import.meta.env.DEV) {
+      if (env.debug) {
         devConsole?.error?.('[WebSocket] Failed to parse payload', raw, error)
       }
     }
@@ -464,7 +462,7 @@ export class ChatWebsocketManager {
     try {
       entry.socket.close()
     } catch (error) {
-      if (import.meta.env.DEV) {
+      if (env.debug) {
         devConsole?.error?.(
           `[WebSocket] Failed to close socket for ${entry.chatId}`,
           error
@@ -514,7 +512,7 @@ export class ChatWebsocketManager {
       try {
         listener(snapshot)
       } catch (error) {
-        if (import.meta.env.DEV) {
+        if (env.debug) {
           devConsole?.error?.(
             `[WebSocket] status listener error for ${entry.chatId}`,
             error

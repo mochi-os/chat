@@ -1,8 +1,8 @@
 // feat(auth): implement login-header based auth flow
 import { createFileRoute } from '@tanstack/react-router'
-import { APP_ROUTES } from '@/config/routes'
 import { AuthenticatedLayout } from '@/components/layout/authenticated-layout'
 import { apiClient, isAuthError } from '@/lib/apiClient'
+import { env } from '@mochi/config/env'
 
 /**
  * Protected Route Guard
@@ -29,9 +29,8 @@ export const Route = createFileRoute('/_authenticated')({
       // API call failed - check if it's an auth error
       if (isAuthError(error)) {
         // Not authenticated - redirect to login
-        const authUrl = import.meta.env.VITE_AUTH_URL || APP_ROUTES.CORE.SIGN_IN
         const returnUrl = encodeURIComponent(location.href)
-        const redirectUrl = `${authUrl}?redirect=${returnUrl}`
+        const redirectUrl = `${env.authLoginUrl}?redirect=${returnUrl}`
 
         // Use window.location.href for cross-app navigation (full page reload)
         window.location.href = redirectUrl

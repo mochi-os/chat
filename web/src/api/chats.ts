@@ -14,6 +14,7 @@ import type {
   SendMessageResponse,
 } from '@/api/types/chats'
 import { requestHelpers } from '@/lib/request'
+import { env } from '@mochi/config/env'
 
 const isRecord = (value: unknown): value is Record<string, unknown> =>
   Boolean(value) && typeof value === 'object'
@@ -27,7 +28,7 @@ const toNumber = (value: unknown): number | undefined =>
 const devConsole = globalThis.console
 
 const logUnexpectedStructure = (context: string, payload: unknown) => {
-  if (import.meta.env.DEV) {
+  if (env.debug) {
     devConsole?.warn?.(`[API] ${context} response shape unexpected`, payload)
   }
 }

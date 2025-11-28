@@ -4,6 +4,7 @@ import ChatWebsocketManager, {
   type ChatWebsocketManagerOptions,
 } from '@/lib/websocket-manager'
 import { WebsocketContext } from '@/context/websocket-context'
+import { env } from '@mochi/config/env'
 
 const buildManager = (): ChatWebsocketManager | null => {
   if (typeof window === 'undefined') {
@@ -11,14 +12,13 @@ const buildManager = (): ChatWebsocketManager | null => {
   }
 
   const baseOptions: ChatWebsocketManagerOptions = {
-    baseUrl:
-      import.meta.env.VITE_WEBSOCKET_URL ?? window.location.origin,
+    baseUrl: env.websocketUrl ?? window.location.origin,
     getChatKey: async (chatId: string) => {
       try {
         const chat = await chatsApi.detail(chatId)
         return chat.key
       } catch (error) {
-        if (import.meta.env.DEV) {
+        if (env.debug) {
           globalThis.console?.error?.(
             '[WebSocket] Failed to fetch chat key',
             chatId,
