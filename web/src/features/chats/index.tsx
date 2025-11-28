@@ -23,13 +23,13 @@ import {
 } from '@/api/chats'
 import { useAuthStore } from '@/stores/auth-store'
 import { cn } from '@/lib/utils'
-import useChatWebsocket from '@/hooks/useChatWebsocket'
+// import useChatWebsocket from '@/hooks/useChatWebsocket'
 import {
   useChatMessagesQuery,
   useChatsQuery,
   useSendMessageMutation,
 } from '@/hooks/useChats'
-import { Avatar, AvatarFallback } from '@/components/ui/avatar'
+import { FacelessAvatar } from '@/components/faceless-avatar'
 import { Button } from '@/components/ui/button'
 import { ScrollArea } from '@/components/ui/scroll-area'
 import { Separator } from '@/components/ui/separator'
@@ -200,12 +200,12 @@ export function Chats() {
       clearAttachments()
     },
   })
-  const {
-    status: websocketStatus,
-    error: websocketError,
-    retries: websocketRetries,
-    forceReconnect: forceWebsocketReconnect,
-  } = useChatWebsocket(selectedChat?.id, selectedChat?.key)
+  // const {
+  //   status: websocketStatus,
+  //   error: websocketError,
+  //   retries: websocketRetries,
+  //   forceReconnect: forceWebsocketReconnect,
+  // } = useChatWebsocket(selectedChat?.id, selectedChat?.key)
   const isLoadingChats = chatsQuery.isLoading
   const isLoadingMessages = messagesQuery.isLoading
   const isSending = sendMessageMutation.isPending
@@ -314,49 +314,49 @@ export function Chats() {
     [chatMessages]
   )
 
-  const websocketStatusMeta = useMemo(() => {
-    if (!selectedChat) {
-      return {
-        label: 'Realtime idle',
-        dotClass: 'bg-muted-foreground',
-        textClass: 'text-muted-foreground',
-      }
-    }
+  // const websocketStatusMeta = useMemo(() => {
+  //   if (!selectedChat) {
+  //     return {
+  //       label: 'Realtime idle',
+  //       dotClass: 'bg-muted-foreground',
+  //       textClass: 'text-muted-foreground',
+  //     }
+  //   }
 
-    switch (websocketStatus) {
-      case 'ready':
-        return {
-          label: 'Live updates',
-          dotClass: 'bg-emerald-500 animate-ping',
-          textClass: 'text-emerald-600 dark:text-emerald-400',
-        }
-      case 'connecting':
-      case 'closing':
-        return {
-          label:
-            websocketRetries > 0
-              ? `Reconnecting (${websocketRetries})`
-              : 'Connecting…',
-          dotClass: 'bg-amber-500 animate-pulse',
-          textClass: 'text-amber-600 dark:text-amber-400',
-        }
-      case 'error':
-        return {
-          label:
-            websocketError === 'offline'
-              ? 'Offline — waiting for network'
-              : 'Realtime disconnected',
-          dotClass: 'bg-red-500',
-          textClass: 'text-red-600 dark:text-red-400',
-        }
-      default:
-        return {
-          label: 'Realtime idle',
-          dotClass: 'bg-muted-foreground',
-          textClass: 'text-muted-foreground',
-        }
-    }
-  }, [selectedChat, websocketError, websocketRetries, websocketStatus])
+  //   switch (websocketStatus) {
+  //     case 'ready':
+  //       return {
+  //         label: 'Live updates',
+  //         dotClass: 'bg-emerald-500 animate-ping',
+  //         textClass: 'text-emerald-600 dark:text-emerald-400',
+  //       }
+  //     case 'connecting':
+  //     case 'closing':
+  //       return {
+  //         label:
+  //           websocketRetries > 0
+  //             ? `Reconnecting (${websocketRetries})`
+  //             : 'Connecting…',
+  //         dotClass: 'bg-amber-500 animate-pulse',
+  //         textClass: 'text-amber-600 dark:text-amber-400',
+  //       }
+  //     case 'error':
+  //       return {
+  //         label:
+  //           websocketError === 'offline'
+  //             ? 'Offline — waiting for network'
+  //             : 'Realtime disconnected',
+  //         dotClass: 'bg-red-500',
+  //         textClass: 'text-red-600 dark:text-red-400',
+  //       }
+  //     default:
+  //       return {
+  //         label: 'Realtime idle',
+  //         dotClass: 'bg-muted-foreground',
+  //         textClass: 'text-muted-foreground',
+  //       }
+  //   }
+  // }, [selectedChat, websocketError, websocketRetries, websocketStatus])
 
   // Check if message is from current user
   const isCurrentUserMessage = (message: ChatMessage) => {
@@ -525,11 +525,11 @@ export function Chats() {
                         }}
                       >
                         <div className='flex gap-2'>
-                          <Avatar>
-                            <AvatarFallback>
-                              {chat.name.charAt(0).toUpperCase()}
-                            </AvatarFallback>
-                          </Avatar>
+                          <FacelessAvatar
+                            name={chat.name}
+                            seed={chat.id}
+                            size={40}
+                          />
                           <div className='min-w-0 flex-1'>
                             <span className='col-start-2 row-span-2 truncate font-medium'>
                               {chat.name}
@@ -576,11 +576,11 @@ export function Chats() {
                     <ArrowLeft className='rtl:rotate-180' />
                   </Button>
                   <div className='flex items-center gap-2 lg:gap-4'>
-                    <Avatar className='size-9 lg:size-11'>
-                      <AvatarFallback>
-                        {selectedChat.name.charAt(0).toUpperCase()}
-                      </AvatarFallback>
-                    </Avatar>
+                    <FacelessAvatar
+                      name={selectedChat.name}
+                      seed={selectedChat.id}
+                      size={48}
+                    />
                     <div>
                       <span className='col-start-2 row-span-2 text-sm font-medium lg:text-base'>
                         {selectedChat.name}
@@ -588,7 +588,7 @@ export function Chats() {
                       {/* <span className='text-muted-foreground col-start-2 row-span-2 row-start-2 line-clamp-1 block max-w-32 text-xs text-nowrap text-ellipsis lg:max-w-none lg:text-sm'>
                         {selectedChat.identity}
                       </span> */}
-                      <div className='mt-1 flex flex-wrap items-center gap-2 text-xs'>
+                      {/* <div className='mt-1 flex flex-wrap items-center gap-2 text-xs'>
                         <span
                           className={cn(
                             'inline-flex items-center gap-1',
@@ -612,7 +612,7 @@ export function Chats() {
                             Retry
                           </button>
                         )}
-                      </div>
+                      </div> */}
                     </div>
                   </div>
                 </div>
