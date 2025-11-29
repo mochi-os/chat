@@ -77,6 +77,10 @@ def action_messages(a):
 		a.error(404, "Chat not found")
 		return
 
+	if not mochi.db.exists("select 1 from members where chat=? and member=?", chat["id"], a.user.identity.id):
+		a.error(403, "Not a member of this chat")
+		return
+
 	messages = mochi.db.query("select * from ( select * from messages where chat=? order by id desc limit 1000 ) as ss order by id", chat["id"])
     
 	for m in messages:
@@ -92,6 +96,10 @@ def action_send(a):
 	chat = mochi.db.row("select * from chats where id=?", a.input("chat"))
 	if not chat:
 		a.error(404, "Chat not found")
+		return
+
+	if not mochi.db.exists("select 1 from members where chat=? and member=?", chat["id"], a.user.identity.id):
+		a.error(403, "Not a member of this chat")
 		return
 
 	body = a.input("body")
@@ -124,7 +132,11 @@ def action_view(a):
 	if not chat:
 		a.error(404, "Chat not found")
 		return
-    
+
+	if not mochi.db.exists("select 1 from members where chat=? and member=?", chat["id"], a.user.identity.id):
+		a.error(403, "Not a member of this chat")
+		return
+
 	mochi.service.call("notifications", "clear.object", "chat", chat["id"])
 	return {
 		"data": {"chat": chat}
