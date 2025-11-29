@@ -29,7 +29,7 @@ def action_create(a):
 	member_name = a.input("name_member")
 	if member_id and mochi.valid(member_id, "entity"):
 		# Look up the member in friends or directory to get their name
-		friend = mochi.service.call("friends", "get", member_id)
+		friend = mochi.service.call("friends", "get", a.user.identity.id, member_id)
 		if friend:
 			member_name = friend["name"]
 		elif not member_name:
@@ -44,7 +44,7 @@ def action_create(a):
 		members.append({"id": member_id, "name": member_name})
 	else:
 		#(original behavior)
-		for friend in mochi.service.call("friends", "list"):
+		for friend in mochi.service.call("friends", "list", a.user.identity.id):
 			if a.input(friend["id"]):
 				mochi.db.query("replace into members ( chat, member, name ) values ( ?, ?, ? )", chat, friend["id"], friend["name"])
 				members.append({"id": friend["id"], "name": friend["name"]})
@@ -67,7 +67,7 @@ def action_list(a):
 # Enter details of new chat
 def action_new(a):
 	return {
-		"data": {"name": a.user.identity.name, "friends": mochi.service.call("friends", "list")}
+		"data": {"name": a.user.identity.name, "friends": mochi.service.call("friends", "list", a.user.identity.id)}
 	}
 
 # Send latest previous messages to client
@@ -174,7 +174,7 @@ def event_message(e):
 
 # Received a new chat event
 def event_new(e):
-	f = mochi.service.call("friends", "get", e.content("from"))
+	f = mochi.service.call("friends", "get", e.header("to"), e.content("from"))
 	if not f:
 		return
     
