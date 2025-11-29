@@ -80,7 +80,7 @@ def action_messages(a):
 	messages = mochi.db.query("select * from ( select * from messages where chat=? order by id desc limit 1000 ) as ss order by id", chat["id"])
     
 	for m in messages:
-		m["attachments"] = mochi.attachment.get("chat/" + chat["id"] + "/" + m["id"])
+		m["attachments"] = mochi.attachment.list("chat/" + chat["id"] + "/" + m["id"])
 		m["created_local"] = mochi.time.local(m["created"])
 
 	return {
@@ -102,15 +102,17 @@ def action_send(a):
 	id = mochi.uid()
 	mochi.db.query("replace into messages ( id, chat, member, name, body, created ) values ( ?, ?, ?, ?, ?, ? )", id, chat["id"], a.user.identity.id, a.user.identity.name, body, mochi.time.now())
 
-	# If the request includes file uploads (multipart/form-data), attachments can be handled here.
-	# Current UI sends text only; skip upload to avoid errors when not multipart.
-	attachments = []
+	# Get other chat members for notification
+	members = mochi.db.query("select member from members where chat=? and member!=?", chat["id"], a.user.identity.id)
+
+	# Save any uploaded attachments and notify other members via _attachment/create events
+	attachments = mochi.attachment.save("chat/" + chat["id"] + "/" + id, "files", [], [], members)
+
 	mochi.websocket.write(chat["key"], {"created_local": mochi.time.local(mochi.time.now()), "name": a.user.identity.name, "body": body, "attachments": attachments})
 
-	for member in mochi.db.query("select * from members where chat=? and member!=?", chat["id"], a.user.identity.id):
-		# Only send if the member ID is a valid entity
-		if mochi.valid(member["member"], "entity"):
-			mochi.message.send({"from": a.user.identity.id, "to": member["member"], "service": "chat", "event": "message"}, {"chat": chat["id"], "message": id, "created": mochi.time.now(), "body": body}, attachments)
+	# Send message to other members (attachments are sent separately via federation)
+	for member in members:
+		mochi.message.send({"from": a.user.identity.id, "to": member["member"], "service": "chat", "event": "message"}, {"chat": chat["id"], "message": id, "created": mochi.time.now(), "body": body})
 
 	return {
 		"data": {"id": id}
@@ -152,8 +154,8 @@ def event_message(e):
     
 	mochi.db.query("replace into messages ( id, chat, member, name, body, created ) values ( ?, ?, ?, ?, ?, ? )", id, chat["id"], member["member"], member["name"], body, created)
 
-	attachments = mochi.event.segment()
-	mochi.attachment.save(attachments, "chat/" + chat["id"] + "/" + id, e.content("from"))
+	# Attachments arrive via _attachment/create events and are saved automatically
+	attachments = mochi.attachment.list("chat/" + chat["id"] + "/" + id)
 
 	mochi.websocket.write(chat["key"], {"created_local": mochi.time.local(created), "name": member["name"], "body": body, "attachments": attachments})
 	mochi.service.call("notifications", "create", "chat", "message", chat["id"], member["name"] + ": " + body, "/chat/" + chat["id"])
