@@ -4,6 +4,7 @@ import {
   Command,
   GalleryVerticalEnd,
   Home,
+  LayoutTemplate,
   MessagesSquare,
   UserPlus,
 } from 'lucide-react'
@@ -58,6 +59,12 @@ export const sidebarData: SidebarData = {
           title: 'Notifications',
           url: APP_ROUTES.NOTIFICATIONS.HOME,
           icon: Bell,
+          external: true,
+        },
+        {
+          title: 'Template',
+          url: APP_ROUTES.TEMPLATE.HOME,
+          icon: LayoutTemplate,
           external: true,
         },
       ],
