@@ -1,22 +1,18 @@
 import { useEffect } from 'react'
-import Cookies from 'js-cookie'
 import { useAuth } from './useAuth'
+import { getCookie } from '@/lib/cookies'
 
 export function useRequireAuth() {
   const { isAuthenticated, isInitialized, isLoading } = useAuth()
 
   useEffect(() => {
-    // Only redirect once initialization is complete
     if (isInitialized && !isAuthenticated && !isLoading) {
-      // Check login cookie directly (cookies are source of truth)
-      const login = Cookies.get('login')
+      const token = getCookie('token')
 
-      if (!login) {
-        // Save current location for redirect after login
+      if (!token) {
         const currentPath = window.location.pathname + window.location.search
-        const redirectUrl = `${import.meta.env.VITE_AUTH_SIGN_IN_URL}?redirect=${encodeURIComponent(currentPath)}`
+        const redirectUrl = `${import.meta.env.VITE_AUTH_LOGIN_URL}?redirect=${encodeURIComponent(currentPath)}`
 
-        // Use window.location.href for cross-app navigation (full page reload)
         window.location.href = redirectUrl
       }
     }
