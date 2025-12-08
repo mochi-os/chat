@@ -15,6 +15,8 @@ import {
   CheckCheck,
   FileText,
   X,
+  RotateCcw,
+  MessageSquarePlus,
 } from 'lucide-react'
 import {
   type Chat,
@@ -474,16 +476,17 @@ export function Chats() {
                   <p className='text-muted-foreground text-sm'>
                     {chatsErrorMessage}
                   </p>
-                  <Button
-                    variant='outline'
-                    size='sm'
-                    className='mt-2'
-                    onClick={() => {
-                      void chatsQuery.refetch()
-                    }}
-                  >
-                    Retry
-                  </Button>
+                      <Button
+                        variant='outline'
+                        size='sm'
+                        className='mt-2'
+                        onClick={() => {
+                          void chatsQuery.refetch()
+                        }}
+                      >
+                        <RotateCcw className='mr-1.5 h-4 w-4' />
+                        Retry
+                      </Button>
                 </div>
               ) : filteredChatList.length === 0 ? (
                 <div className='flex flex-col items-center justify-center py-8 text-center'>
@@ -493,16 +496,17 @@ export function Chats() {
                       ? 'No chats found matching your search.'
                       : 'No chats available.'}
                   </p>
-                  {!searchQuery && (
-                    <Button
-                      variant='outline'
-                      size='sm'
-                      className='mt-2'
-                      onClick={() => setCreateConversationDialog(true)}
-                    >
-                      Start a conversation
-                    </Button>
-                  )}
+                    {!searchQuery && (
+                      <Button
+                        variant='outline'
+                        size='sm'
+                        className='mt-2'
+                        onClick={() => setCreateConversationDialog(true)}
+                      >
+                        <MessageSquarePlus className='mr-1.5 h-4 w-4' />
+                        Start a conversation
+                      </Button>
+                    )}
                 </div>
               ) : (
                 filteredChatList.map((chat) => {
@@ -669,6 +673,7 @@ export function Chats() {
                               void messagesQuery.refetch()
                             }}
                           >
+                            <RotateCcw className='mr-1.5 h-4 w-4' />
                             Retry
                           </Button>
                         </div>
@@ -915,6 +920,7 @@ export function Chats() {
                   </p>
                 </div>
                 <Button onClick={() => setCreateConversationDialog(true)}>
+                  <MessageSquarePlus className='mr-2 h-4 w-4' />
                   Send message
                 </Button>
               </div>
