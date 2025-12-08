@@ -2,6 +2,7 @@ import {
   Bell,
   Home,
   LayoutTemplate,
+  MessageCircle,
   MessagesSquare,
   Newspaper,
   UserPlus,
@@ -41,6 +42,12 @@ export const sidebarData: SidebarData = {
           title: 'Feeds',
           url: APP_ROUTES.FEEDS.HOME,
           icon: Newspaper,
+          external: true,
+        },
+        {
+          title: 'Forums',
+          url: APP_ROUTES.FORUMS.HOME,
+          icon: MessageCircle,
           external: true,
         },
         {
