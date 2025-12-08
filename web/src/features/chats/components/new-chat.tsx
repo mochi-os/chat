@@ -290,13 +290,13 @@ export function NewChat({ onOpenChange, open }: NewChatProps) {
               >
                 {createChatMutation.isPending ? (
                   <>
-                    <Loader2 className='mr-2 h-4 w-4 animate-spin' />
                     Creating...
+                    <Loader2 className='ml-2 h-4 w-4 animate-spin' />
                   </>
                 ) : (
                   <>
-                    <MessageSquare className='mr-2 h-4 w-4' />
                     Create Chat
+                    <MessageSquare className='ml-2 h-4 w-4' />
                   </>
                 )}
               </Button>
