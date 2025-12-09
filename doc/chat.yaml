@@ -1,13 +1,52 @@
 openapi: "3.0.3"
 info:
   title: "Chat App API"
-  version: "0.1.0"
+  version: "1.0.0"
   description: |
-    HTTP API for the `chat` app 
+    HTTP API for the `chat` app - Real-time messaging with support for file attachments
+    
 paths:
-  "/api/chat/create":
+  "/chat":
+    get:
+      summary: Chat Single Page Application (SPA)
+      description: Serves the main web application interface for chat
+      responses:
+        "200":
+          description: HTML page
+          content:
+            text/html:
+              schema:
+                type: string
+
+  "/chat/attachments/{filename}":
+    get:
+      summary: Serve attachment file
+      description: Serves uploaded file attachments
+      parameters:
+        - name: filename
+          in: path
+          required: true
+          schema:
+            type: string
+          description: "Attachment filename"
+      responses:
+        "200":
+          description: File content
+          content:
+            application/octet-stream:
+              schema:
+                type: string
+                format: binary
+        "404":
+          description: File not found
+
+  "/chat/create":
     post:
       summary: Create a new chat
+      description: Creates a new chat with specified name and optional members
+      security:
+        - cookieAuth: []
+        - bearerAuth: []
       requestBody:
         required: true
         content:
@@ -19,22 +58,40 @@ paths:
                 name:
                   type: string
                   description: "Chat name"
+                  example: "Team Discussion"
                 members:
                   type: array
                   description: "Optional list of member entity IDs to add to the chat"
                   items:
                     type: string
+                    example: "1ABC...xyz"
       responses:
         "200":
-          description: Chat created
+          description: Chat created successfully
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/CreateChatResponse'
+        "400":
+          description: Invalid name
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        "401":
+          description: Not authenticated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
 
-  "/api/chat/list":
-    post:
-      summary: List chats
+  "/chat/list":
+    get:
+      summary: List all chats
+      description: Returns all chats the user is a member of, ordered by most recently updated
+      security:
+        - cookieAuth: []
+        - bearerAuth: []
       responses:
         "200":
           description: List of chats
@@ -42,32 +99,94 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ListChatsResponse'
+        "401":
+          description: Not authenticated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
 
-  "/api/chat/new":
-    post:
-      summary: Helper data for creating a new chat (defaults)
+  "/chat/new":
+    get:
+      summary: Get new chat form data
+      description: Returns default data for creating a new chat (user's name and friends list)
+      security:
+        - cookieAuth: []
+        - bearerAuth: []
       responses:
         "200":
-          description: Defaults including user's name and friends list
+          description: Form data with defaults
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/NewChatResponse'
+        "401":
+          description: Not authenticated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
 
-  "/api/chat/messages":
+  "/chat/{chat_id}":
     post:
+      summary: View chat details
+      description: Returns chat details including members and WebSocket key
+      security:
+        - cookieAuth: []
+        - bearerAuth: []
+      parameters:
+        - name: chat_id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: "Chat ID"
+        - name: chat
+          in: query
+          required: false
+          schema:
+            type: string
+          description: "Chat ID (alternative parameter)"
+      responses:
+        "200":
+          description: Chat details with key for WebSocket connection
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ViewChatResponse'
+        "401":
+          description: Not authenticated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        "403":
+          description: Not a member of this chat
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        "404":
+          description: Chat not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  "/chat/{chat_id}/messages":
+    get:
       summary: Retrieve messages for a chat
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              required: [chat]
-              properties:
-                chat:
-                  type: string
-                  description: "Chat id"
+      description: Returns all messages in the chat with attachments
+      security:
+        - cookieAuth: []
+        - bearerAuth: []
+      parameters:
+        - name: chat_id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: "Chat ID"
       responses:
         "200":
           description: Messages for the chat
@@ -75,56 +194,127 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/MessagesResponse'
+        "401":
+          description: Not authenticated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        "403":
+          description: Not a member of this chat
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        "404":
+          description: Chat not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
 
-  "/api/chat/send":
+  "/chat/{chat_id}/send":
     post:
       summary: Send a message to a chat
+      description: |
+        Sends a message to the chat. Supports text messages and file attachments.
+        Use multipart/form-data for file uploads, or application/json for text-only messages.
+      security:
+        - cookieAuth: []
+        - bearerAuth: []
+      parameters:
+        - name: chat_id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: "Chat ID"
       requestBody:
         required: true
         content:
           application/json:
             schema:
               type: object
-              required: [chat, body]
+              required: [body]
               properties:
                 chat:
                   type: string
-                  description: "Chat id"
+                  description: "Chat ID (can also come from URL path)"
                 body:
                   type: string
                   description: "Message body"
+                  example: "Hello, team!"
+          multipart/form-data:
+            schema:
+              type: object
+              required: [body]
+              properties:
+                chat:
+                  type: string
+                  description: "Chat ID"
+                body:
+                  type: string
+                  description: "Message body"
+                files:
+                  type: array
+                  items:
+                    type: string
+                    format: binary
+                  description: "Optional file attachments"
       responses:
         "200":
-          description: Message sent
+          description: Message sent successfully
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/SendMessageResponse'
-
-  "/api/chat/view":
-    post:
-      summary: View a chat's details
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              required: [chat]
-              properties:
-                chat:
-                  type: string
-                  description: "Chat id"
-      responses:
-        "200":
-          description: Chat details
+        "400":
+          description: Invalid message body
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ViewChatResponse'
+                $ref: '#/components/schemas/ErrorResponse'
+        "401":
+          description: Not authenticated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        "403":
+          description: Not a member of this chat
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        "404":
+          description: Chat not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
 
 components:
+  securitySchemes:
+    cookieAuth:
+      type: apiKey
+      in: cookie
+      name: login
+      description: "Login cookie set after successful authentication"
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: "JWT token in Authorization header"
+
   schemas:
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+          description: "Error message"
+          example: "Not authorized"
+
     Member:
       type: object
       properties:
