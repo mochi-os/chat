@@ -114,7 +114,9 @@ def action_send(a):
 	members = mochi.db.query("select member from members where chat=? and member!=?", chat["id"], a.user.identity.id)
 
 	# Save any uploaded attachments and notify other members via _attachment/create events
-	attachments = mochi.attachment.save("chat/" + chat["id"] + "/" + id, "files", [], [], members)
+	attachments = []
+	if a.input("files"):
+		attachments = mochi.attachment.save("chat/" + chat["id"] + "/" + id, "files", [], [], members)
 
 	mochi.websocket.write(chat["key"], {"created_local": mochi.time.local(mochi.time.now()), "name": a.user.identity.name, "body": body, "attachments": attachments})
 
