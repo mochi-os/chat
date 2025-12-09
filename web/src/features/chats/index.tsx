@@ -36,9 +36,7 @@ import { Button } from '@/components/ui/button'
 import { ScrollArea } from '@/components/ui/scroll-area'
 import { Separator } from '@/components/ui/separator'
 // import { ConfigDrawer } from '@/components/config-drawer' // Commented for future use
-import { Header } from '@/components/layout/header'
-import { Main } from '@/components/layout/main'
-import { NotificationsDropdown } from '@/components/notifications-dropdown'
+import { TopBar } from '@/components/layout/top-bar'
 // import { ProfileDropdown } from '@/components/profile-dropdown' // Commented for future use
 import { Search } from '@/components/search'
 import { NewChat } from './components/new-chat'
@@ -414,16 +412,11 @@ export function Chats() {
   return (
     <>
       {/* ===== Top Heading ===== */}
-      <Header>
+      <TopBar>
         <Search />
-        <div className='ms-auto flex items-center space-x-4'>
-          <NotificationsDropdown />
-          {/* <ConfigDrawer /> */}
-          {/* <ProfileDropdown /> */}
-        </div>
-      </Header>
+      </TopBar>
 
-      <Main fixed>
+      <main className='flex-1 overflow-hidden px-4 py-4 sm:px-6'>
         <section className='flex h-full min-h-0 gap-6'>
           {/* Left Side */}
           <div className='flex w-full flex-col gap-2 sm:w-56 lg:w-72 2xl:w-80'>
@@ -931,7 +924,7 @@ export function Chats() {
           onOpenChange={setCreateConversationDialog}
           open={createConversationDialogOpened}
         />
-      </Main>
+      </main>
     </>
   )
 }
