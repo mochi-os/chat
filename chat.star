@@ -150,7 +150,7 @@ def event_message(e):
 	if not chat:
 		return
 
-	member = mochi.db.row("select * from members where chat=? and member=?", chat["id"], e.content("from"))
+	member = mochi.db.row("select * from members where chat=? and member=?", chat["id"], e.header("from"))
 	if not member:
 		return
     
