@@ -4,7 +4,7 @@ import { format } from 'date-fns'
 import {
   ArrowLeft,
   MoreVertical,
-  Edit,
+  Plus,
   Paperclip,
   Phone,
   Search as SearchIcon,
@@ -34,7 +34,6 @@ import {
 import { Avatar, AvatarFallback } from '@/components/ui/avatar'
 import { Button } from '@/components/ui/button'
 import { ScrollArea } from '@/components/ui/scroll-area'
-import { Separator } from '@/components/ui/separator'
 // import { ConfigDrawer } from '@/components/config-drawer' // Commented for future use
 import { TopBar } from '@/components/layout/top-bar'
 // import { ProfileDropdown } from '@/components/profile-dropdown' // Commented for future use
@@ -416,21 +415,20 @@ export function Chats() {
       <main className='flex-1 overflow-hidden px-4 py-4 sm:px-6'>
         <section className='flex h-full min-h-0 gap-6'>
           {/* Left Side */}
-          <div className='flex w-full flex-col gap-2 sm:w-56 lg:w-72 2xl:w-80'>
-            <div className='bg-background sticky top-0 z-10 -mx-4 px-4 pb-3 shadow-md sm:static sm:z-auto sm:mx-0 sm:p-0 sm:shadow-none'>
+          <div className='flex w-full flex-col gap-2 sm:w-56 lg:w-72 2xl:w-80 bg-background rounded-lg border shadow-sm'>
+            <div className='sticky top-0 z-10 px-4 pb-3 pt-4 sm:static sm:z-auto'>
               <div className='flex items-center justify-between py-2'>
                 <div className='flex gap-2'>
-                  <h1 className='text-2xl font-bold'>Inbox</h1>
-                  <MessagesSquare size={20} />
+                  <h1 className='text-2xl font-bold'>Chats</h1>
                 </div>
 
                 <Button
                   size='icon'
                   variant='ghost'
                   onClick={() => setCreateConversationDialog(true)}
-                  className='rounded-lg'
+                  className='rounded-lg h-8 w-8'
                 >
-                  <Edit size={24} className='stroke-muted-foreground' />
+                  <Plus size={20} className='stroke-muted-foreground' />
                 </Button>
               </div>
 
@@ -451,8 +449,9 @@ export function Chats() {
                 />
               </label>
             </div>
+            <div className='border-b' />
 
-            <ScrollArea className='-mx-3 h-full overflow-scroll p-3'>
+            <ScrollArea className='h-full overflow-scroll px-2 py-2'>
               {isLoadingChats ? (
                 <div className='flex items-center justify-center py-8'>
                   <Loader2 className='h-6 w-6 animate-spin' />
@@ -534,7 +533,6 @@ export function Chats() {
                           </div>
                         </div>
                       </button>
-                      <Separator className='my-1' />
                     </Fragment>
                   )
                 })
@@ -546,13 +544,13 @@ export function Chats() {
           {selectedChat ? (
             <div
               className={cn(
-                'bg-background absolute inset-0 start-full z-50 hidden w-full flex-1 flex-col border shadow-xs sm:static sm:z-auto sm:flex sm:rounded-md',
+                'bg-background absolute inset-0 start-full z-50 hidden w-full flex-1 flex-col rounded-lg border shadow-sm sm:static sm:z-auto sm:flex',
                 'min-h-0',
                 mobileSelectedChat && 'start-0 flex'
               )}
             >
               {/* Top Part */}
-              <div className='bg-card mb-1 flex flex-none justify-between p-4 shadow-lg sm:rounded-t-md'>
+              <div className='mb-1 flex flex-none justify-between p-4 sm:rounded-t-lg border-b'>
                 {/* Left */}
                 <div className='flex gap-3'>
                   <Button
@@ -896,7 +894,7 @@ export function Chats() {
           ) : (
             <div
               className={cn(
-                'bg-card absolute inset-0 start-full z-50 hidden w-full flex-1 flex-col justify-center rounded-md border shadow-xs sm:static sm:z-auto sm:flex'
+                'bg-background absolute inset-0 start-full z-50 hidden w-full flex-1 flex-col justify-center rounded-lg border shadow-sm sm:static sm:z-auto sm:flex'
               )}
             >
               <div className='flex flex-col items-center space-y-6'>

@@ -73,7 +73,7 @@ const toWssUrl = (rawUrl: string): string => {
   const url = new URL(rawUrl || origin, origin)
   if (url.protocol === 'http:') url.protocol = 'ws:'
   else if (url.protocol === 'https:') url.protocol = 'wss:'
-  url.pathname = '/websocket'
+  url.pathname = url.pathname.replace(/\/+$/, '') + '/websocket'
   return url.toString()
 }
 
