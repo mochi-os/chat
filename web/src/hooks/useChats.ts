@@ -1,4 +1,5 @@
 import {
+  useInfiniteQuery,
   useMutation,
   useQuery,
   useQueryClient,
@@ -64,6 +65,33 @@ export const useChatMessagesQuery = (
     ...options,
   })
 
+const DEFAULT_PAGE_SIZE = 30
+
+export const useInfiniteMessagesQuery = (
+  chatId?: string,
+  options?: {
+    enabled?: boolean
+  }
+) =>
+  useInfiniteQuery({
+    queryKey: chatKeys.messages(chatId ?? 'unknown'),
+    enabled: Boolean(chatId) && (options?.enabled ?? true),
+    initialPageParam: 1,
+    queryFn: ({ pageParam }) => {
+      if (!chatId) {
+        return Promise.resolve<GetMessagesResponse>({ messages: [] })
+      }
+      return chatsApi.messages(chatId, { page: pageParam as number, limit: DEFAULT_PAGE_SIZE })
+    },
+    getNextPageParam: (lastPage, allPages) => {
+      // If we got fewer messages than the page size, there are no more pages
+      if (!lastPage.messages || lastPage.messages.length < DEFAULT_PAGE_SIZE) {
+        return undefined
+      }
+      return allPages.length + 1
+    },
+  })
+
 interface SendMessageVariables extends SendMessageRequest {
   chatId: string
 }
@@ -82,10 +110,22 @@ export const useSendMessageMutation = (
     mutationFn: ({ chatId, ...payload }) =>
       chatsApi.sendMessage(chatId, payload),
     onSuccess: (data, variables, context, mutation) => {
+      // Only invalidate messages for this specific chat
       queryClient.invalidateQueries({
         queryKey: chatKeys.messages(variables.chatId),
       })
-      queryClient.invalidateQueries({ queryKey: chatKeys.all() })
+      // Update the specific chat in the list without refetching all
+      queryClient.setQueryData<GetChatsResponse>(chatKeys.all(), (old) => {
+        if (!old) return old
+        return {
+          ...old,
+          chats: old.chats.map((chat) =>
+            chat.id === variables.chatId
+              ? { ...chat, key: variables.body || chat.key }
+              : chat
+          ),
+        }
+      })
       onSuccess?.(data, variables, context, mutation)
     },
     ...restOptions,
