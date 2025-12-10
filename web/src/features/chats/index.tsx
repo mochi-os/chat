@@ -38,7 +38,6 @@ import { Separator } from '@/components/ui/separator'
 // import { ConfigDrawer } from '@/components/config-drawer' // Commented for future use
 import { TopBar } from '@/components/layout/top-bar'
 // import { ProfileDropdown } from '@/components/profile-dropdown' // Commented for future use
-import { Search } from '@/components/search'
 import { NewChat } from './components/new-chat'
 
 type AttachmentKind = 'image' | 'video' | 'file'
@@ -412,9 +411,7 @@ export function Chats() {
   return (
     <>
       {/* ===== Top Heading ===== */}
-      <TopBar>
-        <Search />
-      </TopBar>
+      <TopBar />
 
       <main className='flex-1 overflow-hidden px-4 py-4 sm:px-6'>
         <section className='flex h-full min-h-0 gap-6'>
