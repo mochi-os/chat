@@ -411,7 +411,7 @@ export function Chats() {
   return (
     <>
       {/* ===== Top Heading ===== */}
-      <TopBar />
+      <TopBar title="Chat" />
 
       <main className='flex-1 overflow-hidden px-4 py-4 sm:px-6'>
         <section className='flex h-full min-h-0 gap-6'>
