@@ -4,7 +4,7 @@ import {
   type AxiosRequestConfig,
   type AxiosResponse,
 } from 'axios'
-import apiClient from '@/lib/apiClient'
+import { apiClient } from '@mochi/common'
 
 const devConsole = globalThis.console
 

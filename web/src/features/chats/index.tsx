@@ -23,21 +23,21 @@ import {
   type ChatMessage,
   type ChatMessageAttachment,
 } from '@/api/chats'
-import { useAuthStore } from '@/stores/auth-store'
-import { cn } from '@/lib/utils'
+import { useAuthStore } from '@mochi/common'
+import { cn } from '@mochi/common'
 import useChatWebsocket from '@/hooks/useChatWebsocket'
 import {
   useChatMessagesQuery,
   useChatsQuery,
   useSendMessageMutation,
 } from '@/hooks/useChats'
-import { Avatar, AvatarFallback } from '@/components/ui/avatar'
-import { Button } from '@/components/ui/button'
-import { ScrollArea } from '@/components/ui/scroll-area'
-import { Separator } from '@/components/ui/separator'
-// import { ConfigDrawer } from '@/components/config-drawer' // Commented for future use
-import { TopBar } from '@/components/layout/top-bar'
-// import { ProfileDropdown } from '@/components/profile-dropdown' // Commented for future use
+import { Avatar, AvatarFallback } from '@mochi/common'
+import { Button } from '@mochi/common'
+import { ScrollArea } from '@mochi/common'
+import { Separator } from '@mochi/common'
+// import { ConfigDrawer } from '@mochi/common' // Commented for future use
+import { TopBar } from '@mochi/common'
+// import { ProfileDropdown } from '@mochi/common' // Commented for future use
 import { NewChat } from './components/new-chat'
 
 type AttachmentKind = 'image' | 'video' | 'file'

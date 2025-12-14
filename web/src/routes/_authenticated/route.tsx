@@ -1,7 +1,6 @@
 import { createFileRoute } from '@tanstack/react-router'
 import { SimpleLayout } from '@/components/layout/simple-layout'
-import { useAuthStore } from '@/stores/auth-store'
-import { getCookie } from '@/lib/cookies'
+import { useAuthStore, getCookie } from '@mochi/common'
 
 export const Route = createFileRoute('/_authenticated')({
   beforeLoad: ({ location }) => {

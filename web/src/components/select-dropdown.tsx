@@ -1,13 +1,13 @@
 import { Loader } from 'lucide-react'
-import { cn } from '@/lib/utils'
-import { FormControl } from '@/components/ui/form'
+import { cn } from '@mochi/common'
+import { FormControl } from '@mochi/common'
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select'
+} from '@mochi/common'
 
 type SelectDropdownProps = {
   onValueChange?: (value: string) => void

@@ -1,7 +1,6 @@
 import axios, { type AxiosError, type InternalAxiosRequestConfig } from 'axios'
 import { toast } from 'sonner'
-import { useAuthStore } from '@/stores/auth-store'
-import { getCookie, removeCookie } from '@/lib/cookies'
+import { useAuthStore, getCookie, removeCookie } from '@mochi/common'
 
 const devConsole = globalThis.console
 

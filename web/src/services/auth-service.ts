@@ -1,4 +1,4 @@
-import { useAuthStore } from '@/stores/auth-store'
+import { useAuthStore } from '@mochi/common'
 
 export const logout = async (): Promise<void> => {
   try {

@@ -1,11 +1,6 @@
 import { Outlet } from '@tanstack/react-router'
-import { getCookie } from '@/lib/cookies'
-import { cn } from '@/lib/utils'
-import { LayoutProvider } from '@/context/layout-provider'
-import { SearchProvider } from '@/context/search-provider'
-import { SidebarInset, SidebarProvider } from '@/components/ui/sidebar'
+import { getCookie, cn, LayoutProvider, SearchProvider, SidebarInset, SidebarProvider, TopBar } from '@mochi/common'
 import { AppSidebar } from '@/components/layout/app-sidebar'
-import { TopBar } from '@/components/layout/top-bar'
 
 type AuthenticatedLayoutProps = {
   children?: React.ReactNode
@@ -18,7 +13,7 @@ export function AuthenticatedLayout({ children }: AuthenticatedLayoutProps) {
     <SearchProvider>
       <LayoutProvider>
         <div className="flex h-svh flex-col">
-          <TopBar />
+          <TopBar title="Chat" />
           <SidebarProvider defaultOpen={defaultOpen} className="flex-1 overflow-hidden">
             <AppSidebar />
             <SidebarInset

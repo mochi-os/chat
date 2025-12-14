@@ -1,18 +1,19 @@
-import { useLayout } from '@/context/layout-provider'
 import {
+  useLayout,
   Sidebar,
   SidebarContent,
   SidebarRail,
-} from '@/components/ui/sidebar'
+  NavGroup,
+  type NavGroupType,
+} from '@mochi/common'
 import { sidebarData } from './data/sidebar-data'
-import { NavGroup } from './nav-group'
 
 export function AppSidebar() {
   const { collapsible, variant } = useLayout()
   return (
     <Sidebar collapsible={collapsible} variant={variant}>
       <SidebarContent className="pt-6">
-        {sidebarData.navGroups.map((props) => (
+        {sidebarData.navGroups.map((props: NavGroupType) => (
           <NavGroup key={props.title} {...props} />
         ))}
       </SidebarContent>

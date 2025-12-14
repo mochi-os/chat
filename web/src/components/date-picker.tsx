@@ -1,12 +1,12 @@
 import { format } from 'date-fns'
 import { Calendar as CalendarIcon } from 'lucide-react'
-import { Button } from '@/components/ui/button'
-import { Calendar } from '@/components/ui/calendar'
+import { Button } from '@mochi/common'
+import { Calendar } from '@mochi/common'
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from '@/components/ui/popover'
+} from '@mochi/common'
 
 type DatePickerProps = {
   selected: Date | undefined
