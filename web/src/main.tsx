@@ -9,8 +9,6 @@ import {
 import { RouterProvider, createRouter } from '@tanstack/react-router'
 import { toast } from 'sonner'
 import { useAuthStore, ThemeProvider } from '@mochi/common'
-// import { DirectionProvider } from './context/direction-provider' // Commented for future use (RTL support)
-// import { FontProvider } from './context/font-provider' // Commented for future use (Font switching)
 import { WebsocketProvider } from './context/websocket-provider'
 // Generated Routes
 import { routeTree } from './routeTree.gen'
@@ -97,13 +95,9 @@ if (!rootElement.innerHTML) {
     <StrictMode>
       <QueryClientProvider client={queryClient}>
         <ThemeProvider>
-          {/* <FontProvider> */}
-            {/* <DirectionProvider> */}
-              <WebsocketProvider>
-                <RouterProvider router={router} />
-              </WebsocketProvider>
-            {/* </DirectionProvider> */}
-          {/* </FontProvider> */}
+          <WebsocketProvider>
+            <RouterProvider router={router} />
+          </WebsocketProvider>
         </ThemeProvider>
       </QueryClientProvider>
     </StrictMode>
