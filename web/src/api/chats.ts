@@ -13,7 +13,7 @@ import type {
   SendMessageRequest,
   SendMessageResponse,
 } from '@/api/types/chats'
-import { requestHelpers } from '@/lib/request'
+import { requestHelpers } from '@mochi/common'
 
 const isRecord = (value: unknown): value is Record<string, unknown> =>
   Boolean(value) && typeof value === 'object'

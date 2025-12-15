@@ -14,7 +14,7 @@ import {
   ResponsiveDialogTitle,
 } from '@mochi/common'
 import { ScrollArea } from '@mochi/common'
-import { FacelessAvatar } from '@/components/faceless-avatar'
+import { FacelessAvatar } from '@mochi/common'
 
 type NewChatProps = {
   open: boolean
