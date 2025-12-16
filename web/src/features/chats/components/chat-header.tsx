@@ -11,15 +11,19 @@ import { Button } from '@mochi/common'
 import type { WebsocketConnectionStatus } from '@/lib/websocket-manager'
 import { cn } from '@mochi/common'
 
+interface WebsocketStatusMeta {
+  label: string
+  dotClass?: string
+  textClass?: string
+  color?: string
+  showSpinner?: boolean
+}
+
 interface ChatHeaderProps {
   selectedChat: Chat
   onBack: () => void
   websocketStatus: WebsocketConnectionStatus
-  websocketStatusMeta: {
-    label: string
-    color: string
-    showSpinner?: boolean
-  }
+  websocketStatusMeta: WebsocketStatusMeta
   onReconnect: () => void
 }
 
@@ -31,53 +35,81 @@ export function ChatHeader({
   onReconnect,
 }: ChatHeaderProps) {
   return (
-    <div className='bg-background flex shrink-0 items-center justify-between border-b px-6 py-4'>
-      <div className='flex items-center gap-3'>
+    <div className='bg-card mb-1 flex flex-none justify-between p-4 shadow-lg sm:rounded-t-md'>
+      {/* Left */}
+      <div className='flex gap-3'>
         <Button
-          variant='ghost'
           size='icon'
-          className='-ml-2 sm:hidden'
+          variant='ghost'
+          className='-ms-2 h-full sm:hidden'
           onClick={onBack}
         >
-          <ArrowLeft className='h-5 w-5' />
+          <ArrowLeft className='rtl:rotate-180' />
         </Button>
-        <Avatar className='h-10 w-10'>
-          <AvatarFallback>
-            {selectedChat.name.charAt(0).toUpperCase()}
-          </AvatarFallback>
-        </Avatar>
-        <div>
-          <h2 className='font-semibold leading-none'>{selectedChat.name}</h2>
-          <div
-            className='flex cursor-pointer items-center gap-1.5 pt-1'
-            onClick={
-              websocketStatus === 'error' ? onReconnect : undefined
-            }
-          >
-            <div
-              className={cn(
-                'h-2 w-2 rounded-full',
-                websocketStatusMeta.color
-              )}
-            />
-            <span className='text-muted-foreground text-xs'>
-              {websocketStatusMeta.label}
+        <div className='flex items-center gap-2 lg:gap-4'>
+          <Avatar className='size-9 lg:size-11'>
+            <AvatarFallback>
+              {selectedChat.name.charAt(0).toUpperCase()}
+            </AvatarFallback>
+          </Avatar>
+          <div>
+            <span className='col-start-2 row-span-2 text-sm font-medium lg:text-base'>
+              {selectedChat.name}
             </span>
-            {websocketStatusMeta.showSpinner && (
-              <Loader2 className='text-muted-foreground h-3 w-3 animate-spin' />
-            )}
+            <div className='mt-1 flex flex-wrap items-center gap-2 text-xs'>
+              <span
+                className={cn(
+                  'inline-flex items-center gap-1',
+                  websocketStatusMeta.textClass
+                )}
+              >
+                <span
+                  className={cn(
+                    'h-2 w-2 rounded-full',
+                    websocketStatusMeta.dotClass || websocketStatusMeta.color
+                  )}
+                />
+                {websocketStatusMeta.label}
+                {websocketStatusMeta.showSpinner && (
+                  <Loader2 className='h-3 w-3 animate-spin' />
+                )}
+              </span>
+              {websocketStatus === 'error' && (
+                <button
+                  type='button'
+                  className='text-muted-foreground hover:text-foreground underline decoration-dotted underline-offset-2 transition'
+                  onClick={onReconnect}
+                >
+                  Retry
+                </button>
+              )}
+            </div>
           </div>
         </div>
       </div>
-      <div className='flex items-center gap-1'>
-        <Button variant='ghost' size='icon'>
-          <Phone className='h-5 w-5' />
+
+      {/* Right */}
+      <div className='-me-1 flex items-center gap-1 lg:gap-2'>
+        <Button
+          size='icon'
+          variant='ghost'
+          className='hidden size-8 rounded-full sm:inline-flex lg:size-10'
+        >
+          <Video size={22} className='stroke-muted-foreground' />
         </Button>
-        <Button variant='ghost' size='icon'>
-          <Video className='h-5 w-5' />
+        <Button
+          size='icon'
+          variant='ghost'
+          className='hidden size-8 rounded-full sm:inline-flex lg:size-10'
+        >
+          <Phone size={22} className='stroke-muted-foreground' />
         </Button>
-        <Button variant='ghost' size='icon'>
-          <MoreVertical className='h-5 w-5' />
+        <Button
+          size='icon'
+          variant='ghost'
+          className='h-10 rounded-md sm:h-8 sm:w-4 lg:h-10 lg:w-6'
+        >
+          <MoreVertical className='stroke-muted-foreground sm:size-5' />
         </Button>
       </div>
     </div>

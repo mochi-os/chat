@@ -10,7 +10,7 @@ export function ChatEmptyState({ onNewChat }: ChatEmptyStateProps) {
   return (
     <div
       className={cn(
-        'bg-background absolute inset-0 start-full z-50 hidden w-full flex-1 flex-col justify-center rounded-lg border shadow-sm sm:static sm:z-auto sm:flex'
+        'border-border bg-card absolute inset-0 start-full z-50 hidden h-full w-full flex-1 flex-col justify-center rounded-lg border shadow-sm sm:static sm:z-auto sm:flex'
       )}
     >
       <div className='flex flex-col items-center space-y-6'>

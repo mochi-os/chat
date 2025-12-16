@@ -1,6 +1,6 @@
 import { Fragment, useEffect, useMemo, useRef } from 'react'
 import { format } from 'date-fns'
-import { CheckCheck, ChevronUp, Loader2, MessagesSquare, RotateCcw } from 'lucide-react'
+import { CheckCheck, Loader2, MessagesSquare, RotateCcw } from 'lucide-react'
 import type { ChatMessage } from '@/api/chats'
 import type { UseInfiniteQueryResult, InfiniteData } from '@tanstack/react-query'
 import type { GetMessagesResponse } from '@/api/types/chats'
@@ -25,42 +25,32 @@ export function ChatMessageList({
   currentUserEmail,
 }: ChatMessageListProps) {
   const messagesEndRef = useRef<HTMLDivElement | null>(null)
-  const hasMoreMessages = messagesQuery.hasNextPage
-  const isFetchingMore = messagesQuery.isFetchingNextPage
 
   const isCurrentUserMessage = (message: ChatMessage) => {
     if (!currentUserEmail) return false
     return (
+      message.email === currentUserEmail ||
       message.name === currentUserEmail ||
-      message.member === currentUserEmail ||
-      message.name === 'You'
+      message.member === currentUserEmail
     )
   }
 
   // Group messages by date
-  const groupedMessages = useMemo(
-    () =>
-      chatMessages.reduce((acc: Record<string, ChatMessage[]>, message) => {
-        const date = new Date(message.created * 1000)
-        const key = format(date, 'd MMM, yyyy')
-
-        if (!acc[key]) {
-          acc[key] = []
-        }
-        acc[key].push(message)
-
-        return acc
-      }, {}),
-    [chatMessages]
-  )
+  const groupedMessages = useMemo(() => {
+    const groups: Record<string, ChatMessage[]> = {}
+    chatMessages.forEach((message) => {
+      const date = format(new Date(message.created * 1000), 'MMMM d, yyyy')
+      if (!groups[date]) {
+        groups[date] = []
+      }
+      groups[date].push(message)
+    })
+    return groups
+  }, [chatMessages])
 
   useEffect(() => {
-    // Scroll to bottom on initial load or if we are not fetching history
-    // This is a naive implementation to approximate previous behavior
-    if (!isFetchingMore && chatMessages.length > 0) {
-       messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
-    }
-  }, [chatMessages.length, isFetchingMore])
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
+  }, [chatMessages])
 
   if (isLoadingMessages) {
     return (
@@ -105,107 +95,85 @@ export function ChatMessageList({
 
   return (
     <ScrollArea className='flex h-full w-full flex-1 flex-col justify-start gap-4 py-2 pe-4 pb-4'>
-      {hasMoreMessages && (
-        <div className='flex justify-center py-4'>
-          <Button
-            variant='ghost'
-            size='sm'
-            onClick={() => void messagesQuery.fetchNextPage()}
-            disabled={isFetchingMore}
-            className='text-muted-foreground'
-          >
-            {isFetchingMore ? (
-              <>
-                <Loader2 className='mr-2 h-4 w-4 animate-spin' />
-                Loading...
-              </>
-            ) : (
-              <>
-                <ChevronUp className='mr-2 h-4 w-4' />
-                Load older messages
-              </>
-            )}
-          </Button>
-        </div>
-      )}
-
       {Object.keys(groupedMessages).map((key) => (
         <Fragment key={key}>
+          {/* Date separator */}
           <div className='my-4 flex items-center justify-center'>
             <div className='bg-muted text-muted-foreground rounded-full px-3 py-1 text-xs font-medium'>
               {key}
             </div>
           </div>
 
-          {groupedMessages[key].map((message) => {
+          {groupedMessages[key].map((message, index) => {
             const isSent = isCurrentUserMessage(message)
             return (
               <div
-                key={message.id}
+                key={`${message.id}-${index}`}
                 className={cn(
-                  'flex w-full',
+                  'mb-1 flex w-full',
                   isSent ? 'justify-end' : 'justify-start'
                 )}
               >
                 <div
                   className={cn(
-                    'flex max-w-[80%] flex-col gap-1',
-                    isSent ? 'items-end' : 'items-start'
+                    'max-w-[70%] px-4 py-3 wrap-break-word shadow-sm',
+                    'rounded-2xl',
+                    isSent
+                      ? 'rounded-br-md bg-blue-500 text-white dark:bg-blue-600'
+                      : 'rounded-bl-md bg-gray-100 text-gray-900 dark:bg-gray-700 dark:text-gray-100'
                   )}
                 >
-                  <div className='flex items-end gap-2'>
-                    <div
-                      className={cn(
-                        'rounded-2xl px-4 py-2 text-sm shadow-sm',
-                        isSent
-                          ? 'bg-blue-600 text-white rounded-br-none'
-                          : 'bg-white dark:bg-gray-800 border text-gray-900 dark:text-gray-100 rounded-bl-none'
-                      )}
-                    >
-                      {!isSent && (
-                        <p className='mb-1 text-xs font-medium opacity-70'>
-                          {message.name || message.member}
-                        </p>
-                      )}
-                      <p className='leading-relaxed whitespace-pre-wrap break-words'>
-                        {message.body}
-                      </p>
-
-                      {message.attachments &&
-                        message.attachments.length > 0 && (
-                          <div className='mt-2 flex flex-col gap-2'>
-                            {message.attachments.map((attachment, index) => (
-                              <MessageAttachmentPreview
-                                key={index}
-                                attachment={attachment}
-                                index={index}
-                              />
-                            ))}
-                          </div>
-                        )}
+                  {/* Sender name for received messages */}
+                  {!isSent && (
+                    <div className='text-muted-foreground mb-1 text-xs font-medium'>
+                      {message.name}
                     </div>
+                  )}
+
+                  {/* Message content */}
+                  <div className='text-sm leading-relaxed'>
+                    {message.body}
                   </div>
 
+                  {message.attachments?.length ? (
+                    <div className='mt-3 flex flex-wrap gap-3'>
+                      {message.attachments.map(
+                        (attachment, attachmentIndex) => (
+                          <MessageAttachmentPreview
+                            key={
+                              attachment.id ??
+                              `${message.id}-attachment-${attachmentIndex}`
+                            }
+                            attachment={attachment}
+                            index={attachmentIndex}
+                          />
+                        )
+                      )}
+                    </div>
+                  ) : null}
+
+                  {/* Timestamp and read receipts */}
                   <div
                     className={cn(
-                      'mt-1 flex items-center gap-1 text-xs',
+                      'mt-2 flex items-center justify-end gap-1 text-xs',
                       isSent
-                        ? 'text-muted-foreground' // Changed from white/70 because it's outside bubble now? No it was inside/outside logic was specific.
-                        // Wait, previous code puts timestamp inside? No, outside.
-                        // Actually in previous code:
-                        /*
-                        <div className={cn('mt-2 flex items-center justify-end gap-1 text-xs', ...)}>
-                        */
-                        // It was inside the `bg-blue-600` div? 
-                        // Let's re-read line 761 in index.tsx.
-                        : 'text-muted-foreground'
+                        ? 'text-white/70'
+                        : 'text-gray-600 dark:text-gray-300'
                     )}
                   >
                     <span>
-                      {format(new Date(message.created * 1000), 'h:mm a')}
+                      {format(
+                        new Date(message.created * 1000),
+                        'h:mm a'
+                      )}
                     </span>
                     {isSent && (
-                      <CheckCheck size={12} className='text-green-500' />
+                      <div className='flex items-center'>
+                        <CheckCheck
+                          size={12}
+                          className='text-green-500'
+                        />
+                      </div>
                     )}
                   </div>
                 </div>

@@ -1,5 +1,5 @@
+import { FileText } from 'lucide-react'
 import type { ChatMessageAttachment } from '@/api/chats'
-import { FileText, Video } from 'lucide-react'
 import { detectRemoteAttachmentKind, formatFileSize } from '../utils'
 
 interface MessageAttachmentPreviewProps {
@@ -7,80 +7,56 @@ interface MessageAttachmentPreviewProps {
   index: number
 }
 
-export const MessageAttachmentPreview = ({
+export function MessageAttachmentPreview({
   attachment,
   index,
-}: MessageAttachmentPreviewProps) => {
+}: MessageAttachmentPreviewProps) {
   const kind = detectRemoteAttachmentKind(attachment)
-  const fallbackLabel = `Attachment ${index + 1}`
-  const label = attachment.name ?? attachment.url ?? fallbackLabel
-  const previewUrl =
-    typeof attachment.url === 'string' && attachment.url.length > 0
-      ? attachment.url
-      : undefined
-  const sizeLabel =
-    typeof attachment.size === 'number'
-      ? formatFileSize(attachment.size)
-      : undefined
-  const canRenderMedia =
-    Boolean(previewUrl) && (kind === 'image' || kind === 'video')
+  const sizeLabel = formatFileSize(attachment.size)
 
-  const mediaPreview = canRenderMedia ? (
-    kind === 'image' ? (
-      <img
-        src={previewUrl}
-        alt={label}
-        className='h-16 w-16 rounded-xl object-cover'
-      />
-    ) : (
-      <video
-        src={previewUrl}
-        className='h-16 w-16 rounded-xl object-cover'
-        muted
-        loop
-        playsInline
-      />
-    )
-  ) : (
-    <div className='bg-muted text-muted-foreground flex h-16 w-16 items-center justify-center rounded-xl'>
-      {kind === 'video' ? (
-        <Video className='h-5 w-5' />
-      ) : (
-        <FileText className='h-5 w-5' />
-      )}
-    </div>
-  )
-
-  const textSection = (
-    <div className='min-w-0 flex-1'>
-      <p className='truncate text-xs font-medium'>{label}</p>
-      {sizeLabel && (
-        <p className='text-muted-foreground text-[10px]'>{sizeLabel}</p>
-      )}
-      {previewUrl && (
-        <p className='text-primary text-[11px] font-medium'>Open</p>
-      )}
-    </div>
-  )
-
-  if (previewUrl) {
+  if (kind === 'image') {
     return (
       <a
-        href={previewUrl}
+        href={attachment.url}
         target='_blank'
-        rel='noreferrer'
-        className='hover:bg-accent/50 group flex max-w-[240px] items-center gap-3 rounded-2xl border p-2 text-left transition-colors'
+        rel='noopener noreferrer'
+        className='block'
       >
-        {mediaPreview}
-        {textSection}
+        <img
+          src={attachment.url}
+          alt={attachment.name ?? `Attachment ${index + 1}`}
+          className='max-h-48 max-w-full rounded-lg object-cover'
+        />
       </a>
     )
   }
 
+  if (kind === 'video') {
+    return (
+      <video
+        src={attachment.url}
+        controls
+        className='max-h-48 max-w-full rounded-lg'
+      />
+    )
+  }
+
   return (
-    <div className='flex max-w-[240px] items-center gap-3 rounded-2xl border p-2 text-left'>
-      {mediaPreview}
-      {textSection}
-    </div>
+    <a
+      href={attachment.url}
+      target='_blank'
+      rel='noopener noreferrer'
+      className='bg-muted/50 hover:bg-muted flex items-center gap-2 rounded-lg px-3 py-2 transition-colors'
+    >
+      <FileText className='text-muted-foreground h-5 w-5' />
+      <div className='min-w-0 flex-1'>
+        <p className='truncate text-xs font-medium'>
+          {attachment.name ?? 'File'}
+        </p>
+        {sizeLabel && (
+          <p className='text-muted-foreground text-[10px]'>{sizeLabel}</p>
+        )}
+      </div>
+    </a>
   )
 }
