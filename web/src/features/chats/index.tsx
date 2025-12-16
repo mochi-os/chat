@@ -35,9 +35,6 @@ import { Avatar, AvatarFallback } from '@mochi/common'
 import { Button } from '@mochi/common'
 import { ScrollArea } from '@mochi/common'
 import { Separator } from '@mochi/common'
-// import { ConfigDrawer } from '@mochi/common' // Commented for future use
-import { TopBar } from '@mochi/common'
-// import { ProfileDropdown } from '@mochi/common' // Commented for future use
 import { NewChat } from './components/new-chat'
 
 type AttachmentKind = 'image' | 'video' | 'file'
@@ -409,11 +406,7 @@ export function Chats() {
   }
 
   return (
-    <>
-      {/* ===== Top Heading ===== */}
-      <TopBar title="Chat" />
-
-      <main className='flex-1 overflow-hidden px-4 py-4 sm:px-6'>
+    <main className='flex-1 overflow-hidden px-4 py-4 sm:px-6'>
         <section className='flex h-full min-h-0 gap-6'>
           {/* Left Side */}
           <div className='flex w-full flex-col gap-2 sm:w-56 lg:w-72 2xl:w-80'>
@@ -921,8 +914,7 @@ export function Chats() {
           onOpenChange={setCreateConversationDialog}
           open={createConversationDialogOpened}
         />
-      </main>
-    </>
+    </main>
   )
 }
 
