@@ -1,15 +1,15 @@
 import { useState, useEffect } from 'react'
 import { LayoutGrid } from 'lucide-react'
 import axios from 'axios'
-import { Button } from '@/components/ui/button'
+import { Button } from '@mochi/common'
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from '@/components/ui/popover'
-import { ScrollArea } from '@/components/ui/scroll-area'
-import { getCookie } from '@/lib/cookies'
-import { useAuthStore } from '@/stores/auth-store'
+} from '@mochi/common'
+import { ScrollArea } from '@mochi/common'
+import { getCookie } from '@mochi/common'
+import { useAuthStore } from '@mochi/common'
 
 interface AppIcon {
   path: string

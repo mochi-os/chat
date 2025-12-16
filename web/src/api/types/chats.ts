@@ -4,6 +4,7 @@ export interface Chat {
   key: string
   name: string
   updated: number
+  members?: ChatMember[]
 }
 
 export interface ChatMember {
@@ -26,6 +27,7 @@ export interface ChatMessage {
   body: string
   member: string
   name: string
+  email?: string
   created: number
   created_local: string
   attachments: ChatMessageAttachment[]

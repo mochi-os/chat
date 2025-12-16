@@ -2,19 +2,19 @@ import { useEffect, useMemo, useState } from 'react'
 import { Loader2, MessageSquare, Search, UserPlus, X } from 'lucide-react'
 import { toast } from 'sonner'
 import { useNewChatFriendsQuery, useCreateChatMutation } from '@/hooks/useChats'
-import { Badge } from '@/components/ui/badge'
-import { Button } from '@/components/ui/button'
-import { Checkbox } from '@/components/ui/checkbox'
-import { Input } from '@/components/ui/input'
+import { Badge } from '@mochi/common'
+import { Button } from '@mochi/common'
+import { Checkbox } from '@mochi/common'
+import { Input } from '@mochi/common'
 import {
   ResponsiveDialog,
   ResponsiveDialogContent,
   ResponsiveDialogDescription,
   ResponsiveDialogHeader,
   ResponsiveDialogTitle,
-} from '@/components/ui/responsive-dialog'
-import { ScrollArea } from '@/components/ui/scroll-area'
-import { FacelessAvatar } from '@/components/faceless-avatar'
+} from '@mochi/common'
+import { ScrollArea } from '@mochi/common'
+import { FacelessAvatar } from '@mochi/common'
 
 type NewChatProps = {
   open: boolean

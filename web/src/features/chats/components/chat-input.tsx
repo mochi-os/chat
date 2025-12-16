@@ -1,6 +1,6 @@
 import { type ChangeEvent, type FormEvent } from 'react'
 import { FileText, Paperclip, Send, Video, X } from 'lucide-react'
-import { Button } from '@/components/ui/button'
+import { Button } from '@mochi/common'
 import { PendingAttachment } from '../utils'
 
 interface ChatInputProps {

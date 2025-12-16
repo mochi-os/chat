@@ -13,7 +13,7 @@ import type {
   SendMessageRequest,
   SendMessageResponse,
 } from '@/api/types/chats'
-import { requestHelpers } from '@/lib/request'
+import { requestHelpers } from '@mochi/common'
 
 const isRecord = (value: unknown): value is Record<string, unknown> =>
   Boolean(value) && typeof value === 'object'
@@ -189,12 +189,12 @@ const normalizeMessagesResponse = (
 }
 
 const listChats = async (): Promise<GetChatsResponse> => {
-  const response = await requestHelpers.get<GetChatsRaw>(endpoints.chat.list)
+  const response = await requestHelpers.post<GetChatsRaw>(endpoints.chat.list, null)
   return normalizeChatsResponse(response)
 }
 
 const getChatDetail = (chatId: string) =>
-  requestHelpers.get<Chat>(endpoints.chat.detail(chatId), {
+  requestHelpers.post<Chat>(endpoints.chat.detail(chatId), null, {
     params: { chat: chatId },
   })
 
@@ -202,8 +202,9 @@ const listChatMessages = async (
   chatId: string,
   options?: { page?: number; limit?: number }
 ): Promise<GetMessagesResponse> => {
-  const response = await requestHelpers.get<GetMessagesRaw>(
+  const response = await requestHelpers.post<GetMessagesRaw>(
     endpoints.chat.messages(chatId),
+    null,
     {
       params: {
         chat: chatId,
@@ -216,14 +217,12 @@ const listChatMessages = async (
 }
 
 const createChat = (payload: CreateChatRequest) => {
-  const formData = new FormData()
-  formData.append('name', payload.name)
-  payload.participantIds.forEach((friendId) => {
-    formData.append(friendId, 'true')
-  })
   return requestHelpers.post<CreateChatResponse>(
     endpoints.chat.create,
-    formData
+    {
+      name: payload.name,
+      members: payload.participantIds,
+    }
   )
 }
 
@@ -233,29 +232,23 @@ const sendChatMessage = (chatId: string, payload: SendMessageRequest) => {
   if (hasAttachments) {
     const formData = new FormData()
     formData.append('body', payload.body ?? '')
+    formData.append('chat', chatId)
     payload.attachments?.forEach((file) => {
-      formData.append('attachments', file)
+      formData.append('files', file)
     })
 
     return requestHelpers.post<SendMessageResponse>(
       endpoints.chat.send(chatId),
-      formData,
-      {
-        params: {
-          chat: chatId,
-        },
-      }
+      formData
     )
   }
 
+  // Text-only messages use JSON body per spec
   return requestHelpers.post<SendMessageResponse>(
     endpoints.chat.send(chatId),
-    null,
     {
-      params: {
-        chat: chatId,
-        body: payload.body,
-      },
+      chat: chatId,
+      body: payload.body,
     }
   )
 }

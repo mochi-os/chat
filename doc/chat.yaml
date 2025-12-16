@@ -18,6 +18,34 @@ paths:
               schema:
                 type: string
 
+  "/chat/assets/{filename}":
+    get:
+      summary: Serve static asset files
+      description: Serves static assets (CSS, JavaScript, fonts, etc.) from the web application
+      parameters:
+        - name: filename
+          in: path
+          required: true
+          schema:
+            type: string
+          description: "Asset filename/path (e.g., index-abc123.js)"
+      responses:
+        "200":
+          description: Asset file content
+          content:
+            application/javascript:
+              schema:
+                type: string
+            text/css:
+              schema:
+                type: string
+            application/octet-stream:
+              schema:
+                type: string
+                format: binary
+        "404":
+          description: File not found
+
   "/chat/attachments/{filename}":
     get:
       summary: Serve attachment file
@@ -34,6 +62,35 @@ paths:
           description: File content
           content:
             application/octet-stream:
+              schema:
+                type: string
+                format: binary
+        "404":
+          description: File not found
+
+  "/chat/images/{filename}":
+    get:
+      summary: Serve image files
+      description: Serves static image files used by the application
+      parameters:
+        - name: filename
+          in: path
+          required: true
+          schema:
+            type: string
+          description: "Image filename (e.g., icon.svg, logo.png)"
+      responses:
+        "200":
+          description: Image file content
+          content:
+            image/svg+xml:
+              schema:
+                type: string
+            image/png:
+              schema:
+                type: string
+                format: binary
+            image/jpeg:
               schema:
                 type: string
                 format: binary
@@ -86,7 +143,7 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 
   "/chat/list":
-    get:
+    post:
       summary: List all chats
       description: Returns all chats the user is a member of, ordered by most recently updated
       security:
@@ -173,8 +230,60 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
 
+  "/chat/{chat_id}/{name}":
+    post:
+      summary: View chat details (with optional name parameter)
+      description: Returns chat details including members and WebSocket key. The name parameter is optional and not used.
+      security:
+        - cookieAuth: []
+        - bearerAuth: []
+      parameters:
+        - name: chat_id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: "Chat ID"
+        - name: name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: "Optional name parameter (not used by function)"
+        - name: chat
+          in: query
+          required: false
+          schema:
+            type: string
+          description: "Chat ID (alternative parameter)"
+      responses:
+        "200":
+          description: Chat details with key for WebSocket connection
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ViewChatResponse'
+        "401":
+          description: Not authenticated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        "403":
+          description: Not a member of this chat
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        "404":
+          description: Chat not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
   "/chat/{chat_id}/messages":
-    get:
+    post:
       summary: Retrieve messages for a chat
       description: Returns all messages in the chat with attachments
       security:

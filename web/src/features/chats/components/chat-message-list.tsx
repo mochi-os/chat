@@ -4,9 +4,9 @@ import { CheckCheck, ChevronUp, Loader2, MessagesSquare, RotateCcw } from 'lucid
 import type { ChatMessage } from '@/api/chats'
 import type { UseInfiniteQueryResult, InfiniteData } from '@tanstack/react-query'
 import type { GetMessagesResponse } from '@/api/types/chats'
-import { Button } from '@/components/ui/button'
-import { ScrollArea } from '@/components/ui/scroll-area'
-import { cn } from '@/lib/utils'
+import { Button } from '@mochi/common'
+import { ScrollArea } from '@mochi/common'
+import { cn } from '@mochi/common'
 import { MessageAttachmentPreview } from './message-attachment-preview'
 
 interface ChatMessageListProps {

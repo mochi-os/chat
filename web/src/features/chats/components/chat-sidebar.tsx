@@ -8,10 +8,10 @@ import {
   Search as SearchIcon,
 } from 'lucide-react'
 import type { Chat } from '@/api/chats'
-import { Avatar, AvatarFallback } from '@/components/ui/avatar'
-import { Button } from '@/components/ui/button'
-import { ScrollArea } from '@/components/ui/scroll-area'
-import { cn } from '@/lib/utils'
+import { Avatar, AvatarFallback } from '@mochi/common'
+import { Button } from '@mochi/common'
+import { ScrollArea } from '@mochi/common'
+import { cn } from '@mochi/common'
 
 interface ChatSidebarProps {
   chats: Chat[]

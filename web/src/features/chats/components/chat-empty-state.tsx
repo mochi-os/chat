@@ -1,6 +1,6 @@
 import { MessageSquarePlus, MessagesSquare } from 'lucide-react'
-import { Button } from '@/components/ui/button'
-import { cn } from '@/lib/utils'
+import { Button } from '@mochi/common'
+import { cn } from '@mochi/common'
 
 interface ChatEmptyStateProps {
   onNewChat: () => void

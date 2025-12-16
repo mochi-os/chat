@@ -6,10 +6,10 @@ import {
   Phone,
   Video,
 } from 'lucide-react'
-import { Avatar, AvatarFallback } from '@/components/ui/avatar'
-import { Button } from '@/components/ui/button'
+import { Avatar, AvatarFallback } from '@mochi/common'
+import { Button } from '@mochi/common'
 import type { WebsocketConnectionStatus } from '@/lib/websocket-manager'
-import { cn } from '@/lib/utils'
+import { cn } from '@mochi/common'
 
 interface ChatHeaderProps {
   selectedChat: Chat
