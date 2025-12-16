@@ -1,11 +1,11 @@
 const endpoints = {
   chat: {
-    list: 'list',
-    new: 'new',
-    create: 'create',
-    messages: (chatId: string) => `${chatId}/messages`,
-    send: (chatId: string) => `${chatId}/send`,
-    detail: (chatId: string) => `${chatId}`,
+    list: '/chat/list',
+    new: '/chat/new',
+    create: '/chat/create',
+    messages: (chatId: string) => `/chat/${chatId}/messages`,
+    send: (chatId: string) => `/chat/${chatId}/send`,
+    detail: (chatId: string) => `/chat/${chatId}`,
   },
   auth: {
     code: '/_/code',
