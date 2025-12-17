@@ -3,13 +3,13 @@
 
 # Create database
 def database_create():
-	mochi.db.query("create table chats ( id text not null primary key, identity text not null, name text not null, key text not null, updated integer not null )")
-	mochi.db.query("create index chats_updated on chats( updated )")
+	mochi.db.execute("create table chats ( id text not null primary key, identity text not null, name text not null, key text not null, updated integer not null )")
+	mochi.db.execute("create index chats_updated on chats( updated )")
 
-	mochi.db.query("create table members ( chat references chats( id ), member text not null, name text not null, primary key ( chat, member ) )")
+	mochi.db.execute("create table members ( chat references chats( id ), member text not null, name text not null, primary key ( chat, member ) )")
 
-	mochi.db.query("create table messages ( id text not null primary key, chat references chats( id ), member text not null, name text not null, body text not null, created integer not null )")
-	mochi.db.query("create index messages_chat_created on messages( chat, created )")
+	mochi.db.execute("create table messages ( id text not null primary key, chat references chats( id ), member text not null, name text not null, body text not null, created integer not null )")
+	mochi.db.execute("create index messages_chat_created on messages( chat, created )")
 
 # Create new chat
 def action_create(a):
@@ -19,8 +19,8 @@ def action_create(a):
 		a.error(400, "Invalid chat name")
 		return
 
-	mochi.db.query("replace into chats ( id, identity, name, key, updated ) values ( ?, ?, ?, ?, ? )", chat, a.user.identity.id, name, mochi.random.alphanumeric(12), mochi.time.now())
-	mochi.db.query("replace into members ( chat, member, name ) values ( ?, ?, ? )", chat, a.user.identity.id, a.user.identity.name)
+	mochi.db.execute("replace into chats ( id, identity, name, key, updated ) values ( ?, ?, ?, ?, ? )", chat, a.user.identity.id, name, mochi.random.alphanumeric(12), mochi.time.now())
+	mochi.db.execute("replace into members ( chat, member, name ) values ( ?, ?, ? )", chat, a.user.identity.id, a.user.identity.name)
 
 	members = [{"id": a.user.identity.id, "name": a.user.identity.name}]
 	
@@ -40,13 +40,13 @@ def action_create(a):
 			else:
 				member_name = "Unknown"
 		
-		mochi.db.query("replace into members ( chat, member, name ) values ( ?, ?, ? )", chat, member_id, member_name)
+		mochi.db.execute("replace into members ( chat, member, name ) values ( ?, ?, ? )", chat, member_id, member_name)
 		members.append({"id": member_id, "name": member_name})
 	else:
 		#(original behavior)
 		for friend in mochi.service.call("friends", "list", a.user.identity.id):
 			if a.input(friend["id"]):
-				mochi.db.query("replace into members ( chat, member, name ) values ( ?, ?, ? )", chat, friend["id"], friend["name"])
+				mochi.db.execute("replace into members ( chat, member, name ) values ( ?, ?, ? )", chat, friend["id"], friend["name"])
 				members.append({"id": friend["id"], "name": friend["name"]})
 
 	
@@ -61,7 +61,7 @@ def action_create(a):
 # List chats
 def action_list(a):
 	return {
-		"data": mochi.db.query("select * from chats order by updated desc")
+		"data": mochi.db.rows("select * from chats order by updated desc")
 	}
 
 # Enter details of new chat
@@ -81,7 +81,7 @@ def action_messages(a):
 		a.error(403, "Not a member of this chat")
 		return
 
-	messages = mochi.db.query("select * from ( select * from messages where chat=? order by id desc limit 1000 ) as ss order by id", chat["id"])
+	messages = mochi.db.rows("select * from ( select * from messages where chat=? order by id desc limit 1000 ) as ss order by id", chat["id"])
     
 	for m in messages:
 		m["attachments"] = mochi.attachment.list("chat/" + chat["id"] + "/" + m["id"])
@@ -108,10 +108,10 @@ def action_send(a):
 		return
     
 	id = mochi.uid()
-	mochi.db.query("replace into messages ( id, chat, member, name, body, created ) values ( ?, ?, ?, ?, ?, ? )", id, chat["id"], a.user.identity.id, a.user.identity.name, body, mochi.time.now())
+	mochi.db.execute("replace into messages ( id, chat, member, name, body, created ) values ( ?, ?, ?, ?, ?, ? )", id, chat["id"], a.user.identity.id, a.user.identity.name, body, mochi.time.now())
 
 	# Get other chat members for notification
-	members = mochi.db.query("select member from members where chat=? and member!=?", chat["id"], a.user.identity.id)
+	members = mochi.db.rows("select member from members where chat=? and member!=?", chat["id"], a.user.identity.id)
 
 	# Save any uploaded attachments and notify other members via _attachment/create events
 	attachments = []
@@ -166,7 +166,7 @@ def event_message(e):
 	if not mochi.valid(body, "text"):
 		return
     
-	mochi.db.query("replace into messages ( id, chat, member, name, body, created ) values ( ?, ?, ?, ?, ?, ? )", id, chat["id"], member["member"], member["name"], body, created)
+	mochi.db.execute("replace into messages ( id, chat, member, name, body, created ) values ( ?, ?, ?, ?, ?, ? )", id, chat["id"], member["member"], member["name"], body, created)
 
 	# Attachments arrive via _attachment/create events and are saved automatically
 	attachments = mochi.attachment.list("chat/" + chat["id"] + "/" + id)
@@ -192,13 +192,13 @@ def event_new(e):
 	if not mochi.valid(name, "name"):
 		return
     
-	mochi.db.query("replace into chats ( id, identity, name, key, updated ) values ( ?, ?, ?, ?, ? )", chat, e.content("to"), name, mochi.random.alphanumeric(12), mochi.time.now())
+	mochi.db.execute("replace into chats ( id, identity, name, key, updated ) values ( ?, ?, ?, ?, ? )", chat, e.content("to"), name, mochi.random.alphanumeric(12), mochi.time.now())
 
 	for member in mochi.event.segment():
 		if not mochi.valid(member["id"], "entity"):
 			continue
 		if not mochi.valid(member["name"], "name"):
 			continue
-		mochi.db.query("replace into members ( chat, member, name ) values ( ?, ?, ? )", chat, member["id"], member["name"])
+		mochi.db.execute("replace into members ( chat, member, name ) values ( ?, ?, ? )", chat, member["id"], member["name"])
 
 	mochi.service.call("notifications", "create", "chat", "new", chat, "New chat from " + f["name"] + ": " + name, "/chat/" + chat)
