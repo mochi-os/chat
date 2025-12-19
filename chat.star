@@ -176,7 +176,7 @@ def event_message(e):
 
 # Received a new chat event
 def event_new(e):
-	f = mochi.service.call("friends", "get", e.header("to"), e.content("from"))
+	f = mochi.service.call("friends", "get", e.header("to"), e.header("from"))
 	if not f:
 		return
     
@@ -192,7 +192,7 @@ def event_new(e):
 	if not mochi.valid(name, "name"):
 		return
     
-	mochi.db.execute("replace into chats ( id, identity, name, key, updated ) values ( ?, ?, ?, ?, ? )", chat, e.content("to"), name, mochi.random.alphanumeric(12), mochi.time.now())
+	mochi.db.execute("replace into chats ( id, identity, name, key, updated ) values ( ?, ?, ?, ?, ? )", chat, e.header("to"), name, mochi.random.alphanumeric(12), mochi.time.now())
 
 	for member in mochi.event.segment():
 		if not mochi.valid(member["id"], "entity"):
