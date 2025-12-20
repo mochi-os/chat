@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from 'react'
 import type { Chat } from '@/api/chats'
 import { useAuthStore } from '@mochi/common'
+import { usePageTitle } from '@/hooks/usePageTitle'
 import { cn } from '@mochi/common'
 import useChatWebsocket from '@/hooks/useChatWebsocket'
 import {
@@ -21,6 +22,7 @@ import {
 } from './utils'
 
 export function Chats() {
+  usePageTitle('Chat')
   const [searchQuery, setSearchQuery] = useState('')
   const [selectedChat, setSelectedChat] = useState<Chat | null>(null)
   const [mobileSelectedChat, setMobileSelectedChat] = useState<Chat | null>(
