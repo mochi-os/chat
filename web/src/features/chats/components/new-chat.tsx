@@ -104,7 +104,7 @@ export function NewChat({ onOpenChange, open }: NewChatProps) {
           <div className='flex items-start justify-between gap-4'>
             <div className='flex-1'>
               <ResponsiveDialogTitle className='text-2xl font-semibold'>
-                New Chat
+                New chat
               </ResponsiveDialogTitle>
               <ResponsiveDialogDescription className='text-muted-foreground mt-1.5 text-sm'>
                 Select friends to start a conversation
@@ -295,7 +295,7 @@ export function NewChat({ onOpenChange, open }: NewChatProps) {
                   </>
                 ) : (
                   <>
-                    Create Chat
+                    Create chat
                     <MessageSquare className='ml-2 h-4 w-4' />
                   </>
                 )}
