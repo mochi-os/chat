@@ -76,19 +76,22 @@ export const useInfiniteMessagesQuery = (
   useInfiniteQuery({
     queryKey: chatKeys.messages(chatId ?? 'unknown'),
     enabled: Boolean(chatId) && (options?.enabled ?? true),
-    initialPageParam: 1,
+    initialPageParam: undefined as number | undefined,
     queryFn: ({ pageParam }) => {
       if (!chatId) {
         return Promise.resolve<GetMessagesResponse>({ messages: [] })
       }
-      return chatsApi.messages(chatId, { page: pageParam as number, limit: DEFAULT_PAGE_SIZE })
+      return chatsApi.messages(chatId, {
+        before: pageParam,
+        limit: DEFAULT_PAGE_SIZE,
+      })
     },
-    getNextPageParam: (lastPage, allPages) => {
-      // If we got fewer messages than the page size, there are no more pages
-      if (!lastPage.messages || lastPage.messages.length < DEFAULT_PAGE_SIZE) {
+    getNextPageParam: (lastPage) => {
+      // Use cursor-based pagination: nextCursor is the timestamp of oldest message
+      if (!lastPage.hasMore) {
         return undefined
       }
-      return allPages.length + 1
+      return lastPage.nextCursor
     },
   })
 

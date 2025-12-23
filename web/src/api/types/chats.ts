@@ -68,6 +68,8 @@ export type GetMessagesRaw = ChatMessage[] | MessagesEnvelope
 export interface GetMessagesResponse extends PaginationMeta {
   messages: ChatMessage[]
   chat?: Chat
+  hasMore?: boolean
+  nextCursor?: number
 }
 
 export interface CreateChatRequest {

@@ -1,11 +1,10 @@
-import { Fragment, useEffect, useMemo, useRef } from 'react'
+import { Fragment, useCallback, useEffect, useLayoutEffect, useMemo, useRef } from 'react'
 import { format } from 'date-fns'
 import { CheckCheck, Loader2, MessagesSquare, RotateCcw } from 'lucide-react'
 import type { ChatMessage } from '@/api/chats'
 import type { UseInfiniteQueryResult, InfiniteData } from '@tanstack/react-query'
 import type { GetMessagesResponse } from '@/api/types/chats'
-import { Button } from '@mochi/common'
-import { ScrollArea } from '@mochi/common'
+import { Button, LoadMoreTrigger } from '@mochi/common'
 import { cn } from '@mochi/common'
 import { MessageAttachmentPreview } from './message-attachment-preview'
 
@@ -24,7 +23,11 @@ export function ChatMessageList({
   messagesErrorMessage,
   currentUserEmail,
 }: ChatMessageListProps) {
+  const scrollContainerRef = useRef<HTMLDivElement | null>(null)
   const messagesEndRef = useRef<HTMLDivElement | null>(null)
+  const prevScrollHeightRef = useRef<number>(0)
+  const isLoadingMoreRef = useRef(false)
+  const isInitialLoadRef = useRef(true)
 
   const isCurrentUserMessage = (message: ChatMessage) => {
     if (!currentUserEmail) return false
@@ -48,8 +51,44 @@ export function ChatMessageList({
     return groups
   }, [chatMessages])
 
+  // Handle loading more (older) messages
+  const handleLoadMore = useCallback(() => {
+    if (messagesQuery.isFetchingNextPage || !messagesQuery.hasNextPage) return
+
+    // Store current scroll height before loading
+    if (scrollContainerRef.current) {
+      prevScrollHeightRef.current = scrollContainerRef.current.scrollHeight
+      isLoadingMoreRef.current = true
+    }
+
+    messagesQuery.fetchNextPage()
+  }, [messagesQuery])
+
+  // Preserve scroll position when older messages are prepended
+  useLayoutEffect(() => {
+    if (isLoadingMoreRef.current && scrollContainerRef.current && !messagesQuery.isFetchingNextPage) {
+      const newScrollHeight = scrollContainerRef.current.scrollHeight
+      const scrollDiff = newScrollHeight - prevScrollHeightRef.current
+      scrollContainerRef.current.scrollTop += scrollDiff
+      isLoadingMoreRef.current = false
+    }
+  }, [chatMessages, messagesQuery.isFetchingNextPage])
+
+  // Scroll to bottom on initial load or when new message is added at end
   useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
+    if (isInitialLoadRef.current && chatMessages.length > 0) {
+      messagesEndRef.current?.scrollIntoView({ behavior: 'instant' })
+      isInitialLoadRef.current = false
+    } else if (!isLoadingMoreRef.current && chatMessages.length > 0) {
+      // Only auto-scroll for new messages if user is near the bottom
+      const container = scrollContainerRef.current
+      if (container) {
+        const isNearBottom = container.scrollHeight - container.scrollTop - container.clientHeight < 100
+        if (isNearBottom) {
+          messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
+        }
+      }
+    }
   }, [chatMessages])
 
   if (isLoadingMessages) {
@@ -94,7 +133,18 @@ export function ChatMessageList({
   }
 
   return (
-    <ScrollArea className='flex h-full w-full flex-1 flex-col justify-start gap-4 py-2 pe-4 pb-4'>
+    <div
+      ref={scrollContainerRef}
+      className='flex h-full w-full flex-1 flex-col justify-start gap-4 overflow-y-auto py-2 pe-4 pb-4'
+    >
+      {/* Load more trigger at top for older messages */}
+      <LoadMoreTrigger
+        onLoadMore={handleLoadMore}
+        hasMore={messagesQuery.hasNextPage ?? false}
+        isLoading={messagesQuery.isFetchingNextPage}
+        rootMargin='100px'
+      />
+
       {Object.keys(groupedMessages).map((key) => (
         <Fragment key={key}>
           {/* Date separator */}
@@ -183,6 +233,6 @@ export function ChatMessageList({
         </Fragment>
       ))}
       <div ref={messagesEndRef} />
-    </ScrollArea>
+    </div>
   )
 }

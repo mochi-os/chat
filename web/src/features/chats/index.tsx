@@ -52,10 +52,13 @@ export function Chats() {
   )
 
   const messagesQuery = useInfiniteMessagesQuery(selectedChat?.id ?? undefined)
-  const chatMessages = useMemo(
-    () => messagesQuery.data?.pages.flatMap((page) => page.messages) ?? [],
-    [messagesQuery.data?.pages]
-  )
+  const chatMessages = useMemo(() => {
+    if (!messagesQuery.data?.pages) return []
+    // Pages are loaded newest-first, so reverse to get chronological order
+    // (older messages from later pages should appear first)
+    const reversedPages = [...messagesQuery.data.pages].reverse()
+    return reversedPages.flatMap((page) => page.messages)
+  }, [messagesQuery.data?.pages])
 
   const sendMessageMutation = useSendMessageMutation({
     onSuccess: () => {

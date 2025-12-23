@@ -126,6 +126,9 @@ const pickMessagesArray = (value: unknown): ChatMessage[] => {
   return []
 }
 
+const toBoolean = (value: unknown): boolean | undefined =>
+  typeof value === 'boolean' ? value : undefined
+
 const normalizeMessagesResponse = (
   payload: GetMessagesRaw
 ): GetMessagesResponse => {
@@ -144,6 +147,8 @@ const normalizeMessagesResponse = (
     total: toNumber(record.total) ?? toNumber(dataRecord?.total),
     page: toNumber(record.page) ?? toNumber(dataRecord?.page),
     limit: toNumber(record.limit) ?? toNumber(dataRecord?.limit),
+    hasMore: toBoolean(record.hasMore) ?? toBoolean(dataRecord?.hasMore),
+    nextCursor: toNumber(record.nextCursor) ?? toNumber(dataRecord?.nextCursor),
   }
 
   if (Array.isArray(record.messages)) {
@@ -157,7 +162,7 @@ const normalizeMessagesResponse = (
   }
 
   const messagesFromData = pickMessagesArray(record.data)
-  if (messagesFromData.length) {
+  if (messagesFromData.length || dataRecord) {
     return {
       messages: messagesFromData,
       chat:
@@ -171,9 +176,7 @@ const normalizeMessagesResponse = (
   if (fallbackMessages.length) {
     return {
       messages: fallbackMessages,
-      chat:
-        (record.chat as Chat | undefined) ??
-        (dataRecord?.chat as Chat | undefined),
+      chat: record.chat as Chat | undefined,
       ...meta,
     }
   }
@@ -181,9 +184,7 @@ const normalizeMessagesResponse = (
   logUnexpectedStructure('chat messages', payload)
   return {
     messages: [],
-    chat:
-      (record.chat as Chat | undefined) ??
-      (dataRecord?.chat as Chat | undefined),
+    chat: record.chat as Chat | undefined,
     ...meta,
   }
 }
@@ -200,7 +201,7 @@ const getChatDetail = (chatId: string) =>
 
 const listChatMessages = async (
   chatId: string,
-  options?: { page?: number; limit?: number }
+  options?: { before?: number; limit?: number }
 ): Promise<GetMessagesResponse> => {
   const response = await requestHelpers.post<GetMessagesRaw>(
     endpoints.chat.messages(chatId),
@@ -208,7 +209,7 @@ const listChatMessages = async (
     {
       params: {
         chat: chatId,
-        ...(options?.page !== undefined && { page: options.page }),
+        ...(options?.before !== undefined && { before: options.before }),
         ...(options?.limit !== undefined && { limit: options.limit }),
       },
     }

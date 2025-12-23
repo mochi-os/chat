@@ -70,7 +70,7 @@ def action_new(a):
 		"data": {"name": a.user.identity.name, "friends": mochi.service.call("friends", "list", a.user.identity.id)}
 	}
 
-# Send latest previous messages to client
+# Get messages for a chat with cursor-based pagination
 def action_messages(a):
 	chat = mochi.db.row("select * from chats where id=?", a.input("chat"))
 	if not chat:
@@ -81,14 +81,46 @@ def action_messages(a):
 		a.error(403, "Not a member of this chat")
 		return
 
-	messages = mochi.db.rows("select * from ( select * from messages where chat=? order by id desc limit 1000 ) as ss order by id", chat["id"])
-    
+	# Pagination parameters
+	limit = 30
+	limit_str = a.input("limit")
+	if limit_str and mochi.valid(limit_str, "natural"):
+		limit = min(int(limit_str), 100)
+
+	before = None
+	before_str = a.input("before")
+	if before_str and mochi.valid(before_str, "natural"):
+		before = int(before_str)
+
+	# Fetch messages (newest first internally, then reverse for chronological display)
+	if before:
+		messages = mochi.db.rows("select * from messages where chat=? and created<? order by created desc limit ?", chat["id"], before, limit + 1)
+	else:
+		messages = mochi.db.rows("select * from messages where chat=? order by created desc limit ?", chat["id"], limit + 1)
+
+	# Check if there are more (older) messages
+	has_more = len(messages) > limit
+	if has_more:
+		messages = messages[:limit]
+
+	# Reverse to chronological order (oldest first) for display
+	messages = list(reversed(messages))
+
+	# Cursor for next page is the oldest message's timestamp
+	next_cursor = None
+	if has_more and len(messages) > 0:
+		next_cursor = messages[0]["created"]
+
 	for m in messages:
 		m["attachments"] = mochi.attachment.list("chat/" + chat["id"] + "/" + m["id"])
 		m["created_local"] = mochi.time.local(m["created"])
 
 	return {
-		"data": {"messages": messages}
+		"data": {
+			"messages": messages,
+			"hasMore": has_more,
+			"nextCursor": next_cursor
+		}
 	}
 
 # Send a message
