@@ -114,14 +114,14 @@ export const useSendMessageMutation = (
       queryClient.invalidateQueries({
         queryKey: chatKeys.messages(variables.chatId),
       })
-      // Update the specific chat in the list without refetching all
+      // Update the specific chat's timestamp so it sorts to top of list
       queryClient.setQueryData<GetChatsResponse>(chatKeys.all(), (old) => {
         if (!old) return old
         return {
           ...old,
           chats: old.chats.map((chat) =>
             chat.id === variables.chatId
-              ? { ...chat, key: variables.body || chat.key }
+              ? { ...chat, updated: Date.now() }
               : chat
           ),
         }
