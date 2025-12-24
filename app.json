@@ -23,17 +23,19 @@
 
 	"actions": {
 		"": {"file": "web/dist/index.html"},
-		"attachments": {"attachments": true},
 		"assets": {"files": "web/dist/assets"},
 		"create": {"function": "action_create"},
 		"images": {"files": "web/dist/images"},
 		"list": {"function": "action_list"},
 		"new": {"function": "action_new"},
-		"view": {"function": "action_view"},
-		":chat": {"function": "action_view"},
-		":chat/:name": {"function": "action_view"},
-		":chat/messages": {"function": "action_messages"},
-		":chat/send": {"function": "action_send"}
+
+		":chat": {"file": "web/dist/index.html"},
+		":chat/-/view": {"function": "action_view"},
+		":chat/-/messages": {"function": "action_messages"},
+		":chat/-/send": {"function": "action_send"},
+		":chat/-/attachments": {"attachments": true},
+		":chat/assets": {"files": "web/dist/assets"},
+		":chat/images": {"files": "web/dist/images"}
 	},
 
 	"events": {

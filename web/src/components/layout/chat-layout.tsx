@@ -1,5 +1,5 @@
 import { useEffect, useMemo } from 'react'
-import { Outlet, useSearch } from '@tanstack/react-router'
+import { Outlet, useParams } from '@tanstack/react-router'
 import {
   cn,
   getCookie,
@@ -56,7 +56,7 @@ function ChatSidebar({ data }: { data: SidebarData }) {
           <NavGroup key={props.title} {...props} />
         ))}
       </SidebarContent>
-      <SidebarFooter className="border-t border-sidebar-border">
+      <SidebarFooter>
         {chatId && (
           <div className={cn(
             'flex items-center gap-2 px-2 py-2 text-xs text-muted-foreground',
@@ -76,9 +76,9 @@ function ChatLayoutInner() {
   const chats = useMemo(() => chatsQuery.data?.chats ?? [], [chatsQuery.data?.chats])
   const { setChat, openNewChatDialog } = useSidebarContext()
 
-  // Get chat ID from URL search params
-  const search = useSearch({ strict: false }) as { chat?: string }
-  const urlChatId = search?.chat
+  // Get chat ID from URL path
+  const params = useParams({ strict: false }) as { chatId?: string }
+  const urlChatId = params?.chatId
 
   // Sync URL chat ID to context
   useEffect(() => {
@@ -97,7 +97,7 @@ function ChatLayoutInner() {
     // Build chat items as top-level links
     const chatItems = sortedChats.map((chat) => ({
       title: chat.name,
-      url: `/?chat=${chat.id}`,
+      url: `/${chat.id}`,
       icon: MessageCircle,
     }))
 

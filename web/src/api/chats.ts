@@ -222,7 +222,7 @@ const createChat = (payload: CreateChatRequest) => {
     endpoints.chat.create,
     {
       name: payload.name,
-      members: payload.participantIds,
+      members: payload.participantIds.join(','),
     }
   )
 }

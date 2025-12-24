@@ -23,31 +23,27 @@ def action_create(a):
 	mochi.db.execute("replace into members ( chat, member, name ) values ( ?, ?, ? )", chat, a.user.identity.id, a.user.identity.name)
 
 	members = [{"id": a.user.identity.id, "name": a.user.identity.name}]
-	
-	# Handle direct member ID input (for form-data with 'id' field)
-	member_id = a.input("id")
-	member_name = a.input("name_member")
-	if member_id and mochi.valid(member_id, "entity"):
-		# Look up the member in friends or directory to get their name
-		friend = mochi.service.call("friends", "get", a.user.identity.id, member_id)
-		if friend:
-			member_name = friend["name"]
-		elif not member_name:
-			# Try directory lookup if not a friend
-			dir_entry = mochi.directory.get(member_id)
-			if dir_entry:
-				member_name = dir_entry["name"]
+
+	# Handle members from frontend (comma-separated string)
+	members_str = a.input("members")
+	if members_str:
+		for member_id in members_str.split(","):
+			if not mochi.valid(member_id, "entity"):
+				continue
+			# Look up the member in friends or directory to get their name
+			friend = mochi.service.call("friends", "get", a.user.identity.id, member_id)
+			if friend:
+				member_name = friend["name"]
 			else:
-				member_name = "Unknown"
-		
-		mochi.db.execute("replace into members ( chat, member, name ) values ( ?, ?, ? )", chat, member_id, member_name)
-		members.append({"id": member_id, "name": member_name})
-	else:
-		#(original behavior)
-		for friend in mochi.service.call("friends", "list", a.user.identity.id):
-			if a.input(friend["id"]):
-				mochi.db.execute("replace into members ( chat, member, name ) values ( ?, ?, ? )", chat, friend["id"], friend["name"])
-				members.append({"id": friend["id"], "name": friend["name"]})
+				# Try directory lookup if not a friend
+				dir_entry = mochi.directory.get(member_id)
+				if dir_entry:
+					member_name = dir_entry["name"]
+				else:
+					member_name = "Unknown"
+
+			mochi.db.execute("replace into members ( chat, member, name ) values ( ?, ?, ? )", chat, member_id, member_name)
+			members.append({"id": member_id, "name": member_name})
 
 	
 	for member in members:
@@ -144,13 +140,14 @@ def action_send(a):
 
 	# Get other chat members for notification
 	members = mochi.db.rows("select member from members where chat=? and member!=?", chat["id"], a.user.identity.id)
+	member_ids = [m["member"] for m in members]
 
 	# Save any uploaded attachments and notify other members via _attachment/create events
 	attachments = []
 	if a.input("files"):
-		attachments = mochi.attachment.save("chat/" + chat["id"] + "/" + id, "files", [], [], members)
+		attachments = mochi.attachment.save("chat/" + chat["id"] + "/" + id, "files", [], [], member_ids)
 
-	mochi.websocket.write(chat["key"], {"created_local": mochi.time.local(mochi.time.now()), "name": a.user.identity.name, "body": body, "attachments": attachments})
+	mochi.websocket.write(chat["key"], {"created": mochi.time.now(), "name": a.user.identity.name, "body": body, "attachments": attachments})
 
 	# Send message to other members (attachments are sent separately via federation)
 	for member in members:
@@ -185,25 +182,25 @@ def event_message(e):
 	member = mochi.db.row("select * from members where chat=? and member=?", chat["id"], e.header("from"))
 	if not member:
 		return
-    
+
 	id = e.content("message")
-	if not mochi.valid(id, "id"):
+	if not mochi.valid(str(id), "id"):
 		return
-    
+
 	created = e.content("created")
-	if not mochi.valid(created, "integer"):
+	if not mochi.valid(str(created), "integer"):
 		return
-    
+
 	body = e.content("body")
-	if not mochi.valid(body, "text"):
+	if not mochi.valid(str(body), "text"):
 		return
-    
+
 	mochi.db.execute("replace into messages ( id, chat, member, name, body, created ) values ( ?, ?, ?, ?, ?, ? )", id, chat["id"], member["member"], member["name"], body, created)
 
 	# Attachments arrive via _attachment/create events and are saved automatically
 	attachments = mochi.attachment.list("chat/" + chat["id"] + "/" + id)
 
-	mochi.websocket.write(chat["key"], {"created_local": mochi.time.local(created), "name": member["name"], "body": body, "attachments": attachments})
+	mochi.websocket.write(chat["key"], {"created": created, "name": member["name"], "body": body, "attachments": attachments})
 	mochi.service.call("notifications", "create", "chat", "message", chat["id"], member["name"] + ": " + body, "/chat/" + chat["id"])
 
 # Received a new chat event
@@ -211,22 +208,22 @@ def event_new(e):
 	f = mochi.service.call("friends", "get", e.header("to"), e.header("from"))
 	if not f:
 		return
-    
+
 	chat = e.content("id")
 	if not mochi.valid(chat, "id"):
 		return
-    
+
 	if mochi.db.exists("select id from chats where id=?", chat):
 		# Duplicate chat
 		return
-    
+
 	name = e.content("name")
 	if not mochi.valid(name, "name"):
 		return
-    
+
 	mochi.db.execute("replace into chats ( id, identity, name, key, updated ) values ( ?, ?, ?, ?, ? )", chat, e.header("to"), name, mochi.random.alphanumeric(12), mochi.time.now())
 
-	for member in mochi.event.segment():
+	for member in e.read():
 		if not mochi.valid(member["id"], "entity"):
 			continue
 		if not mochi.valid(member["name"], "name"):

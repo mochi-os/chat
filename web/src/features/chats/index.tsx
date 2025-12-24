@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react'
-import { useSearch } from '@tanstack/react-router'
+import { useParams } from '@tanstack/react-router'
 import { useAuthStore } from '@mochi/common'
 import { usePageTitle } from '@/hooks/usePageTitle'
 import useChatWebsocket from '@/hooks/useChatWebsocket'
@@ -36,9 +36,9 @@ export function Chats() {
     initializeAuth()
   }, [initializeAuth])
 
-  // Get selected chat from URL
-  const search = useSearch({ strict: false }) as { chat?: string }
-  const selectedChatId = search?.chat
+  // Get selected chat from URL path
+  const params = useParams({ strict: false }) as { chatId?: string }
+  const selectedChatId = params?.chatId
 
   const chatsQuery = useChatsQuery()
   const chats = useMemo(
@@ -132,6 +132,18 @@ export function Chats() {
     })
   }
 
+  const handleMoveAttachment = (id: string, direction: 'left' | 'right') => {
+    setPendingAttachments((prev) => {
+      const index = prev.findIndex((a) => a.id === id)
+      if (index === -1) return prev
+      const newIndex = direction === 'left' ? index - 1 : index + 1
+      if (newIndex < 0 || newIndex >= prev.length) return prev
+      const newArr = [...prev]
+      ;[newArr[index], newArr[newIndex]] = [newArr[newIndex], newArr[index]]
+      return newArr
+    })
+  }
+
   // Show chat content or empty state
   if (!selectedChat) {
     return <ChatEmptyState onNewChat={openNewChatDialog} />
@@ -161,6 +173,7 @@ export function Chats() {
         isSendDisabled={isSendDisabled}
         pendingAttachments={pendingAttachments}
         onRemoveAttachment={handleRemoveAttachment}
+        onMoveAttachment={handleMoveAttachment}
         onAttachmentSelection={handleAttachmentSelection}
         sendMessageErrorMessage={sendMessageErrorMessage}
       />

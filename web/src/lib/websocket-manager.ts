@@ -19,7 +19,7 @@ export interface WebsocketConnectionSnapshot {
 export interface ChatWebsocketMessagePayload {
   body?: string
   name?: string
-  created_local?: string
+  created?: number
   attachments?: ChatMessageAttachment[]
   [key: string]: unknown
 }

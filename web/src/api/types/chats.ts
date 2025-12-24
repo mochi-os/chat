@@ -13,12 +13,11 @@ export interface ChatMember {
 }
 
 export interface ChatMessageAttachment {
-  id?: string
-  url?: string
-  type?: string
-  size?: number
-  name?: string
-  [key: string]: unknown
+  id: string
+  name: string
+  size: number
+  type: string
+  created?: number
 }
 
 export interface ChatMessage {
@@ -92,10 +91,8 @@ export interface NewChatFriend {
 }
 
 export interface GetNewChatResponse {
-  data: {
-    friends: NewChatFriend[]
-    name: string
-  }
+  friends: NewChatFriend[]
+  name: string
 }
 
 export type SendMessageAttachment = File | Blob

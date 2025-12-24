@@ -6,7 +6,7 @@ import type { UseInfiniteQueryResult, InfiniteData } from '@tanstack/react-query
 import type { GetMessagesResponse } from '@/api/types/chats'
 import { Button, LoadMoreTrigger } from '@mochi/common'
 import { cn } from '@mochi/common'
-import { MessageAttachmentPreview } from './message-attachment-preview'
+import { MessageAttachments } from './message-attachments'
 
 interface ChatMessageListProps {
   messagesQuery: UseInfiniteQueryResult<InfiniteData<GetMessagesResponse>, unknown>
@@ -28,6 +28,7 @@ export function ChatMessageList({
   const prevScrollHeightRef = useRef<number>(0)
   const isLoadingMoreRef = useRef(false)
   const isInitialLoadRef = useRef(true)
+  const prevMessageCountRef = useRef<number>(0)
 
   const isCurrentUserMessage = (message: ChatMessage) => {
     if (!currentUserEmail) return false
@@ -76,19 +77,20 @@ export function ChatMessageList({
 
   // Scroll to bottom on initial load or when new message is added at end
   useEffect(() => {
-    if (isInitialLoadRef.current && chatMessages.length > 0) {
+    const prevCount = prevMessageCountRef.current
+    const currentCount = chatMessages.length
+
+    if (isInitialLoadRef.current && currentCount > 0) {
       messagesEndRef.current?.scrollIntoView({ behavior: 'instant' })
       isInitialLoadRef.current = false
-    } else if (!isLoadingMoreRef.current && chatMessages.length > 0) {
-      // Only auto-scroll for new messages if user is near the bottom
-      const container = scrollContainerRef.current
-      if (container) {
-        const isNearBottom = container.scrollHeight - container.scrollTop - container.clientHeight < 100
-        if (isNearBottom) {
-          messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
-        }
-      }
+    } else if (!isLoadingMoreRef.current && currentCount > prevCount) {
+      // New message added - scroll to bottom
+      requestAnimationFrame(() => {
+        messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
+      })
     }
+
+    prevMessageCountRef.current = currentCount
   }, [chatMessages])
 
   if (isLoadingMessages) {
@@ -125,9 +127,6 @@ export function ChatMessageList({
       <div className='flex flex-col items-center justify-center py-8 text-center'>
         <MessagesSquare className='text-muted-foreground mb-2 h-8 w-8' />
         <p className='text-muted-foreground text-sm'>No messages yet</p>
-        <p className='text-muted-foreground text-xs'>
-          Start the conversation!
-        </p>
       </div>
     )
   }
@@ -186,19 +185,11 @@ export function ChatMessageList({
                   </div>
 
                   {message.attachments?.length ? (
-                    <div className='mt-3 flex flex-wrap gap-3'>
-                      {message.attachments.map(
-                        (attachment, attachmentIndex) => (
-                          <MessageAttachmentPreview
-                            key={
-                              attachment.id ??
-                              `${message.id}-attachment-${attachmentIndex}`
-                            }
-                            attachment={attachment}
-                            index={attachmentIndex}
-                          />
-                        )
-                      )}
+                    <div className='mt-3 space-y-2'>
+                      <MessageAttachments
+                        attachments={message.attachments}
+                        chatId={message.chat}
+                      />
                     </div>
                   ) : null}
 

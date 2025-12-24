@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from 'react'
-import { useQueryClient, type QueryClient } from '@tanstack/react-query'
+import { useQueryClient, type QueryClient, type InfiniteData } from '@tanstack/react-query'
 import type {
   ChatMessage,
   ChatMessageAttachment,
@@ -25,7 +25,7 @@ const isSameMessage = (
   incoming: ChatMessage,
   existing: ChatMessage
 ): boolean =>
-  incoming.created_local === existing.created_local &&
+  incoming.created === existing.created &&
   incoming.body === existing.body &&
   incoming.name === existing.name
 
@@ -42,11 +42,10 @@ const createMessageFromPayload = (
   chatId: string,
   payload: ChatWebsocketMessagePayload
 ): ChatMessage => {
-  const createdLocal =
-    typeof payload.created_local === 'string'
-      ? payload.created_local
-      : new Date().toISOString()
-  const created = Math.floor(new Date(createdLocal).getTime() / 1000)
+  const created =
+    typeof payload.created === 'number'
+      ? payload.created
+      : Math.floor(Date.now() / 1000)
   const messageBody =
     typeof payload.body === 'string' ? payload.body : String(payload.body ?? '')
   const senderName =
@@ -58,8 +57,8 @@ const createMessageFromPayload = (
     body: messageBody,
     member: senderName,
     name: senderName,
-    created: Number.isFinite(created) ? created : Math.floor(Date.now() / 1000),
-    created_local: createdLocal,
+    created,
+    created_local: '',
     attachments: normalizeAttachments(payload.attachments),
   }
 }
@@ -73,27 +72,44 @@ const appendMessageToCache = (
     return
   }
 
-  queryClient.setQueryData<GetMessagesResponse>(
+  // Update infinite query data structure (pages array)
+  queryClient.setQueryData<InfiniteData<GetMessagesResponse>>(
     chatKeys.messages(chatId),
     (current) => {
       const incomingMessage = createMessageFromPayload(chatId, payload)
-      if (!current) {
+
+      if (!current || !current.pages || current.pages.length === 0) {
+        // Initialize with a single page containing the message
         return {
-          messages: [incomingMessage],
+          pages: [{ messages: [incomingMessage] }],
+          pageParams: [undefined],
         }
       }
 
-      const alreadyExists = current.messages.some((message) =>
-        isSameMessage(incomingMessage, message)
+      // Check if message already exists in any page
+      const alreadyExists = current.pages.some((page) =>
+        page.messages.some((message) => isSameMessage(incomingMessage, message))
       )
 
       if (alreadyExists) {
         return current
       }
 
+      // Append to the first page (most recent messages)
+      // Pages are stored newest-first, so first page has newest messages
+      const updatedPages = current.pages.map((page, index) => {
+        if (index === 0) {
+          return {
+            ...page,
+            messages: [...page.messages, incomingMessage],
+          }
+        }
+        return page
+      })
+
       return {
         ...current,
-        messages: [...current.messages, incomingMessage],
+        pages: updatedPages,
       }
     }
   )

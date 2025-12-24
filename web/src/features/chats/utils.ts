@@ -1,5 +1,3 @@
-import type { ChatMessageAttachment } from '@/api/chats'
-
 export type AttachmentKind = 'image' | 'video' | 'file'
 
 export interface PendingAttachment {
@@ -77,11 +75,6 @@ export const revokePendingAttachmentPreview = (attachment: PendingAttachment) =>
     URL.revokeObjectURL(attachment.previewUrl)
   }
 }
-
-export const detectRemoteAttachmentKind = (
-  attachment: ChatMessageAttachment
-): AttachmentKind =>
-  detectAttachmentKind(attachment.type, attachment.name ?? attachment.url)
 
 export const formatFileSize = (bytes?: number): string | undefined => {
   if (bytes === undefined) {
