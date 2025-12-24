@@ -1,7 +1,6 @@
 import { useEffect, useMemo, useState } from 'react'
 import { useParams } from '@tanstack/react-router'
-import { useAuthStore } from '@mochi/common'
-import { usePageTitle } from '@/hooks/usePageTitle'
+import { useAuthStore, usePageTitle } from '@mochi/common'
 import useChatWebsocket from '@/hooks/useChatWebsocket'
 import {
   useInfiniteMessagesQuery,
