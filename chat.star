@@ -238,5 +238,3 @@ def event_new(e):
 		if not mochi.valid(member["name"], "name"):
 			continue
 		mochi.db.execute("replace into members ( chat, member, name ) values ( ?, ?, ? )", chat, member["id"], member["name"])
-
-	mochi.service.call("notifications", "create", "chat", "new", chat, "New chat from " + f["name"] + ": " + name, "/chat/" + chat)
