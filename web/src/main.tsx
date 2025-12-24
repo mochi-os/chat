@@ -7,8 +7,8 @@ import {
   QueryClientProvider,
 } from '@tanstack/react-query'
 import { RouterProvider, createRouter } from '@tanstack/react-router'
-import { toast } from 'sonner'
 import { useAuthStore, ThemeProvider } from '@mochi/common'
+import { toast } from 'sonner'
 import { WebsocketProvider } from './context/websocket-provider'
 // Generated Routes
 import { routeTree } from './routeTree.gen'
@@ -18,15 +18,13 @@ import './styles/index.css'
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      retry: (failureCount, error) => {
-        if (import.meta.env.DEV) console.log({ failureCount, error })
-
+      retry: (failureCount, err) => {
         if (failureCount >= 0 && import.meta.env.DEV) return false
         if (failureCount > 3 && import.meta.env.PROD) return false
 
         return !(
-          error instanceof AxiosError &&
-          [401, 403].includes(error.response?.status ?? 0)
+          err instanceof AxiosError &&
+          [401, 403].includes(err.response?.status ?? 0)
         )
       },
       refetchOnWindowFocus: import.meta.env.PROD,
@@ -61,12 +59,12 @@ const queryClient = new QueryClient({
 })
 
 const getBasepath = () => {
-  const pathname = window.location.pathname;
+  const pathname = window.location.pathname
   // Extract basepath: /chat -> /chat, /chat/ -> /chat, /chat/some-route -> /chat
   // Match pattern: /<app-name> (with or without trailing slash)
-  const match = pathname.match(/^(\/[^/]+)/);
-  return match ? match[1] : '/';
-};
+  const match = pathname.match(/^(\/[^/]+)/)
+  return match ? match[1] : '/'
+}
 
 const router = createRouter({
   routeTree,

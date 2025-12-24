@@ -16,8 +16,8 @@ import {
   type SidebarData,
 } from '@mochi/common'
 import { MessageCircle, Plus } from 'lucide-react'
-import { useChatsQuery } from '@/hooks/useChats'
 import { SidebarProvider, useSidebarContext } from '@/context/sidebar-context'
+import { useChatsQuery } from '@/hooks/useChats'
 import { NewChat } from '@/features/chats/components/new-chat'
 import { TopBar } from './top-bar'
 
@@ -27,11 +27,11 @@ function FullHeightRail() {
 
   return (
     <button
-      type="button"
-      aria-label="Toggle Sidebar"
+      type='button'
+      aria-label='Toggle Sidebar'
       tabIndex={-1}
       onClick={toggleSidebar}
-      title="Toggle Sidebar"
+      title='Toggle Sidebar'
       className={cn(
         'absolute inset-y-0 -right-2 z-20 hidden w-4 sm:block',
         'after:absolute after:inset-y-0 after:left-1/2 after:w-[2px] after:-translate-x-1/2',
@@ -58,11 +58,18 @@ function ChatSidebar({ data }: { data: SidebarData }) {
       </SidebarContent>
       <SidebarFooter>
         {chatId && (
-          <div className={cn(
-            'flex items-center gap-2 px-2 py-2 text-xs text-muted-foreground',
-            isCollapsed && 'justify-center px-0'
-          )}>
-            <span className={cn('h-2 w-2 rounded-full flex-shrink-0', websocketStatusMeta.color)} />
+          <div
+            className={cn(
+              'text-muted-foreground flex items-center gap-2 px-2 py-2 text-xs',
+              isCollapsed && 'justify-center px-0'
+            )}
+          >
+            <span
+              className={cn(
+                'h-2 w-2 flex-shrink-0 rounded-full',
+                websocketStatusMeta.color
+              )}
+            />
             {!isCollapsed && <span>{websocketStatusMeta.label}</span>}
           </div>
         )}
@@ -73,7 +80,10 @@ function ChatSidebar({ data }: { data: SidebarData }) {
 
 function ChatLayoutInner() {
   const chatsQuery = useChatsQuery()
-  const chats = useMemo(() => chatsQuery.data?.chats ?? [], [chatsQuery.data?.chats])
+  const chats = useMemo(
+    () => chatsQuery.data?.chats ?? [],
+    [chatsQuery.data?.chats]
+  )
   const { setChat, openNewChatDialog } = useSidebarContext()
 
   // Get chat ID from URL path
@@ -124,11 +134,11 @@ function ChatLayoutInner() {
     <SearchProvider>
       <LayoutProvider>
         <UISidebarProvider defaultOpen={defaultOpen}>
-          <div className="flex h-svh w-full">
+          <div className='flex h-svh w-full'>
             {/* Left column: TopBar + Sidebar */}
             <div
               className={cn(
-                'relative flex h-full flex-col flex-shrink-0 overflow-visible',
+                'relative flex h-full flex-shrink-0 flex-col overflow-visible',
                 'w-(--sidebar-width) has-data-[state=collapsed]:w-(--sidebar-width-icon)',
                 'transition-[width] duration-200 ease-linear'
               )}

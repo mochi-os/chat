@@ -1,3 +1,4 @@
+import { requestHelpers } from '@mochi/common'
 import endpoints from '@/api/endpoints'
 import type {
   Chat,
@@ -13,7 +14,6 @@ import type {
   SendMessageRequest,
   SendMessageResponse,
 } from '@/api/types/chats'
-import { requestHelpers } from '@mochi/common'
 
 const isRecord = (value: unknown): value is Record<string, unknown> =>
   Boolean(value) && typeof value === 'object'
@@ -190,7 +190,10 @@ const normalizeMessagesResponse = (
 }
 
 const listChats = async (): Promise<GetChatsResponse> => {
-  const response = await requestHelpers.post<GetChatsRaw>(endpoints.chat.list, null)
+  const response = await requestHelpers.post<GetChatsRaw>(
+    endpoints.chat.list,
+    null
+  )
   return normalizeChatsResponse(response)
 }
 
@@ -218,13 +221,10 @@ const listChatMessages = async (
 }
 
 const createChat = (payload: CreateChatRequest) => {
-  return requestHelpers.post<CreateChatResponse>(
-    endpoints.chat.create,
-    {
-      name: payload.name,
-      members: payload.participantIds.join(','),
-    }
-  )
+  return requestHelpers.post<CreateChatResponse>(endpoints.chat.create, {
+    name: payload.name,
+    members: payload.participantIds.join(','),
+  })
 }
 
 const sendChatMessage = (chatId: string, payload: SendMessageRequest) => {
@@ -245,13 +245,10 @@ const sendChatMessage = (chatId: string, payload: SendMessageRequest) => {
   }
 
   // Text-only messages use JSON body per spec
-  return requestHelpers.post<SendMessageResponse>(
-    endpoints.chat.send(chatId),
-    {
-      chat: chatId,
-      body: payload.body,
-    }
-  )
+  return requestHelpers.post<SendMessageResponse>(endpoints.chat.send(chatId), {
+    chat: chatId,
+    body: payload.body,
+  })
 }
 
 const getFriendsForNewChat = () =>

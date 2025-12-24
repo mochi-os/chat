@@ -1,9 +1,5 @@
 import { useEffect, useMemo, useState } from 'react'
 import { useNavigate } from '@tanstack/react-router'
-import { Loader2, MessageCircle, Search, UserPlus, X } from 'lucide-react'
-import { toast } from 'sonner'
-import { useNewChatFriendsQuery, useCreateChatMutation } from '@/hooks/useChats'
-import { useSidebarContext } from '@/context/sidebar-context'
 import {
   Button,
   Checkbox,
@@ -14,11 +10,17 @@ import {
   ResponsiveDialogHeader,
   ResponsiveDialogTitle,
 } from '@mochi/common'
+import { Loader2, MessageCircle, Search, UserPlus, X } from 'lucide-react'
+import { toast } from 'sonner'
+import { useSidebarContext } from '@/context/sidebar-context'
+import { useNewChatFriendsQuery, useCreateChatMutation } from '@/hooks/useChats'
 
 export function NewChat() {
   const navigate = useNavigate()
   const { newChatDialogOpen: open, closeNewChatDialog } = useSidebarContext()
-  const onOpenChange = (isOpen: boolean) => { if (!isOpen) closeNewChatDialog() }
+  const onOpenChange = (isOpen: boolean) => {
+    if (!isOpen) closeNewChatDialog()
+  }
   const [selectedFriends, setSelectedFriends] = useState<string[]>([])
   const [chatName, setChatName] = useState('')
   const [searchQuery, setSearchQuery] = useState('')
@@ -50,10 +52,7 @@ export function NewChat() {
     },
   })
 
-  const friends = useMemo(
-    () => data?.friends ?? [],
-    [data?.friends]
-  )
+  const friends = useMemo(() => data?.friends ?? [], [data?.friends])
 
   const myName = data?.name
 
@@ -81,9 +80,10 @@ export function NewChat() {
   const filteredFriends = useMemo(() => {
     const query = searchQuery.trim().toLowerCase()
     if (!query) return friends
-    return friends.filter((friend) =>
-      friend.name.toLowerCase().includes(query) ||
-      friend.identity?.toLowerCase().includes(query)
+    return friends.filter(
+      (friend) =>
+        friend.name.toLowerCase().includes(query) ||
+        friend.identity?.toLowerCase().includes(query)
     )
   }, [friends, searchQuery])
 
@@ -169,7 +169,7 @@ export function NewChat() {
         <div className='flex min-h-0 flex-1 flex-col overflow-hidden'>
           {/* Friends List - Scrollable */}
           <div className='flex min-h-0 flex-1 flex-col overflow-hidden px-6 py-4'>
-            <div className='flex-1 overflow-hidden rounded-lg border flex flex-col'>
+            <div className='flex flex-1 flex-col overflow-hidden rounded-lg border'>
               <div className='flex-1 overflow-y-auto p-2'>
                 {isLoading && (
                   <div className='flex items-center justify-center py-12'>
@@ -217,7 +217,7 @@ export function NewChat() {
                           {friendsWithoutChat.length > 0 && (
                             <div className='space-y-0.5'>
                               {friendsWithChat.length > 0 && (
-                                <div className='text-xs font-semibold text-muted-foreground px-2 py-1 mb-1'>
+                                <div className='text-muted-foreground mb-1 px-2 py-1 text-xs font-semibold'>
                                   Start a new chat
                                 </div>
                               )}
@@ -252,16 +252,14 @@ export function NewChat() {
                           {friendsWithChat.length > 0 && (
                             <div className='space-y-0.5'>
                               {friendsWithoutChat.length > 0 && (
-                                <div className='text-xs font-semibold text-muted-foreground px-2 py-1 mb-1 mt-2'>
+                                <div className='text-muted-foreground mt-2 mb-1 px-2 py-1 text-xs font-semibold'>
                                   Existing conversations
                                 </div>
                               )}
                               {friendsWithChat.map((friend) => (
                                 <div
                                   key={friend.id}
-                                  onClick={() =>
-                                    handleToggleFriend(friend.id)
-                                  }
+                                  onClick={() => handleToggleFriend(friend.id)}
                                   className='hover:bg-accent hover:text-accent-foreground group flex cursor-pointer items-center gap-3 rounded-md p-2.5 transition-colors'
                                 >
                                   <Checkbox
@@ -303,7 +301,7 @@ export function NewChat() {
           </div>
         </div>
 
-        <div className='bg-background shrink-0 border-t px-6 py-4 space-y-4'>
+        <div className='bg-background shrink-0 space-y-4 border-t px-6 py-4'>
           <Input
             id='chat-name'
             placeholder='Chat name...'
@@ -320,10 +318,7 @@ export function NewChat() {
             >
               Cancel
             </Button>
-            <Button
-              onClick={handleCreateChat}
-              disabled={!canSubmit}
-            >
+            <Button onClick={handleCreateChat} disabled={!canSubmit}>
               {createChatMutation.isPending ? (
                 <>
                   <Loader2 className='mr-2 h-4 w-4 animate-spin' />

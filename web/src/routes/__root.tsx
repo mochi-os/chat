@@ -1,8 +1,13 @@
 import { type QueryClient } from '@tanstack/react-query'
 import { createRootRouteWithContext, Outlet } from '@tanstack/react-router'
+import {
+  Toaster,
+  NavigationProgress,
+  GeneralError,
+  NotFoundError,
+} from '@mochi/common'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import { TanStackRouterDevtools } from '@tanstack/react-router-devtools'
-import { Toaster, NavigationProgress, GeneralError, NotFoundError } from '@mochi/common'
 
 export const Route = createRootRouteWithContext<{
   queryClient: QueryClient

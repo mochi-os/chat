@@ -83,28 +83,24 @@ export class ChatWebsocketManager {
   private readonly baseDelayMs: number
   private readonly maxDelayMs: number
   private readonly maxRetries: number
-  private readonly getChatKey?: (
-    chatId: string
-  ) => Promise<string | undefined>
+  private readonly getChatKey?: (chatId: string) => Promise<string | undefined>
   private readonly connections = new Map<string, ConnectionEntry>()
   private disposed = false
   private online: boolean
 
   constructor(options: ChatWebsocketManagerOptions = {}) {
     const fallbackUrl =
-      typeof window !== 'undefined' ? window.location.origin : 'http://localhost'
+      typeof window !== 'undefined'
+        ? window.location.origin
+        : 'http://localhost'
     this.baseUrl =
-      options.baseUrl ??
-      import.meta.env.VITE_WEBSOCKET_URL ??
-      fallbackUrl
-    this.idleDisconnectMs =
-      options.idleDisconnectMs ?? DEFAULT_IDLE_DISCONNECT
+      options.baseUrl ?? import.meta.env.VITE_WEBSOCKET_URL ?? fallbackUrl
+    this.idleDisconnectMs = options.idleDisconnectMs ?? DEFAULT_IDLE_DISCONNECT
     this.baseDelayMs = options.baseDelayMs ?? DEFAULT_BASE_DELAY
     this.maxDelayMs = options.maxDelayMs ?? DEFAULT_MAX_DELAY
     this.maxRetries = options.maxRetries ?? DEFAULT_MAX_RETRIES
     this.getChatKey = options.getChatKey
-    this.online =
-      typeof navigator === 'undefined' ? true : navigator.onLine
+    this.online = typeof navigator === 'undefined' ? true : navigator.onLine
 
     if (typeof window !== 'undefined') {
       window.addEventListener('online', this.handleOnline)
@@ -204,9 +200,7 @@ export class ChatWebsocketManager {
   }
 
   private hasListeners(entry: ConnectionEntry): boolean {
-    return (
-      entry.messageListeners.size > 0 || entry.statusListeners.size > 0
-    )
+    return entry.messageListeners.size > 0 || entry.statusListeners.size > 0
   }
 
   private snapshot(entry: ConnectionEntry): WebsocketConnectionSnapshot {
@@ -264,10 +258,7 @@ export class ChatWebsocketManager {
       }
       socket.onerror = (event) => {
         if (import.meta.env.DEV) {
-          devConsole?.warn?.(
-            `[WebSocket] ${entry.chatId} error`,
-            event
-          )
+          devConsole?.warn?.(`[WebSocket] ${entry.chatId} error`, event)
         }
         this.updateStatus(entry, 'error', 'socket-error')
       }
@@ -362,9 +353,7 @@ export class ChatWebsocketManager {
     }
   }
 
-  private safeParse(
-    raw: string
-  ): ChatWebsocketMessagePayload | null {
+  private safeParse(raw: string): ChatWebsocketMessagePayload | null {
     try {
       const parsed = JSON.parse(raw)
       if (parsed && typeof parsed === 'object') {
@@ -451,7 +440,10 @@ export class ChatWebsocketManager {
     }, delay)
   }
 
-  private closeSocket(entry: ConnectionEntry, reason: ConnectionEntry['closingReason']) {
+  private closeSocket(
+    entry: ConnectionEntry,
+    reason: ConnectionEntry['closingReason']
+  ) {
     if (!entry.socket) {
       if (reason === 'force' && this.online && this.hasListeners(entry)) {
         void this.ensureSocket(entry)

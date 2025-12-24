@@ -1,15 +1,27 @@
-import { Fragment, useCallback, useEffect, useLayoutEffect, useMemo, useRef } from 'react'
+import {
+  Fragment,
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useMemo,
+  useRef,
+} from 'react'
 import { format, isToday } from 'date-fns'
+import type {
+  UseInfiniteQueryResult,
+  InfiniteData,
+} from '@tanstack/react-query'
+import { Button, LoadMoreTrigger, cn } from '@mochi/common'
 import { Loader2, MessagesSquare, RotateCcw } from 'lucide-react'
 import type { ChatMessage } from '@/api/chats'
-import type { UseInfiniteQueryResult, InfiniteData } from '@tanstack/react-query'
 import type { GetMessagesResponse } from '@/api/types/chats'
-import { Button, LoadMoreTrigger } from '@mochi/common'
-import { cn } from '@mochi/common'
 import { MessageAttachments } from './message-attachments'
 
 interface ChatMessageListProps {
-  messagesQuery: UseInfiniteQueryResult<InfiniteData<GetMessagesResponse>, unknown>
+  messagesQuery: UseInfiniteQueryResult<
+    InfiniteData<GetMessagesResponse>,
+    unknown
+  >
   chatMessages: ChatMessage[]
   isLoadingMessages: boolean
   messagesErrorMessage: string | null
@@ -71,7 +83,11 @@ export function ChatMessageList({
 
   // Preserve scroll position when older messages are prepended
   useLayoutEffect(() => {
-    if (isLoadingMoreRef.current && scrollContainerRef.current && !messagesQuery.isFetchingNextPage) {
+    if (
+      isLoadingMoreRef.current &&
+      scrollContainerRef.current &&
+      !messagesQuery.isFetchingNextPage
+    ) {
       const newScrollHeight = scrollContainerRef.current.scrollHeight
       const scrollDiff = newScrollHeight - prevScrollHeightRef.current
       scrollContainerRef.current.scrollTop += scrollDiff
@@ -152,9 +168,7 @@ export function ChatMessageList({
         <Fragment key={key}>
           {/* Date separator */}
           <div className='my-4 flex items-center justify-center'>
-            <div className='text-muted-foreground text-xs'>
-              {key}
-            </div>
+            <div className='text-muted-foreground text-xs'>{key}</div>
           </div>
 
           {groupedMessages[key].map((message, index) => {
@@ -170,7 +184,7 @@ export function ChatMessageList({
                 <div
                   className={cn(
                     'message-content relative max-w-[70%] px-3.5 py-2 wrap-break-word',
-                    'rounded-2xl bg-highlight',
+                    'bg-highlight rounded-2xl',
                     isSent ? 'rounded-br-sm' : 'rounded-bl-sm'
                   )}
                 >
@@ -200,13 +214,21 @@ export function ChatMessageList({
                     const date = new Date(message.created * 1000)
                     const today = isToday(date)
                     return (
-                      <span className={cn(
-                        'message-meta absolute bottom-0.5 text-[11px] text-muted-foreground transition-opacity whitespace-nowrap',
-                        isSent
-                          ? today ? '-left-14' : '-left-32'
-                          : today ? '-right-14' : '-right-32'
-                      )}>
-                        {today ? format(date, 'HH:mm') : format(date, 'yyyy-MM-dd HH:mm')}
+                      <span
+                        className={cn(
+                          'message-meta text-muted-foreground absolute bottom-0.5 text-[11px] whitespace-nowrap transition-opacity',
+                          isSent
+                            ? today
+                              ? '-left-14'
+                              : '-left-32'
+                            : today
+                              ? '-right-14'
+                              : '-right-32'
+                        )}
+                      >
+                        {today
+                          ? format(date, 'HH:mm')
+                          : format(date, 'yyyy-MM-dd HH:mm')}
                       </span>
                     )
                   })()}

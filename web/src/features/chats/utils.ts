@@ -70,7 +70,9 @@ export const createPendingAttachment = (file: File): PendingAttachment => {
   }
 }
 
-export const revokePendingAttachmentPreview = (attachment: PendingAttachment) => {
+export const revokePendingAttachmentPreview = (
+  attachment: PendingAttachment
+) => {
   if (attachment.previewUrl) {
     URL.revokeObjectURL(attachment.previewUrl)
   }

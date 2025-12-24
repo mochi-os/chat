@@ -1,6 +1,13 @@
 import { type ChangeEvent, type FormEvent, useRef } from 'react'
-import { ArrowLeft, ArrowRight, Loader2, Paperclip, Send, X } from 'lucide-react'
 import { Button } from '@mochi/common'
+import {
+  ArrowLeft,
+  ArrowRight,
+  Loader2,
+  Paperclip,
+  Send,
+  X,
+} from 'lucide-react'
 import type { PendingAttachment } from '../utils'
 
 interface ChatInputProps {
@@ -46,10 +53,7 @@ export function ChatInput({
             onClick={() => fileInputRef.current?.click()}
             aria-label='Add attachment'
           >
-            <Paperclip
-              size={16}
-              className='stroke-muted-foreground'
-            />
+            <Paperclip size={16} className='stroke-muted-foreground' />
           </Button>
         </div>
         <label className='flex-1'>
@@ -97,34 +101,34 @@ export function ChatInput({
             return (
               <div
                 key={attachment.id}
-                className='group/att relative overflow-hidden rounded-lg border-2 border-dashed border-primary/30 bg-muted/50 flex items-center justify-center'
+                className='group/att border-primary/30 bg-muted/50 relative flex items-center justify-center overflow-hidden rounded-lg border-2 border-dashed'
               >
                 {isImage && attachment.previewUrl ? (
                   <img
                     src={attachment.previewUrl}
                     alt={attachment.file.name}
-                    className='max-h-[120px] max-w-[160px] block'
+                    className='block max-h-[120px] max-w-[160px]'
                   />
                 ) : isVideo && attachment.previewUrl ? (
                   <video
                     src={attachment.previewUrl}
-                    className='max-h-[120px] max-w-[160px] block'
+                    className='block max-h-[120px] max-w-[160px]'
                     muted
                     playsInline
                   />
                 ) : (
                   <div className='flex h-[80px] w-[120px] flex-col items-center justify-center gap-1 px-2'>
-                    <Paperclip className='size-5 text-muted-foreground' />
-                    <span className='text-xs text-center line-clamp-2 break-all text-muted-foreground'>
+                    <Paperclip className='text-muted-foreground size-5' />
+                    <span className='text-muted-foreground line-clamp-2 text-center text-xs break-all'>
                       {attachment.file.name}
                     </span>
                   </div>
                 )}
                 {/* Hover overlay with controls */}
-                <div className='absolute inset-0 bg-black/50 opacity-0 group-hover/att:opacity-100 transition-opacity flex items-center justify-center gap-2'>
+                <div className='absolute inset-0 flex items-center justify-center gap-2 bg-black/50 opacity-0 transition-opacity group-hover/att:opacity-100'>
                   <button
                     type='button'
-                    className='size-8 rounded-full bg-white/20 text-white hover:bg-white/30 disabled:opacity-30 disabled:cursor-not-allowed flex items-center justify-center'
+                    className='flex size-8 items-center justify-center rounded-full bg-white/20 text-white hover:bg-white/30 disabled:cursor-not-allowed disabled:opacity-30'
                     disabled={isFirst}
                     onClick={(e) => {
                       e.stopPropagation()
@@ -135,7 +139,7 @@ export function ChatInput({
                   </button>
                   <button
                     type='button'
-                    className='size-8 rounded-full bg-white/20 text-white hover:bg-white/30 disabled:opacity-30 disabled:cursor-not-allowed flex items-center justify-center'
+                    className='flex size-8 items-center justify-center rounded-full bg-white/20 text-white hover:bg-white/30 disabled:cursor-not-allowed disabled:opacity-30'
                     disabled={isLast}
                     onClick={(e) => {
                       e.stopPropagation()
@@ -146,19 +150,21 @@ export function ChatInput({
                   </button>
                   <button
                     type='button'
-                    className='size-8 rounded-full bg-white/20 text-white hover:bg-white/30 flex items-center justify-center'
+                    className='flex size-8 items-center justify-center rounded-full bg-white/20 text-white hover:bg-white/30'
                     onClick={(e) => {
                       e.stopPropagation()
                       onRemoveAttachment(attachment.id)
                     }}
                   >
                     <X className='size-4' />
-                    <span className='sr-only'>Remove {attachment.file.name}</span>
+                    <span className='sr-only'>
+                      Remove {attachment.file.name}
+                    </span>
                   </button>
                 </div>
                 {/* Position indicator */}
                 {pendingAttachments.length > 1 && (
-                  <div className='absolute top-1.5 left-1.5 size-5 rounded-full bg-black/60 text-white text-xs font-medium flex items-center justify-center'>
+                  <div className='absolute top-1.5 left-1.5 flex size-5 items-center justify-center rounded-full bg-black/60 text-xs font-medium text-white'>
                     {index + 1}
                   </div>
                 )}

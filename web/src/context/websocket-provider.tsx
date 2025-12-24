@@ -11,8 +11,7 @@ const buildManager = (): ChatWebsocketManager | null => {
   }
 
   const baseOptions: ChatWebsocketManagerOptions = {
-    baseUrl:
-      import.meta.env.VITE_WEBSOCKET_URL ?? window.location.origin,
+    baseUrl: import.meta.env.VITE_WEBSOCKET_URL ?? window.location.origin,
     getChatKey: async (chatId: string) => {
       try {
         const chat = await chatsApi.detail(chatId)
@@ -33,11 +32,7 @@ const buildManager = (): ChatWebsocketManager | null => {
   return new ChatWebsocketManager(baseOptions)
 }
 
-export const WebsocketProvider = ({
-  children,
-}: {
-  children: ReactNode
-}) => {
+export const WebsocketProvider = ({ children }: { children: ReactNode }) => {
   const manager = useMemo(() => buildManager(), [])
 
   useEffect(() => {

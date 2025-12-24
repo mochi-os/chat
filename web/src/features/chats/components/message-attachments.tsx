@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import { Loader2, Play } from 'lucide-react'
 import {
   ImageLightbox,
   type LightboxMedia,
@@ -10,6 +9,7 @@ import {
   isImage,
   isVideo,
 } from '@mochi/common'
+import { Loader2, Play } from 'lucide-react'
 import type { ChatMessageAttachment } from '@/api/chats'
 
 interface MessageAttachmentsProps {
@@ -27,16 +27,16 @@ function VideoThumbnail({ url }: { url: string }) {
 
   if (loading) {
     return (
-      <div className='flex h-[120px] w-[160px] items-center justify-center bg-muted'>
-        <Loader2 className='size-6 animate-spin text-muted-foreground' />
+      <div className='bg-muted flex h-[120px] w-[160px] items-center justify-center'>
+        <Loader2 className='text-muted-foreground size-6 animate-spin' />
       </div>
     )
   }
 
   if (error || !thumbnailUrl) {
     return (
-      <div className='flex h-[120px] w-[160px] items-center justify-center bg-muted'>
-        <Play className='size-10 text-muted-foreground' />
+      <div className='bg-muted flex h-[120px] w-[160px] items-center justify-center'>
+        <Play className='text-muted-foreground size-10' />
       </div>
     )
   }
@@ -54,7 +54,7 @@ function VideoThumbnail({ url }: { url: string }) {
         </div>
       </div>
       {duration != null && (
-        <div className='absolute bottom-1 right-1 rounded bg-black/70 px-1.5 py-0.5 text-xs font-medium text-white'>
+        <div className='absolute right-1 bottom-1 rounded bg-black/70 px-1.5 py-0.5 text-xs font-medium text-white'>
           {formatVideoDuration(duration)}
         </div>
       )}
@@ -110,7 +110,7 @@ export function MessageAttachments({
         e.stopPropagation()
         openLightbox(index)
       }}
-      className='group/thumb relative overflow-hidden rounded-lg border bg-muted'
+      className='group/thumb bg-muted relative overflow-hidden rounded-lg border'
     >
       {isVideo(attachment.type) ? (
         <VideoThumbnail url={getAttachmentUrl(attachment.id)} />

@@ -1,21 +1,21 @@
 import { useEffect, useMemo, useState } from 'react'
 import { useParams } from '@tanstack/react-router'
 import { useAuthStore, usePageTitle } from '@mochi/common'
+import { useSidebarContext } from '@/context/sidebar-context'
 import useChatWebsocket from '@/hooks/useChatWebsocket'
 import {
   useInfiniteMessagesQuery,
   useChatsQuery,
   useSendMessageMutation,
 } from '@/hooks/useChats'
-import { ChatMessageList } from './components/chat-message-list'
-import { ChatInput } from './components/chat-input'
 import { ChatEmptyState } from './components/chat-empty-state'
+import { ChatInput } from './components/chat-input'
+import { ChatMessageList } from './components/chat-message-list'
 import {
   type PendingAttachment,
   createPendingAttachment,
   revokePendingAttachmentPreview,
 } from './utils'
-import { useSidebarContext } from '@/context/sidebar-context'
 
 export function Chats() {
   usePageTitle('Chat')
@@ -68,10 +68,8 @@ export function Chats() {
     },
   })
 
-  const {
-    status: websocketStatus,
-    retries: websocketRetries,
-  } = useChatWebsocket(selectedChat?.id, selectedChat?.key)
+  const { status: websocketStatus, retries: websocketRetries } =
+    useChatWebsocket(selectedChat?.id, selectedChat?.key)
 
   // Update websocket status in sidebar context
   useEffect(() => {
@@ -114,7 +112,9 @@ export function Chats() {
     })
   }
 
-  const handleAttachmentSelection = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleAttachmentSelection = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
     if (e.target.files) {
       const files = Array.from(e.target.files)
       const newAttachments = files.map(createPendingAttachment)

@@ -1,15 +1,15 @@
 import { useState, useEffect } from 'react'
-import { LayoutGrid } from 'lucide-react'
 import axios from 'axios'
-import { Button } from '@mochi/common'
 import {
+  Button,
   Popover,
   PopoverContent,
   PopoverTrigger,
+  ScrollArea,
+  getCookie,
+  useAuthStore,
 } from '@mochi/common'
-import { ScrollArea } from '@mochi/common'
-import { getCookie } from '@mochi/common'
-import { useAuthStore } from '@mochi/common'
+import { LayoutGrid } from 'lucide-react'
 
 interface AppIcon {
   path: string
@@ -27,24 +27,27 @@ export function AppsDropdown() {
     if (open && apps.length === 0 && !error) {
       setIsLoading(true)
       setError(null)
-      
+
       // Get auth token for the request
       const storeToken = useAuthStore.getState().token
       const cookieToken = getCookie('token')
       const token = storeToken || cookieToken
-      
+
       // Use absolute URL to fetch icons from root
       axios
         .get<AppIcon[]>('/icons', {
-          headers: token ? {
-            Authorization: token.startsWith('Bearer ') ? token : `Bearer ${token}`,
-          } : {},
+          headers: token
+            ? {
+                Authorization: token.startsWith('Bearer ')
+                  ? token
+                  : `Bearer ${token}`,
+              }
+            : {},
         })
         .then((response) => {
           setApps(response.data)
         })
-        .catch((err) => {
-          console.error('Failed to load apps:', err)
+        .catch(() => {
           setError('Failed to load apps')
         })
         .finally(() => {
@@ -68,7 +71,7 @@ export function AppsDropdown() {
       <PopoverContent
         align='end'
         sideOffset={8}
-        className='w-[340px] p-0 rounded-2xl shadow-xl border-border/50 bg-popover'
+        className='border-border/50 bg-popover w-[340px] rounded-2xl p-0 shadow-xl'
       >
         <div className='flex flex-col'>
           {/* Header */}
@@ -81,12 +84,12 @@ export function AppsDropdown() {
             <div className='p-4'>
               {isLoading ? (
                 <div className='flex items-center justify-center py-12'>
-                  <div className='size-6 animate-spin rounded-full border-2 border-primary border-t-transparent' />
+                  <div className='border-primary size-6 animate-spin rounded-full border-2 border-t-transparent' />
                 </div>
               ) : error ? (
                 <div className='flex flex-col items-center justify-center py-12 text-center'>
-                  <LayoutGrid className='mb-4 size-12 text-muted-foreground/50' />
-                  <p className='text-sm font-medium text-muted-foreground'>
+                  <LayoutGrid className='text-muted-foreground/50 mb-4 size-12' />
+                  <p className='text-muted-foreground text-sm font-medium'>
                     {error}
                   </p>
                   <Button
@@ -103,8 +106,8 @@ export function AppsDropdown() {
                 </div>
               ) : apps.length === 0 ? (
                 <div className='flex flex-col items-center justify-center py-12 text-center'>
-                  <LayoutGrid className='mb-4 size-12 text-muted-foreground/50' />
-                  <p className='text-sm font-medium text-muted-foreground'>
+                  <LayoutGrid className='text-muted-foreground/50 mb-4 size-12' />
+                  <p className='text-muted-foreground text-sm font-medium'>
                     No apps available
                   </p>
                 </div>
@@ -114,10 +117,10 @@ export function AppsDropdown() {
                     <a
                       key={app.path}
                       href={`/${app.path}/`}
-                      className='flex flex-col items-center gap-2 rounded-xl p-3 transition-colors hover:bg-accent'
+                      className='hover:bg-accent flex flex-col items-center gap-2 rounded-xl p-3 transition-colors'
                       onClick={() => setOpen(false)}
                     >
-                      <div className='flex size-12 items-center justify-center rounded-xl bg-accent/50'>
+                      <div className='bg-accent/50 flex size-12 items-center justify-center rounded-xl'>
                         <img
                           src={`/${app.path}/${app.file}`}
                           alt={app.name}
@@ -128,7 +131,7 @@ export function AppsDropdown() {
                           }}
                         />
                       </div>
-                      <span className='text-center text-xs font-medium leading-tight'>
+                      <span className='text-center text-xs leading-tight font-medium'>
                         {app.name}
                       </span>
                     </a>
@@ -142,4 +145,3 @@ export function AppsDropdown() {
     </Popover>
   )
 }
-

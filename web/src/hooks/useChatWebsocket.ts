@@ -1,17 +1,21 @@
 import { useCallback, useEffect, useState } from 'react'
-import { useQueryClient, type QueryClient, type InfiniteData } from '@tanstack/react-query'
+import {
+  useQueryClient,
+  type QueryClient,
+  type InfiniteData,
+} from '@tanstack/react-query'
 import type {
   ChatMessage,
   ChatMessageAttachment,
   GetMessagesResponse,
 } from '@/api/chats'
-import { useWebsocketManager } from '@/hooks/useWebsocketManager'
 import {
   type ChatWebsocketEvent,
   type ChatWebsocketMessagePayload,
   type WebsocketConnectionStatus,
 } from '@/lib/websocket-manager'
 import { chatKeys } from '@/hooks/useChats'
+import { useWebsocketManager } from '@/hooks/useWebsocketManager'
 
 interface UseChatWebsocketResult {
   status: WebsocketConnectionStatus
@@ -21,10 +25,7 @@ interface UseChatWebsocketResult {
   forceReconnect: () => void
 }
 
-const isSameMessage = (
-  incoming: ChatMessage,
-  existing: ChatMessage
-): boolean =>
+const isSameMessage = (incoming: ChatMessage, existing: ChatMessage): boolean =>
   incoming.created === existing.created &&
   incoming.body === existing.body &&
   incoming.name === existing.name
@@ -48,8 +49,7 @@ const createMessageFromPayload = (
       : Math.floor(Date.now() / 1000)
   const messageBody =
     typeof payload.body === 'string' ? payload.body : String(payload.body ?? '')
-  const senderName =
-    typeof payload.name === 'string' ? payload.name : 'Unknown'
+  const senderName = typeof payload.name === 'string' ? payload.name : 'Unknown'
 
   return {
     id: `ws-${chatId}-${created}-${Math.random().toString(36).slice(2)}`,

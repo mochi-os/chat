@@ -1,4 +1,10 @@
-import { createContext, useContext, useState, useCallback, type ReactNode } from 'react'
+import {
+  createContext,
+  useContext,
+  useState,
+  useCallback,
+  type ReactNode,
+} from 'react'
 import type { WebsocketConnectionStatus } from '@/lib/websocket-manager'
 
 type WebsocketStatusMeta = {
@@ -15,12 +21,18 @@ type SidebarContextValue = {
   closeNewChatDialog: () => void
   websocketStatus: WebsocketConnectionStatus
   websocketStatusMeta: WebsocketStatusMeta
-  setWebsocketStatus: (status: WebsocketConnectionStatus, retries?: number) => void
+  setWebsocketStatus: (
+    status: WebsocketConnectionStatus,
+    retries?: number
+  ) => void
 }
 
 const SidebarContext = createContext<SidebarContextValue | null>(null)
 
-function getWebsocketStatusMeta(status: WebsocketConnectionStatus, retries: number): WebsocketStatusMeta {
+function getWebsocketStatusMeta(
+  status: WebsocketConnectionStatus,
+  retries: number
+): WebsocketStatusMeta {
   switch (status) {
     case 'ready':
       return { label: 'Connected', color: 'bg-green-500' }
@@ -42,7 +54,8 @@ export function SidebarProvider({ children }: { children: ReactNode }) {
   const [chatId, setChatId] = useState<string | null>(null)
   const [chatName, setChatName] = useState<string | null>(null)
   const [newChatDialogOpen, setNewChatDialogOpen] = useState(false)
-  const [websocketStatus, setWsStatus] = useState<WebsocketConnectionStatus>('idle')
+  const [websocketStatus, setWsStatus] =
+    useState<WebsocketConnectionStatus>('idle')
   const [websocketRetries, setWebsocketRetries] = useState(0)
 
   const setChat = useCallback((id: string | null, name?: string) => {
@@ -58,25 +71,33 @@ export function SidebarProvider({ children }: { children: ReactNode }) {
     setNewChatDialogOpen(false)
   }, [])
 
-  const setWebsocketStatus = useCallback((status: WebsocketConnectionStatus, retries = 0) => {
-    setWsStatus(status)
-    setWebsocketRetries(retries)
-  }, [])
+  const setWebsocketStatus = useCallback(
+    (status: WebsocketConnectionStatus, retries = 0) => {
+      setWsStatus(status)
+      setWebsocketRetries(retries)
+    },
+    []
+  )
 
-  const websocketStatusMeta = getWebsocketStatusMeta(websocketStatus, websocketRetries)
+  const websocketStatusMeta = getWebsocketStatusMeta(
+    websocketStatus,
+    websocketRetries
+  )
 
   return (
-    <SidebarContext.Provider value={{
-      chatId,
-      chatName,
-      setChat,
-      newChatDialogOpen,
-      openNewChatDialog,
-      closeNewChatDialog,
-      websocketStatus,
-      websocketStatusMeta,
-      setWebsocketStatus,
-    }}>
+    <SidebarContext.Provider
+      value={{
+        chatId,
+        chatName,
+        setChat,
+        newChatDialogOpen,
+        openNewChatDialog,
+        closeNewChatDialog,
+        websocketStatus,
+        websocketStatusMeta,
+        setWebsocketStatus,
+      }}
+    >
       {children}
     </SidebarContext.Provider>
   )
