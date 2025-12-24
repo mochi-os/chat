@@ -1,6 +1,6 @@
 import { Fragment, useCallback, useEffect, useLayoutEffect, useMemo, useRef } from 'react'
-import { format } from 'date-fns'
-import { CheckCheck, Loader2, MessagesSquare, RotateCcw } from 'lucide-react'
+import { format, isToday } from 'date-fns'
+import { Loader2, MessagesSquare, RotateCcw } from 'lucide-react'
 import type { ChatMessage } from '@/api/chats'
 import type { UseInfiniteQueryResult, InfiniteData } from '@tanstack/react-query'
 import type { GetMessagesResponse } from '@/api/types/chats'
@@ -47,7 +47,7 @@ export function ChatMessageList({
   const groupedMessages = useMemo(() => {
     const groups: Record<string, ChatMessage[]> = {}
     chatMessages.forEach((message) => {
-      const date = format(new Date(message.created * 1000), 'MMMM d, yyyy')
+      const date = format(new Date(message.created * 1000), 'yyyy-MM-dd')
       if (!groups[date]) {
         groups[date] = []
       }
@@ -152,7 +152,7 @@ export function ChatMessageList({
         <Fragment key={key}>
           {/* Date separator */}
           <div className='my-4 flex items-center justify-center'>
-            <div className='bg-muted text-muted-foreground rounded-full px-3 py-1 text-xs font-medium'>
+            <div className='text-muted-foreground text-xs'>
               {key}
             </div>
           </div>
@@ -163,33 +163,31 @@ export function ChatMessageList({
               <div
                 key={`${message.id}-${index}`}
                 className={cn(
-                  'mb-1 flex w-full',
+                  'mb-1.5 flex w-full',
                   isSent ? 'justify-end' : 'justify-start'
                 )}
               >
                 <div
                   className={cn(
-                    'max-w-[70%] px-4 py-3 wrap-break-word shadow-sm',
-                    'rounded-2xl',
-                    isSent
-                      ? 'rounded-br-md bg-blue-500 text-white dark:bg-blue-600'
-                      : 'rounded-bl-md bg-gray-100 text-gray-900 dark:bg-gray-700 dark:text-gray-100'
+                    'message-content relative max-w-[70%] px-3.5 py-2 wrap-break-word',
+                    'rounded-2xl bg-highlight',
+                    isSent ? 'rounded-br-sm' : 'rounded-bl-sm'
                   )}
                 >
                   {/* Sender name for received messages */}
                   {!isSent && (
-                    <div className='text-muted-foreground mb-1 text-xs font-medium'>
+                    <div className='text-muted-foreground mb-0.5 text-xs font-medium'>
                       {message.name}
                     </div>
                   )}
 
                   {/* Message content */}
-                  <div className='text-sm leading-relaxed'>
+                  <p className='text-sm leading-relaxed whitespace-pre-wrap'>
                     {message.body}
-                  </div>
+                  </p>
 
                   {message.attachments?.length ? (
-                    <div className='mt-3 space-y-2'>
+                    <div className='mt-2 space-y-2'>
                       <MessageAttachments
                         attachments={message.attachments}
                         chatId={message.chat}
@@ -197,30 +195,21 @@ export function ChatMessageList({
                     </div>
                   ) : null}
 
-                  {/* Timestamp and read receipts */}
-                  <div
-                    className={cn(
-                      'mt-2 flex items-center justify-end gap-1 text-xs',
-                      isSent
-                        ? 'text-white/70'
-                        : 'text-gray-600 dark:text-gray-300'
-                    )}
-                  >
-                    <span>
-                      {format(
-                        new Date(message.created * 1000),
-                        'h:mm a'
-                      )}
-                    </span>
-                    {isSent && (
-                      <div className='flex items-center'>
-                        <CheckCheck
-                          size={12}
-                          className='text-green-500'
-                        />
-                      </div>
-                    )}
-                  </div>
+                  {/* Timestamp - shown on hover, positioned beside bubble */}
+                  {(() => {
+                    const date = new Date(message.created * 1000)
+                    const today = isToday(date)
+                    return (
+                      <span className={cn(
+                        'message-meta absolute bottom-0.5 text-[11px] text-muted-foreground transition-opacity whitespace-nowrap',
+                        isSent
+                          ? today ? '-left-14' : '-left-32'
+                          : today ? '-right-14' : '-right-32'
+                      )}>
+                        {today ? format(date, 'HH:mm') : format(date, 'yyyy-MM-dd HH:mm')}
+                      </span>
+                    )
+                  })()}
                 </div>
               </div>
             )
