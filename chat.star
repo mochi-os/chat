@@ -151,7 +151,7 @@ def action_send(a):
 
 	# Send message to other members (attachments are sent separately via federation)
 	for member in members:
-		mochi.message.send({"from": a.user.identity.id, "to": member["member"], "service": "chat", "event": "message"}, {"chat": chat["id"], "message": id, "created": mochi.time.now(), "body": body})
+		mochi.message.send({"from": a.user.identity.id, "to": member["member"], "service": "chat", "event": "message"}, {"chat": chat["id"], "message": id, "created": mochi.time.now(), "body": body, "name": a.user.identity.name})
 
 	return {
 		"data": {"id": id}
@@ -191,17 +191,25 @@ def event_message(e):
 	if not mochi.valid(str(created), "integer"):
 		return
 
+	# Validate timestamp is within reasonable range (not more than 1 day in future or 1 year in past)
+	now = mochi.time.now()
+	if created > now + 86400 or created < now - 31536000:
+		return
+
 	body = e.content("body")
 	if not mochi.valid(str(body), "text"):
 		return
 
-	mochi.db.execute("replace into messages ( id, chat, member, name, body, created ) values ( ?, ?, ?, ?, ?, ? )", id, chat["id"], member["member"], member["name"], body, created)
+	# Use current name from event, fall back to cached member name
+	name = e.content("name") or member["name"]
+
+	mochi.db.execute("replace into messages ( id, chat, member, name, body, created ) values ( ?, ?, ?, ?, ?, ? )", id, chat["id"], member["member"], name, body, created)
 
 	# Attachments arrive via _attachment/create events and are saved automatically
 	attachments = mochi.attachment.list("chat/" + chat["id"] + "/" + id)
 
-	mochi.websocket.write(chat["key"], {"created": created, "name": member["name"], "body": body, "attachments": attachments})
-	mochi.service.call("notifications", "create", "chat", "message", chat["id"], member["name"] + ": " + body, "/chat/" + chat["id"])
+	mochi.websocket.write(chat["key"], {"created": created, "name": name, "body": body, "attachments": attachments})
+	mochi.service.call("notifications", "create", "chat", "message", chat["id"], name + ": " + body, "/chat/" + chat["id"])
 
 # Received a new chat event
 def event_new(e):
@@ -213,15 +221,16 @@ def event_new(e):
 	if not mochi.valid(chat, "id"):
 		return
 
-	if mochi.db.exists("select id from chats where id=?", chat):
-		# Duplicate chat
-		return
-
 	name = e.content("name")
 	if not mochi.valid(name, "name"):
 		return
 
-	mochi.db.execute("replace into chats ( id, identity, name, key, updated ) values ( ?, ?, ?, ?, ? )", chat, e.header("to"), name, mochi.random.alphanumeric(12), mochi.time.now())
+	# Use insert or ignore to handle concurrent events atomically
+	# If chat already exists, this is a duplicate event - skip processing
+	result = mochi.db.execute("insert or ignore into chats ( id, identity, name, key, updated ) values ( ?, ?, ?, ?, ? )", chat, e.header("to"), name, mochi.random.alphanumeric(12), mochi.time.now())
+	if result == 0:
+		# Chat already existed, duplicate event
+		return
 
 	for member in e.read():
 		if not mochi.valid(member["id"], "entity"):
@@ -229,5 +238,3 @@ def event_new(e):
 		if not mochi.valid(member["name"], "name"):
 			continue
 		mochi.db.execute("replace into members ( chat, member, name ) values ( ?, ?, ? )", chat, member["id"], member["name"])
-
-	mochi.service.call("notifications", "create", "chat", "new", chat, "New chat from " + f["name"] + ": " + name, "/chat/" + chat)
