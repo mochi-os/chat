@@ -19,17 +19,17 @@ def action_create(a):
 		a.error(400, "Invalid chat name")
 		return
 
-	mochi.db.execute("replace into chats ( id, identity, name, key, updated ) values ( ?, ?, ?, ?, ? )", chat, a.user.identity.id, name, mochi.random.alphanumeric(12), mochi.time.now())
-	mochi.db.execute("replace into members ( chat, member, name ) values ( ?, ?, ? )", chat, a.user.identity.id, a.user.identity.name)
-
-	members = [{"id": a.user.identity.id, "name": a.user.identity.name}]
-
-	# Handle members from frontend (comma-separated string)
+	# Build prospective member list
+	prospective_members = [{"id": a.user.identity.id, "name": a.user.identity.name}]
+	
 	members_str = a.input("members")
 	if members_str:
 		for member_id in members_str.split(","):
 			if not mochi.valid(member_id, "entity"):
 				continue
+			if member_id == a.user.identity.id:
+				continue
+			
 			# Look up the member in friends or directory to get their name
 			friend = mochi.service.call("friends", "get", a.user.identity.id, member_id)
 			if friend:
@@ -41,17 +41,42 @@ def action_create(a):
 					member_name = dir_entry["name"]
 				else:
 					member_name = "Unknown"
+			
+			prospective_members.append({"id": member_id, "name": member_name})
 
-			mochi.db.execute("replace into members ( chat, member, name ) values ( ?, ?, ? )", chat, member_id, member_name)
-			members.append({"id": member_id, "name": member_name})
+	# Check for existing 1-on-1 chat
+	if len(prospective_members) == 2:
+		other_member = prospective_members[1]
+		# Find chat where both are members and total members is 2
+		existing_rows = mochi.db.rows("""
+			SELECT c.id, c.name 
+			FROM chats c
+			JOIN members m1 ON c.id = m1.chat
+			JOIN members m2 ON c.id = m2.chat
+			WHERE m1.member = ? AND m2.member = ?
+			GROUP BY c.id
+			HAVING (SELECT count(*) FROM members WHERE chat = c.id) = 2
+		""", a.user.identity.id, other_member["id"])
+		
+		if existing_rows:
+			existing_chat = existing_rows[0]
+			return {
+				"data": {"id": existing_chat["id"], "name": existing_chat["name"], "members": prospective_members}
+			}
 
+	chat = mochi.uid()
+	mochi.db.execute("replace into chats ( id, identity, name, key, updated ) values ( ?, ?, ?, ?, ? )", chat, a.user.identity.id, name, mochi.random.alphanumeric(12), mochi.time.now())
 	
-	for member in members:
+	for member in prospective_members:
+		mochi.db.execute("replace into members ( chat, member, name ) values ( ?, ?, ? )", chat, member["id"], member["name"])
 		if member["id"] != a.user.identity.id:
-			mochi.message.send({"from": a.user.identity.id, "to": member["id"], "service": "chat", "event": "new"}, {"id": chat, "name": name}, members)
+			chat_name_for_member = name
+			if len(prospective_members) == 2:
+				chat_name_for_member = a.user.identity.name
+			mochi.message.send({"from": a.user.identity.id, "to": member["id"], "service": "chat", "event": "new"}, {"id": chat, "name": chat_name_for_member}, prospective_members)
 
 	return {
-		"data": {"id": chat, "name": name, "members": members}
+		"data": {"id": chat, "name": name, "members": prospective_members}
 	}
 
 # List chats
@@ -62,8 +87,36 @@ def action_list(a):
 
 # Enter details of new chat
 def action_new(a):
+	friends = mochi.service.call("friends", "list", a.user.identity.id) or []
+
+	# Find existing 1-on-1 chats
+	rows = mochi.db.rows("select chat, member from members where chat in (select chat from members where member=?)", a.user.identity.id)
+
+	chat_members = {}
+	for row in rows:
+		chat_id = row["chat"]
+		if chat_id not in chat_members:
+			chat_members[chat_id] = []
+		chat_members[chat_id].append(row["member"])
+
+	existing_chats = {}
+	for chat_id, members in chat_members.items():
+		if len(members) == 2:
+			other = None
+			if members[0] == a.user.identity.id:
+				other = members[1]
+			elif members[1] == a.user.identity.id:
+				other = members[0]
+			
+			if other:
+				existing_chats[other] = chat_id
+
+	for friend in friends:
+		if friend["id"] in existing_chats:
+			friend["chatId"] = existing_chats[friend["id"]]
+
 	return {
-		"data": {"name": a.user.identity.name, "friends": mochi.service.call("friends", "list", a.user.identity.id)}
+		"data": {"name": a.user.identity.name, "friends": friends}
 	}
 
 # Get messages for a chat with cursor-based pagination

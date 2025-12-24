@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from 'react'
+import { useNavigate } from '@tanstack/react-router'
 import { Loader2, MessageCircle, Search, UserPlus, X } from 'lucide-react'
 import { toast } from 'sonner'
 import { useNewChatFriendsQuery, useCreateChatMutation } from '@/hooks/useChats'
@@ -12,24 +13,34 @@ import {
   ResponsiveDialogDescription,
   ResponsiveDialogHeader,
   ResponsiveDialogTitle,
-  ScrollArea,
 } from '@mochi/common'
 
 export function NewChat() {
+  const navigate = useNavigate()
   const { newChatDialogOpen: open, closeNewChatDialog } = useSidebarContext()
   const onOpenChange = (isOpen: boolean) => { if (!isOpen) closeNewChatDialog() }
   const [selectedFriends, setSelectedFriends] = useState<string[]>([])
   const [chatName, setChatName] = useState('')
   const [searchQuery, setSearchQuery] = useState('')
 
+  const handleOpenChat = (chatId: string) => {
+    onOpenChange(false)
+    navigate({ to: '/$chatId', params: { chatId } })
+  }
+
   const { data, isLoading, isError } = useNewChatFriendsQuery({
     enabled: open,
   })
 
   const createChatMutation = useCreateChatMutation({
-    onSuccess: () => {
-      toast.success('Chat created')
+    onSuccess: (data) => {
       onOpenChange(false)
+      if (data.id) {
+        navigate({ to: '/$chatId', params: { chatId: data.id } })
+        toast.success('Chat ready')
+      } else {
+        toast.success('Chat created')
+      }
     },
     onError: (error) => {
       toast.error('Failed to create chat', {
@@ -158,67 +169,136 @@ export function NewChat() {
         <div className='flex min-h-0 flex-1 flex-col overflow-hidden'>
           {/* Friends List - Scrollable */}
           <div className='flex min-h-0 flex-1 flex-col overflow-hidden px-6 py-4'>
-            <div className='flex-1 overflow-hidden rounded-lg border'>
-              <ScrollArea className='h-full'>
-                <div className='p-2'>
-                  {isLoading && (
-                    <div className='flex items-center justify-center py-12'>
-                      <Loader2 className='text-muted-foreground h-6 w-6 animate-spin' />
-                    </div>
-                  )}
+            <div className='flex-1 overflow-hidden rounded-lg border flex flex-col'>
+              <div className='flex-1 overflow-y-auto p-2'>
+                {isLoading && (
+                  <div className='flex items-center justify-center py-12'>
+                    <Loader2 className='text-muted-foreground h-6 w-6 animate-spin' />
+                  </div>
+                )}
 
-                  {isError && (
-                    <div className='flex flex-col items-center justify-center py-12 text-center'>
-                      <p className='text-destructive mb-1 text-sm font-medium'>
-                        Failed to load friends
-                      </p>
-                      <p className='text-muted-foreground text-xs'>
-                        Please try again later
-                      </p>
-                    </div>
-                  )}
+                {isError && (
+                  <div className='flex flex-col items-center justify-center py-12 text-center'>
+                    <p className='text-destructive mb-1 text-sm font-medium'>
+                      Failed to load friends
+                    </p>
+                    <p className='text-muted-foreground text-xs'>
+                      Please try again later
+                    </p>
+                  </div>
+                )}
 
-                  {!isLoading && !isError && filteredFriends.length === 0 && (
-                    <div className='flex flex-col items-center justify-center py-12 text-center'>
-                      <UserPlus className='text-muted-foreground mb-3 h-12 w-12 opacity-50' />
-                      <p className='text-muted-foreground text-sm font-medium'>
-                        {searchQuery ? 'No friends found' : 'No friends yet'}
-                      </p>
-                      <p className='text-muted-foreground mt-1 text-xs'>
-                        {searchQuery
-                          ? 'Try a different search term'
-                          : 'Add friends to start chatting'}
-                      </p>
-                    </div>
-                  )}
+                {!isLoading && !isError && filteredFriends.length === 0 && (
+                  <div className='flex flex-col items-center justify-center py-12 text-center'>
+                    <UserPlus className='text-muted-foreground mb-3 h-12 w-12 opacity-50' />
+                    <p className='text-muted-foreground text-sm font-medium'>
+                      {searchQuery ? 'No friends found' : 'No friends yet'}
+                    </p>
+                    <p className='text-muted-foreground mt-1 text-xs'>
+                      {searchQuery
+                        ? 'Try a different search term'
+                        : 'Add friends to start chatting'}
+                    </p>
+                  </div>
+                )}
 
-                  {!isLoading && !isError && filteredFriends.length > 0 && (
-                    <div className='space-y-0.5'>
-                      {filteredFriends.map((friend) => {
-                        const isSelected = selectedFriends.includes(friend.id)
-                        return (
-                          <div
-                            key={friend.id}
-                            onClick={() => handleToggleFriend(friend.id)}
-                            className='hover:bg-accent hover:text-accent-foreground group flex cursor-pointer items-center gap-3 rounded-md p-2.5 transition-colors'
-                          >
-                            <Checkbox
-                              checked={isSelected}
-                              onCheckedChange={() =>
-                                handleToggleFriend(friend.id)
-                              }
-                              className='shrink-0'
-                            />
-                            <span className='truncate text-sm font-medium'>
-                              {friend.name}
-                            </span>
-                          </div>
-                        )
-                      })}
-                    </div>
-                  )}
-                </div>
-              </ScrollArea>
+                {!isLoading && !isError && filteredFriends.length > 0 && (
+                  <div className='space-y-4'>
+                    {(() => {
+                      const friendsWithoutChat = filteredFriends.filter(
+                        (f) => !f.chatId
+                      )
+                      const friendsWithChat = filteredFriends.filter(
+                        (f) => f.chatId
+                      )
+
+                      return (
+                        <>
+                          {friendsWithoutChat.length > 0 && (
+                            <div className='space-y-0.5'>
+                              {friendsWithChat.length > 0 && (
+                                <div className='text-xs font-semibold text-muted-foreground px-2 py-1 mb-1'>
+                                  Start a new chat
+                                </div>
+                              )}
+                              {friendsWithoutChat.map((friend) => {
+                                const isSelected = selectedFriends.includes(
+                                  friend.id
+                                )
+                                return (
+                                  <div
+                                    key={friend.id}
+                                    onClick={() =>
+                                      handleToggleFriend(friend.id)
+                                    }
+                                    className='hover:bg-accent hover:text-accent-foreground group flex cursor-pointer items-center gap-3 rounded-md p-2.5 transition-colors'
+                                  >
+                                    <Checkbox
+                                      checked={isSelected}
+                                      onCheckedChange={() =>
+                                        handleToggleFriend(friend.id)
+                                      }
+                                      className='shrink-0'
+                                    />
+                                    <span className='truncate text-sm font-medium'>
+                                      {friend.name}
+                                    </span>
+                                  </div>
+                                )
+                              })}
+                            </div>
+                          )}
+
+                          {friendsWithChat.length > 0 && (
+                            <div className='space-y-0.5'>
+                              {friendsWithoutChat.length > 0 && (
+                                <div className='text-xs font-semibold text-muted-foreground px-2 py-1 mb-1 mt-2'>
+                                  Existing conversations
+                                </div>
+                              )}
+                              {friendsWithChat.map((friend) => (
+                                <div
+                                  key={friend.id}
+                                  onClick={() =>
+                                    handleToggleFriend(friend.id)
+                                  }
+                                  className='hover:bg-accent hover:text-accent-foreground group flex cursor-pointer items-center gap-3 rounded-md p-2.5 transition-colors'
+                                >
+                                  <Checkbox
+                                    checked={selectedFriends.includes(
+                                      friend.id
+                                    )}
+                                    onCheckedChange={() =>
+                                      handleToggleFriend(friend.id)
+                                    }
+                                    className='shrink-0'
+                                  />
+                                  <span className='truncate text-sm font-medium'>
+                                    {friend.name}
+                                  </span>
+                                  <Button
+                                    variant='secondary'
+                                    size='sm'
+                                    className='ml-auto h-7 px-2 text-xs'
+                                    onClick={(e) => {
+                                      e.preventDefault()
+                                      e.stopPropagation()
+                                      handleOpenChat(friend.chatId!)
+                                    }}
+                                  >
+                                    <MessageCircle className='mr-1.5 h-3 w-3' />
+                                    Open chat
+                                  </Button>
+                                </div>
+                              ))}
+                            </div>
+                          )}
+                        </>
+                      )
+                    })()}
+                  </div>
+                )}
+              </div>
             </div>
           </div>
         </div>

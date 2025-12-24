@@ -88,6 +88,7 @@ export interface NewChatFriend {
   id: string
   identity: string
   name: string
+  chatId?: string
 }
 
 export interface GetNewChatResponse {
