@@ -14,6 +14,7 @@ interface ChatMessageListProps {
   isLoadingMessages: boolean
   messagesErrorMessage: string | null
   currentUserEmail: string
+  currentUserName: string
 }
 
 export function ChatMessageList({
@@ -22,6 +23,7 @@ export function ChatMessageList({
   isLoadingMessages,
   messagesErrorMessage,
   currentUserEmail,
+  currentUserName,
 }: ChatMessageListProps) {
   const scrollContainerRef = useRef<HTMLDivElement | null>(null)
   const messagesEndRef = useRef<HTMLDivElement | null>(null)
@@ -31,11 +33,13 @@ export function ChatMessageList({
   const prevMessageCountRef = useRef<number>(0)
 
   const isCurrentUserMessage = (message: ChatMessage) => {
-    if (!currentUserEmail) return false
+    // Check if the message belongs to the current user by comparing
+    // email, name, or member ID against the current user's credentials
+    if (!currentUserEmail && !currentUserName) return false
     return (
-      message.email === currentUserEmail ||
-      message.name === currentUserEmail ||
-      message.member === currentUserEmail
+      (currentUserEmail && message.email === currentUserEmail) ||
+      (currentUserName && message.name === currentUserName) ||
+      (currentUserEmail && message.member === currentUserEmail)
     )
   }
 

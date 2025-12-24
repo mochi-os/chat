@@ -79,7 +79,11 @@ export function ChatInput({
           type='file'
           multiple
           className='hidden'
-          onChange={onAttachmentSelection}
+          onChange={(e) => {
+            onAttachmentSelection(e)
+            // Reset input value so the same file can be selected again
+            e.target.value = ''
+          }}
         />
       </div>
       {hasPendingAttachments && (
