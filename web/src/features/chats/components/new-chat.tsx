@@ -2,26 +2,24 @@ import { useEffect, useMemo, useState } from 'react'
 import { Loader2, MessageSquare, Search, UserPlus, X } from 'lucide-react'
 import { toast } from 'sonner'
 import { useNewChatFriendsQuery, useCreateChatMutation } from '@/hooks/useChats'
-import { Badge } from '@mochi/common'
-import { Button } from '@mochi/common'
-import { Checkbox } from '@mochi/common'
-import { Input } from '@mochi/common'
+import { useSidebarContext } from '@/context/sidebar-context'
 import {
+  Badge,
+  Button,
+  Checkbox,
+  Input,
   ResponsiveDialog,
   ResponsiveDialogContent,
   ResponsiveDialogDescription,
   ResponsiveDialogHeader,
   ResponsiveDialogTitle,
+  ScrollArea,
+  FacelessAvatar,
 } from '@mochi/common'
-import { ScrollArea } from '@mochi/common'
-import { FacelessAvatar } from '@mochi/common'
 
-type NewChatProps = {
-  open: boolean
-  onOpenChange: (open: boolean) => void
-}
-
-export function NewChat({ onOpenChange, open }: NewChatProps) {
+export function NewChat() {
+  const { newChatDialogOpen: open, closeNewChatDialog } = useSidebarContext()
+  const onOpenChange = (isOpen: boolean) => { if (!isOpen) closeNewChatDialog() }
   const [selectedFriends, setSelectedFriends] = useState<string[]>([])
   const [chatName, setChatName] = useState('')
   const [searchQuery, setSearchQuery] = useState('')

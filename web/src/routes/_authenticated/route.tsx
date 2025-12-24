@@ -1,5 +1,6 @@
 import { createFileRoute } from '@tanstack/react-router'
-import { AuthenticatedLayout, useAuthStore, getCookie } from '@mochi/common'
+import { useAuthStore, getCookie } from '@mochi/common'
+import { ChatLayout } from '@/components/layout/chat-layout'
 
 export const Route = createFileRoute('/_authenticated')({
   beforeLoad: ({ location }) => {
@@ -22,5 +23,5 @@ export const Route = createFileRoute('/_authenticated')({
 
     return
   },
-  component: () => <AuthenticatedLayout />,
+  component: ChatLayout,
 })
