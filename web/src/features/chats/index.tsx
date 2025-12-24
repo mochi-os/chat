@@ -28,6 +28,7 @@ export function Chats() {
 
   const {
     email: currentUserEmail,
+    name: currentUserName,
     initialize: initializeAuth,
   } = useAuthStore()
 
@@ -159,6 +160,7 @@ export function Chats() {
             isLoadingMessages={isLoadingMessages}
             messagesErrorMessage={messagesErrorMessage}
             currentUserEmail={currentUserEmail}
+            currentUserName={currentUserName}
           />
         </div>
       </div>
