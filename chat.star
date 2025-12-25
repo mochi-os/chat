@@ -81,7 +81,7 @@ def action_create(a):
 # List chats
 def action_list(a):
 	return {
-		"data": mochi.db.rows("select * from chats order by updated desc")
+		"data": mochi.db.rows("select c.*, (select count(*) from members where chat=c.id) as members from chats c order by c.updated desc")
 	}
 
 # Enter details of new chat
@@ -214,7 +214,7 @@ def action_send(a):
 
 # View a chat
 def action_view(a):
-	chat = mochi.db.row("select * from chats where id=?", a.input("chat"))
+	chat = mochi.db.row("select c.*, (select count(*) from members where chat=c.id) as members from chats c where c.id=?", a.input("chat"))
 	if not chat:
 		a.error(404, "Chat not found")
 		return

@@ -27,6 +27,7 @@ interface ChatMessageListProps {
   messagesErrorMessage: string | null
   currentUserEmail: string
   currentUserName: string
+  memberCount: number
 }
 
 export function ChatMessageList({
@@ -36,7 +37,9 @@ export function ChatMessageList({
   messagesErrorMessage,
   currentUserEmail,
   currentUserName,
+  memberCount,
 }: ChatMessageListProps) {
+  const isGroupChat = memberCount > 2
   const scrollContainerRef = useRef<HTMLDivElement | null>(null)
   const messagesEndRef = useRef<HTMLDivElement | null>(null)
   const prevScrollHeightRef = useRef<number>(0)
@@ -188,8 +191,8 @@ export function ChatMessageList({
                     isSent ? 'rounded-br-sm' : 'rounded-bl-sm'
                   )}
                 >
-                  {/* Sender name for received messages */}
-                  {!isSent && (
+                  {/* Sender name for received messages in group chats */}
+                  {!isSent && isGroupChat && (
                     <div className='text-muted-foreground mb-0.5 text-xs font-medium'>
                       {message.name}
                     </div>

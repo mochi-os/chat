@@ -161,6 +161,7 @@ export function Chats() {
             messagesErrorMessage={messagesErrorMessage}
             currentUserEmail={currentUserEmail}
             currentUserName={currentUserName}
+            memberCount={selectedChat.members}
           />
         </div>
       </div>

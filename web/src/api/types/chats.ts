@@ -4,7 +4,7 @@ export interface Chat {
   key: string
   name: string
   updated: number
-  members?: ChatMember[]
+  members: number
 }
 
 export interface ChatMember {
