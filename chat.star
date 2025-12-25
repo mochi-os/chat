@@ -13,7 +13,6 @@ def database_create():
 
 # Create new chat
 def action_create(a):
-	chat = mochi.uid()
 	name = a.input("name")
 	if not mochi.valid(name, "name"):
 		a.error(400, "Invalid chat name")
