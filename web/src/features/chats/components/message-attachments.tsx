@@ -1,8 +1,8 @@
-import { useState } from 'react'
 import {
   ImageLightbox,
   type LightboxMedia,
   useVideoThumbnailCached,
+  useLightboxHash,
   formatVideoDuration,
   formatFileSize,
   getFileIcon,
@@ -66,13 +66,6 @@ export function MessageAttachments({
   attachments,
   chatId,
 }: MessageAttachmentsProps) {
-  const [lightboxOpen, setLightboxOpen] = useState(false)
-  const [currentIndex, setCurrentIndex] = useState(0)
-
-  if (!attachments || attachments.length === 0) {
-    return null
-  }
-
   const appBase = import.meta.env.VITE_APP_BASE_URL || '/chat'
 
   const getAttachmentUrl = (id: string) => {
@@ -83,10 +76,10 @@ export function MessageAttachments({
     return `${appBase}/${chatId}/-/attachments/${id}/thumbnail`
   }
 
-  const media = attachments.filter(
+  const media = (attachments || []).filter(
     (att) => isImage(att.type) || isVideo(att.type)
   )
-  const files = attachments.filter(
+  const files = (attachments || []).filter(
     (att) => !isImage(att.type) && !isVideo(att.type)
   )
 
@@ -97,9 +90,12 @@ export function MessageAttachments({
     type: isVideo(att.type) ? 'video' : 'image',
   }))
 
-  const openLightbox = (index: number) => {
-    setCurrentIndex(index)
-    setLightboxOpen(true)
+  // Use hash-based lightbox state for shareable URLs and back button support
+  const { open, currentIndex, openLightbox, closeLightbox, setCurrentIndex } =
+    useLightboxHash(lightboxMedia)
+
+  if (!attachments || attachments.length === 0) {
+    return null
   }
 
   const mediaButtons = media.map((attachment, index) => (
@@ -146,8 +142,8 @@ export function MessageAttachments({
     <ImageLightbox
       images={lightboxMedia}
       currentIndex={currentIndex}
-      open={lightboxOpen}
-      onOpenChange={setLightboxOpen}
+      open={open}
+      onOpenChange={(isOpen) => !isOpen && closeLightbox()}
       onIndexChange={setCurrentIndex}
     />
   )
