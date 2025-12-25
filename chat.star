@@ -186,7 +186,10 @@ def action_send(a):
 	if not mochi.valid(body, "text"):
 		a.error(400, "Invalid message")
 		return
-    
+	if len(body) > 10000:
+		a.error(400, "Message too long")
+		return
+
 	id = mochi.uid()
 	mochi.db.execute("replace into messages ( id, chat, member, name, body, created ) values ( ?, ?, ?, ?, ?, ? )", id, chat["id"], a.user.identity.id, a.user.identity.name, body, mochi.time.now())
 
