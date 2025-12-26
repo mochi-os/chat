@@ -3,13 +3,13 @@
 
 # Create database
 def database_create():
-	mochi.db.execute("create table chats ( id text not null primary key, identity text not null, name text not null, key text not null, updated integer not null )")
-	mochi.db.execute("create index chats_updated on chats( updated )")
+	mochi.db.execute("create table if not exists chats ( id text not null primary key, identity text not null, name text not null, key text not null, updated integer not null )")
+	mochi.db.execute("create index if not exists chats_updated on chats( updated )")
 
-	mochi.db.execute("create table members ( chat references chats( id ), member text not null, name text not null, primary key ( chat, member ) )")
+	mochi.db.execute("create table if not exists members ( chat references chats( id ), member text not null, name text not null, primary key ( chat, member ) )")
 
-	mochi.db.execute("create table messages ( id text not null primary key, chat references chats( id ), member text not null, name text not null, body text not null, created integer not null )")
-	mochi.db.execute("create index messages_chat_created on messages( chat, created )")
+	mochi.db.execute("create table if not exists messages ( id text not null primary key, chat references chats( id ), member text not null, name text not null, body text not null, created integer not null )")
+	mochi.db.execute("create index if not exists messages_chat_created on messages( chat, created )")
 
 # Create new chat
 def action_create(a):
