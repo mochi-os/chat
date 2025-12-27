@@ -6,7 +6,7 @@ import {
   useMemo,
   useRef,
 } from 'react'
-import { format, isToday } from 'date-fns'
+import { format } from 'date-fns'
 import type {
   UseInfiniteQueryResult,
   InfiniteData,
@@ -213,28 +213,14 @@ export function ChatMessageList({
                   ) : null}
 
                   {/* Timestamp - shown on hover, positioned beside bubble */}
-                  {(() => {
-                    const date = new Date(message.created * 1000)
-                    const today = isToday(date)
-                    return (
-                      <span
-                        className={cn(
-                          'message-meta text-muted-foreground absolute bottom-0.5 text-[11px] whitespace-nowrap transition-opacity',
-                          isSent
-                            ? today
-                              ? '-left-14'
-                              : '-left-32'
-                            : today
-                              ? '-right-14'
-                              : '-right-32'
-                        )}
-                      >
-                        {today
-                          ? format(date, 'HH:mm')
-                          : format(date, 'yyyy-MM-dd HH:mm')}
-                      </span>
-                    )
-                  })()}
+                  <span
+                    className={cn(
+                      'message-meta text-muted-foreground absolute bottom-0.5 text-[11px] whitespace-nowrap transition-opacity',
+                      isSent ? '-left-36' : '-right-36'
+                    )}
+                  >
+                    {format(new Date(message.created * 1000), 'yyyy-MM-dd HH:mm:ss')}
+                  </span>
                 </div>
               </div>
             )
