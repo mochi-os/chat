@@ -93,7 +93,7 @@ function ChatLayoutInner() {
   // Sync URL chat ID to context
   useEffect(() => {
     if (urlChatId) {
-      const chat = chats.find((c) => c.id === urlChatId)
+      const chat = chats.find((c) => c.id === urlChatId || c.fingerprint === urlChatId)
       setChat(urlChatId, chat?.name)
     } else {
       setChat(null)
@@ -104,10 +104,10 @@ function ChatLayoutInner() {
     // Sort chats by most recently updated
     const sortedChats = [...chats].sort((a, b) => b.updated - a.updated)
 
-    // Build chat items as top-level links
+    // Build chat items as top-level links - use fingerprint for shorter URLs
     const chatItems = sortedChats.map((chat) => ({
       title: chat.name,
-      url: `/${chat.id}`,
+      url: `/${chat.fingerprint ?? chat.id}`,
       icon: MessageCircle,
     }))
 

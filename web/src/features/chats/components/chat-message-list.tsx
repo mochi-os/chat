@@ -207,7 +207,7 @@ export function ChatMessageList({
                     <div className='mt-2 space-y-2'>
                       <MessageAttachments
                         attachments={message.attachments}
-                        chatId={message.chat}
+                        chatId={message.chatFingerprint ?? message.chat}
                       />
                     </div>
                   ) : null}

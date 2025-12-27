@@ -38,7 +38,7 @@ export function NewChat() {
     onSuccess: (data) => {
       onOpenChange(false)
       if (data.id) {
-        navigate({ to: '/$chatId', params: { chatId: data.id } })
+        navigate({ to: '/$chatId', params: { chatId: data.fingerprint ?? data.id } })
         toast.success('Chat ready')
       } else {
         toast.success('Chat created')
@@ -281,7 +281,7 @@ export function NewChat() {
                                     onClick={(e) => {
                                       e.preventDefault()
                                       e.stopPropagation()
-                                      handleOpenChat(friend.chatId!)
+                                      handleOpenChat(friend.chatFingerprint ?? friend.chatId!)
                                     }}
                                   >
                                     <MessageCircle className='mr-1.5 h-3 w-3' />

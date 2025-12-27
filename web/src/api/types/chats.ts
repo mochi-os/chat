@@ -1,5 +1,6 @@
 export interface Chat {
   id: string
+  fingerprint?: string
   identity: string
   key: string
   name: string
@@ -23,6 +24,7 @@ export interface ChatMessageAttachment {
 export interface ChatMessage {
   id: string
   chat: string
+  chatFingerprint?: string
   body: string
   member: string
   name: string
@@ -78,6 +80,7 @@ export interface CreateChatRequest {
 
 export interface CreateChatResponse {
   id: string
+  fingerprint?: string
   members: ChatMember[]
   name: string
   [key: string]: unknown
@@ -89,6 +92,7 @@ export interface NewChatFriend {
   identity: string
   name: string
   chatId?: string
+  chatFingerprint?: string
 }
 
 export interface GetNewChatResponse {
