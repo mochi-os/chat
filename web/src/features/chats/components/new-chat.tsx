@@ -9,6 +9,7 @@ import {
   ResponsiveDialogDescription,
   ResponsiveDialogHeader,
   ResponsiveDialogTitle,
+  getErrorMessage,
 } from '@mochi/common'
 import { Loader2, MessageCircle, Search, UserPlus, X } from 'lucide-react'
 import { toast } from 'sonner'
@@ -45,10 +46,7 @@ export function NewChat() {
       }
     },
     onError: (error) => {
-      toast.error('Failed to create chat', {
-        description:
-          error instanceof Error ? error.message : 'Please try again.',
-      })
+      toast.error(getErrorMessage(error, 'Failed to create chat'))
     },
   })
 
