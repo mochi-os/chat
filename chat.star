@@ -11,12 +11,6 @@ def database_create():
 	mochi.db.execute("create table if not exists messages ( id text not null primary key, chat references chats( id ), member text not null, name text not null, body text not null, created integer not null )")
 	mochi.db.execute("create index if not exists messages_chat_created on messages( chat, created )")
 
-# Upgrade database
-def database_upgrade(from_version):
-	if from_version < 2:
-		# Add key column for websocket subscriptions
-		mochi.db.execute("alter table chats add column key text not null default ''")
-
 # Create new chat
 def action_create(a):
 	name = a.input("name")
