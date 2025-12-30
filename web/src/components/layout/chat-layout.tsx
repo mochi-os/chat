@@ -28,10 +28,10 @@ function FullHeightRail() {
   return (
     <button
       type='button'
-      aria-label='Toggle Sidebar'
+      aria-label='Toggle sidebar'
       tabIndex={-1}
       onClick={toggleSidebar}
-      title='Toggle Sidebar'
+      title='Toggle sidebar'
       className={cn(
         'absolute inset-y-0 -right-2 z-20 hidden w-4 sm:block',
         'after:absolute after:inset-y-0 after:left-1/2 after:w-[2px] after:-translate-x-1/2',
