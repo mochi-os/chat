@@ -144,9 +144,23 @@ export function Chats() {
     })
   }
 
-  // Show chat content or empty state
+  // Show loading state while chats are loading and we have a chatId in URL
+  if (selectedChatId && chatsQuery.isLoading) {
+    return (
+      <div className='flex h-full flex-1 items-center justify-center'>
+        <div className='text-muted-foreground text-sm'>Loading...</div>
+      </div>
+    )
+  }
+
+  // Show empty state if no chat selected
   if (!selectedChat) {
-    return <ChatEmptyState onNewChat={openNewChatDialog} />
+    return (
+      <ChatEmptyState
+        onNewChat={openNewChatDialog}
+        hasExistingChats={chats.length > 0}
+      />
+    )
   }
 
   return (
