@@ -7,8 +7,7 @@ import {
   QueryClientProvider,
 } from '@tanstack/react-query'
 import { RouterProvider, createRouter } from '@tanstack/react-router'
-import { useAuthStore, ThemeProvider } from '@mochi/common'
-import { toast } from 'sonner'
+import { useAuthStore, ThemeProvider, toast } from '@mochi/common'
 import { WebsocketProvider } from './context/websocket-provider'
 // Generated Routes
 import { routeTree } from './routeTree.gen'

@@ -10,9 +10,9 @@ import {
   ResponsiveDialogHeader,
   ResponsiveDialogTitle,
   getErrorMessage,
+  toast,
 } from '@mochi/common'
 import { Loader2, MessageCircle, Search, UserPlus, X } from 'lucide-react'
-import { toast } from 'sonner'
 import { useSidebarContext } from '@/context/sidebar-context'
 import { useNewChatFriendsQuery, useCreateChatMutation } from '@/hooks/useChats'
 
