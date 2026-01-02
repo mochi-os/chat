@@ -1,60 +1,16 @@
 import { StrictMode } from 'react'
 import ReactDOM from 'react-dom/client'
-import { AxiosError } from 'axios'
-import {
-  QueryCache,
-  QueryClient,
-  QueryClientProvider,
-} from '@tanstack/react-query'
+import { QueryClientProvider } from '@tanstack/react-query'
 import { RouterProvider, createRouter } from '@tanstack/react-router'
-import { useAuthStore, ThemeProvider, toast } from '@mochi/common'
+import { useAuthStore, ThemeProvider, createQueryClient } from '@mochi/common'
 import { WebsocketProvider } from './context/websocket-provider'
 // Generated Routes
 import { routeTree } from './routeTree.gen'
 // Styles
 import './styles/index.css'
 
-const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      retry: (failureCount, err) => {
-        if (failureCount >= 0 && import.meta.env.DEV) return false
-        if (failureCount > 3 && import.meta.env.PROD) return false
-
-        return !(
-          err instanceof AxiosError &&
-          [401, 403].includes(err.response?.status ?? 0)
-        )
-      },
-      refetchOnWindowFocus: import.meta.env.PROD,
-      staleTime: 10 * 1000, // 10s
-    },
-    mutations: {
-      onError: (error) => {
-        // Let individual mutation handlers show their own error messages
-
-        if (error instanceof AxiosError) {
-          if (error.response?.status === 304) {
-            toast.error('Content not modified')
-          }
-        }
-      },
-    },
-  },
-  queryCache: new QueryCache({
-    onError: (error) => {
-      if (error instanceof AxiosError) {
-        // 401 is handled centrally in the API client interceptor
-        if (error.response?.status === 500) {
-          toast.error('Internal server error')
-          router.navigate({ to: '/500' })
-        }
-        if (error.response?.status === 403) {
-          // router.navigate("/forbidden", { replace: true });
-        }
-      }
-    },
-  }),
+const queryClient = createQueryClient({
+  onServerError: () => router.navigate({ to: '/500' }),
 })
 
 const getBasepath = () => {
