@@ -187,8 +187,10 @@ export function ChatMessageList({
                 <div
                   className={cn(
                     'message-content relative max-w-[70%] px-3.5 py-2 wrap-break-word',
-                    'bg-highlight rounded-2xl',
-                    isSent ? 'rounded-br-sm' : 'rounded-bl-sm'
+                    'rounded-2xl',
+                    isSent
+                      ? 'rounded-br-sm bg-blue-500 text-white dark:bg-blue-600'
+                      : 'rounded-bl-sm bg-gray-100 text-gray-900 dark:bg-gray-700 dark:text-gray-100'
                   )}
                 >
                   {/* Sender name for received messages in group chats */}
