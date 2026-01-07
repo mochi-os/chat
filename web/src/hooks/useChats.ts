@@ -14,6 +14,7 @@ import chatsApi, {
   type GetNewChatResponse,
   type CreateChatRequest,
   type CreateChatResponse,
+  type ChatDetail,
 } from '@/api/chats'
 
 export const chatKeys = {
@@ -22,6 +23,30 @@ export const chatKeys = {
   messages: (chatId: string) => ['chats', chatId, 'messages'] as const,
   newChat: () => ['chats', 'new'] as const,
 }
+
+export const useChatDetailQuery = (
+  chatId?: string,
+  options?: Omit<
+    UseQueryOptions<
+      ChatDetail,
+      unknown,
+      ChatDetail,
+      ReturnType<typeof chatKeys.detail>
+    >,
+    'queryKey' | 'queryFn'
+  >
+) =>
+  useQuery({
+    queryKey: chatKeys.detail(chatId ?? 'unknown'),
+    enabled: Boolean(chatId) && (options?.enabled ?? true),
+    queryFn: () => {
+      if (!chatId) {
+        throw new Error('Chat ID is required')
+      }
+      return chatsApi.detail(chatId)
+    },
+    ...options,
+  })
 
 export const useChatsQuery = (
   options?: Pick<

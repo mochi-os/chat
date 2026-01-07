@@ -13,6 +13,10 @@ export interface ChatMember {
   name: string
 }
 
+export interface ChatDetail extends Omit<Chat, 'members'> {
+  members: ChatMember[]
+}
+
 export interface ChatMessageAttachment {
   id: string
   name: string

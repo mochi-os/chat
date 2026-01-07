@@ -1,12 +1,24 @@
 import { useEffect, useMemo, useState } from 'react'
 import { useParams } from '@tanstack/react-router'
-import { useAuthStore, usePageTitle } from '@mochi/common'
+import {
+  useAuthStore,
+  usePageTitle,
+  Header,
+  Main,
+  Button,
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '@mochi/common'
+import { MoreVertical, Search, User, Users, Info } from 'lucide-react'
 import { useSidebarContext } from '@/context/sidebar-context'
 import useChatWebsocket from '@/hooks/useChatWebsocket'
 import {
   useInfiniteMessagesQuery,
   useChatsQuery,
   useSendMessageMutation,
+  useChatDetailQuery,
 } from '@/hooks/useChats'
 import { ChatEmptyState } from './components/chat-empty-state'
 import { ChatInput } from './components/chat-input'
@@ -53,6 +65,31 @@ export function Chats() {
   )
 
   const messagesQuery = useInfiniteMessagesQuery(selectedChat?.id ?? undefined)
+
+  const { data: chatDetail } = useChatDetailQuery(selectedChat?.id)
+
+  const subtitle = useMemo(() => {
+    if (!chatDetail?.members || chatDetail.members.length <= 2) return null
+
+    // Sort names to put "You" first if found
+    const names = chatDetail.members.map((m) => m.name)
+    // Try to find current user by name since ID might not be easily available for comparison
+    // If we had IDs, mapping would be more robust
+    const myNameIndex = names.indexOf(currentUserName || '')
+
+    let displayNames = [...names]
+    if (myNameIndex !== -1) {
+      displayNames[myNameIndex] = 'You'
+      // Move to front
+      displayNames = [
+        'You',
+        ...displayNames.filter((_, i) => i !== myNameIndex),
+      ]
+    }
+
+    return displayNames.join(', ')
+  }, [chatDetail, currentUserName])
+
   const chatMessages = useMemo(() => {
     if (!messagesQuery.data?.pages) return []
     // Pages are loaded newest-first, so reverse to get chronological order
@@ -164,35 +201,84 @@ export function Chats() {
   }
 
   return (
-    <div className='flex h-full flex-1 flex-col overflow-hidden px-4 py-4'>
-      {/* Conversation */}
-      <div className='flex size-full min-h-0 flex-1'>
-        <div className='chat-text-container relative -me-4 flex min-h-0 flex-1 flex-col overflow-y-hidden'>
-          <ChatMessageList
-            messagesQuery={messagesQuery}
-            chatMessages={chatMessages}
-            isLoadingMessages={isLoadingMessages}
-            messagesErrorMessage={messagesErrorMessage}
-            currentUserEmail={currentUserEmail}
-            currentUserName={currentUserName}
-            memberCount={selectedChat.members}
-          />
-        </div>
-      </div>
+    <>
+      <Header>
+        <div className='flex w-full items-center justify-between gap-4'>
+          <div className='flex min-w-0 flex-col'>
+            <h1 className='truncate text-lg font-semibold'>
+              {selectedChat.name}
+            </h1>
+            {subtitle && (
+              <span className='text-muted-foreground truncate text-xs'>
+                {subtitle}
+              </span>
+            )}
+          </div>
 
-      {/* Message Input */}
-      <ChatInput
-        newMessage={newMessage}
-        setNewMessage={setNewMessage}
-        onSendMessage={handleSendMessage}
-        isSending={isSending}
-        isSendDisabled={isSendDisabled}
-        pendingAttachments={pendingAttachments}
-        onRemoveAttachment={handleRemoveAttachment}
-        onMoveAttachment={handleMoveAttachment}
-        onAttachmentSelection={handleAttachmentSelection}
-        sendMessageErrorMessage={sendMessageErrorMessage}
-      />
-    </div>
+          <div className='flex shrink-0 items-center'>
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant='ghost' size='icon'>
+                  <MoreVertical className='size-5' />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align='end' className='w-56'>
+                {selectedChat.members > 2 && (
+                  <DropdownMenuItem disabled>
+                    <Users className='mr-2 size-4' />
+                    <span>Add members</span>
+                  </DropdownMenuItem>
+                )}
+
+                <DropdownMenuItem disabled>
+                  {selectedChat.members > 2 ? (
+                    <Info className='mr-2 size-4' />
+                  ) : (
+                    <User className='mr-2 size-4' />
+                  )}
+                  <span>
+                    {selectedChat.members > 2 ? 'Group info' : 'View profile'}
+                  </span>
+                </DropdownMenuItem>
+
+                <DropdownMenuItem disabled>
+                  <Search className='mr-2 size-4' />
+                  <span>Search</span>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </div>
+        </div>
+      </Header>
+      <Main className='flex h-full flex-1 flex-col overflow-hidden'>
+        {/* Conversation */}
+        <div className='flex size-full min-h-0 flex-1'>
+          <div className='chat-text-container relative -me-4 flex min-h-0 flex-1 flex-col overflow-y-hidden'>
+            <ChatMessageList
+              messagesQuery={messagesQuery}
+              chatMessages={chatMessages}
+              isLoadingMessages={isLoadingMessages}
+              messagesErrorMessage={messagesErrorMessage}
+              currentUserEmail={currentUserEmail}
+              currentUserName={currentUserName}
+            />
+          </div>
+        </div>
+
+        {/* Message Input */}
+        <ChatInput
+          newMessage={newMessage}
+          setNewMessage={setNewMessage}
+          onSendMessage={handleSendMessage}
+          isSending={isSending}
+          isSendDisabled={isSendDisabled}
+          pendingAttachments={pendingAttachments}
+          onRemoveAttachment={handleRemoveAttachment}
+          onMoveAttachment={handleMoveAttachment}
+          onAttachmentSelection={handleAttachmentSelection}
+          sendMessageErrorMessage={sendMessageErrorMessage}
+        />
+      </Main>
+    </>
   )
 }
