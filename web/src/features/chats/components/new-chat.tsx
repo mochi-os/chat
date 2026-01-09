@@ -126,7 +126,11 @@ export function NewChat() {
   }, [open])
 
   return (
-    <ResponsiveDialog open={open} onOpenChange={onOpenChange}>
+    <ResponsiveDialog
+      open={open}
+      onOpenChange={onOpenChange}
+      shouldCloseOnInteractOutside={false}
+    >
       <ResponsiveDialogContent className='flex max-h-[85vh] flex-col gap-0 overflow-hidden p-0 sm:max-w-[650px]'>
         <ResponsiveDialogHeader className='shrink-0 border-b px-6 pt-6 pb-4'>
           <div className='flex items-start justify-between gap-4'>
