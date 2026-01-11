@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from 'react'
 import { useNavigate } from '@tanstack/react-router'
+import { useQuery } from '@tanstack/react-query'
 import {
   Button,
   Checkbox,
@@ -9,12 +10,18 @@ import {
   ResponsiveDialogDescription,
   ResponsiveDialogHeader,
   ResponsiveDialogTitle,
+  SubscribeDialog,
   getErrorMessage,
+  requestHelpers,
   toast,
 } from '@mochi/common'
 import { Loader2, MessageCircle, Search, UserPlus, X } from 'lucide-react'
 import { useSidebarContext } from '@/context/sidebar-context'
 import { useNewChatFriendsQuery, useCreateChatMutation } from '@/hooks/useChats'
+
+interface SubscriptionCheckResponse {
+  exists: boolean
+}
 
 export function NewChat() {
   const navigate = useNavigate()
@@ -25,6 +32,18 @@ export function NewChat() {
   const [selectedFriends, setSelectedFriends] = useState<string[]>([])
   const [chatName, setChatName] = useState('')
   const [searchQuery, setSearchQuery] = useState('')
+  const [subscribeOpen, setSubscribeOpen] = useState(false)
+
+  // Check if user already has a subscription for chat notifications
+  const { data: subscriptionData, refetch: refetchSubscription } = useQuery({
+    queryKey: ['subscription-check', 'chat'],
+    queryFn: async () => {
+      return await requestHelpers.get<SubscriptionCheckResponse>(
+        '/notifications/-/subscriptions/check?app=chat'
+      )
+    },
+    staleTime: Infinity,
+  })
 
   const handleOpenChat = (chatId: string) => {
     onOpenChange(false)
@@ -43,6 +62,10 @@ export function NewChat() {
         toast.success('Chat ready')
       } else {
         toast.success('Chat created')
+      }
+      // Prompt for notifications if user hasn't subscribed yet
+      if (!subscriptionData?.exists) {
+        setSubscribeOpen(true)
       }
     },
     onError: (error) => {
@@ -118,14 +141,18 @@ export function NewChat() {
   }
 
   useEffect(() => {
-    if (!open) {
+    if (open) {
+      // Refetch subscription status when dialog opens in case user deleted subscriptions
+      refetchSubscription()
+    } else {
       setSelectedFriends([])
       setChatName('')
       setSearchQuery('')
     }
-  }, [open])
+  }, [open, refetchSubscription])
 
   return (
+    <>
     <ResponsiveDialog open={open} onOpenChange={onOpenChange}>
       <ResponsiveDialogContent className='flex max-h-[85vh] flex-col gap-0 overflow-hidden p-0 sm:max-w-[650px]'>
         <ResponsiveDialogHeader className='shrink-0 border-b px-6 pt-6 pb-4'>
@@ -333,5 +360,15 @@ export function NewChat() {
         </div>
       </ResponsiveDialogContent>
     </ResponsiveDialog>
+
+    <SubscribeDialog
+      open={subscribeOpen}
+      onOpenChange={setSubscribeOpen}
+      app="chat"
+      label="Chat messages"
+      notificationsBase="/notifications"
+      onResult={() => refetchSubscription()}
+    />
+    </>
   )
 }
