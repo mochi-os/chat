@@ -1,6 +1,12 @@
 import { useEffect, useMemo, useState } from 'react'
 import { useParams } from '@tanstack/react-router'
-import { useAuthStore, usePageTitle } from '@mochi/common'
+import { useQuery } from '@tanstack/react-query'
+import {
+  useAuthStore,
+  usePageTitle,
+  SubscribeDialog,
+  requestHelpers,
+} from '@mochi/common'
 import { useSidebarContext } from '@/context/sidebar-context'
 import useChatWebsocket from '@/hooks/useChatWebsocket'
 import {
@@ -17,10 +23,15 @@ import {
   revokePendingAttachmentPreview,
 } from './utils'
 
+interface SubscriptionCheckResponse {
+  exists: boolean
+}
+
 export function Chats() {
   usePageTitle('Chat')
   const { openNewChatDialog, setWebsocketStatus } = useSidebarContext()
   const [newMessage, setNewMessage] = useState('')
+  const [subscribeOpen, setSubscribeOpen] = useState(false)
 
   const [pendingAttachments, setPendingAttachments] = useState<
     PendingAttachment[]
@@ -39,6 +50,24 @@ export function Chats() {
   // Get selected chat from URL path
   const params = useParams({ strict: false }) as { chatId?: string }
   const selectedChatId = params?.chatId
+
+  // Check if user already has a subscription for chat notifications
+  const { data: subscriptionData, refetch: refetchSubscription } = useQuery({
+    queryKey: ['subscription-check', 'chat'],
+    queryFn: async () => {
+      return await requestHelpers.get<SubscriptionCheckResponse>(
+        '/chat/-/notifications/check'
+      )
+    },
+    staleTime: Infinity,
+  })
+
+  // Prompt for notifications when entering a chat if user hasn't subscribed yet
+  useEffect(() => {
+    if (selectedChatId && subscriptionData?.exists === false) {
+      setSubscribeOpen(true)
+    }
+  }, [selectedChatId, subscriptionData?.exists])
 
   const chatsQuery = useChatsQuery()
   const chats = useMemo(
@@ -164,35 +193,46 @@ export function Chats() {
   }
 
   return (
-    <div className='flex h-full flex-1 flex-col overflow-hidden px-4 py-4'>
-      {/* Conversation */}
-      <div className='flex size-full min-h-0 flex-1'>
-        <div className='chat-text-container relative -me-4 flex min-h-0 flex-1 flex-col overflow-y-hidden'>
-          <ChatMessageList
-            messagesQuery={messagesQuery}
-            chatMessages={chatMessages}
-            isLoadingMessages={isLoadingMessages}
-            messagesErrorMessage={messagesErrorMessage}
-            currentUserEmail={currentUserEmail}
-            currentUserName={currentUserName}
-            memberCount={selectedChat.members}
-          />
+    <>
+      <div className='flex h-full flex-1 flex-col overflow-hidden px-4 py-4'>
+        {/* Conversation */}
+        <div className='flex size-full min-h-0 flex-1'>
+          <div className='chat-text-container relative -me-4 flex min-h-0 flex-1 flex-col overflow-y-hidden'>
+            <ChatMessageList
+              messagesQuery={messagesQuery}
+              chatMessages={chatMessages}
+              isLoadingMessages={isLoadingMessages}
+              messagesErrorMessage={messagesErrorMessage}
+              currentUserEmail={currentUserEmail}
+              currentUserName={currentUserName}
+              memberCount={selectedChat.members}
+            />
+          </div>
         </div>
+
+        {/* Message Input */}
+        <ChatInput
+          newMessage={newMessage}
+          setNewMessage={setNewMessage}
+          onSendMessage={handleSendMessage}
+          isSending={isSending}
+          isSendDisabled={isSendDisabled}
+          pendingAttachments={pendingAttachments}
+          onRemoveAttachment={handleRemoveAttachment}
+          onMoveAttachment={handleMoveAttachment}
+          onAttachmentSelection={handleAttachmentSelection}
+          sendMessageErrorMessage={sendMessageErrorMessage}
+        />
       </div>
 
-      {/* Message Input */}
-      <ChatInput
-        newMessage={newMessage}
-        setNewMessage={setNewMessage}
-        onSendMessage={handleSendMessage}
-        isSending={isSending}
-        isSendDisabled={isSendDisabled}
-        pendingAttachments={pendingAttachments}
-        onRemoveAttachment={handleRemoveAttachment}
-        onMoveAttachment={handleMoveAttachment}
-        onAttachmentSelection={handleAttachmentSelection}
-        sendMessageErrorMessage={sendMessageErrorMessage}
+      <SubscribeDialog
+        open={subscribeOpen}
+        onOpenChange={setSubscribeOpen}
+        app="chat"
+        label="Chat messages"
+        appBase="/chat"
+        onResult={() => refetchSubscription()}
       />
-    </div>
+    </>
   )
 }

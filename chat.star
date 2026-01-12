@@ -264,7 +264,7 @@ def event_message(e):
 	attachments = mochi.attachment.list("chat/" + chat["id"] + "/" + id)
 
 	mochi.websocket.write(chat["key"], {"created": created, "name": name, "body": body, "attachments": attachments})
-	mochi.service.call("notifications", "send", "message", "New message", name + ": " + body, chat["id"], "/chat/" + chat["id"])
+	mochi.service.call("notifications", "send", "message", "Chat message", name + ": " + body, chat["id"], "/chat/" + chat["id"])
 
 # Received a new chat event
 def event_new(e):
@@ -293,3 +293,34 @@ def event_new(e):
 		if not mochi.valid(member["name"], "name"):
 			continue
 		mochi.db.execute("replace into members ( chat, member, name ) values ( ?, ?, ? )", chat, member["id"], member["name"])
+
+# Notification proxy actions - forward to notifications service
+
+def action_notifications_subscribe(a):
+	"""Create a notification subscription via the notifications service."""
+	label = a.input("label", "").strip()
+	type = a.input("type", "").strip()
+	object = a.input("object", "").strip()
+	destinations = a.input("destinations", "")
+
+	if not label:
+		a.error(400, "label is required")
+		return
+	if not mochi.valid(label, "text"):
+		a.error(400, "Invalid label")
+		return
+
+	destinations_list = json.decode(destinations) if destinations else []
+
+	result = mochi.service.call("notifications", "subscribe", label, type, object, destinations_list)
+	return {"data": {"id": result}}
+
+def action_notifications_check(a):
+	"""Check if a notification subscription exists for this app."""
+	result = mochi.service.call("notifications", "subscriptions")
+	return {"data": {"exists": len(result) > 0}}
+
+def action_notifications_destinations(a):
+	"""List available notification destinations."""
+	result = mochi.service.call("notifications", "destinations")
+	return {"data": result}
