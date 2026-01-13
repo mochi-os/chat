@@ -29,10 +29,15 @@ import {
   revokePendingAttachmentPreview,
 } from './utils'
 
+interface SubscriptionCheckResponse {
+  exists: boolean
+}
+
 export function Chats() {
   usePageTitle('Chat')
   const { openNewChatDialog, setWebsocketStatus } = useSidebarContext()
   const [newMessage, setNewMessage] = useState('')
+  const [subscribeOpen, setSubscribeOpen] = useState(false)
 
   const [pendingAttachments, setPendingAttachments] = useState<
     PendingAttachment[]
@@ -51,6 +56,24 @@ export function Chats() {
   // Get selected chat from URL path
   const params = useParams({ strict: false }) as { chatId?: string }
   const selectedChatId = params?.chatId
+
+  // Check if user already has a subscription for chat notifications
+  const { data: subscriptionData, refetch: refetchSubscription } = useQuery({
+    queryKey: ['subscription-check', 'chat'],
+    queryFn: async () => {
+      return await requestHelpers.get<SubscriptionCheckResponse>(
+        '/chat/-/notifications/check'
+      )
+    },
+    staleTime: Infinity,
+  })
+
+  // Prompt for notifications when entering a chat if user hasn't subscribed yet
+  useEffect(() => {
+    if (selectedChatId && subscriptionData?.exists === false) {
+      setSubscribeOpen(true)
+    }
+  }, [selectedChatId, subscriptionData?.exists])
 
   const chatsQuery = useChatsQuery()
   const chats = useMemo(

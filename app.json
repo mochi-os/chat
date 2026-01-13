@@ -2,7 +2,7 @@
 // Copyright Alistair Cunningham 2025
 
 {
-	"version": "1.7",
+	"version": "2.0",
 	"label": "app_name",
 	"classes": ["chat"],
 	"paths": ["chat"],
@@ -36,7 +36,10 @@
 		":chat/-/attachments/:id": {"feature": "attachment"},
 		":chat/-/attachments/:id/thumbnail": {"feature": "attachment/thumbnail"},
 		":chat/assets": {"files": "web/dist/assets"},
-		":chat/images": {"files": "web/dist/images"}
+		":chat/images": {"files": "web/dist/images"},
+		"-/notifications/subscribe": {"function": "action_notifications_subscribe"},
+		"-/notifications/check": {"function": "action_notifications_check"},
+		"-/notifications/destinations": {"function": "action_notifications_destinations"}
 	},
 
 	"events": {
