@@ -201,8 +201,8 @@ export function Chats() {
   }
 
   return (
-    <>
-      <Header>
+    <div className='flex h-full flex-col overflow-hidden'>
+      <Header className='shrink-0'>
         <div className='flex w-full items-center justify-between gap-4'>
           <div className='flex min-w-0 flex-col'>
             <h1 className='truncate text-lg font-semibold'>
@@ -250,7 +250,7 @@ export function Chats() {
           </div>
         </div>
       </Header>
-      <Main className='flex h-full flex-1 flex-col overflow-hidden'>
+      <Main className='flex flex-1 flex-col overflow-hidden min-h-0'>
         {/* Conversation */}
         <div className='flex size-full min-h-0 flex-1'>
           <div className='chat-text-container relative -me-4 flex min-h-0 flex-1 flex-col overflow-y-hidden'>
@@ -279,6 +279,6 @@ export function Chats() {
           sendMessageErrorMessage={sendMessageErrorMessage}
         />
       </Main>
-    </>
+    </div>
   )
 }
