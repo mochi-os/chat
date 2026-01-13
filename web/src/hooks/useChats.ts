@@ -29,7 +29,7 @@ export const useChatDetailQuery = (
   options?: Omit<
     UseQueryOptions<
       ChatDetail,
-      unknown,
+      Error,
       ChatDetail,
       ReturnType<typeof chatKeys.detail>
     >,
@@ -52,7 +52,7 @@ export const useChatsQuery = (
   options?: Pick<
     UseQueryOptions<
       GetChatsResponse,
-      unknown,
+      Error,
       GetChatsResponse,
       ReturnType<typeof chatKeys.all>
     >,
@@ -70,7 +70,7 @@ export const useChatMessagesQuery = (
   options?: Omit<
     UseQueryOptions<
       GetMessagesResponse,
-      unknown,
+      Error,
       GetMessagesResponse,
       ReturnType<typeof chatKeys.messages>
     >,
@@ -127,7 +127,7 @@ interface SendMessageVariables extends SendMessageRequest {
 export const useSendMessageMutation = (
   options?: UseMutationOptions<
     SendMessageResponse,
-    unknown,
+    Error,
     SendMessageVariables,
     unknown
   >
@@ -164,7 +164,7 @@ export const useNewChatFriendsQuery = (
   options?: Omit<
     UseQueryOptions<
       GetNewChatResponse,
-      unknown,
+      Error,
       GetNewChatResponse,
       ReturnType<typeof chatKeys.newChat>
     >,
@@ -180,7 +180,7 @@ export const useNewChatFriendsQuery = (
 export const useCreateChatMutation = (
   options?: UseMutationOptions<
     CreateChatResponse,
-    unknown,
+    Error,
     CreateChatRequest,
     unknown
   >
