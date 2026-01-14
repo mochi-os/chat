@@ -2,6 +2,7 @@ import { requestHelpers } from '@mochi/common'
 import endpoints from '@/api/endpoints'
 import type {
   Chat,
+  ChatDetail,
   ChatMessage,
   ChatMessageAttachment,
   CreateChatRequest,
@@ -198,7 +199,7 @@ const listChats = async (): Promise<GetChatsResponse> => {
 }
 
 const getChatDetail = (chatId: string) =>
-  requestHelpers.post<Chat>(endpoints.chat.detail(chatId), null, {
+  requestHelpers.post<ChatDetail>(endpoints.chat.detail(chatId), null, {
     params: { chat: chatId },
   })
 
@@ -265,6 +266,7 @@ export const chatsApi = {
 
 export type {
   Chat,
+  ChatDetail,
   ChatMessageAttachment,
   ChatMessage,
   CreateChatRequest,

@@ -14,6 +14,7 @@ import chatsApi, {
   type GetNewChatResponse,
   type CreateChatRequest,
   type CreateChatResponse,
+  type ChatDetail,
 } from '@/api/chats'
 
 export const chatKeys = {
@@ -23,11 +24,35 @@ export const chatKeys = {
   newChat: () => ['chats', 'new'] as const,
 }
 
+export const useChatDetailQuery = (
+  chatId?: string,
+  options?: Omit<
+    UseQueryOptions<
+      ChatDetail,
+      Error,
+      ChatDetail,
+      ReturnType<typeof chatKeys.detail>
+    >,
+    'queryKey' | 'queryFn'
+  >
+) =>
+  useQuery({
+    queryKey: chatKeys.detail(chatId ?? 'unknown'),
+    enabled: Boolean(chatId) && (options?.enabled ?? true),
+    queryFn: () => {
+      if (!chatId) {
+        throw new Error('Chat ID is required')
+      }
+      return chatsApi.detail(chatId)
+    },
+    ...options,
+  })
+
 export const useChatsQuery = (
   options?: Pick<
     UseQueryOptions<
       GetChatsResponse,
-      unknown,
+      Error,
       GetChatsResponse,
       ReturnType<typeof chatKeys.all>
     >,
@@ -45,7 +70,7 @@ export const useChatMessagesQuery = (
   options?: Omit<
     UseQueryOptions<
       GetMessagesResponse,
-      unknown,
+      Error,
       GetMessagesResponse,
       ReturnType<typeof chatKeys.messages>
     >,
@@ -102,7 +127,7 @@ interface SendMessageVariables extends SendMessageRequest {
 export const useSendMessageMutation = (
   options?: UseMutationOptions<
     SendMessageResponse,
-    unknown,
+    Error,
     SendMessageVariables,
     unknown
   >
@@ -139,7 +164,7 @@ export const useNewChatFriendsQuery = (
   options?: Omit<
     UseQueryOptions<
       GetNewChatResponse,
-      unknown,
+      Error,
       GetNewChatResponse,
       ReturnType<typeof chatKeys.newChat>
     >,
@@ -155,7 +180,7 @@ export const useNewChatFriendsQuery = (
 export const useCreateChatMutation = (
   options?: UseMutationOptions<
     CreateChatResponse,
-    unknown,
+    Error,
     CreateChatRequest,
     unknown
   >

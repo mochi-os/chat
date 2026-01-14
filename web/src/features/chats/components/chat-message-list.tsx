@@ -27,7 +27,6 @@ interface ChatMessageListProps {
   messagesErrorMessage: string | null
   currentUserEmail: string
   currentUserName: string
-  memberCount: number
 }
 
 export function ChatMessageList({
@@ -37,9 +36,7 @@ export function ChatMessageList({
   messagesErrorMessage,
   currentUserEmail,
   currentUserName,
-  memberCount,
 }: ChatMessageListProps) {
-  const isGroupChat = memberCount > 2
   const scrollContainerRef = useRef<HTMLDivElement | null>(null)
   const messagesEndRef = useRef<HTMLDivElement | null>(null)
   const prevScrollHeightRef = useRef<number>(0)
@@ -180,26 +177,34 @@ export function ChatMessageList({
               <div
                 key={`${message.id}-${index}`}
                 className={cn(
-                  'mb-1.5 flex w-full',
-                  isSent ? 'justify-end' : 'justify-start'
+                  'mb-3 flex w-full flex-col gap-1',
+                  isSent ? 'items-end' : 'items-start'
                 )}
               >
+                {/* Message metadata: name and timestamp */}
+                <div
+                  className={cn(
+                    'flex items-center gap-2 px-1 text-xs',
+                    isSent ? 'flex-row-reverse text-right' : 'flex-row'
+                  )}
+                >
+                  <span className='text-muted-foreground font-medium'>
+                    {isSent ? 'You' : message.name}
+                  </span>
+                  <span className='text-muted-foreground/70'>
+                    {format(new Date(message.created * 1000), 'HH:mm')}
+                  </span>
+                </div>
+
+                {/* Message bubble with sharp corner (tail) */}
                 <div
                   className={cn(
                     'message-content relative max-w-[70%] px-3.5 py-2 wrap-break-word',
-                    'rounded-2xl',
                     isSent
-                      ? 'rounded-br-sm bg-blue-500 text-white dark:bg-blue-600'
-                      : 'rounded-bl-sm bg-gray-100 text-gray-900 dark:bg-gray-700 dark:text-gray-100'
+                      ? 'rounded-[16px] rounded-br-[4px] bg-blue-500 text-white dark:bg-blue-600'
+                      : 'rounded-[16px] rounded-bl-[4px] bg-gray-100 text-gray-900 dark:bg-gray-700 dark:text-gray-100'
                   )}
                 >
-                  {/* Sender name for received messages in group chats */}
-                  {!isSent && isGroupChat && (
-                    <div className='text-muted-foreground mb-0.5 text-xs font-medium'>
-                      {message.name}
-                    </div>
-                  )}
-
                   {/* Message content */}
                   <p className='text-sm leading-relaxed whitespace-pre-wrap'>
                     {message.body}
@@ -213,16 +218,6 @@ export function ChatMessageList({
                       />
                     </div>
                   ) : null}
-
-                  {/* Timestamp - shown on hover, positioned beside bubble */}
-                  <span
-                    className={cn(
-                      'message-meta text-muted-foreground absolute bottom-0.5 text-[11px] whitespace-nowrap transition-opacity',
-                      isSent ? '-left-36' : '-right-36'
-                    )}
-                  >
-                    {format(new Date(message.created * 1000), 'yyyy-MM-dd HH:mm:ss')}
-                  </span>
                 </div>
               </div>
             )
