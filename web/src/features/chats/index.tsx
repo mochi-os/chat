@@ -4,7 +4,7 @@ import { useQuery } from '@tanstack/react-query'
 import {
   useAuthStore,
   usePageTitle,
-  Header,
+  PageHeader,
   Main,
   Button,
   DropdownMenu,
@@ -14,7 +14,7 @@ import {
   SubscribeDialog,
   requestHelpers,
 } from '@mochi/common'
-import { MoreVertical, Search, User, Users, Info } from 'lucide-react'
+import { MoreVertical, Search, User, Users, Info, MessageSquare } from 'lucide-react'
 
 import { useSidebarContext } from '@/context/sidebar-context'
 import useChatWebsocket from '@/hooks/useChatWebsocket'
@@ -190,13 +190,11 @@ export function Chats() {
   return (
     <>
       <div className="flex h-full flex-col overflow-hidden">
-        <Header className="shrink-0">
-          <div className="flex w-full items-center justify-between gap-4">
-            <div className="min-w-0">
-              <h1 className="truncate text-lg font-semibold">{selectedChat.name}</h1>
-              {subtitle && <p className="truncate text-xs text-muted-foreground">{subtitle}</p>}
-            </div>
-
+        <PageHeader
+          title={selectedChat.name}
+          icon={<MessageSquare className="size-4 md:size-5" />}
+          description={subtitle || undefined}
+          actions={
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button variant="ghost" size="icon">
@@ -218,8 +216,8 @@ export function Chats() {
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
-          </div>
-        </Header>
+          }
+        />
 
         <Main className="flex min-h-0 flex-1 flex-col overflow-hidden">
           <ChatMessageList
@@ -229,6 +227,7 @@ export function Chats() {
             messagesErrorMessage={messagesQuery.error?.message ?? null}
             currentUserEmail={currentUserEmail}
             currentUserName={currentUserName}
+            isGroupChat={selectedChat ? selectedChat.members > 2 : false}
           />
 
           <ChatInput

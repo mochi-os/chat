@@ -27,6 +27,7 @@ interface ChatMessageListProps {
   messagesErrorMessage: string | null
   currentUserEmail: string
   currentUserName: string
+  isGroupChat: boolean
 }
 
 export function ChatMessageList({
@@ -36,6 +37,7 @@ export function ChatMessageList({
   messagesErrorMessage,
   currentUserEmail,
   currentUserName,
+  isGroupChat,
 }: ChatMessageListProps) {
   const scrollContainerRef = useRef<HTMLDivElement | null>(null)
   const messagesEndRef = useRef<HTMLDivElement | null>(null)
@@ -154,7 +156,7 @@ export function ChatMessageList({
   return (
     <div
       ref={scrollContainerRef}
-      className='flex h-full w-full flex-1 flex-col justify-start gap-4 overflow-y-auto py-2 pe-4 pb-4'
+      className='flex w-full flex-1 flex-col justify-start gap-4 overflow-y-auto py-2 pe-4 pb-4'
     >
       {/* Load more trigger at top for older messages */}
       <LoadMoreTrigger
@@ -177,47 +179,55 @@ export function ChatMessageList({
               <div
                 key={`${message.id}-${index}`}
                 className={cn(
-                  'mb-3 flex w-full flex-col gap-1',
+                  'group mb-3 flex w-full flex-col gap-1',
                   isSent ? 'items-end' : 'items-start'
                 )}
               >
-                {/* Message metadata: name and timestamp */}
-                <div
-                  className={cn(
-                    'flex items-center gap-2 px-1 text-xs',
-                    isSent ? 'flex-row-reverse text-right' : 'flex-row'
-                  )}
-                >
-                  <span className='text-muted-foreground font-medium'>
-                    {isSent ? 'You' : message.name}
-                  </span>
-                  <span className='text-muted-foreground/70'>
-                    {format(new Date(message.created * 1000), 'HH:mm')}
-                  </span>
-                </div>
+                {/* Message metadata: name (only for group chats) */}
+                {isGroupChat && !isSent && (
+                  <div className='flex flex-row items-center gap-2 px-1 text-xs'>
+                    <span className='text-muted-foreground font-medium'>
+                      {message.name}
+                    </span>
+                  </div>
+                )}
 
-                {/* Message bubble with sharp corner (tail) */}
-                <div
-                  className={cn(
-                    'message-content relative max-w-[70%] px-3.5 py-2 wrap-break-word',
-                    isSent
-                      ? 'rounded-[16px] rounded-br-[4px] bg-blue-500 text-white dark:bg-blue-600'
-                      : 'rounded-[16px] rounded-bl-[4px] bg-gray-100 text-gray-900 dark:bg-gray-700 dark:text-gray-100'
+                {/* Message bubble + Inline Time */}
+                <div className='flex items-end gap-2'>
+                  {isSent && (
+                    <span className='text-muted-foreground/70 opacity-0 transition-opacity group-hover:opacity-100 text-[10px]'>
+                      {format(new Date(message.created * 1000), 'HH:mm')}
+                    </span>
                   )}
-                >
-                  {/* Message content */}
-                  <p className='text-sm leading-relaxed whitespace-pre-wrap'>
-                    {message.body}
-                  </p>
 
-                  {message.attachments?.length ? (
-                    <div className='mt-2 space-y-2'>
-                      <MessageAttachments
-                        attachments={message.attachments}
-                        chatId={message.chatFingerprint ?? message.chat}
-                      />
-                    </div>
-                  ) : null}
+                  <div
+                    className={cn(
+                      'message-content relative max-w-[70%] px-3.5 py-2 wrap-break-word',
+                      isSent
+                        ? 'rounded-[16px] rounded-br-[4px] bg-blue-500 text-white dark:bg-blue-600'
+                        : 'rounded-[16px] rounded-bl-[4px] bg-gray-100 text-gray-900 dark:bg-gray-700 dark:text-gray-100'
+                    )}
+                  >
+                    {/* Message content */}
+                    <p className='text-sm leading-relaxed whitespace-pre-wrap'>
+                      {message.body}
+                    </p>
+
+                    {message.attachments?.length ? (
+                      <div className='mt-2 space-y-2'>
+                        <MessageAttachments
+                          attachments={message.attachments}
+                          chatId={message.chatFingerprint ?? message.chat}
+                        />
+                      </div>
+                    ) : null}
+                  </div>
+
+                  {!isSent && (
+                    <span className='text-muted-foreground/70 opacity-0 transition-opacity group-hover:opacity-100 text-[10px]'>
+                      {format(new Date(message.created * 1000), 'HH:mm')}
+                    </span>
+                  )}
                 </div>
               </div>
             )
