@@ -24,6 +24,7 @@ import {
   useSendMessageMutation,
   useChatDetailQuery,
 } from '@/hooks/useChats'
+import { setLastChat } from '@/hooks/useChatStorage'
 
 import { ChatEmptyState } from './components/chat-empty-state'
 import { ChatInput } from './components/chat-input'
@@ -74,6 +75,13 @@ export function Chats() {
       setSubscribeOpen(true)
     }
   }, [selectedChatId, subscriptionData?.exists])
+
+  // Store last visited chat for restoration on next entry
+  useEffect(() => {
+    if (selectedChatId) {
+      setLastChat(selectedChatId)
+    }
+  }, [selectedChatId])
 
   // Chats list
   const chatsQuery = useChatsQuery()
