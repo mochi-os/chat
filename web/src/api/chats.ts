@@ -7,11 +7,21 @@ import type {
   ChatMessageAttachment,
   CreateChatRequest,
   CreateChatResponse,
+  DeleteResponse,
   GetChatsRaw,
   GetChatsResponse,
+  GetMembersResponse,
   GetMessagesRaw,
   GetMessagesResponse,
   GetNewChatResponse,
+  LeaveRequest,
+  LeaveResponse,
+  MemberAddRequest,
+  MemberAddResponse,
+  MemberRemoveRequest,
+  MemberRemoveResponse,
+  RenameRequest,
+  RenameResponse,
   SendMessageRequest,
   SendMessageResponse,
 } from '@/api/types/chats'
@@ -198,10 +208,14 @@ const listChats = async (): Promise<GetChatsResponse> => {
   return normalizeChatsResponse(response)
 }
 
-const getChatDetail = (chatId: string) =>
-  requestHelpers.post<ChatDetail>(endpoints.chat.detail(chatId), null, {
-    params: { chat: chatId },
-  })
+const getChatDetail = async (chatId: string): Promise<ChatDetail> => {
+  const response = await requestHelpers.post<{ chat: ChatDetail }>(
+    endpoints.chat.detail(chatId),
+    null,
+    { params: { chat: chatId } }
+  )
+  return response.chat
+}
 
 const listChatMessages = async (
   chatId: string,
@@ -255,6 +269,40 @@ const sendChatMessage = (chatId: string, payload: SendMessageRequest) => {
 const getFriendsForNewChat = () =>
   requestHelpers.get<GetNewChatResponse>(endpoints.chat.new)
 
+const getMembers = (chatId: string) =>
+  requestHelpers.post<GetMembersResponse>(endpoints.chat.members(chatId), null, {
+    params: { chat: chatId },
+  })
+
+const renameChat = (chatId: string, payload: RenameRequest) =>
+  requestHelpers.post<RenameResponse>(endpoints.chat.rename(chatId), {
+    chat: chatId,
+    name: payload.name,
+  })
+
+const leaveChat = (chatId: string, payload?: LeaveRequest) =>
+  requestHelpers.post<LeaveResponse>(endpoints.chat.leave(chatId), {
+    chat: chatId,
+    delete: payload?.delete ? 'true' : undefined,
+  })
+
+const deleteChat = (chatId: string) =>
+  requestHelpers.post<DeleteResponse>(endpoints.chat.delete(chatId), {
+    chat: chatId,
+  })
+
+const addMember = (chatId: string, payload: MemberAddRequest) =>
+  requestHelpers.post<MemberAddResponse>(endpoints.chat.memberAdd(chatId), {
+    chat: chatId,
+    member: payload.member,
+  })
+
+const removeMember = (chatId: string, payload: MemberRemoveRequest) =>
+  requestHelpers.post<MemberRemoveResponse>(endpoints.chat.memberRemove(chatId), {
+    chat: chatId,
+    member: payload.member,
+  })
+
 export const chatsApi = {
   list: listChats,
   detail: getChatDetail,
@@ -262,6 +310,12 @@ export const chatsApi = {
   create: createChat,
   sendMessage: sendChatMessage,
   getFriendsForNewChat,
+  getMembers,
+  rename: renameChat,
+  leave: leaveChat,
+  delete: deleteChat,
+  addMember,
+  removeMember,
 }
 
 export type {
@@ -271,9 +325,19 @@ export type {
   ChatMessage,
   CreateChatRequest,
   CreateChatResponse,
+  DeleteResponse,
   GetChatsResponse,
+  GetMembersResponse,
   GetMessagesResponse,
   GetNewChatResponse,
+  LeaveRequest,
+  LeaveResponse,
+  MemberAddRequest,
+  MemberAddResponse,
+  MemberRemoveRequest,
+  MemberRemoveResponse,
+  RenameRequest,
+  RenameResponse,
   SendMessageRequest,
   SendMessageResponse,
 }

@@ -8,6 +8,7 @@ import {
 } from '@tanstack/react-query'
 import chatsApi, {
   type GetChatsResponse,
+  type GetMembersResponse,
   type GetMessagesResponse,
   type SendMessageRequest,
   type SendMessageResponse,
@@ -15,6 +16,15 @@ import chatsApi, {
   type CreateChatRequest,
   type CreateChatResponse,
   type ChatDetail,
+  type RenameRequest,
+  type RenameResponse,
+  type LeaveRequest,
+  type LeaveResponse,
+  type DeleteResponse,
+  type MemberAddRequest,
+  type MemberAddResponse,
+  type MemberRemoveRequest,
+  type MemberRemoveResponse,
 } from '@/api/chats'
 
 export const chatKeys = {
@@ -191,6 +201,141 @@ export const useCreateChatMutation = (
     mutationFn: (payload: CreateChatRequest) => chatsApi.create(payload),
     onSuccess: (data, variables, context, mutation) => {
       queryClient.invalidateQueries({ queryKey: chatKeys.all() })
+      onSuccess?.(data, variables, context, mutation)
+    },
+    ...restOptions,
+  })
+}
+
+export const useChatMembersQuery = (
+  chatId?: string,
+  options?: Omit<
+    UseQueryOptions<
+      GetMembersResponse,
+      Error,
+      GetMembersResponse,
+      readonly ['chats', string, 'members']
+    >,
+    'queryKey' | 'queryFn'
+  >
+) =>
+  useQuery({
+    queryKey: ['chats', chatId ?? 'unknown', 'members'] as const,
+    enabled: Boolean(chatId) && (options?.enabled ?? true),
+    queryFn: () => {
+      if (!chatId) {
+        throw new Error('Chat ID is required')
+      }
+      return chatsApi.getMembers(chatId)
+    },
+    ...options,
+  })
+
+interface RenameChatVariables extends RenameRequest {
+  chatId: string
+}
+
+export const useRenameChatMutation = (
+  options?: UseMutationOptions<RenameResponse, Error, RenameChatVariables, unknown>
+) => {
+  const queryClient = useQueryClient()
+  const { onSuccess, ...restOptions } = options ?? {}
+  return useMutation({
+    mutationFn: ({ chatId, ...payload }: RenameChatVariables) =>
+      chatsApi.rename(chatId, payload),
+    onSuccess: (data, variables, context, mutation) => {
+      queryClient.invalidateQueries({ queryKey: chatKeys.all() })
+      queryClient.invalidateQueries({ queryKey: chatKeys.detail(variables.chatId) })
+      onSuccess?.(data, variables, context, mutation)
+    },
+    ...restOptions,
+  })
+}
+
+interface LeaveChatVariables extends LeaveRequest {
+  chatId: string
+}
+
+export const useLeaveChatMutation = (
+  options?: UseMutationOptions<LeaveResponse, Error, LeaveChatVariables, unknown>
+) => {
+  const queryClient = useQueryClient()
+  const { onSuccess, ...restOptions } = options ?? {}
+  return useMutation({
+    mutationFn: ({ chatId, ...payload }: LeaveChatVariables) =>
+      chatsApi.leave(chatId, payload),
+    onSuccess: (data, variables, context, mutation) => {
+      queryClient.invalidateQueries({ queryKey: chatKeys.all() })
+      onSuccess?.(data, variables, context, mutation)
+    },
+    ...restOptions,
+  })
+}
+
+interface DeleteChatVariables {
+  chatId: string
+}
+
+export const useDeleteChatMutation = (
+  options?: UseMutationOptions<DeleteResponse, Error, DeleteChatVariables, unknown>
+) => {
+  const queryClient = useQueryClient()
+  const { onSuccess, ...restOptions } = options ?? {}
+  return useMutation({
+    mutationFn: ({ chatId }: DeleteChatVariables) => chatsApi.delete(chatId),
+    onSuccess: (data, variables, context, mutation) => {
+      queryClient.invalidateQueries({ queryKey: chatKeys.all() })
+      onSuccess?.(data, variables, context, mutation)
+    },
+    ...restOptions,
+  })
+}
+
+interface AddMemberVariables extends MemberAddRequest {
+  chatId: string
+}
+
+export const useAddMemberMutation = (
+  options?: UseMutationOptions<MemberAddResponse, Error, AddMemberVariables, unknown>
+) => {
+  const queryClient = useQueryClient()
+  const { onSuccess, ...restOptions } = options ?? {}
+  return useMutation({
+    mutationFn: ({ chatId, ...payload }: AddMemberVariables) =>
+      chatsApi.addMember(chatId, payload),
+    onSuccess: (data, variables, context, mutation) => {
+      queryClient.invalidateQueries({
+        queryKey: ['chats', variables.chatId, 'members'],
+      })
+      queryClient.invalidateQueries({ queryKey: chatKeys.detail(variables.chatId) })
+      onSuccess?.(data, variables, context, mutation)
+    },
+    ...restOptions,
+  })
+}
+
+interface RemoveMemberVariables extends MemberRemoveRequest {
+  chatId: string
+}
+
+export const useRemoveMemberMutation = (
+  options?: UseMutationOptions<
+    MemberRemoveResponse,
+    Error,
+    RemoveMemberVariables,
+    unknown
+  >
+) => {
+  const queryClient = useQueryClient()
+  const { onSuccess, ...restOptions } = options ?? {}
+  return useMutation({
+    mutationFn: ({ chatId, ...payload }: RemoveMemberVariables) =>
+      chatsApi.removeMember(chatId, payload),
+    onSuccess: (data, variables, context, mutation) => {
+      queryClient.invalidateQueries({
+        queryKey: ['chats', variables.chatId, 'members'],
+      })
+      queryClient.invalidateQueries({ queryKey: chatKeys.detail(variables.chatId) })
       onSuccess?.(data, variables, context, mutation)
     },
     ...restOptions,

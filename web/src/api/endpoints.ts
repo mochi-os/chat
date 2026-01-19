@@ -6,6 +6,12 @@ const endpoints = {
     messages: (chatId: string) => `/chat/${chatId}/-/messages`,
     send: (chatId: string) => `/chat/${chatId}/-/send`,
     detail: (chatId: string) => `/chat/${chatId}/-/view`,
+    members: (chatId: string) => `/chat/${chatId}/-/members`,
+    rename: (chatId: string) => `/chat/${chatId}/-/rename`,
+    leave: (chatId: string) => `/chat/${chatId}/-/leave`,
+    delete: (chatId: string) => `/chat/${chatId}/-/delete`,
+    memberAdd: (chatId: string) => `/chat/${chatId}/-/member_add`,
+    memberRemove: (chatId: string) => `/chat/${chatId}/-/member_remove`,
   },
   auth: {
     code: '/_/code',

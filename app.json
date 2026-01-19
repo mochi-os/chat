@@ -12,9 +12,10 @@
 	"execute": ["chat.star"],
 
 	"database": {
-		"schema": 2,
+		"schema": 3,
 		"file": "chat.db",
-		"create": {"function": "database_create"}
+		"create": {"function": "database_create"},
+		"upgrade": {"function": "database_upgrade"}
 	},
 
 	"icons": [
@@ -33,8 +34,17 @@
 		":chat/-/view": {"function": "action_view"},
 		":chat/-/messages": {"function": "action_messages"},
 		":chat/-/send": {"function": "action_send"},
+		":chat/-/members": {"function": "action_members"},
+		":chat/-/rename": {"function": "action_rename"},
+		":chat/-/leave": {"function": "action_leave"},
+		":chat/-/delete": {"function": "action_delete"},
+		":chat/-/member_add": {"function": "action_member_add"},
+		":chat/-/member_remove": {"function": "action_member_remove"},
 		":chat/-/attachments/:id": {"feature": "attachment"},
 		":chat/-/attachments/:id/thumbnail": {"feature": "attachment/thumbnail"},
+		":chat/settings": {"file": "web/dist/index.html"},
+		":chat/settings/assets": {"files": "web/dist/assets"},
+		":chat/settings/images": {"files": "web/dist/images"},
 		":chat/assets": {"files": "web/dist/assets"},
 		":chat/images": {"files": "web/dist/images"},
 		"-/notifications/subscribe": {"function": "action_notifications_subscribe"},
@@ -44,6 +54,11 @@
 
 	"events": {
 		"message": {"function": "event_message"},
-		"new": {"function": "event_new"}
+		"new": {"function": "event_new"},
+		"rename": {"function": "event_rename"},
+		"leave": {"function": "event_leave"},
+		"member_add": {"function": "event_member_add"},
+		"member_remove": {"function": "event_member_remove"},
+		"removed": {"function": "event_removed"}
 	}
 }

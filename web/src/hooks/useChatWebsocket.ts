@@ -63,12 +63,46 @@ const createMessageFromPayload = (
   }
 }
 
+const handleWebsocketEvent = (
+  chatId: string,
+  payload: ChatWebsocketMessagePayload,
+  queryClient: QueryClient
+): 'event' | 'message' => {
+  if (!chatId) {
+    return 'message'
+  }
+
+  // Check if this is a special event
+  const event = payload.event as string | undefined
+  if (event) {
+    switch (event) {
+      case 'removed':
+      case 'rename':
+      case 'leave':
+      case 'member_add':
+      case 'member_remove':
+        // Invalidate queries to refresh chat state
+        void queryClient.invalidateQueries({ queryKey: chatKeys.all() })
+        void queryClient.invalidateQueries({ queryKey: chatKeys.detail(chatId) })
+        void queryClient.invalidateQueries({ queryKey: ['chats', chatId, 'members'] })
+        return 'event'
+    }
+  }
+
+  return 'message'
+}
+
 const appendMessageToCache = (
   chatId: string,
   payload: ChatWebsocketMessagePayload,
   queryClient: QueryClient
 ) => {
   if (!chatId) {
+    return
+  }
+
+  // Check if this is a special event (not a message)
+  if (handleWebsocketEvent(chatId, payload, queryClient) === 'event') {
     return
   }
 

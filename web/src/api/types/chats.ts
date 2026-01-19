@@ -6,6 +6,7 @@ export interface Chat {
   name: string
   updated: number
   members: number
+  left?: number  // 0 = active, 1 = left voluntarily, 2 = removed by another member
 }
 
 export interface ChatMember {
@@ -114,4 +115,45 @@ export interface SendMessageRequest {
 export interface SendMessageResponse {
   id: string
   [key: string]: unknown
+}
+
+export interface GetMembersResponse {
+  members: ChatMember[]
+}
+
+export interface RenameRequest {
+  name: string
+}
+
+export interface RenameResponse {
+  success: boolean
+}
+
+export interface LeaveRequest {
+  delete?: boolean
+}
+
+export interface LeaveResponse {
+  success: boolean
+}
+
+export interface DeleteResponse {
+  success: boolean
+}
+
+export interface MemberAddRequest {
+  member: string
+}
+
+export interface MemberAddResponse {
+  success: boolean
+  member: ChatMember
+}
+
+export interface MemberRemoveRequest {
+  member: string
+}
+
+export interface MemberRemoveResponse {
+  success: boolean
 }

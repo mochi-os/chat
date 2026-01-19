@@ -18,6 +18,7 @@ import { Route as errors404RouteImport } from './routes/(errors)/404'
 import { Route as errors403RouteImport } from './routes/(errors)/403'
 import { Route as errors401RouteImport } from './routes/(errors)/401'
 import { Route as AuthenticatedErrorsErrorRouteImport } from './routes/_authenticated/errors/$error'
+import { Route as AuthenticatedChatIdSettingsRouteImport } from './routes/_authenticated/$chatId_.settings'
 
 const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
   id: '/_authenticated',
@@ -64,6 +65,12 @@ const AuthenticatedErrorsErrorRoute =
     path: '/errors/$error',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
+const AuthenticatedChatIdSettingsRoute =
+  AuthenticatedChatIdSettingsRouteImport.update({
+    id: '/$chatId_/settings',
+    path: '/$chatId/settings',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/401': typeof errors401Route
@@ -73,6 +80,7 @@ export interface FileRoutesByFullPath {
   '/503': typeof errors503Route
   '/$chatId': typeof AuthenticatedChatIdRoute
   '/': typeof AuthenticatedIndexRoute
+  '/$chatId/settings': typeof AuthenticatedChatIdSettingsRoute
   '/errors/$error': typeof AuthenticatedErrorsErrorRoute
 }
 export interface FileRoutesByTo {
@@ -83,6 +91,7 @@ export interface FileRoutesByTo {
   '/503': typeof errors503Route
   '/$chatId': typeof AuthenticatedChatIdRoute
   '/': typeof AuthenticatedIndexRoute
+  '/$chatId/settings': typeof AuthenticatedChatIdSettingsRoute
   '/errors/$error': typeof AuthenticatedErrorsErrorRoute
 }
 export interface FileRoutesById {
@@ -95,6 +104,7 @@ export interface FileRoutesById {
   '/(errors)/503': typeof errors503Route
   '/_authenticated/$chatId': typeof AuthenticatedChatIdRoute
   '/_authenticated/': typeof AuthenticatedIndexRoute
+  '/_authenticated/$chatId_/settings': typeof AuthenticatedChatIdSettingsRoute
   '/_authenticated/errors/$error': typeof AuthenticatedErrorsErrorRoute
 }
 export interface FileRouteTypes {
@@ -107,6 +117,7 @@ export interface FileRouteTypes {
     | '/503'
     | '/$chatId'
     | '/'
+    | '/$chatId/settings'
     | '/errors/$error'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -117,6 +128,7 @@ export interface FileRouteTypes {
     | '/503'
     | '/$chatId'
     | '/'
+    | '/$chatId/settings'
     | '/errors/$error'
   id:
     | '__root__'
@@ -128,6 +140,7 @@ export interface FileRouteTypes {
     | '/(errors)/503'
     | '/_authenticated/$chatId'
     | '/_authenticated/'
+    | '/_authenticated/$chatId_/settings'
     | '/_authenticated/errors/$error'
   fileRoutesById: FileRoutesById
 }
@@ -205,18 +218,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedErrorsErrorRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/$chatId_/settings': {
+      id: '/_authenticated/$chatId_/settings'
+      path: '/$chatId/settings'
+      fullPath: '/$chatId/settings'
+      preLoaderRoute: typeof AuthenticatedChatIdSettingsRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
   }
 }
 
 interface AuthenticatedRouteRouteChildren {
   AuthenticatedChatIdRoute: typeof AuthenticatedChatIdRoute
   AuthenticatedIndexRoute: typeof AuthenticatedIndexRoute
+  AuthenticatedChatIdSettingsRoute: typeof AuthenticatedChatIdSettingsRoute
   AuthenticatedErrorsErrorRoute: typeof AuthenticatedErrorsErrorRoute
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedChatIdRoute: AuthenticatedChatIdRoute,
   AuthenticatedIndexRoute: AuthenticatedIndexRoute,
+  AuthenticatedChatIdSettingsRoute: AuthenticatedChatIdSettingsRoute,
   AuthenticatedErrorsErrorRoute: AuthenticatedErrorsErrorRoute,
 }
 

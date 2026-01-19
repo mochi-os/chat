@@ -3,13 +3,25 @@
 
 # Create database
 def database_create():
-	mochi.db.execute("create table if not exists chats ( id text not null primary key, identity text not null, name text not null, key text not null, updated integer not null )")
+	mochi.db.execute("create table if not exists chats ( id text not null primary key, identity text not null, name text not null, key text not null, updated integer not null, left integer not null default 0 )")
 	mochi.db.execute("create index if not exists chats_updated on chats( updated )")
 
 	mochi.db.execute("create table if not exists members ( chat references chats( id ), member text not null, name text not null, primary key ( chat, member ) )")
 
 	mochi.db.execute("create table if not exists messages ( id text not null primary key, chat references chats( id ), member text not null, name text not null, body text not null, created integer not null )")
 	mochi.db.execute("create index if not exists messages_chat_created on messages( chat, created )")
+
+# Upgrade database
+def database_upgrade(to_version):
+	if to_version == 3:
+		# Add left column to track left/removed chats
+		columns = mochi.db.rows("pragma table_info(chats)")
+		has_left = False
+		for col in columns:
+			if col["name"] == "left":
+				has_left = True
+		if not has_left:
+			mochi.db.execute("alter table chats add column left integer not null default 0")
 
 # Create new chat
 def action_create(a):
@@ -125,7 +137,9 @@ def action_messages(a):
 		a.error(404, "Chat not found")
 		return
 
-	if not mochi.db.exists("select 1 from members where chat=? and member=?", chat["id"], a.user.identity.id):
+	# Allow viewing if member OR if chat is marked as left
+	is_member = mochi.db.exists("select 1 from members where chat=? and member=?", chat["id"], a.user.identity.id)
+	if not is_member and not chat["left"]:
 		a.error(403, "Not a member of this chat")
 		return
 
@@ -214,14 +228,19 @@ def action_send(a):
 
 # View a chat
 def action_view(a):
-	chat = mochi.db.row("select c.*, (select count(*) from members where chat=c.id) as members from chats c where c.id=?", a.input("chat"))
+	chat = mochi.db.row("select * from chats where id=?", a.input("chat"))
 	if not chat:
 		a.error(404, "Chat not found")
 		return
 
-	if not mochi.db.exists("select 1 from members where chat=? and member=?", chat["id"], a.user.identity.id):
+	# Allow viewing if member OR if chat is marked as left (user was removed or left)
+	is_member = mochi.db.exists("select 1 from members where chat=? and member=?", chat["id"], a.user.identity.id)
+	if not is_member and not chat["left"]:
 		a.error(403, "Not a member of this chat")
 		return
+
+	members = mochi.db.rows("select member as id, name from members where chat=? order by name", chat["id"])
+	chat["members"] = members
 
 	mochi.service.call("notifications", "clear.object", "chat", chat["id"])
 	return {
@@ -294,6 +313,103 @@ def event_new(e):
 			continue
 		mochi.db.execute("replace into members ( chat, member, name ) values ( ?, ?, ? )", chat, member["id"], member["name"])
 
+# Received a rename event
+def event_rename(e):
+	chat = mochi.db.row("select * from chats where id=?", e.content("id"))
+	if not chat:
+		return
+
+	sender = e.header("from")
+
+	# Verify sender is a member or the original creator
+	is_member = mochi.db.exists("select 1 from members where chat=? and member=?", chat["id"], sender)
+	is_creator = chat["identity"] == sender
+	if not is_member and not is_creator:
+		return
+
+	name = e.content("name")
+	if not mochi.valid(name, "name"):
+		return
+
+	mochi.db.execute("update chats set name=?, updated=? where id=?", name, mochi.time.now(), chat["id"])
+	mochi.websocket.write(chat["key"], {"event": "rename", "name": name})
+
+# Received a leave event - a member left the chat
+def event_leave(e):
+	chat = mochi.db.row("select * from chats where id=?", e.content("id"))
+	if not chat:
+		return
+
+	member = e.content("member")
+	if not mochi.valid(member, "entity"):
+		return
+
+	# Verify the event is from the member who is leaving
+	if e.header("from") != member:
+		return
+
+	mochi.db.execute("delete from members where chat=? and member=?", chat["id"], member)
+	mochi.websocket.write(chat["key"], {"event": "leave", "member": member})
+
+# Received a member_add event - someone added a new member
+def event_member_add(e):
+	chat = mochi.db.row("select * from chats where id=?", e.content("id"))
+	if not chat:
+		return
+
+	sender = e.header("from")
+
+	# Verify sender is a member or the original creator
+	is_member = mochi.db.exists("select 1 from members where chat=? and member=?", chat["id"], sender)
+	is_creator = chat["identity"] == sender
+	if not is_member and not is_creator:
+		return
+
+	member = e.content("member")
+	if not mochi.valid(member, "entity"):
+		return
+
+	name = e.content("name")
+	if not mochi.valid(name, "name"):
+		return
+
+	mochi.db.execute("replace into members (chat, member, name) values (?, ?, ?)", chat["id"], member, name)
+	mochi.db.execute("update chats set updated=? where id=?", mochi.time.now(), chat["id"])
+	mochi.websocket.write(chat["key"], {"event": "member_add", "member": member, "name": name})
+
+# Received a member_remove event - someone removed a member
+def event_member_remove(e):
+	chat = mochi.db.row("select * from chats where id=?", e.content("id"))
+	if not chat:
+		return
+
+	sender = e.header("from")
+
+	# Verify sender is a member or the original creator
+	is_member = mochi.db.exists("select 1 from members where chat=? and member=?", chat["id"], sender)
+	is_creator = chat["identity"] == sender
+	if not is_member and not is_creator:
+		return
+
+	member = e.content("member")
+	if not mochi.valid(member, "entity"):
+		return
+
+	mochi.db.execute("delete from members where chat=? and member=?", chat["id"], member)
+	mochi.websocket.write(chat["key"], {"event": "member_remove", "member": member})
+
+# Received a removed event - current user was removed from chat
+def event_removed(e):
+	chat = mochi.db.row("select * from chats where id=?", e.content("id"))
+	if not chat:
+		return
+
+	# Mark chat as left (removed by another member)
+	mochi.db.execute("update chats set left=2, updated=? where id=?", mochi.time.now(), chat["id"])
+
+	# Notify frontend via websocket
+	mochi.websocket.write(chat["key"], {"event": "removed"})
+
 # Notification proxy actions - forward to notifications service
 
 def action_notifications_subscribe(a):
@@ -324,3 +440,196 @@ def action_notifications_destinations(a):
 	"""List available notification destinations."""
 	result = mochi.service.call("notifications", "destinations")
 	return {"data": result}
+
+# List members of a chat
+def action_members(a):
+	chat = mochi.db.row("select * from chats where id=?", a.input("chat"))
+	if not chat:
+		a.error(404, "Chat not found")
+		return
+
+	if not mochi.db.exists("select 1 from members where chat=? and member=?", chat["id"], a.user.identity.id):
+		a.error(403, "Not a member of this chat")
+		return
+
+	members = mochi.db.rows("select member as id, name from members where chat=? order by name", chat["id"])
+	return {"data": {"members": members}}
+
+# Rename a chat
+def action_rename(a):
+	chat = mochi.db.row("select * from chats where id=?", a.input("chat"))
+	if not chat:
+		a.error(404, "Chat not found")
+		return
+
+	if not mochi.db.exists("select 1 from members where chat=? and member=?", chat["id"], a.user.identity.id):
+		a.error(403, "Not a member of this chat")
+		return
+
+	name = a.input("name")
+	if not mochi.valid(name, "name"):
+		a.error(400, "Invalid chat name")
+		return
+
+	mochi.db.execute("update chats set name=?, updated=? where id=?", name, mochi.time.now(), chat["id"])
+
+	# Notify other members
+	members = mochi.db.rows("select member from members where chat=? and member!=?", chat["id"], a.user.identity.id)
+	for member in members:
+		mochi.message.send({"from": a.user.identity.id, "to": member["member"], "service": "chat", "event": "rename"}, {"id": chat["id"], "name": name})
+
+	mochi.websocket.write(chat["key"], {"event": "rename", "name": name})
+	return {"data": {"success": True}}
+
+# Leave a chat
+def action_leave(a):
+	chat = mochi.db.row("select * from chats where id=?", a.input("chat"))
+	if not chat:
+		a.error(404, "Chat not found")
+		return
+
+	if chat["left"]:
+		a.error(400, "Already left this chat")
+		return
+
+	if not mochi.db.exists("select 1 from members where chat=? and member=?", chat["id"], a.user.identity.id):
+		a.error(403, "Not a member of this chat")
+		return
+
+	delete_local = a.input("delete") == "true"
+
+	# Remove self from members
+	mochi.db.execute("delete from members where chat=? and member=?", chat["id"], a.user.identity.id)
+
+	# Check if any members remain
+	remaining = mochi.db.rows("select member from members where chat=?", chat["id"])
+
+	if len(remaining) == 0:
+		# Last member left, delete chat and messages
+		mochi.db.execute("delete from messages where chat=?", chat["id"])
+		mochi.db.execute("delete from chats where id=?", chat["id"])
+	else:
+		# Notify remaining members
+		for member in remaining:
+			mochi.message.send({"from": a.user.identity.id, "to": member["member"], "service": "chat", "event": "leave"}, {"id": chat["id"], "member": a.user.identity.id})
+		mochi.websocket.write(chat["key"], {"event": "leave", "member": a.user.identity.id})
+
+		if delete_local:
+			# Delete chat locally
+			mochi.db.execute("delete from messages where chat=?", chat["id"])
+			mochi.db.execute("delete from members where chat=?", chat["id"])
+			mochi.db.execute("delete from chats where id=?", chat["id"])
+		else:
+			# Mark chat as left
+			mochi.db.execute("update chats set left=1, updated=? where id=?", mochi.time.now(), chat["id"])
+
+	return {"data": {"success": True}}
+
+# Delete a chat locally (for left chats)
+def action_delete(a):
+	chat = mochi.db.row("select * from chats where id=?", a.input("chat"))
+	if not chat:
+		a.error(404, "Chat not found")
+		return
+
+	# Only allow deleting left chats
+	if not chat["left"]:
+		a.error(400, "Can only delete chats you have left")
+		return
+
+	# Delete locally
+	mochi.db.execute("delete from messages where chat=?", chat["id"])
+	mochi.db.execute("delete from members where chat=?", chat["id"])
+	mochi.db.execute("delete from chats where id=?", chat["id"])
+
+	return {"data": {"success": True}}
+
+# Add a member to a chat
+def action_member_add(a):
+	chat = mochi.db.row("select * from chats where id=?", a.input("chat"))
+	if not chat:
+		a.error(404, "Chat not found")
+		return
+
+	if not mochi.db.exists("select 1 from members where chat=? and member=?", chat["id"], a.user.identity.id):
+		a.error(403, "Not a member of this chat")
+		return
+
+	member_id = a.input("member")
+	if not mochi.valid(member_id, "entity"):
+		a.error(400, "Invalid member ID")
+		return
+
+	# Check if already a member
+	if mochi.db.exists("select 1 from members where chat=? and member=?", chat["id"], member_id):
+		a.error(400, "Already a member of this chat")
+		return
+
+	# Verify target is a friend of the user
+	friend = mochi.service.call("friends", "get", a.user.identity.id, member_id)
+	if not friend:
+		a.error(400, "Can only add friends to chat")
+		return
+
+	member_name = friend["name"]
+
+	# Add new member
+	mochi.db.execute("replace into members (chat, member, name) values (?, ?, ?)", chat["id"], member_id, member_name)
+	mochi.db.execute("update chats set updated=? where id=?", mochi.time.now(), chat["id"])
+
+	# Get all current members for the new event
+	all_members = mochi.db.rows("select member as id, name from members where chat=?", chat["id"])
+
+	# Notify existing members about the addition
+	existing_members = mochi.db.rows("select member from members where chat=? and member!=?", chat["id"], member_id)
+	for m in existing_members:
+		if m["member"] != a.user.identity.id:
+			mochi.message.send({"from": a.user.identity.id, "to": m["member"], "service": "chat", "event": "member_add"}, {"id": chat["id"], "member": member_id, "name": member_name})
+
+	# Send new event to the added member with full chat details
+	mochi.message.send({"from": a.user.identity.id, "to": member_id, "service": "chat", "event": "new"}, {"id": chat["id"], "name": chat["name"]}, all_members)
+
+	mochi.websocket.write(chat["key"], {"event": "member_add", "member": member_id, "name": member_name})
+	return {"data": {"success": True, "member": {"id": member_id, "name": member_name}}}
+
+# Remove a member from a chat
+def action_member_remove(a):
+	chat = mochi.db.row("select * from chats where id=?", a.input("chat"))
+	if not chat:
+		a.error(404, "Chat not found")
+		return
+
+	if not mochi.db.exists("select 1 from members where chat=? and member=?", chat["id"], a.user.identity.id):
+		a.error(403, "Not a member of this chat")
+		return
+
+	member_id = a.input("member")
+	if not mochi.valid(member_id, "entity"):
+		a.error(400, "Invalid member ID")
+		return
+
+	# Cannot remove self (use leave for that)
+	if member_id == a.user.identity.id:
+		a.error(400, "Use leave to remove yourself")
+		return
+
+	# Check if target is actually a member
+	if not mochi.db.exists("select 1 from members where chat=? and member=?", chat["id"], member_id):
+		a.error(404, "Member not found in this chat")
+		return
+
+	# Remove the member
+	mochi.db.execute("delete from members where chat=? and member=?", chat["id"], member_id)
+	mochi.db.execute("update chats set updated=? where id=?", mochi.time.now(), chat["id"])
+
+	# Notify remaining members
+	remaining = mochi.db.rows("select member from members where chat=?", chat["id"])
+	for m in remaining:
+		if m["member"] != a.user.identity.id:
+			mochi.message.send({"from": a.user.identity.id, "to": m["member"], "service": "chat", "event": "member_remove"}, {"id": chat["id"], "member": member_id})
+
+	# Send removed event to the removed member
+	mochi.message.send({"from": a.user.identity.id, "to": member_id, "service": "chat", "event": "removed"}, {"id": chat["id"]})
+
+	mochi.websocket.write(chat["key"], {"event": "member_remove", "member": member_id})
+	return {"data": {"success": True}}

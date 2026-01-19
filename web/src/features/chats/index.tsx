@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react'
-import { useParams } from '@tanstack/react-router'
+import { useNavigate, useParams } from '@tanstack/react-router'
 import { useQuery } from '@tanstack/react-query'
 import {
   useAuthStore,
@@ -7,14 +7,26 @@ import {
   Header,
   Main,
   Button,
+  Checkbox,
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
+  Label,
   SubscribeDialog,
   requestHelpers,
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  getErrorMessage,
+  toast,
 } from '@mochi/common'
-import { MoreVertical, Search, User, Users, Info } from 'lucide-react'
+import { MoreVertical, Settings, LogOut, Loader2, Trash2 } from 'lucide-react'
 
 import { useSidebarContext } from '@/context/sidebar-context'
 import useChatWebsocket from '@/hooks/useChatWebsocket'
@@ -23,6 +35,8 @@ import {
   useChatsQuery,
   useSendMessageMutation,
   useChatDetailQuery,
+  useLeaveChatMutation,
+  useDeleteChatMutation,
 } from '@/hooks/useChats'
 import { setLastChat } from '@/hooks/useChatStorage'
 
@@ -42,9 +56,12 @@ interface SubscriptionCheckResponse {
 export function Chats() {
   usePageTitle('Chat')
 
+  const navigate = useNavigate()
   const { openNewChatDialog, setWebsocketStatus } = useSidebarContext()
   const [newMessage, setNewMessage] = useState('')
   const [subscribeOpen, setSubscribeOpen] = useState(false)
+  const [showLeaveDialog, setShowLeaveDialog] = useState(false)
+  const [deleteOnLeave, setDeleteOnLeave] = useState(false)
 
   const [pendingAttachments, setPendingAttachments] = useState<PendingAttachment[]>([])
 
@@ -124,6 +141,41 @@ export function Chats() {
       clearAttachments()
     },
   })
+
+  // Leave chat
+  const leaveChatMutation = useLeaveChatMutation({
+    onSuccess: (_data, variables) => {
+      setShowLeaveDialog(false)
+      // Navigate away only if deleting locally (chat won't exist anymore)
+      if (variables.delete) {
+        void navigate({ to: '/' })
+      }
+    },
+    onError: (error) => {
+      toast.error(getErrorMessage(error, 'Failed to leave chat'))
+    },
+  })
+
+  const handleLeaveChat = () => {
+    if (!selectedChat) return
+    leaveChatMutation.mutate({ chatId: selectedChat.id, delete: deleteOnLeave })
+  }
+
+  // Delete chat (for left chats)
+  const deleteChatMutation = useDeleteChatMutation({
+    onSuccess: () => {
+      toast.success('Chat deleted')
+      void navigate({ to: '/' })
+    },
+    onError: (error) => {
+      toast.error(getErrorMessage(error, 'Failed to delete chat'))
+    },
+  })
+
+  const handleDeleteChat = () => {
+    if (!selectedChat) return
+    deleteChatMutation.mutate({ chatId: selectedChat.id })
+  }
 
   // WebSocket
   const { status, retries } = useChatWebsocket(selectedChat?.id, selectedChat?.key)
@@ -212,18 +264,27 @@ export function Chats() {
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end" className="w-56">
-                {selectedChat.members > 2 && (
-                  <DropdownMenuItem disabled>
-                    <Users className="mr-2 size-4" /> Add members
+                {selectedChat.left ? (
+                  <DropdownMenuItem onClick={handleDeleteChat}>
+                    <Trash2 className="mr-2 size-4" /> Delete chat
                   </DropdownMenuItem>
+                ) : (
+                  <>
+                    <DropdownMenuItem onClick={() => setShowLeaveDialog(true)}>
+                      <LogOut className="mr-2 size-4" /> Leave chat
+                    </DropdownMenuItem>
+                    <DropdownMenuItem
+                      onClick={() =>
+                        void navigate({
+                          to: '/$chatId/settings',
+                          params: { chatId: selectedChat.id },
+                        })
+                      }
+                    >
+                      <Settings className="mr-2 size-4" /> Chat settings
+                    </DropdownMenuItem>
+                  </>
                 )}
-                <DropdownMenuItem disabled>
-                  {selectedChat.members > 2 ? <Info className="mr-2 size-4" /> : <User className="mr-2 size-4" />}
-                  {selectedChat.members > 2 ? 'Group info' : 'View profile'}
-                </DropdownMenuItem>
-                <DropdownMenuItem disabled>
-                  <Search className="mr-2 size-4" /> Search
-                </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
           </div>
@@ -239,18 +300,43 @@ export function Chats() {
             currentUserName={currentUserName}
           />
 
-          <ChatInput
-            newMessage={newMessage}
-            setNewMessage={setNewMessage}
-            onSendMessage={handleSendMessage}
-            isSending={sendMessageMutation.isPending}
-            isSendDisabled={sendMessageMutation.isPending}
-            pendingAttachments={pendingAttachments}
-            onRemoveAttachment={handleRemoveAttachment}
-            onMoveAttachment={handleMoveAttachment}
-            onAttachmentSelection={handleAttachmentSelection}
-            sendMessageErrorMessage={sendMessageMutation.error?.message ?? null}
-          />
+          {selectedChat.left ? (
+            <div className="border-t bg-muted/50 p-4">
+              <div className="flex items-center justify-between">
+                <p className="text-sm text-muted-foreground">
+                  {selectedChat.left === 2
+                    ? 'You were removed from this chat'
+                    : 'You left this chat'}
+                </p>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={handleDeleteChat}
+                  disabled={deleteChatMutation.isPending}
+                >
+                  {deleteChatMutation.isPending ? (
+                    <Loader2 className="mr-2 size-4 animate-spin" />
+                  ) : (
+                    <Trash2 className="mr-2 size-4" />
+                  )}
+                  Delete chat
+                </Button>
+              </div>
+            </div>
+          ) : (
+            <ChatInput
+              newMessage={newMessage}
+              setNewMessage={setNewMessage}
+              onSendMessage={handleSendMessage}
+              isSending={sendMessageMutation.isPending}
+              isSendDisabled={sendMessageMutation.isPending}
+              pendingAttachments={pendingAttachments}
+              onRemoveAttachment={handleRemoveAttachment}
+              onMoveAttachment={handleMoveAttachment}
+              onAttachmentSelection={handleAttachmentSelection}
+              sendMessageErrorMessage={sendMessageMutation.error?.message ?? null}
+            />
+          )}
         </Main>
       </div>
 
@@ -262,6 +348,47 @@ export function Chats() {
         appBase="/chat"
         onResult={() => refetchSubscription()}
       />
+
+      <AlertDialog
+        open={showLeaveDialog}
+        onOpenChange={(open) => {
+          setShowLeaveDialog(open)
+          if (!open) setDeleteOnLeave(false)
+        }}
+      >
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Leave chat?</AlertDialogTitle>
+            <AlertDialogDescription>
+              Are you sure you want to leave "{selectedChat?.name}"? You can be added back by other
+              members.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <div className="flex items-center space-x-2 py-2">
+            <Checkbox
+              id="delete-on-leave"
+              checked={deleteOnLeave}
+              onCheckedChange={(checked) => setDeleteOnLeave(checked === true)}
+            />
+            <Label htmlFor="delete-on-leave" className="text-sm">
+              Delete chat history
+            </Label>
+          </div>
+          <AlertDialogFooter>
+            <AlertDialogCancel disabled={leaveChatMutation.isPending}>Cancel</AlertDialogCancel>
+            <AlertDialogAction onClick={handleLeaveChat} disabled={leaveChatMutation.isPending}>
+              {leaveChatMutation.isPending ? (
+                <>
+                  <Loader2 className="mr-2 size-4 animate-spin" />
+                  Leaving...
+                </>
+              ) : (
+                'Leave'
+              )}
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </>
   )
 }
