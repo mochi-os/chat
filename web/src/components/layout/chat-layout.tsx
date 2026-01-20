@@ -103,7 +103,12 @@ function ChatLayoutInner() {
           title: '',
           separator: true,
           items: [
-            { title: 'New chat', onClick: openNewChatDialog, icon: Plus },
+            {
+              title: 'New chat',
+              onClick: openNewChatDialog,
+              icon: Plus,
+              variant: 'primary',
+            },
           ],
         },
       ],
