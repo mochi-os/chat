@@ -196,7 +196,7 @@ export function ChatMessageList({
                 <div className='flex items-end gap-2'>
                   {isSent && (
                     <span className='text-muted-foreground/70 opacity-0 transition-opacity group-hover:opacity-100 text-[10px]'>
-                      {format(new Date(message.created * 1000), 'HH:mm')}
+                      {format(new Date(message.created * 1000), 'HH:mm:ss')}
                     </span>
                   )}
 
@@ -225,7 +225,7 @@ export function ChatMessageList({
 
                   {!isSent && (
                     <span className='text-muted-foreground/70 opacity-0 transition-opacity group-hover:opacity-100 text-[10px]'>
-                      {format(new Date(message.created * 1000), 'HH:mm')}
+                      {format(new Date(message.created * 1000), 'HH:mm:ss')}
                     </span>
                   )}
                 </div>
