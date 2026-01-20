@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react'
-import { useNavigate, useParams } from '@tanstack/react-router'
 import { useQuery } from '@tanstack/react-query'
+import { useNavigate, useParams } from '@tanstack/react-router'
 import {
   useAuthStore,
   usePageTitle,
@@ -26,9 +26,16 @@ import {
   getErrorMessage,
   toast,
 } from '@mochi/common'
-import { MoreVertical, Settings, LogOut, Loader2, Trash2, MessageSquare } from 'lucide-react'
-
+import {
+  MoreVertical,
+  Settings,
+  LogOut,
+  Loader2,
+  Trash2,
+  MessageSquare,
+} from 'lucide-react'
 import { useSidebarContext } from '@/context/sidebar-context'
+import { setLastChat } from '@/hooks/useChatStorage'
 import useChatWebsocket from '@/hooks/useChatWebsocket'
 import {
   useInfiniteMessagesQuery,
@@ -38,8 +45,6 @@ import {
   useLeaveChatMutation,
   useDeleteChatMutation,
 } from '@/hooks/useChats'
-import { setLastChat } from '@/hooks/useChatStorage'
-
 import { ChatEmptyState } from './components/chat-empty-state'
 import { ChatInput } from './components/chat-input'
 import { ChatMessageList } from './components/chat-message-list'
@@ -63,7 +68,9 @@ export function Chats() {
   const [showLeaveDialog, setShowLeaveDialog] = useState(false)
   const [deleteOnLeave, setDeleteOnLeave] = useState(false)
 
-  const [pendingAttachments, setPendingAttachments] = useState<PendingAttachment[]>([])
+  const [pendingAttachments, setPendingAttachments] = useState<
+    PendingAttachment[]
+  >([])
 
   const {
     email: currentUserEmail,
@@ -83,7 +90,9 @@ export function Chats() {
   const { data: subscriptionData, refetch: refetchSubscription } = useQuery({
     queryKey: ['subscription-check', 'chat'],
     queryFn: async () =>
-      requestHelpers.get<SubscriptionCheckResponse>('/chat/-/notifications/check'),
+      requestHelpers.get<SubscriptionCheckResponse>(
+        '/chat/-/notifications/check'
+      ),
     staleTime: Infinity,
   })
 
@@ -102,7 +111,10 @@ export function Chats() {
 
   // Chats list
   const chatsQuery = useChatsQuery()
-  const chats = useMemo(() => chatsQuery.data?.chats ?? [], [chatsQuery.data?.chats])
+  const chats = useMemo(
+    () => chatsQuery.data?.chats ?? [],
+    [chatsQuery.data?.chats]
+  )
 
   const selectedChat = useMemo(
     () => chats.find((c) => c.id === selectedChatId) ?? null,
@@ -178,7 +190,10 @@ export function Chats() {
   }
 
   // WebSocket
-  const { status, retries } = useChatWebsocket(selectedChat?.id, selectedChat?.key)
+  const { status, retries } = useChatWebsocket(
+    selectedChat?.id,
+    selectedChat?.key
+  )
   useEffect(() => {
     setWebsocketStatus(status, retries)
   }, [status, retries, setWebsocketStatus])
@@ -188,7 +203,9 @@ export function Chats() {
     setPendingAttachments([])
   }
 
-  const handleAttachmentSelection = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleAttachmentSelection = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
     const files = Array.from(e.target.files || [])
     if (files.length === 0) return
 
@@ -240,36 +257,48 @@ export function Chats() {
 
   // Loading / empty
   if (selectedChatId && chatsQuery.isLoading) {
-    return <div className="flex h-full items-center justify-center text-sm text-muted-foreground">Loading…</div>
+    return (
+      <div className='text-muted-foreground flex h-full items-center justify-center text-sm'>
+        Loading…
+      </div>
+    )
   }
 
   if (!selectedChat) {
-    return <ChatEmptyState onNewChat={openNewChatDialog} hasExistingChats={chats.length > 0} />
+    return (
+      <ChatEmptyState
+        onNewChat={openNewChatDialog}
+        hasExistingChats={chats.length > 0}
+      />
+    )
   }
 
   return (
     <>
-      <div className="flex h-full flex-col overflow-hidden">
+      <div className='flex h-full flex-col overflow-hidden'>
         <PageHeader
           title={selectedChat.name}
-          icon={<MessageSquare className="size-4 md:size-5" />}
+          icon={<MessageSquare className='size-4 md:size-5' />}
           description={subtitle || undefined}
           actions={
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button variant="ghost" size="icon">
-                  <MoreVertical className="size-5" />
+                <Button variant='ghost' size='icon'>
+                  <MoreVertical className='size-5' />
                 </Button>
               </DropdownMenuTrigger>
-              <DropdownMenuContent align="end" className="w-56">
+              <DropdownMenuContent align='end' className='w-56'>
                 {selectedChat.left ? (
                   <DropdownMenuItem onClick={handleDeleteChat}>
-                    <Trash2 className="mr-2 size-4" /> Delete chat
+                    <Trash2 className='mr-2 size-4' /> Delete chat
                   </DropdownMenuItem>
                 ) : (
                   <>
-                    <DropdownMenuItem onClick={() => setShowLeaveDialog(true)}>
-                      <LogOut className="mr-2 size-4" /> Leave chat
+                    <DropdownMenuItem
+                      variant='destructive'
+                      onClick={() => setShowLeaveDialog(true)}
+                    >
+                      <LogOut className='mr-2 size-4' /> Leave chat
                     </DropdownMenuItem>
                     <DropdownMenuItem
                       onClick={() =>
@@ -279,7 +308,7 @@ export function Chats() {
                         })
                       }
                     >
-                      <Settings className="mr-2 size-4" /> Chat settings
+                      <Settings className='mr-2 size-4' /> Chat settings
                     </DropdownMenuItem>
                   </>
                 )}
@@ -288,7 +317,7 @@ export function Chats() {
           }
         />
 
-        <Main className="flex min-h-0 flex-1 flex-col overflow-hidden">
+        <Main className='flex min-h-0 flex-1 flex-col overflow-hidden'>
           <ChatMessageList
             messagesQuery={messagesQuery}
             chatMessages={chatMessages}
@@ -300,23 +329,23 @@ export function Chats() {
           />
 
           {selectedChat.left ? (
-            <div className="border-t bg-muted/50 p-4">
-              <div className="flex items-center justify-between">
-                <p className="text-sm text-muted-foreground">
+            <div className='bg-muted/50 border-t p-4'>
+              <div className='flex items-center justify-between'>
+                <p className='text-muted-foreground text-sm'>
                   {selectedChat.left === 2
                     ? 'You were removed from this chat'
                     : 'You left this chat'}
                 </p>
                 <Button
-                  variant="outline"
-                  size="sm"
+                  variant='destructive'
+                  size='sm'
                   onClick={handleDeleteChat}
                   disabled={deleteChatMutation.isPending}
                 >
                   {deleteChatMutation.isPending ? (
-                    <Loader2 className="mr-2 size-4 animate-spin" />
+                    <Loader2 className='mr-2 size-4 animate-spin' />
                   ) : (
-                    <Trash2 className="mr-2 size-4" />
+                    <Trash2 className='mr-2 size-4' />
                   )}
                   Delete chat
                 </Button>
@@ -333,7 +362,9 @@ export function Chats() {
               onRemoveAttachment={handleRemoveAttachment}
               onMoveAttachment={handleMoveAttachment}
               onAttachmentSelection={handleAttachmentSelection}
-              sendMessageErrorMessage={sendMessageMutation.error?.message ?? null}
+              sendMessageErrorMessage={
+                sendMessageMutation.error?.message ?? null
+              }
             />
           )}
         </Main>
@@ -342,9 +373,9 @@ export function Chats() {
       <SubscribeDialog
         open={subscribeOpen}
         onOpenChange={setSubscribeOpen}
-        app="chat"
-        label="Chat messages"
-        appBase="/chat"
+        app='chat'
+        label='Chat messages'
+        appBase='/chat'
         onResult={() => refetchSubscription()}
       />
 
@@ -359,26 +390,32 @@ export function Chats() {
           <AlertDialogHeader>
             <AlertDialogTitle>Leave chat?</AlertDialogTitle>
             <AlertDialogDescription>
-              Are you sure you want to leave "{selectedChat?.name}"? You can be added back by other
-              members.
+              Are you sure you want to leave "{selectedChat?.name}"? You can be
+              added back by other members.
             </AlertDialogDescription>
           </AlertDialogHeader>
-          <div className="flex items-center space-x-2 py-2">
+          <div className='flex items-center space-x-2 py-2'>
             <Checkbox
-              id="delete-on-leave"
+              id='delete-on-leave'
               checked={deleteOnLeave}
               onCheckedChange={(checked) => setDeleteOnLeave(checked === true)}
             />
-            <Label htmlFor="delete-on-leave" className="text-sm">
+            <Label htmlFor='delete-on-leave' className='text-sm'>
               Delete chat history
             </Label>
           </div>
           <AlertDialogFooter>
-            <AlertDialogCancel disabled={leaveChatMutation.isPending}>Cancel</AlertDialogCancel>
-            <AlertDialogAction onClick={handleLeaveChat} disabled={leaveChatMutation.isPending}>
+            <AlertDialogCancel disabled={leaveChatMutation.isPending}>
+              Cancel
+            </AlertDialogCancel>
+            <AlertDialogAction
+              variant='destructive'
+              onClick={handleLeaveChat}
+              disabled={leaveChatMutation.isPending}
+            >
               {leaveChatMutation.isPending ? (
                 <>
-                  <Loader2 className="mr-2 size-4 animate-spin" />
+                  <Loader2 className='mr-2 size-4 animate-spin' />
                   Leaving...
                 </>
               ) : (

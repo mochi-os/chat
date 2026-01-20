@@ -386,7 +386,7 @@ function LeaveDialog({ open, onOpenChange, chatId, chatName, onSuccess }: LeaveD
         </div>
         <AlertDialogFooter>
           <AlertDialogCancel disabled={leaveMutation.isPending}>Cancel</AlertDialogCancel>
-          <AlertDialogAction onClick={handleLeave} disabled={leaveMutation.isPending}>
+          <AlertDialogAction variant="destructive" onClick={handleLeave} disabled={leaveMutation.isPending}>
             {leaveMutation.isPending ? (
               <>
                 <Loader2 className="mr-2 size-4 animate-spin" />
@@ -520,7 +520,7 @@ function RemoveMemberDialog({
         </AlertDialogHeader>
         <AlertDialogFooter>
           <AlertDialogCancel disabled={removeMemberMutation.isPending}>Cancel</AlertDialogCancel>
-          <AlertDialogAction onClick={handleRemove} disabled={removeMemberMutation.isPending}>
+          <AlertDialogAction variant="destructive" onClick={handleRemove} disabled={removeMemberMutation.isPending}>
             {removeMemberMutation.isPending ? (
               <>
                 <Loader2 className="mr-2 size-4 animate-spin" />
