@@ -96,7 +96,7 @@ function ChatLayoutInner() {
     return {
       navGroups: [
         {
-          title: '',
+          title: 'Chats',
           items: chatItems,
         },
         {
