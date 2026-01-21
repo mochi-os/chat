@@ -25,8 +25,7 @@ interface ChatMessageListProps {
   chatMessages: ChatMessage[]
   isLoadingMessages: boolean
   messagesErrorMessage: string | null
-  currentUserEmail: string
-  currentUserName: string
+  currentUserIdentity: string
   isGroupChat: boolean
 }
 
@@ -35,8 +34,7 @@ export function ChatMessageList({
   chatMessages,
   isLoadingMessages,
   messagesErrorMessage,
-  currentUserEmail,
-  currentUserName,
+  currentUserIdentity,
   isGroupChat,
 }: ChatMessageListProps) {
   const scrollContainerRef = useRef<HTMLDivElement | null>(null)
@@ -47,14 +45,8 @@ export function ChatMessageList({
   const prevMessageCountRef = useRef<number>(0)
 
   const isCurrentUserMessage = (message: ChatMessage) => {
-    // Check if the message belongs to the current user by comparing
-    // email, name, or member ID against the current user's credentials
-    if (!currentUserEmail && !currentUserName) return false
-    return (
-      (currentUserEmail && message.email === currentUserEmail) ||
-      (currentUserName && message.name === currentUserName) ||
-      (currentUserEmail && message.member === currentUserEmail)
-    )
+    if (!currentUserIdentity) return false
+    return message.member === currentUserIdentity
   }
 
   // Group messages by date

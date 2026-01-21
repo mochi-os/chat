@@ -73,7 +73,7 @@ export function Chats() {
   >([])
 
   const {
-    email: currentUserEmail,
+    email: currentUserIdentity,
     name: currentUserName,
     initialize: initializeAuth,
   } = useAuthStore()
@@ -323,8 +323,7 @@ export function Chats() {
             chatMessages={chatMessages}
             isLoadingMessages={messagesQuery.isLoading}
             messagesErrorMessage={messagesQuery.error?.message ?? null}
-            currentUserEmail={currentUserEmail}
-            currentUserName={currentUserName}
+            currentUserIdentity={currentUserIdentity}
             isGroupChat={(chatDetail?.members?.length ?? 0) > 2}
           />
 
