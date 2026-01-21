@@ -1,5 +1,5 @@
-import { createFileRoute, useNavigate } from '@tanstack/react-router'
 import { useMemo, useState } from 'react'
+import { createFileRoute, useNavigate } from '@tanstack/react-router'
 import {
   AlertDialog,
   AlertDialogAction,
@@ -12,6 +12,7 @@ import {
   Button,
   Card,
   CardContent,
+  CardDescription,
   CardHeader,
   CardTitle,
   Checkbox,
@@ -20,6 +21,7 @@ import {
   DialogDescription,
   DialogHeader,
   DialogTitle,
+  EmptyState,
   Label,
   PageHeader,
   Main,
@@ -58,26 +60,36 @@ function ChatSettingsPage() {
   const navigate = useNavigate()
   const { name: currentUserName } = useAuthStore()
 
-  const { data: chatDetail, isLoading: isLoadingChat } = useChatDetailQuery(chatId)
-  const { data: membersData, isLoading: isLoadingMembers, refetch: refetchMembers } = useChatMembersQuery(chatId)
+  const { data: chatDetail, isLoading: isLoadingChat } =
+    useChatDetailQuery(chatId)
+  const {
+    data: membersData,
+    isLoading: isLoadingMembers,
+    refetch: refetchMembers,
+  } = useChatMembersQuery(chatId)
 
   const members = membersData?.members ?? []
 
-  usePageTitle(chatDetail?.name ? `${chatDetail.name} settings` : 'Chat settings')
+  usePageTitle(
+    chatDetail?.name ? `${chatDetail.name} settings` : 'Chat settings'
+  )
 
   const [showLeaveDialog, setShowLeaveDialog] = useState(false)
   const [showAddMemberDialog, setShowAddMemberDialog] = useState(false)
-  const [memberToRemove, setMemberToRemove] = useState<{ id: string; name: string } | null>(null)
+  const [memberToRemove, setMemberToRemove] = useState<{
+    id: string
+    name: string
+  } | null>(null)
 
   const isLoading = isLoadingChat || isLoadingMembers
 
   if (isLoading && !chatDetail) {
     return (
       <>
-        <PageHeader title="Chat settings" />
+        <PageHeader title='Chat settings' />
         <Main>
-          <div className="flex items-center justify-center py-12">
-            <Loader2 className="size-6 animate-spin text-muted-foreground" />
+          <div className='flex items-center justify-center py-12'>
+            <Loader2 className='text-muted-foreground size-6 animate-spin' />
           </div>
         </Main>
       </>
@@ -87,17 +99,13 @@ function ChatSettingsPage() {
   if (!chatDetail) {
     return (
       <>
-        <PageHeader title="Chat settings" />
+        <PageHeader title='Chat settings' />
         <Main>
-          <Card>
-            <CardContent className="py-12 text-center">
-              <MessageSquare className="mx-auto mb-4 size-12 text-muted-foreground" />
-              <h2 className="text-lg font-semibold">Chat not found</h2>
-              <p className="mt-1 text-sm text-muted-foreground">
-                This chat may have been deleted or you don't have access to it.
-              </p>
-            </CardContent>
-          </Card>
+          <EmptyState
+            icon={MessageSquare}
+            title="Chat not found"
+            description="This chat may have been deleted or you don't have access to it"
+          />
         </Main>
       </>
     )
@@ -106,11 +114,8 @@ function ChatSettingsPage() {
   return (
     <>
       <PageHeader title={`${chatDetail.name} settings`} />
-      <Main className="space-y-6">
-        <ChatNameCard
-          chatId={chatId}
-          name={chatDetail.name}
-        />
+      <Main className='space-y-6'>
+        <ChatNameCard chatId={chatId} name={chatDetail.name} />
 
         <MembersCard
           chatId={chatId}
@@ -214,11 +219,14 @@ function ChatNameCard({ chatId, name }: ChatNameCardProps) {
     <Card>
       <CardHeader>
         <CardTitle>Chat name</CardTitle>
+        <CardDescription>
+          Customize the name of this chat
+        </CardDescription>
       </CardHeader>
       <CardContent>
         {isEditing ? (
-          <div className="flex flex-col gap-1">
-            <div className="flex items-center gap-2">
+          <div className='flex flex-col gap-1'>
+            <div className='flex items-center gap-2'>
               <Input
                 value={editName}
                 onChange={(e) => {
@@ -229,47 +237,47 @@ function ChatNameCard({ chatId, name }: ChatNameCardProps) {
                   if (e.key === 'Enter') void handleSaveEdit()
                   if (e.key === 'Escape') handleCancelEdit()
                 }}
-                className="h-8"
+                className='h-8'
                 disabled={renameMutation.isPending}
                 autoFocus
               />
               <Button
-                size="sm"
-                variant="ghost"
+                size='sm'
+                variant='ghost'
                 onClick={() => void handleSaveEdit()}
                 disabled={renameMutation.isPending}
-                className="h-8 w-8 p-0"
+                className='h-8 w-8 p-0'
               >
                 {renameMutation.isPending ? (
-                  <Loader2 className="size-4 animate-spin" />
+                  <Loader2 className='size-4 animate-spin' />
                 ) : (
-                  <Check className="size-4" />
+                  <Check className='size-4' />
                 )}
               </Button>
               <Button
-                size="sm"
-                variant="ghost"
+                size='sm'
+                variant='ghost'
                 onClick={handleCancelEdit}
                 disabled={renameMutation.isPending}
-                className="h-8 w-8 p-0"
+                className='h-8 w-8 p-0'
               >
-                <X className="size-4" />
+                <X className='size-4' />
               </Button>
             </div>
             {nameError && (
-              <span className="text-sm text-destructive">{nameError}</span>
+              <span className='text-destructive text-sm'>{nameError}</span>
             )}
           </div>
         ) : (
-          <div className="flex items-center gap-2">
+          <div className='flex items-center gap-2'>
             <span>{name}</span>
             <Button
-              size="sm"
-              variant="ghost"
+              size='sm'
+              variant='ghost'
               onClick={handleStartEdit}
-              className="h-6 w-6 p-0"
+              className='h-6 w-6 p-0'
             >
-              <Pencil className="size-3" />
+              <Pencil className='size-3' />
             </Button>
           </div>
         )}
@@ -283,7 +291,10 @@ interface MembersCardProps {
   members: Array<{ id: string; name: string }>
   currentUserName: string
   onAddMember: () => void
-  onRemoveMember: (member: { id: string; name: string }, isCurrentUser: boolean) => void
+  onRemoveMember: (
+    member: { id: string; name: string },
+    isCurrentUser: boolean
+  ) => void
   refetchMembers: () => void
 }
 
@@ -295,35 +306,44 @@ function MembersCard({
 }: MembersCardProps) {
   return (
     <Card>
-      <CardHeader className="flex flex-row items-center justify-between">
-        <CardTitle>Members</CardTitle>
-        <Button size="sm" onClick={onAddMember}>
-          <UserPlus className="mr-2 size-4" />
+      <CardHeader className='flex flex-row items-center justify-between'>
+        <div>
+          <CardTitle>Members</CardTitle>
+          <CardDescription>
+            Manage who can access this chat
+          </CardDescription>
+        </div>
+        <Button size='sm' onClick={onAddMember}>
+          <UserPlus className='mr-2 size-4' />
           Add member
         </Button>
       </CardHeader>
       <CardContent>
-        <div className="space-y-2">
+        <div className='space-y-2'>
           {members.map((member) => {
             const isCurrentUser = member.name === currentUserName
             return (
               <div
                 key={member.id}
-                className="flex items-center justify-between rounded-md border px-3 py-2"
+                className='flex items-center justify-between rounded-md border px-3 py-2'
               >
-                <div className="flex items-center gap-2">
+                <div className='flex items-center gap-2'>
                   <span>{member.name}</span>
                   {isCurrentUser && (
-                    <span className="text-xs text-muted-foreground">(you)</span>
+                    <span className='text-muted-foreground text-xs'>(you)</span>
                   )}
                 </div>
                 <Button
-                  size="sm"
-                  variant="ghost"
+                  size='sm'
+                  variant='ghost'
                   onClick={() => onRemoveMember(member, isCurrentUser)}
-                  className="h-8 w-8 p-0 text-muted-foreground hover:text-destructive"
+                  className='text-muted-foreground hover:text-destructive h-8 w-8 p-0'
                 >
-                  {isCurrentUser ? <LogOut className="size-4" /> : <UserMinus className="size-4" />}
+                  {isCurrentUser ? (
+                    <LogOut className='size-4' />
+                  ) : (
+                    <UserMinus className='size-4' />
+                  )}
                 </Button>
               </div>
             )
@@ -342,7 +362,13 @@ interface LeaveDialogProps {
   onSuccess: () => void
 }
 
-function LeaveDialog({ open, onOpenChange, chatId, chatName, onSuccess }: LeaveDialogProps) {
+function LeaveDialog({
+  open,
+  onOpenChange,
+  chatId,
+  chatName,
+  onSuccess,
+}: LeaveDialogProps) {
   const [deleteOnLeave, setDeleteOnLeave] = useState(false)
 
   const leaveMutation = useLeaveChatMutation({
@@ -371,25 +397,32 @@ function LeaveDialog({ open, onOpenChange, chatId, chatName, onSuccess }: LeaveD
         <AlertDialogHeader>
           <AlertDialogTitle>Leave chat?</AlertDialogTitle>
           <AlertDialogDescription>
-            Are you sure you want to leave "{chatName}"? You can be added back by other members.
+            Are you sure you want to leave "{chatName}"? You can be added back
+            by other members.
           </AlertDialogDescription>
         </AlertDialogHeader>
-        <div className="flex items-center space-x-2 py-2">
+        <div className='flex items-center space-x-2 py-2'>
           <Checkbox
-            id="delete-on-leave-settings"
+            id='delete-on-leave-settings'
             checked={deleteOnLeave}
             onCheckedChange={(checked) => setDeleteOnLeave(checked === true)}
           />
-          <Label htmlFor="delete-on-leave-settings" className="text-sm">
+          <Label htmlFor='delete-on-leave-settings' className='text-sm'>
             Delete chat history
           </Label>
         </div>
         <AlertDialogFooter>
-          <AlertDialogCancel disabled={leaveMutation.isPending}>Cancel</AlertDialogCancel>
-          <AlertDialogAction variant="destructive" onClick={handleLeave} disabled={leaveMutation.isPending}>
+          <AlertDialogCancel disabled={leaveMutation.isPending}>
+            Cancel
+          </AlertDialogCancel>
+          <AlertDialogAction
+            variant='destructive'
+            onClick={handleLeave}
+            disabled={leaveMutation.isPending}
+          >
             {leaveMutation.isPending ? (
               <>
-                <Loader2 className="mr-2 size-4 animate-spin" />
+                <Loader2 className='mr-2 size-4 animate-spin' />
                 Leaving...
               </>
             ) : (
@@ -417,9 +450,10 @@ function AddMemberDialog({
   existingMemberIds,
   onSuccess,
 }: AddMemberDialogProps) {
-  const { data: friendsData, isLoading: isLoadingFriends } = useNewChatFriendsQuery({
-    enabled: open,
-  })
+  const { data: friendsData, isLoading: isLoadingFriends } =
+    useNewChatFriendsQuery({
+      enabled: open,
+    })
 
   const addMemberMutation = useAddMemberMutation({
     onSuccess: () => {
@@ -450,21 +484,23 @@ function AddMemberDialog({
             Select a friend to add to this chat.
           </DialogDescription>
         </DialogHeader>
-        <div className="max-h-[300px] overflow-y-auto">
+        <div className='max-h-[300px] overflow-y-auto'>
           {isLoadingFriends ? (
-            <div className="flex items-center justify-center py-8">
-              <Loader2 className="size-6 animate-spin text-muted-foreground" />
+            <div className='flex items-center justify-center py-8'>
+              <Loader2 className='text-muted-foreground size-6 animate-spin' />
             </div>
           ) : availableFriends.length === 0 ? (
-            <div className="py-8 text-center text-sm text-muted-foreground">
-              No friends available to add
-            </div>
+            <EmptyState
+              icon={UserPlus}
+              title="No friends available"
+              description="All your friends are already in this chat"
+            />
           ) : (
-            <div className="space-y-1">
+            <div className='space-y-1'>
               {availableFriends.map((friend) => (
                 <button
                   key={friend.id}
-                  className="flex w-full items-center gap-3 rounded-md border px-3 py-2 text-left hover:bg-accent disabled:opacity-50"
+                  className='hover:bg-accent flex w-full items-center gap-3 rounded-md border px-3 py-2 text-left disabled:opacity-50'
                   onClick={() => handleAddMember(friend.id)}
                   disabled={addMemberMutation.isPending}
                 >
@@ -519,11 +555,17 @@ function RemoveMemberDialog({
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
-          <AlertDialogCancel disabled={removeMemberMutation.isPending}>Cancel</AlertDialogCancel>
-          <AlertDialogAction variant="destructive" onClick={handleRemove} disabled={removeMemberMutation.isPending}>
+          <AlertDialogCancel disabled={removeMemberMutation.isPending}>
+            Cancel
+          </AlertDialogCancel>
+          <AlertDialogAction
+            variant='destructive'
+            onClick={handleRemove}
+            disabled={removeMemberMutation.isPending}
+          >
             {removeMemberMutation.isPending ? (
               <>
-                <Loader2 className="mr-2 size-4 animate-spin" />
+                <Loader2 className='mr-2 size-4 animate-spin' />
                 Removing...
               </>
             ) : (
