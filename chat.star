@@ -216,7 +216,7 @@ def action_send(a):
 	if a.input("files"):
 		attachments = mochi.attachment.save("chat/" + chat["id"] + "/" + id, "files", [], [], member_ids)
 
-	mochi.websocket.write(chat["key"], {"created": mochi.time.now(), "name": a.user.identity.name, "body": body, "attachments": attachments})
+	mochi.websocket.write(chat["key"], {"created": mochi.time.now(), "member": a.user.identity.id, "name": a.user.identity.name, "body": body, "attachments": attachments})
 
 	# Send message to other members (attachments are sent separately via federation)
 	for member in members:
@@ -244,7 +244,7 @@ def action_view(a):
 
 	mochi.service.call("notifications", "clear.object", "chat", chat["id"])
 	return {
-		"data": {"chat": chat}
+		"data": {"chat": chat, "identity": a.user.identity.id}
 	}
 
 # Recieve a chat message from another member

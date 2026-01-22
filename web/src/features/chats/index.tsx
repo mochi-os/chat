@@ -73,9 +73,9 @@ export function Chats() {
   >([])
 
   const {
-    email: currentUserIdentity,
     name: currentUserName,
     initialize: initializeAuth,
+    setProfile,
   } = useAuthStore()
 
   useEffect(() => {
@@ -124,10 +124,25 @@ export function Chats() {
   // Chat detail (members, names)
   const { data: chatDetail } = useChatDetailQuery(selectedChat?.id)
 
-  const subtitle = useMemo(() => {
-    if (!chatDetail?.members || chatDetail.members.length <= 2) return null
+  const currentUserIdentity = chatDetail?.identity ?? ''
 
-    const names = chatDetail.members.map((m) => m.name)
+  // Update auth store with user profile when chat detail loads
+  useEffect(() => {
+    if (chatDetail?.identity && chatDetail?.chat.members) {
+      const currentMember = chatDetail.chat.members.find(
+        (m) => m.id === chatDetail.identity
+      )
+      if (currentMember) {
+        setProfile(chatDetail.identity, currentMember.name)
+      }
+    }
+  }, [chatDetail, setProfile])
+
+  const subtitle = useMemo(() => {
+    if (!chatDetail?.chat.members || chatDetail.chat.members.length <= 2)
+      return null
+
+    const names = chatDetail.chat.members.map((m) => m.name)
     const myIndex = names.indexOf(currentUserName || '')
 
     let display = [...names]
@@ -324,7 +339,7 @@ export function Chats() {
             isLoadingMessages={messagesQuery.isLoading}
             messagesErrorMessage={messagesQuery.error?.message ?? null}
             currentUserIdentity={currentUserIdentity}
-            isGroupChat={(chatDetail?.members?.length ?? 0) > 2}
+            isGroupChat={(chatDetail?.chat.members?.length ?? 0) > 2}
           />
 
           {selectedChat.left ? (

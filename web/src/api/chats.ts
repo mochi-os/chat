@@ -5,6 +5,7 @@ import type {
   ChatDetail,
   ChatMessage,
   ChatMessageAttachment,
+  ChatViewResponse,
   CreateChatRequest,
   CreateChatResponse,
   DeleteResponse,
@@ -208,13 +209,13 @@ const listChats = async (): Promise<GetChatsResponse> => {
   return normalizeChatsResponse(response)
 }
 
-const getChatDetail = async (chatId: string): Promise<ChatDetail> => {
-  const response = await requestHelpers.post<{ chat: ChatDetail }>(
+const getChatDetail = async (chatId: string): Promise<ChatViewResponse> => {
+  const response = await requestHelpers.post<ChatViewResponse>(
     endpoints.chat.detail(chatId),
     null,
     { params: { chat: chatId } }
   )
-  return response.chat
+  return response
 }
 
 const listChatMessages = async (
@@ -323,6 +324,7 @@ export type {
   ChatDetail,
   ChatMessageAttachment,
   ChatMessage,
+  ChatViewResponse,
   CreateChatRequest,
   CreateChatResponse,
   DeleteResponse,

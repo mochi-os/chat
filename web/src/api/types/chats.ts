@@ -18,6 +18,11 @@ export interface ChatDetail extends Omit<Chat, 'members'> {
   members: ChatMember[]
 }
 
+export interface ChatViewResponse {
+  chat: ChatDetail
+  identity: string
+}
+
 export interface ChatMessageAttachment {
   id: string
   name: string

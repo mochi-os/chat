@@ -71,7 +71,7 @@ function ChatSettingsPage() {
   const members = membersData?.members ?? []
 
   usePageTitle(
-    chatDetail?.name ? `${chatDetail.name} settings` : 'Chat settings'
+    chatDetail?.chat.name ? `${chatDetail.chat.name} settings` : 'Chat settings'
   )
 
   const [showLeaveDialog, setShowLeaveDialog] = useState(false)
@@ -113,9 +113,9 @@ function ChatSettingsPage() {
 
   return (
     <>
-      <PageHeader title={`${chatDetail.name} settings`} />
+      <PageHeader title={`${chatDetail.chat.name} settings`} />
       <Main className='space-y-6'>
-        <ChatNameCard chatId={chatId} name={chatDetail.name} />
+        <ChatNameCard chatId={chatId} name={chatDetail.chat.name} />
 
         <MembersCard
           chatId={chatId}
@@ -136,7 +136,7 @@ function ChatSettingsPage() {
           open={showLeaveDialog}
           onOpenChange={setShowLeaveDialog}
           chatId={chatId}
-          chatName={chatDetail.name}
+          chatName={chatDetail.chat.name}
           onSuccess={() => void navigate({ to: '/' })}
         />
 

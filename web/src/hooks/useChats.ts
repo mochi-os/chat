@@ -15,7 +15,7 @@ import chatsApi, {
   type GetNewChatResponse,
   type CreateChatRequest,
   type CreateChatResponse,
-  type ChatDetail,
+  type ChatViewResponse,
   type RenameRequest,
   type RenameResponse,
   type LeaveRequest,
@@ -38,9 +38,9 @@ export const useChatDetailQuery = (
   chatId?: string,
   options?: Omit<
     UseQueryOptions<
-      ChatDetail,
+      ChatViewResponse,
       Error,
-      ChatDetail,
+      ChatViewResponse,
       ReturnType<typeof chatKeys.detail>
     >,
     'queryKey' | 'queryFn'

@@ -50,12 +50,13 @@ const createMessageFromPayload = (
   const messageBody =
     typeof payload.body === 'string' ? payload.body : String(payload.body ?? '')
   const senderName = typeof payload.name === 'string' ? payload.name : 'Unknown'
+  const senderId = typeof payload.member === 'string' ? payload.member : ''
 
   return {
     id: `ws-${chatId}-${created}-${Math.random().toString(36).slice(2)}`,
     chat: chatId,
     body: messageBody,
-    member: senderName,
+    member: senderId,
     name: senderName,
     created,
     created_local: '',

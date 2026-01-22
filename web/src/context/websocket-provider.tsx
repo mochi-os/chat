@@ -14,8 +14,8 @@ const buildManager = (): ChatWebsocketManager | null => {
     baseUrl: import.meta.env.VITE_WEBSOCKET_URL ?? window.location.origin,
     getChatKey: async (chatId: string) => {
       try {
-        const chat = await chatsApi.detail(chatId)
-        return chat.key
+        const response = await chatsApi.detail(chatId)
+        return response.chat.key
       } catch (error) {
         if (import.meta.env.DEV) {
           globalThis.console?.error?.(
