@@ -11,8 +11,8 @@ import type {
   UseInfiniteQueryResult,
   InfiniteData,
 } from '@tanstack/react-query'
-import { Button, LoadMoreTrigger, cn } from '@mochi/common'
-import { Loader2, MessagesSquare, RotateCcw } from 'lucide-react'
+import { Button, LoadMoreTrigger, cn, Skeleton } from '@mochi/common'
+import { MessagesSquare, RotateCcw } from 'lucide-react'
 import type { ChatMessage } from '@/api/chats'
 import type { GetMessagesResponse } from '@/api/types/chats'
 import { MessageAttachments } from './message-attachments'
@@ -109,11 +109,24 @@ export function ChatMessageList({
 
   if (isLoadingMessages) {
     return (
-      <div className='flex items-center justify-center py-8'>
-        <Loader2 className='h-6 w-6 animate-spin' />
-        <span className='text-muted-foreground ml-2 text-sm'>
-          Loading messages...
-        </span>
+      <div className='flex w-full flex-col justify-end gap-3 p-4'>
+        {Array.from({ length: 4 }).map((_, i) => (
+          <div
+            key={i}
+            className={cn(
+              'flex w-full flex-col gap-1',
+              i % 2 === 0 ? 'items-start' : 'items-end'
+            )}
+          >
+            <Skeleton
+              className={cn(
+                'h-10 w-[60%] rounded-[16px]',
+                i % 2 === 0 ? 'rounded-bl-[4px]' : 'rounded-br-[4px]'
+              )}
+            />
+            <Skeleton className='h-3 w-12 rounded-full' />
+          </div>
+        ))}
       </div>
     )
   }

@@ -25,6 +25,7 @@ import {
   AlertDialogTitle,
   getErrorMessage,
   toast,
+  Skeleton,
 } from '@mochi/common'
 import {
   MoreVertical,
@@ -73,7 +74,7 @@ export function Chats() {
   >([])
 
   const {
-    email: currentUserIdentity,
+    identity: currentUserIdentity,
     name: currentUserName,
     initialize: initializeAuth,
   } = useAuthStore()
@@ -258,8 +259,24 @@ export function Chats() {
   // Loading / empty
   if (selectedChatId && chatsQuery.isLoading) {
     return (
-      <div className='text-muted-foreground flex h-full items-center justify-center text-sm'>
-        Loading…
+      <div className='flex h-full flex-col overflow-hidden'>
+        <PageHeader
+          title={<Skeleton className='h-6 w-32' />}
+          icon={<Skeleton className='size-5 rounded-md' />}
+        />
+        <Main className='flex min-h-0 flex-1 flex-col overflow-hidden'>
+           <div className='flex w-full flex-col justify-end gap-3 p-4 flex-1'>
+              {Array.from({ length: 4 }).map((_, i) => (
+                <div key={i} className={`flex w-full flex-col gap-1 ${i % 2 === 0 ? 'items-start' : 'items-end'}`}>
+                  <Skeleton className={`h-10 w-[60%] rounded-[16px] ${i % 2 === 0 ? 'rounded-bl-[4px]' : 'rounded-br-[4px]'}`} />
+                  <Skeleton className='h-3 w-12 rounded-full' />
+                </div>
+              ))}
+           </div>
+           <div className="p-4 border-t">
+              <Skeleton className="h-10 w-full rounded-md" />
+           </div>
+        </Main>
       </div>
     )
   }
@@ -295,7 +312,6 @@ export function Chats() {
                 ) : (
                   <>
                     <DropdownMenuItem
-                      variant='destructive'
                       onClick={() => setShowLeaveDialog(true)}
                     >
                       <LogOut className='mr-2 size-4' /> Leave chat
@@ -336,7 +352,7 @@ export function Chats() {
                     : 'You left this chat'}
                 </p>
                 <Button
-                  variant='destructive'
+                  variant='outline'
                   size='sm'
                   onClick={handleDeleteChat}
                   disabled={deleteChatMutation.isPending}
