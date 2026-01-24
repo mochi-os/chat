@@ -30,7 +30,7 @@ export function ChatEmptyState({
           </p>
           <Button onClick={onNewChat}>
             <Plus className='mr-2 size-4' />
-            New chat
+            Create chat
           </Button>
         </div>
       </div>
@@ -51,7 +51,7 @@ export function ChatEmptyState({
       {hasFriends ? (
         <Button onClick={onNewChat}>
           <Plus className='mr-2 size-4' />
-          New chat
+          Create chat
         </Button>
       ) : (
         !isLoadingFriends && (
