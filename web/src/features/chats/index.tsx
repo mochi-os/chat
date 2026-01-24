@@ -44,6 +44,7 @@ import {
   useChatDetailQuery,
   useLeaveChatMutation,
   useDeleteChatMutation,
+  useNewChatFriendsQuery,
 } from '@/hooks/useChats'
 import { ChatEmptyState } from './components/chat-empty-state'
 import { ChatInput } from './components/chat-input'
@@ -115,6 +116,10 @@ export function Chats() {
     () => chatsQuery.data?.chats ?? [],
     [chatsQuery.data?.chats]
   )
+
+  // Friends data for empty state
+  const friendsQuery = useNewChatFriendsQuery()
+  const friendsCount = friendsQuery.data?.friends?.length ?? 0
 
   const selectedChat = useMemo(
     () => chats.find((c) => c.id === selectedChatId) ?? null,
@@ -284,6 +289,8 @@ export function Chats() {
       <ChatEmptyState
         onNewChat={openNewChatDialog}
         hasExistingChats={chats.length > 0}
+        friendsCount={friendsCount}
+        isLoadingFriends={friendsQuery.isLoading}
       />
     )
   }
