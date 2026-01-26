@@ -25,6 +25,7 @@ import {
   AlertDialogTitle,
   getErrorMessage,
   toast,
+  Skeleton,
 } from '@mochi/common'
 import {
   MoreVertical,
@@ -44,7 +45,6 @@ import {
   useChatDetailQuery,
   useLeaveChatMutation,
   useDeleteChatMutation,
-  useNewChatFriendsQuery,
 } from '@/hooks/useChats'
 import { ChatEmptyState } from './components/chat-empty-state'
 import { ChatInput } from './components/chat-input'
@@ -74,9 +74,9 @@ export function Chats() {
   >([])
 
   const {
+    identity: currentUserIdentity,
     name: currentUserName,
     initialize: initializeAuth,
-    setProfile,
   } = useAuthStore()
 
   useEffect(() => {
@@ -117,10 +117,6 @@ export function Chats() {
     [chatsQuery.data?.chats]
   )
 
-  // Friends data for empty state
-  const friendsQuery = useNewChatFriendsQuery()
-  const friendsCount = friendsQuery.data?.friends?.length ?? 0
-
   const selectedChat = useMemo(
     () => chats.find((c) => c.id === selectedChatId) ?? null,
     [chats, selectedChatId]
@@ -129,25 +125,10 @@ export function Chats() {
   // Chat detail (members, names)
   const { data: chatDetail } = useChatDetailQuery(selectedChat?.id)
 
-  const currentUserIdentity = chatDetail?.identity ?? ''
-
-  // Update auth store with user profile when chat detail loads
-  useEffect(() => {
-    if (chatDetail?.identity && chatDetail?.chat.members) {
-      const currentMember = chatDetail.chat.members.find(
-        (m) => m.id === chatDetail.identity
-      )
-      if (currentMember) {
-        setProfile(chatDetail.identity, currentMember.name)
-      }
-    }
-  }, [chatDetail, setProfile])
-
   const subtitle = useMemo(() => {
-    if (!chatDetail?.chat.members || chatDetail.chat.members.length <= 2)
-      return null
+    if (!chatDetail?.members || chatDetail.members.length <= 2) return null
 
-    const names = chatDetail.chat.members.map((m) => m.name)
+    const names = chatDetail.members.map((m) => m.name)
     const myIndex = names.indexOf(currentUserName || '')
 
     let display = [...names]
@@ -278,8 +259,24 @@ export function Chats() {
   // Loading / empty
   if (selectedChatId && chatsQuery.isLoading) {
     return (
-      <div className='text-muted-foreground flex h-full items-center justify-center text-sm'>
-        Loading…
+      <div className='flex h-full flex-col overflow-hidden'>
+        <PageHeader
+          title={<Skeleton className='h-6 w-32' />}
+          icon={<Skeleton className='size-5 rounded-md' />}
+        />
+        <Main className='flex min-h-0 flex-1 flex-col overflow-hidden'>
+           <div className='flex w-full flex-col justify-end gap-3 p-4 flex-1'>
+              {Array.from({ length: 4 }).map((_, i) => (
+                <div key={i} className={`flex w-full flex-col gap-1 ${i % 2 === 0 ? 'items-start' : 'items-end'}`}>
+                  <Skeleton className={`h-10 w-[60%] rounded-[16px] ${i % 2 === 0 ? 'rounded-bl-[4px]' : 'rounded-br-[4px]'}`} />
+                  <Skeleton className='h-3 w-12 rounded-full' />
+                </div>
+              ))}
+           </div>
+           <div className="p-4 border-t">
+              <Skeleton className="h-10 w-full rounded-md" />
+           </div>
+        </Main>
       </div>
     )
   }
@@ -289,8 +286,6 @@ export function Chats() {
       <ChatEmptyState
         onNewChat={openNewChatDialog}
         hasExistingChats={chats.length > 0}
-        friendsCount={friendsCount}
-        isLoadingFriends={friendsQuery.isLoading}
       />
     )
   }
@@ -317,7 +312,6 @@ export function Chats() {
                 ) : (
                   <>
                     <DropdownMenuItem
-                      variant='destructive'
                       onClick={() => setShowLeaveDialog(true)}
                     >
                       <LogOut className='mr-2 size-4' /> Leave chat
@@ -346,7 +340,7 @@ export function Chats() {
             isLoadingMessages={messagesQuery.isLoading}
             messagesErrorMessage={messagesQuery.error?.message ?? null}
             currentUserIdentity={currentUserIdentity}
-            isGroupChat={(chatDetail?.chat.members?.length ?? 0) > 2}
+            isGroupChat={(chatDetail?.members?.length ?? 0) > 2}
           />
 
           {selectedChat.left ? (
@@ -358,7 +352,7 @@ export function Chats() {
                     : 'You left this chat'}
                 </p>
                 <Button
-                  variant='destructive'
+                  variant='outline'
                   size='sm'
                   onClick={handleDeleteChat}
                   disabled={deleteChatMutation.isPending}

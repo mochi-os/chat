@@ -11,6 +11,7 @@ import {
   ResponsiveDialogTitle,
   getErrorMessage,
   toast,
+  Skeleton,
 } from '@mochi/common'
 import { Loader2, MessageCircle, Search, UserPlus, X } from 'lucide-react'
 import { useSidebarContext } from '@/context/sidebar-context'
@@ -174,8 +175,13 @@ export function NewChat() {
             <div className='flex flex-1 flex-col overflow-hidden rounded-lg border'>
               <div className='flex-1 overflow-y-auto p-2'>
                 {isLoading && (
-                  <div className='flex items-center justify-center py-12'>
-                    <Loader2 className='text-muted-foreground h-6 w-6 animate-spin' />
+                  <div className='space-y-2'>
+                    {Array.from({ length: 5 }).map((_, i) => (
+                      <div key={i} className='flex items-center gap-3 p-2.5'>
+                        <Skeleton className='size-4 rounded-sm' />
+                        <Skeleton className='h-4 w-32' />
+                      </div>
+                    ))}
                   </div>
                 )}
 
