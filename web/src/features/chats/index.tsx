@@ -126,9 +126,9 @@ export function Chats() {
   const { data: chatDetail } = useChatDetailQuery(selectedChat?.id)
 
   const subtitle = useMemo(() => {
-    if (!chatDetail?.members || chatDetail.members.length <= 2) return null
+    if (!chatDetail?.chat.members || chatDetail.chat.members.length <= 2) return null
 
-    const names = chatDetail.members.map((m) => m.name)
+    const names = chatDetail.chat.members.map((m) => m.name)
     const myIndex = names.indexOf(currentUserName || '')
 
     let display = [...names]
@@ -340,7 +340,7 @@ export function Chats() {
             isLoadingMessages={messagesQuery.isLoading}
             messagesErrorMessage={messagesQuery.error?.message ?? null}
             currentUserIdentity={currentUserIdentity}
-            isGroupChat={(chatDetail?.members?.length ?? 0) > 2}
+            isGroupChat={(chatDetail?.chat.members?.length ?? 0) > 2}
           />
 
           {selectedChat.left ? (
