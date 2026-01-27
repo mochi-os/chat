@@ -10,11 +10,6 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   Button,
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
   Checkbox,
   Dialog,
   DialogContent,
@@ -30,6 +25,9 @@ import {
   Input,
   toast,
   useAuthStore,
+  Section,
+  FieldRow,
+  DataChip,
 } from '@mochi/common'
 import {
   Loader2,
@@ -114,10 +112,10 @@ function ChatSettingsPage() {
   return (
     <>
       <PageHeader title={`${chatDetail.chat.name} settings`} />
-      <Main className='space-y-6'>
-        <ChatNameCard chatId={chatId} name={chatDetail.chat.name} />
+      <Main className='space-y-8'>
+        <ChatNameSection chatId={chatId} name={chatDetail.chat.name} />
 
-        <MembersCard
+        <MembersSection
           chatId={chatId}
           members={members}
           currentUserName={currentUserName}
@@ -163,12 +161,7 @@ function ChatSettingsPage() {
   )
 }
 
-interface ChatNameCardProps {
-  chatId: string
-  name: string
-}
-
-function ChatNameCard({ chatId, name }: ChatNameCardProps) {
+function ChatNameSection({ chatId, name }: { chatId: string, name: string }) {
   const [isEditing, setIsEditing] = useState(false)
   const [editName, setEditName] = useState(name)
   const [nameError, setNameError] = useState<string | null>(null)
@@ -216,16 +209,10 @@ function ChatNameCard({ chatId, name }: ChatNameCardProps) {
   }
 
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle>Chat name</CardTitle>
-        <CardDescription>
-          Customize the name of this chat
-        </CardDescription>
-      </CardHeader>
-      <CardContent>
+    <Section title="General" description="Adjust chat settings">
+      <FieldRow label="Chat name">
         {isEditing ? (
-          <div className='flex flex-col gap-1'>
+          <div className='flex flex-col gap-1 w-full max-w-md'>
             <div className='flex items-center gap-2'>
               <Input
                 value={editName}
@@ -237,7 +224,7 @@ function ChatNameCard({ chatId, name }: ChatNameCardProps) {
                   if (e.key === 'Enter') void handleSaveEdit()
                   if (e.key === 'Escape') handleCancelEdit()
                 }}
-                className='h-8'
+                className='h-9'
                 disabled={renameMutation.isPending}
                 autoFocus
               />
@@ -246,12 +233,12 @@ function ChatNameCard({ chatId, name }: ChatNameCardProps) {
                 variant='ghost'
                 onClick={() => void handleSaveEdit()}
                 disabled={renameMutation.isPending}
-                className='h-8 w-8 p-0'
+                className='h-9 w-9 p-0'
               >
                 {renameMutation.isPending ? (
                   <Loader2 className='size-4 animate-spin' />
                 ) : (
-                  <Check className='size-4' />
+                  <Check className='size-4 text-green-600' />
                 )}
               </Button>
               <Button
@@ -259,34 +246,42 @@ function ChatNameCard({ chatId, name }: ChatNameCardProps) {
                 variant='ghost'
                 onClick={handleCancelEdit}
                 disabled={renameMutation.isPending}
-                className='h-8 w-8 p-0'
+                className='h-9 w-9 p-0'
               >
-                <X className='size-4' />
+                <X className='size-4 text-destructive' />
               </Button>
             </div>
             {nameError && (
-              <span className='text-destructive text-sm'>{nameError}</span>
+              <span className='text-destructive text-xs'>{nameError}</span>
             )}
           </div>
         ) : (
           <div className='flex items-center gap-2'>
-            <span>{name}</span>
+            <span className="text-base font-semibold">{name}</span>
             <Button
               size='sm'
               variant='ghost'
               onClick={handleStartEdit}
-              className='h-6 w-6 p-0'
+              className='h-6 w-6 p-0 hover:bg-muted'
             >
-              <Pencil className='size-3' />
+              <Pencil className='size-3.5 text-muted-foreground' />
             </Button>
           </div>
         )}
-      </CardContent>
-    </Card>
+      </FieldRow>
+      <FieldRow label="Chat ID">
+        <DataChip value={chatId} />
+      </FieldRow>
+    </Section>
   )
 }
 
-interface MembersCardProps {
+function MembersSection({
+  members,
+  currentUserName,
+  onAddMember,
+  onRemoveMember,
+}: {
   chatId: string
   members: Array<{ id: string; name: string }>
   currentUserName: string
@@ -296,70 +291,50 @@ interface MembersCardProps {
     isCurrentUser: boolean
   ) => void
   refetchMembers: () => void
-}
-
-function MembersCard({
-  members,
-  currentUserName,
-  onAddMember,
-  onRemoveMember,
-}: MembersCardProps) {
+}) {
   return (
-    <Card>
-      <CardHeader className='flex flex-row items-center justify-between'>
-        <div>
-          <CardTitle>Members</CardTitle>
-          <CardDescription>
-            Manage who can access this chat
-          </CardDescription>
-        </div>
-        <Button size='sm' onClick={onAddMember}>
+    <Section 
+      title="Members" 
+      description="List of people in this chat"
+      action={
+        <Button size='sm' onClick={onAddMember} variant="outline">
           <UserPlus className='mr-2 size-4' />
           Add member
         </Button>
-      </CardHeader>
-      <CardContent>
-        <div className='space-y-2'>
-          {members.map((member) => {
-            const isCurrentUser = member.name === currentUserName
-            return (
-              <div
-                key={member.id}
-                className='flex items-center justify-between rounded-md border px-3 py-2'
-              >
-                <div className='flex items-center gap-2'>
-                  <span>{member.name}</span>
-                  {isCurrentUser && (
-                    <span className='text-muted-foreground text-xs'>(you)</span>
-                  )}
-                </div>
-                <Button
-                  size='sm'
-                  variant='ghost'
-                  onClick={() => onRemoveMember(member, isCurrentUser)}
-                  className='text-muted-foreground hover:text-destructive h-8 w-8 p-0'
-                >
-                  {isCurrentUser ? (
-                    <LogOut className='size-4' />
-                  ) : (
-                    <UserMinus className='size-4' />
-                  )}
-                </Button>
+      }
+    >
+      <div className='space-y-1 py-1'>
+        {members.map((member) => {
+          const isCurrentUser = member.name === currentUserName
+          return (
+            <div
+              key={member.id}
+              className='flex items-center justify-between group rounded-lg hover:bg-muted/50 px-3 py-2 transition-colors'
+            >
+              <div className='flex items-center gap-2'>
+                <span className="font-medium">{member.name}</span>
+                {isCurrentUser && (
+                  <span className='text-muted-foreground text-xs'>(you)</span>
+                )}
               </div>
-            )
-          })}
-        </div>
-      </CardContent>
-    </Card>
+              <Button
+                size='sm'
+                variant='ghost'
+                onClick={() => onRemoveMember(member, isCurrentUser)}
+                className='text-muted-foreground hover:text-destructive hover:bg-destructive/10 h-8 w-8 p-0 opacity-0 group-hover:opacity-100 transition-opacity'
+              >
+                {isCurrentUser ? (
+                  <LogOut className='size-4' />
+                ) : (
+                  <UserMinus className='size-4' />
+                )}
+              </Button>
+            </div>
+          )
+        })}
+      </div>
+    </Section>
   )
-}
-
-interface LeaveDialogProps {
-  open: boolean
-  onOpenChange: (open: boolean) => void
-  chatId: string
-  chatName: string
-  onSuccess: () => void
 }
 
 function LeaveDialog({
@@ -368,7 +343,13 @@ function LeaveDialog({
   chatId,
   chatName,
   onSuccess,
-}: LeaveDialogProps) {
+}: {
+  open: boolean
+  onOpenChange: (open: boolean) => void
+  chatId: string
+  chatName: string
+  onSuccess: () => void
+}) {
   const [deleteOnLeave, setDeleteOnLeave] = useState(false)
 
   const leaveMutation = useLeaveChatMutation({
@@ -401,13 +382,13 @@ function LeaveDialog({
             by other members.
           </AlertDialogDescription>
         </AlertDialogHeader>
-        <div className='flex items-center space-x-2 py-2'>
+        <div className='flex items-center space-x-2 py-4'>
           <Checkbox
             id='delete-on-leave-settings'
             checked={deleteOnLeave}
             onCheckedChange={(checked) => setDeleteOnLeave(checked === true)}
           />
-          <Label htmlFor='delete-on-leave-settings' className='text-sm'>
+          <Label htmlFor='delete-on-leave-settings' className='text-sm font-medium'>
             Delete chat history
           </Label>
         </div>
@@ -421,12 +402,9 @@ function LeaveDialog({
             disabled={leaveMutation.isPending}
           >
             {leaveMutation.isPending ? (
-              <>
-                <Loader2 className='mr-2 size-4 animate-spin' />
-                Leaving...
-              </>
+              <Loader2 className='mr-2 size-4 animate-spin' />
             ) : (
-              'Leave'
+              'Leave Chat'
             )}
           </AlertDialogAction>
         </AlertDialogFooter>
@@ -435,21 +413,19 @@ function LeaveDialog({
   )
 }
 
-interface AddMemberDialogProps {
-  open: boolean
-  onOpenChange: (open: boolean) => void
-  chatId: string
-  existingMemberIds: string[]
-  onSuccess: () => void
-}
-
 function AddMemberDialog({
   open,
   onOpenChange,
   chatId,
   existingMemberIds,
   onSuccess,
-}: AddMemberDialogProps) {
+}: {
+  open: boolean
+  onOpenChange: (open: boolean) => void
+  chatId: string
+  existingMemberIds: string[]
+  onSuccess: () => void
+}) {
   const { data: friendsData, isLoading: isLoadingFriends } =
     useNewChatFriendsQuery({
       enabled: open,
@@ -484,7 +460,7 @@ function AddMemberDialog({
             Select a friend to add to this chat.
           </DialogDescription>
         </DialogHeader>
-        <div className='max-h-[300px] overflow-y-auto'>
+        <div className='max-h-[300px] overflow-y-auto mt-2'>
           {isLoadingFriends ? (
             <div className='flex items-center justify-center py-8'>
               <Loader2 className='text-muted-foreground size-6 animate-spin' />
@@ -500,11 +476,11 @@ function AddMemberDialog({
               {availableFriends.map((friend) => (
                 <button
                   key={friend.id}
-                  className='hover:bg-accent flex w-full items-center gap-3 rounded-md border px-3 py-2 text-left disabled:opacity-50'
+                  className='hover:bg-accent flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-left disabled:opacity-50 transition-colors'
                   onClick={() => handleAddMember(friend.id)}
                   disabled={addMemberMutation.isPending}
                 >
-                  <span>{friend.name}</span>
+                  <span className="font-medium">{friend.name}</span>
                 </button>
               ))}
             </div>
@@ -515,21 +491,19 @@ function AddMemberDialog({
   )
 }
 
-interface RemoveMemberDialogProps {
-  open: boolean
-  onOpenChange: (open: boolean) => void
-  chatId: string
-  member: { id: string; name: string } | null
-  onSuccess: () => void
-}
-
 function RemoveMemberDialog({
   open,
   onOpenChange,
   chatId,
   member,
   onSuccess,
-}: RemoveMemberDialogProps) {
+}: {
+  open: boolean
+  onOpenChange: (open: boolean) => void
+  chatId: string
+  member: { id: string; name: string } | null
+  onSuccess: () => void
+}) {
   const removeMemberMutation = useRemoveMemberMutation({
     onSuccess: () => {
       toast.success('Member removed')
@@ -554,6 +528,9 @@ function RemoveMemberDialog({
             Are you sure you want to remove {member?.name} from this chat?
           </AlertDialogDescription>
         </AlertDialogHeader>
+        <div className="flex gap-2 p-3 bg-muted/50 rounded-lg mt-2 mb-4">
+           <span className="font-semibold">{member?.name}</span>
+        </div>
         <AlertDialogFooter>
           <AlertDialogCancel disabled={removeMemberMutation.isPending}>
             Cancel
@@ -564,10 +541,7 @@ function RemoveMemberDialog({
             disabled={removeMemberMutation.isPending}
           >
             {removeMemberMutation.isPending ? (
-              <>
-                <Loader2 className='mr-2 size-4 animate-spin' />
-                Removing...
-              </>
+              <Loader2 className='mr-2 size-4 animate-spin' />
             ) : (
               'Remove'
             )}
