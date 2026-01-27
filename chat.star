@@ -211,7 +211,7 @@ def action_send(a):
 	members = mochi.db.rows("select member from members where chat=? and member!=?", chat["id"], a.user.identity.id)
 	member_ids = [m["member"] for m in members]
 
-	# Save any uploaded attachments and notify other members via _attachment/create events
+	# Save any uploaded attachments and notify other members via attachment/create events
 	attachments = []
 	if a.input("files"):
 		attachments = mochi.attachment.save("chat/" + chat["id"] + "/" + id, "files", [], [], member_ids)
@@ -279,7 +279,7 @@ def event_message(e):
 
 	mochi.db.execute("replace into messages ( id, chat, member, name, body, created ) values ( ?, ?, ?, ?, ?, ? )", id, chat["id"], member["member"], name, body, created)
 
-	# Attachments arrive via _attachment/create events and are saved automatically
+	# Attachments arrive via attachment/create events and are saved automatically
 	attachments = mochi.attachment.list("chat/" + chat["id"] + "/" + id)
 
 	mochi.websocket.write(chat["key"], {"created": created, "name": name, "body": body, "attachments": attachments})
