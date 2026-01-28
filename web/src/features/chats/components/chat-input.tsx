@@ -49,7 +49,7 @@ export function ChatInput({
             size='icon'
             type='button'
             variant='ghost'
-            className='h-8 w-8 rounded-full'
+            className='rounded-full'
             onClick={() => fileInputRef.current?.click()}
             aria-label='Add attachment'
           >
@@ -69,7 +69,7 @@ export function ChatInput({
         <Button
           type='submit'
           size='icon'
-          className='bg-primary hover:bg-primary/80 h-8 w-8 rounded-full transition-colors'
+          className='bg-primary hover:bg-primary/80 rounded-full transition-colors'
           disabled={isSendDisabled}
         >
           {isSending ? (
