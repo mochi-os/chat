@@ -158,8 +158,8 @@ export function NewChat() {
               {searchQuery && (
                 <Button
                   variant='ghost'
-                  size='icon'
-                  className='absolute top-1/2 right-1 h-7 w-7 -translate-y-1/2'
+                  size='xs'
+                  className='absolute top-1/2 right-1 aspect-square p-0 -translate-y-1/2'
                   onClick={() => setSearchQuery('')}
                 >
                   <X className='h-3.5 w-3.5' />
@@ -284,8 +284,8 @@ export function NewChat() {
                                   </span>
                                   <Button
                                     variant='secondary'
-                                    size='sm'
-                                    className='ml-auto h-7 px-2 text-xs'
+                                    size='xs'
+                                    className='ml-auto'
                                     onClick={(e) => {
                                       e.preventDefault()
                                       e.stopPropagation()

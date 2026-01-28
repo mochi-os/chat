@@ -19,7 +19,7 @@ export function ChatEmptyState({ onNewChat, hasExistingChats }: ChatEmptyStatePr
         </p>
         <div className='mt-8'>
           <Button onClick={onNewChat} variant="outline">
-            <Plus className='mr-2 size-4' />
+            <Plus className='size-4' />
             New chat
           </Button>
         </div>
@@ -38,7 +38,7 @@ export function ChatEmptyState({ onNewChat, hasExistingChats }: ChatEmptyStatePr
       </p>
       <div className='mt-8'>
         <Button size='lg' onClick={onNewChat}>
-          <Plus className='mr-2 size-5' />
+          <Plus className='size-5' />
           Get Started
         </Button>
       </div>
