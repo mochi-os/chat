@@ -1,5 +1,5 @@
 import { Button } from '@mochi/common'
-import { MessagesSquare, Plus } from 'lucide-react'
+import { MessageCircle, Plus } from 'lucide-react'
 
 interface ChatEmptyStateProps {
   onNewChat: () => void
@@ -11,7 +11,7 @@ export function ChatEmptyState({ onNewChat, hasExistingChats }: ChatEmptyStatePr
     return (
       <div className='flex h-full w-full flex-1 flex-col items-center justify-center p-8'>
         <div className='bg-primary/5 mb-6 flex h-20 w-20 items-center justify-center rounded-full'>
-          <MessagesSquare className='text-primary h-10 w-10' />
+          <MessageCircle className='text-primary h-10 w-10' />
         </div>
         <h2 className='text-xl font-semibold tracking-tight'>Select a chat</h2>
         <p className='text-muted-foreground mt-2 text-center text-sm'>
@@ -30,7 +30,7 @@ export function ChatEmptyState({ onNewChat, hasExistingChats }: ChatEmptyStatePr
   return (
     <div className='flex h-full w-full flex-1 flex-col items-center justify-center p-8'>
       <div className='bg-primary/10 mb-6 flex h-24 w-24 items-center justify-center rounded-full'>
-        <MessagesSquare className='text-primary h-12 w-12' />
+        <MessageCircle className='text-primary h-12 w-12' />
       </div>
       <h2 className='text-2xl font-semibold tracking-tight'>Start a conversation</h2>
       <p className='text-muted-foreground mt-2 max-w-sm text-center text-balance'>

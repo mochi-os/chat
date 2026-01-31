@@ -6,6 +6,7 @@ import {
   ResponsiveDialog,
   ResponsiveDialogContent,
   ResponsiveDialogDescription,
+  ResponsiveDialogFooter,
   ResponsiveDialogHeader,
   ResponsiveDialogTitle,
   getErrorMessage,
@@ -26,6 +27,7 @@ export function NewChat() {
   }
   const [selectedFriends, setSelectedFriends] = useState<string[]>([])
   const [chatName, setChatName] = useState('')
+  const [friendsPickerOpen, setFriendsPickerOpen] = useState(false)
 
   const handleOpenChat = (chatId: string) => {
     onOpenChange(false)
@@ -121,12 +123,23 @@ export function NewChat() {
     })
   }
 
+  // Reset state when dialog closes
   useEffect(() => {
     if (!open) {
       setSelectedFriends([])
       setChatName('')
+      setFriendsPickerOpen(false)
     }
   }, [open])
+
+  // Auto-open friends picker when dialog opens and friends are loaded
+  useEffect(() => {
+    if (open && !isLoading && friends.length > 0) {
+      // Small delay to ensure dialog is rendered
+      const timer = setTimeout(() => setFriendsPickerOpen(true), 50)
+      return () => clearTimeout(timer)
+    }
+  }, [open, isLoading, friends.length])
 
   return (
     <ResponsiveDialog
@@ -134,9 +147,10 @@ export function NewChat() {
       onOpenChange={onOpenChange}
       shouldCloseOnInteractOutside={false}
     >
-      <ResponsiveDialogContent className='flex max-h-[85vh] flex-col gap-0 overflow-hidden p-0 sm:max-w-[500px]'>
-        <ResponsiveDialogHeader className='shrink-0 border-b px-6 pt-6 pb-4'>
-          <ResponsiveDialogTitle className='text-2xl font-semibold'>
+      <ResponsiveDialogContent className='sm:max-w-[520px]'>
+        <ResponsiveDialogHeader>
+          <ResponsiveDialogTitle className='flex items-center gap-2'>
+            <MessageCircle className='size-5' />
             New chat
           </ResponsiveDialogTitle>
           <ResponsiveDialogDescription className='sr-only'>
@@ -144,7 +158,7 @@ export function NewChat() {
           </ResponsiveDialogDescription>
         </ResponsiveDialogHeader>
 
-        <div className='flex-1 space-y-4 px-6 py-4'>
+        <div className='space-y-4'>
           {/* Friend Picker */}
           <div className='space-y-2'>
             <label className='text-sm font-medium'>Friends</label>
@@ -166,6 +180,8 @@ export function NewChat() {
                 local={friendsAsPeople}
                 placeholder='Select friends...'
                 emptyMessage='No friends found'
+                open={friendsPickerOpen}
+                onOpenChange={setFriendsPickerOpen}
               />
             )}
           </div>
@@ -202,36 +218,27 @@ export function NewChat() {
               placeholder='Chat name...'
               value={chatName}
               onChange={(e) => setChatName(e.target.value)}
-              required
-              aria-invalid={!isChatNameValid}
             />
           </div>
         </div>
 
-        <div className='bg-background shrink-0 border-t px-6 py-4'>
-          <div className='flex items-center justify-end gap-2'>
-            <Button
-              variant='outline'
-              onClick={() => onOpenChange(false)}
-              disabled={createChatMutation.isPending}
-            >
-              Cancel
-            </Button>
-            <Button onClick={handleCreateChat} disabled={!canSubmit}>
-              {createChatMutation.isPending ? (
-                <>
-                  <Loader2 className='mr-2 h-4 w-4 animate-spin' />
-                  Creating...
-                </>
-              ) : (
-                <>
-                  <MessageCircle className='mr-2 h-4 w-4' />
-                  Create chat
-                </>
-              )}
-            </Button>
-          </div>
-        </div>
+        <ResponsiveDialogFooter className='gap-2'>
+          <Button
+            variant='outline'
+            onClick={() => onOpenChange(false)}
+            disabled={createChatMutation.isPending}
+          >
+            Cancel
+          </Button>
+          <Button onClick={handleCreateChat} disabled={!canSubmit}>
+            {createChatMutation.isPending ? (
+              <Loader2 className='size-4 animate-spin' />
+            ) : (
+              <MessageCircle className='size-4' />
+            )}
+            {createChatMutation.isPending ? 'Creating...' : 'Create chat'}
+          </Button>
+        </ResponsiveDialogFooter>
       </ResponsiveDialogContent>
     </ResponsiveDialog>
   )

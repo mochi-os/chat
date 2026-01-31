@@ -33,7 +33,7 @@ import {
   LogOut,
   Loader2,
   Trash2,
-  MessageSquare,
+  MessageCircle,
 } from 'lucide-react'
 import { useSidebarContext } from '@/context/sidebar-context'
 import { setLastChat } from '@/hooks/useChatStorage'
@@ -295,7 +295,7 @@ export function Chats() {
       <div className='flex h-full flex-col overflow-hidden'>
         <PageHeader
           title={selectedChat.name}
-          icon={<MessageSquare className='size-4 md:size-5' />}
+          icon={<MessageCircle className='size-4 md:size-5' />}
           description={subtitle || undefined}
           actions={
             <DropdownMenu>

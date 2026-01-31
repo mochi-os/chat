@@ -31,7 +31,7 @@ import {
 } from '@mochi/common'
 import {
   Loader2,
-  MessageSquare,
+  MessageCircle,
   Pencil,
   Check,
   X,
@@ -100,7 +100,7 @@ function ChatSettingsPage() {
         <PageHeader title='Chat settings' />
         <Main>
           <EmptyState
-            icon={MessageSquare}
+            icon={MessageCircle}
             title="Chat not found"
             description="This chat may have been deleted or you don't have access to it"
           />
