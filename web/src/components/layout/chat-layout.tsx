@@ -107,7 +107,6 @@ function ChatLayoutInner() {
               title: 'Create chat',
               onClick: openNewChatDialog,
               icon: Plus,
-              variant: 'primary',
             },
           ],
         },
