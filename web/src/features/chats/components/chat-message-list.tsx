@@ -109,7 +109,7 @@ export function ChatMessageList({
 
   if (isLoadingMessages) {
     return (
-      <div className='flex w-full flex-col justify-end gap-3 p-4'>
+      <div className='flex w-full flex-1 flex-col justify-end gap-3 p-4'>
         {Array.from({ length: 4 }).map((_, i) => (
           <div
             key={i}
@@ -133,7 +133,7 @@ export function ChatMessageList({
 
   if (messagesErrorMessage) {
     return (
-      <div className='flex flex-col items-center justify-center py-8 text-center'>
+      <div className='flex flex-1 w-full flex-col items-center justify-center py-8 text-center'>
         <MessagesSquare className='text-muted-foreground mb-2 h-8 w-8' />
         <p className='text-muted-foreground text-sm'>{messagesErrorMessage}</p>
         <Button
@@ -151,7 +151,7 @@ export function ChatMessageList({
 
   if (chatMessages.length === 0) {
     return (
-      <div className='flex flex-col items-center justify-center py-8 text-center'>
+      <div className='flex flex-1 w-full flex-col items-center justify-center py-8 text-center'>
         <MessagesSquare className='text-muted-foreground mb-2 h-8 w-8' />
         <p className='text-muted-foreground text-sm'>No messages yet</p>
       </div>
