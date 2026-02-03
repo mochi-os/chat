@@ -93,7 +93,13 @@ def action_create(a):
 # List chats
 def action_list(a):
 	return {
-		"data": mochi.db.rows("select c.*, (select count(*) from members where chat=c.id) as members from chats c order by c.updated desc")
+		"data": mochi.db.rows("""
+			SELECT c.*, (SELECT count(*) FROM members WHERE chat=c.id) as members 
+			FROM chats c 
+			LEFT JOIN members m ON m.chat = c.id AND m.member = ? 
+			WHERE m.member IS NOT NULL OR c.left != 0 
+			ORDER BY c.updated DESC
+		""", a.user.identity.id)
 	}
 
 # Enter details of new chat
