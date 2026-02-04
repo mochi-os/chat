@@ -28,7 +28,7 @@ import {
 import chatsApi from '@/api/chats'
 import { ChatSkeleton } from './components/chat-skeleton'
 import {
-  MoreVertical,
+  MoreHorizontal,
   Settings,
   LogOut,
   Loader2,
@@ -288,7 +288,7 @@ export function Chats() {
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button variant='ghost' size='icon'>
-                  <MoreVertical className='size-5' />
+                  <MoreHorizontal className='size-5' />
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align='end' className='w-56'>
