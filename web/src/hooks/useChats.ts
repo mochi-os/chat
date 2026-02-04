@@ -1,11 +1,14 @@
 import {
-  useInfiniteQuery,
   useMutation,
-  useQuery,
   useQueryClient,
   type UseMutationOptions,
   type UseQueryOptions,
+  type InfiniteData,
 } from '@tanstack/react-query'
+import {
+  useQueryWithError,
+  useInfiniteQueryWithError,
+} from '@mochi/common'
 import chatsApi, {
   type GetChatsResponse,
   type GetMembersResponse,
@@ -46,7 +49,7 @@ export const useChatDetailQuery = (
     'queryKey' | 'queryFn'
   >
 ) =>
-  useQuery({
+  useQueryWithError({
     queryKey: chatKeys.detail(chatId ?? 'unknown'),
     enabled: Boolean(chatId) && (options?.enabled ?? true),
     queryFn: () => {
@@ -69,7 +72,7 @@ export const useChatsQuery = (
     'enabled' | 'staleTime' | 'gcTime'
   >
 ) =>
-  useQuery({
+  useQueryWithError({
     queryKey: chatKeys.all(),
     queryFn: () => chatsApi.list(),
     ...options,
@@ -87,7 +90,7 @@ export const useChatMessagesQuery = (
     'queryKey' | 'queryFn'
   >
 ) =>
-  useQuery({
+  useQueryWithError({
     queryKey: chatKeys.messages(chatId ?? 'unknown'),
     enabled: Boolean(chatId) && (options?.enabled ?? true),
     queryFn: () => {
@@ -108,10 +111,10 @@ export const useInfiniteMessagesQuery = (
     enabled?: boolean
   }
 ) =>
-  useInfiniteQuery({
+  useInfiniteQueryWithError<GetMessagesResponse, Error, InfiniteData<GetMessagesResponse>, ReturnType<typeof chatKeys.messages>, number | undefined>({
     queryKey: chatKeys.messages(chatId ?? 'unknown'),
     enabled: Boolean(chatId) && (options?.enabled ?? true),
-    initialPageParam: undefined as number | undefined,
+    initialPageParam: undefined,
     queryFn: ({ pageParam }) => {
       if (!chatId) {
         return Promise.resolve<GetMessagesResponse>({ messages: [] })
@@ -153,7 +156,7 @@ export const useSendMessageMutation = (
         queryKey: chatKeys.messages(variables.chatId),
       })
       // Update the specific chat's timestamp so it sorts to top of list
-      queryClient.setQueryData<GetChatsResponse>(chatKeys.all(), (old) => {
+      queryClient.setQueryData<GetChatsResponse>(chatKeys.all(), (old: GetChatsResponse | undefined) => {
         if (!old) return old
         return {
           ...old,
@@ -181,7 +184,7 @@ export const useNewChatFriendsQuery = (
     'queryKey' | 'queryFn'
   >
 ) =>
-  useQuery({
+  useQueryWithError({
     queryKey: chatKeys.newChat(),
     queryFn: () => chatsApi.getFriendsForNewChat(),
     ...options,
@@ -219,7 +222,7 @@ export const useChatMembersQuery = (
     'queryKey' | 'queryFn'
   >
 ) =>
-  useQuery({
+  useQueryWithError({
     queryKey: ['chats', chatId ?? 'unknown', 'members'] as const,
     enabled: Boolean(chatId) && (options?.enabled ?? true),
     queryFn: () => {

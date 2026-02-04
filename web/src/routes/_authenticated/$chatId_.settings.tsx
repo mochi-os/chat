@@ -28,6 +28,7 @@ import {
   Section,
   FieldRow,
   DataChip,
+  DetailSkeleton,
 } from '@mochi/common'
 import {
   Loader2,
@@ -58,7 +59,7 @@ function ChatSettingsPage() {
   const navigate = useNavigate()
   const { name: currentUserName } = useAuthStore()
 
-  const { data: chatDetail, isLoading: isLoadingChat } =
+  const { data: chatDetail, isLoading: isLoadingChat, ErrorComponent } =
     useChatDetailQuery(chatId)
   const {
     data: membersData,
@@ -83,14 +84,23 @@ function ChatSettingsPage() {
 
   if (isLoading && !chatDetail) {
     return (
-      <>
+      <div className="h-full flex flex-col">
         <PageHeader title='Chat settings' />
         <Main>
-          <div className='flex items-center justify-center py-12'>
-            <Loader2 className='text-muted-foreground size-6 animate-spin' />
-          </div>
+          <DetailSkeleton />
         </Main>
-      </>
+      </div>
+    )
+  }
+
+  if (ErrorComponent) {
+    return (
+      <div className="h-full flex flex-col">
+        <PageHeader title='Chat settings' />
+        <Main className="flex items-center justify-center">
+          {ErrorComponent}
+        </Main>
+      </div>
     )
   }
 

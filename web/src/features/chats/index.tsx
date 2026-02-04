@@ -14,7 +14,7 @@ import {
   DropdownMenuTrigger,
   Label,
   SubscribeDialog,
-  requestHelpers,
+  toast,
   AlertDialog,
   AlertDialogAction,
   AlertDialogCancel,
@@ -24,9 +24,9 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   getErrorMessage,
-  toast,
-  Skeleton,
 } from '@mochi/common'
+import chatsApi from '@/api/chats'
+import { ChatSkeleton } from './components/chat-skeleton'
 import {
   MoreVertical,
   Settings,
@@ -55,9 +55,7 @@ import {
   revokePendingAttachmentPreview,
 } from './utils'
 
-interface SubscriptionCheckResponse {
-  exists: boolean
-}
+
 
 export function Chats() {
   usePageTitle('Chat')
@@ -90,10 +88,7 @@ export function Chats() {
   // Subscription check
   const { data: subscriptionData, refetch: refetchSubscription } = useQuery({
     queryKey: ['subscription-check', 'chat'],
-    queryFn: async () =>
-      requestHelpers.get<SubscriptionCheckResponse>(
-        '/chat/-/notifications/check'
-      ),
+    queryFn: () => chatsApi.checkSubscription(),
     staleTime: Infinity,
   })
 
@@ -112,6 +107,7 @@ export function Chats() {
 
   // Chats list
   const chatsQuery = useChatsQuery()
+  const { ErrorComponent } = chatsQuery
   const chats = useMemo(
     () => chatsQuery.data?.chats ?? [],
     [chatsQuery.data?.chats]
@@ -258,24 +254,15 @@ export function Chats() {
 
   // Loading / empty
   if (selectedChatId && chatsQuery.isLoading) {
+    return <ChatSkeleton />
+  }
+
+  if (ErrorComponent) {
     return (
-      <div className='flex h-full flex-col overflow-hidden'>
-        <PageHeader
-          title={<Skeleton className='h-6 w-32' />}
-          icon={<Skeleton className='size-5 rounded-md' />}
-        />
-        <Main className='flex min-h-0 flex-1 flex-col overflow-hidden'>
-           <div className='flex w-full flex-col justify-end gap-3 p-4 flex-1'>
-              {Array.from({ length: 4 }).map((_, i) => (
-                <div key={i} className={`flex w-full flex-col gap-1 ${i % 2 === 0 ? 'items-start' : 'items-end'}`}>
-                  <Skeleton className={`h-10 w-[60%] rounded-[16px] ${i % 2 === 0 ? 'rounded-bl-[4px]' : 'rounded-br-[4px]'}`} />
-                  <Skeleton className='h-3 w-12 rounded-full' />
-                </div>
-              ))}
-           </div>
-           <div className="p-4 border-t">
-              <Skeleton className="h-10 w-full rounded-md" />
-           </div>
+      <div className="h-full flex flex-col">
+        <PageHeader title="Chat" />
+        <Main className="flex items-center justify-center">
+            {ErrorComponent}
         </Main>
       </div>
     )
