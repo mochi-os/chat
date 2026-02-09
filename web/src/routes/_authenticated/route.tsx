@@ -3,7 +3,7 @@ import { useAuthStore, getCookie } from '@mochi/common'
 import { ChatLayout } from '@/components/layout/chat-layout'
 
 export const Route = createFileRoute('/_authenticated')({
-  beforeLoad: async ({ location }) => {
+  beforeLoad: ({ location }) => {
     const store = useAuthStore.getState()
 
     if (!store.isInitialized) {
@@ -17,12 +17,8 @@ export const Route = createFileRoute('/_authenticated')({
       const redirectUrl = `${import.meta.env.VITE_AUTH_LOGIN_URL}?redirect=${returnUrl}`
 
       window.location.href = redirectUrl
-
       return
     }
-
-    // Load identity
-    await store.loadIdentity()
 
     return
   },
