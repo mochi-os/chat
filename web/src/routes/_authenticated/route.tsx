@@ -3,7 +3,7 @@ import { useAuthStore, getCookie } from '@mochi/common'
 import { ChatLayout } from '@/components/layout/chat-layout'
 
 export const Route = createFileRoute('/_authenticated')({
-  beforeLoad: ({ location }) => {
+  beforeLoad: async ({ location }) => {
     const store = useAuthStore.getState()
 
     if (!store.isInitialized) {
@@ -20,6 +20,9 @@ export const Route = createFileRoute('/_authenticated')({
 
       return
     }
+
+    // Load identity
+    await store.loadIdentity()
 
     return
   },
