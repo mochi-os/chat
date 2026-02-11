@@ -202,4 +202,3 @@ export const useChatWebsocket = (
   }
 }
 
-export default useChatWebsocket

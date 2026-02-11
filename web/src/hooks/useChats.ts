@@ -9,7 +9,7 @@ import {
   useQueryWithError,
   useInfiniteQueryWithError,
 } from '@mochi/common'
-import chatsApi, {
+import { chatsApi,
   type GetChatsResponse,
   type GetMembersResponse,
   type GetMessagesResponse,

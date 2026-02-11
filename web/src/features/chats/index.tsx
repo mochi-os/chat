@@ -25,7 +25,7 @@ import {
   AlertDialogTitle,
   getErrorMessage,
 } from '@mochi/common'
-import chatsApi from '@/api/chats'
+import { chatsApi } from '@/api/chats'
 import { ChatSkeleton } from './components/chat-skeleton'
 import {
   MoreHorizontal,
@@ -37,7 +37,7 @@ import {
 } from 'lucide-react'
 import { useSidebarContext } from '@/context/sidebar-context'
 import { setLastChat } from '@/hooks/useChatStorage'
-import useChatWebsocket from '@/hooks/useChatWebsocket'
+import { useChatWebsocket } from '@/hooks/useChatWebsocket'
 import {
   useInfiniteMessagesQuery,
   useChatsQuery,

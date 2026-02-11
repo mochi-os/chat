@@ -11,4 +11,3 @@ export const useWebsocketManager = () => {
   return manager
 }
 
-export default useWebsocketManager

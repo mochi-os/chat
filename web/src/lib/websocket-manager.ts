@@ -541,4 +541,3 @@ export class ChatWebsocketManager {
   }
 }
 
-export default ChatWebsocketManager

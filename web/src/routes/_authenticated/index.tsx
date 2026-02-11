@@ -1,7 +1,7 @@
 import { createFileRoute, redirect } from '@tanstack/react-router'
 import { Chats } from '@/features/chats'
 import { getLastChat, clearLastChat } from '@/hooks/useChatStorage'
-import chatsApi from '@/api/chats'
+import { chatsApi } from '@/api/chats'
 
 export const Route = createFileRoute('/_authenticated/')({
   loader: async () => {

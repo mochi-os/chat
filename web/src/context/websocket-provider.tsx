@@ -1,6 +1,7 @@
 import { useEffect, useMemo, type ReactNode } from 'react'
-import chatsApi from '@/api/chats'
-import ChatWebsocketManager, {
+import { chatsApi } from '@/api/chats'
+import {
+  ChatWebsocketManager,
   type ChatWebsocketManagerOptions,
 } from '@/lib/websocket-manager'
 import { WebsocketContext } from '@/context/websocket-context'

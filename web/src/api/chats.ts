@@ -87,4 +87,3 @@ export const chatsApi = {
     client.get<{ exists: boolean }>('/chat/-/notifications/check'),
 }
 
-export default chatsApi
