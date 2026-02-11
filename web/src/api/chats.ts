@@ -2,9 +2,11 @@
 import { createAppClient } from '@mochi/common'
 import type {
   Chat,
+  ChatMessage,
   GetChatsRaw,
   GetChatsResponse,
   GetMembersResponse,
+  GetMessagesRaw,
   GetMessagesResponse,
   SendMessageRequest,
   SendMessageResponse,
@@ -29,6 +31,31 @@ import endpoints from './endpoints'
 export * from './types/chats'
 
 const client = createAppClient({ appName: 'chat' })
+
+type CreateChatApiResponse = { data: CreateChatResponse } | CreateChatResponse
+type ChatViewApiResponse = { data: ChatViewResponse } | ChatViewResponse
+type MessagesApiResponse = { data: GetMessagesRaw } | GetMessagesRaw
+type GetMembersApiResponse = { data: GetMembersResponse } | GetMembersResponse
+
+const isWrappedCreateChatResponse = (
+  value: CreateChatApiResponse
+): value is { data: CreateChatResponse } =>
+  typeof value === 'object' && value !== null && 'data' in value
+
+const isWrappedChatViewResponse = (
+  value: ChatViewApiResponse
+): value is { data: ChatViewResponse } =>
+  typeof value === 'object' && value !== null && 'data' in value
+
+const isWrappedMessagesResponse = (
+  value: MessagesApiResponse
+): value is { data: GetMessagesRaw } =>
+  typeof value === 'object' && value !== null && 'data' in value
+
+const isWrappedMembersResponse = (
+  value: GetMembersApiResponse
+): value is { data: GetMembersResponse } =>
+  typeof value === 'object' && value !== null && 'data' in value
 
 export const chatsApi = {
   list: async (): Promise<GetChatsResponse> => {
@@ -55,16 +82,18 @@ export const chatsApi = {
   },
 
   detail: async (chatId: string): Promise<ChatViewResponse> => {
-    const payload = await client.get<any>(endpoints.chat.detail(chatId))
-    // Handle wrapped response (e.g., {data: {chat: {...}, identity: "..."}})
-    return payload?.data ?? payload
+    const payload = await client.get<ChatViewApiResponse>(endpoints.chat.detail(chatId))
+    if (isWrappedChatViewResponse(payload)) {
+      return payload.data
+    }
+    return payload
   },
 
   messages: async (chatId: string, params?: { before?: number; limit?: number }): Promise<GetMessagesResponse> => {
-    const payload = await client.get<any>(endpoints.chat.messages(chatId), { params })
+    const payload = await client.get<MessagesApiResponse>(endpoints.chat.messages(chatId), { params })
 
     // Handle wrapped response (e.g., {data: {messages: [...], hasMore: true}})
-    const unwrapped = payload?.data ?? payload
+    const unwrapped = isWrappedMessagesResponse(payload) ? payload.data : payload
 
     if (Array.isArray(unwrapped)) {
       return { messages: unwrapped }
@@ -76,12 +105,20 @@ export const chatsApi = {
       unwrapped?.items,
       unwrapped?.results,
     ]
-    const messages = candidates.find((value): value is any[] => Array.isArray(value)) ?? []
+    const messages = candidates.find(
+      (value): value is ChatMessage[] => Array.isArray(value)
+    ) ?? []
+    const hasMore =
+      typeof unwrapped?.hasMore === 'boolean' ? unwrapped.hasMore : undefined
+    const nextCursor =
+      typeof unwrapped?.nextCursor === 'number'
+        ? unwrapped.nextCursor
+        : undefined
 
     return {
       messages,
-      hasMore: unwrapped?.hasMore,
-      nextCursor: unwrapped?.nextCursor,
+      hasMore,
+      nextCursor,
     }
   },
 
@@ -123,11 +160,31 @@ export const chatsApi = {
     return { friends: [], name: '' }
   },
 
-  create: (payload: CreateChatRequest) =>
-    client.post<CreateChatResponse>(endpoints.chat.create, payload),
+  create: async (payload: CreateChatRequest): Promise<CreateChatResponse> => {
+    const response = await client.post<CreateChatApiResponse>(
+      endpoints.chat.create,
+      {
+        name: payload.name,
+        members: payload.participantIds.join(','),
+      }
+    )
 
-  getMembers: (chatId: string) =>
-    client.get<GetMembersResponse>(endpoints.chat.members(chatId)),
+    if (isWrappedCreateChatResponse(response)) {
+      return response.data
+    }
+
+    return response
+  },
+
+  getMembers: async (chatId: string): Promise<GetMembersResponse> => {
+    const payload = await client.get<GetMembersApiResponse>(
+      endpoints.chat.members(chatId)
+    )
+    if (isWrappedMembersResponse(payload)) {
+      return payload.data
+    }
+    return payload
+  },
 
   rename: (chatId: string, payload: RenameRequest) =>
     client.post<RenameResponse>(endpoints.chat.rename(chatId), payload),

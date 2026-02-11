@@ -71,6 +71,8 @@ export interface MessagesEnvelope extends PaginationMeta {
   chat?: unknown
   items?: unknown
   results?: unknown
+  hasMore?: unknown
+  nextCursor?: unknown
 }
 
 // Messages endpoints behave similarly with multiple envelope shapes depending on backend version.

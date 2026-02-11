@@ -101,10 +101,13 @@ export function NewChat() {
 
   const trimmedChatName = chatName.trim()
   const isChatNameValid = Boolean(trimmedChatName)
+  const hasExistingDirectChat =
+    selectedFriends.length === 1 && existingChats.length > 0
   const canSubmit =
     selectedFriends.length > 0 &&
     isChatNameValid &&
-    !createChatMutation.isPending
+    !createChatMutation.isPending &&
+    !hasExistingDirectChat
 
   const handleCreateChat = () => {
     if (selectedFriends.length === 0) {
@@ -114,6 +117,11 @@ export function NewChat() {
 
     if (!trimmedChatName) {
       toast.error('Please provide a chat name')
+      return
+    }
+
+    if (hasExistingDirectChat) {
+      toast.error('Chat already exists. Open the existing chat instead.')
       return
     }
 
@@ -190,7 +198,9 @@ export function NewChat() {
           {existingChats.length > 0 && (
             <div className='rounded-lg border bg-muted/50 p-3'>
               <p className='text-muted-foreground mb-2 text-xs font-medium'>
-                You already have chats with:
+                {selectedFriends.length === 1
+                  ? 'You already have a chat with:'
+                  : 'You already have chats with:'}
               </p>
               <div className='space-y-1'>
                 {existingChats.map((chat) => (
