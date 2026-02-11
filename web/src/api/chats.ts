@@ -1,11 +1,14 @@
 
 import { createAppClient } from '@mochi/common'
 import type {
+  Chat,
+  GetChatsRaw,
   GetChatsResponse,
   GetMembersResponse,
   GetMessagesResponse,
   SendMessageRequest,
   SendMessageResponse,
+  GetNewChatRaw,
   GetNewChatResponse,
   CreateChatRequest,
   CreateChatResponse,
@@ -28,13 +31,59 @@ export * from './types/chats'
 const client = createAppClient({ appName: 'chat' })
 
 export const chatsApi = {
-  list: () => client.get<GetChatsResponse>(endpoints.chat.list),
+  list: async (): Promise<GetChatsResponse> => {
+    const payload = await client.get<GetChatsRaw>(endpoints.chat.list)
 
-  detail: (chatId: string) =>
-    client.get<ChatViewResponse>(endpoints.chat.detail(chatId)),
+    if (Array.isArray(payload)) {
+      return { chats: payload }
+    }
 
-  messages: (chatId: string, params?: { before?: number; limit?: number }) =>
-    client.get<GetMessagesResponse>(endpoints.chat.messages(chatId), { params }),
+    const candidates = [
+      payload?.chats,
+      payload?.data,
+      payload?.items,
+      payload?.results,
+    ]
+    const chats = candidates.find((value): value is Chat[] => Array.isArray(value)) ?? []
+
+    return {
+      chats,
+      total: payload?.total,
+      page: payload?.page,
+      limit: payload?.limit,
+    }
+  },
+
+  detail: async (chatId: string): Promise<ChatViewResponse> => {
+    const payload = await client.get<any>(endpoints.chat.detail(chatId))
+    // Handle wrapped response (e.g., {data: {chat: {...}, identity: "..."}})
+    return payload?.data ?? payload
+  },
+
+  messages: async (chatId: string, params?: { before?: number; limit?: number }): Promise<GetMessagesResponse> => {
+    const payload = await client.get<any>(endpoints.chat.messages(chatId), { params })
+
+    // Handle wrapped response (e.g., {data: {messages: [...], hasMore: true}})
+    const unwrapped = payload?.data ?? payload
+
+    if (Array.isArray(unwrapped)) {
+      return { messages: unwrapped }
+    }
+
+    const candidates = [
+      unwrapped?.messages,
+      unwrapped?.data,
+      unwrapped?.items,
+      unwrapped?.results,
+    ]
+    const messages = candidates.find((value): value is any[] => Array.isArray(value)) ?? []
+
+    return {
+      messages,
+      hasMore: unwrapped?.hasMore,
+      nextCursor: unwrapped?.nextCursor,
+    }
+  },
 
   sendMessage: (chatId: string, payload: SendMessageRequest) => {
     // Check if we need to send as FormData (for attachments)
@@ -59,8 +108,20 @@ export const chatsApi = {
     return client.post<SendMessageResponse>(endpoints.chat.send(chatId), payload)
   },
 
-  getFriendsForNewChat: () => 
-    client.get<GetNewChatResponse>(endpoints.chat.new),
+  getFriendsForNewChat: async (): Promise<GetNewChatResponse> => {
+    const payload = await client.get<GetNewChatRaw>(endpoints.chat.new)
+    if ('friends' in payload) {
+      return payload
+    }
+    if (
+      payload.data &&
+      typeof payload.data === 'object' &&
+      'friends' in payload.data
+    ) {
+      return payload.data
+    }
+    return { friends: [], name: '' }
+  },
 
   create: (payload: CreateChatRequest) =>
     client.post<CreateChatResponse>(endpoints.chat.create, payload),
@@ -84,6 +145,5 @@ export const chatsApi = {
     client.post<MemberRemoveResponse>(endpoints.chat.memberRemove(chatId), payload),
 
   checkSubscription: () =>
-    client.get<{ exists: boolean }>('/chat/-/notifications/check'),
+    client.get<{ exists: boolean }>('/-/notifications/check'),
 }
-

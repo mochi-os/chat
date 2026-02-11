@@ -110,6 +110,8 @@ export interface GetNewChatResponse {
   name: string
 }
 
+export type GetNewChatRaw = GetNewChatResponse | { data: GetNewChatResponse }
+
 export type SendMessageAttachment = File | Blob
 
 export interface SendMessageRequest {
