@@ -28,6 +28,9 @@ export interface ChatMessageAttachment {
   name: string
   size: number
   type: string
+  content_type?: string
+  url?: string
+  thumbnail_url?: string
   created?: number
 }
 

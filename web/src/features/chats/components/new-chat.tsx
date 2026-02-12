@@ -101,14 +101,22 @@ export function NewChat() {
 
   const trimmedChatName = chatName.trim()
   const isChatNameValid = Boolean(trimmedChatName)
+  const hasExistingDirectChat =
+    selectedFriends.length === 1 && existingChats.length === 1
   const canSubmit =
     selectedFriends.length > 0 &&
     isChatNameValid &&
+    !hasExistingDirectChat &&
     !createChatMutation.isPending
 
   const handleCreateChat = () => {
     if (selectedFriends.length === 0) {
       toast.error('Please select at least one friend')
+      return
+    }
+
+    if (hasExistingDirectChat) {
+      toast.error('You already have a chat with this friend')
       return
     }
 

@@ -61,17 +61,12 @@ export const chatsApi = {
       const formData = new FormData()
       formData.append('body', payload.body)
       payload.attachments.forEach((file) => {
-        formData.append('attachments', file)
+        formData.append('files', file)
       })
       
       return client.post<SendMessageResponse, FormData>(
         endpoints.chat.send(chatId),
-        formData,
-        {
-          headers: {
-            'Content-Type': 'multipart/form-data',
-          },
-        }
+        formData
       )
     }
     

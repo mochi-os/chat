@@ -76,6 +76,35 @@ export function MessageAttachments({
     return `${appBase}/${chatId}/-/attachments/${id}/thumbnail`
   }
 
+  const isAbsoluteUrl = (value: string) => /^https?:\/\//i.test(value)
+
+  const isAttachmentPathCompatible = (value: string) =>
+    value.includes('/-/attachments/')
+
+  const getAttachmentHref = (attachment: ChatMessageAttachment) => {
+    if (attachment.url) {
+      if (
+        isAbsoluteUrl(attachment.url) ||
+        isAttachmentPathCompatible(attachment.url)
+      ) {
+        return attachment.url
+      }
+    }
+    return getAttachmentUrl(attachment.id)
+  }
+
+  const getAttachmentThumbnail = (attachment: ChatMessageAttachment) => {
+    if (attachment.thumbnail_url) {
+      if (
+        isAbsoluteUrl(attachment.thumbnail_url) ||
+        isAttachmentPathCompatible(attachment.thumbnail_url)
+      ) {
+        return attachment.thumbnail_url
+      }
+    }
+    return getThumbnailUrl(attachment.id)
+  }
+
   const media = (attachments || []).filter(
     (att) => isImage(att.type) || isVideo(att.type)
   )
@@ -86,7 +115,7 @@ export function MessageAttachments({
   const lightboxMedia: LightboxMedia[] = media.map((att) => ({
     id: att.id,
     name: att.name,
-    url: getAttachmentUrl(att.id),
+    url: getAttachmentHref(att),
     type: isVideo(att.type) ? 'video' : 'image',
   }))
 
@@ -109,10 +138,10 @@ export function MessageAttachments({
       className='group/thumb bg-muted relative overflow-hidden rounded-lg border'
     >
       {isVideo(attachment.type) ? (
-        <VideoThumbnail url={getAttachmentUrl(attachment.id)} />
+        <VideoThumbnail url={getAttachmentHref(attachment)} />
       ) : (
         <img
-          src={getThumbnailUrl(attachment.id)}
+          src={getAttachmentThumbnail(attachment)}
           alt={attachment.name}
           className='max-h-[200px] transition-transform group-hover/thumb:scale-105'
         />
@@ -125,7 +154,7 @@ export function MessageAttachments({
     return (
       <a
         key={attachment.id}
-        href={getAttachmentUrl(attachment.id)}
+        href={getAttachmentHref(attachment)}
         onClick={(e) => e.stopPropagation()}
         className='flex items-center gap-2 rounded-lg border bg-white/10 p-2 text-sm transition-colors hover:bg-white/20'
       >

@@ -114,7 +114,10 @@ export function Chats() {
   )
 
   const selectedChat = useMemo(
-    () => chats.find((c) => c.id === selectedChatId) ?? null,
+    () =>
+      chats.find(
+        (c) => c.id === selectedChatId || c.fingerprint === selectedChatId
+      ) ?? null,
     [chats, selectedChatId]
   )
 
