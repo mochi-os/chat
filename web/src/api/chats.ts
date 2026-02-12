@@ -1,6 +1,7 @@
 
 import { createAppClient } from '@mochi/common'
 import type {
+  Chat,
   GetChatsResponse,
   GetMembersResponse,
   GetMessagesResponse,
@@ -28,7 +29,9 @@ export * from './types/chats'
 const client = createAppClient({ appName: 'chat' })
 
 export const chatsApi = {
-  list: () => client.get<GetChatsResponse>(endpoints.chat.list),
+  list: (): Promise<GetChatsResponse> => 
+    client.get<{ data: Chat[] }>(endpoints.chat.list)
+      .then((res) => ({ chats: res.data })),
 
   detail: (chatId: string) =>
     client.get<ChatViewResponse>(endpoints.chat.detail(chatId)),
@@ -60,7 +63,8 @@ export const chatsApi = {
   },
 
   getFriendsForNewChat: () => 
-    client.get<GetNewChatResponse>(endpoints.chat.new),
+  client.get<{ data: GetNewChatResponse }>(endpoints.chat.new)
+    .then((res) => res.data),
 
   create: (payload: CreateChatRequest) =>
     client.post<CreateChatResponse>(endpoints.chat.create, payload),
@@ -84,6 +88,6 @@ export const chatsApi = {
     client.post<MemberRemoveResponse>(endpoints.chat.memberRemove(chatId), payload),
 
   checkSubscription: () =>
-    client.get<{ exists: boolean }>('/chat/-/notifications/check'),
+    client.get<{ exists: boolean }>('/-/notifications/check'),
 }
 
