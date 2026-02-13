@@ -57,6 +57,7 @@ export const Route = createFileRoute('/_authenticated/$chatId_/settings')({
 function ChatSettingsPage() {
   const { chatId } = Route.useParams()
   const navigate = useNavigate()
+  const goBackToChat = () => navigate({ to: '/$chatId', params: { chatId } })
   const { name: currentUserName } = useAuthStore()
 
   const { data: chatDetail, isLoading: isLoadingChat, ErrorComponent } =
@@ -85,7 +86,7 @@ function ChatSettingsPage() {
   if (isLoading && !chatDetail) {
     return (
       <div className="h-full flex flex-col">
-        <PageHeader title='Chat settings' />
+        <PageHeader title='Chat settings' back={{ label: 'Back to chat', onFallback: goBackToChat }} />
         <Main>
           <DetailSkeleton />
         </Main>
@@ -96,7 +97,7 @@ function ChatSettingsPage() {
   if (ErrorComponent) {
     return (
       <div className="h-full flex flex-col">
-        <PageHeader title='Chat settings' />
+        <PageHeader title='Chat settings' back={{ label: 'Back to chat', onFallback: goBackToChat }} />
         <Main className="flex items-center justify-center">
           {ErrorComponent}
         </Main>
@@ -107,7 +108,7 @@ function ChatSettingsPage() {
   if (!chatDetail) {
     return (
       <>
-        <PageHeader title='Chat settings' />
+        <PageHeader title='Chat settings' back={{ label: 'Back to chat', onFallback: goBackToChat }} />
         <Main>
           <EmptyState
             icon={MessageCircle}
@@ -121,7 +122,7 @@ function ChatSettingsPage() {
 
   return (
     <>
-      <PageHeader title={`${chatDetail.chat.name} settings`} />
+      <PageHeader title={`${chatDetail.chat.name} settings`} back={{ label: 'Back to chat', onFallback: goBackToChat }} />
       <Main className='space-y-8'>
         <ChatNameSection chatId={chatId} name={chatDetail.chat.name} />
 
