@@ -1,8 +1,8 @@
 const endpoints = {
   chat: {
-    list: '/list',
-    new: '/new',
-    create: '/create',
+    list: '/-/list',
+    new: '/-/new',
+    create: '/-/create',
     messages: (chatId: string) => `/${chatId}/-/messages`,
     send: (chatId: string) => `/${chatId}/-/send`,
     detail: (chatId: string) => `/${chatId}/-/view`,
