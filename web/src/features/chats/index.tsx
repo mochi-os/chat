@@ -23,6 +23,7 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
+  getAppPath,
   getErrorMessage,
 } from '@mochi/common'
 import { chatsApi } from '@/api/chats'
@@ -380,7 +381,7 @@ export function Chats() {
         onOpenChange={setSubscribeOpen}
         app='chat'
         label='Chat messages'
-        appBase='/chat'
+        appBase={getAppPath()}
         onResult={() => refetchSubscription()}
       />
 
