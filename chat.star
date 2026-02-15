@@ -202,7 +202,7 @@ def action_send(a):
 		a.error(403, "Not a member of this chat")
 		return
 
-	body = a.input("body")
+	body = a.input("body", "")
 	if not mochi.valid(body, "text"):
 		a.error(400, "Invalid message")
 		return
