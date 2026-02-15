@@ -217,16 +217,20 @@ def action_send(a):
 	members = mochi.db.rows("select member from members where chat=? and member!=?", chat["id"], a.user.identity.id)
 	member_ids = [m["member"] for m in members]
 
-	# Save any uploaded attachments and notify other members via attachment/create events
+	# Save any uploaded attachments locally
 	attachments = []
 	if a.input("files"):
-		attachments = mochi.attachment.save("chat/" + chat["id"] + "/" + id, "files", [], [], member_ids)
+		attachments = mochi.attachment.save("chat/" + chat["id"] + "/" + id, "files", [], [], [])
 
 	mochi.websocket.write(chat["key"], {"created": mochi.time.now(), "member": a.user.identity.id, "name": a.user.identity.name, "body": body, "attachments": attachments})
 
-	# Send message to other members (attachments are sent separately via federation)
+	# Send message to other members with attachment metadata piggybacked
+	now = mochi.time.now()
+	msg_data = {"chat": chat["id"], "message": id, "created": now, "body": body, "name": a.user.identity.name}
+	if attachments:
+		msg_data["attachments"] = [{"id": att["id"], "name": att["name"], "size": att["size"], "content_type": att.get("type", ""), "rank": att.get("rank", 0), "created": att.get("created", now)} for att in attachments]
 	for member in members:
-		mochi.message.send({"from": a.user.identity.id, "to": member["member"], "service": "chat", "event": "message"}, {"chat": chat["id"], "message": id, "created": mochi.time.now(), "body": body, "name": a.user.identity.name})
+		mochi.message.send({"from": a.user.identity.id, "to": member["member"], "service": "chat", "event": "message"}, msg_data)
 
 	return {
 		"data": {"id": id}
@@ -285,8 +289,11 @@ def event_message(e):
 
 	mochi.db.execute("replace into messages ( id, chat, member, name, body, created ) values ( ?, ?, ?, ?, ?, ? )", id, chat["id"], member["member"], name, body, created)
 
-	# Attachments arrive via attachment/create events and are saved automatically
-	attachments = mochi.attachment.list("chat/" + chat["id"] + "/" + id)
+	# Store attachment metadata from the event
+	attachments = e.content("attachments") or []
+	if attachments:
+		mochi.attachment.store(attachments, e.header("from"), "chat/" + chat["id"] + "/" + id)
+		attachments = mochi.attachment.list("chat/" + chat["id"] + "/" + id)
 
 	mochi.websocket.write(chat["key"], {"created": created, "name": name, "body": body, "attachments": attachments})
 	mochi.service.call("notifications", "send", "message", "Chat message", name + ": " + body, chat["id"], "/chat/" + chat["id"])
