@@ -281,7 +281,7 @@ function ChatNameSection({ chatId, name }: { chatId: string, name: string }) {
         )}
       </FieldRow>
       <FieldRow label="Chat ID">
-        <DataChip value={chatId} />
+        <DataChip value={chatId} truncate='middle' />
       </FieldRow>
     </Section>
   )
