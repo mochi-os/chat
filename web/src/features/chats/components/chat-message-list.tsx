@@ -11,7 +11,14 @@ import type {
   UseInfiniteQueryResult,
   InfiniteData,
 } from '@tanstack/react-query'
-import { Button, LoadMoreTrigger, cn, Skeleton } from '@mochi/common'
+import {
+  Button,
+  EmptyState,
+  GeneralError,
+  LoadMoreTrigger,
+  cn,
+  Skeleton,
+} from '@mochi/common'
 import { MessageCircle, RotateCcw } from 'lucide-react'
 import type { ChatMessage } from '@/api/chats'
 import type { GetMessagesResponse } from '@/api/types/chats'
@@ -134,8 +141,11 @@ export function ChatMessageList({
   if (messagesErrorMessage) {
     return (
       <div className='flex flex-col items-center justify-center py-8 text-center'>
-        <MessageCircle className='text-muted-foreground mb-2 h-8 w-8' />
-        <p className='text-muted-foreground text-sm'>{messagesErrorMessage}</p>
+        <GeneralError
+          error={new Error(messagesErrorMessage)}
+          minimal
+          mode='inline'
+        />
         <Button
           variant='outline'
           size='sm'
@@ -151,9 +161,12 @@ export function ChatMessageList({
 
   if (chatMessages.length === 0) {
     return (
-      <div className='flex flex-1 flex-col items-center justify-center py-8 text-center'>
-        <MessageCircle className='text-muted-foreground mb-2 h-8 w-8' />
-        <p className='text-muted-foreground text-sm'>No messages yet</p>
+      <div className='flex flex-1 items-center justify-center'>
+        <EmptyState
+          icon={MessageCircle}
+          title='No messages yet'
+          className='py-8'
+        />
       </div>
     )
   }

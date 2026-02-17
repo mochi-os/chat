@@ -11,7 +11,8 @@ import {
   ResponsiveDialogTitle,
   getErrorMessage,
   toast,
-  Skeleton,
+  EmptyState,
+  ListSkeleton,
   PersonPicker,
   type Person,
 } from '@mochi/common'
@@ -34,7 +35,7 @@ export function NewChat() {
     navigate({ to: '/$chatId', params: { chatId } })
   }
 
-  const { data, isLoading, isError } = useNewChatFriendsQuery({
+  const { data, isLoading, ErrorComponent } = useNewChatFriendsQuery({
     enabled: open,
   })
 
@@ -171,15 +172,16 @@ export function NewChat() {
           <div className='space-y-2'>
             <label className='text-sm font-medium'>Friends</label>
             {isLoading ? (
-              <Skeleton className='h-9 w-full' />
-            ) : isError ? (
-              <div className='text-destructive text-sm'>Failed to load friends</div>
+              <ListSkeleton variant='simple' height='h-9' count={1} />
+            ) : ErrorComponent ? (
+              ErrorComponent
             ) : friends.length === 0 ? (
-              <div className='flex flex-col items-center justify-center rounded-lg border py-8 text-center'>
-                <UserPlus className='text-muted-foreground mb-3 h-10 w-10 opacity-50' />
-                <p className='text-muted-foreground text-sm font-medium'>No friends yet</p>
-                <p className='text-muted-foreground mt-1 text-xs'>Add friends to start chatting</p>
-              </div>
+              <EmptyState
+                icon={UserPlus}
+                title='No friends yet'
+                description='Add friends to start chatting'
+                className='py-8'
+              />
             ) : (
               <PersonPicker
                 mode='multiple'
