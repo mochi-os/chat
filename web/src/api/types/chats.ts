@@ -88,7 +88,7 @@ export interface GetMessagesResponse extends PaginationMeta {
 
 export interface CreateChatRequest {
   name: string
-  participantIds: string[]
+  members: string
 }
 
 export interface CreateChatResponse {

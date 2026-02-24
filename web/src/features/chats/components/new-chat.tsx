@@ -126,7 +126,7 @@ export function NewChat() {
     }
 
     createChatMutation.mutate({
-      participantIds: selectedFriends,
+      members: selectedFriends.join(','),
       name: trimmedChatName,
     })
   }
