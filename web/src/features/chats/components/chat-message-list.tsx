@@ -11,8 +11,8 @@ import type {
   UseInfiniteQueryResult,
   InfiniteData,
 } from '@tanstack/react-query'
-import { Button, LoadMoreTrigger, cn, Skeleton } from '@mochi/common'
-import { MessageCircle, RotateCcw } from 'lucide-react'
+import { GeneralError, LoadMoreTrigger, cn, Skeleton } from '@mochi/common'
+import { MessageCircle } from 'lucide-react'
 import type { ChatMessage } from '@/api/chats'
 import type { GetMessagesResponse } from '@/api/types/chats'
 import { MessageAttachments } from './message-attachments'
@@ -24,7 +24,7 @@ interface ChatMessageListProps {
   >
   chatMessages: ChatMessage[]
   isLoadingMessages: boolean
-  messagesErrorMessage: string | null
+  messagesError: unknown
   currentUserIdentity: string
   isGroupChat: boolean
 }
@@ -33,7 +33,7 @@ export function ChatMessageList({
   messagesQuery,
   chatMessages,
   isLoadingMessages,
-  messagesErrorMessage,
+  messagesError,
   currentUserIdentity,
   isGroupChat,
 }: ChatMessageListProps) {
@@ -131,20 +131,16 @@ export function ChatMessageList({
     )
   }
 
-  if (messagesErrorMessage) {
+  if (messagesError) {
     return (
-      <div className='flex flex-col items-center justify-center py-8 text-center'>
-        <MessageCircle className='text-muted-foreground mb-2 h-8 w-8' />
-        <p className='text-muted-foreground text-sm'>{messagesErrorMessage}</p>
-        <Button
-          variant='outline'
-          size='sm'
-          className='mt-2'
-          onClick={() => void messagesQuery.refetch()}
-        >
-          <RotateCcw className='mr-1.5 h-4 w-4' />
-          Retry
-        </Button>
+      <div className='flex w-full flex-1 flex-col items-center justify-center py-8'>
+        <GeneralError
+          error={messagesError}
+          minimal
+          mode='inline'
+          reset={messagesQuery.refetch}
+          className='w-full max-w-md'
+        />
       </div>
     )
   }

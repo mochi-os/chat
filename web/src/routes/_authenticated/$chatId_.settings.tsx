@@ -25,6 +25,8 @@ import {
   Input,
   toast,
   useAuthStore,
+  GeneralError,
+  ListSkeleton,
   Section,
   FieldRow,
   DataChip,
@@ -60,11 +62,16 @@ function ChatSettingsPage() {
   const goBackToChat = () => navigate({ to: '/$chatId', params: { chatId } })
   const { name: currentUserName } = useAuthStore()
 
-  const { data: chatDetail, isLoading: isLoadingChat, ErrorComponent } =
-    useChatDetailQuery(chatId)
+  const {
+    data: chatDetail,
+    isLoading: isLoadingChat,
+    error: chatDetailError,
+    refetch: refetchChatDetail,
+  } = useChatDetailQuery(chatId)
   const {
     data: membersData,
     isLoading: isLoadingMembers,
+    error: membersError,
     refetch: refetchMembers,
   } = useChatMembersQuery(chatId)
 
@@ -81,9 +88,7 @@ function ChatSettingsPage() {
     name: string
   } | null>(null)
 
-  const isLoading = isLoadingChat || isLoadingMembers
-
-  if (isLoading && !chatDetail) {
+  if (isLoadingChat && !chatDetail) {
     return (
       <div className="h-full flex flex-col">
         <PageHeader title='Chat settings' back={{ label: 'Back to chat', onFallback: goBackToChat }} />
@@ -94,18 +99,7 @@ function ChatSettingsPage() {
     )
   }
 
-  if (ErrorComponent) {
-    return (
-      <div className="h-full flex flex-col">
-        <PageHeader title='Chat settings' back={{ label: 'Back to chat', onFallback: goBackToChat }} />
-        <Main className="flex items-center justify-center">
-          {ErrorComponent}
-        </Main>
-      </div>
-    )
-  }
-
-  if (!chatDetail) {
+  if (!chatDetail && !chatDetailError) {
     return (
       <>
         <PageHeader title='Chat settings' back={{ label: 'Back to chat', onFallback: goBackToChat }} />
@@ -122,14 +116,30 @@ function ChatSettingsPage() {
 
   return (
     <>
-      <PageHeader title={`${chatDetail.chat.name} settings`} back={{ label: 'Back to chat', onFallback: goBackToChat }} />
+      <PageHeader
+        title={chatDetail?.chat.name ? `${chatDetail.chat.name} settings` : 'Chat settings'}
+        back={{ label: 'Back to chat', onFallback: goBackToChat }}
+      />
       <Main className='space-y-8'>
-        <ChatNameSection chatId={chatId} name={chatDetail.chat.name} />
+        {chatDetailError ? (
+          <Section title="General" description="Adjust chat settings">
+            <GeneralError
+              error={chatDetailError}
+              minimal
+              mode='inline'
+              reset={refetchChatDetail}
+            />
+          </Section>
+        ) : chatDetail ? (
+          <ChatNameSection chatId={chatId} name={chatDetail.chat.name} />
+        ) : null}
 
         <MembersSection
-          chatId={chatId}
           members={members}
           currentUserName={currentUserName}
+          isLoading={isLoadingMembers}
+          error={membersError}
+          onRetry={refetchMembers}
           onAddMember={() => setShowAddMemberDialog(true)}
           onRemoveMember={(member, isCurrentUser) => {
             if (isCurrentUser) {
@@ -138,14 +148,13 @@ function ChatSettingsPage() {
               setMemberToRemove(member)
             }
           }}
-          refetchMembers={refetchMembers}
         />
 
         <LeaveDialog
           open={showLeaveDialog}
           onOpenChange={setShowLeaveDialog}
           chatId={chatId}
-          chatName={chatDetail.chat.name}
+          chatName={chatDetail?.chat.name ?? 'this chat'}
           onSuccess={() => void navigate({ to: '/' })}
         />
 
@@ -281,7 +290,7 @@ function ChatNameSection({ chatId, name }: { chatId: string, name: string }) {
         )}
       </FieldRow>
       <FieldRow label="Chat ID">
-        <DataChip value={chatId} />
+        <DataChip value={chatId} truncate='middle' />
       </FieldRow>
     </Section>
   )
@@ -290,60 +299,70 @@ function ChatNameSection({ chatId, name }: { chatId: string, name: string }) {
 function MembersSection({
   members,
   currentUserName,
+  isLoading,
+  error,
+  onRetry,
   onAddMember,
   onRemoveMember,
 }: {
-  chatId: string
   members: Array<{ id: string; name: string }>
   currentUserName: string
+  isLoading: boolean
+  error: unknown
+  onRetry: () => void
   onAddMember: () => void
   onRemoveMember: (
     member: { id: string; name: string },
     isCurrentUser: boolean
   ) => void
-  refetchMembers: () => void
 }) {
   return (
-    <Section 
-      title="Members" 
+    <Section
+      title="Members"
       description="List of people in this chat"
-      action={
+      action={!error && !isLoading ? (
         <Button size='sm' onClick={onAddMember} variant="outline">
           <UserPlus className='mr-2 size-4' />
           Add member
         </Button>
-      }
+      ) : undefined}
     >
-      <div className='space-y-1 py-1'>
-        {members.map((member) => {
-          const isCurrentUser = member.name === currentUserName
-          return (
-            <div
-              key={member.id}
-              className='flex items-center justify-between group rounded-lg hover:bg-muted/50 px-3 py-2 transition-colors'
-            >
-              <div className='flex items-center gap-2'>
-                <span className="font-medium">{member.name}</span>
-                {isCurrentUser && (
-                  <span className='text-muted-foreground text-xs'>(you)</span>
-                )}
-              </div>
-              <Button
-                size='sm'
-                variant='ghost'
-                onClick={() => onRemoveMember(member, isCurrentUser)}
-                className='text-muted-foreground hover:text-destructive hover:bg-destructive/10 h-8 w-8 p-0 opacity-0 group-hover:opacity-100 transition-opacity'
+      {error ? (
+        <GeneralError error={error} minimal mode='inline' reset={onRetry} />
+      ) : isLoading ? (
+        <ListSkeleton variant='simple' height='h-10' count={4} />
+      ) : (
+        <div className='space-y-1 py-1'>
+          {members.map((member) => {
+            const isCurrentUser = member.name === currentUserName
+            return (
+              <div
+                key={member.id}
+                className='flex items-center justify-between group rounded-lg hover:bg-muted/50 px-3 py-2 transition-colors'
               >
-                {isCurrentUser ? (
-                  <LogOut className='size-4' />
-                ) : (
-                  <UserMinus className='size-4' />
-                )}
-              </Button>
-            </div>
-          )
-        })}
-      </div>
+                <div className='flex items-center gap-2'>
+                  <span className="font-medium">{member.name}</span>
+                  {isCurrentUser && (
+                    <span className='text-muted-foreground text-xs'>(you)</span>
+                  )}
+                </div>
+                <Button
+                  size='sm'
+                  variant='ghost'
+                  onClick={() => onRemoveMember(member, isCurrentUser)}
+                  className='text-muted-foreground hover:text-destructive hover:bg-destructive/10 h-8 w-8 p-0 opacity-0 group-hover:opacity-100 transition-opacity'
+                >
+                  {isCurrentUser ? (
+                    <LogOut className='size-4' />
+                  ) : (
+                    <UserMinus className='size-4' />
+                  )}
+                </Button>
+              </div>
+            )
+          })}
+        </div>
+      )}
     </Section>
   )
 }
@@ -437,7 +456,7 @@ function AddMemberDialog({
   existingMemberIds: string[]
   onSuccess: () => void
 }) {
-  const { data: friendsData, isLoading: isLoadingFriends } =
+  const { data: friendsData, isLoading: isLoadingFriends, error, refetch } =
     useNewChatFriendsQuery({
       enabled: open,
     })
@@ -476,6 +495,8 @@ function AddMemberDialog({
             <div className='flex items-center justify-center py-8'>
               <Loader2 className='text-muted-foreground size-6 animate-spin' />
             </div>
+          ) : error ? (
+            <GeneralError error={error} minimal mode='inline' reset={refetch} />
           ) : availableFriends.length === 0 ? (
             <EmptyState
               icon={UserPlus}

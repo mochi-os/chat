@@ -13,6 +13,7 @@ import {
   toast,
   Skeleton,
   PersonPicker,
+  GeneralError,
   type Person,
 } from '@mochi/common'
 import { Loader2, MessageCircle, UserPlus } from 'lucide-react'
@@ -34,7 +35,7 @@ export function NewChat() {
     navigate({ to: '/$chatId', params: { chatId } })
   }
 
-  const { data, isLoading, isError } = useNewChatFriendsQuery({
+  const { data, isLoading, error, refetch } = useNewChatFriendsQuery({
     enabled: open,
   })
 
@@ -172,8 +173,8 @@ export function NewChat() {
             <label className='text-sm font-medium'>Friends</label>
             {isLoading ? (
               <Skeleton className='h-9 w-full' />
-            ) : isError ? (
-              <div className='text-destructive text-sm'>Failed to load friends</div>
+            ) : error ? (
+              <GeneralError error={error} minimal mode='inline' reset={refetch} />
             ) : friends.length === 0 ? (
               <div className='flex flex-col items-center justify-center rounded-lg border py-8 text-center'>
                 <UserPlus className='text-muted-foreground mb-3 h-10 w-10 opacity-50' />

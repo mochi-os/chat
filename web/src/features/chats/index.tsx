@@ -6,6 +6,7 @@ import {
   usePageTitle,
   PageHeader,
   Main,
+  GeneralError,
   Button,
   Checkbox,
   DropdownMenu,
@@ -56,9 +57,15 @@ import {
   revokePendingAttachmentPreview,
 } from './utils'
 
+interface ChatsProps {
+  loaderError?: string
+  onRetryLoaderError?: () => void
+}
 
-
-export function Chats() {
+export function Chats({
+  loaderError,
+  onRetryLoaderError,
+}: ChatsProps = {}) {
   usePageTitle('Chat')
 
   const navigate = useNavigate()
@@ -108,7 +115,6 @@ export function Chats() {
 
   // Chats list
   const chatsQuery = useChatsQuery()
-  const { ErrorComponent } = chatsQuery
   const chats = useMemo(
     () => chatsQuery.data?.chats ?? [],
     [chatsQuery.data?.chats]
@@ -261,23 +267,34 @@ export function Chats() {
     return <ChatSkeleton />
   }
 
-  if (ErrorComponent) {
-    return (
-      <div className="h-full flex flex-col">
-        <PageHeader title="Chat" />
-        <Main className="flex items-center justify-center">
-            {ErrorComponent}
-        </Main>
-      </div>
-    )
-  }
-
   if (!selectedChat) {
     return (
-      <ChatEmptyState
-        onNewChat={openNewChatDialog}
-        hasExistingChats={chats.length > 0}
-      />
+      <div className='flex h-full flex-col overflow-hidden'>
+        <PageHeader title='Chat' icon={<MessageCircle className='size-4 md:size-5' />} />
+        <Main className='flex min-h-0 flex-1 flex-col gap-4 overflow-hidden'>
+          {loaderError ? (
+            <GeneralError
+              error={loaderError}
+              minimal
+              mode='inline'
+              reset={onRetryLoaderError}
+            />
+          ) : null}
+          {chatsQuery.error ? (
+            <GeneralError
+              error={chatsQuery.error}
+              minimal
+              mode='inline'
+              reset={chatsQuery.refetch}
+            />
+          ) : (
+            <ChatEmptyState
+              onNewChat={openNewChatDialog}
+              hasExistingChats={chats.length > 0}
+            />
+          )}
+        </Main>
+      </div>
     )
   }
 
@@ -325,11 +342,29 @@ export function Chats() {
         />
 
         <Main className='flex min-h-0 flex-1 flex-col overflow-hidden'>
+          {loaderError ? (
+            <GeneralError
+              error={loaderError}
+              minimal
+              mode='inline'
+              reset={onRetryLoaderError}
+              className='pb-4'
+            />
+          ) : null}
+          {chatsQuery.error ? (
+            <GeneralError
+              error={chatsQuery.error}
+              minimal
+              mode='inline'
+              reset={chatsQuery.refetch}
+              className='pb-4'
+            />
+          ) : null}
           <ChatMessageList
             messagesQuery={messagesQuery}
             chatMessages={chatMessages}
             isLoadingMessages={messagesQuery.isLoading}
-            messagesErrorMessage={messagesQuery.error?.message ?? null}
+            messagesError={messagesQuery.error}
             currentUserIdentity={currentUserIdentity}
             isGroupChat={(chatDetail?.chat.members?.length ?? 0) > 2}
           />
