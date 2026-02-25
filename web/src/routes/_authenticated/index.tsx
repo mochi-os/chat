@@ -1,6 +1,4 @@
-import { useCallback } from 'react'
-import { createFileRoute, redirect, useRouter } from '@tanstack/react-router'
-import { getErrorMessage } from '@mochi/common'
+import { createFileRoute, redirect } from '@tanstack/react-router'
 import { Chats } from '@/features/chats'
 import { getLastChat, clearLastChat } from '@/hooks/useChatStorage'
 import { chatsApi } from '@/api/chats'
@@ -8,13 +6,11 @@ import { chatsApi } from '@/api/chats'
 export const Route = createFileRoute('/_authenticated/')({
   loader: async () => {
     let chats: Awaited<ReturnType<typeof chatsApi.list>>['chats'] = []
-    let loaderError: string | undefined
     try {
       const response = await chatsApi.list()
       chats = response.chats || []
-    } catch (error) {
-      // Keep chat UI usable when loader prefetch fails.
-      loaderError = getErrorMessage(error, 'Failed to load chats')
+    } catch {
+      // Soft-fail: chat list ownership stays with useChatsQuery in the page.
     }
 
     // Check for last visited chat and redirect if it still exists
@@ -29,22 +25,7 @@ export const Route = createFileRoute('/_authenticated/')({
       }
     }
 
-    return { chats, loaderError }
+    return { chats }
   },
-  component: IndexPage,
+  component: Chats,
 })
-
-function IndexPage() {
-  const data = Route.useLoaderData()
-  const router = useRouter()
-  const retryLoaderError = useCallback(() => {
-    void router.invalidate()
-  }, [router])
-
-  return (
-    <Chats
-      loaderError={data.loaderError}
-      onRetryLoaderError={retryLoaderError}
-    />
-  )
-}

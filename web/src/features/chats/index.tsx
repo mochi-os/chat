@@ -57,15 +57,7 @@ import {
   revokePendingAttachmentPreview,
 } from './utils'
 
-interface ChatsProps {
-  loaderError?: string
-  onRetryLoaderError?: () => void
-}
-
-export function Chats({
-  loaderError,
-  onRetryLoaderError,
-}: ChatsProps = {}) {
+export function Chats() {
   usePageTitle('Chat')
 
   const navigate = useNavigate()
@@ -272,14 +264,6 @@ export function Chats({
       <div className='flex h-full flex-col overflow-hidden'>
         <PageHeader title='Chat' icon={<MessageCircle className='size-4 md:size-5' />} />
         <Main className='flex min-h-0 flex-1 flex-col gap-4 overflow-hidden'>
-          {loaderError ? (
-            <GeneralError
-              error={loaderError}
-              minimal
-              mode='inline'
-              reset={onRetryLoaderError}
-            />
-          ) : null}
           {chatsQuery.error ? (
             <GeneralError
               error={chatsQuery.error}
@@ -342,15 +326,6 @@ export function Chats({
         />
 
         <Main className='flex min-h-0 flex-1 flex-col overflow-hidden'>
-          {loaderError ? (
-            <GeneralError
-              error={loaderError}
-              minimal
-              mode='inline'
-              reset={onRetryLoaderError}
-              className='pb-4'
-            />
-          ) : null}
           {chatsQuery.error ? (
             <GeneralError
               error={chatsQuery.error}
