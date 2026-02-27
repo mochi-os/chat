@@ -271,7 +271,7 @@ def action_view(a):
 	members = mochi.db.rows("select member as id, name from members where chat=? order by name", chat["id"])
 	chat["members"] = members
 
-	mochi.service.call("notifications", "clear.object", "chat", chat["id"])
+	mochi.service.call("notifications", "clear/object", "chat", chat["id"])
 	return {
 		"data": {"chat": chat, "identity": a.user.identity.id}
 	}
