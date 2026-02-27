@@ -79,7 +79,7 @@ export function MessageAttachments({
   const isAbsoluteUrl = (value: string) => /^https?:\/\//i.test(value)
 
   const isAttachmentPathCompatible = (value: string) =>
-    value.includes('/-/attachments/')
+    value.includes('/attachments/')
 
   const getAttachmentHref = (attachment: ChatMessageAttachment) => {
     if (attachment.url) {
