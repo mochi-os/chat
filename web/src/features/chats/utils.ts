@@ -77,19 +77,3 @@ export const revokePendingAttachmentPreview = (
     URL.revokeObjectURL(attachment.previewUrl)
   }
 }
-
-export const formatFileSize = (bytes?: number): string | undefined => {
-  if (bytes === undefined) {
-    return undefined
-  }
-  if (bytes === 0) {
-    return '0 B'
-  }
-  if (bytes < 1024) {
-    return `${bytes} B`
-  }
-  if (bytes < 1024 * 1024) {
-    return `${Math.round(bytes / 1024)} KB`
-  }
-  return `${(bytes / (1024 * 1024)).toFixed(1)} MB`
-}

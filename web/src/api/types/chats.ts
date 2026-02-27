@@ -54,30 +54,9 @@ export interface PaginationMeta {
   limit?: number
 }
 
-export interface ChatListEnvelope extends PaginationMeta {
-  chats?: unknown
-  data?: unknown
-  items?: unknown
-  results?: unknown
-}
-
-// API responses in dev have returned either bare arrays or wrapped payloads, so we keep a permissive union here.
-export type GetChatsRaw = Chat[] | ChatListEnvelope
-
 export interface GetChatsResponse extends PaginationMeta {
   chats: Chat[]
 }
-
-export interface MessagesEnvelope extends PaginationMeta {
-  messages?: unknown
-  data?: unknown
-  chat?: unknown
-  items?: unknown
-  results?: unknown
-}
-
-// Messages endpoints behave similarly with multiple envelope shapes depending on backend version.
-export type GetMessagesRaw = ChatMessage[] | MessagesEnvelope
 
 export interface GetMessagesResponse extends PaginationMeta {
   messages: ChatMessage[]

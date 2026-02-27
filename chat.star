@@ -7,12 +7,14 @@ def database_create():
 	mochi.db.execute("create index if not exists chats_updated on chats( updated )")
 
 	mochi.db.execute("create table if not exists members ( chat references chats( id ), member text not null, name text not null, primary key ( chat, member ) )")
+	mochi.db.execute("create index if not exists members_member on members( member )")
 
 	mochi.db.execute("create table if not exists messages ( id text not null primary key, chat references chats( id ), member text not null, name text not null, body text not null, created integer not null )")
 	mochi.db.execute("create index if not exists messages_chat_created on messages( chat, created )")
 
 # Upgrade database
 def database_upgrade(to_version):
+	# Versions 1-2: no migrations needed
 	if to_version == 3:
 		# Add left column to track left/removed chats
 		columns = mochi.db.rows("pragma table_info(chats)")
@@ -22,6 +24,8 @@ def database_upgrade(to_version):
 				has_left = True
 		if not has_left:
 			mochi.db.execute("alter table chats add column left integer not null default 0")
+	if to_version == 4:
+		mochi.db.execute("create index if not exists members_member on members( member )")
 
 # Create new chat
 def action_create(a):
@@ -76,7 +80,7 @@ def action_create(a):
 			}
 
 	chat = mochi.uid()
-	mochi.db.execute("replace into chats ( id, identity, name, key, updated ) values ( ?, ?, ?, ?, ? )", chat, a.user.identity.id, name, mochi.random.alphanumeric(12), mochi.time.now())
+	mochi.db.execute("replace into chats ( id, identity, name, key, updated ) values ( ?, ?, ?, ?, ? )", chat, a.user.identity.id, name, mochi.random.alphanumeric(16), mochi.time.now())
 	
 	for member in prospective_members:
 		mochi.db.execute("replace into members ( chat, member, name ) values ( ?, ?, ? )", chat, member["id"], member["name"])
@@ -138,6 +142,9 @@ def action_new(a):
 
 # Get messages for a chat with cursor-based pagination
 def action_messages(a):
+	if not mochi.valid(a.input("chat"), "id"):
+		a.error(400, "Invalid chat ID")
+		return
 	chat = mochi.db.row("select * from chats where id=?", a.input("chat"))
 	if not chat:
 		a.error(404, "Chat not found")
@@ -193,6 +200,9 @@ def action_messages(a):
 
 # Send a message
 def action_send(a):
+	if not mochi.valid(a.input("chat"), "id"):
+		a.error(400, "Invalid chat ID")
+		return
 	chat = mochi.db.row("select * from chats where id=?", a.input("chat"))
 	if not chat:
 		a.error(404, "Chat not found")
@@ -210,6 +220,12 @@ def action_send(a):
 		a.error(400, "Message too long")
 		return
 
+	has_files = a.input("files")
+
+	if not body.strip() and not has_files:
+		a.error(400, "Message must have a body or attachments")
+		return
+
 	id = mochi.uid()
 	mochi.db.execute("replace into messages ( id, chat, member, name, body, created ) values ( ?, ?, ?, ?, ?, ? )", id, chat["id"], a.user.identity.id, a.user.identity.name, body, mochi.time.now())
 
@@ -219,7 +235,7 @@ def action_send(a):
 
 	# Save any uploaded attachments locally
 	attachments = []
-	if a.input("files"):
+	if has_files:
 		attachments = mochi.attachment.save("chat/" + chat["id"] + "/" + id, "files", [], [], [])
 
 	mochi.websocket.write(chat["key"], {"created": mochi.time.now(), "member": a.user.identity.id, "name": a.user.identity.name, "body": body, "attachments": attachments})
@@ -238,6 +254,9 @@ def action_send(a):
 
 # View a chat
 def action_view(a):
+	if not mochi.valid(a.input("chat"), "id"):
+		a.error(400, "Invalid chat ID")
+		return
 	chat = mochi.db.row("select * from chats where id=?", a.input("chat"))
 	if not chat:
 		a.error(404, "Chat not found")
@@ -283,6 +302,8 @@ def event_message(e):
 	body = e.content("body")
 	if not mochi.valid(str(body), "text"):
 		return
+	if len(str(body)) > 10000:
+		return
 
 	# Use current name from event, fall back to cached member name
 	name = e.content("name") or member["name"]
@@ -314,12 +335,16 @@ def event_new(e):
 
 	# Use insert or ignore to handle concurrent events atomically
 	# If chat already exists, this is a duplicate event - skip processing
-	result = mochi.db.execute("insert or ignore into chats ( id, identity, name, key, updated ) values ( ?, ?, ?, ?, ? )", chat, e.header("to"), name, mochi.random.alphanumeric(12), mochi.time.now())
+	result = mochi.db.execute("insert or ignore into chats ( id, identity, name, key, updated ) values ( ?, ?, ?, ?, ? )", chat, e.header("to"), name, mochi.random.alphanumeric(16), mochi.time.now())
 	if result == 0:
 		# Chat already existed, duplicate event
 		return
 
-	for member in e.read():
+	members = e.read()
+	if len(members) > 10000:
+		return
+
+	for member in members:
 		if not mochi.valid(member["id"], "entity"):
 			continue
 		if not mochi.valid(member["name"], "name"):
@@ -456,6 +481,9 @@ def action_notifications_destinations(a):
 
 # List members of a chat
 def action_members(a):
+	if not mochi.valid(a.input("chat"), "id"):
+		a.error(400, "Invalid chat ID")
+		return
 	chat = mochi.db.row("select * from chats where id=?", a.input("chat"))
 	if not chat:
 		a.error(404, "Chat not found")
@@ -470,6 +498,9 @@ def action_members(a):
 
 # Rename a chat
 def action_rename(a):
+	if not mochi.valid(a.input("chat"), "id"):
+		a.error(400, "Invalid chat ID")
+		return
 	chat = mochi.db.row("select * from chats where id=?", a.input("chat"))
 	if not chat:
 		a.error(404, "Chat not found")
@@ -496,6 +527,9 @@ def action_rename(a):
 
 # Leave a chat
 def action_leave(a):
+	if not mochi.valid(a.input("chat"), "id"):
+		a.error(400, "Invalid chat ID")
+		return
 	chat = mochi.db.row("select * from chats where id=?", a.input("chat"))
 	if not chat:
 		a.error(404, "Chat not found")
@@ -540,6 +574,9 @@ def action_leave(a):
 
 # Delete a chat locally (for left chats)
 def action_delete(a):
+	if not mochi.valid(a.input("chat"), "id"):
+		a.error(400, "Invalid chat ID")
+		return
 	chat = mochi.db.row("select * from chats where id=?", a.input("chat"))
 	if not chat:
 		a.error(404, "Chat not found")
@@ -559,6 +596,9 @@ def action_delete(a):
 
 # Add a member to a chat
 def action_member_add(a):
+	if not mochi.valid(a.input("chat"), "id"):
+		a.error(400, "Invalid chat ID")
+		return
 	chat = mochi.db.row("select * from chats where id=?", a.input("chat"))
 	if not chat:
 		a.error(404, "Chat not found")
@@ -607,6 +647,9 @@ def action_member_add(a):
 
 # Remove a member from a chat
 def action_member_remove(a):
+	if not mochi.valid(a.input("chat"), "id"):
+		a.error(400, "Invalid chat ID")
+		return
 	chat = mochi.db.row("select * from chats where id=?", a.input("chat"))
 	if not chat:
 		a.error(404, "Chat not found")

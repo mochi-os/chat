@@ -78,31 +78,6 @@ export const useChatsQuery = (
     ...options,
   })
 
-export const useChatMessagesQuery = (
-  chatId?: string,
-  options?: Omit<
-    UseQueryOptions<
-      GetMessagesResponse,
-      Error,
-      GetMessagesResponse,
-      ReturnType<typeof chatKeys.messages>
-    >,
-    'queryKey' | 'queryFn'
-  >
-) =>
-  useQueryWithError({
-    queryKey: chatKeys.messages(chatId ?? 'unknown'),
-    enabled: Boolean(chatId) && (options?.enabled ?? true),
-    queryFn: () => {
-      if (!chatId) {
-        return Promise.resolve<GetMessagesResponse>({ messages: [] })
-      }
-
-      return chatsApi.messages(chatId)
-    },
-    ...options,
-  })
-
 const DEFAULT_PAGE_SIZE = 30
 
 export const useInfiniteMessagesQuery = (

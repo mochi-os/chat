@@ -60,7 +60,7 @@ function ChatSettingsPage() {
   const { chatId } = Route.useParams()
   const navigate = useNavigate()
   const goBackToChat = () => navigate({ to: '/$chatId', params: { chatId } })
-  const { name: currentUserName } = useAuthStore()
+  const { identity: currentUserIdentity } = useAuthStore()
 
   const {
     data: chatDetail,
@@ -136,7 +136,7 @@ function ChatSettingsPage() {
 
         <MembersSection
           members={members}
-          currentUserName={currentUserName}
+          currentUserIdentity={currentUserIdentity}
           isLoading={isLoadingMembers}
           error={membersError}
           onRetry={refetchMembers}
@@ -298,7 +298,7 @@ function ChatNameSection({ chatId, name }: { chatId: string, name: string }) {
 
 function MembersSection({
   members,
-  currentUserName,
+  currentUserIdentity,
   isLoading,
   error,
   onRetry,
@@ -306,7 +306,7 @@ function MembersSection({
   onRemoveMember,
 }: {
   members: Array<{ id: string; name: string }>
-  currentUserName: string
+  currentUserIdentity: string
   isLoading: boolean
   error: unknown
   onRetry: () => void
@@ -334,7 +334,7 @@ function MembersSection({
       ) : (
         <div className='space-y-1 py-1'>
           {members.map((member) => {
-            const isCurrentUser = member.name === currentUserName
+            const isCurrentUser = member.id === currentUserIdentity
             return (
               <div
                 key={member.id}

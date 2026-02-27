@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react'
-import { useQuery } from '@tanstack/react-query'
+import { useQueryWithError } from '@mochi/common'
 import { useNavigate, useParams } from '@tanstack/react-router'
 import {
   useAuthStore,
@@ -86,7 +86,7 @@ export function Chats() {
   const selectedChatId = params?.chatId
 
   // Subscription check
-  const { data: subscriptionData, refetch: refetchSubscription } = useQuery({
+  const { data: subscriptionData, refetch: refetchSubscription } = useQueryWithError({
     queryKey: ['subscription-check', 'chat'],
     queryFn: () => chatsApi.checkSubscription(),
     staleTime: Infinity,
@@ -379,7 +379,9 @@ export function Chats() {
               onMoveAttachment={handleMoveAttachment}
               onAttachmentSelection={handleAttachmentSelection}
               sendMessageErrorMessage={
-                sendMessageMutation.error?.message ?? null
+                sendMessageMutation.error
+                  ? getErrorMessage(sendMessageMutation.error, 'Failed to send message')
+                  : null
               }
             />
           )}
