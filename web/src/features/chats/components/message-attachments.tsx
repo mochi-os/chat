@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import {
   ImageLightbox,
   type LightboxMedia,
@@ -62,6 +63,25 @@ function VideoThumbnail({ url }: { url: string }) {
   )
 }
 
+function ImageThumbnail({ src, alt }: { src: string; alt: string }) {
+  const [loaded, setLoaded] = useState(false)
+  return (
+    <div className='relative'>
+      {!loaded && (
+        <div className='bg-muted flex h-[120px] w-[160px] items-center justify-center'>
+          <Loader2 className='text-muted-foreground size-6 animate-spin' />
+        </div>
+      )}
+      <img
+        src={src}
+        alt={alt}
+        className={`max-h-[200px] transition-transform group-hover/thumb:scale-105 ${loaded ? '' : 'absolute inset-0 size-0 opacity-0'}`}
+        onLoad={() => setLoaded(true)}
+      />
+    </div>
+  )
+}
+
 export function MessageAttachments({
   attachments,
   chatId,
@@ -79,7 +99,7 @@ export function MessageAttachments({
   const isAbsoluteUrl = (value: string) => /^https?:\/\//i.test(value)
 
   const isAttachmentPathCompatible = (value: string) =>
-    value.includes('/attachments/')
+    value.includes('/-/attachments/')
 
   const getAttachmentHref = (attachment: ChatMessageAttachment) => {
     if (attachment.url) {
@@ -140,10 +160,9 @@ export function MessageAttachments({
       {isVideo(attachment.type) ? (
         <VideoThumbnail url={getAttachmentHref(attachment)} />
       ) : (
-        <img
+        <ImageThumbnail
           src={getAttachmentThumbnail(attachment)}
           alt={attachment.name}
-          className='max-h-[200px] transition-transform group-hover/thumb:scale-105'
         />
       )}
     </button>
