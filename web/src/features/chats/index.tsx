@@ -93,10 +93,10 @@ export function Chats() {
   })
 
   useEffect(() => {
-    if (selectedChatId && subscriptionData?.exists === false) {
+    if (subscriptionData?.exists === false) {
       setSubscribeOpen(true)
     }
-  }, [selectedChatId, subscriptionData?.exists])
+  }, [subscriptionData?.exists])
 
   // Store last visited chat for restoration on next entry
   useEffect(() => {
