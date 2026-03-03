@@ -1,5 +1,5 @@
 # Mochi Chat app
-# Copyright Alistair Cunningham 2024-2025
+# Copyright Alistair Cunningham 2024-2026
 
 # Create database
 def database_create():
