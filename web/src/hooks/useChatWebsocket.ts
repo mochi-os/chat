@@ -167,7 +167,7 @@ export const useChatWebsocket = (
     setLastEvent(null)
     setSnapshot(null)
 
-    if (!chatId) {
+    if (!chatId || !manager) {
       return undefined
     }
 
@@ -188,7 +188,7 @@ export const useChatWebsocket = (
   }, [chatId, chatKey, manager, queryClient])
 
   const forceReconnect = useCallback(() => {
-    if (chatId) {
+    if (chatId && manager) {
       manager.forceReconnect(chatId)
     }
   }, [chatId, manager])
