@@ -11,7 +11,13 @@ import type {
   UseInfiniteQueryResult,
   InfiniteData,
 } from '@tanstack/react-query'
-import { GeneralError, LoadMoreTrigger, cn, Skeleton } from '@mochi/common'
+import {
+  GeneralError,
+  LoadMoreTrigger,
+  cn,
+  Skeleton,
+  getChatBubbleToneClass,
+} from '@mochi/common'
 import { MessageCircle } from 'lucide-react'
 import type { ChatMessage } from '@/api/chats'
 import type { GetMessagesResponse } from '@/api/types/chats'
@@ -204,9 +210,7 @@ export function ChatMessageList({
                   <div
                     className={cn(
                       'message-content relative max-w-[70%] px-3.5 py-2 wrap-break-word',
-                      isSent
-                        ? 'rounded-[16px] rounded-br-[4px] bg-blue-500 text-white dark:bg-blue-600'
-                        : 'rounded-[16px] rounded-bl-[4px] bg-gray-100 text-gray-900 dark:bg-gray-700 dark:text-gray-100'
+                      getChatBubbleToneClass(isSent)
                     )}
                   >
                     {/* Message content */}

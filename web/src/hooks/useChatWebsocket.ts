@@ -10,18 +10,24 @@ import type {
   GetMessagesResponse,
 } from '@/api/chats'
 import {
-  type ChatWebsocketEvent,
   type ChatWebsocketMessagePayload,
   type WebsocketConnectionStatus,
 } from '@/lib/websocket-manager'
 import { chatKeys } from '@/hooks/useChats'
 import { useWebsocketManager } from '@/hooks/useWebsocketManager'
 
+type NormalizedChatWebsocketMessagePayload = Omit<
+  ChatWebsocketMessagePayload,
+  'attachments'
+> & {
+  attachments?: ChatMessageAttachment[]
+}
+
 interface UseChatWebsocketResult {
   status: WebsocketConnectionStatus
   retries: number
   error?: string
-  lastMessage?: ChatWebsocketMessagePayload
+  lastMessage?: NormalizedChatWebsocketMessagePayload
   forceReconnect: () => void
 }
 
@@ -39,9 +45,16 @@ const normalizeAttachments = (
   return attachments as ChatMessageAttachment[]
 }
 
+const normalizePayload = (
+  payload: ChatWebsocketMessagePayload
+): NormalizedChatWebsocketMessagePayload => ({
+  ...payload,
+  attachments: normalizeAttachments(payload.attachments),
+})
+
 const createMessageFromPayload = (
   chatId: string,
-  payload: ChatWebsocketMessagePayload
+  payload: NormalizedChatWebsocketMessagePayload
 ): ChatMessage => {
   const created =
     typeof payload.created === 'number'
@@ -60,13 +73,13 @@ const createMessageFromPayload = (
     name: senderName,
     created,
     created_local: '',
-    attachments: normalizeAttachments(payload.attachments),
+    attachments: payload.attachments ?? [],
   }
 }
 
 const handleWebsocketEvent = (
   chatId: string,
-  payload: ChatWebsocketMessagePayload,
+  payload: NormalizedChatWebsocketMessagePayload,
   queryClient: QueryClient
 ): 'event' | 'message' => {
   if (!chatId) {
@@ -95,7 +108,7 @@ const handleWebsocketEvent = (
 
 const appendMessageToCache = (
   chatId: string,
-  payload: ChatWebsocketMessagePayload,
+  payload: NormalizedChatWebsocketMessagePayload,
   queryClient: QueryClient
 ) => {
   if (!chatId) {
@@ -161,10 +174,11 @@ export const useChatWebsocket = (
     retries: number
     lastError?: string
   } | null>(null)
-  const [lastEvent, setLastEvent] = useState<ChatWebsocketEvent | null>(null)
+  const [lastMessage, setLastMessage] =
+    useState<NormalizedChatWebsocketMessagePayload>()
 
   useEffect(() => {
-    setLastEvent(null)
+    setLastMessage(undefined)
     setSnapshot(null)
 
     if (!chatId) {
@@ -174,8 +188,9 @@ export const useChatWebsocket = (
     const unsubscribe = manager.subscribe(chatId, {
       chatKey,
       onMessage: (event) => {
-        setLastEvent(event)
-        appendMessageToCache(event.chatId, event.payload, queryClient)
+        const normalizedPayload = normalizePayload(event.payload)
+        setLastMessage(normalizedPayload)
+        appendMessageToCache(event.chatId, normalizedPayload, queryClient)
       },
       onStatusChange: (nextSnapshot) => {
         setSnapshot(nextSnapshot)
@@ -197,8 +212,7 @@ export const useChatWebsocket = (
     status: snapshot?.status ?? 'idle',
     retries: snapshot?.retries ?? 0,
     error: snapshot?.lastError,
-    lastMessage: lastEvent?.payload,
+    lastMessage,
     forceReconnect,
   }
 }
-

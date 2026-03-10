@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react'
-import { useQueryWithError, useAuthStore, usePageTitle, PageHeader, Main, GeneralError, Button, Checkbox, DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger, Label, SubscribeDialog, toast, AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, getAppPath, getErrorMessage } from '@mochi/common'
+import { useQueryWithError, useAuthStore, usePageTitle, PageHeader, Main, GeneralError, Button, IconButton, Checkbox, DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger, Label, SubscribeDialog, toast, AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, getAppPath, getErrorMessage } from '@mochi/common/realtime-shell'
 import { useNavigate, useParams } from '@tanstack/react-router'
 import { chatsApi } from '@/api/chats'
 import { ChatSkeleton } from './components/chat-skeleton'
@@ -264,12 +264,15 @@ export function Chats() {
           icon={<MessageCircle className='size-4 md:size-5' />}
           description={subtitle || undefined}
           actions={
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button variant='ghost' size='icon'>
-                  <MoreHorizontal className='size-5' />
-                </Button>
-              </DropdownMenuTrigger>
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <IconButton
+                    variant='ghost'
+                    label='Open chat actions'
+                  >
+                    <MoreHorizontal className='size-5' />
+                  </IconButton>
+                </DropdownMenuTrigger>
               <DropdownMenuContent align='end' className='w-56'>
                 {selectedChat.left ? (
                   <DropdownMenuItem onClick={handleDeleteChat}>

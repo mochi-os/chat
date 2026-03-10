@@ -71,6 +71,7 @@ export function ChatInput({
           size='icon'
           className='bg-primary hover:bg-primary/80 rounded-full transition-colors'
           disabled={isSendDisabled}
+          aria-label='Send message'
         >
           {isSending ? (
             <Loader2 size={16} className='animate-spin' />
