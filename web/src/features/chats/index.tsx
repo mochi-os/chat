@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react'
-import { useQueryWithError, useAuthStore, usePageTitle, PageHeader, Main, GeneralError, Button, Checkbox, DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger, Label, SubscribeDialog, toast, AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, getAppPath, getErrorMessage } from '@mochi/common'
+import { useQueryWithError, useAuthStore, usePageTitle, PageHeader, Main, GeneralError, Button, Checkbox, DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger, Label, shellSubscribeNotifications, toast, AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, getErrorMessage } from '@mochi/common'
 import { useNavigate, useParams } from '@tanstack/react-router'
 import { chatsApi } from '@/api/chats'
 import { ChatSkeleton } from './components/chat-skeleton'
@@ -37,7 +37,6 @@ export function Chats() {
   const navigate = useNavigate()
   const { openNewChatDialog, setWebsocketStatus } = useSidebarContext()
   const [newMessage, setNewMessage] = useState('')
-  const [subscribeOpen, setSubscribeOpen] = useState(false)
   const [showLeaveDialog, setShowLeaveDialog] = useState(false)
   const [deleteOnLeave, setDeleteOnLeave] = useState(false)
 
@@ -68,7 +67,9 @@ export function Chats() {
 
   useEffect(() => {
     if (subscriptionData?.exists === false) {
-      setSubscribeOpen(true)
+      shellSubscribeNotifications('chat', [
+        { label: 'Chat messages', type: '', defaultEnabled: true },
+      ]).then(() => refetchSubscription())
     }
   }, [subscriptionData?.exists])
 
@@ -361,15 +362,6 @@ export function Chats() {
           )}
         </Main>
       </div>
-
-      <SubscribeDialog
-        open={subscribeOpen}
-        onOpenChange={setSubscribeOpen}
-        app='chat'
-        label='Chat messages'
-        appBase={getAppPath()}
-        onResult={() => refetchSubscription()}
-      />
 
       <AlertDialog
         open={showLeaveDialog}
