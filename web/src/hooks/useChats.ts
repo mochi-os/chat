@@ -99,9 +99,15 @@ export const useInfiniteMessagesQuery = (
         limit: DEFAULT_PAGE_SIZE,
       })
     },
-    getNextPageParam: (lastPage) => {
+    getNextPageParam: (lastPage, _allPages, _lastPageParam, allPageParams) => {
       // Use cursor-based pagination: nextCursor is the timestamp of oldest message
       if (!lastPage.hasMore) {
+        return undefined
+      }
+      if (lastPage.nextCursor === undefined) {
+        return undefined
+      }
+      if (allPageParams.includes(lastPage.nextCursor)) {
         return undefined
       }
       return lastPage.nextCursor
