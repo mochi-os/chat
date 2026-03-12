@@ -9,6 +9,7 @@ import {
   getFileIcon,
   isImage,
   isVideo,
+  authenticatedUrl,
 } from '@mochi/common'
 import { Loader2, Play } from 'lucide-react'
 import type { ChatMessageAttachment } from '@/api/chats'
@@ -89,11 +90,11 @@ export function MessageAttachments({
   const appBase = import.meta.env.VITE_APP_BASE_URL || '/chat'
 
   const getAttachmentUrl = (id: string) => {
-    return `${appBase}/${chatId}/-/attachments/${id}`
+    return authenticatedUrl(`${appBase}/${chatId}/-/attachments/${id}`)
   }
 
   const getThumbnailUrl = (id: string) => {
-    return `${appBase}/${chatId}/-/attachments/${id}/thumbnail`
+    return authenticatedUrl(`${appBase}/${chatId}/-/attachments/${id}/thumbnail`)
   }
 
   const isAbsoluteUrl = (value: string) => /^https?:\/\//i.test(value)

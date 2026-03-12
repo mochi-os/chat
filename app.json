@@ -2,7 +2,7 @@
 // Copyright Alistair Cunningham 2025-2026
 
 {
-	"version": "2.25",
+	"version": "2.26",
 	"label": "app_name",
 	"classes": ["chat"],
 	"paths": ["chat"],
@@ -29,6 +29,7 @@
 		"images": {"files": "web/dist/images"},
 		"-/list": {"function": "action_list"},
 		"-/new": {"function": "action_new"},
+		"-/notifications/check": {"function": "action_notifications_check"},
 
 		":chat": {"file": "web/dist/index.html"},
 		":chat/-/view": {"function": "action_view"},
@@ -46,10 +47,7 @@
 		":chat/settings/assets": {"files": "web/dist/assets"},
 		":chat/settings/images": {"files": "web/dist/images"},
 		":chat/assets": {"files": "web/dist/assets"},
-		":chat/images": {"files": "web/dist/images"},
-		"-/notifications/subscribe": {"function": "action_notifications_subscribe"},
-		"-/notifications/check": {"function": "action_notifications_check"},
-		"-/notifications/destinations": {"function": "action_notifications_destinations"}
+		":chat/images": {"files": "web/dist/images"}
 	},
 
 	"events": {

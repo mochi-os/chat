@@ -450,34 +450,6 @@ def event_removed(e):
 
 # Notification proxy actions - forward to notifications service
 
-def action_notifications_subscribe(a):
-	"""Create a notification subscription via the notifications service."""
-	label = a.input("label", "").strip()
-	type = a.input("type", "").strip()
-	object = a.input("object", "").strip()
-	destinations = a.input("destinations", "")
-
-	if not label:
-		a.error(400, "label is required")
-		return
-	if not mochi.valid(label, "text"):
-		a.error(400, "Invalid label")
-		return
-
-	destinations_list = json.decode(destinations) if destinations else []
-
-	result = mochi.service.call("notifications", "subscribe", label, type, object, destinations_list)
-	return {"data": {"id": result}}
-
-def action_notifications_check(a):
-	"""Check if a notification subscription exists for this app."""
-	result = mochi.service.call("notifications", "subscriptions")
-	return {"data": {"exists": len(result) > 0}}
-
-def action_notifications_destinations(a):
-	"""List available notification destinations."""
-	result = mochi.service.call("notifications", "destinations")
-	return {"data": result}
 
 # List members of a chat
 def action_members(a):
@@ -689,3 +661,8 @@ def action_member_remove(a):
 
 	mochi.websocket.write(chat["key"], {"event": "member_remove", "member": member_id})
 	return {"data": {"success": True}}
+
+def action_notifications_check(a):
+	"""Check if a notification subscription exists for this app."""
+	result = mochi.service.call("notifications", "subscriptions")
+	return {"data": {"exists": len(result) > 0}}
