@@ -14,7 +14,7 @@ export const Route = createFileRoute('/_authenticated/')({
     }
 
     // Check for last visited chat and redirect if it still exists
-    const lastChatId = getLastChat()
+    const lastChatId = await getLastChat()
     if (lastChatId) {
       const chatExists = chats.some(c => c.id === lastChatId)
       if (chatExists) {
