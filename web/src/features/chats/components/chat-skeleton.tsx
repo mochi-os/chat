@@ -1,5 +1,5 @@
 
-import { Skeleton, PageHeader, Main } from '@mochi/common'
+import { Skeleton, PageHeader, Main } from '@mochi/web'
 
 export function ChatSkeleton() {
   return (

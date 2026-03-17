@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react'
-import { useQueryWithError, useAuthStore, usePageTitle, PageHeader, Main, GeneralError, Button, Checkbox, IconButton, DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger, Label, shellSubscribeNotifications, toast, AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, getErrorMessage } from '@mochi/common'
+import { useQueryWithError, useAuthStore, usePageTitle, PageHeader, Main, GeneralError, Button, Checkbox, IconButton, DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger, Label, shellSubscribeNotifications, toast, AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, getErrorMessage } from '@mochi/web'
 import { useNavigate, useParams } from '@tanstack/react-router'
 import { chatsApi } from '@/api/chats'
 import { ChatSkeleton } from './components/chat-skeleton'

@@ -17,7 +17,7 @@ import {
   cn,
   Skeleton,
   getChatBubbleToneClass,
-} from '@mochi/common'
+} from '@mochi/web'
 import { MessageCircle } from 'lucide-react'
 import type { ChatMessage } from '@/api/chats'
 import type { GetMessagesResponse } from '@/api/types/chats'

@@ -31,7 +31,7 @@ import {
   FieldRow,
   DataChip,
   DetailSkeleton,
-} from '@mochi/common'
+} from '@mochi/web'
 import {
   Loader2,
   MessageCircle,
