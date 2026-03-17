@@ -5,7 +5,7 @@ import {
   useSidebar,
   AuthenticatedLayout,
   type SidebarData,
-} from '@mochi/common'
+} from '@mochi/web'
 import { MessageCircle, Plus } from 'lucide-react'
 import { SidebarProvider, useSidebarContext } from '@/context/sidebar-context'
 import { useChatsQuery } from '@/hooks/useChats'

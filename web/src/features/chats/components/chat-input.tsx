@@ -1,5 +1,5 @@
 import { type ChangeEvent, type FormEvent, useRef } from 'react'
-import { Button } from '@mochi/common'
+import { Button } from '@mochi/web'
 import {
   ArrowLeft,
   ArrowRight,

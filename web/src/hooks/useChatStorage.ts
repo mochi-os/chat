@@ -1,6 +1,6 @@
 // Shell storage utilities for chat app - stores last visited chat
 
-import { shellStorage } from '@mochi/common'
+import { shellStorage } from '@mochi/web'
 
 const STORAGE_KEY = 'mochi-chat-last'
 

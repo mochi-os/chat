@@ -15,7 +15,7 @@ import {
   PersonPicker,
   GeneralError,
   type Person,
-} from '@mochi/common'
+} from '@mochi/web'
 import { Loader2, MessageCircle, UserPlus } from 'lucide-react'
 import { useSidebarContext } from '@/context/sidebar-context'
 import { useNewChatFriendsQuery, useCreateChatMutation } from '@/hooks/useChats'

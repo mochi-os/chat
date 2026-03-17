@@ -10,7 +10,7 @@ import {
   isImage,
   isVideo,
   authenticatedUrl,
-} from '@mochi/common'
+} from '@mochi/web'
 import { Loader2, Play } from 'lucide-react'
 import type { ChatMessageAttachment } from '@/api/chats'
 

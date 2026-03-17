@@ -1,4 +1,4 @@
-import { Button, EmptyState } from '@mochi/common'
+import { Button, EmptyState } from '@mochi/web'
 import { MessageCircle, Plus } from 'lucide-react'
 
 interface ChatEmptyStateProps {

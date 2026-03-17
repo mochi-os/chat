@@ -1,5 +1,5 @@
 
-import { createAppClient } from '@mochi/common'
+import { createAppClient } from '@mochi/web'
 import type {
   Chat,
   GetChatsResponse,
