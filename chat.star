@@ -14,18 +14,7 @@ def database_create():
 
 # Upgrade database
 def database_upgrade(to_version):
-	# Versions 1-2: no migrations needed
-	if to_version == 3:
-		# Add left column to track left/removed chats
-		columns = mochi.db.rows("pragma table_info(chats)")
-		has_left = False
-		for col in columns:
-			if col["name"] == "left":
-				has_left = True
-		if not has_left:
-			mochi.db.execute("alter table chats add column left integer not null default 0")
-	if to_version == 4:
-		mochi.db.execute("create index if not exists members_member on members( member )")
+	pass
 
 # Create new chat
 def action_create(a):
