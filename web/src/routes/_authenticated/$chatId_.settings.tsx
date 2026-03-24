@@ -258,7 +258,7 @@ function ChatNameSection({ chatId, name }: { chatId: string, name: string }) {
                 {renameMutation.isPending ? (
                   <Loader2 className='size-4 animate-spin' />
                 ) : (
-                  <Check className='size-4 text-green-600' />
+                  <Check className='size-4 text-green-600 dark:text-green-400' />
                 )}
               </Button>
               <Button
@@ -508,6 +508,7 @@ function AddMemberDialog({
               {availableFriends.map((friend) => (
                 <button
                   key={friend.id}
+                  aria-label={`Add ${friend.name} to chat`}
                   className='hover:bg-accent flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-left disabled:opacity-50 transition-colors'
                   onClick={() => handleAddMember(friend.id)}
                   disabled={addMemberMutation.isPending}

@@ -71,7 +71,7 @@ export function Chats() {
         { label: 'Chat messages', type: '', defaultEnabled: true },
       ]).then(() => refetchSubscription())
     }
-  }, [subscriptionData?.exists])
+  }, [subscriptionData?.exists, refetchSubscription])
 
   // Store last visited chat for restoration on next entry
   useEffect(() => {

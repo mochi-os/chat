@@ -129,6 +129,7 @@ export function ChatInput({
                 <div className='absolute inset-0 flex items-center justify-center gap-2 bg-black/50 opacity-0 transition-opacity group-hover/att:opacity-100'>
                   <button
                     type='button'
+                    aria-label='Move attachment left'
                     className='flex size-8 items-center justify-center rounded-full bg-white/20 text-white hover:bg-white/30 disabled:cursor-not-allowed disabled:opacity-30'
                     disabled={isFirst}
                     onClick={(e) => {
@@ -140,6 +141,7 @@ export function ChatInput({
                   </button>
                   <button
                     type='button'
+                    aria-label='Move attachment right'
                     className='flex size-8 items-center justify-center rounded-full bg-white/20 text-white hover:bg-white/30 disabled:cursor-not-allowed disabled:opacity-30'
                     disabled={isLast}
                     onClick={(e) => {
