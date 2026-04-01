@@ -10,6 +10,7 @@ import {
   isImage,
   isVideo,
   authenticatedUrl,
+  normalizeEntityUrl,
 } from '@mochi/web'
 import { Loader2, Play } from 'lucide-react'
 import type { ChatMessageAttachment } from '@/api/chats'
@@ -90,11 +91,11 @@ export function MessageAttachments({
   const appBase = import.meta.env.VITE_APP_BASE_URL || '/chat'
 
   const getAttachmentUrl = (id: string) => {
-    return authenticatedUrl(`${appBase}/${chatId}/-/attachments/${id}`)
+    return authenticatedUrl(normalizeEntityUrl(`${appBase}/${chatId}/-/attachments/${id}`))
   }
 
   const getThumbnailUrl = (id: string) => {
-    return authenticatedUrl(`${appBase}/${chatId}/-/attachments/${id}/thumbnail`)
+    return authenticatedUrl(normalizeEntityUrl(`${appBase}/${chatId}/-/attachments/${id}/thumbnail`))
   }
 
   const isAbsoluteUrl = (value: string) => /^https?:\/\//i.test(value)
@@ -108,7 +109,7 @@ export function MessageAttachments({
         isAbsoluteUrl(attachment.url) ||
         isAttachmentPathCompatible(attachment.url)
       ) {
-        return attachment.url
+        return normalizeEntityUrl(attachment.url)
       }
     }
     return getAttachmentUrl(attachment.id)
@@ -120,7 +121,7 @@ export function MessageAttachments({
         isAbsoluteUrl(attachment.thumbnail_url) ||
         isAttachmentPathCompatible(attachment.thumbnail_url)
       ) {
-        return attachment.thumbnail_url
+        return normalizeEntityUrl(attachment.thumbnail_url)
       }
     }
     return getThumbnailUrl(attachment.id)
