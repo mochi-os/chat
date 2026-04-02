@@ -217,10 +217,15 @@ export function Chats() {
 
   const handleSendMessage = (e: React.FormEvent) => {
     e.preventDefault()
-    if (!selectedChat) return
+    if (!selectedChat || sendMessageMutation.isPending) return
 
     const body = newMessage.trim()
-    if (!body && pendingAttachments.length === 0) return
+    if (!body && pendingAttachments.length === 0) {
+      if (import.meta.env.DEV) {
+        globalThis.console?.warn?.('[chat] blocked empty message submit')
+      }
+      return
+    }
 
     sendMessageMutation.mutate({
       chatId: selectedChat.id,
@@ -228,6 +233,10 @@ export function Chats() {
       attachments: pendingAttachments.map((a) => a.file),
     })
   }
+
+  const canSendMessage =
+    !sendMessageMutation.isPending &&
+    (Boolean(newMessage.trim()) || pendingAttachments.length > 0)
 
   // Loading / empty
   if (selectedChatId && chatsQuery.isLoading) {
@@ -351,7 +360,7 @@ export function Chats() {
               setNewMessage={setNewMessage}
               onSendMessage={handleSendMessage}
               isSending={sendMessageMutation.isPending}
-              isSendDisabled={sendMessageMutation.isPending}
+              isSendDisabled={!canSendMessage}
               pendingAttachments={pendingAttachments}
               onRemoveAttachment={handleRemoveAttachment}
               onMoveAttachment={handleMoveAttachment}
