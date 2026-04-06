@@ -273,7 +273,7 @@ export function Chats() {
           title={selectedChat.name}
           icon={<MessageCircle className='size-4 md:size-5' />}
           description={subtitle || undefined}
-          actions={
+          menuAction={
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <IconButton
