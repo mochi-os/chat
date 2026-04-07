@@ -1,21 +1,14 @@
 import { useMemo, useState } from 'react'
 import { createFileRoute, useNavigate } from '@tanstack/react-router'
 import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
   Button,
   Checkbox,
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
+  ConfirmDialog,
+  ResponsiveDialog,
+  ResponsiveDialogContent,
+  ResponsiveDialogDescription,
+  ResponsiveDialogHeader,
+  ResponsiveDialogTitle,
   EmptyState,
   Label,
   PageHeader,
@@ -397,49 +390,30 @@ function LeaveDialog({
   }
 
   return (
-    <AlertDialog
+    <ConfirmDialog
       open={open}
       onOpenChange={(isOpen) => {
         onOpenChange(isOpen)
         if (!isOpen) setDeleteOnLeave(false)
       }}
+      title="Leave chat?"
+      desc={`Are you sure you want to leave "${chatName}"? You can be added back by other members.`}
+      confirmText={leaveMutation.isPending ? <><Loader2 className='mr-2 size-4 animate-spin' />Leaving...</> : 'Leave Chat'}
+      destructive
+      handleConfirm={handleLeave}
+      isLoading={leaveMutation.isPending}
     >
-      <AlertDialogContent>
-        <AlertDialogHeader>
-          <AlertDialogTitle>Leave chat?</AlertDialogTitle>
-          <AlertDialogDescription>
-            Are you sure you want to leave "{chatName}"? You can be added back
-            by other members.
-          </AlertDialogDescription>
-        </AlertDialogHeader>
-        <div className='flex items-center space-x-2 py-4'>
-          <Checkbox
-            id='delete-on-leave-settings'
-            checked={deleteOnLeave}
-            onCheckedChange={(checked) => setDeleteOnLeave(checked === true)}
-          />
-          <Label htmlFor='delete-on-leave-settings' className='text-sm font-medium'>
-            Delete chat history
-          </Label>
-        </div>
-        <AlertDialogFooter>
-          <AlertDialogCancel disabled={leaveMutation.isPending}>
-            Cancel
-          </AlertDialogCancel>
-          <AlertDialogAction
-            variant='destructive'
-            onClick={handleLeave}
-            disabled={leaveMutation.isPending}
-          >
-            {leaveMutation.isPending ? (
-              <Loader2 className='mr-2 size-4 animate-spin' />
-            ) : (
-              'Leave Chat'
-            )}
-          </AlertDialogAction>
-        </AlertDialogFooter>
-      </AlertDialogContent>
-    </AlertDialog>
+      <div className='flex items-center space-x-2 py-4'>
+        <Checkbox
+          id='delete-on-leave-settings'
+          checked={deleteOnLeave}
+          onCheckedChange={(checked) => setDeleteOnLeave(checked === true)}
+        />
+        <Label htmlFor='delete-on-leave-settings' className='text-sm font-medium'>
+          Delete chat history
+        </Label>
+      </div>
+    </ConfirmDialog>
   )
 }
 
@@ -482,14 +456,14 @@ function AddMemberDialog({
   }
 
   return (
-    <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent>
-        <DialogHeader>
-          <DialogTitle>Add member</DialogTitle>
-          <DialogDescription>
+    <ResponsiveDialog open={open} onOpenChange={onOpenChange}>
+      <ResponsiveDialogContent>
+        <ResponsiveDialogHeader>
+          <ResponsiveDialogTitle>Add member</ResponsiveDialogTitle>
+          <ResponsiveDialogDescription>
             Select a friend to add to this chat.
-          </DialogDescription>
-        </DialogHeader>
+          </ResponsiveDialogDescription>
+        </ResponsiveDialogHeader>
         <div className='max-h-[300px] overflow-y-auto mt-2'>
           {isLoadingFriends ? (
             <div className='flex items-center justify-center py-8'>
@@ -519,8 +493,8 @@ function AddMemberDialog({
             </div>
           )}
         </div>
-      </DialogContent>
-    </Dialog>
+      </ResponsiveDialogContent>
+    </ResponsiveDialog>
   )
 }
 
@@ -553,34 +527,19 @@ function RemoveMemberDialog({
   }
 
   return (
-    <AlertDialog open={open} onOpenChange={onOpenChange}>
-      <AlertDialogContent>
-        <AlertDialogHeader>
-          <AlertDialogTitle>Remove member?</AlertDialogTitle>
-          <AlertDialogDescription>
-            Are you sure you want to remove {member?.name} from this chat?
-          </AlertDialogDescription>
-        </AlertDialogHeader>
-        <div className="flex gap-2 p-3 bg-muted/50 rounded-lg mt-2 mb-4">
-           <span className="font-semibold">{member?.name}</span>
-        </div>
-        <AlertDialogFooter>
-          <AlertDialogCancel disabled={removeMemberMutation.isPending}>
-            Cancel
-          </AlertDialogCancel>
-          <AlertDialogAction
-            variant='destructive'
-            onClick={handleRemove}
-            disabled={removeMemberMutation.isPending}
-          >
-            {removeMemberMutation.isPending ? (
-              <Loader2 className='mr-2 size-4 animate-spin' />
-            ) : (
-              'Remove'
-            )}
-          </AlertDialogAction>
-        </AlertDialogFooter>
-      </AlertDialogContent>
-    </AlertDialog>
+    <ConfirmDialog
+      open={open}
+      onOpenChange={onOpenChange}
+      title="Remove member?"
+      desc={`Are you sure you want to remove ${member?.name} from this chat?`}
+      confirmText={removeMemberMutation.isPending ? <><Loader2 className='mr-2 size-4 animate-spin' />Removing...</> : 'Remove'}
+      destructive
+      handleConfirm={handleRemove}
+      isLoading={removeMemberMutation.isPending}
+    >
+      <div className="flex gap-2 p-3 bg-muted/50 rounded-lg mt-2 mb-4">
+        <span className="font-semibold">{member?.name}</span>
+      </div>
+    </ConfirmDialog>
   )
 }

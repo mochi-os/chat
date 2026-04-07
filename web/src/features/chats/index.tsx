@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react'
-import { useQueryWithError, useAuthStore, usePageTitle, PageHeader, Main, GeneralError, Button, Checkbox, IconButton, DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger, Label, shellSubscribeNotifications, toast, AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, getErrorMessage } from '@mochi/web'
+import { useQueryWithError, useAuthStore, usePageTitle, PageHeader, Main, GeneralError, Button, Checkbox, ConfirmDialog, IconButton, DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger, Label, shellSubscribeNotifications, toast, getErrorMessage } from '@mochi/web'
 import { useNavigate, useParams } from '@tanstack/react-router'
 import { chatsApi } from '@/api/chats'
 import { ChatSkeleton } from './components/chat-skeleton'
@@ -375,52 +375,30 @@ export function Chats() {
         </Main>
       </div>
 
-      <AlertDialog
+      <ConfirmDialog
         open={showLeaveDialog}
         onOpenChange={(open) => {
           setShowLeaveDialog(open)
           if (!open) setDeleteOnLeave(false)
         }}
+        title="Leave chat?"
+        desc={`Are you sure you want to leave "${selectedChat?.name}"? You can be added back by other members.`}
+        confirmText={leaveChatMutation.isPending ? <><Loader2 className='mr-2 size-4 animate-spin' />Leaving...</> : 'Leave'}
+        destructive
+        handleConfirm={handleLeaveChat}
+        isLoading={leaveChatMutation.isPending}
       >
-        <AlertDialogContent>
-          <AlertDialogHeader>
-            <AlertDialogTitle>Leave chat?</AlertDialogTitle>
-            <AlertDialogDescription>
-              Are you sure you want to leave "{selectedChat?.name}"? You can be
-              added back by other members.
-            </AlertDialogDescription>
-          </AlertDialogHeader>
-          <div className='flex items-center space-x-2 py-2'>
-            <Checkbox
-              id='delete-on-leave'
-              checked={deleteOnLeave}
-              onCheckedChange={(checked) => setDeleteOnLeave(checked === true)}
-            />
-            <Label htmlFor='delete-on-leave' className='text-sm'>
-              Delete chat history
-            </Label>
-          </div>
-          <AlertDialogFooter>
-            <AlertDialogCancel disabled={leaveChatMutation.isPending}>
-              Cancel
-            </AlertDialogCancel>
-            <AlertDialogAction
-              variant='destructive'
-              onClick={handleLeaveChat}
-              disabled={leaveChatMutation.isPending}
-            >
-              {leaveChatMutation.isPending ? (
-                <>
-                  <Loader2 className='mr-2 size-4 animate-spin' />
-                  Leaving...
-                </>
-              ) : (
-                'Leave'
-              )}
-            </AlertDialogAction>
-          </AlertDialogFooter>
-        </AlertDialogContent>
-      </AlertDialog>
+        <div className='flex items-center space-x-2 py-2'>
+          <Checkbox
+            id='delete-on-leave'
+            checked={deleteOnLeave}
+            onCheckedChange={(checked) => setDeleteOnLeave(checked === true)}
+          />
+          <Label htmlFor='delete-on-leave' className='text-sm'>
+            Delete chat history
+          </Label>
+        </div>
+      </ConfirmDialog>
     </>
   )
 }
