@@ -43,13 +43,12 @@ export function ChatInput({
       onSubmit={onSendMessage}
       className='flex w-full flex-none flex-col gap-2'
     >
-      <div className='border-input bg-card focus-within:ring-ring flex w-full items-center gap-2 rounded-full border px-4 py-2 focus-within:ring-1 focus-within:outline-hidden'>
+      <div className='border-input bg-card focus-within:ring-ring flex w-full items-center gap-2 rounded-xl border px-4 py-2 focus-within:ring-1 focus-within:outline-hidden'>
         <div className='flex items-center'>
           <Button
             size='icon'
             type='button'
             variant='ghost'
-            className='rounded-full'
             onClick={() => fileInputRef.current?.click()}
             aria-label='Add attachment'
           >
@@ -69,7 +68,7 @@ export function ChatInput({
         <Button
           type='submit'
           size='icon'
-          className='bg-primary hover:bg-primary/80 rounded-full transition-colors'
+          className='bg-primary hover:bg-primary/80 transition-colors'
           disabled={isSendDisabled}
           aria-label='Send message'
         >
