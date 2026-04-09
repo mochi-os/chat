@@ -6,7 +6,7 @@ import {
   useMemo,
   useRef,
 } from 'react'
-import { format } from 'date-fns'
+import { useFormat } from '@mochi/web'
 import type {
   UseInfiniteQueryResult,
   InfiniteData,
@@ -43,6 +43,7 @@ export function ChatMessageList({
   currentUserIdentity,
   isGroupChat,
 }: ChatMessageListProps) {
+  const { formatDate, formatTime } = useFormat()
   const scrollContainerRef = useRef<HTMLDivElement | null>(null)
   const messagesEndRef = useRef<HTMLDivElement | null>(null)
   const prevScrollHeightRef = useRef<number>(0)
@@ -60,7 +61,8 @@ export function ChatMessageList({
   const groupedMessages = useMemo(() => {
     const groups: Record<string, ChatMessage[]> = {}
     chatMessages.forEach((message) => {
-      const date = format(new Date(message.created * 1000), 'yyyy-MM-dd')
+      const d = new Date(message.created * 1000)
+      const date = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`
       if (!groups[date]) {
         groups[date] = []
       }
@@ -181,7 +183,7 @@ export function ChatMessageList({
         <Fragment key={key}>
           {/* Date separator */}
           <div className='my-4 flex items-center justify-center'>
-            <div className='text-muted-foreground text-xs'>{key}</div>
+            <div className='text-muted-foreground text-xs'>{formatDate(new Date(key + 'T00:00:00'))}</div>
           </div>
 
           {groupedMessages[key].map((message, index) => {
@@ -207,7 +209,7 @@ export function ChatMessageList({
                 <div className='flex items-end gap-2'>
                   {isSent && (
                     <span className='text-muted-foreground/70 opacity-0 transition-opacity group-hover:opacity-100 text-[10px]'>
-                      {format(new Date(message.created * 1000), 'HH:mm:ss')}
+                      {formatTime(new Date(message.created * 1000))}
                     </span>
                   )}
 
@@ -234,7 +236,7 @@ export function ChatMessageList({
 
                   {!isSent && (
                     <span className='text-muted-foreground/70 opacity-0 transition-opacity group-hover:opacity-100 text-[10px]'>
-                      {format(new Date(message.created * 1000), 'HH:mm:ss')}
+                      {formatTime(new Date(message.created * 1000))}
                     </span>
                   )}
                 </div>
