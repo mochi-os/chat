@@ -5,7 +5,7 @@ import {
   useVideoThumbnailCached,
   useLightboxHash,
   formatVideoDuration,
-  formatFileSize,
+  useFormat,
   getFileIcon,
   isImage,
   isVideo,
@@ -88,6 +88,7 @@ export function MessageAttachments({
   attachments,
   chatId,
 }: MessageAttachmentsProps) {
+  const { formatFileSize } = useFormat()
   const appBase = import.meta.env.VITE_APP_BASE_URL || '/chat'
 
   const getAttachmentUrl = (id: string) => {

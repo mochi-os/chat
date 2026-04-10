@@ -72,7 +72,6 @@ const createMessageFromPayload = (
     member: senderId,
     name: senderName,
     created,
-    created_local: '',
     attachments: payload.attachments ?? [],
   }
 }

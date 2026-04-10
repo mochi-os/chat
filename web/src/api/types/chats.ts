@@ -43,7 +43,6 @@ export interface ChatMessage {
   name: string
   email?: string
   created: number
-  created_local: string
   attachments: ChatMessageAttachment[]
   [key: string]: unknown
 }

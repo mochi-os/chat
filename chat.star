@@ -177,7 +177,6 @@ def action_messages(a):
 
 	for m in messages:
 		m["attachments"] = mochi.attachment.list("chat/" + chat["id"] + "/" + m["id"])
-		m["created_local"] = mochi.time.local(m["created"])
 
 	return {
 		"data": {
