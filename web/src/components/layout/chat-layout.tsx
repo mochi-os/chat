@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef } from 'react'
+import { useEffect, useMemo } from 'react'
 import { Outlet, useParams } from '@tanstack/react-router'
 import {
   cn,
@@ -10,28 +10,6 @@ import { MessageCircle, Plus } from 'lucide-react'
 import { SidebarProvider, useSidebarContext } from '@/context/sidebar-context'
 import { useChatsQuery } from '@/hooks/useChats'
 import { NewChat } from '@/features/chats/components/new-chat'
-
-// Auto-open sidebar on mobile when there are chats but none selected
-function AutoOpenMobileSidebar({
-  hasChats,
-  hasChatSelected,
-}: {
-  hasChats: boolean
-  hasChatSelected: boolean
-}) {
-  const { setOpenMobile, isMobile } = useSidebar()
-  const hasAutoOpened = useRef(false)
-
-  useEffect(() => {
-    // Only auto-open once, on mobile, when there are chats but none selected
-    if (isMobile && hasChats && !hasChatSelected && !hasAutoOpened.current) {
-      hasAutoOpened.current = true
-      setOpenMobile(true)
-    }
-  }, [isMobile, hasChats, hasChatSelected, setOpenMobile])
-
-  return null
-}
 
 function WebsocketStatusIndicator() {
   const { websocketStatusMeta, chatId } = useSidebarContext()
@@ -119,10 +97,6 @@ function ChatLayoutInner() {
       sidebarData={sidebarData}
       sidebarFooter={<WebsocketStatusIndicator />}
     >
-      <AutoOpenMobileSidebar
-        hasChats={chats.length > 0}
-        hasChatSelected={!!urlChatId}
-      />
       <Outlet />
     </AuthenticatedLayout>
   )
