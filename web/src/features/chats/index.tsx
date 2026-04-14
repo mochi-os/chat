@@ -238,7 +238,7 @@ export function Chats() {
     !sendMessageMutation.isPending &&
     (Boolean(newMessage.trim()) || pendingAttachments.length > 0)
 
-  // Loading / empty
+  // Loading state: show full skeleton (includes its own PageHeader + Main)
   if (selectedChatId && chatsQuery.isLoading) {
     return <ChatSkeleton />
   }
