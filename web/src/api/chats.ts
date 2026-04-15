@@ -102,6 +102,8 @@ export const chatsApi = {
   removeMember: (chatId: string, payload: MemberRemoveRequest) =>
     client.post<MemberRemoveResponse>(endpoints.chat.memberRemove(chatId), payload),
 
-  checkSubscription: () =>
-    client.get<{ exists: boolean }>('/-/notifications/check'),
+  checkSubscription: async (): Promise<{ exists: boolean }> => {
+    const res = await client.get<{ data: { exists: boolean } }>('/-/notifications/check')
+    return res.data
+  },
 }
