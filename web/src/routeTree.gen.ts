@@ -73,13 +73,13 @@ const AuthenticatedChatIdSettingsRoute =
   } as any)
 
 export interface FileRoutesByFullPath {
-  '/': typeof AuthenticatedIndexRoute
   '/401': typeof errors401Route
   '/403': typeof errors403Route
   '/404': typeof errors404Route
   '/500': typeof errors500Route
   '/503': typeof errors503Route
   '/$chatId': typeof AuthenticatedChatIdRoute
+  '/': typeof AuthenticatedIndexRoute
   '/$chatId/settings': typeof AuthenticatedChatIdSettingsRoute
   '/errors/$error': typeof AuthenticatedErrorsErrorRoute
 }
@@ -110,13 +110,13 @@ export interface FileRoutesById {
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
-    | '/'
     | '/401'
     | '/403'
     | '/404'
     | '/500'
     | '/503'
     | '/$chatId'
+    | '/'
     | '/$chatId/settings'
     | '/errors/$error'
   fileRoutesByTo: FileRoutesByTo
@@ -158,7 +158,7 @@ declare module '@tanstack/react-router' {
     '/_authenticated': {
       id: '/_authenticated'
       path: ''
-      fullPath: '/'
+      fullPath: ''
       preLoaderRoute: typeof AuthenticatedRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
