@@ -68,7 +68,7 @@ export function Chats() {
   useEffect(() => {
     if (subscriptionData?.exists === false) {
       shellSubscribeNotifications('chat', [
-        { label: 'Chat messages', type: '', defaultEnabled: true },
+        { label: 'Messages', topic: '', defaultEnabled: true },
       ]).then(() => refetchSubscription())
     }
   }, [subscriptionData?.exists, refetchSubscription])
