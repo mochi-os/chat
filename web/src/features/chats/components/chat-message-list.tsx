@@ -12,6 +12,7 @@ import type {
   InfiniteData,
 } from '@tanstack/react-query'
 import {
+  EntityAvatar,
   GeneralError,
   LoadMoreTrigger,
   cn,
@@ -196,9 +197,14 @@ export function ChatMessageList({
                   isSent ? 'items-end' : 'items-start'
                 )}
               >
-                {/* Message metadata: name (only for group chats) */}
+                {/* Message metadata: avatar + name (only for group chats) */}
                 {isGroupChat && !isSent && (
-                  <div className='flex flex-row items-center gap-2 px-1 text-xs'>
+                  <div className='flex flex-row items-center gap-1.5 px-1 text-xs'>
+                    <EntityAvatar
+                      fingerprint={message.member}
+                      name={message.name}
+                      size={16}
+                    />
                     <span className='text-muted-foreground font-medium'>
                       {message.name}
                     </span>
