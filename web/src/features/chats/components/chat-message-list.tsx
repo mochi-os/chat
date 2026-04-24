@@ -18,6 +18,7 @@ import {
   cn,
   Skeleton,
   getChatBubbleToneClass,
+  getAppPath,
 } from '@mochi/web'
 import { MessageCircle } from 'lucide-react'
 import type { ChatMessage } from '@/api/chats'
@@ -201,7 +202,9 @@ export function ChatMessageList({
                 {isGroupChat && !isSent && (
                   <div className='flex flex-row items-center gap-1.5 px-1 text-xs'>
                     <EntityAvatar
-                      fingerprint={message.member}
+                      src={`${getAppPath()}/${message.chat}/-/${message.id}/asset/avatar`}
+                      styleUrl={`${getAppPath()}/${message.chat}/-/${message.id}/asset/style`}
+                      seed={message.member}
                       name={message.name}
                       size={16}
                     />
