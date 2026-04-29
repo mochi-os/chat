@@ -1,5 +1,4 @@
 import { useEffect, useMemo, type ReactNode } from 'react'
-import { isInShell } from '@mochi/web'
 import { chatsApi } from '@/api/chats'
 import {
   ChatWebsocketManager,
@@ -8,7 +7,7 @@ import {
 import { WebsocketContext } from '@/context/websocket-context'
 
 const buildManager = (): ChatWebsocketManager | null => {
-  if (typeof window === 'undefined' || isInShell()) {
+  if (typeof window === 'undefined') {
     return null
   }
 

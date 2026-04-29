@@ -12,11 +12,12 @@ import { useChatsQuery } from '@/hooks/useChats'
 import { NewChat } from '@/features/chats/components/new-chat'
 
 function WebsocketStatusIndicator() {
-  const { websocketStatusMeta, chatId } = useSidebarContext()
+  const { websocketStatusMeta } = useSidebarContext()
   const { state } = useSidebar()
   const isCollapsed = state === 'collapsed'
+  const params = useParams({ strict: false }) as { chatId?: string }
 
-  if (!chatId) return null
+  if (!params.chatId) return null
 
   return (
     <div
