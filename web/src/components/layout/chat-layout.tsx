@@ -4,12 +4,33 @@ import {
   cn,
   useSidebar,
   AuthenticatedLayout,
+  EntityAvatar,
   type SidebarData,
 } from '@mochi/web'
 import { MessageCircle, Plus } from 'lucide-react'
 import { SidebarProvider, useSidebarContext } from '@/context/sidebar-context'
 import { useChatsQuery } from '@/hooks/useChats'
 import { NewChat } from '@/features/chats/components/new-chat'
+
+const personIconCache = new Map<string, React.FC>()
+
+function personIcon(personId: string): React.FC {
+  let Icon = personIconCache.get(personId)
+  if (!Icon) {
+    Icon = function PersonIcon() {
+      return (
+        <EntityAvatar
+          src={`/people/${personId}/-/avatar`}
+          styleUrl={`/people/${personId}/-/style`}
+          size="sm"
+        />
+      )
+    }
+    Icon.displayName = `PersonIcon(${personId})`
+    personIconCache.set(personId, Icon)
+  }
+  return Icon
+}
 
 function WebsocketStatusIndicator() {
   const { websocketStatusMeta, chatId } = useSidebarContext()
@@ -68,7 +89,7 @@ function ChatLayoutInner() {
     const chatItems = sortedChats.map((chat) => ({
       title: chat.name,
       url: `/${chat.fingerprint ?? chat.id}`,
-      icon: MessageCircle,
+      icon: chat.members === 2 && chat.other ? personIcon(chat.other) : MessageCircle,
     }))
 
     return {

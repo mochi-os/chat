@@ -1,6 +1,9 @@
 # Mochi Chat app
 # Copyright Alistair Cunningham 2024-2026
 
+def notify(topic, object="", title="", body="", url=""):
+	mochi.service.call("notifications", "send", topic, object, title, body, url, mochi.app.label("notification_topic_" + topic.replace("/", "_")))
+
 # Create database
 def database_create():
 	mochi.db.execute("create table if not exists chats ( id text not null primary key, identity text not null, name text not null, key text not null, updated integer not null, left integer not null default 0 )")
@@ -119,15 +122,23 @@ def action_create(a):
 
 # List chats
 def action_list(a):
-	return {
-		"data": mochi.db.rows("""
-			SELECT c.*, (SELECT count(*) FROM members WHERE chat=c.id) as members 
-			FROM chats c 
-			LEFT JOIN members m ON m.chat = c.id AND m.member = ? 
-			WHERE m.member IS NOT NULL OR c.left != 0 
-			ORDER BY c.updated DESC
-		""", a.user.identity.id)
-	}
+	identity = a.user.identity.id
+	chats = mochi.db.rows("""
+		SELECT c.*, (SELECT count(*) FROM members WHERE chat=c.id) as members
+		FROM chats c
+		LEFT JOIN members m ON m.chat = c.id AND m.member = ?
+		WHERE m.member IS NOT NULL OR c.left != 0
+		ORDER BY c.updated DESC
+	""", identity)
+	for chat in chats:
+		if chat.get("members") == 2:
+			other = mochi.db.row(
+				"select member from members where chat=? and member<>?",
+				chat["id"], identity
+			)
+			if other:
+				chat["other"] = other["member"]
+	return {"data": chats}
 
 # Enter details of new chat
 def action_new(a):
@@ -339,7 +350,7 @@ def event_message(e):
 		attachments = mochi.attachment.list("chat/" + chat["id"] + "/" + id)
 
 	mochi.websocket.write(chat["key"], {"created": created, "name": name, "body": body, "attachments": attachments})
-	mochi.service.call("notifications", "send", "message", "Chat message", name + ": " + body, chat["id"], "/chat/" + chat["id"])
+	notify("message", chat["id"], "Chat message", name + ": " + body, "/chat/" + chat["id"])
 
 # Received a new chat event
 def event_new(e):
@@ -684,7 +695,3 @@ def action_member_remove(a):
 	mochi.websocket.write(chat["key"], {"event": "member_remove", "member": member_id})
 	return {"data": {"success": True}}
 
-def action_notifications_check(a):
-	"""Check if a notification subscription exists for this app."""
-	result = mochi.service.call("notifications", "subscriptions")
-	return {"data": {"exists": len(result) > 0}}

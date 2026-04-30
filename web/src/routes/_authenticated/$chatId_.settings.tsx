@@ -5,6 +5,7 @@ import {
   Checkbox,
   ConfirmDialog,
   EmptyState,
+  EntityAvatar,
   Label,
   PageHeader,
   Main,
@@ -333,7 +334,13 @@ function MembersSection({
                 key={member.id}
                 className='flex items-center justify-between group rounded-lg hover:bg-muted/50 px-3 py-2 transition-colors'
               >
-                <div className='flex items-center gap-2'>
+                <div className='flex items-center gap-3'>
+                  <EntityAvatar
+                    src={`/people/${member.id}/-/avatar`}
+                    styleUrl={`/people/${member.id}/-/style`}
+                    name={member.name}
+                    size="md"
+                  />
                   <span className="font-medium">{member.name}</span>
                   {isCurrentUser && (
                     <span className='text-muted-foreground text-xs'>(you)</span>

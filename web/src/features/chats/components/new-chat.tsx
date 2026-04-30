@@ -14,6 +14,7 @@ import {
   Skeleton,
   PersonPicker,
   GeneralError,
+  shellNavigateExternal,
   type Person,
 } from '@mochi/web'
 import { Loader2, MessageCircle, UserPlus } from 'lucide-react'
@@ -176,10 +177,22 @@ export function NewChat() {
             ) : error ? (
               <GeneralError error={error} minimal mode='inline' reset={refetch} />
             ) : friends.length === 0 ? (
-              <div className='flex flex-col items-center justify-center rounded-lg border py-8 text-center'>
+              <div className='flex flex-col items-center justify-center rounded-lg border px-4 py-8 text-center'>
                 <UserPlus className='text-muted-foreground mb-3 h-10 w-10 opacity-50' />
                 <p className='text-muted-foreground text-sm font-medium'>No friends yet</p>
-                <p className='text-muted-foreground mt-1 text-xs'>Add friends to start chatting</p>
+                <p className='text-muted-foreground mt-1 mb-4 text-xs'>
+                  Chats are between friends. Add a friend in the People app first.
+                </p>
+                <Button
+                  size='sm'
+                  onClick={() => {
+                    onOpenChange(false)
+                    shellNavigateExternal('/people/')
+                  }}
+                >
+                  <UserPlus className='size-4' />
+                  Open People
+                </Button>
               </div>
             ) : (
               <PersonPicker

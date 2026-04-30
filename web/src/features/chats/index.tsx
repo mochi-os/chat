@@ -1,7 +1,6 @@
 import { useEffect, useMemo, useState } from 'react'
-import { useQueryWithError, useAuthStore, usePageTitle, PageHeader, Main, GeneralError, Button, Checkbox, ConfirmDialog, IconButton, DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger, Label, shellSubscribeNotifications, toast, getErrorMessage } from '@mochi/web'
+import { useAuthStore, usePageTitle, PageHeader, Main, GeneralError, Button, Checkbox, ConfirmDialog, EntityAvatar, IconButton, DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger, Label, toast, getErrorMessage } from '@mochi/web'
 import { useNavigate, useParams } from '@tanstack/react-router'
-import { chatsApi } from '@/api/chats'
 import { ChatSkeleton } from './components/chat-skeleton'
 import {
   MoreHorizontal,
@@ -57,21 +56,6 @@ export function Chats() {
   // URL param
   const params = useParams({ strict: false }) as { chatId?: string }
   const selectedChatId = params?.chatId
-
-  // Subscription check
-  const { data: subscriptionData, refetch: refetchSubscription } = useQueryWithError({
-    queryKey: ['subscription-check', 'chat'],
-    queryFn: () => chatsApi.checkSubscription(),
-    staleTime: Infinity,
-  })
-
-  useEffect(() => {
-    if (subscriptionData?.exists === false) {
-      shellSubscribeNotifications('chat', [
-        { label: 'Messages', topic: '', defaultEnabled: true },
-      ]).then(() => refetchSubscription())
-    }
-  }, [subscriptionData?.exists, refetchSubscription])
 
   // Store last visited chat for restoration on next entry
   useEffect(() => {
@@ -271,7 +255,17 @@ export function Chats() {
       <div className='flex h-full flex-col overflow-hidden'>
         <PageHeader
           title={selectedChat.name}
-          icon={<MessageCircle className='size-4 md:size-5' />}
+          icon={
+            selectedChat.members === 2 && selectedChat.other ? (
+              <EntityAvatar
+                src={`/people/${selectedChat.other}/-/avatar`}
+                styleUrl={`/people/${selectedChat.other}/-/style`}
+                size="xl"
+              />
+            ) : (
+              <MessageCircle className='size-4 md:size-5' />
+            )
+          }
           description={subtitle || undefined}
           menuAction={
               <DropdownMenu>
