@@ -350,7 +350,7 @@ function MembersSection({
                   size='sm'
                   variant='ghost'
                   onClick={() => onRemoveMember(member, isCurrentUser)}
-                  className='text-muted-foreground hover:text-destructive hover:bg-destructive/10 h-8 w-8 p-0 opacity-0 group-hover:opacity-100 transition-opacity'
+                  className='text-muted-foreground h-8 w-8 p-0 opacity-0 group-hover:opacity-100 transition-opacity'
                 >
                   {isCurrentUser ? (
                     <LogOut className='size-4' />

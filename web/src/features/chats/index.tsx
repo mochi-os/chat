@@ -1,6 +1,6 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { useAuthStore, usePageTitle, PageHeader, Main, GeneralError, Button, Checkbox, ConfirmDialog, EntityAvatar, IconButton, DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger, Label, toast, getErrorMessage } from '@mochi/web'
-import { useNavigate, useParams } from '@tanstack/react-router'
+import { useNavigate, useParams, useSearch } from '@tanstack/react-router'
 import { ChatSkeleton } from './components/chat-skeleton'
 import {
   MoreHorizontal,
@@ -20,6 +20,7 @@ import {
   useChatDetailQuery,
   useLeaveChatMutation,
   useDeleteChatMutation,
+  useCreateChatMutation,
 } from '@/hooks/useChats'
 import { ChatEmptyState } from './components/chat-empty-state'
 import { ChatInput } from './components/chat-input'
@@ -56,6 +57,8 @@ export function Chats() {
   // URL param
   const params = useParams({ strict: false }) as { chatId?: string }
   const selectedChatId = params?.chatId
+  // Search params (only present on the index route, never on /$chatId)
+  const search = useSearch({ strict: false }) as { with?: string; name?: string }
 
   // Store last visited chat for restoration on next entry
   useEffect(() => {
@@ -70,6 +73,44 @@ export function Chats() {
     () => chatsQuery.data?.chats ?? [],
     [chatsQuery.data?.chats]
   )
+
+  // Deep-link from another app: ?with=<friend-id>&name=<chat-name>
+  // Find or create a 1-on-1 chat with that friend, then jump straight in.
+  const createChatMutation = useCreateChatMutation()
+  const deepLinkHandled = useRef(false)
+  useEffect(() => {
+    if (selectedChatId) return // already viewing a chat
+    if (!search.with || deepLinkHandled.current) return
+    if (chatsQuery.isLoading) return // wait until we know existing chats
+    deepLinkHandled.current = true
+
+    const existing = chats.find(
+      (c) => c.members === 2 && c.other === search.with && !c.left
+    )
+    if (existing) {
+      void navigate({ to: '/$chatId', params: { chatId: existing.id }, replace: true })
+      return
+    }
+
+    createChatMutation.mutate(
+      { members: search.with, name: (search.name || 'Chat').trim() || 'Chat' },
+      {
+        onSuccess: (data) => {
+          if (data?.id) {
+            void navigate({
+              to: '/$chatId',
+              params: { chatId: data.fingerprint ?? data.id },
+              replace: true,
+            })
+          }
+        },
+        onError: (error) => {
+          deepLinkHandled.current = false
+          toast.error(getErrorMessage(error, 'Failed to start chat'))
+        },
+      }
+    )
+  }, [search.with, search.name, selectedChatId, chats, chatsQuery.isLoading, createChatMutation, navigate])
 
   const selectedChat = useMemo(
     () =>

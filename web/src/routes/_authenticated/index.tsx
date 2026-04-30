@@ -3,14 +3,30 @@ import { Chats } from '@/features/chats'
 import { getLastChat, clearLastChat } from '@/hooks/useChatStorage'
 import { chatsApi } from '@/api/chats'
 
+interface IndexSearch {
+  with?: string
+  name?: string
+}
+
 export const Route = createFileRoute('/_authenticated/')({
-  loader: async () => {
+  validateSearch: (search: Record<string, unknown>): IndexSearch => ({
+    with: typeof search.with === 'string' ? search.with : undefined,
+    name: typeof search.name === 'string' ? search.name : undefined,
+  }),
+  loaderDeps: ({ search }) => ({ with: search.with }),
+  loader: async ({ deps }) => {
     let chats: Awaited<ReturnType<typeof chatsApi.list>>['chats'] = []
     try {
       const response = await chatsApi.list()
       chats = response.chats || []
     } catch {
       // Soft-fail: chat list ownership stays with useChatsQuery in the page.
+    }
+
+    // When deep-linking from another app (?with=<friend>), the page itself
+    // resolves the chat — skip the last-visited redirect.
+    if (deps.with) {
+      return { chats }
     }
 
     // Check for last visited chat and redirect if it still exists
