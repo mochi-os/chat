@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
+import { Trans, useLingui } from '@lingui/react/macro'
 import { useAuthStore, usePageTitle, PageHeader, Main, GeneralError, Button, Checkbox, ConfirmDialog, EntityAvatar, IconButton, DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger, Label, toast, getErrorMessage } from '@mochi/web'
 import { useNavigate, useParams, useSearch } from '@tanstack/react-router'
 import { ChatSkeleton } from './components/chat-skeleton'
@@ -32,7 +33,8 @@ import {
 } from './utils'
 
 export function Chats() {
-  usePageTitle('Chat')
+  const { t } = useLingui()
+  usePageTitle(t`Chat`)
 
   const navigate = useNavigate()
   const { openNewChatDialog, setWebsocketStatus } = useSidebarContext()
@@ -106,7 +108,7 @@ export function Chats() {
         },
         onError: (error) => {
           deepLinkHandled.current = false
-          toast.error(getErrorMessage(error, 'Failed to start chat'))
+          toast.error(getErrorMessage(error, t`Failed to start chat`))
         },
       }
     )
@@ -163,7 +165,7 @@ export function Chats() {
       }
     },
     onError: (error) => {
-      toast.error(getErrorMessage(error, 'Failed to leave chat'))
+      toast.error(getErrorMessage(error, t`Failed to leave chat`))
     },
   })
 
@@ -175,11 +177,11 @@ export function Chats() {
   // Delete chat (for left chats)
   const deleteChatMutation = useDeleteChatMutation({
     onSuccess: () => {
-      toast.success('Chat deleted')
+      toast.success(t`Chat deleted`)
       void navigate({ to: '/' })
     },
     onError: (error) => {
-      toast.error(getErrorMessage(error, 'Failed to delete chat'))
+      toast.error(getErrorMessage(error, t`Failed to delete chat`))
     },
   })
 
@@ -271,7 +273,7 @@ export function Chats() {
   if (!selectedChat) {
     return (
       <div className='flex h-full flex-col overflow-hidden'>
-        <PageHeader title='Chat' icon={<MessageCircle className='size-4 md:size-5' />} />
+        <PageHeader title={t`Chat`} icon={<MessageCircle className='size-4 md:size-5' />} />
         <Main className='flex min-h-0 flex-1 flex-col gap-4 overflow-hidden'>
           {chatsQuery.error ? (
             <GeneralError
@@ -313,7 +315,7 @@ export function Chats() {
                 <DropdownMenuTrigger asChild>
                   <IconButton
                     variant='ghost'
-                    label='Open chat actions'
+                    label={t`Open chat actions`}
                   >
                     <MoreHorizontal className='size-5' />
                   </IconButton>
@@ -321,14 +323,14 @@ export function Chats() {
               <DropdownMenuContent align='end' className='w-56'>
                 {selectedChat.left ? (
                   <DropdownMenuItem onClick={handleDeleteChat}>
-                    <Trash2 className='mr-2 size-4' /> Delete chat
+                    <Trash2 className='mr-2 size-4' /> <Trans>Delete chat</Trans>
                   </DropdownMenuItem>
                 ) : (
                   <>
                     <DropdownMenuItem
                       onClick={() => setShowLeaveDialog(true)}
                     >
-                      <LogOut className='mr-2 size-4' /> Leave chat
+                      <LogOut className='mr-2 size-4' /> <Trans>Leave chat</Trans>
                     </DropdownMenuItem>
                     <DropdownMenuItem
                       onClick={() =>
@@ -338,7 +340,7 @@ export function Chats() {
                         })
                       }
                     >
-                      <Settings className='mr-2 size-4' /> Chat settings
+                      <Settings className='mr-2 size-4' /> <Trans>Chat settings</Trans>
                     </DropdownMenuItem>
                   </>
                 )}
@@ -402,7 +404,7 @@ export function Chats() {
               onAttachmentSelection={handleAttachmentSelection}
               sendMessageErrorMessage={
                 sendMessageMutation.error
-                  ? getErrorMessage(sendMessageMutation.error, 'Failed to send message')
+                  ? getErrorMessage(sendMessageMutation.error, t`Failed to send message`)
                   : null
               }
             />
@@ -416,13 +418,13 @@ export function Chats() {
           setShowLeaveDialog(open)
           if (!open) setDeleteOnLeave(false)
         }}
-        title='Leave chat?'
+        title={t`Leave chat?`}
         desc={`Are you sure you want to leave "${selectedChat?.name}"? You can be added back by other members.`}
         confirmText={
           leaveChatMutation.isPending ? (
             <>
               <Loader2 className='mr-2 size-4 animate-spin' />
-              Leaving...
+              <Trans>Leaving...</Trans>
             </>
           ) : (
             'Leave'
@@ -439,7 +441,7 @@ export function Chats() {
             onCheckedChange={(checked) => setDeleteOnLeave(checked === true)}
           />
           <Label htmlFor='delete-on-leave' className='text-sm'>
-            Delete chat history
+            <Trans>Delete chat history</Trans>
           </Label>
         </div>
       </ConfirmDialog>

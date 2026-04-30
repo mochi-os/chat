@@ -1,4 +1,5 @@
 import { useMemo, useState } from 'react'
+import { Trans, useLingui } from '@lingui/react/macro'
 import { createFileRoute, useNavigate } from '@tanstack/react-router'
 import {
   Button,
@@ -51,6 +52,7 @@ export const Route = createFileRoute('/_authenticated/$chatId_/settings')({
 })
 
 function ChatSettingsPage() {
+  const { t } = useLingui()
   const { chatId } = Route.useParams()
   const navigate = useNavigate()
   const goBackToChat = () => navigate({ to: '/$chatId', params: { chatId } })
@@ -85,7 +87,7 @@ function ChatSettingsPage() {
   if (isLoadingChat && !chatDetail) {
     return (
       <div className="h-full flex flex-col">
-        <PageHeader title='Chat settings' back={{ label: 'Back to chat', onFallback: goBackToChat }} />
+        <PageHeader title={t`Chat settings`} back={{ label: 'Back to chat', onFallback: goBackToChat }} />
         <Main>
           <DetailSkeleton />
         </Main>
@@ -96,11 +98,11 @@ function ChatSettingsPage() {
   if (!chatDetail && !chatDetailError) {
     return (
       <>
-        <PageHeader title='Chat settings' back={{ label: 'Back to chat', onFallback: goBackToChat }} />
+        <PageHeader title={t`Chat settings`} back={{ label: 'Back to chat', onFallback: goBackToChat }} />
         <Main>
           <EmptyState
             icon={MessageCircle}
-            title="Chat not found"
+            title={t`Chat not found`}
             description="This chat may have been deleted or you don't have access to it"
           />
         </Main>
@@ -116,7 +118,7 @@ function ChatSettingsPage() {
       />
       <Main className='space-y-8'>
         {chatDetailError ? (
-          <Section title="General" description="Adjust chat settings">
+          <Section title={t`General`} description={t`Adjust chat settings`}>
             <GeneralError
               error={chatDetailError}
               minimal
@@ -176,6 +178,7 @@ function ChatSettingsPage() {
 }
 
 function ChatNameSection({ chatId, name }: { chatId: string, name: string }) {
+  const { t } = useLingui()
   const [isEditing, setIsEditing] = useState(false)
   const [editName, setEditName] = useState(name)
   const [nameError, setNameError] = useState<string | null>(null)
@@ -183,10 +186,10 @@ function ChatNameSection({ chatId, name }: { chatId: string, name: string }) {
   const renameMutation = useRenameChatMutation({
     onSuccess: () => {
       setIsEditing(false)
-      toast.success('Chat renamed')
+      toast.success(t`Chat renamed`)
     },
     onError: (error) => {
-      toast.error(getErrorMessage(error, 'Failed to rename chat'))
+      toast.error(getErrorMessage(error, t`Failed to rename chat`))
     },
   })
 
@@ -223,8 +226,8 @@ function ChatNameSection({ chatId, name }: { chatId: string, name: string }) {
   }
 
   return (
-    <Section title="General" description="Adjust chat settings">
-      <FieldRow label="Chat name">
+    <Section title={t`General`} description={t`Adjust chat settings`}>
+      <FieldRow label={t`Chat name`}>
         {isEditing ? (
           <div className='flex flex-col gap-1 w-full max-w-md'>
             <div className='flex items-center gap-2'>
@@ -283,7 +286,7 @@ function ChatNameSection({ chatId, name }: { chatId: string, name: string }) {
           </div>
         )}
       </FieldRow>
-      <FieldRow label="Chat ID">
+      <FieldRow label={t`Chat ID`}>
         <DataChip value={chatId} truncate='middle' />
       </FieldRow>
     </Section>
@@ -310,14 +313,15 @@ function MembersSection({
     isCurrentUser: boolean
   ) => void
 }) {
+  const { t } = useLingui()
   return (
     <Section
-      title="Members"
-      description="List of people in this chat"
+      title={t`Members`}
+      description={t`List of people in this chat`}
       action={!error && !isLoading ? (
         <Button size='sm' onClick={onAddMember} variant="outline">
           <UserPlus className='mr-2 size-4' />
-          Add member
+          <Trans>Add member</Trans>
         </Button>
       ) : undefined}
     >
@@ -380,15 +384,16 @@ function LeaveDialog({
   chatName: string
   onSuccess: () => void
 }) {
+  const { t } = useLingui()
   const [deleteOnLeave, setDeleteOnLeave] = useState(false)
 
   const leaveMutation = useLeaveChatMutation({
     onSuccess: () => {
-      toast.success('Left chat')
+      toast.success(t`Left chat`)
       onSuccess()
     },
     onError: (error) => {
-      toast.error(getErrorMessage(error, 'Failed to leave chat'))
+      toast.error(getErrorMessage(error, t`Failed to leave chat`))
     },
   })
 
@@ -403,13 +408,13 @@ function LeaveDialog({
         onOpenChange(isOpen)
         if (!isOpen) setDeleteOnLeave(false)
       }}
-      title='Leave chat?'
+      title={t`Leave chat?`}
       desc={`Are you sure you want to leave "${chatName}"? You can be added back by other members.`}
       confirmText={
         leaveMutation.isPending ? (
           <>
             <Loader2 className='mr-2 size-4 animate-spin' />
-            Leaving...
+            <Trans>Leaving...</Trans>
           </>
         ) : (
           'Leave chat'
@@ -426,7 +431,7 @@ function LeaveDialog({
           onCheckedChange={(checked) => setDeleteOnLeave(checked === true)}
         />
         <Label htmlFor='delete-on-leave-settings' className='text-sm font-medium'>
-          Delete chat history
+          <Trans>Delete chat history</Trans>
         </Label>
       </div>
     </ConfirmDialog>
@@ -446,6 +451,7 @@ function AddMemberDialog({
   existingMemberIds: string[]
   onSuccess: () => void
 }) {
+  const { t } = useLingui()
   const { data: friendsData, isLoading: isLoadingFriends, error, refetch } =
     useNewChatFriendsQuery({
       enabled: open,
@@ -453,12 +459,12 @@ function AddMemberDialog({
 
   const addMemberMutation = useAddMemberMutation({
     onSuccess: () => {
-      toast.success('Member added')
+      toast.success(t`Member added`)
       onSuccess()
       onOpenChange(false)
     },
     onError: (error) => {
-      toast.error(getErrorMessage(error, 'Failed to add member'))
+      toast.error(getErrorMessage(error, t`Failed to add member`))
     },
   })
 
@@ -475,9 +481,9 @@ function AddMemberDialog({
     <ResponsiveDialog open={open} onOpenChange={onOpenChange}>
       <ResponsiveDialogContent>
         <ResponsiveDialogHeader>
-          <ResponsiveDialogTitle>Add member</ResponsiveDialogTitle>
+          <ResponsiveDialogTitle><Trans>Add member</Trans></ResponsiveDialogTitle>
           <ResponsiveDialogDescription>
-            Select a friend to add to this chat.
+            <Trans>Select a friend to add to this chat.</Trans>
           </ResponsiveDialogDescription>
         </ResponsiveDialogHeader>
         <div className='max-h-[300px] overflow-y-auto mt-2'>
@@ -490,8 +496,8 @@ function AddMemberDialog({
           ) : availableFriends.length === 0 ? (
             <EmptyState
               icon={UserPlus}
-              title="No friends available"
-              description="All your friends are already in this chat"
+              title={t`No friends available`}
+              description={t`All your friends are already in this chat`}
             />
           ) : (
             <div className='space-y-1'>
@@ -527,13 +533,14 @@ function RemoveMemberDialog({
   member: { id: string; name: string } | null
   onSuccess: () => void
 }) {
+  const { t } = useLingui()
   const removeMemberMutation = useRemoveMemberMutation({
     onSuccess: () => {
-      toast.success('Member removed')
+      toast.success(t`Member removed`)
       onSuccess()
     },
     onError: (error) => {
-      toast.error(getErrorMessage(error, 'Failed to remove member'))
+      toast.error(getErrorMessage(error, t`Failed to remove member`))
     },
   })
 
@@ -546,13 +553,13 @@ function RemoveMemberDialog({
     <ConfirmDialog
       open={open}
       onOpenChange={onOpenChange}
-      title='Remove member?'
+      title={t`Remove member?`}
       desc={`Are you sure you want to remove ${member?.name} from this chat?`}
       confirmText={
         removeMemberMutation.isPending ? (
           <>
             <Loader2 className='mr-2 size-4 animate-spin' />
-            Removing...
+            <Trans>Removing...</Trans>
           </>
         ) : (
           'Remove'

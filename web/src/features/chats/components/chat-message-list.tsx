@@ -7,6 +7,7 @@ import {
   useRef,
 } from 'react'
 import { useFormat } from '@mochi/web'
+import { Trans } from '@lingui/react/macro'
 import type {
   UseInfiniteQueryResult,
   InfiniteData,
@@ -163,7 +164,7 @@ export function ChatMessageList({
     return (
       <div className='flex flex-1 flex-col items-center justify-center py-8 text-center'>
         <MessageCircle className='text-muted-foreground mb-2 h-8 w-8' />
-        <p className='text-muted-foreground text-sm'>No messages yet</p>
+        <p className='text-muted-foreground text-sm'><Trans>No messages yet</Trans></p>
       </div>
     )
   }

@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from 'react'
+import { Trans, useLingui } from '@lingui/react/macro'
 import { useNavigate } from '@tanstack/react-router'
 import {
   Button,
@@ -22,6 +23,7 @@ import { useSidebarContext } from '@/context/sidebar-context'
 import { useNewChatFriendsQuery, useCreateChatMutation } from '@/hooks/useChats'
 
 export function NewChat() {
+  const { t } = useLingui()
   const navigate = useNavigate()
   const { newChatDialogOpen: open, closeNewChatDialog } = useSidebarContext()
   const onOpenChange = (isOpen: boolean) => {
@@ -45,13 +47,13 @@ export function NewChat() {
       onOpenChange(false)
       if (data.id) {
         navigate({ to: '/$chatId', params: { chatId: data.fingerprint ?? data.id } })
-        toast.success('Chat ready')
+        toast.success(t`Chat ready`)
       } else {
-        toast.success('Chat created')
+        toast.success(t`Chat created`)
       }
     },
     onError: (error) => {
-      toast.error(getErrorMessage(error, 'Failed to create chat'))
+      toast.error(getErrorMessage(error, t`Failed to create chat`))
     },
   })
 
@@ -113,17 +115,17 @@ export function NewChat() {
 
   const handleCreateChat = () => {
     if (selectedFriends.length === 0) {
-      toast.error('Please select at least one friend')
+      toast.error(t`Please select at least one friend`)
       return
     }
 
     if (hasExistingDirectChat) {
-      toast.error('You already have a chat with this friend')
+      toast.error(t`You already have a chat with this friend`)
       return
     }
 
     if (!trimmedChatName) {
-      toast.error('Please provide a chat name')
+      toast.error(t`Please provide a chat name`)
       return
     }
 
@@ -161,17 +163,17 @@ export function NewChat() {
         <ResponsiveDialogHeader>
           <ResponsiveDialogTitle className='flex items-center gap-2'>
             <MessageCircle className='size-5' />
-            New chat
+            <Trans>New chat</Trans>
           </ResponsiveDialogTitle>
           <ResponsiveDialogDescription className='sr-only'>
-            Create a new chat
+            <Trans>Create a new chat</Trans>
           </ResponsiveDialogDescription>
         </ResponsiveDialogHeader>
 
         <div className='space-y-4'>
           {/* Friend Picker */}
           <div className='space-y-2'>
-            <label className='text-sm font-medium'>Friends</label>
+            <label className='text-sm font-medium'><Trans>Friends</Trans></label>
             {isLoading ? (
               <Skeleton className='h-9 w-full' />
             ) : error ? (
@@ -179,9 +181,9 @@ export function NewChat() {
             ) : friends.length === 0 ? (
               <div className='flex flex-col items-center justify-center rounded-lg border px-4 py-8 text-center'>
                 <UserPlus className='text-muted-foreground mb-3 h-10 w-10 opacity-50' />
-                <p className='text-muted-foreground text-sm font-medium'>No friends yet</p>
+                <p className='text-muted-foreground text-sm font-medium'><Trans>No friends yet</Trans></p>
                 <p className='text-muted-foreground mt-1 mb-4 text-xs'>
-                  Chats are between friends. Add a friend in the People app first.
+                  <Trans>Chats are between friends. Add a friend in the People app first.</Trans>
                 </p>
                 <Button
                   size='sm'
@@ -191,7 +193,7 @@ export function NewChat() {
                   }}
                 >
                   <UserPlus className='size-4' />
-                  Open People
+                  <Trans>Open People</Trans>
                 </Button>
               </div>
             ) : (
@@ -200,7 +202,7 @@ export function NewChat() {
                 value={selectedFriends}
                 onChange={handleFriendsChange}
                 local={friendsAsPeople}
-                placeholder='Select friends...'
+                placeholder={t`Select friends...`}
                 emptyMessage='No friends found'
                 open={friendsPickerOpen}
                 onOpenChange={setFriendsPickerOpen}
@@ -224,7 +226,7 @@ export function NewChat() {
                       onClick={() => handleOpenChat(chat.chatId)}
                     >
                       <MessageCircle className='mr-1.5 h-3 w-3' />
-                      Open
+                      <Trans>Open</Trans>
                     </Button>
                   </div>
                 ))}
@@ -234,10 +236,10 @@ export function NewChat() {
 
           {/* Chat Name */}
           <div className='space-y-2'>
-            <label className='text-sm font-medium'>Chat name</label>
+            <label className='text-sm font-medium'><Trans>Chat name</Trans></label>
             <Input
               id='chat-name'
-              placeholder='Chat name...'
+              placeholder={t`Chat name...`}
               value={chatName}
               onChange={(e) => setChatName(e.target.value)}
             />
@@ -250,7 +252,7 @@ export function NewChat() {
             onClick={() => onOpenChange(false)}
             disabled={createChatMutation.isPending}
           >
-            Cancel
+            <Trans>Cancel</Trans>
           </Button>
           <Button onClick={handleCreateChat} disabled={!canSubmit}>
             {createChatMutation.isPending ? (
