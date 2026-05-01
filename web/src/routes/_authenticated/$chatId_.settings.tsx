@@ -26,6 +26,7 @@ import {
   FieldRow,
   DataChip,
   DetailSkeleton,
+  naturalCompare,
 } from '@mochi/web'
 import {
   Loader2,
@@ -71,7 +72,10 @@ function ChatSettingsPage() {
     refetch: refetchMembers,
   } = useChatMembersQuery(chatId)
 
-  const members = membersData?.members ?? []
+  const members = useMemo(
+    () => [...(membersData?.members ?? [])].sort((a, b) => naturalCompare(a.name, b.name)),
+    [membersData]
+  )
 
   usePageTitle(
     chatDetail?.chat.name ? `${chatDetail.chat.name} settings` : 'Chat settings'

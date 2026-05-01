@@ -16,8 +16,7 @@ import {
   PersonPicker,
   GeneralError,
   shellNavigateExternal,
-  type Person,
-} from '@mochi/web'
+  type Person, naturalCompare,} from '@mochi/web'
 import { Loader2, MessageCircle, UserPlus } from 'lucide-react'
 import { useSidebarContext } from '@/context/sidebar-context'
 import { useNewChatFriendsQuery, useCreateChatMutation } from '@/hooks/useChats'
@@ -94,7 +93,7 @@ export function NewChat() {
       setChatName(selectedNames[0] || '')
     } else {
       const allNames = myName ? [...selectedNames, myName] : selectedNames
-      allNames.sort((a, b) => a.localeCompare(b))
+      allNames.sort((a, b) => naturalCompare(a, b))
       setChatName(allNames.join(', '))
     }
   }, [selectedFriends, friends, myName])
