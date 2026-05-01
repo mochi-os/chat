@@ -1,6 +1,7 @@
 import { Button, EmptyState } from '@mochi/web'
 import { Trans } from '@lingui/react/macro'
 import { MessageCircle, Plus } from 'lucide-react'
+import { t } from '@lingui/core/macro'
 
 interface ChatEmptyStateProps {
   onNewChat: () => void
@@ -13,8 +14,8 @@ export function ChatEmptyState({ onNewChat, hasExistingChats }: ChatEmptyStatePr
       <div className='flex h-full w-full flex-1 flex-col items-center justify-center'>
         <EmptyState
           icon={MessageCircle}
-          title={"Select a chat"}
-          description={"Choose a conversation from the sidebar or start a new one."}
+          title={t`Select a chat`}
+          description={t`Choose a conversation from the sidebar or start a new one.`}
         >
           <Button onClick={onNewChat} variant="outline">
             <Plus className='size-4' />
@@ -29,7 +30,7 @@ export function ChatEmptyState({ onNewChat, hasExistingChats }: ChatEmptyStatePr
     <div className='flex h-full w-full flex-1 flex-col items-center justify-center'>
       <EmptyState
         icon={MessageCircle}
-        title={"Start a conversation"}
+        title={t`Start a conversation`}
         description="You haven't started any chats yet. Connect with a friend to get things rolling."
       >
         <Button size='lg' onClick={onNewChat}>

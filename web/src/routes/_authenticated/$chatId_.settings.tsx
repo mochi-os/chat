@@ -230,7 +230,7 @@ function ChatNameSection({ chatId, name }: { chatId: string, name: string }) {
   }
 
   return (
-    <Section title={t`General`} description={"Adjust chat settings"}>
+    <Section title={t`General`} description={t`Adjust chat settings`}>
       <FieldRow label={t`Chat name`}>
         {isEditing ? (
           <div className='flex flex-col gap-1 w-full max-w-md'>
@@ -501,7 +501,7 @@ function AddMemberDialog({
             <EmptyState
               icon={UserPlus}
               title={t`No friends available`}
-              description={"All your friends are already in this chat"}
+              description={t`All your friends are already in this chat`}
             />
           ) : (
             <div className='space-y-1'>
