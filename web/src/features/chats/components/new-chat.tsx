@@ -224,7 +224,7 @@ export function NewChat() {
                       size='xs'
                       onClick={() => handleOpenChat(chat.chatId)}
                     >
-                      <MessageCircle className='mr-1.5 h-3 w-3' />
+                      <MessageCircle className='me-1.5 h-3 w-3' />
                       <Trans>Open</Trans>
                     </Button>
                   </div>

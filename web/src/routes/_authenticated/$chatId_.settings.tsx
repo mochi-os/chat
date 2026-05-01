@@ -324,7 +324,7 @@ function MembersSection({
       description={t`List of people in this chat`}
       action={!error && !isLoading ? (
         <Button size='sm' onClick={onAddMember} variant="outline">
-          <UserPlus className='mr-2 size-4' />
+          <UserPlus className='me-2 size-4' />
           <Trans>Add member</Trans>
         </Button>
       ) : undefined}
@@ -417,7 +417,7 @@ function LeaveDialog({
       confirmText={
         leaveMutation.isPending ? (
           <>
-            <Loader2 className='mr-2 size-4 animate-spin' />
+            <Loader2 className='me-2 size-4 animate-spin' />
             <Trans>Leaving...</Trans>
           </>
         ) : (
@@ -509,7 +509,7 @@ function AddMemberDialog({
                 <button
                   key={friend.id}
                   aria-label={`Add ${friend.name} to chat`}
-                  className='hover:bg-accent flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-left disabled:opacity-50 transition-colors'
+                  className='hover:bg-accent flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-start disabled:opacity-50 transition-colors'
                   onClick={() => handleAddMember(friend.id)}
                   disabled={addMemberMutation.isPending}
                 >
@@ -562,7 +562,7 @@ function RemoveMemberDialog({
       confirmText={
         removeMemberMutation.isPending ? (
           <>
-            <Loader2 className='mr-2 size-4 animate-spin' />
+            <Loader2 className='me-2 size-4 animate-spin' />
             <Trans>Removing...</Trans>
           </>
         ) : (

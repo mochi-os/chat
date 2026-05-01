@@ -19,7 +19,7 @@ export function ChatSkeleton() {
             >
               <Skeleton
                 className={`h-10 w-[60%] rounded-2xl ${
-                  i % 2 === 0 ? 'rounded-bl-lg' : 'rounded-br-lg'
+                  i % 2 === 0 ? 'rounded-es-lg' : 'rounded-ee-lg'
                 }`}
               />
               <Skeleton className='h-3 w-12 rounded-full' />

@@ -138,7 +138,7 @@ export function ChatInput({
                       onMoveAttachment(attachment.id, 'left')
                     }}
                   >
-                    <ArrowLeft className='size-4' />
+                    <ArrowLeft className='size-4 rtl:rotate-180' />
                   </button>
                   <button
                     type='button'
@@ -150,7 +150,7 @@ export function ChatInput({
                       onMoveAttachment(attachment.id, 'right')
                     }}
                   >
-                    <ArrowRight className='size-4' />
+                    <ArrowRight className='size-4 rtl:rotate-180' />
                   </button>
                   <button
                     type='button'
@@ -178,7 +178,7 @@ export function ChatInput({
         </div>
       )}
       {sendMessageErrorMessage && (
-        <p className='text-destructive w-full pe-2 text-right text-xs'>
+        <p className='text-destructive w-full pe-2 text-end text-xs'>
           {sendMessageErrorMessage}
         </p>
       )}

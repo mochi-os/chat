@@ -323,14 +323,14 @@ export function Chats() {
               <DropdownMenuContent align='end' className='w-56'>
                 {selectedChat.left ? (
                   <DropdownMenuItem onClick={handleDeleteChat}>
-                    <Trash2 className='mr-2 size-4' /> <Trans>Delete chat</Trans>
+                    <Trash2 className='me-2 size-4' /> <Trans>Delete chat</Trans>
                   </DropdownMenuItem>
                 ) : (
                   <>
                     <DropdownMenuItem
                       onClick={() => setShowLeaveDialog(true)}
                     >
-                      <LogOut className='mr-2 size-4' /> <Trans>Leave chat</Trans>
+                      <LogOut className='me-2 size-4' /> <Trans>Leave chat</Trans>
                     </DropdownMenuItem>
                     <DropdownMenuItem
                       onClick={() =>
@@ -340,7 +340,7 @@ export function Chats() {
                         })
                       }
                     >
-                      <Settings className='mr-2 size-4' /> <Trans>Chat settings</Trans>
+                      <Settings className='me-2 size-4' /> <Trans>Chat settings</Trans>
                     </DropdownMenuItem>
                   </>
                 )}
@@ -382,9 +382,9 @@ export function Chats() {
                   disabled={deleteChatMutation.isPending}
                 >
                   {deleteChatMutation.isPending ? (
-                    <Loader2 className='mr-2 size-4 animate-spin' />
+                    <Loader2 className='me-2 size-4 animate-spin' />
                   ) : (
-                    <Trash2 className='mr-2 size-4' />
+                    <Trash2 className='me-2 size-4' />
                   )}
                   Delete chat
                 </Button>
@@ -422,7 +422,7 @@ export function Chats() {
         confirmText={
           leaveChatMutation.isPending ? (
             <>
-              <Loader2 className='mr-2 size-4 animate-spin' />
+              <Loader2 className='me-2 size-4 animate-spin' />
               <Trans>Leaving...</Trans>
             </>
           ) : (

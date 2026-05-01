@@ -136,7 +136,7 @@ export function ChatMessageList({
             <Skeleton
               className={cn(
                 'h-10 w-[60%] rounded-[16px]',
-                i % 2 === 0 ? 'rounded-bl-[4px]' : 'rounded-br-[4px]'
+                i % 2 === 0 ? 'rounded-es-[4px]' : 'rounded-ee-[4px]'
               )}
             />
             <Skeleton className='h-3 w-12 rounded-full' />
