@@ -178,6 +178,7 @@ function ChatSettingsPage() {
 }
 
 function ChatNameSection({ chatId, name }: { chatId: string, name: string }) {
+  const { t } = useLingui()
   const [isEditing, setIsEditing] = useState(false)
   const [editName, setEditName] = useState(name)
   const [nameError, setNameError] = useState<string | null>(null)
@@ -185,10 +186,10 @@ function ChatNameSection({ chatId, name }: { chatId: string, name: string }) {
   const renameMutation = useRenameChatMutation({
     onSuccess: () => {
       setIsEditing(false)
-      toast.success("Chat renamed")
+      toast.success(t`Chat renamed`)
     },
     onError: (error) => {
-      toast.error(getErrorMessage(error, "Failed to rename chat"))
+      toast.error(getErrorMessage(error, t`Failed to rename chat`))
     },
   })
 
@@ -382,15 +383,16 @@ function LeaveDialog({
   chatName: string
   onSuccess: () => void
 }) {
+  const { t } = useLingui()
   const [deleteOnLeave, setDeleteOnLeave] = useState(false)
 
   const leaveMutation = useLeaveChatMutation({
     onSuccess: () => {
-      toast.success("Left chat")
+      toast.success(t`Left chat`)
       onSuccess()
     },
     onError: (error) => {
-      toast.error(getErrorMessage(error, "Failed to leave chat"))
+      toast.error(getErrorMessage(error, t`Failed to leave chat`))
     },
   })
 
@@ -448,6 +450,7 @@ function AddMemberDialog({
   existingMemberIds: string[]
   onSuccess: () => void
 }) {
+  const { t } = useLingui()
   const { data: friendsData, isLoading: isLoadingFriends, error, refetch } =
     useNewChatFriendsQuery({
       enabled: open,
@@ -455,12 +458,12 @@ function AddMemberDialog({
 
   const addMemberMutation = useAddMemberMutation({
     onSuccess: () => {
-      toast.success("Member added")
+      toast.success(t`Member added`)
       onSuccess()
       onOpenChange(false)
     },
     onError: (error) => {
-      toast.error(getErrorMessage(error, "Failed to add member"))
+      toast.error(getErrorMessage(error, t`Failed to add member`))
     },
   })
 
@@ -529,13 +532,14 @@ function RemoveMemberDialog({
   member: { id: string; name: string } | null
   onSuccess: () => void
 }) {
+  const { t } = useLingui()
   const removeMemberMutation = useRemoveMemberMutation({
     onSuccess: () => {
-      toast.success("Member removed")
+      toast.success(t`Member removed`)
       onSuccess()
     },
     onError: (error) => {
-      toast.error(getErrorMessage(error, "Failed to remove member"))
+      toast.error(getErrorMessage(error, t`Failed to remove member`))
     },
   })
 

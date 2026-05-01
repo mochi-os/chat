@@ -165,7 +165,7 @@ export function Chats() {
       }
     },
     onError: (error) => {
-      toast.error(getErrorMessage(error, "Failed to leave chat"))
+      toast.error(getErrorMessage(error, t`Failed to leave chat`))
     },
   })
 
@@ -177,11 +177,11 @@ export function Chats() {
   // Delete chat (for left chats)
   const deleteChatMutation = useDeleteChatMutation({
     onSuccess: () => {
-      toast.success("Chat deleted")
+      toast.success(t`Chat deleted`)
       void navigate({ to: '/' })
     },
     onError: (error) => {
-      toast.error(getErrorMessage(error, "Failed to delete chat"))
+      toast.error(getErrorMessage(error, t`Failed to delete chat`))
     },
   })
 
@@ -403,7 +403,7 @@ export function Chats() {
               onAttachmentSelection={handleAttachmentSelection}
               sendMessageErrorMessage={
                 sendMessageMutation.error
-                  ? getErrorMessage(sendMessageMutation.error, "Failed to send message")
+                  ? getErrorMessage(sendMessageMutation.error, t`Failed to send message`)
                   : null
               }
             />
