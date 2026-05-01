@@ -2,7 +2,7 @@
 # Copyright Alistair Cunningham 2024-2026
 
 def notify(topic, object="", title="", body="", url=""):
-	mochi.service.call("notifications", "send", topic, object, title, body, url, mochi.app.label("notification_topic_" + topic.replace("/", "_")))
+	mochi.service.call("notifications", "send", topic, object, title, body, url, mochi.app.label("notifications.topic." + topic.replace("/", ".")))
 
 # Create database
 def database_create():
@@ -56,7 +56,7 @@ def action_message_asset(a):
 # Create new chat
 def action_create(a):
 	name = a.input("name")
-	if not mochi.valid(name, "name"):
+	if not mochi.text.valid(name, "name"):
 		a.error_label(400, "errors.invalid_chat_name")
 		return
 
@@ -66,7 +66,7 @@ def action_create(a):
 	members_str = a.input("members")
 	if members_str:
 		for member_id in members_str.split(","):
-			if not mochi.valid(member_id, "entity"):
+			if not mochi.text.valid(member_id, "entity"):
 				continue
 			if member_id == a.user.identity.id:
 				continue
@@ -176,7 +176,7 @@ def action_new(a):
 
 # Get messages for a chat with cursor-based pagination
 def action_messages(a):
-	if not mochi.valid(a.input("chat"), "id"):
+	if not mochi.text.valid(a.input("chat"), "id"):
 		a.error_label(400, "errors.invalid_chat_id")
 		return
 	chat = mochi.db.row("select * from chats where id=?", a.input("chat"))
@@ -193,12 +193,12 @@ def action_messages(a):
 	# Pagination parameters
 	limit = 30
 	limit_str = a.input("limit")
-	if limit_str and mochi.valid(limit_str, "natural"):
+	if limit_str and mochi.text.valid(limit_str, "natural"):
 		limit = min(int(limit_str), 100)
 
 	before = None
 	before_str = a.input("before")
-	if before_str and mochi.valid(before_str, "natural"):
+	if before_str and mochi.text.valid(before_str, "natural"):
 		before = int(before_str)
 
 	# Fetch messages (newest first internally, then reverse for chronological display)
@@ -233,7 +233,7 @@ def action_messages(a):
 
 # Send a message
 def action_send(a):
-	if not mochi.valid(a.input("chat"), "id"):
+	if not mochi.text.valid(a.input("chat"), "id"):
 		a.error_label(400, "errors.invalid_chat_id")
 		return
 	chat = mochi.db.row("select * from chats where id=?", a.input("chat"))
@@ -246,7 +246,7 @@ def action_send(a):
 		return
 
 	body = a.input("body", "")
-	if not mochi.valid(body, "text"):
+	if not mochi.text.valid(body, "text"):
 		a.error_label(400, "errors.invalid_message")
 		return
 	if len(body) > 10000:
@@ -287,7 +287,7 @@ def action_send(a):
 
 # View a chat
 def action_view(a):
-	if not mochi.valid(a.input("chat"), "id"):
+	if not mochi.text.valid(a.input("chat"), "id"):
 		a.error_label(400, "errors.invalid_chat_id")
 		return
 	chat = mochi.db.row("select * from chats where id=?", a.input("chat"))
@@ -301,7 +301,7 @@ def action_view(a):
 		a.error_label(403, "errors.not_a_member_of_this_chat")
 		return
 
-	members = mochi.db.rows("select member as id, name from members where chat=? order by name", chat["id"])
+	members = mochi.db.rows("select member as id, name from members where chat=?", chat["id"])
 	chat["members"] = members
 
 	mochi.service.call("notifications", "clear/object", "chat", chat["id"])
@@ -320,11 +320,11 @@ def event_message(e):
 		return
 
 	id = e.content("message")
-	if not mochi.valid(str(id), "id"):
+	if not mochi.text.valid(str(id), "id"):
 		return
 
 	created = e.content("created")
-	if not mochi.valid(str(created), "integer"):
+	if not mochi.text.valid(str(created), "integer"):
 		return
 
 	# Validate timestamp is within reasonable range (not more than 1 day in future or 1 year in past)
@@ -333,7 +333,7 @@ def event_message(e):
 		return
 
 	body = e.content("body")
-	if not mochi.valid(str(body), "text"):
+	if not mochi.text.valid(str(body), "text"):
 		return
 	if len(str(body)) > 10000:
 		return
@@ -359,11 +359,11 @@ def event_new(e):
 		return
 
 	chat = e.content("id")
-	if not mochi.valid(chat, "id"):
+	if not mochi.text.valid(chat, "id"):
 		return
 
 	name = e.content("name")
-	if not mochi.valid(name, "name"):
+	if not mochi.text.valid(name, "name"):
 		return
 
 	# Use insert or ignore to handle concurrent events atomically
@@ -378,9 +378,9 @@ def event_new(e):
 		return
 
 	for member in members:
-		if not mochi.valid(member["id"], "entity"):
+		if not mochi.text.valid(member["id"], "entity"):
 			continue
-		if not mochi.valid(member["name"], "name"):
+		if not mochi.text.valid(member["name"], "name"):
 			continue
 		mochi.db.execute("replace into members ( chat, member, name ) values ( ?, ?, ? )", chat, member["id"], member["name"])
 
@@ -399,7 +399,7 @@ def event_rename(e):
 		return
 
 	name = e.content("name")
-	if not mochi.valid(name, "name"):
+	if not mochi.text.valid(name, "name"):
 		return
 
 	mochi.db.execute("update chats set name=?, updated=? where id=?", name, mochi.time.now(), chat["id"])
@@ -412,7 +412,7 @@ def event_leave(e):
 		return
 
 	member = e.content("member")
-	if not mochi.valid(member, "entity"):
+	if not mochi.text.valid(member, "entity"):
 		return
 
 	# Verify the event is from the member who is leaving
@@ -437,11 +437,11 @@ def event_member_add(e):
 		return
 
 	member = e.content("member")
-	if not mochi.valid(member, "entity"):
+	if not mochi.text.valid(member, "entity"):
 		return
 
 	name = e.content("name")
-	if not mochi.valid(name, "name"):
+	if not mochi.text.valid(name, "name"):
 		return
 
 	mochi.db.execute("replace into members (chat, member, name) values (?, ?, ?)", chat["id"], member, name)
@@ -463,7 +463,7 @@ def event_member_remove(e):
 		return
 
 	member = e.content("member")
-	if not mochi.valid(member, "entity"):
+	if not mochi.text.valid(member, "entity"):
 		return
 
 	mochi.db.execute("delete from members where chat=? and member=?", chat["id"], member)
@@ -486,7 +486,7 @@ def event_removed(e):
 
 # List members of a chat
 def action_members(a):
-	if not mochi.valid(a.input("chat"), "id"):
+	if not mochi.text.valid(a.input("chat"), "id"):
 		a.error_label(400, "errors.invalid_chat_id")
 		return
 	chat = mochi.db.row("select * from chats where id=?", a.input("chat"))
@@ -498,12 +498,12 @@ def action_members(a):
 		a.error_label(403, "errors.not_a_member_of_this_chat")
 		return
 
-	members = mochi.db.rows("select member as id, name from members where chat=? order by name", chat["id"])
+	members = mochi.db.rows("select member as id, name from members where chat=?", chat["id"])
 	return {"data": {"members": members}}
 
 # Rename a chat
 def action_rename(a):
-	if not mochi.valid(a.input("chat"), "id"):
+	if not mochi.text.valid(a.input("chat"), "id"):
 		a.error_label(400, "errors.invalid_chat_id")
 		return
 	chat = mochi.db.row("select * from chats where id=?", a.input("chat"))
@@ -516,7 +516,7 @@ def action_rename(a):
 		return
 
 	name = a.input("name")
-	if not mochi.valid(name, "name"):
+	if not mochi.text.valid(name, "name"):
 		a.error_label(400, "errors.invalid_chat_name")
 		return
 
@@ -532,7 +532,7 @@ def action_rename(a):
 
 # Leave a chat
 def action_leave(a):
-	if not mochi.valid(a.input("chat"), "id"):
+	if not mochi.text.valid(a.input("chat"), "id"):
 		a.error_label(400, "errors.invalid_chat_id")
 		return
 	chat = mochi.db.row("select * from chats where id=?", a.input("chat"))
@@ -579,7 +579,7 @@ def action_leave(a):
 
 # Delete a chat locally (for left chats)
 def action_delete(a):
-	if not mochi.valid(a.input("chat"), "id"):
+	if not mochi.text.valid(a.input("chat"), "id"):
 		a.error_label(400, "errors.invalid_chat_id")
 		return
 	chat = mochi.db.row("select * from chats where id=?", a.input("chat"))
@@ -601,7 +601,7 @@ def action_delete(a):
 
 # Add a member to a chat
 def action_member_add(a):
-	if not mochi.valid(a.input("chat"), "id"):
+	if not mochi.text.valid(a.input("chat"), "id"):
 		a.error_label(400, "errors.invalid_chat_id")
 		return
 	chat = mochi.db.row("select * from chats where id=?", a.input("chat"))
@@ -614,7 +614,7 @@ def action_member_add(a):
 		return
 
 	member_id = a.input("member")
-	if not mochi.valid(member_id, "entity"):
+	if not mochi.text.valid(member_id, "entity"):
 		a.error_label(400, "errors.invalid_member_id")
 		return
 
@@ -652,7 +652,7 @@ def action_member_add(a):
 
 # Remove a member from a chat
 def action_member_remove(a):
-	if not mochi.valid(a.input("chat"), "id"):
+	if not mochi.text.valid(a.input("chat"), "id"):
 		a.error_label(400, "errors.invalid_chat_id")
 		return
 	chat = mochi.db.row("select * from chats where id=?", a.input("chat"))
@@ -665,7 +665,7 @@ def action_member_remove(a):
 		return
 
 	member_id = a.input("member")
-	if not mochi.valid(member_id, "entity"):
+	if not mochi.text.valid(member_id, "entity"):
 		a.error_label(400, "errors.invalid_member_id")
 		return
 
