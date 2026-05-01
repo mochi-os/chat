@@ -273,7 +273,7 @@ export function Chats() {
   if (!selectedChat) {
     return (
       <div className='flex h-full flex-col overflow-hidden'>
-        <PageHeader title={"Chat"} icon={<MessageCircle className='size-4 md:size-5' />} />
+        <PageHeader title={t`Chat`} icon={<MessageCircle className='size-4 md:size-5' />} />
         <Main className='flex min-h-0 flex-1 flex-col gap-4 overflow-hidden'>
           {chatsQuery.error ? (
             <GeneralError
@@ -315,7 +315,7 @@ export function Chats() {
                 <DropdownMenuTrigger asChild>
                   <IconButton
                     variant='ghost'
-                    label={"Open chat actions"}
+                    label={t`Open chat actions`}
                   >
                     <MoreHorizontal className='size-5' />
                   </IconButton>
@@ -417,7 +417,7 @@ export function Chats() {
           setShowLeaveDialog(open)
           if (!open) setDeleteOnLeave(false)
         }}
-        title={"Leave chat?"}
+        title={t`Leave chat?`}
         desc={`Are you sure you want to leave "${selectedChat?.name}"? You can be added back by other members.`}
         confirmText={
           leaveChatMutation.isPending ? (

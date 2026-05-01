@@ -42,8 +42,12 @@ msgstr "アカウントを追加"
 msgid "Add an account to receive notifications and use services."
 msgstr "通知を受け取り、サービスを利用するには、アカウントを追加してください。"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:323
-#: src/routes/_authenticated/$chatId_.settings.tsx:483
+#: src/features/chats/components/chat-input.tsx:55
+msgid "Add attachment"
+msgstr "添付を追加"
+
+#: src/routes/_authenticated/$chatId_.settings.tsx:324
+#: src/routes/_authenticated/$chatId_.settings.tsx:484
 msgid "Add member"
 msgstr "メンバーを追加"
 
@@ -66,6 +70,10 @@ msgstr "チャット設定を調整"
 #: ../../../lib/web/src/components/config-drawer.tsx:62
 msgid "Adjust the appearance and layout to suit your preferences."
 msgstr "外観とレイアウトをお好みに合わせて調整できます。"
+
+#: ../../../lib/web/src/components/ui/sort-selector.tsx:38
+msgid "AI"
+msgstr "AI"
 
 #: ../../../lib/web/src/components/notifications-dropdown.tsx:158
 msgid "All"
@@ -106,6 +114,7 @@ msgid "Category for this notification"
 msgstr "この通知のカテゴリ"
 
 #: src/features/chats/index.tsx:37
+#: src/features/chats/index.tsx:276
 msgid "Chat"
 msgstr "チャット"
 
@@ -117,7 +126,12 @@ msgstr "チャットを作成しました"
 msgid "Chat deleted"
 msgstr "チャットを削除しました"
 
+#: src/routes/_authenticated/$chatId_.settings.tsx:289
+msgid "Chat ID"
+msgstr "チャットID"
+
 #: src/features/chats/components/new-chat.tsx:239
+#: src/routes/_authenticated/$chatId_.settings.tsx:230
 msgid "Chat name"
 msgstr "チャット名"
 
@@ -143,7 +157,7 @@ msgstr "チャット名を変更しました"
 msgid "Chat settings"
 msgstr "チャット設定"
 
-#: src/features/chats/components/chat-input.tsx:60
+#: src/features/chats/components/chat-input.tsx:61
 msgid "Chat Text Box"
 msgstr "チャットテキストボックス"
 
@@ -192,6 +206,10 @@ msgstr "選択をクリア"
 #: ../../../lib/web/src/components/ui/sheet.tsx:76
 msgid "Close"
 msgstr "閉じる"
+
+#: ../../../lib/web/src/components/layout/app-sidebar.tsx:97
+msgid "Close navigation"
+msgstr "ナビゲーションを閉じる"
 
 #: ../../../lib/web/src/components/layout/right-panel.tsx:254
 msgid "Close Panel"
@@ -260,7 +278,7 @@ msgid "Delete chat"
 msgstr "チャットを削除"
 
 #: src/features/chats/index.tsx:443
-#: src/routes/_authenticated/$chatId_.settings.tsx:433
+#: src/routes/_authenticated/$chatId_.settings.tsx:434
 msgid "Delete chat history"
 msgstr "チャット履歴を削除"
 
@@ -284,7 +302,7 @@ msgstr "モバイルサイドバーを表示します。"
 msgid "Expand sidebar"
 msgstr "サイドバーを展開"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:466
+#: src/routes/_authenticated/$chatId_.settings.tsx:467
 msgid "Failed to add member"
 msgstr "メンバーの追加に失敗しました"
 
@@ -297,11 +315,11 @@ msgid "Failed to delete chat"
 msgstr "チャットの削除に失敗しました"
 
 #: src/features/chats/index.tsx:168
-#: src/routes/_authenticated/$chatId_.settings.tsx:395
+#: src/routes/_authenticated/$chatId_.settings.tsx:396
 msgid "Failed to leave chat"
 msgstr "チャットからの退出に失敗しました"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:542
+#: src/routes/_authenticated/$chatId_.settings.tsx:543
 msgid "Failed to remove member"
 msgstr "メンバーの削除に失敗しました"
 
@@ -334,6 +352,7 @@ msgid "Full layout"
 msgstr "フルレイアウト"
 
 #: src/routes/_authenticated/$chatId_.settings.tsx:121
+#: src/routes/_authenticated/$chatId_.settings.tsx:229
 msgid "General"
 msgstr "一般"
 
@@ -371,9 +390,21 @@ msgstr "グループ"
 msgid "Hide"
 msgstr "非表示"
 
+#: ../../../lib/web/src/components/layout/app-sidebar.tsx:82
+msgid "Home"
+msgstr "ホーム"
+
+#: ../../../lib/web/src/components/ui/sort-selector.tsx:41
+msgid "Hot"
+msgstr "人気"
+
 #: ../../../lib/web/src/components/config-drawer.tsx:239
 msgid "Inset"
 msgstr "インセット"
+
+#: ../../../lib/web/src/components/ui/sort-selector.tsx:39
+msgid "Interests"
+msgstr "興味"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:273
 msgid "Layout"
@@ -387,12 +418,17 @@ msgstr "詳細"
 msgid "Leave chat"
 msgstr "チャットから退出"
 
+#: src/features/chats/index.tsx:420
+#: src/routes/_authenticated/$chatId_.settings.tsx:411
+msgid "Leave chat?"
+msgstr "チャットを退出しますか？"
+
 #: src/features/chats/index.tsx:426
-#: src/routes/_authenticated/$chatId_.settings.tsx:416
+#: src/routes/_authenticated/$chatId_.settings.tsx:417
 msgid "Leaving..."
 msgstr "退出中..."
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:391
+#: src/routes/_authenticated/$chatId_.settings.tsx:392
 msgid "Left chat"
 msgstr "チャットから退出しました"
 
@@ -403,6 +439,18 @@ msgstr "左から右"
 #: ../../../lib/web/src/components/config-drawer.tsx:200
 msgid "Light"
 msgstr "ライト"
+
+#: src/routes/_authenticated/$chatId_.settings.tsx:320
+msgid "List of people in this chat"
+msgstr "このチャットの参加者一覧"
+
+#: ../../../lib/web/src/components/ui/load-more.tsx:32
+msgid "Load more"
+msgstr "もっと読み込む"
+
+#: ../../../lib/web/src/components/ui/load-more.tsx:32
+msgid "Loading…"
+msgstr "読み込み中…"
 
 #: ../../../lib/web/src/components/layout/nav-user.tsx:98
 #: ../../../lib/web/src/components/layout/nav-user.tsx:164
@@ -424,17 +472,33 @@ msgstr "ログアウトしました"
 msgid "Mark all as read"
 msgstr "すべて既読にする"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:461
+#: src/routes/_authenticated/$chatId_.settings.tsx:462
 msgid "Member added"
 msgstr "メンバーを追加しました"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:538
+#: src/routes/_authenticated/$chatId_.settings.tsx:539
 msgid "Member removed"
 msgstr "メンバーを削除しました"
+
+#: src/routes/_authenticated/$chatId_.settings.tsx:319
+msgid "Members"
+msgstr "メンバー"
 
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx:151
 msgid "Menu"
 msgstr "メニュー"
+
+#: src/features/chats/components/chat-input.tsx:133
+msgid "Move attachment left"
+msgstr "添付を左へ移動"
+
+#: src/features/chats/components/chat-input.tsx:145
+msgid "Move attachment right"
+msgstr "添付を右へ移動"
+
+#: ../../../lib/web/src/components/ui/sort-selector.tsx:40
+msgid "New"
+msgstr "新規"
 
 #: src/features/chats/components/chat-empty-state.tsx:21
 #: src/features/chats/components/new-chat.tsx:166
@@ -449,6 +513,10 @@ msgstr "アクセスルールが設定されていません。このリソース
 msgid "No connected accounts"
 msgstr "接続されたアカウントがありません"
 
+#: src/routes/_authenticated/$chatId_.settings.tsx:499
+msgid "No friends available"
+msgstr "利用可能な友達がいません"
+
 #: src/features/chats/components/new-chat.tsx:206
 msgid "No friends found"
 msgstr "友だちが見つかりません"
@@ -461,7 +529,7 @@ msgstr "まだ友だちがいません"
 msgid "No groups available"
 msgstr "利用可能なグループがありません"
 
-#: ../../../lib/web/src/components/language-picker.tsx:99
+#: ../../../lib/web/src/components/language-picker.tsx:96
 msgid "No matches."
 msgstr "一致するものがありません。"
 
@@ -511,6 +579,10 @@ msgstr "ページが見つかりません!"
 msgid "Open"
 msgstr "開く"
 
+#: src/features/chats/index.tsx:318
+msgid "Open chat actions"
+msgstr "チャット操作を開く"
+
 #: src/features/chats/components/new-chat.tsx:196
 msgid "Open People"
 msgstr "人物を開く"
@@ -554,11 +626,20 @@ msgstr "ログイン画面にリダイレクトしています。"
 msgid "Remove"
 msgstr "削除"
 
+#. placeholder {0}: attachment.file.name
+#: src/features/chats/components/chat-input.tsx:165
+msgid "Remove {0}"
+msgstr "{0}を削除"
+
 #: ../../../lib/web/src/features/access/access-list.tsx:248
 msgid "Remove access?"
 msgstr "アクセスを削除しますか?"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:561
+#: src/routes/_authenticated/$chatId_.settings.tsx:556
+msgid "Remove member?"
+msgstr "メンバーを削除しますか？"
+
+#: src/routes/_authenticated/$chatId_.settings.tsx:562
 msgid "Removing..."
 msgstr "削除中..."
 
@@ -592,7 +673,7 @@ msgstr "ユーザーを検索"
 msgid "Searching..."
 msgstr "検索中..."
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:485
+#: src/routes/_authenticated/$chatId_.settings.tsx:486
 msgid "Select a friend to add to this chat."
 msgstr "このチャットに追加する友だちを選択します。"
 
@@ -628,6 +709,10 @@ msgstr "サイトの表示方向を選択"
 msgid "Select theme preference"
 msgstr "テーマの設定を選択"
 
+#: src/features/chats/components/chat-input.tsx:75
+msgid "Send message"
+msgstr "メッセージを送信"
+
 #: ../../../lib/web/src/components/travelling-picker.tsx:142
 msgid "Set origin and destination"
 msgstr "出発地と目的地を設定"
@@ -637,6 +722,10 @@ msgstr "出発地と目的地を設定"
 #: ../../../lib/web/src/components/layout/nav-user.tsx:195
 msgid "Settings"
 msgstr "設定"
+
+#: ../../../lib/web/src/components/ui/load-more.tsx:36
+msgid "Showing {totalShown} of {total}"
+msgstr "{total}件中{totalShown}件を表示"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:225
 #: ../../../lib/web/src/components/config-drawer.tsx:249
@@ -696,6 +785,10 @@ msgstr "サイドバーを切り替え"
 msgid "Toggle theme"
 msgstr "テーマを切り替え"
 
+#: ../../../lib/web/src/components/ui/sort-selector.tsx:42
+msgid "Top"
+msgstr "トップ"
+
 #: ../../../lib/web/src/components/travelling-picker.tsx:140
 msgid "Travelling"
 msgstr "移動中"
@@ -714,6 +807,10 @@ msgstr "再試行"
 #: ../../../lib/web/src/features/access/access-dialog.tsx:187
 msgid "Type to search users"
 msgstr "入力してユーザーを検索"
+
+#: src/features/chats/components/chat-input.tsx:64
+msgid "Type your message…"
+msgstr "メッセージを入力…"
 
 #: ../../../lib/web/src/features/errors/unauthorized-error.tsx:12
 msgid "Unauthorized Access"

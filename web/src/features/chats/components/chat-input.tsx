@@ -1,5 +1,5 @@
 import { type ChangeEvent, type FormEvent, useRef } from 'react'
-import { Trans } from '@lingui/react/macro'
+import { Trans, useLingui } from '@lingui/react/macro'
 import { Button } from '@mochi/web'
 import {
   ArrowLeft,
@@ -36,6 +36,7 @@ export function ChatInput({
   onAttachmentSelection,
   sendMessageErrorMessage,
 }: ChatInputProps) {
+  const { t } = useLingui()
   const fileInputRef = useRef<HTMLInputElement | null>(null)
   const hasPendingAttachments = pendingAttachments.length > 0
 
@@ -51,7 +52,7 @@ export function ChatInput({
             type='button'
             variant='ghost'
             onClick={() => fileInputRef.current?.click()}
-            aria-label={"Add attachment"}
+            aria-label={t`Add attachment`}
           >
             <Paperclip size={16} className='stroke-muted-foreground' />
           </Button>
@@ -60,7 +61,7 @@ export function ChatInput({
           <span className='sr-only'><Trans>Chat Text Box</Trans></span>
           <input
             type='text'
-            placeholder={"Type your message..."}
+            placeholder={t`Type your message…`}
             value={newMessage}
             onChange={(e) => setNewMessage(e.target.value)}
             className='w-full bg-inherit text-sm focus-visible:outline-hidden'
@@ -71,7 +72,7 @@ export function ChatInput({
           size='icon'
           className='bg-primary hover:bg-primary/80 transition-colors'
           disabled={isSendDisabled}
-          aria-label={"Send message"}
+          aria-label={t`Send message`}
         >
           {isSending ? (
             <Loader2 size={16} className='animate-spin' />
@@ -129,7 +130,7 @@ export function ChatInput({
                 <div className='absolute inset-0 flex items-center justify-center gap-2 bg-black/50 opacity-0 transition-opacity group-hover/att:opacity-100'>
                   <button
                     type='button'
-                    aria-label={"Move attachment left"}
+                    aria-label={t`Move attachment left`}
                     className='flex size-8 items-center justify-center rounded-full bg-white/20 text-white hover:bg-white/30 disabled:cursor-not-allowed disabled:opacity-30'
                     disabled={isFirst}
                     onClick={(e) => {
@@ -141,7 +142,7 @@ export function ChatInput({
                   </button>
                   <button
                     type='button'
-                    aria-label={"Move attachment right"}
+                    aria-label={t`Move attachment right`}
                     className='flex size-8 items-center justify-center rounded-full bg-white/20 text-white hover:bg-white/30 disabled:cursor-not-allowed disabled:opacity-30'
                     disabled={isLast}
                     onClick={(e) => {
@@ -161,7 +162,7 @@ export function ChatInput({
                   >
                     <X className='size-4' />
                     <span className='sr-only'>
-                      Remove {attachment.file.name}
+                      <Trans>Remove {attachment.file.name}</Trans>
                     </span>
                   </button>
                 </div>

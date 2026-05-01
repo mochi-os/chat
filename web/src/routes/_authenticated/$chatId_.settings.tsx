@@ -226,8 +226,8 @@ function ChatNameSection({ chatId, name }: { chatId: string, name: string }) {
   }
 
   return (
-    <Section title={"General"} description={"Adjust chat settings"}>
-      <FieldRow label={"Chat name"}>
+    <Section title={t`General`} description={"Adjust chat settings"}>
+      <FieldRow label={t`Chat name`}>
         {isEditing ? (
           <div className='flex flex-col gap-1 w-full max-w-md'>
             <div className='flex items-center gap-2'>
@@ -286,7 +286,7 @@ function ChatNameSection({ chatId, name }: { chatId: string, name: string }) {
           </div>
         )}
       </FieldRow>
-      <FieldRow label={"Chat ID"}>
+      <FieldRow label={t`Chat ID`}>
         <DataChip value={chatId} truncate='middle' />
       </FieldRow>
     </Section>
@@ -313,10 +313,11 @@ function MembersSection({
     isCurrentUser: boolean
   ) => void
 }) {
+  const { t } = useLingui()
   return (
     <Section
-      title={"Members"}
-      description={"List of people in this chat"}
+      title={t`Members`}
+      description={t`List of people in this chat`}
       action={!error && !isLoading ? (
         <Button size='sm' onClick={onAddMember} variant="outline">
           <UserPlus className='mr-2 size-4' />
@@ -407,7 +408,7 @@ function LeaveDialog({
         onOpenChange(isOpen)
         if (!isOpen) setDeleteOnLeave(false)
       }}
-      title={"Leave chat?"}
+      title={t`Leave chat?`}
       desc={`Are you sure you want to leave "${chatName}"? You can be added back by other members.`}
       confirmText={
         leaveMutation.isPending ? (
@@ -495,7 +496,7 @@ function AddMemberDialog({
           ) : availableFriends.length === 0 ? (
             <EmptyState
               icon={UserPlus}
-              title={"No friends available"}
+              title={t`No friends available`}
               description={"All your friends are already in this chat"}
             />
           ) : (
@@ -552,7 +553,7 @@ function RemoveMemberDialog({
     <ConfirmDialog
       open={open}
       onOpenChange={onOpenChange}
-      title={"Remove member?"}
+      title={t`Remove member?`}
       desc={`Are you sure you want to remove ${member?.name} from this chat?`}
       confirmText={
         removeMemberMutation.isPending ? (

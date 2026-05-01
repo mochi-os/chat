@@ -42,8 +42,12 @@ msgstr "Add account"
 msgid "Add an account to receive notifications and use services."
 msgstr "Add an account to receive notifications and use services."
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:323
-#: src/routes/_authenticated/$chatId_.settings.tsx:483
+#: src/features/chats/components/chat-input.tsx:55
+msgid "Add attachment"
+msgstr "Add attachment"
+
+#: src/routes/_authenticated/$chatId_.settings.tsx:324
+#: src/routes/_authenticated/$chatId_.settings.tsx:484
 msgid "Add member"
 msgstr "Add member"
 
@@ -66,6 +70,10 @@ msgstr "Adjust chat settings"
 #: ../../../lib/web/src/components/config-drawer.tsx:62
 msgid "Adjust the appearance and layout to suit your preferences."
 msgstr "Adjust the appearance and layout to suit your preferences."
+
+#: ../../../lib/web/src/components/ui/sort-selector.tsx:38
+msgid "AI"
+msgstr "AI"
 
 #: ../../../lib/web/src/components/notifications-dropdown.tsx:158
 msgid "All"
@@ -106,6 +114,7 @@ msgid "Category for this notification"
 msgstr "Category for this notification"
 
 #: src/features/chats/index.tsx:37
+#: src/features/chats/index.tsx:276
 msgid "Chat"
 msgstr "Chat"
 
@@ -117,7 +126,12 @@ msgstr "Chat created"
 msgid "Chat deleted"
 msgstr "Chat deleted"
 
+#: src/routes/_authenticated/$chatId_.settings.tsx:289
+msgid "Chat ID"
+msgstr "Chat ID"
+
 #: src/features/chats/components/new-chat.tsx:239
+#: src/routes/_authenticated/$chatId_.settings.tsx:230
 msgid "Chat name"
 msgstr "Chat name"
 
@@ -143,7 +157,7 @@ msgstr "Chat renamed"
 msgid "Chat settings"
 msgstr "Chat settings"
 
-#: src/features/chats/components/chat-input.tsx:60
+#: src/features/chats/components/chat-input.tsx:61
 msgid "Chat Text Box"
 msgstr "Chat Text Box"
 
@@ -192,6 +206,10 @@ msgstr "Clear selection"
 #: ../../../lib/web/src/components/ui/sheet.tsx:76
 msgid "Close"
 msgstr "Close"
+
+#: ../../../lib/web/src/components/layout/app-sidebar.tsx:97
+msgid "Close navigation"
+msgstr "Close navigation"
 
 #: ../../../lib/web/src/components/layout/right-panel.tsx:254
 msgid "Close Panel"
@@ -260,7 +278,7 @@ msgid "Delete chat"
 msgstr "Delete chat"
 
 #: src/features/chats/index.tsx:443
-#: src/routes/_authenticated/$chatId_.settings.tsx:433
+#: src/routes/_authenticated/$chatId_.settings.tsx:434
 msgid "Delete chat history"
 msgstr "Delete chat history"
 
@@ -284,7 +302,7 @@ msgstr "Displays the mobile sidebar."
 msgid "Expand sidebar"
 msgstr "Expand sidebar"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:466
+#: src/routes/_authenticated/$chatId_.settings.tsx:467
 msgid "Failed to add member"
 msgstr "Failed to add member"
 
@@ -297,11 +315,11 @@ msgid "Failed to delete chat"
 msgstr "Failed to delete chat"
 
 #: src/features/chats/index.tsx:168
-#: src/routes/_authenticated/$chatId_.settings.tsx:395
+#: src/routes/_authenticated/$chatId_.settings.tsx:396
 msgid "Failed to leave chat"
 msgstr "Failed to leave chat"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:542
+#: src/routes/_authenticated/$chatId_.settings.tsx:543
 msgid "Failed to remove member"
 msgstr "Failed to remove member"
 
@@ -334,6 +352,7 @@ msgid "Full layout"
 msgstr "Full layout"
 
 #: src/routes/_authenticated/$chatId_.settings.tsx:121
+#: src/routes/_authenticated/$chatId_.settings.tsx:229
 msgid "General"
 msgstr "General"
 
@@ -371,9 +390,21 @@ msgstr "Group"
 msgid "Hide"
 msgstr "Hide"
 
+#: ../../../lib/web/src/components/layout/app-sidebar.tsx:82
+msgid "Home"
+msgstr "Home"
+
+#: ../../../lib/web/src/components/ui/sort-selector.tsx:41
+msgid "Hot"
+msgstr "Hot"
+
 #: ../../../lib/web/src/components/config-drawer.tsx:239
 msgid "Inset"
 msgstr "Inset"
+
+#: ../../../lib/web/src/components/ui/sort-selector.tsx:39
+msgid "Interests"
+msgstr "Interests"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:273
 msgid "Layout"
@@ -387,12 +418,17 @@ msgstr "Learn more"
 msgid "Leave chat"
 msgstr "Leave chat"
 
+#: src/features/chats/index.tsx:420
+#: src/routes/_authenticated/$chatId_.settings.tsx:411
+msgid "Leave chat?"
+msgstr "Leave chat?"
+
 #: src/features/chats/index.tsx:426
-#: src/routes/_authenticated/$chatId_.settings.tsx:416
+#: src/routes/_authenticated/$chatId_.settings.tsx:417
 msgid "Leaving..."
 msgstr "Leaving..."
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:391
+#: src/routes/_authenticated/$chatId_.settings.tsx:392
 msgid "Left chat"
 msgstr "Left chat"
 
@@ -403,6 +439,18 @@ msgstr "Left to Right"
 #: ../../../lib/web/src/components/config-drawer.tsx:200
 msgid "Light"
 msgstr "Light"
+
+#: src/routes/_authenticated/$chatId_.settings.tsx:320
+msgid "List of people in this chat"
+msgstr "List of people in this chat"
+
+#: ../../../lib/web/src/components/ui/load-more.tsx:32
+msgid "Load more"
+msgstr "Load more"
+
+#: ../../../lib/web/src/components/ui/load-more.tsx:32
+msgid "Loading…"
+msgstr "Loading…"
 
 #: ../../../lib/web/src/components/layout/nav-user.tsx:98
 #: ../../../lib/web/src/components/layout/nav-user.tsx:164
@@ -424,17 +472,33 @@ msgstr "Logged out successfully"
 msgid "Mark all as read"
 msgstr "Mark all as read"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:461
+#: src/routes/_authenticated/$chatId_.settings.tsx:462
 msgid "Member added"
 msgstr "Member added"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:538
+#: src/routes/_authenticated/$chatId_.settings.tsx:539
 msgid "Member removed"
 msgstr "Member removed"
+
+#: src/routes/_authenticated/$chatId_.settings.tsx:319
+msgid "Members"
+msgstr "Members"
 
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx:151
 msgid "Menu"
 msgstr "Menu"
+
+#: src/features/chats/components/chat-input.tsx:133
+msgid "Move attachment left"
+msgstr "Move attachment left"
+
+#: src/features/chats/components/chat-input.tsx:145
+msgid "Move attachment right"
+msgstr "Move attachment right"
+
+#: ../../../lib/web/src/components/ui/sort-selector.tsx:40
+msgid "New"
+msgstr "New"
 
 #: src/features/chats/components/chat-empty-state.tsx:21
 #: src/features/chats/components/new-chat.tsx:166
@@ -449,6 +513,10 @@ msgstr "No access rules configured. Add rules to control who can access this res
 msgid "No connected accounts"
 msgstr "No connected accounts"
 
+#: src/routes/_authenticated/$chatId_.settings.tsx:499
+msgid "No friends available"
+msgstr "No friends available"
+
 #: src/features/chats/components/new-chat.tsx:206
 msgid "No friends found"
 msgstr "No friends found"
@@ -461,7 +529,7 @@ msgstr "No friends yet"
 msgid "No groups available"
 msgstr "No groups available"
 
-#: ../../../lib/web/src/components/language-picker.tsx:99
+#: ../../../lib/web/src/components/language-picker.tsx:96
 msgid "No matches."
 msgstr "No matches."
 
@@ -511,6 +579,10 @@ msgstr "Oops! Page Not Found!"
 msgid "Open"
 msgstr "Open"
 
+#: src/features/chats/index.tsx:318
+msgid "Open chat actions"
+msgstr "Open chat actions"
+
 #: src/features/chats/components/new-chat.tsx:196
 msgid "Open People"
 msgstr "Open People"
@@ -554,11 +626,20 @@ msgstr "Redirecting to login."
 msgid "Remove"
 msgstr "Remove"
 
+#. placeholder {0}: attachment.file.name
+#: src/features/chats/components/chat-input.tsx:165
+msgid "Remove {0}"
+msgstr "Remove {0}"
+
 #: ../../../lib/web/src/features/access/access-list.tsx:248
 msgid "Remove access?"
 msgstr "Remove access?"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:561
+#: src/routes/_authenticated/$chatId_.settings.tsx:556
+msgid "Remove member?"
+msgstr "Remove member?"
+
+#: src/routes/_authenticated/$chatId_.settings.tsx:562
 msgid "Removing..."
 msgstr "Removing..."
 
@@ -592,7 +673,7 @@ msgstr "Search users"
 msgid "Searching..."
 msgstr "Searching..."
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:485
+#: src/routes/_authenticated/$chatId_.settings.tsx:486
 msgid "Select a friend to add to this chat."
 msgstr "Select a friend to add to this chat."
 
@@ -628,6 +709,10 @@ msgstr "Select site direction"
 msgid "Select theme preference"
 msgstr "Select theme preference"
 
+#: src/features/chats/components/chat-input.tsx:75
+msgid "Send message"
+msgstr "Send message"
+
 #: ../../../lib/web/src/components/travelling-picker.tsx:142
 msgid "Set origin and destination"
 msgstr "Set origin and destination"
@@ -637,6 +722,10 @@ msgstr "Set origin and destination"
 #: ../../../lib/web/src/components/layout/nav-user.tsx:195
 msgid "Settings"
 msgstr "Settings"
+
+#: ../../../lib/web/src/components/ui/load-more.tsx:36
+msgid "Showing {totalShown} of {total}"
+msgstr "Showing {totalShown} of {total}"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:225
 #: ../../../lib/web/src/components/config-drawer.tsx:249
@@ -696,6 +785,10 @@ msgstr "Toggle Sidebar"
 msgid "Toggle theme"
 msgstr "Toggle theme"
 
+#: ../../../lib/web/src/components/ui/sort-selector.tsx:42
+msgid "Top"
+msgstr "Top"
+
 #: ../../../lib/web/src/components/travelling-picker.tsx:140
 msgid "Travelling"
 msgstr "Travelling"
@@ -714,6 +807,10 @@ msgstr "Try again"
 #: ../../../lib/web/src/features/access/access-dialog.tsx:187
 msgid "Type to search users"
 msgstr "Type to search users"
+
+#: src/features/chats/components/chat-input.tsx:64
+msgid "Type your message…"
+msgstr "Type your message…"
 
 #: ../../../lib/web/src/features/errors/unauthorized-error.tsx:12
 msgid "Unauthorized Access"
