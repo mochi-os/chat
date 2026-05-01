@@ -260,7 +260,7 @@ export function NewChat() {
             ) : (
               <MessageCircle className='size-4' />
             )}
-            {createChatMutation.isPending ? 'Creating...' : 'Create chat'}
+            {createChatMutation.isPending ? t`Creating...` : t`Create chat`}
           </Button>
         </ResponsiveDialogFooter>
       </ResponsiveDialogContent>

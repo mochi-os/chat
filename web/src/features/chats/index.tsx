@@ -165,7 +165,7 @@ export function Chats() {
       }
     },
     onError: (error) => {
-      toast.error(getErrorMessage(error, t`Failed to leave chat`))
+      toast.error(getErrorMessage(error, "Failed to leave chat"))
     },
   })
 
@@ -177,11 +177,11 @@ export function Chats() {
   // Delete chat (for left chats)
   const deleteChatMutation = useDeleteChatMutation({
     onSuccess: () => {
-      toast.success(t`Chat deleted`)
+      toast.success("Chat deleted")
       void navigate({ to: '/' })
     },
     onError: (error) => {
-      toast.error(getErrorMessage(error, t`Failed to delete chat`))
+      toast.error(getErrorMessage(error, "Failed to delete chat"))
     },
   })
 
@@ -273,7 +273,7 @@ export function Chats() {
   if (!selectedChat) {
     return (
       <div className='flex h-full flex-col overflow-hidden'>
-        <PageHeader title={t`Chat`} icon={<MessageCircle className='size-4 md:size-5' />} />
+        <PageHeader title={"Chat"} icon={<MessageCircle className='size-4 md:size-5' />} />
         <Main className='flex min-h-0 flex-1 flex-col gap-4 overflow-hidden'>
           {chatsQuery.error ? (
             <GeneralError
@@ -315,7 +315,7 @@ export function Chats() {
                 <DropdownMenuTrigger asChild>
                   <IconButton
                     variant='ghost'
-                    label={t`Open chat actions`}
+                    label={"Open chat actions"}
                   >
                     <MoreHorizontal className='size-5' />
                   </IconButton>
@@ -373,8 +373,7 @@ export function Chats() {
               <div className='flex items-center justify-between'>
                 <p className='text-muted-foreground text-sm'>
                   {selectedChat.left === 2
-                    ? 'You were removed from this chat'
-                    : 'You left this chat'}
+                    ? "You were removed from this chat" : "You left this chat"}
                 </p>
                 <Button
                   variant='outline'
@@ -404,7 +403,7 @@ export function Chats() {
               onAttachmentSelection={handleAttachmentSelection}
               sendMessageErrorMessage={
                 sendMessageMutation.error
-                  ? getErrorMessage(sendMessageMutation.error, t`Failed to send message`)
+                  ? getErrorMessage(sendMessageMutation.error, "Failed to send message")
                   : null
               }
             />
@@ -418,7 +417,7 @@ export function Chats() {
           setShowLeaveDialog(open)
           if (!open) setDeleteOnLeave(false)
         }}
-        title={t`Leave chat?`}
+        title={"Leave chat?"}
         desc={`Are you sure you want to leave "${selectedChat?.name}"? You can be added back by other members.`}
         confirmText={
           leaveChatMutation.isPending ? (

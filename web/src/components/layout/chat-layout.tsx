@@ -1,4 +1,5 @@
 import { useEffect, useMemo } from 'react'
+import { useLingui } from '@lingui/react/macro'
 import { Outlet, useParams } from '@tanstack/react-router'
 import {
   cn,
@@ -58,6 +59,7 @@ function WebsocketStatusIndicator() {
 }
 
 function ChatLayoutInner() {
+  const { t } = useLingui()
   const chatsQuery = useChatsQuery()
   const chats = useMemo(
     () => chatsQuery.data?.chats ?? [],
@@ -95,7 +97,7 @@ function ChatLayoutInner() {
     return {
       navGroups: [
         {
-          title: 'Chats',
+          title: t`Chats`,
           items: chatItems,
         },
         {
@@ -103,7 +105,7 @@ function ChatLayoutInner() {
           separator: true,
           items: [
             {
-              title: 'Create chat',
+              title: t`Create chat`,
               onClick: openNewChatDialog,
               icon: Plus,
             },

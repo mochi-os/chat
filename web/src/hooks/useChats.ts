@@ -54,7 +54,7 @@ export const useChatDetailQuery = (
     enabled: Boolean(chatId) && (options?.enabled ?? true),
     queryFn: () => {
       if (!chatId) {
-        throw new Error('Chat ID is required')
+        throw new Error("Chat ID is required")
       }
       return chatsApi.detail(chatId)
     },
@@ -208,7 +208,7 @@ export const useChatMembersQuery = (
     enabled: Boolean(chatId) && (options?.enabled ?? true),
     queryFn: () => {
       if (!chatId) {
-        throw new Error('Chat ID is required')
+        throw new Error("Chat ID is required")
       }
       return chatsApi.getMembers(chatId)
     },

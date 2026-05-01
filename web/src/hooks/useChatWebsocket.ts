@@ -62,7 +62,7 @@ const createMessageFromPayload = (
       : Math.floor(Date.now() / 1000)
   const messageBody =
     typeof payload.body === 'string' ? payload.body : String(payload.body ?? '')
-  const senderName = typeof payload.name === 'string' ? payload.name : 'Unknown'
+  const senderName = typeof payload.name === 'string' ? payload.name : "Unknown"
   const senderId = typeof payload.member === 'string' ? payload.member : ''
 
   return {
