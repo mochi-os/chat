@@ -48,7 +48,7 @@ _PERSON_ASSETS = ("avatar", "banner", "favicon", "style", "information")
 def action_message_asset(a):
 	asset = a.input("asset")
 	if asset not in _PERSON_ASSETS:
-		a.error_label(404, "errors.unknown_asset")
+		a.error.label(404, "errors.unknown_asset")
 		return
 	row = mochi.db.row("select member from messages where id=?", a.input("message"))
 	return stream_asset(a, row["member"] if row else "", "people", asset)
@@ -57,7 +57,7 @@ def action_message_asset(a):
 def action_create(a):
 	name = a.input("name")
 	if not mochi.text.valid(name, "name"):
-		a.error_label(400, "errors.invalid_chat_name")
+		a.error.label(400, "errors.invalid_chat_name")
 		return
 
 	# Build prospective member list
@@ -177,17 +177,17 @@ def action_new(a):
 # Get messages for a chat with cursor-based pagination
 def action_messages(a):
 	if not mochi.text.valid(a.input("chat"), "id"):
-		a.error_label(400, "errors.invalid_chat_id")
+		a.error.label(400, "errors.invalid_chat_id")
 		return
 	chat = mochi.db.row("select * from chats where id=?", a.input("chat"))
 	if not chat:
-		a.error_label(404, "errors.chat_not_found")
+		a.error.label(404, "errors.chat_not_found")
 		return
 
 	# Allow viewing if member OR if chat is marked as left
 	is_member = mochi.db.exists("select 1 from members where chat=? and member=?", chat["id"], a.user.identity.id)
 	if not is_member and not chat["left"]:
-		a.error_label(403, "errors.not_a_member_of_this_chat")
+		a.error.label(403, "errors.not_a_member_of_this_chat")
 		return
 
 	# Pagination parameters
@@ -234,29 +234,29 @@ def action_messages(a):
 # Send a message
 def action_send(a):
 	if not mochi.text.valid(a.input("chat"), "id"):
-		a.error_label(400, "errors.invalid_chat_id")
+		a.error.label(400, "errors.invalid_chat_id")
 		return
 	chat = mochi.db.row("select * from chats where id=?", a.input("chat"))
 	if not chat:
-		a.error_label(404, "errors.chat_not_found")
+		a.error.label(404, "errors.chat_not_found")
 		return
 
 	if not mochi.db.exists("select 1 from members where chat=? and member=?", chat["id"], a.user.identity.id):
-		a.error_label(403, "errors.not_a_member_of_this_chat")
+		a.error.label(403, "errors.not_a_member_of_this_chat")
 		return
 
 	body = a.input("body", "")
 	if not mochi.text.valid(body, "text"):
-		a.error_label(400, "errors.invalid_message")
+		a.error.label(400, "errors.invalid_message")
 		return
 	if len(body) > 10000:
-		a.error_label(400, "errors.message_too_long")
+		a.error.label(400, "errors.message_too_long")
 		return
 
 	has_files = a.input("files")
 
 	if not body.strip() and not has_files:
-		a.error_label(400, "errors.message_must_have_a_body_or_attachments")
+		a.error.label(400, "errors.message_must_have_a_body_or_attachments")
 		return
 
 	id = mochi.uid()
@@ -288,17 +288,17 @@ def action_send(a):
 # View a chat
 def action_view(a):
 	if not mochi.text.valid(a.input("chat"), "id"):
-		a.error_label(400, "errors.invalid_chat_id")
+		a.error.label(400, "errors.invalid_chat_id")
 		return
 	chat = mochi.db.row("select * from chats where id=?", a.input("chat"))
 	if not chat:
-		a.error_label(404, "errors.chat_not_found")
+		a.error.label(404, "errors.chat_not_found")
 		return
 
 	# Allow viewing if member OR if chat is marked as left (user was removed or left)
 	is_member = mochi.db.exists("select 1 from members where chat=? and member=?", chat["id"], a.user.identity.id)
 	if not is_member and not chat["left"]:
-		a.error_label(403, "errors.not_a_member_of_this_chat")
+		a.error.label(403, "errors.not_a_member_of_this_chat")
 		return
 
 	members = mochi.db.rows("select member as id, name from members where chat=?", chat["id"])
@@ -487,15 +487,15 @@ def event_removed(e):
 # List members of a chat
 def action_members(a):
 	if not mochi.text.valid(a.input("chat"), "id"):
-		a.error_label(400, "errors.invalid_chat_id")
+		a.error.label(400, "errors.invalid_chat_id")
 		return
 	chat = mochi.db.row("select * from chats where id=?", a.input("chat"))
 	if not chat:
-		a.error_label(404, "errors.chat_not_found")
+		a.error.label(404, "errors.chat_not_found")
 		return
 
 	if not mochi.db.exists("select 1 from members where chat=? and member=?", chat["id"], a.user.identity.id):
-		a.error_label(403, "errors.not_a_member_of_this_chat")
+		a.error.label(403, "errors.not_a_member_of_this_chat")
 		return
 
 	members = mochi.db.rows("select member as id, name from members where chat=?", chat["id"])
@@ -504,20 +504,20 @@ def action_members(a):
 # Rename a chat
 def action_rename(a):
 	if not mochi.text.valid(a.input("chat"), "id"):
-		a.error_label(400, "errors.invalid_chat_id")
+		a.error.label(400, "errors.invalid_chat_id")
 		return
 	chat = mochi.db.row("select * from chats where id=?", a.input("chat"))
 	if not chat:
-		a.error_label(404, "errors.chat_not_found")
+		a.error.label(404, "errors.chat_not_found")
 		return
 
 	if not mochi.db.exists("select 1 from members where chat=? and member=?", chat["id"], a.user.identity.id):
-		a.error_label(403, "errors.not_a_member_of_this_chat")
+		a.error.label(403, "errors.not_a_member_of_this_chat")
 		return
 
 	name = a.input("name")
 	if not mochi.text.valid(name, "name"):
-		a.error_label(400, "errors.invalid_chat_name")
+		a.error.label(400, "errors.invalid_chat_name")
 		return
 
 	mochi.db.execute("update chats set name=?, updated=? where id=?", name, mochi.time.now(), chat["id"])
@@ -533,19 +533,19 @@ def action_rename(a):
 # Leave a chat
 def action_leave(a):
 	if not mochi.text.valid(a.input("chat"), "id"):
-		a.error_label(400, "errors.invalid_chat_id")
+		a.error.label(400, "errors.invalid_chat_id")
 		return
 	chat = mochi.db.row("select * from chats where id=?", a.input("chat"))
 	if not chat:
-		a.error_label(404, "errors.chat_not_found")
+		a.error.label(404, "errors.chat_not_found")
 		return
 
 	if chat["left"]:
-		a.error_label(400, "errors.already_left_this_chat")
+		a.error.label(400, "errors.already_left_this_chat")
 		return
 
 	if not mochi.db.exists("select 1 from members where chat=? and member=?", chat["id"], a.user.identity.id):
-		a.error_label(403, "errors.not_a_member_of_this_chat")
+		a.error.label(403, "errors.not_a_member_of_this_chat")
 		return
 
 	delete_local = a.input("delete") == "true"
@@ -580,16 +580,16 @@ def action_leave(a):
 # Delete a chat locally (for left chats)
 def action_delete(a):
 	if not mochi.text.valid(a.input("chat"), "id"):
-		a.error_label(400, "errors.invalid_chat_id")
+		a.error.label(400, "errors.invalid_chat_id")
 		return
 	chat = mochi.db.row("select * from chats where id=?", a.input("chat"))
 	if not chat:
-		a.error_label(404, "errors.chat_not_found")
+		a.error.label(404, "errors.chat_not_found")
 		return
 
 	# Only allow deleting left chats
 	if not chat["left"]:
-		a.error_label(400, "errors.can_only_delete_chats_you_have_left")
+		a.error.label(400, "errors.can_only_delete_chats_you_have_left")
 		return
 
 	# Delete locally
@@ -602,31 +602,31 @@ def action_delete(a):
 # Add a member to a chat
 def action_member_add(a):
 	if not mochi.text.valid(a.input("chat"), "id"):
-		a.error_label(400, "errors.invalid_chat_id")
+		a.error.label(400, "errors.invalid_chat_id")
 		return
 	chat = mochi.db.row("select * from chats where id=?", a.input("chat"))
 	if not chat:
-		a.error_label(404, "errors.chat_not_found")
+		a.error.label(404, "errors.chat_not_found")
 		return
 
 	if not mochi.db.exists("select 1 from members where chat=? and member=?", chat["id"], a.user.identity.id):
-		a.error_label(403, "errors.not_a_member_of_this_chat")
+		a.error.label(403, "errors.not_a_member_of_this_chat")
 		return
 
 	member_id = a.input("member")
 	if not mochi.text.valid(member_id, "entity"):
-		a.error_label(400, "errors.invalid_member_id")
+		a.error.label(400, "errors.invalid_member_id")
 		return
 
 	# Check if already a member
 	if mochi.db.exists("select 1 from members where chat=? and member=?", chat["id"], member_id):
-		a.error_label(400, "errors.already_a_member_of_this_chat")
+		a.error.label(400, "errors.already_a_member_of_this_chat")
 		return
 
 	# Verify target is a friend of the user
 	friend = mochi.service.call("friends", "get", a.user.identity.id, member_id)
 	if not friend:
-		a.error_label(400, "errors.can_only_add_friends_to_chat")
+		a.error.label(400, "errors.can_only_add_friends_to_chat")
 		return
 
 	member_name = friend["name"]
@@ -653,30 +653,30 @@ def action_member_add(a):
 # Remove a member from a chat
 def action_member_remove(a):
 	if not mochi.text.valid(a.input("chat"), "id"):
-		a.error_label(400, "errors.invalid_chat_id")
+		a.error.label(400, "errors.invalid_chat_id")
 		return
 	chat = mochi.db.row("select * from chats where id=?", a.input("chat"))
 	if not chat:
-		a.error_label(404, "errors.chat_not_found")
+		a.error.label(404, "errors.chat_not_found")
 		return
 
 	if not mochi.db.exists("select 1 from members where chat=? and member=?", chat["id"], a.user.identity.id):
-		a.error_label(403, "errors.not_a_member_of_this_chat")
+		a.error.label(403, "errors.not_a_member_of_this_chat")
 		return
 
 	member_id = a.input("member")
 	if not mochi.text.valid(member_id, "entity"):
-		a.error_label(400, "errors.invalid_member_id")
+		a.error.label(400, "errors.invalid_member_id")
 		return
 
 	# Cannot remove self (use leave for that)
 	if member_id == a.user.identity.id:
-		a.error_label(400, "errors.use_leave_to_remove_yourself")
+		a.error.label(400, "errors.use_leave_to_remove_yourself")
 		return
 
 	# Check if target is actually a member
 	if not mochi.db.exists("select 1 from members where chat=? and member=?", chat["id"], member_id):
-		a.error_label(404, "errors.member_not_found_in_this_chat")
+		a.error.label(404, "errors.member_not_found_in_this_chat")
 		return
 
 	# Remove the member
