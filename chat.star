@@ -39,7 +39,7 @@ def stream_asset(a, entity_id, service, asset):
 	if "data" in header:
 		return {"data": header["data"]}
 	a.header("Content-Type", header.get("content_type", "application/octet-stream"))
-	a.write_from_stream(s)
+	a.write.stream(s)
 	return None
 
 _PERSON_ASSETS = ("avatar", "banner", "favicon", "style", "information")
