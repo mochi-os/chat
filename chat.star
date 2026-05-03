@@ -256,7 +256,7 @@ def action_send(a):
 	has_files = a.input("files")
 
 	if not body.strip() and not has_files:
-		a.error.label(400, "errors.message_must_have_a_body_or_attachments")
+		a.error.label(400, "errors.message_empty")
 		return
 
 	id = mochi.uid()
@@ -589,7 +589,7 @@ def action_delete(a):
 
 	# Only allow deleting left chats
 	if not chat["left"]:
-		a.error.label(400, "errors.can_only_delete_chats_you_have_left")
+		a.error.label(400, "errors.delete_only_left_chat")
 		return
 
 	# Delete locally
@@ -620,7 +620,7 @@ def action_member_add(a):
 
 	# Check if already a member
 	if mochi.db.exists("select 1 from members where chat=? and member=?", chat["id"], member_id):
-		a.error.label(400, "errors.already_a_member_of_this_chat")
+		a.error.label(400, "errors.already_member")
 		return
 
 	# Verify target is a friend of the user
