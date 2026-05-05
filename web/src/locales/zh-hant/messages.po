@@ -13,6 +13,12 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
+#. placeholder {0}: chatDetail.chat.name
+#: src/routes/_authenticated/$chatId_.settings.tsx:81
+#: src/routes/_authenticated/$chatId_.settings.tsx:120
+msgid "{0} settings"
+msgstr "{0} 設定"
+
 #: ../../../lib/web/src/lib/preference-utils.ts:52
 msgid "12 hours"
 msgstr "12 小時"
@@ -48,6 +54,11 @@ msgstr "帳戶類型"
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:234
 msgid "Account verified"
 msgstr "帳戶已驗證"
+
+#. placeholder {0}: friend.name
+#: src/routes/_authenticated/$chatId_.settings.tsx:511
+msgid "Add {0} to chat"
+msgstr "將 {0} 加入聊天"
 
 #: ../../../lib/web/src/features/accounts/account-add.tsx:117
 msgid "Add a new account"
@@ -116,9 +127,23 @@ msgstr "全部"
 msgid "All your friends are already in this chat"
 msgstr "您的所有好友均已在此聊天中"
 
+#. placeholder {0}: selectedChat?.name
+#: src/features/chats/index.tsx:423
+msgid "Are you sure you want to leave \"{0}\"? You can be added back by other members."
+msgstr ""
+
+#: src/routes/_authenticated/$chatId_.settings.tsx:416
+msgid "Are you sure you want to leave \"{chatName}\"? You can be added back by other members."
+msgstr ""
+
 #: ../../../lib/web/src/components/sign-out-dialog.tsx:24
 msgid "Are you sure you want to log out? You will need to log in again to access your account."
 msgstr "您確定要登出嗎?您將需要再次登入才能存取您的帳戶。"
+
+#. placeholder {0}: member?.name
+#: src/routes/_authenticated/$chatId_.settings.tsx:561
+msgid "Are you sure you want to remove {0} from this chat?"
+msgstr "確定要將 {0} 從此聊天中移除嗎?"
 
 #: ../../../lib/web/src/components/data-table/column-header.tsx:56
 msgid "Asc"
@@ -164,7 +189,9 @@ msgid "Change notification category"
 msgstr "變更通知類別"
 
 #: src/features/chats/index.tsx:37
-#: src/features/chats/index.tsx:276
+#: src/features/chats/index.tsx:98
+#: src/features/chats/index.tsx:98
+#: src/features/chats/index.tsx:277
 msgid "Chat"
 msgstr "聊天"
 
@@ -185,6 +212,10 @@ msgstr "聊天 ID"
 msgid "Chat name"
 msgstr "聊天名稱"
 
+#: src/routes/_authenticated/$chatId_.settings.tsx:201
+msgid "Chat name is required"
+msgstr "聊天名稱為必填項"
+
 #: src/features/chats/components/new-chat.tsx:241
 msgid "Chat name..."
 msgstr "聊天名稱..."
@@ -201,9 +232,11 @@ msgstr "聊天已就緒"
 msgid "Chat renamed"
 msgstr "聊天已重新命名"
 
-#: src/features/chats/index.tsx:343
+#: src/features/chats/index.tsx:344
+#: src/routes/_authenticated/$chatId_.settings.tsx:81
 #: src/routes/_authenticated/$chatId_.settings.tsx:94
 #: src/routes/_authenticated/$chatId_.settings.tsx:105
+#: src/routes/_authenticated/$chatId_.settings.tsx:120
 msgid "Chat settings"
 msgstr "聊天設定"
 
@@ -211,7 +244,7 @@ msgstr "聊天設定"
 msgid "Chat Text Box"
 msgstr "聊天文字方塊"
 
-#: src/components/layout/chat-layout.tsx:100
+#: src/components/layout/chat-layout.tsx:101
 msgid "Chats"
 msgstr "聊天"
 
@@ -319,7 +352,7 @@ msgstr "複製"
 msgid "Create a new chat"
 msgstr "建立新聊天"
 
-#: src/components/layout/chat-layout.tsx:108
+#: src/components/layout/chat-layout.tsx:109
 #: src/features/chats/components/new-chat.tsx:262
 msgid "Create chat"
 msgstr "建立聊天"
@@ -349,11 +382,12 @@ msgstr "預設"
 msgid "Default AI account"
 msgstr "預設 AI 帳戶"
 
-#: src/features/chats/index.tsx:326
+#: src/features/chats/index.tsx:327
+#: src/features/chats/index.tsx:391
 msgid "Delete chat"
 msgstr "刪除聊天"
 
-#: src/features/chats/index.tsx:443
+#: src/features/chats/index.tsx:445
 #: src/routes/_authenticated/$chatId_.settings.tsx:438
 msgid "Delete chat history"
 msgstr "刪除聊天記錄"
@@ -426,7 +460,7 @@ msgstr "移除成員失敗"
 msgid "Failed to rename chat"
 msgstr "重新命名聊天失敗"
 
-#: src/features/chats/index.tsx:406
+#: src/features/chats/index.tsx:408
 msgid "Failed to send message"
 msgstr "傳送訊息失敗"
 
@@ -536,16 +570,21 @@ msgstr "版面"
 msgid "Learn more"
 msgstr "深入了解"
 
-#: src/features/chats/index.tsx:333
+#: src/features/chats/index.tsx:431
+msgid "Leave"
+msgstr "離開"
+
+#: src/features/chats/index.tsx:334
+#: src/routes/_authenticated/$chatId_.settings.tsx:424
 msgid "Leave chat"
 msgstr "離開聊天"
 
-#: src/features/chats/index.tsx:420
+#: src/features/chats/index.tsx:422
 #: src/routes/_authenticated/$chatId_.settings.tsx:415
 msgid "Leave chat?"
 msgstr "離開聊天?"
 
-#: src/features/chats/index.tsx:426
+#: src/features/chats/index.tsx:428
 #: src/routes/_authenticated/$chatId_.settings.tsx:421
 msgid "Leaving..."
 msgstr "離開中..."
@@ -637,6 +676,10 @@ msgstr "將附件向左移動"
 #: src/features/chats/components/chat-input.tsx:145
 msgid "Move attachment right"
 msgstr "將附件向右移動"
+
+#: src/routes/_authenticated/$chatId_.settings.tsx:202
+msgid "Name must be 100 characters or less"
+msgstr "名稱必須為 100 個字元或更少"
 
 #: ../../../lib/web/src/components/ui/sort-selector.tsx:40
 msgid "New"
@@ -731,7 +774,7 @@ msgstr "開啟"
 msgid "Open account actions"
 msgstr "開啟帳戶動作"
 
-#: src/features/chats/index.tsx:318
+#: src/features/chats/index.tsx:319
 msgid "Open chat actions"
 msgstr "開啟聊天動作"
 
@@ -800,6 +843,7 @@ msgstr "24 小時內相對,否則絕對"
 
 #: ../../../lib/web/src/features/access/access-list.tsx:257
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:172
+#: src/routes/_authenticated/$chatId_.settings.tsx:569
 msgid "Remove"
 msgstr "移除"
 
@@ -1000,6 +1044,14 @@ msgstr "主題"
 msgid "Theme Settings"
 msgstr "主題設定"
 
+#: src/routes/_authenticated/$chatId_.settings.tsx:157
+msgid "this chat"
+msgstr "此聊天"
+
+#: src/routes/_authenticated/$chatId_.settings.tsx:110
+msgid "This chat may have been deleted or you don't have access to it"
+msgstr "此聊天可能已被刪除,或者你沒有存取權限"
+
 #: ../../../lib/web/src/lib/preference-utils.ts:72
 msgid "Thursday"
 msgstr "星期四"
@@ -1078,6 +1130,10 @@ msgstr "未獲授權的存取"
 msgid "United States"
 msgstr "美國"
 
+#: src/hooks/useChatWebsocket.ts:173
+msgid "Unknown"
+msgstr "未知"
+
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:131
 msgid "Unverified"
 msgstr "未驗證"
@@ -1106,6 +1162,10 @@ msgstr "驗證"
 msgid "Verify email address"
 msgstr "驗證電子郵件地址"
 
+#: src/features/chats/components/message-attachments.tsx:53
+msgid "Video thumbnail"
+msgstr "影片縮圖"
+
 #: ../../../lib/web/src/components/data-table/view-options.tsx:30
 msgid "View"
 msgstr "檢視"
@@ -1130,6 +1190,27 @@ msgstr "網站維護中!"
 msgid "Wednesday"
 msgstr "星期三"
 
+#: src/features/chats/index.tsx:136
+#: src/features/chats/index.tsx:137
+msgid "You"
+msgstr "您"
+
 #: src/features/chats/components/new-chat.tsx:122
 msgid "You already have a chat with this friend"
 msgstr "您已與此朋友建立聊天"
+
+#: src/features/chats/components/new-chat.tsx:216
+msgid "You already have chats with:"
+msgstr "你已經與以下人員有聊天:"
+
+#: src/features/chats/components/chat-empty-state.tsx:34
+msgid "You haven't started any chats yet. Connect with a friend to get things rolling."
+msgstr "你還沒有開始任何聊天。聯繫朋友開始吧。"
+
+#: src/features/chats/index.tsx:378
+msgid "You left this chat"
+msgstr "你已離開此聊天"
+
+#: src/features/chats/index.tsx:377
+msgid "You were removed from this chat"
+msgstr "你已被移出此聊天"

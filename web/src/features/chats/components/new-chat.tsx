@@ -213,7 +213,7 @@ export function NewChat() {
           {existingChats.length > 0 && (
             <div className='rounded-lg border bg-muted/50 p-3'>
               <p className='text-muted-foreground mb-2 text-xs font-medium'>
-                You already have chats with:
+                <Trans>You already have chats with:</Trans>
               </p>
               <div className='space-y-1'>
                 {existingChats.map((chat) => (

@@ -13,6 +13,12 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
+#. placeholder {0}: chatDetail.chat.name
+#: src/routes/_authenticated/$chatId_.settings.tsx:81
+#: src/routes/_authenticated/$chatId_.settings.tsx:120
+msgid "{0} settings"
+msgstr "Saitunan {0}"
+
 #: ../../../lib/web/src/lib/preference-utils.ts:52
 msgid "12 hours"
 msgstr "Awa 12"
@@ -48,6 +54,11 @@ msgstr "Nau'in asusu"
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:234
 msgid "Account verified"
 msgstr "An tabbatar da asusu"
+
+#. placeholder {0}: friend.name
+#: src/routes/_authenticated/$chatId_.settings.tsx:511
+msgid "Add {0} to chat"
+msgstr "Ƙara {0} a hira"
 
 #: ../../../lib/web/src/features/accounts/account-add.tsx:117
 msgid "Add a new account"
@@ -116,9 +127,23 @@ msgstr "Duk"
 msgid "All your friends are already in this chat"
 msgstr "An riga an saka duk abokanka cikin wannan chat"
 
+#. placeholder {0}: selectedChat?.name
+#: src/features/chats/index.tsx:423
+msgid "Are you sure you want to leave \"{0}\"? You can be added back by other members."
+msgstr ""
+
+#: src/routes/_authenticated/$chatId_.settings.tsx:416
+msgid "Are you sure you want to leave \"{chatName}\"? You can be added back by other members."
+msgstr ""
+
 #: ../../../lib/web/src/components/sign-out-dialog.tsx:24
 msgid "Are you sure you want to log out? You will need to log in again to access your account."
 msgstr "Ka tabbata kana son fita? Za ka buƙaci shiga kuma don shiga asusunka."
+
+#. placeholder {0}: member?.name
+#: src/routes/_authenticated/$chatId_.settings.tsx:561
+msgid "Are you sure you want to remove {0} from this chat?"
+msgstr "Ka tabbata kana son cire {0} daga wannan hira?"
 
 #: ../../../lib/web/src/components/data-table/column-header.tsx:56
 msgid "Asc"
@@ -164,7 +189,9 @@ msgid "Change notification category"
 msgstr "Sauya rukunin sanarwa"
 
 #: src/features/chats/index.tsx:37
-#: src/features/chats/index.tsx:276
+#: src/features/chats/index.tsx:98
+#: src/features/chats/index.tsx:98
+#: src/features/chats/index.tsx:277
 msgid "Chat"
 msgstr "Chat"
 
@@ -185,6 +212,10 @@ msgstr "Chat ID"
 msgid "Chat name"
 msgstr "Sunan chat"
 
+#: src/routes/_authenticated/$chatId_.settings.tsx:201
+msgid "Chat name is required"
+msgstr "Ana buƙatar sunan hira"
+
 #: src/features/chats/components/new-chat.tsx:241
 msgid "Chat name..."
 msgstr "Sunan chat..."
@@ -201,9 +232,11 @@ msgstr "Chat na shirye"
 msgid "Chat renamed"
 msgstr "An sake suna chat"
 
-#: src/features/chats/index.tsx:343
+#: src/features/chats/index.tsx:344
+#: src/routes/_authenticated/$chatId_.settings.tsx:81
 #: src/routes/_authenticated/$chatId_.settings.tsx:94
 #: src/routes/_authenticated/$chatId_.settings.tsx:105
+#: src/routes/_authenticated/$chatId_.settings.tsx:120
 msgid "Chat settings"
 msgstr "Saitunan chat"
 
@@ -211,7 +244,7 @@ msgstr "Saitunan chat"
 msgid "Chat Text Box"
 msgstr "Akwatin Rubutu na Chat"
 
-#: src/components/layout/chat-layout.tsx:100
+#: src/components/layout/chat-layout.tsx:101
 msgid "Chats"
 msgstr "Chats"
 
@@ -319,7 +352,7 @@ msgstr "Kwafi"
 msgid "Create a new chat"
 msgstr "Ƙirƙira sabon chat"
 
-#: src/components/layout/chat-layout.tsx:108
+#: src/components/layout/chat-layout.tsx:109
 #: src/features/chats/components/new-chat.tsx:262
 msgid "Create chat"
 msgstr "Ƙirƙira chat"
@@ -349,11 +382,12 @@ msgstr "Default"
 msgid "Default AI account"
 msgstr "Default AI asusu"
 
-#: src/features/chats/index.tsx:326
+#: src/features/chats/index.tsx:327
+#: src/features/chats/index.tsx:391
 msgid "Delete chat"
 msgstr "Goge chat"
 
-#: src/features/chats/index.tsx:443
+#: src/features/chats/index.tsx:445
 #: src/routes/_authenticated/$chatId_.settings.tsx:438
 msgid "Delete chat history"
 msgstr "Goge tarihin chat"
@@ -426,7 +460,7 @@ msgstr "An gaza cire memba"
 msgid "Failed to rename chat"
 msgstr "An gaza sake suna chat"
 
-#: src/features/chats/index.tsx:406
+#: src/features/chats/index.tsx:408
 msgid "Failed to send message"
 msgstr "An gaza aika saƙo"
 
@@ -536,16 +570,21 @@ msgstr "Layout"
 msgid "Learn more"
 msgstr "Ƙara koyo"
 
-#: src/features/chats/index.tsx:333
+#: src/features/chats/index.tsx:431
+msgid "Leave"
+msgstr "Bari"
+
+#: src/features/chats/index.tsx:334
+#: src/routes/_authenticated/$chatId_.settings.tsx:424
 msgid "Leave chat"
 msgstr "Bar chat"
 
-#: src/features/chats/index.tsx:420
+#: src/features/chats/index.tsx:422
 #: src/routes/_authenticated/$chatId_.settings.tsx:415
 msgid "Leave chat?"
 msgstr "Bar chat?"
 
-#: src/features/chats/index.tsx:426
+#: src/features/chats/index.tsx:428
 #: src/routes/_authenticated/$chatId_.settings.tsx:421
 msgid "Leaving..."
 msgstr "Ana barin..."
@@ -637,6 +676,10 @@ msgstr "Matsar da attachment hagu"
 #: src/features/chats/components/chat-input.tsx:145
 msgid "Move attachment right"
 msgstr "Matsar da attachment dama"
+
+#: src/routes/_authenticated/$chatId_.settings.tsx:202
+msgid "Name must be 100 characters or less"
+msgstr "Suna dole ya kasance haruffa 100 ko ƙasa"
 
 #: ../../../lib/web/src/components/ui/sort-selector.tsx:40
 msgid "New"
@@ -731,7 +774,7 @@ msgstr "Buɗe"
 msgid "Open account actions"
 msgstr "Buɗe ayyukan account"
 
-#: src/features/chats/index.tsx:318
+#: src/features/chats/index.tsx:319
 msgid "Open chat actions"
 msgstr "Buɗe ayyukan chat"
 
@@ -800,6 +843,7 @@ msgstr "Relative cikin sa'o'i 24, in ba haka ba absolute"
 
 #: ../../../lib/web/src/features/access/access-list.tsx:257
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:172
+#: src/routes/_authenticated/$chatId_.settings.tsx:569
 msgid "Remove"
 msgstr "Cire"
 
@@ -1000,6 +1044,14 @@ msgstr "Theme"
 msgid "Theme Settings"
 msgstr "Saitunan Theme"
 
+#: src/routes/_authenticated/$chatId_.settings.tsx:157
+msgid "this chat"
+msgstr "wannan hira"
+
+#: src/routes/_authenticated/$chatId_.settings.tsx:110
+msgid "This chat may have been deleted or you don't have access to it"
+msgstr "Wataƙila an goge wannan hira ko kuma ba ka da damar shiga"
+
 #: ../../../lib/web/src/lib/preference-utils.ts:72
 msgid "Thursday"
 msgstr "Alhamis"
@@ -1078,6 +1130,10 @@ msgstr "Damar Shiga Ba Tare Da Izini Ba"
 msgid "United States"
 msgstr "Amurka"
 
+#: src/hooks/useChatWebsocket.ts:173
+msgid "Unknown"
+msgstr "Ba a sani ba"
+
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:131
 msgid "Unverified"
 msgstr "Ba a tabbatar ba"
@@ -1106,6 +1162,10 @@ msgstr "Tabbatar"
 msgid "Verify email address"
 msgstr "Tabbatar da adireshin imel"
 
+#: src/features/chats/components/message-attachments.tsx:53
+msgid "Video thumbnail"
+msgstr "Ƙaramin hoton bidiyo"
+
 #: ../../../lib/web/src/components/data-table/view-options.tsx:30
 msgid "View"
 msgstr "Kalla"
@@ -1130,6 +1190,27 @@ msgstr "Shafin yana cikin kulawa!"
 msgid "Wednesday"
 msgstr "Laraba"
 
+#: src/features/chats/index.tsx:136
+#: src/features/chats/index.tsx:137
+msgid "You"
+msgstr "Kai"
+
 #: src/features/chats/components/new-chat.tsx:122
 msgid "You already have a chat with this friend"
 msgstr "Kuna da chat tare da wannan abokin"
+
+#: src/features/chats/components/new-chat.tsx:216
+msgid "You already have chats with:"
+msgstr "Kana da hirar tuni da:"
+
+#: src/features/chats/components/chat-empty-state.tsx:34
+msgid "You haven't started any chats yet. Connect with a friend to get things rolling."
+msgstr "Ba ka fara wata hira ba tukuna. Haɗa da aboki don fara."
+
+#: src/features/chats/index.tsx:378
+msgid "You left this chat"
+msgstr "Ka bar wannan hira"
+
+#: src/features/chats/index.tsx:377
+msgid "You were removed from this chat"
+msgstr "An cire ka daga wannan hira"

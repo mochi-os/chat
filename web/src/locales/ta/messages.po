@@ -6,6 +6,18 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: @lingui/cli\n"
 "Language: ta\n"
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Plural-Forms: \n"
+
+#. placeholder {0}: chatDetail.chat.name
+#: src/routes/_authenticated/$chatId_.settings.tsx:81
+#: src/routes/_authenticated/$chatId_.settings.tsx:120
+msgid "{0} settings"
+msgstr "{0} அமைப்புகள்"
 
 #: ../../../lib/web/src/lib/preference-utils.ts:52
 msgid "12 hours"
@@ -42,6 +54,11 @@ msgstr "கணக்கு வகை"
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:234
 msgid "Account verified"
 msgstr "கணக்கு சரிபார்க்கப்பட்டது"
+
+#. placeholder {0}: friend.name
+#: src/routes/_authenticated/$chatId_.settings.tsx:511
+msgid "Add {0} to chat"
+msgstr "{0} ஐ அரட்டையில் சேர்க்கவும்"
 
 #: ../../../lib/web/src/features/accounts/account-add.tsx:117
 msgid "Add a new account"
@@ -110,9 +127,23 @@ msgstr "அனைத்தும்"
 msgid "All your friends are already in this chat"
 msgstr "உங்கள் நண்பர்கள் அனைவரும் ஏற்கனவே இந்த அரட்டையில் உள்ளனர்"
 
+#. placeholder {0}: selectedChat?.name
+#: src/features/chats/index.tsx:423
+msgid "Are you sure you want to leave \"{0}\"? You can be added back by other members."
+msgstr ""
+
+#: src/routes/_authenticated/$chatId_.settings.tsx:416
+msgid "Are you sure you want to leave \"{chatName}\"? You can be added back by other members."
+msgstr ""
+
 #: ../../../lib/web/src/components/sign-out-dialog.tsx:24
 msgid "Are you sure you want to log out? You will need to log in again to access your account."
 msgstr "வெளியேற விரும்புகிறீர்களா? உங்கள் கணக்கை அணுக மீண்டும் உள்நுழைய வேண்டும்."
+
+#. placeholder {0}: member?.name
+#: src/routes/_authenticated/$chatId_.settings.tsx:561
+msgid "Are you sure you want to remove {0} from this chat?"
+msgstr "நிச்சயமாக {0} ஐ இந்த அரட்டையிலிருந்து அகற்ற விரும்புகிறீர்களா?"
 
 #: ../../../lib/web/src/components/data-table/column-header.tsx:56
 msgid "Asc"
@@ -158,7 +189,9 @@ msgid "Change notification category"
 msgstr "அறிவிப்பு வகையை மாற்று"
 
 #: src/features/chats/index.tsx:37
-#: src/features/chats/index.tsx:276
+#: src/features/chats/index.tsx:98
+#: src/features/chats/index.tsx:98
+#: src/features/chats/index.tsx:277
 msgid "Chat"
 msgstr "அரட்டை"
 
@@ -179,6 +212,10 @@ msgstr "அரட்டை ID"
 msgid "Chat name"
 msgstr "அரட்டை பெயர்"
 
+#: src/routes/_authenticated/$chatId_.settings.tsx:201
+msgid "Chat name is required"
+msgstr "அரட்டையின் பெயர் தேவை"
+
 #: src/features/chats/components/new-chat.tsx:241
 msgid "Chat name..."
 msgstr "அரட்டை பெயர்..."
@@ -195,9 +232,11 @@ msgstr "அரட்டை தயார்"
 msgid "Chat renamed"
 msgstr "அரட்டை மறுபெயரிடப்பட்டது"
 
-#: src/features/chats/index.tsx:343
+#: src/features/chats/index.tsx:344
+#: src/routes/_authenticated/$chatId_.settings.tsx:81
 #: src/routes/_authenticated/$chatId_.settings.tsx:94
 #: src/routes/_authenticated/$chatId_.settings.tsx:105
+#: src/routes/_authenticated/$chatId_.settings.tsx:120
 msgid "Chat settings"
 msgstr "அரட்டை அமைப்புகள்"
 
@@ -205,7 +244,7 @@ msgstr "அரட்டை அமைப்புகள்"
 msgid "Chat Text Box"
 msgstr "அரட்டை உரை பெட்டி"
 
-#: src/components/layout/chat-layout.tsx:100
+#: src/components/layout/chat-layout.tsx:101
 msgid "Chats"
 msgstr "அரட்டைகள்"
 
@@ -313,7 +352,7 @@ msgstr "நகலெடு"
 msgid "Create a new chat"
 msgstr "புதிய அரட்டை உருவாக்கு"
 
-#: src/components/layout/chat-layout.tsx:108
+#: src/components/layout/chat-layout.tsx:109
 #: src/features/chats/components/new-chat.tsx:262
 msgid "Create chat"
 msgstr "அரட்டை உருவாக்கு"
@@ -343,11 +382,12 @@ msgstr "இயல்புநிலை"
 msgid "Default AI account"
 msgstr "இயல்புநிலை AI கணக்கு"
 
-#: src/features/chats/index.tsx:326
+#: src/features/chats/index.tsx:327
+#: src/features/chats/index.tsx:391
 msgid "Delete chat"
 msgstr "அரட்டையை நீக்கு"
 
-#: src/features/chats/index.tsx:443
+#: src/features/chats/index.tsx:445
 #: src/routes/_authenticated/$chatId_.settings.tsx:438
 msgid "Delete chat history"
 msgstr "அரட்டை வரலாற்றை நீக்கு"
@@ -420,7 +460,7 @@ msgstr "உறுப்பினரை நீக்க முடியவில�
 msgid "Failed to rename chat"
 msgstr "சாட்டின் பெயரை மாற்ற முடியவில்லை"
 
-#: src/features/chats/index.tsx:406
+#: src/features/chats/index.tsx:408
 msgid "Failed to send message"
 msgstr "செய்தியை அனுப்ப முடியவில்லை"
 
@@ -530,16 +570,21 @@ msgstr "தளவமைப்பு"
 msgid "Learn more"
 msgstr "மேலும் அறிய"
 
-#: src/features/chats/index.tsx:333
+#: src/features/chats/index.tsx:431
+msgid "Leave"
+msgstr "வெளியேறு"
+
+#: src/features/chats/index.tsx:334
+#: src/routes/_authenticated/$chatId_.settings.tsx:424
 msgid "Leave chat"
 msgstr "சாட்டை விட்டு வெளியேறு"
 
-#: src/features/chats/index.tsx:420
+#: src/features/chats/index.tsx:422
 #: src/routes/_authenticated/$chatId_.settings.tsx:415
 msgid "Leave chat?"
 msgstr "சாட்டை விட்டு வெளியேறவா?"
 
-#: src/features/chats/index.tsx:426
+#: src/features/chats/index.tsx:428
 #: src/routes/_authenticated/$chatId_.settings.tsx:421
 msgid "Leaving..."
 msgstr "வெளியேறுகிறது..."
@@ -631,6 +676,10 @@ msgstr "இணைப்பை இடதுபுறம் நகர்த்த�
 #: src/features/chats/components/chat-input.tsx:145
 msgid "Move attachment right"
 msgstr "இணைப்பை வலதுபுறம் நகர்த்தவும்"
+
+#: src/routes/_authenticated/$chatId_.settings.tsx:202
+msgid "Name must be 100 characters or less"
+msgstr "பெயர் 100 எழுத்துக்கள் அல்லது அதற்கும் குறைவாக இருக்க வேண்டும்"
 
 #: ../../../lib/web/src/components/ui/sort-selector.tsx:40
 msgid "New"
@@ -725,7 +774,7 @@ msgstr "திற"
 msgid "Open account actions"
 msgstr "கணக்கு செயல்களைத் திறக்கவும்"
 
-#: src/features/chats/index.tsx:318
+#: src/features/chats/index.tsx:319
 msgid "Open chat actions"
 msgstr "அரட்டை செயல்களைத் திறக்கவும்"
 
@@ -794,6 +843,7 @@ msgstr "24 மணி நேரத்திற்குள் சார்பு,
 
 #: ../../../lib/web/src/features/access/access-list.tsx:257
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:172
+#: src/routes/_authenticated/$chatId_.settings.tsx:569
 msgid "Remove"
 msgstr "அகற்று"
 
@@ -994,6 +1044,14 @@ msgstr "தீம்"
 msgid "Theme Settings"
 msgstr "தீம் அமைப்புகள்"
 
+#: src/routes/_authenticated/$chatId_.settings.tsx:157
+msgid "this chat"
+msgstr "இந்த அரட்டை"
+
+#: src/routes/_authenticated/$chatId_.settings.tsx:110
+msgid "This chat may have been deleted or you don't have access to it"
+msgstr "இந்த அரட்டை நீக்கப்பட்டிருக்கலாம் அல்லது உங்களுக்கு அணுகல் இல்லை"
+
 #: ../../../lib/web/src/lib/preference-utils.ts:72
 msgid "Thursday"
 msgstr "வியாழக்கிழமை"
@@ -1072,6 +1130,10 @@ msgstr "அனுமதிக்கப்படாத அணுகல்"
 msgid "United States"
 msgstr "ஐக்கிய அமெரிக்கா"
 
+#: src/hooks/useChatWebsocket.ts:173
+msgid "Unknown"
+msgstr "தெரியாதது"
+
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:131
 msgid "Unverified"
 msgstr "சரிபார்க்கப்படாதது"
@@ -1100,6 +1162,10 @@ msgstr "சரிபார்"
 msgid "Verify email address"
 msgstr "மின்னஞ்சல் முகவரியை சரிபார்"
 
+#: src/features/chats/components/message-attachments.tsx:53
+msgid "Video thumbnail"
+msgstr "வீடியோ சிறுபடம்"
+
 #: ../../../lib/web/src/components/data-table/view-options.tsx:30
 msgid "View"
 msgstr "காட்டு"
@@ -1124,6 +1190,27 @@ msgstr "இணையதளம் பராமரிப்பில் உள்�
 msgid "Wednesday"
 msgstr "புதன்கிழமை"
 
+#: src/features/chats/index.tsx:136
+#: src/features/chats/index.tsx:137
+msgid "You"
+msgstr "நீங்கள்"
+
 #: src/features/chats/components/new-chat.tsx:122
 msgid "You already have a chat with this friend"
 msgstr "உங்களிடம் ஏற்கனவே இந்த நண்பருடன் ஒரு அரட்டை உள்ளது"
+
+#: src/features/chats/components/new-chat.tsx:216
+msgid "You already have chats with:"
+msgstr "உங்களிடம் ஏற்கனவே இவர்களுடன் அரட்டைகள் உள்ளன:"
+
+#: src/features/chats/components/chat-empty-state.tsx:34
+msgid "You haven't started any chats yet. Connect with a friend to get things rolling."
+msgstr "நீங்கள் இன்னும் எந்த அரட்டையையும் தொடங்கவில்லை. தொடங்க ஒரு நண்பருடன் இணையுங்கள்."
+
+#: src/features/chats/index.tsx:378
+msgid "You left this chat"
+msgstr "நீங்கள் இந்த அரட்டையை விட்டு வெளியேறினீர்கள்"
+
+#: src/features/chats/index.tsx:377
+msgid "You were removed from this chat"
+msgstr "நீங்கள் இந்த அரட்டையிலிருந்து அகற்றப்பட்டீர்கள்"

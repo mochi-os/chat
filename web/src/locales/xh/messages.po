@@ -13,6 +13,12 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
+#. placeholder {0}: chatDetail.chat.name
+#: src/routes/_authenticated/$chatId_.settings.tsx:81
+#: src/routes/_authenticated/$chatId_.settings.tsx:120
+msgid "{0} settings"
+msgstr "Iisetingi ze-{0}"
+
 #: ../../../lib/web/src/lib/preference-utils.ts:52
 msgid "12 hours"
 msgstr "iiyure ezili-12"
@@ -48,6 +54,11 @@ msgstr "Uhlobo lwe-akhawunti"
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:234
 msgid "Account verified"
 msgstr "I-akhawunti iqinisekisiwe"
+
+#. placeholder {0}: friend.name
+#: src/routes/_authenticated/$chatId_.settings.tsx:511
+msgid "Add {0} to chat"
+msgstr "Yongeza u-{0} kwincoko"
 
 #: ../../../lib/web/src/features/accounts/account-add.tsx:117
 msgid "Add a new account"
@@ -116,9 +127,23 @@ msgstr "Konke"
 msgid "All your friends are already in this chat"
 msgstr "Bonke abahlobo bakho sele bekule ncoko"
 
+#. placeholder {0}: selectedChat?.name
+#: src/features/chats/index.tsx:423
+msgid "Are you sure you want to leave \"{0}\"? You can be added back by other members."
+msgstr ""
+
+#: src/routes/_authenticated/$chatId_.settings.tsx:416
+msgid "Are you sure you want to leave \"{chatName}\"? You can be added back by other members."
+msgstr ""
+
 #: ../../../lib/web/src/components/sign-out-dialog.tsx:24
 msgid "Are you sure you want to log out? You will need to log in again to access your account."
 msgstr "Uqinisekile ufuna ukuphuma? Kuya kufuneka ungene kwakhona ukuze ufikelele kwi-akhawunti yakho."
+
+#. placeholder {0}: member?.name
+#: src/routes/_authenticated/$chatId_.settings.tsx:561
+msgid "Are you sure you want to remove {0} from this chat?"
+msgstr "Uqinisekile ufuna ukususa u-{0} kule ncoko?"
 
 #: ../../../lib/web/src/components/data-table/column-header.tsx:56
 msgid "Asc"
@@ -164,7 +189,9 @@ msgid "Change notification category"
 msgstr "Tshintsha udidi lwesaziso"
 
 #: src/features/chats/index.tsx:37
-#: src/features/chats/index.tsx:276
+#: src/features/chats/index.tsx:98
+#: src/features/chats/index.tsx:98
+#: src/features/chats/index.tsx:277
 msgid "Chat"
 msgstr "Incoko"
 
@@ -185,6 +212,10 @@ msgstr "I-ID yencoko"
 msgid "Chat name"
 msgstr "Igama lencoko"
 
+#: src/routes/_authenticated/$chatId_.settings.tsx:201
+msgid "Chat name is required"
+msgstr "Igama lencoko liyafuneka"
+
 #: src/features/chats/components/new-chat.tsx:241
 msgid "Chat name..."
 msgstr "Igama lencoko..."
@@ -201,9 +232,11 @@ msgstr "Incoko ilungile"
 msgid "Chat renamed"
 msgstr "Incoko iguqulelwe igama"
 
-#: src/features/chats/index.tsx:343
+#: src/features/chats/index.tsx:344
+#: src/routes/_authenticated/$chatId_.settings.tsx:81
 #: src/routes/_authenticated/$chatId_.settings.tsx:94
 #: src/routes/_authenticated/$chatId_.settings.tsx:105
+#: src/routes/_authenticated/$chatId_.settings.tsx:120
 msgid "Chat settings"
 msgstr "Iisetingi zencoko"
 
@@ -211,7 +244,7 @@ msgstr "Iisetingi zencoko"
 msgid "Chat Text Box"
 msgstr "Ibhokisi yokubhala kwincoko"
 
-#: src/components/layout/chat-layout.tsx:100
+#: src/components/layout/chat-layout.tsx:101
 msgid "Chats"
 msgstr "Iincoko"
 
@@ -319,7 +352,7 @@ msgstr "Kotshela"
 msgid "Create a new chat"
 msgstr "Yenza incoko entsha"
 
-#: src/components/layout/chat-layout.tsx:108
+#: src/components/layout/chat-layout.tsx:109
 #: src/features/chats/components/new-chat.tsx:262
 msgid "Create chat"
 msgstr "Yenza incoko"
@@ -349,11 +382,12 @@ msgstr "Eyoqobo"
 msgid "Default AI account"
 msgstr "I-akhawunti yoqobo ye-AI"
 
-#: src/features/chats/index.tsx:326
+#: src/features/chats/index.tsx:327
+#: src/features/chats/index.tsx:391
 msgid "Delete chat"
 msgstr "Cima incoko"
 
-#: src/features/chats/index.tsx:443
+#: src/features/chats/index.tsx:445
 #: src/routes/_authenticated/$chatId_.settings.tsx:438
 msgid "Delete chat history"
 msgstr "Cima imbali yencoko"
@@ -426,7 +460,7 @@ msgstr "Ayiphumelelanga ukususa ilungu"
 msgid "Failed to rename chat"
 msgstr "Ayiphumelelanga ukunika igama elitsha incoko"
 
-#: src/features/chats/index.tsx:406
+#: src/features/chats/index.tsx:408
 msgid "Failed to send message"
 msgstr "Ayiphumelelanga ukuthumela umyalezo"
 
@@ -536,16 +570,21 @@ msgstr "Ulungelelaniso"
 msgid "Learn more"
 msgstr "Funda okungakumbi"
 
-#: src/features/chats/index.tsx:333
+#: src/features/chats/index.tsx:431
+msgid "Leave"
+msgstr "Shiya"
+
+#: src/features/chats/index.tsx:334
+#: src/routes/_authenticated/$chatId_.settings.tsx:424
 msgid "Leave chat"
 msgstr "Shiya incoko"
 
-#: src/features/chats/index.tsx:420
+#: src/features/chats/index.tsx:422
 #: src/routes/_authenticated/$chatId_.settings.tsx:415
 msgid "Leave chat?"
 msgstr "Shiya incoko?"
 
-#: src/features/chats/index.tsx:426
+#: src/features/chats/index.tsx:428
 #: src/routes/_authenticated/$chatId_.settings.tsx:421
 msgid "Leaving..."
 msgstr "Iyashiya..."
@@ -637,6 +676,10 @@ msgstr "Hambisa isiqhoboshelo ekhohlo"
 #: src/features/chats/components/chat-input.tsx:145
 msgid "Move attachment right"
 msgstr "Hambisa isiqhoboshelo ekunene"
+
+#: src/routes/_authenticated/$chatId_.settings.tsx:202
+msgid "Name must be 100 characters or less"
+msgstr "Igama kufuneka libe yimpawu ezili-100 okanye ngaphantsi"
 
 #: ../../../lib/web/src/components/ui/sort-selector.tsx:40
 msgid "New"
@@ -731,7 +774,7 @@ msgstr "Vula"
 msgid "Open account actions"
 msgstr "Vula izenzo zeakhawunti"
 
-#: src/features/chats/index.tsx:318
+#: src/features/chats/index.tsx:319
 msgid "Open chat actions"
 msgstr "Vula izenzo zencoko"
 
@@ -800,6 +843,7 @@ msgstr "Khwiniyene kumayure angama-24, kungenjalo kupheleleyo"
 
 #: ../../../lib/web/src/features/access/access-list.tsx:257
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:172
+#: src/routes/_authenticated/$chatId_.settings.tsx:569
 msgid "Remove"
 msgstr "Susa"
 
@@ -1000,6 +1044,14 @@ msgstr "Itimu"
 msgid "Theme Settings"
 msgstr "Iisetingi zetimu"
 
+#: src/routes/_authenticated/$chatId_.settings.tsx:157
+msgid "this chat"
+msgstr "le ncoko"
+
+#: src/routes/_authenticated/$chatId_.settings.tsx:110
+msgid "This chat may have been deleted or you don't have access to it"
+msgstr "Le ncoko isenokuba icinyiwe okanye awunafikelelo kuyo"
+
 #: ../../../lib/web/src/lib/preference-utils.ts:72
 msgid "Thursday"
 msgstr "Ulwesine"
@@ -1078,6 +1130,10 @@ msgstr "Ufikelelo Olungavunyelwanga"
 msgid "United States"
 msgstr "United States"
 
+#: src/hooks/useChatWebsocket.ts:173
+msgid "Unknown"
+msgstr "Akwaziwa"
+
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:131
 msgid "Unverified"
 msgstr "Ayingqinwanga"
@@ -1106,6 +1162,10 @@ msgstr "Qinisekisa"
 msgid "Verify email address"
 msgstr "Qinisekisa idilesi ye-imeyile"
 
+#: src/features/chats/components/message-attachments.tsx:53
+msgid "Video thumbnail"
+msgstr "Umfanekiso omfutshane wevidiyo"
+
 #: ../../../lib/web/src/components/data-table/view-options.tsx:30
 msgid "View"
 msgstr "Bonisa"
@@ -1130,6 +1190,27 @@ msgstr "Iwebhusayithi iphantsi kogcino!"
 msgid "Wednesday"
 msgstr "Ulwesithathu"
 
+#: src/features/chats/index.tsx:136
+#: src/features/chats/index.tsx:137
+msgid "You"
+msgstr "Wena"
+
 #: src/features/chats/components/new-chat.tsx:122
 msgid "You already have a chat with this friend"
 msgstr "Sele unencoko nalo mhlobo"
+
+#: src/features/chats/components/new-chat.tsx:216
+msgid "You already have chats with:"
+msgstr "Sele uneencoko nabo:"
+
+#: src/features/chats/components/chat-empty-state.tsx:34
+msgid "You haven't started any chats yet. Connect with a friend to get things rolling."
+msgstr "Awukaqalisi naziphi na iincoko. Qhagamshelana nomhlobo ukuze uqalise."
+
+#: src/features/chats/index.tsx:378
+msgid "You left this chat"
+msgstr "Uyishiyile le ncoko"
+
+#: src/features/chats/index.tsx:377
+msgid "You were removed from this chat"
+msgstr "Ususiwe kule ncoko"

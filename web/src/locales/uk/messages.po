@@ -13,6 +13,12 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
+#. placeholder {0}: chatDetail.chat.name
+#: src/routes/_authenticated/$chatId_.settings.tsx:81
+#: src/routes/_authenticated/$chatId_.settings.tsx:120
+msgid "{0} settings"
+msgstr "Налаштування {0}"
+
 #: ../../../lib/web/src/lib/preference-utils.ts:52
 msgid "12 hours"
 msgstr "12 годин"
@@ -48,6 +54,11 @@ msgstr "Тип облікового запису"
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:234
 msgid "Account verified"
 msgstr "Обліковий запис підтверджено"
+
+#. placeholder {0}: friend.name
+#: src/routes/_authenticated/$chatId_.settings.tsx:511
+msgid "Add {0} to chat"
+msgstr "Додати {0} до чату"
 
 #: ../../../lib/web/src/features/accounts/account-add.tsx:117
 msgid "Add a new account"
@@ -116,9 +127,23 @@ msgstr "Усі"
 msgid "All your friends are already in this chat"
 msgstr "Усі ваші друзі вже в цьому чаті"
 
+#. placeholder {0}: selectedChat?.name
+#: src/features/chats/index.tsx:423
+msgid "Are you sure you want to leave \"{0}\"? You can be added back by other members."
+msgstr ""
+
+#: src/routes/_authenticated/$chatId_.settings.tsx:416
+msgid "Are you sure you want to leave \"{chatName}\"? You can be added back by other members."
+msgstr ""
+
 #: ../../../lib/web/src/components/sign-out-dialog.tsx:24
 msgid "Are you sure you want to log out? You will need to log in again to access your account."
 msgstr "Ви впевнені, що хочете вийти? Вам доведеться увійти знову, щоб отримати доступ до облікового запису."
+
+#. placeholder {0}: member?.name
+#: src/routes/_authenticated/$chatId_.settings.tsx:561
+msgid "Are you sure you want to remove {0} from this chat?"
+msgstr "Точно видалити {0} з цього чату?"
 
 #: ../../../lib/web/src/components/data-table/column-header.tsx:56
 msgid "Asc"
@@ -164,7 +189,9 @@ msgid "Change notification category"
 msgstr "Змінити категорію сповіщення"
 
 #: src/features/chats/index.tsx:37
-#: src/features/chats/index.tsx:276
+#: src/features/chats/index.tsx:98
+#: src/features/chats/index.tsx:98
+#: src/features/chats/index.tsx:277
 msgid "Chat"
 msgstr "Чат"
 
@@ -185,6 +212,10 @@ msgstr "ID чату"
 msgid "Chat name"
 msgstr "Назва чату"
 
+#: src/routes/_authenticated/$chatId_.settings.tsx:201
+msgid "Chat name is required"
+msgstr "Потрібна назва чату"
+
 #: src/features/chats/components/new-chat.tsx:241
 msgid "Chat name..."
 msgstr "Назва чату..."
@@ -201,9 +232,11 @@ msgstr "Чат готовий"
 msgid "Chat renamed"
 msgstr "Чат перейменовано"
 
-#: src/features/chats/index.tsx:343
+#: src/features/chats/index.tsx:344
+#: src/routes/_authenticated/$chatId_.settings.tsx:81
 #: src/routes/_authenticated/$chatId_.settings.tsx:94
 #: src/routes/_authenticated/$chatId_.settings.tsx:105
+#: src/routes/_authenticated/$chatId_.settings.tsx:120
 msgid "Chat settings"
 msgstr "Налаштування чату"
 
@@ -211,7 +244,7 @@ msgstr "Налаштування чату"
 msgid "Chat Text Box"
 msgstr "Текстове поле чату"
 
-#: src/components/layout/chat-layout.tsx:100
+#: src/components/layout/chat-layout.tsx:101
 msgid "Chats"
 msgstr "Чати"
 
@@ -319,7 +352,7 @@ msgstr "Копіювати"
 msgid "Create a new chat"
 msgstr "Створити новий чат"
 
-#: src/components/layout/chat-layout.tsx:108
+#: src/components/layout/chat-layout.tsx:109
 #: src/features/chats/components/new-chat.tsx:262
 msgid "Create chat"
 msgstr "Створити чат"
@@ -349,11 +382,12 @@ msgstr "За замовчуванням"
 msgid "Default AI account"
 msgstr "AI-обліковий запис за замовчуванням"
 
-#: src/features/chats/index.tsx:326
+#: src/features/chats/index.tsx:327
+#: src/features/chats/index.tsx:391
 msgid "Delete chat"
 msgstr "Видалити чат"
 
-#: src/features/chats/index.tsx:443
+#: src/features/chats/index.tsx:445
 #: src/routes/_authenticated/$chatId_.settings.tsx:438
 msgid "Delete chat history"
 msgstr "Видалити історію чату"
@@ -426,7 +460,7 @@ msgstr "Не вдалося видалити учасника"
 msgid "Failed to rename chat"
 msgstr "Не вдалося перейменувати чат"
 
-#: src/features/chats/index.tsx:406
+#: src/features/chats/index.tsx:408
 msgid "Failed to send message"
 msgstr "Не вдалося надіслати повідомлення"
 
@@ -536,16 +570,21 @@ msgstr "Макет"
 msgid "Learn more"
 msgstr "Дізнатися більше"
 
-#: src/features/chats/index.tsx:333
+#: src/features/chats/index.tsx:431
+msgid "Leave"
+msgstr "Вийти"
+
+#: src/features/chats/index.tsx:334
+#: src/routes/_authenticated/$chatId_.settings.tsx:424
 msgid "Leave chat"
 msgstr "Покинути чат"
 
-#: src/features/chats/index.tsx:420
+#: src/features/chats/index.tsx:422
 #: src/routes/_authenticated/$chatId_.settings.tsx:415
 msgid "Leave chat?"
 msgstr "Покинути чат?"
 
-#: src/features/chats/index.tsx:426
+#: src/features/chats/index.tsx:428
 #: src/routes/_authenticated/$chatId_.settings.tsx:421
 msgid "Leaving..."
 msgstr "Вихід..."
@@ -637,6 +676,10 @@ msgstr "Перемістити вкладення ліворуч"
 #: src/features/chats/components/chat-input.tsx:145
 msgid "Move attachment right"
 msgstr "Перемістити вкладення праворуч"
+
+#: src/routes/_authenticated/$chatId_.settings.tsx:202
+msgid "Name must be 100 characters or less"
+msgstr "Ім'я має містити 100 символів або менше"
 
 #: ../../../lib/web/src/components/ui/sort-selector.tsx:40
 msgid "New"
@@ -731,7 +774,7 @@ msgstr "Відкрити"
 msgid "Open account actions"
 msgstr "Відкрити дії з обліковим записом"
 
-#: src/features/chats/index.tsx:318
+#: src/features/chats/index.tsx:319
 msgid "Open chat actions"
 msgstr "Відкрити дії чату"
 
@@ -800,6 +843,7 @@ msgstr "Відносний протягом 24 годин, інакше абсо
 
 #: ../../../lib/web/src/features/access/access-list.tsx:257
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:172
+#: src/routes/_authenticated/$chatId_.settings.tsx:569
 msgid "Remove"
 msgstr "Видалити"
 
@@ -1000,6 +1044,14 @@ msgstr "Тема"
 msgid "Theme Settings"
 msgstr "Налаштування теми"
 
+#: src/routes/_authenticated/$chatId_.settings.tsx:157
+msgid "this chat"
+msgstr "цей чат"
+
+#: src/routes/_authenticated/$chatId_.settings.tsx:110
+msgid "This chat may have been deleted or you don't have access to it"
+msgstr "Цей чат, можливо, видалено, або у вас немає до нього доступу"
+
 #: ../../../lib/web/src/lib/preference-utils.ts:72
 msgid "Thursday"
 msgstr "Четвер"
@@ -1078,6 +1130,10 @@ msgstr "Неавторизований доступ"
 msgid "United States"
 msgstr "Сполучені Штати"
 
+#: src/hooks/useChatWebsocket.ts:173
+msgid "Unknown"
+msgstr "Невідомо"
+
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:131
 msgid "Unverified"
 msgstr "Не перевірено"
@@ -1106,6 +1162,10 @@ msgstr "Перевірити"
 msgid "Verify email address"
 msgstr "Підтвердити електронну адресу"
 
+#: src/features/chats/components/message-attachments.tsx:53
+msgid "Video thumbnail"
+msgstr "Мініатюра відео"
+
 #: ../../../lib/web/src/components/data-table/view-options.tsx:30
 msgid "View"
 msgstr "Переглянути"
@@ -1130,6 +1190,27 @@ msgstr "Вебсайт на технічному обслуговуванні!"
 msgid "Wednesday"
 msgstr "Середа"
 
+#: src/features/chats/index.tsx:136
+#: src/features/chats/index.tsx:137
+msgid "You"
+msgstr "Ви"
+
 #: src/features/chats/components/new-chat.tsx:122
 msgid "You already have a chat with this friend"
 msgstr "У вас уже є чат з цим другом"
+
+#: src/features/chats/components/new-chat.tsx:216
+msgid "You already have chats with:"
+msgstr "У вас уже є чати з:"
+
+#: src/features/chats/components/chat-empty-state.tsx:34
+msgid "You haven't started any chats yet. Connect with a friend to get things rolling."
+msgstr "Ви ще не починали жодних чатів. Зв'яжіться з другом, щоб розпочати."
+
+#: src/features/chats/index.tsx:378
+msgid "You left this chat"
+msgstr "Ви покинули цей чат"
+
+#: src/features/chats/index.tsx:377
+msgid "You were removed from this chat"
+msgstr "Вас видалили з цього чату"

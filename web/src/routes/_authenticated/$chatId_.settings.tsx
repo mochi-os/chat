@@ -78,7 +78,7 @@ function ChatSettingsPage() {
   )
 
   usePageTitle(
-    chatDetail?.chat.name ? `${chatDetail.chat.name} settings` : 'Chat settings'
+    chatDetail?.chat.name ? t`${chatDetail.chat.name} settings` : t`Chat settings`
   )
 
   const [showLeaveDialog, setShowLeaveDialog] = useState(false)
@@ -107,7 +107,7 @@ function ChatSettingsPage() {
           <EmptyState
             icon={MessageCircle}
             title={t`Chat not found`}
-            description="This chat may have been deleted or you don't have access to it"
+            description={t`This chat may have been deleted or you don't have access to it`}
           />
         </Main>
       </>
@@ -117,7 +117,7 @@ function ChatSettingsPage() {
   return (
     <>
       <PageHeader
-        title={chatDetail?.chat.name ? `${chatDetail.chat.name} settings` : 'Chat settings'}
+        title={chatDetail?.chat.name ? t`${chatDetail.chat.name} settings` : t`Chat settings`}
         back={{ label: t`Back to chat`, onFallback: goBackToChat }}
       />
       <Main className='space-y-8'>
@@ -154,7 +154,7 @@ function ChatSettingsPage() {
           open={showLeaveDialog}
           onOpenChange={setShowLeaveDialog}
           chatId={chatId}
-          chatName={chatDetail?.chat.name ?? 'this chat'}
+          chatName={chatDetail?.chat.name ?? t`this chat`}
           onSuccess={() => void navigate({ to: '/' })}
         />
 
@@ -198,8 +198,8 @@ function ChatNameSection({ chatId, name }: { chatId: string, name: string }) {
   })
 
   const validateName = (name: string): string | null => {
-    if (!name.trim()) return 'Chat name is required'
-    if (name.length > 100) return 'Name must be 100 characters or less'
+    if (!name.trim()) return t`Chat name is required`
+    if (name.length > 100) return t`Name must be 100 characters or less`
     return null
   }
 
@@ -413,7 +413,7 @@ function LeaveDialog({
         if (!isOpen) setDeleteOnLeave(false)
       }}
       title={t`Leave chat?`}
-      desc={`Are you sure you want to leave "${chatName}"? You can be added back by other members.`}
+      desc={t`Are you sure you want to leave "${chatName}"? You can be added back by other members.`}
       confirmText={
         leaveMutation.isPending ? (
           <>
@@ -421,7 +421,7 @@ function LeaveDialog({
             <Trans>Leaving...</Trans>
           </>
         ) : (
-          'Leave chat'
+          t`Leave chat`
         )
       }
       destructive
@@ -508,7 +508,7 @@ function AddMemberDialog({
               {availableFriends.map((friend) => (
                 <button
                   key={friend.id}
-                  aria-label={`Add ${friend.name} to chat`}
+                  aria-label={t`Add ${friend.name} to chat`}
                   className='hover:bg-accent flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-start disabled:opacity-50 transition-colors'
                   onClick={() => handleAddMember(friend.id)}
                   disabled={addMemberMutation.isPending}
@@ -558,7 +558,7 @@ function RemoveMemberDialog({
       open={open}
       onOpenChange={onOpenChange}
       title={t`Remove member?`}
-      desc={`Are you sure you want to remove ${member?.name} from this chat?`}
+      desc={t`Are you sure you want to remove ${member?.name} from this chat?`}
       confirmText={
         removeMemberMutation.isPending ? (
           <>
@@ -566,7 +566,7 @@ function RemoveMemberDialog({
             <Trans>Removing...</Trans>
           </>
         ) : (
-          'Remove'
+          t`Remove`
         )
       }
       destructive

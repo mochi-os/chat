@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useState } from 'react'
+import { useLingui } from '@lingui/react/macro'
 import {
   useQueryClient,
   type QueryClient,
@@ -54,7 +55,8 @@ const normalizePayload = (
 
 const createMessageFromPayload = (
   chatId: string,
-  payload: NormalizedChatWebsocketMessagePayload
+  payload: NormalizedChatWebsocketMessagePayload,
+  unknownSenderLabel: string,
 ): ChatMessage => {
   const created =
     typeof payload.created === 'number'
@@ -62,7 +64,7 @@ const createMessageFromPayload = (
       : Math.floor(Date.now() / 1000)
   const messageBody =
     typeof payload.body === 'string' ? payload.body : String(payload.body ?? '')
-  const senderName = typeof payload.name === 'string' ? payload.name : "Unknown"
+  const senderName = typeof payload.name === 'string' ? payload.name : unknownSenderLabel
   const senderId = typeof payload.member === 'string' ? payload.member : ''
 
   return {
@@ -108,7 +110,8 @@ const handleWebsocketEvent = (
 const appendMessageToCache = (
   chatId: string,
   payload: NormalizedChatWebsocketMessagePayload,
-  queryClient: QueryClient
+  queryClient: QueryClient,
+  unknownSenderLabel: string,
 ) => {
   if (!chatId) {
     return
@@ -123,7 +126,7 @@ const appendMessageToCache = (
   queryClient.setQueryData<InfiniteData<GetMessagesResponse>>(
     chatKeys.messages(chatId),
     (current) => {
-      const incomingMessage = createMessageFromPayload(chatId, payload)
+      const incomingMessage = createMessageFromPayload(chatId, payload, unknownSenderLabel)
 
       if (!current || !current.pages || current.pages.length === 0) {
         // Initialize with a single page containing the message
@@ -166,6 +169,8 @@ export const useChatWebsocket = (
   chatId?: string,
   chatKey?: string
 ): UseChatWebsocketResult => {
+  const { t } = useLingui()
+  const unknownSenderLabel = t`Unknown`
   const manager = useWebsocketManager()
   const queryClient = useQueryClient()
   const [snapshot, setSnapshot] = useState<{
@@ -189,7 +194,7 @@ export const useChatWebsocket = (
       onMessage: (event) => {
         const normalizedPayload = normalizePayload(event.payload)
         setLastMessage(normalizedPayload)
-        appendMessageToCache(event.chatId, normalizedPayload, queryClient)
+        appendMessageToCache(event.chatId, normalizedPayload, queryClient, unknownSenderLabel)
       },
       onStatusChange: (nextSnapshot) => {
         setSnapshot(nextSnapshot)

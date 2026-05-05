@@ -13,6 +13,12 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
+#. placeholder {0}: chatDetail.chat.name
+#: src/routes/_authenticated/$chatId_.settings.tsx:81
+#: src/routes/_authenticated/$chatId_.settings.tsx:120
+msgid "{0} settings"
+msgstr "{0} の設定"
+
 #: ../../../lib/web/src/lib/preference-utils.ts:52
 msgid "12 hours"
 msgstr "12時間"
@@ -48,6 +54,11 @@ msgstr "アカウントタイプ"
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:234
 msgid "Account verified"
 msgstr "アカウントを確認しました"
+
+#. placeholder {0}: friend.name
+#: src/routes/_authenticated/$chatId_.settings.tsx:511
+msgid "Add {0} to chat"
+msgstr "{0}をチャットに追加"
 
 #: ../../../lib/web/src/features/accounts/account-add.tsx:117
 msgid "Add a new account"
@@ -116,9 +127,23 @@ msgstr "すべて"
 msgid "All your friends are already in this chat"
 msgstr "すべての友だちはすでにこのチャットに参加しています"
 
+#. placeholder {0}: selectedChat?.name
+#: src/features/chats/index.tsx:423
+msgid "Are you sure you want to leave \"{0}\"? You can be added back by other members."
+msgstr ""
+
+#: src/routes/_authenticated/$chatId_.settings.tsx:416
+msgid "Are you sure you want to leave \"{chatName}\"? You can be added back by other members."
+msgstr ""
+
 #: ../../../lib/web/src/components/sign-out-dialog.tsx:24
 msgid "Are you sure you want to log out? You will need to log in again to access your account."
 msgstr "本当にログアウトしますか？再度アクセスするにはログインが必要です。"
+
+#. placeholder {0}: member?.name
+#: src/routes/_authenticated/$chatId_.settings.tsx:561
+msgid "Are you sure you want to remove {0} from this chat?"
+msgstr "本当に{0}をこのチャットから削除しますか?"
 
 #: ../../../lib/web/src/components/data-table/column-header.tsx:56
 msgid "Asc"
@@ -164,7 +189,9 @@ msgid "Change notification category"
 msgstr "通知カテゴリを変更"
 
 #: src/features/chats/index.tsx:37
-#: src/features/chats/index.tsx:276
+#: src/features/chats/index.tsx:98
+#: src/features/chats/index.tsx:98
+#: src/features/chats/index.tsx:277
 msgid "Chat"
 msgstr "チャット"
 
@@ -185,6 +212,10 @@ msgstr "チャットID"
 msgid "Chat name"
 msgstr "チャット名"
 
+#: src/routes/_authenticated/$chatId_.settings.tsx:201
+msgid "Chat name is required"
+msgstr "チャット名は必須です"
+
 #: src/features/chats/components/new-chat.tsx:241
 msgid "Chat name..."
 msgstr "チャット名..."
@@ -201,9 +232,11 @@ msgstr "チャット準備完了"
 msgid "Chat renamed"
 msgstr "チャット名を変更しました"
 
-#: src/features/chats/index.tsx:343
+#: src/features/chats/index.tsx:344
+#: src/routes/_authenticated/$chatId_.settings.tsx:81
 #: src/routes/_authenticated/$chatId_.settings.tsx:94
 #: src/routes/_authenticated/$chatId_.settings.tsx:105
+#: src/routes/_authenticated/$chatId_.settings.tsx:120
 msgid "Chat settings"
 msgstr "チャット設定"
 
@@ -211,7 +244,7 @@ msgstr "チャット設定"
 msgid "Chat Text Box"
 msgstr "チャットテキストボックス"
 
-#: src/components/layout/chat-layout.tsx:100
+#: src/components/layout/chat-layout.tsx:101
 msgid "Chats"
 msgstr "チャット"
 
@@ -319,7 +352,7 @@ msgstr "コピー"
 msgid "Create a new chat"
 msgstr "新しいチャットを作成"
 
-#: src/components/layout/chat-layout.tsx:108
+#: src/components/layout/chat-layout.tsx:109
 #: src/features/chats/components/new-chat.tsx:262
 msgid "Create chat"
 msgstr "チャットを作成"
@@ -349,11 +382,12 @@ msgstr "デフォルト"
 msgid "Default AI account"
 msgstr "デフォルト AI アカウント"
 
-#: src/features/chats/index.tsx:326
+#: src/features/chats/index.tsx:327
+#: src/features/chats/index.tsx:391
 msgid "Delete chat"
 msgstr "チャットを削除"
 
-#: src/features/chats/index.tsx:443
+#: src/features/chats/index.tsx:445
 #: src/routes/_authenticated/$chatId_.settings.tsx:438
 msgid "Delete chat history"
 msgstr "チャット履歴を削除"
@@ -426,7 +460,7 @@ msgstr "メンバーの削除に失敗しました"
 msgid "Failed to rename chat"
 msgstr "チャット名の変更に失敗しました"
 
-#: src/features/chats/index.tsx:406
+#: src/features/chats/index.tsx:408
 msgid "Failed to send message"
 msgstr "メッセージの送信に失敗しました"
 
@@ -536,16 +570,21 @@ msgstr "レイアウト"
 msgid "Learn more"
 msgstr "詳細"
 
-#: src/features/chats/index.tsx:333
+#: src/features/chats/index.tsx:431
+msgid "Leave"
+msgstr "退出"
+
+#: src/features/chats/index.tsx:334
+#: src/routes/_authenticated/$chatId_.settings.tsx:424
 msgid "Leave chat"
 msgstr "チャットから退出"
 
-#: src/features/chats/index.tsx:420
+#: src/features/chats/index.tsx:422
 #: src/routes/_authenticated/$chatId_.settings.tsx:415
 msgid "Leave chat?"
 msgstr "チャットを退出しますか？"
 
-#: src/features/chats/index.tsx:426
+#: src/features/chats/index.tsx:428
 #: src/routes/_authenticated/$chatId_.settings.tsx:421
 msgid "Leaving..."
 msgstr "退出中..."
@@ -637,6 +676,10 @@ msgstr "添付を左へ移動"
 #: src/features/chats/components/chat-input.tsx:145
 msgid "Move attachment right"
 msgstr "添付を右へ移動"
+
+#: src/routes/_authenticated/$chatId_.settings.tsx:202
+msgid "Name must be 100 characters or less"
+msgstr "名前は100文字以下にしてください"
 
 #: ../../../lib/web/src/components/ui/sort-selector.tsx:40
 msgid "New"
@@ -731,7 +774,7 @@ msgstr "開く"
 msgid "Open account actions"
 msgstr "アカウントのアクションを開く"
 
-#: src/features/chats/index.tsx:318
+#: src/features/chats/index.tsx:319
 msgid "Open chat actions"
 msgstr "チャット操作を開く"
 
@@ -800,6 +843,7 @@ msgstr "24時間以内は相対、それ以外は絶対"
 
 #: ../../../lib/web/src/features/access/access-list.tsx:257
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:172
+#: src/routes/_authenticated/$chatId_.settings.tsx:569
 msgid "Remove"
 msgstr "削除"
 
@@ -1000,6 +1044,14 @@ msgstr "テーマ"
 msgid "Theme Settings"
 msgstr "テーマ設定"
 
+#: src/routes/_authenticated/$chatId_.settings.tsx:157
+msgid "this chat"
+msgstr "このチャット"
+
+#: src/routes/_authenticated/$chatId_.settings.tsx:110
+msgid "This chat may have been deleted or you don't have access to it"
+msgstr "このチャットは削除されたか、アクセス権がない可能性があります"
+
 #: ../../../lib/web/src/lib/preference-utils.ts:72
 msgid "Thursday"
 msgstr "木曜日"
@@ -1078,6 +1130,10 @@ msgstr "認証されていないアクセス"
 msgid "United States"
 msgstr "アメリカ合衆国"
 
+#: src/hooks/useChatWebsocket.ts:173
+msgid "Unknown"
+msgstr "不明"
+
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:131
 msgid "Unverified"
 msgstr "未認証"
@@ -1106,6 +1162,10 @@ msgstr "認証"
 msgid "Verify email address"
 msgstr "メールアドレスを認証"
 
+#: src/features/chats/components/message-attachments.tsx:53
+msgid "Video thumbnail"
+msgstr "動画のサムネイル"
+
 #: ../../../lib/web/src/components/data-table/view-options.tsx:30
 msgid "View"
 msgstr "ビュー"
@@ -1130,6 +1190,27 @@ msgstr "ウェブサイトはメンテナンス中です!"
 msgid "Wednesday"
 msgstr "水曜日"
 
+#: src/features/chats/index.tsx:136
+#: src/features/chats/index.tsx:137
+msgid "You"
+msgstr "あなた"
+
 #: src/features/chats/components/new-chat.tsx:122
 msgid "You already have a chat with this friend"
 msgstr "この友だちとはすでにチャットがあります"
+
+#: src/features/chats/components/new-chat.tsx:216
+msgid "You already have chats with:"
+msgstr "すでに次の人とチャットがあります:"
+
+#: src/features/chats/components/chat-empty-state.tsx:34
+msgid "You haven't started any chats yet. Connect with a friend to get things rolling."
+msgstr "まだチャットを始めていません。友達とつながって始めましょう。"
+
+#: src/features/chats/index.tsx:378
+msgid "You left this chat"
+msgstr "このチャットを退出しました"
+
+#: src/features/chats/index.tsx:377
+msgid "You were removed from this chat"
+msgstr "このチャットから削除されました"

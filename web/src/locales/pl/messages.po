@@ -13,6 +13,12 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
+#. placeholder {0}: chatDetail.chat.name
+#: src/routes/_authenticated/$chatId_.settings.tsx:81
+#: src/routes/_authenticated/$chatId_.settings.tsx:120
+msgid "{0} settings"
+msgstr "Ustawienia {0}"
+
 #: ../../../lib/web/src/lib/preference-utils.ts:52
 msgid "12 hours"
 msgstr "12 godzin"
@@ -48,6 +54,11 @@ msgstr "Typ konta"
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:234
 msgid "Account verified"
 msgstr "Konto zweryfikowane"
+
+#. placeholder {0}: friend.name
+#: src/routes/_authenticated/$chatId_.settings.tsx:511
+msgid "Add {0} to chat"
+msgstr "Dodaj {0} do czatu"
 
 #: ../../../lib/web/src/features/accounts/account-add.tsx:117
 msgid "Add a new account"
@@ -116,9 +127,23 @@ msgstr "Wszystko"
 msgid "All your friends are already in this chat"
 msgstr "Wszyscy twoi znajomi są już w tym czacie"
 
+#. placeholder {0}: selectedChat?.name
+#: src/features/chats/index.tsx:423
+msgid "Are you sure you want to leave \"{0}\"? You can be added back by other members."
+msgstr ""
+
+#: src/routes/_authenticated/$chatId_.settings.tsx:416
+msgid "Are you sure you want to leave \"{chatName}\"? You can be added back by other members."
+msgstr ""
+
 #: ../../../lib/web/src/components/sign-out-dialog.tsx:24
 msgid "Are you sure you want to log out? You will need to log in again to access your account."
 msgstr "Czy na pewno chcesz się wylogować? Aby uzyskać dostęp do konta, będzie trzeba zalogować się ponownie."
+
+#. placeholder {0}: member?.name
+#: src/routes/_authenticated/$chatId_.settings.tsx:561
+msgid "Are you sure you want to remove {0} from this chat?"
+msgstr "Czy na pewno chcesz usunąć {0} z tego czatu?"
 
 #: ../../../lib/web/src/components/data-table/column-header.tsx:56
 msgid "Asc"
@@ -164,7 +189,9 @@ msgid "Change notification category"
 msgstr "Zmień kategorię powiadomienia"
 
 #: src/features/chats/index.tsx:37
-#: src/features/chats/index.tsx:276
+#: src/features/chats/index.tsx:98
+#: src/features/chats/index.tsx:98
+#: src/features/chats/index.tsx:277
 msgid "Chat"
 msgstr "Czat"
 
@@ -185,6 +212,10 @@ msgstr "ID czatu"
 msgid "Chat name"
 msgstr "Nazwa czatu"
 
+#: src/routes/_authenticated/$chatId_.settings.tsx:201
+msgid "Chat name is required"
+msgstr "Nazwa czatu jest wymagana"
+
 #: src/features/chats/components/new-chat.tsx:241
 msgid "Chat name..."
 msgstr "Nazwa czatu..."
@@ -201,9 +232,11 @@ msgstr "Czat gotowy"
 msgid "Chat renamed"
 msgstr "Nazwa czatu zmieniona"
 
-#: src/features/chats/index.tsx:343
+#: src/features/chats/index.tsx:344
+#: src/routes/_authenticated/$chatId_.settings.tsx:81
 #: src/routes/_authenticated/$chatId_.settings.tsx:94
 #: src/routes/_authenticated/$chatId_.settings.tsx:105
+#: src/routes/_authenticated/$chatId_.settings.tsx:120
 msgid "Chat settings"
 msgstr "Ustawienia czatu"
 
@@ -211,7 +244,7 @@ msgstr "Ustawienia czatu"
 msgid "Chat Text Box"
 msgstr "Pole tekstowe czatu"
 
-#: src/components/layout/chat-layout.tsx:100
+#: src/components/layout/chat-layout.tsx:101
 msgid "Chats"
 msgstr "Czaty"
 
@@ -319,7 +352,7 @@ msgstr "Kopiuj"
 msgid "Create a new chat"
 msgstr "Utwórz nowy czat"
 
-#: src/components/layout/chat-layout.tsx:108
+#: src/components/layout/chat-layout.tsx:109
 #: src/features/chats/components/new-chat.tsx:262
 msgid "Create chat"
 msgstr "Utwórz czat"
@@ -349,11 +382,12 @@ msgstr "Domyślny"
 msgid "Default AI account"
 msgstr "Domyślne konto AI"
 
-#: src/features/chats/index.tsx:326
+#: src/features/chats/index.tsx:327
+#: src/features/chats/index.tsx:391
 msgid "Delete chat"
 msgstr "Usuń czat"
 
-#: src/features/chats/index.tsx:443
+#: src/features/chats/index.tsx:445
 #: src/routes/_authenticated/$chatId_.settings.tsx:438
 msgid "Delete chat history"
 msgstr "Usuń historię czatu"
@@ -426,7 +460,7 @@ msgstr "Nie udało się usunąć członka"
 msgid "Failed to rename chat"
 msgstr "Nie udało się zmienić nazwy czatu"
 
-#: src/features/chats/index.tsx:406
+#: src/features/chats/index.tsx:408
 msgid "Failed to send message"
 msgstr "Nie udało się wysłać wiadomości"
 
@@ -536,16 +570,21 @@ msgstr "Układ"
 msgid "Learn more"
 msgstr "Dowiedz się więcej"
 
-#: src/features/chats/index.tsx:333
+#: src/features/chats/index.tsx:431
+msgid "Leave"
+msgstr "Opuść"
+
+#: src/features/chats/index.tsx:334
+#: src/routes/_authenticated/$chatId_.settings.tsx:424
 msgid "Leave chat"
 msgstr "Opuść czat"
 
-#: src/features/chats/index.tsx:420
+#: src/features/chats/index.tsx:422
 #: src/routes/_authenticated/$chatId_.settings.tsx:415
 msgid "Leave chat?"
 msgstr "Opuścić czat?"
 
-#: src/features/chats/index.tsx:426
+#: src/features/chats/index.tsx:428
 #: src/routes/_authenticated/$chatId_.settings.tsx:421
 msgid "Leaving..."
 msgstr "Opuszczanie..."
@@ -637,6 +676,10 @@ msgstr "Przesuń załącznik w lewo"
 #: src/features/chats/components/chat-input.tsx:145
 msgid "Move attachment right"
 msgstr "Przesuń załącznik w prawo"
+
+#: src/routes/_authenticated/$chatId_.settings.tsx:202
+msgid "Name must be 100 characters or less"
+msgstr "Nazwa może mieć maksymalnie 100 znaków"
 
 #: ../../../lib/web/src/components/ui/sort-selector.tsx:40
 msgid "New"
@@ -731,7 +774,7 @@ msgstr "Otwórz"
 msgid "Open account actions"
 msgstr "Otwórz akcje konta"
 
-#: src/features/chats/index.tsx:318
+#: src/features/chats/index.tsx:319
 msgid "Open chat actions"
 msgstr "Otwórz akcje czatu"
 
@@ -800,6 +843,7 @@ msgstr "Względny w ciągu 24 godzin, w przeciwnym razie bezwzględny"
 
 #: ../../../lib/web/src/features/access/access-list.tsx:257
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:172
+#: src/routes/_authenticated/$chatId_.settings.tsx:569
 msgid "Remove"
 msgstr "Usuń"
 
@@ -1000,6 +1044,14 @@ msgstr "Motyw"
 msgid "Theme Settings"
 msgstr "Ustawienia motywu"
 
+#: src/routes/_authenticated/$chatId_.settings.tsx:157
+msgid "this chat"
+msgstr "ten czat"
+
+#: src/routes/_authenticated/$chatId_.settings.tsx:110
+msgid "This chat may have been deleted or you don't have access to it"
+msgstr "Ten czat mógł zostać usunięty lub nie masz do niego dostępu"
+
 #: ../../../lib/web/src/lib/preference-utils.ts:72
 msgid "Thursday"
 msgstr "Czwartek"
@@ -1078,6 +1130,10 @@ msgstr "Dostęp nieuprawniony"
 msgid "United States"
 msgstr "Stany Zjednoczone"
 
+#: src/hooks/useChatWebsocket.ts:173
+msgid "Unknown"
+msgstr "Nieznany"
+
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:131
 msgid "Unverified"
 msgstr "Niezweryfikowane"
@@ -1106,6 +1162,10 @@ msgstr "Weryfikuj"
 msgid "Verify email address"
 msgstr "Zweryfikuj adres e-mail"
 
+#: src/features/chats/components/message-attachments.tsx:53
+msgid "Video thumbnail"
+msgstr "Miniatura wideo"
+
 #: ../../../lib/web/src/components/data-table/view-options.tsx:30
 msgid "View"
 msgstr "Zobacz"
@@ -1130,6 +1190,27 @@ msgstr "Witryna jest w trakcie konserwacji!"
 msgid "Wednesday"
 msgstr "Środa"
 
+#: src/features/chats/index.tsx:136
+#: src/features/chats/index.tsx:137
+msgid "You"
+msgstr "Ty"
+
 #: src/features/chats/components/new-chat.tsx:122
 msgid "You already have a chat with this friend"
 msgstr "Masz już czat z tym znajomym"
+
+#: src/features/chats/components/new-chat.tsx:216
+msgid "You already have chats with:"
+msgstr "Masz już czaty z:"
+
+#: src/features/chats/components/chat-empty-state.tsx:34
+msgid "You haven't started any chats yet. Connect with a friend to get things rolling."
+msgstr "Nie zacząłeś jeszcze żadnych czatów. Połącz się ze znajomym, aby zacząć."
+
+#: src/features/chats/index.tsx:378
+msgid "You left this chat"
+msgstr "Opuściłeś ten czat"
+
+#: src/features/chats/index.tsx:377
+msgid "You were removed from this chat"
+msgstr "Zostałeś usunięty z tego czatu"

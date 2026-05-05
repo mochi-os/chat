@@ -13,6 +13,12 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
+#. placeholder {0}: chatDetail.chat.name
+#: src/routes/_authenticated/$chatId_.settings.tsx:81
+#: src/routes/_authenticated/$chatId_.settings.tsx:120
+msgid "{0} settings"
+msgstr "Tetapan {0}"
+
 #: ../../../lib/web/src/lib/preference-utils.ts:52
 msgid "12 hours"
 msgstr "12 jam"
@@ -48,6 +54,11 @@ msgstr "Jenis akaun"
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:234
 msgid "Account verified"
 msgstr "Akaun disahkan"
+
+#. placeholder {0}: friend.name
+#: src/routes/_authenticated/$chatId_.settings.tsx:511
+msgid "Add {0} to chat"
+msgstr "Tambahkan {0} ke sembang"
 
 #: ../../../lib/web/src/features/accounts/account-add.tsx:117
 msgid "Add a new account"
@@ -116,9 +127,23 @@ msgstr "Semua"
 msgid "All your friends are already in this chat"
 msgstr "Semua rakan anda sudah berada dalam sembang ini"
 
+#. placeholder {0}: selectedChat?.name
+#: src/features/chats/index.tsx:423
+msgid "Are you sure you want to leave \"{0}\"? You can be added back by other members."
+msgstr ""
+
+#: src/routes/_authenticated/$chatId_.settings.tsx:416
+msgid "Are you sure you want to leave \"{chatName}\"? You can be added back by other members."
+msgstr ""
+
 #: ../../../lib/web/src/components/sign-out-dialog.tsx:24
 msgid "Are you sure you want to log out? You will need to log in again to access your account."
 msgstr "Adakah anda pasti mahu log keluar? Anda perlu log masuk semula untuk mengakses akaun anda."
+
+#. placeholder {0}: member?.name
+#: src/routes/_authenticated/$chatId_.settings.tsx:561
+msgid "Are you sure you want to remove {0} from this chat?"
+msgstr "Adakah anda pasti mahu mengeluarkan {0} daripada sembang ini?"
 
 #: ../../../lib/web/src/components/data-table/column-header.tsx:56
 msgid "Asc"
@@ -164,7 +189,9 @@ msgid "Change notification category"
 msgstr "Tukar kategori pemberitahuan"
 
 #: src/features/chats/index.tsx:37
-#: src/features/chats/index.tsx:276
+#: src/features/chats/index.tsx:98
+#: src/features/chats/index.tsx:98
+#: src/features/chats/index.tsx:277
 msgid "Chat"
 msgstr "Sembang"
 
@@ -185,6 +212,10 @@ msgstr "ID Sembang"
 msgid "Chat name"
 msgstr "Nama sembang"
 
+#: src/routes/_authenticated/$chatId_.settings.tsx:201
+msgid "Chat name is required"
+msgstr "Nama sembang diperlukan"
+
 #: src/features/chats/components/new-chat.tsx:241
 msgid "Chat name..."
 msgstr "Nama sembang..."
@@ -201,9 +232,11 @@ msgstr "Sembang sedia"
 msgid "Chat renamed"
 msgstr "Sembang dinamakan semula"
 
-#: src/features/chats/index.tsx:343
+#: src/features/chats/index.tsx:344
+#: src/routes/_authenticated/$chatId_.settings.tsx:81
 #: src/routes/_authenticated/$chatId_.settings.tsx:94
 #: src/routes/_authenticated/$chatId_.settings.tsx:105
+#: src/routes/_authenticated/$chatId_.settings.tsx:120
 msgid "Chat settings"
 msgstr "Tetapan sembang"
 
@@ -211,7 +244,7 @@ msgstr "Tetapan sembang"
 msgid "Chat Text Box"
 msgstr "Kotak Teks Sembang"
 
-#: src/components/layout/chat-layout.tsx:100
+#: src/components/layout/chat-layout.tsx:101
 msgid "Chats"
 msgstr "Sembang"
 
@@ -319,7 +352,7 @@ msgstr "Salin"
 msgid "Create a new chat"
 msgstr "Cipta sembang baharu"
 
-#: src/components/layout/chat-layout.tsx:108
+#: src/components/layout/chat-layout.tsx:109
 #: src/features/chats/components/new-chat.tsx:262
 msgid "Create chat"
 msgstr "Cipta sembang"
@@ -349,11 +382,12 @@ msgstr "Lalai"
 msgid "Default AI account"
 msgstr "Akaun AI lalai"
 
-#: src/features/chats/index.tsx:326
+#: src/features/chats/index.tsx:327
+#: src/features/chats/index.tsx:391
 msgid "Delete chat"
 msgstr "Padam sembang"
 
-#: src/features/chats/index.tsx:443
+#: src/features/chats/index.tsx:445
 #: src/routes/_authenticated/$chatId_.settings.tsx:438
 msgid "Delete chat history"
 msgstr "Padam sejarah sembang"
@@ -426,7 +460,7 @@ msgstr "Gagal mengalih keluar ahli"
 msgid "Failed to rename chat"
 msgstr "Gagal menamakan semula sembang"
 
-#: src/features/chats/index.tsx:406
+#: src/features/chats/index.tsx:408
 msgid "Failed to send message"
 msgstr "Gagal menghantar mesej"
 
@@ -536,16 +570,21 @@ msgstr "Susun atur"
 msgid "Learn more"
 msgstr "Ketahui lebih lanjut"
 
-#: src/features/chats/index.tsx:333
+#: src/features/chats/index.tsx:431
+msgid "Leave"
+msgstr "Tinggalkan"
+
+#: src/features/chats/index.tsx:334
+#: src/routes/_authenticated/$chatId_.settings.tsx:424
 msgid "Leave chat"
 msgstr "Tinggalkan sembang"
 
-#: src/features/chats/index.tsx:420
+#: src/features/chats/index.tsx:422
 #: src/routes/_authenticated/$chatId_.settings.tsx:415
 msgid "Leave chat?"
 msgstr "Tinggalkan sembang?"
 
-#: src/features/chats/index.tsx:426
+#: src/features/chats/index.tsx:428
 #: src/routes/_authenticated/$chatId_.settings.tsx:421
 msgid "Leaving..."
 msgstr "Meninggalkan..."
@@ -637,6 +676,10 @@ msgstr "Alih lampiran ke kiri"
 #: src/features/chats/components/chat-input.tsx:145
 msgid "Move attachment right"
 msgstr "Alih lampiran ke kanan"
+
+#: src/routes/_authenticated/$chatId_.settings.tsx:202
+msgid "Name must be 100 characters or less"
+msgstr "Nama mestilah 100 aksara atau kurang"
 
 #: ../../../lib/web/src/components/ui/sort-selector.tsx:40
 msgid "New"
@@ -731,7 +774,7 @@ msgstr "Buka"
 msgid "Open account actions"
 msgstr "Buka tindakan akaun"
 
-#: src/features/chats/index.tsx:318
+#: src/features/chats/index.tsx:319
 msgid "Open chat actions"
 msgstr "Buka tindakan sembang"
 
@@ -800,6 +843,7 @@ msgstr "Relatif dalam 24 jam, jika tidak mutlak"
 
 #: ../../../lib/web/src/features/access/access-list.tsx:257
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:172
+#: src/routes/_authenticated/$chatId_.settings.tsx:569
 msgid "Remove"
 msgstr "Alih keluar"
 
@@ -1000,6 +1044,14 @@ msgstr "Tema"
 msgid "Theme Settings"
 msgstr "Tetapan Tema"
 
+#: src/routes/_authenticated/$chatId_.settings.tsx:157
+msgid "this chat"
+msgstr "sembang ini"
+
+#: src/routes/_authenticated/$chatId_.settings.tsx:110
+msgid "This chat may have been deleted or you don't have access to it"
+msgstr "Sembang ini mungkin telah dipadamkan atau anda tidak mempunyai akses"
+
 #: ../../../lib/web/src/lib/preference-utils.ts:72
 msgid "Thursday"
 msgstr "Khamis"
@@ -1078,6 +1130,10 @@ msgstr "Akses Tidak Dibenarkan"
 msgid "United States"
 msgstr "Amerika Syarikat"
 
+#: src/hooks/useChatWebsocket.ts:173
+msgid "Unknown"
+msgstr "Tidak diketahui"
+
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:131
 msgid "Unverified"
 msgstr "Belum disahkan"
@@ -1106,6 +1162,10 @@ msgstr "Sahkan"
 msgid "Verify email address"
 msgstr "Sahkan alamat e-mel"
 
+#: src/features/chats/components/message-attachments.tsx:53
+msgid "Video thumbnail"
+msgstr "Imej kecil video"
+
 #: ../../../lib/web/src/components/data-table/view-options.tsx:30
 msgid "View"
 msgstr "Lihat"
@@ -1130,6 +1190,27 @@ msgstr "Laman web sedang dalam penyelenggaraan!"
 msgid "Wednesday"
 msgstr "Rabu"
 
+#: src/features/chats/index.tsx:136
+#: src/features/chats/index.tsx:137
+msgid "You"
+msgstr "Anda"
+
 #: src/features/chats/components/new-chat.tsx:122
 msgid "You already have a chat with this friend"
 msgstr "Anda sudah mempunyai sembang dengan rakan ini"
+
+#: src/features/chats/components/new-chat.tsx:216
+msgid "You already have chats with:"
+msgstr "Anda sudah mempunyai sembang dengan:"
+
+#: src/features/chats/components/chat-empty-state.tsx:34
+msgid "You haven't started any chats yet. Connect with a friend to get things rolling."
+msgstr "Anda belum memulakan sebarang sembang. Hubungi rakan untuk bermula."
+
+#: src/features/chats/index.tsx:378
+msgid "You left this chat"
+msgstr "Anda telah meninggalkan sembang ini"
+
+#: src/features/chats/index.tsx:377
+msgid "You were removed from this chat"
+msgstr "Anda telah dikeluarkan daripada sembang ini"

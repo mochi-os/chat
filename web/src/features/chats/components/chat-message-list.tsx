@@ -186,6 +186,7 @@ export function ChatMessageList({
         <Fragment key={key}>
           {/* Date separator */}
           <div className='my-4 flex items-center justify-center'>
+            {/* eslint-disable-next-line lingui/no-unlocalized-strings -- 'T00:00:00' is an ISO-8601 time component, not a UI label */}
             <div className='text-muted-foreground text-xs'>{formatDate(new Date(key + 'T00:00:00'))}</div>
           </div>
 

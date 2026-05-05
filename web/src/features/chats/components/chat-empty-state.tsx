@@ -31,7 +31,7 @@ export function ChatEmptyState({ onNewChat, hasExistingChats }: ChatEmptyStatePr
       <EmptyState
         icon={MessageCircle}
         title={t`Start a conversation`}
-        description="You haven't started any chats yet. Connect with a friend to get things rolling."
+        description={t`You haven't started any chats yet. Connect with a friend to get things rolling.`}
       >
         <Button size='lg' onClick={onNewChat}>
           <Plus className='size-5' />

@@ -13,6 +13,12 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
+#. placeholder {0}: chatDetail.chat.name
+#: src/routes/_authenticated/$chatId_.settings.tsx:81
+#: src/routes/_authenticated/$chatId_.settings.tsx:120
+msgid "{0} settings"
+msgstr "የ{0} ቅንብሮች"
+
 #: ../../../lib/web/src/lib/preference-utils.ts:52
 msgid "12 hours"
 msgstr "12 ሰዓት"
@@ -48,6 +54,11 @@ msgstr "የመለያ ዓይነት"
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:234
 msgid "Account verified"
 msgstr "መለያ ተረጋግጧል"
+
+#. placeholder {0}: friend.name
+#: src/routes/_authenticated/$chatId_.settings.tsx:511
+msgid "Add {0} to chat"
+msgstr "{0}ን ወደ ውይይት ጨምር"
 
 #: ../../../lib/web/src/features/accounts/account-add.tsx:117
 msgid "Add a new account"
@@ -116,9 +127,23 @@ msgstr "ሁሉም"
 msgid "All your friends are already in this chat"
 msgstr "ሁሉም ጓደኞችህ አስቀድመው በዚህ ውይይት ውስጥ ናቸው"
 
+#. placeholder {0}: selectedChat?.name
+#: src/features/chats/index.tsx:423
+msgid "Are you sure you want to leave \"{0}\"? You can be added back by other members."
+msgstr ""
+
+#: src/routes/_authenticated/$chatId_.settings.tsx:416
+msgid "Are you sure you want to leave \"{chatName}\"? You can be added back by other members."
+msgstr ""
+
 #: ../../../lib/web/src/components/sign-out-dialog.tsx:24
 msgid "Are you sure you want to log out? You will need to log in again to access your account."
 msgstr "መውጣት እንደምትፈልግ እርግጠኛ ነህ? መለያህን ለመድረስ ዳግም መግባት ያስፈልግሃል።"
+
+#. placeholder {0}: member?.name
+#: src/routes/_authenticated/$chatId_.settings.tsx:561
+msgid "Are you sure you want to remove {0} from this chat?"
+msgstr "በእርግጥ {0}ን ከዚህ ውይይት ማስወገድ ይፈልጋሉ?"
 
 #: ../../../lib/web/src/components/data-table/column-header.tsx:56
 msgid "Asc"
@@ -164,7 +189,9 @@ msgid "Change notification category"
 msgstr "የማሳወቂያ ምድብ ለውጥ"
 
 #: src/features/chats/index.tsx:37
-#: src/features/chats/index.tsx:276
+#: src/features/chats/index.tsx:98
+#: src/features/chats/index.tsx:98
+#: src/features/chats/index.tsx:277
 msgid "Chat"
 msgstr "ውይይት"
 
@@ -185,6 +212,10 @@ msgstr "የውይይት መለያ"
 msgid "Chat name"
 msgstr "የውይይት ስም"
 
+#: src/routes/_authenticated/$chatId_.settings.tsx:201
+msgid "Chat name is required"
+msgstr "የውይይት ስም ያስፈልጋል"
+
 #: src/features/chats/components/new-chat.tsx:241
 msgid "Chat name..."
 msgstr "የውይይት ስም..."
@@ -201,9 +232,11 @@ msgstr "ውይይት ዝግጁ ነው"
 msgid "Chat renamed"
 msgstr "ውይይት ስሙ ተቀይሯል"
 
-#: src/features/chats/index.tsx:343
+#: src/features/chats/index.tsx:344
+#: src/routes/_authenticated/$chatId_.settings.tsx:81
 #: src/routes/_authenticated/$chatId_.settings.tsx:94
 #: src/routes/_authenticated/$chatId_.settings.tsx:105
+#: src/routes/_authenticated/$chatId_.settings.tsx:120
 msgid "Chat settings"
 msgstr "የውይይት ቅንብሮች"
 
@@ -211,7 +244,7 @@ msgstr "የውይይት ቅንብሮች"
 msgid "Chat Text Box"
 msgstr "የውይይት የጽሑፍ ሳጥን"
 
-#: src/components/layout/chat-layout.tsx:100
+#: src/components/layout/chat-layout.tsx:101
 msgid "Chats"
 msgstr "ውይይቶች"
 
@@ -319,7 +352,7 @@ msgstr "ቅዳ"
 msgid "Create a new chat"
 msgstr "አዲስ ውይይት ፍጠር"
 
-#: src/components/layout/chat-layout.tsx:108
+#: src/components/layout/chat-layout.tsx:109
 #: src/features/chats/components/new-chat.tsx:262
 msgid "Create chat"
 msgstr "ውይይት ፍጠር"
@@ -349,11 +382,12 @@ msgstr "ነባሪ"
 msgid "Default AI account"
 msgstr "ነባሪ የAI መለያ"
 
-#: src/features/chats/index.tsx:326
+#: src/features/chats/index.tsx:327
+#: src/features/chats/index.tsx:391
 msgid "Delete chat"
 msgstr "ውይይት ሰርዝ"
 
-#: src/features/chats/index.tsx:443
+#: src/features/chats/index.tsx:445
 #: src/routes/_authenticated/$chatId_.settings.tsx:438
 msgid "Delete chat history"
 msgstr "የውይይት ታሪክ ሰርዝ"
@@ -426,7 +460,7 @@ msgstr "አባልን ማስወገድ አልተሳካም"
 msgid "Failed to rename chat"
 msgstr "ውይይትን መሰየም አልተሳካም"
 
-#: src/features/chats/index.tsx:406
+#: src/features/chats/index.tsx:408
 msgid "Failed to send message"
 msgstr "መልዕክት መላክ አልተሳካም"
 
@@ -536,16 +570,21 @@ msgstr "አቀማመጥ"
 msgid "Learn more"
 msgstr "ተጨማሪ ይወቁ"
 
-#: src/features/chats/index.tsx:333
+#: src/features/chats/index.tsx:431
+msgid "Leave"
+msgstr "ውጣ"
+
+#: src/features/chats/index.tsx:334
+#: src/routes/_authenticated/$chatId_.settings.tsx:424
 msgid "Leave chat"
 msgstr "ውይይትን ለቀህ ውጣ"
 
-#: src/features/chats/index.tsx:420
+#: src/features/chats/index.tsx:422
 #: src/routes/_authenticated/$chatId_.settings.tsx:415
 msgid "Leave chat?"
 msgstr "ውይይትን ለቀህ ትወጣለህ?"
 
-#: src/features/chats/index.tsx:426
+#: src/features/chats/index.tsx:428
 #: src/routes/_authenticated/$chatId_.settings.tsx:421
 msgid "Leaving..."
 msgstr "በመውጣት ላይ..."
@@ -637,6 +676,10 @@ msgstr "አባሪውን ወደ ግራ ውሰድ"
 #: src/features/chats/components/chat-input.tsx:145
 msgid "Move attachment right"
 msgstr "አባሪውን ወደ ቀኝ ውሰድ"
+
+#: src/routes/_authenticated/$chatId_.settings.tsx:202
+msgid "Name must be 100 characters or less"
+msgstr "ስም 100 ቁምፊዎች ወይም ከዚያ ያነሰ መሆን አለበት"
 
 #: ../../../lib/web/src/components/ui/sort-selector.tsx:40
 msgid "New"
@@ -731,7 +774,7 @@ msgstr "ክፈት"
 msgid "Open account actions"
 msgstr "የመለያ ድርጊቶችን ክፈት"
 
-#: src/features/chats/index.tsx:318
+#: src/features/chats/index.tsx:319
 msgid "Open chat actions"
 msgstr "የውይይት ድርጊቶችን ክፈት"
 
@@ -800,6 +843,7 @@ msgstr "በ24 ሰዓታት ውስጥ አንፃራዊ፣ ካልሆነ ፍጹም"
 
 #: ../../../lib/web/src/features/access/access-list.tsx:257
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:172
+#: src/routes/_authenticated/$chatId_.settings.tsx:569
 msgid "Remove"
 msgstr "አስወግድ"
 
@@ -1000,6 +1044,14 @@ msgstr "ገጽታ"
 msgid "Theme Settings"
 msgstr "የገጽታ ቅንብሮች"
 
+#: src/routes/_authenticated/$chatId_.settings.tsx:157
+msgid "this chat"
+msgstr "ይህ ውይይት"
+
+#: src/routes/_authenticated/$chatId_.settings.tsx:110
+msgid "This chat may have been deleted or you don't have access to it"
+msgstr "ይህ ውይይት ተሰርዞ ሊሆን ይችላል ወይም መዳረሻ የለዎትም"
+
 #: ../../../lib/web/src/lib/preference-utils.ts:72
 msgid "Thursday"
 msgstr "ሐሙስ"
@@ -1078,6 +1130,10 @@ msgstr "ያልተፈቀደ መዳረሻ"
 msgid "United States"
 msgstr "ዩናይትድ ስቴትስ"
 
+#: src/hooks/useChatWebsocket.ts:173
+msgid "Unknown"
+msgstr "ያልታወቀ"
+
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:131
 msgid "Unverified"
 msgstr "ያልተረጋገጠ"
@@ -1106,6 +1162,10 @@ msgstr "ያረጋግጡ"
 msgid "Verify email address"
 msgstr "የኢሜይል አድራሻ ያረጋግጡ"
 
+#: src/features/chats/components/message-attachments.tsx:53
+msgid "Video thumbnail"
+msgstr "የቪዲዮ ጥፍር ምስል"
+
 #: ../../../lib/web/src/components/data-table/view-options.tsx:30
 msgid "View"
 msgstr "ይመልከቱ"
@@ -1130,6 +1190,27 @@ msgstr "ድረ-ገጽ በጥገና ላይ ነው!"
 msgid "Wednesday"
 msgstr "ረቡዕ"
 
+#: src/features/chats/index.tsx:136
+#: src/features/chats/index.tsx:137
+msgid "You"
+msgstr "እርስዎ"
+
 #: src/features/chats/components/new-chat.tsx:122
 msgid "You already have a chat with this friend"
 msgstr "ከዚህ ጓደኛ ጋር አስቀድሞ ውይይት አለዎት"
+
+#: src/features/chats/components/new-chat.tsx:216
+msgid "You already have chats with:"
+msgstr "ቀደም ሲል ከእነዚህ ጋር ውይይቶች አሉዎት፦"
+
+#: src/features/chats/components/chat-empty-state.tsx:34
+msgid "You haven't started any chats yet. Connect with a friend to get things rolling."
+msgstr "እስካሁን ምንም ውይይት አልጀመሩም። ነገሮችን ለማንቀሳቀስ ከጓደኛ ጋር ይገናኙ።"
+
+#: src/features/chats/index.tsx:378
+msgid "You left this chat"
+msgstr "ይህን ውይይት ለቀዋል"
+
+#: src/features/chats/index.tsx:377
+msgid "You were removed from this chat"
+msgstr "ከዚህ ውይይት ተወግደዋል"

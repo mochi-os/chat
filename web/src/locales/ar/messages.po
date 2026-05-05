@@ -13,6 +13,12 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: nplurals=6; plural=(n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 ? 4 : 5);\n"
 
+#. placeholder {0}: chatDetail.chat.name
+#: src/routes/_authenticated/$chatId_.settings.tsx:81
+#: src/routes/_authenticated/$chatId_.settings.tsx:120
+msgid "{0} settings"
+msgstr "إعدادات {0}"
+
 #: ../../../lib/web/src/lib/preference-utils.ts:52
 msgid "12 hours"
 msgstr "12 ساعة"
@@ -48,6 +54,11 @@ msgstr "نوع الحساب"
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:234
 msgid "Account verified"
 msgstr "تم التحقق من الحساب"
+
+#. placeholder {0}: friend.name
+#: src/routes/_authenticated/$chatId_.settings.tsx:511
+msgid "Add {0} to chat"
+msgstr "إضافة {0} إلى المحادثة"
 
 #: ../../../lib/web/src/features/accounts/account-add.tsx:117
 msgid "Add a new account"
@@ -116,9 +127,23 @@ msgstr "الكل"
 msgid "All your friends are already in this chat"
 msgstr "جميع أصدقائك موجودون بالفعل في هذه الدردشة"
 
+#. placeholder {0}: selectedChat?.name
+#: src/features/chats/index.tsx:423
+msgid "Are you sure you want to leave \"{0}\"? You can be added back by other members."
+msgstr ""
+
+#: src/routes/_authenticated/$chatId_.settings.tsx:416
+msgid "Are you sure you want to leave \"{chatName}\"? You can be added back by other members."
+msgstr ""
+
 #: ../../../lib/web/src/components/sign-out-dialog.tsx:24
 msgid "Are you sure you want to log out? You will need to log in again to access your account."
 msgstr "هل أنت متأكد من تسجيل الخروج؟ ستحتاج إلى تسجيل الدخول مرة أخرى للوصول إلى حسابك."
+
+#. placeholder {0}: member?.name
+#: src/routes/_authenticated/$chatId_.settings.tsx:561
+msgid "Are you sure you want to remove {0} from this chat?"
+msgstr "هل أنت متأكد من أنك تريد إزالة {0} من هذه المحادثة؟"
 
 #: ../../../lib/web/src/components/data-table/column-header.tsx:56
 msgid "Asc"
@@ -164,7 +189,9 @@ msgid "Change notification category"
 msgstr "تغيير فئة الإشعار"
 
 #: src/features/chats/index.tsx:37
-#: src/features/chats/index.tsx:276
+#: src/features/chats/index.tsx:98
+#: src/features/chats/index.tsx:98
+#: src/features/chats/index.tsx:277
 msgid "Chat"
 msgstr "الدردشة"
 
@@ -185,6 +212,10 @@ msgstr "معرّف الدردشة"
 msgid "Chat name"
 msgstr "اسم الدردشة"
 
+#: src/routes/_authenticated/$chatId_.settings.tsx:201
+msgid "Chat name is required"
+msgstr "اسم المحادثة مطلوب"
+
 #: src/features/chats/components/new-chat.tsx:241
 msgid "Chat name..."
 msgstr "اسم الدردشة..."
@@ -201,9 +232,11 @@ msgstr "الدردشة جاهزة"
 msgid "Chat renamed"
 msgstr "تمت إعادة تسمية الدردشة"
 
-#: src/features/chats/index.tsx:343
+#: src/features/chats/index.tsx:344
+#: src/routes/_authenticated/$chatId_.settings.tsx:81
 #: src/routes/_authenticated/$chatId_.settings.tsx:94
 #: src/routes/_authenticated/$chatId_.settings.tsx:105
+#: src/routes/_authenticated/$chatId_.settings.tsx:120
 msgid "Chat settings"
 msgstr "إعدادات الدردشة"
 
@@ -211,7 +244,7 @@ msgstr "إعدادات الدردشة"
 msgid "Chat Text Box"
 msgstr "مربع نص الدردشة"
 
-#: src/components/layout/chat-layout.tsx:100
+#: src/components/layout/chat-layout.tsx:101
 msgid "Chats"
 msgstr "الدردشات"
 
@@ -319,7 +352,7 @@ msgstr "نسخ"
 msgid "Create a new chat"
 msgstr "إنشاء دردشة جديدة"
 
-#: src/components/layout/chat-layout.tsx:108
+#: src/components/layout/chat-layout.tsx:109
 #: src/features/chats/components/new-chat.tsx:262
 msgid "Create chat"
 msgstr "إنشاء دردشة"
@@ -349,11 +382,12 @@ msgstr "افتراضي"
 msgid "Default AI account"
 msgstr "حساب الذكاء الاصطناعي الافتراضي"
 
-#: src/features/chats/index.tsx:326
+#: src/features/chats/index.tsx:327
+#: src/features/chats/index.tsx:391
 msgid "Delete chat"
 msgstr "حذف الدردشة"
 
-#: src/features/chats/index.tsx:443
+#: src/features/chats/index.tsx:445
 #: src/routes/_authenticated/$chatId_.settings.tsx:438
 msgid "Delete chat history"
 msgstr "حذف سجل الدردشة"
@@ -426,7 +460,7 @@ msgstr "فشل إزالة العضو"
 msgid "Failed to rename chat"
 msgstr "فشل إعادة تسمية المحادثة"
 
-#: src/features/chats/index.tsx:406
+#: src/features/chats/index.tsx:408
 msgid "Failed to send message"
 msgstr "فشل إرسال الرسالة"
 
@@ -536,16 +570,21 @@ msgstr "التخطيط"
 msgid "Learn more"
 msgstr "اعرف المزيد"
 
-#: src/features/chats/index.tsx:333
+#: src/features/chats/index.tsx:431
+msgid "Leave"
+msgstr "مغادرة"
+
+#: src/features/chats/index.tsx:334
+#: src/routes/_authenticated/$chatId_.settings.tsx:424
 msgid "Leave chat"
 msgstr "مغادرة المحادثة"
 
-#: src/features/chats/index.tsx:420
+#: src/features/chats/index.tsx:422
 #: src/routes/_authenticated/$chatId_.settings.tsx:415
 msgid "Leave chat?"
 msgstr "مغادرة المحادثة؟"
 
-#: src/features/chats/index.tsx:426
+#: src/features/chats/index.tsx:428
 #: src/routes/_authenticated/$chatId_.settings.tsx:421
 msgid "Leaving..."
 msgstr "جارٍ المغادرة..."
@@ -637,6 +676,10 @@ msgstr "نقل المرفق لليسار"
 #: src/features/chats/components/chat-input.tsx:145
 msgid "Move attachment right"
 msgstr "نقل المرفق لليمين"
+
+#: src/routes/_authenticated/$chatId_.settings.tsx:202
+msgid "Name must be 100 characters or less"
+msgstr "يجب ألا يتجاوز الاسم 100 حرف"
 
 #: ../../../lib/web/src/components/ui/sort-selector.tsx:40
 msgid "New"
@@ -731,7 +774,7 @@ msgstr "مفتوح"
 msgid "Open account actions"
 msgstr "فتح إجراءات الحساب"
 
-#: src/features/chats/index.tsx:318
+#: src/features/chats/index.tsx:319
 msgid "Open chat actions"
 msgstr "فتح إجراءات المحادثة"
 
@@ -800,6 +843,7 @@ msgstr "نسبي خلال 24 ساعة، وإلا مطلق"
 
 #: ../../../lib/web/src/features/access/access-list.tsx:257
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:172
+#: src/routes/_authenticated/$chatId_.settings.tsx:569
 msgid "Remove"
 msgstr "إزالة"
 
@@ -1000,6 +1044,14 @@ msgstr "السمة"
 msgid "Theme Settings"
 msgstr "إعدادات السمة"
 
+#: src/routes/_authenticated/$chatId_.settings.tsx:157
+msgid "this chat"
+msgstr "هذه المحادثة"
+
+#: src/routes/_authenticated/$chatId_.settings.tsx:110
+msgid "This chat may have been deleted or you don't have access to it"
+msgstr "ربما تم حذف هذه المحادثة أو ليس لديك صلاحية الوصول إليها"
+
 #: ../../../lib/web/src/lib/preference-utils.ts:72
 msgid "Thursday"
 msgstr "الخميس"
@@ -1078,6 +1130,10 @@ msgstr "وصول غير مصرح"
 msgid "United States"
 msgstr "الولايات المتحدة"
 
+#: src/hooks/useChatWebsocket.ts:173
+msgid "Unknown"
+msgstr "غير معروف"
+
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:131
 msgid "Unverified"
 msgstr "غير محقق"
@@ -1106,6 +1162,10 @@ msgstr "تحقق"
 msgid "Verify email address"
 msgstr "التحقق من عنوان البريد الإلكتروني"
 
+#: src/features/chats/components/message-attachments.tsx:53
+msgid "Video thumbnail"
+msgstr "صورة مصغرة للفيديو"
+
 #: ../../../lib/web/src/components/data-table/view-options.tsx:30
 msgid "View"
 msgstr "عرض"
@@ -1130,6 +1190,27 @@ msgstr "الموقع قيد الصيانة!"
 msgid "Wednesday"
 msgstr "الأربعاء"
 
+#: src/features/chats/index.tsx:136
+#: src/features/chats/index.tsx:137
+msgid "You"
+msgstr "أنت"
+
 #: src/features/chats/components/new-chat.tsx:122
 msgid "You already have a chat with this friend"
 msgstr "لديك بالفعل محادثة مع هذا الصديق"
+
+#: src/features/chats/components/new-chat.tsx:216
+msgid "You already have chats with:"
+msgstr "لديك بالفعل محادثات مع:"
+
+#: src/features/chats/components/chat-empty-state.tsx:34
+msgid "You haven't started any chats yet. Connect with a friend to get things rolling."
+msgstr "لم تبدأ أي محادثات بعد. تواصل مع صديق لتبدأ."
+
+#: src/features/chats/index.tsx:378
+msgid "You left this chat"
+msgstr "لقد غادرت هذه المحادثة"
+
+#: src/features/chats/index.tsx:377
+msgid "You were removed from this chat"
+msgstr "تمت إزالتك من هذه المحادثة"

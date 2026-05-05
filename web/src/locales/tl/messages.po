@@ -13,6 +13,12 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
+#. placeholder {0}: chatDetail.chat.name
+#: src/routes/_authenticated/$chatId_.settings.tsx:81
+#: src/routes/_authenticated/$chatId_.settings.tsx:120
+msgid "{0} settings"
+msgstr "Mga setting ng {0}"
+
 #: ../../../lib/web/src/lib/preference-utils.ts:52
 msgid "12 hours"
 msgstr "12 oras"
@@ -48,6 +54,11 @@ msgstr "Uri ng account"
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:234
 msgid "Account verified"
 msgstr "Na-verify ang account"
+
+#. placeholder {0}: friend.name
+#: src/routes/_authenticated/$chatId_.settings.tsx:511
+msgid "Add {0} to chat"
+msgstr "Idagdag si {0} sa chat"
 
 #: ../../../lib/web/src/features/accounts/account-add.tsx:117
 msgid "Add a new account"
@@ -116,9 +127,23 @@ msgstr "Lahat"
 msgid "All your friends are already in this chat"
 msgstr "Nasa chat na lahat ng iyong kaibigan"
 
+#. placeholder {0}: selectedChat?.name
+#: src/features/chats/index.tsx:423
+msgid "Are you sure you want to leave \"{0}\"? You can be added back by other members."
+msgstr ""
+
+#: src/routes/_authenticated/$chatId_.settings.tsx:416
+msgid "Are you sure you want to leave \"{chatName}\"? You can be added back by other members."
+msgstr ""
+
 #: ../../../lib/web/src/components/sign-out-dialog.tsx:24
 msgid "Are you sure you want to log out? You will need to log in again to access your account."
 msgstr "Sigurado ka bang gusto mong mag-log out? Kakailanganin mong mag-log in muli para ma-access ang iyong account."
+
+#. placeholder {0}: member?.name
+#: src/routes/_authenticated/$chatId_.settings.tsx:561
+msgid "Are you sure you want to remove {0} from this chat?"
+msgstr "Sigurado ka bang gusto mong tanggalin si {0} sa chat na ito?"
 
 #: ../../../lib/web/src/components/data-table/column-header.tsx:56
 msgid "Asc"
@@ -164,7 +189,9 @@ msgid "Change notification category"
 msgstr "Baguhin ang category ng notification"
 
 #: src/features/chats/index.tsx:37
-#: src/features/chats/index.tsx:276
+#: src/features/chats/index.tsx:98
+#: src/features/chats/index.tsx:98
+#: src/features/chats/index.tsx:277
 msgid "Chat"
 msgstr "Chat"
 
@@ -185,6 +212,10 @@ msgstr "Chat ID"
 msgid "Chat name"
 msgstr "Pangalan ng chat"
 
+#: src/routes/_authenticated/$chatId_.settings.tsx:201
+msgid "Chat name is required"
+msgstr "Kailangan ang pangalan ng chat"
+
 #: src/features/chats/components/new-chat.tsx:241
 msgid "Chat name..."
 msgstr "Pangalan ng chat..."
@@ -201,9 +232,11 @@ msgstr "Handa na ang chat"
 msgid "Chat renamed"
 msgstr "Pinalitan ng pangalan ang chat"
 
-#: src/features/chats/index.tsx:343
+#: src/features/chats/index.tsx:344
+#: src/routes/_authenticated/$chatId_.settings.tsx:81
 #: src/routes/_authenticated/$chatId_.settings.tsx:94
 #: src/routes/_authenticated/$chatId_.settings.tsx:105
+#: src/routes/_authenticated/$chatId_.settings.tsx:120
 msgid "Chat settings"
 msgstr "Mga setting ng chat"
 
@@ -211,7 +244,7 @@ msgstr "Mga setting ng chat"
 msgid "Chat Text Box"
 msgstr "Chat Text Box"
 
-#: src/components/layout/chat-layout.tsx:100
+#: src/components/layout/chat-layout.tsx:101
 msgid "Chats"
 msgstr "Mga chat"
 
@@ -319,7 +352,7 @@ msgstr "Kopyahin"
 msgid "Create a new chat"
 msgstr "Gumawa ng bagong chat"
 
-#: src/components/layout/chat-layout.tsx:108
+#: src/components/layout/chat-layout.tsx:109
 #: src/features/chats/components/new-chat.tsx:262
 msgid "Create chat"
 msgstr "Gumawa ng chat"
@@ -349,11 +382,12 @@ msgstr "Default"
 msgid "Default AI account"
 msgstr "Default na AI account"
 
-#: src/features/chats/index.tsx:326
+#: src/features/chats/index.tsx:327
+#: src/features/chats/index.tsx:391
 msgid "Delete chat"
 msgstr "I-delete ang chat"
 
-#: src/features/chats/index.tsx:443
+#: src/features/chats/index.tsx:445
 #: src/routes/_authenticated/$chatId_.settings.tsx:438
 msgid "Delete chat history"
 msgstr "I-delete ang kasaysayan ng chat"
@@ -426,7 +460,7 @@ msgstr "Nabigong tanggalin ang member"
 msgid "Failed to rename chat"
 msgstr "Nabigong i-rename ang chat"
 
-#: src/features/chats/index.tsx:406
+#: src/features/chats/index.tsx:408
 msgid "Failed to send message"
 msgstr "Nabigong magpadala ng message"
 
@@ -536,16 +570,21 @@ msgstr "Layout"
 msgid "Learn more"
 msgstr "Matuto pa"
 
-#: src/features/chats/index.tsx:333
+#: src/features/chats/index.tsx:431
+msgid "Leave"
+msgstr "Umalis"
+
+#: src/features/chats/index.tsx:334
+#: src/routes/_authenticated/$chatId_.settings.tsx:424
 msgid "Leave chat"
 msgstr "Umalis sa chat"
 
-#: src/features/chats/index.tsx:420
+#: src/features/chats/index.tsx:422
 #: src/routes/_authenticated/$chatId_.settings.tsx:415
 msgid "Leave chat?"
 msgstr "Umalis sa chat?"
 
-#: src/features/chats/index.tsx:426
+#: src/features/chats/index.tsx:428
 #: src/routes/_authenticated/$chatId_.settings.tsx:421
 msgid "Leaving..."
 msgstr "Umaalis..."
@@ -637,6 +676,10 @@ msgstr "Ilipat ang attachment sa kaliwa"
 #: src/features/chats/components/chat-input.tsx:145
 msgid "Move attachment right"
 msgstr "Ilipat ang attachment sa kanan"
+
+#: src/routes/_authenticated/$chatId_.settings.tsx:202
+msgid "Name must be 100 characters or less"
+msgstr "Ang pangalan ay dapat 100 karakter o mas mababa"
 
 #: ../../../lib/web/src/components/ui/sort-selector.tsx:40
 msgid "New"
@@ -731,7 +774,7 @@ msgstr "Buksan"
 msgid "Open account actions"
 msgstr "Buksan ang mga aksyon ng account"
 
-#: src/features/chats/index.tsx:318
+#: src/features/chats/index.tsx:319
 msgid "Open chat actions"
 msgstr "Buksan ang mga aksyon ng chat"
 
@@ -800,6 +843,7 @@ msgstr "Relatibo sa loob ng 24 na oras, kung hindi ay absolute"
 
 #: ../../../lib/web/src/features/access/access-list.tsx:257
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:172
+#: src/routes/_authenticated/$chatId_.settings.tsx:569
 msgid "Remove"
 msgstr "Alisin"
 
@@ -1000,6 +1044,14 @@ msgstr "Theme"
 msgid "Theme Settings"
 msgstr "Mga Setting ng Theme"
 
+#: src/routes/_authenticated/$chatId_.settings.tsx:157
+msgid "this chat"
+msgstr "chat na ito"
+
+#: src/routes/_authenticated/$chatId_.settings.tsx:110
+msgid "This chat may have been deleted or you don't have access to it"
+msgstr "Maaaring nabura na ang chat na ito o wala kang access dito"
+
 #: ../../../lib/web/src/lib/preference-utils.ts:72
 msgid "Thursday"
 msgstr "Huwebes"
@@ -1078,6 +1130,10 @@ msgstr "Hindi Pinahihintulutang Pag-access"
 msgid "United States"
 msgstr "United States"
 
+#: src/hooks/useChatWebsocket.ts:173
+msgid "Unknown"
+msgstr "Hindi alam"
+
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:131
 msgid "Unverified"
 msgstr "Hindi naberipika"
@@ -1106,6 +1162,10 @@ msgstr "Beripikahin"
 msgid "Verify email address"
 msgstr "Beripikahin ang email address"
 
+#: src/features/chats/components/message-attachments.tsx:53
+msgid "Video thumbnail"
+msgstr "Thumbnail ng video"
+
 #: ../../../lib/web/src/components/data-table/view-options.tsx:30
 msgid "View"
 msgstr "Tingnan"
@@ -1130,6 +1190,27 @@ msgstr "Nasa ilalim ng maintenance ang website!"
 msgid "Wednesday"
 msgstr "Miyerkules"
 
+#: src/features/chats/index.tsx:136
+#: src/features/chats/index.tsx:137
+msgid "You"
+msgstr "Ikaw"
+
 #: src/features/chats/components/new-chat.tsx:122
 msgid "You already have a chat with this friend"
 msgstr "Mayroon ka nang chat sa kaibigang ito"
+
+#: src/features/chats/components/new-chat.tsx:216
+msgid "You already have chats with:"
+msgstr "May mga chat ka na kasama ang:"
+
+#: src/features/chats/components/chat-empty-state.tsx:34
+msgid "You haven't started any chats yet. Connect with a friend to get things rolling."
+msgstr "Wala ka pang sinimulang chat. Kumonekta sa isang kaibigan para magsimula."
+
+#: src/features/chats/index.tsx:378
+msgid "You left this chat"
+msgstr "Umalis ka sa chat na ito"
+
+#: src/features/chats/index.tsx:377
+msgid "You were removed from this chat"
+msgstr "Tinanggal ka sa chat na ito"

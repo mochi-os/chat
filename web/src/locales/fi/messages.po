@@ -13,6 +13,12 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
+#. placeholder {0}: chatDetail.chat.name
+#: src/routes/_authenticated/$chatId_.settings.tsx:81
+#: src/routes/_authenticated/$chatId_.settings.tsx:120
+msgid "{0} settings"
+msgstr "{0}-asetukset"
+
 #: ../../../lib/web/src/lib/preference-utils.ts:52
 msgid "12 hours"
 msgstr "12 tuntia"
@@ -48,6 +54,11 @@ msgstr "Tilin tyyppi"
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:234
 msgid "Account verified"
 msgstr "Tili vahvistettu"
+
+#. placeholder {0}: friend.name
+#: src/routes/_authenticated/$chatId_.settings.tsx:511
+msgid "Add {0} to chat"
+msgstr "Lisää {0} keskusteluun"
 
 #: ../../../lib/web/src/features/accounts/account-add.tsx:117
 msgid "Add a new account"
@@ -116,9 +127,23 @@ msgstr "Kaikki"
 msgid "All your friends are already in this chat"
 msgstr "Kaikki kaverisi ovat jo tässä chatissa"
 
+#. placeholder {0}: selectedChat?.name
+#: src/features/chats/index.tsx:423
+msgid "Are you sure you want to leave \"{0}\"? You can be added back by other members."
+msgstr ""
+
+#: src/routes/_authenticated/$chatId_.settings.tsx:416
+msgid "Are you sure you want to leave \"{chatName}\"? You can be added back by other members."
+msgstr ""
+
 #: ../../../lib/web/src/components/sign-out-dialog.tsx:24
 msgid "Are you sure you want to log out? You will need to log in again to access your account."
 msgstr "Haluatko varmasti kirjautua ulos? Sinun täytyy kirjautua uudelleen sisään päästäksesi tilillesi."
+
+#. placeholder {0}: member?.name
+#: src/routes/_authenticated/$chatId_.settings.tsx:561
+msgid "Are you sure you want to remove {0} from this chat?"
+msgstr "Haluatko varmasti poistaa käyttäjän {0} tästä keskustelusta?"
 
 #: ../../../lib/web/src/components/data-table/column-header.tsx:56
 msgid "Asc"
@@ -164,7 +189,9 @@ msgid "Change notification category"
 msgstr "Vaihda ilmoituksen kategoria"
 
 #: src/features/chats/index.tsx:37
-#: src/features/chats/index.tsx:276
+#: src/features/chats/index.tsx:98
+#: src/features/chats/index.tsx:98
+#: src/features/chats/index.tsx:277
 msgid "Chat"
 msgstr "Chat"
 
@@ -185,6 +212,10 @@ msgstr "Chatin tunnus"
 msgid "Chat name"
 msgstr "Chatin nimi"
 
+#: src/routes/_authenticated/$chatId_.settings.tsx:201
+msgid "Chat name is required"
+msgstr "Keskustelun nimi vaaditaan"
+
 #: src/features/chats/components/new-chat.tsx:241
 msgid "Chat name..."
 msgstr "Chatin nimi..."
@@ -201,9 +232,11 @@ msgstr "Chat valmis"
 msgid "Chat renamed"
 msgstr "Chat nimetty uudelleen"
 
-#: src/features/chats/index.tsx:343
+#: src/features/chats/index.tsx:344
+#: src/routes/_authenticated/$chatId_.settings.tsx:81
 #: src/routes/_authenticated/$chatId_.settings.tsx:94
 #: src/routes/_authenticated/$chatId_.settings.tsx:105
+#: src/routes/_authenticated/$chatId_.settings.tsx:120
 msgid "Chat settings"
 msgstr "Chatin asetukset"
 
@@ -211,7 +244,7 @@ msgstr "Chatin asetukset"
 msgid "Chat Text Box"
 msgstr "Chatin tekstikenttä"
 
-#: src/components/layout/chat-layout.tsx:100
+#: src/components/layout/chat-layout.tsx:101
 msgid "Chats"
 msgstr "Chatit"
 
@@ -319,7 +352,7 @@ msgstr "Kopioi"
 msgid "Create a new chat"
 msgstr "Luo uusi chat"
 
-#: src/components/layout/chat-layout.tsx:108
+#: src/components/layout/chat-layout.tsx:109
 #: src/features/chats/components/new-chat.tsx:262
 msgid "Create chat"
 msgstr "Luo chat"
@@ -349,11 +382,12 @@ msgstr "Oletus"
 msgid "Default AI account"
 msgstr "Oletustekoälytili"
 
-#: src/features/chats/index.tsx:326
+#: src/features/chats/index.tsx:327
+#: src/features/chats/index.tsx:391
 msgid "Delete chat"
 msgstr "Poista chat"
 
-#: src/features/chats/index.tsx:443
+#: src/features/chats/index.tsx:445
 #: src/routes/_authenticated/$chatId_.settings.tsx:438
 msgid "Delete chat history"
 msgstr "Poista chat-historia"
@@ -426,7 +460,7 @@ msgstr "Jäsenen poisto epäonnistui"
 msgid "Failed to rename chat"
 msgstr "Keskustelun uudelleennimeäminen epäonnistui"
 
-#: src/features/chats/index.tsx:406
+#: src/features/chats/index.tsx:408
 msgid "Failed to send message"
 msgstr "Viestin lähetys epäonnistui"
 
@@ -536,16 +570,21 @@ msgstr "Asettelu"
 msgid "Learn more"
 msgstr "Lue lisää"
 
-#: src/features/chats/index.tsx:333
+#: src/features/chats/index.tsx:431
+msgid "Leave"
+msgstr "Poistu"
+
+#: src/features/chats/index.tsx:334
+#: src/routes/_authenticated/$chatId_.settings.tsx:424
 msgid "Leave chat"
 msgstr "Poistu keskustelusta"
 
-#: src/features/chats/index.tsx:420
+#: src/features/chats/index.tsx:422
 #: src/routes/_authenticated/$chatId_.settings.tsx:415
 msgid "Leave chat?"
 msgstr "Poistutaanko keskustelusta?"
 
-#: src/features/chats/index.tsx:426
+#: src/features/chats/index.tsx:428
 #: src/routes/_authenticated/$chatId_.settings.tsx:421
 msgid "Leaving..."
 msgstr "Poistutaan..."
@@ -637,6 +676,10 @@ msgstr "Siirrä liite vasemmalle"
 #: src/features/chats/components/chat-input.tsx:145
 msgid "Move attachment right"
 msgstr "Siirrä liite oikealle"
+
+#: src/routes/_authenticated/$chatId_.settings.tsx:202
+msgid "Name must be 100 characters or less"
+msgstr "Nimen on oltava enintään 100 merkkiä"
 
 #: ../../../lib/web/src/components/ui/sort-selector.tsx:40
 msgid "New"
@@ -731,7 +774,7 @@ msgstr "Avaa"
 msgid "Open account actions"
 msgstr "Avaa tilin toiminnot"
 
-#: src/features/chats/index.tsx:318
+#: src/features/chats/index.tsx:319
 msgid "Open chat actions"
 msgstr "Avaa keskustelun toiminnot"
 
@@ -800,6 +843,7 @@ msgstr "Suhteellinen 24 tunnin sisällä, muuten absoluuttinen"
 
 #: ../../../lib/web/src/features/access/access-list.tsx:257
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:172
+#: src/routes/_authenticated/$chatId_.settings.tsx:569
 msgid "Remove"
 msgstr "Poista"
 
@@ -1000,6 +1044,14 @@ msgstr "Teema"
 msgid "Theme Settings"
 msgstr "Teema-asetukset"
 
+#: src/routes/_authenticated/$chatId_.settings.tsx:157
+msgid "this chat"
+msgstr "tämä keskustelu"
+
+#: src/routes/_authenticated/$chatId_.settings.tsx:110
+msgid "This chat may have been deleted or you don't have access to it"
+msgstr "Tämä keskustelu on saatettu poistaa, tai sinulla ei ole siihen pääsyä"
+
 #: ../../../lib/web/src/lib/preference-utils.ts:72
 msgid "Thursday"
 msgstr "Torstai"
@@ -1078,6 +1130,10 @@ msgstr "Pääsy ei sallittu"
 msgid "United States"
 msgstr "Yhdysvallat"
 
+#: src/hooks/useChatWebsocket.ts:173
+msgid "Unknown"
+msgstr "Tuntematon"
+
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:131
 msgid "Unverified"
 msgstr "Vahvistamaton"
@@ -1106,6 +1162,10 @@ msgstr "Vahvista"
 msgid "Verify email address"
 msgstr "Vahvista sähköpostiosoite"
 
+#: src/features/chats/components/message-attachments.tsx:53
+msgid "Video thumbnail"
+msgstr "Videon pikkukuva"
+
 #: ../../../lib/web/src/components/data-table/view-options.tsx:30
 msgid "View"
 msgstr "Näytä"
@@ -1130,6 +1190,27 @@ msgstr "Sivusto on huoltotilassa!"
 msgid "Wednesday"
 msgstr "Keskiviikko"
 
+#: src/features/chats/index.tsx:136
+#: src/features/chats/index.tsx:137
+msgid "You"
+msgstr "Sinä"
+
 #: src/features/chats/components/new-chat.tsx:122
 msgid "You already have a chat with this friend"
 msgstr "Sinulla on jo keskustelu tämän kaverin kanssa"
+
+#: src/features/chats/components/new-chat.tsx:216
+msgid "You already have chats with:"
+msgstr "Sinulla on jo keskustelut näiden kanssa:"
+
+#: src/features/chats/components/chat-empty-state.tsx:34
+msgid "You haven't started any chats yet. Connect with a friend to get things rolling."
+msgstr "Et ole vielä aloittanut keskusteluja. Ota yhteyttä kaveriin ja pääse alkuun."
+
+#: src/features/chats/index.tsx:378
+msgid "You left this chat"
+msgstr "Poistuit tästä keskustelusta"
+
+#: src/features/chats/index.tsx:377
+msgid "You were removed from this chat"
+msgstr "Sinut poistettiin tästä keskustelusta"

@@ -95,7 +95,7 @@ export function Chats() {
     }
 
     createChatMutation.mutate(
-      { members: search.with, name: (search.name || 'Chat').trim() || 'Chat' },
+      { members: search.with, name: (search.name || t`Chat`).trim() || t`Chat` },
       {
         onSuccess: (data) => {
           if (data?.id) {
@@ -133,8 +133,8 @@ export function Chats() {
 
     let display = [...names]
     if (myIndex !== -1) {
-      display[myIndex] = 'You'
-      display = ['You', ...display.filter((_, i) => i !== myIndex)]
+      display[myIndex] = t`You`
+      display = [t`You`, ...display.filter((_, i) => i !== myIndex)]
     }
 
     return display.join(', ')
@@ -249,6 +249,7 @@ export function Chats() {
     const body = newMessage.trim()
     if (!body && pendingAttachments.length === 0) {
       if (import.meta.env.DEV) {
+        // eslint-disable-next-line lingui/no-unlocalized-strings -- dev-only diagnostic log, not user-facing
         globalThis.console?.warn?.('[chat] blocked empty message submit')
       }
       return
@@ -373,7 +374,8 @@ export function Chats() {
               <div className='flex items-center justify-between'>
                 <p className='text-muted-foreground text-sm'>
                   {selectedChat.left === 2
-                    ? "You were removed from this chat" : "You left this chat"}
+                    ? <Trans>You were removed from this chat</Trans>
+                    : <Trans>You left this chat</Trans>}
                 </p>
                 <Button
                   variant='outline'
@@ -386,7 +388,7 @@ export function Chats() {
                   ) : (
                     <Trash2 className='me-2 size-4' />
                   )}
-                  Delete chat
+                  <Trans>Delete chat</Trans>
                 </Button>
               </div>
             </div>
@@ -418,7 +420,7 @@ export function Chats() {
           if (!open) setDeleteOnLeave(false)
         }}
         title={t`Leave chat?`}
-        desc={`Are you sure you want to leave "${selectedChat?.name}"? You can be added back by other members.`}
+        desc={t`Are you sure you want to leave "${selectedChat?.name}"? You can be added back by other members.`}
         confirmText={
           leaveChatMutation.isPending ? (
             <>
@@ -426,7 +428,7 @@ export function Chats() {
               <Trans>Leaving...</Trans>
             </>
           ) : (
-            'Leave'
+            t`Leave`
           )
         }
         destructive

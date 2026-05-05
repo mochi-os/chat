@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useLingui } from '@lingui/react/macro'
 import {
   ImageLightbox,
   type LightboxMedia,
@@ -21,6 +22,7 @@ interface MessageAttachmentsProps {
 }
 
 function VideoThumbnail({ url }: { url: string }) {
+  const { t } = useLingui()
   const {
     url: thumbnailUrl,
     loading,
@@ -48,7 +50,7 @@ function VideoThumbnail({ url }: { url: string }) {
     <div className='relative'>
       <img
         src={thumbnailUrl}
-        alt='Video thumbnail'
+        alt={t`Video thumbnail`}
         className='h-[120px] w-auto object-cover transition-transform group-hover/thumb:scale-105'
       />
       <div className='absolute inset-0 flex items-center justify-center'>
