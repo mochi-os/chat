@@ -25,15 +25,15 @@ def database_upgrade(to_version):
 # assets (avatar/banner/favicon) and JSON assets (style/information).
 def stream_asset(a, entity_id, service, asset):
 	if not entity_id:
-		a.error(404, asset + " unavailable")
+		a.error.label(404, "errors.asset_unavailable", asset=asset)
 		return None
 	s = mochi.remote.stream(entity_id, service, asset, {})
 	if not s:
-		a.error(404, asset + " unavailable")
+		a.error.label(404, "errors.asset_unavailable", asset=asset)
 		return None
 	header = s.read()
 	if not header or header.get("status") != "200":
-		a.error(404, asset + " not set")
+		a.error.label(404, "errors.asset_not_set", asset=asset)
 		return None
 	a.header("Cache-Control", "private, max-age=300")
 	if "data" in header:
