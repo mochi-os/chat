@@ -36,13 +36,10 @@ class MainActivity : ComponentActivity() {
                         appName = "chat",
                         oauthScheme = "mochi-chat",
                         onLocaleChangeRequested = { recreate() }
-                    ) {
+                    ) { onLogout ->
                         ChatNavigation(
                             startEntityId = startEntityId,
-                            onLogout = {
-                                runBlocking { sessionManager.clearAll() }
-                                recreate()
-                            }
+                            onLogout = onLogout
                         )
                     }
                 }

@@ -431,35 +431,35 @@ public final class DaggerChatApplication_HiltComponents_SingletonC {
 
     @IdentifierNameString
     private static final class LazyClassKeyProvider {
-      static String org_mochios_chat_ui_chatlist_ChatListViewModel = "org.mochios.chat.ui.chatlist.ChatListViewModel";
+      static String org_mochios_android_ui_auth_AuthViewModel = "org.mochios.android.ui.auth.AuthViewModel";
 
       static String org_mochios_android_ui_AppBootstrapViewModel = "org.mochios.android.ui.AppBootstrapViewModel";
 
-      static String org_mochios_android_ui_auth_AuthViewModel = "org.mochios.android.ui.auth.AuthViewModel";
-
-      static String org_mochios_chat_ui_chat_ChatViewModel = "org.mochios.chat.ui.chat.ChatViewModel";
-
-      static String org_mochios_chat_ui_settings_ChatSettingsViewModel = "org.mochios.chat.ui.settings.ChatSettingsViewModel";
+      static String org_mochios_chat_ui_chatlist_ChatListViewModel = "org.mochios.chat.ui.chatlist.ChatListViewModel";
 
       static String org_mochios_chat_ui_newchat_NewChatViewModel = "org.mochios.chat.ui.newchat.NewChatViewModel";
 
-      @KeepFieldType
-      ChatListViewModel org_mochios_chat_ui_chatlist_ChatListViewModel2;
+      static String org_mochios_chat_ui_settings_ChatSettingsViewModel = "org.mochios.chat.ui.settings.ChatSettingsViewModel";
 
-      @KeepFieldType
-      AppBootstrapViewModel org_mochios_android_ui_AppBootstrapViewModel2;
+      static String org_mochios_chat_ui_chat_ChatViewModel = "org.mochios.chat.ui.chat.ChatViewModel";
 
       @KeepFieldType
       AuthViewModel org_mochios_android_ui_auth_AuthViewModel2;
 
       @KeepFieldType
-      ChatViewModel org_mochios_chat_ui_chat_ChatViewModel2;
+      AppBootstrapViewModel org_mochios_android_ui_AppBootstrapViewModel2;
+
+      @KeepFieldType
+      ChatListViewModel org_mochios_chat_ui_chatlist_ChatListViewModel2;
+
+      @KeepFieldType
+      NewChatViewModel org_mochios_chat_ui_newchat_NewChatViewModel2;
 
       @KeepFieldType
       ChatSettingsViewModel org_mochios_chat_ui_settings_ChatSettingsViewModel2;
 
       @KeepFieldType
-      NewChatViewModel org_mochios_chat_ui_newchat_NewChatViewModel2;
+      ChatViewModel org_mochios_chat_ui_chat_ChatViewModel2;
     }
   }
 
@@ -517,35 +517,35 @@ public final class DaggerChatApplication_HiltComponents_SingletonC {
 
     @IdentifierNameString
     private static final class LazyClassKeyProvider {
-      static String org_mochios_chat_ui_chatlist_ChatListViewModel = "org.mochios.chat.ui.chatlist.ChatListViewModel";
-
-      static String org_mochios_android_ui_auth_AuthViewModel = "org.mochios.android.ui.auth.AuthViewModel";
-
       static String org_mochios_chat_ui_settings_ChatSettingsViewModel = "org.mochios.chat.ui.settings.ChatSettingsViewModel";
-
-      static String org_mochios_chat_ui_newchat_NewChatViewModel = "org.mochios.chat.ui.newchat.NewChatViewModel";
-
-      static String org_mochios_android_ui_AppBootstrapViewModel = "org.mochios.android.ui.AppBootstrapViewModel";
 
       static String org_mochios_chat_ui_chat_ChatViewModel = "org.mochios.chat.ui.chat.ChatViewModel";
 
-      @KeepFieldType
-      ChatListViewModel org_mochios_chat_ui_chatlist_ChatListViewModel2;
+      static String org_mochios_android_ui_auth_AuthViewModel = "org.mochios.android.ui.auth.AuthViewModel";
 
-      @KeepFieldType
-      AuthViewModel org_mochios_android_ui_auth_AuthViewModel2;
+      static String org_mochios_chat_ui_newchat_NewChatViewModel = "org.mochios.chat.ui.newchat.NewChatViewModel";
+
+      static String org_mochios_chat_ui_chatlist_ChatListViewModel = "org.mochios.chat.ui.chatlist.ChatListViewModel";
+
+      static String org_mochios_android_ui_AppBootstrapViewModel = "org.mochios.android.ui.AppBootstrapViewModel";
 
       @KeepFieldType
       ChatSettingsViewModel org_mochios_chat_ui_settings_ChatSettingsViewModel2;
 
       @KeepFieldType
+      ChatViewModel org_mochios_chat_ui_chat_ChatViewModel2;
+
+      @KeepFieldType
+      AuthViewModel org_mochios_android_ui_auth_AuthViewModel2;
+
+      @KeepFieldType
       NewChatViewModel org_mochios_chat_ui_newchat_NewChatViewModel2;
 
       @KeepFieldType
-      AppBootstrapViewModel org_mochios_android_ui_AppBootstrapViewModel2;
+      ChatListViewModel org_mochios_chat_ui_chatlist_ChatListViewModel2;
 
       @KeepFieldType
-      ChatViewModel org_mochios_chat_ui_chat_ChatViewModel2;
+      AppBootstrapViewModel org_mochios_android_ui_AppBootstrapViewModel2;
     }
 
     private static final class SwitchingProvider<T> implements Provider<T> {
