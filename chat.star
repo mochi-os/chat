@@ -350,7 +350,7 @@ def event_message(e):
 		attachments = mochi.attachment.list("chat/" + chat["id"] + "/" + id)
 
 	mochi.websocket.write(chat["key"], {"created": created, "name": name, "body": body, "attachments": attachments})
-	notify("message", chat["id"], "Chat message", name + ": " + body, "/chat/" + chat["id"])
+	notify("message", chat["id"], mochi.app.label("notifications.title.message"), name + ": " + body, "/chat/" + chat["id"])
 
 # Received a new chat event
 def event_new(e):
