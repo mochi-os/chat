@@ -51,6 +51,8 @@ import org.mochios.android.i18n.LanguageRepository;
 import org.mochios.android.i18n.PreferencesManager;
 import org.mochios.android.places.NominatimModule_ProvideNominatimClientFactory;
 import org.mochios.android.places.NominatimService;
+import org.mochios.android.push.PushService;
+import org.mochios.android.push.PushService_MembersInjector;
 import org.mochios.android.ui.AppBootstrapViewModel;
 import org.mochios.android.ui.AppBootstrapViewModel_HiltModules;
 import org.mochios.android.ui.auth.AuthViewModel;
@@ -433,18 +435,21 @@ public final class DaggerChatApplication_HiltComponents_SingletonC {
     private static final class LazyClassKeyProvider {
       static String org_mochios_chat_ui_chatlist_ChatListViewModel = "org.mochios.chat.ui.chatlist.ChatListViewModel";
 
+      static String org_mochios_chat_ui_chat_ChatViewModel = "org.mochios.chat.ui.chat.ChatViewModel";
+
       static String org_mochios_android_ui_AppBootstrapViewModel = "org.mochios.android.ui.AppBootstrapViewModel";
 
       static String org_mochios_android_ui_auth_AuthViewModel = "org.mochios.android.ui.auth.AuthViewModel";
 
-      static String org_mochios_chat_ui_chat_ChatViewModel = "org.mochios.chat.ui.chat.ChatViewModel";
+      static String org_mochios_chat_ui_newchat_NewChatViewModel = "org.mochios.chat.ui.newchat.NewChatViewModel";
 
       static String org_mochios_chat_ui_settings_ChatSettingsViewModel = "org.mochios.chat.ui.settings.ChatSettingsViewModel";
 
-      static String org_mochios_chat_ui_newchat_NewChatViewModel = "org.mochios.chat.ui.newchat.NewChatViewModel";
-
       @KeepFieldType
       ChatListViewModel org_mochios_chat_ui_chatlist_ChatListViewModel2;
+
+      @KeepFieldType
+      ChatViewModel org_mochios_chat_ui_chat_ChatViewModel2;
 
       @KeepFieldType
       AppBootstrapViewModel org_mochios_android_ui_AppBootstrapViewModel2;
@@ -453,13 +458,10 @@ public final class DaggerChatApplication_HiltComponents_SingletonC {
       AuthViewModel org_mochios_android_ui_auth_AuthViewModel2;
 
       @KeepFieldType
-      ChatViewModel org_mochios_chat_ui_chat_ChatViewModel2;
+      NewChatViewModel org_mochios_chat_ui_newchat_NewChatViewModel2;
 
       @KeepFieldType
       ChatSettingsViewModel org_mochios_chat_ui_settings_ChatSettingsViewModel2;
-
-      @KeepFieldType
-      NewChatViewModel org_mochios_chat_ui_newchat_NewChatViewModel2;
     }
   }
 
@@ -517,32 +519,32 @@ public final class DaggerChatApplication_HiltComponents_SingletonC {
 
     @IdentifierNameString
     private static final class LazyClassKeyProvider {
-      static String org_mochios_chat_ui_chatlist_ChatListViewModel = "org.mochios.chat.ui.chatlist.ChatListViewModel";
-
-      static String org_mochios_android_ui_auth_AuthViewModel = "org.mochios.android.ui.auth.AuthViewModel";
+      static String org_mochios_android_ui_AppBootstrapViewModel = "org.mochios.android.ui.AppBootstrapViewModel";
 
       static String org_mochios_chat_ui_settings_ChatSettingsViewModel = "org.mochios.chat.ui.settings.ChatSettingsViewModel";
 
+      static String org_mochios_android_ui_auth_AuthViewModel = "org.mochios.android.ui.auth.AuthViewModel";
+
       static String org_mochios_chat_ui_newchat_NewChatViewModel = "org.mochios.chat.ui.newchat.NewChatViewModel";
 
-      static String org_mochios_android_ui_AppBootstrapViewModel = "org.mochios.android.ui.AppBootstrapViewModel";
+      static String org_mochios_chat_ui_chatlist_ChatListViewModel = "org.mochios.chat.ui.chatlist.ChatListViewModel";
 
       static String org_mochios_chat_ui_chat_ChatViewModel = "org.mochios.chat.ui.chat.ChatViewModel";
 
       @KeepFieldType
-      ChatListViewModel org_mochios_chat_ui_chatlist_ChatListViewModel2;
-
-      @KeepFieldType
-      AuthViewModel org_mochios_android_ui_auth_AuthViewModel2;
+      AppBootstrapViewModel org_mochios_android_ui_AppBootstrapViewModel2;
 
       @KeepFieldType
       ChatSettingsViewModel org_mochios_chat_ui_settings_ChatSettingsViewModel2;
 
       @KeepFieldType
+      AuthViewModel org_mochios_android_ui_auth_AuthViewModel2;
+
+      @KeepFieldType
       NewChatViewModel org_mochios_chat_ui_newchat_NewChatViewModel2;
 
       @KeepFieldType
-      AppBootstrapViewModel org_mochios_android_ui_AppBootstrapViewModel2;
+      ChatListViewModel org_mochios_chat_ui_chatlist_ChatListViewModel2;
 
       @KeepFieldType
       ChatViewModel org_mochios_chat_ui_chat_ChatViewModel2;
@@ -660,16 +662,24 @@ public final class DaggerChatApplication_HiltComponents_SingletonC {
 
 
     }
+
+    @Override
+    public void injectPushService(PushService arg0) {
+      injectPushService2(arg0);
+    }
+
+    @CanIgnoreReturnValue
+    private PushService injectPushService2(PushService instance) {
+      PushService_MembersInjector.injectWebSocket(instance, singletonCImpl.mochiWebSocketProvider.get());
+      PushService_MembersInjector.injectOkHttpClient(instance, singletonCImpl.provideOkHttpClientProvider.get());
+      return instance;
+    }
   }
 
   private static final class SingletonCImpl extends ChatApplication_HiltComponents.SingletonC {
     private final ApplicationContextModule applicationContextModule;
 
     private final SingletonCImpl singletonCImpl = this;
-
-    private Provider<OkHttpClient> provideNominatimClientProvider;
-
-    private Provider<NominatimService> nominatimServiceProvider;
 
     private Provider<SessionManager> sessionManagerProvider;
 
@@ -678,6 +688,10 @@ public final class DaggerChatApplication_HiltComponents_SingletonC {
     private Provider<Interceptor> provideInvalidationInterceptorProvider;
 
     private Provider<OkHttpClient> provideOkHttpClientProvider;
+
+    private Provider<OkHttpClient> provideNominatimClientProvider;
+
+    private Provider<NominatimService> nominatimServiceProvider;
 
     private Provider<Gson> provideGsonProvider;
 
@@ -709,15 +723,15 @@ public final class DaggerChatApplication_HiltComponents_SingletonC {
 
     @SuppressWarnings("unchecked")
     private void initialize(final ApplicationContextModule applicationContextModuleParam) {
-      this.provideNominatimClientProvider = DoubleCheck.provider(new SwitchingProvider<OkHttpClient>(singletonCImpl, 1));
-      this.nominatimServiceProvider = DoubleCheck.provider(new SwitchingProvider<NominatimService>(singletonCImpl, 0));
-      this.sessionManagerProvider = DoubleCheck.provider(new SwitchingProvider<SessionManager>(singletonCImpl, 2));
-      this.provideAuthInterceptorProvider = DoubleCheck.provider(new SwitchingProvider<Interceptor>(singletonCImpl, 6));
-      this.provideInvalidationInterceptorProvider = DoubleCheck.provider(new SwitchingProvider<Interceptor>(singletonCImpl, 7));
-      this.provideOkHttpClientProvider = DoubleCheck.provider(new SwitchingProvider<OkHttpClient>(singletonCImpl, 5));
+      this.sessionManagerProvider = DoubleCheck.provider(new SwitchingProvider<SessionManager>(singletonCImpl, 0));
+      this.provideAuthInterceptorProvider = DoubleCheck.provider(new SwitchingProvider<Interceptor>(singletonCImpl, 2));
+      this.provideInvalidationInterceptorProvider = DoubleCheck.provider(new SwitchingProvider<Interceptor>(singletonCImpl, 3));
+      this.provideOkHttpClientProvider = DoubleCheck.provider(new SwitchingProvider<OkHttpClient>(singletonCImpl, 1));
+      this.provideNominatimClientProvider = DoubleCheck.provider(new SwitchingProvider<OkHttpClient>(singletonCImpl, 5));
+      this.nominatimServiceProvider = DoubleCheck.provider(new SwitchingProvider<NominatimService>(singletonCImpl, 4));
       this.provideGsonProvider = DoubleCheck.provider(new SwitchingProvider<Gson>(singletonCImpl, 8));
-      this.provideRetrofitProvider = DoubleCheck.provider(new SwitchingProvider<Retrofit>(singletonCImpl, 4));
-      this.preferencesManagerProvider = DoubleCheck.provider(new SwitchingProvider<PreferencesManager>(singletonCImpl, 3));
+      this.provideRetrofitProvider = DoubleCheck.provider(new SwitchingProvider<Retrofit>(singletonCImpl, 7));
+      this.preferencesManagerProvider = DoubleCheck.provider(new SwitchingProvider<PreferencesManager>(singletonCImpl, 6));
       this.provideAuthApiProvider = DoubleCheck.provider(new SwitchingProvider<AuthApi>(singletonCImpl, 10));
       this.authRepositoryProvider = DoubleCheck.provider(new SwitchingProvider<AuthRepository>(singletonCImpl, 9));
       this.themeRepositoryProvider = DoubleCheck.provider(new SwitchingProvider<ThemeRepository>(singletonCImpl, 11));
@@ -744,6 +758,16 @@ public final class DaggerChatApplication_HiltComponents_SingletonC {
     }
 
     @Override
+    public SessionManager sessionManager() {
+      return sessionManagerProvider.get();
+    }
+
+    @Override
+    public OkHttpClient okHttpClient() {
+      return provideOkHttpClientProvider.get();
+    }
+
+    @Override
     public NominatimService nominatimService() {
       return nominatimServiceProvider.get();
     }
@@ -766,29 +790,29 @@ public final class DaggerChatApplication_HiltComponents_SingletonC {
       @Override
       public T get() {
         switch (id) {
-          case 0: // org.mochios.android.places.NominatimService 
-          return (T) new NominatimService(singletonCImpl.provideNominatimClientProvider.get());
-
-          case 1: // @org.mochios.android.places.NominatimClient okhttp3.OkHttpClient 
-          return (T) NominatimModule_ProvideNominatimClientFactory.provideNominatimClient();
-
-          case 2: // org.mochios.android.auth.SessionManager 
+          case 0: // org.mochios.android.auth.SessionManager 
           return (T) new SessionManager(ApplicationContextModule_ProvideContextFactory.provideContext(singletonCImpl.applicationContextModule));
 
-          case 3: // org.mochios.android.i18n.PreferencesManager 
-          return (T) new PreferencesManager(ApplicationContextModule_ProvideContextFactory.provideContext(singletonCImpl.applicationContextModule), singletonCImpl.sessionManagerProvider.get(), singletonCImpl.provideRetrofitProvider.get());
-
-          case 4: // retrofit2.Retrofit 
-          return (T) ApiClient_ProvideRetrofitFactory.provideRetrofit(singletonCImpl.provideOkHttpClientProvider.get(), singletonCImpl.provideGsonProvider.get(), singletonCImpl.sessionManagerProvider.get());
-
-          case 5: // okhttp3.OkHttpClient 
+          case 1: // okhttp3.OkHttpClient 
           return (T) ApiClient_ProvideOkHttpClientFactory.provideOkHttpClient(singletonCImpl.provideAuthInterceptorProvider.get(), singletonCImpl.provideInvalidationInterceptorProvider.get(), singletonCImpl.sessionManagerProvider.get());
 
-          case 6: // @org.mochios.android.api.AuthInterceptor okhttp3.Interceptor 
+          case 2: // @org.mochios.android.api.AuthInterceptor okhttp3.Interceptor 
           return (T) ApiClient_ProvideAuthInterceptorFactory.provideAuthInterceptor(singletonCImpl.sessionManagerProvider.get());
 
-          case 7: // @org.mochios.android.api.InvalidationInterceptor okhttp3.Interceptor 
+          case 3: // @org.mochios.android.api.InvalidationInterceptor okhttp3.Interceptor 
           return (T) ApiClient_ProvideInvalidationInterceptorFactory.provideInvalidationInterceptor(singletonCImpl.sessionManagerProvider.get());
+
+          case 4: // org.mochios.android.places.NominatimService 
+          return (T) new NominatimService(singletonCImpl.provideNominatimClientProvider.get());
+
+          case 5: // @org.mochios.android.places.NominatimClient okhttp3.OkHttpClient 
+          return (T) NominatimModule_ProvideNominatimClientFactory.provideNominatimClient();
+
+          case 6: // org.mochios.android.i18n.PreferencesManager 
+          return (T) new PreferencesManager(ApplicationContextModule_ProvideContextFactory.provideContext(singletonCImpl.applicationContextModule), singletonCImpl.sessionManagerProvider.get(), singletonCImpl.provideRetrofitProvider.get());
+
+          case 7: // retrofit2.Retrofit 
+          return (T) ApiClient_ProvideRetrofitFactory.provideRetrofit(singletonCImpl.provideOkHttpClientProvider.get(), singletonCImpl.provideGsonProvider.get(), singletonCImpl.sessionManagerProvider.get());
 
           case 8: // com.google.gson.Gson 
           return (T) ApiClient_ProvideGsonFactory.provideGson();

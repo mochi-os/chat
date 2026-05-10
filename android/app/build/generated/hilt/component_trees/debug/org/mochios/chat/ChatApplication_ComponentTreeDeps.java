@@ -39,6 +39,8 @@ import hilt_aggregated_deps._dagger_hilt_android_internal_modules_HiltWrapper_Ac
 import hilt_aggregated_deps._org_mochios_android_api_ApiClient;
 import hilt_aggregated_deps._org_mochios_android_auth_AuthModule;
 import hilt_aggregated_deps._org_mochios_android_places_NominatimModule;
+import hilt_aggregated_deps._org_mochios_android_push_MochiPushReceiver_PushDeps;
+import hilt_aggregated_deps._org_mochios_android_push_PushService_GeneratedInjector;
 import hilt_aggregated_deps._org_mochios_android_ui_AppBootstrapViewModel_HiltModules_BindsModule;
 import hilt_aggregated_deps._org_mochios_android_ui_AppBootstrapViewModel_HiltModules_KeyModule;
 import hilt_aggregated_deps._org_mochios_android_ui_auth_AuthViewModel_HiltModules_BindsModule;
@@ -98,6 +100,8 @@ import hilt_aggregated_deps._org_mochios_chat_ui_settings_ChatSettingsViewModel_
         _org_mochios_android_api_ApiClient.class,
         _org_mochios_android_auth_AuthModule.class,
         _org_mochios_android_places_NominatimModule.class,
+        _org_mochios_android_push_MochiPushReceiver_PushDeps.class,
+        _org_mochios_android_push_PushService_GeneratedInjector.class,
         _org_mochios_android_ui_AppBootstrapViewModel_HiltModules_BindsModule.class,
         _org_mochios_android_ui_AppBootstrapViewModel_HiltModules_KeyModule.class,
         _org_mochios_android_ui_auth_AuthViewModel_HiltModules_BindsModule.class,

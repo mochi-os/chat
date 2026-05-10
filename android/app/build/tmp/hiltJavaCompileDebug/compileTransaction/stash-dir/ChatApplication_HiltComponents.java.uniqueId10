@@ -49,6 +49,8 @@ import javax.inject.Singleton;
 import org.mochios.android.api.ApiClient;
 import org.mochios.android.auth.AuthModule;
 import org.mochios.android.places.NominatimModule;
+import org.mochios.android.push.MochiPushReceiver;
+import org.mochios.android.push.PushService_GeneratedInjector;
 import org.mochios.android.ui.AppBootstrapViewModel_HiltModules;
 import org.mochios.android.ui.auth.AuthViewModel_HiltModules;
 import org.mochios.android.ui.components.HiltWrapper_PlacePickerEntryPoint;
@@ -151,6 +153,7 @@ public final class ChatApplication_HiltComponents {
       ServiceComponentManager.ServiceComponentBuilderEntryPoint,
       SingletonComponent,
       GeneratedComponent,
+      MochiPushReceiver.PushDeps,
       HiltWrapper_PlacePickerEntryPoint,
       ChatApplication_GeneratedInjector {
   }
@@ -158,7 +161,8 @@ public final class ChatApplication_HiltComponents {
   @Subcomponent
   @ServiceScoped
   public abstract static class ServiceC implements ServiceComponent,
-      GeneratedComponent {
+      GeneratedComponent,
+      PushService_GeneratedInjector {
     @Subcomponent.Builder
     abstract interface Builder extends ServiceComponentBuilder {
     }
