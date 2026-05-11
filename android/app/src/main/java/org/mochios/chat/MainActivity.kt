@@ -36,11 +36,12 @@ class MainActivity : ComponentActivity() {
         setContent {
             val themeAnchors by sessionManager.themeAnchors.collectAsState(initial = null)
             val identity by sessionManager.boundIdentity.collectAsState(initial = null)
+            val userPrefs by preferencesManager.preferences.collectAsState()
             RequestNotificationPermission()
             LaunchedEffect(identity) {
                 identity?.let { MochiPushClient.register(this@MainActivity, it) }
             }
-            MochiTheme(themeAnchors = themeAnchors) {
+            MochiTheme(themeAnchors = themeAnchors, preferences = userPrefs) {
                 FormatProvider(manager = preferencesManager) {
                     AppBootstrapHost(
                         appName = "chat",

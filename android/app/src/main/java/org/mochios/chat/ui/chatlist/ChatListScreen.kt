@@ -62,6 +62,7 @@ import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import org.mochios.android.api.userMessage
 import org.mochios.android.ui.components.ConfirmDialog
+import org.mochios.android.ui.components.EntityListRow
 import org.mochios.chat.MainActivity
 import org.mochios.chat.R
 import org.mochios.chat.model.Chat
@@ -195,11 +196,11 @@ fun ChatListScreen(
                         } else {
                             LazyColumn(
                                 modifier = Modifier.fillMaxSize(),
-                                contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp),
-                                verticalArrangement = Arrangement.spacedBy(8.dp)
+                                contentPadding = PaddingValues(horizontal = 12.dp, vertical = 12.dp),
+                                verticalArrangement = Arrangement.spacedBy(4.dp)
                             ) {
                                 items(filtered, key = { it.fingerprint.ifEmpty { it.id } }) { chat ->
-                                    ChatCard(
+                                    ChatRow(
                                         chat = chat,
                                         onClick = {
                                             val id = chat.fingerprint.ifEmpty { chat.id }
@@ -218,7 +219,7 @@ fun ChatListScreen(
 }
 
 @Composable
-private fun ChatCard(
+private fun ChatRow(
     chat: Chat,
     onClick: () -> Unit,
     onDeleteLocally: () -> Unit
@@ -232,85 +233,62 @@ private fun ChatCard(
     val deleteLabel = stringResource(R.string.chat_settings_delete)
     val cancelLabel = stringResource(MochiR.string.common_cancel)
 
-    Card(
-        modifier = Modifier
-            .fillMaxWidth()
-            .clickable(onClick = onClick),
-        shape = MaterialTheme.shapes.medium
-    ) {
-        Row(
-            modifier = Modifier.padding(start = 16.dp, top = 12.dp, bottom = 12.dp, end = 4.dp),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Icon(
-                imageVector = Icons.Default.ChatBubble,
-                contentDescription = null,
-                tint = MaterialTheme.colorScheme.onSurfaceVariant,
-                modifier = Modifier.size(24.dp)
-            )
-            Spacer(modifier = Modifier.width(12.dp))
-            Column(modifier = Modifier.weight(1f)) {
-                Text(
-                    text = chat.name,
-                    style = MaterialTheme.typography.titleMedium,
-                    maxLines = 1,
-                    overflow = TextOverflow.Ellipsis
-                )
-                if (chat.left != 0) {
-                    Spacer(modifier = Modifier.height(2.dp))
-                    Text(
-                        text = if (chat.left == 2) {
-                            stringResource(R.string.chat_list_removed_chat)
-                        } else {
-                            stringResource(R.string.chat_list_left_chat)
-                        },
-                        style = MaterialTheme.typography.bodySmall,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant
-                    )
-                }
-            }
-            Box {
+    val subtitle = when (chat.left) {
+        2 -> stringResource(R.string.chat_list_removed_chat)
+        1 -> stringResource(R.string.chat_list_left_chat)
+        else -> null
+    }
+
+    Box {
+        EntityListRow(
+            name = chat.name,
+            seed = chatId.ifEmpty { chat.id },
+            icon = Icons.Default.ChatBubble,
+            subtitle = subtitle,
+            onClick = onClick,
+            onLongClick = { showMenu = true },
+            trailing = {
                 IconButton(onClick = { showMenu = true }) {
                     Icon(
                         Icons.Default.MoreHoriz,
                         contentDescription = stringResource(MochiR.string.common_more_options)
                     )
                 }
-                DropdownMenu(
-                    expanded = showMenu,
-                    onDismissRequest = { showMenu = false }
-                ) {
-                    DropdownMenuItem(
-                        text = { Text(stringResource(R.string.chat_list_add_to_home)) },
-                        leadingIcon = { Icon(Icons.Default.HomeMax, contentDescription = null) },
-                        onClick = {
-                            showMenu = false
-                            val intent = Intent(context, MainActivity::class.java).apply {
-                                action = Intent.ACTION_VIEW
-                                flags = Intent.FLAG_ACTIVITY_NEW_TASK or
-                                    Intent.FLAG_ACTIVITY_CLEAR_TASK
-                                putExtra("entityId", chatId)
-                            }
-                            val shortcut = ShortcutInfoCompat.Builder(context, "chat_$chatId")
-                                .setShortLabel(chat.name)
-                                .setLongLabel(chat.name)
-                                .setIcon(IconCompat.createWithResource(context, R.mipmap.ic_launcher))
-                                .setIntent(intent)
-                                .build()
-                            ShortcutManagerCompat.requestPinShortcut(context, shortcut, null)
-                        }
-                    )
-                    if (chat.left != 0) {
-                        DropdownMenuItem(
-                            text = { Text(deleteLabel) },
-                            leadingIcon = { Icon(Icons.Default.Delete, contentDescription = null) },
-                            onClick = {
-                                showMenu = false
-                                showDeleteConfirm = true
-                            }
-                        )
+            }
+        )
+        DropdownMenu(
+            expanded = showMenu,
+            onDismissRequest = { showMenu = false }
+        ) {
+            DropdownMenuItem(
+                text = { Text(stringResource(R.string.chat_list_add_to_home)) },
+                leadingIcon = { Icon(Icons.Default.HomeMax, contentDescription = null) },
+                onClick = {
+                    showMenu = false
+                    val intent = Intent(context, MainActivity::class.java).apply {
+                        action = Intent.ACTION_VIEW
+                        flags = Intent.FLAG_ACTIVITY_NEW_TASK or
+                            Intent.FLAG_ACTIVITY_CLEAR_TASK
+                        putExtra("entityId", chatId)
                     }
+                    val shortcut = ShortcutInfoCompat.Builder(context, "chat_$chatId")
+                        .setShortLabel(chat.name)
+                        .setLongLabel(chat.name)
+                        .setIcon(IconCompat.createWithResource(context, R.mipmap.ic_launcher))
+                        .setIntent(intent)
+                        .build()
+                    ShortcutManagerCompat.requestPinShortcut(context, shortcut, null)
                 }
+            )
+            if (chat.left != 0) {
+                DropdownMenuItem(
+                    text = { Text(deleteLabel) },
+                    leadingIcon = { Icon(Icons.Default.Delete, contentDescription = null) },
+                    onClick = {
+                        showMenu = false
+                        showDeleteConfirm = true
+                    }
+                )
             }
         }
     }

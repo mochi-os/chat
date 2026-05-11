@@ -14,7 +14,6 @@ import org.mochios.android.auth.SessionManager
 import org.mochios.android.websocket.MochiWebSocket
 import org.mochios.chat.model.ChatDetail
 import org.mochios.chat.model.ChatMessage
-import org.mochios.chat.model.ChatMessageAttachment
 import org.mochios.chat.repository.ChatRepository
 import javax.inject.Inject
 
@@ -40,6 +39,7 @@ class ChatViewModel @Inject constructor(
 ) : ViewModel() {
 
     private val chatId: String = savedStateHandle["chatId"] ?: ""
+    val serverUrl: String = sessionManager.getServerUrlBlocking().trimEnd('/')
 
     private val _uiState = MutableStateFlow(ChatUiState())
     val uiState: StateFlow<ChatUiState> = _uiState.asStateFlow()

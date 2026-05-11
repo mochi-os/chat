@@ -1,6 +1,7 @@
 package org.mochios.chat.model
 
 import com.google.gson.annotations.SerializedName
+import org.mochios.android.model.Attachment
 
 data class Chat(
     val id: String = "",
@@ -35,15 +36,6 @@ data class ChatViewResponse(
     val identity: String = ""
 )
 
-data class ChatMessageAttachment(
-    val id: String = "",
-    val name: String = "",
-    val size: Long = 0,
-    @SerializedName("content_type") val contentType: String = "",
-    val rank: Int = 0,
-    val created: Long = 0
-)
-
 data class ChatMessage(
     val id: String = "",
     val chat: String = "",
@@ -51,7 +43,7 @@ data class ChatMessage(
     val name: String = "",
     val body: String = "",
     val created: Long = 0,
-    val attachments: List<ChatMessageAttachment> = emptyList()
+    val attachments: List<Attachment> = emptyList()
 )
 
 data class Friend(

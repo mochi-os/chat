@@ -48,6 +48,8 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import org.mochios.android.api.userMessage
 import org.mochios.android.i18n.LocalFormat
 import org.mochios.android.i18n.formatRelativeTime
+import org.mochios.android.model.resolveAttachmentUrl
+import org.mochios.android.ui.components.AttachmentGallery
 import org.mochios.chat.R
 import org.mochios.chat.model.ChatMessage
 import org.mochios.android.R as MochiR
@@ -154,7 +156,9 @@ fun ChatScreen(
                         items(uiState.messages, key = { it.id }) { message ->
                             MessageBubble(
                                 message = message,
-                                isOwn = message.member == uiState.identity
+                                isOwn = message.member == uiState.identity,
+                                serverUrl = viewModel.serverUrl,
+                                chatId = uiState.chat.id
                             )
                         }
                     }
@@ -176,7 +180,12 @@ fun ChatScreen(
 }
 
 @Composable
-private fun MessageBubble(message: ChatMessage, isOwn: Boolean) {
+private fun MessageBubble(
+    message: ChatMessage,
+    isOwn: Boolean,
+    serverUrl: String,
+    chatId: String
+) {
     val format = LocalFormat.current
     Row(
         modifier = Modifier.fillMaxWidth(),
@@ -202,15 +211,29 @@ private fun MessageBubble(message: ChatMessage, isOwn: Boolean) {
                     )
                     Spacer(modifier = Modifier.height(2.dp))
                 }
-                Text(
-                    text = message.body,
-                    style = MaterialTheme.typography.bodyMedium,
-                    color = if (isOwn) {
-                        MaterialTheme.colorScheme.onPrimaryContainer
-                    } else {
-                        MaterialTheme.colorScheme.onSurface
-                    }
-                )
+                if (message.body.isNotEmpty()) {
+                    Text(
+                        text = message.body,
+                        style = MaterialTheme.typography.bodyMedium,
+                        color = if (isOwn) {
+                            MaterialTheme.colorScheme.onPrimaryContainer
+                        } else {
+                            MaterialTheme.colorScheme.onSurface
+                        }
+                    )
+                }
+                if (message.attachments.isNotEmpty()) {
+                    if (message.body.isNotEmpty()) Spacer(modifier = Modifier.height(6.dp))
+                    AttachmentGallery(
+                        attachments = message.attachments,
+                        urlBuilder = { att ->
+                            resolveAttachmentUrl(serverUrl, att.url ?: "/chat/$chatId/-/attachments/${att.id}")
+                        },
+                        thumbnailUrlBuilder = { att ->
+                            resolveAttachmentUrl(serverUrl, att.thumbnailUrl ?: "/chat/$chatId/-/attachments/${att.id}/thumbnail")
+                        }
+                    )
+                }
                 Spacer(modifier = Modifier.height(4.dp))
                 Text(
                     text = format.formatRelativeTime(message.created),
