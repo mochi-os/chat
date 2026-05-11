@@ -1,12 +1,16 @@
 package org.mochios.chat.navigation
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import androidx.navigation.navDeepLink
+import org.mochios.android.push.PendingDeepLink
 import org.mochios.chat.ui.chat.ChatScreen
 import org.mochios.chat.ui.chatlist.ChatListScreen
 import org.mochios.chat.ui.newchat.NewChatScreen
@@ -26,6 +30,20 @@ object Routes {
 fun ChatNavigation(startEntityId: String? = null, onLogout: () -> Unit) {
     val navController = rememberNavController()
     val startDestination = if (startEntityId != null) Routes.chat(startEntityId) else Routes.CHAT_LIST
+
+    // Notification tap → MainActivity stuffed the target path into PendingDeepLink.
+    // Parse the second path segment as the chat id and navigate.
+    val pendingLink by PendingDeepLink.link.collectAsState()
+    LaunchedEffect(pendingLink) {
+        val link = pendingLink ?: return@LaunchedEffect
+        val chatId = link.trim('/').split('/').getOrNull(1)
+        if (!chatId.isNullOrBlank()) {
+            navController.navigate(Routes.chat(chatId)) {
+                launchSingleTop = true
+            }
+        }
+        PendingDeepLink.consume()
+    }
 
     NavHost(navController = navController, startDestination = startDestination) {
         composable(Routes.CHAT_LIST) {
