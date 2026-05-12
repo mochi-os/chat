@@ -402,7 +402,22 @@ def event_rename(e):
 	if not mochi.text.valid(name, "name"):
 		return
 
-	mochi.db.execute("update chats set name=?, updated=? where id=?", name, mochi.time.now(), chat["id"])
+	# LWW gate: if a newer rename has already landed locally (concurrent
+	# rename from another member's host), drop this older one. Older
+	# events without `updated` (pre-conversion senders) fall back to
+	# applying with local now, preserving prior behaviour.
+	now = mochi.time.now()
+	incoming = str(e.content("updated", "0"))
+	if mochi.text.valid(incoming, "integer"):
+		incoming = int(incoming)
+	else:
+		incoming = 0
+	if incoming and chat["updated"] and incoming <= chat["updated"]:
+		return
+	if not incoming:
+		incoming = now
+
+	mochi.db.execute("update chats set name=?, updated=? where id=?", name, incoming, chat["id"])
 	mochi.websocket.write(chat["key"], {"event": "rename", "name": name})
 
 # Received a leave event - a member left the chat
@@ -520,12 +535,14 @@ def action_rename(a):
 		a.error.label(400, "errors.invalid_chat_name")
 		return
 
-	mochi.db.execute("update chats set name=?, updated=? where id=?", name, mochi.time.now(), chat["id"])
+	now = mochi.time.now()
+	mochi.db.execute("update chats set name=?, updated=? where id=?", name, now, chat["id"])
 
-	# Notify other members
+	# Notify other members. Includes `updated` so receivers can LWW-gate
+	# against their own chats.updated and drop stale concurrent renames.
 	members = mochi.db.rows("select member from members where chat=? and member!=?", chat["id"], a.user.identity.id)
 	for member in members:
-		mochi.message.send({"from": a.user.identity.id, "to": member["member"], "service": "chat", "event": "rename"}, {"id": chat["id"], "name": name})
+		mochi.message.send({"from": a.user.identity.id, "to": member["member"], "service": "chat", "event": "rename"}, {"id": chat["id"], "name": name, "updated": now})
 
 	mochi.websocket.write(chat["key"], {"event": "rename", "name": name})
 	return {"data": {"success": True}}
