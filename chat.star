@@ -17,7 +17,19 @@ def database_create():
 
 # Upgrade database
 def database_upgrade(to_version):
-	pass
+	# chats.updated was only bumped on member events (add/remove/rename/
+	# leave), never on the messages themselves — so the chat list sort
+	# by `updated` was effectively "last member event", not "last message".
+	# action_send + event_message now update it, but existing chats still
+	# carry stale values; backfill from each chat's most recent message so
+	# the next launch shows the expected order.
+	#
+	# Schema 5 carried the same intent but used Python-style implicit
+	# string concatenation that Starlark rejected; the server still
+	# bumped the version on parse failure, so the actual backfill lands
+	# at schema 6 with a single-line SQL string.
+	if to_version == 5 or to_version == 6:
+		mochi.db.execute("update chats set updated = coalesce((select max(created) from messages where chat = chats.id), updated)")
 
 # Stream an entity's asset from its owning service via a Mochi stream.
 # Location-transparent: mochi.remote.stream() loops back in-process when the
@@ -260,7 +272,11 @@ def action_send(a):
 		return
 
 	id = mochi.uid()
-	mochi.db.execute("replace into messages ( id, chat, member, name, body, created ) values ( ?, ?, ?, ?, ?, ? )", id, chat["id"], a.user.identity.id, a.user.identity.name, body, mochi.time.now())
+	now_send = mochi.time.now()
+	mochi.db.execute("replace into messages ( id, chat, member, name, body, created ) values ( ?, ?, ?, ?, ?, ? )", id, chat["id"], a.user.identity.id, a.user.identity.name, body, now_send)
+	# Bump the chat's updated timestamp so the chat list sorts by last
+	# message activity, not by member-event history.
+	mochi.db.execute("update chats set updated=? where id=?", now_send, chat["id"])
 
 	# Get other chat members for notification
 	members = mochi.db.rows("select member from members where chat=? and member!=?", chat["id"], a.user.identity.id)
@@ -342,6 +358,11 @@ def event_message(e):
 	name = e.content("name") or member["name"]
 
 	mochi.db.execute("replace into messages ( id, chat, member, name, body, created ) values ( ?, ?, ?, ?, ?, ? )", id, chat["id"], member["member"], name, body, created)
+	# Bump the chat's updated timestamp so the chat list sorts by last
+	# message activity. Use the message's own `created` (not now()) so
+	# replayed history doesn't drag the chat forward in time.
+	if created > (chat.get("updated") or 0):
+		mochi.db.execute("update chats set updated=? where id=?", created, chat["id"])
 
 	# Store attachment metadata from the event
 	attachments = e.content("attachments") or []
