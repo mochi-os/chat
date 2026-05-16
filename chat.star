@@ -369,8 +369,8 @@ def action_resync(a):
 		# Solo chat — nothing to sync from.
 		return {"data": {"synced": False}}
 	mochi.db.execute("update chats set synced=0 where id=?", chat_id)
-	request_resync(chat_id, identity, peer)
-	return {"data": {"synced": True}}
+	synced = request_resync(chat_id, identity, peer)
+	return {"data": {"synced": synced}}
 
 # request_resync asks a member peer for the chat's metadata + member list
 # when we receive an event referencing a chat we haven't seen yet. Chat
@@ -378,19 +378,22 @@ def action_resync(a):
 # messaged us; they answer if they hold the chat. Throttled to one call
 # per 60 seconds per chat so a burst of out-of-order events can't spam.
 def request_resync(chat_id, identity, peer_member):
+	"""Returns True iff data was actually fetched and applied from the peer.
+	Throttle-skipped calls, missing args, and remote-request failures all
+	return False so callers don't lie about convergence."""
 	if not chat_id or not identity or not peer_member:
-		return
+		return False
 	row = mochi.db.row("select synced from chats where id=?", chat_id)
 	now = mochi.time.now()
 	if row and row["synced"] and now - row["synced"] < 60:
-		return
+		return False
 	response = mochi.remote.request(peer_member, "chat", "info", {"chat": chat_id})
 	if not response or response.get("error"):
-		return
+		return False
 	name = response.get("name") or ""
 	members = response.get("members") or []
 	if not mochi.text.valid(name, "name"):
-		return
+		return False
 	# Create chat if missing.
 	existing = mochi.db.row("select synced from chats where id=?", chat_id)
 	if not existing:
@@ -408,6 +411,7 @@ def request_resync(chat_id, identity, peer_member):
 		mochi.db.execute(
 			"replace into members ( chat, member, name ) values ( ?, ?, ? )",
 			chat_id, m["id"], m["name"])
+	return True
 
 # Respond to a peer asking about a chat we both belong to. Returns the
 # chat's name and member list, but only if the requester is a member of
