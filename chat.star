@@ -6,7 +6,7 @@ def notify(topic, object="", title="", body="", url=""):
 
 # Create database
 def database_create():
-	mochi.db.execute("create table if not exists chats ( id text not null primary key, identity text not null, name text not null, key text not null, updated integer not null, left integer not null default 0 )")
+	mochi.db.execute("create table if not exists chats ( id text not null primary key, identity text not null, name text not null, key text not null, updated integer not null, left integer not null default 0, synced integer not null default 0 )")
 	mochi.db.execute("create index if not exists chats_updated on chats( updated )")
 
 	mochi.db.execute("create table if not exists members ( chat references chats( id ), member text not null, name text not null, primary key ( chat, member ) )")
@@ -30,6 +30,14 @@ def database_upgrade(to_version):
 	# at schema 6 with a single-line SQL string.
 	if to_version == 5 or to_version == 6:
 		mochi.db.execute("update chats set updated = coalesce((select max(created) from messages where chat = chats.id), updated)")
+	if to_version == 7:
+		# Add chats.synced for throttled resync requests when an
+		# incoming message references a chat we haven't seen yet — happens
+		# when event_new was missed (offline at chat creation time) but
+		# subsequent messages arrived.
+		cols = [r["name"] for r in mochi.db.table("chats") or []]
+		if "synced" not in cols:
+			mochi.db.execute("alter table chats add column synced integer not null default 0")
 
 # Stream an entity's asset from its owning service via a Mochi stream.
 # Location-transparent: mochi.remote.stream() loops back in-process when the
@@ -325,11 +333,113 @@ def action_view(a):
 		"data": {"chat": chat, "identity": a.user.identity.id}
 	}
 
+# Force a fresh info pull from another member of the chat. Unlike the
+# event-driven request_resync, this picks a peer for the user (the most
+# recently active member who isn't us) and bypasses the throttle so the
+# user can always force a sync. Useful when the member list is stale or
+# the chat is suspected to have drifted.
+def action_resync(a):
+	if not a.user:
+		a.error.label(401, "errors.not_logged_in")
+		return
+	chat_id = a.input("chat")
+	if not mochi.text.valid(chat_id, "id"):
+		a.error.label(400, "errors.invalid_chat_id")
+		return
+	chat = mochi.db.row("select * from chats where id=?", chat_id)
+	if not chat:
+		a.error.label(404, "errors.chat_not_found")
+		return
+	identity = a.user.identity.id
+	if not mochi.db.exists("select 1 from members where chat=? and member=?", chat_id, identity):
+		a.error.label(403, "errors.not_a_member_of_this_chat")
+		return
+	# Pick the most recently active member who isn't us as the responder.
+	row = mochi.db.row(
+		"select member from messages where chat=? and member!=? order by created desc limit 1",
+		chat_id, identity)
+	peer = row["member"] if row else None
+	if not peer:
+		# Fall back to any other member.
+		row = mochi.db.row(
+			"select member from members where chat=? and member!=? limit 1",
+			chat_id, identity)
+		peer = row["member"] if row else None
+	if not peer:
+		# Solo chat — nothing to sync from.
+		return {"data": {"synced": False}}
+	mochi.db.execute("update chats set synced=0 where id=?", chat_id)
+	request_resync(chat_id, identity, peer)
+	return {"data": {"synced": True}}
+
+# request_resync asks a member peer for the chat's metadata + member list
+# when we receive an event referencing a chat we haven't seen yet. Chat
+# is peer-to-peer (no central owner) so the responder is whoever just
+# messaged us; they answer if they hold the chat. Throttled to one call
+# per 60 seconds per chat so a burst of out-of-order events can't spam.
+def request_resync(chat_id, identity, peer_member):
+	if not chat_id or not identity or not peer_member:
+		return
+	row = mochi.db.row("select synced from chats where id=?", chat_id)
+	now = mochi.time.now()
+	if row and row["synced"] and now - row["synced"] < 60:
+		return
+	response = mochi.remote.request(peer_member, "chat", "info", {"chat": chat_id})
+	if not response or response.get("error"):
+		return
+	name = response.get("name") or ""
+	members = response.get("members") or []
+	if not mochi.text.valid(name, "name"):
+		return
+	# Create chat if missing.
+	existing = mochi.db.row("select synced from chats where id=?", chat_id)
+	if not existing:
+		mochi.db.execute(
+			"insert into chats ( id, identity, name, key, updated, synced ) values ( ?, ?, ?, ?, ?, ? )",
+			chat_id, identity, name, mochi.random.alphanumeric(16), now, now)
+	else:
+		mochi.db.execute("update chats set synced=? where id=?", now, chat_id)
+	# Insert or refresh members.
+	for m in members:
+		if not mochi.text.valid(m.get("id", ""), "entity"):
+			continue
+		if not mochi.text.valid(m.get("name", ""), "name"):
+			continue
+		mochi.db.execute(
+			"replace into members ( chat, member, name ) values ( ?, ?, ? )",
+			chat_id, m["id"], m["name"])
+
+# Respond to a peer asking about a chat we both belong to. Returns the
+# chat's name and member list, but only if the requester is a member of
+# the chat — chat membership is private to its members.
+def event_info(e):
+	chat_id = e.content("chat")
+	if not chat_id:
+		e.stream.write({"error": "chat_id required"})
+		return
+	chat = mochi.db.row("select id, name from chats where id=?", chat_id)
+	if not chat:
+		e.stream.write({"error": "chat not found"})
+		return
+	requester = e.header("from")
+	if not mochi.db.exists("select 1 from members where chat=? and member=?", chat_id, requester):
+		e.stream.write({"error": "not a member"})
+		return
+	members = mochi.db.rows("select member as id, name from members where chat=?", chat_id) or []
+	e.stream.write({"name": chat["name"], "members": members})
+
 # Recieve a chat message from another member
 def event_message(e):
-	chat = mochi.db.row("select * from chats where id=?", e.content("chat"))
+	chat_id = e.content("chat")
+	chat = mochi.db.row("select * from chats where id=?", chat_id)
 	if not chat:
-		return
+		# Out-of-order: event_new was missed. Try to bootstrap the chat
+		# from the sender, who must be a member if they're sending us a
+		# message they thought we'd want.
+		request_resync(chat_id, e.header("to"), e.header("from"))
+		chat = mochi.db.row("select * from chats where id=?", chat_id)
+		if not chat:
+			return
 
 	member = mochi.db.row("select * from members where chat=? and member=?", chat["id"], e.header("from"))
 	if not member:
