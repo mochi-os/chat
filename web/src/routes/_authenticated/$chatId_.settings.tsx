@@ -268,6 +268,7 @@ function ChatNameSection({ chatId, name }: { chatId: string, name: string }) {
                 onClick={handleCancelEdit}
                 disabled={renameMutation.isPending}
                 className='h-9 w-9 p-0'
+                aria-label={t`Cancel edit`}
               >
                 <X className='size-4 text-destructive' />
               </Button>
@@ -284,6 +285,7 @@ function ChatNameSection({ chatId, name }: { chatId: string, name: string }) {
               variant='ghost'
               onClick={handleStartEdit}
               className='h-6 w-6 p-0 hover:bg-muted'
+              aria-label={t`Edit chat name`}
             >
               <Pencil className='size-3.5 text-muted-foreground' />
             </Button>

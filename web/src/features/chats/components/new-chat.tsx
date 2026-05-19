@@ -192,7 +192,7 @@ export function NewChat() {
                   }}
                 >
                   <UserPlus className='size-4' />
-                  <Trans>Open People</Trans>
+                  <Trans>Open people</Trans>
                 </Button>
               </div>
             ) : (

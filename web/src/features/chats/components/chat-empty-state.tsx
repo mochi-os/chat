@@ -35,7 +35,7 @@ export function ChatEmptyState({ onNewChat, hasExistingChats }: ChatEmptyStatePr
       >
         <Button size='lg' onClick={onNewChat}>
           <Plus className='size-5' />
-          <Trans>Get Started</Trans>
+          <Trans>Get started</Trans>
         </Button>
       </EmptyState>
     </div>
