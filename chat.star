@@ -1,8 +1,8 @@
 # Mochi Chat app
 # Copyright Alistair Cunningham 2024-2026
 
-def notify(topic, object="", title="", body="", url=""):
-	mochi.service.call("notifications", "send", topic, object, title, body, url, mochi.app.label("notifications.topic." + topic.replace("/", ".")))
+def notify(topic, object="", title="", body="", url="", name=""):
+	mochi.service.call("notifications", "send", topic, object, title, body, url, mochi.app.label("notifications.topic." + topic.replace("/", ".")), name)
 
 # Create database
 def database_create():
@@ -485,7 +485,7 @@ def event_message(e):
 		attachments = mochi.attachment.list("chat/" + chat["id"] + "/" + id)
 
 	mochi.websocket.write(chat["key"], {"created": created, "name": name, "body": body, "attachments": attachments})
-	notify("message", chat["id"], mochi.app.label("notifications.title.message"), name + ": " + body, "/chat/" + chat["id"])
+	notify("message", chat["id"], mochi.app.label("notifications.title.message"), name + ": " + body, "/chat/" + chat["id"], chat["name"])
 
 # Received a new chat event
 def event_new(e):
