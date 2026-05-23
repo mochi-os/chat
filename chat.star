@@ -1,8 +1,8 @@
 # Mochi Chat app
 # Copyright Alistair Cunningham 2024-2026
 
-def notify(topic, object="", title="", body="", url="", name=""):
-	mochi.service.call("notifications", "send", topic, object, title, body, url, mochi.app.label("notifications.topic." + topic.replace("/", ".")), name)
+def notify(topic, object="", title="", body="", url="", name="", event_id=""):
+	mochi.service.call("notifications", "send", topic, object, title, body, url, mochi.app.label("notifications.topic." + topic.replace("/", ".")), name, "", None, event_id)
 
 # Helper: Broadcast event to chat members via the durable broadcast log.
 # Sequence + log + gap-detection live in core. The chat UID is the
@@ -506,7 +506,7 @@ def event_message(e):
 		attachments = mochi.attachment.list("chat/" + chat["id"] + "/" + id)
 
 	mochi.websocket.write(chat["key"], {"created": created, "name": name, "body": body, "attachments": attachments})
-	notify("message", chat["id"], mochi.app.label("notifications.title.message"), name + ": " + body, "/chat/" + chat["id"], chat["name"])
+	notify("message", chat["id"], mochi.app.label("notifications.title.message"), name + ": " + body, "/chat/" + chat["id"], chat["name"], event_id="message:" + str(id))
 
 # Received a new chat event
 def event_new(e):
