@@ -4,6 +4,20 @@
 def notify(topic, object="", title="", body="", url="", name=""):
 	mochi.service.call("notifications", "send", topic, object, title, body, url, mochi.app.label("notifications.topic." + topic.replace("/", ".")), name)
 
+# Broadcast a chat event to multiple recipients via the durable broadcast
+# log. mochi.broadcast.send allocates a per-(chat, this_host) sequence,
+# writes the event to the per-app _log table, and fans out to each
+# subscriber with _key and _sequence in content; core's receiver-side
+# wrapper handles dedup, gap detection, async resync, and acks. The chat
+# UID is the stream key so every member sees one ordered stream per
+# originating host per chat. Single-recipient bootstrap events (`new` to
+# a fresh member; `removed` to a kicked member) stay on raw
+# mochi.message.send because there's no stream to sequence against.
+def broadcast_chat(chat_id, from_id, subscribers, event, data, exclude=None):
+	if not subscribers:
+		return
+	mochi.broadcast.send(from_id, chat_id, subscribers, "chat", event, data, exclude or "")
+
 # Create database
 def database_create():
 	mochi.db.execute("create table if not exists chats ( id text not null primary key, identity text not null, name text not null, key text not null, updated integer not null, left integer not null default 0, synced integer not null default 0 )")
@@ -297,13 +311,14 @@ def action_send(a):
 
 	mochi.websocket.write(chat["key"], {"created": mochi.time.now(), "member": a.user.identity.id, "name": a.user.identity.name, "body": body, "attachments": attachments})
 
-	# Send message to other members with attachment metadata piggybacked
+	# Send message to other members with attachment metadata piggybacked.
+	# member_ids comes pre-filtered to exclude the sender, so no exclude
+	# arg is needed here.
 	now = mochi.time.now()
 	msg_data = {"chat": chat["id"], "message": id, "created": now, "body": body, "name": a.user.identity.name}
 	if attachments:
 		msg_data["attachments"] = [{"id": att["id"], "name": att["name"], "size": att["size"], "content_type": att.get("type", ""), "rank": att.get("rank", 0), "created": att.get("created", now)} for att in attachments]
-	for member in members:
-		mochi.message.send({"from": a.user.identity.id, "to": member["member"], "service": "chat", "event": "message"}, msg_data)
+	broadcast_chat(chat["id"], a.user.identity.id, member_ids, "message", msg_data)
 
 	return {
 		"data": {"id": id}
@@ -675,9 +690,9 @@ def action_rename(a):
 
 	# Notify other members. Includes `updated` so receivers can LWW-gate
 	# against their own chats.updated and drop stale concurrent renames.
-	members = mochi.db.rows("select member from members where chat=? and member!=?", chat["id"], a.user.identity.id)
-	for member in members:
-		mochi.message.send({"from": a.user.identity.id, "to": member["member"], "service": "chat", "event": "rename"}, {"id": chat["id"], "name": name, "updated": now})
+	members = mochi.db.rows("select member from members where chat=?", chat["id"])
+	member_ids = [m["member"] for m in members]
+	broadcast_chat(chat["id"], a.user.identity.id, member_ids, "rename", {"id": chat["id"], "name": name, "updated": now}, exclude=a.user.identity.id)
 
 	mochi.websocket.write(chat["key"], {"event": "rename", "name": name})
 	return {"data": {"success": True}}
@@ -713,9 +728,10 @@ def action_leave(a):
 		mochi.db.execute("delete from messages where chat=?", chat["id"])
 		mochi.db.execute("delete from chats where id=?", chat["id"])
 	else:
-		# Notify remaining members
-		for member in remaining:
-			mochi.message.send({"from": a.user.identity.id, "to": member["member"], "service": "chat", "event": "leave"}, {"id": chat["id"], "member": a.user.identity.id})
+		# Notify remaining members. The actor's own row was already
+		# deleted above, so `remaining` excludes them — no `exclude` arg.
+		remaining_ids = [m["member"] for m in remaining]
+		broadcast_chat(chat["id"], a.user.identity.id, remaining_ids, "leave", {"id": chat["id"], "member": a.user.identity.id})
 		mochi.websocket.write(chat["key"], {"event": "leave", "member": a.user.identity.id})
 
 		if delete_local:
@@ -790,13 +806,18 @@ def action_member_add(a):
 	# Get all current members for the new event
 	all_members = mochi.db.rows("select member as id, name from members where chat=?", chat["id"])
 
-	# Notify existing members about the addition
+	# Notify existing members about the addition. The new member's id is
+	# excluded by the SQL filter; the sender's id is excluded via the
+	# broadcast helper's `exclude` arg.
 	existing_members = mochi.db.rows("select member from members where chat=? and member!=?", chat["id"], member_id)
-	for m in existing_members:
-		if m["member"] != a.user.identity.id:
-			mochi.message.send({"from": a.user.identity.id, "to": m["member"], "service": "chat", "event": "member_add"}, {"id": chat["id"], "member": member_id, "name": member_name})
+	existing_member_ids = [m["member"] for m in existing_members]
+	broadcast_chat(chat["id"], a.user.identity.id, existing_member_ids, "member_add", {"id": chat["id"], "member": member_id, "name": member_name}, exclude=a.user.identity.id)
 
-	# Send new event to the added member with full chat details
+	# Send new event to the added member with full chat details. This is
+	# a single-recipient bootstrap event carrying the member list as
+	# stream body — broadcast.send doesn't carry a body and the receiver
+	# has no prior _received state, so raw mochi.message.send is the
+	# right shape.
 	mochi.message.send({"from": a.user.identity.id, "to": member_id, "service": "chat", "event": "new"}, {"id": chat["id"], "name": chat["name"]}, all_members)
 
 	mochi.websocket.write(chat["key"], {"event": "member_add", "member": member_id, "name": member_name})
@@ -835,13 +856,15 @@ def action_member_remove(a):
 	mochi.db.execute("delete from members where chat=? and member=?", chat["id"], member_id)
 	mochi.db.execute("update chats set updated=? where id=?", mochi.time.now(), chat["id"])
 
-	# Notify remaining members
+	# Notify remaining members. The removed member's row is already gone
+	# from `members`, so `remaining` excludes them; the sender is excluded
+	# via the broadcast helper's `exclude` arg.
 	remaining = mochi.db.rows("select member from members where chat=?", chat["id"])
-	for m in remaining:
-		if m["member"] != a.user.identity.id:
-			mochi.message.send({"from": a.user.identity.id, "to": m["member"], "service": "chat", "event": "member_remove"}, {"id": chat["id"], "member": member_id})
+	remaining_ids = [m["member"] for m in remaining]
+	broadcast_chat(chat["id"], a.user.identity.id, remaining_ids, "member_remove", {"id": chat["id"], "member": member_id}, exclude=a.user.identity.id)
 
-	# Send removed event to the removed member
+	# Send removed event to the removed member. Single recipient with no
+	# stream to sequence against — stays on raw mochi.message.send.
 	mochi.message.send({"from": a.user.identity.id, "to": member_id, "service": "chat", "event": "removed"}, {"id": chat["id"]})
 
 	mochi.websocket.write(chat["key"], {"event": "member_remove", "member": member_id})
