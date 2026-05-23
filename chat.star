@@ -4,15 +4,21 @@
 def notify(topic, object="", title="", body="", url="", name=""):
 	mochi.service.call("notifications", "send", topic, object, title, body, url, mochi.app.label("notifications.topic." + topic.replace("/", ".")), name)
 
-# Broadcast a chat event to multiple recipients via the durable broadcast
-# log. mochi.broadcast.send allocates a per-(chat, this_host) sequence,
-# writes the event to the per-app _log table, and fans out to each
-# subscriber with _key and _sequence in content; core's receiver-side
-# wrapper handles dedup, gap detection, async resync, and acks. The chat
-# UID is the stream key so every member sees one ordered stream per
-# originating host per chat. Single-recipient bootstrap events (`new` to
-# a fresh member; `removed` to a kicked member) stay on raw
-# mochi.message.send because there's no stream to sequence against.
+# Helper: Broadcast event to chat members via the durable broadcast log.
+# Sequence + log + gap-detection live in core. The chat UID is the
+# stream key, so every member sees one ordered stream per originating
+# host per chat.
+#
+# Unlike feeds / forums / projects / crm / wikis, chat has no per-chat
+# owner entity: any member can broadcast as themselves, so `from_id` is
+# passed explicitly (the broadcasting member's identity). Membership is
+# per-chat in the `members` table; call sites do the lookup themselves
+# (some sites exclude the new member, the kicked member, etc.) and pass
+# the resolved list as `subscribers`.
+#
+# Single-recipient bootstrap events (`new` to a fresh member, `removed`
+# to a kicked member) stay on raw mochi.message.send because there is
+# no stream to sequence against.
 def broadcast_chat(chat_id, from_id, subscribers, event, data, exclude=None):
 	if not subscribers:
 		return
