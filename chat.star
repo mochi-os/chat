@@ -24,6 +24,45 @@ def broadcast_chat(chat_id, from_id, subscribers, event, data, exclude=None):
 		return
 	mochi.broadcast.send(from_id, chat_id, subscribers, "chat", event, data, exclude or "")
 
+# Commit hook: fires the message-arrival websocket on every host that
+# sees a new messages row commit, whether locally (via action_send /
+# event_message calling mochi.db.commit.fire) or via replication
+# apply (auto-fired by core with op.UID set, per the row-uid wire
+# field added in #36). Both replicas of a paired account thus see the
+# live update in any open browser tab, instead of only the host that
+# served the action.
+#
+# Scoped narrowly to messages.insert. Multi-semantic chats / members
+# updates (rename, kick, leave) stay on direct mochi.websocket.write
+# for now; the hook can't disambiguate "name changed" from "left flag
+# flipped" from "updated timestamp bumped" by looking at the row state
+# alone, and routing those through the hook would need either parallel
+# semantic-marker tables or per-event log rows.
+def chat_commit_hook(table, kind, row_uid):
+	if table != "messages" or kind != "insert" or not row_uid:
+		return
+	message = mochi.db.row("select * from messages where id=?", row_uid)
+	if not message:
+		return
+	chat = mochi.db.row("select key from chats where id=?", message["chat"])
+	if not chat:
+		return
+	attachments = mochi.attachment.list("chat/" + message["chat"] + "/" + message["id"])
+	mochi.websocket.write(chat["key"], {
+		"created": message["created"],
+		"member": message["member"],
+		"name": message["name"],
+		"body": message["body"],
+		"attachments": attachments,
+	})
+
+# Lazy hook registration; the call to mochi.db.commit.hook needs a
+# user/app context that's only present during a real request, not at
+# module load. Re-registering on every call is a plain assignment on
+# the AppVersion struct - cheap and idempotent at the framework level.
+def chat_ensure_commit_hook():
+	mochi.db.commit.hook("chat_commit_hook")
+
 # Create database
 def database_create():
 	mochi.db.execute("create table if not exists chats ( id text not null primary key, identity text not null, name text not null, key text not null, updated integer not null, left integer not null default 0, synced integer not null default 0 )")
@@ -299,6 +338,7 @@ def action_send(a):
 		a.error.label(400, "errors.message_empty")
 		return
 
+	chat_ensure_commit_hook()
 	id = mochi.uid()
 	now_send = mochi.time.now()
 	mochi.db.execute("replace into messages ( id, chat, member, name, body, created ) values ( ?, ?, ?, ?, ?, ? )", id, chat["id"], a.user.identity.id, a.user.identity.name, body, now_send)
@@ -315,7 +355,11 @@ def action_send(a):
 	if has_files:
 		attachments = mochi.attachment.save("chat/" + chat["id"] + "/" + id, "files", [], [], [])
 
-	mochi.websocket.write(chat["key"], {"created": mochi.time.now(), "member": a.user.identity.id, "name": a.user.identity.name, "body": body, "attachments": attachments})
+	# Live-update websocket: fired from chat_commit_hook on every host
+	# that sees this messages row (local + paired replicas via the
+	# row-uid wire field from #36), so the user's tabs on every host
+	# see the message arrive without a refresh.
+	mochi.db.commit.fire("messages", "insert", id)
 
 	# Send message to other members with attachment metadata piggybacked.
 	# member_ids comes pre-filtered to exclude the sender, so no exclude
@@ -505,7 +549,13 @@ def event_message(e):
 		mochi.attachment.store(attachments, e.header("from"), "chat/" + chat["id"] + "/" + id)
 		attachments = mochi.attachment.list("chat/" + chat["id"] + "/" + id)
 
-	mochi.websocket.write(chat["key"], {"created": created, "name": name, "body": body, "attachments": attachments})
+	# Live-update websocket: routes through chat_commit_hook now that
+	# both action_send (the sender's host) and event_message (every
+	# recipient host) write the same messages row. The hook fires once
+	# per host that sees the row commit, so paired tabs see the
+	# message arrive without a refresh.
+	chat_ensure_commit_hook()
+	mochi.db.commit.fire("messages", "insert", id)
 	notify("message", chat["id"], mochi.app.label("notifications.title.message"), name + ": " + body, "/chat/" + chat["id"], chat["name"], event_id="message:" + str(id))
 
 # Received a new chat event
