@@ -208,7 +208,7 @@ export function ChatMessageList({
                       styleUrl={`${getAppPath()}/${message.chat}/-/${message.id}/asset/style`}
                       seed={message.member}
                       name={message.name}
-                      size={16}
+                      size="xs"
                     />
                     <span className='text-muted-foreground font-medium'>
                       {message.name}
