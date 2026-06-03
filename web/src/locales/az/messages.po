@@ -153,6 +153,10 @@ msgstr "{0} bu söhbətdən silmək istədiyinizə əminsiniz?"
 msgid "Asc"
 msgstr "Artan"
 
+#: ../../../lib/web/src/components/step-up-dialog.tsx:312
+msgid "Authenticator code"
+msgstr "Authenticator kodu"
+
 #: ../../../lib/web/src/components/place-picker.tsx:152
 msgid "Back"
 msgstr "Geri"
@@ -174,6 +178,7 @@ msgid "Boost interest"
 msgstr "Marağı artır"
 
 #: ../../../lib/web/src/components/responsive-confirm-dialog.tsx:64
+#: ../../../lib/web/src/components/step-up-dialog.tsx:360
 #: ../../../lib/web/src/components/travelling-picker.tsx:292
 #: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:245
 #: ../../../lib/web/src/features/access/access-dialog.tsx:325
@@ -188,11 +193,11 @@ msgstr "Ləğv et"
 msgid "Cancel edit"
 msgstr "Redaktəni ləğv et"
 
-#: ../../../lib/web/src/components/notification-category-button.tsx:131
+#: ../../../lib/web/src/components/notification-category-button.tsx:135
 msgid "Category for this notification"
 msgstr "Bu bildiriş üçün kateqoriya"
 
-#: ../../../lib/web/src/components/notification-category-button.tsx:115
+#: ../../../lib/web/src/components/notification-category-button.tsx:119
 msgid "Change notification category"
 msgstr "Bildiriş kateqoriyasını dəyişdir"
 
@@ -357,6 +362,10 @@ msgstr "Kontekstual məlumat və təfərrüatlar."
 msgid "Continue"
 msgstr "Davam et"
 
+#: ../../../lib/web/src/components/step-up-dialog.tsx:349
+msgid "Continue with {label}"
+msgstr "{label} ilə davam edin"
+
 #: ../../../lib/web/src/components/ui/copy-button.tsx:60
 msgid "Copy"
 msgstr "Kopyala"
@@ -364,6 +373,18 @@ msgstr "Kopyala"
 #: ../../../lib/web/src/features/document/document-page.tsx:81
 msgid "Could not load this document. Please try again later."
 msgstr "Bu sənəd yüklənə bilmədi. Daha sonra yenidən cəhd edin."
+
+#: ../../../lib/web/src/components/step-up-dialog.tsx:181
+msgid "Couldn't send the code. Please try again."
+msgstr "Kodu göndərmək mümkün olmadı. Zəhmət olmasa yenidən cəhd edin."
+
+#: ../../../lib/web/src/components/step-up-dialog.tsx:133
+msgid "Couldn't start re-authentication. Please try again."
+msgstr "Yenidən autentifikasiyanı başlatmaq mümkün olmadı. Zəhmət olmasa yenidən cəhd edin."
+
+#: ../../../lib/web/src/components/step-up-dialog.tsx:218
+msgid "Couldn't verify with that account. Please try again."
+msgstr "Bu hesabla doğrulama mümkün olmadı. Zəhmət olmasa, yenidən cəhd edin."
 
 #: src/features/chats/components/new-chat.tsx:168
 msgid "Create a new chat"
@@ -409,6 +430,10 @@ msgstr "Söhbəti sil"
 msgid "Delete chat history"
 msgstr "Söhbət tarixçəsini sil"
 
+#: ../../../lib/web/src/components/restore-banner.tsx:90
+msgid "Delete your account on the old server"
+msgstr "Köhnə serverdə hesabınızı silin"
+
 #: ../../../lib/web/src/components/data-table/column-header.tsx:60
 msgid "Desc"
 msgstr "Azalan"
@@ -432,6 +457,10 @@ msgstr "Veb-brauzerdən aşkarla"
 msgid "Direction"
 msgstr "İstiqamət"
 
+#: ../../../lib/web/src/components/restore-banner.tsx:73
+msgid "Dismiss"
+msgstr "Rədd et"
+
 #: ../../../lib/web/src/components/ui/sidebar.tsx:235
 msgid "Displays the mobile sidebar."
 msgstr "Mobil yan paneli göstərir."
@@ -447,6 +476,18 @@ msgstr "Disleksiya üçün uyğun"
 #: src/routes/_authenticated/$chatId_.settings.tsx:288
 msgid "Edit chat name"
 msgstr "Söhbət adını redaktə et"
+
+#: ../../../lib/web/src/components/step-up-dialog.tsx:286
+msgid "Email code"
+msgstr "E-poçt kodu"
+
+#: ../../../lib/web/src/components/step-up-dialog.tsx:296
+msgid "Enter the code from your email"
+msgstr "E-poçtunuzdakı kodu daxil edin"
+
+#: ../../../lib/web/src/components/step-up-dialog.tsx:321
+msgid "Enter your authenticator code"
+msgstr "Autentifikator kodunuzu daxil edin"
 
 #: ../../../lib/web/src/components/layout/app-sidebar.tsx:35
 msgid "Expand sidebar"
@@ -501,9 +542,13 @@ msgstr "Doğrulama kodu göndərmək alınmadı"
 msgid "Failed to start chat"
 msgstr "Söhbət başlatmaq alınmadı"
 
-#: ../../../lib/web/src/components/notification-category-button.tsx:104
+#: ../../../lib/web/src/components/notification-category-button.tsx:108
 msgid "Failed to update category"
 msgstr "Kateqoriyanı yeniləmək alınmadı"
+
+#: ../../../lib/web/src/components/restore-banner.tsx:79
+msgid "Finish moving your account"
+msgstr "Hesabınızın köçürülməsini tamamlayın"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:244
 msgid "Floating"
@@ -725,8 +770,8 @@ msgid "Move attachment right"
 msgstr "Əlavəni sağa köçür"
 
 #: src/routes/_authenticated/$chatId_.settings.tsx:202
-msgid "Name must be 100 characters or less"
-msgstr "Ad 100 simvol və ya daha az olmalıdır"
+msgid "Name must be 1000 characters or less"
+msgstr "Ad 1000 simvol və ya daha az olmalıdır"
 
 #: ../../../lib/web/src/components/ui/sort-selector.tsx:40
 msgid "New"
@@ -786,7 +831,7 @@ msgstr "Nəticə tapılmadı."
 msgid "No time zone found."
 msgstr "Saat qurşağı tapılmadı."
 
-#: ../../../lib/web/src/components/notification-category-button.tsx:135
+#: ../../../lib/web/src/components/notification-category-button.tsx:139
 msgid "No topic record yet — try again after the next notification."
 msgstr "Hələ mövzu qeydi yoxdur — növbəti bildirişdən sonra yenidən cəhd edin."
 
@@ -852,6 +897,18 @@ msgstr "Digər"
 msgid "Owner"
 msgstr "Sahibi"
 
+#: ../../../lib/web/src/components/step-up-dialog.tsx:331
+msgid "Passkey"
+msgstr "Giriş açarı"
+
+#: ../../../lib/web/src/components/step-up-dialog.tsx:206
+msgid "Passkey verification failed. Please try again."
+msgstr "Giriş açarının doğrulanması alınmadı. Zəhmət olmasa yenidən cəhd edin."
+
+#: ../../../lib/web/src/components/restore-banner.tsx:126
+msgid "Passkeys"
+msgstr "Passkey-lər"
+
 #: src/features/chats/components/new-chat.tsx:127
 msgid "Please provide a chat name"
 msgstr "Söhbət adı təqdim edin"
@@ -873,6 +930,14 @@ msgstr "Məxfilik"
 #: ../../../lib/web/src/components/profile-dropdown.tsx:111
 msgid "Profile"
 msgstr "Profil"
+
+#: ../../../lib/web/src/components/restore-banner.tsx:98
+msgid "Re-link your accounts on this server"
+msgstr "Bu serverdə hesablarınızı yenidən əlaqələndirin"
+
+#: ../../../lib/web/src/components/restore-banner.tsx:120
+msgid "Re-register your passkeys on this server"
+msgstr "Bu serverdə giriş açarlarınızı yenidən qeydiyyatdan keçirin"
 
 #: ../../../lib/web/src/components/search-entity-dialog.tsx:216
 #: ../../../lib/web/src/components/search-entity-page.tsx:191
@@ -926,6 +991,10 @@ msgstr "Üzvü silək?"
 #: src/routes/_authenticated/$chatId_.settings.tsx:568
 msgid "Removing..."
 msgstr "Silinir..."
+
+#: ../../../lib/web/src/components/step-up-dialog.tsx:364
+msgid "Resend email"
+msgstr "E-poçtu yenidən göndər"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:77
 #: ../../../lib/web/src/components/data-table/toolbar.tsx:78
@@ -1026,6 +1095,10 @@ msgstr "Mövzu seçimini seçin"
 msgid "Send again"
 msgstr "Yenidən göndər"
 
+#: ../../../lib/web/src/components/step-up-dialog.tsx:304
+msgid "Send email"
+msgstr "E-poçt göndər"
+
 #: src/features/chats/components/chat-input.tsx:75
 msgid "Send message"
 msgstr "Mesaj göndər"
@@ -1115,6 +1188,10 @@ msgstr "Komandalar/Tətbiqlər"
 msgid "Terms and conditions"
 msgstr "Şərtlər və qaydalar"
 
+#: ../../../lib/web/src/components/step-up-dialog.tsx:192
+msgid "That code is incorrect or has expired."
+msgstr "Bu kod yanlışdır və ya vaxtı bitib."
+
 #: ../../../lib/web/src/components/config-drawer.tsx:181
 msgid "Theme"
 msgstr "Mövzu yeniləndi"
@@ -1200,7 +1277,7 @@ msgstr "Britaniya funtu"
 msgid "Unable to redirect to login. Please try again."
 msgstr "Təyin edilməyib"
 
-#: ../../../lib/web/src/components/notification-category-button.tsx:143
+#: ../../../lib/web/src/components/notification-category-button.tsx:147
 msgid "Unassigned"
 msgstr "İcazəsiz giriş"
 
@@ -1220,6 +1297,10 @@ msgstr "Naməlum cihaz"
 msgid "Unverified"
 msgstr "İzləri yenilə"
 
+#: ../../../lib/web/src/components/step-up-dialog.tsx:335
+msgid "Use your passkey"
+msgstr "Giriş açarınızdan istifadə edin"
+
 #: ../../../lib/web/src/features/access/access-dialog.tsx:155
 msgid "User"
 msgstr "İstifadəçi yaradıldı"
@@ -1236,6 +1317,7 @@ msgstr "Yoxlanıldı"
 msgid "Verification failed"
 msgstr "Yoxla"
 
+#: ../../../lib/web/src/components/step-up-dialog.tsx:385
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:164
 #: ../../../lib/web/src/features/accounts/account-verify.tsx:106
 msgid "Verify"
@@ -1245,7 +1327,7 @@ msgstr "DNS-i yoxla"
 msgid "Verify email address"
 msgstr "Versiya"
 
-#: src/features/chats/components/message-attachments.tsx:53
+#: ../../../lib/web/src/components/attachment-gallery.tsx:63
 msgid "Video thumbnail"
 msgstr "Hamısına bax"
 
@@ -1297,3 +1379,7 @@ msgstr "Təslim oldunuz — {opponentName} qazandı"
 #: src/features/chats/index.tsx:377
 msgid "You were removed from this chat"
 msgstr "Bu hərracı qazandınız"
+
+#: ../../../lib/web/src/components/restore-banner.tsx:82
+msgid "Your account was moved here from {source}. Until you delete it there, messages and notifications may reach both servers, some of your content keeps being served from the old server, and followers may take a few minutes to find you here."
+msgstr "Hesabınız {source} saytından buraya köçürüldü. Orada silənə qədər mesajlar və bildirişlər hər iki serverə çata bilər, bəzi məzmununuz köhnə serverdən təqdim edilməyə davam edər və izləyicilər sizi burada tapmaq üçün bir neçə dəqiqə gözləyə bilər."

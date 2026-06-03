@@ -153,6 +153,10 @@ msgstr "Bạn có chắc muốn xóa {0} khỏi cuộc trò chuyện này không
 msgid "Asc"
 msgstr "Tăng dần"
 
+#: ../../../lib/web/src/components/step-up-dialog.tsx:312
+msgid "Authenticator code"
+msgstr "Mã xác thực"
+
 #: ../../../lib/web/src/components/place-picker.tsx:152
 msgid "Back"
 msgstr "Quay lại"
@@ -174,6 +178,7 @@ msgid "Boost interest"
 msgstr "Đẩy mạnh sở thích"
 
 #: ../../../lib/web/src/components/responsive-confirm-dialog.tsx:64
+#: ../../../lib/web/src/components/step-up-dialog.tsx:360
 #: ../../../lib/web/src/components/travelling-picker.tsx:292
 #: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:245
 #: ../../../lib/web/src/features/access/access-dialog.tsx:325
@@ -188,11 +193,11 @@ msgstr "Hủy"
 msgid "Cancel edit"
 msgstr "Huỷ chỉnh sửa"
 
-#: ../../../lib/web/src/components/notification-category-button.tsx:131
+#: ../../../lib/web/src/components/notification-category-button.tsx:135
 msgid "Category for this notification"
 msgstr "Danh mục cho thông báo này"
 
-#: ../../../lib/web/src/components/notification-category-button.tsx:115
+#: ../../../lib/web/src/components/notification-category-button.tsx:119
 msgid "Change notification category"
 msgstr "Đổi danh mục thông báo"
 
@@ -357,6 +362,10 @@ msgstr "Thông tin và chi tiết theo ngữ cảnh."
 msgid "Continue"
 msgstr "Tiếp tục"
 
+#: ../../../lib/web/src/components/step-up-dialog.tsx:349
+msgid "Continue with {label}"
+msgstr "Tiếp tục với {label}"
+
 #: ../../../lib/web/src/components/ui/copy-button.tsx:60
 msgid "Copy"
 msgstr "Sao chép"
@@ -364,6 +373,18 @@ msgstr "Sao chép"
 #: ../../../lib/web/src/features/document/document-page.tsx:81
 msgid "Could not load this document. Please try again later."
 msgstr "Không thể tải tài liệu này. Vui lòng thử lại sau."
+
+#: ../../../lib/web/src/components/step-up-dialog.tsx:181
+msgid "Couldn't send the code. Please try again."
+msgstr "Không thể gửi mã. Vui lòng thử lại."
+
+#: ../../../lib/web/src/components/step-up-dialog.tsx:133
+msgid "Couldn't start re-authentication. Please try again."
+msgstr "Không thể bắt đầu xác thực lại. Vui lòng thử lại."
+
+#: ../../../lib/web/src/components/step-up-dialog.tsx:218
+msgid "Couldn't verify with that account. Please try again."
+msgstr "Không thể xác minh bằng tài khoản đó. Vui lòng thử lại."
 
 #: src/features/chats/components/new-chat.tsx:168
 msgid "Create a new chat"
@@ -409,6 +430,10 @@ msgstr "Xóa cuộc trò chuyện"
 msgid "Delete chat history"
 msgstr "Xóa lịch sử trò chuyện"
 
+#: ../../../lib/web/src/components/restore-banner.tsx:90
+msgid "Delete your account on the old server"
+msgstr "Xóa tài khoản của bạn trên máy chủ cũ"
+
 #: ../../../lib/web/src/components/data-table/column-header.tsx:60
 msgid "Desc"
 msgstr "Giảm dần"
@@ -432,6 +457,10 @@ msgstr "Phát hiện từ trình duyệt web"
 msgid "Direction"
 msgstr "Hướng"
 
+#: ../../../lib/web/src/components/restore-banner.tsx:73
+msgid "Dismiss"
+msgstr "Bỏ qua"
+
 #: ../../../lib/web/src/components/ui/sidebar.tsx:235
 msgid "Displays the mobile sidebar."
 msgstr "Hiển thị thanh bên di động."
@@ -447,6 +476,18 @@ msgstr "Thân thiện với chứng khó đọc"
 #: src/routes/_authenticated/$chatId_.settings.tsx:288
 msgid "Edit chat name"
 msgstr "Chỉnh sửa tên cuộc trò chuyện"
+
+#: ../../../lib/web/src/components/step-up-dialog.tsx:286
+msgid "Email code"
+msgstr "Mã email"
+
+#: ../../../lib/web/src/components/step-up-dialog.tsx:296
+msgid "Enter the code from your email"
+msgstr "Nhập mã từ email của bạn"
+
+#: ../../../lib/web/src/components/step-up-dialog.tsx:321
+msgid "Enter your authenticator code"
+msgstr "Nhập mã từ ứng dụng xác thực của bạn"
 
 #: ../../../lib/web/src/components/layout/app-sidebar.tsx:35
 msgid "Expand sidebar"
@@ -501,9 +542,13 @@ msgstr "Không gửi mã xác minh được"
 msgid "Failed to start chat"
 msgstr "Không bắt đầu cuộc trò chuyện được"
 
-#: ../../../lib/web/src/components/notification-category-button.tsx:104
+#: ../../../lib/web/src/components/notification-category-button.tsx:108
 msgid "Failed to update category"
 msgstr "Không cập nhật danh mục được"
+
+#: ../../../lib/web/src/components/restore-banner.tsx:79
+msgid "Finish moving your account"
+msgstr "Hoàn tất việc chuyển tài khoản của bạn"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:244
 msgid "Floating"
@@ -725,8 +770,8 @@ msgid "Move attachment right"
 msgstr "Di chuyển tệp đính kèm sang phải"
 
 #: src/routes/_authenticated/$chatId_.settings.tsx:202
-msgid "Name must be 100 characters or less"
-msgstr "Tên phải có 100 ký tự trở xuống"
+msgid "Name must be 1000 characters or less"
+msgstr "Tên phải có 1000 ký tự trở xuống"
 
 #: ../../../lib/web/src/components/ui/sort-selector.tsx:40
 msgid "New"
@@ -786,7 +831,7 @@ msgstr "Không tìm thấy kết quả nào."
 msgid "No time zone found."
 msgstr "Không tìm thấy múi giờ."
 
-#: ../../../lib/web/src/components/notification-category-button.tsx:135
+#: ../../../lib/web/src/components/notification-category-button.tsx:139
 msgid "No topic record yet — try again after the next notification."
 msgstr "Chưa có bản ghi chủ đề — hãy thử lại sau thông báo tiếp theo."
 
@@ -852,6 +897,18 @@ msgstr "Khác"
 msgid "Owner"
 msgstr "Chủ sở hữu"
 
+#: ../../../lib/web/src/components/step-up-dialog.tsx:331
+msgid "Passkey"
+msgstr "Passkey"
+
+#: ../../../lib/web/src/components/step-up-dialog.tsx:206
+msgid "Passkey verification failed. Please try again."
+msgstr "Xác minh mã khóa không thành công. Vui lòng thử lại."
+
+#: ../../../lib/web/src/components/restore-banner.tsx:126
+msgid "Passkeys"
+msgstr "Passkey"
+
 #: src/features/chats/components/new-chat.tsx:127
 msgid "Please provide a chat name"
 msgstr "Vui lòng cung cấp tên cuộc trò chuyện"
@@ -873,6 +930,14 @@ msgstr "Quyền riêng tư"
 #: ../../../lib/web/src/components/profile-dropdown.tsx:111
 msgid "Profile"
 msgstr "Hồ sơ"
+
+#: ../../../lib/web/src/components/restore-banner.tsx:98
+msgid "Re-link your accounts on this server"
+msgstr "Liên kết lại các tài khoản của bạn trên máy chủ này"
+
+#: ../../../lib/web/src/components/restore-banner.tsx:120
+msgid "Re-register your passkeys on this server"
+msgstr "Đăng ký lại mã khóa của bạn trên máy chủ này"
 
 #: ../../../lib/web/src/components/search-entity-dialog.tsx:216
 #: ../../../lib/web/src/components/search-entity-page.tsx:191
@@ -926,6 +991,10 @@ msgstr "Xoá thành viên?"
 #: src/routes/_authenticated/$chatId_.settings.tsx:568
 msgid "Removing..."
 msgstr "Đang xoá..."
+
+#: ../../../lib/web/src/components/step-up-dialog.tsx:364
+msgid "Resend email"
+msgstr "Gửi lại email"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:77
 #: ../../../lib/web/src/components/data-table/toolbar.tsx:78
@@ -1026,6 +1095,10 @@ msgstr "Chọn tùy chọn giao diện"
 msgid "Send again"
 msgstr "Gửi lại"
 
+#: ../../../lib/web/src/components/step-up-dialog.tsx:304
+msgid "Send email"
+msgstr "Gửi email"
+
 #: src/features/chats/components/chat-input.tsx:75
 msgid "Send message"
 msgstr "Gửi tin nhắn"
@@ -1115,6 +1188,10 @@ msgstr "Đội/Ứng dụng"
 msgid "Terms and conditions"
 msgstr "Điều khoản và điều kiện"
 
+#: ../../../lib/web/src/components/step-up-dialog.tsx:192
+msgid "That code is incorrect or has expired."
+msgstr "Mã đó không đúng hoặc đã hết hạn."
+
 #: ../../../lib/web/src/components/config-drawer.tsx:181
 msgid "Theme"
 msgstr "Giao diện"
@@ -1200,7 +1277,7 @@ msgstr "Nhập tin nhắn của bạn…"
 msgid "Unable to redirect to login. Please try again."
 msgstr "Không thể chuyển hướng đến trang đăng nhập. Vui lòng thử lại."
 
-#: ../../../lib/web/src/components/notification-category-button.tsx:143
+#: ../../../lib/web/src/components/notification-category-button.tsx:147
 msgid "Unassigned"
 msgstr "Chưa phân công"
 
@@ -1220,6 +1297,10 @@ msgstr "Không rõ"
 msgid "Unverified"
 msgstr "Chưa xác minh"
 
+#: ../../../lib/web/src/components/step-up-dialog.tsx:335
+msgid "Use your passkey"
+msgstr "Dùng mã khóa của bạn"
+
 #: ../../../lib/web/src/features/access/access-dialog.tsx:155
 msgid "User"
 msgstr "Người dùng"
@@ -1236,6 +1317,7 @@ msgstr "Đã gửi mã xác minh"
 msgid "Verification failed"
 msgstr "Xác minh thất bại"
 
+#: ../../../lib/web/src/components/step-up-dialog.tsx:385
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:164
 #: ../../../lib/web/src/features/accounts/account-verify.tsx:106
 msgid "Verify"
@@ -1245,7 +1327,7 @@ msgstr "Xác minh"
 msgid "Verify email address"
 msgstr "Xác minh địa chỉ email"
 
-#: src/features/chats/components/message-attachments.tsx:53
+#: ../../../lib/web/src/components/attachment-gallery.tsx:63
 msgid "Video thumbnail"
 msgstr "Hình thu nhỏ video"
 
@@ -1297,3 +1379,7 @@ msgstr "Bạn đã rời cuộc trò chuyện này"
 #: src/features/chats/index.tsx:377
 msgid "You were removed from this chat"
 msgstr "Bạn đã bị xóa khỏi cuộc trò chuyện này"
+
+#: ../../../lib/web/src/components/restore-banner.tsx:82
+msgid "Your account was moved here from {source}. Until you delete it there, messages and notifications may reach both servers, some of your content keeps being served from the old server, and followers may take a few minutes to find you here."
+msgstr "Tài khoản của bạn đã được chuyển đến đây từ {source}. Cho đến khi bạn xóa nó ở đó, tin nhắn và thông báo có thể đến cả hai máy chủ, một số nội dung của bạn vẫn được phục vụ từ máy chủ cũ và người theo dõi có thể mất vài phút để tìm thấy bạn ở đây."

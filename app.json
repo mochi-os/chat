@@ -2,7 +2,7 @@
 // Copyright Alistair Cunningham 2025-2026
 
 {
-	"version": "2.80",
+	"version": "2.81",
 	"label": "app.name",
 	"classes": ["chat"],
 	"paths": ["chat"],
@@ -12,7 +12,7 @@
 	"execute": ["chat.star"],
 
 	"database": {
-		"schema": 7,
+		"schema": 8,
 		"file": "chat.db",
 		"create": {"function": "database_create"},
 		"upgrade": {"function": "database_upgrade"}
@@ -39,8 +39,8 @@
 		":chat/-/rename": {"function": "action_rename"},
 		":chat/-/leave": {"function": "action_leave"},
 		":chat/-/delete": {"function": "action_delete"},
-		":chat/-/member_add": {"function": "action_member_add"},
-		":chat/-/member_remove": {"function": "action_member_remove"},
+		":chat/-/member/add": {"function": "action_member_add"},
+		":chat/-/member/remove": {"function": "action_member_remove"},
 		":chat/-/attachments/:id": {"feature": "attachment"},
 		":chat/-/attachments/:id/thumbnail": {"feature": "attachment/thumbnail"},
 		":chat/-/:message/asset/:asset": {"function": "action_message_asset", "public": true},
@@ -57,8 +57,8 @@
 		"info": {"function": "event_info"},
 		"rename": {"function": "event_rename"},
 		"leave": {"function": "event_leave"},
-		"member_add": {"function": "event_member_add"},
-		"member_remove": {"function": "event_member_remove"},
+		"member/add": {"function": "event_member_add"},
+		"member/remove": {"function": "event_member_remove"},
 		"removed": {"function": "event_removed"}
 	}
 }

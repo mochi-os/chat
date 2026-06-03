@@ -199,7 +199,7 @@ function ChatNameSection({ chatId, name }: { chatId: string, name: string }) {
 
   const validateName = (name: string): string | null => {
     if (!name.trim()) return t`Chat name is required`
-    if (name.length > 100) return t`Name must be 100 characters or less`
+    if (name.length > 1000) return t`Name must be 1000 characters or less`
     return null
   }
 

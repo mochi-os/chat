@@ -153,6 +153,10 @@ msgstr "Ertu viss um að þú viljir fjarlægja {0} úr þessu spjalli?"
 msgid "Asc"
 msgstr "Hækkandi"
 
+#: ../../../lib/web/src/components/step-up-dialog.tsx:312
+msgid "Authenticator code"
+msgstr "Auðkennisnúmer"
+
 #: ../../../lib/web/src/components/place-picker.tsx:152
 msgid "Back"
 msgstr "Til baka"
@@ -174,6 +178,7 @@ msgid "Boost interest"
 msgstr "Auka áhuga"
 
 #: ../../../lib/web/src/components/responsive-confirm-dialog.tsx:64
+#: ../../../lib/web/src/components/step-up-dialog.tsx:360
 #: ../../../lib/web/src/components/travelling-picker.tsx:292
 #: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:245
 #: ../../../lib/web/src/features/access/access-dialog.tsx:325
@@ -188,11 +193,11 @@ msgstr "Hætta við"
 msgid "Cancel edit"
 msgstr "Hætta við breytingu"
 
-#: ../../../lib/web/src/components/notification-category-button.tsx:131
+#: ../../../lib/web/src/components/notification-category-button.tsx:135
 msgid "Category for this notification"
 msgstr "Flokkur fyrir þessa tilkynningu"
 
-#: ../../../lib/web/src/components/notification-category-button.tsx:115
+#: ../../../lib/web/src/components/notification-category-button.tsx:119
 msgid "Change notification category"
 msgstr "Breyta flokki tilkynningar"
 
@@ -357,6 +362,10 @@ msgstr "Samhengisupplýsingar og smáatriði."
 msgid "Continue"
 msgstr "Halda áfram"
 
+#: ../../../lib/web/src/components/step-up-dialog.tsx:349
+msgid "Continue with {label}"
+msgstr "Halda áfram með {label}"
+
 #: ../../../lib/web/src/components/ui/copy-button.tsx:60
 msgid "Copy"
 msgstr "Afrita"
@@ -364,6 +373,18 @@ msgstr "Afrita"
 #: ../../../lib/web/src/features/document/document-page.tsx:81
 msgid "Could not load this document. Please try again later."
 msgstr "Ekki tókst að hlaða þessu skjali. Reyndu aftur síðar."
+
+#: ../../../lib/web/src/components/step-up-dialog.tsx:181
+msgid "Couldn't send the code. Please try again."
+msgstr "Ekki tókst að senda kóðann. Reyndu aftur."
+
+#: ../../../lib/web/src/components/step-up-dialog.tsx:133
+msgid "Couldn't start re-authentication. Please try again."
+msgstr "Ekki tókst að hefja endurauðkenningu. Reyndu aftur."
+
+#: ../../../lib/web/src/components/step-up-dialog.tsx:218
+msgid "Couldn't verify with that account. Please try again."
+msgstr "Ekki tókst að staðfesta með þeim reikningi. Reyndu aftur."
 
 #: src/features/chats/components/new-chat.tsx:168
 msgid "Create a new chat"
@@ -409,6 +430,10 @@ msgstr "Eyða spjalli"
 msgid "Delete chat history"
 msgstr "Eyða spjallsögu"
 
+#: ../../../lib/web/src/components/restore-banner.tsx:90
+msgid "Delete your account on the old server"
+msgstr "Eyddu reikningnum þínum á gamla þjóninum"
+
 #: ../../../lib/web/src/components/data-table/column-header.tsx:60
 msgid "Desc"
 msgstr "Lækkandi"
@@ -432,6 +457,10 @@ msgstr "Greina út frá vafra"
 msgid "Direction"
 msgstr "Stefna"
 
+#: ../../../lib/web/src/components/restore-banner.tsx:73
+msgid "Dismiss"
+msgstr "Hafna"
+
 #: ../../../lib/web/src/components/ui/sidebar.tsx:235
 msgid "Displays the mobile sidebar."
 msgstr "Sýnir hliðarstiku farsíma."
@@ -447,6 +476,18 @@ msgstr "Lesblinduvænt"
 #: src/routes/_authenticated/$chatId_.settings.tsx:288
 msgid "Edit chat name"
 msgstr "Breyta nafni spjalls"
+
+#: ../../../lib/web/src/components/step-up-dialog.tsx:286
+msgid "Email code"
+msgstr "Tölvupóstkóði"
+
+#: ../../../lib/web/src/components/step-up-dialog.tsx:296
+msgid "Enter the code from your email"
+msgstr "Sláðu inn kóðann úr tölvupóstinum þínum"
+
+#: ../../../lib/web/src/components/step-up-dialog.tsx:321
+msgid "Enter your authenticator code"
+msgstr "Sláðu inn auðkenniskóðann þinn"
 
 #: ../../../lib/web/src/components/layout/app-sidebar.tsx:35
 msgid "Expand sidebar"
@@ -501,9 +542,13 @@ msgstr "Tókst ekki að senda staðfestingarkóða"
 msgid "Failed to start chat"
 msgstr "Tókst ekki að hefja spjall"
 
-#: ../../../lib/web/src/components/notification-category-button.tsx:104
+#: ../../../lib/web/src/components/notification-category-button.tsx:108
 msgid "Failed to update category"
 msgstr "Tókst ekki að uppfæra flokk"
+
+#: ../../../lib/web/src/components/restore-banner.tsx:79
+msgid "Finish moving your account"
+msgstr "Kláraðu að færa reikninginn þinn"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:244
 msgid "Floating"
@@ -725,8 +770,8 @@ msgid "Move attachment right"
 msgstr "Færa viðhengi til hægri"
 
 #: src/routes/_authenticated/$chatId_.settings.tsx:202
-msgid "Name must be 100 characters or less"
-msgstr "Nafn má ekki vera lengra en 100 stafir"
+msgid "Name must be 1000 characters or less"
+msgstr "Nafn má ekki vera lengra en 1000 stafir"
 
 #: ../../../lib/web/src/components/ui/sort-selector.tsx:40
 msgid "New"
@@ -786,7 +831,7 @@ msgstr "Engar niðurstöður fundust."
 msgid "No time zone found."
 msgstr "Ekkert tímabelti fannst."
 
-#: ../../../lib/web/src/components/notification-category-button.tsx:135
+#: ../../../lib/web/src/components/notification-category-button.tsx:139
 msgid "No topic record yet — try again after the next notification."
 msgstr "Engin færsla um efni ennþá — reyndu aftur eftir næstu tilkynningu."
 
@@ -852,6 +897,18 @@ msgstr "Annað"
 msgid "Owner"
 msgstr "Eigandi"
 
+#: ../../../lib/web/src/components/step-up-dialog.tsx:331
+msgid "Passkey"
+msgstr "Aðgangslykill"
+
+#: ../../../lib/web/src/components/step-up-dialog.tsx:206
+msgid "Passkey verification failed. Please try again."
+msgstr "Staðfesting aðgangslykils mistókst. Reyndu aftur."
+
+#: ../../../lib/web/src/components/restore-banner.tsx:126
+msgid "Passkeys"
+msgstr "Aðgangslyklar"
+
 #: src/features/chats/components/new-chat.tsx:127
 msgid "Please provide a chat name"
 msgstr "Gefðu upp heiti spjalls"
@@ -873,6 +930,14 @@ msgstr "Friðhelgi"
 #: ../../../lib/web/src/components/profile-dropdown.tsx:111
 msgid "Profile"
 msgstr "Síða"
+
+#: ../../../lib/web/src/components/restore-banner.tsx:98
+msgid "Re-link your accounts on this server"
+msgstr "Tengdu reikninga þína aftur á þessum þjóni"
+
+#: ../../../lib/web/src/components/restore-banner.tsx:120
+msgid "Re-register your passkeys on this server"
+msgstr "Skráðu aðgangslyklana þína aftur á þessum netþjóni"
 
 #: ../../../lib/web/src/components/search-entity-dialog.tsx:216
 #: ../../../lib/web/src/components/search-entity-page.tsx:191
@@ -926,6 +991,10 @@ msgstr "Fjarlægja meðlim?"
 #: src/routes/_authenticated/$chatId_.settings.tsx:568
 msgid "Removing..."
 msgstr "Fjarlægi..."
+
+#: ../../../lib/web/src/components/step-up-dialog.tsx:364
+msgid "Resend email"
+msgstr "Senda tölvupóst aftur"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:77
 #: ../../../lib/web/src/components/data-table/toolbar.tsx:78
@@ -1026,6 +1095,10 @@ msgstr "Veldu þemastillingu"
 msgid "Send again"
 msgstr "Senda aftur"
 
+#: ../../../lib/web/src/components/step-up-dialog.tsx:304
+msgid "Send email"
+msgstr "Senda tölvupóst"
+
 #: src/features/chats/components/chat-input.tsx:75
 msgid "Send message"
 msgstr "Senda skilaboð"
@@ -1115,6 +1188,10 @@ msgstr "Teymi/Forrit"
 msgid "Terms and conditions"
 msgstr "Skilmálar og skilyrði"
 
+#: ../../../lib/web/src/components/step-up-dialog.tsx:192
+msgid "That code is incorrect or has expired."
+msgstr "Þessi kóði er rangur eða útrunninn."
+
 #: ../../../lib/web/src/components/config-drawer.tsx:181
 msgid "Theme"
 msgstr "Þema"
@@ -1200,7 +1277,7 @@ msgstr "Skrifaðu skilaboðin þín…"
 msgid "Unable to redirect to login. Please try again."
 msgstr "Ekki tókst að endurbeina á innskráningu. Reyndu aftur."
 
-#: ../../../lib/web/src/components/notification-category-button.tsx:143
+#: ../../../lib/web/src/components/notification-category-button.tsx:147
 msgid "Unassigned"
 msgstr "Ekki úthlutað"
 
@@ -1220,6 +1297,10 @@ msgstr "Óþekkt"
 msgid "Unverified"
 msgstr "Óstaðfest"
 
+#: ../../../lib/web/src/components/step-up-dialog.tsx:335
+msgid "Use your passkey"
+msgstr "Notaðu aðgangslykilinn þinn"
+
 #: ../../../lib/web/src/features/access/access-dialog.tsx:155
 msgid "User"
 msgstr "Notandi"
@@ -1236,6 +1317,7 @@ msgstr "Sannprófunarkóði sendur"
 msgid "Verification failed"
 msgstr "Sannprófun mistókst"
 
+#: ../../../lib/web/src/components/step-up-dialog.tsx:385
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:164
 #: ../../../lib/web/src/features/accounts/account-verify.tsx:106
 msgid "Verify"
@@ -1245,7 +1327,7 @@ msgstr "Sannprófa"
 msgid "Verify email address"
 msgstr "Sannprófa netfang"
 
-#: src/features/chats/components/message-attachments.tsx:53
+#: ../../../lib/web/src/components/attachment-gallery.tsx:63
 msgid "Video thumbnail"
 msgstr "Smámynd myndbands"
 
@@ -1297,3 +1379,7 @@ msgstr "Þú yfirgafst þetta spjall"
 #: src/features/chats/index.tsx:377
 msgid "You were removed from this chat"
 msgstr "Þú varst fjarlægð(ur) úr þessu spjalli"
+
+#: ../../../lib/web/src/components/restore-banner.tsx:82
+msgid "Your account was moved here from {source}. Until you delete it there, messages and notifications may reach both servers, some of your content keeps being served from the old server, and followers may take a few minutes to find you here."
+msgstr "Reikningurinn þinn var fluttur hingað frá {source}. Þar til þú eyðir honum þar, geta skilaboð og tilkynningar náð til beggja þjóna, hluti af efni þínu heldur áfram að vera þjónað af gamla þjóninum og fylgjendur gætu þurft nokkrar mínútur að finna þig hér."

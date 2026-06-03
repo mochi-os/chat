@@ -65,7 +65,7 @@ def chat_ensure_commit_hook():
 
 # Create database
 def database_create():
-	mochi.db.execute("create table if not exists chats ( id text not null primary key, identity text not null, name text not null, key text not null, updated integer not null, left integer not null default 0, synced integer not null default 0 )")
+	mochi.db.execute("create table if not exists chats ( id text not null primary key, name text not null, key text not null, updated integer not null, left integer not null default 0, synced integer not null default 0 )")
 	mochi.db.execute("create index if not exists chats_updated on chats( updated )")
 
 	mochi.db.execute("create table if not exists members ( chat references chats( id ), member text not null, name text not null, primary key ( chat, member ) )")
@@ -97,6 +97,14 @@ def database_upgrade(to_version):
 		cols = [r["name"] for r in mochi.db.table("chats") or []]
 		if "synced" not in cols:
 			mochi.db.execute("alter table chats add column synced integer not null default 0")
+	if to_version == 8:
+		# Drop the unused chats.identity column. It recorded the local DB
+		# owner, but the only read site compared it to a remote event sender
+		# (a no-op "is_creator" check); membership is now gated solely on the
+		# members table.
+		cols = [r["name"] for r in mochi.db.table("chats") or []]
+		if "identity" in cols:
+			mochi.db.execute("alter table chats drop column identity")
 
 # Stream an entity's asset from its owning service via a Mochi stream.
 # Location-transparent: mochi.remote.stream() loops back in-process when the
@@ -160,7 +168,7 @@ def action_create(a):
 				if dir_entry:
 					member_name = dir_entry["name"]
 				else:
-					member_name = "Unknown"
+					member_name = mochi.app.label("member.unknown")
 			
 			prospective_members.append({"id": member_id, "name": member_name})
 
@@ -169,13 +177,13 @@ def action_create(a):
 		other_member = prospective_members[1]
 		# Find chat where both are members and total members is 2
 		existing_rows = mochi.db.rows("""
-			SELECT c.id, c.name 
-			FROM chats c
-			JOIN members m1 ON c.id = m1.chat
-			JOIN members m2 ON c.id = m2.chat
-			WHERE m1.member = ? AND m2.member = ?
-			GROUP BY c.id
-			HAVING (SELECT count(*) FROM members WHERE chat = c.id) = 2
+			select c.id, c.name
+			from chats c
+			join members m1 on c.id = m1.chat
+			join members m2 on c.id = m2.chat
+			where m1.member = ? and m2.member = ?
+			group by c.id
+			having (select count(*) from members where chat = c.id) = 2
 		""", a.user.identity.id, other_member["id"])
 		
 		if existing_rows:
@@ -185,7 +193,7 @@ def action_create(a):
 			}
 
 	chat = mochi.uid()
-	mochi.db.execute("replace into chats ( id, identity, name, key, updated ) values ( ?, ?, ?, ?, ? )", chat, a.user.identity.id, name, mochi.random.alphanumeric(16), mochi.time.now())
+	mochi.db.execute("replace into chats ( id, name, key, updated ) values ( ?, ?, ?, ? )", chat, name, mochi.random.alphanumeric(16), mochi.time.now())
 	
 	for member in prospective_members:
 		mochi.db.execute("replace into members ( chat, member, name ) values ( ?, ?, ? )", chat, member["id"], member["name"])
@@ -404,9 +412,6 @@ def action_view(a):
 # user can always force a sync. Useful when the member list is stale or
 # the chat is suspected to have drifted.
 def action_resync(a):
-	if not a.user:
-		a.error.label(401, "errors.not_logged_in")
-		return
 	chat_id = a.input("chat")
 	if not mochi.text.valid(chat_id, "id"):
 		a.error.label(400, "errors.invalid_chat_id")
@@ -434,7 +439,7 @@ def action_resync(a):
 		# Solo chat — nothing to sync from.
 		return {"data": {"synced": False}}
 	mochi.db.execute("update chats set synced=0 where id=?", chat_id)
-	synced = request_resync(chat_id, identity, peer)
+	synced = request_resync(chat_id, peer)
 	return {"data": {"synced": synced}}
 
 # request_resync asks a member peer for the chat's metadata + member list
@@ -442,11 +447,11 @@ def action_resync(a):
 # is peer-to-peer (no central owner) so the responder is whoever just
 # messaged us; they answer if they hold the chat. Throttled to one call
 # per 60 seconds per chat so a burst of out-of-order events can't spam.
-def request_resync(chat_id, identity, peer_member):
+def request_resync(chat_id, peer_member):
 	"""Returns True iff data was actually fetched and applied from the peer.
 	Throttle-skipped calls, missing args, and remote-request failures all
 	return False so callers don't lie about convergence."""
-	if not chat_id or not identity or not peer_member:
+	if not chat_id or not peer_member:
 		return False
 	row = mochi.db.row("select synced from chats where id=?", chat_id)
 	now = mochi.time.now()
@@ -459,12 +464,15 @@ def request_resync(chat_id, identity, peer_member):
 	members = response.get("members") or []
 	if not mochi.text.valid(name, "name"):
 		return False
-	# Create chat if missing.
-	existing = mochi.db.row("select synced from chats where id=?", chat_id)
+	# Create chat if missing. Re-read existence here (not the throttle read
+	# above): a concurrent event_new may have inserted the chat while we were
+	# awaiting the blocking remote request, and the insert below is not
+	# insert-or-ignore.
+	existing = mochi.db.row("select id from chats where id=?", chat_id)
 	if not existing:
 		mochi.db.execute(
-			"insert into chats ( id, identity, name, key, updated, synced ) values ( ?, ?, ?, ?, ?, ? )",
-			chat_id, identity, name, mochi.random.alphanumeric(16), now, now)
+			"insert into chats ( id, name, key, updated, synced ) values ( ?, ?, ?, ?, ? )",
+			chat_id, name, mochi.random.alphanumeric(16), now, now)
 	else:
 		mochi.db.execute("update chats set synced=? where id=?", now, chat_id)
 	# Insert or refresh members.
@@ -504,8 +512,14 @@ def event_message(e):
 	if not chat:
 		# Out-of-order: event_new was missed. Try to bootstrap the chat
 		# from the sender, who must be a member if they're sending us a
-		# message they thought we'd want.
-		request_resync(chat_id, e.header("to"), e.header("from"))
+		# message they thought we'd want. Only trust the sender if they're a
+		# known friend — otherwise any peer that knows a chat UID could plant
+		# a fabricated chat + member roster via request_resync. Mirrors the
+		# friends.get gate in event_new. (action_resync is exempt: it resyncs
+		# from a verified co-member of a chat the user already belongs to.)
+		if not mochi.service.call("friends", "get", e.header("to"), e.header("from")):
+			return
+		request_resync(chat_id, e.header("from"))
 		chat = mochi.db.row("select * from chats where id=?", chat_id)
 		if not chat:
 			return
@@ -574,7 +588,7 @@ def event_new(e):
 
 	# Use insert or ignore to handle concurrent events atomically
 	# If chat already exists, this is a duplicate event - skip processing
-	result = mochi.db.execute("insert or ignore into chats ( id, identity, name, key, updated ) values ( ?, ?, ?, ?, ? )", chat, e.header("to"), name, mochi.random.alphanumeric(16), mochi.time.now())
+	result = mochi.db.execute("insert or ignore into chats ( id, name, key, updated ) values ( ?, ?, ?, ? )", chat, name, mochi.random.alphanumeric(16), mochi.time.now())
 	if result == 0:
 		# Chat already existed, duplicate event
 		return
@@ -598,10 +612,8 @@ def event_rename(e):
 
 	sender = e.header("from")
 
-	# Verify sender is a member or the original creator
-	is_member = mochi.db.exists("select 1 from members where chat=? and member=?", chat["id"], sender)
-	is_creator = chat["identity"] == sender
-	if not is_member and not is_creator:
+	# Verify sender is a member of the chat
+	if not mochi.db.exists("select 1 from members where chat=? and member=?", chat["id"], sender):
 		return
 
 	name = e.content("name")
@@ -643,7 +655,7 @@ def event_leave(e):
 	mochi.db.execute("delete from members where chat=? and member=?", chat["id"], member)
 	mochi.websocket.write(chat["key"], {"event": "leave", "member": member})
 
-# Received a member_add event - someone added a new member
+# Received a member/add event - someone added a new member
 def event_member_add(e):
 	chat = mochi.db.row("select * from chats where id=?", e.content("id"))
 	if not chat:
@@ -651,10 +663,8 @@ def event_member_add(e):
 
 	sender = e.header("from")
 
-	# Verify sender is a member or the original creator
-	is_member = mochi.db.exists("select 1 from members where chat=? and member=?", chat["id"], sender)
-	is_creator = chat["identity"] == sender
-	if not is_member and not is_creator:
+	# Verify sender is a member of the chat
+	if not mochi.db.exists("select 1 from members where chat=? and member=?", chat["id"], sender):
 		return
 
 	member = e.content("member")
@@ -667,9 +677,9 @@ def event_member_add(e):
 
 	mochi.db.execute("replace into members (chat, member, name) values (?, ?, ?)", chat["id"], member, name)
 	mochi.db.execute("update chats set updated=? where id=?", mochi.time.now(), chat["id"])
-	mochi.websocket.write(chat["key"], {"event": "member_add", "member": member, "name": name})
+	mochi.websocket.write(chat["key"], {"event": "member/add", "member": member, "name": name})
 
-# Received a member_remove event - someone removed a member
+# Received a member/remove event - someone removed a member
 def event_member_remove(e):
 	chat = mochi.db.row("select * from chats where id=?", e.content("id"))
 	if not chat:
@@ -677,10 +687,8 @@ def event_member_remove(e):
 
 	sender = e.header("from")
 
-	# Verify sender is a member or the original creator
-	is_member = mochi.db.exists("select 1 from members where chat=? and member=?", chat["id"], sender)
-	is_creator = chat["identity"] == sender
-	if not is_member and not is_creator:
+	# Verify sender is a member of the chat
+	if not mochi.db.exists("select 1 from members where chat=? and member=?", chat["id"], sender):
 		return
 
 	member = e.content("member")
@@ -688,7 +696,7 @@ def event_member_remove(e):
 		return
 
 	mochi.db.execute("delete from members where chat=? and member=?", chat["id"], member)
-	mochi.websocket.write(chat["key"], {"event": "member_remove", "member": member})
+	mochi.websocket.write(chat["key"], {"event": "member/remove", "member": member})
 
 # Received a removed event - current user was removed from chat
 def event_removed(e):
@@ -701,9 +709,6 @@ def event_removed(e):
 
 	# Notify frontend via websocket
 	mochi.websocket.write(chat["key"], {"event": "removed"})
-
-# Notification proxy actions - forward to notifications service
-
 
 # List members of a chat
 def action_members(a):
@@ -867,7 +872,7 @@ def action_member_add(a):
 	# broadcast helper's `exclude` arg.
 	existing_members = mochi.db.rows("select member from members where chat=? and member!=?", chat["id"], member_id)
 	existing_member_ids = [m["member"] for m in existing_members]
-	broadcast_chat(chat["id"], a.user.identity.id, existing_member_ids, "member_add", {"id": chat["id"], "member": member_id, "name": member_name}, exclude=a.user.identity.id)
+	broadcast_chat(chat["id"], a.user.identity.id, existing_member_ids, "member/add", {"id": chat["id"], "member": member_id, "name": member_name}, exclude=a.user.identity.id)
 
 	# Send new event to the added member with full chat details. This is
 	# a single-recipient bootstrap event carrying the member list as
@@ -876,7 +881,7 @@ def action_member_add(a):
 	# right shape.
 	mochi.message.send({"from": a.user.identity.id, "to": member_id, "service": "chat", "event": "new"}, {"id": chat["id"], "name": chat["name"]}, all_members)
 
-	mochi.websocket.write(chat["key"], {"event": "member_add", "member": member_id, "name": member_name})
+	mochi.websocket.write(chat["key"], {"event": "member/add", "member": member_id, "name": member_name})
 	return {"data": {"success": True, "member": {"id": member_id, "name": member_name}}}
 
 # Remove a member from a chat
@@ -917,12 +922,12 @@ def action_member_remove(a):
 	# via the broadcast helper's `exclude` arg.
 	remaining = mochi.db.rows("select member from members where chat=?", chat["id"])
 	remaining_ids = [m["member"] for m in remaining]
-	broadcast_chat(chat["id"], a.user.identity.id, remaining_ids, "member_remove", {"id": chat["id"], "member": member_id}, exclude=a.user.identity.id)
+	broadcast_chat(chat["id"], a.user.identity.id, remaining_ids, "member/remove", {"id": chat["id"], "member": member_id}, exclude=a.user.identity.id)
 
 	# Send removed event to the removed member. Single recipient with no
 	# stream to sequence against — stays on raw mochi.message.send.
 	mochi.message.send({"from": a.user.identity.id, "to": member_id, "service": "chat", "event": "removed"}, {"id": chat["id"]})
 
-	mochi.websocket.write(chat["key"], {"event": "member_remove", "member": member_id})
+	mochi.websocket.write(chat["key"], {"event": "member/remove", "member": member_id})
 	return {"data": {"success": True}}
 

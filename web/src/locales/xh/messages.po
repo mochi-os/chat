@@ -153,6 +153,10 @@ msgstr "Uqinisekile ufuna ukususa u-{0} kule ncoko?"
 msgid "Asc"
 msgstr "Enyukayo"
 
+#: ../../../lib/web/src/components/step-up-dialog.tsx:312
+msgid "Authenticator code"
+msgstr "Ikhowudi yokuqinisekisa"
+
 #: ../../../lib/web/src/components/place-picker.tsx:152
 msgid "Back"
 msgstr "Buyela"
@@ -174,6 +178,7 @@ msgid "Boost interest"
 msgstr "Khulisa umdla"
 
 #: ../../../lib/web/src/components/responsive-confirm-dialog.tsx:64
+#: ../../../lib/web/src/components/step-up-dialog.tsx:360
 #: ../../../lib/web/src/components/travelling-picker.tsx:292
 #: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:245
 #: ../../../lib/web/src/features/access/access-dialog.tsx:325
@@ -188,11 +193,11 @@ msgstr "Rhoxisa"
 msgid "Cancel edit"
 msgstr "Rhoxisa uhlelo"
 
-#: ../../../lib/web/src/components/notification-category-button.tsx:131
+#: ../../../lib/web/src/components/notification-category-button.tsx:135
 msgid "Category for this notification"
 msgstr "Udidi lwesi saziso"
 
-#: ../../../lib/web/src/components/notification-category-button.tsx:115
+#: ../../../lib/web/src/components/notification-category-button.tsx:119
 msgid "Change notification category"
 msgstr "Tshintsha udidi lwesaziso"
 
@@ -357,6 +362,10 @@ msgstr "Ulwazi nenkcukacha zomxholo."
 msgid "Continue"
 msgstr "Qhubeka"
 
+#: ../../../lib/web/src/components/step-up-dialog.tsx:349
+msgid "Continue with {label}"
+msgstr "Qhubeka nge-{label}"
+
 #: ../../../lib/web/src/components/ui/copy-button.tsx:60
 msgid "Copy"
 msgstr "Kotshela"
@@ -364,6 +373,18 @@ msgstr "Kotshela"
 #: ../../../lib/web/src/features/document/document-page.tsx:81
 msgid "Could not load this document. Please try again later."
 msgstr "Akukwazekanga ukulayisha olu xwebhu. Nceda uzame kwakhona kamva."
+
+#: ../../../lib/web/src/components/step-up-dialog.tsx:181
+msgid "Couldn't send the code. Please try again."
+msgstr "Ayikwazanga ukuthumela ikhowudi. Nceda uzame kwakhona."
+
+#: ../../../lib/web/src/components/step-up-dialog.tsx:133
+msgid "Couldn't start re-authentication. Please try again."
+msgstr "Ayikwazanga ukuqalisa ukuqinisekiswa kwakhona. Nceda uzame kwakhona."
+
+#: ../../../lib/web/src/components/step-up-dialog.tsx:218
+msgid "Couldn't verify with that account. Please try again."
+msgstr "Akukwazekanga ukuqinisekisa ngaloo akhawunti. Nceda uzame kwakhona."
 
 #: src/features/chats/components/new-chat.tsx:168
 msgid "Create a new chat"
@@ -409,6 +430,10 @@ msgstr "Cima incoko"
 msgid "Delete chat history"
 msgstr "Cima imbali yencoko"
 
+#: ../../../lib/web/src/components/restore-banner.tsx:90
+msgid "Delete your account on the old server"
+msgstr "Cima i-akhawunti yakho kwiseva endala"
+
 #: ../../../lib/web/src/components/data-table/column-header.tsx:60
 msgid "Desc"
 msgstr "Ehlayo"
@@ -432,6 +457,10 @@ msgstr "Bhaqa kwibhrawuza yewebhu"
 msgid "Direction"
 msgstr "Icala"
 
+#: ../../../lib/web/src/components/restore-banner.tsx:73
+msgid "Dismiss"
+msgstr "Yikhabe"
+
 #: ../../../lib/web/src/components/ui/sidebar.tsx:235
 msgid "Displays the mobile sidebar."
 msgstr "Ibonisa ibara lecala leselula."
@@ -447,6 +476,18 @@ msgstr "Yamkelekile kwidyslexia"
 #: src/routes/_authenticated/$chatId_.settings.tsx:288
 msgid "Edit chat name"
 msgstr "Hlela igama lencoko"
+
+#: ../../../lib/web/src/components/step-up-dialog.tsx:286
+msgid "Email code"
+msgstr "Ikhowudi ye-imeyili"
+
+#: ../../../lib/web/src/components/step-up-dialog.tsx:296
+msgid "Enter the code from your email"
+msgstr "Faka ikhowudi evela kwi-imeyile yakho"
+
+#: ../../../lib/web/src/components/step-up-dialog.tsx:321
+msgid "Enter your authenticator code"
+msgstr "Faka ikhowudi yakho yesiqinisekisi"
 
 #: ../../../lib/web/src/components/layout/app-sidebar.tsx:35
 msgid "Expand sidebar"
@@ -501,9 +542,13 @@ msgstr "Ayiphumelelanga ukuthumela ikhowudi yokuqinisekisa"
 msgid "Failed to start chat"
 msgstr "Ayiphumelelanga ukuqala incoko"
 
-#: ../../../lib/web/src/components/notification-category-button.tsx:104
+#: ../../../lib/web/src/components/notification-category-button.tsx:108
 msgid "Failed to update category"
 msgstr "Ayiphumelelanga ukuhlaziya udidi"
+
+#: ../../../lib/web/src/components/restore-banner.tsx:79
+msgid "Finish moving your account"
+msgstr "Gqiba ukufudusa i-akhawunti yakho"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:244
 msgid "Floating"
@@ -725,8 +770,8 @@ msgid "Move attachment right"
 msgstr "Hambisa isiqhoboshelo ekunene"
 
 #: src/routes/_authenticated/$chatId_.settings.tsx:202
-msgid "Name must be 100 characters or less"
-msgstr "Igama kufuneka libe yimpawu ezili-100 okanye ngaphantsi"
+msgid "Name must be 1000 characters or less"
+msgstr "Igama kufuneka libe yimpawu eziyi-1000 okanye ngaphantsi"
 
 #: ../../../lib/web/src/components/ui/sort-selector.tsx:40
 msgid "New"
@@ -786,7 +831,7 @@ msgstr "Akukho ziphumo zifumanekileyo."
 msgid "No time zone found."
 msgstr "Akukho mmandla wexesha ufumanekileyo."
 
-#: ../../../lib/web/src/components/notification-category-button.tsx:135
+#: ../../../lib/web/src/components/notification-category-button.tsx:139
 msgid "No topic record yet — try again after the next notification."
 msgstr "Akukho rekhodi yomxholo okwangoku — zama kwakhona emva kwesaziso esilandelayo."
 
@@ -852,6 +897,18 @@ msgstr "Okunye"
 msgid "Owner"
 msgstr "Umnini"
 
+#: ../../../lib/web/src/components/step-up-dialog.tsx:331
+msgid "Passkey"
+msgstr "Isitshixo sokungena"
+
+#: ../../../lib/web/src/components/step-up-dialog.tsx:206
+msgid "Passkey verification failed. Please try again."
+msgstr "Ukuqinisekiswa kwe-passkey akuphumelelanga. Nceda uzame kwakhona."
+
+#: ../../../lib/web/src/components/restore-banner.tsx:126
+msgid "Passkeys"
+msgstr "Ii-passkey"
+
 #: src/features/chats/components/new-chat.tsx:127
 msgid "Please provide a chat name"
 msgstr "Nceda nikeza igama lencoko"
@@ -873,6 +930,14 @@ msgstr "Ubumfihlo"
 #: ../../../lib/web/src/components/profile-dropdown.tsx:111
 msgid "Profile"
 msgstr "Iprofayile"
+
+#: ../../../lib/web/src/components/restore-banner.tsx:98
+msgid "Re-link your accounts on this server"
+msgstr "Phinda udibanise iiakhawunti zakho kwiseva yesi"
+
+#: ../../../lib/web/src/components/restore-banner.tsx:120
+msgid "Re-register your passkeys on this server"
+msgstr "Phinda ubhalise izitshixo zakho zokufikelela kule seva"
 
 #: ../../../lib/web/src/components/search-entity-dialog.tsx:216
 #: ../../../lib/web/src/components/search-entity-page.tsx:191
@@ -926,6 +991,10 @@ msgstr "Susa ilungu?"
 #: src/routes/_authenticated/$chatId_.settings.tsx:568
 msgid "Removing..."
 msgstr "Iyasuswa..."
+
+#: ../../../lib/web/src/components/step-up-dialog.tsx:364
+msgid "Resend email"
+msgstr "Thumela kwakhona i-imeyile"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:77
 #: ../../../lib/web/src/components/data-table/toolbar.tsx:78
@@ -1026,6 +1095,10 @@ msgstr "Khetha okukhethiweyo kwetimu"
 msgid "Send again"
 msgstr "Thumela kwakhona"
 
+#: ../../../lib/web/src/components/step-up-dialog.tsx:304
+msgid "Send email"
+msgstr "Thumela i-imeyile"
+
 #: src/features/chats/components/chat-input.tsx:75
 msgid "Send message"
 msgstr "Thumela umyalezo"
@@ -1115,6 +1188,10 @@ msgstr "Amaqela/Ii-app"
 msgid "Terms and conditions"
 msgstr "Imigaqo nemiqathango"
 
+#: ../../../lib/web/src/components/step-up-dialog.tsx:192
+msgid "That code is incorrect or has expired."
+msgstr "Loo khowudi ayichanekanga okanye iphelelwe lixesha."
+
 #: ../../../lib/web/src/components/config-drawer.tsx:181
 msgid "Theme"
 msgstr "Itimu"
@@ -1200,7 +1277,7 @@ msgstr "Bhala umyalezo wakho…"
 msgid "Unable to redirect to login. Please try again."
 msgstr "Akukwazeki ukuthunyelwa kwindawo yokungena. Nceda uzame kwakhona."
 
-#: ../../../lib/web/src/components/notification-category-button.tsx:143
+#: ../../../lib/web/src/components/notification-category-button.tsx:147
 msgid "Unassigned"
 msgstr "Akwabelwanga"
 
@@ -1220,6 +1297,10 @@ msgstr "Akwaziwa"
 msgid "Unverified"
 msgstr "Ayingqinwanga"
 
+#: ../../../lib/web/src/components/step-up-dialog.tsx:335
+msgid "Use your passkey"
+msgstr "Sebenzisa i-passkey yakho"
+
 #: ../../../lib/web/src/features/access/access-dialog.tsx:155
 msgid "User"
 msgstr "Umsebenzisi"
@@ -1236,6 +1317,7 @@ msgstr "Ikhowudi yoqinisekiso ithunyelwe"
 msgid "Verification failed"
 msgstr "Uqinisekiso lusilele"
 
+#: ../../../lib/web/src/components/step-up-dialog.tsx:385
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:164
 #: ../../../lib/web/src/features/accounts/account-verify.tsx:106
 msgid "Verify"
@@ -1245,7 +1327,7 @@ msgstr "Qinisekisa"
 msgid "Verify email address"
 msgstr "Qinisekisa idilesi ye-imeyile"
 
-#: src/features/chats/components/message-attachments.tsx:53
+#: ../../../lib/web/src/components/attachment-gallery.tsx:63
 msgid "Video thumbnail"
 msgstr "Umfanekiso omfutshane wevidiyo"
 
@@ -1297,3 +1379,7 @@ msgstr "Uyishiyile le ncoko"
 #: src/features/chats/index.tsx:377
 msgid "You were removed from this chat"
 msgstr "Ususiwe kule ncoko"
+
+#: ../../../lib/web/src/components/restore-banner.tsx:82
+msgid "Your account was moved here from {source}. Until you delete it there, messages and notifications may reach both servers, some of your content keeps being served from the old server, and followers may take a few minutes to find you here."
+msgstr "I-akhawunti yakho ihanjiswe apha ukusuka ku-{source}. Kude ukuze uyicime apho, iimessage nezaziso zingafika kumaseva omabini, inxalenye yemixholo yakho iqhubeka isebenziswa kwiseva endala, kwaye abalandeli bangathatha imizuzu embalwa ukukufumana apha."

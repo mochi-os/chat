@@ -94,8 +94,8 @@ const handleWebsocketEvent = (
       case 'removed':
       case 'rename':
       case 'leave':
-      case 'member_add':
-      case 'member_remove':
+      case 'member/add':
+      case 'member/remove':
         // Invalidate queries to refresh chat state
         void queryClient.invalidateQueries({ queryKey: chatKeys.all() })
         void queryClient.invalidateQueries({ queryKey: chatKeys.detail(chatId) })

@@ -153,6 +153,10 @@ msgstr "{0}-г энэ чатаас хасахдаа итгэлтэй байна 
 msgid "Asc"
 msgstr "Өсөх"
 
+#: ../../../lib/web/src/components/step-up-dialog.tsx:312
+msgid "Authenticator code"
+msgstr "Authenticator код"
+
 #: ../../../lib/web/src/components/place-picker.tsx:152
 msgid "Back"
 msgstr "Буцах"
@@ -174,6 +178,7 @@ msgid "Boost interest"
 msgstr "Сонирхлыг идэвхжүүлэх"
 
 #: ../../../lib/web/src/components/responsive-confirm-dialog.tsx:64
+#: ../../../lib/web/src/components/step-up-dialog.tsx:360
 #: ../../../lib/web/src/components/travelling-picker.tsx:292
 #: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:245
 #: ../../../lib/web/src/features/access/access-dialog.tsx:325
@@ -188,11 +193,11 @@ msgstr "Цуцлах"
 msgid "Cancel edit"
 msgstr "Засварыг цуцлах"
 
-#: ../../../lib/web/src/components/notification-category-button.tsx:131
+#: ../../../lib/web/src/components/notification-category-button.tsx:135
 msgid "Category for this notification"
 msgstr "Энэ мэдэгдлийн ангилал"
 
-#: ../../../lib/web/src/components/notification-category-button.tsx:115
+#: ../../../lib/web/src/components/notification-category-button.tsx:119
 msgid "Change notification category"
 msgstr "Мэдэгдлийн ангиллыг солих"
 
@@ -357,6 +362,10 @@ msgstr "Контекст мэдээлэл ба дэлгэрэнгүй."
 msgid "Continue"
 msgstr "Үргэлжлүүлэх"
 
+#: ../../../lib/web/src/components/step-up-dialog.tsx:349
+msgid "Continue with {label}"
+msgstr "{label}-р үргэлжлүүлэх"
+
 #: ../../../lib/web/src/components/ui/copy-button.tsx:60
 msgid "Copy"
 msgstr "Хуулах"
@@ -364,6 +373,18 @@ msgstr "Хуулах"
 #: ../../../lib/web/src/features/document/document-page.tsx:81
 msgid "Could not load this document. Please try again later."
 msgstr "Энэ баримт бичгийг ачаалж чадсангүй. Дараа дахин оролдоно уу."
+
+#: ../../../lib/web/src/components/step-up-dialog.tsx:181
+msgid "Couldn't send the code. Please try again."
+msgstr "Кодыг илгээж чадсангүй. Дахин оролдоно уу."
+
+#: ../../../lib/web/src/components/step-up-dialog.tsx:133
+msgid "Couldn't start re-authentication. Please try again."
+msgstr "Дахин баталгаажуулалтыг эхлүүлж чадсангүй. Дахин оролдоно уу."
+
+#: ../../../lib/web/src/components/step-up-dialog.tsx:218
+msgid "Couldn't verify with that account. Please try again."
+msgstr "Тэр бүртгэлээр баталгаажуулж чадсангүй. Дахин оролдоно уу."
 
 #: src/features/chats/components/new-chat.tsx:168
 msgid "Create a new chat"
@@ -409,6 +430,10 @@ msgstr "Чат устгах"
 msgid "Delete chat history"
 msgstr "Чатын түүх устгах"
 
+#: ../../../lib/web/src/components/restore-banner.tsx:90
+msgid "Delete your account on the old server"
+msgstr "Хуучин серверт байгаа бүртгэлээ устгана уу"
+
 #: ../../../lib/web/src/components/data-table/column-header.tsx:60
 msgid "Desc"
 msgstr "Буурах"
@@ -432,6 +457,10 @@ msgstr "Хөтчөөс илрүүлэх"
 msgid "Direction"
 msgstr "Чиглэл"
 
+#: ../../../lib/web/src/components/restore-banner.tsx:73
+msgid "Dismiss"
+msgstr "Болих"
+
 #: ../../../lib/web/src/components/ui/sidebar.tsx:235
 msgid "Displays the mobile sidebar."
 msgstr "Гар утасны хажуугийн самбарыг харуулна."
@@ -447,6 +476,18 @@ msgstr "Дислексид зориулсан"
 #: src/routes/_authenticated/$chatId_.settings.tsx:288
 msgid "Edit chat name"
 msgstr "Чатын нэрийг засах"
+
+#: ../../../lib/web/src/components/step-up-dialog.tsx:286
+msgid "Email code"
+msgstr "Имэйл код"
+
+#: ../../../lib/web/src/components/step-up-dialog.tsx:296
+msgid "Enter the code from your email"
+msgstr "Имэйлд ирсэн кодоо оруулна уу"
+
+#: ../../../lib/web/src/components/step-up-dialog.tsx:321
+msgid "Enter your authenticator code"
+msgstr "Баталгаажуулагчийн кодоо оруулна уу"
 
 #: ../../../lib/web/src/components/layout/app-sidebar.tsx:35
 msgid "Expand sidebar"
@@ -501,9 +542,13 @@ msgstr "Баталгаажуулах код илгээж чадсангүй"
 msgid "Failed to start chat"
 msgstr "Чат эхлүүлж чадсангүй"
 
-#: ../../../lib/web/src/components/notification-category-button.tsx:104
+#: ../../../lib/web/src/components/notification-category-button.tsx:108
 msgid "Failed to update category"
 msgstr "Ангилал шинэчилж чадсангүй"
+
+#: ../../../lib/web/src/components/restore-banner.tsx:79
+msgid "Finish moving your account"
+msgstr "Бүртгэлээ шилжүүлэхийг дуусгана уу"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:244
 msgid "Floating"
@@ -725,8 +770,8 @@ msgid "Move attachment right"
 msgstr "Хавсралтыг баруун тийш зөөх"
 
 #: src/routes/_authenticated/$chatId_.settings.tsx:202
-msgid "Name must be 100 characters or less"
-msgstr "Нэр 100 тэмдэгтээс хэтрэхгүй байх ёстой"
+msgid "Name must be 1000 characters or less"
+msgstr "Нэр 1000 тэмдэгтээс хэтрэхгүй байх ёстой"
 
 #: ../../../lib/web/src/components/ui/sort-selector.tsx:40
 msgid "New"
@@ -786,7 +831,7 @@ msgstr "Үр дүн олдсонгүй."
 msgid "No time zone found."
 msgstr "Цагийн бүс олдсонгүй."
 
-#: ../../../lib/web/src/components/notification-category-button.tsx:135
+#: ../../../lib/web/src/components/notification-category-button.tsx:139
 msgid "No topic record yet — try again after the next notification."
 msgstr "Сэдвийн бичлэг алга — дараагийн мэдэгдлийн дараа дахин оролдоно уу."
 
@@ -852,6 +897,18 @@ msgstr "Бусад"
 msgid "Owner"
 msgstr "Эзэмшигч"
 
+#: ../../../lib/web/src/components/step-up-dialog.tsx:331
+msgid "Passkey"
+msgstr "Нэвтрэх түлхүүр"
+
+#: ../../../lib/web/src/components/step-up-dialog.tsx:206
+msgid "Passkey verification failed. Please try again."
+msgstr "Нэвтрэх түлхүүрийн баталгаажуулалт амжилтгүй боллоо. Дахин оролдоно уу."
+
+#: ../../../lib/web/src/components/restore-banner.tsx:126
+msgid "Passkeys"
+msgstr "Passkey-ууд"
+
 #: src/features/chats/components/new-chat.tsx:127
 msgid "Please provide a chat name"
 msgstr "Чатны нэрийг оруулна уу"
@@ -873,6 +930,14 @@ msgstr "Нууцлал"
 #: ../../../lib/web/src/components/profile-dropdown.tsx:111
 msgid "Profile"
 msgstr "Профайл"
+
+#: ../../../lib/web/src/components/restore-banner.tsx:98
+msgid "Re-link your accounts on this server"
+msgstr "Энэ серверт бүртгэлүүдээ дахин холбоно уу"
+
+#: ../../../lib/web/src/components/restore-banner.tsx:120
+msgid "Re-register your passkeys on this server"
+msgstr "Энэ серверт нэвтрэх түлхүүрээ дахин бүртгүүлнэ үү"
 
 #: ../../../lib/web/src/components/search-entity-dialog.tsx:216
 #: ../../../lib/web/src/components/search-entity-page.tsx:191
@@ -926,6 +991,10 @@ msgstr "Гишүүн хасах уу?"
 #: src/routes/_authenticated/$chatId_.settings.tsx:568
 msgid "Removing..."
 msgstr "Хасаж байна..."
+
+#: ../../../lib/web/src/components/step-up-dialog.tsx:364
+msgid "Resend email"
+msgstr "Имэйлийг дахин илгээх"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:77
 #: ../../../lib/web/src/components/data-table/toolbar.tsx:78
@@ -1026,6 +1095,10 @@ msgstr "Загварын тохируулга сонгох"
 msgid "Send again"
 msgstr "Дахин илгээх"
 
+#: ../../../lib/web/src/components/step-up-dialog.tsx:304
+msgid "Send email"
+msgstr "Имэйл илгээх"
+
 #: src/features/chats/components/chat-input.tsx:75
 msgid "Send message"
 msgstr "Зурвас илгээх"
@@ -1115,6 +1188,10 @@ msgstr "Баг/Программууд"
 msgid "Terms and conditions"
 msgstr "Нөхцөл"
 
+#: ../../../lib/web/src/components/step-up-dialog.tsx:192
+msgid "That code is incorrect or has expired."
+msgstr "Энэ код буруу эсвэл хугацаа нь дууссан байна."
+
 #: ../../../lib/web/src/components/config-drawer.tsx:181
 msgid "Theme"
 msgstr "Загвар"
@@ -1200,7 +1277,7 @@ msgstr "Зурвасаа бичих…"
 msgid "Unable to redirect to login. Please try again."
 msgstr "Нэвтрэлт рүү чиглүүлэх боломжгүй. Дахин оролдоно уу."
 
-#: ../../../lib/web/src/components/notification-category-button.tsx:143
+#: ../../../lib/web/src/components/notification-category-button.tsx:147
 msgid "Unassigned"
 msgstr "Хариуцсан хүн оноогоогүй"
 
@@ -1220,6 +1297,10 @@ msgstr "Үл мэдэгдэх"
 msgid "Unverified"
 msgstr "Баталгаажаагүй"
 
+#: ../../../lib/web/src/components/step-up-dialog.tsx:335
+msgid "Use your passkey"
+msgstr "Нэвтрэх түлхүүрээ ашиглах"
+
 #: ../../../lib/web/src/features/access/access-dialog.tsx:155
 msgid "User"
 msgstr "Хэрэглэгч"
@@ -1236,6 +1317,7 @@ msgstr "Баталгаажуулах код илгээгдсэн"
 msgid "Verification failed"
 msgstr "Баталгаажуулалт амжилтгүй"
 
+#: ../../../lib/web/src/components/step-up-dialog.tsx:385
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:164
 #: ../../../lib/web/src/features/accounts/account-verify.tsx:106
 msgid "Verify"
@@ -1245,7 +1327,7 @@ msgstr "Баталгаажуулах"
 msgid "Verify email address"
 msgstr "Имэйл хаягийг баталгаажуулах"
 
-#: src/features/chats/components/message-attachments.tsx:53
+#: ../../../lib/web/src/components/attachment-gallery.tsx:63
 msgid "Video thumbnail"
 msgstr "Видеоны жижиг зураг"
 
@@ -1297,3 +1379,7 @@ msgstr "Та энэ чатаас гарсан"
 #: src/features/chats/index.tsx:377
 msgid "You were removed from this chat"
 msgstr "Та энэ чатаас хасагдсан"
+
+#: ../../../lib/web/src/components/restore-banner.tsx:82
+msgid "Your account was moved here from {source}. Until you delete it there, messages and notifications may reach both servers, some of your content keeps being served from the old server, and followers may take a few minutes to find you here."
+msgstr "Таны бүртгэл {source}-с энд шилжсэн. Тэнд устгах хүртэл мессеж, мэдэгдлүүд хоёр сервер рүү хүрч болно, таны зарим контент хуучин серверээс ирсээр байж болно, дагагчид таныг эндээс олоход хэдэн минут зарцуулж магадгүй."

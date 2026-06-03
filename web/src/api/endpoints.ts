@@ -10,8 +10,8 @@ const endpoints = {
     rename: (chatId: string) => `/${chatId}/-/rename`,
     leave: (chatId: string) => `/${chatId}/-/leave`,
     delete: (chatId: string) => `/${chatId}/-/delete`,
-    memberAdd: (chatId: string) => `/${chatId}/-/member_add`,
-    memberRemove: (chatId: string) => `/${chatId}/-/member_remove`,
+    memberAdd: (chatId: string) => `/${chatId}/-/member/add`,
+    memberRemove: (chatId: string) => `/${chatId}/-/member/remove`,
   },
   auth: {
     code: '/_/code',
