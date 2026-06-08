@@ -8,6 +8,15 @@ export interface Chat {
   members: number
   other?: string  // For 2-member chats: the other member's entity ID
   left?: number  // 0 = active, 1 = left voluntarily, 2 = removed by another member
+  unread?: number
+}
+
+export interface MarkReadRequest {
+  read?: number
+}
+
+export interface MarkReadResponse {
+  read: number
 }
 
 export interface ChatMember {

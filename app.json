@@ -12,7 +12,7 @@
 	"execute": ["chat.star"],
 
 	"database": {
-		"schema": 8,
+		"schema": 10,
 		"file": "chat.db",
 		"create": {"function": "database_create"},
 		"upgrade": {"function": "database_upgrade"}
@@ -35,6 +35,7 @@
 		":chat/-/resync": {"function": "action_resync"},
 		":chat/-/messages": {"function": "action_messages"},
 		":chat/-/search": {"function": "action_search"},
+		":chat/-/read": {"function": "action_mark_read"},
 		":chat/-/send": {"function": "action_send"},
 		":chat/-/members": {"function": "action_members"},
 		":chat/-/rename": {"function": "action_rename"},

@@ -28,6 +28,8 @@ import { chatsApi,
   type MemberAddResponse,
   type MemberRemoveRequest,
   type MemberRemoveResponse,
+  type MarkReadRequest,
+  type MarkReadResponse,
 } from '@/api/chats'
 
 export const chatKeys = {
@@ -320,6 +322,39 @@ export const useRemoveMemberMutation = (
         queryKey: ['chats', variables.chatId, 'members'],
       })
       queryClient.invalidateQueries({ queryKey: chatKeys.detail(variables.chatId) })
+      onSuccess?.(data, variables, context, mutation)
+    },
+    ...restOptions,
+  })
+}
+
+interface MarkChatReadVariables extends MarkReadRequest {
+  chatId: string
+}
+
+export const useMarkChatReadMutation = (
+  options?: UseMutationOptions<
+    MarkReadResponse,
+    Error,
+    MarkChatReadVariables,
+    unknown
+  >
+) => {
+  const queryClient = useQueryClient()
+  const { onSuccess, ...restOptions } = options ?? {}
+  return useMutation({
+    mutationFn: ({ chatId, ...payload }: MarkChatReadVariables) =>
+      chatsApi.markRead(chatId, payload),
+    onSuccess: (data, variables, context, mutation) => {
+      queryClient.setQueryData<GetChatsResponse>(chatKeys.all(), (old) => {
+        if (!old) return old
+        return {
+          ...old,
+          chats: old.chats.map((chat) =>
+            chat.id === variables.chatId ? { ...chat, unread: 0 } : chat
+          ),
+        }
+      })
       onSuccess?.(data, variables, context, mutation)
     },
     ...restOptions,

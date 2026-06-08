@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo } from 'react'
 import { useLingui } from '@lingui/react/macro'
 import { Outlet, useParams } from '@tanstack/react-router'
 import {
@@ -11,8 +11,12 @@ import {
 import { MessageCircle, Plus } from 'lucide-react'
 import { SidebarProvider, useSidebarContext } from '@/context/sidebar-context'
 import { useChatsQuery } from '@/hooks/useChats'
-import { getReadTimestamps, saveReadTimestamps } from '@/hooks/useChatStorage'
 import { NewChat } from '@/features/chats/components/new-chat'
+
+function formatUnreadBadge(unread: number): string | undefined {
+  if (unread <= 0) return undefined
+  return unread > 99 ? '99+' : String(unread)
+}
 
 const personIconCache = new Map<string, React.FC>()
 
@@ -73,26 +77,13 @@ function ChatLayoutInner() {
   const params = useParams({ strict: false }) as { chatId?: string }
   const urlChatId = params?.chatId
 
-  // Per-chat read watermarks (unix seconds), keyed by real chat ID
-  const [readAt, setReadAt] = useState<Record<string, number>>({})
-  useEffect(() => {
-    getReadTimestamps().then(setReadAt)
-  }, [])
-
-  // Sync URL chat ID to context and mark chat as read when navigated to
+  // Sync URL chat ID to sidebar context
   useEffect(() => {
     if (urlChatId) {
       const chat = chats.find(
         (c) => c.id === urlChatId || c.fingerprint === urlChatId
       )
       setChat(urlChatId, chat?.name)
-      if (chat) {
-        setReadAt((prev) => {
-          const next = { ...prev, [chat.id]: chat.updated }
-          saveReadTimestamps(next)
-          return next
-        })
-      }
     } else {
       setChat(null)
     }
@@ -112,9 +103,10 @@ function ChatLayoutInner() {
       title: chat.name,
       url: `/${chat.fingerprint ?? chat.id}`,
       icon: chat.members === 2 && chat.other ? personIcon(chat.other) : MessageCircle,
-      badge: !chat.left && chat.id !== activeChatId && chat.updated > (readAt[chat.id] ?? 0)
-        ? '●'
-        : undefined,
+      badge:
+        !chat.left && chat.id !== activeChatId
+          ? formatUnreadBadge(chat.unread ?? 0)
+          : undefined,
     }))
 
     return {
@@ -136,7 +128,7 @@ function ChatLayoutInner() {
         },
       ],
     }
-  }, [chats, openNewChatDialog, urlChatId, readAt])
+  }, [chats, openNewChatDialog, urlChatId])
 
   return (
     <AuthenticatedLayout

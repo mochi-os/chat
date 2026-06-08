@@ -21,6 +21,8 @@ import type {
   MemberAddResponse,
   MemberRemoveRequest,
   MemberRemoveResponse,
+  MarkReadRequest,
+  MarkReadResponse,
 } from './types/chats'
 import endpoints from './endpoints'
 
@@ -63,6 +65,14 @@ export const chatsApi = {
         { params }
       )
       .then((res) => unwrapData<SearchMessagesResponse>(res)),
+
+  markRead: (chatId: string, payload?: MarkReadRequest) =>
+    client
+      .post<MarkReadResponse | { data: MarkReadResponse }>(
+        endpoints.chat.read(chatId),
+        payload ?? {}
+      )
+      .then((res) => unwrapData<MarkReadResponse>(res)),
 
   sendMessage: (chatId: string, payload: SendMessageRequest) => {
     // Check if we need to send as FormData (for attachments)

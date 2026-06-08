@@ -75,6 +75,33 @@ def database_create():
 	mochi.db.execute("create table if not exists messages ( id text not null primary key, chat references chats( id ), member text not null, name text not null, body text not null, created integer not null )")
 	mochi.db.execute("create index if not exists messages_chat_created on messages( chat, created )")
 
+	mochi.db.execute("create table if not exists chat_read ( chat text not null primary key references chats( id ), last_read integer not null default 0 )")
+
+# Ensure chat_read exists (migration v9 used the wrong mochi.db.tables() shape).
+def ensure_chat_read_table():
+	tables = mochi.db.tables() or []
+	if "chat_read" in tables:
+		return
+	mochi.db.execute("create table chat_read ( chat text not null primary key references chats( id ), last_read integer not null default 0 )")
+	mochi.db.execute("insert or ignore into chat_read ( chat, last_read ) select id, updated from chats")
+
+# Per-chat read watermark for the local account (not replicated).
+def chat_last_read(chat_id):
+	ensure_chat_read_table()
+	row = mochi.db.row("select last_read from chat_read where chat=?", chat_id)
+	if not row:
+		return 0
+	return row["last_read"]
+
+def chat_set_last_read(chat_id, ts):
+	mochi.db.execute("insert or replace into chat_read ( chat, last_read ) values ( ?, ? )", chat_id, ts)
+
+def chat_unread_count(chat_id, identity, last_read):
+	row = mochi.db.row("select count(*) as n from messages where chat=? and created>? and member!=?", chat_id, last_read, identity)
+	if not row:
+		return 0
+	return row["n"]
+
 # Upgrade database
 def database_upgrade(to_version):
 	# chats.updated was only bumped on member events (add/remove/rename/
@@ -106,6 +133,8 @@ def database_upgrade(to_version):
 		cols = [r["name"] for r in mochi.db.table("chats") or []]
 		if "identity" in cols:
 			mochi.db.execute("alter table chats drop column identity")
+	if to_version == 9 or to_version == 10:
+		ensure_chat_read_table()
 
 # Stream an entity's asset from its owning service via a Mochi stream.
 # Location-transparent: mochi.remote.stream() loops back in-process when the
@@ -210,15 +239,23 @@ def action_create(a):
 
 # List chats
 def action_list(a):
+	ensure_chat_read_table()
 	identity = a.user.identity.id
 	chats = mochi.db.rows("""
-		SELECT c.*, (SELECT count(*) FROM members WHERE chat=c.id) as members
+		SELECT c.*,
+			(SELECT count(*) FROM members WHERE chat=c.id) as members,
+			(SELECT count(*) FROM messages msg
+			 WHERE msg.chat = c.id
+			   AND msg.created > coalesce((SELECT last_read FROM chat_read WHERE chat = c.id), 0)
+			   AND msg.member != ?) as unread
 		FROM chats c
 		LEFT JOIN members m ON m.chat = c.id AND m.member = ?
 		WHERE m.member IS NOT NULL OR c.left != 0
 		ORDER BY c.updated DESC
-	""", identity)
+	""", identity, identity)
 	for chat in chats:
+		if chat.get("left"):
+			chat["unread"] = 0
 		if chat.get("members") == 2:
 			other = mochi.db.row(
 				"select member from members where chat=? and member<>?",
@@ -352,6 +389,41 @@ def action_search(a):
 	)
 
 	return {"data": {"query": query, "results": results}}
+
+# Mark a chat as read up to a timestamp watermark
+def action_mark_read(a):
+	ensure_chat_read_table()
+	if not mochi.text.valid(a.input("chat"), "id"):
+		a.error.label(400, "errors.invalid_chat_id")
+		return
+	chat = mochi.db.row("select * from chats where id=?", a.input("chat"))
+	if not chat:
+		a.error.label(404, "errors.chat_not_found")
+		return
+
+	is_member = mochi.db.exists("select 1 from members where chat=? and member=?", chat["id"], a.user.identity.id)
+	if not is_member and not chat["left"]:
+		a.error.label(403, "errors.not_a_member_of_this_chat")
+		return
+
+	read_ts = None
+	read_str = a.input("read", "")
+	if read_str and mochi.text.valid(read_str, "natural"):
+		read_ts = int(read_str)
+
+	if read_ts == None:
+		last_msg = mochi.db.row("select max(created) as ts from messages where chat=?", chat["id"])
+		if last_msg and last_msg.get("ts"):
+			read_ts = last_msg["ts"]
+		else:
+			read_ts = chat["updated"]
+
+	current = chat_last_read(chat["id"])
+	if read_ts < current:
+		read_ts = current
+
+	chat_set_last_read(chat["id"], read_ts)
+	return {"data": {"read": read_ts}}
 
 # Send a message
 def action_send(a):

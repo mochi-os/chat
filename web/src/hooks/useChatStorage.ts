@@ -4,6 +4,8 @@ import { shellStorage } from '@mochi/web'
 
 const STORAGE_KEY = 'mochi-chat-last'
 const DRAFT_KEY = (chatId: string) => `mochi-chat-draft-${chatId}`
+const LEGACY_READ_KEY = 'mochi-chat-read'
+const READ_MIGRATED_KEY = 'mochi-chat-read-migrated'
 
 // Store last visited chat
 export function setLastChat(chatId: string): void {
@@ -32,14 +34,22 @@ export function clearDraft(chatId: string): void {
   shellStorage.removeItem(DRAFT_KEY(chatId))
 }
 
-const READ_KEY = 'mochi-chat-read'
-
-export async function getReadTimestamps(): Promise<Record<string, number>> {
-  const raw = await shellStorage.getItem(READ_KEY)
-  if (!raw) return {}
-  try { return JSON.parse(raw) as Record<string, number> } catch { return {} }
+export async function isReadTimestampsMigrated(): Promise<boolean> {
+  const flag = await shellStorage.getItem(READ_MIGRATED_KEY)
+  return flag === '1'
 }
 
-export function saveReadTimestamps(data: Record<string, number>): void {
-  shellStorage.setItem(READ_KEY, JSON.stringify(data))
+export async function getLegacyReadTimestamps(): Promise<Record<string, number>> {
+  const raw = await shellStorage.getItem(LEGACY_READ_KEY)
+  if (!raw) return {}
+  try {
+    return JSON.parse(raw) as Record<string, number>
+  } catch {
+    return {}
+  }
+}
+
+export function markReadTimestampsMigrated(): void {
+  shellStorage.removeItem(LEGACY_READ_KEY)
+  shellStorage.setItem(READ_MIGRATED_KEY, '1')
 }

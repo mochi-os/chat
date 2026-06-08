@@ -14,7 +14,16 @@ import {
   Search,
 } from 'lucide-react'
 import { useSidebarContext } from '@/context/sidebar-context'
-import { setLastChat, setDraft, getDraft, clearDraft } from '@/hooks/useChatStorage'
+import {
+  setLastChat,
+  setDraft,
+  getDraft,
+  clearDraft,
+  isReadTimestampsMigrated,
+  getLegacyReadTimestamps,
+  markReadTimestampsMigrated,
+} from '@/hooks/useChatStorage'
+import { chatsApi } from '@/api/chats'
 import { useChatWebsocket } from '@/hooks/useChatWebsocket'
 import {
   chatKeys,
@@ -25,6 +34,7 @@ import {
   useLeaveChatMutation,
   useDeleteChatMutation,
   useCreateChatMutation,
+  useMarkChatReadMutation,
 } from '@/hooks/useChats'
 import type { GetMessagesResponse } from '@/api/types/chats'
 import { ChatEmptyState } from './components/chat-empty-state'
@@ -149,6 +159,40 @@ export function Chats() {
       ) ?? null,
     [chats, selectedChatId]
   )
+
+  const { mutate: markChatRead } = useMarkChatReadMutation()
+  const readMigrationStarted = useRef(false)
+  const markedChatIdRef = useRef<string | null>(null)
+
+  useEffect(() => {
+    if (readMigrationStarted.current) return
+    readMigrationStarted.current = true
+
+    void (async () => {
+      if (await isReadTimestampsMigrated()) return
+      const legacy = await getLegacyReadTimestamps()
+      const entries = Object.entries(legacy)
+      if (entries.length > 0) {
+        await Promise.all(
+          entries.map(([chatId, readAt]) =>
+            chatsApi.markRead(chatId, { read: readAt }).catch(() => undefined)
+          )
+        )
+      }
+      markReadTimestampsMigrated()
+    })()
+  }, [])
+
+  useEffect(() => {
+    if (!selectedChat?.id) {
+      markedChatIdRef.current = null
+      return
+    }
+    if (selectedChat.left) return
+    if (markedChatIdRef.current === selectedChat.id) return
+    markedChatIdRef.current = selectedChat.id
+    markChatRead({ chatId: selectedChat.id })
+  }, [selectedChat?.id, selectedChat?.left, markChatRead])
 
   // Chat detail (members, names)
   const { data: chatDetail } = useChatDetailQuery(selectedChat?.id)
