@@ -1,18 +1,20 @@
 import {
   Fragment,
   useCallback,
-  useEffect,
   useLayoutEffect,
   useMemo,
   useRef,
+                                                                    useState,
 } from 'react'
 import { useFormat } from '@mochi/web'
+import { plural, t } from '@lingui/core/macro'
 import { Trans } from '@lingui/react/macro'
 import type {
-  UseInfiniteQueryResult,
+  UseInfiniteQueryResult,                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
   InfiniteData,
 } from '@tanstack/react-query'
 import {
+  Button,
   EntityAvatar,
   GeneralError,
   LoadMoreTrigger,
@@ -21,10 +23,20 @@ import {
   getChatBubbleToneClass,
   getAppPath,
 } from '@mochi/web'
-import { MessageCircle } from 'lucide-react'
+import { ChevronsDown, MessageCircle } from 'lucide-react'
 import type { ChatMessage } from '@/api/chats'
 import type { GetMessagesResponse } from '@/api/types/chats'
 import { MessageAttachments } from './message-attachments'
+
+const BOTTOM_THRESHOLD_PX = 80
+
+function checkIsAtBottom(el: HTMLDivElement) {
+  return el.scrollHeight - el.scrollTop - el.clientHeight <= BOTTOM_THRESHOLD_PX
+}
+
+function pinToBottom(el: HTMLDivElement) {
+  el.scrollTop = el.scrollHeight - el.clientHeight
+}
 
 interface ChatMessageListProps {
   messagesQuery: UseInfiniteQueryResult<
@@ -54,11 +66,34 @@ export function ChatMessageList({
   const skipNextAutoScrollRef = useRef(false)
   const isInitialLoadRef = useRef(true)
   const prevMessageCountRef = useRef<number>(0)
+  const isAtBottomRef = useRef(true)
+  const [isScrolledAwayFromBottom, setIsScrolledAwayFromBottom] = useState(false)
+  const [newMessageCount, setNewMessageCount] = useState(0)
 
   const isCurrentUserMessage = (message: ChatMessage) => {
     if (!currentUserIdentity) return false
     return message.member === currentUserIdentity
   }
+
+  const handleScroll = useCallback(() => {
+    const el = scrollContainerRef.current
+    if (!el) return
+
+    const atBottom = checkIsAtBottom(el)
+    isAtBottomRef.current = atBottom
+    setIsScrolledAwayFromBottom(!atBottom)
+
+    if (atBottom) {
+      setNewMessageCount(0)
+    }
+  }, [])
+
+  const scrollToBottom = useCallback(() => {
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
+    setNewMessageCount(0)
+    setIsScrolledAwayFromBottom(false)
+    isAtBottomRef.current = true
+  }, [])
 
   // Group messages by date
   const groupedMessages = useMemo(() => {
@@ -87,40 +122,65 @@ export function ChatMessageList({
     messagesQuery.fetchNextPage()
   }, [messagesQuery])
 
-  // Preserve scroll position when older messages are prepended
+  // Scroll position: preserve on prepend, pin at bottom, or badge when scrolled up
   useLayoutEffect(() => {
-    if (
-      isLoadingMoreRef.current &&
-      scrollContainerRef.current &&
-      !messagesQuery.isFetchingNextPage
-    ) {
-      const newScrollHeight = scrollContainerRef.current.scrollHeight
+    const el = scrollContainerRef.current
+    if (!el) return
+
+    if (isLoadingMoreRef.current && !messagesQuery.isFetchingNextPage) {
+      const newScrollHeight = el.scrollHeight
       const scrollDiff = newScrollHeight - prevScrollHeightRef.current
-      scrollContainerRef.current.scrollTop += scrollDiff
+      el.scrollTop += scrollDiff
       skipNextAutoScrollRef.current = true
       isLoadingMoreRef.current = false
+      prevMessageCountRef.current = chatMessages.length
+      return
     }
-  }, [chatMessages, messagesQuery.isFetchingNextPage])
 
-  // Scroll to bottom on initial load or when new message is added at end
-  useEffect(() => {
     const prevCount = prevMessageCountRef.current
     const currentCount = chatMessages.length
 
     if (isInitialLoadRef.current && currentCount > 0) {
-      messagesEndRef.current?.scrollIntoView({ behavior: 'instant' })
+      pinToBottom(el)
       isInitialLoadRef.current = false
-    } else if (skipNextAutoScrollRef.current) {
+      isAtBottomRef.current = true
+      prevMessageCountRef.current = currentCount
+      return
+    }
+
+    if (skipNextAutoScrollRef.current) {
       skipNextAutoScrollRef.current = false
-    } else if (!isLoadingMoreRef.current && currentCount > prevCount) {
-      // New message added - scroll to bottom
-      requestAnimationFrame(() => {
-        messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
-      })
+      prevMessageCountRef.current = currentCount
+      return
+    }
+
+    if (!isLoadingMoreRef.current && currentCount > prevCount) {
+      const added = currentCount - prevCount
+      const newest = chatMessages[chatMessages.length - 1]
+      const isOwn = newest?.member === currentUserIdentity
+
+      if (isOwn) {
+        if (isAtBottomRef.current) {
+          pinToBottom(el)
+        } else {
+          requestAnimationFrame(() => {
+            messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
+          })
+        }
+        setNewMessageCount(0)
+        setIsScrolledAwayFromBottom(false)
+        isAtBottomRef.current = true
+      } else if (isAtBottomRef.current) {
+        pinToBottom(el)
+        setNewMessageCount(0)
+        isAtBottomRef.current = true
+      } else {
+        setNewMessageCount((c) => c + added)
+      }
     }
 
     prevMessageCountRef.current = currentCount
-  }, [chatMessages])
+  }, [chatMessages, currentUserIdentity, messagesQuery.isFetchingNextPage])
 
   if (isLoadingMessages) {
     return (
@@ -170,93 +230,129 @@ export function ChatMessageList({
   }
 
   return (
-    <div
-      ref={scrollContainerRef}
-      className='flex w-full flex-1 flex-col justify-start gap-4 overflow-y-auto py-2 pe-4 pb-4'
-    >
-      {/* Load more trigger at top for older messages */}
-      <LoadMoreTrigger
-        onLoadMore={handleLoadMore}
-        hasMore={messagesQuery.hasNextPage ?? false}
-        isLoading={messagesQuery.isFetchingNextPage}
-        rootMargin='100px'
-      />
+    <div className='relative flex min-h-0 flex-1 flex-col'>
+      <div
+        ref={scrollContainerRef}
+        onScroll={handleScroll}
+        className='flex w-full flex-1 flex-col justify-start gap-4 overflow-y-auto py-2 pe-4 pb-4'
+      >
+        {/* Load more trigger at top for older messages */}
+        <LoadMoreTrigger
+          onLoadMore={handleLoadMore}
+          hasMore={messagesQuery.hasNextPage ?? false}
+          isLoading={messagesQuery.isFetchingNextPage}
+          rootMargin='100px'
+        />
 
-      {Object.keys(groupedMessages).map((key) => (
-        <Fragment key={key}>
-          {/* Date separator */}
-          <div className='my-4 flex items-center justify-center'>
-            {/* eslint-disable-next-line lingui/no-unlocalized-strings -- 'T00:00:00' is an ISO-8601 time component, not a UI label */}
-            <div className='text-muted-foreground text-xs'>{formatDate(new Date(key + 'T00:00:00'))}</div>
-          </div>
+        {Object.keys(groupedMessages).map((key) => (
+          <Fragment key={key}>
+            {/* Date separator */}
+            <div className='my-4 flex items-center justify-center'>
+              {/* eslint-disable-next-line lingui/no-unlocalized-strings -- 'T00:00:00' is an ISO-8601 time component, not a UI label */}
+              <div className='text-muted-foreground text-xs'>{formatDate(new Date(key + 'T00:00:00'))}</div>
+            </div>
 
-          {groupedMessages[key].map((message) => {
-            const isSent = isCurrentUserMessage(message)
-            return (
-              <div
-                key={message.id}
-                className={cn(
-                  'group mb-3 flex w-full flex-col gap-1',
-                  isSent ? 'items-end' : 'items-start'
-                )}
-              >
-                {/* Message metadata: avatar + name (only for group chats) */}
-                {isGroupChat && !isSent && (
-                  <div className='flex flex-row items-center gap-1.5 px-1 text-xs'>
-                    <EntityAvatar
-                      src={`${getAppPath()}/${message.chat}/-/${message.id}/asset/avatar`}
-                      styleUrl={`${getAppPath()}/${message.chat}/-/${message.id}/asset/style`}
-                      seed={message.member}
-                      name={message.name}
-                      size="xs"
-                    />
-                    <span className='text-muted-foreground font-medium'>
-                      {message.name}
-                    </span>
-                  </div>
-                )}
-
-                {/* Message bubble + Inline Time */}
-                <div className='flex items-end gap-2'>
-                  {isSent && (
-                    <span className='text-muted-foreground/70 opacity-0 transition-opacity group-hover:opacity-100 text-[10px]'>
-                      {formatDateTime(new Date(message.created * 1000))}
-                    </span>
+            {groupedMessages[key].map((message) => {
+              const isSent = isCurrentUserMessage(message)
+              return (
+                <div
+                  key={message.id}
+                  className={cn(
+                    'group mb-3 flex w-full flex-col gap-1',
+                    isSent ? 'items-end' : 'items-start'
+                  )}
+                >
+                  {/* Message metadata: avatar + name (only for group chats) */}
+                  {isGroupChat && !isSent && (
+                    <div className='flex flex-row items-center gap-1.5 px-1 text-xs'>
+                      <EntityAvatar
+                        src={`${getAppPath()}/${message.chat}/-/${message.id}/asset/avatar`}
+                        styleUrl={`${getAppPath()}/${message.chat}/-/${message.id}/asset/style`}
+                        seed={message.member}
+                        name={message.name}
+                        size="xs"
+                      />
+                      <span className='text-muted-foreground font-medium'>
+                        {message.name}
+                      </span>
+                    </div>
                   )}
 
-                  <div
-                    className={cn(
-                      'message-content relative max-w-[70%] px-3.5 py-2 wrap-break-word',
-                      getChatBubbleToneClass(isSent)
+                  {/* Message bubble + Inline Time */}
+                  <div className='flex items-end gap-2'>
+                    {isSent && (
+                      <span className='text-muted-foreground/70 opacity-0 transition-opacity group-hover:opacity-100 text-[10px]'>
+                        {formatDateTime(new Date(message.created * 1000))}
+                      </span>
                     )}
-                  >
-                    {/* Message content */}
-                    <p className='text-sm leading-relaxed whitespace-pre-wrap'>
-                      {message.body}
-                    </p>
 
-                    {message.attachments?.length ? (
-                      <div className='mt-2 space-y-2'>
-                        <MessageAttachments
-                          attachments={message.attachments}
-                          chatId={message.chat}
-                        />
-                      </div>
-                    ) : null}
+                    <div
+                      className={cn(
+                        'message-content relative max-w-[70%] px-3.5 py-2 wrap-break-word',
+                        getChatBubbleToneClass(isSent)
+                      )}
+                    >
+                      {message.attachments?.length ? (
+                        <div className='space-y-2'>
+                          <MessageAttachments
+                            attachments={message.attachments}
+                            chatId={message.chat}
+                          />
+                        </div>
+                      ) : null}
+
+                      {message.body ? (
+                        <p
+                          className={cn(
+                            'text-sm leading-relaxed whitespace-pre-wrap',
+                            message.attachments?.length ? 'mt-2' : undefined
+                          )}
+                        >
+                          {message.body}
+                        </p>
+                      ) : null}
+                    </div>
+
+                    {!isSent && (
+                      <span className='text-muted-foreground/70 opacity-0 transition-opacity group-hover:opacity-100 text-[10px]'>
+                        {formatDateTime(new Date(message.created * 1000))}
+                      </span>
+                    )}
                   </div>
-
-                  {!isSent && (
-                    <span className='text-muted-foreground/70 opacity-0 transition-opacity group-hover:opacity-100 text-[10px]'>
-                      {formatDateTime(new Date(message.created * 1000))}
-                    </span>
-                  )}
                 </div>
-              </div>
-            )
-          })}
-        </Fragment>
-      ))}
-      <div ref={messagesEndRef} />
+              )
+            })}
+          </Fragment>
+        ))}
+        <div ref={messagesEndRef} />
+      </div>
+
+      {isScrolledAwayFromBottom ? (
+        <div className='absolute left-1/2 bottom-3 z-10'>
+          <Button
+            type='button'
+            variant='outline'
+            size='icon'
+            className='bg-background relative size-10 rounded-full shadow-md'
+            onClick={scrollToBottom}
+            aria-label={
+              newMessageCount > 0
+                ? plural(newMessageCount, {
+                    one: 'Jump to 1 new message',
+                    other: 'Jump to # new messages',
+                  })
+                : t`Jump to bottom`
+            }
+          >
+            <ChevronsDown className='size-5' />
+            {newMessageCount > 0 ? (
+              <span className='bg-primary absolute -start-1 -top-1 flex min-h-5 min-w-5 items-center justify-center rounded-full px-1 text-[10px] font-semibold text-white'>
+                {newMessageCount > 99 ? '99+' : newMessageCount}
+              </span>
+            ) : null}
+          </Button>
+        </div>
+      ) : null}
     </div>
   )
 }

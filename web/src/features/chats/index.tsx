@@ -245,21 +245,21 @@ export function Chats() {
     })
   }
 
-  const handleMoveAttachment = (id: string, direction: 'left' | 'right') => {
+  const handleReorderAttachments = (fromIndex: number, toIndex: number) => {
     setPendingAttachments((prev) => {
-      const index = prev.findIndex((a) => a.id === id)
-      if (index === -1) return prev
-
-      const newAttachments = [...prev]
-      const targetIndex = direction === 'left' ? index - 1 : index + 1
-
-      if (targetIndex >= 0 && targetIndex < newAttachments.length) {
-        ;[newAttachments[index], newAttachments[targetIndex]] = [
-          newAttachments[targetIndex],
-          newAttachments[index],
-        ]
+      if (
+        fromIndex === toIndex ||
+        fromIndex < 0 ||
+        toIndex < 0 ||
+        fromIndex >= prev.length ||
+        toIndex >= prev.length
+      ) {
+        return prev
       }
-      return newAttachments
+      const next = [...prev]
+      const [item] = next.splice(fromIndex, 1)
+      next.splice(toIndex, 0, item)
+      return next
     })
   }
 
@@ -422,7 +422,7 @@ export function Chats() {
               isSendDisabled={!canSendMessage}
               pendingAttachments={pendingAttachments}
               onRemoveAttachment={handleRemoveAttachment}
-              onMoveAttachment={handleMoveAttachment}
+              onReorderAttachments={handleReorderAttachments}
               onAttachmentSelection={handleAttachmentSelection}
               sendMessageErrorMessage={
                 sendMessageMutation.error

@@ -1,3 +1,4 @@
+import { useMemo } from 'react'
 import { AttachmentGallery, authenticatedUrl, normalizeEntityUrl } from '@mochi/web'
 import type { ChatMessageAttachment } from '@/api/chats'
 
@@ -12,16 +13,24 @@ const isAttachmentPathCompatible = (value: string) => value.includes('/-/attachm
 export function MessageAttachments({ attachments, chatId }: MessageAttachmentsProps) {
   const appBase = import.meta.env.VITE_APP_BASE_URL || '/chat'
 
+  const normalizedAttachments = useMemo(
+    () =>
+      attachments.map((att) => ({
+        ...att,
+        type: att.type || att.content_type || '',
+      })),
+    [attachments]
+  )
+
   const resolve = (own: string | undefined, fallback: string) => {
-    if (own && (isAbsoluteUrl(own) || isAttachmentPathCompatible(own))) {
-      return normalizeEntityUrl(own)
-    }
-    return authenticatedUrl(normalizeEntityUrl(fallback))
+    const path =
+      own && (isAbsoluteUrl(own) || isAttachmentPathCompatible(own)) ? own : fallback
+    return authenticatedUrl(normalizeEntityUrl(path))
   }
 
   return (
     <AttachmentGallery
-      attachments={attachments}
+      attachments={normalizedAttachments}
       getUrl={(att) => resolve(att.url, `${appBase}/${chatId}/-/attachments/${att.id}`)}
       getThumbnailUrl={(att) =>
         resolve(att.thumbnail_url, `${appBase}/${chatId}/-/attachments/${att.id}/thumbnail`)
