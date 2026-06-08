@@ -319,6 +319,40 @@ def action_messages(a):
 		}
 	}
 
+# Search messages in a chat by body text
+def action_search(a):
+	if not mochi.text.valid(a.input("chat"), "id"):
+		a.error.label(400, "errors.invalid_chat_id")
+		return
+	chat = mochi.db.row("select * from chats where id=?", a.input("chat"))
+	if not chat:
+		a.error.label(404, "errors.chat_not_found")
+		return
+
+	is_member = mochi.db.exists("select 1 from members where chat=? and member=?", chat["id"], a.user.identity.id)
+	if not is_member and not chat["left"]:
+		a.error.label(403, "errors.not_a_member_of_this_chat")
+		return
+
+	query = a.input("q", "")
+	if not query or len(query.strip()) == 0:
+		return {"data": {"query": "", "results": []}}
+
+	query = query.strip()
+	if len(query) < 2:
+		return {"data": {"query": query, "results": []}}
+
+	escaped = query.replace("\\", "\\\\").replace("%", "\\%").replace("_", "\\_")
+	pattern = "%" + escaped + "%"
+
+	results = mochi.db.rows(
+		"select id, member, name, body, created, substr(body, 1, 200) as excerpt from messages where chat=? and body like ? escape '\\' order by created asc limit 100",
+		chat["id"],
+		pattern,
+	)
+
+	return {"data": {"query": query, "results": results}}
+
 # Send a message
 def action_send(a):
 	if not mochi.text.valid(a.input("chat"), "id"):

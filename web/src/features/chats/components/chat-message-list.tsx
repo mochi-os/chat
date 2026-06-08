@@ -4,13 +4,13 @@ import {
   useLayoutEffect,
   useMemo,
   useRef,
-                                                                    useState,
+  useState,
 } from 'react'
 import { useFormat } from '@mochi/web'
 import { plural, t } from '@lingui/core/macro'
 import { Trans } from '@lingui/react/macro'
 import type {
-  UseInfiniteQueryResult,                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
+  UseInfiniteQueryResult,
   InfiniteData,
 } from '@tanstack/react-query'
 import {
@@ -48,6 +48,11 @@ interface ChatMessageListProps {
   messagesError: unknown
   currentUserIdentity: string
   isGroupChat: boolean
+  searchActive?: boolean
+  matchedMessageIds?: Set<string>
+  activeMatchId?: string | null
+  scrollToMessageId?: string | null
+  onEnsureMatchVisible?: (messageId: string) => void | Promise<void>
 }
 
 export function ChatMessageList({
@@ -57,6 +62,11 @@ export function ChatMessageList({
   messagesError,
   currentUserIdentity,
   isGroupChat,
+  searchActive = false,
+  matchedMessageIds,
+  activeMatchId,
+  scrollToMessageId,
+  onEnsureMatchVisible,
 }: ChatMessageListProps) {
   const { formatDate, formatDateTime } = useFormat()
   const scrollContainerRef = useRef<HTMLDivElement | null>(null)
@@ -182,6 +192,32 @@ export function ChatMessageList({
     prevMessageCountRef.current = currentCount
   }, [chatMessages, currentUserIdentity, messagesQuery.isFetchingNextPage])
 
+  useLayoutEffect(() => {
+    if (!scrollToMessageId || !searchActive) return
+
+    const isLoaded = chatMessages.some((m) => m.id === scrollToMessageId)
+    if (isLoaded) {
+      const el = document.getElementById(`chat-message-${scrollToMessageId}`)
+      el?.scrollIntoView({ block: 'center', behavior: 'smooth' })
+      return
+    }
+
+    if (
+      messagesQuery.hasNextPage &&
+      !messagesQuery.isFetchingNextPage &&
+      onEnsureMatchVisible
+    ) {
+      void onEnsureMatchVisible(scrollToMessageId)
+    }
+  }, [
+    scrollToMessageId,
+    searchActive,
+    chatMessages,
+    messagesQuery.hasNextPage,
+    messagesQuery.isFetchingNextPage,
+    onEnsureMatchVisible,
+  ])
+
   if (isLoadingMessages) {
     return (
       <div className='flex flex-1 w-full flex-col justify-end gap-3 p-4'>
@@ -234,7 +270,7 @@ export function ChatMessageList({
       <div
         ref={scrollContainerRef}
         onScroll={handleScroll}
-        className='flex w-full flex-1 flex-col justify-start gap-4 overflow-y-auto py-2 pe-4 pb-4'
+        className='flex w-full flex-1 flex-col justify-start gap-4 overflow-y-auto px-4 py-2 pb-4'
       >
         {/* Load more trigger at top for older messages */}
         <LoadMoreTrigger
@@ -257,6 +293,7 @@ export function ChatMessageList({
               return (
                 <div
                   key={message.id}
+                  id={`chat-message-${message.id}`}
                   className={cn(
                     'group mb-3 flex w-full flex-col gap-1',
                     isSent ? 'items-end' : 'items-start'
@@ -289,7 +326,12 @@ export function ChatMessageList({
                     <div
                       className={cn(
                         'message-content relative max-w-[70%] px-3.5 py-2 wrap-break-word',
-                        getChatBubbleToneClass(isSent)
+                        getChatBubbleToneClass(isSent),
+                        activeMatchId === message.id
+                          ? 'ring-2 ring-inset ring-primary'
+                          : matchedMessageIds?.has(message.id)
+                            ? 'ring-2 ring-inset ring-yellow-500/50'
+                            : undefined
                       )}
                     >
                       {message.attachments?.length ? (
@@ -327,7 +369,7 @@ export function ChatMessageList({
         <div ref={messagesEndRef} />
       </div>
 
-      {isScrolledAwayFromBottom ? (
+      {isScrolledAwayFromBottom && !searchActive ? (
         <div className='absolute left-1/2 bottom-3 z-10'>
           <Button
             type='button'

@@ -4,6 +4,7 @@ const endpoints = {
     new: '/-/new',
     create: '/-/create',
     messages: (chatId: string) => `/${chatId}/-/messages`,
+    search: (chatId: string) => `/${chatId}/-/search`,
     send: (chatId: string) => `/${chatId}/-/send`,
     detail: (chatId: string) => `/${chatId}/-/view`,
     members: (chatId: string) => `/${chatId}/-/members`,

@@ -1,7 +1,8 @@
-import { useEffect, useMemo, useRef, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { Trans, useLingui } from '@lingui/react/macro'
 import { useAuthStore, usePageTitle, PageHeader, Main, GeneralError, Button, Checkbox, ConfirmDialog, EntityAvatar, IconButton, DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger, Label, toast, getErrorMessage } from '@mochi/web'
 import { useNavigate, useParams, useSearch } from '@tanstack/react-router'
+import { useQueryClient, type InfiniteData } from '@tanstack/react-query'
 import { ChatSkeleton } from './components/chat-skeleton'
 import {
   MoreHorizontal,
@@ -10,11 +11,13 @@ import {
   Loader2,
   Trash2,
   MessageCircle,
+  Search,
 } from 'lucide-react'
 import { useSidebarContext } from '@/context/sidebar-context'
 import { setLastChat, setDraft, getDraft, clearDraft } from '@/hooks/useChatStorage'
 import { useChatWebsocket } from '@/hooks/useChatWebsocket'
 import {
+  chatKeys,
   useInfiniteMessagesQuery,
   useChatsQuery,
   useSendMessageMutation,
@@ -23,9 +26,12 @@ import {
   useDeleteChatMutation,
   useCreateChatMutation,
 } from '@/hooks/useChats'
+import type { GetMessagesResponse } from '@/api/types/chats'
 import { ChatEmptyState } from './components/chat-empty-state'
 import { ChatInput } from './components/chat-input'
 import { ChatMessageList } from './components/chat-message-list'
+import { ChatSearchHeader } from './components/chat-search-header'
+import { useChatMessageSearch } from './hooks/use-chat-message-search'
 import {
   type PendingAttachment,
   createPendingAttachment,
@@ -37,6 +43,7 @@ export function Chats() {
   usePageTitle(t`Chat`)
 
   const navigate = useNavigate()
+  const queryClient = useQueryClient()
   const { openNewChatDialog, setWebsocketStatus } = useSidebarContext()
   const [newMessage, setNewMessage] = useState('')
   const [showLeaveDialog, setShowLeaveDialog] = useState(false)
@@ -166,6 +173,57 @@ export function Chats() {
     if (!messagesQuery.data?.pages) return []
     return [...messagesQuery.data.pages].reverse().flatMap((p) => p.messages)
   }, [messagesQuery.data?.pages])
+
+  const messageSearch = useChatMessageSearch(
+    selectedChat?.id,
+    Boolean(selectedChat && !selectedChat.left)
+  )
+
+  const ensureMatchVisible = useCallback(
+    async (targetId: string) => {
+      if (!selectedChat?.id) return
+
+      const key = chatKeys.messages(selectedChat.id)
+      let hasMore = messagesQuery.hasNextPage ?? false
+
+      for (let i = 0; i < 20 && hasMore; i++) {
+        const data = queryClient.getQueryData<InfiniteData<GetMessagesResponse>>(
+          key
+        )
+        const loaded = data?.pages
+          ? [...data.pages].reverse().flatMap((p) => p.messages)
+          : []
+        if (loaded.some((m) => m.id === targetId)) return
+
+        const result = await messagesQuery.fetchNextPage()
+        hasMore = result.hasNextPage ?? false
+      }
+    },
+    [selectedChat?.id, queryClient, messagesQuery]
+  )
+
+  useEffect(() => {
+    if (!messageSearch.isSearchOpen || !messageSearch.activeMatchId) return
+    void ensureMatchVisible(messageSearch.activeMatchId)
+  }, [
+    messageSearch.isSearchOpen,
+    messageSearch.activeMatchId,
+    ensureMatchVisible,
+  ])
+
+  useEffect(() => {
+    if (!selectedChat || selectedChat.left) return
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if ((e.metaKey || e.ctrlKey) && e.key === 'f') {
+        e.preventDefault()
+        messageSearch.openSearch()
+      }
+    }
+
+    window.addEventListener('keydown', handleKeyDown)
+    return () => window.removeEventListener('keydown', handleKeyDown)
+  }, [selectedChat, messageSearch])
 
   // Send message
   const sendMessageMutation = useSendMessageMutation({
@@ -318,6 +376,18 @@ export function Chats() {
   return (
     <>
       <div className='flex h-full flex-col overflow-hidden'>
+        {messageSearch.isSearchOpen ? (
+          <ChatSearchHeader
+            query={messageSearch.query}
+            onQueryChange={messageSearch.setQuery}
+            activeIndex={messageSearch.activeIndex}
+            totalMatches={messageSearch.matches.length}
+            isSearching={messageSearch.isSearching}
+            onNext={messageSearch.goNext}
+            onPrev={messageSearch.goPrev}
+            onClose={messageSearch.closeSearch}
+          />
+        ) : (
         <PageHeader
           title={selectedChat.name}
           icon={
@@ -332,6 +402,17 @@ export function Chats() {
             )
           }
           description={subtitle || undefined}
+          actions={
+            !selectedChat.left ? (
+              <IconButton
+                variant='ghost'
+                label={t`Search messages`}
+                onClick={messageSearch.openSearch}
+              >
+                <Search className='size-5' />
+              </IconButton>
+            ) : undefined
+          }
           menuAction={
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
@@ -370,6 +451,7 @@ export function Chats() {
             </DropdownMenu>
           }
         />
+        )}
 
         <Main className='flex min-h-0 flex-1 flex-col overflow-hidden'>
           {chatsQuery.error ? (
@@ -388,6 +470,11 @@ export function Chats() {
             messagesError={messagesQuery.error}
             currentUserIdentity={currentUserIdentity}
             isGroupChat={(chatDetail?.chat.members?.length ?? 0) > 2}
+            searchActive={messageSearch.isSearchOpen}
+            matchedMessageIds={messageSearch.matchedMessageIds}
+            activeMatchId={messageSearch.activeMatchId}
+            scrollToMessageId={messageSearch.activeMatchId}
+            onEnsureMatchVisible={ensureMatchVisible}
           />
 
           {selectedChat.left ? (

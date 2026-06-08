@@ -65,6 +65,20 @@ export interface GetMessagesResponse extends PaginationMeta {
   nextCursor?: number
 }
 
+export interface ChatSearchResult {
+  id: string
+  member: string
+  name: string
+  body: string
+  excerpt: string
+  created: number
+}
+
+export interface SearchMessagesResponse {
+  query: string
+  results: ChatSearchResult[]
+}
+
 export interface CreateChatRequest {
   name: string
   members: string

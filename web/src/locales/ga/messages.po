@@ -19,6 +19,10 @@ msgstr ""
 msgid "{0} settings"
 msgstr "Socruithe {0}"
 
+#: src/features/chats/components/chat-message-list.tsx:382
+msgid "{newMessageCount, plural, one {Jump to 1 new message} other {Jump to # new messages}}"
+msgstr ""
+
 #: ../../../lib/web/src/lib/preference-utils.ts:39
 msgid "12 hours"
 msgstr "12 uair"
@@ -81,7 +85,7 @@ msgstr "Cuir cuntas leis"
 msgid "Add an account to receive notifications and use services."
 msgstr "Cuir cuntas leis chun fógraí a fháil agus seirbhísí a úsáid."
 
-#: src/features/chats/components/chat-input.tsx:55
+#: src/features/chats/components/chat-input.tsx:170
 msgid "Add attachment"
 msgstr "Cuir ceangaltán leis"
 
@@ -140,7 +144,7 @@ msgid "An unexpected error occurred"
 msgstr "Tharla earráid gan choinne"
 
 #. placeholder {0}: selectedChat?.name
-#: src/features/chats/index.tsx:423
+#: src/features/chats/index.tsx:531
 msgid "Are you sure you want to leave \"{0}\"? You can be added back by other members."
 msgstr "An bhfuil tú cinnte gur mian leat \"{0}\" a fhágáil? Is féidir le baill eile thú a chur ar ais."
 
@@ -209,10 +213,10 @@ msgstr "Catagóir don fhógra seo"
 msgid "Change notification category"
 msgstr "Athraigh catagóir an fhógra"
 
-#: src/features/chats/index.tsx:37
-#: src/features/chats/index.tsx:98
-#: src/features/chats/index.tsx:98
-#: src/features/chats/index.tsx:277
+#: src/features/chats/index.tsx:43
+#: src/features/chats/index.tsx:126
+#: src/features/chats/index.tsx:126
+#: src/features/chats/index.tsx:356
 msgid "Chat"
 msgstr "Comhrá"
 
@@ -220,7 +224,7 @@ msgstr "Comhrá"
 msgid "Chat created"
 msgstr "Comhrá cruthaithe"
 
-#: src/features/chats/index.tsx:180
+#: src/features/chats/index.tsx:259
 msgid "Chat deleted"
 msgstr "Comhrá scriosta"
 
@@ -253,7 +257,7 @@ msgstr "Comhrá réidh"
 msgid "Chat renamed"
 msgstr "Comhrá athainmnithe"
 
-#: src/features/chats/index.tsx:344
+#: src/features/chats/index.tsx:446
 #: src/routes/_authenticated/$chatId_.settings.tsx:81
 #: src/routes/_authenticated/$chatId_.settings.tsx:94
 #: src/routes/_authenticated/$chatId_.settings.tsx:105
@@ -261,11 +265,11 @@ msgstr "Comhrá athainmnithe"
 msgid "Chat settings"
 msgstr "Socruithe comhrá"
 
-#: src/features/chats/components/chat-input.tsx:61
+#: src/features/chats/components/chat-input.tsx:176
 msgid "Chat Text Box"
 msgstr "Bosca Téacs an Chomhrá"
 
-#: src/components/layout/chat-layout.tsx:101
+#: src/components/layout/chat-layout.tsx:123
 msgid "Chats"
 msgstr "Comhráite"
 
@@ -319,7 +323,7 @@ msgid "Clear selection (Escape)"
 msgstr "Glan rogha (Éalú)"
 
 #: ../../../lib/web/src/components/ui/dialog.tsx:75
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:318
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:321
 #: ../../../lib/web/src/components/ui/sheet.tsx:76
 msgid "Close"
 msgstr "Dún"
@@ -333,6 +337,7 @@ msgid "Close panel"
 msgstr "Dún an painéal"
 
 #: ../../../lib/web/src/components/header-search.tsx:51
+#: src/features/chats/components/chat-search-header.tsx:105
 msgid "Close search"
 msgstr "Dún cuardach"
 
@@ -398,7 +403,7 @@ msgstr "Níorbh fhéidir fíorú leis an gcuntas sin. Bain triail eile as le do 
 msgid "Create a new chat"
 msgstr "Cruthaigh comhrá nua"
 
-#: src/components/layout/chat-layout.tsx:109
+#: src/components/layout/chat-layout.tsx:131
 #: src/features/chats/components/new-chat.tsx:262
 msgid "Create chat"
 msgstr "Cruthaigh comhrá"
@@ -428,12 +433,12 @@ msgstr "Réamhshocrú"
 msgid "Default AI account"
 msgstr "Cuntas AI réamhshocraithe"
 
-#: src/features/chats/index.tsx:327
-#: src/features/chats/index.tsx:391
+#: src/features/chats/index.tsx:429
+#: src/features/chats/index.tsx:499
 msgid "Delete chat"
 msgstr "Scrios comhrá"
 
-#: src/features/chats/index.tsx:445
+#: src/features/chats/index.tsx:553
 #: src/routes/_authenticated/$chatId_.settings.tsx:440
 msgid "Delete chat history"
 msgstr "Scrios stair an chomhrá"
@@ -473,7 +478,7 @@ msgstr "Dífhostaigh"
 msgid "Displays the mobile sidebar."
 msgstr "Taispeánann an barra taoibh móibíleach."
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:312
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:315
 msgid "Download"
 msgstr "Íoslódáil"
 
@@ -517,11 +522,11 @@ msgstr "Theip ar bhall a chur leis"
 msgid "Failed to create chat"
 msgstr "Theip ar chomhrá a chruthú"
 
-#: src/features/chats/index.tsx:184
+#: src/features/chats/index.tsx:263
 msgid "Failed to delete chat"
 msgstr "Theip ar chomhrá a scriosadh"
 
-#: src/features/chats/index.tsx:168
+#: src/features/chats/index.tsx:247
 #: src/routes/_authenticated/$chatId_.settings.tsx:402
 msgid "Failed to leave chat"
 msgstr "Theip ar fhágáil an chomhrá"
@@ -538,7 +543,7 @@ msgstr "Theip ar bhaint baill"
 msgid "Failed to rename chat"
 msgstr "Theip ar athainmniú comhrá"
 
-#: src/features/chats/index.tsx:408
+#: src/features/chats/index.tsx:516
 msgid "Failed to send message"
 msgstr "Theip ar sheoladh teachtaireachta"
 
@@ -546,7 +551,7 @@ msgstr "Theip ar sheoladh teachtaireachta"
 msgid "Failed to send verification code"
 msgstr "Theip ar sheoladh cód fíoraithe"
 
-#: src/features/chats/index.tsx:111
+#: src/features/chats/index.tsx:139
 msgid "Failed to start chat"
 msgstr "Theip ar chomhrá a thosú"
 
@@ -656,6 +661,10 @@ msgstr "Suimeanna"
 msgid "Invalid verification code"
 msgstr "Cód fíoraithe neamhbhailí"
 
+#: src/features/chats/components/chat-message-list.tsx:386
+msgid "Jump to bottom"
+msgstr ""
+
 #: ../../../lib/web/src/lib/preference-utils.ts:105
 #: ../../../lib/web/src/lib/preference-utils.ts:123
 msgid "Large"
@@ -669,21 +678,21 @@ msgstr "Leagan amach"
 msgid "Learn more"
 msgstr "Foghlaim tuilleadh"
 
-#: src/features/chats/index.tsx:431
+#: src/features/chats/index.tsx:539
 msgid "Leave"
 msgstr "Fág"
 
-#: src/features/chats/index.tsx:334
+#: src/features/chats/index.tsx:436
 #: src/routes/_authenticated/$chatId_.settings.tsx:426
 msgid "Leave chat"
 msgstr "Fág comhrá"
 
-#: src/features/chats/index.tsx:422
+#: src/features/chats/index.tsx:530
 #: src/routes/_authenticated/$chatId_.settings.tsx:417
 msgid "Leave chat?"
 msgstr "Fág comhrá?"
 
-#: src/features/chats/index.tsx:428
+#: src/features/chats/index.tsx:536
 #: src/routes/_authenticated/$chatId_.settings.tsx:423
 msgid "Leaving..."
 msgstr "Á fhágáil..."
@@ -770,12 +779,12 @@ msgid "Monday"
 msgstr "Dé Luain"
 
 #: src/features/chats/components/chat-input.tsx:133
-msgid "Move attachment left"
-msgstr "Bog ceangaltán ar chlé"
+#~ msgid "Move attachment left"
+#~ msgstr "Bog ceangaltán ar chlé"
 
 #: src/features/chats/components/chat-input.tsx:145
-msgid "Move attachment right"
-msgstr "Bog ceangaltán ar dheis"
+#~ msgid "Move attachment right"
+#~ msgstr "Bog ceangaltán ar dheis"
 
 #: src/routes/_authenticated/$chatId_.settings.tsx:202
 msgid "Name must be 1000 characters or less"
@@ -794,9 +803,13 @@ msgstr "Nua"
 msgid "New chat"
 msgstr "Comhrá nua"
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:342
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:345
 msgid "Next image"
 msgstr "An chéad íomhá eile"
+
+#: src/features/chats/components/chat-search-header.tsx:94
+msgid "Next match"
+msgstr ""
 
 #: ../../../lib/web/src/features/access/access-list.tsx:156
 msgid "No access rules configured. Add rules to control who can access this resource."
@@ -822,7 +835,7 @@ msgstr "Níl aon chara fós"
 msgid "No groups available"
 msgstr "Níl aon ghrúpa ar fáil"
 
-#: src/features/chats/components/chat-message-list.tsx:167
+#: src/features/chats/components/chat-message-list.tsx:263
 msgid "No messages yet"
 msgstr "Níl aon teachtaireacht fós"
 
@@ -833,6 +846,10 @@ msgstr "Níor aimsíodh aon áit"
 #: ../../../lib/web/src/components/profile-dropdown.tsx:55
 msgid "No profile"
 msgstr "Gan próifíl"
+
+#: src/features/chats/components/chat-search-header.tsx:37
+msgid "No results"
+msgstr ""
 
 #: ../../../lib/web/src/components/command-menu.tsx:52
 #: ../../../lib/web/src/components/data-table/faceted-filter.tsx:87
@@ -880,7 +897,7 @@ msgstr "Oscail"
 msgid "Open account actions"
 msgstr "Oscail gníomhartha cuntais"
 
-#: src/features/chats/index.tsx:319
+#: src/features/chats/index.tsx:421
 msgid "Open chat actions"
 msgstr "Oscail gníomhartha comhrá"
 
@@ -933,9 +950,13 @@ msgstr "Tabhair ainm comhrá le do thoil"
 msgid "Please select at least one friend"
 msgstr "Roghnaigh cara amháin ar a laghad le do thoil"
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:332
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:335
 msgid "Previous image"
 msgstr "Íomhá roimhe seo"
+
+#: src/features/chats/components/chat-search-header.tsx:85
+msgid "Previous match"
+msgstr ""
 
 #: ../../../lib/web/src/components/server-documents-footer.tsx:24
 #: ../../../lib/web/src/features/document/document-page.tsx:41
@@ -983,7 +1004,7 @@ msgid "Remove"
 msgstr "Bain"
 
 #. placeholder {0}: attachment.file.name
-#: src/features/chats/components/chat-input.tsx:165
+#: src/features/chats/components/chat-input.tsx:154
 msgid "Remove {0}"
 msgstr "Bain {0}"
 
@@ -1044,6 +1065,14 @@ msgstr "Cuardaigh ceann scríbe..."
 #: ../../../lib/web/src/components/travelling-picker.tsx:173
 msgid "Search for origin..."
 msgstr "Cuardaigh bunús..."
+
+#: src/features/chats/components/chat-search-header.tsx:53
+msgid "Search in chat..."
+msgstr ""
+
+#: src/features/chats/index.tsx:409
+msgid "Search messages"
+msgstr ""
 
 #: ../../../lib/web/src/components/timezone-select.tsx:62
 msgid "Search time zone..."
@@ -1115,7 +1144,7 @@ msgstr "Seol arís"
 msgid "Send email"
 msgstr "Seol ríomhphost"
 
-#: src/features/chats/components/chat-input.tsx:75
+#: src/features/chats/components/chat-input.tsx:198
 msgid "Send message"
 msgstr "Seol teachtaireacht"
 
@@ -1289,7 +1318,7 @@ msgstr "Clóscríobh chun cuardach a dhéanamh ar úsáideoirí"
 msgid "Type to search..."
 msgstr "Clóscríobh chun cuardach a dhéanamh..."
 
-#: src/features/chats/components/chat-input.tsx:64
+#: src/features/chats/components/chat-input.tsx:180
 msgid "Type your message…"
 msgstr "Clóscríobh do theachtaireacht…"
 
@@ -1314,7 +1343,7 @@ msgstr "Rochtain Gan Údarú"
 msgid "United States"
 msgstr "Stáit Aontaithe"
 
-#: src/hooks/useChatWebsocket.ts:173
+#: src/hooks/useChatWebsocket.ts:183
 msgid "Unknown"
 msgstr "Anaithnid"
 
@@ -1380,8 +1409,7 @@ msgstr "Tá an suíomh gréasáin faoi chothabháil!"
 msgid "Wednesday"
 msgstr "Céadaoin"
 
-#: src/features/chats/index.tsx:136
-#: src/features/chats/index.tsx:137
+#: src/features/chats/index.tsx:164
 msgid "You"
 msgstr "Tusa"
 
@@ -1397,11 +1425,11 @@ msgstr "Tá comhráite agat cheana féin le:"
 msgid "You haven't started any chats yet. Connect with a friend to get things rolling."
 msgstr "Níor thosaigh tú aon chomhráite fós. Ceangal le cara chun tús a chur leis an gcaint."
 
-#: src/features/chats/index.tsx:378
+#: src/features/chats/index.tsx:486
 msgid "You left this chat"
 msgstr "D'fhág tú an comhrá seo"
 
-#: src/features/chats/index.tsx:377
+#: src/features/chats/index.tsx:485
 msgid "You were removed from this chat"
 msgstr "Baineadh thú ón gcomhrá seo"
 

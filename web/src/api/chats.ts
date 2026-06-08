@@ -5,6 +5,7 @@ import type {
   GetChatsResponse,
   GetMembersResponse,
   GetMessagesResponse,
+  SearchMessagesResponse,
   SendMessageRequest,
   SendMessageResponse,
   GetNewChatResponse,
@@ -54,6 +55,14 @@ export const chatsApi = {
         { params }
       )
       .then((res) => unwrapData<GetMessagesResponse>(res)),
+
+  search: (chatId: string, params: { q: string }) =>
+    client
+      .get<SearchMessagesResponse | { data: SearchMessagesResponse }>(
+        endpoints.chat.search(chatId),
+        { params }
+      )
+      .then((res) => unwrapData<SearchMessagesResponse>(res)),
 
   sendMessage: (chatId: string, payload: SendMessageRequest) => {
     // Check if we need to send as FormData (for attachments)
