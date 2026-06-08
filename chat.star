@@ -346,7 +346,7 @@ def action_search(a):
 	pattern = "%" + escaped + "%"
 
 	results = mochi.db.rows(
-		"select id, member, name, body, created, substr(body, 1, 200) as excerpt from messages where chat=? and body like ? escape '\\' order by created asc limit 100",
+		"select id, member, name, body, created, substr(body, 1, 200) as excerpt from messages where chat=? and body like ? escape '\\' order by created desc limit 100",
 		chat["id"],
 		pattern,
 	)

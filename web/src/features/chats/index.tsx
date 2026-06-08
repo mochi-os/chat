@@ -383,8 +383,8 @@ export function Chats() {
             activeIndex={messageSearch.activeIndex}
             totalMatches={messageSearch.matches.length}
             isSearching={messageSearch.isSearching}
-            onNext={messageSearch.goNext}
-            onPrev={messageSearch.goPrev}
+            onNewer={messageSearch.goNewer}
+            onOlder={messageSearch.goOlder}
             onClose={messageSearch.closeSearch}
           />
         ) : (
@@ -402,18 +402,17 @@ export function Chats() {
             )
           }
           description={subtitle || undefined}
-          actions={
-            !selectedChat.left ? (
-              <IconButton
-                variant='ghost'
-                label={t`Search messages`}
-                onClick={messageSearch.openSearch}
-              >
-                <Search className='size-5' />
-              </IconButton>
-            ) : undefined
-          }
           menuAction={
+            <div className='flex items-center gap-1'>
+              {!selectedChat.left ? (
+                <IconButton
+                  variant='ghost'
+                  label={t`Search messages`}
+                  onClick={messageSearch.openSearch}
+                >
+                  <Search className='size-5' />
+                </IconButton>
+              ) : null}
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <IconButton
@@ -449,6 +448,7 @@ export function Chats() {
                 )}
               </DropdownMenuContent>
             </DropdownMenu>
+            </div>
           }
         />
         )}
@@ -471,6 +471,7 @@ export function Chats() {
             currentUserIdentity={currentUserIdentity}
             isGroupChat={(chatDetail?.chat.members?.length ?? 0) > 2}
             searchActive={messageSearch.isSearchOpen}
+            searchQuery={messageSearch.debouncedQuery}
             matchedMessageIds={messageSearch.matchedMessageIds}
             activeMatchId={messageSearch.activeMatchId}
             scrollToMessageId={messageSearch.activeMatchId}

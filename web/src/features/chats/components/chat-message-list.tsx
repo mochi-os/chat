@@ -27,6 +27,7 @@ import { ChevronsDown, MessageCircle } from 'lucide-react'
 import type { ChatMessage } from '@/api/chats'
 import type { GetMessagesResponse } from '@/api/types/chats'
 import { MessageAttachments } from './message-attachments'
+import { highlightSearchText } from '../utils/highlight-search-text'
 
 const BOTTOM_THRESHOLD_PX = 80
 
@@ -49,6 +50,7 @@ interface ChatMessageListProps {
   currentUserIdentity: string
   isGroupChat: boolean
   searchActive?: boolean
+  searchQuery?: string
   matchedMessageIds?: Set<string>
   activeMatchId?: string | null
   scrollToMessageId?: string | null
@@ -63,6 +65,7 @@ export function ChatMessageList({
   currentUserIdentity,
   isGroupChat,
   searchActive = false,
+  searchQuery = '',
   matchedMessageIds,
   activeMatchId,
   scrollToMessageId,
@@ -326,12 +329,7 @@ export function ChatMessageList({
                     <div
                       className={cn(
                         'message-content relative max-w-[70%] px-3.5 py-2 wrap-break-word',
-                        getChatBubbleToneClass(isSent),
-                        activeMatchId === message.id
-                          ? 'ring-2 ring-inset ring-primary'
-                          : matchedMessageIds?.has(message.id)
-                            ? 'ring-2 ring-inset ring-yellow-500/50'
-                            : undefined
+                        getChatBubbleToneClass(isSent)
                       )}
                     >
                       {message.attachments?.length ? (
@@ -350,7 +348,15 @@ export function ChatMessageList({
                             message.attachments?.length ? 'mt-2' : undefined
                           )}
                         >
-                          {message.body}
+                          {searchActive &&
+                          searchQuery.length >= 2 &&
+                          matchedMessageIds?.has(message.id)
+                            ? highlightSearchText(
+                                message.body,
+                                searchQuery,
+                                activeMatchId === message.id
+                              )
+                            : message.body}
                         </p>
                       ) : null}
                     </div>

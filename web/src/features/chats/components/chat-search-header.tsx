@@ -9,8 +9,8 @@ interface ChatSearchHeaderProps {
   activeIndex: number
   totalMatches: number
   isSearching: boolean
-  onNext: () => void
-  onPrev: () => void
+  onNewer: () => void
+  onOlder: () => void
   onClose: () => void
 }
 
@@ -20,8 +20,8 @@ export function ChatSearchHeader({
   activeIndex,
   totalMatches,
   isSearching,
-  onNext,
-  onPrev,
+  onNewer,
+  onOlder,
   onClose,
 }: ChatSearchHeaderProps) {
   const { t } = useLingui()
@@ -56,10 +56,10 @@ export function ChatSearchHeader({
             onKeyDown={(e) => {
               if (e.key === 'Enter' && !e.shiftKey) {
                 e.preventDefault()
-                onNext()
+                onNewer()
               } else if (e.key === 'Enter' && e.shiftKey) {
                 e.preventDefault()
-                onPrev()
+                onOlder()
               } else if (e.key === 'Escape') {
                 e.preventDefault()
                 onClose()
@@ -82,20 +82,20 @@ export function ChatSearchHeader({
 
         <IconButton
           variant='ghost'
-          label={t`Previous match`}
-          onClick={onPrev}
-          disabled={totalMatches === 0 || activeIndex <= 0}
+          label={t`Older match`}
+          onClick={onOlder}
+          disabled={
+            totalMatches === 0 || activeIndex >= totalMatches - 1
+          }
         >
           <ChevronUp className='size-5' />
         </IconButton>
 
         <IconButton
           variant='ghost'
-          label={t`Next match`}
-          onClick={onNext}
-          disabled={
-            totalMatches === 0 || activeIndex >= totalMatches - 1
-          }
+          label={t`Newer match`}
+          onClick={onNewer}
+          disabled={totalMatches === 0 || activeIndex <= 0}
         >
           <ChevronDown className='size-5' />
         </IconButton>

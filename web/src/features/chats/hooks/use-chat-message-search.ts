@@ -72,11 +72,13 @@ export function useChatMessageSearch(chatId?: string, enabled = true) {
     setActiveIndex(0)
   }, [])
 
-  const goNext = useCallback(() => {
-    setActiveIndex((i) => (matches.length === 0 ? 0 : Math.min(i + 1, matches.length - 1)))
+  const goOlder = useCallback(() => {
+    setActiveIndex((i) =>
+      matches.length === 0 ? 0 : Math.min(i + 1, matches.length - 1)
+    )
   }, [matches.length])
 
-  const goPrev = useCallback(() => {
+  const goNewer = useCallback(() => {
     setActiveIndex((i) => Math.max(i - 1, 0))
   }, [])
 
@@ -92,8 +94,8 @@ export function useChatMessageSearch(chatId?: string, enabled = true) {
     activeMatch,
     activeMatchId,
     matchedMessageIds,
-    goNext,
-    goPrev,
+    goOlder,
+    goNewer,
     isSearching: searchQuery.isFetching,
     searchError: searchQuery.error,
   }
