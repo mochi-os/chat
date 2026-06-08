@@ -1,4 +1,4 @@
-import { type ChangeEvent, type FormEvent, useRef } from 'react'
+import { type ChangeEvent, type FormEvent, useEffect, useRef } from 'react'
 import { Trans, useLingui } from '@lingui/react/macro'
 import { Button } from '@mochi/web'
 import {
@@ -38,15 +38,24 @@ export function ChatInput({
 }: ChatInputProps) {
   const { t } = useLingui()
   const fileInputRef = useRef<HTMLInputElement | null>(null)
+  const textareaRef = useRef<HTMLTextAreaElement | null>(null)
   const hasPendingAttachments = pendingAttachments.length > 0
+
+  // Auto-resize: grow with content, shrink when cleared
+  useEffect(() => {
+    const el = textareaRef.current
+    if (!el) return
+    el.style.height = 'auto'
+    el.style.height = `${el.scrollHeight}px`
+  }, [newMessage])
 
   return (
     <form
       onSubmit={onSendMessage}
       className='flex w-full flex-none flex-col gap-2'
     >
-      <div className='border-input bg-card focus-within:ring-ring flex w-full items-center gap-2 rounded-xl border px-4 py-2 focus-within:ring-1 focus-within:outline-hidden'>
-        <div className='flex items-center'>
+      <div className='border-input bg-card focus-within:ring-ring flex w-full items-end gap-2 rounded-xl border px-4 py-2 focus-within:ring-1 focus-within:outline-hidden'>
+        <div className='flex items-end pb-0.5'>
           <Button
             size='icon'
             type='button'
@@ -59,27 +68,36 @@ export function ChatInput({
         </div>
         <label className='flex-1'>
           <span className='sr-only'><Trans>Chat Text Box</Trans></span>
-          <input
-            type='text'
+          <textarea
+            ref={textareaRef}
+            rows={1}
             placeholder={t`Type your message…`}
             value={newMessage}
             onChange={(e) => setNewMessage(e.target.value)}
-            className='w-full bg-inherit text-sm focus-visible:outline-hidden'
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault()
+                onSendMessage(e as unknown as FormEvent)
+              }
+            }}
+            className='max-h-40 w-full resize-none overflow-y-auto bg-transparent text-sm leading-5 focus-visible:outline-none'
           />
         </label>
-        <Button
-          type='submit'
-          size='icon'
-          className='bg-primary hover:bg-primary/80 transition-colors'
-          disabled={isSendDisabled}
-          aria-label={t`Send message`}
-        >
-          {isSending ? (
-            <Loader2 size={16} className='animate-spin' />
-          ) : (
-            <Send size={16} />
-          )}
-        </Button>
+        <div className='flex items-end pb-0.5'>
+          <Button
+            type='submit'
+            size='icon'
+            className='bg-primary hover:bg-primary/80 transition-colors'
+            disabled={isSendDisabled}
+            aria-label={t`Send message`}
+          >
+            {isSending ? (
+              <Loader2 size={16} className='animate-spin' />
+            ) : (
+              <Send size={16} />
+            )}
+          </Button>
+        </div>
         <input
           ref={fileInputRef}
           type='file'

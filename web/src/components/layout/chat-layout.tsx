@@ -1,4 +1,4 @@
-import { useEffect, useMemo } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { useLingui } from '@lingui/react/macro'
 import { Outlet, useParams } from '@tanstack/react-router'
 import {
@@ -11,6 +11,7 @@ import {
 import { MessageCircle, Plus } from 'lucide-react'
 import { SidebarProvider, useSidebarContext } from '@/context/sidebar-context'
 import { useChatsQuery } from '@/hooks/useChats'
+import { getReadTimestamps, saveReadTimestamps } from '@/hooks/useChatStorage'
 import { NewChat } from '@/features/chats/components/new-chat'
 
 const personIconCache = new Map<string, React.FC>()
@@ -61,7 +62,7 @@ function WebsocketStatusIndicator() {
 
 function ChatLayoutInner() {
   const { t } = useLingui()
-  const chatsQuery = useChatsQuery()
+  const chatsQuery = useChatsQuery({ refetchInterval: 60_000 })
   const chats = useMemo(
     () => chatsQuery.data?.chats ?? [],
     [chatsQuery.data?.chats]
@@ -72,13 +73,26 @@ function ChatLayoutInner() {
   const params = useParams({ strict: false }) as { chatId?: string }
   const urlChatId = params?.chatId
 
-  // Sync URL chat ID to context
+  // Per-chat read watermarks (unix seconds), keyed by real chat ID
+  const [readAt, setReadAt] = useState<Record<string, number>>({})
+  useEffect(() => {
+    getReadTimestamps().then(setReadAt)
+  }, [])
+
+  // Sync URL chat ID to context and mark chat as read when navigated to
   useEffect(() => {
     if (urlChatId) {
       const chat = chats.find(
         (c) => c.id === urlChatId || c.fingerprint === urlChatId
       )
       setChat(urlChatId, chat?.name)
+      if (chat) {
+        setReadAt((prev) => {
+          const next = { ...prev, [chat.id]: chat.updated }
+          saveReadTimestamps(next)
+          return next
+        })
+      }
     } else {
       setChat(null)
     }
@@ -88,11 +102,19 @@ function ChatLayoutInner() {
     // Sort chats by most recently updated
     const sortedChats = [...chats].sort((a, b) => b.updated - a.updated)
 
+    // Resolve the real chat ID for the active URL so we can suppress its badge
+    const activeChatId = urlChatId
+      ? (chats.find((c) => c.id === urlChatId || c.fingerprint === urlChatId)?.id ?? urlChatId)
+      : null
+
     // Build chat items as top-level links - use fingerprint for shorter URLs
     const chatItems = sortedChats.map((chat) => ({
       title: chat.name,
       url: `/${chat.fingerprint ?? chat.id}`,
       icon: chat.members === 2 && chat.other ? personIcon(chat.other) : MessageCircle,
+      badge: !chat.left && chat.id !== activeChatId && chat.updated > (readAt[chat.id] ?? 0)
+        ? '●'
+        : undefined,
     }))
 
     return {
@@ -114,7 +136,7 @@ function ChatLayoutInner() {
         },
       ],
     }
-  }, [chats, openNewChatDialog])
+  }, [chats, openNewChatDialog, urlChatId, readAt])
 
   return (
     <AuthenticatedLayout

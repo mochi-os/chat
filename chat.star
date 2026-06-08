@@ -49,6 +49,7 @@ def chat_commit_hook(table, kind, row_uid):
 		return
 	attachments = mochi.attachment.list("chat/" + message["chat"] + "/" + message["id"])
 	mochi.websocket.write(chat["key"], {
+		"id": message["id"],
 		"created": message["created"],
 		"member": message["member"],
 		"name": message["name"],
@@ -371,11 +372,11 @@ def action_send(a):
 
 	# Send message to other members with attachment metadata piggybacked.
 	# member_ids comes pre-filtered to exclude the sender, so no exclude
-	# arg is needed here.
-	now = mochi.time.now()
-	msg_data = {"chat": chat["id"], "message": id, "created": now, "body": body, "name": a.user.identity.name}
+	# arg is needed here. Reuse now_send (the timestamp already written to
+	# the DB) so sender and recipients store the identical created value.
+	msg_data = {"chat": chat["id"], "message": id, "created": now_send, "body": body, "name": a.user.identity.name}
 	if attachments:
-		msg_data["attachments"] = [{"id": att["id"], "name": att["name"], "size": att["size"], "content_type": att.get("type", ""), "rank": att.get("rank", 0), "created": att.get("created", now)} for att in attachments]
+		msg_data["attachments"] = [{"id": att["id"], "name": att["name"], "size": att["size"], "content_type": att.get("type", ""), "rank": att.get("rank", 0), "created": att.get("created", now_send)} for att in attachments]
 	broadcast_chat(chat["id"], a.user.identity.id, member_ids, "message", msg_data)
 
 	return {

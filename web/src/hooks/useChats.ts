@@ -69,7 +69,7 @@ export const useChatsQuery = (
       GetChatsResponse,
       ReturnType<typeof chatKeys.all>
     >,
-    'enabled' | 'staleTime' | 'gcTime'
+    'enabled' | 'staleTime' | 'gcTime' | 'refetchInterval'
   >
 ) =>
   useQueryWithError({
@@ -143,7 +143,7 @@ export const useSendMessageMutation = (
           ...old,
           chats: old.chats.map((chat) =>
             chat.id === variables.chatId
-              ? { ...chat, updated: Date.now() }
+              ? { ...chat, updated: Math.floor(Date.now() / 1000) }
               : chat
           ),
         }

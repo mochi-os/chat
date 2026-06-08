@@ -32,10 +32,18 @@ interface UseChatWebsocketResult {
   forceReconnect: () => void
 }
 
-const isSameMessage = (incoming: ChatMessage, existing: ChatMessage): boolean =>
-  incoming.created === existing.created &&
-  incoming.body === existing.body &&
-  incoming.name === existing.name
+const isSameMessage = (incoming: ChatMessage, existing: ChatMessage): boolean => {
+  const incomingHasRealId = incoming.id && !incoming.id.startsWith('ws-')
+  const existingHasRealId = existing.id && !existing.id.startsWith('ws-')
+  if (incomingHasRealId && existingHasRealId) {
+    return incoming.id === existing.id
+  }
+  return (
+    incoming.created === existing.created &&
+    incoming.body === existing.body &&
+    incoming.name === existing.name
+  )
+}
 
 const normalizeAttachments = (
   attachments: unknown
@@ -68,7 +76,9 @@ const createMessageFromPayload = (
   const senderId = typeof payload.member === 'string' ? payload.member : ''
 
   return {
-    id: `ws-${chatId}-${created}-${Math.random().toString(36).slice(2)}`,
+    id: typeof payload.id === 'string' && payload.id
+      ? payload.id
+      : `ws-${chatId}-${created}-${Math.random().toString(36).slice(2)}`,
     chat: chatId,
     body: messageBody,
     member: senderId,

@@ -12,7 +12,7 @@ import {
   MessageCircle,
 } from 'lucide-react'
 import { useSidebarContext } from '@/context/sidebar-context'
-import { setLastChat } from '@/hooks/useChatStorage'
+import { setLastChat, setDraft, getDraft, clearDraft } from '@/hooks/useChatStorage'
 import { useChatWebsocket } from '@/hooks/useChatWebsocket'
 import {
   useInfiniteMessagesQuery,
@@ -48,7 +48,6 @@ export function Chats() {
 
   const {
     identity: currentUserIdentity,
-    name: currentUserName,
     initialize: initializeAuth,
   } = useAuthStore()
 
@@ -68,6 +67,28 @@ export function Chats() {
       setLastChat(selectedChatId)
     }
   }, [selectedChatId])
+
+  // Reset input and restore draft when selected chat changes
+  useEffect(() => {
+    setNewMessage('')
+    if (!selectedChatId) return
+    getDraft(selectedChatId).then((draft) => {
+      if (draft) setNewMessage(draft)
+    })
+  }, [selectedChatId])
+
+  // Debounced draft save on every keystroke
+  useEffect(() => {
+    if (!selectedChatId) return
+    const timer = setTimeout(() => {
+      if (newMessage) {
+        setDraft(selectedChatId, newMessage)
+      } else {
+        clearDraft(selectedChatId)
+      }
+    }, 300)
+    return () => clearTimeout(timer)
+  }, [newMessage, selectedChatId])
 
   // Chats list
   const chatsQuery = useChatsQuery()
@@ -128,17 +149,16 @@ export function Chats() {
   const subtitle = useMemo(() => {
     if (!chatDetail?.chat.members || chatDetail.chat.members.length <= 2) return null
 
-    const names = chatDetail.chat.members.map((m) => m.name)
-    const myIndex = names.indexOf(currentUserName || '')
+    const members = chatDetail.chat.members
+    const myIndex = members.findIndex((m) => m.id === currentUserIdentity)
 
-    let display = [...names]
+    let display = members.map((m) => m.name)
     if (myIndex !== -1) {
-      display[myIndex] = t`You`
       display = [t`You`, ...display.filter((_, i) => i !== myIndex)]
     }
 
     return display.join(', ')
-  }, [chatDetail, currentUserName])
+  }, [chatDetail, currentUserIdentity, t])
 
   // Messages
   const messagesQuery = useInfiniteMessagesQuery(selectedChat?.id)
@@ -152,6 +172,7 @@ export function Chats() {
     onSuccess: () => {
       setNewMessage('')
       clearAttachments()
+      if (selectedChat) clearDraft(selectedChat.id)
     },
   })
 

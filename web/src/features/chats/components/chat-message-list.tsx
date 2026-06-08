@@ -190,11 +190,11 @@ export function ChatMessageList({
             <div className='text-muted-foreground text-xs'>{formatDate(new Date(key + 'T00:00:00'))}</div>
           </div>
 
-          {groupedMessages[key].map((message, index) => {
+          {groupedMessages[key].map((message) => {
             const isSent = isCurrentUserMessage(message)
             return (
               <div
-                key={`${message.id}-${index}`}
+                key={message.id}
                 className={cn(
                   'group mb-3 flex w-full flex-col gap-1',
                   isSent ? 'items-end' : 'items-start'
