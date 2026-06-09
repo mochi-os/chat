@@ -7,14 +7,15 @@ import {
   useState,
 } from 'react'
 import { useFormat } from '@mochi/web'
-import { plural, t } from '@lingui/core/macro'
-import { Trans } from '@lingui/react/macro'
+import { plural } from '@lingui/core/macro'
+import { Trans, useLingui } from '@lingui/react/macro'
 import type {
   UseInfiniteQueryResult,
   InfiniteData,
 } from '@tanstack/react-query'
 import {
   Button,
+  CopyButton,
   EntityAvatar,
   GeneralError,
   LoadMoreTrigger,
@@ -71,6 +72,7 @@ export function ChatMessageList({
   scrollToMessageId,
   onEnsureMatchVisible,
 }: ChatMessageListProps) {
+  const { t } = useLingui()
   const { formatDate, formatDateTime } = useFormat()
   const scrollContainerRef = useRef<HTMLDivElement | null>(null)
   const messagesEndRef = useRef<HTMLDivElement | null>(null)
@@ -318,13 +320,23 @@ export function ChatMessageList({
                     </div>
                   )}
 
-                  {/* Message bubble + Inline Time */}
+                  {/* Message bubble + hover metadata (time, copy) */}
                   <div className='flex items-end gap-2'>
-                    {isSent && (
-                      <span className='text-muted-foreground/70 opacity-0 transition-opacity group-hover:opacity-100 text-[10px]'>
-                        {formatDateTime(new Date(message.created * 1000))}
-                      </span>
-                    )}
+                    {isSent ? (
+                      <div className='flex items-center gap-0.5 opacity-0 transition-opacity group-hover:opacity-100'>
+                        <span className='text-muted-foreground/70 text-[10px]'>
+                          {formatDateTime(new Date(message.created * 1000))}
+                        </span>
+                        {message.body ? (
+                          <CopyButton
+                            value={message.body}
+                            successMessage={t`Message copied`}
+                            errorMessage={t`Failed to copy message`}
+                            className='size-6'
+                          />
+                        ) : null}
+                      </div>
+                    ) : null}
 
                     <div
                       className={cn(
@@ -361,11 +373,21 @@ export function ChatMessageList({
                       ) : null}
                     </div>
 
-                    {!isSent && (
-                      <span className='text-muted-foreground/70 opacity-0 transition-opacity group-hover:opacity-100 text-[10px]'>
-                        {formatDateTime(new Date(message.created * 1000))}
-                      </span>
-                    )}
+                    {!isSent ? (
+                      <div className='flex items-center gap-0.5 opacity-0 transition-opacity group-hover:opacity-100'>
+                        {message.body ? (
+                          <CopyButton
+                            value={message.body}
+                            successMessage={t`Message copied`}
+                            errorMessage={t`Failed to copy message`}
+                            className='size-6'
+                          />
+                        ) : null}
+                        <span className='text-muted-foreground/70 text-[10px]'>
+                          {formatDateTime(new Date(message.created * 1000))}
+                        </span>
+                      </div>
+                    ) : null}
                   </div>
                 </div>
               )
