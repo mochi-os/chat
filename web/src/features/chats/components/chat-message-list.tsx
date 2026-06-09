@@ -328,7 +328,7 @@ export function ChatMessageList({
                     'group mb-3 flex w-full flex-col gap-1 rounded-lg transition-shadow',
                     isSent ? 'items-end' : 'items-start',
                     highlightMessageId === message.id &&
-                      'ring-primary/60 bg-primary/5 ring-2'
+                    'ring-primary/60 bg-primary/5 ring-2'
                   )}
                 >
                   {/* Message metadata: avatar + name (only for group chats) */}
@@ -348,7 +348,7 @@ export function ChatMessageList({
                   )}
 
                   {/* Message bubble + inline hover actions (react, menu, time) */}
-                  <div className='flex max-w-full min-w-0 items-end gap-2'>
+                  <div className='flex max-w-full min-w-0 items-end gap-1'>
                     {isSent ? (
                       <div className='flex items-center gap-0.5'>
                         <span className='text-muted-foreground/70 text-[10px] opacity-0 transition-opacity group-hover:opacity-100 [@media(hover:none)]:opacity-100'>
@@ -361,18 +361,24 @@ export function ChatMessageList({
                           />
                         ) : null}
                         {onReact ? (
-                          <MessageReactionPicker
-                            activeReaction={message.my_reaction}
-                            onSelect={(reaction) => onReact(message.id, reaction)}
-                            isSent
-                          />
+                          <>
+                            <MessageReactionPicker
+                              activeReaction={message.my_reaction}
+                              onSelect={(reaction) => onReact(message.id, reaction)}
+                              isSent
+                            />
+                            <MessageReactionSummary
+                              counts={message.reaction_counts ?? {}}
+                              activeReaction={message.my_reaction}
+                            />
+                          </>
                         ) : null}
                       </div>
                     ) : null}
 
                     <div
                       className={cn(
-                        'message-content relative min-w-0 max-w-[70%] px-3.5 py-2 wrap-break-word',
+                        'message-content relative min-w-0 max-w-[70%] px-2 py-2 wrap-break-word',
                         getChatBubbleToneClass(isSent)
                       )}
                     >
@@ -401,13 +407,13 @@ export function ChatMessageList({
                           )}
                         >
                           {searchActive &&
-                          searchQuery.length >= 2 &&
-                          matchedMessageIds?.has(message.id)
+                            searchQuery.length >= 2 &&
+                            matchedMessageIds?.has(message.id)
                             ? highlightSearchText(
-                                message.body,
-                                searchQuery,
-                                activeMatchId === message.id
-                              )
+                              message.body,
+                              searchQuery,
+                              activeMatchId === message.id
+                            )
                             : message.body}
                         </p>
                       ) : null}
@@ -416,10 +422,16 @@ export function ChatMessageList({
                     {!isSent ? (
                       <div className='flex items-center gap-0.5'>
                         {onReact ? (
-                          <MessageReactionPicker
-                            activeReaction={message.my_reaction}
-                            onSelect={(reaction) => onReact(message.id, reaction)}
-                          />
+                          <>
+                            <MessageReactionSummary
+                              counts={message.reaction_counts ?? {}}
+                              activeReaction={message.my_reaction}
+                            />
+                            <MessageReactionPicker
+                              activeReaction={message.my_reaction}
+                              onSelect={(reaction) => onReact(message.id, reaction)}
+                            />
+                          </>
                         ) : null}
                         {onReply ? (
                           <MessageHoverActions
@@ -433,14 +445,6 @@ export function ChatMessageList({
                       </div>
                     ) : null}
                   </div>
-
-                  {onReact ? (
-                    <MessageReactionSummary
-                      counts={message.reaction_counts ?? {}}
-                      activeReaction={message.my_reaction}
-                      isSent={isSent}
-                    />
-                  ) : null}
                 </div>
               )
             })}
@@ -460,9 +464,9 @@ export function ChatMessageList({
             aria-label={
               newMessageCount > 0
                 ? plural(newMessageCount, {
-                    one: 'Jump to 1 new message',
-                    other: 'Jump to # new messages',
-                  })
+                  one: 'Jump to 1 new message',
+                  other: 'Jump to # new messages',
+                })
                 : t`Jump to bottom`
             }
           >

@@ -124,14 +124,12 @@ export function MessageReactionPicker({
 type MessageReactionSummaryProps = {
   counts: ReactionCounts
   activeReaction?: ReactionId | null
-  isSent?: boolean
   className?: string
 }
 
 export function MessageReactionSummary({
   counts,
   activeReaction,
-  isSent = false,
   className,
 }: MessageReactionSummaryProps) {
   const reactionOptions = useReactionOptions()
@@ -147,8 +145,7 @@ export function MessageReactionSummary({
   return (
     <div
       className={cn(
-        'flex max-w-[70%] flex-wrap items-center gap-1',
-        isSent ? 'justify-end' : 'justify-start',
+        'flex shrink-0 flex-wrap items-center gap-0.5',
         className
       )}
     >
@@ -159,7 +156,7 @@ export function MessageReactionSummary({
           <Tooltip key={r.id} delayDuration={300}>
             <TooltipTrigger asChild>
               <span
-                className={`inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-xs ${
+                className={`inline-flex items-center gap-0.5 rounded-full px-1.5 py-0.5 text-[11px] leading-none ${
                   isYours
                     ? 'bg-foreground/10 text-foreground'
                     : 'bg-muted text-muted-foreground'
