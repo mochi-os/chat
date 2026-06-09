@@ -13,13 +13,17 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
+#: src/features/chats/components/message-reaction-bar.tsx:138
+msgid " (includes you)"
+msgstr ""
+
 #. placeholder {0}: chatDetail.chat.name
 #: src/routes/_authenticated/$chatId_.settings.tsx:81
 #: src/routes/_authenticated/$chatId_.settings.tsx:120
 msgid "{0} settings"
 msgstr "הגדרות {0}"
 
-#: src/features/chats/components/chat-message-list.tsx:434
+#: src/features/chats/components/chat-message-list.tsx:446
 msgid "{newMessageCount, plural, one {Jump to 1 new message} other {Jump to # new messages}}"
 msgstr ""
 
@@ -98,6 +102,11 @@ msgstr "הוסף חבר"
 msgid "Add new account"
 msgstr "הוסף חשבון חדש"
 
+#: src/features/chats/components/message-reaction-bar.tsx:79
+#: src/features/chats/components/message-reaction-bar.tsx:168
+msgid "Add reaction"
+msgstr ""
+
 #: ../../../lib/web/src/components/post-tags.tsx:119
 msgid "Add tag..."
 msgstr "הוסף תגית..."
@@ -123,6 +132,10 @@ msgstr "התאם הגדרות צ'אט"
 msgid "Adjust the appearance and layout to suit your preferences."
 msgstr "התאם את המראה והפריסה להעדפותיך."
 
+#: src/features/chats/constants/reactions.ts:42
+msgid "Agree"
+msgstr ""
+
 #: ../../../lib/web/src/components/ui/sort-selector.tsx:38
 msgid "AI"
 msgstr "AI"
@@ -135,6 +148,10 @@ msgstr "הכול"
 msgid "All your friends are already in this chat"
 msgstr "כל החברים שלך כבר בצ'אט זה"
 
+#: src/features/chats/constants/reactions.ts:38
+msgid "Amazed"
+msgstr ""
+
 #: ../../../lib/web/src/lib/api-client.ts:189
 msgid "An error occurred"
 msgstr "אירעה שגיאה"
@@ -143,8 +160,12 @@ msgstr "אירעה שגיאה"
 msgid "An unexpected error occurred"
 msgstr "אירעה שגיאה בלתי צפויה"
 
+#: src/features/chats/constants/reactions.ts:41
+msgid "Angry"
+msgstr ""
+
 #. placeholder {0}: selectedChat?.name
-#: src/features/chats/index.tsx:670
+#: src/features/chats/index.tsx:688
 msgid "Are you sure you want to leave \"{0}\"? You can be added back by other members."
 msgstr "האם אתה בטוח שברצונך לעזוב את \"{0}\"? חברים אחרים יוכלו להוסיף אותך בחזרה."
 
@@ -222,10 +243,10 @@ msgstr "קטגוריה עבור התראה זו"
 msgid "Change notification category"
 msgstr "שנה קטגוריית התראה"
 
-#: src/features/chats/index.tsx:58
-#: src/features/chats/index.tsx:153
-#: src/features/chats/index.tsx:153
-#: src/features/chats/index.tsx:475
+#: src/features/chats/index.tsx:60
+#: src/features/chats/index.tsx:155
+#: src/features/chats/index.tsx:155
+#: src/features/chats/index.tsx:492
 msgid "Chat"
 msgstr "צ'אט"
 
@@ -233,7 +254,7 @@ msgstr "צ'אט"
 msgid "Chat created"
 msgstr "הצ'אט נוצר"
 
-#: src/features/chats/index.tsx:377
+#: src/features/chats/index.tsx:393
 msgid "Chat deleted"
 msgstr "הצ'אט נמחק"
 
@@ -278,7 +299,7 @@ msgstr "הצ'אט מוכן"
 msgid "Chat renamed"
 msgstr "הצ'אט שונה את שמו"
 
-#: src/features/chats/index.tsx:564
+#: src/features/chats/index.tsx:581
 #: src/routes/_authenticated/$chatId_.settings.tsx:81
 #: src/routes/_authenticated/$chatId_.settings.tsx:94
 #: src/routes/_authenticated/$chatId_.settings.tsx:105
@@ -459,12 +480,12 @@ msgstr "ברירת מחדל"
 msgid "Default AI account"
 msgstr "חשבון AI ברירת מחדל"
 
-#: src/features/chats/index.tsx:547
-#: src/features/chats/index.tsx:636
+#: src/features/chats/index.tsx:564
+#: src/features/chats/index.tsx:654
 msgid "Delete chat"
 msgstr "מחק צ'אט"
 
-#: src/features/chats/index.tsx:692
+#: src/features/chats/index.tsx:710
 #: src/routes/_authenticated/$chatId_.settings.tsx:440
 msgid "Delete chat history"
 msgstr "מחק היסטוריית צ'אט"
@@ -495,6 +516,14 @@ msgstr "זיהוי מהדפדפן"
 #: ../../../lib/web/src/components/config-drawer.tsx:327
 msgid "Direction"
 msgstr "כיוון"
+
+#: src/features/chats/constants/reactions.ts:43
+msgid "Disagree"
+msgstr ""
+
+#: src/features/chats/constants/reactions.ts:36
+msgid "Dislike"
+msgstr ""
 
 #: ../../../lib/web/src/components/restore-banner.tsx:73
 msgid "Dismiss"
@@ -552,11 +581,11 @@ msgstr ""
 msgid "Failed to create chat"
 msgstr "יצירת הצ'אט נכשלה"
 
-#: src/features/chats/index.tsx:381
+#: src/features/chats/index.tsx:397
 msgid "Failed to delete chat"
 msgstr "מחיקת הצ'אט נכשלה"
 
-#: src/features/chats/index.tsx:365
+#: src/features/chats/index.tsx:381
 #: src/routes/_authenticated/$chatId_.settings.tsx:402
 msgid "Failed to leave chat"
 msgstr "היציאה מהצ'אט נכשלה"
@@ -577,7 +606,7 @@ msgstr "הסרת החבר נכשלה"
 msgid "Failed to rename chat"
 msgstr "שינוי שם הצ'אט נכשל"
 
-#: src/features/chats/index.tsx:655
+#: src/features/chats/index.tsx:673
 msgid "Failed to send message"
 msgstr "שליחת ההודעה נכשלה"
 
@@ -585,7 +614,7 @@ msgstr "שליחת ההודעה נכשלה"
 msgid "Failed to send verification code"
 msgstr "שליחת קוד האימות נכשלה"
 
-#: src/features/chats/index.tsx:166
+#: src/features/chats/index.tsx:168
 msgid "Failed to start chat"
 msgstr "פתיחת הצ'אט נכשלה"
 
@@ -695,7 +724,7 @@ msgstr "תחומי עניין"
 msgid "Invalid verification code"
 msgstr "קוד אימות לא תקין"
 
-#: src/features/chats/components/chat-message-list.tsx:438
+#: src/features/chats/components/chat-message-list.tsx:450
 msgid "Jump to bottom"
 msgstr ""
 
@@ -703,6 +732,10 @@ msgstr ""
 #: ../../../lib/web/src/lib/preference-utils.ts:123
 msgid "Large"
 msgstr "גדול"
+
+#: src/features/chats/constants/reactions.ts:37
+msgid "Laugh"
+msgstr ""
 
 #: ../../../lib/web/src/components/config-drawer.tsx:273
 msgid "Layout"
@@ -712,21 +745,21 @@ msgstr "פריסה"
 msgid "Learn more"
 msgstr "מידע נוסף"
 
-#: src/features/chats/index.tsx:678
+#: src/features/chats/index.tsx:696
 msgid "Leave"
 msgstr "עזוב"
 
-#: src/features/chats/index.tsx:554
+#: src/features/chats/index.tsx:571
 #: src/routes/_authenticated/$chatId_.settings.tsx:426
 msgid "Leave chat"
 msgstr "צא מהצ'אט"
 
-#: src/features/chats/index.tsx:669
+#: src/features/chats/index.tsx:687
 #: src/routes/_authenticated/$chatId_.settings.tsx:417
 msgid "Leave chat?"
 msgstr "לצאת מהצ'אט?"
 
-#: src/features/chats/index.tsx:675
+#: src/features/chats/index.tsx:693
 #: src/routes/_authenticated/$chatId_.settings.tsx:423
 msgid "Leaving..."
 msgstr "יוצא..."
@@ -743,6 +776,10 @@ msgstr "משמאל לימין"
 #: ../../../lib/web/src/lib/preference-utils.ts:16
 msgid "Light"
 msgstr "בהיר"
+
+#: src/features/chats/constants/reactions.ts:35
+msgid "Like"
+msgstr ""
 
 #: src/routes/_authenticated/$chatId_.settings.tsx:326
 msgid "List of people in this chat"
@@ -778,6 +815,10 @@ msgstr "ההתנתקות בוצעה בהצלחה"
 #: ../../../lib/web/src/components/sign-out-dialog.tsx:25
 msgid "Logging out…"
 msgstr "מתנתק…"
+
+#: src/features/chats/constants/reactions.ts:39
+msgid "Love"
+msgstr ""
 
 #: ../../../lib/web/src/components/layout/notification-menu.tsx:86
 #: ../../../lib/web/src/components/notifications-dropdown.tsx:220
@@ -821,7 +862,7 @@ msgid "Message copied"
 msgstr ""
 
 #: src/features/chats/components/message-quote.tsx:51
-#: src/features/chats/index.tsx:295
+#: src/features/chats/index.tsx:311
 msgid "Message not available"
 msgstr ""
 
@@ -882,7 +923,7 @@ msgstr "עדיין אין חברים"
 msgid "No groups available"
 msgstr "אין קבוצות זמינות"
 
-#: src/features/chats/components/chat-message-list.tsx:286
+#: src/features/chats/components/chat-message-list.tsx:290
 msgid "No messages yet"
 msgstr "עדיין אין הודעות"
 
@@ -948,7 +989,7 @@ msgstr "פתוח"
 msgid "Open account actions"
 msgstr "פתח פעולות חשבון"
 
-#: src/features/chats/index.tsx:539
+#: src/features/chats/index.tsx:556
 msgid "Open chat actions"
 msgstr "פתח פעולות צ'אט"
 
@@ -1059,7 +1100,9 @@ msgid "Remove"
 msgstr "הסר"
 
 #. placeholder {0}: attachment.file.name
+#. placeholder {0}: reaction.label.toLowerCase()
 #: src/features/chats/components/chat-input.tsx:193
+#: src/features/chats/components/message-reaction-bar.tsx:198
 msgid "Remove {0}"
 msgstr "הסר {0}"
 
@@ -1114,6 +1157,10 @@ msgstr "מימין לשמאל"
 msgid "Rows per page"
 msgstr "שורות לעמוד"
 
+#: src/features/chats/constants/reactions.ts:40
+msgid "Sad"
+msgstr ""
+
 #: ../../../lib/web/src/lib/preference-utils.ts:61
 msgid "Saturday"
 msgstr "שבת"
@@ -1134,7 +1181,7 @@ msgstr "חפש מקור..."
 msgid "Search in chat..."
 msgstr ""
 
-#: src/features/chats/index.tsx:529
+#: src/features/chats/index.tsx:546
 msgid "Search messages"
 msgstr ""
 
@@ -1411,7 +1458,7 @@ msgstr "גישה לא מורשית"
 msgid "United States"
 msgstr "ארצות הברית"
 
-#: src/hooks/useChatWebsocket.ts:189
+#: src/hooks/useChatWebsocket.ts:270
 msgid "Unknown"
 msgstr "לא ידוע"
 
@@ -1481,7 +1528,7 @@ msgstr "האתר בתחזוקה!"
 msgid "Wednesday"
 msgstr "יום רביעי"
 
-#: src/features/chats/index.tsx:226
+#: src/features/chats/index.tsx:228
 msgid "You"
 msgstr "אתה"
 
@@ -1497,11 +1544,11 @@ msgstr "כבר יש לך צ'אטים עם:"
 msgid "You haven't started any chats yet. Connect with a friend to get things rolling."
 msgstr "עדיין לא התחלת צ'אטים. התחבר עם חבר כדי להתחיל."
 
-#: src/features/chats/index.tsx:623
+#: src/features/chats/index.tsx:641
 msgid "You left this chat"
 msgstr "עזבת את הצ'אט הזה"
 
-#: src/features/chats/index.tsx:622
+#: src/features/chats/index.tsx:640
 msgid "You were removed from this chat"
 msgstr "הוסרת מהצ'אט הזה"
 

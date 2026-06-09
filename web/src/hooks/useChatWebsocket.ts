@@ -9,7 +9,9 @@ import type {
   ChatMessage,
   ChatMessageAttachment,
   GetMessagesResponse,
+  ReactionCounts,
 } from '@/api/chats'
+import { isReactionId } from '@/features/chats/constants/reactions'
 import {
   type ChatWebsocketMessagePayload,
   type WebsocketConnectionStatus,
@@ -94,25 +96,97 @@ const createMessageFromPayload = (
   }
 }
 
+const parseReactionCounts = (value: unknown): ReactionCounts => {
+  if (!value || typeof value !== 'object') {
+    return {}
+  }
+  const counts: ReactionCounts = {}
+  for (const [key, count] of Object.entries(value)) {
+    if (isReactionId(key) && typeof count === 'number' && count > 0) {
+      counts[key] = count
+    }
+  }
+  return counts
+}
+
+const patchMessageReactionFromWebsocket = (
+  chatId: string,
+  payload: NormalizedChatWebsocketMessagePayload,
+  queryClient: QueryClient,
+  currentUserId?: string
+) => {
+  const messageId =
+    typeof payload.message === 'string' ? payload.message : undefined
+  if (!messageId || !chatId) {
+    return
+  }
+
+  const memberId =
+    typeof payload.member === 'string' ? payload.member : undefined
+  const reactionRaw = payload.reaction
+  const reaction =
+    typeof reactionRaw === 'string' && isReactionId(reactionRaw)
+      ? reactionRaw
+      : null
+  const reactionCounts = parseReactionCounts(payload.reaction_counts)
+
+  queryClient.setQueryData<InfiniteData<GetMessagesResponse>>(
+    chatKeys.messages(chatId),
+    (current) => {
+      if (!current?.pages) {
+        return current
+      }
+
+      let found = false
+      const pages = current.pages.map((page) => ({
+        ...page,
+        messages: page.messages.map((message) => {
+          if (message.id !== messageId) {
+            return message
+          }
+          found = true
+          const next: ChatMessage = {
+            ...message,
+            reaction_counts: reactionCounts,
+          }
+          if (currentUserId && memberId === currentUserId) {
+            next.my_reaction = reaction
+          }
+          return next
+        }),
+      }))
+
+      return found ? { ...current, pages } : current
+    }
+  )
+}
+
 const handleWebsocketEvent = (
   chatId: string,
   payload: NormalizedChatWebsocketMessagePayload,
-  queryClient: QueryClient
-): 'event' | 'message' => {
+  queryClient: QueryClient,
+  currentUserId?: string
+): 'event' | 'message' | 'reaction' => {
   if (!chatId) {
     return 'message'
   }
 
-  // Check if this is a special event
   const event = payload.event as string | undefined
   if (event) {
     switch (event) {
+      case 'message/react':
+        patchMessageReactionFromWebsocket(
+          chatId,
+          payload,
+          queryClient,
+          currentUserId
+        )
+        return 'reaction'
       case 'removed':
       case 'rename':
       case 'leave':
       case 'member/add':
       case 'member/remove':
-        // Invalidate queries to refresh chat state
         void queryClient.invalidateQueries({ queryKey: chatKeys.all() })
         void queryClient.invalidateQueries({ queryKey: chatKeys.detail(chatId) })
         void queryClient.invalidateQueries({ queryKey: ['chats', chatId, 'members'] })
@@ -128,13 +202,19 @@ const appendMessageToCache = (
   payload: NormalizedChatWebsocketMessagePayload,
   queryClient: QueryClient,
   unknownSenderLabel: string,
+  currentUserId?: string,
 ) => {
   if (!chatId) {
     return
   }
 
-  // Check if this is a special event (not a message)
-  if (handleWebsocketEvent(chatId, payload, queryClient) === 'event') {
+  const eventKind = handleWebsocketEvent(
+    chatId,
+    payload,
+    queryClient,
+    currentUserId
+  )
+  if (eventKind === 'event' || eventKind === 'reaction') {
     return
   }
 
@@ -183,7 +263,8 @@ const appendMessageToCache = (
 
 export const useChatWebsocket = (
   chatId?: string,
-  chatKey?: string
+  chatKey?: string,
+  currentUserId?: string
 ): UseChatWebsocketResult => {
   const { t } = useLingui()
   const unknownSenderLabel = t`Unknown`
@@ -210,7 +291,13 @@ export const useChatWebsocket = (
       onMessage: (event) => {
         const normalizedPayload = normalizePayload(event.payload)
         setLastMessage(normalizedPayload)
-        appendMessageToCache(event.chatId, normalizedPayload, queryClient, unknownSenderLabel)
+        appendMessageToCache(
+          event.chatId,
+          normalizedPayload,
+          queryClient,
+          unknownSenderLabel,
+          currentUserId
+        )
       },
       onStatusChange: (nextSnapshot) => {
         setSnapshot(nextSnapshot)
@@ -220,7 +307,7 @@ export const useChatWebsocket = (
     return () => {
       unsubscribe()
     }
-  }, [chatId, chatKey, manager, queryClient])
+  }, [chatId, chatKey, manager, queryClient, currentUserId, unknownSenderLabel])
 
   const forceReconnect = useCallback(() => {
     if (chatId && manager) {

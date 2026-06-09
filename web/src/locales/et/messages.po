@@ -13,13 +13,17 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
+#: src/features/chats/components/message-reaction-bar.tsx:138
+msgid " (includes you)"
+msgstr ""
+
 #. placeholder {0}: chatDetail.chat.name
 #: src/routes/_authenticated/$chatId_.settings.tsx:81
 #: src/routes/_authenticated/$chatId_.settings.tsx:120
 msgid "{0} settings"
 msgstr "{0} seaded"
 
-#: src/features/chats/components/chat-message-list.tsx:434
+#: src/features/chats/components/chat-message-list.tsx:446
 msgid "{newMessageCount, plural, one {Jump to 1 new message} other {Jump to # new messages}}"
 msgstr ""
 
@@ -98,6 +102,11 @@ msgstr "Lisa liige"
 msgid "Add new account"
 msgstr "Lisa uus konto"
 
+#: src/features/chats/components/message-reaction-bar.tsx:79
+#: src/features/chats/components/message-reaction-bar.tsx:168
+msgid "Add reaction"
+msgstr ""
+
 #: ../../../lib/web/src/components/post-tags.tsx:119
 msgid "Add tag..."
 msgstr "Lisa silt..."
@@ -123,6 +132,10 @@ msgstr "Kohanda vestluse seadeid"
 msgid "Adjust the appearance and layout to suit your preferences."
 msgstr "Kohanda välimust ja paigutust oma eelistuste järgi."
 
+#: src/features/chats/constants/reactions.ts:42
+msgid "Agree"
+msgstr ""
+
 #: ../../../lib/web/src/components/ui/sort-selector.tsx:38
 msgid "AI"
 msgstr "AI"
@@ -135,6 +148,10 @@ msgstr "Kõik"
 msgid "All your friends are already in this chat"
 msgstr "Kõik sinu sõbrad on juba selles vestluses"
 
+#: src/features/chats/constants/reactions.ts:38
+msgid "Amazed"
+msgstr ""
+
 #: ../../../lib/web/src/lib/api-client.ts:189
 msgid "An error occurred"
 msgstr "Tekkis viga"
@@ -143,8 +160,12 @@ msgstr "Tekkis viga"
 msgid "An unexpected error occurred"
 msgstr "Tekkis ootamatu viga"
 
+#: src/features/chats/constants/reactions.ts:41
+msgid "Angry"
+msgstr ""
+
 #. placeholder {0}: selectedChat?.name
-#: src/features/chats/index.tsx:670
+#: src/features/chats/index.tsx:688
 msgid "Are you sure you want to leave \"{0}\"? You can be added back by other members."
 msgstr "Kas oled kindel, et soovid lahkuda \"{0}\"? Teised liikmed saavad sind tagasi lisada."
 
@@ -222,10 +243,10 @@ msgstr "Selle teavituse kategooria"
 msgid "Change notification category"
 msgstr "Muuda teavituse kategooriat"
 
-#: src/features/chats/index.tsx:58
-#: src/features/chats/index.tsx:153
-#: src/features/chats/index.tsx:153
-#: src/features/chats/index.tsx:475
+#: src/features/chats/index.tsx:60
+#: src/features/chats/index.tsx:155
+#: src/features/chats/index.tsx:155
+#: src/features/chats/index.tsx:492
 msgid "Chat"
 msgstr "Vestlus"
 
@@ -233,7 +254,7 @@ msgstr "Vestlus"
 msgid "Chat created"
 msgstr "Vestlus loodud"
 
-#: src/features/chats/index.tsx:377
+#: src/features/chats/index.tsx:393
 msgid "Chat deleted"
 msgstr "Vestlus kustutatud"
 
@@ -278,7 +299,7 @@ msgstr "Vestlus valmis"
 msgid "Chat renamed"
 msgstr "Vestlus ümber nimetatud"
 
-#: src/features/chats/index.tsx:564
+#: src/features/chats/index.tsx:581
 #: src/routes/_authenticated/$chatId_.settings.tsx:81
 #: src/routes/_authenticated/$chatId_.settings.tsx:94
 #: src/routes/_authenticated/$chatId_.settings.tsx:105
@@ -459,12 +480,12 @@ msgstr "Vaikimisi"
 msgid "Default AI account"
 msgstr "Vaikimisi AI konto"
 
-#: src/features/chats/index.tsx:547
-#: src/features/chats/index.tsx:636
+#: src/features/chats/index.tsx:564
+#: src/features/chats/index.tsx:654
 msgid "Delete chat"
 msgstr "Kustuta vestlus"
 
-#: src/features/chats/index.tsx:692
+#: src/features/chats/index.tsx:710
 #: src/routes/_authenticated/$chatId_.settings.tsx:440
 msgid "Delete chat history"
 msgstr "Kustuta vestluse ajalugu"
@@ -495,6 +516,14 @@ msgstr "Tuvasta veebibrauserist"
 #: ../../../lib/web/src/components/config-drawer.tsx:327
 msgid "Direction"
 msgstr "Suund"
+
+#: src/features/chats/constants/reactions.ts:43
+msgid "Disagree"
+msgstr ""
+
+#: src/features/chats/constants/reactions.ts:36
+msgid "Dislike"
+msgstr ""
 
 #: ../../../lib/web/src/components/restore-banner.tsx:73
 msgid "Dismiss"
@@ -552,11 +581,11 @@ msgstr ""
 msgid "Failed to create chat"
 msgstr "Vestluse loomine ebaõnnestus"
 
-#: src/features/chats/index.tsx:381
+#: src/features/chats/index.tsx:397
 msgid "Failed to delete chat"
 msgstr "Vestluse kustutamine ebaõnnestus"
 
-#: src/features/chats/index.tsx:365
+#: src/features/chats/index.tsx:381
 #: src/routes/_authenticated/$chatId_.settings.tsx:402
 msgid "Failed to leave chat"
 msgstr "Vestlusest lahkumine ebaõnnestus"
@@ -577,7 +606,7 @@ msgstr "Liikme eemaldamine ebaõnnestus"
 msgid "Failed to rename chat"
 msgstr "Vestluse ümbernimetamine ebaõnnestus"
 
-#: src/features/chats/index.tsx:655
+#: src/features/chats/index.tsx:673
 msgid "Failed to send message"
 msgstr "Sõnumi saatmine ebaõnnestus"
 
@@ -585,7 +614,7 @@ msgstr "Sõnumi saatmine ebaõnnestus"
 msgid "Failed to send verification code"
 msgstr "Kinnituskoodi saatmine ebaõnnestus"
 
-#: src/features/chats/index.tsx:166
+#: src/features/chats/index.tsx:168
 msgid "Failed to start chat"
 msgstr "Vestluse alustamine ebaõnnestus"
 
@@ -695,7 +724,7 @@ msgstr "Huvid"
 msgid "Invalid verification code"
 msgstr "Vigane kinnituskood"
 
-#: src/features/chats/components/chat-message-list.tsx:438
+#: src/features/chats/components/chat-message-list.tsx:450
 msgid "Jump to bottom"
 msgstr ""
 
@@ -703,6 +732,10 @@ msgstr ""
 #: ../../../lib/web/src/lib/preference-utils.ts:123
 msgid "Large"
 msgstr "Suur"
+
+#: src/features/chats/constants/reactions.ts:37
+msgid "Laugh"
+msgstr ""
 
 #: ../../../lib/web/src/components/config-drawer.tsx:273
 msgid "Layout"
@@ -712,21 +745,21 @@ msgstr "Paigutus"
 msgid "Learn more"
 msgstr "Loe rohkem"
 
-#: src/features/chats/index.tsx:678
+#: src/features/chats/index.tsx:696
 msgid "Leave"
 msgstr "Lahku"
 
-#: src/features/chats/index.tsx:554
+#: src/features/chats/index.tsx:571
 #: src/routes/_authenticated/$chatId_.settings.tsx:426
 msgid "Leave chat"
 msgstr "Lahku vestlusest"
 
-#: src/features/chats/index.tsx:669
+#: src/features/chats/index.tsx:687
 #: src/routes/_authenticated/$chatId_.settings.tsx:417
 msgid "Leave chat?"
 msgstr "Kas lahkuda vestlusest?"
 
-#: src/features/chats/index.tsx:675
+#: src/features/chats/index.tsx:693
 #: src/routes/_authenticated/$chatId_.settings.tsx:423
 msgid "Leaving..."
 msgstr "Lahkutakse…"
@@ -743,6 +776,10 @@ msgstr "Vasakult paremale"
 #: ../../../lib/web/src/lib/preference-utils.ts:16
 msgid "Light"
 msgstr "Hele"
+
+#: src/features/chats/constants/reactions.ts:35
+msgid "Like"
+msgstr ""
 
 #: src/routes/_authenticated/$chatId_.settings.tsx:326
 msgid "List of people in this chat"
@@ -778,6 +815,10 @@ msgstr "Edukalt välja logitud"
 #: ../../../lib/web/src/components/sign-out-dialog.tsx:25
 msgid "Logging out…"
 msgstr "Välja logimine…"
+
+#: src/features/chats/constants/reactions.ts:39
+msgid "Love"
+msgstr ""
 
 #: ../../../lib/web/src/components/layout/notification-menu.tsx:86
 #: ../../../lib/web/src/components/notifications-dropdown.tsx:220
@@ -821,7 +862,7 @@ msgid "Message copied"
 msgstr ""
 
 #: src/features/chats/components/message-quote.tsx:51
-#: src/features/chats/index.tsx:295
+#: src/features/chats/index.tsx:311
 msgid "Message not available"
 msgstr ""
 
@@ -882,7 +923,7 @@ msgstr "Sõpru veel pole"
 msgid "No groups available"
 msgstr "Saadaolevaid gruppe pole"
 
-#: src/features/chats/components/chat-message-list.tsx:286
+#: src/features/chats/components/chat-message-list.tsx:290
 msgid "No messages yet"
 msgstr "Sõnumeid veel pole"
 
@@ -948,7 +989,7 @@ msgstr "Avatud"
 msgid "Open account actions"
 msgstr "Ava konto tegevused"
 
-#: src/features/chats/index.tsx:539
+#: src/features/chats/index.tsx:556
 msgid "Open chat actions"
 msgstr "Ava vestluse tegevused"
 
@@ -1059,7 +1100,9 @@ msgid "Remove"
 msgstr "Eemalda"
 
 #. placeholder {0}: attachment.file.name
+#. placeholder {0}: reaction.label.toLowerCase()
 #: src/features/chats/components/chat-input.tsx:193
+#: src/features/chats/components/message-reaction-bar.tsx:198
 msgid "Remove {0}"
 msgstr "Eemalda {0}"
 
@@ -1114,6 +1157,10 @@ msgstr "Paremalt vasakule"
 msgid "Rows per page"
 msgstr "Ridu lehel"
 
+#: src/features/chats/constants/reactions.ts:40
+msgid "Sad"
+msgstr ""
+
 #: ../../../lib/web/src/lib/preference-utils.ts:61
 msgid "Saturday"
 msgstr "Laupäev"
@@ -1134,7 +1181,7 @@ msgstr "Otsi lähtekohta..."
 msgid "Search in chat..."
 msgstr ""
 
-#: src/features/chats/index.tsx:529
+#: src/features/chats/index.tsx:546
 msgid "Search messages"
 msgstr ""
 
@@ -1411,7 +1458,7 @@ msgstr "Volitamata juurdepääs"
 msgid "United States"
 msgstr "Ameerika Ühendriigid"
 
-#: src/hooks/useChatWebsocket.ts:189
+#: src/hooks/useChatWebsocket.ts:270
 msgid "Unknown"
 msgstr "Tundmatu"
 
@@ -1481,7 +1528,7 @@ msgstr "Veebileht on hooldustöödel!"
 msgid "Wednesday"
 msgstr "Kolmapäev"
 
-#: src/features/chats/index.tsx:226
+#: src/features/chats/index.tsx:228
 msgid "You"
 msgstr "Sina"
 
@@ -1497,11 +1544,11 @@ msgstr "Sul on juba vestlused:"
 msgid "You haven't started any chats yet. Connect with a friend to get things rolling."
 msgstr "Sa pole veel ühtegi vestlust alustanud. Loo sõbraga ühendus, et asjad veerema saada."
 
-#: src/features/chats/index.tsx:623
+#: src/features/chats/index.tsx:641
 msgid "You left this chat"
 msgstr "Lahkusid sellest vestlusest"
 
-#: src/features/chats/index.tsx:622
+#: src/features/chats/index.tsx:640
 msgid "You were removed from this chat"
 msgstr "Sind eemaldati sellest vestlusest"
 

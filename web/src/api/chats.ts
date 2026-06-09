@@ -23,6 +23,7 @@ import type {
   MemberRemoveResponse,
   MarkReadRequest,
   MarkReadResponse,
+  ReactToMessageResponse,
 } from './types/chats'
 import endpoints from './endpoints'
 
@@ -123,4 +124,20 @@ export const chatsApi = {
 
   removeMember: (chatId: string, payload: MemberRemoveRequest) =>
     client.post<MemberRemoveResponse>(endpoints.chat.memberRemove(chatId), payload),
+
+  reactToMessage: (
+    chatId: string,
+    messageId: string,
+    reaction: string
+  ): Promise<ReactToMessageResponse> =>
+    client
+      .post<
+        ReactToMessageResponse | { data: ReactToMessageResponse },
+        { chat: string; message: string; reaction: string }
+      >(endpoints.chat.react(chatId), {
+        chat: chatId,
+        message: messageId,
+        reaction: reaction || 'none',
+      })
+      .then((res) => unwrapData<ReactToMessageResponse>(res)),
 }

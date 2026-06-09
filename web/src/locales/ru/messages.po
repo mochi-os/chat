@@ -13,13 +13,17 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
+#: src/features/chats/components/message-reaction-bar.tsx:138
+msgid " (includes you)"
+msgstr ""
+
 #. placeholder {0}: chatDetail.chat.name
 #: src/routes/_authenticated/$chatId_.settings.tsx:81
 #: src/routes/_authenticated/$chatId_.settings.tsx:120
 msgid "{0} settings"
 msgstr "Настройки {0}"
 
-#: src/features/chats/components/chat-message-list.tsx:434
+#: src/features/chats/components/chat-message-list.tsx:446
 msgid "{newMessageCount, plural, one {Jump to 1 new message} other {Jump to # new messages}}"
 msgstr ""
 
@@ -98,6 +102,11 @@ msgstr "Добавить участника"
 msgid "Add new account"
 msgstr "Добавить новый аккаунт"
 
+#: src/features/chats/components/message-reaction-bar.tsx:79
+#: src/features/chats/components/message-reaction-bar.tsx:168
+msgid "Add reaction"
+msgstr ""
+
 #: ../../../lib/web/src/components/post-tags.tsx:119
 msgid "Add tag..."
 msgstr "Добавить тег..."
@@ -123,6 +132,10 @@ msgstr "Настроить параметры чата"
 msgid "Adjust the appearance and layout to suit your preferences."
 msgstr "Настройте внешний вид и расположение по своему вкусу."
 
+#: src/features/chats/constants/reactions.ts:42
+msgid "Agree"
+msgstr ""
+
 #: ../../../lib/web/src/components/ui/sort-selector.tsx:38
 msgid "AI"
 msgstr "ИИ"
@@ -135,6 +148,10 @@ msgstr "Все"
 msgid "All your friends are already in this chat"
 msgstr "Все ваши друзья уже в этом чате"
 
+#: src/features/chats/constants/reactions.ts:38
+msgid "Amazed"
+msgstr ""
+
 #: ../../../lib/web/src/lib/api-client.ts:189
 msgid "An error occurred"
 msgstr "Произошла ошибка"
@@ -143,8 +160,12 @@ msgstr "Произошла ошибка"
 msgid "An unexpected error occurred"
 msgstr "Произошла непредвиденная ошибка"
 
+#: src/features/chats/constants/reactions.ts:41
+msgid "Angry"
+msgstr ""
+
 #. placeholder {0}: selectedChat?.name
-#: src/features/chats/index.tsx:670
+#: src/features/chats/index.tsx:688
 msgid "Are you sure you want to leave \"{0}\"? You can be added back by other members."
 msgstr "Вы уверены, что хотите покинуть \"{0}\"? Другие участники смогут добавить вас обратно."
 
@@ -222,10 +243,10 @@ msgstr "Категория этого уведомления"
 msgid "Change notification category"
 msgstr "Изменить категорию уведомления"
 
-#: src/features/chats/index.tsx:58
-#: src/features/chats/index.tsx:153
-#: src/features/chats/index.tsx:153
-#: src/features/chats/index.tsx:475
+#: src/features/chats/index.tsx:60
+#: src/features/chats/index.tsx:155
+#: src/features/chats/index.tsx:155
+#: src/features/chats/index.tsx:492
 msgid "Chat"
 msgstr "Чат"
 
@@ -233,7 +254,7 @@ msgstr "Чат"
 msgid "Chat created"
 msgstr "Чат создан"
 
-#: src/features/chats/index.tsx:377
+#: src/features/chats/index.tsx:393
 msgid "Chat deleted"
 msgstr "Чат удалён"
 
@@ -278,7 +299,7 @@ msgstr "Чат готов"
 msgid "Chat renamed"
 msgstr "Чат переименован"
 
-#: src/features/chats/index.tsx:564
+#: src/features/chats/index.tsx:581
 #: src/routes/_authenticated/$chatId_.settings.tsx:81
 #: src/routes/_authenticated/$chatId_.settings.tsx:94
 #: src/routes/_authenticated/$chatId_.settings.tsx:105
@@ -459,12 +480,12 @@ msgstr "По умолчанию"
 msgid "Default AI account"
 msgstr "Аккаунт ИИ по умолчанию"
 
-#: src/features/chats/index.tsx:547
-#: src/features/chats/index.tsx:636
+#: src/features/chats/index.tsx:564
+#: src/features/chats/index.tsx:654
 msgid "Delete chat"
 msgstr "Удалить чат"
 
-#: src/features/chats/index.tsx:692
+#: src/features/chats/index.tsx:710
 #: src/routes/_authenticated/$chatId_.settings.tsx:440
 msgid "Delete chat history"
 msgstr "Удалить историю чата"
@@ -495,6 +516,14 @@ msgstr "Определить из веб-браузера"
 #: ../../../lib/web/src/components/config-drawer.tsx:327
 msgid "Direction"
 msgstr "Направление"
+
+#: src/features/chats/constants/reactions.ts:43
+msgid "Disagree"
+msgstr ""
+
+#: src/features/chats/constants/reactions.ts:36
+msgid "Dislike"
+msgstr ""
 
 #: ../../../lib/web/src/components/restore-banner.tsx:73
 msgid "Dismiss"
@@ -552,11 +581,11 @@ msgstr ""
 msgid "Failed to create chat"
 msgstr "Не удалось создать чат"
 
-#: src/features/chats/index.tsx:381
+#: src/features/chats/index.tsx:397
 msgid "Failed to delete chat"
 msgstr "Не удалось удалить чат"
 
-#: src/features/chats/index.tsx:365
+#: src/features/chats/index.tsx:381
 #: src/routes/_authenticated/$chatId_.settings.tsx:402
 msgid "Failed to leave chat"
 msgstr "Не удалось покинуть чат"
@@ -577,7 +606,7 @@ msgstr "Не удалось удалить участника"
 msgid "Failed to rename chat"
 msgstr "Не удалось переименовать чат"
 
-#: src/features/chats/index.tsx:655
+#: src/features/chats/index.tsx:673
 msgid "Failed to send message"
 msgstr "Не удалось отправить сообщение"
 
@@ -585,7 +614,7 @@ msgstr "Не удалось отправить сообщение"
 msgid "Failed to send verification code"
 msgstr "Не удалось отправить код подтверждения"
 
-#: src/features/chats/index.tsx:166
+#: src/features/chats/index.tsx:168
 msgid "Failed to start chat"
 msgstr "Не удалось начать чат"
 
@@ -695,7 +724,7 @@ msgstr "Интересы"
 msgid "Invalid verification code"
 msgstr "Недопустимый код подтверждения"
 
-#: src/features/chats/components/chat-message-list.tsx:438
+#: src/features/chats/components/chat-message-list.tsx:450
 msgid "Jump to bottom"
 msgstr ""
 
@@ -703,6 +732,10 @@ msgstr ""
 #: ../../../lib/web/src/lib/preference-utils.ts:123
 msgid "Large"
 msgstr "Крупный"
+
+#: src/features/chats/constants/reactions.ts:37
+msgid "Laugh"
+msgstr ""
 
 #: ../../../lib/web/src/components/config-drawer.tsx:273
 msgid "Layout"
@@ -712,21 +745,21 @@ msgstr "Макет"
 msgid "Learn more"
 msgstr "Подробнее"
 
-#: src/features/chats/index.tsx:678
+#: src/features/chats/index.tsx:696
 msgid "Leave"
 msgstr "Покинуть"
 
-#: src/features/chats/index.tsx:554
+#: src/features/chats/index.tsx:571
 #: src/routes/_authenticated/$chatId_.settings.tsx:426
 msgid "Leave chat"
 msgstr "Покинуть чат"
 
-#: src/features/chats/index.tsx:669
+#: src/features/chats/index.tsx:687
 #: src/routes/_authenticated/$chatId_.settings.tsx:417
 msgid "Leave chat?"
 msgstr "Покинуть чат?"
 
-#: src/features/chats/index.tsx:675
+#: src/features/chats/index.tsx:693
 #: src/routes/_authenticated/$chatId_.settings.tsx:423
 msgid "Leaving..."
 msgstr "Выход..."
@@ -743,6 +776,10 @@ msgstr "Слева направо"
 #: ../../../lib/web/src/lib/preference-utils.ts:16
 msgid "Light"
 msgstr "Светлая"
+
+#: src/features/chats/constants/reactions.ts:35
+msgid "Like"
+msgstr ""
 
 #: src/routes/_authenticated/$chatId_.settings.tsx:326
 msgid "List of people in this chat"
@@ -778,6 +815,10 @@ msgstr "Выход выполнен успешно"
 #: ../../../lib/web/src/components/sign-out-dialog.tsx:25
 msgid "Logging out…"
 msgstr "Выход…"
+
+#: src/features/chats/constants/reactions.ts:39
+msgid "Love"
+msgstr ""
 
 #: ../../../lib/web/src/components/layout/notification-menu.tsx:86
 #: ../../../lib/web/src/components/notifications-dropdown.tsx:220
@@ -821,7 +862,7 @@ msgid "Message copied"
 msgstr ""
 
 #: src/features/chats/components/message-quote.tsx:51
-#: src/features/chats/index.tsx:295
+#: src/features/chats/index.tsx:311
 msgid "Message not available"
 msgstr ""
 
@@ -882,7 +923,7 @@ msgstr "Друзей пока нет"
 msgid "No groups available"
 msgstr "Нет доступных групп"
 
-#: src/features/chats/components/chat-message-list.tsx:286
+#: src/features/chats/components/chat-message-list.tsx:290
 msgid "No messages yet"
 msgstr "Сообщений пока нет"
 
@@ -948,7 +989,7 @@ msgstr "Открыть"
 msgid "Open account actions"
 msgstr "Открыть действия учётной записи"
 
-#: src/features/chats/index.tsx:539
+#: src/features/chats/index.tsx:556
 msgid "Open chat actions"
 msgstr "Открыть действия чата"
 
@@ -1059,7 +1100,9 @@ msgid "Remove"
 msgstr "Удалить"
 
 #. placeholder {0}: attachment.file.name
+#. placeholder {0}: reaction.label.toLowerCase()
 #: src/features/chats/components/chat-input.tsx:193
+#: src/features/chats/components/message-reaction-bar.tsx:198
 msgid "Remove {0}"
 msgstr "Удалить {0}"
 
@@ -1114,6 +1157,10 @@ msgstr "Справа налево"
 msgid "Rows per page"
 msgstr "Строк на странице"
 
+#: src/features/chats/constants/reactions.ts:40
+msgid "Sad"
+msgstr ""
+
 #: ../../../lib/web/src/lib/preference-utils.ts:61
 msgid "Saturday"
 msgstr "Суббота"
@@ -1134,7 +1181,7 @@ msgstr "Поиск пункта отправления..."
 msgid "Search in chat..."
 msgstr ""
 
-#: src/features/chats/index.tsx:529
+#: src/features/chats/index.tsx:546
 msgid "Search messages"
 msgstr ""
 
@@ -1411,7 +1458,7 @@ msgstr "Несанкционированный доступ"
 msgid "United States"
 msgstr "США"
 
-#: src/hooks/useChatWebsocket.ts:189
+#: src/hooks/useChatWebsocket.ts:270
 msgid "Unknown"
 msgstr "Неизвестно"
 
@@ -1481,7 +1528,7 @@ msgstr "Сайт на техническом обслуживании!"
 msgid "Wednesday"
 msgstr "Среда"
 
-#: src/features/chats/index.tsx:226
+#: src/features/chats/index.tsx:228
 msgid "You"
 msgstr "Вы"
 
@@ -1497,11 +1544,11 @@ msgstr "У вас уже есть чаты с:"
 msgid "You haven't started any chats yet. Connect with a friend to get things rolling."
 msgstr "Вы ещё не начали ни одного чата. Свяжитесь с другом, чтобы начать."
 
-#: src/features/chats/index.tsx:623
+#: src/features/chats/index.tsx:641
 msgid "You left this chat"
 msgstr "Вы покинули этот чат"
 
-#: src/features/chats/index.tsx:622
+#: src/features/chats/index.tsx:640
 msgid "You were removed from this chat"
 msgstr "Вас удалили из этого чата"
 

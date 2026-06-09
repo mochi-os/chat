@@ -12,7 +12,7 @@
 	"execute": ["chat.star"],
 
 	"database": {
-		"schema": 11,
+		"schema": 12,
 		"file": "chat.db",
 		"create": {"function": "database_create"},
 		"upgrade": {"function": "database_upgrade"}
@@ -37,6 +37,7 @@
 		":chat/-/search": {"function": "action_search"},
 		":chat/-/read": {"function": "action_mark_read"},
 		":chat/-/send": {"function": "action_send"},
+		":chat/-/react": {"function": "action_react"},
 		":chat/-/members": {"function": "action_members"},
 		":chat/-/rename": {"function": "action_rename"},
 		":chat/-/leave": {"function": "action_leave"},
@@ -55,6 +56,7 @@
 
 	"events": {
 		"message": {"function": "event_message"},
+		"message/react": {"function": "event_message_react"},
 		"new": {"function": "event_new"},
 		"info": {"function": "event_info"},
 		"rename": {"function": "event_rename"},

@@ -29,6 +29,11 @@ import type { GetMessagesResponse } from '@/api/types/chats'
 import { MessageAttachments } from './message-attachments'
 import { MessageHoverActions } from './message-hover-actions'
 import { MessageQuote } from './message-quote'
+import {
+  MessageReactionPicker,
+  MessageReactionSummary,
+} from './message-reaction-bar'
+import type { ReactionId } from '../constants/reactions'
 import { highlightSearchText } from '../utils/highlight-search-text'
 
 const BOTTOM_THRESHOLD_PX = 80
@@ -61,6 +66,7 @@ interface ChatMessageListProps {
   onEnsureMatchVisible?: (messageId: string) => void | Promise<void>
   onScrollToMessageComplete?: (messageId: string) => void
   onReply?: (message: ChatMessage) => void
+  onReact?: (messageId: string, reaction: ReactionId | '') => void
   onScrollToMessage?: (messageId: string) => void
 }
 
@@ -81,6 +87,7 @@ export function ChatMessageList({
   onEnsureMatchVisible,
   onScrollToMessageComplete,
   onReply,
+  onReact,
   onScrollToMessage,
 }: ChatMessageListProps) {
   const { t } = useLingui()
@@ -340,7 +347,7 @@ export function ChatMessageList({
                     </div>
                   )}
 
-                  {/* Message bubble + hover metadata (time, copy) */}
+                  {/* Message bubble + inline hover actions (react, menu, time) */}
                   <div className='flex max-w-full min-w-0 items-end gap-2'>
                     {isSent ? (
                       <div className='flex items-center gap-0.5'>
@@ -351,6 +358,13 @@ export function ChatMessageList({
                           <MessageHoverActions
                             message={message}
                             onReply={onReply}
+                          />
+                        ) : null}
+                        {onReact ? (
+                          <MessageReactionPicker
+                            activeReaction={message.my_reaction}
+                            onSelect={(reaction) => onReact(message.id, reaction)}
+                            isSent
                           />
                         ) : null}
                       </div>
@@ -401,6 +415,12 @@ export function ChatMessageList({
 
                     {!isSent ? (
                       <div className='flex items-center gap-0.5'>
+                        {onReact ? (
+                          <MessageReactionPicker
+                            activeReaction={message.my_reaction}
+                            onSelect={(reaction) => onReact(message.id, reaction)}
+                          />
+                        ) : null}
                         {onReply ? (
                           <MessageHoverActions
                             message={message}
@@ -413,6 +433,14 @@ export function ChatMessageList({
                       </div>
                     ) : null}
                   </div>
+
+                  {onReact ? (
+                    <MessageReactionSummary
+                      counts={message.reaction_counts ?? {}}
+                      activeReaction={message.my_reaction}
+                      isSent={isSent}
+                    />
+                  ) : null}
                 </div>
               )
             })}

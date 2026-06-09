@@ -25,6 +25,8 @@ import {
 } from '@/hooks/useChatStorage'
 import { chatsApi } from '@/api/chats'
 import { useChatWebsocket } from '@/hooks/useChatWebsocket'
+import { useReactToMessageMutation } from '@/hooks/use-message-reactions'
+import type { ReactionId } from '@/features/chats/constants/reactions'
 import {
   chatKeys,
   useInfiniteMessagesQuery,
@@ -287,6 +289,20 @@ export function Chats() {
     setReplyTo(messageToReplyTarget(message))
   }, [])
 
+  const reactToMessageMutation = useReactToMessageMutation()
+
+  const handleReact = useCallback(
+    (messageId: string, reaction: ReactionId | '') => {
+      if (!selectedChat) return
+      reactToMessageMutation.mutate({
+        chatId: selectedChat.id,
+        messageId,
+        reaction,
+      })
+    },
+    [selectedChat, reactToMessageMutation]
+  )
+
   const handleScrollToMessage = useCallback(
     async (messageId: string) => {
       setScrollToMessageId(messageId)
@@ -390,7 +406,8 @@ export function Chats() {
   // WebSocket
   const { status, retries } = useChatWebsocket(
     selectedChat?.id,
-    selectedChat?.key
+    selectedChat?.key,
+    currentUserIdentity
   )
   useEffect(() => {
     setWebsocketStatus(status, retries)
@@ -611,6 +628,7 @@ export function Chats() {
               }
             }}
             onReply={selectedChat.left ? undefined : handleReply}
+            onReact={selectedChat.left ? undefined : handleReact}
             onScrollToMessage={handleScrollToMessage}
           />
 

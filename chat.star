@@ -78,7 +78,19 @@ def database_create():
 	mochi.db.execute("create table if not exists messages ( id text not null primary key, chat references chats( id ), member text not null, name text not null, body text not null, created integer not null, reply_to text references messages( id ) )")
 	mochi.db.execute("create index if not exists messages_chat_created on messages( chat, created )")
 
+	mochi.db.execute("create table if not exists reactions ( chat text not null, message text not null, member text not null, name text not null, reaction text not null, primary key ( chat, message, member ) )")
+	mochi.db.execute("create index if not exists reactions_message on reactions ( chat, message )")
+
 	mochi.db.execute("create table if not exists chat_read ( chat text not null primary key references chats( id ), last_read integer not null default 0 )")
+
+# Ensure reactions exists — v12 migration may have been skipped if Starlark
+# failed to load while the server still bumped user_version to 12.
+def ensure_reactions_table():
+	tables = mochi.db.tables() or []
+	if "reactions" in tables:
+		return
+	mochi.db.execute("create table reactions ( chat text not null, message text not null, member text not null, name text not null, reaction text not null, primary key ( chat, message, member ) )")
+	mochi.db.execute("create index reactions_message on reactions ( chat, message )")
 
 # Ensure chat_read exists (migration v9 used the wrong mochi.db.tables() shape).
 def ensure_chat_read_table():
@@ -101,6 +113,7 @@ def chat_set_last_read(chat_id, ts):
 
 # Remove all local rows for a chat (messages, members, read state, then chat).
 def chat_delete_local(chat_id):
+	mochi.db.execute("delete from reactions where chat=?", chat_id)
 	mochi.db.execute("delete from messages where chat=?", chat_id)
 	mochi.db.execute("delete from members where chat=?", chat_id)
 	ensure_chat_read_table()
@@ -150,6 +163,68 @@ def database_upgrade(to_version):
 		cols = [r["name"] for r in mochi.db.table("messages") or []]
 		if "reply_to" not in cols:
 			mochi.db.execute("alter table messages add column reply_to text references messages( id )")
+	if to_version == 12:
+		ensure_reactions_table()
+
+def is_reaction_valid(reaction):
+	if not reaction or reaction == "none":
+		return {"valid": True, "reaction": ""}
+	if mochi.text.valid(reaction, "^(like|dislike|laugh|amazed|love|sad|angry|agree|disagree)$"):
+		return {"valid": True, "reaction": reaction}
+	return {"valid": False, "reaction": ""}
+
+def message_reaction_counts(chat_id, message_id):
+	ensure_reactions_table()
+	rows = mochi.db.rows("select reaction, count(*) as n from reactions where chat=? and message=? group by reaction", chat_id, message_id) or []
+	counts = {}
+	for r in rows:
+		counts[r["reaction"]] = r["n"]
+	return counts
+
+def message_reaction_apply(chat_id, message_id, member_id, name, reaction):
+	ensure_reactions_table()
+	if reaction:
+		mochi.db.execute("replace into reactions ( chat, message, member, name, reaction ) values ( ?, ?, ?, ?, ? )", chat_id, message_id, member_id, name, reaction)
+	else:
+		mochi.db.execute("delete from reactions where chat=? and message=? and member=?", chat_id, message_id, member_id)
+
+def message_reaction_set(chat_id, message_id, member_id, name, reaction):
+	if not mochi.db.exists("select 1 from messages where id=? and chat=?", message_id, chat_id):
+		return None
+	if not mochi.db.exists("select 1 from members where chat=? and member=?", chat_id, member_id):
+		return None
+	message_reaction_apply(chat_id, message_id, member_id, name, reaction)
+	my_reaction = reaction if reaction else None
+	return {"reaction_counts": message_reaction_counts(chat_id, message_id), "my_reaction": my_reaction}
+
+def messages_attach_reactions(chat_id, messages, viewer_id):
+	if not messages:
+		return
+	ensure_reactions_table()
+	message_ids = [m["id"] for m in messages]
+	placeholders = ", ".join(["?" for _ in message_ids])
+	count_rows = mochi.db.rows("select message, reaction, count(*) as n from reactions where chat=? and message in (" + placeholders + ") group by message, reaction", chat_id, *message_ids) or []
+	counts_by_message = {}
+	for r in count_rows:
+		mid = r["message"]
+		if mid not in counts_by_message:
+			counts_by_message[mid] = {}
+		counts_by_message[mid][r["reaction"]] = r["n"]
+	my_query_args = [chat_id] + message_ids + [viewer_id]
+	my_rows = mochi.db.rows("select message, reaction from reactions where chat=? and message in (" + placeholders + ") and member=?", *my_query_args) or []
+	my_by_message = {}
+	for r in my_rows:
+		my_by_message[r["message"]] = r["reaction"]
+	for m in messages:
+		m["reaction_counts"] = counts_by_message.get(m["id"], {})
+		my = my_by_message.get(m["id"])
+		m["my_reaction"] = my if my else None
+
+def message_reaction_notify(chat, message_id, member_id, name, reaction):
+	counts = message_reaction_counts(chat["id"], message_id)
+	reaction_out = reaction if reaction else None
+	payload = {"event": "message/react", "message": message_id, "member": member_id, "name": name, "reaction": reaction_out, "reaction_counts": counts}
+	mochi.websocket.write(chat["key"], payload)
 
 # Stream an entity's asset from its owning service via a Mochi stream.
 # Location-transparent: mochi.remote.stream() loops back in-process when the
@@ -363,6 +438,8 @@ def action_messages(a):
 	for m in messages:
 		m["attachments"] = mochi.attachment.list("chat/" + chat["id"] + "/" + m["id"])
 
+	messages_attach_reactions(chat["id"], messages, a.user.identity.id)
+
 	return {
 		"data": {
 			"messages": messages,
@@ -516,6 +593,44 @@ def action_send(a):
 	return {
 		"data": {"id": id}
 	}
+
+# React to a message (one reaction per member; toggle/remove with empty/none)
+def action_react(a):
+	if not mochi.text.valid(a.input("chat"), "id"):
+		a.error.label(400, "errors.invalid_chat_id")
+		return
+	chat = mochi.db.row("select * from chats where id=?", a.input("chat"))
+	if not chat:
+		a.error.label(404, "errors.chat_not_found")
+		return
+
+	if not mochi.db.exists("select 1 from members where chat=? and member=?", chat["id"], a.user.identity.id):
+		a.error.label(403, "errors.not_a_member_of_this_chat")
+		return
+
+	message_id = a.input("message")
+	if not mochi.text.valid(str(message_id), "id"):
+		a.error.label(400, "errors.invalid_message")
+		return
+
+	result = is_reaction_valid(a.input("reaction"))
+	if not result["valid"]:
+		a.error.label(400, "errors.invalid_reaction")
+		return
+	reaction = result["reaction"]
+
+	outcome = message_reaction_set(chat["id"], message_id, a.user.identity.id, a.user.identity.name, reaction)
+	if not outcome:
+		a.error.label(404, "errors.message_not_found")
+		return
+
+	members = mochi.db.rows("select member from members where chat=? and member!=?", chat["id"], a.user.identity.id)
+	member_ids = [m["member"] for m in members]
+	event_data = {"message": message_id, "member": a.user.identity.id, "name": a.user.identity.name, "reaction": reaction if reaction else None, "reaction_counts": outcome["reaction_counts"]}
+	broadcast_chat(chat["id"], a.user.identity.id, member_ids, "message/react", event_data)
+	message_reaction_notify(chat, message_id, a.user.identity.id, a.user.identity.name, reaction)
+
+	return {"data": outcome}
 
 # View a chat
 def action_view(a):
@@ -713,6 +828,36 @@ def event_message(e):
 	chat_ensure_commit_hook()
 	mochi.db.commit.fire("messages", "insert", id)
 	notify("message", chat["id"], mochi.app.label("notifications.title.message"), name + ": " + body, "/chat/" + chat["id"], chat["name"], event_id="message:" + str(id))
+
+# Received a message reaction from another member
+def event_message_react(e):
+	message_id = e.content("message")
+	if not mochi.text.valid(str(message_id), "id"):
+		return
+	member_id = e.content("member")
+	if not mochi.text.valid(str(member_id), "entity"):
+		return
+	if e.header("from") != member_id:
+		return
+	name = e.content("name")
+	if not mochi.text.valid(name, "name"):
+		return
+	result = is_reaction_valid(e.content("reaction"))
+	if not result["valid"]:
+		return
+	reaction = result["reaction"]
+
+	msg = mochi.db.row("select * from messages where id=?", message_id)
+	if not msg:
+		return
+	chat = mochi.db.row("select * from chats where id=?", msg["chat"])
+	if not chat:
+		return
+	if not mochi.db.exists("select 1 from members where chat=? and member=?", chat["id"], member_id):
+		return
+
+	message_reaction_apply(chat["id"], message_id, member_id, name, reaction)
+	message_reaction_notify(chat, message_id, member_id, name, reaction)
 
 # Received a new chat event
 def event_new(e):

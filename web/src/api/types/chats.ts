@@ -33,6 +33,19 @@ export interface ChatViewResponse {
   identity: string
 }
 
+export type ReactionId =
+  | 'like'
+  | 'dislike'
+  | 'laugh'
+  | 'amazed'
+  | 'love'
+  | 'sad'
+  | 'angry'
+  | 'agree'
+  | 'disagree'
+
+export type ReactionCounts = Partial<Record<ReactionId, number>>
+
 export interface ChatMessageAttachment {
   id: string
   name: string
@@ -55,6 +68,8 @@ export interface ChatMessage {
   created: number
   reply_to?: string | null
   attachments: ChatMessageAttachment[]
+  reaction_counts?: ReactionCounts
+  my_reaction?: ReactionId | null
   [key: string]: unknown
 }
 
@@ -168,4 +183,14 @@ export interface MemberRemoveRequest {
 
 export interface MemberRemoveResponse {
   success: boolean
+}
+
+export interface ReactToMessageRequest {
+  message: string
+  reaction: string
+}
+
+export interface ReactToMessageResponse {
+  reaction_counts: ReactionCounts
+  my_reaction: ReactionId | null
 }

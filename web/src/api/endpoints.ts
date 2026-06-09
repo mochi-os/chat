@@ -7,6 +7,7 @@ const endpoints = {
     search: (chatId: string) => `/${chatId}/-/search`,
     read: (chatId: string) => `/${chatId}/-/read`,
     send: (chatId: string) => `/${chatId}/-/send`,
+    react: (chatId: string) => `/${chatId}/-/react`,
     detail: (chatId: string) => `/${chatId}/-/view`,
     members: (chatId: string) => `/${chatId}/-/members`,
     rename: (chatId: string) => `/${chatId}/-/rename`,
