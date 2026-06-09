@@ -79,6 +79,9 @@ export const chatsApi = {
     if (payload.attachments && payload.attachments.length > 0) {
       const formData = new FormData()
       formData.append('body', payload.body)
+      if (payload.reply_to) {
+        formData.append('reply_to', payload.reply_to)
+      }
       payload.attachments.forEach((file) => {
         formData.append('files', file)
       })

@@ -75,6 +75,11 @@ const createMessageFromPayload = (
   const senderName = typeof payload.name === 'string' ? payload.name : unknownSenderLabel
   const senderId = typeof payload.member === 'string' ? payload.member : ''
 
+  const replyTo =
+    typeof payload.reply_to === 'string' && payload.reply_to
+      ? payload.reply_to
+      : undefined
+
   return {
     id: typeof payload.id === 'string' && payload.id
       ? payload.id
@@ -84,6 +89,7 @@ const createMessageFromPayload = (
     member: senderId,
     name: senderName,
     created,
+    reply_to: replyTo,
     attachments: payload.attachments ?? [],
   }
 }

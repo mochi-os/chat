@@ -47,6 +47,11 @@ import {
   createPendingAttachment,
   revokePendingAttachmentPreview,
 } from './utils'
+import {
+  type ReplyTarget,
+  messageToReplyTarget,
+} from './utils/reply'
+import type { ChatMessage } from '@/api/chats'
 
 export function Chats() {
   const { t } = useLingui()
@@ -63,6 +68,14 @@ export function Chats() {
   const [pendingAttachments, setPendingAttachments] = useState<
     PendingAttachment[]
   >([])
+  const [replyTo, setReplyTo] = useState<ReplyTarget | null>(null)
+  const [scrollToMessageId, setScrollToMessageId] = useState<string | null>(
+    null
+  )
+  const [highlightMessageId, setHighlightMessageId] = useState<string | null>(
+    null
+  )
+  const highlightTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
 
   const {
     identity: currentUserIdentity,
@@ -89,6 +102,9 @@ export function Chats() {
   // Reset input and restore draft when selected chat changes
   useEffect(() => {
     setNewMessage('')
+    setReplyTo(null)
+    setScrollToMessageId(null)
+    setHighlightMessageId(null)
     if (!selectedChatId) return
     getDraft(selectedChatId).then((draft) => {
       if (draft) setNewMessage(draft)
@@ -227,7 +243,7 @@ export function Chats() {
 
   const ensureMatchVisible = useCallback(
     async (targetId: string) => {
-      if (!selectedChat?.id) return
+      if (!selectedChat?.id) return false
 
       const key = chatKeys.messages(selectedChat.id)
       let hasMore = messagesQuery.hasNextPage ?? false
@@ -239,13 +255,68 @@ export function Chats() {
         const loaded = data?.pages
           ? [...data.pages].reverse().flatMap((p) => p.messages)
           : []
-        if (loaded.some((m) => m.id === targetId)) return
+        if (loaded.some((m) => m.id === targetId)) return true
 
         const result = await messagesQuery.fetchNextPage()
         hasMore = result.hasNextPage ?? false
       }
+
+      const data = queryClient.getQueryData<InfiniteData<GetMessagesResponse>>(
+        key
+      )
+      const loaded = data?.pages
+        ? [...data.pages].reverse().flatMap((p) => p.messages)
+        : []
+      return loaded.some((m) => m.id === targetId)
     },
     [selectedChat?.id, queryClient, messagesQuery]
+  )
+
+  const flashHighlight = useCallback((messageId: string) => {
+    if (highlightTimerRef.current) {
+      clearTimeout(highlightTimerRef.current)
+    }
+    setHighlightMessageId(messageId)
+    highlightTimerRef.current = setTimeout(() => {
+      setHighlightMessageId(null)
+      highlightTimerRef.current = null
+    }, 2000)
+  }, [])
+
+  const handleReply = useCallback((message: ChatMessage) => {
+    setReplyTo(messageToReplyTarget(message))
+  }, [])
+
+  const handleScrollToMessage = useCallback(
+    async (messageId: string) => {
+      setScrollToMessageId(messageId)
+      const found = await ensureMatchVisible(messageId)
+      if (!found) {
+        toast.error(t`Message not available`)
+        setScrollToMessageId(null)
+        return
+      }
+      flashHighlight(messageId)
+    },
+    [ensureMatchVisible, flashHighlight, t]
+  )
+
+  useEffect(() => {
+    return () => {
+      if (highlightTimerRef.current) {
+        clearTimeout(highlightTimerRef.current)
+      }
+    }
+  }, [])
+
+  const activeScrollTargetId =
+    messageSearch.isSearchOpen && messageSearch.activeMatchId
+      ? messageSearch.activeMatchId
+      : scrollToMessageId
+
+  const scrollToMessageEnabled = Boolean(
+    (messageSearch.isSearchOpen && messageSearch.activeMatchId) ||
+      scrollToMessageId
   )
 
   useEffect(() => {
@@ -275,6 +346,7 @@ export function Chats() {
   const sendMessageMutation = useSendMessageMutation({
     onSuccess: () => {
       setNewMessage('')
+      setReplyTo(null)
       clearAttachments()
       if (selectedChat) clearDraft(selectedChat.id)
     },
@@ -383,6 +455,7 @@ export function Chats() {
     sendMessageMutation.mutate({
       chatId: selectedChat.id,
       body,
+      reply_to: replyTo?.id,
       attachments: pendingAttachments.map((a) => a.file),
     })
   }
@@ -520,8 +593,25 @@ export function Chats() {
             searchQuery={messageSearch.debouncedQuery}
             matchedMessageIds={messageSearch.matchedMessageIds}
             activeMatchId={messageSearch.activeMatchId}
-            scrollToMessageId={messageSearch.activeMatchId}
-            onEnsureMatchVisible={ensureMatchVisible}
+            scrollToMessageId={activeScrollTargetId}
+            scrollToMessageEnabled={scrollToMessageEnabled}
+            highlightMessageId={
+              messageSearch.isSearchOpen
+                ? messageSearch.activeMatchId
+                : highlightMessageId
+            }
+            onEnsureMatchVisible={(id) => {
+              void ensureMatchVisible(id)
+            }}
+            onScrollToMessageComplete={(id) => {
+              if (!messageSearch.isSearchOpen) {
+                setScrollToMessageId((current) =>
+                  current === id ? null : current
+                )
+              }
+            }}
+            onReply={selectedChat.left ? undefined : handleReply}
+            onScrollToMessage={handleScrollToMessage}
           />
 
           {selectedChat.left ? (
@@ -558,6 +648,8 @@ export function Chats() {
               onRemoveAttachment={handleRemoveAttachment}
               onReorderAttachments={handleReorderAttachments}
               onAttachmentSelection={handleAttachmentSelection}
+              replyTo={replyTo}
+              onClearReply={() => setReplyTo(null)}
               sendMessageErrorMessage={
                 sendMessageMutation.error
                   ? getErrorMessage(sendMessageMutation.error, t`Failed to send message`)

@@ -53,6 +53,7 @@ export interface ChatMessage {
   name: string
   email?: string
   created: number
+  reply_to?: string | null
   attachments: ChatMessageAttachment[]
   [key: string]: unknown
 }
@@ -119,6 +120,7 @@ export type SendMessageAttachment = File | Blob
 
 export interface SendMessageRequest {
   body: string
+  reply_to?: string
   attachments?: SendMessageAttachment[]
 }
 

@@ -19,7 +19,7 @@ msgstr ""
 msgid "{0} settings"
 msgstr "ການຕັ້ງຄ່າ {0}"
 
-#: src/features/chats/components/chat-message-list.tsx:410
+#: src/features/chats/components/chat-message-list.tsx:430
 msgid "{newMessageCount, plural, one {Jump to 1 new message} other {Jump to # new messages}}"
 msgstr ""
 
@@ -85,7 +85,7 @@ msgstr "ເພີ່ມບັນຊີ"
 msgid "Add an account to receive notifications and use services."
 msgstr "ເພີ່ມບັນຊີເພື່ອຮັບການແຈ້ງເຕືອນ ແລະ ໃຊ້ບໍລິການ."
 
-#: src/features/chats/components/chat-input.tsx:170
+#: src/features/chats/components/chat-input.tsx:207
 msgid "Add attachment"
 msgstr "ເພີ່ມໄຟລ໌ແນບ"
 
@@ -144,7 +144,7 @@ msgid "An unexpected error occurred"
 msgstr "ເກີດຂໍ້ຜິດພາດທີ່ບໍ່ຄາດຄິດ"
 
 #. placeholder {0}: selectedChat?.name
-#: src/features/chats/index.tsx:578
+#: src/features/chats/index.tsx:663
 msgid "Are you sure you want to leave \"{0}\"? You can be added back by other members."
 msgstr "ທ່ານແນ່ໃຈບໍວ່າຕ້ອງການອອກຈາກ \"{0}\"? ທ່ານສາມາດຖືກເພີ່ມກັບໂດຍສະມາຊິກອື່ນ."
 
@@ -164,6 +164,11 @@ msgstr "ທ່ານແນ່ໃຈບໍວ່າຕ້ອງການລົບ
 #: ../../../lib/web/src/components/data-table/column-header.tsx:56
 msgid "Asc"
 msgstr "ໜ້ອຍຫາໃຫຍ່"
+
+#: src/features/chats/components/chat-input.tsx:121
+#: src/features/chats/components/message-quote.tsx:40
+msgid "Attachment"
+msgstr ""
 
 #: ../../../lib/web/src/components/step-up-dialog.tsx:312
 msgid "Authenticator code"
@@ -205,6 +210,10 @@ msgstr "ຍົກເລີກ"
 msgid "Cancel edit"
 msgstr "ຍົກເລີກການແກ້ໄຂ"
 
+#: src/features/chats/components/chat-input.tsx:129
+msgid "Cancel reply"
+msgstr ""
+
 #: ../../../lib/web/src/components/notification-category-button.tsx:135
 msgid "Category for this notification"
 msgstr "ໝວດໝູ່ສຳລັບການແຈ້ງເຕືອນນີ້"
@@ -213,10 +222,10 @@ msgstr "ໝວດໝູ່ສຳລັບການແຈ້ງເຕືອນນ
 msgid "Change notification category"
 msgstr "ປ່ຽນໝວດໝູ່ການແຈ້ງເຕືອນ"
 
-#: src/features/chats/index.tsx:53
-#: src/features/chats/index.tsx:137
-#: src/features/chats/index.tsx:137
-#: src/features/chats/index.tsx:402
+#: src/features/chats/index.tsx:58
+#: src/features/chats/index.tsx:153
+#: src/features/chats/index.tsx:153
+#: src/features/chats/index.tsx:475
 msgid "Chat"
 msgstr "ແຊັດ"
 
@@ -224,7 +233,7 @@ msgstr "ແຊັດ"
 msgid "Chat created"
 msgstr "ສ້າງແຊັດແລ້ວ"
 
-#: src/features/chats/index.tsx:305
+#: src/features/chats/index.tsx:377
 msgid "Chat deleted"
 msgstr "ລົບແຊັດແລ້ວ"
 
@@ -265,7 +274,7 @@ msgstr "ແຊັດພ້ອມແລ້ວ"
 msgid "Chat renamed"
 msgstr "ປ່ຽນຊື່ແຊັດແລ້ວ"
 
-#: src/features/chats/index.tsx:491
+#: src/features/chats/index.tsx:564
 #: src/routes/_authenticated/$chatId_.settings.tsx:81
 #: src/routes/_authenticated/$chatId_.settings.tsx:94
 #: src/routes/_authenticated/$chatId_.settings.tsx:105
@@ -273,7 +282,7 @@ msgstr "ປ່ຽນຊື່ແຊັດແລ້ວ"
 msgid "Chat settings"
 msgstr "ການຕັ້ງຄ່າແຊັດ"
 
-#: src/features/chats/components/chat-input.tsx:176
+#: src/features/chats/components/chat-input.tsx:213
 msgid "Chat Text Box"
 msgstr "ກ່ອງຂໍ້ຄວາມແຊັດ"
 
@@ -388,6 +397,7 @@ msgid "Continue with {label}"
 msgstr "ສືບຕໍ່ດ້ວຍ {label}"
 
 #: ../../../lib/web/src/components/ui/copy-button.tsx:60
+#: src/features/chats/components/message-hover-actions.tsx:85
 msgid "Copy"
 msgstr "ສຳເນົາ"
 
@@ -441,12 +451,12 @@ msgstr "ຄ່າເລີ່ມຕົ້ນ"
 msgid "Default AI account"
 msgstr "ບັນຊີ AI ເລີ່ມຕົ້ນ"
 
-#: src/features/chats/index.tsx:474
-#: src/features/chats/index.tsx:546
+#: src/features/chats/index.tsx:547
+#: src/features/chats/index.tsx:629
 msgid "Delete chat"
 msgstr "ລົບແຊັດ"
 
-#: src/features/chats/index.tsx:600
+#: src/features/chats/index.tsx:685
 #: src/routes/_authenticated/$chatId_.settings.tsx:440
 msgid "Delete chat history"
 msgstr "ລົບປະຫວັດແຊັດ"
@@ -526,8 +536,7 @@ msgstr "ເພີ່ມບັນຊີລົ້ມເຫຼວ"
 msgid "Failed to add member"
 msgstr "ເພີ່ມສະມາຊິກລົ້ມເຫຼວ"
 
-#: src/features/chats/components/chat-message-list.tsx:334
-#: src/features/chats/components/chat-message-list.tsx:382
+#: src/features/chats/components/message-hover-actions.tsx:37
 msgid "Failed to copy message"
 msgstr ""
 
@@ -535,11 +544,11 @@ msgstr ""
 msgid "Failed to create chat"
 msgstr "ສ້າງການສົນທະນາລົ້ມເຫຼວ"
 
-#: src/features/chats/index.tsx:309
+#: src/features/chats/index.tsx:381
 msgid "Failed to delete chat"
 msgstr "ລຶບການສົນທະນາລົ້ມເຫຼວ"
 
-#: src/features/chats/index.tsx:293
+#: src/features/chats/index.tsx:365
 #: src/routes/_authenticated/$chatId_.settings.tsx:402
 msgid "Failed to leave chat"
 msgstr "ອອກຈາກການສົນທະນາລົ້ມເຫຼວ"
@@ -560,7 +569,7 @@ msgstr "ຍ້າຍສະມາຊິກລົ້ມເຫຼວ"
 msgid "Failed to rename chat"
 msgstr "ປ່ຽນຊື່ການສົນທະນາລົ້ມເຫຼວ"
 
-#: src/features/chats/index.tsx:563
+#: src/features/chats/index.tsx:648
 msgid "Failed to send message"
 msgstr "ສົ່ງຂໍ້ຄວາມລົ້ມເຫຼວ"
 
@@ -568,7 +577,7 @@ msgstr "ສົ່ງຂໍ້ຄວາມລົ້ມເຫຼວ"
 msgid "Failed to send verification code"
 msgstr "ສົ່ງລະຫັດຢືນຢັນລົ້ມເຫຼວ"
 
-#: src/features/chats/index.tsx:150
+#: src/features/chats/index.tsx:166
 msgid "Failed to start chat"
 msgstr "ເລີ່ມການສົນທະນາລົ້ມເຫຼວ"
 
@@ -678,7 +687,7 @@ msgstr "ຄວາມສົນໃຈ"
 msgid "Invalid verification code"
 msgstr "ລະຫັດຢືນຢັນບໍ່ຖືກຕ້ອງ"
 
-#: src/features/chats/components/chat-message-list.tsx:414
+#: src/features/chats/components/chat-message-list.tsx:434
 msgid "Jump to bottom"
 msgstr ""
 
@@ -695,21 +704,21 @@ msgstr "ຮູບແບບ"
 msgid "Learn more"
 msgstr "ຮຽນຮູ້ເພີ່ມເຕີມ"
 
-#: src/features/chats/index.tsx:586
+#: src/features/chats/index.tsx:671
 msgid "Leave"
 msgstr "ອອກຈາກ"
 
-#: src/features/chats/index.tsx:481
+#: src/features/chats/index.tsx:554
 #: src/routes/_authenticated/$chatId_.settings.tsx:426
 msgid "Leave chat"
 msgstr "ອອກຈາກການສົນທະນາ"
 
-#: src/features/chats/index.tsx:577
+#: src/features/chats/index.tsx:662
 #: src/routes/_authenticated/$chatId_.settings.tsx:417
 msgid "Leave chat?"
 msgstr "ອອກຈາກການສົນທະນາບໍ?"
 
-#: src/features/chats/index.tsx:583
+#: src/features/chats/index.tsx:668
 #: src/routes/_authenticated/$chatId_.settings.tsx:423
 msgid "Leaving..."
 msgstr "ກຳລັງອອກ..."
@@ -795,9 +804,17 @@ msgstr "ສະມາຊິກ"
 msgid "Menu"
 msgstr "ເມນູ"
 
-#: src/features/chats/components/chat-message-list.tsx:333
-#: src/features/chats/components/chat-message-list.tsx:381
+#: src/features/chats/components/message-hover-actions.tsx:70
+msgid "Message actions"
+msgstr ""
+
+#: src/features/chats/components/message-hover-actions.tsx:35
 msgid "Message copied"
+msgstr ""
+
+#: src/features/chats/components/message-quote.tsx:44
+#: src/features/chats/index.tsx:295
+msgid "Message not available"
 msgstr ""
 
 #: ../../../lib/web/src/lib/preference-utils.ts:82
@@ -807,14 +824,6 @@ msgstr "Metric"
 #: ../../../lib/web/src/lib/preference-utils.ts:56
 msgid "Monday"
 msgstr "ວັນຈັນ"
-
-#: src/features/chats/components/chat-input.tsx:133
-#~ msgid "Move attachment left"
-#~ msgstr "ຍ້າຍໄຟລ໌ແນບໄປຊ້າຍ"
-
-#: src/features/chats/components/chat-input.tsx:145
-#~ msgid "Move attachment right"
-#~ msgstr "ຍ້າຍໄຟລ໌ແນບໄປຂວາ"
 
 #: src/routes/_authenticated/$chatId_.settings.tsx:202
 msgid "Name must be 1000 characters or less"
@@ -841,10 +850,6 @@ msgstr ""
 msgid "Next image"
 msgstr "ຮູບຕໍ່ໄປ"
 
-#: src/features/chats/components/chat-search-header.tsx:94
-#~ msgid "Next match"
-#~ msgstr ""
-
 #: ../../../lib/web/src/features/access/access-list.tsx:156
 msgid "No access rules configured. Add rules to control who can access this resource."
 msgstr "ບໍ່ມີກົດການເຂົ້າເຖິງທີ່ຕັ້ງຄ່າໄວ້. ເພີ່ມກົດເພື່ອຄວບຄຸມຜູ້ທີ່ສາມາດເຂົ້າເຖິງຊັບພະຍາກອນນີ້."
@@ -869,7 +874,7 @@ msgstr "ຍັງບໍ່ມີໝູ່"
 msgid "No groups available"
 msgstr "ບໍ່ມີກຸ່ມທີ່ມີຢູ່"
 
-#: src/features/chats/components/chat-message-list.tsx:268
+#: src/features/chats/components/chat-message-list.tsx:282
 msgid "No messages yet"
 msgstr "ຍັງບໍ່ມີຂໍ້ຄວາມ"
 
@@ -935,7 +940,7 @@ msgstr "ເປີດ"
 msgid "Open account actions"
 msgstr "ເປີດການກະທຳບັນຊີ"
 
-#: src/features/chats/index.tsx:466
+#: src/features/chats/index.tsx:539
 msgid "Open chat actions"
 msgstr "ເປີດການກະທຳສົນທະນາ"
 
@@ -955,6 +960,10 @@ msgstr "ເປີດຄົນ"
 #: ../../../lib/web/src/components/config-drawer.tsx:51
 msgid "Open theme settings"
 msgstr "ເປີດການຕັ້ງຄ່າທີມ"
+
+#: src/features/chats/components/message-quote.tsx:32
+msgid "Original message"
+msgstr ""
 
 #: ../../../lib/web/src/features/access/access-dialog.tsx:163
 msgid "Other"
@@ -991,10 +1000,6 @@ msgstr "ກະລຸນາເລືອກໝູ່ຢ່າງໜ້ອຍໜຶ
 #: ../../../lib/web/src/components/ui/image-lightbox.tsx:335
 msgid "Previous image"
 msgstr "ຮູບກ່ອນໜ້າ"
-
-#: src/features/chats/components/chat-search-header.tsx:85
-#~ msgid "Previous match"
-#~ msgstr ""
 
 #: ../../../lib/web/src/components/server-documents-footer.tsx:24
 #: ../../../lib/web/src/features/document/document-page.tsx:41
@@ -1042,7 +1047,7 @@ msgid "Remove"
 msgstr "ລຶບອອກ"
 
 #. placeholder {0}: attachment.file.name
-#: src/features/chats/components/chat-input.tsx:154
+#: src/features/chats/components/chat-input.tsx:191
 msgid "Remove {0}"
 msgstr "ລຶບ {0}"
 
@@ -1066,6 +1071,16 @@ msgstr "ລຶບສະມາຊິກ?"
 #: src/routes/_authenticated/$chatId_.settings.tsx:568
 msgid "Removing..."
 msgstr "ກຳລັງລຶບ..."
+
+#: src/features/chats/components/message-hover-actions.tsx:53
+#: src/features/chats/components/message-hover-actions.tsx:95
+msgid "Reply"
+msgstr ""
+
+#. placeholder {0}: replyTo.name
+#: src/features/chats/components/chat-input.tsx:113
+msgid "Replying to {0}"
+msgstr ""
 
 #: ../../../lib/web/src/components/step-up-dialog.tsx:364
 msgid "Resend email"
@@ -1108,7 +1123,7 @@ msgstr "ຄົ້ນຫາຕົ້ນທາງ..."
 msgid "Search in chat..."
 msgstr ""
 
-#: src/features/chats/index.tsx:456
+#: src/features/chats/index.tsx:529
 msgid "Search messages"
 msgstr ""
 
@@ -1182,7 +1197,7 @@ msgstr "ສົ່ງອີກຄັ້ງ"
 msgid "Send email"
 msgstr "ສົ່ງອີເມວ"
 
-#: src/features/chats/components/chat-input.tsx:198
+#: src/features/chats/components/chat-input.tsx:235
 msgid "Send message"
 msgstr "ສົ່ງຂໍ້ຄວາມ"
 
@@ -1356,9 +1371,13 @@ msgstr "ພິມເພື່ອຄົ້ນຫາຜູ້ໃຊ້"
 msgid "Type to search..."
 msgstr "ພິມເພື່ອຄົ້ນຫາ..."
 
-#: src/features/chats/components/chat-input.tsx:180
+#: src/features/chats/components/chat-input.tsx:217
 msgid "Type your message…"
 msgstr "ພິມຂໍ້ຄວາມຂອງທ່ານ…"
+
+#: src/features/chats/components/chat-input.tsx:217
+msgid "Type your reply…"
+msgstr ""
 
 #: ../../../lib/web/src/lib/api-client.ts:277
 msgid "Unable to connect to remote server"
@@ -1381,7 +1400,7 @@ msgstr "ການເຂົ້າເຖິງທີ່ບໍ່ໄດ້ຮັບ
 msgid "United States"
 msgstr "ສະຫະລັດອາເມລິກາ"
 
-#: src/hooks/useChatWebsocket.ts:183
+#: src/hooks/useChatWebsocket.ts:189
 msgid "Unknown"
 msgstr "ບໍ່ຮູ້ຈັກ"
 
@@ -1447,7 +1466,7 @@ msgstr "ເວັບໄຊກຳລັງຢູ່ໃນການບຳລຸງ
 msgid "Wednesday"
 msgstr "ວັນພຸດ"
 
-#: src/features/chats/index.tsx:210
+#: src/features/chats/index.tsx:226
 msgid "You"
 msgstr "ທ່ານ"
 
@@ -1463,11 +1482,11 @@ msgstr "ທ່ານມີການສົນທະນາແລ້ວກັບ:"
 msgid "You haven't started any chats yet. Connect with a friend to get things rolling."
 msgstr "ທ່ານຍັງບໍ່ໄດ້ເລີ່ມການສົນທະນາໃດໆ. ເຊື່ອມຕໍ່ກັບໝູ່ເພື່ອເລີ່ມຕົ້ນ."
 
-#: src/features/chats/index.tsx:533
+#: src/features/chats/index.tsx:616
 msgid "You left this chat"
 msgstr "ທ່ານອອກຈາກການສົນທະນານີ້ແລ້ວ"
 
-#: src/features/chats/index.tsx:532
+#: src/features/chats/index.tsx:615
 msgid "You were removed from this chat"
 msgstr "ທ່ານຖືກລົບອອກຈາກການສົນທະນານີ້"
 

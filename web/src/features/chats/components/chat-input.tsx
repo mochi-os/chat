@@ -10,6 +10,8 @@ import { Trans, useLingui } from '@lingui/react/macro'
 import { Button, cn } from '@mochi/web'
 import { Loader2, Paperclip, Send, X } from 'lucide-react'
 import type { PendingAttachment } from '../utils'
+import type { ReplyTarget } from '../utils/reply'
+import { ReplyQuoteContent } from './reply-quote-content'
 
 interface ChatInputProps {
   newMessage: string
@@ -22,6 +24,8 @@ interface ChatInputProps {
   onReorderAttachments: (fromIndex: number, toIndex: number) => void
   onAttachmentSelection: (e: ChangeEvent<HTMLInputElement>) => void
   sendMessageErrorMessage: string | null
+  replyTo?: ReplyTarget | null
+  onClearReply?: () => void
 }
 
 export function ChatInput({
@@ -35,6 +39,8 @@ export function ChatInput({
   onReorderAttachments,
   onAttachmentSelection,
   sendMessageErrorMessage,
+  replyTo,
+  onClearReply,
 }: ChatInputProps) {
   const { t } = useLingui()
   const fileInputRef = useRef<HTMLInputElement | null>(null)
@@ -51,6 +57,12 @@ export function ChatInput({
     el.style.height = 'auto'
     el.style.height = `${el.scrollHeight}px`
   }, [newMessage])
+
+  useEffect(() => {
+    if (replyTo) {
+      textareaRef.current?.focus()
+    }
+  }, [replyTo])
 
   const handleDragStart = (e: DragEvent<HTMLDivElement>, attachmentId: string) => {
     if (!canReorder) return
@@ -95,6 +107,33 @@ export function ChatInput({
       className='flex w-full flex-none flex-col gap-2'
     >
       <div className='border-input bg-card focus-within:ring-ring flex w-full flex-col rounded-xl border focus-within:ring-1 focus-within:outline-hidden'>
+        {replyTo ? (
+          <div className='border-border/50 flex items-start gap-2 border-b px-4 py-2.5'>
+            <div className='flex min-w-0 flex-1 flex-col gap-1 overflow-hidden'>
+              <div className='text-foreground text-sm font-medium'>
+                <Trans>Replying to {replyTo.name}</Trans>
+              </div>
+              {replyTo.excerpt ? (
+                <ReplyQuoteContent
+                  body={replyTo.excerpt}
+                  className='text-foreground/75'
+                />
+              ) : replyTo.isAttachment ? (
+                <div className='text-foreground/75 text-sm'>
+                  <Trans>Attachment</Trans>
+                </div>
+              ) : null}
+            </div>
+            <button
+              type='button'
+              className='text-muted-foreground hover:text-foreground shrink-0 rounded p-0.5'
+              onClick={onClearReply}
+              aria-label={t`Cancel reply`}
+            >
+              <X className='size-4' />
+            </button>
+          </div>
+        ) : null}
         {hasPendingAttachments && (
           <div
             className='border-border/50 flex gap-2 overflow-x-auto border-b px-4 pt-2 pb-2'
@@ -177,7 +216,7 @@ export function ChatInput({
             <textarea
               ref={textareaRef}
               rows={1}
-              placeholder={t`Type your message…`}
+              placeholder={replyTo ? t`Type your reply…` : t`Type your message…`}
               value={newMessage}
               onChange={(e) => setNewMessage(e.target.value)}
               onKeyDown={(e) => {

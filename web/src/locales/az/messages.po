@@ -19,7 +19,7 @@ msgstr ""
 msgid "{0} settings"
 msgstr "{0} etiket"
 
-#: src/features/chats/components/chat-message-list.tsx:410
+#: src/features/chats/components/chat-message-list.tsx:430
 msgid "{newMessageCount, plural, one {Jump to 1 new message} other {Jump to # new messages}}"
 msgstr ""
 
@@ -85,7 +85,7 @@ msgstr "Hesab əlavə et"
 msgid "Add an account to receive notifications and use services."
 msgstr "Bildiriş almaq və xidmətlərdən istifadə etmək üçün hesab əlavə edin."
 
-#: src/features/chats/components/chat-input.tsx:170
+#: src/features/chats/components/chat-input.tsx:207
 msgid "Add attachment"
 msgstr "Qoşma əlavə et"
 
@@ -144,7 +144,7 @@ msgid "An unexpected error occurred"
 msgstr "Gözlənilməz xəta baş verdi"
 
 #. placeholder {0}: selectedChat?.name
-#: src/features/chats/index.tsx:578
+#: src/features/chats/index.tsx:663
 msgid "Are you sure you want to leave \"{0}\"? You can be added back by other members."
 msgstr "\"{0}\"-dan ayrılmaq istədiyinizə əminsiniz? Digər üzvlər tərəfindən geri əlavə edilə bilərsiniz."
 
@@ -164,6 +164,11 @@ msgstr "{0} bu söhbətdən silmək istədiyinizə əminsiniz?"
 #: ../../../lib/web/src/components/data-table/column-header.tsx:56
 msgid "Asc"
 msgstr "Artan"
+
+#: src/features/chats/components/chat-input.tsx:121
+#: src/features/chats/components/message-quote.tsx:40
+msgid "Attachment"
+msgstr ""
 
 #: ../../../lib/web/src/components/step-up-dialog.tsx:312
 msgid "Authenticator code"
@@ -205,6 +210,10 @@ msgstr "Ləğv et"
 msgid "Cancel edit"
 msgstr "Redaktəni ləğv et"
 
+#: src/features/chats/components/chat-input.tsx:129
+msgid "Cancel reply"
+msgstr ""
+
 #: ../../../lib/web/src/components/notification-category-button.tsx:135
 msgid "Category for this notification"
 msgstr "Bu bildiriş üçün kateqoriya"
@@ -213,10 +222,10 @@ msgstr "Bu bildiriş üçün kateqoriya"
 msgid "Change notification category"
 msgstr "Bildiriş kateqoriyasını dəyişdir"
 
-#: src/features/chats/index.tsx:53
-#: src/features/chats/index.tsx:137
-#: src/features/chats/index.tsx:137
-#: src/features/chats/index.tsx:402
+#: src/features/chats/index.tsx:58
+#: src/features/chats/index.tsx:153
+#: src/features/chats/index.tsx:153
+#: src/features/chats/index.tsx:475
 msgid "Chat"
 msgstr "Söhbət"
 
@@ -224,7 +233,7 @@ msgstr "Söhbət"
 msgid "Chat created"
 msgstr "Söhbət yaradıldı"
 
-#: src/features/chats/index.tsx:305
+#: src/features/chats/index.tsx:377
 msgid "Chat deleted"
 msgstr "Söhbət silindi"
 
@@ -265,7 +274,7 @@ msgstr "Söhbət hazırdır"
 msgid "Chat renamed"
 msgstr "Söhbət adı dəyişdirildi"
 
-#: src/features/chats/index.tsx:491
+#: src/features/chats/index.tsx:564
 #: src/routes/_authenticated/$chatId_.settings.tsx:81
 #: src/routes/_authenticated/$chatId_.settings.tsx:94
 #: src/routes/_authenticated/$chatId_.settings.tsx:105
@@ -273,7 +282,7 @@ msgstr "Söhbət adı dəyişdirildi"
 msgid "Chat settings"
 msgstr "Söhbət parametrləri"
 
-#: src/features/chats/components/chat-input.tsx:176
+#: src/features/chats/components/chat-input.tsx:213
 msgid "Chat Text Box"
 msgstr "Söhbət mətn qutusu"
 
@@ -388,6 +397,7 @@ msgid "Continue with {label}"
 msgstr "{label} ilə davam edin"
 
 #: ../../../lib/web/src/components/ui/copy-button.tsx:60
+#: src/features/chats/components/message-hover-actions.tsx:85
 msgid "Copy"
 msgstr "Kopyala"
 
@@ -441,12 +451,12 @@ msgstr "Default"
 msgid "Default AI account"
 msgstr "Default AI hesabı"
 
-#: src/features/chats/index.tsx:474
-#: src/features/chats/index.tsx:546
+#: src/features/chats/index.tsx:547
+#: src/features/chats/index.tsx:629
 msgid "Delete chat"
 msgstr "Söhbəti sil"
 
-#: src/features/chats/index.tsx:600
+#: src/features/chats/index.tsx:685
 #: src/routes/_authenticated/$chatId_.settings.tsx:440
 msgid "Delete chat history"
 msgstr "Söhbət tarixçəsini sil"
@@ -526,8 +536,7 @@ msgstr "Hesab əlavə etmək alınmadı"
 msgid "Failed to add member"
 msgstr "Üzv əlavə etmək alınmadı"
 
-#: src/features/chats/components/chat-message-list.tsx:334
-#: src/features/chats/components/chat-message-list.tsx:382
+#: src/features/chats/components/message-hover-actions.tsx:37
 msgid "Failed to copy message"
 msgstr ""
 
@@ -535,11 +544,11 @@ msgstr ""
 msgid "Failed to create chat"
 msgstr "Söhbət yaratmaq alınmadı"
 
-#: src/features/chats/index.tsx:309
+#: src/features/chats/index.tsx:381
 msgid "Failed to delete chat"
 msgstr "Söhbəti silmək alınmadı"
 
-#: src/features/chats/index.tsx:293
+#: src/features/chats/index.tsx:365
 #: src/routes/_authenticated/$chatId_.settings.tsx:402
 msgid "Failed to leave chat"
 msgstr "Söhbətdən çıxmaq alınmadı"
@@ -560,7 +569,7 @@ msgstr "Üzvü silmək alınmadı"
 msgid "Failed to rename chat"
 msgstr "Söhbətin adını dəyişmək alınmadı"
 
-#: src/features/chats/index.tsx:563
+#: src/features/chats/index.tsx:648
 msgid "Failed to send message"
 msgstr "Mesaj göndərmək alınmadı"
 
@@ -568,7 +577,7 @@ msgstr "Mesaj göndərmək alınmadı"
 msgid "Failed to send verification code"
 msgstr "Doğrulama kodu göndərmək alınmadı"
 
-#: src/features/chats/index.tsx:150
+#: src/features/chats/index.tsx:166
 msgid "Failed to start chat"
 msgstr "Söhbət başlatmaq alınmadı"
 
@@ -678,7 +687,7 @@ msgstr "Maraqlar"
 msgid "Invalid verification code"
 msgstr "Etibarsız doğrulama kodu"
 
-#: src/features/chats/components/chat-message-list.tsx:414
+#: src/features/chats/components/chat-message-list.tsx:434
 msgid "Jump to bottom"
 msgstr ""
 
@@ -695,21 +704,21 @@ msgstr "Tərtibat"
 msgid "Learn more"
 msgstr "Daha çox öyrən"
 
-#: src/features/chats/index.tsx:586
+#: src/features/chats/index.tsx:671
 msgid "Leave"
 msgstr "Tərk et"
 
-#: src/features/chats/index.tsx:481
+#: src/features/chats/index.tsx:554
 #: src/routes/_authenticated/$chatId_.settings.tsx:426
 msgid "Leave chat"
 msgstr "Söhbətdən çıx"
 
-#: src/features/chats/index.tsx:577
+#: src/features/chats/index.tsx:662
 #: src/routes/_authenticated/$chatId_.settings.tsx:417
 msgid "Leave chat?"
 msgstr "Söhbətdən çıxılsın?"
 
-#: src/features/chats/index.tsx:583
+#: src/features/chats/index.tsx:668
 #: src/routes/_authenticated/$chatId_.settings.tsx:423
 msgid "Leaving..."
 msgstr "Çıxılır..."
@@ -795,9 +804,17 @@ msgstr "Üzvlər"
 msgid "Menu"
 msgstr "Menyu"
 
-#: src/features/chats/components/chat-message-list.tsx:333
-#: src/features/chats/components/chat-message-list.tsx:381
+#: src/features/chats/components/message-hover-actions.tsx:70
+msgid "Message actions"
+msgstr ""
+
+#: src/features/chats/components/message-hover-actions.tsx:35
 msgid "Message copied"
+msgstr ""
+
+#: src/features/chats/components/message-quote.tsx:44
+#: src/features/chats/index.tsx:295
+msgid "Message not available"
 msgstr ""
 
 #: ../../../lib/web/src/lib/preference-utils.ts:82
@@ -807,14 +824,6 @@ msgstr "Metrik"
 #: ../../../lib/web/src/lib/preference-utils.ts:56
 msgid "Monday"
 msgstr "Bazar ertəsi"
-
-#: src/features/chats/components/chat-input.tsx:133
-#~ msgid "Move attachment left"
-#~ msgstr "Əlavəni sola köçür"
-
-#: src/features/chats/components/chat-input.tsx:145
-#~ msgid "Move attachment right"
-#~ msgstr "Əlavəni sağa köçür"
 
 #: src/routes/_authenticated/$chatId_.settings.tsx:202
 msgid "Name must be 1000 characters or less"
@@ -841,10 +850,6 @@ msgstr ""
 msgid "Next image"
 msgstr "Növbəti şəkil"
 
-#: src/features/chats/components/chat-search-header.tsx:94
-#~ msgid "Next match"
-#~ msgstr ""
-
 #: ../../../lib/web/src/features/access/access-list.tsx:156
 msgid "No access rules configured. Add rules to control who can access this resource."
 msgstr "Giriş qaydaları konfiqurasiya edilməyib. Bu resursa kimin daxil ola biləcəyini idarə etmək üçün qaydalar əlavə edin."
@@ -869,7 +874,7 @@ msgstr "Hələ dost yoxdur"
 msgid "No groups available"
 msgstr "Mövcud qrup yoxdur"
 
-#: src/features/chats/components/chat-message-list.tsx:268
+#: src/features/chats/components/chat-message-list.tsx:282
 msgid "No messages yet"
 msgstr "Hələ mesaj yoxdur"
 
@@ -935,7 +940,7 @@ msgstr "Aç"
 msgid "Open account actions"
 msgstr "Hesab əməliyyatlarını aç"
 
-#: src/features/chats/index.tsx:466
+#: src/features/chats/index.tsx:539
 msgid "Open chat actions"
 msgstr "Söhbət əməliyyatlarını aç"
 
@@ -955,6 +960,10 @@ msgstr "İnsanlar bölməsini aç"
 #: ../../../lib/web/src/components/config-drawer.tsx:51
 msgid "Open theme settings"
 msgstr "Tema parametrlərini aç"
+
+#: src/features/chats/components/message-quote.tsx:32
+msgid "Original message"
+msgstr ""
 
 #: ../../../lib/web/src/features/access/access-dialog.tsx:163
 msgid "Other"
@@ -991,10 +1000,6 @@ msgstr "Ən azı bir dost seçin"
 #: ../../../lib/web/src/components/ui/image-lightbox.tsx:335
 msgid "Previous image"
 msgstr "Əvvəlki şəkil"
-
-#: src/features/chats/components/chat-search-header.tsx:85
-#~ msgid "Previous match"
-#~ msgstr ""
 
 #: ../../../lib/web/src/components/server-documents-footer.tsx:24
 #: ../../../lib/web/src/features/document/document-page.tsx:41
@@ -1042,7 +1047,7 @@ msgid "Remove"
 msgstr "Sil"
 
 #. placeholder {0}: attachment.file.name
-#: src/features/chats/components/chat-input.tsx:154
+#: src/features/chats/components/chat-input.tsx:191
 msgid "Remove {0}"
 msgstr "{0} sil"
 
@@ -1066,6 +1071,16 @@ msgstr "Üzvü silək?"
 #: src/routes/_authenticated/$chatId_.settings.tsx:568
 msgid "Removing..."
 msgstr "Silinir..."
+
+#: src/features/chats/components/message-hover-actions.tsx:53
+#: src/features/chats/components/message-hover-actions.tsx:95
+msgid "Reply"
+msgstr ""
+
+#. placeholder {0}: replyTo.name
+#: src/features/chats/components/chat-input.tsx:113
+msgid "Replying to {0}"
+msgstr ""
 
 #: ../../../lib/web/src/components/step-up-dialog.tsx:364
 msgid "Resend email"
@@ -1108,7 +1123,7 @@ msgstr "Mənşə axtar..."
 msgid "Search in chat..."
 msgstr ""
 
-#: src/features/chats/index.tsx:456
+#: src/features/chats/index.tsx:529
 msgid "Search messages"
 msgstr ""
 
@@ -1182,7 +1197,7 @@ msgstr "Yenidən göndər"
 msgid "Send email"
 msgstr "E-poçt göndər"
 
-#: src/features/chats/components/chat-input.tsx:198
+#: src/features/chats/components/chat-input.tsx:235
 msgid "Send message"
 msgstr "Mesaj göndər"
 
@@ -1356,9 +1371,13 @@ msgstr "Mesajınızı yazın…"
 msgid "Type to search..."
 msgstr "Növlər"
 
-#: src/features/chats/components/chat-input.tsx:180
+#: src/features/chats/components/chat-input.tsx:217
 msgid "Type your message…"
 msgstr "Britaniya funtu"
+
+#: src/features/chats/components/chat-input.tsx:217
+msgid "Type your reply…"
+msgstr ""
 
 #: ../../../lib/web/src/lib/api-client.ts:277
 msgid "Unable to connect to remote server"
@@ -1381,7 +1400,7 @@ msgstr "Banı götür"
 msgid "United States"
 msgstr "Naməlum"
 
-#: src/hooks/useChatWebsocket.ts:183
+#: src/hooks/useChatWebsocket.ts:189
 msgid "Unknown"
 msgstr "Naməlum cihaz"
 
@@ -1447,7 +1466,7 @@ msgstr "Həftə başlayır"
 msgid "Wednesday"
 msgstr "Digər wiki-lər bu wiki-ni replikasiya etdikdə burada görünəcəklər."
 
-#: src/features/chats/index.tsx:210
+#: src/features/chats/index.tsx:226
 msgid "You"
 msgstr "Artıq söhbətiniz olanlar:"
 
@@ -1463,11 +1482,11 @@ msgstr "Siz <0>{slug}</0>-i <1>{version}</1> versiyasına geri qaytarmaq üzrəs
 msgid "You haven't started any chats yet. Connect with a friend to get things rolling."
 msgstr "Təslim oldunuz"
 
-#: src/features/chats/index.tsx:533
+#: src/features/chats/index.tsx:616
 msgid "You left this chat"
 msgstr "Təslim oldunuz — {opponentName} qazandı"
 
-#: src/features/chats/index.tsx:532
+#: src/features/chats/index.tsx:615
 msgid "You were removed from this chat"
 msgstr "Bu hərracı qazandınız"
 

@@ -48,14 +48,17 @@ def chat_commit_hook(table, kind, row_uid):
 	if not chat:
 		return
 	attachments = mochi.attachment.list("chat/" + message["chat"] + "/" + message["id"])
-	mochi.websocket.write(chat["key"], {
+	ws_data = {
 		"id": message["id"],
 		"created": message["created"],
 		"member": message["member"],
 		"name": message["name"],
 		"body": message["body"],
 		"attachments": attachments,
-	})
+	}
+	if message.get("reply_to"):
+		ws_data["reply_to"] = message["reply_to"]
+	mochi.websocket.write(chat["key"], ws_data)
 
 # Lazy hook registration; the call to mochi.db.commit.hook needs a
 # user/app context that's only present during a real request, not at
@@ -72,7 +75,7 @@ def database_create():
 	mochi.db.execute("create table if not exists members ( chat references chats( id ), member text not null, name text not null, primary key ( chat, member ) )")
 	mochi.db.execute("create index if not exists members_member on members( member )")
 
-	mochi.db.execute("create table if not exists messages ( id text not null primary key, chat references chats( id ), member text not null, name text not null, body text not null, created integer not null )")
+	mochi.db.execute("create table if not exists messages ( id text not null primary key, chat references chats( id ), member text not null, name text not null, body text not null, created integer not null, reply_to text references messages( id ) )")
 	mochi.db.execute("create index if not exists messages_chat_created on messages( chat, created )")
 
 	mochi.db.execute("create table if not exists chat_read ( chat text not null primary key references chats( id ), last_read integer not null default 0 )")
@@ -143,6 +146,10 @@ def database_upgrade(to_version):
 			mochi.db.execute("alter table chats drop column identity")
 	if to_version == 9 or to_version == 10:
 		ensure_chat_read_table()
+	if to_version == 11:
+		cols = [r["name"] for r in mochi.db.table("messages") or []]
+		if "reply_to" not in cols:
+			mochi.db.execute("alter table messages add column reply_to text references messages( id )")
 
 # Stream an entity's asset from its owning service via a Mochi stream.
 # Location-transparent: mochi.remote.stream() loops back in-process when the
@@ -461,10 +468,21 @@ def action_send(a):
 		a.error.label(400, "errors.message_empty")
 		return
 
+	reply_to = a.input("reply_to", "")
+	if reply_to:
+		if not mochi.text.valid(str(reply_to), "id"):
+			a.error.label(400, "errors.invalid_message")
+			return
+		if not mochi.db.exists("select 1 from messages where id=? and chat=?", reply_to, chat["id"]):
+			a.error.label(404, "errors.message_not_found")
+			return
+	else:
+		reply_to = None
+
 	chat_ensure_commit_hook()
 	id = mochi.uid()
 	now_send = mochi.time.now()
-	mochi.db.execute("replace into messages ( id, chat, member, name, body, created ) values ( ?, ?, ?, ?, ?, ? )", id, chat["id"], a.user.identity.id, a.user.identity.name, body, now_send)
+	mochi.db.execute("replace into messages ( id, chat, member, name, body, created, reply_to ) values ( ?, ?, ?, ?, ?, ?, ? )", id, chat["id"], a.user.identity.id, a.user.identity.name, body, now_send, reply_to)
 	# Bump the chat's updated timestamp so the chat list sorts by last
 	# message activity, not by member-event history.
 	mochi.db.execute("update chats set updated=? where id=?", now_send, chat["id"])
@@ -489,6 +507,8 @@ def action_send(a):
 	# arg is needed here. Reuse now_send (the timestamp already written to
 	# the DB) so sender and recipients store the identical created value.
 	msg_data = {"chat": chat["id"], "message": id, "created": now_send, "body": body, "name": a.user.identity.name}
+	if reply_to:
+		msg_data["reply_to"] = reply_to
 	if attachments:
 		msg_data["attachments"] = [{"id": att["id"], "name": att["name"], "size": att["size"], "content_type": att.get("type", ""), "rank": att.get("rank", 0), "created": att.get("created", now_send)} for att in attachments]
 	broadcast_chat(chat["id"], a.user.identity.id, member_ids, "message", msg_data)
@@ -665,7 +685,14 @@ def event_message(e):
 	# Use current name from event, fall back to cached member name
 	name = e.content("name") or member["name"]
 
-	mochi.db.execute("replace into messages ( id, chat, member, name, body, created ) values ( ?, ?, ?, ?, ?, ? )", id, chat["id"], member["member"], name, body, created)
+	reply_to = e.content("reply_to") or None
+	if reply_to:
+		if not mochi.text.valid(str(reply_to), "id"):
+			reply_to = None
+		elif not mochi.db.exists("select 1 from messages where id=? and chat=?", reply_to, chat["id"]):
+			reply_to = None
+
+	mochi.db.execute("replace into messages ( id, chat, member, name, body, created, reply_to ) values ( ?, ?, ?, ?, ?, ?, ? )", id, chat["id"], member["member"], name, body, created, reply_to)
 	# Bump the chat's updated timestamp so the chat list sorts by last
 	# message activity. Use the message's own `created` (not now()) so
 	# replayed history doesn't drag the chat forward in time.

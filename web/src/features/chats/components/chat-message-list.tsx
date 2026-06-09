@@ -15,7 +15,6 @@ import type {
 } from '@tanstack/react-query'
 import {
   Button,
-  CopyButton,
   EntityAvatar,
   GeneralError,
   LoadMoreTrigger,
@@ -28,6 +27,8 @@ import { ChevronsDown, MessageCircle } from 'lucide-react'
 import type { ChatMessage } from '@/api/chats'
 import type { GetMessagesResponse } from '@/api/types/chats'
 import { MessageAttachments } from './message-attachments'
+import { MessageHoverActions } from './message-hover-actions'
+import { MessageQuote } from './message-quote'
 import { highlightSearchText } from '../utils/highlight-search-text'
 
 const BOTTOM_THRESHOLD_PX = 80
@@ -55,7 +56,12 @@ interface ChatMessageListProps {
   matchedMessageIds?: Set<string>
   activeMatchId?: string | null
   scrollToMessageId?: string | null
+  scrollToMessageEnabled?: boolean
+  highlightMessageId?: string | null
   onEnsureMatchVisible?: (messageId: string) => void | Promise<void>
+  onScrollToMessageComplete?: (messageId: string) => void
+  onReply?: (message: ChatMessage) => void
+  onScrollToMessage?: (messageId: string) => void
 }
 
 export function ChatMessageList({
@@ -70,7 +76,12 @@ export function ChatMessageList({
   matchedMessageIds,
   activeMatchId,
   scrollToMessageId,
+  scrollToMessageEnabled = false,
+  highlightMessageId,
   onEnsureMatchVisible,
+  onScrollToMessageComplete,
+  onReply,
+  onScrollToMessage,
 }: ChatMessageListProps) {
   const { t } = useLingui()
   const { formatDate, formatDateTime } = useFormat()
@@ -123,6 +134,11 @@ export function ChatMessageList({
     })
     return groups
   }, [chatMessages])
+
+  const messagesById = useMemo(
+    () => new Map(chatMessages.map((m) => [m.id, m])),
+    [chatMessages]
+  )
 
   // Handle loading more (older) messages
   const handleLoadMore = useCallback(() => {
@@ -198,12 +214,13 @@ export function ChatMessageList({
   }, [chatMessages, currentUserIdentity, messagesQuery.isFetchingNextPage])
 
   useLayoutEffect(() => {
-    if (!scrollToMessageId || !searchActive) return
+    if (!scrollToMessageId || !scrollToMessageEnabled) return
 
     const isLoaded = chatMessages.some((m) => m.id === scrollToMessageId)
     if (isLoaded) {
       const el = document.getElementById(`chat-message-${scrollToMessageId}`)
       el?.scrollIntoView({ block: 'center', behavior: 'smooth' })
+      onScrollToMessageComplete?.(scrollToMessageId)
       return
     }
 
@@ -216,11 +233,12 @@ export function ChatMessageList({
     }
   }, [
     scrollToMessageId,
-    searchActive,
+    scrollToMessageEnabled,
     chatMessages,
     messagesQuery.hasNextPage,
     messagesQuery.isFetchingNextPage,
     onEnsureMatchVisible,
+    onScrollToMessageComplete,
   ])
 
   if (isLoadingMessages) {
@@ -300,8 +318,10 @@ export function ChatMessageList({
                   key={message.id}
                   id={`chat-message-${message.id}`}
                   className={cn(
-                    'group mb-3 flex w-full flex-col gap-1',
-                    isSent ? 'items-end' : 'items-start'
+                    'group mb-3 flex w-full flex-col gap-1 rounded-lg transition-shadow',
+                    isSent ? 'items-end' : 'items-start',
+                    highlightMessageId === message.id &&
+                      'ring-primary/60 bg-primary/5 ring-2'
                   )}
                 >
                   {/* Message metadata: avatar + name (only for group chats) */}
@@ -321,18 +341,16 @@ export function ChatMessageList({
                   )}
 
                   {/* Message bubble + hover metadata (time, copy) */}
-                  <div className='flex items-end gap-2'>
+                  <div className='flex max-w-full min-w-0 items-end gap-2'>
                     {isSent ? (
-                      <div className='flex items-center gap-0.5 opacity-0 transition-opacity group-hover:opacity-100'>
-                        <span className='text-muted-foreground/70 text-[10px]'>
+                      <div className='flex items-center gap-0.5'>
+                        <span className='text-muted-foreground/70 text-[10px] opacity-0 transition-opacity group-hover:opacity-100 [@media(hover:none)]:opacity-100'>
                           {formatDateTime(new Date(message.created * 1000))}
                         </span>
-                        {message.body ? (
-                          <CopyButton
-                            value={message.body}
-                            successMessage={t`Message copied`}
-                            errorMessage={t`Failed to copy message`}
-                            className='size-6'
+                        {onReply ? (
+                          <MessageHoverActions
+                            message={message}
+                            onReply={onReply}
                           />
                         ) : null}
                       </div>
@@ -340,10 +358,18 @@ export function ChatMessageList({
 
                     <div
                       className={cn(
-                        'message-content relative max-w-[70%] px-3.5 py-2 wrap-break-word',
+                        'message-content relative min-w-0 max-w-[70%] px-3.5 py-2 wrap-break-word',
                         getChatBubbleToneClass(isSent)
                       )}
                     >
+                      {message.reply_to && onScrollToMessage ? (
+                        <MessageQuote
+                          quoted={messagesById.get(message.reply_to)}
+                          isSent={isSent}
+                          onClick={() => onScrollToMessage(message.reply_to!)}
+                        />
+                      ) : null}
+
                       {message.attachments?.length ? (
                         <div className='space-y-2'>
                           <MessageAttachments
@@ -374,16 +400,14 @@ export function ChatMessageList({
                     </div>
 
                     {!isSent ? (
-                      <div className='flex items-center gap-0.5 opacity-0 transition-opacity group-hover:opacity-100'>
-                        {message.body ? (
-                          <CopyButton
-                            value={message.body}
-                            successMessage={t`Message copied`}
-                            errorMessage={t`Failed to copy message`}
-                            className='size-6'
+                      <div className='flex items-center gap-0.5'>
+                        {onReply ? (
+                          <MessageHoverActions
+                            message={message}
+                            onReply={onReply}
                           />
                         ) : null}
-                        <span className='text-muted-foreground/70 text-[10px]'>
+                        <span className='text-muted-foreground/70 text-[10px] opacity-0 transition-opacity group-hover:opacity-100 [@media(hover:none)]:opacity-100'>
                           {formatDateTime(new Date(message.created * 1000))}
                         </span>
                       </div>
