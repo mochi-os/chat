@@ -144,7 +144,7 @@ msgid "An unexpected error occurred"
 msgstr "ເກີດຂໍ້ຜິດພາດທີ່ບໍ່ຄາດຄິດ"
 
 #. placeholder {0}: selectedChat?.name
-#: src/features/chats/index.tsx:576
+#: src/features/chats/index.tsx:578
 msgid "Are you sure you want to leave \"{0}\"? You can be added back by other members."
 msgstr "ທ່ານແນ່ໃຈບໍວ່າຕ້ອງການອອກຈາກ \"{0}\"? ທ່ານສາມາດຖືກເພີ່ມກັບໂດຍສະມາຊິກອື່ນ."
 
@@ -214,9 +214,9 @@ msgid "Change notification category"
 msgstr "ປ່ຽນໝວດໝູ່ການແຈ້ງເຕືອນ"
 
 #: src/features/chats/index.tsx:53
-#: src/features/chats/index.tsx:136
-#: src/features/chats/index.tsx:136
-#: src/features/chats/index.tsx:400
+#: src/features/chats/index.tsx:137
+#: src/features/chats/index.tsx:137
+#: src/features/chats/index.tsx:402
 msgid "Chat"
 msgstr "ແຊັດ"
 
@@ -224,13 +224,21 @@ msgstr "ແຊັດ"
 msgid "Chat created"
 msgstr "ສ້າງແຊັດແລ້ວ"
 
-#: src/features/chats/index.tsx:303
+#: src/features/chats/index.tsx:305
 msgid "Chat deleted"
 msgstr "ລົບແຊັດແລ້ວ"
 
 #: src/routes/_authenticated/$chatId_.settings.tsx:295
 msgid "Chat ID"
 msgstr "ID ແຊັດ"
+
+#: src/components/layout/chat-layout.tsx:102
+msgid "Chat marked as read"
+msgstr ""
+
+#: src/components/layout/chat-layout.tsx:120
+msgid "Chat marked as unread"
+msgstr ""
 
 #: src/features/chats/components/new-chat.tsx:238
 #: src/routes/_authenticated/$chatId_.settings.tsx:234
@@ -257,7 +265,7 @@ msgstr "ແຊັດພ້ອມແລ້ວ"
 msgid "Chat renamed"
 msgstr "ປ່ຽນຊື່ແຊັດແລ້ວ"
 
-#: src/features/chats/index.tsx:489
+#: src/features/chats/index.tsx:491
 #: src/routes/_authenticated/$chatId_.settings.tsx:81
 #: src/routes/_authenticated/$chatId_.settings.tsx:94
 #: src/routes/_authenticated/$chatId_.settings.tsx:105
@@ -269,7 +277,7 @@ msgstr "ການຕັ້ງຄ່າແຊັດ"
 msgid "Chat Text Box"
 msgstr "ກ່ອງຂໍ້ຄວາມແຊັດ"
 
-#: src/components/layout/chat-layout.tsx:115
+#: src/components/layout/chat-layout.tsx:186
 msgid "Chats"
 msgstr "ແຊັດ"
 
@@ -403,7 +411,7 @@ msgstr "ບໍ່ສາມາດຢືນຢັນດ້ວຍບັນຊີນ
 msgid "Create a new chat"
 msgstr "ສ້າງແຊັດໃໝ່"
 
-#: src/components/layout/chat-layout.tsx:123
+#: src/components/layout/chat-layout.tsx:194
 #: src/features/chats/components/new-chat.tsx:262
 msgid "Create chat"
 msgstr "ສ້າງແຊັດ"
@@ -433,12 +441,12 @@ msgstr "ຄ່າເລີ່ມຕົ້ນ"
 msgid "Default AI account"
 msgstr "ບັນຊີ AI ເລີ່ມຕົ້ນ"
 
-#: src/features/chats/index.tsx:472
-#: src/features/chats/index.tsx:544
+#: src/features/chats/index.tsx:474
+#: src/features/chats/index.tsx:546
 msgid "Delete chat"
 msgstr "ລົບແຊັດ"
 
-#: src/features/chats/index.tsx:598
+#: src/features/chats/index.tsx:600
 #: src/routes/_authenticated/$chatId_.settings.tsx:440
 msgid "Delete chat history"
 msgstr "ລົບປະຫວັດແຊັດ"
@@ -527,14 +535,18 @@ msgstr ""
 msgid "Failed to create chat"
 msgstr "ສ້າງການສົນທະນາລົ້ມເຫຼວ"
 
-#: src/features/chats/index.tsx:307
+#: src/features/chats/index.tsx:309
 msgid "Failed to delete chat"
 msgstr "ລຶບການສົນທະນາລົ້ມເຫຼວ"
 
-#: src/features/chats/index.tsx:291
+#: src/features/chats/index.tsx:293
 #: src/routes/_authenticated/$chatId_.settings.tsx:402
 msgid "Failed to leave chat"
 msgstr "ອອກຈາກການສົນທະນາລົ້ມເຫຼວ"
+
+#: src/components/layout/chat-layout.tsx:105
+msgid "Failed to mark chat as read"
+msgstr ""
 
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:226
 msgid "Failed to remove account"
@@ -548,7 +560,7 @@ msgstr "ຍ້າຍສະມາຊິກລົ້ມເຫຼວ"
 msgid "Failed to rename chat"
 msgstr "ປ່ຽນຊື່ການສົນທະນາລົ້ມເຫຼວ"
 
-#: src/features/chats/index.tsx:561
+#: src/features/chats/index.tsx:563
 msgid "Failed to send message"
 msgstr "ສົ່ງຂໍ້ຄວາມລົ້ມເຫຼວ"
 
@@ -556,7 +568,7 @@ msgstr "ສົ່ງຂໍ້ຄວາມລົ້ມເຫຼວ"
 msgid "Failed to send verification code"
 msgstr "ສົ່ງລະຫັດຢືນຢັນລົ້ມເຫຼວ"
 
-#: src/features/chats/index.tsx:149
+#: src/features/chats/index.tsx:150
 msgid "Failed to start chat"
 msgstr "ເລີ່ມການສົນທະນາລົ້ມເຫຼວ"
 
@@ -683,21 +695,21 @@ msgstr "ຮູບແບບ"
 msgid "Learn more"
 msgstr "ຮຽນຮູ້ເພີ່ມເຕີມ"
 
-#: src/features/chats/index.tsx:584
+#: src/features/chats/index.tsx:586
 msgid "Leave"
 msgstr "ອອກຈາກ"
 
-#: src/features/chats/index.tsx:479
+#: src/features/chats/index.tsx:481
 #: src/routes/_authenticated/$chatId_.settings.tsx:426
 msgid "Leave chat"
 msgstr "ອອກຈາກການສົນທະນາ"
 
-#: src/features/chats/index.tsx:575
+#: src/features/chats/index.tsx:577
 #: src/routes/_authenticated/$chatId_.settings.tsx:417
 msgid "Leave chat?"
 msgstr "ອອກຈາກການສົນທະນາບໍ?"
 
-#: src/features/chats/index.tsx:581
+#: src/features/chats/index.tsx:583
 #: src/routes/_authenticated/$chatId_.settings.tsx:423
 msgid "Leaving..."
 msgstr "ກຳລັງອອກ..."
@@ -754,6 +766,14 @@ msgstr "ກຳລັງອອກຈາກລະບົບ…"
 #: ../../../lib/web/src/components/notifications-dropdown.tsx:220
 msgid "Mark all as read"
 msgstr "ໝາຍທັງໝົດເປັນອ່ານແລ້ວ"
+
+#: src/components/layout/chat-layout.tsx:155
+msgid "Mark as read"
+msgstr ""
+
+#: src/components/layout/chat-layout.tsx:161
+msgid "Mark as unread"
+msgstr ""
 
 #: ../../../lib/web/src/lib/preference-utils.ts:104
 msgid "Medium"
@@ -915,7 +935,7 @@ msgstr "ເປີດ"
 msgid "Open account actions"
 msgstr "ເປີດການກະທຳບັນຊີ"
 
-#: src/features/chats/index.tsx:464
+#: src/features/chats/index.tsx:466
 msgid "Open chat actions"
 msgstr "ເປີດການກະທຳສົນທະນາ"
 
@@ -1088,7 +1108,7 @@ msgstr "ຄົ້ນຫາຕົ້ນທາງ..."
 msgid "Search in chat..."
 msgstr ""
 
-#: src/features/chats/index.tsx:454
+#: src/features/chats/index.tsx:456
 msgid "Search messages"
 msgstr ""
 
@@ -1427,7 +1447,7 @@ msgstr "ເວັບໄຊກຳລັງຢູ່ໃນການບຳລຸງ
 msgid "Wednesday"
 msgstr "ວັນພຸດ"
 
-#: src/features/chats/index.tsx:208
+#: src/features/chats/index.tsx:210
 msgid "You"
 msgstr "ທ່ານ"
 
@@ -1443,11 +1463,11 @@ msgstr "ທ່ານມີການສົນທະນາແລ້ວກັບ:"
 msgid "You haven't started any chats yet. Connect with a friend to get things rolling."
 msgstr "ທ່ານຍັງບໍ່ໄດ້ເລີ່ມການສົນທະນາໃດໆ. ເຊື່ອມຕໍ່ກັບໝູ່ເພື່ອເລີ່ມຕົ້ນ."
 
-#: src/features/chats/index.tsx:531
+#: src/features/chats/index.tsx:533
 msgid "You left this chat"
 msgstr "ທ່ານອອກຈາກການສົນທະນານີ້ແລ້ວ"
 
-#: src/features/chats/index.tsx:530
+#: src/features/chats/index.tsx:532
 msgid "You were removed from this chat"
 msgstr "ທ່ານຖືກລົບອອກຈາກການສົນທະນານີ້"
 

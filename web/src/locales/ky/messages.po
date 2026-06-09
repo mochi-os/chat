@@ -144,7 +144,7 @@ msgid "An unexpected error occurred"
 msgstr "Күтүлбөгөн ката кетти"
 
 #. placeholder {0}: selectedChat?.name
-#: src/features/chats/index.tsx:576
+#: src/features/chats/index.tsx:578
 msgid "Are you sure you want to leave \"{0}\"? You can be added back by other members."
 msgstr "\"{0}\" чыгууну каалайсызбы? Башка мүчөлөр сизди кайра кошо алат."
 
@@ -214,9 +214,9 @@ msgid "Change notification category"
 msgstr "Эскертүү категориясын өзгөртүү"
 
 #: src/features/chats/index.tsx:53
-#: src/features/chats/index.tsx:136
-#: src/features/chats/index.tsx:136
-#: src/features/chats/index.tsx:400
+#: src/features/chats/index.tsx:137
+#: src/features/chats/index.tsx:137
+#: src/features/chats/index.tsx:402
 msgid "Chat"
 msgstr "Чат"
 
@@ -224,13 +224,21 @@ msgstr "Чат"
 msgid "Chat created"
 msgstr "Чат түзүлдү"
 
-#: src/features/chats/index.tsx:303
+#: src/features/chats/index.tsx:305
 msgid "Chat deleted"
 msgstr "Чат жок кылынды"
 
 #: src/routes/_authenticated/$chatId_.settings.tsx:295
 msgid "Chat ID"
 msgstr "Чат ID"
+
+#: src/components/layout/chat-layout.tsx:102
+msgid "Chat marked as read"
+msgstr ""
+
+#: src/components/layout/chat-layout.tsx:120
+msgid "Chat marked as unread"
+msgstr ""
 
 #: src/features/chats/components/new-chat.tsx:238
 #: src/routes/_authenticated/$chatId_.settings.tsx:234
@@ -257,7 +265,7 @@ msgstr "Чат даяр"
 msgid "Chat renamed"
 msgstr "Чат аталышы өзгөртүлдү"
 
-#: src/features/chats/index.tsx:489
+#: src/features/chats/index.tsx:491
 #: src/routes/_authenticated/$chatId_.settings.tsx:81
 #: src/routes/_authenticated/$chatId_.settings.tsx:94
 #: src/routes/_authenticated/$chatId_.settings.tsx:105
@@ -269,7 +277,7 @@ msgstr "Чат жөндөөлөрү"
 msgid "Chat Text Box"
 msgstr "Чат текст кутусу"
 
-#: src/components/layout/chat-layout.tsx:115
+#: src/components/layout/chat-layout.tsx:186
 msgid "Chats"
 msgstr "Чаттар"
 
@@ -403,7 +411,7 @@ msgstr "Бул каттоо эсеби менен текшерүү мүмкүн 
 msgid "Create a new chat"
 msgstr "Жаңы чат түзүү"
 
-#: src/components/layout/chat-layout.tsx:123
+#: src/components/layout/chat-layout.tsx:194
 #: src/features/chats/components/new-chat.tsx:262
 msgid "Create chat"
 msgstr "Чат түзүү"
@@ -433,12 +441,12 @@ msgstr "Демейки"
 msgid "Default AI account"
 msgstr "Демейки AI аккаунту"
 
-#: src/features/chats/index.tsx:472
-#: src/features/chats/index.tsx:544
+#: src/features/chats/index.tsx:474
+#: src/features/chats/index.tsx:546
 msgid "Delete chat"
 msgstr "Чатты жок кылуу"
 
-#: src/features/chats/index.tsx:598
+#: src/features/chats/index.tsx:600
 #: src/routes/_authenticated/$chatId_.settings.tsx:440
 msgid "Delete chat history"
 msgstr "Чат тарыхын жок кылуу"
@@ -527,14 +535,18 @@ msgstr ""
 msgid "Failed to create chat"
 msgstr "Чат түзүү ишке ашкан жок"
 
-#: src/features/chats/index.tsx:307
+#: src/features/chats/index.tsx:309
 msgid "Failed to delete chat"
 msgstr "Чатты өчүрүү ишке ашкан жок"
 
-#: src/features/chats/index.tsx:291
+#: src/features/chats/index.tsx:293
 #: src/routes/_authenticated/$chatId_.settings.tsx:402
 msgid "Failed to leave chat"
 msgstr "Чаттан чыгуу ишке ашкан жок"
+
+#: src/components/layout/chat-layout.tsx:105
+msgid "Failed to mark chat as read"
+msgstr ""
 
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:226
 msgid "Failed to remove account"
@@ -548,7 +560,7 @@ msgstr "Мүчөнү алып салуу ишке ашкан жок"
 msgid "Failed to rename chat"
 msgstr "Чаттын атын өзгөртүү ишке ашкан жок"
 
-#: src/features/chats/index.tsx:561
+#: src/features/chats/index.tsx:563
 msgid "Failed to send message"
 msgstr "Билдирүү жөнөтүү ишке ашкан жок"
 
@@ -556,7 +568,7 @@ msgstr "Билдирүү жөнөтүү ишке ашкан жок"
 msgid "Failed to send verification code"
 msgstr "Текшерүү кодун жөнөтүү ишке ашкан жок"
 
-#: src/features/chats/index.tsx:149
+#: src/features/chats/index.tsx:150
 msgid "Failed to start chat"
 msgstr "Чатты баштоо ишке ашкан жок"
 
@@ -683,21 +695,21 @@ msgstr "Жайгашуу"
 msgid "Learn more"
 msgstr "Кененирээк билүү"
 
-#: src/features/chats/index.tsx:584
+#: src/features/chats/index.tsx:586
 msgid "Leave"
 msgstr "Чыгуу"
 
-#: src/features/chats/index.tsx:479
+#: src/features/chats/index.tsx:481
 #: src/routes/_authenticated/$chatId_.settings.tsx:426
 msgid "Leave chat"
 msgstr "Чаттан чыгуу"
 
-#: src/features/chats/index.tsx:575
+#: src/features/chats/index.tsx:577
 #: src/routes/_authenticated/$chatId_.settings.tsx:417
 msgid "Leave chat?"
 msgstr "Чаттан чыгабы?"
 
-#: src/features/chats/index.tsx:581
+#: src/features/chats/index.tsx:583
 #: src/routes/_authenticated/$chatId_.settings.tsx:423
 msgid "Leaving..."
 msgstr "Чыгууда..."
@@ -754,6 +766,14 @@ msgstr "Чыгууда…"
 #: ../../../lib/web/src/components/notifications-dropdown.tsx:220
 msgid "Mark all as read"
 msgstr "Баарын окулду деп белгилөө"
+
+#: src/components/layout/chat-layout.tsx:155
+msgid "Mark as read"
+msgstr ""
+
+#: src/components/layout/chat-layout.tsx:161
+msgid "Mark as unread"
+msgstr ""
 
 #: ../../../lib/web/src/lib/preference-utils.ts:104
 msgid "Medium"
@@ -915,7 +935,7 @@ msgstr "Ачуу"
 msgid "Open account actions"
 msgstr "Аккаунт аракеттерин ачуу"
 
-#: src/features/chats/index.tsx:464
+#: src/features/chats/index.tsx:466
 msgid "Open chat actions"
 msgstr "Чат аракеттерин ачуу"
 
@@ -1088,7 +1108,7 @@ msgstr "Башталышты издөө..."
 msgid "Search in chat..."
 msgstr ""
 
-#: src/features/chats/index.tsx:454
+#: src/features/chats/index.tsx:456
 msgid "Search messages"
 msgstr ""
 
@@ -1427,7 +1447,7 @@ msgstr "Сайт техникалык тейлөөдө!"
 msgid "Wednesday"
 msgstr "Шаршемби"
 
-#: src/features/chats/index.tsx:208
+#: src/features/chats/index.tsx:210
 msgid "You"
 msgstr "Сиз"
 
@@ -1443,11 +1463,11 @@ msgstr "Сизде булар менен маектер бар:"
 msgid "You haven't started any chats yet. Connect with a friend to get things rolling."
 msgstr "Сиз азырынча эч кандай маекти баштаган эмессиз. Иш баштоо үчүн дос менен байланышыңыз."
 
-#: src/features/chats/index.tsx:531
+#: src/features/chats/index.tsx:533
 msgid "You left this chat"
 msgstr "Сиз бул маектен чыктыңыз"
 
-#: src/features/chats/index.tsx:530
+#: src/features/chats/index.tsx:532
 msgid "You were removed from this chat"
 msgstr "Сиз бул маектен чыгарылдыңыз"
 

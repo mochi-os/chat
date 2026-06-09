@@ -96,6 +96,14 @@ def chat_last_read(chat_id):
 def chat_set_last_read(chat_id, ts):
 	mochi.db.execute("insert or replace into chat_read ( chat, last_read ) values ( ?, ? )", chat_id, ts)
 
+# Remove all local rows for a chat (messages, members, read state, then chat).
+def chat_delete_local(chat_id):
+	mochi.db.execute("delete from messages where chat=?", chat_id)
+	mochi.db.execute("delete from members where chat=?", chat_id)
+	ensure_chat_read_table()
+	mochi.db.execute("delete from chat_read where chat=?", chat_id)
+	mochi.db.execute("delete from chats where id=?", chat_id)
+
 def chat_unread_count(chat_id, identity, last_read):
 	row = mochi.db.row("select count(*) as n from messages where chat=? and created>? and member!=?", chat_id, last_read, identity)
 	if not row:
@@ -892,9 +900,8 @@ def action_leave(a):
 	remaining = mochi.db.rows("select member from members where chat=?", chat["id"])
 
 	if len(remaining) == 0:
-		# Last member left, delete chat and messages
-		mochi.db.execute("delete from messages where chat=?", chat["id"])
-		mochi.db.execute("delete from chats where id=?", chat["id"])
+		# Last member left, delete chat and all local rows
+		chat_delete_local(chat["id"])
 	else:
 		# Notify remaining members. The actor's own row was already
 		# deleted above, so `remaining` excludes them — no `exclude` arg.
@@ -903,10 +910,7 @@ def action_leave(a):
 		mochi.websocket.write(chat["key"], {"event": "leave", "member": a.user.identity.id})
 
 		if delete_local:
-			# Delete chat locally
-			mochi.db.execute("delete from messages where chat=?", chat["id"])
-			mochi.db.execute("delete from members where chat=?", chat["id"])
-			mochi.db.execute("delete from chats where id=?", chat["id"])
+			chat_delete_local(chat["id"])
 		else:
 			# Mark chat as left
 			mochi.db.execute("update chats set left=1, updated=? where id=?", mochi.time.now(), chat["id"])
@@ -928,10 +932,7 @@ def action_delete(a):
 		a.error.label(400, "errors.delete_only_left_chat")
 		return
 
-	# Delete locally
-	mochi.db.execute("delete from messages where chat=?", chat["id"])
-	mochi.db.execute("delete from members where chat=?", chat["id"])
-	mochi.db.execute("delete from chats where id=?", chat["id"])
+	chat_delete_local(chat["id"])
 
 	return {"data": {"success": True}}
 

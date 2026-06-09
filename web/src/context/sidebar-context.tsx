@@ -3,8 +3,13 @@ import {
   useContext,
   useState,
   useCallback,
+  useEffect,
   type ReactNode,
 } from 'react'
+import {
+  getMarkedUnreadChats,
+  setMarkedUnreadChats,
+} from '@/hooks/useChatStorage'
 import {
   getWebsocketStatusMeta,
   type WebsocketStatusMeta,
@@ -24,6 +29,10 @@ type SidebarContextValue = {
     status: WebsocketConnectionStatus,
     retries?: number
   ) => void
+  markedUnreadChatIds: ReadonlySet<string>
+  isChatMarkedUnread: (chatId: string) => boolean
+  markChatAsUnread: (chatId: string) => void
+  clearMarkedUnread: (chatId: string) => void
 }
 
 const SidebarContext = createContext<SidebarContextValue | null>(null)
@@ -35,6 +44,38 @@ export function SidebarProvider({ children }: { children: ReactNode }) {
   const [websocketStatus, setWsStatus] =
     useState<WebsocketConnectionStatus>('idle')
   const [websocketRetries, setWebsocketRetries] = useState(0)
+  const [markedUnreadChatIds, setMarkedUnreadChatIds] = useState<Set<string>>(
+    () => new Set()
+  )
+
+  useEffect(() => {
+    void getMarkedUnreadChats().then(setMarkedUnreadChatIds)
+  }, [])
+
+  const isChatMarkedUnread = useCallback(
+    (chatId: string) => markedUnreadChatIds.has(chatId),
+    [markedUnreadChatIds]
+  )
+
+  const markChatAsUnread = useCallback((chatId: string) => {
+    setMarkedUnreadChatIds((prev) => {
+      if (prev.has(chatId)) return prev
+      const next = new Set(prev)
+      next.add(chatId)
+      setMarkedUnreadChats(next)
+      return next
+    })
+  }, [])
+
+  const clearMarkedUnread = useCallback((chatId: string) => {
+    setMarkedUnreadChatIds((prev) => {
+      if (!prev.has(chatId)) return prev
+      const next = new Set(prev)
+      next.delete(chatId)
+      setMarkedUnreadChats(next)
+      return next
+    })
+  }, [])
 
   const setChat = useCallback((id: string | null, name?: string) => {
     setChatId(id)
@@ -74,6 +115,10 @@ export function SidebarProvider({ children }: { children: ReactNode }) {
         websocketStatus,
         websocketStatusMeta,
         setWebsocketStatus,
+        markedUnreadChatIds,
+        isChatMarkedUnread,
+        markChatAsUnread,
+        clearMarkedUnread,
       }}
     >
       {children}

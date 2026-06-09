@@ -1,4 +1,4 @@
-import { useEffect, useMemo } from 'react'
+import { useCallback, useEffect, useMemo } from 'react'
 import { useLingui } from '@lingui/react/macro'
 import { Outlet, useParams } from '@tanstack/react-router'
 import {
@@ -6,16 +6,31 @@ import {
   useSidebar,
   AuthenticatedLayout,
   EntityAvatar,
+  getErrorMessage,
+  toast,
+  type NavMenuItem,
   type SidebarData,
 } from '@mochi/web'
-import { MessageCircle, Plus } from 'lucide-react'
+import { CheckCheck, Mail, MessageCircle, Plus } from 'lucide-react'
 import { SidebarProvider, useSidebarContext } from '@/context/sidebar-context'
-import { useChatsQuery } from '@/hooks/useChats'
+import { useChatsQuery, useMarkChatReadMutation } from '@/hooks/useChats'
 import { NewChat } from '@/features/chats/components/new-chat'
+
+const UNREAD_DOT = '●'
 
 function formatUnreadBadge(unread: number): string | undefined {
   if (unread <= 0) return undefined
   return unread > 99 ? '99+' : String(unread)
+}
+
+function formatChatSidebarBadge(
+  unread: number,
+  markedUnread: boolean
+): string | undefined {
+  const countBadge = formatUnreadBadge(unread)
+  if (countBadge) return countBadge
+  if (markedUnread) return UNREAD_DOT
+  return undefined
 }
 
 const personIconCache = new Map<string, React.FC>()
@@ -71,11 +86,41 @@ function ChatLayoutInner() {
     () => chatsQuery.data?.chats ?? [],
     [chatsQuery.data?.chats]
   )
-  const { setChat, openNewChatDialog } = useSidebarContext()
+  const {
+    setChat,
+    openNewChatDialog,
+    isChatMarkedUnread,
+    markChatAsUnread,
+    clearMarkedUnread,
+  } = useSidebarContext()
 
-  // Get chat ID from URL path
   const params = useParams({ strict: false }) as { chatId?: string }
   const urlChatId = params?.chatId
+
+  const { mutate: markChatRead } = useMarkChatReadMutation({
+    onSuccess: () => {
+      toast.success(t`Chat marked as read`)
+    },
+    onError: (error) => {
+      toast.error(getErrorMessage(error, t`Failed to mark chat as read`))
+    },
+  })
+
+  const handleMarkChatRead = useCallback(
+    (chatId: string) => {
+      clearMarkedUnread(chatId)
+      markChatRead({ chatId })
+    },
+    [clearMarkedUnread, markChatRead]
+  )
+
+  const handleMarkChatUnread = useCallback(
+    (chatId: string) => {
+      markChatAsUnread(chatId)
+      toast.success(t`Chat marked as unread`)
+    },
+    [markChatAsUnread, t]
+  )
 
   // Sync URL chat ID to sidebar context
   useEffect(() => {
@@ -99,15 +144,41 @@ function ChatLayoutInner() {
       : null
 
     // Build chat items as top-level links - use fingerprint for shorter URLs
-    const chatItems = sortedChats.map((chat) => ({
-      title: chat.name,
-      url: `/${chat.fingerprint ?? chat.id}`,
-      icon: chat.members === 2 && chat.other ? personIcon(chat.other) : MessageCircle,
-      badge:
-        !chat.left && chat.id !== activeChatId
-          ? formatUnreadBadge(chat.unread ?? 0)
-          : undefined,
-    }))
+    const chatItems = sortedChats.map((chat) => {
+      const unread = chat.unread ?? 0
+      const markedUnread = isChatMarkedUnread(chat.id)
+      const menu: NavMenuItem[] = []
+
+      if (!chat.left) {
+        if (unread > 0 || markedUnread) {
+          menu.push({
+            title: t`Mark as read`,
+            icon: CheckCheck,
+            onClick: () => handleMarkChatRead(chat.id),
+          })
+        } else {
+          menu.push({
+            title: t`Mark as unread`,
+            icon: Mail,
+            onClick: () => handleMarkChatUnread(chat.id),
+          })
+        }
+      }
+
+      return {
+        title: chat.name,
+        url: `/${chat.fingerprint ?? chat.id}`,
+        icon:
+          chat.members === 2 && chat.other
+            ? personIcon(chat.other)
+            : MessageCircle,
+        badge:
+          !chat.left && chat.id !== activeChatId
+            ? formatChatSidebarBadge(unread, markedUnread)
+            : undefined,
+        menu: menu.length > 0 ? menu : undefined,
+      }
+    })
 
     return {
       navGroups: [
@@ -128,7 +199,15 @@ function ChatLayoutInner() {
         },
       ],
     }
-  }, [chats, openNewChatDialog, urlChatId])
+  }, [
+    chats,
+    handleMarkChatRead,
+    handleMarkChatUnread,
+    isChatMarkedUnread,
+    openNewChatDialog,
+    t,
+    urlChatId,
+  ])
 
   return (
     <AuthenticatedLayout

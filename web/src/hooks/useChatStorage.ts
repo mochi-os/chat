@@ -6,6 +6,36 @@ const STORAGE_KEY = 'mochi-chat-last'
 const DRAFT_KEY = (chatId: string) => `mochi-chat-draft-${chatId}`
 const LEGACY_READ_KEY = 'mochi-chat-read'
 const READ_MIGRATED_KEY = 'mochi-chat-read-migrated'
+const MARKED_UNREAD_KEY = 'mochi-chat-marked-unread'
+
+export async function getMarkedUnreadChats(): Promise<Set<string>> {
+  const raw = await shellStorage.getItem(MARKED_UNREAD_KEY)
+  if (!raw) return new Set()
+  try {
+    const ids = JSON.parse(raw) as string[]
+    return new Set(ids)
+  } catch {
+    return new Set()
+  }
+}
+
+export function setMarkedUnreadChats(chatIds: Iterable<string>): void {
+  shellStorage.setItem(MARKED_UNREAD_KEY, JSON.stringify([...chatIds]))
+}
+
+export function addMarkedUnreadChat(chatId: string): void {
+  void getMarkedUnreadChats().then((ids) => {
+    ids.add(chatId)
+    setMarkedUnreadChats(ids)
+  })
+}
+
+export function removeMarkedUnreadChat(chatId: string): void {
+  void getMarkedUnreadChats().then((ids) => {
+    ids.delete(chatId)
+    setMarkedUnreadChats(ids)
+  })
+}
 
 // Store last visited chat
 export function setLastChat(chatId: string): void {

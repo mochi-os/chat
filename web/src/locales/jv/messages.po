@@ -144,7 +144,7 @@ msgid "An unexpected error occurred"
 msgstr "Ana kaluputan sing ora dikarepake"
 
 #. placeholder {0}: selectedChat?.name
-#: src/features/chats/index.tsx:576
+#: src/features/chats/index.tsx:578
 msgid "Are you sure you want to leave \"{0}\"? You can be added back by other members."
 msgstr "Sampéyan yakin arep metu saka \"{0}\"? Sampéyan bisa ditambahaké manèh déning anggota liya."
 
@@ -214,9 +214,9 @@ msgid "Change notification category"
 msgstr "Ganti kategori pemberitahuan"
 
 #: src/features/chats/index.tsx:53
-#: src/features/chats/index.tsx:136
-#: src/features/chats/index.tsx:136
-#: src/features/chats/index.tsx:400
+#: src/features/chats/index.tsx:137
+#: src/features/chats/index.tsx:137
+#: src/features/chats/index.tsx:402
 msgid "Chat"
 msgstr "Chat"
 
@@ -224,13 +224,21 @@ msgstr "Chat"
 msgid "Chat created"
 msgstr "Chat digawé"
 
-#: src/features/chats/index.tsx:303
+#: src/features/chats/index.tsx:305
 msgid "Chat deleted"
 msgstr "Chat dibusak"
 
 #: src/routes/_authenticated/$chatId_.settings.tsx:295
 msgid "Chat ID"
 msgstr "ID Chat"
+
+#: src/components/layout/chat-layout.tsx:102
+msgid "Chat marked as read"
+msgstr ""
+
+#: src/components/layout/chat-layout.tsx:120
+msgid "Chat marked as unread"
+msgstr ""
 
 #: src/features/chats/components/new-chat.tsx:238
 #: src/routes/_authenticated/$chatId_.settings.tsx:234
@@ -257,7 +265,7 @@ msgstr "Chat siap"
 msgid "Chat renamed"
 msgstr "Chat diganti jeneng"
 
-#: src/features/chats/index.tsx:489
+#: src/features/chats/index.tsx:491
 #: src/routes/_authenticated/$chatId_.settings.tsx:81
 #: src/routes/_authenticated/$chatId_.settings.tsx:94
 #: src/routes/_authenticated/$chatId_.settings.tsx:105
@@ -269,7 +277,7 @@ msgstr "Setèlan chat"
 msgid "Chat Text Box"
 msgstr "Kothak Teks Chat"
 
-#: src/components/layout/chat-layout.tsx:115
+#: src/components/layout/chat-layout.tsx:186
 msgid "Chats"
 msgstr "Chat"
 
@@ -403,7 +411,7 @@ msgstr "Ora bisa verifikasi nganggo akun kasebut. Mangga coba maneh."
 msgid "Create a new chat"
 msgstr "Gawé chat anyar"
 
-#: src/components/layout/chat-layout.tsx:123
+#: src/components/layout/chat-layout.tsx:194
 #: src/features/chats/components/new-chat.tsx:262
 msgid "Create chat"
 msgstr "Gawé chat"
@@ -433,12 +441,12 @@ msgstr "Standar"
 msgid "Default AI account"
 msgstr "Akun AI standar"
 
-#: src/features/chats/index.tsx:472
-#: src/features/chats/index.tsx:544
+#: src/features/chats/index.tsx:474
+#: src/features/chats/index.tsx:546
 msgid "Delete chat"
 msgstr "Busak chat"
 
-#: src/features/chats/index.tsx:598
+#: src/features/chats/index.tsx:600
 #: src/routes/_authenticated/$chatId_.settings.tsx:440
 msgid "Delete chat history"
 msgstr "Busak riwayat chat"
@@ -527,14 +535,18 @@ msgstr ""
 msgid "Failed to create chat"
 msgstr "Gagal nggawé chat"
 
-#: src/features/chats/index.tsx:307
+#: src/features/chats/index.tsx:309
 msgid "Failed to delete chat"
 msgstr "Gagal mbusak chat"
 
-#: src/features/chats/index.tsx:291
+#: src/features/chats/index.tsx:293
 #: src/routes/_authenticated/$chatId_.settings.tsx:402
 msgid "Failed to leave chat"
 msgstr "Gagal metu saka chat"
+
+#: src/components/layout/chat-layout.tsx:105
+msgid "Failed to mark chat as read"
+msgstr ""
 
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:226
 msgid "Failed to remove account"
@@ -548,7 +560,7 @@ msgstr "Gagal mbusak anggota"
 msgid "Failed to rename chat"
 msgstr "Gagal ngganti jeneng chat"
 
-#: src/features/chats/index.tsx:561
+#: src/features/chats/index.tsx:563
 msgid "Failed to send message"
 msgstr "Gagal ngirim pesen"
 
@@ -556,7 +568,7 @@ msgstr "Gagal ngirim pesen"
 msgid "Failed to send verification code"
 msgstr "Gagal ngirim kode verifikasi"
 
-#: src/features/chats/index.tsx:149
+#: src/features/chats/index.tsx:150
 msgid "Failed to start chat"
 msgstr "Gagal miwiti chat"
 
@@ -683,21 +695,21 @@ msgstr "Tata letak"
 msgid "Learn more"
 msgstr "Sinau luwih"
 
-#: src/features/chats/index.tsx:584
+#: src/features/chats/index.tsx:586
 msgid "Leave"
 msgstr "Metu"
 
-#: src/features/chats/index.tsx:479
+#: src/features/chats/index.tsx:481
 #: src/routes/_authenticated/$chatId_.settings.tsx:426
 msgid "Leave chat"
 msgstr "Tinggal chat"
 
-#: src/features/chats/index.tsx:575
+#: src/features/chats/index.tsx:577
 #: src/routes/_authenticated/$chatId_.settings.tsx:417
 msgid "Leave chat?"
 msgstr "Tinggal chat?"
 
-#: src/features/chats/index.tsx:581
+#: src/features/chats/index.tsx:583
 #: src/routes/_authenticated/$chatId_.settings.tsx:423
 msgid "Leaving..."
 msgstr "Lagi metu..."
@@ -754,6 +766,14 @@ msgstr "Lagi metu…"
 #: ../../../lib/web/src/components/notifications-dropdown.tsx:220
 msgid "Mark all as read"
 msgstr "Tandhani kabèh wis diwaca"
+
+#: src/components/layout/chat-layout.tsx:155
+msgid "Mark as read"
+msgstr ""
+
+#: src/components/layout/chat-layout.tsx:161
+msgid "Mark as unread"
+msgstr ""
 
 #: ../../../lib/web/src/lib/preference-utils.ts:104
 msgid "Medium"
@@ -915,7 +935,7 @@ msgstr "Bukak"
 msgid "Open account actions"
 msgstr "Bukak aksi akun"
 
-#: src/features/chats/index.tsx:464
+#: src/features/chats/index.tsx:466
 msgid "Open chat actions"
 msgstr "Bukak aksi chat"
 
@@ -1088,7 +1108,7 @@ msgstr "Goleki asal..."
 msgid "Search in chat..."
 msgstr ""
 
-#: src/features/chats/index.tsx:454
+#: src/features/chats/index.tsx:456
 msgid "Search messages"
 msgstr ""
 
@@ -1427,7 +1447,7 @@ msgstr "Situs lagi pemeliharaan!"
 msgid "Wednesday"
 msgstr "Rebo"
 
-#: src/features/chats/index.tsx:208
+#: src/features/chats/index.tsx:210
 msgid "You"
 msgstr "Sampéyan"
 
@@ -1443,11 +1463,11 @@ msgstr "Sampéyan wis duwé chat karo:"
 msgid "You haven't started any chats yet. Connect with a friend to get things rolling."
 msgstr "Sampéyan durung miwiti chat apa wae. Sambung karo kanca kanggo miwiti."
 
-#: src/features/chats/index.tsx:531
+#: src/features/chats/index.tsx:533
 msgid "You left this chat"
 msgstr "Sampéyan ninggal chat iki"
 
-#: src/features/chats/index.tsx:530
+#: src/features/chats/index.tsx:532
 msgid "You were removed from this chat"
 msgstr "Sampéyan dibusak saka chat iki"
 

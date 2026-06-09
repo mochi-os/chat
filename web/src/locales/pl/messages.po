@@ -144,7 +144,7 @@ msgid "An unexpected error occurred"
 msgstr "Wystąpił nieoczekiwany błąd"
 
 #. placeholder {0}: selectedChat?.name
-#: src/features/chats/index.tsx:576
+#: src/features/chats/index.tsx:578
 msgid "Are you sure you want to leave \"{0}\"? You can be added back by other members."
 msgstr "Czy na pewno chcesz opuścić \"{0}\"? Inni członkowie mogą cię ponownie dodać."
 
@@ -214,9 +214,9 @@ msgid "Change notification category"
 msgstr "Zmień kategorię powiadomienia"
 
 #: src/features/chats/index.tsx:53
-#: src/features/chats/index.tsx:136
-#: src/features/chats/index.tsx:136
-#: src/features/chats/index.tsx:400
+#: src/features/chats/index.tsx:137
+#: src/features/chats/index.tsx:137
+#: src/features/chats/index.tsx:402
 msgid "Chat"
 msgstr "Czat"
 
@@ -224,13 +224,21 @@ msgstr "Czat"
 msgid "Chat created"
 msgstr "Czat utworzony"
 
-#: src/features/chats/index.tsx:303
+#: src/features/chats/index.tsx:305
 msgid "Chat deleted"
 msgstr "Czat usunięty"
 
 #: src/routes/_authenticated/$chatId_.settings.tsx:295
 msgid "Chat ID"
 msgstr "ID czatu"
+
+#: src/components/layout/chat-layout.tsx:102
+msgid "Chat marked as read"
+msgstr ""
+
+#: src/components/layout/chat-layout.tsx:120
+msgid "Chat marked as unread"
+msgstr ""
 
 #: src/features/chats/components/new-chat.tsx:238
 #: src/routes/_authenticated/$chatId_.settings.tsx:234
@@ -257,7 +265,7 @@ msgstr "Czat gotowy"
 msgid "Chat renamed"
 msgstr "Nazwa czatu zmieniona"
 
-#: src/features/chats/index.tsx:489
+#: src/features/chats/index.tsx:491
 #: src/routes/_authenticated/$chatId_.settings.tsx:81
 #: src/routes/_authenticated/$chatId_.settings.tsx:94
 #: src/routes/_authenticated/$chatId_.settings.tsx:105
@@ -269,7 +277,7 @@ msgstr "Ustawienia czatu"
 msgid "Chat Text Box"
 msgstr "Pole tekstowe czatu"
 
-#: src/components/layout/chat-layout.tsx:115
+#: src/components/layout/chat-layout.tsx:186
 msgid "Chats"
 msgstr "Czaty"
 
@@ -403,7 +411,7 @@ msgstr "Nie udało się zweryfikować przy użyciu tego konta. Spróbuj ponownie
 msgid "Create a new chat"
 msgstr "Utwórz nowy czat"
 
-#: src/components/layout/chat-layout.tsx:123
+#: src/components/layout/chat-layout.tsx:194
 #: src/features/chats/components/new-chat.tsx:262
 msgid "Create chat"
 msgstr "Utwórz czat"
@@ -433,12 +441,12 @@ msgstr "Domyślny"
 msgid "Default AI account"
 msgstr "Domyślne konto AI"
 
-#: src/features/chats/index.tsx:472
-#: src/features/chats/index.tsx:544
+#: src/features/chats/index.tsx:474
+#: src/features/chats/index.tsx:546
 msgid "Delete chat"
 msgstr "Usuń czat"
 
-#: src/features/chats/index.tsx:598
+#: src/features/chats/index.tsx:600
 #: src/routes/_authenticated/$chatId_.settings.tsx:440
 msgid "Delete chat history"
 msgstr "Usuń historię czatu"
@@ -527,14 +535,18 @@ msgstr ""
 msgid "Failed to create chat"
 msgstr "Nie udało się utworzyć czatu"
 
-#: src/features/chats/index.tsx:307
+#: src/features/chats/index.tsx:309
 msgid "Failed to delete chat"
 msgstr "Nie udało się usunąć czatu"
 
-#: src/features/chats/index.tsx:291
+#: src/features/chats/index.tsx:293
 #: src/routes/_authenticated/$chatId_.settings.tsx:402
 msgid "Failed to leave chat"
 msgstr "Nie udało się opuścić czatu"
+
+#: src/components/layout/chat-layout.tsx:105
+msgid "Failed to mark chat as read"
+msgstr ""
 
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:226
 msgid "Failed to remove account"
@@ -548,7 +560,7 @@ msgstr "Nie udało się usunąć członka"
 msgid "Failed to rename chat"
 msgstr "Nie udało się zmienić nazwy czatu"
 
-#: src/features/chats/index.tsx:561
+#: src/features/chats/index.tsx:563
 msgid "Failed to send message"
 msgstr "Nie udało się wysłać wiadomości"
 
@@ -556,7 +568,7 @@ msgstr "Nie udało się wysłać wiadomości"
 msgid "Failed to send verification code"
 msgstr "Nie udało się wysłać kodu weryfikacyjnego"
 
-#: src/features/chats/index.tsx:149
+#: src/features/chats/index.tsx:150
 msgid "Failed to start chat"
 msgstr "Nie udało się rozpocząć czatu"
 
@@ -683,21 +695,21 @@ msgstr "Układ"
 msgid "Learn more"
 msgstr "Dowiedz się więcej"
 
-#: src/features/chats/index.tsx:584
+#: src/features/chats/index.tsx:586
 msgid "Leave"
 msgstr "Opuść"
 
-#: src/features/chats/index.tsx:479
+#: src/features/chats/index.tsx:481
 #: src/routes/_authenticated/$chatId_.settings.tsx:426
 msgid "Leave chat"
 msgstr "Opuść czat"
 
-#: src/features/chats/index.tsx:575
+#: src/features/chats/index.tsx:577
 #: src/routes/_authenticated/$chatId_.settings.tsx:417
 msgid "Leave chat?"
 msgstr "Opuścić czat?"
 
-#: src/features/chats/index.tsx:581
+#: src/features/chats/index.tsx:583
 #: src/routes/_authenticated/$chatId_.settings.tsx:423
 msgid "Leaving..."
 msgstr "Opuszczanie..."
@@ -754,6 +766,14 @@ msgstr "Wylogowywanie…"
 #: ../../../lib/web/src/components/notifications-dropdown.tsx:220
 msgid "Mark all as read"
 msgstr "Oznacz wszystkie jako przeczytane"
+
+#: src/components/layout/chat-layout.tsx:155
+msgid "Mark as read"
+msgstr ""
+
+#: src/components/layout/chat-layout.tsx:161
+msgid "Mark as unread"
+msgstr ""
 
 #: ../../../lib/web/src/lib/preference-utils.ts:104
 msgid "Medium"
@@ -915,7 +935,7 @@ msgstr "Otwórz"
 msgid "Open account actions"
 msgstr "Otwórz akcje konta"
 
-#: src/features/chats/index.tsx:464
+#: src/features/chats/index.tsx:466
 msgid "Open chat actions"
 msgstr "Otwórz akcje czatu"
 
@@ -1088,7 +1108,7 @@ msgstr "Szukaj źródła..."
 msgid "Search in chat..."
 msgstr ""
 
-#: src/features/chats/index.tsx:454
+#: src/features/chats/index.tsx:456
 msgid "Search messages"
 msgstr ""
 
@@ -1427,7 +1447,7 @@ msgstr "Witryna jest w trakcie konserwacji!"
 msgid "Wednesday"
 msgstr "Środa"
 
-#: src/features/chats/index.tsx:208
+#: src/features/chats/index.tsx:210
 msgid "You"
 msgstr "Ty"
 
@@ -1443,11 +1463,11 @@ msgstr "Masz już czaty z:"
 msgid "You haven't started any chats yet. Connect with a friend to get things rolling."
 msgstr "Nie zacząłeś jeszcze żadnych czatów. Połącz się ze znajomym, aby zacząć."
 
-#: src/features/chats/index.tsx:531
+#: src/features/chats/index.tsx:533
 msgid "You left this chat"
 msgstr "Opuściłeś ten czat"
 
-#: src/features/chats/index.tsx:530
+#: src/features/chats/index.tsx:532
 msgid "You were removed from this chat"
 msgstr "Zostałeś usunięty z tego czatu"
 

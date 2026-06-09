@@ -144,7 +144,7 @@ msgid "An unexpected error occurred"
 msgstr "எதிர்பாராத பிழை ஏற்பட்டது"
 
 #. placeholder {0}: selectedChat?.name
-#: src/features/chats/index.tsx:576
+#: src/features/chats/index.tsx:578
 msgid "Are you sure you want to leave \"{0}\"? You can be added back by other members."
 msgstr "\"{0}\" ஐ விட்டு வெளியேற விரும்புகிறீர்களா? மற்ற உறுப்பினர்கள் உங்களை மீண்டும் சேர்க்கலாம்."
 
@@ -214,9 +214,9 @@ msgid "Change notification category"
 msgstr "அறிவிப்பு வகையை மாற்று"
 
 #: src/features/chats/index.tsx:53
-#: src/features/chats/index.tsx:136
-#: src/features/chats/index.tsx:136
-#: src/features/chats/index.tsx:400
+#: src/features/chats/index.tsx:137
+#: src/features/chats/index.tsx:137
+#: src/features/chats/index.tsx:402
 msgid "Chat"
 msgstr "அரட்டை"
 
@@ -224,13 +224,21 @@ msgstr "அரட்டை"
 msgid "Chat created"
 msgstr "அரட்டை உருவாக்கப்பட்டது"
 
-#: src/features/chats/index.tsx:303
+#: src/features/chats/index.tsx:305
 msgid "Chat deleted"
 msgstr "அரட்டை நீக்கப்பட்டது"
 
 #: src/routes/_authenticated/$chatId_.settings.tsx:295
 msgid "Chat ID"
 msgstr "அரட்டை ID"
+
+#: src/components/layout/chat-layout.tsx:102
+msgid "Chat marked as read"
+msgstr ""
+
+#: src/components/layout/chat-layout.tsx:120
+msgid "Chat marked as unread"
+msgstr ""
 
 #: src/features/chats/components/new-chat.tsx:238
 #: src/routes/_authenticated/$chatId_.settings.tsx:234
@@ -257,7 +265,7 @@ msgstr "அரட்டை தயார்"
 msgid "Chat renamed"
 msgstr "அரட்டை மறுபெயரிடப்பட்டது"
 
-#: src/features/chats/index.tsx:489
+#: src/features/chats/index.tsx:491
 #: src/routes/_authenticated/$chatId_.settings.tsx:81
 #: src/routes/_authenticated/$chatId_.settings.tsx:94
 #: src/routes/_authenticated/$chatId_.settings.tsx:105
@@ -269,7 +277,7 @@ msgstr "அரட்டை அமைப்புகள்"
 msgid "Chat Text Box"
 msgstr "அரட்டை உரை பெட்டி"
 
-#: src/components/layout/chat-layout.tsx:115
+#: src/components/layout/chat-layout.tsx:186
 msgid "Chats"
 msgstr "அரட்டைகள்"
 
@@ -403,7 +411,7 @@ msgstr "அந்தக் கணக்கைச் சரிபார்க்�
 msgid "Create a new chat"
 msgstr "புதிய அரட்டை உருவாக்கு"
 
-#: src/components/layout/chat-layout.tsx:123
+#: src/components/layout/chat-layout.tsx:194
 #: src/features/chats/components/new-chat.tsx:262
 msgid "Create chat"
 msgstr "அரட்டை உருவாக்கு"
@@ -433,12 +441,12 @@ msgstr "இயல்புநிலை"
 msgid "Default AI account"
 msgstr "இயல்புநிலை AI கணக்கு"
 
-#: src/features/chats/index.tsx:472
-#: src/features/chats/index.tsx:544
+#: src/features/chats/index.tsx:474
+#: src/features/chats/index.tsx:546
 msgid "Delete chat"
 msgstr "அரட்டையை நீக்கு"
 
-#: src/features/chats/index.tsx:598
+#: src/features/chats/index.tsx:600
 #: src/routes/_authenticated/$chatId_.settings.tsx:440
 msgid "Delete chat history"
 msgstr "அரட்டை வரலாற்றை நீக்கு"
@@ -527,14 +535,18 @@ msgstr ""
 msgid "Failed to create chat"
 msgstr "சாட்டை உருவாக்க முடியவில்லை"
 
-#: src/features/chats/index.tsx:307
+#: src/features/chats/index.tsx:309
 msgid "Failed to delete chat"
 msgstr "சாட்டை நீக்க முடியவில்லை"
 
-#: src/features/chats/index.tsx:291
+#: src/features/chats/index.tsx:293
 #: src/routes/_authenticated/$chatId_.settings.tsx:402
 msgid "Failed to leave chat"
 msgstr "சாட்டை விட்டு வெளியேற முடியவில்லை"
+
+#: src/components/layout/chat-layout.tsx:105
+msgid "Failed to mark chat as read"
+msgstr ""
 
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:226
 msgid "Failed to remove account"
@@ -548,7 +560,7 @@ msgstr "உறுப்பினரை நீக்க முடியவில�
 msgid "Failed to rename chat"
 msgstr "சாட்டின் பெயரை மாற்ற முடியவில்லை"
 
-#: src/features/chats/index.tsx:561
+#: src/features/chats/index.tsx:563
 msgid "Failed to send message"
 msgstr "செய்தியை அனுப்ப முடியவில்லை"
 
@@ -556,7 +568,7 @@ msgstr "செய்தியை அனுப்ப முடியவில்�
 msgid "Failed to send verification code"
 msgstr "சரிபார்ப்பு குறியீட்டை அனுப்ப முடியவில்லை"
 
-#: src/features/chats/index.tsx:149
+#: src/features/chats/index.tsx:150
 msgid "Failed to start chat"
 msgstr "சாட்டைத் தொடங்க முடியவில்லை"
 
@@ -683,21 +695,21 @@ msgstr "தளவமைப்பு"
 msgid "Learn more"
 msgstr "மேலும் அறிய"
 
-#: src/features/chats/index.tsx:584
+#: src/features/chats/index.tsx:586
 msgid "Leave"
 msgstr "வெளியேறு"
 
-#: src/features/chats/index.tsx:479
+#: src/features/chats/index.tsx:481
 #: src/routes/_authenticated/$chatId_.settings.tsx:426
 msgid "Leave chat"
 msgstr "சாட்டை விட்டு வெளியேறு"
 
-#: src/features/chats/index.tsx:575
+#: src/features/chats/index.tsx:577
 #: src/routes/_authenticated/$chatId_.settings.tsx:417
 msgid "Leave chat?"
 msgstr "சாட்டை விட்டு வெளியேறவா?"
 
-#: src/features/chats/index.tsx:581
+#: src/features/chats/index.tsx:583
 #: src/routes/_authenticated/$chatId_.settings.tsx:423
 msgid "Leaving..."
 msgstr "வெளியேறுகிறது..."
@@ -754,6 +766,14 @@ msgstr "வெளியேறுகிறது…"
 #: ../../../lib/web/src/components/notifications-dropdown.tsx:220
 msgid "Mark all as read"
 msgstr "அனைத்தையும் படித்ததாகக் குறிக்கவும்"
+
+#: src/components/layout/chat-layout.tsx:155
+msgid "Mark as read"
+msgstr ""
+
+#: src/components/layout/chat-layout.tsx:161
+msgid "Mark as unread"
+msgstr ""
 
 #: ../../../lib/web/src/lib/preference-utils.ts:104
 msgid "Medium"
@@ -915,7 +935,7 @@ msgstr "திற"
 msgid "Open account actions"
 msgstr "கணக்கு செயல்களைத் திறக்கவும்"
 
-#: src/features/chats/index.tsx:464
+#: src/features/chats/index.tsx:466
 msgid "Open chat actions"
 msgstr "அரட்டை செயல்களைத் திறக்கவும்"
 
@@ -1088,7 +1108,7 @@ msgstr "துவக்கத்தைத் தேடு..."
 msgid "Search in chat..."
 msgstr ""
 
-#: src/features/chats/index.tsx:454
+#: src/features/chats/index.tsx:456
 msgid "Search messages"
 msgstr ""
 
@@ -1427,7 +1447,7 @@ msgstr "இணையதளம் பராமரிப்பில் உள்�
 msgid "Wednesday"
 msgstr "புதன்கிழமை"
 
-#: src/features/chats/index.tsx:208
+#: src/features/chats/index.tsx:210
 msgid "You"
 msgstr "நீங்கள்"
 
@@ -1443,11 +1463,11 @@ msgstr "உங்களிடம் ஏற்கனவே இவர்களு�
 msgid "You haven't started any chats yet. Connect with a friend to get things rolling."
 msgstr "நீங்கள் இன்னும் எந்த அரட்டையையும் தொடங்கவில்லை. தொடங்க ஒரு நண்பருடன் இணையுங்கள்."
 
-#: src/features/chats/index.tsx:531
+#: src/features/chats/index.tsx:533
 msgid "You left this chat"
 msgstr "நீங்கள் இந்த அரட்டையை விட்டு வெளியேறினீர்கள்"
 
-#: src/features/chats/index.tsx:530
+#: src/features/chats/index.tsx:532
 msgid "You were removed from this chat"
 msgstr "நீங்கள் இந்த அரட்டையிலிருந்து அகற்றப்பட்டீர்கள்"
 

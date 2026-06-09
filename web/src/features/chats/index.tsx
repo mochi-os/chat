@@ -54,7 +54,8 @@ export function Chats() {
 
   const navigate = useNavigate()
   const queryClient = useQueryClient()
-  const { openNewChatDialog, setWebsocketStatus } = useSidebarContext()
+  const { openNewChatDialog, setWebsocketStatus, clearMarkedUnread } =
+    useSidebarContext()
   const [newMessage, setNewMessage] = useState('')
   const [showLeaveDialog, setShowLeaveDialog] = useState(false)
   const [deleteOnLeave, setDeleteOnLeave] = useState(false)
@@ -191,8 +192,9 @@ export function Chats() {
     if (selectedChat.left) return
     if (markedChatIdRef.current === selectedChat.id) return
     markedChatIdRef.current = selectedChat.id
+    clearMarkedUnread(selectedChat.id)
     markChatRead({ chatId: selectedChat.id })
-  }, [selectedChat?.id, selectedChat?.left, markChatRead])
+  }, [selectedChat?.id, selectedChat?.left, clearMarkedUnread, markChatRead])
 
   // Chat detail (members, names)
   const { data: chatDetail } = useChatDetailQuery(selectedChat?.id)
