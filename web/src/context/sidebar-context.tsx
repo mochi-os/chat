@@ -8,7 +8,9 @@ import {
 } from 'react'
 import {
   getMarkedUnreadChats,
+  getPinnedChats,
   setMarkedUnreadChats,
+  setPinnedChats,
 } from '@/hooks/useChatStorage'
 import {
   getWebsocketStatusMeta,
@@ -33,6 +35,10 @@ type SidebarContextValue = {
   isChatMarkedUnread: (chatId: string) => boolean
   markChatAsUnread: (chatId: string) => void
   clearMarkedUnread: (chatId: string) => void
+  pinnedChatIds: ReadonlySet<string>
+  isChatPinned: (chatId: string) => boolean
+  pinChat: (chatId: string) => void
+  unpinChat: (chatId: string) => void
 }
 
 const SidebarContext = createContext<SidebarContextValue | null>(null)
@@ -47,9 +53,13 @@ export function SidebarProvider({ children }: { children: ReactNode }) {
   const [markedUnreadChatIds, setMarkedUnreadChatIds] = useState<Set<string>>(
     () => new Set()
   )
+  const [pinnedChatIds, setPinnedChatIds] = useState<Set<string>>(
+    () => new Set()
+  )
 
   useEffect(() => {
     void getMarkedUnreadChats().then(setMarkedUnreadChatIds)
+    void getPinnedChats().then(setPinnedChatIds)
   }, [])
 
   const isChatMarkedUnread = useCallback(
@@ -73,6 +83,31 @@ export function SidebarProvider({ children }: { children: ReactNode }) {
       const next = new Set(prev)
       next.delete(chatId)
       setMarkedUnreadChats(next)
+      return next
+    })
+  }, [])
+
+  const isChatPinned = useCallback(
+    (chatId: string) => pinnedChatIds.has(chatId),
+    [pinnedChatIds]
+  )
+
+  const pinChat = useCallback((chatId: string) => {
+    setPinnedChatIds((prev) => {
+      if (prev.has(chatId)) return prev
+      const next = new Set(prev)
+      next.add(chatId)
+      setPinnedChats(next)
+      return next
+    })
+  }, [])
+
+  const unpinChat = useCallback((chatId: string) => {
+    setPinnedChatIds((prev) => {
+      if (!prev.has(chatId)) return prev
+      const next = new Set(prev)
+      next.delete(chatId)
+      setPinnedChats(next)
       return next
     })
   }, [])
@@ -119,6 +154,10 @@ export function SidebarProvider({ children }: { children: ReactNode }) {
         isChatMarkedUnread,
         markChatAsUnread,
         clearMarkedUnread,
+        pinnedChatIds,
+        isChatPinned,
+        pinChat,
+        unpinChat,
       }}
     >
       {children}

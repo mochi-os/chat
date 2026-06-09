@@ -11,7 +11,7 @@ import {
   type NavMenuItem,
   type SidebarData,
 } from '@mochi/web'
-import { CheckCheck, Mail, MessageCircle, Plus } from 'lucide-react'
+import { CheckCheck, Mail, MessageCircle, Pin, PinOff, Plus } from 'lucide-react'
 import { SidebarProvider, useSidebarContext } from '@/context/sidebar-context'
 import { useChatsQuery, useMarkChatReadMutation } from '@/hooks/useChats'
 import { NewChat } from '@/features/chats/components/new-chat'
@@ -92,6 +92,9 @@ function ChatLayoutInner() {
     isChatMarkedUnread,
     markChatAsUnread,
     clearMarkedUnread,
+    isChatPinned,
+    pinChat,
+    unpinChat,
   } = useSidebarContext()
 
   const params = useParams({ strict: false }) as { chatId?: string }
@@ -122,6 +125,22 @@ function ChatLayoutInner() {
     [markChatAsUnread, t]
   )
 
+  const handlePinChat = useCallback(
+    (chatId: string) => {
+      pinChat(chatId)
+      toast.success(t`Chat pinned`)
+    },
+    [pinChat, t]
+  )
+
+  const handleUnpinChat = useCallback(
+    (chatId: string) => {
+      unpinChat(chatId)
+      toast.success(t`Chat unpinned`)
+    },
+    [unpinChat, t]
+  )
+
   // Sync URL chat ID to sidebar context
   useEffect(() => {
     if (urlChatId) {
@@ -135,8 +154,15 @@ function ChatLayoutInner() {
   }, [urlChatId, chats, setChat])
 
   const sidebarData: SidebarData = useMemo(() => {
-    // Sort chats by most recently updated
-    const sortedChats = [...chats].sort((a, b) => b.updated - a.updated)
+    // Pinned chats first, then by most recently updated within each group
+    const sortedChats = [...chats].sort((a, b) => {
+      const aPinned = isChatPinned(a.id)
+      const bPinned = isChatPinned(b.id)
+      if (aPinned !== bPinned) {
+        return aPinned ? -1 : 1
+      }
+      return b.updated - a.updated
+    })
 
     // Resolve the real chat ID for the active URL so we can suppress its badge
     const activeChatId = urlChatId
@@ -147,7 +173,22 @@ function ChatLayoutInner() {
     const chatItems = sortedChats.map((chat) => {
       const unread = chat.unread ?? 0
       const markedUnread = isChatMarkedUnread(chat.id)
+      const pinned = isChatPinned(chat.id)
       const menu: NavMenuItem[] = []
+
+      if (pinned) {
+        menu.push({
+          title: t`Unpin chat`,
+          icon: PinOff,
+          onClick: () => handleUnpinChat(chat.id),
+        })
+      } else {
+        menu.push({
+          title: t`Pin chat`,
+          icon: Pin,
+          onClick: () => handlePinChat(chat.id),
+        })
+      }
 
       if (!chat.left) {
         if (unread > 0 || markedUnread) {
@@ -172,11 +213,12 @@ function ChatLayoutInner() {
           chat.members === 2 && chat.other
             ? personIcon(chat.other)
             : MessageCircle,
+        endIcon: pinned ? Pin : undefined,
         badge:
           !chat.left && chat.id !== activeChatId
             ? formatChatSidebarBadge(unread, markedUnread)
             : undefined,
-        menu: menu.length > 0 ? menu : undefined,
+        menu,
       }
     })
 
@@ -203,7 +245,10 @@ function ChatLayoutInner() {
     chats,
     handleMarkChatRead,
     handleMarkChatUnread,
+    handlePinChat,
+    handleUnpinChat,
     isChatMarkedUnread,
+    isChatPinned,
     openNewChatDialog,
     t,
     urlChatId,
