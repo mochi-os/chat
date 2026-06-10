@@ -27,6 +27,7 @@ import { ChevronsDown, MessageCircle } from 'lucide-react'
 import type { ChatMessage } from '@/api/chats'
 import type { GetMessagesResponse } from '@/api/types/chats'
 import { MessageAttachments } from './message-attachments'
+import { MessageBody } from './message-body'
 import { MessageHoverActions } from './message-hover-actions'
 import { MessageQuote } from './message-quote'
 import {
@@ -400,11 +401,11 @@ export function ChatMessageList({
                       ) : null}
 
                       {message.body ? (
-                        <p
-                          className={cn(
-                            'text-sm leading-relaxed whitespace-pre-wrap',
+                        <MessageBody
+                          isSent={isSent}
+                          className={
                             message.attachments?.length ? 'mt-2' : undefined
-                          )}
+                          }
                         >
                           {searchActive &&
                             searchQuery.length >= 2 &&
@@ -415,7 +416,7 @@ export function ChatMessageList({
                               activeMatchId === message.id
                             )
                             : message.body}
-                        </p>
+                        </MessageBody>
                       ) : null}
                     </div>
 
