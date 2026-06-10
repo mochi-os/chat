@@ -17,13 +17,18 @@ msgstr ""
 msgid " (includes you)"
 msgstr ""
 
+#. placeholder {0}: selectedIds.size
+#: src/features/chats/index.tsx:659
+msgid "{0} selected"
+msgstr ""
+
 #. placeholder {0}: chatDetail.chat.name
 #: src/routes/_authenticated/$chatId_.settings.tsx:81
 #: src/routes/_authenticated/$chatId_.settings.tsx:120
 msgid "{0} settings"
 msgstr "{0} iestatījumi"
 
-#: src/features/chats/components/chat-message-list.tsx:467
+#: src/features/chats/components/chat-message-list.tsx:540
 msgid "{newMessageCount, plural, one {Jump to 1 new message} other {Jump to # new messages}}"
 msgstr ""
 
@@ -89,7 +94,7 @@ msgstr "Pievienot kontu"
 msgid "Add an account to receive notifications and use services."
 msgstr "Pievieno kontu, lai saņemtu paziņojumus un izmantotu pakalpojumus."
 
-#: src/features/chats/components/chat-input.tsx:209
+#: src/features/chats/components/chat-input.tsx:228
 msgid "Add attachment"
 msgstr "Pievienot pielikumu"
 
@@ -140,6 +145,7 @@ msgid "AI"
 msgstr "AI"
 
 #: ../../../lib/web/src/components/notifications-dropdown.tsx:159
+#: src/features/chats/components/chat-message-list.tsx:517
 msgid "All"
 msgstr "Visi"
 
@@ -164,7 +170,7 @@ msgid "Angry"
 msgstr ""
 
 #. placeholder {0}: selectedChat?.name
-#: src/features/chats/index.tsx:688
+#: src/features/chats/index.tsx:745
 msgid "Are you sure you want to leave \"{0}\"? You can be added back by other members."
 msgstr "Vai tiešām vēlies pamest \"{0}\"? Citi dalībnieki var tevi pievienot atpakaļ."
 
@@ -185,7 +191,7 @@ msgstr "Vai tiešām vēlies noņemt {0} no šīs sarunas?"
 msgid "Asc"
 msgstr "Aug."
 
-#: src/features/chats/components/chat-input.tsx:123
+#: src/features/chats/components/chat-input.tsx:142
 #: src/features/chats/components/message-quote.tsx:47
 msgid "Attachment"
 msgstr ""
@@ -222,7 +228,9 @@ msgstr "Veicināt interesi"
 #: ../../../lib/web/src/features/access/access-list.tsx:255
 #: ../../../lib/web/src/features/accounts/account-add.tsx:185
 #: ../../../lib/web/src/features/accounts/account-verify.tsx:86
+#: src/features/chats/components/chat-message-list.tsx:526
 #: src/features/chats/components/new-chat.tsx:254
+#: src/features/chats/index.tsx:686
 msgid "Cancel"
 msgstr "Atcelt"
 
@@ -230,7 +238,7 @@ msgstr "Atcelt"
 msgid "Cancel edit"
 msgstr "Atcelt rediģēšanu"
 
-#: src/features/chats/components/chat-input.tsx:131
+#: src/features/chats/components/chat-input.tsx:150
 msgid "Cancel reply"
 msgstr ""
 
@@ -242,10 +250,10 @@ msgstr "Šī paziņojuma kategorija"
 msgid "Change notification category"
 msgstr "Mainīt paziņojuma kategoriju"
 
-#: src/features/chats/index.tsx:60
-#: src/features/chats/index.tsx:155
-#: src/features/chats/index.tsx:155
-#: src/features/chats/index.tsx:492
+#: src/features/chats/index.tsx:62
+#: src/features/chats/index.tsx:168
+#: src/features/chats/index.tsx:168
+#: src/features/chats/index.tsx:506
 msgid "Chat"
 msgstr "Saruna"
 
@@ -253,7 +261,7 @@ msgstr "Saruna"
 msgid "Chat created"
 msgstr "Saruna izveidota"
 
-#: src/features/chats/index.tsx:393
+#: src/features/chats/index.tsx:407
 msgid "Chat deleted"
 msgstr "Saruna dzēsta"
 
@@ -298,7 +306,7 @@ msgstr "Saruna gatava"
 msgid "Chat renamed"
 msgstr "Saruna pārdēvēta"
 
-#: src/features/chats/index.tsx:581
+#: src/features/chats/index.tsx:595
 #: src/routes/_authenticated/$chatId_.settings.tsx:81
 #: src/routes/_authenticated/$chatId_.settings.tsx:94
 #: src/routes/_authenticated/$chatId_.settings.tsx:105
@@ -306,7 +314,7 @@ msgstr "Saruna pārdēvēta"
 msgid "Chat settings"
 msgstr "Sarunas iestatījumi"
 
-#: src/features/chats/components/chat-input.tsx:215
+#: src/features/chats/components/chat-input.tsx:234
 msgid "Chat Text Box"
 msgstr "Sarunas teksta lauks"
 
@@ -342,7 +350,7 @@ msgstr "Izvēlies starp virzienu no kreisās uz labo vai no labās uz kreiso"
 msgid "Choose between system preference, light mode, or dark mode"
 msgstr "Izvēlies starp sistēmas iestatījumu, gaišo vai tumšo režīmu"
 
-#: ../../../lib/web/src/components/language-picker.tsx:174
+#: ../../../lib/web/src/components/language-picker.tsx:294
 msgid "Choose language"
 msgstr "Izvēlies valodu"
 
@@ -394,6 +402,11 @@ msgstr "Sakļaut sānu joslu"
 msgid "Comfortable"
 msgstr "Ērts"
 
+#: src/features/chats/index.tsx:666
+#: src/features/chats/index.tsx:675
+msgid "Coming soon"
+msgstr ""
+
 #: ../../../lib/web/src/components/coming-soon.tsx:9
 msgid "Coming Soon!"
 msgstr "Drīzumā!"
@@ -425,7 +438,7 @@ msgid "Continue with {label}"
 msgstr "Turpināt ar {label}"
 
 #: ../../../lib/web/src/components/ui/copy-button.tsx:60
-#: src/features/chats/components/message-hover-actions.tsx:69
+#: src/features/chats/components/message-hover-actions.tsx:83
 msgid "Copy"
 msgstr "Kopēt"
 
@@ -479,12 +492,16 @@ msgstr "Noklusētais"
 msgid "Default AI account"
 msgstr "Noklusētais AI konts"
 
-#: src/features/chats/index.tsx:564
-#: src/features/chats/index.tsx:654
+#: src/features/chats/index.tsx:679
+msgid "Delete"
+msgstr ""
+
+#: src/features/chats/index.tsx:578
+#: src/features/chats/index.tsx:710
 msgid "Delete chat"
 msgstr "Dzēst sarunu"
 
-#: src/features/chats/index.tsx:710
+#: src/features/chats/index.tsx:767
 #: src/routes/_authenticated/$chatId_.settings.tsx:440
 msgid "Delete chat history"
 msgstr "Dzēst sarunas vēsturi"
@@ -501,7 +518,7 @@ msgstr "Dilst."
 msgid "Details Panel"
 msgstr "Detaļu panelis"
 
-#: ../../../lib/web/src/components/language-picker.tsx:152
+#: ../../../lib/web/src/components/language-picker.tsx:272
 #: ../../../lib/web/src/components/timezone-select.tsx:43
 #: ../../../lib/web/src/components/timezone-select.tsx:80
 #: ../../../lib/web/src/lib/preference-utils.ts:25
@@ -572,7 +589,7 @@ msgstr "Neizdevās pievienot kontu"
 msgid "Failed to add member"
 msgstr "Neizdevās pievienot dalībnieku"
 
-#: src/features/chats/components/message-hover-actions.tsx:36
+#: src/features/chats/components/message-hover-actions.tsx:40
 msgid "Failed to copy message"
 msgstr ""
 
@@ -580,11 +597,11 @@ msgstr ""
 msgid "Failed to create chat"
 msgstr "Neizdevās izveidot tērzēšanu"
 
-#: src/features/chats/index.tsx:397
+#: src/features/chats/index.tsx:411
 msgid "Failed to delete chat"
 msgstr "Neizdevās dzēst tērzēšanu"
 
-#: src/features/chats/index.tsx:381
+#: src/features/chats/index.tsx:395
 #: src/routes/_authenticated/$chatId_.settings.tsx:402
 msgid "Failed to leave chat"
 msgstr "Neizdevās pamest tērzēšanu"
@@ -605,7 +622,7 @@ msgstr "Neizdevās noņemt dalībnieku"
 msgid "Failed to rename chat"
 msgstr "Neizdevās pārdēvēt tērzēšanu"
 
-#: src/features/chats/index.tsx:673
+#: src/features/chats/index.tsx:730
 msgid "Failed to send message"
 msgstr "Neizdevās nosūtīt ziņojumu"
 
@@ -613,7 +630,7 @@ msgstr "Neizdevās nosūtīt ziņojumu"
 msgid "Failed to send verification code"
 msgstr "Neizdevās nosūtīt verifikācijas kodu"
 
-#: src/features/chats/index.tsx:168
+#: src/features/chats/index.tsx:181
 msgid "Failed to start chat"
 msgstr "Neizdevās sākt tērzēšanu"
 
@@ -628,6 +645,10 @@ msgstr "Pabeidziet konta pārvietošanu"
 #: ../../../lib/web/src/components/config-drawer.tsx:244
 msgid "Floating"
 msgstr "Peldošs"
+
+#: src/features/chats/index.tsx:669
+msgid "Forward"
+msgstr ""
 
 #: ../../../lib/web/src/lib/preference-utils.ts:60
 msgid "Friday"
@@ -723,7 +744,7 @@ msgstr "Intereses"
 msgid "Invalid verification code"
 msgstr "Nederīgs verifikācijas kods"
 
-#: src/features/chats/components/chat-message-list.tsx:471
+#: src/features/chats/components/chat-message-list.tsx:544
 msgid "Jump to bottom"
 msgstr ""
 
@@ -744,21 +765,21 @@ msgstr "Izkārtojums"
 msgid "Learn more"
 msgstr "Uzzināt vairāk"
 
-#: src/features/chats/index.tsx:696
+#: src/features/chats/index.tsx:753
 msgid "Leave"
 msgstr "Pamest"
 
-#: src/features/chats/index.tsx:571
+#: src/features/chats/index.tsx:585
 #: src/routes/_authenticated/$chatId_.settings.tsx:426
 msgid "Leave chat"
 msgstr "Pamest tērzēšanu"
 
-#: src/features/chats/index.tsx:687
+#: src/features/chats/index.tsx:744
 #: src/routes/_authenticated/$chatId_.settings.tsx:417
 msgid "Leave chat?"
 msgstr "Pamest tērzēšanu?"
 
-#: src/features/chats/index.tsx:693
+#: src/features/chats/index.tsx:750
 #: src/routes/_authenticated/$chatId_.settings.tsx:423
 msgid "Leaving..."
 msgstr "Pamet..."
@@ -852,16 +873,16 @@ msgstr "Dalībnieki"
 msgid "Menu"
 msgstr "Izvēlne"
 
-#: src/features/chats/components/message-hover-actions.tsx:54
+#: src/features/chats/components/message-hover-actions.tsx:58
 msgid "Message actions"
 msgstr ""
 
-#: src/features/chats/components/message-hover-actions.tsx:34
+#: src/features/chats/components/message-hover-actions.tsx:38
 msgid "Message copied"
 msgstr ""
 
 #: src/features/chats/components/message-quote.tsx:51
-#: src/features/chats/index.tsx:311
+#: src/features/chats/index.tsx:325
 msgid "Message not available"
 msgstr ""
 
@@ -922,7 +943,7 @@ msgstr "Vēl nav draugu"
 msgid "No groups available"
 msgstr "Nav pieejamu grupu"
 
-#: src/features/chats/components/chat-message-list.tsx:294
+#: src/features/chats/components/chat-message-list.tsx:307
 msgid "No messages yet"
 msgstr "Vēl nav ziņojumu"
 
@@ -988,7 +1009,11 @@ msgstr "Atvērt"
 msgid "Open account actions"
 msgstr "Atvērt konta darbības"
 
-#: src/features/chats/index.tsx:556
+#: ../../../lib/web/src/components/layout/nav-group.tsx:134
+msgid "Open actions"
+msgstr ""
+
+#: src/features/chats/index.tsx:570
 msgid "Open chat actions"
 msgstr "Atvērt čata darbības"
 
@@ -1104,7 +1129,7 @@ msgstr "Noņemt"
 
 #. placeholder {0}: attachment.file.name
 #. placeholder {0}: reaction.label.toLowerCase()
-#: src/features/chats/components/chat-input.tsx:193
+#: src/features/chats/components/chat-input.tsx:212
 #: src/features/chats/components/message-reaction-bar.tsx:110
 msgid "Remove {0}"
 msgstr "Noņemt {0}"
@@ -1130,12 +1155,12 @@ msgstr "Noņemt dalībnieku?"
 msgid "Removing..."
 msgstr "Noņem..."
 
-#: src/features/chats/components/message-hover-actions.tsx:79
+#: src/features/chats/components/message-hover-actions.tsx:93
 msgid "Reply"
 msgstr ""
 
 #. placeholder {0}: replyTo.name
-#: src/features/chats/components/chat-input.tsx:114
+#: src/features/chats/components/chat-input.tsx:133
 msgid "Replying to {0}"
 msgstr ""
 
@@ -1168,6 +1193,10 @@ msgstr ""
 msgid "Saturday"
 msgstr "Sestdiena"
 
+#: ../../../lib/web/src/components/ui/secret-field.tsx:74
+msgid "Save"
+msgstr ""
+
 #: ../../../lib/web/src/components/place-picker.tsx:82
 msgid "Search for a place"
 msgstr "Meklēt vietu"
@@ -1184,7 +1213,7 @@ msgstr "Meklēt izcelsmi..."
 msgid "Search in chat..."
 msgstr ""
 
-#: src/features/chats/index.tsx:546
+#: src/features/chats/index.tsx:560
 msgid "Search messages"
 msgstr ""
 
@@ -1205,6 +1234,10 @@ msgstr "Meklēt..."
 #: ../../../lib/web/src/features/access/access-dialog.tsx:199
 msgid "Searching..."
 msgstr "Meklē..."
+
+#: src/features/chats/components/message-hover-actions.tsx:98
+msgid "Select"
+msgstr ""
 
 #: src/features/chats/components/chat-empty-state.tsx:17
 msgid "Select a chat"
@@ -1238,6 +1271,10 @@ msgstr "Izvēlieties grupu"
 msgid "Select layout style"
 msgstr "Izvēlieties izkārtojuma stilu"
 
+#: src/features/chats/components/chat-message-list.tsx:359
+msgid "Select message"
+msgstr ""
+
 #: ../../../lib/web/src/components/config-drawer.tsx:233
 msgid "Select sidebar style"
 msgstr "Izvēlieties sānu joslas stilu"
@@ -1250,6 +1287,10 @@ msgstr "Izvēlieties vietnes virzienu"
 msgid "Select theme preference"
 msgstr "Izvēlieties motīva preferenci"
 
+#: src/features/chats/components/chat-message-list.tsx:508
+msgid "selected"
+msgstr ""
+
 #: ../../../lib/web/src/features/accounts/account-verify.tsx:95
 msgid "Send again"
 msgstr "Sūtīt vēlreiz"
@@ -1258,7 +1299,7 @@ msgstr "Sūtīt vēlreiz"
 msgid "Send email"
 msgstr "Sūtīt e-pastu"
 
-#: src/features/chats/components/chat-input.tsx:237
+#: src/features/chats/components/chat-input.tsx:256
 msgid "Send message"
 msgstr "Sūtīt ziņu"
 
@@ -1436,11 +1477,11 @@ msgstr "Ierakstiet, lai meklētu lietotājus"
 msgid "Type to search..."
 msgstr "Ierakstiet, lai meklētu..."
 
-#: src/features/chats/components/chat-input.tsx:219
+#: src/features/chats/components/chat-input.tsx:238
 msgid "Type your message…"
 msgstr "Ierakstiet savu ziņu…"
 
-#: src/features/chats/components/chat-input.tsx:219
+#: src/features/chats/components/chat-input.tsx:238
 msgid "Type your reply…"
 msgstr ""
 
@@ -1535,7 +1576,7 @@ msgstr "Vietne tiek apkopta!"
 msgid "Wednesday"
 msgstr "Trešdiena"
 
-#: src/features/chats/index.tsx:228
+#: src/features/chats/index.tsx:241
 msgid "You"
 msgstr "Jūs"
 
@@ -1551,11 +1592,11 @@ msgstr "Jums jau ir tērzēšanas ar:"
 msgid "You haven't started any chats yet. Connect with a friend to get things rolling."
 msgstr "Jūs vēl neesat sācis nevienu tērzēšanu. Sazinieties ar draugu, lai sāktu darbu."
 
-#: src/features/chats/index.tsx:641
+#: src/features/chats/index.tsx:697
 msgid "You left this chat"
 msgstr "Jūs atstājāt šo tērzēšanu"
 
-#: src/features/chats/index.tsx:640
+#: src/features/chats/index.tsx:696
 msgid "You were removed from this chat"
 msgstr "Jūs tikāt noņemts no šīs tērzēšanas"
 

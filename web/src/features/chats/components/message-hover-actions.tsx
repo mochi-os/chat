@@ -1,3 +1,4 @@
+import { useRef } from 'react'
 import { useLingui } from '@lingui/react/macro'
 import {
   Button,
@@ -9,21 +10,24 @@ import {
   shellClipboardWrite,
   toast,
 } from '@mochi/web'
-import { Copy, MoreHorizontal, Reply } from 'lucide-react'
+import { CheckSquare, Copy, MoreHorizontal, Reply } from 'lucide-react'
 import type { ChatMessage } from '@/api/chats'
 
 interface MessageHoverActionsProps {
   message: ChatMessage
   onReply: (message: ChatMessage) => void
+  onSelect?: () => void
   className?: string
 }
 
 export function MessageHoverActions({
   message,
   onReply,
+  onSelect,
   className,
 }: MessageHoverActionsProps) {
   const { t } = useLingui()
+  const replyingRef = useRef(false)
   const copyValue = message.body?.trim() ?? ''
   const canCopy = copyValue.length > 0
 
@@ -57,7 +61,17 @@ export function MessageHoverActions({
             <MoreHorizontal className='size-3.5' />
           </Button>
         </DropdownMenuTrigger>
-        <DropdownMenuContent side='top' align='end' sideOffset={4}>
+        <DropdownMenuContent
+          side='top'
+          align='end'
+          sideOffset={4}
+          onCloseAutoFocus={(e) => {
+            if (replyingRef.current) {
+              e.preventDefault()
+              replyingRef.current = false
+            }
+          }}
+        >
           {canCopy ? (
             <DropdownMenuItem
               onClick={(e) => {
@@ -70,14 +84,20 @@ export function MessageHoverActions({
             </DropdownMenuItem>
           ) : null}
           <DropdownMenuItem
-            onClick={(e) => {
-              e.stopPropagation()
+            onSelect={() => {
+              replyingRef.current = true
               onReply(message)
             }}
           >
             <Reply className='me-2 size-3.5' />
             {t`Reply`}
           </DropdownMenuItem>
+          {onSelect ? (
+            <DropdownMenuItem onSelect={onSelect}>
+              <CheckSquare className='me-2 size-3.5' />
+              {t`Select`}
+            </DropdownMenuItem>
+          ) : null}
         </DropdownMenuContent>
       </DropdownMenu>
     </div>

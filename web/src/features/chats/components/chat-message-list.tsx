@@ -15,6 +15,7 @@ import type {
 } from '@tanstack/react-query'
 import {
   Button,
+  Checkbox,
   EntityAvatar,
   GeneralError,
   LoadMoreTrigger,
@@ -69,6 +70,12 @@ interface ChatMessageListProps {
   onReply?: (message: ChatMessage) => void
   onReact?: (messageId: string, reaction: ReactionId | '') => void
   onScrollToMessage?: (messageId: string) => void
+  isSelecting?: boolean
+  selectedIds?: Set<string>
+  onToggleSelect?: (id: string) => void
+  onSelectMessage?: (message: ChatMessage) => void
+  onSelectAll?: (ids: string[]) => void
+  onClearSelection?: () => void
 }
 
 export function ChatMessageList({
@@ -90,6 +97,12 @@ export function ChatMessageList({
   onReply,
   onReact,
   onScrollToMessage,
+  isSelecting = false,
+  selectedIds,
+  onToggleSelect,
+  onSelectMessage,
+  onSelectAll,
+  onClearSelection,
 }: ChatMessageListProps) {
   const { t } = useLingui()
   const { formatDate, formatDateTime } = useFormat()
@@ -321,130 +334,164 @@ export function ChatMessageList({
 
             {groupedMessages[key].map((message) => {
               const isSent = isCurrentUserMessage(message)
+              const isSelected = selectedIds?.has(message.id) ?? false
               return (
                 <div
                   key={message.id}
-                  id={`chat-message-${message.id}`}
                   className={cn(
-                    'group mb-3 flex w-full flex-col gap-1 rounded-lg transition-shadow',
-                    isSent ? 'items-end' : 'items-start',
-                    highlightMessageId === message.id &&
-                    'ring-primary/60 bg-primary/5 ring-2'
+                    'flex w-full items-start gap-2 rounded-lg transition-colors',
+                    isSelecting && 'cursor-pointer select-none',
+                    isSelecting && isSelected && 'bg-primary/8'
                   )}
+                  onClick={isSelecting ? () => onToggleSelect?.(message.id) : undefined}
                 >
-                  {/* Message metadata: avatar + name (only for group chats) */}
-                  {isGroupChat && !isSent && (
-                    <div className='flex flex-row items-center gap-1.5 px-1 text-xs'>
-                      <EntityAvatar
-                        src={`${getAppPath()}/${message.chat}/-/${message.id}/asset/avatar`}
-                        styleUrl={`${getAppPath()}/${message.chat}/-/${message.id}/asset/style`}
-                        seed={message.member}
-                        name={message.name}
-                        size="xs"
-                      />
-                      <span className='text-muted-foreground font-medium'>
-                        {message.name}
-                      </span>
-                    </div>
-                  )}
+                  {/* Checkbox column — slides in when selection mode is active */}
+                  <div
+                    className={cn(
+                      'flex shrink-0 items-center pt-3 transition-all duration-150',
+                      isSelecting ? 'w-5 opacity-100' : 'w-0 overflow-hidden opacity-0'
+                    )}
+                  >
+                    <Checkbox
+                      checked={isSelected}
+                      onClick={(e) => e.stopPropagation()}
+                      onCheckedChange={() => onToggleSelect?.(message.id)}
+                      aria-label={t`Select message`}
+                    />
+                  </div>
 
-                  {/* Message bubble + inline hover actions (react, menu, time) */}
-                  <div className='flex max-w-full min-w-0 items-end gap-1'>
-                    {isSent ? (
-                      <div className='flex items-center gap-0.5'>
-                        <span className='text-muted-foreground/70 text-[10px] opacity-0 transition-opacity group-hover:opacity-100 [@media(hover:none)]:opacity-100'>
-                          {formatDateTime(new Date(message.created * 1000))}
+                  {/* Message content */}
+                  <div
+                    id={`chat-message-${message.id}`}
+                    className={cn(
+                      'group mb-3 flex flex-1 flex-col gap-1 rounded-lg transition-shadow',
+                      isSent ? 'items-end' : 'items-start',
+                      highlightMessageId === message.id &&
+                      'ring-primary/60 bg-primary/5 ring-2',
+                      isSelecting && 'pointer-events-none'
+                    )}
+                  >
+                    {/* Message metadata: avatar + name (only for group chats) */}
+                    {isGroupChat && !isSent && (
+                      <div className='flex flex-row items-center gap-1.5 px-1 text-xs'>
+                        <EntityAvatar
+                          src={`${getAppPath()}/${message.chat}/-/${message.id}/asset/avatar`}
+                          styleUrl={`${getAppPath()}/${message.chat}/-/${message.id}/asset/style`}
+                          seed={message.member}
+                          name={message.name}
+                          size="xs"
+                        />
+                        <span className='text-muted-foreground font-medium'>
+                          {message.name}
                         </span>
-                        {onReply ? (
-                          <MessageHoverActions
-                            message={message}
-                            onReply={onReply}
-                          />
-                        ) : null}
-                        {onReact ? (
-                          <>
-                            <MessageReactionPicker
-                              activeReaction={message.my_reaction}
-                              onSelect={(reaction) => onReact(message.id, reaction)}
-                              isSent
-                            />
-                            <MessageReactionSummary
-                              counts={message.reaction_counts ?? {}}
-                              activeReaction={message.my_reaction}
-                            />
-                          </>
-                        ) : null}
                       </div>
-                    ) : null}
+                    )}
 
+                    {/* Message bubble + inline hover actions (react, menu, time) */}
                     <div
                       className={cn(
-                        'message-content relative min-w-0 max-w-[70%] px-2 py-2 wrap-break-word',
-                        getChatBubbleToneClass(isSent)
+                        'flex w-full min-w-0 items-end gap-1',
+                        isSent ? 'justify-end' : 'justify-start'
                       )}
                     >
-                      {message.reply_to && onScrollToMessage ? (
-                        <MessageQuote
-                          quoted={messagesById.get(message.reply_to)}
-                          isSent={isSent}
-                          onClick={() => onScrollToMessage(message.reply_to!)}
-                        />
-                      ) : null}
-
-                      {message.attachments?.length ? (
-                        <div className='space-y-2'>
-                          <MessageAttachments
-                            attachments={message.attachments}
-                            chatId={message.chat}
-                          />
+                      {isSent ? (
+                        <div className='flex items-center gap-0.5'>
+                          <span className='text-muted-foreground/70 text-[10px] opacity-0 transition-opacity group-hover:opacity-100 [@media(hover:none)]:opacity-100'>
+                            {formatDateTime(new Date(message.created * 1000))}
+                          </span>
+                          {!isSelecting && onReply ? (
+                            <MessageHoverActions
+                              message={message}
+                              onReply={onReply}
+                              onSelect={onSelectMessage ? () => onSelectMessage(message) : undefined}
+                            />
+                          ) : null}
+                          {!isSelecting && onReact ? (
+                            <>
+                              <MessageReactionPicker
+                                activeReaction={message.my_reaction}
+                                onSelect={(reaction) => onReact(message.id, reaction)}
+                                isSent
+                              />
+                              <MessageReactionSummary
+                                counts={message.reaction_counts ?? {}}
+                                activeReaction={message.my_reaction}
+                              />
+                            </>
+                          ) : null}
                         </div>
                       ) : null}
 
-                      {message.body ? (
-                        <MessageBody
-                          isSent={isSent}
-                          className={
-                            message.attachments?.length ? 'mt-2' : undefined
-                          }
-                        >
-                          {searchActive &&
-                            searchQuery.length >= 2 &&
-                            matchedMessageIds?.has(message.id)
-                            ? highlightSearchText(
-                              message.body,
-                              searchQuery,
-                              activeMatchId === message.id
-                            )
-                            : message.body}
-                        </MessageBody>
-                      ) : null}
-                    </div>
-
-                    {!isSent ? (
-                      <div className='flex items-center gap-0.5'>
-                        {onReact ? (
-                          <>
-                            <MessageReactionSummary
-                              counts={message.reaction_counts ?? {}}
-                              activeReaction={message.my_reaction}
-                            />
-                            <MessageReactionPicker
-                              activeReaction={message.my_reaction}
-                              onSelect={(reaction) => onReact(message.id, reaction)}
-                            />
-                          </>
-                        ) : null}
-                        {onReply ? (
-                          <MessageHoverActions
-                            message={message}
-                            onReply={onReply}
+                      <div
+                        className={cn(
+                          'message-content relative min-w-0 max-w-[70%] px-2 py-2 wrap-break-word',
+                          getChatBubbleToneClass(isSent)
+                        )}
+                      >
+                        {message.reply_to && onScrollToMessage ? (
+                          <MessageQuote
+                            quoted={messagesById.get(message.reply_to)}
+                            isSent={isSent}
+                            onClick={() => onScrollToMessage(message.reply_to!)}
                           />
                         ) : null}
-                        <span className='text-muted-foreground/70 text-[10px] opacity-0 transition-opacity group-hover:opacity-100 [@media(hover:none)]:opacity-100'>
-                          {formatDateTime(new Date(message.created * 1000))}
-                        </span>
+
+                        {message.attachments?.length ? (
+                          <div className='space-y-2'>
+                            <MessageAttachments
+                              attachments={message.attachments}
+                              chatId={message.chat}
+                            />
+                          </div>
+                        ) : null}
+
+                        {message.body ? (
+                          <MessageBody
+                            isSent={isSent}
+                            className={
+                              message.attachments?.length ? 'mt-2' : undefined
+                            }
+                          >
+                            {searchActive &&
+                              searchQuery.length >= 2 &&
+                              matchedMessageIds?.has(message.id)
+                              ? highlightSearchText(
+                                message.body,
+                                searchQuery,
+                                activeMatchId === message.id
+                              )
+                              : message.body}
+                          </MessageBody>
+                        ) : null}
                       </div>
-                    ) : null}
+
+                      {!isSent ? (
+                        <div className='flex items-center gap-0.5'>
+                          {!isSelecting && onReact ? (
+                            <>
+                              <MessageReactionSummary
+                                counts={message.reaction_counts ?? {}}
+                                activeReaction={message.my_reaction}
+                              />
+                              <MessageReactionPicker
+                                activeReaction={message.my_reaction}
+                                onSelect={(reaction) => onReact(message.id, reaction)}
+                              />
+                            </>
+                          ) : null}
+                          {!isSelecting && onReply ? (
+                            <MessageHoverActions
+                              message={message}
+                              onReply={onReply}
+                              onSelect={onSelectMessage ? () => onSelectMessage(message) : undefined}
+                            />
+                          ) : null}
+                          <span className='text-muted-foreground/70 text-[10px] opacity-0 transition-opacity group-hover:opacity-100 [@media(hover:none)]:opacity-100'>
+                            {formatDateTime(new Date(message.created * 1000))}
+                          </span>
+                        </div>
+                      ) : null}
+                    </div>
                   </div>
                 </div>
               )
@@ -454,7 +501,33 @@ export function ChatMessageList({
         <div ref={messagesEndRef} />
       </div>
 
-      {isScrolledAwayFromBottom && !searchActive ? (
+      {isSelecting ? (
+        <div className='absolute bottom-3 left-1/2 z-10 -translate-x-1/2'>
+          <div className='bg-background flex items-center gap-2 rounded-full border px-4 py-2 shadow-md'>
+            <span className='text-sm font-medium'>
+              {selectedIds?.size ?? 0} <Trans>selected</Trans>
+            </span>
+            <Button
+              type='button'
+              variant='ghost'
+              size='sm'
+              className='h-7 rounded-full px-2 text-xs'
+              onClick={() => onSelectAll?.(chatMessages.map((m) => m.id))}
+            >
+              <Trans>All</Trans>
+            </Button>
+            <Button
+              type='button'
+              variant='ghost'
+              size='sm'
+              className='text-muted-foreground h-7 rounded-full px-2 text-xs'
+              onClick={onClearSelection}
+            >
+              <Trans>Cancel</Trans>
+            </Button>
+          </div>
+        </div>
+      ) : isScrolledAwayFromBottom && !searchActive ? (
         <div className='absolute left-1/2 bottom-3 z-10'>
           <Button
             type='button'
@@ -483,3 +556,4 @@ export function ChatMessageList({
     </div>
   )
 }
+

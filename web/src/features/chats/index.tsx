@@ -1,10 +1,12 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { Trans, useLingui } from '@lingui/react/macro'
 import { useAuthStore, usePageTitle, PageHeader, Main, GeneralError, Button, Checkbox, ConfirmDialog, EntityAvatar, IconButton, DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger, Label, toast, getErrorMessage } from '@mochi/web'
+import { useMessageSelection } from '@/hooks/use-message-selection'
 import { useNavigate, useParams, useSearch } from '@tanstack/react-router'
 import { useQueryClient, type InfiniteData } from '@tanstack/react-query'
 import { ChatSkeleton } from './components/chat-skeleton'
 import {
+  Forward,
   MoreHorizontal,
   Settings,
   LogOut,
@@ -40,7 +42,7 @@ import {
 } from '@/hooks/useChats'
 import type { GetMessagesResponse } from '@/api/types/chats'
 import { ChatEmptyState } from './components/chat-empty-state'
-import { ChatInput } from './components/chat-input'
+import { ChatInput, type ChatInputHandle } from './components/chat-input'
 import { ChatMessageList } from './components/chat-message-list'
 import { ChatSearchHeader } from './components/chat-search-header'
 import { useChatMessageSearch } from './hooks/use-chat-message-search'
@@ -67,6 +69,15 @@ export function Chats() {
   const [showLeaveDialog, setShowLeaveDialog] = useState(false)
   const [deleteOnLeave, setDeleteOnLeave] = useState(false)
 
+  const {
+    selectedIds,
+    isSelecting,
+    toggle: toggleMessageSelection,
+    selectOne,
+    selectAll: selectAllMessages,
+    clear: clearSelection,
+  } = useMessageSelection()
+
   const [pendingAttachments, setPendingAttachments] = useState<
     PendingAttachment[]
   >([])
@@ -78,6 +89,7 @@ export function Chats() {
     null
   )
   const highlightTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const chatInputRef = useRef<ChatInputHandle>(null)
 
   const {
     identity: currentUserIdentity,
@@ -101,12 +113,13 @@ export function Chats() {
     }
   }, [selectedChatId])
 
-  // Reset input and restore draft when selected chat changes
+  // Reset input, selection, and restore draft when selected chat changes
   useEffect(() => {
     setNewMessage('')
     setReplyTo(null)
     setScrollToMessageId(null)
     setHighlightMessageId(null)
+    clearSelection()
     if (!selectedChatId) return
     getDraft(selectedChatId).then((draft) => {
       if (draft) setNewMessage(draft)
@@ -287,6 +300,7 @@ export function Chats() {
 
   const handleReply = useCallback((message: ChatMessage) => {
     setReplyTo(messageToReplyTarget(message))
+    chatInputRef.current?.focusInput()
   }, [])
 
   const reactToMessageMutation = useReactToMessageMutation()
@@ -630,9 +644,51 @@ export function Chats() {
             onReply={selectedChat.left ? undefined : handleReply}
             onReact={selectedChat.left ? undefined : handleReact}
             onScrollToMessage={handleScrollToMessage}
+            isSelecting={isSelecting}
+            selectedIds={selectedIds}
+            onToggleSelect={toggleMessageSelection}
+            onSelectMessage={(message) => selectOne(message.id)}
+            onSelectAll={(ids) => selectAllMessages(ids)}
+            onClearSelection={clearSelection}
           />
 
-          {selectedChat.left ? (
+          {isSelecting ? (
+            <div className='border-t px-4 py-3'>
+              <div className='flex items-center justify-between gap-2'>
+                <span className='text-muted-foreground text-sm'>
+                  <Trans>{selectedIds.size} selected</Trans>
+                </span>
+                <div className='flex items-center gap-1'>
+                  <Button
+                    variant='ghost'
+                    size='sm'
+                    disabled
+                    title={t`Coming soon`}
+                  >
+                    <Forward className='me-1.5 size-4' />
+                    <Trans>Forward</Trans>
+                  </Button>
+                  <Button
+                    variant='ghost'
+                    size='sm'
+                    disabled
+                    title={t`Coming soon`}
+                    className='text-destructive hover:text-destructive'
+                  >
+                    <Trash2 className='me-1.5 size-4' />
+                    <Trans>Delete</Trans>
+                  </Button>
+                  <Button
+                    variant='outline'
+                    size='sm'
+                    onClick={clearSelection}
+                  >
+                    <Trans>Cancel</Trans>
+                  </Button>
+                </div>
+              </div>
+            </div>
+          ) : selectedChat.left ? (
             <div className='bg-muted/50 border-t p-4'>
               <div className='flex items-center justify-between'>
                 <p className='text-muted-foreground text-sm'>
@@ -657,6 +713,7 @@ export function Chats() {
             </div>
           ) : (
             <ChatInput
+              ref={chatInputRef}
               newMessage={newMessage}
               setNewMessage={setNewMessage}
               onSendMessage={handleSendMessage}

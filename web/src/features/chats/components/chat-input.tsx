@@ -2,7 +2,10 @@ import {
   type ChangeEvent,
   type DragEvent,
   type FormEvent,
+  forwardRef,
+  useCallback,
   useEffect,
+  useImperativeHandle,
   useRef,
   useState,
 } from 'react'
@@ -12,6 +15,10 @@ import { Loader2, Paperclip, Send, X } from 'lucide-react'
 import type { PendingAttachment } from '../utils'
 import type { ReplyTarget } from '../utils/reply'
 import { ReplyQuoteContent } from './reply-quote-content'
+
+export interface ChatInputHandle {
+  focusInput: () => void
+}
 
 interface ChatInputProps {
   newMessage: string
@@ -28,20 +35,24 @@ interface ChatInputProps {
   onClearReply?: () => void
 }
 
-export function ChatInput({
-  newMessage,
-  setNewMessage,
-  onSendMessage,
-  isSending,
-  isSendDisabled,
-  pendingAttachments,
-  onRemoveAttachment,
-  onReorderAttachments,
-  onAttachmentSelection,
-  sendMessageErrorMessage,
-  replyTo,
-  onClearReply,
-}: ChatInputProps) {
+export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(
+  function ChatInput(
+    {
+      newMessage,
+      setNewMessage,
+      onSendMessage,
+      isSending,
+      isSendDisabled,
+      pendingAttachments,
+      onRemoveAttachment,
+      onReorderAttachments,
+      onAttachmentSelection,
+      sendMessageErrorMessage,
+      replyTo,
+      onClearReply,
+    },
+    ref
+  ) {
   const { t } = useLingui()
   const fileInputRef = useRef<HTMLInputElement | null>(null)
   const textareaRef = useRef<HTMLTextAreaElement | null>(null)
@@ -49,6 +60,14 @@ export function ChatInput({
   const [dropTargetId, setDropTargetId] = useState<string | null>(null)
   const hasPendingAttachments = pendingAttachments.length > 0
   const canReorder = pendingAttachments.length > 1
+
+  const focusInput = useCallback(() => {
+    window.setTimeout(() => {
+      textareaRef.current?.focus({ preventScroll: true })
+    }, 0)
+  }, [])
+
+  useImperativeHandle(ref, () => ({ focusInput }), [focusInput])
 
   // Auto-resize: grow with content, shrink when cleared
   useEffect(() => {
@@ -60,9 +79,9 @@ export function ChatInput({
 
   useEffect(() => {
     if (replyTo) {
-      textareaRef.current?.focus()
+      focusInput()
     }
-  }, [replyTo])
+  }, [replyTo, focusInput])
 
   const handleDragStart = (e: DragEvent<HTMLDivElement>, attachmentId: string) => {
     if (!canReorder) return
@@ -263,4 +282,5 @@ export function ChatInput({
       )}
     </form>
   )
-}
+  }
+)

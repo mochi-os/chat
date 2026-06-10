@@ -17,13 +17,18 @@ msgstr ""
 msgid " (includes you)"
 msgstr ""
 
+#. placeholder {0}: selectedIds.size
+#: src/features/chats/index.tsx:659
+msgid "{0} selected"
+msgstr ""
+
 #. placeholder {0}: chatDetail.chat.name
 #: src/routes/_authenticated/$chatId_.settings.tsx:81
 #: src/routes/_authenticated/$chatId_.settings.tsx:120
 msgid "{0} settings"
 msgstr "Qindaa'inoota {0}"
 
-#: src/features/chats/components/chat-message-list.tsx:467
+#: src/features/chats/components/chat-message-list.tsx:540
 msgid "{newMessageCount, plural, one {Jump to 1 new message} other {Jump to # new messages}}"
 msgstr ""
 
@@ -89,7 +94,7 @@ msgstr "Akkaawuntii dabali"
 msgid "Add an account to receive notifications and use services."
 msgstr "Akkaawuntii dabali beeksisa fi tajaajila fayyadamuuf."
 
-#: src/features/chats/components/chat-input.tsx:209
+#: src/features/chats/components/chat-input.tsx:228
 msgid "Add attachment"
 msgstr "Maxxansa dabali"
 
@@ -140,6 +145,7 @@ msgid "AI"
 msgstr "AI"
 
 #: ../../../lib/web/src/components/notifications-dropdown.tsx:159
+#: src/features/chats/components/chat-message-list.tsx:517
 msgid "All"
 msgstr "Hunda"
 
@@ -164,7 +170,7 @@ msgid "Angry"
 msgstr ""
 
 #. placeholder {0}: selectedChat?.name
-#: src/features/chats/index.tsx:688
+#: src/features/chats/index.tsx:745
 msgid "Are you sure you want to leave \"{0}\"? You can be added back by other members."
 msgstr "\"{0}\" keessaa ba'uu mirkanaa'oo dha? Miseensonni kaan deebisanii si dabaluu danda'u."
 
@@ -185,7 +191,7 @@ msgstr "{0} chaattii kana keessaa haquu mirkanaa'oo dha?"
 msgid "Asc"
 msgstr "Olka'aa"
 
-#: src/features/chats/components/chat-input.tsx:123
+#: src/features/chats/components/chat-input.tsx:142
 #: src/features/chats/components/message-quote.tsx:47
 msgid "Attachment"
 msgstr ""
@@ -222,7 +228,9 @@ msgstr "Fedhii cimsi"
 #: ../../../lib/web/src/features/access/access-list.tsx:255
 #: ../../../lib/web/src/features/accounts/account-add.tsx:185
 #: ../../../lib/web/src/features/accounts/account-verify.tsx:86
+#: src/features/chats/components/chat-message-list.tsx:526
 #: src/features/chats/components/new-chat.tsx:254
+#: src/features/chats/index.tsx:686
 msgid "Cancel"
 msgstr "Haquu"
 
@@ -230,7 +238,7 @@ msgstr "Haquu"
 msgid "Cancel edit"
 msgstr "Sirreessa dhiisuu"
 
-#: src/features/chats/components/chat-input.tsx:131
+#: src/features/chats/components/chat-input.tsx:150
 msgid "Cancel reply"
 msgstr ""
 
@@ -242,10 +250,10 @@ msgstr "Beeksisa kanaaf ramaddii"
 msgid "Change notification category"
 msgstr "Ramaddii beeksisaa jijjiiri"
 
-#: src/features/chats/index.tsx:60
-#: src/features/chats/index.tsx:155
-#: src/features/chats/index.tsx:155
-#: src/features/chats/index.tsx:492
+#: src/features/chats/index.tsx:62
+#: src/features/chats/index.tsx:168
+#: src/features/chats/index.tsx:168
+#: src/features/chats/index.tsx:506
 msgid "Chat"
 msgstr "Chaattii"
 
@@ -253,7 +261,7 @@ msgstr "Chaattii"
 msgid "Chat created"
 msgstr "Chaattiin uumame"
 
-#: src/features/chats/index.tsx:393
+#: src/features/chats/index.tsx:407
 msgid "Chat deleted"
 msgstr "Chaattiin haqame"
 
@@ -298,7 +306,7 @@ msgstr "Chaattiin qophii dha"
 msgid "Chat renamed"
 msgstr "Chaattiin maqaan jijjiirame"
 
-#: src/features/chats/index.tsx:581
+#: src/features/chats/index.tsx:595
 #: src/routes/_authenticated/$chatId_.settings.tsx:81
 #: src/routes/_authenticated/$chatId_.settings.tsx:94
 #: src/routes/_authenticated/$chatId_.settings.tsx:105
@@ -306,7 +314,7 @@ msgstr "Chaattiin maqaan jijjiirame"
 msgid "Chat settings"
 msgstr "Qindaa'ina chaattii"
 
-#: src/features/chats/components/chat-input.tsx:215
+#: src/features/chats/components/chat-input.tsx:234
 msgid "Chat Text Box"
 msgstr "Saanduqa Barreeffama Chaattii"
 
@@ -342,7 +350,7 @@ msgstr "Kallatti weebsaayitii bitaa-irraa-mirgatti ykn mirgaa-irraa-bitaa gidduu
 msgid "Choose between system preference, light mode, or dark mode"
 msgstr "Filannoo sirnaa, ifaan, ykn dukkanaan gidduu filadhu"
 
-#: ../../../lib/web/src/components/language-picker.tsx:174
+#: ../../../lib/web/src/components/language-picker.tsx:294
 msgid "Choose language"
 msgstr "Afaan filadhu"
 
@@ -394,6 +402,11 @@ msgstr "Cinaa walitti gargari"
 msgid "Comfortable"
 msgstr "Bal'aa"
 
+#: src/features/chats/index.tsx:666
+#: src/features/chats/index.tsx:675
+msgid "Coming soon"
+msgstr ""
+
 #: ../../../lib/web/src/components/coming-soon.tsx:9
 msgid "Coming Soon!"
 msgstr "Dhihoo Dhufuuf!"
@@ -425,7 +438,7 @@ msgid "Continue with {label}"
 msgstr "{label} waliin itti fufi"
 
 #: ../../../lib/web/src/components/ui/copy-button.tsx:60
-#: src/features/chats/components/message-hover-actions.tsx:69
+#: src/features/chats/components/message-hover-actions.tsx:83
 msgid "Copy"
 msgstr "Garagalchi"
 
@@ -479,12 +492,16 @@ msgstr "Idilee"
 msgid "Default AI account"
 msgstr "Akkaawuntii AI idilee"
 
-#: src/features/chats/index.tsx:564
-#: src/features/chats/index.tsx:654
+#: src/features/chats/index.tsx:679
+msgid "Delete"
+msgstr ""
+
+#: src/features/chats/index.tsx:578
+#: src/features/chats/index.tsx:710
 msgid "Delete chat"
 msgstr "Chaattii haqi"
 
-#: src/features/chats/index.tsx:710
+#: src/features/chats/index.tsx:767
 #: src/routes/_authenticated/$chatId_.settings.tsx:440
 msgid "Delete chat history"
 msgstr "Seenaa chaattii haqi"
@@ -501,7 +518,7 @@ msgstr "Gadii"
 msgid "Details Panel"
 msgstr "Paanelii Bal'inaan"
 
-#: ../../../lib/web/src/components/language-picker.tsx:152
+#: ../../../lib/web/src/components/language-picker.tsx:272
 #: ../../../lib/web/src/components/timezone-select.tsx:43
 #: ../../../lib/web/src/components/timezone-select.tsx:80
 #: ../../../lib/web/src/lib/preference-utils.ts:25
@@ -572,7 +589,7 @@ msgstr "Akkaawuntii dabaluu hin dandeenye"
 msgid "Failed to add member"
 msgstr "Miseensa dabaluu hin dandeenye"
 
-#: src/features/chats/components/message-hover-actions.tsx:36
+#: src/features/chats/components/message-hover-actions.tsx:40
 msgid "Failed to copy message"
 msgstr ""
 
@@ -580,11 +597,11 @@ msgstr ""
 msgid "Failed to create chat"
 msgstr "Haasawa uumuu hin dandeenye"
 
-#: src/features/chats/index.tsx:397
+#: src/features/chats/index.tsx:411
 msgid "Failed to delete chat"
 msgstr "Haasawa haquu hin dandeenye"
 
-#: src/features/chats/index.tsx:381
+#: src/features/chats/index.tsx:395
 #: src/routes/_authenticated/$chatId_.settings.tsx:402
 msgid "Failed to leave chat"
 msgstr "Haasawa irraa ba'uu hin dandeenye"
@@ -605,7 +622,7 @@ msgstr "Miseensa haquu hin dandeenye"
 msgid "Failed to rename chat"
 msgstr "Haasawa moggaasuu hin dandeenye"
 
-#: src/features/chats/index.tsx:673
+#: src/features/chats/index.tsx:730
 msgid "Failed to send message"
 msgstr "Ergaa ergamuu hin dandeenye"
 
@@ -613,7 +630,7 @@ msgstr "Ergaa ergamuu hin dandeenye"
 msgid "Failed to send verification code"
 msgstr "Koodii mirkanaa ergamuu hin dandeenye"
 
-#: src/features/chats/index.tsx:168
+#: src/features/chats/index.tsx:181
 msgid "Failed to start chat"
 msgstr "Haasawa jalqabuu hin dandeenye"
 
@@ -628,6 +645,10 @@ msgstr "Akkaawuntii kee jijjiiruu fixadhu"
 #: ../../../lib/web/src/components/config-drawer.tsx:244
 msgid "Floating"
 msgstr "Bilisa"
+
+#: src/features/chats/index.tsx:669
+msgid "Forward"
+msgstr ""
 
 #: ../../../lib/web/src/lib/preference-utils.ts:60
 msgid "Friday"
@@ -723,7 +744,7 @@ msgstr "Fedhota"
 msgid "Invalid verification code"
 msgstr "Koodii mirkanaa sirrii hin taane"
 
-#: src/features/chats/components/chat-message-list.tsx:471
+#: src/features/chats/components/chat-message-list.tsx:544
 msgid "Jump to bottom"
 msgstr ""
 
@@ -744,21 +765,21 @@ msgstr "Bocii"
 msgid "Learn more"
 msgstr "Caalaatti baradhu"
 
-#: src/features/chats/index.tsx:696
+#: src/features/chats/index.tsx:753
 msgid "Leave"
 msgstr "Ba'i"
 
-#: src/features/chats/index.tsx:571
+#: src/features/chats/index.tsx:585
 #: src/routes/_authenticated/$chatId_.settings.tsx:426
 msgid "Leave chat"
 msgstr "Haasawa irraa ba'i"
 
-#: src/features/chats/index.tsx:687
+#: src/features/chats/index.tsx:744
 #: src/routes/_authenticated/$chatId_.settings.tsx:417
 msgid "Leave chat?"
 msgstr "Haasawa irraa ba'a?"
 
-#: src/features/chats/index.tsx:693
+#: src/features/chats/index.tsx:750
 #: src/routes/_authenticated/$chatId_.settings.tsx:423
 msgid "Leaving..."
 msgstr "Ba'aa jiraa..."
@@ -852,16 +873,16 @@ msgstr "Miseensota"
 msgid "Menu"
 msgstr "Menu"
 
-#: src/features/chats/components/message-hover-actions.tsx:54
+#: src/features/chats/components/message-hover-actions.tsx:58
 msgid "Message actions"
 msgstr ""
 
-#: src/features/chats/components/message-hover-actions.tsx:34
+#: src/features/chats/components/message-hover-actions.tsx:38
 msgid "Message copied"
 msgstr ""
 
 #: src/features/chats/components/message-quote.tsx:51
-#: src/features/chats/index.tsx:311
+#: src/features/chats/index.tsx:325
 msgid "Message not available"
 msgstr ""
 
@@ -922,7 +943,7 @@ msgstr "Hanga ammaatti hiriyoonni hin jiran"
 msgid "No groups available"
 msgstr "Garreen hin jiran"
 
-#: src/features/chats/components/chat-message-list.tsx:294
+#: src/features/chats/components/chat-message-list.tsx:307
 msgid "No messages yet"
 msgstr "Hanga ammaatti ergaawwan hin jiran"
 
@@ -988,7 +1009,11 @@ msgstr "Bani"
 msgid "Open account actions"
 msgstr "Sochiiwwan akkaawuntii bani"
 
-#: src/features/chats/index.tsx:556
+#: ../../../lib/web/src/components/layout/nav-group.tsx:134
+msgid "Open actions"
+msgstr ""
+
+#: src/features/chats/index.tsx:570
 msgid "Open chat actions"
 msgstr "Sochiiwwan haasawaa bani"
 
@@ -1104,7 +1129,7 @@ msgstr "Haqi"
 
 #. placeholder {0}: attachment.file.name
 #. placeholder {0}: reaction.label.toLowerCase()
-#: src/features/chats/components/chat-input.tsx:193
+#: src/features/chats/components/chat-input.tsx:212
 #: src/features/chats/components/message-reaction-bar.tsx:110
 msgid "Remove {0}"
 msgstr "{0} haqi"
@@ -1130,12 +1155,12 @@ msgstr "Miseensa haquuf?"
 msgid "Removing..."
 msgstr "Haqaa jira..."
 
-#: src/features/chats/components/message-hover-actions.tsx:79
+#: src/features/chats/components/message-hover-actions.tsx:93
 msgid "Reply"
 msgstr ""
 
 #. placeholder {0}: replyTo.name
-#: src/features/chats/components/chat-input.tsx:114
+#: src/features/chats/components/chat-input.tsx:133
 msgid "Replying to {0}"
 msgstr ""
 
@@ -1168,6 +1193,10 @@ msgstr ""
 msgid "Saturday"
 msgstr "Sanbata"
 
+#: ../../../lib/web/src/components/ui/secret-field.tsx:74
+msgid "Save"
+msgstr ""
+
 #: ../../../lib/web/src/components/place-picker.tsx:82
 msgid "Search for a place"
 msgstr "Bakka barbaadi"
@@ -1184,7 +1213,7 @@ msgstr "Madda barbaadi..."
 msgid "Search in chat..."
 msgstr ""
 
-#: src/features/chats/index.tsx:546
+#: src/features/chats/index.tsx:560
 msgid "Search messages"
 msgstr ""
 
@@ -1205,6 +1234,10 @@ msgstr "Barbaadi..."
 #: ../../../lib/web/src/features/access/access-dialog.tsx:199
 msgid "Searching..."
 msgstr "Barbaadaa jira..."
+
+#: src/features/chats/components/message-hover-actions.tsx:98
+msgid "Select"
+msgstr ""
 
 #: src/features/chats/components/chat-empty-state.tsx:17
 msgid "Select a chat"
@@ -1238,6 +1271,10 @@ msgstr "Garee filadhu"
 msgid "Select layout style"
 msgstr "Akkaataa qindaa'inaa filadhu"
 
+#: src/features/chats/components/chat-message-list.tsx:359
+msgid "Select message"
+msgstr ""
+
 #: ../../../lib/web/src/components/config-drawer.tsx:233
 msgid "Select sidebar style"
 msgstr "Akkaataa cinaa filadhu"
@@ -1250,6 +1287,10 @@ msgstr "Kallattii saayitii filadhu"
 msgid "Select theme preference"
 msgstr "Filannoo akeeka filadhu"
 
+#: src/features/chats/components/chat-message-list.tsx:508
+msgid "selected"
+msgstr ""
+
 #: ../../../lib/web/src/features/accounts/account-verify.tsx:95
 msgid "Send again"
 msgstr "Ammas erguu"
@@ -1258,7 +1299,7 @@ msgstr "Ammas erguu"
 msgid "Send email"
 msgstr "Imeelii ergi"
 
-#: src/features/chats/components/chat-input.tsx:237
+#: src/features/chats/components/chat-input.tsx:256
 msgid "Send message"
 msgstr "Ergaa ergi"
 
@@ -1436,11 +1477,11 @@ msgstr "Fayyadamtoota barbaaduuf barreessi"
 msgid "Type to search..."
 msgstr "Barbaaduuf barreessi..."
 
-#: src/features/chats/components/chat-input.tsx:219
+#: src/features/chats/components/chat-input.tsx:238
 msgid "Type your message…"
 msgstr "Ergaa kee barreessi…"
 
-#: src/features/chats/components/chat-input.tsx:219
+#: src/features/chats/components/chat-input.tsx:238
 msgid "Type your reply…"
 msgstr ""
 
@@ -1535,7 +1576,7 @@ msgstr "Saayitiin sirreeffama jala jira!"
 msgid "Wednesday"
 msgstr "Roobii"
 
-#: src/features/chats/index.tsx:228
+#: src/features/chats/index.tsx:241
 msgid "You"
 msgstr "Ati"
 
@@ -1551,11 +1592,11 @@ msgstr "Kanaan duraan marii waliin qabda:"
 msgid "You haven't started any chats yet. Connect with a friend to get things rolling."
 msgstr "Marii kamiyyuu ammallee hin jalqabne. Hiriyaa waliin walitti hidhachuun jalqabsiisi."
 
-#: src/features/chats/index.tsx:641
+#: src/features/chats/index.tsx:697
 msgid "You left this chat"
 msgstr "Marii kana keessaa baate"
 
-#: src/features/chats/index.tsx:640
+#: src/features/chats/index.tsx:696
 msgid "You were removed from this chat"
 msgstr "Marii kana irraa haqamteetta"
 
