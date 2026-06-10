@@ -11,7 +11,7 @@ import {
   type NavMenuItem,
   type SidebarData,
 } from '@mochi/web'
-import { CheckCheck, Mail, MessageCircle, Pin, PinOff, Plus } from 'lucide-react'
+import { CheckCheck, Mail, Pin, PinOff, Plus, Users } from 'lucide-react'
 import { SidebarProvider, useSidebarContext } from '@/context/sidebar-context'
 import { useChatsQuery, useMarkChatReadMutation } from '@/hooks/useChats'
 import { NewChat } from '@/features/chats/components/new-chat'
@@ -34,6 +34,20 @@ function formatChatSidebarBadge(
 }
 
 const personIconCache = new Map<string, React.FC>()
+const groupIconCache = new Map<string, React.FC>()
+
+function groupIcon(chatId: string): React.FC {
+  let Icon = groupIconCache.get(chatId)
+  if (!Icon) {
+    Icon = function GroupIcon() {
+      return <EntityAvatar size="sm" icon={Users} />
+    }
+    // eslint-disable-next-line lingui/no-unlocalized-strings -- React displayName is dev-tooling only, not user-facing
+    Icon.displayName = `GroupIcon(${chatId})`
+    groupIconCache.set(chatId, Icon)
+  }
+  return Icon
+}
 
 function personIcon(personId: string): React.FC {
   let Icon = personIconCache.get(personId)
@@ -212,7 +226,7 @@ function ChatLayoutInner() {
         icon:
           chat.members === 2 && chat.other
             ? personIcon(chat.other)
-            : MessageCircle,
+            : groupIcon(chat.id),
         endIcon: pinned ? Pin : undefined,
         badge:
           !chat.left && chat.id !== activeChatId

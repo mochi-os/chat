@@ -263,7 +263,7 @@ export function ChatMessageList({
     onScrollToMessageComplete,
   ])
 
-  if (isLoadingMessages) {
+  if (isLoadingMessages || messagesQuery.isPending) {
     return (
       <div className='flex flex-1 w-full flex-col justify-end gap-3 p-4'>
         {Array.from({ length: 4 }).map((_, i) => (

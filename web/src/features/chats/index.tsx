@@ -15,6 +15,7 @@ import {
   Trash2,
   MessageCircle,
   Search,
+  Users,
 } from 'lucide-react'
 import { useSidebarContext } from '@/context/sidebar-context'
 import {
@@ -559,7 +560,7 @@ export function Chats() {
                 size="xl"
               />
             ) : (
-              <MessageCircle className='size-4 md:size-5' />
+              <EntityAvatar size="xl" icon={Users} />
             )
           }
           description={subtitle || undefined}
