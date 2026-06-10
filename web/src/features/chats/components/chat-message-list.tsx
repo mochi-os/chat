@@ -16,6 +16,7 @@ import type {
 import {
   Button,
   Checkbox,
+  EmptyState,
   EntityAvatar,
   GeneralError,
   LoadMoreTrigger,
@@ -105,7 +106,7 @@ export function ChatMessageList({
   onClearSelection,
 }: ChatMessageListProps) {
   const { t } = useLingui()
-  const { formatDate, formatDateTime } = useFormat()
+  const { formatDate, formatDateTime, formatNumber } = useFormat()
   const scrollContainerRef = useRef<HTMLDivElement | null>(null)
   const messagesEndRef = useRef<HTMLDivElement | null>(null)
   const prevScrollHeightRef = useRef<number>(0)
@@ -302,9 +303,12 @@ export function ChatMessageList({
 
   if (chatMessages.length === 0) {
     return (
-      <div className='flex flex-1 flex-col items-center justify-center py-8 text-center'>
-        <MessageCircle className='text-muted-foreground mb-2 h-8 w-8' />
-        <p className='text-muted-foreground text-sm'><Trans>No messages yet</Trans></p>
+      <div className='flex flex-1 flex-col items-center justify-center'>
+        <EmptyState
+          icon={MessageCircle}
+          title={t`No messages yet`}
+          description={t`Be the first to say something!`}
+        />
       </div>
     )
   }
@@ -547,7 +551,7 @@ export function ChatMessageList({
             <ChevronsDown className='size-5' />
             {newMessageCount > 0 ? (
               <span className='bg-primary absolute -start-1 -top-1 flex min-h-5 min-w-5 items-center justify-center rounded-full px-1 text-[10px] font-semibold text-white'>
-                {newMessageCount > 99 ? '99+' : newMessageCount}
+                {newMessageCount > 99 ? '99+' : formatNumber(newMessageCount)}
               </span>
             ) : null}
           </Button>

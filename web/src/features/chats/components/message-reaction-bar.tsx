@@ -9,6 +9,7 @@ import {
   TooltipContent,
   TooltipTrigger,
   cn,
+  useFormat,
 } from '@mochi/web'
 import { SmilePlus } from 'lucide-react'
 import { Trans, useLingui } from '@lingui/react/macro'
@@ -133,6 +134,7 @@ export function MessageReactionSummary({
   className,
 }: MessageReactionSummaryProps) {
   const reactionOptions = useReactionOptions()
+  const { formatNumber } = useFormat()
 
   const visibleReactions = reactionOptions.filter(
     (r) => (counts[r.id] ?? 0) > 0
@@ -163,7 +165,7 @@ export function MessageReactionSummary({
                 }`}
               >
                 <span>{r.emoji}</span>
-                <span className='font-medium'>{count}</span>
+                <span className='font-medium'>{formatNumber(count)}</span>
               </span>
             </TooltipTrigger>
             <TooltipContent side='bottom' className='text-xs'>

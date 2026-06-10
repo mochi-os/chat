@@ -1,11 +1,12 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { Trans, useLingui } from '@lingui/react/macro'
-import { useAuthStore, usePageTitle, PageHeader, Main, GeneralError, Button, Checkbox, ConfirmDialog, EntityAvatar, IconButton, DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger, Label, toast, getErrorMessage } from '@mochi/web'
+import { useAuthStore, usePageTitle, PageHeader, Main, GeneralError, Button, Checkbox, ConfirmDialog, EntityAvatar, IconButton, DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger, Label, toast, getErrorMessage, shellClipboardWrite } from '@mochi/web'
 import { useMessageSelection } from '@/hooks/use-message-selection'
 import { useNavigate, useParams, useSearch } from '@tanstack/react-router'
 import { useQueryClient, type InfiniteData } from '@tanstack/react-query'
 import { ChatSkeleton } from './components/chat-skeleton'
 import {
+  Copy,
   Forward,
   MoreHorizontal,
   Settings,
@@ -316,6 +317,16 @@ export function Chats() {
     },
     [selectedChat, reactToMessageMutation]
   )
+
+  const handleCopySelected = useCallback(async () => {
+    const bodies = chatMessages
+      .filter((m) => selectedIds.has(m.id) && m.body?.trim())
+      .map((m) => m.body!.trim())
+    if (bodies.length === 0) return
+    const ok = await shellClipboardWrite(bodies.join('\n\n'))
+    if (ok) toast.success(t`Copied`)
+    else toast.error(t`Failed to copy`)
+  }, [chatMessages, selectedIds, t])
 
   const handleScrollToMessage = useCallback(
     async (messageId: string) => {
@@ -659,6 +670,14 @@ export function Chats() {
                   <Trans>{selectedIds.size} selected</Trans>
                 </span>
                 <div className='flex items-center gap-1'>
+                  <Button
+                    variant='ghost'
+                    size='sm'
+                    onClick={() => void handleCopySelected()}
+                  >
+                    <Copy className='me-1.5 size-4' />
+                    <Trans>Copy</Trans>
+                  </Button>
                   <Button
                     variant='ghost'
                     size='sm'
