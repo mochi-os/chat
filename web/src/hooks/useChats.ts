@@ -1,6 +1,7 @@
 import {
   useMutation,
   useQueryClient,
+  type QueryClient,
   type UseMutationOptions,
   type UseQueryOptions,
   type InfiniteData,
@@ -30,7 +31,10 @@ import { chatsApi,
   type MemberRemoveResponse,
   type MarkReadRequest,
   type MarkReadResponse,
+  type DeleteMessagesResponse,
+  type ForwardMessagesResponse,
 } from '@/api/chats'
+import type { ChatMessage } from '@/api/types/chats'
 
 export const chatKeys = {
   all: () => ['chats'] as const,
@@ -352,6 +356,105 @@ export const useMarkChatReadMutation = (
           ...old,
           chats: old.chats.map((chat) =>
             chat.id === variables.chatId ? { ...chat, unread: 0 } : chat
+          ),
+        }
+      })
+      onSuccess?.(data, variables, context, mutation)
+    },
+    ...restOptions,
+  })
+}
+
+// Replace the given messages in the cache with tombstones (delete-for-everyone).
+const tombstoneMessagesInCache = (
+  queryClient: QueryClient,
+  chatId: string,
+  deletedIds: string[]
+) => {
+  if (deletedIds.length === 0) return
+  const ids = new Set(deletedIds)
+  queryClient.setQueryData<InfiniteData<GetMessagesResponse>>(
+    chatKeys.messages(chatId),
+    (current) => {
+      if (!current?.pages) return current
+      return {
+        ...current,
+        pages: current.pages.map((page) => ({
+          ...page,
+          messages: page.messages.map((message): ChatMessage =>
+            ids.has(message.id)
+              ? {
+                  ...message,
+                  deleted: true,
+                  body: '',
+                  attachments: [],
+                  reaction_counts: {},
+                  my_reaction: null,
+                }
+              : message
+          ),
+        })),
+      }
+    }
+  )
+}
+
+interface DeleteMessagesVariables {
+  chatId: string
+  messageIds: string[]
+}
+
+export const useDeleteMessagesMutation = (
+  options?: UseMutationOptions<
+    DeleteMessagesResponse,
+    Error,
+    DeleteMessagesVariables,
+    unknown
+  >
+) => {
+  const queryClient = useQueryClient()
+  const { onSuccess, ...restOptions } = options ?? {}
+  return useMutation({
+    mutationFn: ({ chatId, messageIds }: DeleteMessagesVariables) =>
+      chatsApi.deleteMessages(chatId, messageIds),
+    onSuccess: (data, variables, context, mutation) => {
+      tombstoneMessagesInCache(queryClient, variables.chatId, data.deleted)
+      onSuccess?.(data, variables, context, mutation)
+    },
+    ...restOptions,
+  })
+}
+
+interface ForwardMessagesVariables {
+  chatId: string
+  messageIds: string[]
+  toChat: string
+}
+
+export const useForwardMessagesMutation = (
+  options?: UseMutationOptions<
+    ForwardMessagesResponse,
+    Error,
+    ForwardMessagesVariables,
+    unknown
+  >
+) => {
+  const queryClient = useQueryClient()
+  const { onSuccess, ...restOptions } = options ?? {}
+  return useMutation({
+    mutationFn: ({ chatId, messageIds, toChat }: ForwardMessagesVariables) =>
+      chatsApi.forwardMessages(chatId, messageIds, toChat),
+    onSuccess: (data, variables, context, mutation) => {
+      // Bump the destination chat so it sorts to the top of the list; the
+      // destination message list itself fills in via its own websocket events.
+      queryClient.setQueryData<GetChatsResponse>(chatKeys.all(), (old) => {
+        if (!old) return old
+        return {
+          ...old,
+          chats: old.chats.map((chat) =>
+            chat.id === data.to_chat
+              ? { ...chat, updated: Math.floor(Date.now() / 1000) }
+              : chat
           ),
         }
       })

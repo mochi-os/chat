@@ -17,8 +17,13 @@ msgstr ""
 msgid " (includes you)"
 msgstr ""
 
+#. placeholder {0}: deleteTargetIds?.length ?? 0
+#: src/features/chats/index.tsx:846
+msgid "{0, plural, one {Delete message?} other {Delete # messages?}}"
+msgstr ""
+
 #. placeholder {0}: selectedIds.size
-#: src/features/chats/index.tsx:670
+#: src/features/chats/index.tsx:722
 msgid "{0} selected"
 msgstr ""
 
@@ -28,7 +33,7 @@ msgstr ""
 msgid "{0} settings"
 msgstr "Configuració de {0}"
 
-#: src/features/chats/components/chat-message-list.tsx:544
+#: src/features/chats/components/chat-message-list.tsx:563
 msgid "{newMessageCount, plural, one {Jump to 1 new message} other {Jump to # new messages}}"
 msgstr ""
 
@@ -145,7 +150,7 @@ msgid "AI"
 msgstr "IA"
 
 #: ../../../lib/web/src/components/notifications-dropdown.tsx:159
-#: src/features/chats/components/chat-message-list.tsx:521
+#: src/features/chats/components/chat-message-list.tsx:540
 msgid "All"
 msgstr "Tot"
 
@@ -170,7 +175,7 @@ msgid "Angry"
 msgstr ""
 
 #. placeholder {0}: selectedChat?.name
-#: src/features/chats/index.tsx:764
+#: src/features/chats/index.tsx:814
 msgid "Are you sure you want to leave \"{0}\"? You can be added back by other members."
 msgstr "Segur que vols sortir de «{0}»? Altres membres et poden tornar a afegir."
 
@@ -216,7 +221,7 @@ msgstr "Torna al xat"
 msgid "Back to home"
 msgstr "Torna a l’inici"
 
-#: src/features/chats/components/chat-message-list.tsx:310
+#: src/features/chats/components/chat-message-list.tsx:314
 msgid "Be the first to say something!"
 msgstr ""
 
@@ -232,9 +237,10 @@ msgstr "Augmenta l'interès"
 #: ../../../lib/web/src/features/access/access-list.tsx:255
 #: ../../../lib/web/src/features/accounts/account-add.tsx:185
 #: ../../../lib/web/src/features/accounts/account-verify.tsx:86
-#: src/features/chats/components/chat-message-list.tsx:530
+#: src/features/chats/components/chat-message-list.tsx:549
+#: src/features/chats/components/forward-dialog.tsx:164
 #: src/features/chats/components/new-chat.tsx:254
-#: src/features/chats/index.tsx:705
+#: src/features/chats/index.tsx:755
 msgid "Cancel"
 msgstr "Cancel·la"
 
@@ -254,10 +260,10 @@ msgstr "Categoria d'aquesta notificació"
 msgid "Change notification category"
 msgstr "Canvia la categoria de notificació"
 
-#: src/features/chats/index.tsx:63
-#: src/features/chats/index.tsx:169
-#: src/features/chats/index.tsx:169
-#: src/features/chats/index.tsx:517
+#: src/features/chats/index.tsx:68
+#: src/features/chats/index.tsx:180
+#: src/features/chats/index.tsx:180
+#: src/features/chats/index.tsx:567
 msgid "Chat"
 msgstr "Xat"
 
@@ -265,7 +271,7 @@ msgstr "Xat"
 msgid "Chat created"
 msgstr "Xat creat"
 
-#: src/features/chats/index.tsx:418
+#: src/features/chats/index.tsx:468
 msgid "Chat deleted"
 msgstr "Xat suprimit"
 
@@ -273,11 +279,11 @@ msgstr "Xat suprimit"
 msgid "Chat ID"
 msgstr "ID del xat"
 
-#: src/components/layout/chat-layout.tsx:105
+#: src/components/layout/chat-layout.tsx:119
 msgid "Chat marked as read"
 msgstr ""
 
-#: src/components/layout/chat-layout.tsx:123
+#: src/components/layout/chat-layout.tsx:137
 msgid "Chat marked as unread"
 msgstr ""
 
@@ -298,7 +304,7 @@ msgstr "Nom del xat..."
 msgid "Chat not found"
 msgstr "Xat no trobat"
 
-#: src/components/layout/chat-layout.tsx:131
+#: src/components/layout/chat-layout.tsx:145
 msgid "Chat pinned"
 msgstr ""
 
@@ -310,7 +316,7 @@ msgstr "Xat a punt"
 msgid "Chat renamed"
 msgstr "Xat reanomenat"
 
-#: src/features/chats/index.tsx:606
+#: src/features/chats/index.tsx:656
 #: src/routes/_authenticated/$chatId_.settings.tsx:81
 #: src/routes/_authenticated/$chatId_.settings.tsx:94
 #: src/routes/_authenticated/$chatId_.settings.tsx:105
@@ -322,17 +328,21 @@ msgstr "Configuració del xat"
 msgid "Chat Text Box"
 msgstr "Quadre de text del xat"
 
-#: src/components/layout/chat-layout.tsx:139
+#: src/components/layout/chat-layout.tsx:153
 msgid "Chat unpinned"
 msgstr ""
 
-#: src/components/layout/chat-layout.tsx:228
+#: src/components/layout/chat-layout.tsx:242
 msgid "Chats"
 msgstr "Xats"
 
 #: src/features/chats/components/new-chat.tsx:185
 msgid "Chats are between friends. Add a friend in the People app first."
 msgstr "Els xats són entre amistats. Afegeix una amistat a l'aplicació Persones primer."
+
+#: src/features/chats/components/forward-dialog.tsx:88
+msgid "Choose a chat to forward the selected messages to"
+msgstr ""
 
 #: src/features/chats/components/chat-empty-state.tsx:18
 msgid "Choose a conversation from the sidebar or start a new one."
@@ -358,7 +368,8 @@ msgstr "Tria entre la preferència del sistema, mode clar o mode fosc"
 msgid "Choose language"
 msgstr "Tria l'idioma"
 
-#: ../../../lib/web/src/components/colour-picker.tsx:304
+#: ../../../lib/web/src/components/colour-picker.tsx:268
+#: ../../../lib/web/src/components/colour-picker.tsx:349
 msgid "Clear"
 msgstr "Esborra"
 
@@ -408,8 +419,8 @@ msgstr "Còmode"
 
 #: src/features/chats/index.tsx:685
 #: src/features/chats/index.tsx:694
-msgid "Coming soon"
-msgstr ""
+#~ msgid "Coming soon"
+#~ msgstr ""
 
 #: ../../../lib/web/src/components/coming-soon.tsx:9
 msgid "Coming Soon!"
@@ -441,13 +452,13 @@ msgstr "Continua"
 msgid "Continue with {label}"
 msgstr "Continua amb {label}"
 
-#: src/features/chats/index.tsx:327
+#: src/features/chats/index.tsx:338
 msgid "Copied"
 msgstr ""
 
 #: ../../../lib/web/src/components/ui/copy-button.tsx:60
-#: src/features/chats/components/message-hover-actions.tsx:83
-#: src/features/chats/index.tsx:679
+#: src/features/chats/components/message-hover-actions.tsx:90
+#: src/features/chats/index.tsx:731
 msgid "Copy"
 msgstr "Copia"
 
@@ -471,7 +482,7 @@ msgstr "No s'ha pogut verificar amb aquest compte. Torneu-ho a provar."
 msgid "Create a new chat"
 msgstr "Crea un xat nou"
 
-#: src/components/layout/chat-layout.tsx:236
+#: src/components/layout/chat-layout.tsx:250
 #: src/features/chats/components/new-chat.tsx:262
 msgid "Create chat"
 msgstr "Crea un xat"
@@ -479,6 +490,10 @@ msgstr "Crea un xat"
 #: src/features/chats/components/new-chat.tsx:262
 msgid "Creating..."
 msgstr "S'està creant..."
+
+#: ../../../lib/web/src/components/colour-picker.tsx:259
+msgid "Custom"
+msgstr ""
 
 #: ../../../lib/web/src/components/config-drawer.tsx:205
 #: ../../../lib/web/src/lib/preference-utils.ts:17
@@ -501,16 +516,18 @@ msgstr "Per defecte"
 msgid "Default AI account"
 msgstr "Compte d'IA per defecte"
 
-#: src/features/chats/index.tsx:698
+#: src/features/chats/components/message-hover-actions.tsx:122
+#: src/features/chats/index.tsx:748
+#: src/features/chats/index.tsx:858
 msgid "Delete"
 msgstr ""
 
-#: src/features/chats/index.tsx:589
-#: src/features/chats/index.tsx:729
+#: src/features/chats/index.tsx:639
+#: src/features/chats/index.tsx:779
 msgid "Delete chat"
 msgstr "Suprimeix el xat"
 
-#: src/features/chats/index.tsx:786
+#: src/features/chats/index.tsx:836
 #: src/routes/_authenticated/$chatId_.settings.tsx:440
 msgid "Delete chat history"
 msgstr "Suprimeix l'historial del xat"
@@ -518,6 +535,10 @@ msgstr "Suprimeix l'historial del xat"
 #: ../../../lib/web/src/components/restore-banner.tsx:90
 msgid "Delete your account on the old server"
 msgstr "Suprimiu el compte a l'antic servidor"
+
+#: src/features/chats/index.tsx:855
+msgid "Deleting..."
+msgstr ""
 
 #: ../../../lib/web/src/components/data-table/column-header.tsx:60
 msgid "Desc"
@@ -598,11 +619,11 @@ msgstr "No s'ha pogut afegir el compte"
 msgid "Failed to add member"
 msgstr "No s'ha pogut afegir el membre"
 
-#: src/features/chats/index.tsx:328
+#: src/features/chats/index.tsx:339
 msgid "Failed to copy"
 msgstr ""
 
-#: src/features/chats/components/message-hover-actions.tsx:40
+#: src/features/chats/components/message-hover-actions.tsx:47
 msgid "Failed to copy message"
 msgstr ""
 
@@ -610,16 +631,24 @@ msgstr ""
 msgid "Failed to create chat"
 msgstr "No s'ha pogut crear el xat"
 
-#: src/features/chats/index.tsx:422
+#: src/features/chats/index.tsx:349
+msgid "Failed to delete"
+msgstr ""
+
+#: src/features/chats/index.tsx:472
 msgid "Failed to delete chat"
 msgstr "No s'ha pogut suprimir el xat"
 
-#: src/features/chats/index.tsx:406
+#: src/features/chats/components/forward-dialog.tsx:49
+msgid "Failed to forward"
+msgstr ""
+
+#: src/features/chats/index.tsx:456
 #: src/routes/_authenticated/$chatId_.settings.tsx:402
 msgid "Failed to leave chat"
 msgstr "No s'ha pogut sortir del xat"
 
-#: src/components/layout/chat-layout.tsx:108
+#: src/components/layout/chat-layout.tsx:122
 msgid "Failed to mark chat as read"
 msgstr ""
 
@@ -635,7 +664,7 @@ msgstr "No s'ha pogut retirar el membre"
 msgid "Failed to rename chat"
 msgstr "No s'ha pogut canviar el nom del xat"
 
-#: src/features/chats/index.tsx:749
+#: src/features/chats/index.tsx:799
 msgid "Failed to send message"
 msgstr "No s'ha pogut enviar el missatge"
 
@@ -643,7 +672,7 @@ msgstr "No s'ha pogut enviar el missatge"
 msgid "Failed to send verification code"
 msgstr "No s'ha pogut enviar el codi de verificació"
 
-#: src/features/chats/index.tsx:182
+#: src/features/chats/index.tsx:193
 msgid "Failed to start chat"
 msgstr "No s'ha pogut iniciar el xat"
 
@@ -659,8 +688,18 @@ msgstr "Acabeu de moure el compte"
 msgid "Floating"
 msgstr "Flotant"
 
-#: src/features/chats/index.tsx:688
+#: src/features/chats/components/forward-dialog.tsx:175
+#: src/features/chats/components/message-hover-actions.tsx:111
+#: src/features/chats/index.tsx:739
 msgid "Forward"
+msgstr ""
+
+#: src/features/chats/components/forward-dialog.tsx:85
+msgid "Forward to…"
+msgstr ""
+
+#: src/features/chats/components/forward-dialog.tsx:44
+msgid "Forwarded"
 msgstr ""
 
 #: ../../../lib/web/src/lib/preference-utils.ts:60
@@ -757,7 +796,7 @@ msgstr "Interessos"
 msgid "Invalid verification code"
 msgstr "Codi de verificació no vàlid"
 
-#: src/features/chats/components/chat-message-list.tsx:548
+#: src/features/chats/components/chat-message-list.tsx:567
 msgid "Jump to bottom"
 msgstr ""
 
@@ -778,21 +817,21 @@ msgstr "Disposició"
 msgid "Learn more"
 msgstr "Més informació"
 
-#: src/features/chats/index.tsx:772
+#: src/features/chats/index.tsx:822
 msgid "Leave"
 msgstr "Surt"
 
-#: src/features/chats/index.tsx:596
+#: src/features/chats/index.tsx:646
 #: src/routes/_authenticated/$chatId_.settings.tsx:426
 msgid "Leave chat"
 msgstr "Surt del xat"
 
-#: src/features/chats/index.tsx:763
+#: src/features/chats/index.tsx:813
 #: src/routes/_authenticated/$chatId_.settings.tsx:417
 msgid "Leave chat?"
 msgstr "Sortir del xat?"
 
-#: src/features/chats/index.tsx:769
+#: src/features/chats/index.tsx:819
 #: src/routes/_authenticated/$chatId_.settings.tsx:423
 msgid "Leaving..."
 msgstr "S'està sortint..."
@@ -858,11 +897,11 @@ msgstr ""
 msgid "Mark all as read"
 msgstr "Marca-ho tot com a llegit"
 
-#: src/components/layout/chat-layout.tsx:196
+#: src/components/layout/chat-layout.tsx:210
 msgid "Mark as read"
 msgstr ""
 
-#: src/components/layout/chat-layout.tsx:202
+#: src/components/layout/chat-layout.tsx:216
 msgid "Mark as unread"
 msgstr ""
 
@@ -886,16 +925,20 @@ msgstr "Membres"
 msgid "Menu"
 msgstr "Menú"
 
-#: src/features/chats/components/message-hover-actions.tsx:58
+#: src/features/chats/components/message-hover-actions.tsx:65
 msgid "Message actions"
 msgstr ""
 
-#: src/features/chats/components/message-hover-actions.tsx:38
+#: src/features/chats/components/message-hover-actions.tsx:45
 msgid "Message copied"
 msgstr ""
 
+#: src/features/chats/index.tsx:344
+msgid "Message deleted"
+msgstr ""
+
 #: src/features/chats/components/message-quote.tsx:51
-#: src/features/chats/index.tsx:336
+#: src/features/chats/index.tsx:386
 msgid "Message not available"
 msgstr ""
 
@@ -936,6 +979,10 @@ msgstr "Imatge següent"
 msgid "No access rules configured. Add rules to control who can access this resource."
 msgstr "No s'han configurat regles d'accés. Afegeix regles per controlar qui pot accedir a aquest recurs."
 
+#: src/features/chats/components/forward-dialog.tsx:119
+msgid "No chats to forward to"
+msgstr ""
+
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:287
 msgid "No connected accounts"
 msgstr "Cap compte connectat"
@@ -956,7 +1003,7 @@ msgstr "Encara no tens amics"
 msgid "No groups available"
 msgstr "No hi ha cap grup disponible"
 
-#: src/features/chats/components/chat-message-list.tsx:309
+#: src/features/chats/components/chat-message-list.tsx:313
 msgid "No messages yet"
 msgstr "Encara no hi ha missatges"
 
@@ -1026,7 +1073,7 @@ msgstr "Obre les accions del compte"
 msgid "Open actions"
 msgstr ""
 
-#: src/features/chats/index.tsx:581
+#: src/features/chats/index.tsx:631
 msgid "Open chat actions"
 msgstr "Obre les accions del xat"
 
@@ -1071,7 +1118,7 @@ msgstr "Ha fallat la verificació de la clau d'accés. Torneu-ho a provar."
 msgid "Passkeys"
 msgstr "Claus d'accés"
 
-#: src/components/layout/chat-layout.tsx:187
+#: src/components/layout/chat-layout.tsx:201
 msgid "Pin chat"
 msgstr ""
 
@@ -1168,7 +1215,7 @@ msgstr "Vols eliminar el membre?"
 msgid "Removing..."
 msgstr "Eliminant..."
 
-#: src/features/chats/components/message-hover-actions.tsx:93
+#: src/features/chats/components/message-hover-actions.tsx:100
 msgid "Reply"
 msgstr ""
 
@@ -1210,6 +1257,10 @@ msgstr "Dissabte"
 msgid "Save"
 msgstr ""
 
+#: src/features/chats/components/forward-dialog.tsx:98
+msgid "Search chats…"
+msgstr ""
+
 #: ../../../lib/web/src/components/place-picker.tsx:82
 msgid "Search for a place"
 msgstr "Cerca un lloc"
@@ -1226,7 +1277,7 @@ msgstr "Cerca origen..."
 msgid "Search in chat..."
 msgstr ""
 
-#: src/features/chats/index.tsx:571
+#: src/features/chats/index.tsx:621
 msgid "Search messages"
 msgstr ""
 
@@ -1248,7 +1299,7 @@ msgstr "Cerca..."
 msgid "Searching..."
 msgstr "Cercant..."
 
-#: src/features/chats/components/message-hover-actions.tsx:98
+#: src/features/chats/components/message-hover-actions.tsx:105
 msgid "Select"
 msgstr ""
 
@@ -1284,7 +1335,7 @@ msgstr "Selecciona grup"
 msgid "Select layout style"
 msgstr "Selecciona estil de disposició"
 
-#: src/features/chats/components/chat-message-list.tsx:363
+#: src/features/chats/components/chat-message-list.tsx:368
 msgid "Select message"
 msgstr ""
 
@@ -1300,7 +1351,7 @@ msgstr "Selecciona direcció del lloc"
 msgid "Select theme preference"
 msgstr "Selecciona la preferència de tema"
 
-#: src/features/chats/components/chat-message-list.tsx:512
+#: src/features/chats/components/chat-message-list.tsx:531
 msgid "selected"
 msgstr ""
 
@@ -1430,6 +1481,14 @@ msgstr "aquest xat"
 msgid "This chat may have been deleted or you don't have access to it"
 msgstr "És possible que aquest xat s'hagi eliminat o que no hi tinguis accés"
 
+#: src/features/chats/index.tsx:850
+msgid "This deletes the message for everyone and cannot be undone."
+msgstr ""
+
+#: src/features/chats/components/chat-message-list.tsx:445
+msgid "This message was deleted"
+msgstr ""
+
 #: ../../../lib/web/src/lib/preference-utils.ts:59
 msgid "Thursday"
 msgstr "Dijous"
@@ -1519,11 +1578,11 @@ msgstr "Accés no autoritzat"
 msgid "United States"
 msgstr "Estats Units"
 
-#: src/hooks/useChatWebsocket.ts:270
+#: src/hooks/useChatWebsocket.ts:315
 msgid "Unknown"
 msgstr "Desconegut"
 
-#: src/components/layout/chat-layout.tsx:181
+#: src/components/layout/chat-layout.tsx:195
 msgid "Unpin chat"
 msgstr ""
 
@@ -1589,7 +1648,7 @@ msgstr "El lloc web està en manteniment!"
 msgid "Wednesday"
 msgstr "Dimecres"
 
-#: src/features/chats/index.tsx:242
+#: src/features/chats/index.tsx:253
 msgid "You"
 msgstr "Tu"
 
@@ -1601,15 +1660,19 @@ msgstr "Ja tens un xat amb aquest amic"
 msgid "You already have chats with:"
 msgstr "Ja tens xats amb:"
 
+#: src/features/chats/index.tsx:360
+msgid "You can only delete your own messages"
+msgstr ""
+
 #: src/features/chats/components/chat-empty-state.tsx:34
 msgid "You haven't started any chats yet. Connect with a friend to get things rolling."
 msgstr "Encara no has iniciat cap xat. Connecta amb un amic per començar."
 
-#: src/features/chats/index.tsx:716
+#: src/features/chats/index.tsx:766
 msgid "You left this chat"
 msgstr "Has sortit d'aquest xat"
 
-#: src/features/chats/index.tsx:715
+#: src/features/chats/index.tsx:765
 msgid "You were removed from this chat"
 msgstr "T'han eliminat d'aquest xat"
 

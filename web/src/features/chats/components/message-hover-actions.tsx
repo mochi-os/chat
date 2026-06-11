@@ -5,18 +5,22 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
+  DropdownMenuSeparator,
   DropdownMenuTrigger,
   cn,
   shellClipboardWrite,
   toast,
 } from '@mochi/web'
-import { CheckSquare, Copy, MoreHorizontal, Reply } from 'lucide-react'
+import { CheckSquare, Copy, Forward, MoreHorizontal, Reply, Trash2 } from 'lucide-react'
 import type { ChatMessage } from '@/api/chats'
 
 interface MessageHoverActionsProps {
   message: ChatMessage
   onReply: (message: ChatMessage) => void
   onSelect?: () => void
+  onForward?: () => void
+  onDelete?: () => void
+  canDelete?: boolean
   className?: string
 }
 
@@ -24,6 +28,9 @@ export function MessageHoverActions({
   message,
   onReply,
   onSelect,
+  onForward,
+  onDelete,
+  canDelete = false,
   className,
 }: MessageHoverActionsProps) {
   const { t } = useLingui()
@@ -97,6 +104,24 @@ export function MessageHoverActions({
               <CheckSquare className='me-2 size-3.5' />
               {t`Select`}
             </DropdownMenuItem>
+          ) : null}
+          {onForward ? (
+            <DropdownMenuItem onSelect={onForward}>
+              <Forward className='me-2 size-3.5' />
+              {t`Forward`}
+            </DropdownMenuItem>
+          ) : null}
+          {canDelete && onDelete ? (
+            <>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem
+                onSelect={onDelete}
+                className='text-destructive focus:text-destructive'
+              >
+                <Trash2 className='me-2 size-3.5' />
+                {t`Delete`}
+              </DropdownMenuItem>
+            </>
           ) : null}
         </DropdownMenuContent>
       </DropdownMenu>

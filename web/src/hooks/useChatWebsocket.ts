@@ -161,6 +161,48 @@ const patchMessageReactionFromWebsocket = (
   )
 }
 
+const markMessageDeletedFromWebsocket = (
+  chatId: string,
+  payload: NormalizedChatWebsocketMessagePayload,
+  queryClient: QueryClient
+) => {
+  const messageId =
+    typeof payload.message === 'string' ? payload.message : undefined
+  if (!messageId) {
+    return
+  }
+
+  queryClient.setQueryData<InfiniteData<GetMessagesResponse>>(
+    chatKeys.messages(chatId),
+    (current) => {
+      if (!current?.pages) {
+        return current
+      }
+
+      let found = false
+      const pages = current.pages.map((page) => ({
+        ...page,
+        messages: page.messages.map((message): ChatMessage => {
+          if (message.id !== messageId) {
+            return message
+          }
+          found = true
+          return {
+            ...message,
+            deleted: true,
+            body: '',
+            attachments: [],
+            reaction_counts: {},
+            my_reaction: null,
+          }
+        }),
+      }))
+
+      return found ? { ...current, pages } : current
+    }
+  )
+}
+
 const handleWebsocketEvent = (
   chatId: string,
   payload: NormalizedChatWebsocketMessagePayload,
@@ -182,6 +224,9 @@ const handleWebsocketEvent = (
           currentUserId
         )
         return 'reaction'
+      case 'delete':
+        markMessageDeletedFromWebsocket(chatId, payload, queryClient)
+        return 'event'
       case 'removed':
       case 'rename':
       case 'leave':

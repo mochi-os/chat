@@ -24,6 +24,8 @@ import type {
   MarkReadRequest,
   MarkReadResponse,
   ReactToMessageResponse,
+  DeleteMessagesResponse,
+  ForwardMessagesResponse,
 } from './types/chats'
 import endpoints from './endpoints'
 
@@ -140,4 +142,37 @@ export const chatsApi = {
         reaction: reaction || 'none',
       })
       .then((res) => unwrapData<ReactToMessageResponse>(res)),
+
+  // Delete messages for everyone. The source chat is the URL entity; the
+  // backend skips ids the caller doesn't own. message_ids is a JSON-encoded
+  // array string sent form-encoded (same convention as photo-reorder ids).
+  deleteMessages: (
+    chatId: string,
+    messageIds: string[]
+  ): Promise<DeleteMessagesResponse> =>
+    client
+      .post<DeleteMessagesResponse | { data: DeleteMessagesResponse }>(
+        endpoints.chat.messagesDelete(chatId),
+        new URLSearchParams({ message_ids: JSON.stringify(messageIds) }),
+        { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } }
+      )
+      .then((res) => unwrapData<DeleteMessagesResponse>(res)),
+
+  // Forward messages from this (source) chat into another chat. body +
+  // attachments are copied as new messages authored by the caller.
+  forwardMessages: (
+    chatId: string,
+    messageIds: string[],
+    toChat: string
+  ): Promise<ForwardMessagesResponse> =>
+    client
+      .post<ForwardMessagesResponse | { data: ForwardMessagesResponse }>(
+        endpoints.chat.messagesForward(chatId),
+        new URLSearchParams({
+          message_ids: JSON.stringify(messageIds),
+          to_chat: toChat,
+        }),
+        { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } }
+      )
+      .then((res) => unwrapData<ForwardMessagesResponse>(res)),
 }

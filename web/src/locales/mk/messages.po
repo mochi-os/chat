@@ -17,8 +17,13 @@ msgstr ""
 msgid " (includes you)"
 msgstr ""
 
+#. placeholder {0}: deleteTargetIds?.length ?? 0
+#: src/features/chats/index.tsx:846
+msgid "{0, plural, one {Delete message?} other {Delete # messages?}}"
+msgstr ""
+
 #. placeholder {0}: selectedIds.size
-#: src/features/chats/index.tsx:670
+#: src/features/chats/index.tsx:722
 msgid "{0} selected"
 msgstr ""
 
@@ -28,7 +33,7 @@ msgstr ""
 msgid "{0} settings"
 msgstr "{0} поставки"
 
-#: src/features/chats/components/chat-message-list.tsx:544
+#: src/features/chats/components/chat-message-list.tsx:563
 msgid "{newMessageCount, plural, one {Jump to 1 new message} other {Jump to # new messages}}"
 msgstr ""
 
@@ -145,7 +150,7 @@ msgid "AI"
 msgstr "AI"
 
 #: ../../../lib/web/src/components/notifications-dropdown.tsx:159
-#: src/features/chats/components/chat-message-list.tsx:521
+#: src/features/chats/components/chat-message-list.tsx:540
 msgid "All"
 msgstr "Сите"
 
@@ -170,7 +175,7 @@ msgid "Angry"
 msgstr ""
 
 #. placeholder {0}: selectedChat?.name
-#: src/features/chats/index.tsx:764
+#: src/features/chats/index.tsx:814
 msgid "Are you sure you want to leave \"{0}\"? You can be added back by other members."
 msgstr "Сигурен ли си дека сакаш да го напуштиш „{0}“? Други членови може повторно да те додадат."
 
@@ -216,7 +221,7 @@ msgstr "Назад на разговор"
 msgid "Back to home"
 msgstr "Назад на почетна"
 
-#: src/features/chats/components/chat-message-list.tsx:310
+#: src/features/chats/components/chat-message-list.tsx:314
 msgid "Be the first to say something!"
 msgstr ""
 
@@ -232,9 +237,10 @@ msgstr "Поттикни интерес"
 #: ../../../lib/web/src/features/access/access-list.tsx:255
 #: ../../../lib/web/src/features/accounts/account-add.tsx:185
 #: ../../../lib/web/src/features/accounts/account-verify.tsx:86
-#: src/features/chats/components/chat-message-list.tsx:530
+#: src/features/chats/components/chat-message-list.tsx:549
+#: src/features/chats/components/forward-dialog.tsx:164
 #: src/features/chats/components/new-chat.tsx:254
-#: src/features/chats/index.tsx:705
+#: src/features/chats/index.tsx:755
 msgid "Cancel"
 msgstr "Откажи"
 
@@ -254,10 +260,10 @@ msgstr "Категорија за ова известување"
 msgid "Change notification category"
 msgstr "Промени категорија на известување"
 
-#: src/features/chats/index.tsx:63
-#: src/features/chats/index.tsx:169
-#: src/features/chats/index.tsx:169
-#: src/features/chats/index.tsx:517
+#: src/features/chats/index.tsx:68
+#: src/features/chats/index.tsx:180
+#: src/features/chats/index.tsx:180
+#: src/features/chats/index.tsx:567
 msgid "Chat"
 msgstr "Разговор"
 
@@ -265,7 +271,7 @@ msgstr "Разговор"
 msgid "Chat created"
 msgstr "Разговорот е создаден"
 
-#: src/features/chats/index.tsx:418
+#: src/features/chats/index.tsx:468
 msgid "Chat deleted"
 msgstr "Разговорот е избришан"
 
@@ -273,11 +279,11 @@ msgstr "Разговорот е избришан"
 msgid "Chat ID"
 msgstr "ID на разговор"
 
-#: src/components/layout/chat-layout.tsx:105
+#: src/components/layout/chat-layout.tsx:119
 msgid "Chat marked as read"
 msgstr ""
 
-#: src/components/layout/chat-layout.tsx:123
+#: src/components/layout/chat-layout.tsx:137
 msgid "Chat marked as unread"
 msgstr ""
 
@@ -298,7 +304,7 @@ msgstr "Име на разговор..."
 msgid "Chat not found"
 msgstr "Разговорот не е пронајден"
 
-#: src/components/layout/chat-layout.tsx:131
+#: src/components/layout/chat-layout.tsx:145
 msgid "Chat pinned"
 msgstr ""
 
@@ -310,7 +316,7 @@ msgstr "Разговорот е спремен"
 msgid "Chat renamed"
 msgstr "Разговорот е преименуван"
 
-#: src/features/chats/index.tsx:606
+#: src/features/chats/index.tsx:656
 #: src/routes/_authenticated/$chatId_.settings.tsx:81
 #: src/routes/_authenticated/$chatId_.settings.tsx:94
 #: src/routes/_authenticated/$chatId_.settings.tsx:105
@@ -322,17 +328,21 @@ msgstr "Поставки на разговор"
 msgid "Chat Text Box"
 msgstr "Поле за текст во разговор"
 
-#: src/components/layout/chat-layout.tsx:139
+#: src/components/layout/chat-layout.tsx:153
 msgid "Chat unpinned"
 msgstr ""
 
-#: src/components/layout/chat-layout.tsx:228
+#: src/components/layout/chat-layout.tsx:242
 msgid "Chats"
 msgstr "Разговори"
 
 #: src/features/chats/components/new-chat.tsx:185
 msgid "Chats are between friends. Add a friend in the People app first."
 msgstr "Разговорите се меѓу пријатели. Прво додај пријател во апликацијата People."
+
+#: src/features/chats/components/forward-dialog.tsx:88
+msgid "Choose a chat to forward the selected messages to"
+msgstr ""
 
 #: src/features/chats/components/chat-empty-state.tsx:18
 msgid "Choose a conversation from the sidebar or start a new one."
@@ -358,7 +368,8 @@ msgstr "Избирај меѓу системска преференција, с�
 msgid "Choose language"
 msgstr "Избери јазик"
 
-#: ../../../lib/web/src/components/colour-picker.tsx:304
+#: ../../../lib/web/src/components/colour-picker.tsx:268
+#: ../../../lib/web/src/components/colour-picker.tsx:349
 msgid "Clear"
 msgstr "Исчисти"
 
@@ -408,8 +419,8 @@ msgstr "Удобно"
 
 #: src/features/chats/index.tsx:685
 #: src/features/chats/index.tsx:694
-msgid "Coming soon"
-msgstr ""
+#~ msgid "Coming soon"
+#~ msgstr ""
 
 #: ../../../lib/web/src/components/coming-soon.tsx:9
 msgid "Coming Soon!"
@@ -441,13 +452,13 @@ msgstr "Продолжи"
 msgid "Continue with {label}"
 msgstr "Продолжи со {label}"
 
-#: src/features/chats/index.tsx:327
+#: src/features/chats/index.tsx:338
 msgid "Copied"
 msgstr ""
 
 #: ../../../lib/web/src/components/ui/copy-button.tsx:60
-#: src/features/chats/components/message-hover-actions.tsx:83
-#: src/features/chats/index.tsx:679
+#: src/features/chats/components/message-hover-actions.tsx:90
+#: src/features/chats/index.tsx:731
 msgid "Copy"
 msgstr "Копирај"
 
@@ -471,7 +482,7 @@ msgstr "Не успеа верификацијата со таа сметка. �
 msgid "Create a new chat"
 msgstr "Создај нов разговор"
 
-#: src/components/layout/chat-layout.tsx:236
+#: src/components/layout/chat-layout.tsx:250
 #: src/features/chats/components/new-chat.tsx:262
 msgid "Create chat"
 msgstr "Создај разговор"
@@ -479,6 +490,10 @@ msgstr "Создај разговор"
 #: src/features/chats/components/new-chat.tsx:262
 msgid "Creating..."
 msgstr "Создавање..."
+
+#: ../../../lib/web/src/components/colour-picker.tsx:259
+msgid "Custom"
+msgstr ""
 
 #: ../../../lib/web/src/components/config-drawer.tsx:205
 #: ../../../lib/web/src/lib/preference-utils.ts:17
@@ -501,16 +516,18 @@ msgstr "Стандардно"
 msgid "Default AI account"
 msgstr "Стандардна AI сметка"
 
-#: src/features/chats/index.tsx:698
+#: src/features/chats/components/message-hover-actions.tsx:122
+#: src/features/chats/index.tsx:748
+#: src/features/chats/index.tsx:858
 msgid "Delete"
 msgstr ""
 
-#: src/features/chats/index.tsx:589
-#: src/features/chats/index.tsx:729
+#: src/features/chats/index.tsx:639
+#: src/features/chats/index.tsx:779
 msgid "Delete chat"
 msgstr "Избриши разговор"
 
-#: src/features/chats/index.tsx:786
+#: src/features/chats/index.tsx:836
 #: src/routes/_authenticated/$chatId_.settings.tsx:440
 msgid "Delete chat history"
 msgstr "Избриши историја на разговори"
@@ -518,6 +535,10 @@ msgstr "Избриши историја на разговори"
 #: ../../../lib/web/src/components/restore-banner.tsx:90
 msgid "Delete your account on the old server"
 msgstr "Избришете го профилот на старата сервер"
+
+#: src/features/chats/index.tsx:855
+msgid "Deleting..."
+msgstr ""
 
 #: ../../../lib/web/src/components/data-table/column-header.tsx:60
 msgid "Desc"
@@ -598,11 +619,11 @@ msgstr "Неуспешно додавање на сметка"
 msgid "Failed to add member"
 msgstr "Неуспешно додавање на член"
 
-#: src/features/chats/index.tsx:328
+#: src/features/chats/index.tsx:339
 msgid "Failed to copy"
 msgstr ""
 
-#: src/features/chats/components/message-hover-actions.tsx:40
+#: src/features/chats/components/message-hover-actions.tsx:47
 msgid "Failed to copy message"
 msgstr ""
 
@@ -610,16 +631,24 @@ msgstr ""
 msgid "Failed to create chat"
 msgstr "Неуспешно креирање на разговор"
 
-#: src/features/chats/index.tsx:422
+#: src/features/chats/index.tsx:349
+msgid "Failed to delete"
+msgstr ""
+
+#: src/features/chats/index.tsx:472
 msgid "Failed to delete chat"
 msgstr "Неуспешно бришење на разговор"
 
-#: src/features/chats/index.tsx:406
+#: src/features/chats/components/forward-dialog.tsx:49
+msgid "Failed to forward"
+msgstr ""
+
+#: src/features/chats/index.tsx:456
 #: src/routes/_authenticated/$chatId_.settings.tsx:402
 msgid "Failed to leave chat"
 msgstr "Неуспешно напуштање на разговор"
 
-#: src/components/layout/chat-layout.tsx:108
+#: src/components/layout/chat-layout.tsx:122
 msgid "Failed to mark chat as read"
 msgstr ""
 
@@ -635,7 +664,7 @@ msgstr "Неуспешно отстранување на член"
 msgid "Failed to rename chat"
 msgstr "Неуспешно преименување на разговор"
 
-#: src/features/chats/index.tsx:749
+#: src/features/chats/index.tsx:799
 msgid "Failed to send message"
 msgstr "Неуспешно испраќање на порака"
 
@@ -643,7 +672,7 @@ msgstr "Неуспешно испраќање на порака"
 msgid "Failed to send verification code"
 msgstr "Неуспешно испраќање на код за верификација"
 
-#: src/features/chats/index.tsx:182
+#: src/features/chats/index.tsx:193
 msgid "Failed to start chat"
 msgstr "Неуспешно започнување на разговор"
 
@@ -659,8 +688,18 @@ msgstr "Завршете го преместувањето на профилот
 msgid "Floating"
 msgstr "Лебдечко"
 
-#: src/features/chats/index.tsx:688
+#: src/features/chats/components/forward-dialog.tsx:175
+#: src/features/chats/components/message-hover-actions.tsx:111
+#: src/features/chats/index.tsx:739
 msgid "Forward"
+msgstr ""
+
+#: src/features/chats/components/forward-dialog.tsx:85
+msgid "Forward to…"
+msgstr ""
+
+#: src/features/chats/components/forward-dialog.tsx:44
+msgid "Forwarded"
 msgstr ""
 
 #: ../../../lib/web/src/lib/preference-utils.ts:60
@@ -757,7 +796,7 @@ msgstr "Интереси"
 msgid "Invalid verification code"
 msgstr "Невалиден код за верификација"
 
-#: src/features/chats/components/chat-message-list.tsx:548
+#: src/features/chats/components/chat-message-list.tsx:567
 msgid "Jump to bottom"
 msgstr ""
 
@@ -778,21 +817,21 @@ msgstr "Распоред"
 msgid "Learn more"
 msgstr "Дознај повеќе"
 
-#: src/features/chats/index.tsx:772
+#: src/features/chats/index.tsx:822
 msgid "Leave"
 msgstr "Напушти"
 
-#: src/features/chats/index.tsx:596
+#: src/features/chats/index.tsx:646
 #: src/routes/_authenticated/$chatId_.settings.tsx:426
 msgid "Leave chat"
 msgstr "Напушти разговор"
 
-#: src/features/chats/index.tsx:763
+#: src/features/chats/index.tsx:813
 #: src/routes/_authenticated/$chatId_.settings.tsx:417
 msgid "Leave chat?"
 msgstr "Да го напуштите разговорот?"
 
-#: src/features/chats/index.tsx:769
+#: src/features/chats/index.tsx:819
 #: src/routes/_authenticated/$chatId_.settings.tsx:423
 msgid "Leaving..."
 msgstr "Се напушта..."
@@ -858,11 +897,11 @@ msgstr ""
 msgid "Mark all as read"
 msgstr "Означи сè како прочитано"
 
-#: src/components/layout/chat-layout.tsx:196
+#: src/components/layout/chat-layout.tsx:210
 msgid "Mark as read"
 msgstr ""
 
-#: src/components/layout/chat-layout.tsx:202
+#: src/components/layout/chat-layout.tsx:216
 msgid "Mark as unread"
 msgstr ""
 
@@ -886,16 +925,20 @@ msgstr "Членови"
 msgid "Menu"
 msgstr "Мени"
 
-#: src/features/chats/components/message-hover-actions.tsx:58
+#: src/features/chats/components/message-hover-actions.tsx:65
 msgid "Message actions"
 msgstr ""
 
-#: src/features/chats/components/message-hover-actions.tsx:38
+#: src/features/chats/components/message-hover-actions.tsx:45
 msgid "Message copied"
 msgstr ""
 
+#: src/features/chats/index.tsx:344
+msgid "Message deleted"
+msgstr ""
+
 #: src/features/chats/components/message-quote.tsx:51
-#: src/features/chats/index.tsx:336
+#: src/features/chats/index.tsx:386
 msgid "Message not available"
 msgstr ""
 
@@ -936,6 +979,10 @@ msgstr "Следна слика"
 msgid "No access rules configured. Add rules to control who can access this resource."
 msgstr "Не се конфигурирани правила за пристап. Додајте правила за да контролирате кој може да пристапи на овој ресурс."
 
+#: src/features/chats/components/forward-dialog.tsx:119
+msgid "No chats to forward to"
+msgstr ""
+
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:287
 msgid "No connected accounts"
 msgstr "Нема поврзани сметки"
@@ -956,7 +1003,7 @@ msgstr "Сè уште нема пријатели"
 msgid "No groups available"
 msgstr "Нема достапни групи"
 
-#: src/features/chats/components/chat-message-list.tsx:309
+#: src/features/chats/components/chat-message-list.tsx:313
 msgid "No messages yet"
 msgstr "Сè уште нема пораки"
 
@@ -1026,7 +1073,7 @@ msgstr "Отвори акции на сметката"
 msgid "Open actions"
 msgstr ""
 
-#: src/features/chats/index.tsx:581
+#: src/features/chats/index.tsx:631
 msgid "Open chat actions"
 msgstr "Отвори акции на разговорот"
 
@@ -1071,7 +1118,7 @@ msgstr "Потврдата на passkey не успеа. Обидете се п�
 msgid "Passkeys"
 msgstr "Passkey-и"
 
-#: src/components/layout/chat-layout.tsx:187
+#: src/components/layout/chat-layout.tsx:201
 msgid "Pin chat"
 msgstr ""
 
@@ -1168,7 +1215,7 @@ msgstr "Да го отстраниме членот?"
 msgid "Removing..."
 msgstr "Отстранување..."
 
-#: src/features/chats/components/message-hover-actions.tsx:93
+#: src/features/chats/components/message-hover-actions.tsx:100
 msgid "Reply"
 msgstr ""
 
@@ -1210,6 +1257,10 @@ msgstr "Сабота"
 msgid "Save"
 msgstr ""
 
+#: src/features/chats/components/forward-dialog.tsx:98
+msgid "Search chats…"
+msgstr ""
+
 #: ../../../lib/web/src/components/place-picker.tsx:82
 msgid "Search for a place"
 msgstr "Пребарај место"
@@ -1226,7 +1277,7 @@ msgstr "Пребарај потекло..."
 msgid "Search in chat..."
 msgstr ""
 
-#: src/features/chats/index.tsx:571
+#: src/features/chats/index.tsx:621
 msgid "Search messages"
 msgstr ""
 
@@ -1248,7 +1299,7 @@ msgstr "Пребарувај..."
 msgid "Searching..."
 msgstr "Пребарување..."
 
-#: src/features/chats/components/message-hover-actions.tsx:98
+#: src/features/chats/components/message-hover-actions.tsx:105
 msgid "Select"
 msgstr ""
 
@@ -1284,7 +1335,7 @@ msgstr "Изберете група"
 msgid "Select layout style"
 msgstr "Изберете стил на распоред"
 
-#: src/features/chats/components/chat-message-list.tsx:363
+#: src/features/chats/components/chat-message-list.tsx:368
 msgid "Select message"
 msgstr ""
 
@@ -1300,7 +1351,7 @@ msgstr "Изберете насока на страницата"
 msgid "Select theme preference"
 msgstr "Изберете преференца за тема"
 
-#: src/features/chats/components/chat-message-list.tsx:512
+#: src/features/chats/components/chat-message-list.tsx:531
 msgid "selected"
 msgstr ""
 
@@ -1430,6 +1481,14 @@ msgstr "овој разговор"
 msgid "This chat may have been deleted or you don't have access to it"
 msgstr "Овој разговор можеби е избришан или немате пристап до него"
 
+#: src/features/chats/index.tsx:850
+msgid "This deletes the message for everyone and cannot be undone."
+msgstr ""
+
+#: src/features/chats/components/chat-message-list.tsx:445
+msgid "This message was deleted"
+msgstr ""
+
 #: ../../../lib/web/src/lib/preference-utils.ts:59
 msgid "Thursday"
 msgstr "Четврток"
@@ -1519,11 +1578,11 @@ msgstr "Неовластен пристап"
 msgid "United States"
 msgstr "Соединети Држави"
 
-#: src/hooks/useChatWebsocket.ts:270
+#: src/hooks/useChatWebsocket.ts:315
 msgid "Unknown"
 msgstr "Непознато"
 
-#: src/components/layout/chat-layout.tsx:181
+#: src/components/layout/chat-layout.tsx:195
 msgid "Unpin chat"
 msgstr ""
 
@@ -1589,7 +1648,7 @@ msgstr "Веб-страницата е во одржување!"
 msgid "Wednesday"
 msgstr "Среда"
 
-#: src/features/chats/index.tsx:242
+#: src/features/chats/index.tsx:253
 msgid "You"
 msgstr "Вие"
 
@@ -1601,15 +1660,19 @@ msgstr "Веќе имате разговор со овој пријател"
 msgid "You already have chats with:"
 msgstr "Веќе имате разговори со:"
 
+#: src/features/chats/index.tsx:360
+msgid "You can only delete your own messages"
+msgstr ""
+
 #: src/features/chats/components/chat-empty-state.tsx:34
 msgid "You haven't started any chats yet. Connect with a friend to get things rolling."
 msgstr "Сè уште немате започнато разговори. Поврзете се со пријател за да започнете."
 
-#: src/features/chats/index.tsx:716
+#: src/features/chats/index.tsx:766
 msgid "You left this chat"
 msgstr "Го напуштивте овој разговор"
 
-#: src/features/chats/index.tsx:715
+#: src/features/chats/index.tsx:765
 msgid "You were removed from this chat"
 msgstr "Бевте отстранети од овој разговор"
 

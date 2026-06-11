@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { Trans, useLingui } from '@lingui/react/macro'
+import { plural } from '@lingui/core/macro'
 import { useAuthStore, usePageTitle, PageHeader, Main, GeneralError, Button, Checkbox, ConfirmDialog, EntityAvatar, IconButton, DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger, Label, toast, getErrorMessage, shellClipboardWrite } from '@mochi/web'
 import { useMessageSelection } from '@/hooks/use-message-selection'
 import { useNavigate, useParams, useSearch } from '@tanstack/react-router'
@@ -41,12 +42,14 @@ import {
   useDeleteChatMutation,
   useCreateChatMutation,
   useMarkChatReadMutation,
+  useDeleteMessagesMutation,
 } from '@/hooks/useChats'
 import type { GetMessagesResponse } from '@/api/types/chats'
 import { ChatEmptyState } from './components/chat-empty-state'
 import { ChatInput, type ChatInputHandle } from './components/chat-input'
 import { ChatMessageList } from './components/chat-message-list'
 import { ChatSearchHeader } from './components/chat-search-header'
+import { ForwardDialog } from './components/forward-dialog'
 import { useChatMessageSearch } from './hooks/use-chat-message-search'
 import {
   type PendingAttachment,
@@ -79,6 +82,10 @@ export function Chats() {
     selectAll: selectAllMessages,
     clear: clearSelection,
   } = useMessageSelection()
+
+  // Delete confirm + forward dialog targets (ids the action will operate on)
+  const [deleteTargetIds, setDeleteTargetIds] = useState<string[] | null>(null)
+  const [forwardTargetIds, setForwardTargetIds] = useState<string[] | null>(null)
 
   const [pendingAttachments, setPendingAttachments] = useState<
     PendingAttachment[]
@@ -122,6 +129,8 @@ export function Chats() {
     setScrollToMessageId(null)
     setHighlightMessageId(null)
     clearSelection()
+    setDeleteTargetIds(null)
+    setForwardTargetIds(null)
     if (!selectedChatId) return
     getDraft(selectedChatId).then((draft) => {
       if (draft) setNewMessage(draft)
@@ -328,6 +337,45 @@ export function Chats() {
     if (ok) toast.success(t`Copied`)
     else toast.error(t`Failed to copy`)
   }, [chatMessages, selectedIds, t])
+
+  const deleteMessagesMutation = useDeleteMessagesMutation({
+    onSuccess: () => {
+      toast.success(t`Message deleted`)
+      setDeleteTargetIds(null)
+      clearSelection()
+    },
+    onError: (error) => {
+      toast.error(getErrorMessage(error, t`Failed to delete`))
+    },
+  })
+
+  // Only the user's own messages can be deleted; others are skipped server-side.
+  const requestDelete = useCallback(
+    (ids: string[]) => {
+      const ownIds = chatMessages
+        .filter((m) => ids.includes(m.id) && m.member === currentUserIdentity)
+        .map((m) => m.id)
+      if (ownIds.length === 0) {
+        toast.error(t`You can only delete your own messages`)
+        return
+      }
+      setDeleteTargetIds(ownIds)
+    },
+    [chatMessages, currentUserIdentity, t]
+  )
+
+  const confirmDelete = () => {
+    if (!selectedChat || !deleteTargetIds?.length) return
+    deleteMessagesMutation.mutate({
+      chatId: selectedChat.id,
+      messageIds: deleteTargetIds,
+    })
+  }
+
+  const requestForward = useCallback((ids: string[]) => {
+    if (ids.length === 0) return
+    setForwardTargetIds(ids)
+  }, [])
 
   const handleScrollToMessage = useCallback(
     async (messageId: string) => {
@@ -656,6 +704,8 @@ export function Chats() {
             onReply={selectedChat.left ? undefined : handleReply}
             onReact={selectedChat.left ? undefined : handleReact}
             onScrollToMessage={handleScrollToMessage}
+            onForward={selectedChat.left ? undefined : (m) => requestForward([m.id])}
+            onDelete={selectedChat.left ? undefined : (m) => requestDelete([m.id])}
             isSelecting={isSelecting}
             selectedIds={selectedIds}
             onToggleSelect={toggleMessageSelection}
@@ -682,8 +732,7 @@ export function Chats() {
                   <Button
                     variant='ghost'
                     size='sm'
-                    disabled
-                    title={t`Coming soon`}
+                    onClick={() => requestForward([...selectedIds])}
                   >
                     <Forward className='me-1.5 size-4' />
                     <Trans>Forward</Trans>
@@ -691,8 +740,7 @@ export function Chats() {
                   <Button
                     variant='ghost'
                     size='sm'
-                    disabled
-                    title={t`Coming soon`}
+                    onClick={() => requestDelete([...selectedIds])}
                     className='text-destructive hover:text-destructive'
                   >
                     <Trash2 className='me-1.5 size-4' />
@@ -788,6 +836,46 @@ export function Chats() {
           </Label>
         </div>
       </ConfirmDialog>
+
+      <ConfirmDialog
+        open={deleteTargetIds !== null}
+        onOpenChange={(open) => {
+          if (!open) setDeleteTargetIds(null)
+        }}
+        title={plural(deleteTargetIds?.length ?? 0, {
+          one: 'Delete message?',
+          other: 'Delete # messages?',
+        })}
+        desc={t`This deletes the message for everyone and cannot be undone.`}
+        confirmText={
+          deleteMessagesMutation.isPending ? (
+            <>
+              <Loader2 className='me-2 size-4 animate-spin' />
+              <Trans>Deleting...</Trans>
+            </>
+          ) : (
+            t`Delete`
+          )
+        }
+        destructive
+        handleConfirm={confirmDelete}
+        isLoading={deleteMessagesMutation.isPending}
+      />
+
+      {selectedChat ? (
+        <ForwardDialog
+          open={forwardTargetIds !== null}
+          onOpenChange={(open) => {
+            if (!open) setForwardTargetIds(null)
+          }}
+          sourceChatId={selectedChat.id}
+          messageIds={forwardTargetIds ?? []}
+          onForwarded={() => {
+            setForwardTargetIds(null)
+            clearSelection()
+          }}
+        />
+      ) : null}
     </>
   )
 }

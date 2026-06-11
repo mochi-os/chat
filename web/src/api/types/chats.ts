@@ -70,6 +70,7 @@ export interface ChatMessage {
   attachments: ChatMessageAttachment[]
   reaction_counts?: ReactionCounts
   my_reaction?: ReactionId | null
+  deleted?: boolean
   [key: string]: unknown
 }
 
@@ -193,4 +194,13 @@ export interface ReactToMessageRequest {
 export interface ReactToMessageResponse {
   reaction_counts: ReactionCounts
   my_reaction: ReactionId | null
+}
+
+export interface DeleteMessagesResponse {
+  deleted: string[]
+}
+
+export interface ForwardMessagesResponse {
+  forwarded: string[]
+  to_chat: string
 }

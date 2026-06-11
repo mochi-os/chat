@@ -71,6 +71,8 @@ interface ChatMessageListProps {
   onReply?: (message: ChatMessage) => void
   onReact?: (messageId: string, reaction: ReactionId | '') => void
   onScrollToMessage?: (messageId: string) => void
+  onForward?: (message: ChatMessage) => void
+  onDelete?: (message: ChatMessage) => void
   isSelecting?: boolean
   selectedIds?: Set<string>
   onToggleSelect?: (id: string) => void
@@ -98,6 +100,8 @@ export function ChatMessageList({
   onReply,
   onReact,
   onScrollToMessage,
+  onForward,
+  onDelete,
   isSelecting = false,
   selectedIds,
   onToggleSelect,
@@ -339,6 +343,7 @@ export function ChatMessageList({
             {groupedMessages[key].map((message) => {
               const isSent = isCurrentUserMessage(message)
               const isSelected = selectedIds?.has(message.id) ?? false
+              const isDeleted = message.deleted === true
               return (
                 <div
                   key={message.id}
@@ -403,14 +408,17 @@ export function ChatMessageList({
                           <span className='text-muted-foreground/70 text-[10px] opacity-0 transition-opacity group-hover:opacity-100 [@media(hover:none)]:opacity-100'>
                             {formatDateTime(new Date(message.created * 1000))}
                           </span>
-                          {!isSelecting && onReply ? (
+                          {!isSelecting && !isDeleted && onReply ? (
                             <MessageHoverActions
                               message={message}
                               onReply={onReply}
                               onSelect={onSelectMessage ? () => onSelectMessage(message) : undefined}
+                              onForward={onForward ? () => onForward(message) : undefined}
+                              onDelete={onDelete ? () => onDelete(message) : undefined}
+                              canDelete={isSent}
                             />
                           ) : null}
-                          {!isSelecting && onReact ? (
+                          {!isSelecting && !isDeleted && onReact ? (
                             <>
                               <MessageReactionPicker
                                 activeReaction={message.my_reaction}
@@ -432,46 +440,54 @@ export function ChatMessageList({
                           getChatBubbleToneClass(isSent)
                         )}
                       >
-                        {message.reply_to && onScrollToMessage ? (
-                          <MessageQuote
-                            quoted={messagesById.get(message.reply_to)}
-                            isSent={isSent}
-                            onClick={() => onScrollToMessage(message.reply_to!)}
-                          />
-                        ) : null}
+                        {isDeleted ? (
+                          <p className='text-muted-foreground text-sm italic'>
+                            <Trans>This message was deleted</Trans>
+                          </p>
+                        ) : (
+                          <>
+                            {message.reply_to && onScrollToMessage ? (
+                              <MessageQuote
+                                quoted={messagesById.get(message.reply_to)}
+                                isSent={isSent}
+                                onClick={() => onScrollToMessage(message.reply_to!)}
+                              />
+                            ) : null}
 
-                        {message.attachments?.length ? (
-                          <div className='space-y-2'>
-                            <MessageAttachments
-                              attachments={message.attachments}
-                              chatId={message.chat}
-                            />
-                          </div>
-                        ) : null}
+                            {message.attachments?.length ? (
+                              <div className='space-y-2'>
+                                <MessageAttachments
+                                  attachments={message.attachments}
+                                  chatId={message.chat}
+                                />
+                              </div>
+                            ) : null}
 
-                        {message.body ? (
-                          <MessageBody
-                            isSent={isSent}
-                            className={
-                              message.attachments?.length ? 'mt-2' : undefined
-                            }
-                          >
-                            {searchActive &&
-                              searchQuery.length >= 2 &&
-                              matchedMessageIds?.has(message.id)
-                              ? highlightSearchText(
-                                message.body,
-                                searchQuery,
-                                activeMatchId === message.id
-                              )
-                              : message.body}
-                          </MessageBody>
-                        ) : null}
+                            {message.body ? (
+                              <MessageBody
+                                isSent={isSent}
+                                className={
+                                  message.attachments?.length ? 'mt-2' : undefined
+                                }
+                              >
+                                {searchActive &&
+                                  searchQuery.length >= 2 &&
+                                  matchedMessageIds?.has(message.id)
+                                  ? highlightSearchText(
+                                    message.body,
+                                    searchQuery,
+                                    activeMatchId === message.id
+                                  )
+                                  : message.body}
+                              </MessageBody>
+                            ) : null}
+                          </>
+                        )}
                       </div>
 
                       {!isSent ? (
                         <div className='flex items-center gap-0.5'>
-                          {!isSelecting && onReact ? (
+                          {!isSelecting && !isDeleted && onReact ? (
                             <>
                               <MessageReactionSummary
                                 counts={message.reaction_counts ?? {}}
@@ -483,11 +499,14 @@ export function ChatMessageList({
                               />
                             </>
                           ) : null}
-                          {!isSelecting && onReply ? (
+                          {!isSelecting && !isDeleted && onReply ? (
                             <MessageHoverActions
                               message={message}
                               onReply={onReply}
                               onSelect={onSelectMessage ? () => onSelectMessage(message) : undefined}
+                              onForward={onForward ? () => onForward(message) : undefined}
+                              onDelete={onDelete ? () => onDelete(message) : undefined}
+                              canDelete={isSent}
                             />
                           ) : null}
                           <span className='text-muted-foreground/70 text-[10px] opacity-0 transition-opacity group-hover:opacity-100 [@media(hover:none)]:opacity-100'>
