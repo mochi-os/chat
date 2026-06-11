@@ -332,7 +332,10 @@ export function Chats() {
     const bodies = chatMessages
       .filter((m) => selectedIds.has(m.id) && m.body?.trim())
       .map((m) => m.body!.trim())
-    if (bodies.length === 0) return
+    if (bodies.length === 0) {
+      toast.error(t`Nothing to copy`)
+      return
+    }
     const ok = await shellClipboardWrite(bodies.join('\n\n'))
     if (ok) toast.success(t`Copied`)
     else toast.error(t`Failed to copy`)
@@ -418,19 +421,23 @@ export function Chats() {
     ensureMatchVisible,
   ])
 
+  const openSearch = messageSearch.openSearch
+  const isChatActive = Boolean(selectedChat && !selectedChat.left)
   useEffect(() => {
-    if (!selectedChat || selectedChat.left) return
+    if (!isChatActive) return
 
     const handleKeyDown = (e: KeyboardEvent) => {
       if ((e.metaKey || e.ctrlKey) && e.key === 'f') {
         e.preventDefault()
-        messageSearch.openSearch()
+        openSearch()
       }
     }
 
     window.addEventListener('keydown', handleKeyDown)
     return () => window.removeEventListener('keydown', handleKeyDown)
-  }, [selectedChat, messageSearch])
+    // Depend on a derived boolean + the memoized openSearch — not the whole
+    // messageSearch/selectedChat objects (their identity churns every render).
+  }, [isChatActive, openSearch])
 
   // Send message
   const sendMessageMutation = useSendMessageMutation({

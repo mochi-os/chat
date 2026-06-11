@@ -40,7 +40,11 @@ export function MessageQuote({ quoted, isSent, onClick }: MessageQuoteProps) {
       >
         {quoted?.name ?? <Trans>Original message</Trans>}
       </div>
-      {body.trim() ? (
+      {quoted?.deleted ? (
+        <div className={cn('text-sm italic', secondaryTextClass)}>
+          <Trans>This message was deleted</Trans>
+        </div>
+      ) : body.trim() ? (
         <ReplyQuoteContent body={body} className={secondaryTextClass} />
       ) : hasAttachmentOnly ? (
         <div className={cn('text-sm', secondaryTextClass)}>
