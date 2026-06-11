@@ -259,7 +259,7 @@ function ChatNameSection({ chatId, name }: { chatId: string, name: string }) {
                 {renameMutation.isPending ? (
                   <Loader2 className='size-4 animate-spin' />
                 ) : (
-                  <Check className='size-4 text-green-600 dark:text-green-400' />
+                  <Check className='size-4 text-success' />
                 )}
               </Button>
               <Button

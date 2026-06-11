@@ -31,8 +31,8 @@ export function highlightSearchText(
         key={key++}
         className={
           isActive
-            ? 'rounded bg-yellow-500/60 px-0.5 text-foreground'
-            : 'rounded bg-yellow-500/25 px-0.5'
+            ? 'rounded bg-warning/70 px-0.5 text-warning-foreground'
+            : 'rounded bg-warning/30 px-0.5'
         }
       >
         {text.slice(index, index + query.length)}
