@@ -90,6 +90,12 @@ export function MessageHoverActions({
               {t`Copy`}
             </DropdownMenuItem>
           ) : null}
+          {onSelect ? (
+            <DropdownMenuItem onSelect={onSelect}>
+              <CheckSquare className='me-2 size-3.5' />
+              {t`Select`}
+            </DropdownMenuItem>
+          ) : null}
           <DropdownMenuItem
             onSelect={() => {
               replyingRef.current = true
@@ -99,12 +105,6 @@ export function MessageHoverActions({
             <Reply className='me-2 size-3.5' />
             {t`Reply`}
           </DropdownMenuItem>
-          {onSelect ? (
-            <DropdownMenuItem onSelect={onSelect}>
-              <CheckSquare className='me-2 size-3.5' />
-              {t`Select`}
-            </DropdownMenuItem>
-          ) : null}
           {onForward ? (
             <DropdownMenuItem onSelect={onForward}>
               <Forward className='me-2 size-3.5' />
