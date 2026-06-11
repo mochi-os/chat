@@ -131,6 +131,15 @@ def database_upgrade(to_version):
 		# Append-only tombstone log for per-message "delete for everyone".
 		mochi.db.execute("create table if not exists deletions ( chat text not null, message text not null primary key, member text not null, created integer not null )")
 		mochi.db.execute("create index if not exists deletions_chat on deletions( chat )")
+	if to_version == 13:
+		# Catch-up create for the deletions log. Some dev DBs were bumped to
+		# schema 10-12 by the unmerged featured-chat branch (which never
+		# created deletions); with user_version already past 9 and no
+		# downgrade function, the v9 step above never runs for them, so
+		# action_messages hit "no such table: deletions". Bumping the app
+		# schema above that range forces this idempotent create to run.
+		mochi.db.execute("create table if not exists deletions ( chat text not null, message text not null primary key, member text not null, created integer not null )")
+		mochi.db.execute("create index if not exists deletions_chat on deletions( chat )")
 
 # Stream an entity's asset from its owning service via a Mochi stream.
 # Location-transparent: mochi.remote.stream() loops back in-process when the
