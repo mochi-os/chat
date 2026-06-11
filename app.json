@@ -2,7 +2,7 @@
 // Copyright Alistair Cunningham 2025-2026
 
 {
-	"version": "2.84",
+	"version": "2.85",
 	"label": "app.name",
 	"classes": ["chat"],
 	"paths": ["chat"],
@@ -12,7 +12,7 @@
 	"execute": ["chat.star"],
 
 	"database": {
-		"schema": 13,
+		"schema": 16,
 		"file": "chat.db",
 		"create": {"function": "database_create"},
 		"upgrade": {"function": "database_upgrade"}
@@ -36,6 +36,9 @@
 		":chat/-/messages": {"function": "action_messages"},
 		":chat/-/messages/delete": {"function": "action_messages_delete"},
 		":chat/-/messages/forward": {"function": "action_messages_forward"},
+		":chat/-/search": {"function": "action_search"},
+		":chat/-/read": {"function": "action_mark_read"},
+		":chat/-/react": {"function": "action_react"},
 		":chat/-/send": {"function": "action_send"},
 		":chat/-/members": {"function": "action_members"},
 		":chat/-/rename": {"function": "action_rename"},
@@ -56,6 +59,7 @@
 	"events": {
 		"message": {"function": "event_message"},
 		"message/delete": {"function": "event_message_delete"},
+		"message/react": {"function": "event_message_react"},
 		"new": {"function": "event_new"},
 		"info": {"function": "event_info"},
 		"rename": {"function": "event_rename"},
