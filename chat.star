@@ -39,7 +39,20 @@ def broadcast_chat(chat_id, from_id, subscribers, event, data, exclude=None):
 # alone, and routing those through the hook would need either parallel
 # semantic-marker tables or per-event log rows.
 def chat_commit_hook(table, kind, row_uid):
-	if table != "messages" or kind != "insert" or not row_uid:
+	if kind != "insert" or not row_uid:
+		return
+	# A deletions row commit (local delete or replicated apply) tells every
+	# host's open tabs to replace the message with a "deleted" placeholder.
+	if table == "deletions":
+		deletion = mochi.db.row("select * from deletions where message=?", row_uid)
+		if not deletion:
+			return
+		chat = mochi.db.row("select key from chats where id=?", deletion["chat"])
+		if not chat:
+			return
+		mochi.websocket.write(chat["key"], {"event": "delete", "message": deletion["message"]})
+		return
+	if table != "messages":
 		return
 	message = mochi.db.row("select * from messages where id=?", row_uid)
 	if not message:
@@ -49,6 +62,7 @@ def chat_commit_hook(table, kind, row_uid):
 		return
 	attachments = mochi.attachment.list("chat/" + message["chat"] + "/" + message["id"])
 	mochi.websocket.write(chat["key"], {
+		"id": message["id"],
 		"created": message["created"],
 		"member": message["member"],
 		"name": message["name"],
@@ -73,6 +87,14 @@ def database_create():
 
 	mochi.db.execute("create table if not exists messages ( id text not null primary key, chat references chats( id ), member text not null, name text not null, body text not null, created integer not null )")
 	mochi.db.execute("create index if not exists messages_chat_created on messages( chat, created )")
+
+	# Append-only tombstone log for "delete for everyone". A message is
+	# deleted iff a row exists here; the body is also blanked on delete so
+	# the content is gone, but the log row is what drives convergence — it
+	# merges naturally under multi-host and survives an out-of-order replay
+	# of the original message (event_message checks it before storing).
+	mochi.db.execute("create table if not exists deletions ( chat text not null, message text not null primary key, member text not null, created integer not null )")
+	mochi.db.execute("create index if not exists deletions_chat on deletions( chat )")
 
 # Upgrade database
 def database_upgrade(to_version):
@@ -105,6 +127,10 @@ def database_upgrade(to_version):
 		cols = [r["name"] for r in mochi.db.table("chats") or []]
 		if "identity" in cols:
 			mochi.db.execute("alter table chats drop column identity")
+	if to_version == 9:
+		# Append-only tombstone log for per-message "delete for everyone".
+		mochi.db.execute("create table if not exists deletions ( chat text not null, message text not null primary key, member text not null, created integer not null )")
+		mochi.db.execute("create index if not exists deletions_chat on deletions( chat )")
 
 # Stream an entity's asset from its owning service via a Mochi stream.
 # Location-transparent: mochi.remote.stream() loops back in-process when the
@@ -307,8 +333,15 @@ def action_messages(a):
 	if has_more and len(messages) > 0:
 		next_cursor = messages[0]["created"]
 
+	deleted_ids = messages_deleted_set(chat["id"], [m["id"] for m in messages])
 	for m in messages:
-		m["attachments"] = mochi.attachment.list("chat/" + chat["id"] + "/" + m["id"])
+		if m["id"] in deleted_ids:
+			m["deleted"] = True
+			m["body"] = ""
+			m["attachments"] = []
+		else:
+			m["deleted"] = False
+			m["attachments"] = mochi.attachment.list("chat/" + chat["id"] + "/" + m["id"])
 
 	return {
 		"data": {
@@ -381,6 +414,178 @@ def action_send(a):
 	return {
 		"data": {"id": id}
 	}
+
+# Return the subset of message_ids that are tombstoned (deleted for everyone).
+def messages_deleted_set(chat_id, message_ids):
+	if not message_ids:
+		return {}
+	placeholders = ", ".join(["?" for _ in message_ids])
+	rows = mochi.db.rows("select message from deletions where chat=? and message in (" + placeholders + ")", chat_id, *message_ids) or []
+	deleted = {}
+	for r in rows:
+		deleted[r["message"]] = True
+	return deleted
+
+# Apply a "delete for everyone": append the tombstone, purge the body and
+# attachments, and fire the commit hook so every host's open tabs update.
+# Idempotent — re-applying a delete is a no-op beyond the websocket nudge.
+def message_delete_apply(chat_id, message_id, member_id, ts):
+	mochi.db.execute("insert or ignore into deletions ( chat, message, member, created ) values ( ?, ?, ?, ? )", chat_id, message_id, member_id, ts)
+	mochi.db.execute("update messages set body='' where id=? and chat=?", message_id, chat_id)
+	mochi.attachment.clear("chat/" + chat_id + "/" + message_id)
+	chat_ensure_commit_hook()
+	mochi.db.commit.fire("deletions", "insert", message_id)
+
+# Delete one or more of the caller's own messages for everyone. Input
+# `message_ids` is a JSON-encoded array string (decoded like market's `ids`).
+def action_messages_delete(a):
+	if not mochi.text.valid(a.input("chat"), "id"):
+		a.error.label(400, "errors.invalid_chat_id")
+		return
+	chat = mochi.db.row("select * from chats where id=?", a.input("chat"))
+	if not chat:
+		a.error.label(404, "errors.chat_not_found")
+		return
+	if not mochi.db.exists("select 1 from members where chat=? and member=?", chat["id"], a.user.identity.id):
+		a.error.label(403, "errors.not_a_member_of_this_chat")
+		return
+
+	raw_ids = a.input("message_ids")
+	if not raw_ids:
+		a.error.label(400, "errors.invalid_message")
+		return
+	message_ids = json.decode(raw_ids)
+	if type(message_ids) != "list" or len(message_ids) == 0 or len(message_ids) > 100:
+		a.error.label(400, "errors.invalid_message")
+		return
+
+	now_delete = mochi.time.now()
+	deleted = []
+	for raw_id in message_ids:
+		message_id = str(raw_id)
+		if not mochi.text.valid(message_id, "id"):
+			continue
+		# Own messages only: the row must exist in this chat and belong to
+		# the caller. Skip silently so a partial selection still succeeds.
+		owner = mochi.db.row("select member from messages where id=? and chat=?", message_id, chat["id"])
+		if not owner or owner["member"] != a.user.identity.id:
+			continue
+		message_delete_apply(chat["id"], message_id, a.user.identity.id, now_delete)
+		deleted.append(message_id)
+
+	if not deleted:
+		a.error.label(404, "errors.message_not_found")
+		return
+
+	# Propagate to the other members so they replace the message in real time.
+	members = mochi.db.rows("select member from members where chat=? and member!=?", chat["id"], a.user.identity.id)
+	member_ids = [m["member"] for m in members]
+	broadcast_chat(chat["id"], a.user.identity.id, member_ids, "message/delete", {"chat": chat["id"], "messages": deleted})
+
+	return {"data": {"deleted": deleted}}
+
+# A member deleted their own message(s) for everyone. Tombstone locally.
+# We only honour a delete for a message we already hold whose author is the
+# sender — broadcast ordering guarantees a member's message arrives before
+# its own delete, so this also blocks a member suppressing others' messages.
+def event_message_delete(e):
+	chat = mochi.db.row("select * from chats where id=?", e.content("chat"))
+	if not chat:
+		return
+	sender = e.header("from")
+	if not mochi.db.exists("select 1 from members where chat=? and member=?", chat["id"], sender):
+		return
+	messages = e.content("messages")
+	if type(messages) != "list":
+		return
+	now_delete = mochi.time.now()
+	for raw_id in messages:
+		message_id = str(raw_id)
+		if not mochi.text.valid(message_id, "id"):
+			continue
+		owner = mochi.db.row("select member from messages where id=? and chat=?", message_id, chat["id"])
+		if not owner or owner["member"] != sender:
+			continue
+		message_delete_apply(chat["id"], message_id, sender, now_delete)
+
+# Forward messages from this chat into another chat the caller belongs to,
+# copying body and attachment bytes as new messages authored by the caller.
+# Input `message_ids` is a JSON-encoded array string; `to_chat` is the target.
+def action_messages_forward(a):
+	if not mochi.text.valid(a.input("chat"), "id"):
+		a.error.label(400, "errors.invalid_chat_id")
+		return
+	source = mochi.db.row("select * from chats where id=?", a.input("chat"))
+	if not source:
+		a.error.label(404, "errors.chat_not_found")
+		return
+	if not mochi.db.exists("select 1 from members where chat=? and member=?", source["id"], a.user.identity.id):
+		a.error.label(403, "errors.not_a_member_of_this_chat")
+		return
+
+	to_chat = a.input("to_chat")
+	if not mochi.text.valid(str(to_chat), "id"):
+		a.error.label(400, "errors.invalid_chat_id")
+		return
+	target = mochi.db.row("select * from chats where id=?", to_chat)
+	if not target:
+		a.error.label(404, "errors.chat_not_found")
+		return
+	if not mochi.db.exists("select 1 from members where chat=? and member=?", target["id"], a.user.identity.id):
+		a.error.label(403, "errors.not_a_member_of_this_chat")
+		return
+
+	raw_ids = a.input("message_ids")
+	if not raw_ids:
+		a.error.label(400, "errors.invalid_message")
+		return
+	message_ids = json.decode(raw_ids)
+	if type(message_ids) != "list" or len(message_ids) == 0 or len(message_ids) > 100:
+		a.error.label(400, "errors.invalid_message")
+		return
+
+	chat_ensure_commit_hook()
+	members = mochi.db.rows("select member from members where chat=? and member!=?", target["id"], a.user.identity.id)
+	member_ids = [m["member"] for m in members]
+
+	forwarded = []
+	for raw_id in message_ids:
+		source_id = str(raw_id)
+		if not mochi.text.valid(source_id, "id"):
+			continue
+		# Source must exist in the source chat and not be a tombstone.
+		source_message = mochi.db.row("select * from messages where id=? and chat=?", source_id, source["id"])
+		if not source_message:
+			continue
+		if mochi.db.exists("select 1 from deletions where message=?", source_id):
+			continue
+
+		new_id = mochi.uid()
+		now_forward = mochi.time.now()
+		mochi.db.execute("replace into messages ( id, chat, member, name, body, created ) values ( ?, ?, ?, ?, ?, ? )", new_id, target["id"], a.user.identity.id, a.user.identity.name, source_message["body"], now_forward)
+		mochi.db.execute("update chats set updated=? where id=?", now_forward, target["id"])
+
+		# Copy attachment bytes into the new message's object.
+		for att in mochi.attachment.list("chat/" + source["id"] + "/" + source_id) or []:
+			data = mochi.attachment.data(att["id"])
+			if data == None:
+				continue
+			mochi.attachment.create("chat/" + target["id"] + "/" + new_id, att["name"], data, att.get("type", ""))
+		new_attachments = mochi.attachment.list("chat/" + target["id"] + "/" + new_id)
+
+		mochi.db.commit.fire("messages", "insert", new_id)
+
+		msg_data = {"chat": target["id"], "message": new_id, "created": now_forward, "body": source_message["body"], "name": a.user.identity.name}
+		if new_attachments:
+			msg_data["attachments"] = [{"id": at["id"], "name": at["name"], "size": at["size"], "content_type": at.get("type", ""), "rank": at.get("rank", 0), "created": at.get("created", now_forward)} for at in new_attachments]
+		broadcast_chat(target["id"], a.user.identity.id, member_ids, "message", msg_data)
+		forwarded.append(new_id)
+
+	if not forwarded:
+		a.error.label(404, "errors.message_not_found")
+		return
+
+	return {"data": {"forwarded": forwarded, "to_chat": target["id"]}}
 
 # View a chat
 def action_view(a):
@@ -549,6 +754,11 @@ def event_message(e):
 
 	# Use current name from event, fall back to cached member name
 	name = e.content("name") or member["name"]
+
+	# If this message was already deleted-for-everyone, an out-of-order or
+	# replayed copy must not resurrect its body. Keep the tombstone.
+	if mochi.db.exists("select 1 from deletions where message=?", id):
+		body = ""
 
 	mochi.db.execute("replace into messages ( id, chat, member, name, body, created ) values ( ?, ?, ?, ?, ?, ? )", id, chat["id"], member["member"], name, body, created)
 	# Bump the chat's updated timestamp so the chat list sorts by last
