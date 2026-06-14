@@ -45,6 +45,7 @@ import {
   useDeleteMessagesMutation,
 } from '@/hooks/useChats'
 import type { GetMessagesResponse } from '@/api/types/chats'
+import { chatActive } from '@/api/types/chats'
 import { ChatEmptyState } from './components/chat-empty-state'
 import { ChatInput, type ChatInputHandle } from './components/chat-input'
 import { ChatMessageList } from './components/chat-message-list'
@@ -168,7 +169,7 @@ export function Chats() {
     deepLinkHandled.current = true
 
     const existing = chats.find(
-      (c) => c.members === 2 && c.other === search.with && !c.left
+      (c) => c.members === 2 && c.other === search.with && chatActive(c)
     )
     if (existing) {
       void navigate({ to: '/$chatId', params: { chatId: existing.id }, replace: true })
@@ -231,12 +232,12 @@ export function Chats() {
       markedChatIdRef.current = null
       return
     }
-    if (selectedChat.left) return
+    if (!chatActive(selectedChat)) return
     if (markedChatIdRef.current === selectedChat.id) return
     markedChatIdRef.current = selectedChat.id
     clearMarkedUnread(selectedChat.id)
     markChatRead({ chatId: selectedChat.id })
-  }, [selectedChat?.id, selectedChat?.left, clearMarkedUnread, markChatRead])
+  }, [selectedChat?.id, selectedChat?.status, clearMarkedUnread, markChatRead])
 
   // Chat detail (members, names)
   const { data: chatDetail } = useChatDetailQuery(selectedChat?.id)
@@ -264,7 +265,7 @@ export function Chats() {
 
   const messageSearch = useChatMessageSearch(
     selectedChat?.id,
-    Boolean(selectedChat && !selectedChat.left)
+    Boolean(selectedChat && chatActive(selectedChat))
   )
 
   const ensureMatchVisible = useCallback(
@@ -422,7 +423,7 @@ export function Chats() {
   ])
 
   const openSearch = messageSearch.openSearch
-  const isChatActive = Boolean(selectedChat && !selectedChat.left)
+  const isChatActive = Boolean(selectedChat && chatActive(selectedChat))
   useEffect(() => {
     if (!isChatActive) return
 
@@ -621,7 +622,7 @@ export function Chats() {
           description={subtitle || undefined}
           menuAction={
             <div className='flex items-center gap-1'>
-              {!selectedChat.left ? (
+              {chatActive(selectedChat) ? (
                 <IconButton
                   variant='ghost'
                   label={t`Search messages`}
@@ -640,7 +641,7 @@ export function Chats() {
                   </IconButton>
                 </DropdownMenuTrigger>
               <DropdownMenuContent align='end' className='w-56'>
-                {selectedChat.left ? (
+                {!chatActive(selectedChat) ? (
                   <DropdownMenuItem onClick={handleDeleteChat}>
                     <Trash2 className='me-2 size-4' /> <Trans>Delete chat</Trans>
                   </DropdownMenuItem>
@@ -708,11 +709,11 @@ export function Chats() {
                 )
               }
             }}
-            onReply={selectedChat.left ? undefined : handleReply}
-            onReact={selectedChat.left ? undefined : handleReact}
+            onReply={chatActive(selectedChat) ? handleReply : undefined}
+            onReact={chatActive(selectedChat) ? handleReact : undefined}
             onScrollToMessage={handleScrollToMessage}
-            onForward={selectedChat.left ? undefined : (m) => requestForward([m.id])}
-            onDelete={selectedChat.left ? undefined : (m) => requestDelete([m.id])}
+            onForward={chatActive(selectedChat) ? (m) => requestForward([m.id]) : undefined}
+            onDelete={chatActive(selectedChat) ? (m) => requestDelete([m.id]) : undefined}
             isSelecting={isSelecting}
             selectedIds={selectedIds}
             onToggleSelect={toggleMessageSelection}
@@ -763,11 +764,11 @@ export function Chats() {
                 </div>
               </div>
             </div>
-          ) : selectedChat.left ? (
+          ) : !chatActive(selectedChat) ? (
             <div className='bg-muted/50 border-t p-4'>
               <div className='flex items-center justify-between'>
                 <p className='text-muted-foreground text-sm'>
-                  {selectedChat.left === 2
+                  {selectedChat.status === 'removed'
                     ? <Trans>You were removed from this chat</Trans>
                     : <Trans>You left this chat</Trans>}
                 </p>

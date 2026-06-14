@@ -24,6 +24,35 @@ def broadcast_chat(chat_id, from_id, subscribers, event, data, exclude=None):
 		return
 	mochi.broadcast.send(from_id, chat_id, subscribers, "chat", event, data, exclude or "")
 
+# Tell a peer who still lists us in `chat` to drop us. Sent when a broadcast
+# arrives for a chat we've left / been removed from / deleted: the sender's
+# roster is stale (our `leave` never reached them, or their host was the one
+# host the broadcast missed). It is the exact `leave` a member sends on
+# departure, so the receiver's event_leave deletes precisely (chat, us) - it
+# can only ever prune our own membership, never another member's row. That
+# self-only property is what makes this inline signal safe for chat where the
+# bidirectional/chaining handlers of wikis would make it unsafe.
+def chat_leave_back(chat_id, me, peer):
+	mochi.message.send({"from": me, "to": peer, "service": "chat", "event": "leave"}, {"id": chat_id, "member": me})
+
+# error_message_timeout: core calls this when a fan-out to a member stayed
+# undeliverable past the queue max age. If the member now resolves to zero
+# locations their host is gone for good, so prune them from every local chat
+# roster - the dead-host half of stale-roster cleanup that leave-back (which
+# needs a live host to answer) can't reach. Each surviving member's host runs
+# this independently as its own fan-out to the dead member expires, so the
+# rosters converge without anyone broadcasting a removal.
+def error_message_timeout(e):
+	if e.detail.get("locations", 1) != 0:
+		return
+	member = e.entity
+	affected = mochi.db.rows("select distinct chat from members where member=?", member)
+	mochi.db.execute("delete from members where member=?", member)
+	for r in affected:
+		row = mochi.db.row("select key from chats where id=?", r["chat"])
+		if row:
+			mochi.websocket.write(row["key"], {"event": "member/remove", "member": member})
+
 # Commit hook: fires the message-arrival websocket on every host that
 # sees a new messages row commit, whether locally (via action_send /
 # event_message calling mochi.db.commit.fire) or via replication
@@ -93,7 +122,7 @@ def chat_ensure_commit_hook():
 
 # Create database
 def database_create():
-	mochi.db.execute("create table if not exists chats ( id text not null primary key, name text not null, key text not null, updated integer not null, left integer not null default 0, synced integer not null default 0 )")
+	mochi.db.execute("create table if not exists chats ( id text not null primary key, name text not null, key text not null, updated integer not null, status text not null default 'active', synced integer not null default 0 )")
 	mochi.db.execute("create index if not exists chats_updated on chats( updated )")
 
 	mochi.db.execute("create table if not exists members ( chat references chats( id ), member text not null, name text not null, primary key ( chat, member ) )")
@@ -176,6 +205,32 @@ def database_upgrade(to_version):
 		cols = [r["name"] for r in mochi.db.table("messages") or []]
 		if "reply_to" not in cols:
 			mochi.db.execute("alter table messages add column reply_to text references messages( id )")
+	if to_version == 17:
+		# Promote the chats.left flag (0/1/2) to a named status. The status
+		# doubles as a departure tombstone: a left/removed/deleted chat keeps
+		# its row, so the receive path can tell "we left this chat" (drop the
+		# message + tell the sender to prune us) from "we were never a member"
+		# (genuine out-of-order delivery, resync). 'deleted' is the hidden
+		# tombstone kept after the user deletes a left chat from their list.
+		cols = [r["name"] for r in mochi.db.table("chats") or []]
+		if "status" not in cols:
+			mochi.db.execute("alter table chats add column status text not null default 'active'")
+			# Backfill per-row, keyed by id, so the REPLICATED statement
+			# references only `status` and `id` - never `left`. A literal
+			# "update chats set status='left' where left=1" would be captured
+			# and replayed on a paired host that has already dropped `left`,
+			# failing with "no such column: left" (and emailing the admin).
+			# Reading `left` here (a non-replicated select) and writing by id
+			# keeps every emitted op idempotent and replay-safe. Rows at the
+			# default 0 need no write - the column default already made them
+			# 'active'.
+			for row in mochi.db.rows("select id, left from chats") or []:
+				if row["left"] == 1:
+					mochi.db.execute("update chats set status='left' where id=?", row["id"])
+				elif row["left"] == 2:
+					mochi.db.execute("update chats set status='removed' where id=?", row["id"])
+		if "left" in cols:
+			mochi.db.execute("alter table chats drop column left")
 
 # Stream an entity's asset from its owning service via a Mochi stream.
 # Location-transparent: mochi.remote.stream() loops back in-process when the
@@ -291,11 +346,11 @@ def action_list(a):
 			   AND msg.id NOT IN (SELECT message FROM deletions WHERE chat = c.id)) as unread
 		FROM chats c
 		LEFT JOIN members m ON m.chat = c.id AND m.member = ?
-		WHERE m.member IS NOT NULL OR c.left != 0
+		WHERE m.member IS NOT NULL OR c.status IN ('left', 'removed')
 		ORDER BY c.updated DESC
 	""", identity, identity)
 	for chat in chats:
-		if chat.get("left"):
+		if chat.get("status") != "active":
 			chat["unread"] = 0
 		if chat.get("members") == 2:
 			other = mochi.db.row(
@@ -352,7 +407,7 @@ def action_messages(a):
 
 	# Allow viewing if member OR if chat is marked as left
 	is_member = mochi.db.exists("select 1 from members where chat=? and member=?", chat["id"], a.user.identity.id)
-	if not is_member and not chat["left"]:
+	if not is_member and chat["status"] not in ("left", "removed"):
 		a.error.label(403, "errors.not_a_member_of_this_chat")
 		return
 
@@ -512,7 +567,7 @@ def action_mark_read(a):
 	if not chat:
 		a.error.label(404, "errors.chat_not_found")
 		return
-	if not mochi.db.exists("select 1 from members where chat=? and member=?", chat["id"], a.user.identity.id) and not chat["left"]:
+	if not mochi.db.exists("select 1 from members where chat=? and member=?", chat["id"], a.user.identity.id) and chat["status"] not in ("left", "removed"):
 		a.error.label(403, "errors.not_a_member_of_this_chat")
 		return
 
@@ -650,6 +705,8 @@ def event_message_react(e):
 	chat = mochi.db.row("select * from chats where id=?", message["chat"])
 	if not chat:
 		return
+	if chat["status"] != "active":
+		return
 	member = mochi.db.row("select name from members where chat=? and member=?", chat["id"], member_id)
 	if not member:
 		return
@@ -667,7 +724,7 @@ def action_search(a):
 	if not chat:
 		a.error.label(404, "errors.chat_not_found")
 		return
-	if not mochi.db.exists("select 1 from members where chat=? and member=?", chat["id"], a.user.identity.id) and not chat["left"]:
+	if not mochi.db.exists("select 1 from members where chat=? and member=?", chat["id"], a.user.identity.id) and chat["status"] not in ("left", "removed"):
 		a.error.label(403, "errors.not_a_member_of_this_chat")
 		return
 
@@ -684,13 +741,19 @@ def action_search(a):
 # Remove every local row for a chat (reactions, tombstones, messages,
 # members, read state, then the chat). One consistent cleanup path for the
 # leave/delete flows so new tables don't leak orphan rows.
+# Purge a chat's local content but keep a lightweight 'deleted' tombstone
+# row. The tombstone is what lets event_message tell "we deleted this chat"
+# (drop the message + leave-back to prune the stale sender) from "we were never
+# a member" (out-of-order delivery, resync). Without it a deleted chat
+# resurrects the instant a peer who still lists us sends a message. One tiny
+# row per deleted chat; chats are low-cardinality, so retention is a non-issue.
 def chat_delete_local(chat_id):
 	mochi.db.execute("delete from reactions where chat=?", chat_id)
 	mochi.db.execute("delete from deletions where chat=?", chat_id)
 	mochi.db.execute("delete from messages where chat=?", chat_id)
 	mochi.db.execute("delete from members where chat=?", chat_id)
 	mochi.db.execute("delete from chat_read where chat=?", chat_id)
-	mochi.db.execute("delete from chats where id=?", chat_id)
+	mochi.db.execute("update chats set status='deleted', updated=? where id=?", mochi.time.now(), chat_id)
 
 # Return the subset of message_ids that are tombstoned (deleted for everyone).
 def messages_deleted_set(chat_id, message_ids):
@@ -768,6 +831,8 @@ def action_messages_delete(a):
 def event_message_delete(e):
 	chat = mochi.db.row("select * from chats where id=?", e.content("chat"))
 	if not chat:
+		return
+	if chat["status"] != "active":
 		return
 	sender = e.header("from")
 	if not mochi.db.exists("select 1 from members where chat=? and member=?", chat["id"], sender):
@@ -876,7 +941,7 @@ def action_view(a):
 
 	# Allow viewing if member OR if chat is marked as left (user was removed or left)
 	is_member = mochi.db.exists("select 1 from members where chat=? and member=?", chat["id"], a.user.identity.id)
-	if not is_member and not chat["left"]:
+	if not is_member and chat["status"] not in ("left", "removed"):
 		a.error.label(403, "errors.not_a_member_of_this_chat")
 		return
 
@@ -992,19 +1057,27 @@ def event_message(e):
 	chat_id = e.content("chat")
 	chat = mochi.db.row("select * from chats where id=?", chat_id)
 	if not chat:
-		# Out-of-order: event_new was missed. Try to bootstrap the chat
-		# from the sender, who must be a member if they're sending us a
-		# message they thought we'd want. Only trust the sender if they're a
-		# known friend — otherwise any peer that knows a chat UID could plant
-		# a fabricated chat + member roster via request_resync. Mirrors the
-		# friends.get gate in event_new. (action_resync is exempt: it resyncs
-		# from a verified co-member of a chat the user already belongs to.)
+		# No row at all means we were never a member: departures keep a
+		# status tombstone, so a missing row is unambiguous. Treat as
+		# out-of-order delivery (event_new was missed) and bootstrap from the
+		# sender, who must be a member if they're sending us a message they
+		# thought we'd want. Only trust the sender if they're a known friend —
+		# otherwise any peer that knows a chat UID could plant a fabricated
+		# chat + member roster via request_resync. Mirrors the friends.get
+		# gate in event_new. (action_resync is exempt: it resyncs from a
+		# verified co-member of a chat the user already belongs to.)
 		if not mochi.service.call("friends", "get", e.header("to"), e.header("from")):
 			return
 		request_resync(chat_id, e.header("from"))
 		chat = mochi.db.row("select * from chats where id=?", chat_id)
 		if not chat:
 			return
+	elif chat["status"] != "active":
+		# We left / were removed from / deleted this chat, but a live sender
+		# still lists us and keeps fanning messages here. Tell them to drop us
+		# (leave-back) so the futile fan-out stops, then ignore the message.
+		chat_leave_back(chat_id, e.header("to"), e.header("from"))
+		return
 
 	member = mochi.db.row("select * from members where chat=? and member=?", chat["id"], e.header("from"))
 	if not member:
@@ -1082,12 +1155,19 @@ def event_new(e):
 	if not mochi.text.valid(name, "name"):
 		return
 
-	# Use insert or ignore to handle concurrent events atomically
-	# If chat already exists, this is a duplicate event - skip processing
-	result = mochi.db.execute("insert or ignore into chats ( id, name, key, updated ) values ( ?, ?, ?, ? )", chat, name, mochi.random.alphanumeric(16), mochi.time.now())
-	if result == 0:
-		# Chat already existed, duplicate event
+	# mochi.db.execute returns None, not a row count, so a duplicate can't be
+	# detected from its result - check the row explicitly. An existing active
+	# row is a genuine duplicate event (skip). An existing non-active row is a
+	# departure tombstone (we left / were removed / deleted earlier): being
+	# freshly added back reactivates it, where a bare insert-or-ignore would
+	# silently drop the re-add.
+	existing = mochi.db.row("select status from chats where id=?", chat)
+	if existing and existing["status"] == "active":
 		return
+	if existing:
+		mochi.db.execute("update chats set status='active', name=?, updated=? where id=?", name, mochi.time.now(), chat)
+	else:
+		mochi.db.execute("insert or ignore into chats ( id, name, key, updated ) values ( ?, ?, ?, ? )", chat, name, mochi.random.alphanumeric(16), mochi.time.now())
 
 	members = e.read()
 	if len(members) > 10000:
@@ -1200,8 +1280,8 @@ def event_removed(e):
 	if not chat:
 		return
 
-	# Mark chat as left (removed by another member)
-	mochi.db.execute("update chats set left=2, updated=? where id=?", mochi.time.now(), chat["id"])
+	# Mark chat as removed (kicked by another member); kept read-only.
+	mochi.db.execute("update chats set status='removed', updated=? where id=?", mochi.time.now(), chat["id"])
 
 	# Notify frontend via websocket
 	mochi.websocket.write(chat["key"], {"event": "removed"})
@@ -1264,7 +1344,7 @@ def action_leave(a):
 		a.error.label(404, "errors.chat_not_found")
 		return
 
-	if chat["left"]:
+	if chat["status"] != "active":
 		a.error.label(400, "errors.already_left_this_chat")
 		return
 
@@ -1281,7 +1361,7 @@ def action_leave(a):
 	remaining = mochi.db.rows("select member from members where chat=?", chat["id"])
 
 	if len(remaining) == 0:
-		# Last member left, delete chat and all local rows
+		# Last member left: purge local content (keeps a 'deleted' tombstone)
 		chat_delete_local(chat["id"])
 	else:
 		# Notify remaining members. The actor's own row was already
@@ -1293,8 +1373,8 @@ def action_leave(a):
 		if delete_local:
 			chat_delete_local(chat["id"])
 		else:
-			# Mark chat as left
-			mochi.db.execute("update chats set left=1, updated=? where id=?", mochi.time.now(), chat["id"])
+			# Mark chat as left; kept read-only in the list.
+			mochi.db.execute("update chats set status='left', updated=? where id=?", mochi.time.now(), chat["id"])
 
 	return {"data": {"success": True}}
 
@@ -1308,8 +1388,8 @@ def action_delete(a):
 		a.error.label(404, "errors.chat_not_found")
 		return
 
-	# Only allow deleting left chats
-	if not chat["left"]:
+	# Only allow deleting a chat we've already left or been removed from.
+	if chat["status"] == "active":
 		a.error.label(400, "errors.delete_only_left_chat")
 		return
 
