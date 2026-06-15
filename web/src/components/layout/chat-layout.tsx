@@ -14,6 +14,7 @@ import {
 import { CheckCheck, Mail, Pin, PinOff, Plus, Users } from 'lucide-react'
 import { SidebarProvider, useSidebarContext } from '@/context/sidebar-context'
 import { useChatsQuery, useMarkChatReadMutation } from '@/hooks/useChats'
+import { chatActive } from '@/api/types/chats'
 import { NewChat } from '@/features/chats/components/new-chat'
 
 const UNREAD_DOT = '●'
@@ -204,7 +205,7 @@ function ChatLayoutInner() {
         })
       }
 
-      if (!chat.left) {
+      if (chatActive(chat)) {
         if (unread > 0 || markedUnread) {
           menu.push({
             title: t`Mark as read`,
@@ -229,7 +230,7 @@ function ChatLayoutInner() {
             : groupIcon(chat.id),
         endIcon: pinned ? Pin : undefined,
         badge:
-          !chat.left && chat.id !== activeChatId
+          chatActive(chat) && chat.id !== activeChatId
             ? formatChatSidebarBadge(unread, markedUnread)
             : undefined,
         menu,

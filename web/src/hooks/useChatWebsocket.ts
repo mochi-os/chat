@@ -217,7 +217,6 @@ const handleWebsocketEvent = (
   if (event) {
     switch (event) {
       case 'reaction':
-      case 'message/react':
         patchMessageReactionFromWebsocket(
           chatId,
           payload,

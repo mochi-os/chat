@@ -536,8 +536,9 @@ export function ChatMessageList({
               size='sm'
               className='h-7 rounded-full px-2 text-xs'
               onClick={() => onSelectAll?.(chatMessages.map((m) => m.id))}
+              title={t`Selects messages loaded so far`}
             >
-              <Trans>All</Trans>
+              <Trans>Select loaded</Trans>
             </Button>
             <Button
               type='button'

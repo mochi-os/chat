@@ -18,6 +18,7 @@ import {
 } from '@mochi/web'
 import { Forward, Loader2, MessageCircle, Search } from 'lucide-react'
 import { useChatsQuery, useForwardMessagesMutation } from '@/hooks/useChats'
+import { chatActive } from '@/api/types/chats'
 
 interface ForwardDialogProps {
   open: boolean
@@ -55,7 +56,7 @@ export function ForwardDialog({
     const chats = chatsQuery.data?.chats ?? []
     const query = filter.trim().toLowerCase()
     return chats
-      .filter((c) => c.id !== sourceChatId && !c.left)
+      .filter((c) => c.id !== sourceChatId && chatActive(c))
       .filter((c) => (query ? c.name.toLowerCase().includes(query) : true))
   }, [chatsQuery.data?.chats, sourceChatId, filter])
 

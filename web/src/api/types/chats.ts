@@ -1,3 +1,12 @@
+// 'active' = current member; 'left' = we left voluntarily (kept read-only);
+// 'removed' = removed by another member (kept read-only); 'deleted' = hidden
+// tombstone (never sent in the chat list).
+export type ChatStatus = 'active' | 'left' | 'removed' | 'deleted'
+
+// A missing status is treated as active so older cached rows keep working.
+export const chatActive = (chat: Pick<Chat, 'status'>): boolean =>
+  (chat.status ?? 'active') === 'active'
+
 export interface Chat {
   id: string
   fingerprint?: string
@@ -7,7 +16,7 @@ export interface Chat {
   updated: number
   members: number
   other?: string  // For 2-member chats: the other member's entity ID
-  left?: number  // 0 = active, 1 = left voluntarily, 2 = removed by another member
+  status?: ChatStatus
   unread?: number
 }
 
