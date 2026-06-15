@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { Trans, useLingui } from '@lingui/react/macro'
 import { createFileRoute, useNavigate } from '@tanstack/react-router'
 import {
@@ -22,6 +22,7 @@ import {
   ResponsiveDialogDescription,
   ResponsiveDialogHeader,
   ResponsiveDialogTitle,
+  SearchInput,
   Section,
   FieldRow,
   DataChip,
@@ -458,6 +459,7 @@ function AddMemberDialog({
   onSuccess: () => void
 }) {
   const { t } = useLingui()
+  const [filter, setFilter] = useState('')
   const { data: friendsData, isLoading: isLoadingFriends, error, refetch } =
     useNewChatFriendsQuery({
       enabled: open,
@@ -476,8 +478,16 @@ function AddMemberDialog({
 
   const availableFriends = useMemo(() => {
     if (!friendsData?.friends) return []
-    return friendsData.friends.filter((f) => !existingMemberIds.includes(f.id))
-  }, [friendsData?.friends, existingMemberIds])
+    const query = filter.trim().toLowerCase()
+    return friendsData.friends
+      .filter((f) => !existingMemberIds.includes(f.id))
+      .filter((f) => (query ? f.name.toLowerCase().includes(query) : true))
+  }, [friendsData?.friends, existingMemberIds, filter])
+
+  // Reset the search field whenever the dialog closes.
+  useEffect(() => {
+    if (!open) setFilter('')
+  }, [open])
 
   const handleAddMember = (memberId: string) => {
     addMemberMutation.mutate({ chatId, member: memberId })
@@ -485,41 +495,70 @@ function AddMemberDialog({
 
   return (
     <ResponsiveDialog open={open} onOpenChange={onOpenChange}>
-      <ResponsiveDialogContent>
+      <ResponsiveDialogContent className='sm:max-w-120'>
         <ResponsiveDialogHeader>
-          <ResponsiveDialogTitle><Trans>Add member</Trans></ResponsiveDialogTitle>
+          <ResponsiveDialogTitle className='flex items-center gap-2'>
+            <UserPlus className='size-5' />
+            <Trans>Add member</Trans>
+          </ResponsiveDialogTitle>
           <ResponsiveDialogDescription>
             <Trans>Select a friend to add to this chat.</Trans>
           </ResponsiveDialogDescription>
         </ResponsiveDialogHeader>
-        <div className='max-h-[300px] overflow-y-auto mt-2'>
-          {isLoadingFriends ? (
-            <div className='flex items-center justify-center py-8'>
-              <Loader2 className='text-muted-foreground size-6 animate-spin' />
-            </div>
-          ) : error ? (
-            <GeneralError error={error} minimal mode='inline' reset={refetch} />
-          ) : availableFriends.length === 0 ? (
-            <EmptyState
-              icon={UserPlus}
-              title={t`No friends available`}
-              description={t`All your friends are already in this chat`}
-            />
-          ) : (
-            <div className='space-y-1'>
-              {availableFriends.map((friend) => (
-                <button
-                  key={friend.id}
-                  aria-label={t`Add ${friend.name} to chat`}
-                  className='hover:bg-accent flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-start disabled:opacity-50 transition-colors'
-                  onClick={() => handleAddMember(friend.id)}
-                  disabled={addMemberMutation.isPending}
-                >
-                  <span className="font-medium">{friend.name}</span>
-                </button>
-              ))}
-            </div>
-          )}
+
+        <div className='space-y-3'>
+          <SearchInput
+            value={filter}
+            onValueChange={setFilter}
+            placeholder={t`Search friends…`}
+            clearLabel={t`Clear search`}
+          />
+
+          <div className='max-h-72 space-y-1 overflow-y-auto px-1'>
+            {isLoadingFriends ? (
+              <div className='flex items-center justify-center py-8'>
+                <Loader2 className='text-muted-foreground size-6 animate-spin' />
+              </div>
+            ) : error ? (
+              <GeneralError error={error} minimal mode='inline' reset={refetch} />
+            ) : availableFriends.length === 0 ? (
+              <EmptyState
+                icon={UserPlus}
+                title={filter.trim() ? t`No friends found` : t`No friends available`}
+                description={
+                  filter.trim()
+                    ? t`Try a different search term`
+                    : t`All your friends are already in this chat`
+                }
+              />
+            ) : (
+              <div className='space-y-1'>
+                <p className='text-muted-foreground px-2 pt-1 pb-0.5 text-xs font-medium uppercase tracking-wide'>
+                  <Trans>Friends</Trans>
+                </p>
+                {availableFriends.map((friend) => (
+                  <button
+                    key={friend.id}
+                    type='button'
+                    aria-label={t`Add ${friend.name} to chat`}
+                    className='hover:bg-muted flex w-full items-center gap-3 rounded-lg px-2 py-2 text-start transition-colors disabled:opacity-50'
+                    onClick={() => handleAddMember(friend.id)}
+                    disabled={addMemberMutation.isPending}
+                  >
+                    <EntityAvatar
+                      src={`/people/${friend.id}/-/avatar`}
+                      styleUrl={`/people/${friend.id}/-/style`}
+                      name={friend.name}
+                      size='lg'
+                    />
+                    <span className='min-w-0 flex-1 truncate text-sm font-medium'>
+                      {friend.name}
+                    </span>
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
         </div>
       </ResponsiveDialogContent>
     </ResponsiveDialog>

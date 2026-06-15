@@ -613,6 +613,7 @@ export function Chats() {
               <EntityAvatar
                 src={`/people/${selectedChat.other}/-/avatar`}
                 styleUrl={`/people/${selectedChat.other}/-/style`}
+                name={selectedChat.name}
                 size="xl"
               />
             ) : (

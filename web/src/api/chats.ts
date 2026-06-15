@@ -103,7 +103,12 @@ export const chatsApi = {
     .then((res) => res.data),
 
   create: (payload: CreateChatRequest) =>
-    client.post<CreateChatResponse>(endpoints.chat.create, payload),
+    client
+      .post<CreateChatResponse | { data: CreateChatResponse }>(
+        endpoints.chat.create,
+        payload
+      )
+      .then((res) => unwrapData<CreateChatResponse>(res)),
 
   getMembers: (chatId: string) =>
     client
