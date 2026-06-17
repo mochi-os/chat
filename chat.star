@@ -853,6 +853,67 @@ def event_message_delete(e):
 # Forward messages from this chat into another chat the caller belongs to,
 # copying body and attachment bytes as new messages authored by the caller.
 # Input `message_ids` is a JSON-encoded array string; `to_chat` is the target.
+# Helper: collect the forwardable source messages named by a JSON-array
+# `message_ids` string. Returns the list of message rows that exist in the
+# source chat and are not tombstoned, or None if the payload itself is
+# malformed/empty/oversized (the caller maps that to errors.invalid_message).
+# An empty-but-valid payload returns [] so the caller can decide whether
+# "nothing to forward" is an error in its context.
+def chat_collect_forwardable(source_id, raw_ids):
+	if not raw_ids:
+		return None
+	message_ids = json.decode(raw_ids, None)
+	if type(message_ids) != "list" or len(message_ids) == 0 or len(message_ids) > 100:
+		return None
+	out = []
+	for raw_id in message_ids:
+		source_message_id = str(raw_id)
+		if not mochi.text.valid(source_message_id, "id"):
+			continue
+		# Source must exist in the source chat and not be a tombstone.
+		source_message = mochi.db.row("select * from messages where id=? and chat=?", source_message_id, source_id)
+		if not source_message:
+			continue
+		if mochi.db.exists("select 1 from deletions where message=?", source_message_id):
+			continue
+		out.append(source_message)
+	return out
+
+# Helper: copy the given (already-validated) source messages into target_id as
+# new messages authored by the forwarding member, carrying attachments, firing
+# the commit hook, and broadcasting each to the target's members. Returns the
+# list of new message ids. Shared by forward-to-existing-chat and
+# forward-to-friend so both paths stay identical.
+def chat_forward_into(a, source_id, target_id, source_messages):
+	chat_ensure_commit_hook()
+	members = mochi.db.rows("select member from members where chat=? and member!=?", target_id, a.user.identity.id)
+	member_ids = [m["member"] for m in members]
+
+	forwarded = []
+	for source_message in source_messages:
+		new_id = mochi.uid()
+		now_forward = mochi.time.now()
+		mochi.db.execute("replace into messages ( id, chat, member, name, body, created ) values ( ?, ?, ?, ?, ?, ? )", new_id, target_id, a.user.identity.id, a.user.identity.name, source_message["body"], now_forward)
+		mochi.db.execute("update chats set updated=? where id=?", now_forward, target_id)
+
+		# Copy attachment bytes into the new message's object.
+		for att in mochi.attachment.list("chat/" + source_id + "/" + source_message["id"]) or []:
+			data = mochi.attachment.data(att["id"])
+			if data == None:
+				continue
+			mochi.attachment.create("chat/" + target_id + "/" + new_id, att["name"], data, att.get("type", ""))
+		new_attachments = mochi.attachment.list("chat/" + target_id + "/" + new_id)
+
+		mochi.db.commit.fire("messages", "insert", new_id)
+
+		msg_data = {"chat": target_id, "message": new_id, "created": now_forward, "body": source_message["body"], "name": a.user.identity.name}
+		if new_attachments:
+			msg_data["attachments"] = [{"id": at["id"], "name": at["name"], "size": at["size"], "content_type": at.get("type", ""), "rank": at.get("rank", 0), "created": at.get("created", now_forward)} for at in new_attachments]
+		broadcast_chat(target_id, a.user.identity.id, member_ids, "message", msg_data)
+		forwarded.append(new_id)
+
+	return forwarded
+
 def action_messages_forward(a):
 	if not mochi.text.valid(a.input("chat"), "id"):
 		a.error.label(400, "errors.invalid_chat_id")
@@ -877,57 +938,89 @@ def action_messages_forward(a):
 		a.error.label(403, "errors.not_a_member_of_this_chat")
 		return
 
-	raw_ids = a.input("message_ids")
-	if not raw_ids:
-		a.error.label(400, "errors.invalid_message")
-		return
-	message_ids = json.decode(raw_ids)
-	if type(message_ids) != "list" or len(message_ids) == 0 or len(message_ids) > 100:
+	source_messages = chat_collect_forwardable(source["id"], a.input("message_ids"))
+	if source_messages == None:
 		a.error.label(400, "errors.invalid_message")
 		return
 
-	chat_ensure_commit_hook()
-	members = mochi.db.rows("select member from members where chat=? and member!=?", target["id"], a.user.identity.id)
-	member_ids = [m["member"] for m in members]
-
-	forwarded = []
-	for raw_id in message_ids:
-		source_id = str(raw_id)
-		if not mochi.text.valid(source_id, "id"):
-			continue
-		# Source must exist in the source chat and not be a tombstone.
-		source_message = mochi.db.row("select * from messages where id=? and chat=?", source_id, source["id"])
-		if not source_message:
-			continue
-		if mochi.db.exists("select 1 from deletions where message=?", source_id):
-			continue
-
-		new_id = mochi.uid()
-		now_forward = mochi.time.now()
-		mochi.db.execute("replace into messages ( id, chat, member, name, body, created ) values ( ?, ?, ?, ?, ?, ? )", new_id, target["id"], a.user.identity.id, a.user.identity.name, source_message["body"], now_forward)
-		mochi.db.execute("update chats set updated=? where id=?", now_forward, target["id"])
-
-		# Copy attachment bytes into the new message's object.
-		for att in mochi.attachment.list("chat/" + source["id"] + "/" + source_id) or []:
-			data = mochi.attachment.data(att["id"])
-			if data == None:
-				continue
-			mochi.attachment.create("chat/" + target["id"] + "/" + new_id, att["name"], data, att.get("type", ""))
-		new_attachments = mochi.attachment.list("chat/" + target["id"] + "/" + new_id)
-
-		mochi.db.commit.fire("messages", "insert", new_id)
-
-		msg_data = {"chat": target["id"], "message": new_id, "created": now_forward, "body": source_message["body"], "name": a.user.identity.name}
-		if new_attachments:
-			msg_data["attachments"] = [{"id": at["id"], "name": at["name"], "size": at["size"], "content_type": at.get("type", ""), "rank": at.get("rank", 0), "created": at.get("created", now_forward)} for at in new_attachments]
-		broadcast_chat(target["id"], a.user.identity.id, member_ids, "message", msg_data)
-		forwarded.append(new_id)
-
+	forwarded = chat_forward_into(a, source["id"], target["id"], source_messages)
 	if not forwarded:
 		a.error.label(404, "errors.message_not_found")
 		return
 
 	return {"data": {"forwarded": forwarded, "to_chat": target["id"]}}
+
+# Forward messages to a friend, creating (or reusing) the 1-on-1 chat as part
+# of the same action. The source messages are validated BEFORE any chat is
+# created, so a forward with nothing to send can never leave an orphaned empty
+# chat behind — the failure case Numan's two-call (create-then-forward) flow
+# left open.
+def action_messages_forward_friend(a):
+	if not mochi.text.valid(a.input("chat"), "id"):
+		a.error.label(400, "errors.invalid_chat_id")
+		return
+	source = mochi.db.row("select * from chats where id=?", a.input("chat"))
+	if not source:
+		a.error.label(404, "errors.chat_not_found")
+		return
+	if not mochi.db.exists("select 1 from members where chat=? and member=?", source["id"], a.user.identity.id):
+		a.error.label(403, "errors.not_a_member_of_this_chat")
+		return
+
+	member_id = a.input("member")
+	if not mochi.text.valid(str(member_id), "entity") or member_id == a.user.identity.id:
+		a.error.label(400, "errors.invalid_member_id")
+		return
+
+	# Validate the messages first — nothing below creates a chat until we know
+	# there is at least one real message to forward.
+	source_messages = chat_collect_forwardable(source["id"], a.input("message_ids"))
+	if source_messages == None:
+		a.error.label(400, "errors.invalid_message")
+		return
+	if not source_messages:
+		a.error.label(404, "errors.message_not_found")
+		return
+
+	# Resolve the friend's display name (friends first, then directory).
+	friend = mochi.service.call("friends", "get", a.user.identity.id, member_id)
+	if friend:
+		member_name = friend["name"]
+	else:
+		dir_entry = mochi.directory.get(member_id)
+		if dir_entry:
+			member_name = dir_entry["name"]
+		else:
+			member_name = mochi.app.label("member.unknown")
+
+	# Reuse the existing 1-on-1 chat with this member if there is one, else
+	# create it (mirrors action_create's direct-chat path).
+	existing = mochi.db.rows("""
+		select c.id
+		from chats c
+		join members m1 on c.id = m1.chat
+		join members m2 on c.id = m2.chat
+		where m1.member = ? and m2.member = ?
+		group by c.id
+		having (select count(*) from members where chat = c.id) = 2
+	""", a.user.identity.id, member_id)
+
+	if existing:
+		target_id = existing[0]["id"]
+	else:
+		target_id = mochi.uid()
+		mochi.db.execute("replace into chats ( id, name, key, updated ) values ( ?, ?, ?, ? )", target_id, member_name, mochi.random.alphanumeric(16), mochi.time.now())
+		mochi.db.execute("replace into members ( chat, member, name ) values ( ?, ?, ? )", target_id, a.user.identity.id, a.user.identity.name)
+		mochi.db.execute("replace into members ( chat, member, name ) values ( ?, ?, ? )", target_id, member_id, member_name)
+		# Tell the friend about the new chat; they see our name as its title.
+		mochi.message.send({"from": a.user.identity.id, "to": member_id, "service": "chat", "event": "new"}, {"id": target_id, "name": a.user.identity.name}, [{"id": a.user.identity.id, "name": a.user.identity.name}, {"id": member_id, "name": member_name}])
+
+	forwarded = chat_forward_into(a, source["id"], target_id, source_messages)
+	if not forwarded:
+		a.error.label(404, "errors.message_not_found")
+		return
+
+	return {"data": {"forwarded": forwarded, "to_chat": target_id}}
 
 # View a chat
 def action_view(a):
