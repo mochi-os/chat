@@ -147,7 +147,7 @@ export function ForwardDialog({
           'flex w-full items-center gap-3 rounded-lg px-2 py-2 text-start transition-colors',
           isSelected
             ? 'bg-primary/10 ring-primary/40 ring-1'
-            : 'hover:bg-muted'
+            : 'hover:bg-hover'
         )}
       >
         {dest.kind === 'friend' ? (

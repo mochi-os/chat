@@ -285,7 +285,7 @@ function ChatNameSection({ chatId, name }: { chatId: string, name: string }) {
               size='sm'
               variant='ghost'
               onClick={handleStartEdit}
-              className='h-6 w-6 p-0 hover:bg-muted'
+              className='h-6 w-6 p-0 hover:bg-hover'
               aria-label={t`Edit chat name`}
             >
               <Pencil className='size-3.5 text-muted-foreground' />
@@ -343,7 +343,7 @@ function MembersSection({
             return (
               <div
                 key={member.id}
-                className='flex items-center justify-between group rounded-lg hover:bg-muted/50 px-3 py-2 transition-colors'
+                className='flex items-center justify-between group rounded-lg hover:bg-hover px-3 py-2 transition-colors'
               >
                 <div className='flex items-center gap-3'>
                   <EntityAvatar
@@ -541,7 +541,7 @@ function AddMemberDialog({
                     key={friend.id}
                     type='button'
                     aria-label={t`Add ${friend.name} to chat`}
-                    className='hover:bg-muted flex w-full items-center gap-3 rounded-lg px-2 py-2 text-start transition-colors disabled:opacity-50'
+                    className='hover:bg-hover flex w-full items-center gap-3 rounded-lg px-2 py-2 text-start transition-colors disabled:opacity-50'
                     onClick={() => handleAddMember(friend.id)}
                     disabled={addMemberMutation.isPending}
                   >

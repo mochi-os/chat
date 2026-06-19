@@ -95,7 +95,7 @@ export function MessageReactionPicker({
                 <TooltipTrigger asChild>
                   <button
                     type='button'
-                    className={`rounded p-1.5 text-lg transition-colors hover:bg-interactive-hover active:bg-interactive-active ${
+                    className={`rounded p-1.5 text-lg transition-colors hover:bg-hover active:bg-interactive-active ${
                       activeReaction === reaction.id
                         ? 'bg-foreground/10 ring-1 ring-foreground/20'
                         : ''
