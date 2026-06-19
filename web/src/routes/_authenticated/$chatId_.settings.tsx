@@ -12,7 +12,6 @@ import {
   Main,
   usePageTitle,
   getErrorMessage,
-  Input,
   toast,
   useAuthStore,
   GeneralError,
@@ -25,6 +24,7 @@ import {
   SearchInput,
   Section,
   FieldRow,
+  EditableFieldRow,
   DataChip,
   DetailSkeleton,
   naturalCompare,
@@ -32,9 +32,6 @@ import {
 import {
   Loader2,
   MessageCircle,
-  Pencil,
-  Check,
-  X,
   UserMinus,
   UserPlus,
   LogOut,
@@ -184,13 +181,9 @@ function ChatSettingsPage() {
 
 function ChatNameSection({ chatId, name }: { chatId: string, name: string }) {
   const { t } = useLingui()
-  const [isEditing, setIsEditing] = useState(false)
-  const [editName, setEditName] = useState(name)
-  const [nameError, setNameError] = useState<string | null>(null)
 
   const renameMutation = useRenameChatMutation({
     onSuccess: () => {
-      setIsEditing(false)
       toast.success(t`Chat renamed`)
     },
     onError: (error) => {
@@ -198,101 +191,23 @@ function ChatNameSection({ chatId, name }: { chatId: string, name: string }) {
     },
   })
 
-  const validateName = (name: string): string | null => {
-    if (!name.trim()) return t`Chat name is required`
-    if (name.length > 1000) return t`Name must be 1000 characters or less`
+  const validateName = (value: string): string | null => {
+    if (!value.trim()) return t`Chat name is required`
+    if (value.length > 1000) return t`Name must be 1000 characters or less`
     return null
-  }
-
-  const handleStartEdit = () => {
-    setEditName(name)
-    setNameError(null)
-    setIsEditing(true)
-  }
-
-  const handleCancelEdit = () => {
-    setIsEditing(false)
-    setEditName(name)
-    setNameError(null)
-  }
-
-  const handleSaveEdit = async () => {
-    const trimmedName = editName.trim()
-    const error = validateName(trimmedName)
-    if (error) {
-      setNameError(error)
-      return
-    }
-    if (trimmedName === name) {
-      setIsEditing(false)
-      return
-    }
-    renameMutation.mutate({ chatId, name: trimmedName })
   }
 
   return (
     <Section title={t`General`} description={t`Adjust chat settings`}>
-      <FieldRow label={t`Chat name`}>
-        {isEditing ? (
-          <div className='flex flex-col gap-1 w-full max-w-md'>
-            <div className='flex items-center gap-2'>
-              <Input
-                value={editName}
-                onChange={(e) => {
-                  setEditName(e.target.value)
-                  setNameError(null)
-                }}
-                onKeyDown={(e) => {
-                  if (e.key === 'Enter') void handleSaveEdit()
-                  if (e.key === 'Escape') handleCancelEdit()
-                }}
-                className='h-9'
-                disabled={renameMutation.isPending}
-                autoFocus
-              />
-              <Button
-                size='sm'
-                variant='ghost'
-                onClick={() => void handleSaveEdit()}
-                disabled={renameMutation.isPending}
-                className='h-9 w-9 p-0'
-              >
-                {renameMutation.isPending ? (
-                  <Loader2 className='size-4 animate-spin' />
-                ) : (
-                  <Check className='size-4 text-success' />
-                )}
-              </Button>
-              <Button
-                size='sm'
-                variant='ghost'
-                onClick={handleCancelEdit}
-                disabled={renameMutation.isPending}
-                className='h-9 w-9 p-0'
-                aria-label={t`Cancel edit`}
-              >
-                <X className='size-4 text-destructive' />
-              </Button>
-            </div>
-            {nameError && (
-              <span className='text-destructive text-xs'>{nameError}</span>
-            )}
-          </div>
-        ) : (
-          <div className='flex items-center gap-2'>
-            <span className="text-base font-semibold">{name}</span>
-            <Button
-              size='sm'
-              variant='ghost'
-              onClick={handleStartEdit}
-              className='h-6 w-6 p-0 hover:bg-hover'
-              aria-label={t`Edit chat name`}
-            >
-              <Pencil className='size-3.5 text-muted-foreground' />
-            </Button>
-          </div>
-        )}
-      </FieldRow>
+      <EditableFieldRow
+        label={t`Chat name`}
+        value={name}
+        onSave={async (newName) => {
+          await renameMutation.mutateAsync({ chatId, name: newName })
+        }}
+        validate={validateName}
+        emphasize
+      />
       <FieldRow label={t`Chat ID`}>
         <DataChip value={chatId} truncate='middle' />
       </FieldRow>
