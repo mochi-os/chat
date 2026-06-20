@@ -86,13 +86,17 @@ export const useChatsQuery = (
 
 const DEFAULT_PAGE_SIZE = 30
 
+// Keyset cursor carried between pages: the oldest message's timestamp plus its
+// id. `undefined` on the first page loads the newest messages.
+type MessagesPageParam = { before: number; beforeId?: string } | undefined
+
 export const useInfiniteMessagesQuery = (
   chatId?: string,
   options?: {
     enabled?: boolean
   }
 ) =>
-  useInfiniteQueryWithError<GetMessagesResponse, Error, InfiniteData<GetMessagesResponse>, ReturnType<typeof chatKeys.messages>, number | undefined>({
+  useInfiniteQueryWithError<GetMessagesResponse, Error, InfiniteData<GetMessagesResponse>, ReturnType<typeof chatKeys.messages>, MessagesPageParam>({
     queryKey: chatKeys.messages(chatId ?? 'unknown'),
     enabled: Boolean(chatId) && (options?.enabled ?? true),
     initialPageParam: undefined,
@@ -101,22 +105,31 @@ export const useInfiniteMessagesQuery = (
         return Promise.resolve<GetMessagesResponse>({ messages: [] })
       }
       return chatsApi.messages(chatId, {
-        before: pageParam,
+        before: pageParam?.before,
+        beforeId: pageParam?.beforeId,
         limit: DEFAULT_PAGE_SIZE,
       })
     },
     getNextPageParam: (lastPage, _allPages, _lastPageParam, allPageParams) => {
-      // Use cursor-based pagination: nextCursor is the timestamp of oldest message
-      if (!lastPage.hasMore) {
+      // Keyset pagination: nextCursor is the oldest message's timestamp and
+      // nextCursorId its id. The id is the unique tiebreaker — `created`
+      // alone (whole seconds) repeats within a busy second and would stall
+      // paging, so dedupe on the id, not the timestamp.
+      if (!lastPage.hasMore || lastPage.nextCursor === undefined) {
         return undefined
       }
-      if (lastPage.nextCursor === undefined) {
+      const next: MessagesPageParam = {
+        before: lastPage.nextCursor,
+        beforeId: lastPage.nextCursorId,
+      }
+      if (
+        allPageParams.some(
+          (p) => p?.before === next.before && p?.beforeId === next.beforeId
+        )
+      ) {
         return undefined
       }
-      if (allPageParams.includes(lastPage.nextCursor)) {
-        return undefined
-      }
-      return lastPage.nextCursor
+      return next
     },
   })
 

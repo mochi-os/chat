@@ -417,16 +417,28 @@ def action_messages(a):
 	if limit_str and mochi.text.valid(limit_str, "natural"):
 		limit = min(int(limit_str), 100)
 
+	# Keyset cursor. `created` is whole seconds, so a busy chat has many
+	# messages sharing one timestamp; a `created`-only cursor can't separate
+	# them, so pages overlap (duplicates) or stall on a same-second run. The
+	# message id (a UUIDv7, already time-ordered) is the unique tiebreaker,
+	# giving the total order (created desc, id desc). `before_id` is optional
+	# so older clients that send only `before` keep working.
 	before = None
 	before_str = a.input("before")
 	if before_str and mochi.text.valid(before_str, "natural"):
 		before = int(before_str)
 
-	# Fetch messages (newest first internally, then reverse for chronological display)
-	if before:
-		messages = mochi.db.rows("select * from messages where chat=? and created<? order by created desc limit ?", chat["id"], before, limit + 1)
+	before_id = a.input("before_id")
+	if before_id and not mochi.text.valid(before_id, "id"):
+		before_id = None
+
+	# Fetch one extra (limit + 1) to detect whether older messages remain.
+	if before and before_id:
+		messages = mochi.db.rows("select * from messages where chat=? and ( created<? or ( created=? and id<? ) ) order by created desc, id desc limit ?", chat["id"], before, before, before_id, limit + 1)
+	elif before:
+		messages = mochi.db.rows("select * from messages where chat=? and created<? order by created desc, id desc limit ?", chat["id"], before, limit + 1)
 	else:
-		messages = mochi.db.rows("select * from messages where chat=? order by created desc limit ?", chat["id"], limit + 1)
+		messages = mochi.db.rows("select * from messages where chat=? order by created desc, id desc limit ?", chat["id"], limit + 1)
 
 	# Check if there are more (older) messages
 	has_more = len(messages) > limit
@@ -436,10 +448,13 @@ def action_messages(a):
 	# Reverse to chronological order (oldest first) for display
 	messages = list(reversed(messages))
 
-	# Cursor for next page is the oldest message's timestamp
+	# Cursor for the next (older) page is the oldest message we kept: both its
+	# timestamp and id, so the next request resumes inside a same-second run.
 	next_cursor = None
+	next_cursor_id = None
 	if has_more and len(messages) > 0:
 		next_cursor = messages[0]["created"]
+		next_cursor_id = messages[0]["id"]
 
 	deleted_ids = messages_deleted_set(chat["id"], [m["id"] for m in messages])
 	for m in messages:
@@ -463,7 +478,8 @@ def action_messages(a):
 		"data": {
 			"messages": messages,
 			"hasMore": has_more,
-			"nextCursor": next_cursor
+			"nextCursor": next_cursor,
+			"nextCursorId": next_cursor_id
 		}
 	}
 

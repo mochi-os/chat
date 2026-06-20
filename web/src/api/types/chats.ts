@@ -97,7 +97,11 @@ export interface GetMessagesResponse extends PaginationMeta {
   messages: ChatMessage[]
   chat?: Chat
   hasMore?: boolean
+  // Keyset cursor for the next (older) page: the oldest message's timestamp
+  // plus its id. The id disambiguates messages sharing one whole-second
+  // `nextCursor`, which a timestamp-only cursor cannot.
   nextCursor?: number
+  nextCursorId?: string
 }
 
 export interface ChatSearchResult {

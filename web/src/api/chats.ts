@@ -53,11 +53,20 @@ export const chatsApi = {
       )
       .then((res) => unwrapData<ChatViewResponse>(res)),
 
-  messages: (chatId: string, params?: { before?: number; limit?: number }) =>
+  messages: (
+    chatId: string,
+    params?: { before?: number; beforeId?: string; limit?: number }
+  ) =>
     client
       .get<GetMessagesResponse | { data: GetMessagesResponse }>(
         endpoints.chat.messages(chatId),
-        { params }
+        {
+          params: {
+            before: params?.before,
+            before_id: params?.beforeId,
+            limit: params?.limit,
+          },
+        }
       )
       .then((res) => unwrapData<GetMessagesResponse>(res)),
 
