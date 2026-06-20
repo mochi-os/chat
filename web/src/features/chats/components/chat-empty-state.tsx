@@ -31,11 +31,11 @@ export function ChatEmptyState({ onNewChat, hasExistingChats }: ChatEmptyStatePr
       <EmptyState
         icon={MessageCircle}
         title={t`Start a conversation`}
-        description={t`You haven't started any chats yet. Connect with a friend to get things rolling.`}
+        description={t`Message a friend to start your first chat.`}
       >
         <Button size='lg' onClick={onNewChat}>
           <Plus className='size-5' />
-          <Trans>Get started</Trans>
+          <Trans>New chat</Trans>
         </Button>
       </EmptyState>
     </div>
