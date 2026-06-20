@@ -18,18 +18,18 @@ msgid " (includes you)"
 msgstr " (vrátane vás)"
 
 #. placeholder {0}: deleteTargetIds?.length ?? 0
-#: src/features/chats/index.tsx:853
+#: src/features/chats/index.tsx:854
 msgid "{0, plural, one {Delete message?} other {Delete # messages?}}"
 msgstr "{0, plural, one {Odstrániť správu?} few {Odstrániť # správy?} many {Odstrániť # správy?} other {Odstrániť # správ?}}"
 
 #. placeholder {0}: selectedIds.size
-#: src/features/chats/index.tsx:729
+#: src/features/chats/index.tsx:730
 msgid "{0} selected"
 msgstr "Vybrané: {0}"
 
 #. placeholder {0}: chatDetail.chat.name
-#: src/routes/_authenticated/$chatId_.settings.tsx:82
-#: src/routes/_authenticated/$chatId_.settings.tsx:121
+#: src/routes/_authenticated/$chatId_.settings.tsx:79
+#: src/routes/_authenticated/$chatId_.settings.tsx:118
 msgid "{0} settings"
 msgstr "{0} nastavenia"
 
@@ -78,7 +78,7 @@ msgid "Add"
 msgstr "Pridať"
 
 #. placeholder {0}: friend.name
-#: src/routes/_authenticated/$chatId_.settings.tsx:543
+#: src/routes/_authenticated/$chatId_.settings.tsx:458
 msgid "Add {0} to chat"
 msgstr "Pridať {0} do chatu"
 
@@ -103,8 +103,8 @@ msgstr "Pridajte účet na prijímanie notifikácií a využívanie služieb."
 msgid "Add attachment"
 msgstr "Pridať prílohu"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:331
-#: src/routes/_authenticated/$chatId_.settings.tsx:502
+#: src/routes/_authenticated/$chatId_.settings.tsx:246
+#: src/routes/_authenticated/$chatId_.settings.tsx:417
 msgid "Add member"
 msgstr "Pridať člena"
 
@@ -128,13 +128,13 @@ msgstr "Pridať tím/aplikáciu"
 msgid "Add to existing notifications"
 msgstr "Pridať k existujúcim notifikáciám"
 
-#: ../../../lib/web/src/components/view-tabs.tsx:54
-#: ../../../lib/web/src/components/view-tabs.tsx:55
+#: ../../../lib/web/src/components/view-tabs.tsx:81
+#: ../../../lib/web/src/components/view-tabs.tsx:82
 msgid "Add view"
 msgstr "Pridať zobrazenie"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:126
-#: src/routes/_authenticated/$chatId_.settings.tsx:234
+#: src/routes/_authenticated/$chatId_.settings.tsx:123
+#: src/routes/_authenticated/$chatId_.settings.tsx:201
 msgid "Adjust chat settings"
 msgstr "Upraviť nastavenia chatu"
 
@@ -154,7 +154,7 @@ msgstr "AI"
 msgid "All"
 msgstr "Všetko"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:531
+#: src/routes/_authenticated/$chatId_.settings.tsx:446
 msgid "All your friends are already in this chat"
 msgstr "Všetci vaši priatelia sú už v tomto chate"
 
@@ -175,11 +175,11 @@ msgid "Angry"
 msgstr "Nahnevané"
 
 #. placeholder {0}: selectedChat?.name
-#: src/features/chats/index.tsx:821
+#: src/features/chats/index.tsx:822
 msgid "Are you sure you want to leave \"{0}\"? You can be added back by other members."
 msgstr "Naozaj chcete opustiť „{0}“? Ostatní členovia vás môžu pridať späť."
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:419
+#: src/routes/_authenticated/$chatId_.settings.tsx:334
 msgid "Are you sure you want to leave \"{chatName}\"? You can be added back by other members."
 msgstr "Naozaj chcete opustiť „{chatName}“? Ostatní členovia vás môžu pridať späť."
 
@@ -188,7 +188,7 @@ msgid "Are you sure you want to log out? You will need to log in again to access
 msgstr "Naozaj sa chcete odhlásiť? Pre prístup k účtu sa budete musieť znova prihlásiť."
 
 #. placeholder {0}: member?.name
-#: src/routes/_authenticated/$chatId_.settings.tsx:602
+#: src/routes/_authenticated/$chatId_.settings.tsx:517
 msgid "Are you sure you want to remove {0} from this chat?"
 msgstr "Naozaj chcete odstrániť {0} z tohto chatu?"
 
@@ -209,9 +209,9 @@ msgstr "Autentifikačný kód"
 msgid "Back"
 msgstr "Späť"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:95
-#: src/routes/_authenticated/$chatId_.settings.tsx:106
-#: src/routes/_authenticated/$chatId_.settings.tsx:122
+#: src/routes/_authenticated/$chatId_.settings.tsx:92
+#: src/routes/_authenticated/$chatId_.settings.tsx:103
+#: src/routes/_authenticated/$chatId_.settings.tsx:119
 msgid "Back to chat"
 msgstr "Späť na chat"
 
@@ -233,6 +233,7 @@ msgstr "Zvýšiť záujem"
 #: ../../../lib/web/src/components/step-up-dialog.tsx:360
 #: ../../../lib/web/src/components/travelling-picker.tsx:292
 #: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:245
+#: ../../../lib/web/src/components/ui/editable-field-row.tsx:129
 #: ../../../lib/web/src/features/access/access-dialog.tsx:325
 #: ../../../lib/web/src/features/access/access-list.tsx:255
 #: ../../../lib/web/src/features/accounts/account-add.tsx:185
@@ -240,13 +241,9 @@ msgstr "Zvýšiť záujem"
 #: src/features/chats/components/chat-message-list.tsx:550
 #: src/features/chats/components/forward-dialog.tsx:249
 #: src/features/chats/components/new-chat.tsx:254
-#: src/features/chats/index.tsx:762
+#: src/features/chats/index.tsx:763
 msgid "Cancel"
 msgstr "Zrušiť"
-
-#: src/routes/_authenticated/$chatId_.settings.tsx:272
-msgid "Cancel edit"
-msgstr "Zrušiť úpravu"
 
 #: src/features/chats/components/chat-input.tsx:150
 msgid "Cancel reply"
@@ -275,7 +272,7 @@ msgstr "Chat vytvorený"
 msgid "Chat deleted"
 msgstr "Chat odstránený"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:296
+#: src/routes/_authenticated/$chatId_.settings.tsx:211
 msgid "Chat ID"
 msgstr "ID chatu"
 
@@ -288,11 +285,11 @@ msgid "Chat marked as unread"
 msgstr "Chat označený ako neprečítaný"
 
 #: src/features/chats/components/new-chat.tsx:238
-#: src/routes/_authenticated/$chatId_.settings.tsx:235
+#: src/routes/_authenticated/$chatId_.settings.tsx:203
 msgid "Chat name"
 msgstr "Názov chatu"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:202
+#: src/routes/_authenticated/$chatId_.settings.tsx:195
 msgid "Chat name is required"
 msgstr "Názov chatu je povinný"
 
@@ -300,7 +297,7 @@ msgstr "Názov chatu je povinný"
 msgid "Chat name..."
 msgstr "Názov chatu..."
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:110
+#: src/routes/_authenticated/$chatId_.settings.tsx:107
 msgid "Chat not found"
 msgstr "Chat sa nenašiel"
 
@@ -312,15 +309,15 @@ msgstr "Chat pripnutý"
 msgid "Chat ready"
 msgstr "Chat pripravený"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:194
+#: src/routes/_authenticated/$chatId_.settings.tsx:187
 msgid "Chat renamed"
 msgstr "Chat premenovaný"
 
-#: src/features/chats/index.tsx:663
-#: src/routes/_authenticated/$chatId_.settings.tsx:82
-#: src/routes/_authenticated/$chatId_.settings.tsx:95
-#: src/routes/_authenticated/$chatId_.settings.tsx:106
-#: src/routes/_authenticated/$chatId_.settings.tsx:121
+#: src/features/chats/index.tsx:664
+#: src/routes/_authenticated/$chatId_.settings.tsx:79
+#: src/routes/_authenticated/$chatId_.settings.tsx:92
+#: src/routes/_authenticated/$chatId_.settings.tsx:103
+#: src/routes/_authenticated/$chatId_.settings.tsx:118
 msgid "Chat settings"
 msgstr "Nastavenia chatu"
 
@@ -343,11 +340,7 @@ msgstr "Chaty sú medzi priateľmi. Najprv pridajte priateľa v aplikácii Ľudi
 
 #: src/features/chats/components/forward-dialog.tsx:186
 msgid "Choose a chat or friend to forward the selected messages to"
-msgstr ""
-
-#: src/features/chats/components/forward-dialog.tsx:88
-#~ msgid "Choose a chat to forward the selected messages to"
-#~ msgstr "Vyberte chat, do ktorého chcete preposlať vybrané správy"
+msgstr "Vyberte chat alebo priateľa, ktorému preposlať vybrané správy"
 
 #: src/features/chats/components/chat-empty-state.tsx:18
 msgid "Choose a conversation from the sidebar or start a new one."
@@ -387,9 +380,9 @@ msgid "Clear filters"
 msgstr "Vymazať filtre"
 
 #: src/features/chats/components/forward-dialog.tsx:195
-#: src/routes/_authenticated/$chatId_.settings.tsx:514
+#: src/routes/_authenticated/$chatId_.settings.tsx:429
 msgid "Clear search"
-msgstr ""
+msgstr "Vymazať vyhľadávanie"
 
 #: ../../../lib/web/src/components/data-table/bulk-actions.tsx:164
 #: ../../../lib/web/src/components/data-table/bulk-actions.tsx:168
@@ -463,7 +456,7 @@ msgstr "Skopírované"
 
 #: ../../../lib/web/src/components/ui/copy-button.tsx:60
 #: src/features/chats/components/message-hover-actions.tsx:90
-#: src/features/chats/index.tsx:738
+#: src/features/chats/index.tsx:739
 msgid "Copy"
 msgstr "Kopírovať"
 
@@ -522,18 +515,18 @@ msgid "Default AI account"
 msgstr "Predvolený AI účet"
 
 #: src/features/chats/components/message-hover-actions.tsx:122
-#: src/features/chats/index.tsx:755
-#: src/features/chats/index.tsx:865
+#: src/features/chats/index.tsx:756
+#: src/features/chats/index.tsx:866
 msgid "Delete"
 msgstr "Odstrániť"
 
-#: src/features/chats/index.tsx:646
-#: src/features/chats/index.tsx:786
+#: src/features/chats/index.tsx:647
+#: src/features/chats/index.tsx:787
 msgid "Delete chat"
 msgstr "Odstrániť chat"
 
-#: src/features/chats/index.tsx:843
-#: src/routes/_authenticated/$chatId_.settings.tsx:441
+#: src/features/chats/index.tsx:844
+#: src/routes/_authenticated/$chatId_.settings.tsx:356
 msgid "Delete chat history"
 msgstr "Odstrániť históriu chatu"
 
@@ -541,7 +534,7 @@ msgstr "Odstrániť históriu chatu"
 msgid "Delete your account on the old server"
 msgstr "Odstráňte svoj účet na starom serveri"
 
-#: src/features/chats/index.tsx:862
+#: src/features/chats/index.tsx:863
 msgid "Deleting..."
 msgstr "Odstraňuje sa..."
 
@@ -592,9 +585,9 @@ msgstr "Stiahnuť"
 msgid "Dyslexia-friendly"
 msgstr "Vhodné pre dyslexiu"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:289
-msgid "Edit chat name"
-msgstr "Upraviť názov chatu"
+#: ../../../lib/web/src/components/ui/editable-field-row.tsx:151
+msgid "Edit {label}"
+msgstr "Upraviť {label}"
 
 #: ../../../lib/web/src/components/step-up-dialog.tsx:286
 msgid "Email code"
@@ -620,7 +613,7 @@ msgstr "Veľmi veľké"
 msgid "Failed to add account"
 msgstr "Nepodarilo sa pridať účet"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:475
+#: src/routes/_authenticated/$chatId_.settings.tsx:390
 msgid "Failed to add member"
 msgstr "Nepodarilo sa pridať člena"
 
@@ -650,7 +643,7 @@ msgid "Failed to forward"
 msgstr "Nepodarilo sa preposlať"
 
 #: src/features/chats/index.tsx:463
-#: src/routes/_authenticated/$chatId_.settings.tsx:403
+#: src/routes/_authenticated/$chatId_.settings.tsx:318
 msgid "Failed to leave chat"
 msgstr "Nepodarilo sa opustiť chat"
 
@@ -662,15 +655,15 @@ msgstr "Nepodarilo sa označiť chat ako prečítaný"
 msgid "Failed to remove account"
 msgstr "Nepodarilo sa odstrániť účet"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:588
+#: src/routes/_authenticated/$chatId_.settings.tsx:503
 msgid "Failed to remove member"
 msgstr "Nepodarilo sa odstrániť člena"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:197
+#: src/routes/_authenticated/$chatId_.settings.tsx:190
 msgid "Failed to rename chat"
 msgstr "Nepodarilo sa premenovať chat"
 
-#: src/features/chats/index.tsx:806
+#: src/features/chats/index.tsx:807
 msgid "Failed to send message"
 msgstr "Nepodarilo sa odoslať správu"
 
@@ -696,7 +689,7 @@ msgstr "Plávajúce"
 
 #: src/features/chats/components/forward-dialog.tsx:260
 #: src/features/chats/components/message-hover-actions.tsx:111
-#: src/features/chats/index.tsx:746
+#: src/features/chats/index.tsx:747
 msgid "Forward"
 msgstr "Preposlať"
 
@@ -714,7 +707,7 @@ msgstr "Piatok"
 
 #: src/features/chats/components/forward-dialog.tsx:233
 #: src/features/chats/components/new-chat.tsx:175
-#: src/routes/_authenticated/$chatId_.settings.tsx:537
+#: src/routes/_authenticated/$chatId_.settings.tsx:452
 msgid "Friends"
 msgstr "Priatelia"
 
@@ -734,8 +727,8 @@ msgstr "Z motívu"
 msgid "Full layout"
 msgstr "Úplné rozloženie"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:126
-#: src/routes/_authenticated/$chatId_.settings.tsx:234
+#: src/routes/_authenticated/$chatId_.settings.tsx:123
+#: src/routes/_authenticated/$chatId_.settings.tsx:201
 msgid "General"
 msgstr "Všeobecné"
 
@@ -825,26 +818,26 @@ msgstr "Rozloženie"
 msgid "Learn more"
 msgstr "Zistiť viac"
 
-#: src/features/chats/index.tsx:829
+#: src/features/chats/index.tsx:830
 msgid "Leave"
 msgstr "Opustiť"
 
-#: src/features/chats/index.tsx:653
-#: src/routes/_authenticated/$chatId_.settings.tsx:427
+#: src/features/chats/index.tsx:654
+#: src/routes/_authenticated/$chatId_.settings.tsx:342
 msgid "Leave chat"
 msgstr "Opustiť chat"
 
-#: src/features/chats/index.tsx:820
-#: src/routes/_authenticated/$chatId_.settings.tsx:418
+#: src/features/chats/index.tsx:821
+#: src/routes/_authenticated/$chatId_.settings.tsx:333
 msgid "Leave chat?"
 msgstr "Opustiť chat?"
 
-#: src/features/chats/index.tsx:826
-#: src/routes/_authenticated/$chatId_.settings.tsx:424
+#: src/features/chats/index.tsx:827
+#: src/routes/_authenticated/$chatId_.settings.tsx:339
 msgid "Leaving..."
 msgstr "Opúšťa sa…"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:399
+#: src/routes/_authenticated/$chatId_.settings.tsx:314
 msgid "Left chat"
 msgstr "Chat opustený"
 
@@ -861,7 +854,7 @@ msgstr "Svetlý"
 msgid "Like"
 msgstr "Páči sa mi"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:327
+#: src/routes/_authenticated/$chatId_.settings.tsx:242
 msgid "List of people in this chat"
 msgstr "Zoznam osôb v tomto chate"
 
@@ -917,15 +910,15 @@ msgstr "Označiť ako neprečítané"
 msgid "Medium"
 msgstr "Stredné"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:470
+#: src/routes/_authenticated/$chatId_.settings.tsx:385
 msgid "Member added"
 msgstr "Člen pridaný"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:584
+#: src/routes/_authenticated/$chatId_.settings.tsx:499
 msgid "Member removed"
 msgstr "Člen odstránený"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:326
+#: src/routes/_authenticated/$chatId_.settings.tsx:241
 msgid "Members"
 msgstr "Členovia"
 
@@ -958,7 +951,7 @@ msgstr "Metrické"
 msgid "Monday"
 msgstr "Pondelok"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:203
+#: src/routes/_authenticated/$chatId_.settings.tsx:196
 msgid "Name must be 1000 characters or less"
 msgstr "Názov musí mať 1000 znakov alebo menej"
 
@@ -995,12 +988,12 @@ msgstr "Žiadne chaty na preposlanie"
 msgid "No connected accounts"
 msgstr "Žiadne prepojené účty"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:527
+#: src/routes/_authenticated/$chatId_.settings.tsx:442
 msgid "No friends available"
 msgstr "Nie sú dostupní žiadni priatelia"
 
 #: src/features/chats/components/new-chat.tsx:205
-#: src/routes/_authenticated/$chatId_.settings.tsx:527
+#: src/routes/_authenticated/$chatId_.settings.tsx:442
 msgid "No friends found"
 msgstr "Nenašli sa žiadni priatelia"
 
@@ -1055,6 +1048,10 @@ msgstr "Žiadne"
 msgid "Normal"
 msgstr "Normálne"
 
+#: ../../../lib/web/src/components/ui/editable-field-row.tsx:143
+msgid "Not set"
+msgstr "Nenastavené"
+
 #: src/features/chats/index.tsx:337
 msgid "Nothing to copy"
 msgstr "Nie je čo kopírovať"
@@ -1086,7 +1083,7 @@ msgstr "Otvoriť akcie účtu"
 msgid "Open actions"
 msgstr "Otvoriť akcie"
 
-#: src/features/chats/index.tsx:638
+#: src/features/chats/index.tsx:639
 msgid "Open chat actions"
 msgstr "Otvoriť akcie chatu"
 
@@ -1196,7 +1193,7 @@ msgstr "Relatívne do 24 hodín, inak absolútne"
 
 #: ../../../lib/web/src/features/access/access-list.tsx:257
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:172
-#: src/routes/_authenticated/$chatId_.settings.tsx:610
+#: src/routes/_authenticated/$chatId_.settings.tsx:525
 msgid "Remove"
 msgstr "Odstrániť"
 
@@ -1220,11 +1217,11 @@ msgstr "Odstrániť prístup?"
 msgid "Remove interest"
 msgstr "Odstrániť záujem"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:601
+#: src/routes/_authenticated/$chatId_.settings.tsx:516
 msgid "Remove member?"
 msgstr "Odstrániť člena?"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:607
+#: src/routes/_authenticated/$chatId_.settings.tsx:522
 msgid "Removing..."
 msgstr "Odstraňujem..."
 
@@ -1266,6 +1263,7 @@ msgstr "Smutný"
 msgid "Saturday"
 msgstr "Sobota"
 
+#: ../../../lib/web/src/components/ui/editable-field-row.tsx:119
 #: ../../../lib/web/src/components/ui/secret-field.tsx:74
 msgid "Save"
 msgstr "Uložiť"
@@ -1286,15 +1284,15 @@ msgstr "Hľadať cieľ..."
 msgid "Search for origin..."
 msgstr "Hľadať pôvod..."
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:513
+#: src/routes/_authenticated/$chatId_.settings.tsx:428
 msgid "Search friends…"
-msgstr ""
+msgstr "Hľadať priateľov…"
 
 #: src/features/chats/components/chat-search-header.tsx:53
 msgid "Search in chat..."
 msgstr "Hľadať v chate..."
 
-#: src/features/chats/index.tsx:628
+#: src/features/chats/index.tsx:629
 msgid "Search messages"
 msgstr "Hľadať správy"
 
@@ -1324,7 +1322,7 @@ msgstr "Vybrať"
 msgid "Select a chat"
 msgstr "Vybrať chat"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:505
+#: src/routes/_authenticated/$chatId_.settings.tsx:420
 msgid "Select a friend to add to this chat."
 msgstr "Vyberte priateľa na pridanie do tohto chatu."
 
@@ -1498,15 +1496,15 @@ msgstr "Motív"
 msgid "Theme Settings"
 msgstr "Nastavenia motívu"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:158
+#: src/routes/_authenticated/$chatId_.settings.tsx:155
 msgid "this chat"
 msgstr "tento chat"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:111
+#: src/routes/_authenticated/$chatId_.settings.tsx:108
 msgid "This chat may have been deleted or you don't have access to it"
 msgstr "Tento chat mohol byť odstránený alebo k nemu nemáte prístup"
 
-#: src/features/chats/index.tsx:857
+#: src/features/chats/index.tsx:858
 msgid "This deletes the message for everyone and cannot be undone."
 msgstr "Týmto sa správa odstráni pre všetkých a nedá sa to vrátiť späť."
 
@@ -1548,9 +1546,9 @@ msgstr "Hore"
 msgid "Travelling"
 msgstr "Cestujem"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:530
+#: src/routes/_authenticated/$chatId_.settings.tsx:445
 msgid "Try a different search term"
-msgstr ""
+msgstr "Skúste iný hľadaný výraz"
 
 #: ../../../lib/web/src/components/search-entity-dialog.tsx:190
 #: ../../../lib/web/src/components/search-entity-page.tsx:165
@@ -1698,11 +1696,11 @@ msgstr "Môžete odstrániť iba svoje vlastné správy"
 msgid "You haven't started any chats yet. Connect with a friend to get things rolling."
 msgstr "Zatiaľ ste nezačali žiadne chaty. Spojte sa s priateľom a začnite."
 
-#: src/features/chats/index.tsx:773
+#: src/features/chats/index.tsx:774
 msgid "You left this chat"
 msgstr "Opustili ste tento chat"
 
-#: src/features/chats/index.tsx:772
+#: src/features/chats/index.tsx:773
 msgid "You were removed from this chat"
 msgstr "Boli ste odstránený z tohto chatu"
 
