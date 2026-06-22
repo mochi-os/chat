@@ -688,6 +688,7 @@ export function Chats() {
             />
           ) : null}
           <ChatMessageList
+            chatId={selectedChat?.id}
             messagesQuery={messagesQuery}
             chatMessages={chatMessages}
             isLoadingMessages={messagesQuery.isLoading}
