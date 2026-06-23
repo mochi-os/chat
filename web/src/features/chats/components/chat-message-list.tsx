@@ -6,6 +6,7 @@
 import {
   Fragment,
   useCallback,
+  useEffect,
   useLayoutEffect,
   useMemo,
   useRef,
@@ -48,6 +49,7 @@ import type { ReactionId } from '../constants/reactions'
 import { highlightSearchText } from '../utils/highlight-search-text'
 
 const BOTTOM_THRESHOLD_PX = 80
+const MESSAGE_ENTER_MS = 200
 
 function checkIsAtBottom(el: HTMLDivElement) {
   return el.scrollHeight - el.scrollTop - el.clientHeight <= BOTTOM_THRESHOLD_PX
@@ -58,6 +60,7 @@ function pinToBottom(el: HTMLDivElement) {
 }
 
 interface ChatMessageListProps {
+  chatId?: string
   messagesQuery: UseInfiniteQueryResult<
     InfiniteData<GetMessagesResponse>,
     unknown
@@ -90,6 +93,7 @@ interface ChatMessageListProps {
 }
 
 export function ChatMessageList({
+  chatId,
   messagesQuery,
   chatMessages,
   isLoadingMessages,
@@ -129,6 +133,63 @@ export function ChatMessageList({
   const isAtBottomRef = useRef(true)
   const [isScrolledAwayFromBottom, setIsScrolledAwayFromBottom] = useState(false)
   const [newMessageCount, setNewMessageCount] = useState(0)
+  const [suppressHistoryReveal, setSuppressHistoryReveal] = useState(false)
+  const [enteringMessageIds, setEnteringMessageIds] = useState<Set<string>>(
+    () => new Set()
+  )
+  const prevMessageIdsRef = useRef<Set<string>>(new Set())
+
+  useLayoutEffect(() => {
+    if (suppressHistoryReveal || messagesQuery.isFetchingNextPage) {
+      prevMessageIdsRef.current = new Set(chatMessages.map((m) => m.id))
+      setEnteringMessageIds(new Set())
+      return
+    }
+
+    if (isInitialLoadRef.current) {
+      prevMessageIdsRef.current = new Set(chatMessages.map((m) => m.id))
+      return
+    }
+
+    const prevIds = prevMessageIdsRef.current
+    const last = chatMessages[chatMessages.length - 1]
+
+    if (last && !prevIds.has(last.id)) {
+      const toAnimate = new Set<string>()
+      for (let i = chatMessages.length - 1; i >= 0; i--) {
+        const message = chatMessages[i]
+        if (prevIds.has(message.id)) break
+        toAnimate.add(message.id)
+      }
+      if (toAnimate.size > 0) {
+        setEnteringMessageIds(toAnimate)
+      }
+    }
+
+    prevMessageIdsRef.current = new Set(chatMessages.map((m) => m.id))
+  }, [chatMessages, suppressHistoryReveal, messagesQuery.isFetchingNextPage])
+
+  useEffect(() => {
+    if (enteringMessageIds.size === 0) return
+    const id = window.setTimeout(
+      () => setEnteringMessageIds(new Set()),
+      MESSAGE_ENTER_MS
+    )
+    return () => window.clearTimeout(id)
+  }, [enteringMessageIds])
+
+  useEffect(() => {
+    isInitialLoadRef.current = true
+    prevMessageCountRef.current = 0
+    prevMessageIdsRef.current = new Set()
+    isAtBottomRef.current = true
+    skipNextAutoScrollRef.current = false
+    isLoadingMoreRef.current = false
+    setSuppressHistoryReveal(false)
+    setEnteringMessageIds(new Set())
+    setNewMessageCount(0)
+    setIsScrolledAwayFromBottom(false)
+  }, [chatId])
 
   const isCurrentUserMessage = (message: ChatMessage) => {
     if (!currentUserIdentity) return false
@@ -199,6 +260,8 @@ export function ChatMessageList({
       skipNextAutoScrollRef.current = true
       isLoadingMoreRef.current = false
       prevMessageCountRef.current = chatMessages.length
+      setSuppressHistoryReveal(true)
+      requestAnimationFrame(() => setSuppressHistoryReveal(false))
       return
     }
 
@@ -340,6 +403,7 @@ export function ChatMessageList({
           rootMargin='100px'
         />
 
+        <div className='flex flex-col gap-4'>
         {Object.keys(groupedMessages).map((key) => (
           <Fragment key={key}>
             {/* Date separator */}
@@ -444,8 +508,11 @@ export function ChatMessageList({
 
                       <div
                         className={cn(
-                          'message-content relative min-w-0 max-w-[70%] px-2 py-2 wrap-break-word',
-                          getChatBubbleToneClass(isSent)
+                          'message-content relative min-w-0 max-w-[70%] px-2 py-2 wrap-break-word transition-[opacity,transform,max-height] duration-300 ease-out',
+                          getChatBubbleToneClass(isSent),
+                          isDeleted && 'scale-[0.97] opacity-60',
+                          enteringMessageIds.has(message.id) &&
+                            'animate-in fade-in-0 slide-in-from-bottom-2 fill-mode-backwards duration-200 ease-out'
                         )}
                       >
                         {isDeleted ? (
@@ -529,6 +596,7 @@ export function ChatMessageList({
             })}
           </Fragment>
         ))}
+        </div>
         <div ref={messagesEndRef} />
       </div>
 
