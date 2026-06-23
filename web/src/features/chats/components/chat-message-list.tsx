@@ -25,6 +25,9 @@ import {
   EntityAvatar,
   GeneralError,
   LoadMoreTrigger,
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
   cn,
   Skeleton,
   getChatBubbleToneClass,
@@ -558,28 +561,40 @@ export function ChatMessageList({
         </div>
       ) : isScrolledAwayFromBottom && !searchActive ? (
         <div className='absolute left-1/2 bottom-3 z-10'>
-          <Button
-            type='button'
-            variant='outline'
-            size='icon'
-            className='bg-background relative size-10 rounded-full shadow-md'
-            onClick={scrollToBottom}
-            aria-label={
-              newMessageCount > 0
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <Button
+                type='button'
+                variant='outline'
+                size='icon'
+                className='bg-background relative size-10 rounded-full shadow-md'
+                onClick={scrollToBottom}
+                aria-label={
+                  newMessageCount > 0
+                    ? plural(newMessageCount, {
+                      one: 'Jump to 1 new message',
+                      other: 'Jump to # new messages',
+                    })
+                    : t`Jump to bottom`
+                }
+              >
+                <ChevronsDown className='size-5' />
+                {newMessageCount > 0 ? (
+                  <span className='bg-primary absolute -start-1 -top-1 flex min-h-5 min-w-5 items-center justify-center rounded-full px-1 text-[10px] font-semibold text-white'>
+                    {newMessageCount > 99 ? '99+' : formatNumber(newMessageCount)}
+                  </span>
+                ) : null}
+              </Button>
+            </TooltipTrigger>
+            <TooltipContent>
+              {newMessageCount > 0
                 ? plural(newMessageCount, {
                   one: 'Jump to 1 new message',
                   other: 'Jump to # new messages',
                 })
-                : t`Jump to bottom`
-            }
-          >
-            <ChevronsDown className='size-5' />
-            {newMessageCount > 0 ? (
-              <span className='bg-primary absolute -start-1 -top-1 flex min-h-5 min-w-5 items-center justify-center rounded-full px-1 text-[10px] font-semibold text-white'>
-                {newMessageCount > 99 ? '99+' : formatNumber(newMessageCount)}
-              </span>
-            ) : null}
-          </Button>
+                : t`Jump to bottom`}
+            </TooltipContent>
+          </Tooltip>
         </div>
       ) : null}
     </div>

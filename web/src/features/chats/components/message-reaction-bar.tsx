@@ -74,18 +74,23 @@ export function MessageReactionPicker({
               document.body
             )
           : null}
-        <PopoverTrigger asChild>
-          <Button
-            type='button'
-            variant='ghost'
-            size='icon'
-            className='size-6'
-            aria-label={t`Add reaction`}
-            onClick={(e) => e.stopPropagation()}
-          >
-            <SmilePlus className='size-3.5' />
-          </Button>
-        </PopoverTrigger>
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <PopoverTrigger asChild>
+              <Button
+                type='button'
+                variant='ghost'
+                size='icon'
+                className='size-6'
+                aria-label={t`Add reaction`}
+                onClick={(e) => e.stopPropagation()}
+              >
+                <SmilePlus className='size-3.5' />
+              </Button>
+            </PopoverTrigger>
+          </TooltipTrigger>
+          <TooltipContent>{t`Add reaction`}</TooltipContent>
+        </Tooltip>
         <PopoverContent
           className='w-auto p-2'
           side='bottom'

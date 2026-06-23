@@ -15,7 +15,7 @@ import {
   useState,
 } from 'react'
 import { Trans, useLingui } from '@lingui/react/macro'
-import { Button, cn } from '@mochi/web'
+import { Button, Tooltip, TooltipContent, TooltipTrigger, cn } from '@mochi/web'
 import { Loader2, Paperclip, Send, X } from 'lucide-react'
 import type { PendingAttachment } from '../utils'
 import type { ReplyTarget } from '../utils/reply'
@@ -148,14 +148,19 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(
                 </div>
               ) : null}
             </div>
-            <button
-              type='button'
-              className='text-muted-foreground hover:text-foreground shrink-0 rounded p-0.5'
-              onClick={onClearReply}
-              aria-label={t`Cancel reply`}
-            >
-              <X className='size-4' />
-            </button>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <button
+                  type='button'
+                  className='text-muted-foreground hover:text-foreground shrink-0 rounded p-0.5'
+                  onClick={onClearReply}
+                  aria-label={t`Cancel reply`}
+                >
+                  <X className='size-4' />
+                </button>
+              </TooltipTrigger>
+              <TooltipContent>{t`Cancel reply`}</TooltipContent>
+            </Tooltip>
           </div>
         ) : null}
         {hasPendingAttachments && (
@@ -207,17 +212,22 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(
                       <span className='truncate'>{attachment.file.name}</span>
                     </div>
                   )}
-                  <button
-                    type='button'
-                    className='absolute -top-1.5 -end-1.5 flex size-5 items-center justify-center rounded-full bg-black/70 text-white hover:bg-black/90'
-                    onClick={(e) => {
-                      e.stopPropagation()
-                      onRemoveAttachment(attachment.id)
-                    }}
-                    aria-label={t`Remove ${attachment.file.name}`}
-                  >
-                    <X className='size-3' />
-                  </button>
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <button
+                        type='button'
+                        className='absolute -top-1.5 -end-1.5 flex size-5 items-center justify-center rounded-full bg-black/70 text-white hover:bg-black/90'
+                        onClick={(e) => {
+                          e.stopPropagation()
+                          onRemoveAttachment(attachment.id)
+                        }}
+                        aria-label={t`Remove ${attachment.file.name}`}
+                      >
+                        <X className='size-3' />
+                      </button>
+                    </TooltipTrigger>
+                    <TooltipContent>{t`Remove ${attachment.file.name}`}</TooltipContent>
+                  </Tooltip>
                 </div>
               )
             })}
@@ -225,15 +235,20 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(
         )}
         <div className='flex w-full items-end gap-2 px-4 py-2'>
           <div className='flex items-end pb-0.5'>
-            <Button
-              size='icon'
-              type='button'
-              variant='ghost'
-              onClick={() => fileInputRef.current?.click()}
-              aria-label={t`Add attachment`}
-            >
-              <Paperclip size={16} className='stroke-muted-foreground' />
-            </Button>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Button
+                  size='icon'
+                  type='button'
+                  variant='ghost'
+                  onClick={() => fileInputRef.current?.click()}
+                  aria-label={t`Add attachment`}
+                >
+                  <Paperclip size={16} className='stroke-muted-foreground' />
+                </Button>
+              </TooltipTrigger>
+              <TooltipContent>{t`Add attachment`}</TooltipContent>
+            </Tooltip>
           </div>
           <label className='flex-1'>
             <span className='sr-only'><Trans>Chat Text Box</Trans></span>
@@ -253,19 +268,24 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(
             />
           </label>
           <div className='flex items-end pb-0.5'>
-            <Button
-              type='submit'
-              size='icon'
-              className='bg-primary hover:bg-primary/80 transition-colors'
-              disabled={isSendDisabled}
-              aria-label={t`Send message`}
-            >
-              {isSending ? (
-                <Loader2 size={16} className='animate-spin' />
-              ) : (
-                <Send size={16} />
-              )}
-            </Button>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Button
+                  type='submit'
+                  size='icon'
+                  className='bg-primary hover:bg-primary/80 transition-colors'
+                  disabled={isSendDisabled}
+                  aria-label={t`Send message`}
+                >
+                  {isSending ? (
+                    <Loader2 size={16} className='animate-spin' />
+                  ) : (
+                    <Send size={16} />
+                  )}
+                </Button>
+              </TooltipTrigger>
+              <TooltipContent>{t`Send message`}</TooltipContent>
+            </Tooltip>
           </div>
           <input
             ref={fileInputRef}
