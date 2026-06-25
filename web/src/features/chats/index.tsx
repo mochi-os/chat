@@ -6,7 +6,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { Trans, useLingui } from '@lingui/react/macro'
 import { plural } from '@lingui/core/macro'
-import { useAuthStore, usePageTitle, PageHeader, Main, GeneralError, Button, Checkbox, ConfirmDialog, EntityAvatar, IconButton, DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger, Label, toast, getErrorMessage, shellClipboardWrite } from '@mochi/web'
+import { useAuthStore, usePageTitle, PageHeader, Main, GeneralError, Button, Checkbox, ConfirmDialog, EntityAvatar, IconButton, DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger, Label, toast, toastAction, getErrorMessage, shellClipboardWrite } from '@mochi/web'
 import { useMessageSelection } from '@/hooks/use-message-selection'
 import { useNavigate, useParams, useSearch } from '@tanstack/react-router'
 import { useQueryClient, type InfiniteData } from '@tanstack/react-query'
@@ -464,30 +464,45 @@ export function Chats() {
         void navigate({ to: '/' })
       }
     },
-    onError: (error) => {
-      toast.error(getErrorMessage(error, t`Failed to leave chat`))
-    },
   })
 
-  const handleLeaveChat = () => {
+  const handleLeaveChat = async () => {
     if (!selectedChat) return
-    leaveChatMutation.mutate({ chatId: selectedChat.id, delete: deleteOnLeave })
+    try {
+      await toastAction(
+        leaveChatMutation.mutateAsync({
+          chatId: selectedChat.id,
+          delete: deleteOnLeave,
+        }),
+        {
+          loading: t`Leaving chat...`,
+          success: t`Left chat`,
+          error: (error) => getErrorMessage(error, t`Failed to leave chat`),
+        }
+      )
+    } catch {
+      // toastAction already showed error
+    }
   }
 
   // Delete chat (for left chats)
-  const deleteChatMutation = useDeleteChatMutation({
-    onSuccess: () => {
-      toast.success(t`Chat deleted`)
-      void navigate({ to: '/' })
-    },
-    onError: (error) => {
-      toast.error(getErrorMessage(error, t`Failed to delete chat`))
-    },
-  })
+  const deleteChatMutation = useDeleteChatMutation()
 
-  const handleDeleteChat = () => {
+  const handleDeleteChat = async () => {
     if (!selectedChat) return
-    deleteChatMutation.mutate({ chatId: selectedChat.id })
+    try {
+      await toastAction(
+        deleteChatMutation.mutateAsync({ chatId: selectedChat.id }),
+        {
+          loading: t`Deleting chat...`,
+          success: t`Chat deleted`,
+          error: (error) => getErrorMessage(error, t`Failed to delete chat`),
+        }
+      )
+      void navigate({ to: '/' })
+    } catch {
+      // toastAction already showed error
+    }
   }
 
   // WebSocket

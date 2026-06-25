@@ -17,7 +17,7 @@ import {
   Main,
   usePageTitle,
   getErrorMessage,
-  toast,
+  toastAction,
   useAuthStore,
   GeneralError,
   ListSkeleton,
@@ -187,14 +187,7 @@ function ChatSettingsPage() {
 function ChatNameSection({ chatId, name }: { chatId: string, name: string }) {
   const { t } = useLingui()
 
-  const renameMutation = useRenameChatMutation({
-    onSuccess: () => {
-      toast.success(t`Chat renamed`)
-    },
-    onError: (error) => {
-      toast.error(getErrorMessage(error, t`Failed to rename chat`))
-    },
-  })
+  const renameMutation = useRenameChatMutation()
 
   const validateName = (value: string): string | null => {
     if (!value.trim()) return t`Chat name is required`
@@ -208,7 +201,15 @@ function ChatNameSection({ chatId, name }: { chatId: string, name: string }) {
         label={t`Chat name`}
         value={name}
         onSave={async (newName) => {
-          await renameMutation.mutateAsync({ chatId, name: newName })
+          await toastAction(
+            renameMutation.mutateAsync({ chatId, name: newName }),
+            {
+              loading: t`Renaming chat...`,
+              success: t`Chat renamed`,
+              error: (error) =>
+                getErrorMessage(error, t`Failed to rename chat`),
+            }
+          )
         }}
         validate={validateName}
         emphasize
@@ -314,18 +315,22 @@ function LeaveDialog({
   const { t } = useLingui()
   const [deleteOnLeave, setDeleteOnLeave] = useState(false)
 
-  const leaveMutation = useLeaveChatMutation({
-    onSuccess: () => {
-      toast.success(t`Left chat`)
-      onSuccess()
-    },
-    onError: (error) => {
-      toast.error(getErrorMessage(error, t`Failed to leave chat`))
-    },
-  })
+  const leaveMutation = useLeaveChatMutation()
 
-  const handleLeave = () => {
-    leaveMutation.mutate({ chatId, delete: deleteOnLeave })
+  const handleLeave = async () => {
+    try {
+      await toastAction(
+        leaveMutation.mutateAsync({ chatId, delete: deleteOnLeave }),
+        {
+          loading: t`Leaving chat...`,
+          success: t`Left chat`,
+          error: (error) => getErrorMessage(error, t`Failed to leave chat`),
+        }
+      )
+      onSuccess()
+    } catch {
+      // toastAction already showed error
+    }
   }
 
   return (
@@ -385,16 +390,7 @@ function AddMemberDialog({
       enabled: open,
     })
 
-  const addMemberMutation = useAddMemberMutation({
-    onSuccess: () => {
-      toast.success(t`Member added`)
-      onSuccess()
-      onOpenChange(false)
-    },
-    onError: (error) => {
-      toast.error(getErrorMessage(error, t`Failed to add member`))
-    },
-  })
+  const addMemberMutation = useAddMemberMutation()
 
   const availableFriends = useMemo(() => {
     if (!friendsData?.friends) return []
@@ -409,8 +405,21 @@ function AddMemberDialog({
     if (!open) setFilter('')
   }, [open])
 
-  const handleAddMember = (memberId: string) => {
-    addMemberMutation.mutate({ chatId, member: memberId })
+  const handleAddMember = async (memberId: string) => {
+    try {
+      await toastAction(
+        addMemberMutation.mutateAsync({ chatId, member: memberId }),
+        {
+          loading: t`Adding member...`,
+          success: t`Member added`,
+          error: (error) => getErrorMessage(error, t`Failed to add member`),
+        }
+      )
+      onSuccess()
+      onOpenChange(false)
+    } catch {
+      // toastAction already showed error
+    }
   }
 
   return (
@@ -499,19 +508,23 @@ function RemoveMemberDialog({
   onSuccess: () => void
 }) {
   const { t } = useLingui()
-  const removeMemberMutation = useRemoveMemberMutation({
-    onSuccess: () => {
-      toast.success(t`Member removed`)
-      onSuccess()
-    },
-    onError: (error) => {
-      toast.error(getErrorMessage(error, t`Failed to remove member`))
-    },
-  })
+  const removeMemberMutation = useRemoveMemberMutation()
 
-  const handleRemove = () => {
+  const handleRemove = async () => {
     if (!member) return
-    removeMemberMutation.mutate({ chatId, member: member.id })
+    try {
+      await toastAction(
+        removeMemberMutation.mutateAsync({ chatId, member: member.id }),
+        {
+          loading: t`Removing member...`,
+          success: t`Member removed`,
+          error: (error) => getErrorMessage(error, t`Failed to remove member`),
+        }
+      )
+      onSuccess()
+    } catch {
+      // toastAction already showed error
+    }
   }
 
   return (

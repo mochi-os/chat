@@ -19,7 +19,7 @@ import {
   Skeleton,
   cn,
   getErrorMessage,
-  toast,
+  toastAction,
 } from '@mochi/web'
 import { Forward, Loader2, MessageCircle, Users } from 'lucide-react'
 import {
@@ -56,22 +56,8 @@ export function ForwardDialog({
   const chatsQuery = useChatsQuery({ enabled: open })
   const friendsQuery = useNewChatFriendsQuery({ enabled: open })
 
-  const createChatMutation = useCreateChatMutation({
-    onError: (error) => {
-      toast.error(getErrorMessage(error, t`Failed to create chat`))
-    },
-  })
-
-  const forwardMutation = useForwardMessagesMutation({
-    onSuccess: (data) => {
-      toast.success(t`Forwarded`)
-      onForwarded?.(data.to_chat)
-      onOpenChange(false)
-    },
-    onError: (error) => {
-      toast.error(getErrorMessage(error, t`Failed to forward`))
-    },
-  })
+  const createChatMutation = useCreateChatMutation()
+  const forwardMutation = useForwardMessagesMutation()
 
   // Eligible destinations, kept in two groups: existing active chats (excluding
   // the source) and friends without an existing direct chat yet.
@@ -112,27 +98,36 @@ export function ForwardDialog({
   const handleForward = async () => {
     if (!selectedDest || messageIds.length === 0) return
 
-    if (selectedDest.kind === 'chat') {
-      forwardMutation.mutate({
+    const forwardToChat = async (toChat: string) => {
+      const data = await forwardMutation.mutateAsync({
         chatId: sourceChatId,
         messageIds,
-        toChat: selectedDest.id,
+        toChat,
       })
-    } else {
-      // No existing chat with this friend — create it first, then forward.
-      try {
-        const newChat = await createChatMutation.mutateAsync({
-          members: selectedDest.id,
-          name: selectedDest.name,
-        })
-        forwardMutation.mutate({
-          chatId: sourceChatId,
-          messageIds,
-          toChat: newChat.fingerprint ?? newChat.id,
-        })
-      } catch {
-        // Error already shown by createChatMutation onError.
-      }
+      return data
+    }
+
+    try {
+      const data = await toastAction(
+        selectedDest.kind === 'chat'
+          ? forwardToChat(selectedDest.id)
+          : (async () => {
+              const newChat = await createChatMutation.mutateAsync({
+                members: selectedDest.id,
+                name: selectedDest.name,
+              })
+              return forwardToChat(newChat.fingerprint ?? newChat.id)
+            })(),
+        {
+          loading: t`Forwarding...`,
+          success: t`Forwarded`,
+          error: (error) => getErrorMessage(error, t`Failed to forward`),
+        }
+      )
+      onForwarded?.(data.to_chat)
+      onOpenChange(false)
+    } catch {
+      // toastAction already showed error
     }
   }
 

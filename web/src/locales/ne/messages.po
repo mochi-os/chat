@@ -18,12 +18,12 @@ msgid " (includes you)"
 msgstr " (तपाईं समावेश)"
 
 #. placeholder {0}: deleteTargetIds?.length ?? 0
-#: src/features/chats/index.tsx:859
+#: src/features/chats/index.tsx:875
 msgid "{0, plural, one {Delete message?} other {Delete # messages?}}"
 msgstr "{0, plural, one {सन्देश मेटाउने हो?} other {# सन्देशहरू मेटाउने हो?}}"
 
 #. placeholder {0}: selectedIds.size
-#: src/features/chats/index.tsx:735
+#: src/features/chats/index.tsx:751
 msgid "{0} selected"
 msgstr "{0} चयन गरिएको"
 
@@ -33,8 +33,8 @@ msgstr "{0} चयन गरिएको"
 msgid "{0} settings"
 msgstr "{0} सेटिङहरू"
 
-#: src/features/chats/components/chat-message-list.tsx:574
-#: src/features/chats/components/chat-message-list.tsx:591
+#: src/features/chats/components/chat-message-list.tsx:642
+#: src/features/chats/components/chat-message-list.tsx:659
 msgid "{newMessageCount, plural, one {Jump to 1 new message} other {Jump to # new messages}}"
 msgstr "{newMessageCount, plural, one {1 नयाँ सन्देशमा जानुहोस्} other {# नयाँ सन्देशहरूमा जानुहोस्}}"
 
@@ -79,7 +79,7 @@ msgid "Add"
 msgstr "थप्नुहोस्"
 
 #. placeholder {0}: friend.name
-#: src/routes/_authenticated/$chatId_.settings.tsx:463
+#: src/routes/_authenticated/$chatId_.settings.tsx:472
 msgid "Add {0} to chat"
 msgstr "{0} लाई च्याटमा थप्नुहोस्"
 
@@ -105,8 +105,8 @@ msgstr "सूचनाहरू प्राप्त गर्न र से�
 msgid "Add attachment"
 msgstr "एट्याचमेन्ट थप्नुहोस्"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:251
-#: src/routes/_authenticated/$chatId_.settings.tsx:422
+#: src/routes/_authenticated/$chatId_.settings.tsx:252
+#: src/routes/_authenticated/$chatId_.settings.tsx:431
 msgid "Add member"
 msgstr "सदस्य थप्नुहोस्"
 
@@ -136,8 +136,12 @@ msgstr "अवस्थित सूचनाहरूमा थप्नुह�
 msgid "Add view"
 msgstr "दृश्य थप्नुहोस्"
 
+#: src/routes/_authenticated/$chatId_.settings.tsx:413
+msgid "Adding member..."
+msgstr ""
+
 #: src/routes/_authenticated/$chatId_.settings.tsx:128
-#: src/routes/_authenticated/$chatId_.settings.tsx:206
+#: src/routes/_authenticated/$chatId_.settings.tsx:199
 msgid "Adjust chat settings"
 msgstr "च्याट सेटिङ समायोजन गर्नुहोस्"
 
@@ -157,7 +161,7 @@ msgstr "AI"
 msgid "All"
 msgstr "सबै"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:451
+#: src/routes/_authenticated/$chatId_.settings.tsx:460
 msgid "All your friends are already in this chat"
 msgstr "तपाईंका सबै साथीहरू यस च्याटमा पहिले नै छन्"
 
@@ -178,11 +182,11 @@ msgid "Angry"
 msgstr "रिसाएको"
 
 #. placeholder {0}: selectedChat?.name
-#: src/features/chats/index.tsx:827
+#: src/features/chats/index.tsx:843
 msgid "Are you sure you want to leave \"{0}\"? You can be added back by other members."
 msgstr "के तपाईं \"{0}\" छोड्न निश्चित हुनुहुन्छ? अन्य सदस्यहरूले तपाईंलाई फेरि थप्न सक्छन्।"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:339
+#: src/routes/_authenticated/$chatId_.settings.tsx:344
 msgid "Are you sure you want to leave \"{chatName}\"? You can be added back by other members."
 msgstr "के तपाईं \"{chatName}\" छोड्न निश्चित हुनुहुन्छ? अन्य सदस्यहरूले तपाईंलाई फेरि थप्न सक्छन्।"
 
@@ -191,7 +195,7 @@ msgid "Are you sure you want to log out? You will need to log in again to access
 msgstr "के तपाईं लग आउट गर्न निश्चित हुनुहुन्छ? तपाईंको खाता पहुँच गर्न पुनः लग इन गर्नुपर्नेछ।"
 
 #. placeholder {0}: member?.name
-#: src/routes/_authenticated/$chatId_.settings.tsx:522
+#: src/routes/_authenticated/$chatId_.settings.tsx:535
 msgid "Are you sure you want to remove {0} from this chat?"
 msgstr "के तपाईं पक्का {0} लाई यस च्याटबाट हटाउन चाहनुहुन्छ?"
 
@@ -228,7 +232,7 @@ msgstr "च्याटमा फर्कनुहोस्"
 msgid "Back to home"
 msgstr "गृहमा फर्कनुहोस्"
 
-#: src/features/chats/components/chat-message-list.tsx:322
+#: src/features/chats/components/chat-message-list.tsx:385
 msgid "Be the first to say something!"
 msgstr "केही भन्ने पहिलो व्यक्ति बन्नुहोस्!"
 
@@ -246,10 +250,10 @@ msgstr "रुचि बढाउनुहोस्"
 #: ../../../lib/web/src/features/access/access-list.tsx:263
 #: ../../../lib/web/src/features/accounts/account-add.tsx:188
 #: ../../../lib/web/src/features/accounts/account-verify.tsx:89
-#: src/features/chats/components/chat-message-list.tsx:558
-#: src/features/chats/components/forward-dialog.tsx:254
-#: src/features/chats/components/new-chat.tsx:259
-#: src/features/chats/index.tsx:768
+#: src/features/chats/components/chat-message-list.tsx:626
+#: src/features/chats/components/forward-dialog.tsx:249
+#: src/features/chats/components/new-chat.tsx:265
+#: src/features/chats/index.tsx:784
 msgid "Cancel"
 msgstr "रद्द गर्नुहोस्"
 
@@ -270,40 +274,40 @@ msgstr "सूचना श्रेणी परिवर्तन गर्न
 #: src/features/chats/index.tsx:73
 #: src/features/chats/index.tsx:185
 #: src/features/chats/index.tsx:185
-#: src/features/chats/index.tsx:579
+#: src/features/chats/index.tsx:594
 msgid "Chat"
 msgstr "च्याट"
 
-#: src/features/chats/components/new-chat.tsx:56
+#: src/features/chats/components/new-chat.tsx:132
 msgid "Chat created"
 msgstr "च्याट सिर्जना गरियो"
 
-#: src/features/chats/index.tsx:480
+#: src/features/chats/index.tsx:498
 msgid "Chat deleted"
 msgstr "च्याट मेटाइयो"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:216
+#: src/routes/_authenticated/$chatId_.settings.tsx:217
 msgid "Chat ID"
 msgstr "च्याट ID"
 
-#: src/components/layout/chat-layout.tsx:127
+#: src/components/layout/chat-layout.tsx:134
 msgid "Chat marked as read"
 msgstr "च्याट पढिएको रूपमा चिन्ह लगाइयो"
 
-#: src/components/layout/chat-layout.tsx:145
+#: src/components/layout/chat-layout.tsx:148
 msgid "Chat marked as unread"
 msgstr "च्याट नपढिएको रूपमा चिन्ह लगाइयो"
 
-#: src/features/chats/components/new-chat.tsx:243
-#: src/routes/_authenticated/$chatId_.settings.tsx:208
+#: src/features/chats/components/new-chat.tsx:249
+#: src/routes/_authenticated/$chatId_.settings.tsx:201
 msgid "Chat name"
 msgstr "च्याटको नाम"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:200
+#: src/routes/_authenticated/$chatId_.settings.tsx:193
 msgid "Chat name is required"
 msgstr "च्याटको नाम आवश्यक छ"
 
-#: src/features/chats/components/new-chat.tsx:246
+#: src/features/chats/components/new-chat.tsx:252
 msgid "Chat name..."
 msgstr "च्याटको नाम..."
 
@@ -311,19 +315,19 @@ msgstr "च्याटको नाम..."
 msgid "Chat not found"
 msgstr "च्याट फेला परेन"
 
-#: src/components/layout/chat-layout.tsx:153
+#: src/components/layout/chat-layout.tsx:156
 msgid "Chat pinned"
 msgstr "च्याट पिन गरियो"
 
-#: src/features/chats/components/new-chat.tsx:54
+#: src/features/chats/components/new-chat.tsx:132
 msgid "Chat ready"
 msgstr "च्याट तयार"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:192
+#: src/routes/_authenticated/$chatId_.settings.tsx:208
 msgid "Chat renamed"
 msgstr "च्याटको नाम परिवर्तन गरियो"
 
-#: src/features/chats/index.tsx:669
+#: src/features/chats/index.tsx:684
 #: src/routes/_authenticated/$chatId_.settings.tsx:84
 #: src/routes/_authenticated/$chatId_.settings.tsx:97
 #: src/routes/_authenticated/$chatId_.settings.tsx:108
@@ -335,20 +339,20 @@ msgstr "च्याट सेटिङ"
 msgid "Chat Text Box"
 msgstr "च्याट टेक्स्ट बक्स"
 
-#: src/components/layout/chat-layout.tsx:161
+#: src/components/layout/chat-layout.tsx:164
 msgid "Chat unpinned"
 msgstr "च्याट अनपिन गरियो"
 
-#: src/components/layout/chat-layout.tsx:250
-#: src/features/chats/components/forward-dialog.tsx:230
+#: src/components/layout/chat-layout.tsx:254
+#: src/features/chats/components/forward-dialog.tsx:225
 msgid "Chats"
 msgstr "च्याटहरू"
 
-#: src/features/chats/components/new-chat.tsx:190
+#: src/features/chats/components/new-chat.tsx:196
 msgid "Chats are between friends. Add a friend in the People app first."
 msgstr "च्याटहरू साथीहरूबीच हुन्छन्। पहिले People एपमा साथी थप्नुहोस्।"
 
-#: src/features/chats/components/forward-dialog.tsx:191
+#: src/features/chats/components/forward-dialog.tsx:186
 msgid "Choose a chat or friend to forward the selected messages to"
 msgstr "चयन गरिएका सन्देशहरू फर्वार्ड गर्न कुराकानी वा साथी छान्नुहोस्"
 
@@ -394,8 +398,8 @@ msgstr "सबै खाली गर्नुहोस्"
 msgid "Clear filters"
 msgstr "फिल्टरहरू खाली गर्नुहोस्"
 
-#: src/features/chats/components/forward-dialog.tsx:200
-#: src/routes/_authenticated/$chatId_.settings.tsx:434
+#: src/features/chats/components/forward-dialog.tsx:195
+#: src/routes/_authenticated/$chatId_.settings.tsx:443
 msgid "Clear search"
 msgstr "खोजी खाली गर्नुहोस्"
 
@@ -432,8 +436,8 @@ msgstr "खोजी बन्द गर्नुहोस्"
 
 #: ../../../lib/web/src/components/comment-tree-layout.tsx:101
 #: ../../../lib/web/src/components/comment-tree-layout.tsx:110
-#: ../../../lib/web/src/components/tree-row.tsx:255
-#: ../../../lib/web/src/components/tree-row.tsx:269
+#: ../../../lib/web/src/components/tree-row.tsx:253
+#: ../../../lib/web/src/components/tree-row.tsx:267
 msgid "Collapse"
 msgstr "संक्षिप्त गर्नुहोस्"
 
@@ -481,7 +485,7 @@ msgstr "कपी गरियो"
 
 #: ../../../lib/web/src/components/ui/copy-button.tsx:63
 #: src/features/chats/components/message-hover-actions.tsx:103
-#: src/features/chats/index.tsx:744
+#: src/features/chats/index.tsx:760
 msgid "Copy"
 msgstr "प्रतिलिपि"
 
@@ -501,16 +505,20 @@ msgstr "पुन: प्रमाणीकरण सुरु गर्न स�
 msgid "Couldn't verify with that account. Please try again."
 msgstr "त्यो खातासँग प्रमाणित गर्न सकिएन। कृपया फेरि प्रयास गर्नुहोस्।"
 
-#: src/features/chats/components/new-chat.tsx:173
+#: src/features/chats/components/new-chat.tsx:179
 msgid "Create a new chat"
 msgstr "नयाँ च्याट सिर्जना गर्नुहोस्"
 
-#: src/components/layout/chat-layout.tsx:258
-#: src/features/chats/components/new-chat.tsx:267
+#: src/components/layout/chat-layout.tsx:264
+#: src/features/chats/components/new-chat.tsx:273
 msgid "Create chat"
 msgstr "च्याट सिर्जना गर्नुहोस्"
 
-#: src/features/chats/components/new-chat.tsx:267
+#: src/features/chats/components/new-chat.tsx:131
+msgid "Creating chat..."
+msgstr ""
+
+#: src/features/chats/components/new-chat.tsx:273
 msgid "Creating..."
 msgstr "सिर्जना गर्दै..."
 
@@ -540,18 +548,18 @@ msgid "Default AI account"
 msgstr "पूर्वनिर्धारित AI खाता"
 
 #: src/features/chats/components/message-hover-actions.tsx:135
-#: src/features/chats/index.tsx:761
-#: src/features/chats/index.tsx:871
+#: src/features/chats/index.tsx:777
+#: src/features/chats/index.tsx:887
 msgid "Delete"
 msgstr "मेटाउनुहोस्"
 
-#: src/features/chats/index.tsx:652
-#: src/features/chats/index.tsx:792
+#: src/features/chats/index.tsx:667
+#: src/features/chats/index.tsx:808
 msgid "Delete chat"
 msgstr "च्याट मेटाउनुहोस्"
 
-#: src/features/chats/index.tsx:849
-#: src/routes/_authenticated/$chatId_.settings.tsx:361
+#: src/features/chats/index.tsx:865
+#: src/routes/_authenticated/$chatId_.settings.tsx:366
 msgid "Delete chat history"
 msgstr "च्याट इतिहास मेटाउनुहोस्"
 
@@ -559,7 +567,11 @@ msgstr "च्याट इतिहास मेटाउनुहोस्"
 msgid "Delete your account on the old server"
 msgstr "पुरानो सर्भरमा आफ्नो खाता मेटाउनुहोस्"
 
-#: src/features/chats/index.tsx:868
+#: src/features/chats/index.tsx:497
+msgid "Deleting chat..."
+msgstr ""
+
+#: src/features/chats/index.tsx:884
 msgid "Deleting..."
 msgstr "मेटाउँदै..."
 
@@ -634,8 +646,8 @@ msgstr "आफ्नो प्रमाणक कोड हाल्नुहो
 
 #: ../../../lib/web/src/components/comment-tree-layout.tsx:101
 #: ../../../lib/web/src/components/comment-tree-layout.tsx:110
-#: ../../../lib/web/src/components/tree-row.tsx:255
-#: ../../../lib/web/src/components/tree-row.tsx:269
+#: ../../../lib/web/src/components/tree-row.tsx:253
+#: ../../../lib/web/src/components/tree-row.tsx:267
 msgid "Expand"
 msgstr "विस्तार गर्नुहोस्"
 
@@ -651,7 +663,7 @@ msgstr "अतिरिक्त ठूलो"
 msgid "Failed to add account"
 msgstr "खाता थप्न असफल"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:395
+#: src/routes/_authenticated/$chatId_.settings.tsx:415
 msgid "Failed to add member"
 msgstr "सदस्य थप्न असफल"
 
@@ -663,8 +675,7 @@ msgstr "प्रतिलिपि गर्न असफल"
 msgid "Failed to copy message"
 msgstr "सन्देश कपी गर्न सकिएन"
 
-#: src/features/chats/components/forward-dialog.tsx:61
-#: src/features/chats/components/new-chat.tsx:60
+#: src/features/chats/components/new-chat.tsx:133
 msgid "Failed to create chat"
 msgstr "च्याट सिर्जना गर्न असफल"
 
@@ -672,20 +683,20 @@ msgstr "च्याट सिर्जना गर्न असफल"
 msgid "Failed to delete"
 msgstr "मेटाउन असफल"
 
-#: src/features/chats/index.tsx:484
+#: src/features/chats/index.tsx:499
 msgid "Failed to delete chat"
 msgstr "च्याट मेटाउन असफल"
 
-#: src/features/chats/components/forward-dialog.tsx:72
+#: src/features/chats/components/forward-dialog.tsx:124
 msgid "Failed to forward"
 msgstr "फर्वार्ड गर्न सकिएन"
 
-#: src/features/chats/index.tsx:468
-#: src/routes/_authenticated/$chatId_.settings.tsx:323
+#: src/features/chats/index.tsx:480
+#: src/routes/_authenticated/$chatId_.settings.tsx:327
 msgid "Failed to leave chat"
 msgstr "च्याट छोड्न असफल"
 
-#: src/components/layout/chat-layout.tsx:130
+#: src/components/layout/chat-layout.tsx:136
 msgid "Failed to mark chat as read"
 msgstr "च्याट पढिएको रूपमा चिन्ह लगाउन सकिएन"
 
@@ -693,15 +704,15 @@ msgstr "च्याट पढिएको रूपमा चिन्ह ल�
 msgid "Failed to remove account"
 msgstr "खाता हटाउन असफल"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:508
+#: src/routes/_authenticated/$chatId_.settings.tsx:521
 msgid "Failed to remove member"
 msgstr "सदस्य हटाउन असफल"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:195
+#: src/routes/_authenticated/$chatId_.settings.tsx:210
 msgid "Failed to rename chat"
 msgstr "च्याटको नाम परिवर्तन गर्न असफल"
 
-#: src/features/chats/index.tsx:812
+#: src/features/chats/index.tsx:828
 msgid "Failed to send message"
 msgstr "सन्देश पठाउन असफल"
 
@@ -729,27 +740,31 @@ msgstr "सम्म"
 msgid "Floating"
 msgstr "फ्लोटिङ"
 
-#: src/features/chats/components/forward-dialog.tsx:265
+#: src/features/chats/components/forward-dialog.tsx:260
 #: src/features/chats/components/message-hover-actions.tsx:124
-#: src/features/chats/index.tsx:752
+#: src/features/chats/index.tsx:768
 msgid "Forward"
 msgstr "फर्वार्ड गर्नुहोस्"
 
-#: src/features/chats/components/forward-dialog.tsx:188
+#: src/features/chats/components/forward-dialog.tsx:183
 msgid "Forward to…"
 msgstr "कसलाई फर्वार्ड गर्ने…"
 
-#: src/features/chats/components/forward-dialog.tsx:67
+#: src/features/chats/components/forward-dialog.tsx:123
 msgid "Forwarded"
 msgstr "फर्वार्ड गरियो"
+
+#: src/features/chats/components/forward-dialog.tsx:122
+msgid "Forwarding..."
+msgstr ""
 
 #: ../../../lib/web/src/lib/preference-utils.ts:63
 msgid "Friday"
 msgstr "शुक्रबार"
 
-#: src/features/chats/components/forward-dialog.tsx:238
-#: src/features/chats/components/new-chat.tsx:180
-#: src/routes/_authenticated/$chatId_.settings.tsx:457
+#: src/features/chats/components/forward-dialog.tsx:233
+#: src/features/chats/components/new-chat.tsx:186
+#: src/routes/_authenticated/$chatId_.settings.tsx:466
 msgid "Friends"
 msgstr "साथीहरू"
 
@@ -771,7 +786,7 @@ msgid "Full layout"
 msgstr "पूर्ण लेआउट"
 
 #: src/routes/_authenticated/$chatId_.settings.tsx:128
-#: src/routes/_authenticated/$chatId_.settings.tsx:206
+#: src/routes/_authenticated/$chatId_.settings.tsx:199
 msgid "General"
 msgstr "सामान्य"
 
@@ -840,8 +855,8 @@ msgstr "रुचिहरू"
 msgid "Invalid verification code"
 msgstr "अमान्य प्रमाणीकरण कोड"
 
-#: src/features/chats/components/chat-message-list.tsx:578
-#: src/features/chats/components/chat-message-list.tsx:595
+#: src/features/chats/components/chat-message-list.tsx:646
+#: src/features/chats/components/chat-message-list.tsx:663
 msgid "Jump to bottom"
 msgstr "तल जानुहोस्"
 
@@ -863,26 +878,32 @@ msgstr "लेआउट"
 msgid "Learn more"
 msgstr "थप जान्नुहोस्"
 
-#: src/features/chats/index.tsx:835
+#: src/features/chats/index.tsx:851
 msgid "Leave"
 msgstr "छोड्नुहोस्"
 
-#: src/features/chats/index.tsx:659
-#: src/routes/_authenticated/$chatId_.settings.tsx:347
+#: src/features/chats/index.tsx:674
+#: src/routes/_authenticated/$chatId_.settings.tsx:352
 msgid "Leave chat"
 msgstr "च्याट छोड्नुहोस्"
 
-#: src/features/chats/index.tsx:826
-#: src/routes/_authenticated/$chatId_.settings.tsx:338
+#: src/features/chats/index.tsx:842
+#: src/routes/_authenticated/$chatId_.settings.tsx:343
 msgid "Leave chat?"
 msgstr "च्याट छोड्ने?"
 
-#: src/features/chats/index.tsx:832
-#: src/routes/_authenticated/$chatId_.settings.tsx:344
+#: src/features/chats/index.tsx:478
+#: src/routes/_authenticated/$chatId_.settings.tsx:325
+msgid "Leaving chat..."
+msgstr ""
+
+#: src/features/chats/index.tsx:848
+#: src/routes/_authenticated/$chatId_.settings.tsx:349
 msgid "Leaving..."
 msgstr "छोड्दै..."
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:319
+#: src/features/chats/index.tsx:479
+#: src/routes/_authenticated/$chatId_.settings.tsx:326
 msgid "Left chat"
 msgstr "च्याट छोडियो"
 
@@ -899,7 +920,7 @@ msgstr "उज्यालो"
 msgid "Like"
 msgstr "मन पर्यो"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:247
+#: src/routes/_authenticated/$chatId_.settings.tsx:248
 msgid "List of people in this chat"
 msgstr "यो च्याटका मानिसहरूको सूची"
 
@@ -944,27 +965,31 @@ msgstr "माया"
 msgid "Mark all as read"
 msgstr "सबै पढिएको रूपमा चिन्ह लगाउनुहोस्"
 
-#: src/components/layout/chat-layout.tsx:218
+#: src/components/layout/chat-layout.tsx:221
 msgid "Mark as read"
 msgstr "पढिएको चिन्ह लगाउनुहोस्"
 
-#: src/components/layout/chat-layout.tsx:224
+#: src/components/layout/chat-layout.tsx:227
 msgid "Mark as unread"
 msgstr "नपढिएको चिन्ह लगाउनुहोस्"
+
+#: src/components/layout/chat-layout.tsx:133
+msgid "Marking as read..."
+msgstr ""
 
 #: ../../../lib/web/src/lib/preference-utils.ts:107
 msgid "Medium"
 msgstr "मध्यम"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:390
+#: src/routes/_authenticated/$chatId_.settings.tsx:414
 msgid "Member added"
 msgstr "सदस्य थपियो"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:504
+#: src/routes/_authenticated/$chatId_.settings.tsx:520
 msgid "Member removed"
 msgstr "सदस्य हटाइयो"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:246
+#: src/routes/_authenticated/$chatId_.settings.tsx:247
 msgid "Members"
 msgstr "सदस्यहरू"
 
@@ -1002,7 +1027,7 @@ msgstr "मेट्रिक"
 msgid "Monday"
 msgstr "सोमबार"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:201
+#: src/routes/_authenticated/$chatId_.settings.tsx:194
 msgid "Name must be 1000 characters or less"
 msgstr "नाम १००० वर्ण वा सोभन्दा कम हुनुपर्छ"
 
@@ -1016,7 +1041,7 @@ msgstr "नयाँ"
 
 #: src/features/chats/components/chat-empty-state.tsx:27
 #: src/features/chats/components/chat-empty-state.tsx:43
-#: src/features/chats/components/new-chat.tsx:170
+#: src/features/chats/components/new-chat.tsx:176
 msgid "New chat"
 msgstr "नयाँ च्याट"
 
@@ -1033,7 +1058,7 @@ msgstr "अर्को तस्बिर"
 msgid "No access rules configured. Add rules to control who can access this resource."
 msgstr "कुनै पहुँच नियम कन्फिगर गरिएको छैन। यो स्रोतमा को पहुँच गर्न सक्छ नियन्त्रण गर्न नियमहरू थप्नुहोस्।"
 
-#: src/features/chats/components/forward-dialog.tsx:222
+#: src/features/chats/components/forward-dialog.tsx:217
 msgid "No chats to forward to"
 msgstr "फर्वार्ड गर्न कुनै च्याट छैन"
 
@@ -1041,16 +1066,16 @@ msgstr "फर्वार्ड गर्न कुनै च्याट छ�
 msgid "No connected accounts"
 msgstr "कुनै जडान गरिएको खाता छैन"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:447
+#: src/routes/_authenticated/$chatId_.settings.tsx:456
 msgid "No friends available"
 msgstr "कुनै साथी उपलब्ध छैन"
 
-#: src/features/chats/components/new-chat.tsx:210
-#: src/routes/_authenticated/$chatId_.settings.tsx:447
+#: src/features/chats/components/new-chat.tsx:216
+#: src/routes/_authenticated/$chatId_.settings.tsx:456
 msgid "No friends found"
 msgstr "कुनै साथी भेटिएन"
 
-#: src/features/chats/components/new-chat.tsx:188
+#: src/features/chats/components/new-chat.tsx:194
 msgid "No friends yet"
 msgstr "अहिलेसम्म कुनै साथी छैन"
 
@@ -1058,7 +1083,7 @@ msgstr "अहिलेसम्म कुनै साथी छैन"
 msgid "No groups available"
 msgstr "कुनै समूह उपलब्ध छैन"
 
-#: src/features/chats/components/chat-message-list.tsx:321
+#: src/features/chats/components/chat-message-list.tsx:384
 msgid "No messages yet"
 msgstr "अहिलेसम्म कुनै सन्देश छैन"
 
@@ -1125,7 +1150,7 @@ msgstr "पुरानो मिलान"
 msgid "Oops! Page Not Found!"
 msgstr "ओहो! पृष्ठ भेटिएन!"
 
-#: src/features/chats/components/new-chat.tsx:233
+#: src/features/chats/components/new-chat.tsx:239
 msgid "Open"
 msgstr "खोल्नुहोस्"
 
@@ -1134,12 +1159,12 @@ msgstr "खोल्नुहोस्"
 msgid "Open account actions"
 msgstr "खाता कार्यहरू खोल्नुहोस्"
 
-#: ../../../lib/web/src/components/layout/nav-group.tsx:152
-#: ../../../lib/web/src/components/layout/nav-group.tsx:157
+#: ../../../lib/web/src/components/layout/nav-group.tsx:182
+#: ../../../lib/web/src/components/layout/nav-group.tsx:187
 msgid "Open actions"
 msgstr "कार्यहरू खोल्नुहोस्"
 
-#: src/features/chats/index.tsx:644
+#: src/features/chats/index.tsx:659
 msgid "Open chat actions"
 msgstr "च्याट कार्यहरू खोल्नुहोस्"
 
@@ -1153,7 +1178,7 @@ msgstr "नेभिगेसन खोल्नुहोस्"
 msgid "Open navigation menu"
 msgstr "नेभिगेसन मेनु खोल्नुहोस्"
 
-#: src/features/chats/components/new-chat.tsx:200
+#: src/features/chats/components/new-chat.tsx:206
 msgid "Open people"
 msgstr "मानिसहरू खोल्नुहोस्"
 
@@ -1186,7 +1211,7 @@ msgstr "पासकी प्रमाणीकरण असफल भयो।
 msgid "Passkeys"
 msgstr "पासकीहरू"
 
-#: src/components/layout/chat-layout.tsx:209
+#: src/components/layout/chat-layout.tsx:212
 msgid "Pin chat"
 msgstr "च्याट पिन गर्नुहोस्"
 
@@ -1194,11 +1219,11 @@ msgstr "च्याट पिन गर्नुहोस्"
 msgid "Please check your internet connection and try again."
 msgstr "कृपया आफ्नो इन्टरनेट जडान जाँच गरी पुनः प्रयास गर्नुहोस्।"
 
-#: src/features/chats/components/new-chat.tsx:132
+#: src/features/chats/components/new-chat.tsx:120
 msgid "Please provide a chat name"
 msgstr "कृपया च्याट नाम प्रदान गर्नुहोस्"
 
-#: src/features/chats/components/new-chat.tsx:122
+#: src/features/chats/components/new-chat.tsx:110
 msgid "Please select at least one friend"
 msgstr "कृपया कम्तीमा एक साथी चयन गर्नुहोस्"
 
@@ -1257,7 +1282,7 @@ msgstr "२४ घण्टाभित्र सापेक्ष, अन्�
 
 #: ../../../lib/web/src/features/access/access-list.tsx:265
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:180
-#: src/routes/_authenticated/$chatId_.settings.tsx:530
+#: src/routes/_authenticated/$chatId_.settings.tsx:543
 msgid "Remove"
 msgstr "हटाउनुहोस्"
 
@@ -1283,13 +1308,21 @@ msgstr "पहुँच हटाउने?"
 msgid "Remove interest"
 msgstr "रुचि हटाउनुहोस्"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:521
+#: src/routes/_authenticated/$chatId_.settings.tsx:534
 msgid "Remove member?"
 msgstr "सदस्य हटाउने?"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:527
+#: src/routes/_authenticated/$chatId_.settings.tsx:519
+msgid "Removing member..."
+msgstr ""
+
+#: src/routes/_authenticated/$chatId_.settings.tsx:540
 msgid "Removing..."
 msgstr "हटाउँदै..."
+
+#: src/routes/_authenticated/$chatId_.settings.tsx:207
+msgid "Renaming chat..."
+msgstr ""
 
 #: src/features/chats/components/message-hover-actions.tsx:119
 msgid "Reply"
@@ -1334,7 +1367,7 @@ msgstr "शनिबार"
 msgid "Save"
 msgstr "सुरक्षित गर्नुहोस्"
 
-#: src/features/chats/components/forward-dialog.tsx:199
+#: src/features/chats/components/forward-dialog.tsx:194
 msgid "Search chats…"
 msgstr "च्याटहरू खोज्नुहोस्…"
 
@@ -1350,7 +1383,7 @@ msgstr "गन्तव्य खोज्नुहोस्..."
 msgid "Search for origin..."
 msgstr "उत्पत्ति खोज्नुहोस्..."
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:433
+#: src/routes/_authenticated/$chatId_.settings.tsx:442
 msgid "Search friends…"
 msgstr "साथीहरू खोज्नुहोस्…"
 
@@ -1358,7 +1391,7 @@ msgstr "साथीहरू खोज्नुहोस्…"
 msgid "Search in chat..."
 msgstr "च्याटमा खोज्नुहोस्..."
 
-#: src/features/chats/index.tsx:634
+#: src/features/chats/index.tsx:649
 msgid "Search messages"
 msgstr "सन्देशहरू खोज्नुहोस्"
 
@@ -1388,7 +1421,7 @@ msgstr "छान्नुहोस्"
 msgid "Select a chat"
 msgstr "च्याट छान्नुहोस्"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:425
+#: src/routes/_authenticated/$chatId_.settings.tsx:434
 msgid "Select a friend to add to this chat."
 msgstr "यो च्याटमा थप्न साथी छान्नुहोस्।"
 
@@ -1404,7 +1437,7 @@ msgstr "पहुँच नियम छान्नुहोस्"
 msgid "Select account type"
 msgstr "खाता प्रकार छान्नुहोस्"
 
-#: src/features/chats/components/new-chat.tsx:209
+#: src/features/chats/components/new-chat.tsx:215
 msgid "Select friends..."
 msgstr "साथीहरू छान्नुहोस्..."
 
@@ -1416,11 +1449,11 @@ msgstr "समूह छान्नुहोस्"
 msgid "Select layout style"
 msgstr "लेआउट शैली छान्नुहोस्"
 
-#: src/features/chats/components/chat-message-list.tsx:549
+#: src/features/chats/components/chat-message-list.tsx:617
 msgid "Select loaded"
 msgstr "लोड भएका चयन गर्नुहोस्"
 
-#: src/features/chats/components/chat-message-list.tsx:376
+#: src/features/chats/components/chat-message-list.tsx:440
 msgid "Select message"
 msgstr "सन्देश चयन गर्नुहोस्"
 
@@ -1436,11 +1469,11 @@ msgstr "साइट दिशा छान्नुहोस्"
 msgid "Select theme preference"
 msgstr "थिम प्राथमिकता छान्नुहोस्"
 
-#: src/features/chats/components/chat-message-list.tsx:539
+#: src/features/chats/components/chat-message-list.tsx:607
 msgid "selected"
 msgstr "चयन गरिएको"
 
-#: src/features/chats/components/chat-message-list.tsx:547
+#: src/features/chats/components/chat-message-list.tsx:615
 msgid "Selects messages loaded so far"
 msgstr "हालसम्म लोड भएका सन्देशहरू चयन गर्छ"
 
@@ -1587,11 +1620,11 @@ msgstr "यो च्याट"
 msgid "This chat may have been deleted or you don't have access to it"
 msgstr "यो च्याट मेटाइएको हुन सक्छ वा तपाईंसँग पहुँच छैन"
 
-#: src/features/chats/index.tsx:863
+#: src/features/chats/index.tsx:879
 msgid "This deletes the message for everyone and cannot be undone."
 msgstr "यसले सबैका लागि सन्देश मेटाउँछ र पूर्ववत गर्न सकिँदैन।"
 
-#: src/features/chats/components/chat-message-list.tsx:453
+#: src/features/chats/components/chat-message-list.tsx:520
 #: src/features/chats/components/message-quote.tsx:50
 msgid "This message was deleted"
 msgstr "यो सन्देश मेटाइयो"
@@ -1609,10 +1642,10 @@ msgstr "स्तम्भहरू टगल गर्नुहोस्"
 msgid "Toggle right panel"
 msgstr "दायाँ प्यानल टगल गर्नुहोस्"
 
-#: ../../../lib/web/src/components/layout/nav-group.tsx:321
-#: ../../../lib/web/src/components/layout/nav-group.tsx:328
-#: ../../../lib/web/src/components/layout/nav-group.tsx:451
-#: ../../../lib/web/src/components/layout/nav-group.tsx:458
+#: ../../../lib/web/src/components/layout/nav-group.tsx:351
+#: ../../../lib/web/src/components/layout/nav-group.tsx:358
+#: ../../../lib/web/src/components/layout/nav-group.tsx:481
+#: ../../../lib/web/src/components/layout/nav-group.tsx:488
 msgid "Toggle section"
 msgstr "खण्ड टगल गर्नुहोस्"
 
@@ -1639,7 +1672,7 @@ msgstr "माथि"
 msgid "Travelling"
 msgstr "यात्रा गर्दै"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:450
+#: src/routes/_authenticated/$chatId_.settings.tsx:459
 msgid "Try a different search term"
 msgstr "फरक खोजी शब्द प्रयास गर्नुहोस्"
 
@@ -1703,7 +1736,7 @@ msgstr "संयुक्त राज्य अमेरिका"
 msgid "Unknown"
 msgstr "अज्ञात"
 
-#: src/components/layout/chat-layout.tsx:203
+#: src/components/layout/chat-layout.tsx:206
 msgid "Unpin chat"
 msgstr "च्याट अनपिन गर्नुहोस्"
 
@@ -1774,11 +1807,11 @@ msgstr "बुधबार"
 msgid "You"
 msgstr "तपाईं"
 
-#: src/features/chats/components/new-chat.tsx:127
+#: src/features/chats/components/new-chat.tsx:115
 msgid "You already have a chat with this friend"
 msgstr "तपाईंको यो साथीसँग पहिले नै च्याट छ"
 
-#: src/features/chats/components/new-chat.tsx:221
+#: src/features/chats/components/new-chat.tsx:227
 msgid "You already have chats with:"
 msgstr "तपाईंसँग पहिले नै यिनीहरूसँग च्याटहरू छन्:"
 
@@ -1786,11 +1819,11 @@ msgstr "तपाईंसँग पहिले नै यिनीहरूस
 msgid "You can only delete your own messages"
 msgstr "तपाईंले आफ्नै सन्देशहरू मात्र मेटाउन सक्नुहुन्छ"
 
-#: src/features/chats/index.tsx:779
+#: src/features/chats/index.tsx:795
 msgid "You left this chat"
 msgstr "तपाईंले यो च्याट छोड्नुभयो"
 
-#: src/features/chats/index.tsx:778
+#: src/features/chats/index.tsx:794
 msgid "You were removed from this chat"
 msgstr "तपाईंलाई यस च्याटबाट हटाइयो"
 

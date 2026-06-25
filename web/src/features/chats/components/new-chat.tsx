@@ -17,6 +17,7 @@ import {
   ResponsiveDialogTitle,
   getErrorMessage,
   toast,
+  toastAction,
   Skeleton,
   PersonPicker,
   GeneralError,
@@ -46,20 +47,7 @@ export function NewChat() {
     enabled: open,
   })
 
-  const createChatMutation = useCreateChatMutation({
-    onSuccess: (data) => {
-      onOpenChange(false)
-      if (data.id) {
-        navigate({ to: '/$chatId', params: { chatId: data.fingerprint ?? data.id } })
-        toast.success(t`Chat ready`)
-      } else {
-        toast.success(t`Chat created`)
-      }
-    },
-    onError: (error) => {
-      toast.error(getErrorMessage(error, t`Failed to create chat`))
-    },
-  })
+  const createChatMutation = useCreateChatMutation()
 
   const friends = useMemo(() => data?.friends ?? [], [data?.friends])
 
@@ -117,7 +105,7 @@ export function NewChat() {
     !hasExistingDirectChat &&
     !createChatMutation.isPending
 
-  const handleCreateChat = () => {
+  const handleCreateChat = async () => {
     if (selectedFriends.length === 0) {
       toast.error(t`Please select at least one friend`)
       return
@@ -133,10 +121,28 @@ export function NewChat() {
       return
     }
 
-    createChatMutation.mutate({
-      members: selectedFriends.join(','),
-      name: trimmedChatName,
-    })
+    try {
+      const data = await toastAction(
+        createChatMutation.mutateAsync({
+          members: selectedFriends.join(','),
+          name: trimmedChatName,
+        }),
+        {
+          loading: t`Creating chat...`,
+          success: (result) => (result.id ? t`Chat ready` : t`Chat created`),
+          error: (error) => getErrorMessage(error, t`Failed to create chat`),
+        }
+      )
+      onOpenChange(false)
+      if (data.id) {
+        void navigate({
+          to: '/$chatId',
+          params: { chatId: data.fingerprint ?? data.id },
+        })
+      }
+    } catch {
+      // toastAction already showed error
+    }
   }
 
   // Reset state when dialog closes
