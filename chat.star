@@ -54,7 +54,7 @@ def error_message_timeout(e):
 	for r in affected:
 		row = mochi.db.row("select key from chats where id=?", r["chat"])
 		if row:
-			mochi.websocket.write(row["key"], {"event": "member/remove", "member": member})
+			chat_websocket(row["key"], {"event": "member/remove", "member": member})
 
 # Commit hook: fires the message-arrival websocket on every host that
 # sees a new messages row commit, whether locally (via action_send /
@@ -70,6 +70,16 @@ def error_message_timeout(e):
 # flipped" from "updated timestamp bumped" by looking at the row state
 # alone, and routing those through the hook would need either parallel
 # semantic-marker tables or per-event log rows.
+# chat_websocket pushes a websocket update, skipping chats whose key is empty.
+# Older shared chats predate the per-chat websocket key and carry key='' (the
+# column is `not null` but '' slips through and replicates across members); core
+# rejects an empty key, which would otherwise fail the whole commit hook or
+# action with "invalid key". Such chats get no live push until their key is
+# backfilled.
+def chat_websocket(key, payload):
+	if key:
+		mochi.websocket.write(key, payload)
+
 def chat_commit_hook(table, kind, row_uid):
 	if kind != "insert" or not row_uid:
 		return
@@ -82,7 +92,7 @@ def chat_commit_hook(table, kind, row_uid):
 		chat = mochi.db.row("select key from chats where id=?", deletion["chat"])
 		if not chat:
 			return
-		mochi.websocket.write(chat["key"], {"event": "delete", "message": deletion["message"]})
+		chat_websocket(chat["key"], {"event": "delete", "message": deletion["message"]})
 		return
 	# A reactions row commit recomputes that message's authoritative counts
 	# and pushes them to every member's tabs. row_uid is the message id
@@ -95,7 +105,7 @@ def chat_commit_hook(table, kind, row_uid):
 		chat = mochi.db.row("select key from chats where id=?", message["chat"])
 		if not chat:
 			return
-		mochi.websocket.write(chat["key"], {"event": "reaction", "message": row_uid, "reaction_counts": message_reaction_counts(message["chat"], row_uid)})
+		chat_websocket(chat["key"], {"event": "reaction", "message": row_uid, "reaction_counts": message_reaction_counts(message["chat"], row_uid)})
 		return
 	if table != "messages":
 		return
@@ -106,7 +116,7 @@ def chat_commit_hook(table, kind, row_uid):
 	if not chat:
 		return
 	attachments = mochi.attachment.list("chat/" + message["chat"] + "/" + message["id"])
-	mochi.websocket.write(chat["key"], {
+	chat_websocket(chat["key"], {
 		"id": message["id"],
 		"created": message["created"],
 		"member": message["member"],
@@ -1324,7 +1334,7 @@ def event_rename(e):
 		incoming = now
 
 	mochi.db.execute("update chats set name=?, updated=? where id=?", name, incoming, chat["id"])
-	mochi.websocket.write(chat["key"], {"event": "rename", "name": name})
+	chat_websocket(chat["key"], {"event": "rename", "name": name})
 
 # Received a leave event - a member left the chat
 def event_leave(e):
@@ -1341,7 +1351,7 @@ def event_leave(e):
 		return
 
 	mochi.db.execute("delete from members where chat=? and member=?", chat["id"], member)
-	mochi.websocket.write(chat["key"], {"event": "leave", "member": member})
+	chat_websocket(chat["key"], {"event": "leave", "member": member})
 
 # Received a member/add event - someone added a new member
 def event_member_add(e):
@@ -1365,7 +1375,7 @@ def event_member_add(e):
 
 	mochi.db.execute("replace into members (chat, member, name) values (?, ?, ?)", chat["id"], member, name)
 	mochi.db.execute("update chats set updated=? where id=?", mochi.time.now(), chat["id"])
-	mochi.websocket.write(chat["key"], {"event": "member/add", "member": member, "name": name})
+	chat_websocket(chat["key"], {"event": "member/add", "member": member, "name": name})
 
 # Received a member/remove event - someone removed a member
 def event_member_remove(e):
@@ -1384,7 +1394,7 @@ def event_member_remove(e):
 		return
 
 	mochi.db.execute("delete from members where chat=? and member=?", chat["id"], member)
-	mochi.websocket.write(chat["key"], {"event": "member/remove", "member": member})
+	chat_websocket(chat["key"], {"event": "member/remove", "member": member})
 
 # Received a removed event - current user was removed from chat
 def event_removed(e):
@@ -1396,7 +1406,7 @@ def event_removed(e):
 	mochi.db.execute("update chats set status='removed', updated=? where id=?", mochi.time.now(), chat["id"])
 
 	# Notify frontend via websocket
-	mochi.websocket.write(chat["key"], {"event": "removed"})
+	chat_websocket(chat["key"], {"event": "removed"})
 
 # List members of a chat
 def action_members(a):
@@ -1443,7 +1453,7 @@ def action_rename(a):
 	member_ids = [m["member"] for m in members]
 	broadcast_chat(chat["id"], a.user.identity.id, member_ids, "rename", {"id": chat["id"], "name": name, "updated": now}, exclude=a.user.identity.id)
 
-	mochi.websocket.write(chat["key"], {"event": "rename", "name": name})
+	chat_websocket(chat["key"], {"event": "rename", "name": name})
 	return {"data": {"success": True}}
 
 # Leave a chat
@@ -1480,7 +1490,7 @@ def action_leave(a):
 		# deleted above, so `remaining` excludes them — no `exclude` arg.
 		remaining_ids = [m["member"] for m in remaining]
 		broadcast_chat(chat["id"], a.user.identity.id, remaining_ids, "leave", {"id": chat["id"], "member": a.user.identity.id})
-		mochi.websocket.write(chat["key"], {"event": "leave", "member": a.user.identity.id})
+		chat_websocket(chat["key"], {"event": "leave", "member": a.user.identity.id})
 
 		if delete_local:
 			chat_delete_local(chat["id"])
@@ -1563,7 +1573,7 @@ def action_member_add(a):
 	# right shape.
 	mochi.message.send({"from": a.user.identity.id, "to": member_id, "service": "chat", "event": "new"}, {"id": chat["id"], "name": chat["name"]}, all_members)
 
-	mochi.websocket.write(chat["key"], {"event": "member/add", "member": member_id, "name": member_name})
+	chat_websocket(chat["key"], {"event": "member/add", "member": member_id, "name": member_name})
 	return {"data": {"success": True, "member": {"id": member_id, "name": member_name}}}
 
 # Remove a member from a chat
@@ -1610,6 +1620,6 @@ def action_member_remove(a):
 	# stream to sequence against — stays on raw mochi.message.send.
 	mochi.message.send({"from": a.user.identity.id, "to": member_id, "service": "chat", "event": "removed"}, {"id": chat["id"]})
 
-	mochi.websocket.write(chat["key"], {"event": "member/remove", "member": member_id})
+	chat_websocket(chat["key"], {"event": "member/remove", "member": member_id})
 	return {"data": {"success": True}}
 
