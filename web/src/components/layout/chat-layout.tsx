@@ -13,6 +13,7 @@ import {
   EntityAvatar,
   getErrorMessage,
   toast,
+  toastAction,
   type NavMenuItem,
   type SidebarData,
 } from '@mochi/web'
@@ -122,21 +123,23 @@ function ChatLayoutInner() {
   const params = useParams({ strict: false }) as { chatId?: string }
   const urlChatId = params?.chatId
 
-  const { mutate: markChatRead } = useMarkChatReadMutation({
-    onSuccess: () => {
-      toast.success(t`Chat marked as read`)
-    },
-    onError: (error) => {
-      toast.error(getErrorMessage(error, t`Failed to mark chat as read`))
-    },
-  })
+  const { mutateAsync: markChatReadAsync } = useMarkChatReadMutation()
 
   const handleMarkChatRead = useCallback(
-    (chatId: string) => {
+    async (chatId: string) => {
       clearMarkedUnread(chatId)
-      markChatRead({ chatId })
+      try {
+        await toastAction(markChatReadAsync({ chatId }), {
+          loading: t`Marking as read...`,
+          success: t`Chat marked as read`,
+          error: (error) =>
+            getErrorMessage(error, t`Failed to mark chat as read`),
+        })
+      } catch {
+        // toastAction already showed error
+      }
     },
-    [clearMarkedUnread, markChatRead]
+    [clearMarkedUnread, markChatReadAsync, t]
   )
 
   const handleMarkChatUnread = useCallback(

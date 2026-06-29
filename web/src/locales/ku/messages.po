@@ -18,12 +18,12 @@ msgid " (includes you)"
 msgstr " (tu jî tê de yî)"
 
 #. placeholder {0}: deleteTargetIds?.length ?? 0
-#: src/features/chats/index.tsx:859
+#: src/features/chats/index.tsx:896
 msgid "{0, plural, one {Delete message?} other {Delete # messages?}}"
 msgstr "{0, plural, one {Peyam bê jêbirin?} other {# peyam bên jêbirin?}}"
 
 #. placeholder {0}: selectedIds.size
-#: src/features/chats/index.tsx:735
+#: src/features/chats/index.tsx:772
 msgid "{0} selected"
 msgstr "{0} hilbijartî"
 
@@ -33,8 +33,8 @@ msgstr "{0} hilbijartî"
 msgid "{0} settings"
 msgstr "Mîhengên {0}"
 
-#: src/features/chats/components/chat-message-list.tsx:574
-#: src/features/chats/components/chat-message-list.tsx:591
+#: src/features/chats/components/chat-message-list.tsx:642
+#: src/features/chats/components/chat-message-list.tsx:659
 msgid "{newMessageCount, plural, one {Jump to 1 new message} other {Jump to # new messages}}"
 msgstr "{newMessageCount, plural, one {Biçe 1 peyama nû} other {Biçe # peyamên nû}}"
 
@@ -79,7 +79,7 @@ msgid "Add"
 msgstr "Zêde bike"
 
 #. placeholder {0}: friend.name
-#: src/routes/_authenticated/$chatId_.settings.tsx:463
+#: src/routes/_authenticated/$chatId_.settings.tsx:472
 msgid "Add {0} to chat"
 msgstr "{0} li chatê zêde bike"
 
@@ -105,8 +105,8 @@ msgstr "Hesabekê zêde bike da ku agahdarî werbigirî û xizmetan bi kar bîn�
 msgid "Add attachment"
 msgstr "Pêveka zêde bike"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:251
-#: src/routes/_authenticated/$chatId_.settings.tsx:422
+#: src/routes/_authenticated/$chatId_.settings.tsx:252
+#: src/routes/_authenticated/$chatId_.settings.tsx:431
 msgid "Add member"
 msgstr "Endam zêde bike"
 
@@ -136,8 +136,12 @@ msgstr "Li agahdariyên heyî zêde bike"
 msgid "Add view"
 msgstr "Dîtin zêde bike"
 
+#: src/routes/_authenticated/$chatId_.settings.tsx:413
+msgid "Adding member..."
+msgstr ""
+
 #: src/routes/_authenticated/$chatId_.settings.tsx:128
-#: src/routes/_authenticated/$chatId_.settings.tsx:206
+#: src/routes/_authenticated/$chatId_.settings.tsx:199
 msgid "Adjust chat settings"
 msgstr "Mîhengên chatê biguherîne"
 
@@ -157,7 +161,7 @@ msgstr "AI"
 msgid "All"
 msgstr "Hemû"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:451
+#: src/routes/_authenticated/$chatId_.settings.tsx:460
 msgid "All your friends are already in this chat"
 msgstr "Hemû hevalên te jixwe di vê chatê de ne"
 
@@ -178,11 +182,11 @@ msgid "Angry"
 msgstr "Hêrs"
 
 #. placeholder {0}: selectedChat?.name
-#: src/features/chats/index.tsx:827
+#: src/features/chats/index.tsx:864
 msgid "Are you sure you want to leave \"{0}\"? You can be added back by other members."
 msgstr "Tu bawer î ku dixwazî ji \"{0}\" derkevî? Endamên din dikarin te ji nû ve zêde bikin."
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:339
+#: src/routes/_authenticated/$chatId_.settings.tsx:344
 msgid "Are you sure you want to leave \"{chatName}\"? You can be added back by other members."
 msgstr "Tu bawer î ku dixwazî ji \"{chatName}\" derkevî? Endamên din dikarin te ji nû ve zêde bikin."
 
@@ -191,7 +195,7 @@ msgid "Are you sure you want to log out? You will need to log in again to access
 msgstr "Tu bawer î ku dixwazî derkevî? Tu ê hewce bikî ku ji nû ve têkevî da ku gihîştina hesabê xwe bibî."
 
 #. placeholder {0}: member?.name
-#: src/routes/_authenticated/$chatId_.settings.tsx:522
+#: src/routes/_authenticated/$chatId_.settings.tsx:535
 msgid "Are you sure you want to remove {0} from this chat?"
 msgstr "Tu bawer î ku dixwazî {0} ji vê chatê derxînî?"
 
@@ -228,7 +232,7 @@ msgstr "Vegere chatê"
 msgid "Back to home"
 msgstr "Vegere ser malê"
 
-#: src/features/chats/components/chat-message-list.tsx:322
+#: src/features/chats/components/chat-message-list.tsx:385
 msgid "Be the first to say something!"
 msgstr "Bibe kesê yekem ku tiştekî dibêje!"
 
@@ -246,10 +250,10 @@ msgstr "Berjewendiyê zêde bike"
 #: ../../../lib/web/src/features/access/access-list.tsx:263
 #: ../../../lib/web/src/features/accounts/account-add.tsx:188
 #: ../../../lib/web/src/features/accounts/account-verify.tsx:89
-#: src/features/chats/components/chat-message-list.tsx:558
-#: src/features/chats/components/forward-dialog.tsx:254
-#: src/features/chats/components/new-chat.tsx:259
-#: src/features/chats/index.tsx:768
+#: src/features/chats/components/chat-message-list.tsx:626
+#: src/features/chats/components/forward-dialog.tsx:249
+#: src/features/chats/components/new-chat.tsx:265
+#: src/features/chats/index.tsx:805
 msgid "Cancel"
 msgstr "Betal bike"
 
@@ -268,42 +272,42 @@ msgid "Change notification category"
 msgstr "Kategoriya agahdariyê biguherîne"
 
 #: src/features/chats/index.tsx:73
-#: src/features/chats/index.tsx:185
-#: src/features/chats/index.tsx:185
-#: src/features/chats/index.tsx:579
+#: src/features/chats/index.tsx:189
+#: src/features/chats/index.tsx:189
+#: src/features/chats/index.tsx:615
 msgid "Chat"
 msgstr "Chat"
 
-#: src/features/chats/components/new-chat.tsx:56
+#: src/features/chats/components/new-chat.tsx:132
 msgid "Chat created"
 msgstr "Chat hat çêkirin"
 
-#: src/features/chats/index.tsx:480
+#: src/features/chats/index.tsx:519
 msgid "Chat deleted"
 msgstr "Chat hat jêbirin"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:216
+#: src/routes/_authenticated/$chatId_.settings.tsx:217
 msgid "Chat ID"
 msgstr "Nasnameya chatê"
 
-#: src/components/layout/chat-layout.tsx:127
+#: src/components/layout/chat-layout.tsx:134
 msgid "Chat marked as read"
 msgstr "Sohbet wek xwendî hat nîşankirin"
 
-#: src/components/layout/chat-layout.tsx:145
+#: src/components/layout/chat-layout.tsx:148
 msgid "Chat marked as unread"
 msgstr "Sohbet wek nexwendî hat nîşankirin"
 
-#: src/features/chats/components/new-chat.tsx:243
-#: src/routes/_authenticated/$chatId_.settings.tsx:208
+#: src/features/chats/components/new-chat.tsx:249
+#: src/routes/_authenticated/$chatId_.settings.tsx:201
 msgid "Chat name"
 msgstr "Navê chatê"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:200
+#: src/routes/_authenticated/$chatId_.settings.tsx:193
 msgid "Chat name is required"
 msgstr "Navê chatê pêwîst e"
 
-#: src/features/chats/components/new-chat.tsx:246
+#: src/features/chats/components/new-chat.tsx:252
 msgid "Chat name..."
 msgstr "Navê chatê..."
 
@@ -311,19 +315,19 @@ msgstr "Navê chatê..."
 msgid "Chat not found"
 msgstr "Chat nehat dîtin"
 
-#: src/components/layout/chat-layout.tsx:153
+#: src/components/layout/chat-layout.tsx:156
 msgid "Chat pinned"
 msgstr "Sohbet hat sabîtkirin"
 
-#: src/features/chats/components/new-chat.tsx:54
+#: src/features/chats/components/new-chat.tsx:132
 msgid "Chat ready"
 msgstr "Chat amade ye"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:192
+#: src/routes/_authenticated/$chatId_.settings.tsx:208
 msgid "Chat renamed"
 msgstr "Navê chatê hat guhertin"
 
-#: src/features/chats/index.tsx:669
+#: src/features/chats/index.tsx:705
 #: src/routes/_authenticated/$chatId_.settings.tsx:84
 #: src/routes/_authenticated/$chatId_.settings.tsx:97
 #: src/routes/_authenticated/$chatId_.settings.tsx:108
@@ -335,20 +339,20 @@ msgstr "Mîhengên chatê"
 msgid "Chat Text Box"
 msgstr "Qutiya nivîsê ya chatê"
 
-#: src/components/layout/chat-layout.tsx:161
+#: src/components/layout/chat-layout.tsx:164
 msgid "Chat unpinned"
 msgstr "Sabîtkirina sohbetê hat rakirin"
 
-#: src/components/layout/chat-layout.tsx:250
-#: src/features/chats/components/forward-dialog.tsx:230
+#: src/components/layout/chat-layout.tsx:254
+#: src/features/chats/components/forward-dialog.tsx:225
 msgid "Chats"
 msgstr "Chat"
 
-#: src/features/chats/components/new-chat.tsx:190
+#: src/features/chats/components/new-chat.tsx:196
 msgid "Chats are between friends. Add a friend in the People app first."
 msgstr "Chat di navbera hevalan de ne. Pêşî di sepana Mirovan de hevalekê zêde bike."
 
-#: src/features/chats/components/forward-dialog.tsx:191
+#: src/features/chats/components/forward-dialog.tsx:186
 msgid "Choose a chat or friend to forward the selected messages to"
 msgstr "Sohbetek an hevalek hilbijêre da peyamên hilbijartî jê re bişînî"
 
@@ -394,8 +398,8 @@ msgstr "Hemûyan paqij bike"
 msgid "Clear filters"
 msgstr "Parzûnan paqij bike"
 
-#: src/features/chats/components/forward-dialog.tsx:200
-#: src/routes/_authenticated/$chatId_.settings.tsx:434
+#: src/features/chats/components/forward-dialog.tsx:195
+#: src/routes/_authenticated/$chatId_.settings.tsx:443
 msgid "Clear search"
 msgstr "Lêgerînê paqij bike"
 
@@ -432,8 +436,8 @@ msgstr "Lêgerînê bigire"
 
 #: ../../../lib/web/src/components/comment-tree-layout.tsx:101
 #: ../../../lib/web/src/components/comment-tree-layout.tsx:110
-#: ../../../lib/web/src/components/tree-row.tsx:255
-#: ../../../lib/web/src/components/tree-row.tsx:269
+#: ../../../lib/web/src/components/tree-row.tsx:338
+#: ../../../lib/web/src/components/tree-row.tsx:352
 msgid "Collapse"
 msgstr "Berhevbike"
 
@@ -475,13 +479,13 @@ msgstr "Berdewam bike"
 msgid "Continue with {label}"
 msgstr "Bi {label} berdewam be"
 
-#: src/features/chats/index.tsx:346
+#: src/features/chats/index.tsx:363
 msgid "Copied"
 msgstr "Hat kopîkirin"
 
 #: ../../../lib/web/src/components/ui/copy-button.tsx:63
 #: src/features/chats/components/message-hover-actions.tsx:103
-#: src/features/chats/index.tsx:744
+#: src/features/chats/index.tsx:781
 msgid "Copy"
 msgstr "Kopî bike"
 
@@ -501,16 +505,20 @@ msgstr "Verastkirina ji nû ve nehate destpêkirin. Ji kerema xwe dîsa bicerib�
 msgid "Couldn't verify with that account. Please try again."
 msgstr "Bi wê hesabê re piştrastkirin pêk nehat. Ji kerema xwe dîsa biceribîne."
 
-#: src/features/chats/components/new-chat.tsx:173
+#: src/features/chats/components/new-chat.tsx:179
 msgid "Create a new chat"
 msgstr "Chateke nû çêbike"
 
-#: src/components/layout/chat-layout.tsx:258
-#: src/features/chats/components/new-chat.tsx:267
+#: src/components/layout/chat-layout.tsx:264
+#: src/features/chats/components/new-chat.tsx:273
 msgid "Create chat"
 msgstr "Chat çêbike"
 
-#: src/features/chats/components/new-chat.tsx:267
+#: src/features/chats/components/new-chat.tsx:131
+msgid "Creating chat..."
+msgstr ""
+
+#: src/features/chats/components/new-chat.tsx:273
 msgid "Creating..."
 msgstr "Tê çêkirin..."
 
@@ -540,18 +548,18 @@ msgid "Default AI account"
 msgstr "Hesabê standard yê AI"
 
 #: src/features/chats/components/message-hover-actions.tsx:135
-#: src/features/chats/index.tsx:761
-#: src/features/chats/index.tsx:871
+#: src/features/chats/index.tsx:798
+#: src/features/chats/index.tsx:908
 msgid "Delete"
 msgstr "Jê bibe"
 
-#: src/features/chats/index.tsx:652
-#: src/features/chats/index.tsx:792
+#: src/features/chats/index.tsx:688
+#: src/features/chats/index.tsx:829
 msgid "Delete chat"
 msgstr "Chatê jê bibe"
 
-#: src/features/chats/index.tsx:849
-#: src/routes/_authenticated/$chatId_.settings.tsx:361
+#: src/features/chats/index.tsx:886
+#: src/routes/_authenticated/$chatId_.settings.tsx:366
 msgid "Delete chat history"
 msgstr "Dîroka chatê jê bibe"
 
@@ -559,7 +567,12 @@ msgstr "Dîroka chatê jê bibe"
 msgid "Delete your account on the old server"
 msgstr "Hesabê xwe li ser serverê kevn jêbirin"
 
-#: src/features/chats/index.tsx:868
+#: src/features/chats/index.tsx:518
+msgid "Deleting chat..."
+msgstr ""
+
+#: src/features/chats/index.tsx:393
+#: src/features/chats/index.tsx:905
 msgid "Deleting..."
 msgstr "Tê jêbirin..."
 
@@ -634,8 +647,8 @@ msgstr "Koda authenticator-a xwe têkevê"
 
 #: ../../../lib/web/src/components/comment-tree-layout.tsx:101
 #: ../../../lib/web/src/components/comment-tree-layout.tsx:110
-#: ../../../lib/web/src/components/tree-row.tsx:255
-#: ../../../lib/web/src/components/tree-row.tsx:269
+#: ../../../lib/web/src/components/tree-row.tsx:338
+#: ../../../lib/web/src/components/tree-row.tsx:352
 msgid "Expand"
 msgstr "Fireh bike"
 
@@ -651,11 +664,11 @@ msgstr "Pir mezin"
 msgid "Failed to add account"
 msgstr "Zêdekirina hesabê neserkeftî bû"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:395
+#: src/routes/_authenticated/$chatId_.settings.tsx:415
 msgid "Failed to add member"
 msgstr "Zêdekirina endamê neserkeftî bû"
 
-#: src/features/chats/index.tsx:347
+#: src/features/chats/index.tsx:364
 msgid "Failed to copy"
 msgstr "Kopîkirin neserkeftî bû"
 
@@ -663,29 +676,28 @@ msgstr "Kopîkirin neserkeftî bû"
 msgid "Failed to copy message"
 msgstr "Kopîkirina peyamê bi ser neket"
 
-#: src/features/chats/components/forward-dialog.tsx:61
-#: src/features/chats/components/new-chat.tsx:60
+#: src/features/chats/components/new-chat.tsx:133
 msgid "Failed to create chat"
 msgstr "Çêkirina chatê neserkeftî bû"
 
-#: src/features/chats/index.tsx:357
+#: src/features/chats/index.tsx:395
 msgid "Failed to delete"
 msgstr "Jêbirin neserkeftî bû"
 
-#: src/features/chats/index.tsx:484
+#: src/features/chats/index.tsx:520
 msgid "Failed to delete chat"
 msgstr "Jêbirina chatê neserkeftî bû"
 
-#: src/features/chats/components/forward-dialog.tsx:72
+#: src/features/chats/components/forward-dialog.tsx:124
 msgid "Failed to forward"
 msgstr "Beralîkirin bi ser neket"
 
-#: src/features/chats/index.tsx:468
-#: src/routes/_authenticated/$chatId_.settings.tsx:323
+#: src/features/chats/index.tsx:501
+#: src/routes/_authenticated/$chatId_.settings.tsx:327
 msgid "Failed to leave chat"
 msgstr "Derketina chatê neserkeftî bû"
 
-#: src/components/layout/chat-layout.tsx:130
+#: src/components/layout/chat-layout.tsx:136
 msgid "Failed to mark chat as read"
 msgstr "Nîşankirina sohbetê wek xwendî bi ser neket"
 
@@ -693,15 +705,15 @@ msgstr "Nîşankirina sohbetê wek xwendî bi ser neket"
 msgid "Failed to remove account"
 msgstr "Rakirina hesabê neserkeftî bû"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:508
+#: src/routes/_authenticated/$chatId_.settings.tsx:521
 msgid "Failed to remove member"
 msgstr "Rakirina endamê neserkeftî bû"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:195
+#: src/routes/_authenticated/$chatId_.settings.tsx:210
 msgid "Failed to rename chat"
 msgstr "Ji nû ve navlêkirina chatê neserkeftî bû"
 
-#: src/features/chats/index.tsx:812
+#: src/features/chats/index.tsx:849
 msgid "Failed to send message"
 msgstr "Şandina peyamê neserkeftî bû"
 
@@ -709,7 +721,7 @@ msgstr "Şandina peyamê neserkeftî bû"
 msgid "Failed to send verification code"
 msgstr "Şandina koda rastandinê neserkeftî bû"
 
-#: src/features/chats/index.tsx:198
+#: src/features/chats/index.tsx:195
 msgid "Failed to start chat"
 msgstr "Destpêkirina chatê neserkeftî bû"
 
@@ -729,27 +741,31 @@ msgstr "Tasî"
 msgid "Floating"
 msgstr "Belavbûyî"
 
-#: src/features/chats/components/forward-dialog.tsx:265
+#: src/features/chats/components/forward-dialog.tsx:260
 #: src/features/chats/components/message-hover-actions.tsx:124
-#: src/features/chats/index.tsx:752
+#: src/features/chats/index.tsx:789
 msgid "Forward"
 msgstr "Beralî bike"
 
-#: src/features/chats/components/forward-dialog.tsx:188
+#: src/features/chats/components/forward-dialog.tsx:183
 msgid "Forward to…"
 msgstr "Beralî bike bo…"
 
-#: src/features/chats/components/forward-dialog.tsx:67
+#: src/features/chats/components/forward-dialog.tsx:123
 msgid "Forwarded"
 msgstr "Hat beralîkirin"
+
+#: src/features/chats/components/forward-dialog.tsx:122
+msgid "Forwarding..."
+msgstr ""
 
 #: ../../../lib/web/src/lib/preference-utils.ts:63
 msgid "Friday"
 msgstr "Înî"
 
-#: src/features/chats/components/forward-dialog.tsx:238
-#: src/features/chats/components/new-chat.tsx:180
-#: src/routes/_authenticated/$chatId_.settings.tsx:457
+#: src/features/chats/components/forward-dialog.tsx:233
+#: src/features/chats/components/new-chat.tsx:186
+#: src/routes/_authenticated/$chatId_.settings.tsx:466
 msgid "Friends"
 msgstr "Heval"
 
@@ -771,7 +787,7 @@ msgid "Full layout"
 msgstr "Bargeyê tev"
 
 #: src/routes/_authenticated/$chatId_.settings.tsx:128
-#: src/routes/_authenticated/$chatId_.settings.tsx:206
+#: src/routes/_authenticated/$chatId_.settings.tsx:199
 msgid "General"
 msgstr "Giştî"
 
@@ -840,8 +856,8 @@ msgstr "Balkêşî"
 msgid "Invalid verification code"
 msgstr "Koda rastandinê nederbasdar"
 
-#: src/features/chats/components/chat-message-list.tsx:578
-#: src/features/chats/components/chat-message-list.tsx:595
+#: src/features/chats/components/chat-message-list.tsx:646
+#: src/features/chats/components/chat-message-list.tsx:663
 msgid "Jump to bottom"
 msgstr "Biçe binî"
 
@@ -863,26 +879,32 @@ msgstr "Bargeh"
 msgid "Learn more"
 msgstr "Zêdetir bizane"
 
-#: src/features/chats/index.tsx:835
+#: src/features/chats/index.tsx:872
 msgid "Leave"
 msgstr "Derkeve"
 
-#: src/features/chats/index.tsx:659
-#: src/routes/_authenticated/$chatId_.settings.tsx:347
+#: src/features/chats/index.tsx:695
+#: src/routes/_authenticated/$chatId_.settings.tsx:352
 msgid "Leave chat"
 msgstr "Ji chatê derkeve"
 
-#: src/features/chats/index.tsx:826
-#: src/routes/_authenticated/$chatId_.settings.tsx:338
+#: src/features/chats/index.tsx:863
+#: src/routes/_authenticated/$chatId_.settings.tsx:343
 msgid "Leave chat?"
 msgstr "Ji chatê derkeve?"
 
-#: src/features/chats/index.tsx:832
-#: src/routes/_authenticated/$chatId_.settings.tsx:344
+#: src/features/chats/index.tsx:499
+#: src/routes/_authenticated/$chatId_.settings.tsx:325
+msgid "Leaving chat..."
+msgstr ""
+
+#: src/features/chats/index.tsx:869
+#: src/routes/_authenticated/$chatId_.settings.tsx:349
 msgid "Leaving..."
 msgstr "Tê derketin..."
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:319
+#: src/features/chats/index.tsx:500
+#: src/routes/_authenticated/$chatId_.settings.tsx:326
 msgid "Left chat"
 msgstr "Ji chat hat derketin"
 
@@ -899,7 +921,7 @@ msgstr "Ronî"
 msgid "Like"
 msgstr "Bibêjim"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:247
+#: src/routes/_authenticated/$chatId_.settings.tsx:248
 msgid "List of people in this chat"
 msgstr "Lîsteya kesên di vê chatê de"
 
@@ -944,27 +966,31 @@ msgstr "Hez"
 msgid "Mark all as read"
 msgstr "Hemû wek xwendî nîşan bike"
 
-#: src/components/layout/chat-layout.tsx:218
+#: src/components/layout/chat-layout.tsx:221
 msgid "Mark as read"
 msgstr "Wek xwendî nîşan bike"
 
-#: src/components/layout/chat-layout.tsx:224
+#: src/components/layout/chat-layout.tsx:227
 msgid "Mark as unread"
 msgstr "Wek nexwendî nîşan bike"
+
+#: src/components/layout/chat-layout.tsx:133
+msgid "Marking as read..."
+msgstr ""
 
 #: ../../../lib/web/src/lib/preference-utils.ts:107
 msgid "Medium"
 msgstr "Navîn"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:390
+#: src/routes/_authenticated/$chatId_.settings.tsx:414
 msgid "Member added"
 msgstr "Endam hat zêdekirin"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:504
+#: src/routes/_authenticated/$chatId_.settings.tsx:520
 msgid "Member removed"
 msgstr "Endam hat rakirin"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:246
+#: src/routes/_authenticated/$chatId_.settings.tsx:247
 msgid "Members"
 msgstr "Endam"
 
@@ -985,12 +1011,12 @@ msgstr "Kiryarên peyamê"
 msgid "Message copied"
 msgstr "Peyam hat kopîkirin"
 
-#: src/features/chats/index.tsx:352
+#: src/features/chats/index.tsx:394
 msgid "Message deleted"
 msgstr "Peyam hat jêbirin"
 
 #: src/features/chats/components/message-quote.tsx:60
-#: src/features/chats/index.tsx:394
+#: src/features/chats/index.tsx:415
 msgid "Message not available"
 msgstr "Peyam ne berdest e"
 
@@ -1002,7 +1028,7 @@ msgstr "Mîtrîk"
 msgid "Monday"
 msgstr "Duşem"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:201
+#: src/routes/_authenticated/$chatId_.settings.tsx:194
 msgid "Name must be 1000 characters or less"
 msgstr "Nav divê 1000 tîp an kêmtir be"
 
@@ -1016,7 +1042,7 @@ msgstr "Nû"
 
 #: src/features/chats/components/chat-empty-state.tsx:27
 #: src/features/chats/components/chat-empty-state.tsx:43
-#: src/features/chats/components/new-chat.tsx:170
+#: src/features/chats/components/new-chat.tsx:176
 msgid "New chat"
 msgstr "Chata nû"
 
@@ -1033,7 +1059,7 @@ msgstr "Wêneya pêştir"
 msgid "No access rules configured. Add rules to control who can access this resource."
 msgstr "Tu rêzikên destpêkirinê nehatine mîhengkirin. Rêzikan zêde bike da ku kontrol bike kî dikare bigihîje vê çavkaniyê."
 
-#: src/features/chats/components/forward-dialog.tsx:222
+#: src/features/chats/components/forward-dialog.tsx:217
 msgid "No chats to forward to"
 msgstr "Sohbetek ji bo beralîkirinê tune"
 
@@ -1041,16 +1067,16 @@ msgstr "Sohbetek ji bo beralîkirinê tune"
 msgid "No connected accounts"
 msgstr "Tu hesabên girêdayî tune"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:447
+#: src/routes/_authenticated/$chatId_.settings.tsx:456
 msgid "No friends available"
 msgstr "Tu hevalên berdest tune"
 
-#: src/features/chats/components/new-chat.tsx:210
-#: src/routes/_authenticated/$chatId_.settings.tsx:447
+#: src/features/chats/components/new-chat.tsx:216
+#: src/routes/_authenticated/$chatId_.settings.tsx:456
 msgid "No friends found"
 msgstr "Tu heval nehatin dîtin"
 
-#: src/features/chats/components/new-chat.tsx:188
+#: src/features/chats/components/new-chat.tsx:194
 msgid "No friends yet"
 msgstr "Hêj tu heval tune"
 
@@ -1058,7 +1084,7 @@ msgstr "Hêj tu heval tune"
 msgid "No groups available"
 msgstr "Tu kom berdest nîn in"
 
-#: src/features/chats/components/chat-message-list.tsx:321
+#: src/features/chats/components/chat-message-list.tsx:384
 msgid "No messages yet"
 msgstr "Hêj tu peyam tune"
 
@@ -1105,7 +1131,7 @@ msgstr "Asayî"
 msgid "Not set"
 msgstr "Nehatiye danîn"
 
-#: src/features/chats/index.tsx:342
+#: src/features/chats/index.tsx:359
 msgid "Nothing to copy"
 msgstr "Tiştek ji bo kopîkirinê tune"
 
@@ -1125,7 +1151,7 @@ msgstr "Encama kevintir"
 msgid "Oops! Page Not Found!"
 msgstr "Wey! Rûpel nehat dîtin!"
 
-#: src/features/chats/components/new-chat.tsx:233
+#: src/features/chats/components/new-chat.tsx:239
 msgid "Open"
 msgstr "Veke"
 
@@ -1134,12 +1160,12 @@ msgstr "Veke"
 msgid "Open account actions"
 msgstr "Çalakiyên hesabê veke"
 
-#: ../../../lib/web/src/components/layout/nav-group.tsx:152
-#: ../../../lib/web/src/components/layout/nav-group.tsx:157
+#: ../../../lib/web/src/components/layout/nav-group.tsx:182
+#: ../../../lib/web/src/components/layout/nav-group.tsx:187
 msgid "Open actions"
 msgstr "Kiryaran veke"
 
-#: src/features/chats/index.tsx:644
+#: src/features/chats/index.tsx:680
 msgid "Open chat actions"
 msgstr "Çalakiyên chatê veke"
 
@@ -1153,7 +1179,7 @@ msgstr "Navîgasyonê veke"
 msgid "Open navigation menu"
 msgstr "Menûya navîgasyonê veke"
 
-#: src/features/chats/components/new-chat.tsx:200
+#: src/features/chats/components/new-chat.tsx:206
 msgid "Open people"
 msgstr "Mirovan veke"
 
@@ -1186,7 +1212,7 @@ msgstr "Verastkirina passkey têk çû. Ji kerema xwe dîsa biceribîne."
 msgid "Passkeys"
 msgstr "Passkey"
 
-#: src/components/layout/chat-layout.tsx:209
+#: src/components/layout/chat-layout.tsx:212
 msgid "Pin chat"
 msgstr "Sohbetê sabît bike"
 
@@ -1194,11 +1220,11 @@ msgstr "Sohbetê sabît bike"
 msgid "Please check your internet connection and try again."
 msgstr "Ji kerema xwe girêdana xwe ya înternetê kontrol bike û dîsa biceribîne."
 
-#: src/features/chats/components/new-chat.tsx:132
+#: src/features/chats/components/new-chat.tsx:120
 msgid "Please provide a chat name"
 msgstr "Ji kerema xwe navê chatê bide"
 
-#: src/features/chats/components/new-chat.tsx:122
+#: src/features/chats/components/new-chat.tsx:110
 msgid "Please select at least one friend"
 msgstr "Ji kerema xwe bi kêmî yek heval hilbijêre"
 
@@ -1257,7 +1283,7 @@ msgstr "Goreyî di nav 24 saetan de, ne wisa be mutleq"
 
 #: ../../../lib/web/src/features/access/access-list.tsx:265
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:180
-#: src/routes/_authenticated/$chatId_.settings.tsx:530
+#: src/routes/_authenticated/$chatId_.settings.tsx:543
 msgid "Remove"
 msgstr "Rake"
 
@@ -1283,13 +1309,21 @@ msgstr "Destpêkirinê rake?"
 msgid "Remove interest"
 msgstr "Balkêşiyê rake"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:521
+#: src/routes/_authenticated/$chatId_.settings.tsx:534
 msgid "Remove member?"
 msgstr "Endamê rake?"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:527
+#: src/routes/_authenticated/$chatId_.settings.tsx:519
+msgid "Removing member..."
+msgstr ""
+
+#: src/routes/_authenticated/$chatId_.settings.tsx:540
 msgid "Removing..."
 msgstr "Tê rakirin..."
+
+#: src/routes/_authenticated/$chatId_.settings.tsx:207
+msgid "Renaming chat..."
+msgstr ""
 
 #: src/features/chats/components/message-hover-actions.tsx:119
 msgid "Reply"
@@ -1334,7 +1368,7 @@ msgstr "Şemî"
 msgid "Save"
 msgstr "Tomar bike"
 
-#: src/features/chats/components/forward-dialog.tsx:199
+#: src/features/chats/components/forward-dialog.tsx:194
 msgid "Search chats…"
 msgstr "Li sohbetan bigere…"
 
@@ -1350,7 +1384,7 @@ msgstr "Li mebestê bigere..."
 msgid "Search for origin..."
 msgstr "Li çavkaniyê bigere..."
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:433
+#: src/routes/_authenticated/$chatId_.settings.tsx:442
 msgid "Search friends…"
 msgstr "Li hevalan bigere…"
 
@@ -1358,7 +1392,7 @@ msgstr "Li hevalan bigere…"
 msgid "Search in chat..."
 msgstr "Di sohbetê de bigere..."
 
-#: src/features/chats/index.tsx:634
+#: src/features/chats/index.tsx:670
 msgid "Search messages"
 msgstr "Li peyaman bigere"
 
@@ -1388,7 +1422,7 @@ msgstr "Hilbijêre"
 msgid "Select a chat"
 msgstr "Chatê hilbijêre"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:425
+#: src/routes/_authenticated/$chatId_.settings.tsx:434
 msgid "Select a friend to add to this chat."
 msgstr "Hevalek hilbijêre ji bo zêdekirina vê chatê."
 
@@ -1404,7 +1438,7 @@ msgstr "Rêzika destpêkirinê hilbijêre"
 msgid "Select account type"
 msgstr "Cureyê hesab hilbijêre"
 
-#: src/features/chats/components/new-chat.tsx:209
+#: src/features/chats/components/new-chat.tsx:215
 msgid "Select friends..."
 msgstr "Hevalan hilbijêre..."
 
@@ -1416,11 +1450,11 @@ msgstr "Komê hilbijêre"
 msgid "Select layout style"
 msgstr "Şêwaza pergalê hilbijêre"
 
-#: src/features/chats/components/chat-message-list.tsx:549
+#: src/features/chats/components/chat-message-list.tsx:617
 msgid "Select loaded"
 msgstr "Yên barkirî hilbijêre"
 
-#: src/features/chats/components/chat-message-list.tsx:376
+#: src/features/chats/components/chat-message-list.tsx:440
 msgid "Select message"
 msgstr "Peyamê hilbijêre"
 
@@ -1436,11 +1470,11 @@ msgstr "Beralîkirina malperê hilbijêre"
 msgid "Select theme preference"
 msgstr "Tercîha temayê hilbijêre"
 
-#: src/features/chats/components/chat-message-list.tsx:539
+#: src/features/chats/components/chat-message-list.tsx:607
 msgid "selected"
 msgstr "hilbijartî"
 
-#: src/features/chats/components/chat-message-list.tsx:547
+#: src/features/chats/components/chat-message-list.tsx:615
 msgid "Selects messages loaded so far"
 msgstr "Peyamên ku heta niha hatine barkirin hildibijêre"
 
@@ -1531,6 +1565,10 @@ msgstr "Berfireh"
 msgid "Start a conversation"
 msgstr "Sohbetekê dest pê bike"
 
+#: src/features/chats/index.tsx:192
+msgid "Starting chat..."
+msgstr ""
+
 #: ../../../lib/web/src/components/coming-soon.tsx:15
 msgid "Stay tuned though!"
 msgstr "Lê li bendê bimîne!"
@@ -1587,11 +1625,11 @@ msgstr "vê sohbetê"
 msgid "This chat may have been deleted or you don't have access to it"
 msgstr "Dibe ku ev sohbet hatibe jêbirin an gihîştina te jê re tune be"
 
-#: src/features/chats/index.tsx:863
+#: src/features/chats/index.tsx:900
 msgid "This deletes the message for everyone and cannot be undone."
 msgstr "Ev yek peyamê ji bo her kesî jê dibe û nikare bê vegerandin."
 
-#: src/features/chats/components/chat-message-list.tsx:453
+#: src/features/chats/components/chat-message-list.tsx:520
 #: src/features/chats/components/message-quote.tsx:50
 msgid "This message was deleted"
 msgstr "Ev peyam hat jêbirin"
@@ -1609,10 +1647,10 @@ msgstr "Stûnan biguherîne"
 msgid "Toggle right panel"
 msgstr "Panela rastê biguhêre"
 
-#: ../../../lib/web/src/components/layout/nav-group.tsx:321
-#: ../../../lib/web/src/components/layout/nav-group.tsx:328
-#: ../../../lib/web/src/components/layout/nav-group.tsx:451
-#: ../../../lib/web/src/components/layout/nav-group.tsx:458
+#: ../../../lib/web/src/components/layout/nav-group.tsx:351
+#: ../../../lib/web/src/components/layout/nav-group.tsx:358
+#: ../../../lib/web/src/components/layout/nav-group.tsx:481
+#: ../../../lib/web/src/components/layout/nav-group.tsx:488
 msgid "Toggle section"
 msgstr "Beşê biguhêre"
 
@@ -1639,7 +1677,7 @@ msgstr "Jor"
 msgid "Travelling"
 msgstr "Rêwîtî"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:450
+#: src/routes/_authenticated/$chatId_.settings.tsx:459
 msgid "Try a different search term"
 msgstr "Peyveke lêgerînê ya cuda biceribîne"
 
@@ -1703,7 +1741,7 @@ msgstr "Dewletên Yekbûyî"
 msgid "Unknown"
 msgstr "Nediyar"
 
-#: src/components/layout/chat-layout.tsx:203
+#: src/components/layout/chat-layout.tsx:206
 msgid "Unpin chat"
 msgstr "Sabîtkirina sohbetê rake"
 
@@ -1770,27 +1808,27 @@ msgstr "Malper di rewşa lêkirinê de ye!"
 msgid "Wednesday"
 msgstr "Çarşem"
 
-#: src/features/chats/index.tsx:258
+#: src/features/chats/index.tsx:275
 msgid "You"
 msgstr "Tu"
 
-#: src/features/chats/components/new-chat.tsx:127
+#: src/features/chats/components/new-chat.tsx:115
 msgid "You already have a chat with this friend"
 msgstr "Bi vê hevalê re jixwe sohbetek heye"
 
-#: src/features/chats/components/new-chat.tsx:221
+#: src/features/chats/components/new-chat.tsx:227
 msgid "You already have chats with:"
 msgstr "Sohbetên te jixwe bi van re hene:"
 
-#: src/features/chats/index.tsx:368
+#: src/features/chats/index.tsx:376
 msgid "You can only delete your own messages"
 msgstr "Tu tenê dikarî peyamên xwe jê bibî"
 
-#: src/features/chats/index.tsx:779
+#: src/features/chats/index.tsx:816
 msgid "You left this chat"
 msgstr "Te ev sohbet hişt"
 
-#: src/features/chats/index.tsx:778
+#: src/features/chats/index.tsx:815
 msgid "You were removed from this chat"
 msgstr "Tu ji vê sohbetê hatî derxistin"
 
