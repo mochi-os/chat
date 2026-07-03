@@ -51,7 +51,7 @@ def error_message_timeout(e):
 	member = e.entity
 	affected = mochi.db.rows("select distinct chat from members where member=?", member)
 	for row in affected or []:
-		mochi.db.tombstone("members_all", ["chat", "member"], {"chat": row["chat"], "member": member})
+		mochi.db.remove("members_all", ["chat", "member"], {"chat": row["chat"], "member": member})
 	for r in affected:
 		row = mochi.db.row("select key from chats where id=?", r["chat"])
 		if row:
@@ -139,7 +139,7 @@ def database_create():
 	mochi.db.execute("create table if not exists chats ( id text not null primary key, name text not null, key text not null, updated integer not null, status text not null default 'active', synced integer not null default 0 )")
 	mochi.db.execute("create index if not exists chats_updated on chats( updated )")
 
-	# Membership is a converging LWW-Register (mochi.db.merge / mochi.db.tombstone):
+	# Membership is a converging LWW-Register (mochi.db.merge / mochi.db.remove):
 	# the real rows live in members_all with version/writer/removed; the `members`
 	# view exposes only the active (removed=0) rows, so all existing reads stay
 	# correct and only writes target members_all.
@@ -254,7 +254,7 @@ def database_upgrade(to_version):
 		# Make membership a converging LWW-Register: move the rows into
 		# members_all (with version/writer/removed) and expose the active rows
 		# through a `members` view, so every existing read stays correct and
-		# writes go through mochi.db.merge / mochi.db.tombstone on members_all.
+		# writes go through mochi.db.merge / mochi.db.remove on members_all.
 		if not mochi.db.table("members_all"):
 			mochi.db.execute("create table members_all ( chat references chats( id ), member text not null, name text not null default '', writer text not null default '', version integer not null default 0, removed integer not null default 0, primary key ( chat, member ) )")
 			mochi.db.execute("insert into members_all ( chat, member, name ) select chat, member, name from members")
@@ -798,7 +798,7 @@ def chat_delete_local(chat_id):
 	mochi.db.execute("delete from deletions where chat=?", chat_id)
 	mochi.db.execute("delete from messages where chat=?", chat_id)
 	for _row in mochi.db.rows("select member from members where chat=?", chat_id) or []:
-		mochi.db.tombstone("members_all", ["chat", "member"], {"chat": chat_id, "member": _row["member"]})
+		mochi.db.remove("members_all", ["chat", "member"], {"chat": chat_id, "member": _row["member"]})
 	mochi.db.execute("delete from chat_read where chat=?", chat_id)
 	mochi.db.execute("update chats set status='deleted', updated=? where id=?", mochi.time.now(), chat_id)
 
@@ -1366,7 +1366,7 @@ def event_leave(e):
 	if e.header("from") != member:
 		return
 
-	mochi.db.tombstone("members_all", ["chat", "member"], {"chat": chat["id"], "member": member})
+	mochi.db.remove("members_all", ["chat", "member"], {"chat": chat["id"], "member": member})
 	chat_websocket(chat["key"], {"event": "leave", "member": member})
 
 # Received a member/add event - someone added a new member
@@ -1409,7 +1409,7 @@ def event_member_remove(e):
 	if not mochi.text.valid(member, "entity"):
 		return
 
-	mochi.db.tombstone("members_all", ["chat", "member"], {"chat": chat["id"], "member": member})
+	mochi.db.remove("members_all", ["chat", "member"], {"chat": chat["id"], "member": member})
 	chat_websocket(chat["key"], {"event": "member/remove", "member": member})
 
 # Received a removed event - current user was removed from chat
@@ -1493,7 +1493,7 @@ def action_leave(a):
 	delete_local = a.input("delete") == "true"
 
 	# Remove self from members
-	mochi.db.tombstone("members_all", ["chat", "member"], {"chat": chat["id"], "member": a.user.identity.id})
+	mochi.db.remove("members_all", ["chat", "member"], {"chat": chat["id"], "member": a.user.identity.id})
 
 	# Check if any members remain
 	remaining = mochi.db.rows("select member from members where chat=?", chat["id"])
@@ -1622,7 +1622,7 @@ def action_member_remove(a):
 		return
 
 	# Remove the member
-	mochi.db.tombstone("members_all", ["chat", "member"], {"chat": chat["id"], "member": member_id})
+	mochi.db.remove("members_all", ["chat", "member"], {"chat": chat["id"], "member": member_id})
 	mochi.db.execute("update chats set updated=? where id=?", mochi.time.now(), chat["id"])
 
 	# Notify remaining members. The removed member's row is already gone
