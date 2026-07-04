@@ -271,6 +271,12 @@ def database_upgrade(to_version):
 # Location-transparent: mochi.remote.stream() loops back in-process when the
 # entity lives on this server, or goes over P2P otherwise. Handles both binary
 # assets (avatar/banner/favicon) and JSON assets (style/information).
+	if to_version == 20:
+		# Schema alignment for the baseline squash: drop the legacy settings
+		# table and heal missing tables/indexes via the idempotent create.
+		mochi.db.execute("drop table if exists settings")
+		database_create()
+
 def stream_asset(a, entity_id, service, asset):
 	if not entity_id:
 		a.error.label(404, "errors.asset_unavailable", asset=asset)
