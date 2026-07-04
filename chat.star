@@ -51,7 +51,7 @@ def error_message_timeout(e):
 	member = e.entity
 	affected = mochi.db.rows("select distinct chat from members where member=?", member)
 	for row in affected or []:
-		mochi.db.remove("members_all", ["chat", "member"], {"chat": row["chat"], "member": member})
+		mochi.db.execute("delete from members where chat=? and member=?", row["chat"], member)
 	for r in affected:
 		row = mochi.db.row("select key from chats where id=?", r["chat"])
 		if row:
@@ -139,13 +139,8 @@ def database_create():
 	mochi.db.execute("create table if not exists chats ( id text not null primary key, name text not null, key text not null, updated integer not null, status text not null default 'active', synced integer not null default 0 )")
 	mochi.db.execute("create index if not exists chats_updated on chats( updated )")
 
-	# Membership is a converging LWW-Register (mochi.db.merge / mochi.db.remove):
-	# the real rows live in members_all with version/writer/removed; the `members`
-	# view exposes only the active (removed=0) rows, so all existing reads stay
-	# correct and only writes target members_all.
-	mochi.db.execute("create table if not exists members_all ( chat references chats( id ), member text not null, name text not null default '', writer text not null default '', version integer not null default 0, removed integer not null default 0, primary key ( chat, member ) )")
-	mochi.db.execute("create index if not exists members_member on members_all( member )")
-	mochi.db.execute("create view if not exists members as select chat, member, name from members_all where removed=0")
+	mochi.db.execute("create table if not exists members ( chat references chats( id ), member text not null, name text not null default '', primary key ( chat, member ) )")
+	mochi.db.execute("create index if not exists members_member on members( member )")
 
 	mochi.db.execute("create table if not exists messages ( id text not null primary key, chat references chats( id ), member text not null, name text not null, body text not null, created integer not null, reply_to text references messages( id ) )")
 	mochi.db.execute("create index if not exists messages_chat_created on messages( chat, created )")
@@ -261,6 +256,16 @@ def database_upgrade(to_version):
 			mochi.db.execute("drop table members")
 			mochi.db.execute("create index if not exists members_member on members_all( member )")
 			mochi.db.execute("create view members as select chat, member, name from members_all where removed=0")
+	if to_version == 19:
+		# Replication is removed: rebuild the plain members table from the live
+		# view rows and drop the register structure. Idempotent.
+		if mochi.db.table("members_all"):
+			mochi.db.execute("create table members_new ( chat references chats( id ), member text not null, name text not null default '', primary key ( chat, member ) )")
+			mochi.db.execute("insert into members_new ( chat, member, name ) select chat, member, name from members_all where removed=0")
+			mochi.db.execute("drop view if exists members")
+			mochi.db.execute("drop table members_all")
+			mochi.db.execute("alter table members_new rename to members")
+			mochi.db.execute("create index if not exists members_member on members( member )")
 
 # Stream an entity's asset from its owning service via a Mochi stream.
 # Location-transparent: mochi.remote.stream() loops back in-process when the
@@ -352,7 +357,7 @@ def action_create(a):
 	mochi.db.execute("replace into chats ( id, name, key, updated ) values ( ?, ?, ?, ? )", chat, name, mochi.random.alphanumeric(16), mochi.time.now())
 	
 	for member in prospective_members:
-		mochi.db.merge("members_all", ["chat", "member"], {"chat": chat, "member": member["id"], "name": member["name"]})
+		mochi.db.execute("insert into members ( chat, member, name ) values ( ?, ?, ? ) on conflict ( chat, member ) do update set name=excluded.name", chat, member["id"], member["name"])
 		if member["id"] != a.user.identity.id:
 			chat_name_for_member = name
 			if len(prospective_members) == 2:
@@ -798,7 +803,7 @@ def chat_delete_local(chat_id):
 	mochi.db.execute("delete from deletions where chat=?", chat_id)
 	mochi.db.execute("delete from messages where chat=?", chat_id)
 	for _row in mochi.db.rows("select member from members where chat=?", chat_id) or []:
-		mochi.db.remove("members_all", ["chat", "member"], {"chat": chat_id, "member": _row["member"]})
+		mochi.db.execute("delete from members where chat=? and member=?", chat_id, _row["member"])
 	mochi.db.execute("delete from chat_read where chat=?", chat_id)
 	mochi.db.execute("update chats set status='deleted', updated=? where id=?", mochi.time.now(), chat_id)
 
@@ -1057,8 +1062,8 @@ def action_messages_forward_friend(a):
 	else:
 		target_id = mochi.uid()
 		mochi.db.execute("replace into chats ( id, name, key, updated ) values ( ?, ?, ?, ? )", target_id, member_name, mochi.random.alphanumeric(16), mochi.time.now())
-		mochi.db.merge("members_all", ["chat", "member"], {"chat": target_id, "member": a.user.identity.id, "name": a.user.identity.name})
-		mochi.db.merge("members_all", ["chat", "member"], {"chat": target_id, "member": member_id, "name": member_name})
+		mochi.db.execute("insert into members ( chat, member, name ) values ( ?, ?, ? ) on conflict ( chat, member ) do update set name=excluded.name", target_id, a.user.identity.id, a.user.identity.name)
+		mochi.db.execute("insert into members ( chat, member, name ) values ( ?, ?, ? ) on conflict ( chat, member ) do update set name=excluded.name", target_id, member_id, member_name)
 		# Tell the friend about the new chat; they see our name as its title.
 		mochi.message.send({"from": a.user.identity.id, "to": member_id, "service": "chat", "event": "new"}, {"id": target_id, "name": a.user.identity.name}, [{"id": a.user.identity.id, "name": a.user.identity.name}, {"id": member_id, "name": member_name}])
 
@@ -1168,7 +1173,7 @@ def request_resync(chat_id, peer_member):
 			continue
 		if not mochi.text.valid(m.get("name", ""), "name"):
 			continue
-		mochi.db.merge("members_all", ["chat", "member"], {"chat": chat_id, "member": m["id"], "name": m["name"]})
+		mochi.db.execute("insert into members ( chat, member, name ) values ( ?, ?, ? ) on conflict ( chat, member ) do update set name=excluded.name", chat_id, m["id"], m["name"])
 	return True
 
 # Respond to a peer asking about a chat we both belong to. Returns the
@@ -1316,7 +1321,7 @@ def event_new(e):
 			continue
 		if not mochi.text.valid(member["name"], "name"):
 			continue
-		mochi.db.merge("members_all", ["chat", "member"], {"chat": chat, "member": member["id"], "name": member["name"]})
+		mochi.db.execute("insert into members ( chat, member, name ) values ( ?, ?, ? ) on conflict ( chat, member ) do update set name=excluded.name", chat, member["id"], member["name"])
 
 # Received a rename event
 def event_rename(e):
@@ -1366,7 +1371,7 @@ def event_leave(e):
 	if e.header("from") != member:
 		return
 
-	mochi.db.remove("members_all", ["chat", "member"], {"chat": chat["id"], "member": member})
+	mochi.db.execute("delete from members where chat=? and member=?", chat["id"], member)
 	chat_websocket(chat["key"], {"event": "leave", "member": member})
 
 # Received a member/add event - someone added a new member
@@ -1389,7 +1394,7 @@ def event_member_add(e):
 	if not mochi.text.valid(name, "name"):
 		return
 
-	mochi.db.merge("members_all", ["chat", "member"], {"chat": chat["id"], "member": member, "name": name})
+	mochi.db.execute("insert into members ( chat, member, name ) values ( ?, ?, ? ) on conflict ( chat, member ) do update set name=excluded.name", chat["id"], member, name)
 	mochi.db.execute("update chats set updated=? where id=?", mochi.time.now(), chat["id"])
 	chat_websocket(chat["key"], {"event": "member/add", "member": member, "name": name})
 
@@ -1409,7 +1414,7 @@ def event_member_remove(e):
 	if not mochi.text.valid(member, "entity"):
 		return
 
-	mochi.db.remove("members_all", ["chat", "member"], {"chat": chat["id"], "member": member})
+	mochi.db.execute("delete from members where chat=? and member=?", chat["id"], member)
 	chat_websocket(chat["key"], {"event": "member/remove", "member": member})
 
 # Received a removed event - current user was removed from chat
@@ -1493,7 +1498,7 @@ def action_leave(a):
 	delete_local = a.input("delete") == "true"
 
 	# Remove self from members
-	mochi.db.remove("members_all", ["chat", "member"], {"chat": chat["id"], "member": a.user.identity.id})
+	mochi.db.execute("delete from members where chat=? and member=?", chat["id"], a.user.identity.id)
 
 	# Check if any members remain
 	remaining = mochi.db.rows("select member from members where chat=?", chat["id"])
@@ -1569,7 +1574,7 @@ def action_member_add(a):
 	member_name = friend["name"]
 
 	# Add new member
-	mochi.db.merge("members_all", ["chat", "member"], {"chat": chat["id"], "member": member_id, "name": member_name})
+	mochi.db.execute("insert into members ( chat, member, name ) values ( ?, ?, ? ) on conflict ( chat, member ) do update set name=excluded.name", chat["id"], member_id, member_name)
 	mochi.db.execute("update chats set updated=? where id=?", mochi.time.now(), chat["id"])
 
 	# Get all current members for the new event
@@ -1622,7 +1627,7 @@ def action_member_remove(a):
 		return
 
 	# Remove the member
-	mochi.db.remove("members_all", ["chat", "member"], {"chat": chat["id"], "member": member_id})
+	mochi.db.execute("delete from members where chat=? and member=?", chat["id"], member_id)
 	mochi.db.execute("update chats set updated=? where id=?", mochi.time.now(), chat["id"])
 
 	# Notify remaining members. The removed member's row is already gone
