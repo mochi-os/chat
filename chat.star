@@ -353,7 +353,11 @@ def action_messages(a):
 	# so older clients that send only `before` keep working.
 	before = None
 	before_str = a.input("before")
-	if before_str and mochi.text.valid(before_str, "natural"):
+	# "integer" (<=12 digits), NOT "natural": the natural pattern caps at 9
+	# digits, and unix timestamps have been 10 since 2001 — so a timestamp
+	# cursor never validated and pagination silently served the first page
+	# again.
+	if before_str and mochi.text.valid(before_str, "integer"):
 		before = int(before_str)
 
 	before_id = a.input("before_id")
@@ -517,7 +521,7 @@ def action_mark_read(a):
 
 	read_ts = None
 	read_str = a.input("read", "")
-	if read_str and mochi.text.valid(read_str, "natural"):
+	if read_str and mochi.text.valid(read_str, "integer"):
 		read_ts = int(read_str)
 	if read_ts == None:
 		last = mochi.db.row("select max(created) as ts from messages where chat=?", chat["id"])
