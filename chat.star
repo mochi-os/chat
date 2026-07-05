@@ -783,7 +783,11 @@ def event_message_delete(e):
 	if not mochi.db.exists("select 1 from members where chat=? and member=?", chat["id"], sender):
 		return
 	messages = e.content("messages")
-	if type(messages) != "list":
+	# Event content decoded off the wire arrives as a TUPLE (core sl_encode
+	# maps Go slices to Starlark tuples), not a list — a list-only check
+	# silently dropped every delete on the receiving side, so a deleted
+	# message tombstoned only on the deleter's own host.
+	if type(messages) not in ("list", "tuple"):
 		return
 	now_delete = mochi.time.now()
 	for raw_id in messages:
