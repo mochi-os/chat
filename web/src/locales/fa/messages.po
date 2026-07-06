@@ -50,6 +50,10 @@ msgstr "۲۴ ساعت"
 msgid "Absolute (date and time)"
 msgstr "مطلق (تاریخ و زمان)"
 
+#: ../../../lib/web/src/features/errors/general-error.tsx:60
+msgid "Access denied"
+msgstr "دسترسی رد شد"
+
 #: ../../../lib/web/src/features/errors/forbidden.tsx:16
 msgid "Access Forbidden"
 msgstr "دسترسی ممنوع"
@@ -173,7 +177,7 @@ msgstr "شگفت‌زده"
 msgid "An error occurred"
 msgstr "خطایی رخ داد"
 
-#: ../../../lib/web/src/lib/api-response-interceptors.ts:241
+#: ../../../lib/web/src/lib/api-response-interceptors.ts:256
 msgid "An unexpected error occurred"
 msgstr "خطای غیرمنتظره‌ای رخ داد"
 
@@ -262,12 +266,12 @@ msgstr "لغو"
 msgid "Cancel reply"
 msgstr "لغو پاسخ"
 
-#: ../../../lib/web/src/components/notification-category-button.tsx:144
+#: ../../../lib/web/src/components/notification-category-button.tsx:143
 msgid "Category for this notification"
 msgstr "دستهٔ این اعلان"
 
-#: ../../../lib/web/src/components/notification-category-button.tsx:125
-#: ../../../lib/web/src/components/notification-category-button.tsx:136
+#: ../../../lib/web/src/components/notification-category-button.tsx:124
+#: ../../../lib/web/src/components/notification-category-button.tsx:135
 msgid "Change notification category"
 msgstr "تغییر دستهٔ اعلان"
 
@@ -539,6 +543,10 @@ msgstr "تیره"
 msgid "Dark mode"
 msgstr "حالت تیره"
 
+#: ../../../lib/web/src/lib/api-response-interceptors.ts:240
+msgid "Data conflict"
+msgstr "تعارض داده‌ها"
+
 #: ../../../lib/web/src/components/config-drawer.tsx:310
 msgid "Default"
 msgstr "پیش‌فرض"
@@ -729,7 +737,7 @@ msgstr "ارسال کد تأیید ناموفق بود"
 msgid "Failed to start chat"
 msgstr "شروع گفتگو ناموفق بود"
 
-#: ../../../lib/web/src/components/notification-category-button.tsx:112
+#: ../../../lib/web/src/components/notification-category-button.tsx:111
 msgid "Failed to update category"
 msgstr "به‌روزرسانی دسته ناموفق بود"
 
@@ -1040,7 +1048,8 @@ msgstr "دوشنبه"
 msgid "Name must be 1000 characters or less"
 msgstr "نام باید ۱۰۰۰ کاراکتر یا کمتر باشد"
 
-#: ../../../lib/web/src/lib/api-response-interceptors.ts:288
+#: ../../../lib/web/src/features/errors/general-error.tsx:53
+#: ../../../lib/web/src/lib/api-response-interceptors.ts:303
 msgid "Network error"
 msgstr "خطای شبکه"
 
@@ -1117,7 +1126,7 @@ msgstr "نتیجه‌ای یافت نشد."
 msgid "No time zone found."
 msgstr "منطقه زمانی یافت نشد."
 
-#: ../../../lib/web/src/components/notification-category-button.tsx:148
+#: ../../../lib/web/src/components/notification-category-button.tsx:147
 msgid "No topic record yet — try again after the next notification."
 msgstr "هنوز هیچ رکوردی برای موضوع وجود ندارد — پس از اعلان بعدی دوباره تلاش کنید."
 
@@ -1134,6 +1143,10 @@ msgstr "هیچ‌کدام"
 #: ../../../lib/web/src/lib/preference-utils.ts:134
 msgid "Normal"
 msgstr "معمولی"
+
+#: ../../../lib/web/src/features/errors/general-error.tsx:67
+msgid "Not found"
+msgstr "یافت نشد"
 
 #: ../../../lib/web/src/components/ui/editable-field-row.tsx:146
 msgid "Not set"
@@ -1224,7 +1237,9 @@ msgstr "پسکی‌ها"
 msgid "Pin chat"
 msgstr "سنجاق کردن چت"
 
-#: ../../../lib/web/src/lib/api-response-interceptors.ts:289
+#: ../../../lib/web/src/features/errors/general-error.tsx:54
+#: ../../../lib/web/src/lib/api-response-interceptors.ts:304
+#: ../../../lib/web/src/lib/error-normalizer.ts:201
 msgid "Please check your internet connection and try again."
 msgstr "لطفاً اتصال اینترنت خود را بررسی کرده و دوباره تلاش کنید."
 
@@ -1235,6 +1250,14 @@ msgstr "لطفاً نام گفت‌وگو را وارد کنید"
 #: src/features/chats/components/new-chat.tsx:110
 msgid "Please select at least one friend"
 msgstr "لطفاً حداقل یک دوست انتخاب کنید"
+
+#: ../../../lib/web/src/features/errors/general-error.tsx:83
+msgid "Please try again."
+msgstr "لطفاً دوباره تلاش کنید."
+
+#: ../../../lib/web/src/features/errors/general-error.tsx:75
+msgid "Please wait a moment and try again."
+msgstr "لطفاً چند لحظه صبر کنید و دوباره امتحان کنید."
 
 #: ../../../lib/web/src/components/ui/image-lightbox.tsx:373
 #: ../../../lib/web/src/components/ui/image-lightbox.tsx:378
@@ -1267,8 +1290,8 @@ msgstr "کلیدهای عبور خود را دوباره در این سرور ث
 msgid "Read more"
 msgstr "ادامه مطلب"
 
-#: ../../../lib/web/src/components/search-entity-dialog.tsx:219
-#: ../../../lib/web/src/components/search-entity-page.tsx:194
+#: ../../../lib/web/src/components/search-entity-dialog.tsx:216
+#: ../../../lib/web/src/components/search-entity-page.tsx:240
 msgid "Recommended"
 msgstr "توصیه‌شده"
 
@@ -1416,8 +1439,8 @@ msgstr "جست‌وجوی کاربران"
 msgid "Search..."
 msgstr "جست‌وجو..."
 
-#: ../../../lib/web/src/components/search-entity-dialog.tsx:177
-#: ../../../lib/web/src/components/search-entity-page.tsx:152
+#: ../../../lib/web/src/components/search-entity-dialog.tsx:174
+#: ../../../lib/web/src/components/search-entity-page.tsx:198
 #: ../../../lib/web/src/features/access/access-dialog.tsx:202
 msgid "Searching..."
 msgstr "در حال جست‌وجو..."
@@ -1503,8 +1526,8 @@ msgstr "ارسال پیام"
 msgid "Serif"
 msgstr "سریف"
 
-#: ../../../lib/web/src/lib/api-response-interceptors.ts:245
-#: ../../../lib/web/src/lib/api-response-interceptors.ts:271
+#: ../../../lib/web/src/lib/api-response-interceptors.ts:260
+#: ../../../lib/web/src/lib/api-response-interceptors.ts:286
 msgid "Server error"
 msgstr "خطای سرور"
 
@@ -1513,9 +1536,9 @@ msgstr "خطای سرور"
 msgid "Server rules"
 msgstr "قوانین سرور"
 
-#: ../../../lib/web/src/lib/api-response-interceptors.ts:209
-msgid "Session expired"
-msgstr "نشست منقضی شد"
+#: ../../../lib/web/src/lib/api-response-interceptors.ts:210
+msgid "Session expired. Please log in again."
+msgstr "نشست منقضی شده است. لطفاً دوباره وارد شوید."
 
 #: ../../../lib/web/src/components/travelling-picker.tsx:147
 msgid "Set origin and destination"
@@ -1617,6 +1640,10 @@ msgstr "شرایط و ضوابط"
 msgid "That code is incorrect or has expired."
 msgstr "این کد نادرست است یا منقضی شده است."
 
+#: ../../../lib/web/src/features/errors/general-error.tsx:68
+msgid "The requested content could not be found."
+msgstr "محتوای درخواستی یافت نشد."
+
 #: ../../../lib/web/src/components/config-drawer.tsx:194
 msgid "Theme"
 msgstr "تم"
@@ -1677,6 +1704,10 @@ msgstr "تغییر وضعیت نوار کناری"
 msgid "Toggle theme"
 msgstr "تغییر تم"
 
+#: ../../../lib/web/src/features/errors/general-error.tsx:74
+msgid "Too many requests"
+msgstr "درخواست‌های بیش از حد"
+
 #: ../../../lib/web/src/components/ui/sort-selector.tsx:45
 msgid "Top"
 msgstr "بالا"
@@ -1689,13 +1720,13 @@ msgstr "در حال سفر"
 msgid "Try a different search term"
 msgstr "عبارت جست‌وجوی دیگری را امتحان کنید"
 
-#: ../../../lib/web/src/components/search-entity-dialog.tsx:193
-#: ../../../lib/web/src/components/search-entity-page.tsx:168
+#: ../../../lib/web/src/components/search-entity-dialog.tsx:190
+#: ../../../lib/web/src/components/search-entity-page.tsx:214
 msgid "Try adjusting your search terms"
 msgstr "عبارات جست‌وجوی خود را تنظیم کنید"
 
-#: ../../../lib/web/src/features/errors/general-error.tsx:128
-#: ../../../lib/web/src/features/errors/general-error.tsx:168
+#: ../../../lib/web/src/features/errors/general-error.tsx:140
+#: ../../../lib/web/src/features/errors/general-error.tsx:180
 #: ../../../lib/web/src/features/errors/maintenance-error.tsx:19
 msgid "Try again"
 msgstr "دوباره تلاش کنید"
@@ -1724,7 +1755,7 @@ msgstr "پیام خود را تایپ کنید…"
 msgid "Type your reply…"
 msgstr "پاسخ خود را بنویسید…"
 
-#: ../../../lib/web/src/lib/api-response-interceptors.ts:267
+#: ../../../lib/web/src/lib/api-response-interceptors.ts:282
 msgid "Unable to connect to remote server"
 msgstr "اتصال به سرور راه دور ممکن نیست"
 
@@ -1733,7 +1764,7 @@ msgstr "اتصال به سرور راه دور ممکن نیست"
 msgid "Unable to redirect to login. Please try again."
 msgstr "ریدایرکت به ورود ممکن نیست. لطفاً دوباره تلاش کنید."
 
-#: ../../../lib/web/src/components/notification-category-button.tsx:156
+#: ../../../lib/web/src/components/notification-category-button.tsx:155
 msgid "Unassigned"
 msgstr "بدون اختصاص"
 
@@ -1831,6 +1862,10 @@ msgstr "شما از پیش با این افراد چت دارید:"
 #: src/features/chats/index.tsx:377
 msgid "You can only delete your own messages"
 msgstr "فقط می‌توانید پیام‌های خودتان را حذف کنید"
+
+#: ../../../lib/web/src/features/errors/general-error.tsx:61
+msgid "You do not have access to this section."
+msgstr "شما به این بخش دسترسی ندارید."
 
 #: src/features/chats/index.tsx:817
 msgid "You left this chat"
