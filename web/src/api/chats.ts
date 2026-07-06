@@ -104,7 +104,8 @@ export const chatsApi = {
       
       return client.post<SendMessageResponse, FormData>(
         endpoints.chat.send(chatId),
-        formData
+        formData,
+        { timeout: 0 }
       )
     }
     
