@@ -1324,6 +1324,12 @@ def event_removed(e):
 	if not chat:
 		return
 
+	# Verify the sender is a member (the remover). Without this, any peer that
+	# knows the chat id could spoof a "removed" event and force this chat
+	# read-only. Same gate as event_member_remove.
+	if not mochi.db.exists("select 1 from members where chat=? and member=?", chat["id"], e.header("from")):
+		return
+
 	# Mark chat as removed (kicked by another member); kept read-only.
 	mochi.db.execute("update chats set status='removed', updated=? where id=?", mochi.time.now(), chat["id"])
 
