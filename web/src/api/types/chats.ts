@@ -222,3 +222,20 @@ export interface ForwardMessagesResponse {
   forwarded: string[]
   to_chat: string
 }
+
+// Whom may start a chat with this user (the chat_policy preference).
+export type ChatPolicy = 'friends' | 'anyone'
+
+export interface ChatPreferences {
+  chat_policy: ChatPolicy
+}
+
+export interface PersonSearchResult {
+  id: string
+  name: string
+  fingerprint: string
+}
+
+export interface PersonSearchResponse {
+  results: PersonSearchResult[]
+}

@@ -13,17 +13,22 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
+#. js-lingui-explicit-id
+#: ../../../lib/web/src/lib/error-normalizer.ts:204
+msgid "Please check your internet connection and try again."
+msgstr "Egiaztatu zure interneteko konexioa eta saiatu berriro."
+
 #: src/features/chats/components/message-reaction-bar.tsx:183
 msgid " (includes you)"
 msgstr " (zu barne)"
 
 #. placeholder {0}: deleteTargetIds?.length ?? 0
-#: src/features/chats/index.tsx:897
+#: src/features/chats/index.tsx:912
 msgid "{0, plural, one {Delete message?} other {Delete # messages?}}"
 msgstr "{0, plural, one {Mezua ezabatu?} other {# mezu ezabatu?}}"
 
 #. placeholder {0}: selectedIds.size
-#: src/features/chats/index.tsx:773
+#: src/features/chats/index.tsx:788
 msgid "{0} selected"
 msgstr "{0} hautatuta"
 
@@ -185,8 +190,16 @@ msgstr "Ustekabeko errore bat gertatu da"
 msgid "Angry"
 msgstr "Haserre"
 
+#: src/features/chats/components/chat-settings-dialog.tsx:44
+msgid "Anyone"
+msgstr "Edonor"
+
+#: src/features/chats/components/chat-settings-dialog.tsx:45
+msgid "Anyone can start a chat with you."
+msgstr "Edonork has dezake txat bat zurekin."
+
 #. placeholder {0}: selectedChat?.name
-#: src/features/chats/index.tsx:865
+#: src/features/chats/index.tsx:880
 msgid "Are you sure you want to leave \"{0}\"? You can be added back by other members."
 msgstr "Ziur al zaude \"{0}\" utzi nahi duzula? Beste kide batzuek atzera gehitu zaitzakete."
 
@@ -255,9 +268,10 @@ msgstr "Bultzatu interesa"
 #: ../../../lib/web/src/features/accounts/account-add.tsx:188
 #: ../../../lib/web/src/features/accounts/account-verify.tsx:89
 #: src/features/chats/components/chat-message-list.tsx:626
+#: src/features/chats/components/chat-settings-dialog.tsx:109
 #: src/features/chats/components/forward-dialog.tsx:249
-#: src/features/chats/components/new-chat.tsx:265
-#: src/features/chats/index.tsx:806
+#: src/features/chats/components/new-chat.tsx:285
+#: src/features/chats/index.tsx:821
 msgid "Cancel"
 msgstr "Utzi"
 
@@ -275,18 +289,18 @@ msgstr "Jakinarazpen honentzako kategoria"
 msgid "Change notification category"
 msgstr "Aldatu jakinarazpen kategoria"
 
-#: src/features/chats/index.tsx:73
-#: src/features/chats/index.tsx:190
-#: src/features/chats/index.tsx:190
-#: src/features/chats/index.tsx:616
+#: src/features/chats/index.tsx:74
+#: src/features/chats/index.tsx:192
+#: src/features/chats/index.tsx:192
+#: src/features/chats/index.tsx:619
 msgid "Chat"
 msgstr "Txata"
 
-#: src/features/chats/components/new-chat.tsx:132
+#: src/features/chats/components/new-chat.tsx:150
 msgid "Chat created"
 msgstr "Txata sortu da"
 
-#: src/features/chats/index.tsx:520
+#: src/features/chats/index.tsx:522
 msgid "Chat deleted"
 msgstr "Txata ezabatu da"
 
@@ -302,7 +316,7 @@ msgstr "Txata irakurritako gisa markatu da"
 msgid "Chat marked as unread"
 msgstr "Txata irakurri gabeko gisa markatu da"
 
-#: src/features/chats/components/new-chat.tsx:249
+#: src/features/chats/components/new-chat.tsx:269
 #: src/routes/_authenticated/$chatId_.settings.tsx:201
 msgid "Chat name"
 msgstr "Txataren izena"
@@ -311,7 +325,7 @@ msgstr "Txataren izena"
 msgid "Chat name is required"
 msgstr "Txataren izena beharrezkoa da"
 
-#: src/features/chats/components/new-chat.tsx:252
+#: src/features/chats/components/new-chat.tsx:272
 msgid "Chat name..."
 msgstr "Txataren izena..."
 
@@ -323,7 +337,11 @@ msgstr "Txata ez da aurkitu"
 msgid "Chat pinned"
 msgstr "Txata finkatu da"
 
-#: src/features/chats/components/new-chat.tsx:132
+#: src/features/chats/components/chat-settings-dialog.tsx:64
+msgid "Chat policy updated"
+msgstr "Txat-politika eguneratuta"
+
+#: src/features/chats/components/new-chat.tsx:150
 msgid "Chat ready"
 msgstr "Txata prest"
 
@@ -331,7 +349,8 @@ msgstr "Txata prest"
 msgid "Chat renamed"
 msgstr "Txatari izena aldatu zaio"
 
-#: src/features/chats/index.tsx:706
+#: src/features/chats/index.tsx:624
+#: src/features/chats/index.tsx:721
 #: src/routes/_authenticated/$chatId_.settings.tsx:84
 #: src/routes/_authenticated/$chatId_.settings.tsx:97
 #: src/routes/_authenticated/$chatId_.settings.tsx:108
@@ -351,10 +370,6 @@ msgstr "Txata desfinkatu da"
 #: src/features/chats/components/forward-dialog.tsx:225
 msgid "Chats"
 msgstr "Txatak"
-
-#: src/features/chats/components/new-chat.tsx:196
-msgid "Chats are between friends. Add a friend in the People app first."
-msgstr "Txatak lagunen artekoak dira. Gehitu lagun bat lehenik Pertsonak aplikazioan."
 
 #: src/features/chats/components/forward-dialog.tsx:186
 msgid "Choose a chat or friend to forward the selected messages to"
@@ -483,13 +498,13 @@ msgstr "Jarraitu"
 msgid "Continue with {label}"
 msgstr "Jarraitu {label} erabiliz"
 
-#: src/features/chats/index.tsx:364
+#: src/features/chats/index.tsx:366
 msgid "Copied"
 msgstr "Kopiatuta"
 
 #: ../../../lib/web/src/components/ui/copy-button.tsx:63
 #: src/features/chats/components/message-hover-actions.tsx:103
-#: src/features/chats/index.tsx:782
+#: src/features/chats/index.tsx:797
 msgid "Copy"
 msgstr "Kopiatu"
 
@@ -509,20 +524,20 @@ msgstr "Ezin izan da berrautentifikazioa hasi. Saiatu berriro."
 msgid "Couldn't verify with that account. Please try again."
 msgstr "Ezin izan da kontu horrekin egiaztatu. Saiatu berriro."
 
-#: src/features/chats/components/new-chat.tsx:179
+#: src/features/chats/components/new-chat.tsx:197
 msgid "Create a new chat"
 msgstr "Sortu txat berri bat"
 
 #: src/components/layout/chat-layout.tsx:264
-#: src/features/chats/components/new-chat.tsx:273
+#: src/features/chats/components/new-chat.tsx:293
 msgid "Create chat"
 msgstr "Sortu txata"
 
-#: src/features/chats/components/new-chat.tsx:131
+#: src/features/chats/components/new-chat.tsx:149
 msgid "Creating chat..."
 msgstr "Txata sortzen..."
 
-#: src/features/chats/components/new-chat.tsx:273
+#: src/features/chats/components/new-chat.tsx:293
 msgid "Creating..."
 msgstr "Sortzen..."
 
@@ -556,17 +571,17 @@ msgid "Default AI account"
 msgstr "Lehenetsitako AA kontua"
 
 #: src/features/chats/components/message-hover-actions.tsx:135
-#: src/features/chats/index.tsx:799
-#: src/features/chats/index.tsx:909
+#: src/features/chats/index.tsx:814
+#: src/features/chats/index.tsx:924
 msgid "Delete"
 msgstr "Ezabatu"
 
-#: src/features/chats/index.tsx:689
-#: src/features/chats/index.tsx:830
+#: src/features/chats/index.tsx:704
+#: src/features/chats/index.tsx:845
 msgid "Delete chat"
 msgstr "Ezabatu txata"
 
-#: src/features/chats/index.tsx:887
+#: src/features/chats/index.tsx:902
 #: src/routes/_authenticated/$chatId_.settings.tsx:366
 msgid "Delete chat history"
 msgstr "Ezabatu txat historia"
@@ -575,12 +590,12 @@ msgstr "Ezabatu txat historia"
 msgid "Delete your account on the old server"
 msgstr "Ezabatu zure kontua zerbitzari zaharrean"
 
-#: src/features/chats/index.tsx:519
+#: src/features/chats/index.tsx:521
 msgid "Deleting chat..."
 msgstr "Txata ezabatzen..."
 
-#: src/features/chats/index.tsx:394
-#: src/features/chats/index.tsx:906
+#: src/features/chats/index.tsx:396
+#: src/features/chats/index.tsx:921
 msgid "Deleting..."
 msgstr "Ezabatzen..."
 
@@ -680,7 +695,7 @@ msgstr "Ezin izan da kontua gehitu"
 msgid "Failed to add member"
 msgstr "Ezin izan da kidea gehitu"
 
-#: src/features/chats/index.tsx:365
+#: src/features/chats/index.tsx:367
 msgid "Failed to copy"
 msgstr "Ezin izan da kopiatu"
 
@@ -688,15 +703,15 @@ msgstr "Ezin izan da kopiatu"
 msgid "Failed to copy message"
 msgstr "Ezin izan da mezua kopiatu"
 
-#: src/features/chats/components/new-chat.tsx:133
+#: src/features/chats/components/new-chat.tsx:151
 msgid "Failed to create chat"
 msgstr "Ezin izan da txata sortu"
 
-#: src/features/chats/index.tsx:396
+#: src/features/chats/index.tsx:398
 msgid "Failed to delete"
 msgstr "Ezin izan da ezabatu"
 
-#: src/features/chats/index.tsx:521
+#: src/features/chats/index.tsx:523
 msgid "Failed to delete chat"
 msgstr "Ezin izan da txata ezabatu"
 
@@ -704,7 +719,7 @@ msgstr "Ezin izan da txata ezabatu"
 msgid "Failed to forward"
 msgstr "Ezin izan da birbidali"
 
-#: src/features/chats/index.tsx:502
+#: src/features/chats/index.tsx:504
 #: src/routes/_authenticated/$chatId_.settings.tsx:327
 msgid "Failed to leave chat"
 msgstr "Ezin izan da txata utzi"
@@ -725,7 +740,11 @@ msgstr "Ezin izan da kidea kendu"
 msgid "Failed to rename chat"
 msgstr "Ezin izan da txata berrizendatu"
 
-#: src/features/chats/index.tsx:850
+#: src/features/chats/components/chat-settings-dialog.tsx:65
+msgid "Failed to save"
+msgstr "Ezin izan da gorde"
+
+#: src/features/chats/index.tsx:865
 msgid "Failed to send message"
 msgstr "Ezin izan da mezua bidali"
 
@@ -733,7 +752,7 @@ msgstr "Ezin izan da mezua bidali"
 msgid "Failed to send verification code"
 msgstr "Ezin izan da egiaztapen-kodea bidali"
 
-#: src/features/chats/index.tsx:196
+#: src/features/chats/index.tsx:198
 msgid "Failed to start chat"
 msgstr "Ezin izan da txata hasi"
 
@@ -755,7 +774,7 @@ msgstr "Flotatzailea"
 
 #: src/features/chats/components/forward-dialog.tsx:260
 #: src/features/chats/components/message-hover-actions.tsx:124
-#: src/features/chats/index.tsx:790
+#: src/features/chats/index.tsx:805
 msgid "Forward"
 msgstr "Birbidali"
 
@@ -776,10 +795,13 @@ msgid "Friday"
 msgstr "Ostirala"
 
 #: src/features/chats/components/forward-dialog.tsx:233
-#: src/features/chats/components/new-chat.tsx:186
 #: src/routes/_authenticated/$chatId_.settings.tsx:466
 msgid "Friends"
 msgstr "Lagunak"
+
+#: src/features/chats/components/chat-settings-dialog.tsx:39
+msgid "Friends only"
+msgstr "Lagunak soilik"
 
 #: ../../../lib/web/src/components/travelling-picker.tsx:153
 msgid "From"
@@ -856,6 +878,10 @@ msgstr "Beroa"
 msgid "Imperial"
 msgstr "Inperiala"
 
+#: src/features/chats/components/chat-settings-dialog.tsx:77
+msgid "Incoming chats"
+msgstr "Sarrerako txatak"
+
 #: ../../../lib/web/src/components/config-drawer.tsx:252
 msgid "Inset"
 msgstr "Sartzea"
@@ -891,31 +917,31 @@ msgstr "Diseinua"
 msgid "Learn more"
 msgstr "Ikasi gehiago"
 
-#: src/features/chats/index.tsx:873
+#: src/features/chats/index.tsx:888
 msgid "Leave"
 msgstr "Utzi"
 
-#: src/features/chats/index.tsx:696
+#: src/features/chats/index.tsx:711
 #: src/routes/_authenticated/$chatId_.settings.tsx:352
 msgid "Leave chat"
 msgstr "Utzi txata"
 
-#: src/features/chats/index.tsx:864
+#: src/features/chats/index.tsx:879
 #: src/routes/_authenticated/$chatId_.settings.tsx:343
 msgid "Leave chat?"
 msgstr "Txata utzi?"
 
-#: src/features/chats/index.tsx:500
+#: src/features/chats/index.tsx:502
 #: src/routes/_authenticated/$chatId_.settings.tsx:325
 msgid "Leaving chat..."
 msgstr "Txatetik irteten..."
 
-#: src/features/chats/index.tsx:870
+#: src/features/chats/index.tsx:885
 #: src/routes/_authenticated/$chatId_.settings.tsx:349
 msgid "Leaving..."
 msgstr "Uzten..."
 
-#: src/features/chats/index.tsx:501
+#: src/features/chats/index.tsx:503
 #: src/routes/_authenticated/$chatId_.settings.tsx:326
 msgid "Left chat"
 msgstr "Txata utzita"
@@ -1027,12 +1053,12 @@ msgstr "Mezuaren ekintzak"
 msgid "Message copied"
 msgstr "Mezua kopiatu da"
 
-#: src/features/chats/index.tsx:395
+#: src/features/chats/index.tsx:397
 msgid "Message deleted"
 msgstr "Mezua ezabatu da"
 
 #: src/features/chats/components/message-quote.tsx:60
-#: src/features/chats/index.tsx:416
+#: src/features/chats/index.tsx:418
 msgid "Message not available"
 msgstr "Mezua ez dago erabilgarri"
 
@@ -1059,7 +1085,7 @@ msgstr "Berria"
 
 #: src/features/chats/components/chat-empty-state.tsx:27
 #: src/features/chats/components/chat-empty-state.tsx:43
-#: src/features/chats/components/new-chat.tsx:176
+#: src/features/chats/components/new-chat.tsx:194
 msgid "New chat"
 msgstr "Txat berria"
 
@@ -1088,12 +1114,11 @@ msgstr "Konektatutako konturik ez"
 msgid "No friends available"
 msgstr "Ez dago lagun erabilgarririk"
 
-#: src/features/chats/components/new-chat.tsx:216
 #: src/routes/_authenticated/$chatId_.settings.tsx:456
 msgid "No friends found"
 msgstr "Ez da lagunik aurkitu"
 
-#: src/features/chats/components/new-chat.tsx:194
+#: src/features/chats/components/new-chat.tsx:225
 msgid "No friends yet"
 msgstr "Oraindik lagunik ez"
 
@@ -1104,6 +1129,10 @@ msgstr "Ez dago talde erabilgarririk"
 #: src/features/chats/components/chat-message-list.tsx:384
 msgid "No messages yet"
 msgstr "Oraindik mezurik ez"
+
+#: src/features/chats/components/new-chat.tsx:219
+msgid "No people found"
+msgstr "Ez da pertsonarik aurkitu"
 
 #: ../../../lib/web/src/components/place-picker.tsx:132
 msgid "No places found"
@@ -1152,7 +1181,7 @@ msgstr "Ez da aurkitu"
 msgid "Not set"
 msgstr "Ezarri gabe"
 
-#: src/features/chats/index.tsx:360
+#: src/features/chats/index.tsx:362
 msgid "Nothing to copy"
 msgstr "Ez dago ezer kopiatzeko"
 
@@ -1168,11 +1197,15 @@ msgstr "Jakinarazpenak"
 msgid "Older match"
 msgstr "Emaitza zaharragoa"
 
+#: src/features/chats/components/chat-settings-dialog.tsx:40
+msgid "Only friends can start a chat with you (default)."
+msgstr "Lagunek soilik has dezakete txat bat zurekin (lehenetsia)."
+
 #: ../../../lib/web/src/features/errors/not-found-error.tsx:16
 msgid "Oops! Page Not Found!"
 msgstr "Hutsegitea! Ez da orria aurkitu!"
 
-#: src/features/chats/components/new-chat.tsx:239
+#: src/features/chats/components/new-chat.tsx:259
 msgid "Open"
 msgstr "Ireki"
 
@@ -1186,7 +1219,7 @@ msgstr "Ireki kontuaren ekintzak"
 msgid "Open actions"
 msgstr "Ireki ekintzak"
 
-#: src/features/chats/index.tsx:681
+#: src/features/chats/index.tsx:696
 msgid "Open chat actions"
 msgstr "Ireki txat-ekintzak"
 
@@ -1200,7 +1233,7 @@ msgstr "Ireki nabigazioa"
 msgid "Open navigation menu"
 msgstr "Ireki nabigazio-menua"
 
-#: src/features/chats/components/new-chat.tsx:206
+#: src/features/chats/components/new-chat.tsx:235
 msgid "Open people"
 msgstr "Ireki Pertsonak"
 
@@ -1233,23 +1266,26 @@ msgstr "Sarbide-gakoaren egiaztapenak huts egin du. Saiatu berriro."
 msgid "Passkeys"
 msgstr "Passkey-ak"
 
+#: src/features/chats/components/new-chat.tsx:204
+msgid "People"
+msgstr "Jendea"
+
 #: src/components/layout/chat-layout.tsx:212
 msgid "Pin chat"
 msgstr "Finkatu txata"
 
 #: ../../../lib/web/src/features/errors/general-error.tsx:54
 #: ../../../lib/web/src/lib/api-response-interceptors.ts:304
-#: ../../../lib/web/src/lib/error-normalizer.ts:201
 msgid "Please check your internet connection and try again."
 msgstr "Egiaztatu zure interneteko konexioa eta saiatu berriro."
 
-#: src/features/chats/components/new-chat.tsx:120
+#: src/features/chats/components/new-chat.tsx:138
 msgid "Please provide a chat name"
 msgstr "Mesedez eman txat-izen bat"
 
-#: src/features/chats/components/new-chat.tsx:110
-msgid "Please select at least one friend"
-msgstr "Mesedez hautatu lagun bat gutxienez"
+#: src/features/chats/components/new-chat.tsx:128
+msgid "Please select at least one person"
+msgstr "Hautatu gutxienez pertsona bat"
 
 #: ../../../lib/web/src/features/errors/general-error.tsx:83
 msgid "Please try again."
@@ -1291,7 +1327,7 @@ msgid "Read more"
 msgstr "Irakurri gehiago"
 
 #: ../../../lib/web/src/components/search-entity-dialog.tsx:216
-#: ../../../lib/web/src/components/search-entity-page.tsx:240
+#: ../../../lib/web/src/components/search-entity-page.tsx:242
 msgid "Recommended"
 msgstr "Gomendatua"
 
@@ -1396,8 +1432,13 @@ msgstr "Larunbata"
 
 #: ../../../lib/web/src/components/ui/editable-field-row.tsx:122
 #: ../../../lib/web/src/components/ui/secret-field.tsx:77
+#: src/features/chats/components/chat-settings-dialog.tsx:120
 msgid "Save"
 msgstr "Gorde"
+
+#: src/features/chats/components/chat-settings-dialog.tsx:63
+msgid "Saving..."
+msgstr "Gordetzen..."
 
 #: src/features/chats/components/forward-dialog.tsx:194
 msgid "Search chats…"
@@ -1423,7 +1464,7 @@ msgstr "Bilatu lagunak…"
 msgid "Search in chat..."
 msgstr "Bilatu txatean..."
 
-#: src/features/chats/index.tsx:671
+#: src/features/chats/index.tsx:686
 msgid "Search messages"
 msgstr "Bilatu mezuak"
 
@@ -1440,7 +1481,7 @@ msgid "Search..."
 msgstr "Bilatu..."
 
 #: ../../../lib/web/src/components/search-entity-dialog.tsx:174
-#: ../../../lib/web/src/components/search-entity-page.tsx:198
+#: ../../../lib/web/src/components/search-entity-page.tsx:200
 #: ../../../lib/web/src/features/access/access-dialog.tsx:202
 msgid "Searching..."
 msgstr "Bilatzen..."
@@ -1469,10 +1510,6 @@ msgstr "Hautatu sarbide-araua"
 msgid "Select account type"
 msgstr "Hautatu kontu mota"
 
-#: src/features/chats/components/new-chat.tsx:215
-msgid "Select friends..."
-msgstr "Hautatu lagunak..."
-
 #: ../../../lib/web/src/features/access/access-dialog.tsx:231
 msgid "Select group"
 msgstr "Hautatu taldea"
@@ -1488,6 +1525,10 @@ msgstr "Hautatu kargatutakoak"
 #: src/features/chats/components/chat-message-list.tsx:440
 msgid "Select message"
 msgstr "Hautatu mezua"
+
+#: src/features/chats/components/new-chat.tsx:218
+msgid "Select people..."
+msgstr "Hautatu pertsonak..."
 
 #: ../../../lib/web/src/components/config-drawer.tsx:246
 msgid "Select sidebar style"
@@ -1596,7 +1637,7 @@ msgstr "Lasaia"
 msgid "Start a conversation"
 msgstr "Hasi elkarrizketa bat"
 
-#: src/features/chats/index.tsx:193
+#: src/features/chats/index.tsx:195
 msgid "Starting chat..."
 msgstr "Txata hasten..."
 
@@ -1660,7 +1701,7 @@ msgstr "txat hau"
 msgid "This chat may have been deleted or you don't have access to it"
 msgstr "Txat hau ezabatu da agian edo ez duzu sarbiderik"
 
-#: src/features/chats/index.tsx:901
+#: src/features/chats/index.tsx:916
 msgid "This deletes the message for everyone and cannot be undone."
 msgstr "Honek mezua guztientzat ezabatzen du eta ezin da desegin."
 
@@ -1721,7 +1762,7 @@ msgid "Try a different search term"
 msgstr "Saiatu beste bilaketa-termino batekin"
 
 #: ../../../lib/web/src/components/search-entity-dialog.tsx:190
-#: ../../../lib/web/src/components/search-entity-page.tsx:214
+#: ../../../lib/web/src/components/search-entity-page.tsx:216
 msgid "Try adjusting your search terms"
 msgstr "Saiatu zure bilaketa-terminoak doitzen"
 
@@ -1847,19 +1888,19 @@ msgstr "Webgunea mantentze-lanetan dago!"
 msgid "Wednesday"
 msgstr "Asteazkena"
 
-#: src/features/chats/index.tsx:276
+#: src/features/chats/index.tsx:278
 msgid "You"
 msgstr "Zu"
 
-#: src/features/chats/components/new-chat.tsx:115
+#: src/features/chats/components/new-chat.tsx:133
 msgid "You already have a chat with this friend"
 msgstr "Lagun honekin txata duzu jada"
 
-#: src/features/chats/components/new-chat.tsx:227
+#: src/features/chats/components/new-chat.tsx:247
 msgid "You already have chats with:"
 msgstr "Hauekin txatak dituzu jada:"
 
-#: src/features/chats/index.tsx:377
+#: src/features/chats/index.tsx:379
 msgid "You can only delete your own messages"
 msgstr "Zure mezuak bakarrik ezaba ditzakezu"
 
@@ -1867,11 +1908,11 @@ msgstr "Zure mezuak bakarrik ezaba ditzakezu"
 msgid "You do not have access to this section."
 msgstr "Ez duzu atal honetarako sarbiderik."
 
-#: src/features/chats/index.tsx:817
+#: src/features/chats/index.tsx:832
 msgid "You left this chat"
 msgstr "Txat hau utzi duzu"
 
-#: src/features/chats/index.tsx:816
+#: src/features/chats/index.tsx:831
 msgid "You were removed from this chat"
 msgstr "Txat honetatik kendu zaituzte"
 

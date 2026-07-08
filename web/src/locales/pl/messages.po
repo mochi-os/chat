@@ -13,17 +13,22 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
+#. js-lingui-explicit-id
+#: ../../../lib/web/src/lib/error-normalizer.ts:204
+msgid "Please check your internet connection and try again."
+msgstr "Sprawdź połączenie internetowe i spróbuj ponownie."
+
 #: src/features/chats/components/message-reaction-bar.tsx:183
 msgid " (includes you)"
 msgstr " (w tym ty)"
 
 #. placeholder {0}: deleteTargetIds?.length ?? 0
-#: src/features/chats/index.tsx:897
+#: src/features/chats/index.tsx:912
 msgid "{0, plural, one {Delete message?} other {Delete # messages?}}"
 msgstr "{0, plural, one {Usunąć wiadomość?} few {Usunąć # wiadomości?} many {Usunąć # wiadomości?} other {Usunąć # wiadomości?}}"
 
 #. placeholder {0}: selectedIds.size
-#: src/features/chats/index.tsx:773
+#: src/features/chats/index.tsx:788
 msgid "{0} selected"
 msgstr "Zaznaczono: {0}"
 
@@ -185,8 +190,16 @@ msgstr "Wystąpił nieoczekiwany błąd"
 msgid "Angry"
 msgstr "Zły"
 
+#: src/features/chats/components/chat-settings-dialog.tsx:44
+msgid "Anyone"
+msgstr "Każdy"
+
+#: src/features/chats/components/chat-settings-dialog.tsx:45
+msgid "Anyone can start a chat with you."
+msgstr "Każdy może rozpocząć czat z Tobą."
+
 #. placeholder {0}: selectedChat?.name
-#: src/features/chats/index.tsx:865
+#: src/features/chats/index.tsx:880
 msgid "Are you sure you want to leave \"{0}\"? You can be added back by other members."
 msgstr "Czy na pewno chcesz opuścić \"{0}\"? Inni członkowie mogą cię ponownie dodać."
 
@@ -255,9 +268,10 @@ msgstr "Zwiększ zainteresowanie"
 #: ../../../lib/web/src/features/accounts/account-add.tsx:188
 #: ../../../lib/web/src/features/accounts/account-verify.tsx:89
 #: src/features/chats/components/chat-message-list.tsx:626
+#: src/features/chats/components/chat-settings-dialog.tsx:109
 #: src/features/chats/components/forward-dialog.tsx:249
-#: src/features/chats/components/new-chat.tsx:265
-#: src/features/chats/index.tsx:806
+#: src/features/chats/components/new-chat.tsx:285
+#: src/features/chats/index.tsx:821
 msgid "Cancel"
 msgstr "Anuluj"
 
@@ -275,18 +289,18 @@ msgstr "Kategoria tego powiadomienia"
 msgid "Change notification category"
 msgstr "Zmień kategorię powiadomienia"
 
-#: src/features/chats/index.tsx:73
-#: src/features/chats/index.tsx:190
-#: src/features/chats/index.tsx:190
-#: src/features/chats/index.tsx:616
+#: src/features/chats/index.tsx:74
+#: src/features/chats/index.tsx:192
+#: src/features/chats/index.tsx:192
+#: src/features/chats/index.tsx:619
 msgid "Chat"
 msgstr "Czat"
 
-#: src/features/chats/components/new-chat.tsx:132
+#: src/features/chats/components/new-chat.tsx:150
 msgid "Chat created"
 msgstr "Czat utworzony"
 
-#: src/features/chats/index.tsx:520
+#: src/features/chats/index.tsx:522
 msgid "Chat deleted"
 msgstr "Czat usunięty"
 
@@ -302,7 +316,7 @@ msgstr "Czat oznaczono jako przeczytany"
 msgid "Chat marked as unread"
 msgstr "Czat oznaczono jako nieprzeczytany"
 
-#: src/features/chats/components/new-chat.tsx:249
+#: src/features/chats/components/new-chat.tsx:269
 #: src/routes/_authenticated/$chatId_.settings.tsx:201
 msgid "Chat name"
 msgstr "Nazwa czatu"
@@ -311,7 +325,7 @@ msgstr "Nazwa czatu"
 msgid "Chat name is required"
 msgstr "Nazwa czatu jest wymagana"
 
-#: src/features/chats/components/new-chat.tsx:252
+#: src/features/chats/components/new-chat.tsx:272
 msgid "Chat name..."
 msgstr "Nazwa czatu..."
 
@@ -323,7 +337,11 @@ msgstr "Nie znaleziono czatu"
 msgid "Chat pinned"
 msgstr "Czat przypięty"
 
-#: src/features/chats/components/new-chat.tsx:132
+#: src/features/chats/components/chat-settings-dialog.tsx:64
+msgid "Chat policy updated"
+msgstr "Zaktualizowano zasady czatu"
+
+#: src/features/chats/components/new-chat.tsx:150
 msgid "Chat ready"
 msgstr "Czat gotowy"
 
@@ -331,7 +349,8 @@ msgstr "Czat gotowy"
 msgid "Chat renamed"
 msgstr "Nazwa czatu zmieniona"
 
-#: src/features/chats/index.tsx:706
+#: src/features/chats/index.tsx:624
+#: src/features/chats/index.tsx:721
 #: src/routes/_authenticated/$chatId_.settings.tsx:84
 #: src/routes/_authenticated/$chatId_.settings.tsx:97
 #: src/routes/_authenticated/$chatId_.settings.tsx:108
@@ -351,10 +370,6 @@ msgstr "Czat odpięty"
 #: src/features/chats/components/forward-dialog.tsx:225
 msgid "Chats"
 msgstr "Czaty"
-
-#: src/features/chats/components/new-chat.tsx:196
-msgid "Chats are between friends. Add a friend in the People app first."
-msgstr "Czaty są między znajomymi. Najpierw dodaj znajomego w aplikacji People."
 
 #: src/features/chats/components/forward-dialog.tsx:186
 msgid "Choose a chat or friend to forward the selected messages to"
@@ -483,13 +498,13 @@ msgstr "Kontynuuj"
 msgid "Continue with {label}"
 msgstr "Kontynuuj z {label}"
 
-#: src/features/chats/index.tsx:364
+#: src/features/chats/index.tsx:366
 msgid "Copied"
 msgstr "Skopiowano"
 
 #: ../../../lib/web/src/components/ui/copy-button.tsx:63
 #: src/features/chats/components/message-hover-actions.tsx:103
-#: src/features/chats/index.tsx:782
+#: src/features/chats/index.tsx:797
 msgid "Copy"
 msgstr "Kopiuj"
 
@@ -509,20 +524,20 @@ msgstr "Nie udało się rozpocząć ponownego uwierzytelniania. Spróbuj ponowni
 msgid "Couldn't verify with that account. Please try again."
 msgstr "Nie udało się zweryfikować przy użyciu tego konta. Spróbuj ponownie."
 
-#: src/features/chats/components/new-chat.tsx:179
+#: src/features/chats/components/new-chat.tsx:197
 msgid "Create a new chat"
 msgstr "Utwórz nowy czat"
 
 #: src/components/layout/chat-layout.tsx:264
-#: src/features/chats/components/new-chat.tsx:273
+#: src/features/chats/components/new-chat.tsx:293
 msgid "Create chat"
 msgstr "Utwórz czat"
 
-#: src/features/chats/components/new-chat.tsx:131
+#: src/features/chats/components/new-chat.tsx:149
 msgid "Creating chat..."
 msgstr "Tworzenie czatu..."
 
-#: src/features/chats/components/new-chat.tsx:273
+#: src/features/chats/components/new-chat.tsx:293
 msgid "Creating..."
 msgstr "Tworzenie..."
 
@@ -556,17 +571,17 @@ msgid "Default AI account"
 msgstr "Domyślne konto AI"
 
 #: src/features/chats/components/message-hover-actions.tsx:135
-#: src/features/chats/index.tsx:799
-#: src/features/chats/index.tsx:909
+#: src/features/chats/index.tsx:814
+#: src/features/chats/index.tsx:924
 msgid "Delete"
 msgstr "Usuń"
 
-#: src/features/chats/index.tsx:689
-#: src/features/chats/index.tsx:830
+#: src/features/chats/index.tsx:704
+#: src/features/chats/index.tsx:845
 msgid "Delete chat"
 msgstr "Usuń czat"
 
-#: src/features/chats/index.tsx:887
+#: src/features/chats/index.tsx:902
 #: src/routes/_authenticated/$chatId_.settings.tsx:366
 msgid "Delete chat history"
 msgstr "Usuń historię czatu"
@@ -575,12 +590,12 @@ msgstr "Usuń historię czatu"
 msgid "Delete your account on the old server"
 msgstr "Usuń swoje konto na starym serwerze"
 
-#: src/features/chats/index.tsx:519
+#: src/features/chats/index.tsx:521
 msgid "Deleting chat..."
 msgstr "Usuwanie czatu..."
 
-#: src/features/chats/index.tsx:394
-#: src/features/chats/index.tsx:906
+#: src/features/chats/index.tsx:396
+#: src/features/chats/index.tsx:921
 msgid "Deleting..."
 msgstr "Usuwanie..."
 
@@ -680,7 +695,7 @@ msgstr "Nie udało się dodać konta"
 msgid "Failed to add member"
 msgstr "Nie udało się dodać członka"
 
-#: src/features/chats/index.tsx:365
+#: src/features/chats/index.tsx:367
 msgid "Failed to copy"
 msgstr "Nie udało się skopiować"
 
@@ -688,15 +703,15 @@ msgstr "Nie udało się skopiować"
 msgid "Failed to copy message"
 msgstr "Nie udało się skopiować wiadomości"
 
-#: src/features/chats/components/new-chat.tsx:133
+#: src/features/chats/components/new-chat.tsx:151
 msgid "Failed to create chat"
 msgstr "Nie udało się utworzyć czatu"
 
-#: src/features/chats/index.tsx:396
+#: src/features/chats/index.tsx:398
 msgid "Failed to delete"
 msgstr "Nie udało się usunąć"
 
-#: src/features/chats/index.tsx:521
+#: src/features/chats/index.tsx:523
 msgid "Failed to delete chat"
 msgstr "Nie udało się usunąć czatu"
 
@@ -704,7 +719,7 @@ msgstr "Nie udało się usunąć czatu"
 msgid "Failed to forward"
 msgstr "Nie udało się przesłać dalej"
 
-#: src/features/chats/index.tsx:502
+#: src/features/chats/index.tsx:504
 #: src/routes/_authenticated/$chatId_.settings.tsx:327
 msgid "Failed to leave chat"
 msgstr "Nie udało się opuścić czatu"
@@ -725,7 +740,11 @@ msgstr "Nie udało się usunąć członka"
 msgid "Failed to rename chat"
 msgstr "Nie udało się zmienić nazwy czatu"
 
-#: src/features/chats/index.tsx:850
+#: src/features/chats/components/chat-settings-dialog.tsx:65
+msgid "Failed to save"
+msgstr "Nie udało się zapisać"
+
+#: src/features/chats/index.tsx:865
 msgid "Failed to send message"
 msgstr "Nie udało się wysłać wiadomości"
 
@@ -733,7 +752,7 @@ msgstr "Nie udało się wysłać wiadomości"
 msgid "Failed to send verification code"
 msgstr "Nie udało się wysłać kodu weryfikacyjnego"
 
-#: src/features/chats/index.tsx:196
+#: src/features/chats/index.tsx:198
 msgid "Failed to start chat"
 msgstr "Nie udało się rozpocząć czatu"
 
@@ -755,7 +774,7 @@ msgstr "Przestawne"
 
 #: src/features/chats/components/forward-dialog.tsx:260
 #: src/features/chats/components/message-hover-actions.tsx:124
-#: src/features/chats/index.tsx:790
+#: src/features/chats/index.tsx:805
 msgid "Forward"
 msgstr "Prześlij dalej"
 
@@ -776,10 +795,13 @@ msgid "Friday"
 msgstr "Piątek"
 
 #: src/features/chats/components/forward-dialog.tsx:233
-#: src/features/chats/components/new-chat.tsx:186
 #: src/routes/_authenticated/$chatId_.settings.tsx:466
 msgid "Friends"
 msgstr "Znajomi"
+
+#: src/features/chats/components/chat-settings-dialog.tsx:39
+msgid "Friends only"
+msgstr "Tylko znajomi"
 
 #: ../../../lib/web/src/components/travelling-picker.tsx:153
 msgid "From"
@@ -856,6 +878,10 @@ msgstr "Popularne"
 msgid "Imperial"
 msgstr "Imperialny"
 
+#: src/features/chats/components/chat-settings-dialog.tsx:77
+msgid "Incoming chats"
+msgstr "Przychodzące czaty"
+
 #: ../../../lib/web/src/components/config-drawer.tsx:252
 msgid "Inset"
 msgstr "Wpuszczone"
@@ -891,31 +917,31 @@ msgstr "Układ"
 msgid "Learn more"
 msgstr "Dowiedz się więcej"
 
-#: src/features/chats/index.tsx:873
+#: src/features/chats/index.tsx:888
 msgid "Leave"
 msgstr "Opuść"
 
-#: src/features/chats/index.tsx:696
+#: src/features/chats/index.tsx:711
 #: src/routes/_authenticated/$chatId_.settings.tsx:352
 msgid "Leave chat"
 msgstr "Opuść czat"
 
-#: src/features/chats/index.tsx:864
+#: src/features/chats/index.tsx:879
 #: src/routes/_authenticated/$chatId_.settings.tsx:343
 msgid "Leave chat?"
 msgstr "Opuścić czat?"
 
-#: src/features/chats/index.tsx:500
+#: src/features/chats/index.tsx:502
 #: src/routes/_authenticated/$chatId_.settings.tsx:325
 msgid "Leaving chat..."
 msgstr "Opuszczanie czatu..."
 
-#: src/features/chats/index.tsx:870
+#: src/features/chats/index.tsx:885
 #: src/routes/_authenticated/$chatId_.settings.tsx:349
 msgid "Leaving..."
 msgstr "Opuszczanie..."
 
-#: src/features/chats/index.tsx:501
+#: src/features/chats/index.tsx:503
 #: src/routes/_authenticated/$chatId_.settings.tsx:326
 msgid "Left chat"
 msgstr "Opuszczono czat"
@@ -1027,12 +1053,12 @@ msgstr "Akcje wiadomości"
 msgid "Message copied"
 msgstr "Skopiowano wiadomość"
 
-#: src/features/chats/index.tsx:395
+#: src/features/chats/index.tsx:397
 msgid "Message deleted"
 msgstr "Usunięto wiadomość"
 
 #: src/features/chats/components/message-quote.tsx:60
-#: src/features/chats/index.tsx:416
+#: src/features/chats/index.tsx:418
 msgid "Message not available"
 msgstr "Wiadomość niedostępna"
 
@@ -1059,7 +1085,7 @@ msgstr "Nowy"
 
 #: src/features/chats/components/chat-empty-state.tsx:27
 #: src/features/chats/components/chat-empty-state.tsx:43
-#: src/features/chats/components/new-chat.tsx:176
+#: src/features/chats/components/new-chat.tsx:194
 msgid "New chat"
 msgstr "Nowy czat"
 
@@ -1088,12 +1114,11 @@ msgstr "Brak połączonych kont"
 msgid "No friends available"
 msgstr "Brak dostępnych znajomych"
 
-#: src/features/chats/components/new-chat.tsx:216
 #: src/routes/_authenticated/$chatId_.settings.tsx:456
 msgid "No friends found"
 msgstr "Nie znaleziono znajomych"
 
-#: src/features/chats/components/new-chat.tsx:194
+#: src/features/chats/components/new-chat.tsx:225
 msgid "No friends yet"
 msgstr "Brak znajomych"
 
@@ -1104,6 +1129,10 @@ msgstr "Brak dostępnych grup"
 #: src/features/chats/components/chat-message-list.tsx:384
 msgid "No messages yet"
 msgstr "Brak wiadomości"
+
+#: src/features/chats/components/new-chat.tsx:219
+msgid "No people found"
+msgstr "Nie znaleziono osób"
 
 #: ../../../lib/web/src/components/place-picker.tsx:132
 msgid "No places found"
@@ -1152,7 +1181,7 @@ msgstr "Nie znaleziono"
 msgid "Not set"
 msgstr "Nie ustawiono"
 
-#: src/features/chats/index.tsx:360
+#: src/features/chats/index.tsx:362
 msgid "Nothing to copy"
 msgstr "Nie ma nic do skopiowania"
 
@@ -1168,11 +1197,15 @@ msgstr "Powiadomienia"
 msgid "Older match"
 msgstr "Starszy wynik"
 
+#: src/features/chats/components/chat-settings-dialog.tsx:40
+msgid "Only friends can start a chat with you (default)."
+msgstr "Tylko znajomi mogą rozpocząć czat z Tobą (domyślnie)."
+
 #: ../../../lib/web/src/features/errors/not-found-error.tsx:16
 msgid "Oops! Page Not Found!"
 msgstr "Ups! Nie znaleziono strony!"
 
-#: src/features/chats/components/new-chat.tsx:239
+#: src/features/chats/components/new-chat.tsx:259
 msgid "Open"
 msgstr "Otwórz"
 
@@ -1186,7 +1219,7 @@ msgstr "Otwórz akcje konta"
 msgid "Open actions"
 msgstr "Otwórz akcje"
 
-#: src/features/chats/index.tsx:681
+#: src/features/chats/index.tsx:696
 msgid "Open chat actions"
 msgstr "Otwórz akcje czatu"
 
@@ -1200,7 +1233,7 @@ msgstr "Otwórz nawigację"
 msgid "Open navigation menu"
 msgstr "Otwórz menu nawigacji"
 
-#: src/features/chats/components/new-chat.tsx:206
+#: src/features/chats/components/new-chat.tsx:235
 msgid "Open people"
 msgstr "Otwórz Osoby"
 
@@ -1233,23 +1266,26 @@ msgstr "Weryfikacja kluczem dostępu nie powiodła się. Spróbuj ponownie."
 msgid "Passkeys"
 msgstr "Klucze dostępu"
 
+#: src/features/chats/components/new-chat.tsx:204
+msgid "People"
+msgstr "Osoby"
+
 #: src/components/layout/chat-layout.tsx:212
 msgid "Pin chat"
 msgstr "Przypnij czat"
 
 #: ../../../lib/web/src/features/errors/general-error.tsx:54
 #: ../../../lib/web/src/lib/api-response-interceptors.ts:304
-#: ../../../lib/web/src/lib/error-normalizer.ts:201
 msgid "Please check your internet connection and try again."
 msgstr "Sprawdź połączenie internetowe i spróbuj ponownie."
 
-#: src/features/chats/components/new-chat.tsx:120
+#: src/features/chats/components/new-chat.tsx:138
 msgid "Please provide a chat name"
 msgstr "Podaj nazwę czatu"
 
-#: src/features/chats/components/new-chat.tsx:110
-msgid "Please select at least one friend"
-msgstr "Wybierz co najmniej jednego znajomego"
+#: src/features/chats/components/new-chat.tsx:128
+msgid "Please select at least one person"
+msgstr "Wybierz co najmniej jedną osobę"
 
 #: ../../../lib/web/src/features/errors/general-error.tsx:83
 msgid "Please try again."
@@ -1291,7 +1327,7 @@ msgid "Read more"
 msgstr "Czytaj więcej"
 
 #: ../../../lib/web/src/components/search-entity-dialog.tsx:216
-#: ../../../lib/web/src/components/search-entity-page.tsx:240
+#: ../../../lib/web/src/components/search-entity-page.tsx:242
 msgid "Recommended"
 msgstr "Polecane"
 
@@ -1396,8 +1432,13 @@ msgstr "Sobota"
 
 #: ../../../lib/web/src/components/ui/editable-field-row.tsx:122
 #: ../../../lib/web/src/components/ui/secret-field.tsx:77
+#: src/features/chats/components/chat-settings-dialog.tsx:120
 msgid "Save"
 msgstr "Zapisz"
+
+#: src/features/chats/components/chat-settings-dialog.tsx:63
+msgid "Saving..."
+msgstr "Zapisywanie..."
 
 #: src/features/chats/components/forward-dialog.tsx:194
 msgid "Search chats…"
@@ -1423,7 +1464,7 @@ msgstr "Szukaj znajomych…"
 msgid "Search in chat..."
 msgstr "Szukaj w czacie..."
 
-#: src/features/chats/index.tsx:671
+#: src/features/chats/index.tsx:686
 msgid "Search messages"
 msgstr "Szukaj wiadomości"
 
@@ -1440,7 +1481,7 @@ msgid "Search..."
 msgstr "Szukaj..."
 
 #: ../../../lib/web/src/components/search-entity-dialog.tsx:174
-#: ../../../lib/web/src/components/search-entity-page.tsx:198
+#: ../../../lib/web/src/components/search-entity-page.tsx:200
 #: ../../../lib/web/src/features/access/access-dialog.tsx:202
 msgid "Searching..."
 msgstr "Wyszukiwanie..."
@@ -1469,10 +1510,6 @@ msgstr "Wybierz regułę dostępu"
 msgid "Select account type"
 msgstr "Wybierz typ konta"
 
-#: src/features/chats/components/new-chat.tsx:215
-msgid "Select friends..."
-msgstr "Wybierz znajomych..."
-
 #: ../../../lib/web/src/features/access/access-dialog.tsx:231
 msgid "Select group"
 msgstr "Wybierz grupę"
@@ -1488,6 +1525,10 @@ msgstr "Zaznacz wczytane"
 #: src/features/chats/components/chat-message-list.tsx:440
 msgid "Select message"
 msgstr "Zaznacz wiadomość"
+
+#: src/features/chats/components/new-chat.tsx:218
+msgid "Select people..."
+msgstr "Wybierz osoby..."
 
 #: ../../../lib/web/src/components/config-drawer.tsx:246
 msgid "Select sidebar style"
@@ -1596,7 +1637,7 @@ msgstr "Przestronne"
 msgid "Start a conversation"
 msgstr "Rozpocznij rozmowę"
 
-#: src/features/chats/index.tsx:193
+#: src/features/chats/index.tsx:195
 msgid "Starting chat..."
 msgstr "Rozpoczynanie czatu..."
 
@@ -1660,7 +1701,7 @@ msgstr "ten czat"
 msgid "This chat may have been deleted or you don't have access to it"
 msgstr "Ten czat mógł zostać usunięty lub nie masz do niego dostępu"
 
-#: src/features/chats/index.tsx:901
+#: src/features/chats/index.tsx:916
 msgid "This deletes the message for everyone and cannot be undone."
 msgstr "Spowoduje to usunięcie wiadomości dla wszystkich i nie można tego cofnąć."
 
@@ -1721,7 +1762,7 @@ msgid "Try a different search term"
 msgstr "Spróbuj innego wyrażenia wyszukiwania"
 
 #: ../../../lib/web/src/components/search-entity-dialog.tsx:190
-#: ../../../lib/web/src/components/search-entity-page.tsx:214
+#: ../../../lib/web/src/components/search-entity-page.tsx:216
 msgid "Try adjusting your search terms"
 msgstr "Spróbuj dostosować zapytanie wyszukiwania"
 
@@ -1847,19 +1888,19 @@ msgstr "Witryna jest w trakcie konserwacji!"
 msgid "Wednesday"
 msgstr "Środa"
 
-#: src/features/chats/index.tsx:276
+#: src/features/chats/index.tsx:278
 msgid "You"
 msgstr "Ty"
 
-#: src/features/chats/components/new-chat.tsx:115
+#: src/features/chats/components/new-chat.tsx:133
 msgid "You already have a chat with this friend"
 msgstr "Masz już czat z tym znajomym"
 
-#: src/features/chats/components/new-chat.tsx:227
+#: src/features/chats/components/new-chat.tsx:247
 msgid "You already have chats with:"
 msgstr "Masz już czaty z:"
 
-#: src/features/chats/index.tsx:377
+#: src/features/chats/index.tsx:379
 msgid "You can only delete your own messages"
 msgstr "Możesz usuwać tylko własne wiadomości"
 
@@ -1867,11 +1908,11 @@ msgstr "Możesz usuwać tylko własne wiadomości"
 msgid "You do not have access to this section."
 msgstr "Nie masz dostępu do tej sekcji."
 
-#: src/features/chats/index.tsx:817
+#: src/features/chats/index.tsx:832
 msgid "You left this chat"
 msgstr "Opuściłeś ten czat"
 
-#: src/features/chats/index.tsx:816
+#: src/features/chats/index.tsx:831
 msgid "You were removed from this chat"
 msgstr "Zostałeś usunięty z tego czatu"
 

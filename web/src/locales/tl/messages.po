@@ -13,17 +13,22 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
+#. js-lingui-explicit-id
+#: ../../../lib/web/src/lib/error-normalizer.ts:204
+msgid "Please check your internet connection and try again."
+msgstr "Pakitingnan ang iyong koneksyon sa internet at subukang muli."
+
 #: src/features/chats/components/message-reaction-bar.tsx:183
 msgid " (includes you)"
 msgstr " (kasama ka)"
 
 #. placeholder {0}: deleteTargetIds?.length ?? 0
-#: src/features/chats/index.tsx:897
+#: src/features/chats/index.tsx:912
 msgid "{0, plural, one {Delete message?} other {Delete # messages?}}"
 msgstr "{0, plural, one {I-delete ang mensahe?} other {I-delete ang # na mensahe?}}"
 
 #. placeholder {0}: selectedIds.size
-#: src/features/chats/index.tsx:773
+#: src/features/chats/index.tsx:788
 msgid "{0} selected"
 msgstr "{0} ang napili"
 
@@ -185,8 +190,16 @@ msgstr "May naganap na hindi inaasahang error"
 msgid "Angry"
 msgstr "Galit"
 
+#: src/features/chats/components/chat-settings-dialog.tsx:44
+msgid "Anyone"
+msgstr "Kahit sino"
+
+#: src/features/chats/components/chat-settings-dialog.tsx:45
+msgid "Anyone can start a chat with you."
+msgstr "Kahit sino ay makakapagsimula ng chat sa iyo."
+
 #. placeholder {0}: selectedChat?.name
-#: src/features/chats/index.tsx:865
+#: src/features/chats/index.tsx:880
 msgid "Are you sure you want to leave \"{0}\"? You can be added back by other members."
 msgstr "Sigurado ka bang gusto mong umalis sa \"{0}\"? Maaari kang idagdag muli ng ibang miyembro."
 
@@ -255,9 +268,10 @@ msgstr "Palakasin ang interes"
 #: ../../../lib/web/src/features/accounts/account-add.tsx:188
 #: ../../../lib/web/src/features/accounts/account-verify.tsx:89
 #: src/features/chats/components/chat-message-list.tsx:626
+#: src/features/chats/components/chat-settings-dialog.tsx:109
 #: src/features/chats/components/forward-dialog.tsx:249
-#: src/features/chats/components/new-chat.tsx:265
-#: src/features/chats/index.tsx:806
+#: src/features/chats/components/new-chat.tsx:285
+#: src/features/chats/index.tsx:821
 msgid "Cancel"
 msgstr "Kanselahin"
 
@@ -275,18 +289,18 @@ msgstr "Category para sa notification na ito"
 msgid "Change notification category"
 msgstr "Baguhin ang category ng notification"
 
-#: src/features/chats/index.tsx:73
-#: src/features/chats/index.tsx:190
-#: src/features/chats/index.tsx:190
-#: src/features/chats/index.tsx:616
+#: src/features/chats/index.tsx:74
+#: src/features/chats/index.tsx:192
+#: src/features/chats/index.tsx:192
+#: src/features/chats/index.tsx:619
 msgid "Chat"
 msgstr "Chat"
 
-#: src/features/chats/components/new-chat.tsx:132
+#: src/features/chats/components/new-chat.tsx:150
 msgid "Chat created"
 msgstr "Nagawa ang chat"
 
-#: src/features/chats/index.tsx:520
+#: src/features/chats/index.tsx:522
 msgid "Chat deleted"
 msgstr "Na-delete ang chat"
 
@@ -302,7 +316,7 @@ msgstr "Minarkahan ang chat bilang nabasa na"
 msgid "Chat marked as unread"
 msgstr "Minarkahan ang chat bilang hindi pa nabasa"
 
-#: src/features/chats/components/new-chat.tsx:249
+#: src/features/chats/components/new-chat.tsx:269
 #: src/routes/_authenticated/$chatId_.settings.tsx:201
 msgid "Chat name"
 msgstr "Pangalan ng chat"
@@ -311,7 +325,7 @@ msgstr "Pangalan ng chat"
 msgid "Chat name is required"
 msgstr "Kailangan ang pangalan ng chat"
 
-#: src/features/chats/components/new-chat.tsx:252
+#: src/features/chats/components/new-chat.tsx:272
 msgid "Chat name..."
 msgstr "Pangalan ng chat..."
 
@@ -323,7 +337,11 @@ msgstr "Hindi nahanap ang chat"
 msgid "Chat pinned"
 msgstr "Na-pin ang chat"
 
-#: src/features/chats/components/new-chat.tsx:132
+#: src/features/chats/components/chat-settings-dialog.tsx:64
+msgid "Chat policy updated"
+msgstr "Na-update ang patakaran sa chat"
+
+#: src/features/chats/components/new-chat.tsx:150
 msgid "Chat ready"
 msgstr "Handa na ang chat"
 
@@ -331,7 +349,8 @@ msgstr "Handa na ang chat"
 msgid "Chat renamed"
 msgstr "Pinalitan ng pangalan ang chat"
 
-#: src/features/chats/index.tsx:706
+#: src/features/chats/index.tsx:624
+#: src/features/chats/index.tsx:721
 #: src/routes/_authenticated/$chatId_.settings.tsx:84
 #: src/routes/_authenticated/$chatId_.settings.tsx:97
 #: src/routes/_authenticated/$chatId_.settings.tsx:108
@@ -351,10 +370,6 @@ msgstr "Na-unpin ang chat"
 #: src/features/chats/components/forward-dialog.tsx:225
 msgid "Chats"
 msgstr "Mga chat"
-
-#: src/features/chats/components/new-chat.tsx:196
-msgid "Chats are between friends. Add a friend in the People app first."
-msgstr "Ang mga chat ay sa pagitan ng magkakaibigan. Magdagdag muna ng kaibigan sa People app."
 
 #: src/features/chats/components/forward-dialog.tsx:186
 msgid "Choose a chat or friend to forward the selected messages to"
@@ -483,13 +498,13 @@ msgstr "Magpatuloy"
 msgid "Continue with {label}"
 msgstr "Magpatuloy gamit ang {label}"
 
-#: src/features/chats/index.tsx:364
+#: src/features/chats/index.tsx:366
 msgid "Copied"
 msgstr "Nakopya"
 
 #: ../../../lib/web/src/components/ui/copy-button.tsx:63
 #: src/features/chats/components/message-hover-actions.tsx:103
-#: src/features/chats/index.tsx:782
+#: src/features/chats/index.tsx:797
 msgid "Copy"
 msgstr "Kopyahin"
 
@@ -509,20 +524,20 @@ msgstr "Hindi masimulan ang muling pagpapatunay. Pakisubukang muli."
 msgid "Couldn't verify with that account. Please try again."
 msgstr "Hindi ma-verify gamit ang account na iyon. Pakisubukang muli."
 
-#: src/features/chats/components/new-chat.tsx:179
+#: src/features/chats/components/new-chat.tsx:197
 msgid "Create a new chat"
 msgstr "Gumawa ng bagong chat"
 
 #: src/components/layout/chat-layout.tsx:264
-#: src/features/chats/components/new-chat.tsx:273
+#: src/features/chats/components/new-chat.tsx:293
 msgid "Create chat"
 msgstr "Gumawa ng chat"
 
-#: src/features/chats/components/new-chat.tsx:131
+#: src/features/chats/components/new-chat.tsx:149
 msgid "Creating chat..."
 msgstr "Gumagawa ng chat..."
 
-#: src/features/chats/components/new-chat.tsx:273
+#: src/features/chats/components/new-chat.tsx:293
 msgid "Creating..."
 msgstr "Ginagawa..."
 
@@ -556,17 +571,17 @@ msgid "Default AI account"
 msgstr "Default na AI account"
 
 #: src/features/chats/components/message-hover-actions.tsx:135
-#: src/features/chats/index.tsx:799
-#: src/features/chats/index.tsx:909
+#: src/features/chats/index.tsx:814
+#: src/features/chats/index.tsx:924
 msgid "Delete"
 msgstr "I-delete"
 
-#: src/features/chats/index.tsx:689
-#: src/features/chats/index.tsx:830
+#: src/features/chats/index.tsx:704
+#: src/features/chats/index.tsx:845
 msgid "Delete chat"
 msgstr "I-delete ang chat"
 
-#: src/features/chats/index.tsx:887
+#: src/features/chats/index.tsx:902
 #: src/routes/_authenticated/$chatId_.settings.tsx:366
 msgid "Delete chat history"
 msgstr "I-delete ang kasaysayan ng chat"
@@ -575,12 +590,12 @@ msgstr "I-delete ang kasaysayan ng chat"
 msgid "Delete your account on the old server"
 msgstr "Burahin ang iyong account sa lumang server"
 
-#: src/features/chats/index.tsx:519
+#: src/features/chats/index.tsx:521
 msgid "Deleting chat..."
 msgstr "Binubura ang chat..."
 
-#: src/features/chats/index.tsx:394
-#: src/features/chats/index.tsx:906
+#: src/features/chats/index.tsx:396
+#: src/features/chats/index.tsx:921
 msgid "Deleting..."
 msgstr "Dini-delete..."
 
@@ -680,7 +695,7 @@ msgstr "Nabigong magdagdag ng account"
 msgid "Failed to add member"
 msgstr "Nabigong magdagdag ng member"
 
-#: src/features/chats/index.tsx:365
+#: src/features/chats/index.tsx:367
 msgid "Failed to copy"
 msgstr "Nabigong kumopya"
 
@@ -688,15 +703,15 @@ msgstr "Nabigong kumopya"
 msgid "Failed to copy message"
 msgstr "Hindi nakopya ang mensahe"
 
-#: src/features/chats/components/new-chat.tsx:133
+#: src/features/chats/components/new-chat.tsx:151
 msgid "Failed to create chat"
 msgstr "Nabigong gumawa ng chat"
 
-#: src/features/chats/index.tsx:396
+#: src/features/chats/index.tsx:398
 msgid "Failed to delete"
 msgstr "Nabigong magdelete"
 
-#: src/features/chats/index.tsx:521
+#: src/features/chats/index.tsx:523
 msgid "Failed to delete chat"
 msgstr "Nabigong magdelete ng chat"
 
@@ -704,7 +719,7 @@ msgstr "Nabigong magdelete ng chat"
 msgid "Failed to forward"
 msgstr "Hindi na-forward"
 
-#: src/features/chats/index.tsx:502
+#: src/features/chats/index.tsx:504
 #: src/routes/_authenticated/$chatId_.settings.tsx:327
 msgid "Failed to leave chat"
 msgstr "Nabigong umalis sa chat"
@@ -725,7 +740,11 @@ msgstr "Nabigong tanggalin ang member"
 msgid "Failed to rename chat"
 msgstr "Nabigong i-rename ang chat"
 
-#: src/features/chats/index.tsx:850
+#: src/features/chats/components/chat-settings-dialog.tsx:65
+msgid "Failed to save"
+msgstr "Nabigong i-save"
+
+#: src/features/chats/index.tsx:865
 msgid "Failed to send message"
 msgstr "Nabigong magpadala ng message"
 
@@ -733,7 +752,7 @@ msgstr "Nabigong magpadala ng message"
 msgid "Failed to send verification code"
 msgstr "Nabigong magpadala ng verification code"
 
-#: src/features/chats/index.tsx:196
+#: src/features/chats/index.tsx:198
 msgid "Failed to start chat"
 msgstr "Nabigong simulan ang chat"
 
@@ -755,7 +774,7 @@ msgstr "Floating"
 
 #: src/features/chats/components/forward-dialog.tsx:260
 #: src/features/chats/components/message-hover-actions.tsx:124
-#: src/features/chats/index.tsx:790
+#: src/features/chats/index.tsx:805
 msgid "Forward"
 msgstr "I-forward"
 
@@ -776,10 +795,13 @@ msgid "Friday"
 msgstr "Biyernes"
 
 #: src/features/chats/components/forward-dialog.tsx:233
-#: src/features/chats/components/new-chat.tsx:186
 #: src/routes/_authenticated/$chatId_.settings.tsx:466
 msgid "Friends"
 msgstr "Mga kaibigan"
+
+#: src/features/chats/components/chat-settings-dialog.tsx:39
+msgid "Friends only"
+msgstr "Mga kaibigan lang"
 
 #: ../../../lib/web/src/components/travelling-picker.tsx:153
 msgid "From"
@@ -856,6 +878,10 @@ msgstr "Hot"
 msgid "Imperial"
 msgstr "Imperial"
 
+#: src/features/chats/components/chat-settings-dialog.tsx:77
+msgid "Incoming chats"
+msgstr "Mga papasok na chat"
+
 #: ../../../lib/web/src/components/config-drawer.tsx:252
 msgid "Inset"
 msgstr "Inset"
@@ -891,31 +917,31 @@ msgstr "Layout"
 msgid "Learn more"
 msgstr "Matuto pa"
 
-#: src/features/chats/index.tsx:873
+#: src/features/chats/index.tsx:888
 msgid "Leave"
 msgstr "Umalis"
 
-#: src/features/chats/index.tsx:696
+#: src/features/chats/index.tsx:711
 #: src/routes/_authenticated/$chatId_.settings.tsx:352
 msgid "Leave chat"
 msgstr "Umalis sa chat"
 
-#: src/features/chats/index.tsx:864
+#: src/features/chats/index.tsx:879
 #: src/routes/_authenticated/$chatId_.settings.tsx:343
 msgid "Leave chat?"
 msgstr "Umalis sa chat?"
 
-#: src/features/chats/index.tsx:500
+#: src/features/chats/index.tsx:502
 #: src/routes/_authenticated/$chatId_.settings.tsx:325
 msgid "Leaving chat..."
 msgstr "Umaalis sa chat..."
 
-#: src/features/chats/index.tsx:870
+#: src/features/chats/index.tsx:885
 #: src/routes/_authenticated/$chatId_.settings.tsx:349
 msgid "Leaving..."
 msgstr "Umaalis..."
 
-#: src/features/chats/index.tsx:501
+#: src/features/chats/index.tsx:503
 #: src/routes/_authenticated/$chatId_.settings.tsx:326
 msgid "Left chat"
 msgstr "Umalis sa chat"
@@ -1027,12 +1053,12 @@ msgstr "Mga aksyon sa mensahe"
 msgid "Message copied"
 msgstr "Nakopya ang mensahe"
 
-#: src/features/chats/index.tsx:395
+#: src/features/chats/index.tsx:397
 msgid "Message deleted"
 msgstr "Na-delete ang mensahe"
 
 #: src/features/chats/components/message-quote.tsx:60
-#: src/features/chats/index.tsx:416
+#: src/features/chats/index.tsx:418
 msgid "Message not available"
 msgstr "Hindi available ang mensahe"
 
@@ -1059,7 +1085,7 @@ msgstr "Bago"
 
 #: src/features/chats/components/chat-empty-state.tsx:27
 #: src/features/chats/components/chat-empty-state.tsx:43
-#: src/features/chats/components/new-chat.tsx:176
+#: src/features/chats/components/new-chat.tsx:194
 msgid "New chat"
 msgstr "Bagong chat"
 
@@ -1088,12 +1114,11 @@ msgstr "Walang nakakonektang account"
 msgid "No friends available"
 msgstr "Walang available na kaibigan"
 
-#: src/features/chats/components/new-chat.tsx:216
 #: src/routes/_authenticated/$chatId_.settings.tsx:456
 msgid "No friends found"
 msgstr "Walang nakitang kaibigan"
 
-#: src/features/chats/components/new-chat.tsx:194
+#: src/features/chats/components/new-chat.tsx:225
 msgid "No friends yet"
 msgstr "Wala pang kaibigan"
 
@@ -1104,6 +1129,10 @@ msgstr "Walang available na grupo"
 #: src/features/chats/components/chat-message-list.tsx:384
 msgid "No messages yet"
 msgstr "Wala pang mensahe"
+
+#: src/features/chats/components/new-chat.tsx:219
+msgid "No people found"
+msgstr "Walang nakitang tao"
 
 #: ../../../lib/web/src/components/place-picker.tsx:132
 msgid "No places found"
@@ -1152,7 +1181,7 @@ msgstr "Hindi nahanap"
 msgid "Not set"
 msgstr "Hindi naka-set"
 
-#: src/features/chats/index.tsx:360
+#: src/features/chats/index.tsx:362
 msgid "Nothing to copy"
 msgstr "Walang makokopya"
 
@@ -1168,11 +1197,15 @@ msgstr "Mga Notification"
 msgid "Older match"
 msgstr "Mas lumang resulta"
 
+#: src/features/chats/components/chat-settings-dialog.tsx:40
+msgid "Only friends can start a chat with you (default)."
+msgstr "Mga kaibigan lang ang makakapagsimula ng chat sa iyo (default)."
+
 #: ../../../lib/web/src/features/errors/not-found-error.tsx:16
 msgid "Oops! Page Not Found!"
 msgstr "Ay! Hindi Nahanap ang Pahina!"
 
-#: src/features/chats/components/new-chat.tsx:239
+#: src/features/chats/components/new-chat.tsx:259
 msgid "Open"
 msgstr "Buksan"
 
@@ -1186,7 +1219,7 @@ msgstr "Buksan ang mga aksyon ng account"
 msgid "Open actions"
 msgstr "Buksan ang mga aksyon"
 
-#: src/features/chats/index.tsx:681
+#: src/features/chats/index.tsx:696
 msgid "Open chat actions"
 msgstr "Buksan ang mga aksyon ng chat"
 
@@ -1200,7 +1233,7 @@ msgstr "Buksan ang navigation"
 msgid "Open navigation menu"
 msgstr "Buksan ang navigation menu"
 
-#: src/features/chats/components/new-chat.tsx:206
+#: src/features/chats/components/new-chat.tsx:235
 msgid "Open people"
 msgstr "Buksan ang Mga Tao"
 
@@ -1233,23 +1266,26 @@ msgstr "Nabigo ang pag-verify ng passkey. Pakisubukang muli."
 msgid "Passkeys"
 msgstr "Mga Passkey"
 
+#: src/features/chats/components/new-chat.tsx:204
+msgid "People"
+msgstr "Mga Tao"
+
 #: src/components/layout/chat-layout.tsx:212
 msgid "Pin chat"
 msgstr "I-pin ang chat"
 
 #: ../../../lib/web/src/features/errors/general-error.tsx:54
 #: ../../../lib/web/src/lib/api-response-interceptors.ts:304
-#: ../../../lib/web/src/lib/error-normalizer.ts:201
 msgid "Please check your internet connection and try again."
 msgstr "Pakitingnan ang iyong koneksyon sa internet at subukang muli."
 
-#: src/features/chats/components/new-chat.tsx:120
+#: src/features/chats/components/new-chat.tsx:138
 msgid "Please provide a chat name"
 msgstr "Mangyaring magbigay ng pangalan ng chat"
 
-#: src/features/chats/components/new-chat.tsx:110
-msgid "Please select at least one friend"
-msgstr "Mangyaring pumili ng kahit isang kaibigan"
+#: src/features/chats/components/new-chat.tsx:128
+msgid "Please select at least one person"
+msgstr "Pumili ng kahit isang tao"
 
 #: ../../../lib/web/src/features/errors/general-error.tsx:83
 msgid "Please try again."
@@ -1291,7 +1327,7 @@ msgid "Read more"
 msgstr "Magbasa pa"
 
 #: ../../../lib/web/src/components/search-entity-dialog.tsx:216
-#: ../../../lib/web/src/components/search-entity-page.tsx:240
+#: ../../../lib/web/src/components/search-entity-page.tsx:242
 msgid "Recommended"
 msgstr "Inirerekomenda"
 
@@ -1396,8 +1432,13 @@ msgstr "Sabado"
 
 #: ../../../lib/web/src/components/ui/editable-field-row.tsx:122
 #: ../../../lib/web/src/components/ui/secret-field.tsx:77
+#: src/features/chats/components/chat-settings-dialog.tsx:120
 msgid "Save"
 msgstr "I-save"
+
+#: src/features/chats/components/chat-settings-dialog.tsx:63
+msgid "Saving..."
+msgstr "Sini-save..."
 
 #: src/features/chats/components/forward-dialog.tsx:194
 msgid "Search chats…"
@@ -1423,7 +1464,7 @@ msgstr "Maghanap ng mga kaibigan…"
 msgid "Search in chat..."
 msgstr "Maghanap sa chat..."
 
-#: src/features/chats/index.tsx:671
+#: src/features/chats/index.tsx:686
 msgid "Search messages"
 msgstr "Maghanap ng mensahe"
 
@@ -1440,7 +1481,7 @@ msgid "Search..."
 msgstr "Maghanap..."
 
 #: ../../../lib/web/src/components/search-entity-dialog.tsx:174
-#: ../../../lib/web/src/components/search-entity-page.tsx:198
+#: ../../../lib/web/src/components/search-entity-page.tsx:200
 #: ../../../lib/web/src/features/access/access-dialog.tsx:202
 msgid "Searching..."
 msgstr "Naghahanap..."
@@ -1469,10 +1510,6 @@ msgstr "Pumili ng access rule"
 msgid "Select account type"
 msgstr "Pumili ng uri ng account"
 
-#: src/features/chats/components/new-chat.tsx:215
-msgid "Select friends..."
-msgstr "Pumili ng mga kaibigan..."
-
 #: ../../../lib/web/src/features/access/access-dialog.tsx:231
 msgid "Select group"
 msgstr "Pumili ng group"
@@ -1488,6 +1525,10 @@ msgstr "Piliin ang mga na-load"
 #: src/features/chats/components/chat-message-list.tsx:440
 msgid "Select message"
 msgstr "Piliin ang mensahe"
+
+#: src/features/chats/components/new-chat.tsx:218
+msgid "Select people..."
+msgstr "Pumili ng mga tao..."
 
 #: ../../../lib/web/src/components/config-drawer.tsx:246
 msgid "Select sidebar style"
@@ -1596,7 +1637,7 @@ msgstr "Maluwag"
 msgid "Start a conversation"
 msgstr "Magsimula ng usapan"
 
-#: src/features/chats/index.tsx:193
+#: src/features/chats/index.tsx:195
 msgid "Starting chat..."
 msgstr "Sinisimulan ang chat..."
 
@@ -1660,7 +1701,7 @@ msgstr "chat na ito"
 msgid "This chat may have been deleted or you don't have access to it"
 msgstr "Maaaring nabura na ang chat na ito o wala kang access dito"
 
-#: src/features/chats/index.tsx:901
+#: src/features/chats/index.tsx:916
 msgid "This deletes the message for everyone and cannot be undone."
 msgstr "Made-delete ang mensahe para sa lahat at hindi na ito maibabalik."
 
@@ -1721,7 +1762,7 @@ msgid "Try a different search term"
 msgstr "Subukan ang ibang termino sa paghahanap"
 
 #: ../../../lib/web/src/components/search-entity-dialog.tsx:190
-#: ../../../lib/web/src/components/search-entity-page.tsx:214
+#: ../../../lib/web/src/components/search-entity-page.tsx:216
 msgid "Try adjusting your search terms"
 msgstr "Subukang ayusin ang iyong mga search term"
 
@@ -1847,19 +1888,19 @@ msgstr "Nasa ilalim ng maintenance ang website!"
 msgid "Wednesday"
 msgstr "Miyerkules"
 
-#: src/features/chats/index.tsx:276
+#: src/features/chats/index.tsx:278
 msgid "You"
 msgstr "Ikaw"
 
-#: src/features/chats/components/new-chat.tsx:115
+#: src/features/chats/components/new-chat.tsx:133
 msgid "You already have a chat with this friend"
 msgstr "Mayroon ka nang chat sa kaibigang ito"
 
-#: src/features/chats/components/new-chat.tsx:227
+#: src/features/chats/components/new-chat.tsx:247
 msgid "You already have chats with:"
 msgstr "May mga chat ka na kasama ang:"
 
-#: src/features/chats/index.tsx:377
+#: src/features/chats/index.tsx:379
 msgid "You can only delete your own messages"
 msgstr "Sarili mong mensahe lang ang puwede mong i-delete"
 
@@ -1867,11 +1908,11 @@ msgstr "Sarili mong mensahe lang ang puwede mong i-delete"
 msgid "You do not have access to this section."
 msgstr "Wala kang access sa seksyong ito."
 
-#: src/features/chats/index.tsx:817
+#: src/features/chats/index.tsx:832
 msgid "You left this chat"
 msgstr "Umalis ka sa chat na ito"
 
-#: src/features/chats/index.tsx:816
+#: src/features/chats/index.tsx:831
 msgid "You were removed from this chat"
 msgstr "Tinanggal ka sa chat na ito"
 

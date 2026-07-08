@@ -13,17 +13,22 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
+#. js-lingui-explicit-id
+#: ../../../lib/web/src/lib/error-normalizer.ts:204
+msgid "Please check your internet connection and try again."
+msgstr "Лутфан пайвасти интернети худро санҷед ва аз нав кӯшиш кунед."
+
 #: src/features/chats/components/message-reaction-bar.tsx:183
 msgid " (includes you)"
 msgstr " (шумо низ дохил)"
 
 #. placeholder {0}: deleteTargetIds?.length ?? 0
-#: src/features/chats/index.tsx:897
+#: src/features/chats/index.tsx:912
 msgid "{0, plural, one {Delete message?} other {Delete # messages?}}"
 msgstr "{0, plural, one {Паём нест карда шавад?} other {# паём нест карда шавад?}}"
 
 #. placeholder {0}: selectedIds.size
-#: src/features/chats/index.tsx:773
+#: src/features/chats/index.tsx:788
 msgid "{0} selected"
 msgstr "{0} интихоб шуд"
 
@@ -185,8 +190,16 @@ msgstr "Хатогии ғайричашмдошт рух дод"
 msgid "Angry"
 msgstr "Хашмгин"
 
+#: src/features/chats/components/chat-settings-dialog.tsx:44
+msgid "Anyone"
+msgstr "Ҳар кас"
+
+#: src/features/chats/components/chat-settings-dialog.tsx:45
+msgid "Anyone can start a chat with you."
+msgstr "Ҳар кас метавонад бо шумо чат оғоз кунад."
+
 #. placeholder {0}: selectedChat?.name
-#: src/features/chats/index.tsx:865
+#: src/features/chats/index.tsx:880
 msgid "Are you sure you want to leave \"{0}\"? You can be added back by other members."
 msgstr "Шумо мутмаин ҳастед, ки мехоҳед \"{0}\"-ро тарк кунед? Аъзои дигар метавонанд шуморо боз илова кунанд."
 
@@ -255,9 +268,10 @@ msgstr "Афзоиши таваҷҷуҳ"
 #: ../../../lib/web/src/features/accounts/account-add.tsx:188
 #: ../../../lib/web/src/features/accounts/account-verify.tsx:89
 #: src/features/chats/components/chat-message-list.tsx:626
+#: src/features/chats/components/chat-settings-dialog.tsx:109
 #: src/features/chats/components/forward-dialog.tsx:249
-#: src/features/chats/components/new-chat.tsx:265
-#: src/features/chats/index.tsx:806
+#: src/features/chats/components/new-chat.tsx:285
+#: src/features/chats/index.tsx:821
 msgid "Cancel"
 msgstr "Бекор кардан"
 
@@ -275,18 +289,18 @@ msgstr "Категория барои ин огоҳинома"
 msgid "Change notification category"
 msgstr "Тағйири категорияи огоҳинома"
 
-#: src/features/chats/index.tsx:73
-#: src/features/chats/index.tsx:190
-#: src/features/chats/index.tsx:190
-#: src/features/chats/index.tsx:616
+#: src/features/chats/index.tsx:74
+#: src/features/chats/index.tsx:192
+#: src/features/chats/index.tsx:192
+#: src/features/chats/index.tsx:619
 msgid "Chat"
 msgstr "Чат"
 
-#: src/features/chats/components/new-chat.tsx:132
+#: src/features/chats/components/new-chat.tsx:150
 msgid "Chat created"
 msgstr "Чат эҷод шуд"
 
-#: src/features/chats/index.tsx:520
+#: src/features/chats/index.tsx:522
 msgid "Chat deleted"
 msgstr "Чат нест карда шуд"
 
@@ -302,7 +316,7 @@ msgstr "Чат ҳамчун хондашуда қайд шуд"
 msgid "Chat marked as unread"
 msgstr "Чат ҳамчун хонданашуда қайд шуд"
 
-#: src/features/chats/components/new-chat.tsx:249
+#: src/features/chats/components/new-chat.tsx:269
 #: src/routes/_authenticated/$chatId_.settings.tsx:201
 msgid "Chat name"
 msgstr "Номи чат"
@@ -311,7 +325,7 @@ msgstr "Номи чат"
 msgid "Chat name is required"
 msgstr "Номи чат зарур аст"
 
-#: src/features/chats/components/new-chat.tsx:252
+#: src/features/chats/components/new-chat.tsx:272
 msgid "Chat name..."
 msgstr "Номи чат..."
 
@@ -323,7 +337,11 @@ msgstr "Чат ёфт нашуд"
 msgid "Chat pinned"
 msgstr "Чат часпонида шуд"
 
-#: src/features/chats/components/new-chat.tsx:132
+#: src/features/chats/components/chat-settings-dialog.tsx:64
+msgid "Chat policy updated"
+msgstr "Сиёсати чат нав карда шуд"
+
+#: src/features/chats/components/new-chat.tsx:150
 msgid "Chat ready"
 msgstr "Чат тайёр аст"
 
@@ -331,7 +349,8 @@ msgstr "Чат тайёр аст"
 msgid "Chat renamed"
 msgstr "Чат номаш иваз карда шуд"
 
-#: src/features/chats/index.tsx:706
+#: src/features/chats/index.tsx:624
+#: src/features/chats/index.tsx:721
 #: src/routes/_authenticated/$chatId_.settings.tsx:84
 #: src/routes/_authenticated/$chatId_.settings.tsx:97
 #: src/routes/_authenticated/$chatId_.settings.tsx:108
@@ -351,10 +370,6 @@ msgstr "Часпониши чат бекор шуд"
 #: src/features/chats/components/forward-dialog.tsx:225
 msgid "Chats"
 msgstr "Чатҳо"
-
-#: src/features/chats/components/new-chat.tsx:196
-msgid "Chats are between friends. Add a friend in the People app first."
-msgstr "Чатҳо байни дӯстон ҳастанд. Аввал дар барномаи People дӯст илова кунед."
 
 #: src/features/chats/components/forward-dialog.tsx:186
 msgid "Choose a chat or friend to forward the selected messages to"
@@ -483,13 +498,13 @@ msgstr "Идома"
 msgid "Continue with {label}"
 msgstr "Бо {label} идома диҳед"
 
-#: src/features/chats/index.tsx:364
+#: src/features/chats/index.tsx:366
 msgid "Copied"
 msgstr "Нусхабардорӣ шуд"
 
 #: ../../../lib/web/src/components/ui/copy-button.tsx:63
 #: src/features/chats/components/message-hover-actions.tsx:103
-#: src/features/chats/index.tsx:782
+#: src/features/chats/index.tsx:797
 msgid "Copy"
 msgstr "Нусхабардорӣ"
 
@@ -509,20 +524,20 @@ msgstr "Аз нав аутентификатсияро оғоз кардан и�
 msgid "Couldn't verify with that account. Please try again."
 msgstr "Бо он ҳисоб тасдиқ кардан имконнопазир буд. Лутфан, бори дигар кӯшиш кунед."
 
-#: src/features/chats/components/new-chat.tsx:179
+#: src/features/chats/components/new-chat.tsx:197
 msgid "Create a new chat"
 msgstr "Эҷоди чат нав"
 
 #: src/components/layout/chat-layout.tsx:264
-#: src/features/chats/components/new-chat.tsx:273
+#: src/features/chats/components/new-chat.tsx:293
 msgid "Create chat"
 msgstr "Эҷоди чат"
 
-#: src/features/chats/components/new-chat.tsx:131
+#: src/features/chats/components/new-chat.tsx:149
 msgid "Creating chat..."
 msgstr "Чат сохта мешавад..."
 
-#: src/features/chats/components/new-chat.tsx:273
+#: src/features/chats/components/new-chat.tsx:293
 msgid "Creating..."
 msgstr "Эҷод карда истодааст..."
 
@@ -556,17 +571,17 @@ msgid "Default AI account"
 msgstr "Ҳисоби пешфарз AI"
 
 #: src/features/chats/components/message-hover-actions.tsx:135
-#: src/features/chats/index.tsx:799
-#: src/features/chats/index.tsx:909
+#: src/features/chats/index.tsx:814
+#: src/features/chats/index.tsx:924
 msgid "Delete"
 msgstr "Нест кардан"
 
-#: src/features/chats/index.tsx:689
-#: src/features/chats/index.tsx:830
+#: src/features/chats/index.tsx:704
+#: src/features/chats/index.tsx:845
 msgid "Delete chat"
 msgstr "Нест кардани чат"
 
-#: src/features/chats/index.tsx:887
+#: src/features/chats/index.tsx:902
 #: src/routes/_authenticated/$chatId_.settings.tsx:366
 msgid "Delete chat history"
 msgstr "Нест кардани таърихи чат"
@@ -575,12 +590,12 @@ msgstr "Нест кардани таърихи чат"
 msgid "Delete your account on the old server"
 msgstr "Ҳисоби худро дар сервери кӯҳна нест кунед"
 
-#: src/features/chats/index.tsx:519
+#: src/features/chats/index.tsx:521
 msgid "Deleting chat..."
 msgstr "Чат нест карда мешавад..."
 
-#: src/features/chats/index.tsx:394
-#: src/features/chats/index.tsx:906
+#: src/features/chats/index.tsx:396
+#: src/features/chats/index.tsx:921
 msgid "Deleting..."
 msgstr "Нест карда истодааст..."
 
@@ -680,7 +695,7 @@ msgstr "Илова кардани ҳисоб ба анҷом нарасид"
 msgid "Failed to add member"
 msgstr "Илова кардани узв ба анҷом нарасид"
 
-#: src/features/chats/index.tsx:365
+#: src/features/chats/index.tsx:367
 msgid "Failed to copy"
 msgstr "Нусхабардорӣ ба анҷом нарасид"
 
@@ -688,15 +703,15 @@ msgstr "Нусхабардорӣ ба анҷом нарасид"
 msgid "Failed to copy message"
 msgstr "Паём нусхабардорӣ нашуд"
 
-#: src/features/chats/components/new-chat.tsx:133
+#: src/features/chats/components/new-chat.tsx:151
 msgid "Failed to create chat"
 msgstr "Эҷоди чат ба анҷом нарасид"
 
-#: src/features/chats/index.tsx:396
+#: src/features/chats/index.tsx:398
 msgid "Failed to delete"
 msgstr "Ҳазф ба анҷом нарасид"
 
-#: src/features/chats/index.tsx:521
+#: src/features/chats/index.tsx:523
 msgid "Failed to delete chat"
 msgstr "Ҳазфи чат ба анҷом нарасид"
 
@@ -704,7 +719,7 @@ msgstr "Ҳазфи чат ба анҷом нарасид"
 msgid "Failed to forward"
 msgstr "Интиқол дода нашуд"
 
-#: src/features/chats/index.tsx:502
+#: src/features/chats/index.tsx:504
 #: src/routes/_authenticated/$chatId_.settings.tsx:327
 msgid "Failed to leave chat"
 msgstr "Тарк кардани чат ба анҷом нарасид"
@@ -725,7 +740,11 @@ msgstr "Бартараф кардани узв ба анҷом нарасид"
 msgid "Failed to rename chat"
 msgstr "Тағйири номи чат ба анҷом нарасид"
 
-#: src/features/chats/index.tsx:850
+#: src/features/chats/components/chat-settings-dialog.tsx:65
+msgid "Failed to save"
+msgstr "Захира ба анҷом нарасид"
+
+#: src/features/chats/index.tsx:865
 msgid "Failed to send message"
 msgstr "Ирсоли паём ба анҷом нарасид"
 
@@ -733,7 +752,7 @@ msgstr "Ирсоли паём ба анҷом нарасид"
 msgid "Failed to send verification code"
 msgstr "Ирсоли рамзи тасдиқ ба анҷом нарасид"
 
-#: src/features/chats/index.tsx:196
+#: src/features/chats/index.tsx:198
 msgid "Failed to start chat"
 msgstr "Оғози чат ба анҷом нарасид"
 
@@ -755,7 +774,7 @@ msgstr "Шинокунанда"
 
 #: src/features/chats/components/forward-dialog.tsx:260
 #: src/features/chats/components/message-hover-actions.tsx:124
-#: src/features/chats/index.tsx:790
+#: src/features/chats/index.tsx:805
 msgid "Forward"
 msgstr "Интиқол додан"
 
@@ -776,10 +795,13 @@ msgid "Friday"
 msgstr "Ҷумъа"
 
 #: src/features/chats/components/forward-dialog.tsx:233
-#: src/features/chats/components/new-chat.tsx:186
 #: src/routes/_authenticated/$chatId_.settings.tsx:466
 msgid "Friends"
 msgstr "Дӯстон"
+
+#: src/features/chats/components/chat-settings-dialog.tsx:39
+msgid "Friends only"
+msgstr "Танҳо дӯстон"
 
 #: ../../../lib/web/src/components/travelling-picker.tsx:153
 msgid "From"
@@ -856,6 +878,10 @@ msgstr "Доғ"
 msgid "Imperial"
 msgstr "Империалӣ"
 
+#: src/features/chats/components/chat-settings-dialog.tsx:77
+msgid "Incoming chats"
+msgstr "Чатҳои воридотӣ"
+
 #: ../../../lib/web/src/components/config-drawer.tsx:252
 msgid "Inset"
 msgstr "Дохилӣ"
@@ -891,31 +917,31 @@ msgstr "Тарҳбандӣ"
 msgid "Learn more"
 msgstr "Маълумоти бештар"
 
-#: src/features/chats/index.tsx:873
+#: src/features/chats/index.tsx:888
 msgid "Leave"
 msgstr "Тарк кардан"
 
-#: src/features/chats/index.tsx:696
+#: src/features/chats/index.tsx:711
 #: src/routes/_authenticated/$chatId_.settings.tsx:352
 msgid "Leave chat"
 msgstr "Тарк кардани чат"
 
-#: src/features/chats/index.tsx:864
+#: src/features/chats/index.tsx:879
 #: src/routes/_authenticated/$chatId_.settings.tsx:343
 msgid "Leave chat?"
 msgstr "Чатро тарк кунем?"
 
-#: src/features/chats/index.tsx:500
+#: src/features/chats/index.tsx:502
 #: src/routes/_authenticated/$chatId_.settings.tsx:325
 msgid "Leaving chat..."
 msgstr "Аз чат баромада мешавад..."
 
-#: src/features/chats/index.tsx:870
+#: src/features/chats/index.tsx:885
 #: src/routes/_authenticated/$chatId_.settings.tsx:349
 msgid "Leaving..."
 msgstr "Тарк карда мешавад..."
 
-#: src/features/chats/index.tsx:501
+#: src/features/chats/index.tsx:503
 #: src/routes/_authenticated/$chatId_.settings.tsx:326
 msgid "Left chat"
 msgstr "Чат тарк карда шуд"
@@ -1027,12 +1053,12 @@ msgstr "Амалҳои паём"
 msgid "Message copied"
 msgstr "Паём нусхабардорӣ шуд"
 
-#: src/features/chats/index.tsx:395
+#: src/features/chats/index.tsx:397
 msgid "Message deleted"
 msgstr "Паём нест карда шуд"
 
 #: src/features/chats/components/message-quote.tsx:60
-#: src/features/chats/index.tsx:416
+#: src/features/chats/index.tsx:418
 msgid "Message not available"
 msgstr "Паём дастрас нест"
 
@@ -1059,7 +1085,7 @@ msgstr "Нав"
 
 #: src/features/chats/components/chat-empty-state.tsx:27
 #: src/features/chats/components/chat-empty-state.tsx:43
-#: src/features/chats/components/new-chat.tsx:176
+#: src/features/chats/components/new-chat.tsx:194
 msgid "New chat"
 msgstr "Чати нав"
 
@@ -1088,12 +1114,11 @@ msgstr "Ягон ҳисоби пайвастшуда нест"
 msgid "No friends available"
 msgstr "Ягон дӯст дастрас нест"
 
-#: src/features/chats/components/new-chat.tsx:216
 #: src/routes/_authenticated/$chatId_.settings.tsx:456
 msgid "No friends found"
 msgstr "Ягон дӯст ёфт нашуд"
 
-#: src/features/chats/components/new-chat.tsx:194
+#: src/features/chats/components/new-chat.tsx:225
 msgid "No friends yet"
 msgstr "То ҳол ягон дӯст нест"
 
@@ -1104,6 +1129,10 @@ msgstr "Ягон гурӯҳ дастрас нест"
 #: src/features/chats/components/chat-message-list.tsx:384
 msgid "No messages yet"
 msgstr "То ҳол ягон паём нест"
+
+#: src/features/chats/components/new-chat.tsx:219
+msgid "No people found"
+msgstr "Ягон шахс ёфт нашуд"
 
 #: ../../../lib/web/src/components/place-picker.tsx:132
 msgid "No places found"
@@ -1152,7 +1181,7 @@ msgstr "Ёфт нашуд"
 msgid "Not set"
 msgstr "Танзим нашудааст"
 
-#: src/features/chats/index.tsx:360
+#: src/features/chats/index.tsx:362
 msgid "Nothing to copy"
 msgstr "Чизе барои нусхабардорӣ нест"
 
@@ -1168,11 +1197,15 @@ msgstr "Огоҳиномаҳо"
 msgid "Older match"
 msgstr "Мувофиқати кӯҳнатар"
 
+#: src/features/chats/components/chat-settings-dialog.tsx:40
+msgid "Only friends can start a chat with you (default)."
+msgstr "Танҳо дӯстон метавонанд бо шумо чат оғоз кунанд (пешфарз)."
+
 #: ../../../lib/web/src/features/errors/not-found-error.tsx:16
 msgid "Oops! Page Not Found!"
 msgstr "Эҳ! Саҳифа ёфт нашуд!"
 
-#: src/features/chats/components/new-chat.tsx:239
+#: src/features/chats/components/new-chat.tsx:259
 msgid "Open"
 msgstr "Кушодан"
 
@@ -1186,7 +1219,7 @@ msgstr "Кушодани амалҳои ҳисоб"
 msgid "Open actions"
 msgstr "Кушодани амалҳо"
 
-#: src/features/chats/index.tsx:681
+#: src/features/chats/index.tsx:696
 msgid "Open chat actions"
 msgstr "Кушодани амалҳои чат"
 
@@ -1200,7 +1233,7 @@ msgstr "Кушодани навигатсия"
 msgid "Open navigation menu"
 msgstr "Кушодани менюи навигатсия"
 
-#: src/features/chats/components/new-chat.tsx:206
+#: src/features/chats/components/new-chat.tsx:235
 msgid "Open people"
 msgstr "Кушодани «Одамон»"
 
@@ -1233,23 +1266,26 @@ msgstr "Тасдиқи калиди дастрасӣ ноком шуд. Лутф
 msgid "Passkeys"
 msgstr "Калидҳои дастрасӣ"
 
+#: src/features/chats/components/new-chat.tsx:204
+msgid "People"
+msgstr "Шахсон"
+
 #: src/components/layout/chat-layout.tsx:212
 msgid "Pin chat"
 msgstr "Часпонидани чат"
 
 #: ../../../lib/web/src/features/errors/general-error.tsx:54
 #: ../../../lib/web/src/lib/api-response-interceptors.ts:304
-#: ../../../lib/web/src/lib/error-normalizer.ts:201
 msgid "Please check your internet connection and try again."
 msgstr "Лутфан пайвасти интернети худро санҷед ва аз нав кӯшиш кунед."
 
-#: src/features/chats/components/new-chat.tsx:120
+#: src/features/chats/components/new-chat.tsx:138
 msgid "Please provide a chat name"
 msgstr "Лутфан номи чатро таъмин кунед"
 
-#: src/features/chats/components/new-chat.tsx:110
-msgid "Please select at least one friend"
-msgstr "Лутфан ҳадди ақал як дӯсти худро интихоб кунед"
+#: src/features/chats/components/new-chat.tsx:128
+msgid "Please select at least one person"
+msgstr "Лутфан ҳадди ақал як нафарро интихоб кунед"
 
 #: ../../../lib/web/src/features/errors/general-error.tsx:83
 msgid "Please try again."
@@ -1291,7 +1327,7 @@ msgid "Read more"
 msgstr "Бештар хондан"
 
 #: ../../../lib/web/src/components/search-entity-dialog.tsx:216
-#: ../../../lib/web/src/components/search-entity-page.tsx:240
+#: ../../../lib/web/src/components/search-entity-page.tsx:242
 msgid "Recommended"
 msgstr "Тавсияшуда"
 
@@ -1396,8 +1432,13 @@ msgstr "Шанбе"
 
 #: ../../../lib/web/src/components/ui/editable-field-row.tsx:122
 #: ../../../lib/web/src/components/ui/secret-field.tsx:77
+#: src/features/chats/components/chat-settings-dialog.tsx:120
 msgid "Save"
 msgstr "Захира"
+
+#: src/features/chats/components/chat-settings-dialog.tsx:63
+msgid "Saving..."
+msgstr "Захира кардан..."
 
 #: src/features/chats/components/forward-dialog.tsx:194
 msgid "Search chats…"
@@ -1423,7 +1464,7 @@ msgstr "Ҷустуҷӯи дӯстон…"
 msgid "Search in chat..."
 msgstr "Ҷустуҷӯ дар чат..."
 
-#: src/features/chats/index.tsx:671
+#: src/features/chats/index.tsx:686
 msgid "Search messages"
 msgstr "Ҷустуҷӯи паёмҳо"
 
@@ -1440,7 +1481,7 @@ msgid "Search..."
 msgstr "Ҷустуҷӯ..."
 
 #: ../../../lib/web/src/components/search-entity-dialog.tsx:174
-#: ../../../lib/web/src/components/search-entity-page.tsx:198
+#: ../../../lib/web/src/components/search-entity-page.tsx:200
 #: ../../../lib/web/src/features/access/access-dialog.tsx:202
 msgid "Searching..."
 msgstr "Ҷустуҷӯ карда мешавад..."
@@ -1469,10 +1510,6 @@ msgstr "Интихоби қоидаи дастрасӣ"
 msgid "Select account type"
 msgstr "Интихоби намуди ҳисоб"
 
-#: src/features/chats/components/new-chat.tsx:215
-msgid "Select friends..."
-msgstr "Дӯстонро интихоб кунед..."
-
 #: ../../../lib/web/src/features/access/access-dialog.tsx:231
 msgid "Select group"
 msgstr "Гурӯҳро интихоб кунед"
@@ -1488,6 +1525,10 @@ msgstr "Интихоби боршудаҳо"
 #: src/features/chats/components/chat-message-list.tsx:440
 msgid "Select message"
 msgstr "Интихоби паём"
+
+#: src/features/chats/components/new-chat.tsx:218
+msgid "Select people..."
+msgstr "Интихоби одамон..."
 
 #: ../../../lib/web/src/components/config-drawer.tsx:246
 msgid "Select sidebar style"
@@ -1596,7 +1637,7 @@ msgstr "Васеъ"
 msgid "Start a conversation"
 msgstr "Сӯҳбатро оғоз кунед"
 
-#: src/features/chats/index.tsx:193
+#: src/features/chats/index.tsx:195
 msgid "Starting chat..."
 msgstr "Чат оғоз карда мешавад..."
 
@@ -1660,7 +1701,7 @@ msgstr "ин сӯҳбат"
 msgid "This chat may have been deleted or you don't have access to it"
 msgstr "Ин чат шояд нест карда шуда бошад ё шумо ба он дастрасӣ надошта бошед"
 
-#: src/features/chats/index.tsx:901
+#: src/features/chats/index.tsx:916
 msgid "This deletes the message for everyone and cannot be undone."
 msgstr "Ин паёмро барои ҳама нест мекунад ва онро бекор кардан мумкин нест."
 
@@ -1721,7 +1762,7 @@ msgid "Try a different search term"
 msgstr "Истилоҳи дигари ҷустуҷӯро санҷед"
 
 #: ../../../lib/web/src/components/search-entity-dialog.tsx:190
-#: ../../../lib/web/src/components/search-entity-page.tsx:214
+#: ../../../lib/web/src/components/search-entity-page.tsx:216
 msgid "Try adjusting your search terms"
 msgstr "Истилоҳҳои ҷустуҷӯи худро танзим кунед"
 
@@ -1847,19 +1888,19 @@ msgstr "Сомона дар ҳолати таъмир аст!"
 msgid "Wednesday"
 msgstr "Чоршанбе"
 
-#: src/features/chats/index.tsx:276
+#: src/features/chats/index.tsx:278
 msgid "You"
 msgstr "Шумо"
 
-#: src/features/chats/components/new-chat.tsx:115
+#: src/features/chats/components/new-chat.tsx:133
 msgid "You already have a chat with this friend"
 msgstr "Шумо аллакай бо ин дӯст сӯҳбат доред"
 
-#: src/features/chats/components/new-chat.tsx:227
+#: src/features/chats/components/new-chat.tsx:247
 msgid "You already have chats with:"
 msgstr "Шумо аллакай сӯҳбатҳо доред бо:"
 
-#: src/features/chats/index.tsx:377
+#: src/features/chats/index.tsx:379
 msgid "You can only delete your own messages"
 msgstr "Шумо танҳо паёмҳои худро нест карда метавонед"
 
@@ -1867,11 +1908,11 @@ msgstr "Шумо танҳо паёмҳои худро нест карда мет
 msgid "You do not have access to this section."
 msgstr "Шумо ба ин бахш дастрасӣ надоред."
 
-#: src/features/chats/index.tsx:817
+#: src/features/chats/index.tsx:832
 msgid "You left this chat"
 msgstr "Шумо ин сӯҳбатро тарк кардед"
 
-#: src/features/chats/index.tsx:816
+#: src/features/chats/index.tsx:831
 msgid "You were removed from this chat"
 msgstr "Шумо аз ин сӯҳбат хориҷ карда шудед"
 

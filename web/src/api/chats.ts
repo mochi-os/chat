@@ -30,6 +30,9 @@ import type {
   ReactToMessageResponse,
   DeleteMessagesResponse,
   ForwardMessagesResponse,
+  ChatPolicy,
+  ChatPreferences,
+  PersonSearchResponse,
 } from './types/chats'
 import endpoints from './endpoints'
 
@@ -112,9 +115,22 @@ export const chatsApi = {
     return client.post<SendMessageResponse>(endpoints.chat.send(chatId), payload)
   },
 
-  getFriendsForNewChat: () => 
+  getFriendsForNewChat: () =>
   client.get<{ data: GetNewChatResponse }>(endpoints.chat.new)
     .then((res) => res.data),
+
+  personSearch: (search: string) =>
+    client
+      .post<{ data: PersonSearchResponse }>(endpoints.chat.personSearch, { search })
+      .then((res) => res.data),
+
+  getPreferences: () =>
+    client
+      .get<{ data: ChatPreferences }>(endpoints.chat.preferencesGet)
+      .then((res) => res.data),
+
+  setPreferences: (policy: ChatPolicy) =>
+    client.post(endpoints.chat.preferencesSet, { chat_policy: policy }),
 
   create: (payload: CreateChatRequest) =>
     client
