@@ -6,7 +6,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { Trans, useLingui } from '@lingui/react/macro'
 import { plural } from '@lingui/core/macro'
-import { useAuthStore, usePageTitle, PageHeader, Main, GeneralError, Button, Checkbox, ConfirmDialog, EntityAvatar, IconButton, DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger, Label, toast, toastAction, getErrorMessage, shellClipboardWrite } from '@mochi/web'
+import { useAuthStore, usePageTitle, PageHeader, Main, GeneralError, Button, Checkbox, ConfirmDialog, EntityAvatar, IconButton, DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger, Label, toast, toastAction, getErrorMessage, shellClipboardWrite } from '@mochi/web'
 import { useMessageSelection } from '@/hooks/use-message-selection'
 import { useNavigate, useParams, useSearch } from '@tanstack/react-router'
 import { useQueryClient, type InfiniteData } from '@tanstack/react-query'
@@ -16,6 +16,7 @@ import {
   Forward,
   MoreHorizontal,
   Settings,
+  Inbox,
   LogOut,
   Loader2,
   Trash2,
@@ -722,6 +723,10 @@ export function Chats() {
                     </DropdownMenuItem>
                   </>
                 )}
+                <DropdownMenuSeparator />
+                <DropdownMenuItem onClick={() => setChatSettingsOpen(true)}>
+                  <Inbox className='me-2 size-4' /> <Trans>Incoming chats</Trans>
+                </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
             </div>
@@ -943,6 +948,7 @@ export function Chats() {
           }}
         />
       ) : null}
+      <ChatSettingsDialog open={chatSettingsOpen} onOpenChange={setChatSettingsOpen} />
     </>
   )
 }
