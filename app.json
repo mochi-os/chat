@@ -5,7 +5,7 @@
 // Mochi Application Interface Exception - see license.txt and license-exception.md.
 
 {
-	"version": "2.101",
+	"version": "2.104",
 	"label": "app.name",
 	"classes": ["chat"],
 	"paths": ["chat"],
@@ -31,6 +31,9 @@
 		"images": {"files": "web/dist/images"},
 		"-/list": {"function": "action_list"},
 		"-/new": {"function": "action_new"},
+		"-/person/search": {"function": "action_person_search"},
+		"-/preferences/get": {"function": "action_preferences_get"},
+		"-/preferences/set": {"function": "action_preferences_set"},
 
 		":chat": {"file": "web/dist/index.html"},
 		":chat/-/view": {"function": "action_view"},
@@ -60,6 +63,7 @@
 	},
 
 	"events": {
+		"accept/query": {"function": "event_accept_query"},
 		"message": {"function": "event_message"},
 		"message/delete": {"function": "event_message_delete"},
 		"message/react": {"function": "event_message_react"},

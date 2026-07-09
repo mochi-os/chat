@@ -13,17 +13,22 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
+#. js-lingui-explicit-id
+#: ../../../lib/web/src/lib/error-normalizer.ts:204
+msgid "Please check your internet connection and try again."
+msgstr "කරුණාකර ඔබගේ අන්තර්ජාල සම්බන්ධතාවය පරීක්ෂා කර නැවත උත්සාහ කරන්න."
+
 #: src/features/chats/components/message-reaction-bar.tsx:183
 msgid " (includes you)"
 msgstr " (ඔබව ඇතුළත්)"
 
 #. placeholder {0}: deleteTargetIds?.length ?? 0
-#: src/features/chats/index.tsx:897
+#: src/features/chats/index.tsx:917
 msgid "{0, plural, one {Delete message?} other {Delete # messages?}}"
 msgstr "{0, plural, one {පණිවිඩය මකන්නද?} other {පණිවිඩ #ක් මකන්නද?}}"
 
 #. placeholder {0}: selectedIds.size
-#: src/features/chats/index.tsx:773
+#: src/features/chats/index.tsx:793
 msgid "{0} selected"
 msgstr "{0}ක් තෝරා ඇත"
 
@@ -185,8 +190,16 @@ msgstr "අනපේක්ෂිත දෝෂයක් සිදු විය"
 msgid "Angry"
 msgstr "කෝපයි"
 
+#: src/features/chats/components/chat-settings-dialog.tsx:44
+msgid "Anyone"
+msgstr "ඕනෑම කෙනෙක්"
+
+#: src/features/chats/components/chat-settings-dialog.tsx:45
+msgid "Anyone can start a chat with you."
+msgstr "ඕනෑම කෙනෙකුට ඔබ සමඟ කතාබහක් ආරම්භ කළ හැක."
+
 #. placeholder {0}: selectedChat?.name
-#: src/features/chats/index.tsx:865
+#: src/features/chats/index.tsx:885
 msgid "Are you sure you want to leave \"{0}\"? You can be added back by other members."
 msgstr "ඔබට \"{0}\" හැර යාමට අවශ්‍ය බව ඔබට විශ්වාසද? වෙනත් සාමාජිකයින්ට ඔබව නැවත එක් කළ හැකිය."
 
@@ -255,9 +268,10 @@ msgstr "කැමැත්ත වැඩි කරන්න"
 #: ../../../lib/web/src/features/accounts/account-add.tsx:188
 #: ../../../lib/web/src/features/accounts/account-verify.tsx:89
 #: src/features/chats/components/chat-message-list.tsx:626
+#: src/features/chats/components/chat-settings-dialog.tsx:109
 #: src/features/chats/components/forward-dialog.tsx:249
-#: src/features/chats/components/new-chat.tsx:265
-#: src/features/chats/index.tsx:806
+#: src/features/chats/components/new-chat.tsx:285
+#: src/features/chats/index.tsx:826
 msgid "Cancel"
 msgstr "අවලංගු කරන්න"
 
@@ -275,18 +289,18 @@ msgstr "මෙම දැනුම්දීම සඳහා ප්‍රවර්
 msgid "Change notification category"
 msgstr "දැනුම්දීම් ප්‍රවර්ගය වෙනස් කරන්න"
 
-#: src/features/chats/index.tsx:73
-#: src/features/chats/index.tsx:190
-#: src/features/chats/index.tsx:190
-#: src/features/chats/index.tsx:616
+#: src/features/chats/index.tsx:75
+#: src/features/chats/index.tsx:193
+#: src/features/chats/index.tsx:193
+#: src/features/chats/index.tsx:620
 msgid "Chat"
 msgstr "චැට්"
 
-#: src/features/chats/components/new-chat.tsx:132
+#: src/features/chats/components/new-chat.tsx:150
 msgid "Chat created"
 msgstr "චැට් එක නිර්මාණය කරන ලදී"
 
-#: src/features/chats/index.tsx:520
+#: src/features/chats/index.tsx:523
 msgid "Chat deleted"
 msgstr "චැට් එක මකන ලදී"
 
@@ -302,7 +316,7 @@ msgstr "කතාබස් කියවූ ලෙස ලකුණු කරන �
 msgid "Chat marked as unread"
 msgstr "කතාබස් නොකියවූ ලෙස ලකුණු කරන ලදී"
 
-#: src/features/chats/components/new-chat.tsx:249
+#: src/features/chats/components/new-chat.tsx:269
 #: src/routes/_authenticated/$chatId_.settings.tsx:201
 msgid "Chat name"
 msgstr "චැට් නාමය"
@@ -311,7 +325,7 @@ msgstr "චැට් නාමය"
 msgid "Chat name is required"
 msgstr "කතාබහේ නම අවශ්‍යයි"
 
-#: src/features/chats/components/new-chat.tsx:252
+#: src/features/chats/components/new-chat.tsx:272
 msgid "Chat name..."
 msgstr "චැට් නාමය..."
 
@@ -323,7 +337,11 @@ msgstr "චැට් එක සොයාගත නොහැක"
 msgid "Chat pinned"
 msgstr "කතාබස් අමුණන ලදී"
 
-#: src/features/chats/components/new-chat.tsx:132
+#: src/features/chats/components/chat-settings-dialog.tsx:64
+msgid "Chat policy updated"
+msgstr "කතාබස් ප්‍රතිපත්තිය යාවත්කාලීන කරන ලදී"
+
+#: src/features/chats/components/new-chat.tsx:150
 msgid "Chat ready"
 msgstr "චැට් එක සූදානම්"
 
@@ -331,7 +349,8 @@ msgstr "චැට් එක සූදානම්"
 msgid "Chat renamed"
 msgstr "චැට් එක නැවත නම් කරන ලදී"
 
-#: src/features/chats/index.tsx:706
+#: src/features/chats/index.tsx:625
+#: src/features/chats/index.tsx:722
 #: src/routes/_authenticated/$chatId_.settings.tsx:84
 #: src/routes/_authenticated/$chatId_.settings.tsx:97
 #: src/routes/_authenticated/$chatId_.settings.tsx:108
@@ -351,10 +370,6 @@ msgstr "කතාබස් ගලවන ලදී"
 #: src/features/chats/components/forward-dialog.tsx:225
 msgid "Chats"
 msgstr "චැට්"
-
-#: src/features/chats/components/new-chat.tsx:196
-msgid "Chats are between friends. Add a friend in the People app first."
-msgstr "චැට් සිදුවන්නේ මිතුරන් අතර ය. ප්‍රථමයෙන් People app එකේ මිතුරෙකු එක් කරන්න."
 
 #: src/features/chats/components/forward-dialog.tsx:186
 msgid "Choose a chat or friend to forward the selected messages to"
@@ -483,13 +498,13 @@ msgstr "ඉදිරියට"
 msgid "Continue with {label}"
 msgstr "{label} සමඟ ඉදිරියට යන්න"
 
-#: src/features/chats/index.tsx:364
+#: src/features/chats/index.tsx:367
 msgid "Copied"
 msgstr "පිටපත් කළා"
 
 #: ../../../lib/web/src/components/ui/copy-button.tsx:63
 #: src/features/chats/components/message-hover-actions.tsx:103
-#: src/features/chats/index.tsx:782
+#: src/features/chats/index.tsx:802
 msgid "Copy"
 msgstr "පිටපත් කරන්න"
 
@@ -509,20 +524,20 @@ msgstr "නැවත සත්‍යාපනය ආරම්භ කළ නො�
 msgid "Couldn't verify with that account. Please try again."
 msgstr "එම ගිණුම සමඟ සත්‍යාපනය කළ නොහැකි විය. කරුණාකර නැවත උත්සාහ කරන්න."
 
-#: src/features/chats/components/new-chat.tsx:179
+#: src/features/chats/components/new-chat.tsx:197
 msgid "Create a new chat"
 msgstr "නව චැට් එකක් නිර්මාණය කරන්න"
 
 #: src/components/layout/chat-layout.tsx:264
-#: src/features/chats/components/new-chat.tsx:273
+#: src/features/chats/components/new-chat.tsx:293
 msgid "Create chat"
 msgstr "චැට් එකක් නිර්මාණය කරන්න"
 
-#: src/features/chats/components/new-chat.tsx:131
+#: src/features/chats/components/new-chat.tsx:149
 msgid "Creating chat..."
 msgstr "කතාබහ සාදමින්..."
 
-#: src/features/chats/components/new-chat.tsx:273
+#: src/features/chats/components/new-chat.tsx:293
 msgid "Creating..."
 msgstr "නිර්මාණය කරමින්..."
 
@@ -556,17 +571,17 @@ msgid "Default AI account"
 msgstr "පෙරනිමි AI ගිණුම"
 
 #: src/features/chats/components/message-hover-actions.tsx:135
-#: src/features/chats/index.tsx:799
-#: src/features/chats/index.tsx:909
+#: src/features/chats/index.tsx:819
+#: src/features/chats/index.tsx:929
 msgid "Delete"
 msgstr "මකන්න"
 
-#: src/features/chats/index.tsx:689
-#: src/features/chats/index.tsx:830
+#: src/features/chats/index.tsx:705
+#: src/features/chats/index.tsx:850
 msgid "Delete chat"
 msgstr "චැට් එක මකන්න"
 
-#: src/features/chats/index.tsx:887
+#: src/features/chats/index.tsx:907
 #: src/routes/_authenticated/$chatId_.settings.tsx:366
 msgid "Delete chat history"
 msgstr "චැට් ඉතිහාසය මකන්න"
@@ -575,12 +590,12 @@ msgstr "චැට් ඉතිහාසය මකන්න"
 msgid "Delete your account on the old server"
 msgstr "පැරණි සේවාදායකයේ ඔබේ ගිණුම මකන්න"
 
-#: src/features/chats/index.tsx:519
+#: src/features/chats/index.tsx:522
 msgid "Deleting chat..."
 msgstr "කතාබහ මකමින්..."
 
-#: src/features/chats/index.tsx:394
-#: src/features/chats/index.tsx:906
+#: src/features/chats/index.tsx:397
+#: src/features/chats/index.tsx:926
 msgid "Deleting..."
 msgstr "මකමින්..."
 
@@ -680,7 +695,7 @@ msgstr "ගිණුම එක් කිරීමට අසමත් විය"
 msgid "Failed to add member"
 msgstr "සාමාජිකයා එක් කිරීමට අසමත් විය"
 
-#: src/features/chats/index.tsx:365
+#: src/features/chats/index.tsx:368
 msgid "Failed to copy"
 msgstr "පිටපත් කිරීමට අසමත් විය"
 
@@ -688,15 +703,15 @@ msgstr "පිටපත් කිරීමට අසමත් විය"
 msgid "Failed to copy message"
 msgstr "පණිවිඩය පිටපත් කිරීමට අසමත් විය"
 
-#: src/features/chats/components/new-chat.tsx:133
+#: src/features/chats/components/new-chat.tsx:151
 msgid "Failed to create chat"
 msgstr "කතාබහක් සෑදීමට අසමත් විය"
 
-#: src/features/chats/index.tsx:396
+#: src/features/chats/index.tsx:399
 msgid "Failed to delete"
 msgstr "මැකීමට අසමත් විය"
 
-#: src/features/chats/index.tsx:521
+#: src/features/chats/index.tsx:524
 msgid "Failed to delete chat"
 msgstr "කතාබහ මැකීමට අසමත් විය"
 
@@ -704,7 +719,7 @@ msgstr "කතාබහ මැකීමට අසමත් විය"
 msgid "Failed to forward"
 msgstr "ඉදිරියට යැවීමට අසමත් විය"
 
-#: src/features/chats/index.tsx:502
+#: src/features/chats/index.tsx:505
 #: src/routes/_authenticated/$chatId_.settings.tsx:327
 msgid "Failed to leave chat"
 msgstr "කතාබහෙන් ඉවත් වීමට අසමත් විය"
@@ -725,7 +740,11 @@ msgstr "සාමාජිකයා ඉවත් කිරීමට අසමත
 msgid "Failed to rename chat"
 msgstr "කතාබහ නැවත නම් කිරීමට අසමත් විය"
 
-#: src/features/chats/index.tsx:850
+#: src/features/chats/components/chat-settings-dialog.tsx:65
+msgid "Failed to save"
+msgstr "සුරැකීමට අසමත් විය"
+
+#: src/features/chats/index.tsx:870
 msgid "Failed to send message"
 msgstr "පණිවිඩය යැවීමට අසමත් විය"
 
@@ -733,7 +752,7 @@ msgstr "පණිවිඩය යැවීමට අසමත් විය"
 msgid "Failed to send verification code"
 msgstr "සත්‍යාපන කේතය යැවීමට අසමත් විය"
 
-#: src/features/chats/index.tsx:196
+#: src/features/chats/index.tsx:199
 msgid "Failed to start chat"
 msgstr "කතාබහ ආරම්භ කිරීමට අසමත් විය"
 
@@ -755,7 +774,7 @@ msgstr "පාවෙන"
 
 #: src/features/chats/components/forward-dialog.tsx:260
 #: src/features/chats/components/message-hover-actions.tsx:124
-#: src/features/chats/index.tsx:790
+#: src/features/chats/index.tsx:810
 msgid "Forward"
 msgstr "ඉදිරියට යවන්න"
 
@@ -776,10 +795,13 @@ msgid "Friday"
 msgstr "සිකුරාදා"
 
 #: src/features/chats/components/forward-dialog.tsx:233
-#: src/features/chats/components/new-chat.tsx:186
 #: src/routes/_authenticated/$chatId_.settings.tsx:466
 msgid "Friends"
 msgstr "මිතුරන්"
+
+#: src/features/chats/components/chat-settings-dialog.tsx:39
+msgid "Friends only"
+msgstr "මිතුරන් පමණයි"
 
 #: ../../../lib/web/src/components/travelling-picker.tsx:153
 msgid "From"
@@ -856,6 +878,11 @@ msgstr "උණුසුම්"
 msgid "Imperial"
 msgstr "ඉම්පීරියල්"
 
+#: src/features/chats/components/chat-settings-dialog.tsx:77
+#: src/features/chats/index.tsx:728
+msgid "Incoming chats"
+msgstr "එන කතාබස්"
+
 #: ../../../lib/web/src/components/config-drawer.tsx:252
 msgid "Inset"
 msgstr "ඇතුළත"
@@ -891,31 +918,31 @@ msgstr "පිරිසැලසුම"
 msgid "Learn more"
 msgstr "තවත් ඉගෙන ගන්න"
 
-#: src/features/chats/index.tsx:873
+#: src/features/chats/index.tsx:893
 msgid "Leave"
 msgstr "හැරදමන්න"
 
-#: src/features/chats/index.tsx:696
+#: src/features/chats/index.tsx:712
 #: src/routes/_authenticated/$chatId_.settings.tsx:352
 msgid "Leave chat"
 msgstr "කතාබහෙන් ඉවත් වන්න"
 
-#: src/features/chats/index.tsx:864
+#: src/features/chats/index.tsx:884
 #: src/routes/_authenticated/$chatId_.settings.tsx:343
 msgid "Leave chat?"
 msgstr "කතාබහෙන් ඉවත් වෙනවාද?"
 
-#: src/features/chats/index.tsx:500
+#: src/features/chats/index.tsx:503
 #: src/routes/_authenticated/$chatId_.settings.tsx:325
 msgid "Leaving chat..."
 msgstr "කතාබහෙන් ඉවත් වෙමින්..."
 
-#: src/features/chats/index.tsx:870
+#: src/features/chats/index.tsx:890
 #: src/routes/_authenticated/$chatId_.settings.tsx:349
 msgid "Leaving..."
 msgstr "ඉවත් වෙමින්..."
 
-#: src/features/chats/index.tsx:501
+#: src/features/chats/index.tsx:504
 #: src/routes/_authenticated/$chatId_.settings.tsx:326
 msgid "Left chat"
 msgstr "කතාබහෙන් ඉවත් විය"
@@ -1027,12 +1054,12 @@ msgstr "පණිවිඩ ක්‍රියා"
 msgid "Message copied"
 msgstr "පණිවිඩය පිටපත් කළා"
 
-#: src/features/chats/index.tsx:395
+#: src/features/chats/index.tsx:398
 msgid "Message deleted"
 msgstr "පණිවිඩය මකන ලදී"
 
 #: src/features/chats/components/message-quote.tsx:60
-#: src/features/chats/index.tsx:416
+#: src/features/chats/index.tsx:419
 msgid "Message not available"
 msgstr "පණිවිඩය ලබාගත නොහැක"
 
@@ -1059,7 +1086,7 @@ msgstr "අලුත්"
 
 #: src/features/chats/components/chat-empty-state.tsx:27
 #: src/features/chats/components/chat-empty-state.tsx:43
-#: src/features/chats/components/new-chat.tsx:176
+#: src/features/chats/components/new-chat.tsx:194
 msgid "New chat"
 msgstr "නව චැට්"
 
@@ -1088,12 +1115,11 @@ msgstr "සම්බන්ධිත ගිණුම් නැත"
 msgid "No friends available"
 msgstr "මිතුරන් ලබා ගත නොහැක"
 
-#: src/features/chats/components/new-chat.tsx:216
 #: src/routes/_authenticated/$chatId_.settings.tsx:456
 msgid "No friends found"
 msgstr "මිතුරන් හමු නොවීය"
 
-#: src/features/chats/components/new-chat.tsx:194
+#: src/features/chats/components/new-chat.tsx:225
 msgid "No friends yet"
 msgstr "තවම මිතුරන් නැත"
 
@@ -1104,6 +1130,10 @@ msgstr "කණ්ඩායම් ලබා ගත නොහැක"
 #: src/features/chats/components/chat-message-list.tsx:384
 msgid "No messages yet"
 msgstr "තවම පණිවිඩ නැත"
+
+#: src/features/chats/components/new-chat.tsx:219
+msgid "No people found"
+msgstr "පුද්ගලයන් හමු නොවීය"
 
 #: ../../../lib/web/src/components/place-picker.tsx:132
 msgid "No places found"
@@ -1152,7 +1182,7 @@ msgstr "හමු නොවීය"
 msgid "Not set"
 msgstr "සකසා නැත"
 
-#: src/features/chats/index.tsx:360
+#: src/features/chats/index.tsx:363
 msgid "Nothing to copy"
 msgstr "පිටපත් කිරීමට කිසිවක් නැත"
 
@@ -1168,11 +1198,15 @@ msgstr "දැනුම්දීම්"
 msgid "Older match"
 msgstr "පැරණි ගැළපීම"
 
+#: src/features/chats/components/chat-settings-dialog.tsx:40
+msgid "Only friends can start a chat with you (default)."
+msgstr "ඔබ සමඟ කතාබහක් ආරම්භ කළ හැක්කේ මිතුරන්ට පමණි (පෙරනිමිය)."
+
 #: ../../../lib/web/src/features/errors/not-found-error.tsx:16
 msgid "Oops! Page Not Found!"
 msgstr "අහෝ! පිටුව හමු නොවීය!"
 
-#: src/features/chats/components/new-chat.tsx:239
+#: src/features/chats/components/new-chat.tsx:259
 msgid "Open"
 msgstr "විවෘත කරන්න"
 
@@ -1186,7 +1220,7 @@ msgstr "ගිණුම් ක්‍රියා විවෘත කරන්න
 msgid "Open actions"
 msgstr "ක්‍රියා විවෘත කරන්න"
 
-#: src/features/chats/index.tsx:681
+#: src/features/chats/index.tsx:697
 msgid "Open chat actions"
 msgstr "චැට් ක්‍රියා විවෘත කරන්න"
 
@@ -1200,7 +1234,7 @@ msgstr "සංචාලනය විවෘත කරන්න"
 msgid "Open navigation menu"
 msgstr "සංචාලන මෙනුව විවෘත කරන්න"
 
-#: src/features/chats/components/new-chat.tsx:206
+#: src/features/chats/components/new-chat.tsx:235
 msgid "Open people"
 msgstr "පුද්ගලයන් විවෘත කරන්න"
 
@@ -1233,23 +1267,26 @@ msgstr "මුරයතුර සත්‍යාපනය අසාර්ථක 
 msgid "Passkeys"
 msgstr "මුරයතුරු"
 
+#: src/features/chats/components/new-chat.tsx:204
+msgid "People"
+msgstr "පුද්ගලයන්"
+
 #: src/components/layout/chat-layout.tsx:212
 msgid "Pin chat"
 msgstr "කතාබස අමුණන්න"
 
 #: ../../../lib/web/src/features/errors/general-error.tsx:54
 #: ../../../lib/web/src/lib/api-response-interceptors.ts:304
-#: ../../../lib/web/src/lib/error-normalizer.ts:201
 msgid "Please check your internet connection and try again."
 msgstr "කරුණාකර ඔබගේ අන්තර්ජාල සම්බන්ධතාවය පරීක්ෂා කර නැවත උත්සාහ කරන්න."
 
-#: src/features/chats/components/new-chat.tsx:120
+#: src/features/chats/components/new-chat.tsx:138
 msgid "Please provide a chat name"
 msgstr "කරුණාකර චැට් නමක් සපයන්න"
 
-#: src/features/chats/components/new-chat.tsx:110
-msgid "Please select at least one friend"
-msgstr "කරුණාකර අවම වශයෙන් එක් මිතුරෙකු තෝරන්න"
+#: src/features/chats/components/new-chat.tsx:128
+msgid "Please select at least one person"
+msgstr "කරුණාකර අවම වශයෙන් එක් පුද්ගලයෙකු තෝරන්න"
 
 #: ../../../lib/web/src/features/errors/general-error.tsx:83
 msgid "Please try again."
@@ -1291,7 +1328,7 @@ msgid "Read more"
 msgstr "තව කියවන්න"
 
 #: ../../../lib/web/src/components/search-entity-dialog.tsx:216
-#: ../../../lib/web/src/components/search-entity-page.tsx:240
+#: ../../../lib/web/src/components/search-entity-page.tsx:242
 msgid "Recommended"
 msgstr "නිර්දේශිත"
 
@@ -1396,8 +1433,13 @@ msgstr "සෙනසුරාදා"
 
 #: ../../../lib/web/src/components/ui/editable-field-row.tsx:122
 #: ../../../lib/web/src/components/ui/secret-field.tsx:77
+#: src/features/chats/components/chat-settings-dialog.tsx:120
 msgid "Save"
 msgstr "සුරකින්න"
+
+#: src/features/chats/components/chat-settings-dialog.tsx:63
+msgid "Saving..."
+msgstr "සුරකිමින්..."
 
 #: src/features/chats/components/forward-dialog.tsx:194
 msgid "Search chats…"
@@ -1423,7 +1465,7 @@ msgstr "මිතුරන් සොයන්න…"
 msgid "Search in chat..."
 msgstr "කතාබසේ සොයන්න..."
 
-#: src/features/chats/index.tsx:671
+#: src/features/chats/index.tsx:687
 msgid "Search messages"
 msgstr "පණිවිඩ සොයන්න"
 
@@ -1440,7 +1482,7 @@ msgid "Search..."
 msgstr "සොයන්න..."
 
 #: ../../../lib/web/src/components/search-entity-dialog.tsx:174
-#: ../../../lib/web/src/components/search-entity-page.tsx:198
+#: ../../../lib/web/src/components/search-entity-page.tsx:200
 #: ../../../lib/web/src/features/access/access-dialog.tsx:202
 msgid "Searching..."
 msgstr "සොයමින්..."
@@ -1469,10 +1511,6 @@ msgstr "ප්‍රවේශ රීතිය තෝරන්න"
 msgid "Select account type"
 msgstr "ගිණුම් වර්ගය තෝරන්න"
 
-#: src/features/chats/components/new-chat.tsx:215
-msgid "Select friends..."
-msgstr "මිතුරන් තෝරන්න..."
-
 #: ../../../lib/web/src/features/access/access-dialog.tsx:231
 msgid "Select group"
 msgstr "කණ්ඩායම තෝරන්න"
@@ -1488,6 +1526,10 @@ msgstr "පූරණය වූ ඒවා තෝරන්න"
 #: src/features/chats/components/chat-message-list.tsx:440
 msgid "Select message"
 msgstr "පණිවිඩය තෝරන්න"
+
+#: src/features/chats/components/new-chat.tsx:218
+msgid "Select people..."
+msgstr "පුද්ගලයන් තෝරන්න..."
 
 #: ../../../lib/web/src/components/config-drawer.tsx:246
 msgid "Select sidebar style"
@@ -1596,7 +1638,7 @@ msgstr "විශාල"
 msgid "Start a conversation"
 msgstr "සංවාදයක් ආරම්භ කරන්න"
 
-#: src/features/chats/index.tsx:193
+#: src/features/chats/index.tsx:196
 msgid "Starting chat..."
 msgstr "කතාබහ ආරම්භ කරමින්..."
 
@@ -1660,7 +1702,7 @@ msgstr "මෙම කතාබහ"
 msgid "This chat may have been deleted or you don't have access to it"
 msgstr "මෙම කතාබහ මකා තිබෙන්නට පුළුවන් හෝ ඔබට එයට ප්‍රවේශය නොමැත"
 
-#: src/features/chats/index.tsx:901
+#: src/features/chats/index.tsx:921
 msgid "This deletes the message for everyone and cannot be undone."
 msgstr "මෙය සැමට පණිවිඩය මකන අතර අහෝසි කළ නොහැක."
 
@@ -1721,7 +1763,7 @@ msgid "Try a different search term"
 msgstr "වෙනත් සෙවුම් වචනයක් උත්සාහ කරන්න"
 
 #: ../../../lib/web/src/components/search-entity-dialog.tsx:190
-#: ../../../lib/web/src/components/search-entity-page.tsx:214
+#: ../../../lib/web/src/components/search-entity-page.tsx:216
 msgid "Try adjusting your search terms"
 msgstr "ඔබේ සෙවුම් යෙදුම් සකස් කිරීම උත්සාහ කරන්න"
 
@@ -1847,19 +1889,19 @@ msgstr "වෙබ් අඩවිය නඩත්තු යටතේ පවත�
 msgid "Wednesday"
 msgstr "බදාදා"
 
-#: src/features/chats/index.tsx:276
+#: src/features/chats/index.tsx:279
 msgid "You"
 msgstr "ඔබ"
 
-#: src/features/chats/components/new-chat.tsx:115
+#: src/features/chats/components/new-chat.tsx:133
 msgid "You already have a chat with this friend"
 msgstr "මෙම මිතුරා සමඟ ඔබට දැනටමත් කතාබහක් ඇත"
 
-#: src/features/chats/components/new-chat.tsx:227
+#: src/features/chats/components/new-chat.tsx:247
 msgid "You already have chats with:"
 msgstr "ඔබට දැනටමත් මොවුන් සමඟ කතාබහ ඇත:"
 
-#: src/features/chats/index.tsx:377
+#: src/features/chats/index.tsx:380
 msgid "You can only delete your own messages"
 msgstr "ඔබට මැකිය හැක්කේ ඔබේම පණිවිඩ පමණි"
 
@@ -1867,11 +1909,11 @@ msgstr "ඔබට මැකිය හැක්කේ ඔබේම පණිව�
 msgid "You do not have access to this section."
 msgstr "ඔබට මෙම කොටසට ප්‍රවේශය නොමැත."
 
-#: src/features/chats/index.tsx:817
+#: src/features/chats/index.tsx:837
 msgid "You left this chat"
 msgstr "ඔබ මෙම කතාබහ හැරදමා ඇත"
 
-#: src/features/chats/index.tsx:816
+#: src/features/chats/index.tsx:836
 msgid "You were removed from this chat"
 msgstr "ඔබව මෙම කතාබහෙන් ඉවත් කර ඇත"
 

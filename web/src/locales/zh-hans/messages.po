@@ -13,17 +13,22 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
+#. js-lingui-explicit-id
+#: ../../../lib/web/src/lib/error-normalizer.ts:204
+msgid "Please check your internet connection and try again."
+msgstr "请检查您的网络连接后重试。"
+
 #: src/features/chats/components/message-reaction-bar.tsx:183
 msgid " (includes you)"
 msgstr "（包括你）"
 
 #. placeholder {0}: deleteTargetIds?.length ?? 0
-#: src/features/chats/index.tsx:897
+#: src/features/chats/index.tsx:917
 msgid "{0, plural, one {Delete message?} other {Delete # messages?}}"
 msgstr "{0, plural, other {删除 # 条消息？}}"
 
 #. placeholder {0}: selectedIds.size
-#: src/features/chats/index.tsx:773
+#: src/features/chats/index.tsx:793
 msgid "{0} selected"
 msgstr "已选择 {0} 条"
 
@@ -185,8 +190,16 @@ msgstr "发生意外错误"
 msgid "Angry"
 msgstr "生气"
 
+#: src/features/chats/components/chat-settings-dialog.tsx:44
+msgid "Anyone"
+msgstr "任何人"
+
+#: src/features/chats/components/chat-settings-dialog.tsx:45
+msgid "Anyone can start a chat with you."
+msgstr "任何人都可以与您发起聊天。"
+
 #. placeholder {0}: selectedChat?.name
-#: src/features/chats/index.tsx:865
+#: src/features/chats/index.tsx:885
 msgid "Are you sure you want to leave \"{0}\"? You can be added back by other members."
 msgstr "确定要离开\"{0}\"吗？其他成员可以重新添加您。"
 
@@ -255,9 +268,10 @@ msgstr "提升兴趣"
 #: ../../../lib/web/src/features/accounts/account-add.tsx:188
 #: ../../../lib/web/src/features/accounts/account-verify.tsx:89
 #: src/features/chats/components/chat-message-list.tsx:626
+#: src/features/chats/components/chat-settings-dialog.tsx:109
 #: src/features/chats/components/forward-dialog.tsx:249
-#: src/features/chats/components/new-chat.tsx:265
-#: src/features/chats/index.tsx:806
+#: src/features/chats/components/new-chat.tsx:285
+#: src/features/chats/index.tsx:826
 msgid "Cancel"
 msgstr "取消"
 
@@ -275,18 +289,18 @@ msgstr "该通知的分类"
 msgid "Change notification category"
 msgstr "更改通知分类"
 
-#: src/features/chats/index.tsx:73
-#: src/features/chats/index.tsx:190
-#: src/features/chats/index.tsx:190
-#: src/features/chats/index.tsx:616
+#: src/features/chats/index.tsx:75
+#: src/features/chats/index.tsx:193
+#: src/features/chats/index.tsx:193
+#: src/features/chats/index.tsx:620
 msgid "Chat"
 msgstr "聊天"
 
-#: src/features/chats/components/new-chat.tsx:132
+#: src/features/chats/components/new-chat.tsx:150
 msgid "Chat created"
 msgstr "聊天已创建"
 
-#: src/features/chats/index.tsx:520
+#: src/features/chats/index.tsx:523
 msgid "Chat deleted"
 msgstr "聊天已删除"
 
@@ -302,7 +316,7 @@ msgstr "聊天已标记为已读"
 msgid "Chat marked as unread"
 msgstr "聊天已标记为未读"
 
-#: src/features/chats/components/new-chat.tsx:249
+#: src/features/chats/components/new-chat.tsx:269
 #: src/routes/_authenticated/$chatId_.settings.tsx:201
 msgid "Chat name"
 msgstr "聊天名称"
@@ -311,7 +325,7 @@ msgstr "聊天名称"
 msgid "Chat name is required"
 msgstr "聊天名称为必填项"
 
-#: src/features/chats/components/new-chat.tsx:252
+#: src/features/chats/components/new-chat.tsx:272
 msgid "Chat name..."
 msgstr "聊天名称..."
 
@@ -323,7 +337,11 @@ msgstr "未找到聊天"
 msgid "Chat pinned"
 msgstr "聊天已置顶"
 
-#: src/features/chats/components/new-chat.tsx:132
+#: src/features/chats/components/chat-settings-dialog.tsx:64
+msgid "Chat policy updated"
+msgstr "聊天政策已更新"
+
+#: src/features/chats/components/new-chat.tsx:150
 msgid "Chat ready"
 msgstr "聊天就绪"
 
@@ -331,7 +349,8 @@ msgstr "聊天就绪"
 msgid "Chat renamed"
 msgstr "聊天已重命名"
 
-#: src/features/chats/index.tsx:706
+#: src/features/chats/index.tsx:625
+#: src/features/chats/index.tsx:722
 #: src/routes/_authenticated/$chatId_.settings.tsx:84
 #: src/routes/_authenticated/$chatId_.settings.tsx:97
 #: src/routes/_authenticated/$chatId_.settings.tsx:108
@@ -351,10 +370,6 @@ msgstr "聊天已取消置顶"
 #: src/features/chats/components/forward-dialog.tsx:225
 msgid "Chats"
 msgstr "聊天"
-
-#: src/features/chats/components/new-chat.tsx:196
-msgid "Chats are between friends. Add a friend in the People app first."
-msgstr "聊天仅限好友之间。请先在人脉应用中添加好友。"
 
 #: src/features/chats/components/forward-dialog.tsx:186
 msgid "Choose a chat or friend to forward the selected messages to"
@@ -483,13 +498,13 @@ msgstr "继续"
 msgid "Continue with {label}"
 msgstr "使用 {label} 继续"
 
-#: src/features/chats/index.tsx:364
+#: src/features/chats/index.tsx:367
 msgid "Copied"
 msgstr "已复制"
 
 #: ../../../lib/web/src/components/ui/copy-button.tsx:63
 #: src/features/chats/components/message-hover-actions.tsx:103
-#: src/features/chats/index.tsx:782
+#: src/features/chats/index.tsx:802
 msgid "Copy"
 msgstr "复制"
 
@@ -509,20 +524,20 @@ msgstr "无法开始重新验证。请重试。"
 msgid "Couldn't verify with that account. Please try again."
 msgstr "无法使用该账户进行验证。请重试。"
 
-#: src/features/chats/components/new-chat.tsx:179
+#: src/features/chats/components/new-chat.tsx:197
 msgid "Create a new chat"
 msgstr "创建新的聊天"
 
 #: src/components/layout/chat-layout.tsx:264
-#: src/features/chats/components/new-chat.tsx:273
+#: src/features/chats/components/new-chat.tsx:293
 msgid "Create chat"
 msgstr "创建聊天"
 
-#: src/features/chats/components/new-chat.tsx:131
+#: src/features/chats/components/new-chat.tsx:149
 msgid "Creating chat..."
 msgstr "正在创建聊天..."
 
-#: src/features/chats/components/new-chat.tsx:273
+#: src/features/chats/components/new-chat.tsx:293
 msgid "Creating..."
 msgstr "创建中..."
 
@@ -556,17 +571,17 @@ msgid "Default AI account"
 msgstr "默认 AI 账户"
 
 #: src/features/chats/components/message-hover-actions.tsx:135
-#: src/features/chats/index.tsx:799
-#: src/features/chats/index.tsx:909
+#: src/features/chats/index.tsx:819
+#: src/features/chats/index.tsx:929
 msgid "Delete"
 msgstr "删除"
 
-#: src/features/chats/index.tsx:689
-#: src/features/chats/index.tsx:830
+#: src/features/chats/index.tsx:705
+#: src/features/chats/index.tsx:850
 msgid "Delete chat"
 msgstr "删除聊天"
 
-#: src/features/chats/index.tsx:887
+#: src/features/chats/index.tsx:907
 #: src/routes/_authenticated/$chatId_.settings.tsx:366
 msgid "Delete chat history"
 msgstr "删除聊天记录"
@@ -575,12 +590,12 @@ msgstr "删除聊天记录"
 msgid "Delete your account on the old server"
 msgstr "删除旧服务器上的账户"
 
-#: src/features/chats/index.tsx:519
+#: src/features/chats/index.tsx:522
 msgid "Deleting chat..."
 msgstr "正在删除聊天..."
 
-#: src/features/chats/index.tsx:394
-#: src/features/chats/index.tsx:906
+#: src/features/chats/index.tsx:397
+#: src/features/chats/index.tsx:926
 msgid "Deleting..."
 msgstr "删除中..."
 
@@ -680,7 +695,7 @@ msgstr "添加账户失败"
 msgid "Failed to add member"
 msgstr "添加成员失败"
 
-#: src/features/chats/index.tsx:365
+#: src/features/chats/index.tsx:368
 msgid "Failed to copy"
 msgstr "复制失败"
 
@@ -688,15 +703,15 @@ msgstr "复制失败"
 msgid "Failed to copy message"
 msgstr "复制消息失败"
 
-#: src/features/chats/components/new-chat.tsx:133
+#: src/features/chats/components/new-chat.tsx:151
 msgid "Failed to create chat"
 msgstr "创建聊天失败"
 
-#: src/features/chats/index.tsx:396
+#: src/features/chats/index.tsx:399
 msgid "Failed to delete"
 msgstr "删除失败"
 
-#: src/features/chats/index.tsx:521
+#: src/features/chats/index.tsx:524
 msgid "Failed to delete chat"
 msgstr "删除聊天失败"
 
@@ -704,7 +719,7 @@ msgstr "删除聊天失败"
 msgid "Failed to forward"
 msgstr "转发失败"
 
-#: src/features/chats/index.tsx:502
+#: src/features/chats/index.tsx:505
 #: src/routes/_authenticated/$chatId_.settings.tsx:327
 msgid "Failed to leave chat"
 msgstr "退出聊天失败"
@@ -725,7 +740,11 @@ msgstr "移除成员失败"
 msgid "Failed to rename chat"
 msgstr "重命名聊天失败"
 
-#: src/features/chats/index.tsx:850
+#: src/features/chats/components/chat-settings-dialog.tsx:65
+msgid "Failed to save"
+msgstr "保存失败"
+
+#: src/features/chats/index.tsx:870
 msgid "Failed to send message"
 msgstr "发送消息失败"
 
@@ -733,7 +752,7 @@ msgstr "发送消息失败"
 msgid "Failed to send verification code"
 msgstr "发送验证码失败"
 
-#: src/features/chats/index.tsx:196
+#: src/features/chats/index.tsx:199
 msgid "Failed to start chat"
 msgstr "开始聊天失败"
 
@@ -755,7 +774,7 @@ msgstr "浮动"
 
 #: src/features/chats/components/forward-dialog.tsx:260
 #: src/features/chats/components/message-hover-actions.tsx:124
-#: src/features/chats/index.tsx:790
+#: src/features/chats/index.tsx:810
 msgid "Forward"
 msgstr "转发"
 
@@ -776,10 +795,13 @@ msgid "Friday"
 msgstr "星期五"
 
 #: src/features/chats/components/forward-dialog.tsx:233
-#: src/features/chats/components/new-chat.tsx:186
 #: src/routes/_authenticated/$chatId_.settings.tsx:466
 msgid "Friends"
 msgstr "好友"
+
+#: src/features/chats/components/chat-settings-dialog.tsx:39
+msgid "Friends only"
+msgstr "仅好友"
 
 #: ../../../lib/web/src/components/travelling-picker.tsx:153
 msgid "From"
@@ -856,6 +878,11 @@ msgstr "热门"
 msgid "Imperial"
 msgstr "英制"
 
+#: src/features/chats/components/chat-settings-dialog.tsx:77
+#: src/features/chats/index.tsx:728
+msgid "Incoming chats"
+msgstr "收到的聊天"
+
 #: ../../../lib/web/src/components/config-drawer.tsx:252
 msgid "Inset"
 msgstr "嵌入"
@@ -891,31 +918,31 @@ msgstr "布局"
 msgid "Learn more"
 msgstr "了解更多"
 
-#: src/features/chats/index.tsx:873
+#: src/features/chats/index.tsx:893
 msgid "Leave"
 msgstr "离开"
 
-#: src/features/chats/index.tsx:696
+#: src/features/chats/index.tsx:712
 #: src/routes/_authenticated/$chatId_.settings.tsx:352
 msgid "Leave chat"
 msgstr "退出聊天"
 
-#: src/features/chats/index.tsx:864
+#: src/features/chats/index.tsx:884
 #: src/routes/_authenticated/$chatId_.settings.tsx:343
 msgid "Leave chat?"
 msgstr "退出聊天?"
 
-#: src/features/chats/index.tsx:500
+#: src/features/chats/index.tsx:503
 #: src/routes/_authenticated/$chatId_.settings.tsx:325
 msgid "Leaving chat..."
 msgstr "正在退出聊天..."
 
-#: src/features/chats/index.tsx:870
+#: src/features/chats/index.tsx:890
 #: src/routes/_authenticated/$chatId_.settings.tsx:349
 msgid "Leaving..."
 msgstr "正在退出..."
 
-#: src/features/chats/index.tsx:501
+#: src/features/chats/index.tsx:504
 #: src/routes/_authenticated/$chatId_.settings.tsx:326
 msgid "Left chat"
 msgstr "已退出聊天"
@@ -1027,12 +1054,12 @@ msgstr "消息操作"
 msgid "Message copied"
 msgstr "消息已复制"
 
-#: src/features/chats/index.tsx:395
+#: src/features/chats/index.tsx:398
 msgid "Message deleted"
 msgstr "消息已删除"
 
 #: src/features/chats/components/message-quote.tsx:60
-#: src/features/chats/index.tsx:416
+#: src/features/chats/index.tsx:419
 msgid "Message not available"
 msgstr "消息不可用"
 
@@ -1059,7 +1086,7 @@ msgstr "新建"
 
 #: src/features/chats/components/chat-empty-state.tsx:27
 #: src/features/chats/components/chat-empty-state.tsx:43
-#: src/features/chats/components/new-chat.tsx:176
+#: src/features/chats/components/new-chat.tsx:194
 msgid "New chat"
 msgstr "新聊天"
 
@@ -1088,12 +1115,11 @@ msgstr "无已连接的账户"
 msgid "No friends available"
 msgstr "无可用好友"
 
-#: src/features/chats/components/new-chat.tsx:216
 #: src/routes/_authenticated/$chatId_.settings.tsx:456
 msgid "No friends found"
 msgstr "未找到好友"
 
-#: src/features/chats/components/new-chat.tsx:194
+#: src/features/chats/components/new-chat.tsx:225
 msgid "No friends yet"
 msgstr "暂无好友"
 
@@ -1104,6 +1130,10 @@ msgstr "无可用群组"
 #: src/features/chats/components/chat-message-list.tsx:384
 msgid "No messages yet"
 msgstr "暂无消息"
+
+#: src/features/chats/components/new-chat.tsx:219
+msgid "No people found"
+msgstr "未找到任何人"
 
 #: ../../../lib/web/src/components/place-picker.tsx:132
 msgid "No places found"
@@ -1152,7 +1182,7 @@ msgstr "未找到"
 msgid "Not set"
 msgstr "未设置"
 
-#: src/features/chats/index.tsx:360
+#: src/features/chats/index.tsx:363
 msgid "Nothing to copy"
 msgstr "没有可复制的内容"
 
@@ -1168,11 +1198,15 @@ msgstr "通知"
 msgid "Older match"
 msgstr "较旧的匹配"
 
+#: src/features/chats/components/chat-settings-dialog.tsx:40
+msgid "Only friends can start a chat with you (default)."
+msgstr "只有好友可以与您发起聊天（默认）。"
+
 #: ../../../lib/web/src/features/errors/not-found-error.tsx:16
 msgid "Oops! Page Not Found!"
 msgstr "抱歉!页面未找到!"
 
-#: src/features/chats/components/new-chat.tsx:239
+#: src/features/chats/components/new-chat.tsx:259
 msgid "Open"
 msgstr "打开"
 
@@ -1186,7 +1220,7 @@ msgstr "打开账户操作"
 msgid "Open actions"
 msgstr "打开操作"
 
-#: src/features/chats/index.tsx:681
+#: src/features/chats/index.tsx:697
 msgid "Open chat actions"
 msgstr "打开聊天操作"
 
@@ -1200,7 +1234,7 @@ msgstr "打开导航"
 msgid "Open navigation menu"
 msgstr "打开导航菜单"
 
-#: src/features/chats/components/new-chat.tsx:206
+#: src/features/chats/components/new-chat.tsx:235
 msgid "Open people"
 msgstr "打开“通讯录”"
 
@@ -1233,23 +1267,26 @@ msgstr "通行密钥验证失败。请重试。"
 msgid "Passkeys"
 msgstr "通行密钥"
 
+#: src/features/chats/components/new-chat.tsx:204
+msgid "People"
+msgstr "人员"
+
 #: src/components/layout/chat-layout.tsx:212
 msgid "Pin chat"
 msgstr "置顶聊天"
 
 #: ../../../lib/web/src/features/errors/general-error.tsx:54
 #: ../../../lib/web/src/lib/api-response-interceptors.ts:304
-#: ../../../lib/web/src/lib/error-normalizer.ts:201
 msgid "Please check your internet connection and try again."
 msgstr "请检查您的网络连接后重试。"
 
-#: src/features/chats/components/new-chat.tsx:120
+#: src/features/chats/components/new-chat.tsx:138
 msgid "Please provide a chat name"
 msgstr "请提供一个聊天名称"
 
-#: src/features/chats/components/new-chat.tsx:110
-msgid "Please select at least one friend"
-msgstr "请至少选择一位好友"
+#: src/features/chats/components/new-chat.tsx:128
+msgid "Please select at least one person"
+msgstr "请至少选择一个人"
 
 #: ../../../lib/web/src/features/errors/general-error.tsx:83
 msgid "Please try again."
@@ -1291,7 +1328,7 @@ msgid "Read more"
 msgstr "展开"
 
 #: ../../../lib/web/src/components/search-entity-dialog.tsx:216
-#: ../../../lib/web/src/components/search-entity-page.tsx:240
+#: ../../../lib/web/src/components/search-entity-page.tsx:242
 msgid "Recommended"
 msgstr "推荐"
 
@@ -1396,8 +1433,13 @@ msgstr "星期六"
 
 #: ../../../lib/web/src/components/ui/editable-field-row.tsx:122
 #: ../../../lib/web/src/components/ui/secret-field.tsx:77
+#: src/features/chats/components/chat-settings-dialog.tsx:120
 msgid "Save"
 msgstr "保存"
+
+#: src/features/chats/components/chat-settings-dialog.tsx:63
+msgid "Saving..."
+msgstr "正在保存..."
 
 #: src/features/chats/components/forward-dialog.tsx:194
 msgid "Search chats…"
@@ -1423,7 +1465,7 @@ msgstr "搜索好友…"
 msgid "Search in chat..."
 msgstr "在聊天中搜索..."
 
-#: src/features/chats/index.tsx:671
+#: src/features/chats/index.tsx:687
 msgid "Search messages"
 msgstr "搜索消息"
 
@@ -1440,7 +1482,7 @@ msgid "Search..."
 msgstr "搜索..."
 
 #: ../../../lib/web/src/components/search-entity-dialog.tsx:174
-#: ../../../lib/web/src/components/search-entity-page.tsx:198
+#: ../../../lib/web/src/components/search-entity-page.tsx:200
 #: ../../../lib/web/src/features/access/access-dialog.tsx:202
 msgid "Searching..."
 msgstr "正在搜索..."
@@ -1469,10 +1511,6 @@ msgstr "选择访问规则"
 msgid "Select account type"
 msgstr "选择账户类型"
 
-#: src/features/chats/components/new-chat.tsx:215
-msgid "Select friends..."
-msgstr "选择好友..."
-
 #: ../../../lib/web/src/features/access/access-dialog.tsx:231
 msgid "Select group"
 msgstr "选择群组"
@@ -1488,6 +1526,10 @@ msgstr "选择已加载"
 #: src/features/chats/components/chat-message-list.tsx:440
 msgid "Select message"
 msgstr "选择消息"
+
+#: src/features/chats/components/new-chat.tsx:218
+msgid "Select people..."
+msgstr "选择用户..."
 
 #: ../../../lib/web/src/components/config-drawer.tsx:246
 msgid "Select sidebar style"
@@ -1596,7 +1638,7 @@ msgstr "宽松"
 msgid "Start a conversation"
 msgstr "开始对话"
 
-#: src/features/chats/index.tsx:193
+#: src/features/chats/index.tsx:196
 msgid "Starting chat..."
 msgstr "正在开始聊天..."
 
@@ -1660,7 +1702,7 @@ msgstr "此聊天"
 msgid "This chat may have been deleted or you don't have access to it"
 msgstr "此聊天可能已被删除,或者你没有访问权限"
 
-#: src/features/chats/index.tsx:901
+#: src/features/chats/index.tsx:921
 msgid "This deletes the message for everyone and cannot be undone."
 msgstr "这将为所有人删除该消息，且无法撤销。"
 
@@ -1721,7 +1763,7 @@ msgid "Try a different search term"
 msgstr "尝试其他搜索词"
 
 #: ../../../lib/web/src/components/search-entity-dialog.tsx:190
-#: ../../../lib/web/src/components/search-entity-page.tsx:214
+#: ../../../lib/web/src/components/search-entity-page.tsx:216
 msgid "Try adjusting your search terms"
 msgstr "尝试调整您的搜索词"
 
@@ -1847,19 +1889,19 @@ msgstr "网站正在维护中!"
 msgid "Wednesday"
 msgstr "星期三"
 
-#: src/features/chats/index.tsx:276
+#: src/features/chats/index.tsx:279
 msgid "You"
 msgstr "您"
 
-#: src/features/chats/components/new-chat.tsx:115
+#: src/features/chats/components/new-chat.tsx:133
 msgid "You already have a chat with this friend"
 msgstr "您已与此好友建立对话"
 
-#: src/features/chats/components/new-chat.tsx:227
+#: src/features/chats/components/new-chat.tsx:247
 msgid "You already have chats with:"
 msgstr "你已经与以下人员有聊天:"
 
-#: src/features/chats/index.tsx:377
+#: src/features/chats/index.tsx:380
 msgid "You can only delete your own messages"
 msgstr "只能删除自己的消息"
 
@@ -1867,11 +1909,11 @@ msgstr "只能删除自己的消息"
 msgid "You do not have access to this section."
 msgstr "您无权访问此部分。"
 
-#: src/features/chats/index.tsx:817
+#: src/features/chats/index.tsx:837
 msgid "You left this chat"
 msgstr "你已离开此聊天"
 
-#: src/features/chats/index.tsx:816
+#: src/features/chats/index.tsx:836
 msgid "You were removed from this chat"
 msgstr "你已被移出此聊天"
 

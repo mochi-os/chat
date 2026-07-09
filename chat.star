@@ -194,6 +194,62 @@ def action_message_asset(a):
 	row = mochi.db.row("select member from messages where id=?", a.input("message"))
 	return stream_asset(a, row["member"] if row else "", "people", asset)
 
+# Whom may start a chat with this user: friends only (default) or anyone.
+_VALID_CHAT_POLICIES = ("friends", "anyone")
+
+# Preferences: incoming chat policy
+def action_preferences_get(a):
+	return {"data": {"chat_policy": a.user.preference.get("chat_policy") or "friends"}}
+
+def action_preferences_set(a):
+	policy = a.input("chat_policy", "").strip()
+	if policy not in _VALID_CHAT_POLICIES:
+		a.error.label(400, "errors.invalid_chat_policy")
+		return
+	a.user.preference.set("chat_policy", policy)
+	return {"data": {}}
+
+# Search the directory for person entities, for the new-chat picker: with
+# chat_policy a non-friend may be addressed too (the accept/query probe at
+# create decides whether they allow it). Matches by name, entity id, or
+# fingerprint - the same forms the people app's search accepts.
+def action_person_search(a):
+	search = a.input("search", "").strip()
+	if not search or len(search) > 200:
+		return {"data": {"results": []}}
+	results = []
+	if mochi.text.valid(search, "entity"):
+		entry = mochi.directory.get(search)
+		if entry and entry.get("class") == "person":
+			results.append(entry)
+	fingerprint = search.replace("-", "")
+	if mochi.text.valid(fingerprint, "fingerprint"):
+		for entry in mochi.directory.search("person", "", False, fingerprint=fingerprint):
+			if not [r for r in results if r.get("id") == entry.get("id")]:
+				results.append(entry)
+	for entry in mochi.directory.search("person", search, False):
+		if not [r for r in results if r.get("id") == entry.get("id")]:
+			results.append(entry)
+	found = [{"id": r.get("id"), "name": r.get("name"), "fingerprint": r.get("fingerprint", "")} for r in results[:20]]
+	return {"data": {"results": found}}
+
+# May `user` start a chat with `member`? Friends always may. For a non-friend,
+# ask the member's own server (the accept/query event answers from their
+# chat_policy preference), so the sender's create fails loudly up front
+# instead of the recipient's event_new dropping it silently (#206). Returns
+# {"name": display} when allowed (the probe response carries the name, so no
+# directory dependency) or {"error": label} for the caller to surface.
+def chat_member_allowed(user, member_id):
+	friend = mochi.service.call("friends", "get", user, member_id)
+	if friend:
+		return {"name": friend["name"]}
+	response = mochi.remote.request(member_id, "chat", "accept/query", {})
+	if response == None:
+		return {"error": "errors.member_unreachable"}
+	if response.get("accept") and mochi.text.valid(response.get("name", ""), "name"):
+		return {"name": response["name"]}
+	return {"error": "errors.does_not_accept_chats"}
+
 # Create new chat
 def action_create(a):
 	name = a.input("name")
@@ -207,24 +263,22 @@ def action_create(a):
 	members_str = a.input("members")
 	if members_str:
 		for member_id in members_str.split(","):
-			if not mochi.text.valid(member_id, "entity"):
-				continue
 			if member_id == a.user.identity.id:
 				continue
-			
-			# Look up the member in friends or directory to get their name
-			friend = mochi.service.call("friends", "get", a.user.identity.id, member_id)
-			if friend:
-				member_name = friend["name"]
-			else:
-				# Try directory lookup if not a friend
-				dir_entry = mochi.directory.get(member_id)
-				if dir_entry:
-					member_name = dir_entry["name"]
-				else:
-					member_name = mochi.app.label("member.unknown")
-			
-			prospective_members.append({"id": member_id, "name": member_name})
+			if not mochi.text.valid(member_id, "entity"):
+				a.error.label(400, "errors.invalid_member_id")
+				return
+
+			# Friends may always be added; a non-friend only if their
+			# chat_policy allows (verified by probing their server), so the
+			# creation fails loudly here instead of the recipient's
+			# event_new dropping it silently (#206).
+			member = chat_member_allowed(a.user.identity.id, member_id)
+			if member.get("error"):
+				a.error.label(400, member["error"])
+				return
+
+			prospective_members.append({"id": member_id, "name": member["name"]})
 
 	# Check for existing 1-on-1 chat
 	if len(prospective_members) == 2:
@@ -935,16 +989,15 @@ def action_messages_forward_friend(a):
 		a.error.label(404, "errors.message_not_found")
 		return
 
-	# Resolve the friend's display name (friends first, then directory).
-	friend = mochi.service.call("friends", "get", a.user.identity.id, member_id)
-	if friend:
-		member_name = friend["name"]
-	else:
-		dir_entry = mochi.directory.get(member_id)
-		if dir_entry:
-			member_name = dir_entry["name"]
-		else:
-			member_name = mochi.app.label("member.unknown")
+	# Friends may always be targeted; a non-friend only if their chat_policy
+	# allows (verified by probing their server), so the forward fails loudly
+	# instead of creating a chat whose `new` event the recipient's gate
+	# silently drops (#206).
+	member = chat_member_allowed(a.user.identity.id, member_id)
+	if member.get("error"):
+		a.error.label(400, member["error"])
+		return
+	member_name = member["name"]
 
 	# Reuse the existing 1-on-1 chat with this member if there is one, else
 	# create it (mirrors action_create's direct-chat path).
@@ -1187,9 +1240,18 @@ def event_message(e):
 
 # Received a new chat event
 def event_new(e):
+	# Chats come from friends (cross-app dependency on the people app's
+	# friends service) or, when the user's chat_policy preference is
+	# "anyone", from any sender. A refused invite is dropped silently ON
+	# PURPOSE: any peer can invoke this event directly, and an unfriended or
+	# blocked sender must not receive confirmation that they were dropped.
+	# The sender-side rejection lives in action_create / action_member_add /
+	# action_messages_forward_friend, which probe this user's accept/query
+	# event and refuse with a clear error before anything is created (#206).
 	f = mochi.service.call("friends", "get", e.header("to"), e.header("from"))
 	if not f:
-		return
+		if (e.user.preference.get("chat_policy") or "friends") != "anyone":
+			return
 
 	chat = e.content("id")
 	if not mochi.text.valid(chat, "id"):
@@ -1223,6 +1285,25 @@ def event_new(e):
 		if not mochi.text.valid(member["name"], "name"):
 			continue
 		mochi.db.execute("insert into members ( chat, member, name ) values ( ?, ?, ? ) on conflict ( chat, member ) do update set name=excluded.name", chat, member["id"], member["name"])
+
+# Would-you-accept probe: a prospective sender asks whether they may start a
+# chat with this user, before creating anything. Answers from the same rule
+# event_new applies — friendship, or chat_policy == "anyone" — and carries
+# the display name so the sender needs no directory lookup. This does reveal
+# accept/refuse to a non-friend, but only at new-contact time: the create
+# attempt itself would reveal the same, and existing-relationship silence
+# (the unfriended-sender case) is unaffected because friends never probe.
+def event_accept_query(e):
+	accept = False
+	if mochi.service.call("friends", "get", e.header("to"), e.header("from")):
+		accept = True
+	elif (e.user.preference.get("chat_policy") or "friends") == "anyone":
+		accept = True
+	if not accept:
+		e.stream.write({"accept": False})
+		return
+	name = e.user.identity.name if e.user and e.user.identity else ""
+	e.stream.write({"accept": True, "name": name})
 
 # Received a rename event
 def event_rename(e):
@@ -1322,6 +1403,12 @@ def event_member_remove(e):
 def event_removed(e):
 	chat = mochi.db.row("select * from chats where id=?", e.content("id"))
 	if not chat:
+		return
+
+	# Verify the sender is a member (the remover). Without this, any peer that
+	# knows the chat id could spoof a "removed" event and force this chat
+	# read-only. Same gate as event_member_remove.
+	if not mochi.db.exists("select 1 from members where chat=? and member=?", chat["id"], e.header("from")):
 		return
 
 	# Mark chat as removed (kicked by another member); kept read-only.
@@ -1466,13 +1553,14 @@ def action_member_add(a):
 		a.error.label(400, "errors.already_member")
 		return
 
-	# Verify target is a friend of the user
-	friend = mochi.service.call("friends", "get", a.user.identity.id, member_id)
-	if not friend:
-		a.error.label(400, "errors.can_only_add_friends_to_chat")
+	# Friends may always be added; a non-friend only if their chat_policy
+	# allows (verified by probing their server).
+	member = chat_member_allowed(a.user.identity.id, member_id)
+	if member.get("error"):
+		a.error.label(400, member["error"])
 		return
 
-	member_name = friend["name"]
+	member_name = member["name"]
 
 	# Add new member
 	mochi.db.execute("insert into members ( chat, member, name ) values ( ?, ?, ? ) on conflict ( chat, member ) do update set name=excluded.name", chat["id"], member_id, member_name)

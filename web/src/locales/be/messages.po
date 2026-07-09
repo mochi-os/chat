@@ -13,17 +13,22 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
+#. js-lingui-explicit-id
+#: ../../../lib/web/src/lib/error-normalizer.ts:204
+msgid "Please check your internet connection and try again."
+msgstr "Праверце падключэнне да інтэрнэту і паспрабуйце зноў."
+
 #: src/features/chats/components/message-reaction-bar.tsx:183
 msgid " (includes you)"
 msgstr " (уключаючы вас)"
 
 #. placeholder {0}: deleteTargetIds?.length ?? 0
-#: src/features/chats/index.tsx:897
+#: src/features/chats/index.tsx:917
 msgid "{0, plural, one {Delete message?} other {Delete # messages?}}"
 msgstr "{0, plural, one {Выдаліць # паведамленне?} few {Выдаліць # паведамленні?} many {Выдаліць # паведамленняў?} other {Выдаліць # паведамлення?}}"
 
 #. placeholder {0}: selectedIds.size
-#: src/features/chats/index.tsx:773
+#: src/features/chats/index.tsx:793
 msgid "{0} selected"
 msgstr "Выбрана: {0}"
 
@@ -185,8 +190,16 @@ msgstr "Адбылася нечаканая памылка"
 msgid "Angry"
 msgstr "Злосна"
 
+#: src/features/chats/components/chat-settings-dialog.tsx:44
+msgid "Anyone"
+msgstr "Хто заўгодна"
+
+#: src/features/chats/components/chat-settings-dialog.tsx:45
+msgid "Anyone can start a chat with you."
+msgstr "Любы можа пачаць чат з вамі."
+
 #. placeholder {0}: selectedChat?.name
-#: src/features/chats/index.tsx:865
+#: src/features/chats/index.tsx:885
 msgid "Are you sure you want to leave \"{0}\"? You can be added back by other members."
 msgstr "Вы ўпэўнены, што хочаце пакінуць \"{0}\"? Іншыя ўдзельнікі могуць дадаць вас зноў."
 
@@ -255,9 +268,10 @@ msgstr "Узмацніць цікавасць"
 #: ../../../lib/web/src/features/accounts/account-add.tsx:188
 #: ../../../lib/web/src/features/accounts/account-verify.tsx:89
 #: src/features/chats/components/chat-message-list.tsx:626
+#: src/features/chats/components/chat-settings-dialog.tsx:109
 #: src/features/chats/components/forward-dialog.tsx:249
-#: src/features/chats/components/new-chat.tsx:265
-#: src/features/chats/index.tsx:806
+#: src/features/chats/components/new-chat.tsx:285
+#: src/features/chats/index.tsx:826
 msgid "Cancel"
 msgstr "Адмена"
 
@@ -275,18 +289,18 @@ msgstr "Катэгорыя для гэтага апавяшчэння"
 msgid "Change notification category"
 msgstr "Змяніць катэгорыю апавяшчэння"
 
-#: src/features/chats/index.tsx:73
-#: src/features/chats/index.tsx:190
-#: src/features/chats/index.tsx:190
-#: src/features/chats/index.tsx:616
+#: src/features/chats/index.tsx:75
+#: src/features/chats/index.tsx:193
+#: src/features/chats/index.tsx:193
+#: src/features/chats/index.tsx:620
 msgid "Chat"
 msgstr "Чат"
 
-#: src/features/chats/components/new-chat.tsx:132
+#: src/features/chats/components/new-chat.tsx:150
 msgid "Chat created"
 msgstr "Чат створаны"
 
-#: src/features/chats/index.tsx:520
+#: src/features/chats/index.tsx:523
 msgid "Chat deleted"
 msgstr "Чат выдалены"
 
@@ -302,7 +316,7 @@ msgstr "Чат пазначаны як прачытаны"
 msgid "Chat marked as unread"
 msgstr "Чат пазначаны як непрачытаны"
 
-#: src/features/chats/components/new-chat.tsx:249
+#: src/features/chats/components/new-chat.tsx:269
 #: src/routes/_authenticated/$chatId_.settings.tsx:201
 msgid "Chat name"
 msgstr "Назва чата"
@@ -311,7 +325,7 @@ msgstr "Назва чата"
 msgid "Chat name is required"
 msgstr "Патрабуецца назва чата"
 
-#: src/features/chats/components/new-chat.tsx:252
+#: src/features/chats/components/new-chat.tsx:272
 msgid "Chat name..."
 msgstr "Назва чата..."
 
@@ -323,7 +337,11 @@ msgstr "Чат не знойдзены"
 msgid "Chat pinned"
 msgstr "Чат замацаваны"
 
-#: src/features/chats/components/new-chat.tsx:132
+#: src/features/chats/components/chat-settings-dialog.tsx:64
+msgid "Chat policy updated"
+msgstr "Палітыка чата абноўлена"
+
+#: src/features/chats/components/new-chat.tsx:150
 msgid "Chat ready"
 msgstr "Чат гатовы"
 
@@ -331,7 +349,8 @@ msgstr "Чат гатовы"
 msgid "Chat renamed"
 msgstr "Чат пераназваны"
 
-#: src/features/chats/index.tsx:706
+#: src/features/chats/index.tsx:625
+#: src/features/chats/index.tsx:722
 #: src/routes/_authenticated/$chatId_.settings.tsx:84
 #: src/routes/_authenticated/$chatId_.settings.tsx:97
 #: src/routes/_authenticated/$chatId_.settings.tsx:108
@@ -351,10 +370,6 @@ msgstr "Чат адмацаваны"
 #: src/features/chats/components/forward-dialog.tsx:225
 msgid "Chats"
 msgstr "Чаты"
-
-#: src/features/chats/components/new-chat.tsx:196
-msgid "Chats are between friends. Add a friend in the People app first."
-msgstr "Чаты адбываюцца паміж сябрамі. Спачатку дадайце сябра ў дадатку People."
 
 #: src/features/chats/components/forward-dialog.tsx:186
 msgid "Choose a chat or friend to forward the selected messages to"
@@ -483,13 +498,13 @@ msgstr "Працягнуць"
 msgid "Continue with {label}"
 msgstr "Працягнуць з {label}"
 
-#: src/features/chats/index.tsx:364
+#: src/features/chats/index.tsx:367
 msgid "Copied"
 msgstr "Скапіявана"
 
 #: ../../../lib/web/src/components/ui/copy-button.tsx:63
 #: src/features/chats/components/message-hover-actions.tsx:103
-#: src/features/chats/index.tsx:782
+#: src/features/chats/index.tsx:802
 msgid "Copy"
 msgstr "Капіраваць"
 
@@ -509,20 +524,20 @@ msgstr "Не ўдалося пачаць паўторную аўтэнтыфік
 msgid "Couldn't verify with that account. Please try again."
 msgstr "Не ўдалося пацвердзіць з гэтым уліковым запісам. Калі ласка, паспрабуйце яшчэ раз."
 
-#: src/features/chats/components/new-chat.tsx:179
+#: src/features/chats/components/new-chat.tsx:197
 msgid "Create a new chat"
 msgstr "Стварыць новы чат"
 
 #: src/components/layout/chat-layout.tsx:264
-#: src/features/chats/components/new-chat.tsx:273
+#: src/features/chats/components/new-chat.tsx:293
 msgid "Create chat"
 msgstr "Стварыць чат"
 
-#: src/features/chats/components/new-chat.tsx:131
+#: src/features/chats/components/new-chat.tsx:149
 msgid "Creating chat..."
 msgstr "Стварэнне чата..."
 
-#: src/features/chats/components/new-chat.tsx:273
+#: src/features/chats/components/new-chat.tsx:293
 msgid "Creating..."
 msgstr "Стварэнне..."
 
@@ -556,17 +571,17 @@ msgid "Default AI account"
 msgstr "Уліковы запіс AI па змаўчанні"
 
 #: src/features/chats/components/message-hover-actions.tsx:135
-#: src/features/chats/index.tsx:799
-#: src/features/chats/index.tsx:909
+#: src/features/chats/index.tsx:819
+#: src/features/chats/index.tsx:929
 msgid "Delete"
 msgstr "Выдаліць"
 
-#: src/features/chats/index.tsx:689
-#: src/features/chats/index.tsx:830
+#: src/features/chats/index.tsx:705
+#: src/features/chats/index.tsx:850
 msgid "Delete chat"
 msgstr "Выдаліць чат"
 
-#: src/features/chats/index.tsx:887
+#: src/features/chats/index.tsx:907
 #: src/routes/_authenticated/$chatId_.settings.tsx:366
 msgid "Delete chat history"
 msgstr "Выдаліць гісторыю чата"
@@ -575,12 +590,12 @@ msgstr "Выдаліць гісторыю чата"
 msgid "Delete your account on the old server"
 msgstr "Выдаліце свой акаўнт на старым серверы"
 
-#: src/features/chats/index.tsx:519
+#: src/features/chats/index.tsx:522
 msgid "Deleting chat..."
 msgstr "Выдаленне чата..."
 
-#: src/features/chats/index.tsx:394
-#: src/features/chats/index.tsx:906
+#: src/features/chats/index.tsx:397
+#: src/features/chats/index.tsx:926
 msgid "Deleting..."
 msgstr "Выдаленне..."
 
@@ -680,7 +695,7 @@ msgstr "Не ўдалося дадаць акаўнт"
 msgid "Failed to add member"
 msgstr "Не ўдалося дадаць удзельніка"
 
-#: src/features/chats/index.tsx:365
+#: src/features/chats/index.tsx:368
 msgid "Failed to copy"
 msgstr "Не ўдалося скапіяваць"
 
@@ -688,15 +703,15 @@ msgstr "Не ўдалося скапіяваць"
 msgid "Failed to copy message"
 msgstr "Не ўдалося скапіяваць паведамленне"
 
-#: src/features/chats/components/new-chat.tsx:133
+#: src/features/chats/components/new-chat.tsx:151
 msgid "Failed to create chat"
 msgstr "Не ўдалося стварыць чат"
 
-#: src/features/chats/index.tsx:396
+#: src/features/chats/index.tsx:399
 msgid "Failed to delete"
 msgstr "Не ўдалося выдаліць"
 
-#: src/features/chats/index.tsx:521
+#: src/features/chats/index.tsx:524
 msgid "Failed to delete chat"
 msgstr "Не ўдалося выдаліць чат"
 
@@ -704,7 +719,7 @@ msgstr "Не ўдалося выдаліць чат"
 msgid "Failed to forward"
 msgstr "Не ўдалося пераслаць"
 
-#: src/features/chats/index.tsx:502
+#: src/features/chats/index.tsx:505
 #: src/routes/_authenticated/$chatId_.settings.tsx:327
 msgid "Failed to leave chat"
 msgstr "Не ўдалося пакінуць чат"
@@ -725,7 +740,11 @@ msgstr "Не ўдалося выдаліць удзельніка"
 msgid "Failed to rename chat"
 msgstr "Не ўдалося перайменаваць чат"
 
-#: src/features/chats/index.tsx:850
+#: src/features/chats/components/chat-settings-dialog.tsx:65
+msgid "Failed to save"
+msgstr "Не ўдалося захаваць"
+
+#: src/features/chats/index.tsx:870
 msgid "Failed to send message"
 msgstr "Не ўдалося адправіць паведамленне"
 
@@ -733,7 +752,7 @@ msgstr "Не ўдалося адправіць паведамленне"
 msgid "Failed to send verification code"
 msgstr "Не ўдалося адправіць код пацвярджэння"
 
-#: src/features/chats/index.tsx:196
+#: src/features/chats/index.tsx:199
 msgid "Failed to start chat"
 msgstr "Не ўдалося пачаць чат"
 
@@ -755,7 +774,7 @@ msgstr "Плаваючы"
 
 #: src/features/chats/components/forward-dialog.tsx:260
 #: src/features/chats/components/message-hover-actions.tsx:124
-#: src/features/chats/index.tsx:790
+#: src/features/chats/index.tsx:810
 msgid "Forward"
 msgstr "Пераслаць"
 
@@ -776,10 +795,13 @@ msgid "Friday"
 msgstr "Пятніца"
 
 #: src/features/chats/components/forward-dialog.tsx:233
-#: src/features/chats/components/new-chat.tsx:186
 #: src/routes/_authenticated/$chatId_.settings.tsx:466
 msgid "Friends"
 msgstr "Сябры"
+
+#: src/features/chats/components/chat-settings-dialog.tsx:39
+msgid "Friends only"
+msgstr "Толькі сябры"
 
 #: ../../../lib/web/src/components/travelling-picker.tsx:153
 msgid "From"
@@ -856,6 +878,11 @@ msgstr "Папулярнае"
 msgid "Imperial"
 msgstr "Імперская"
 
+#: src/features/chats/components/chat-settings-dialog.tsx:77
+#: src/features/chats/index.tsx:728
+msgid "Incoming chats"
+msgstr "Уваходныя чаты"
+
 #: ../../../lib/web/src/components/config-drawer.tsx:252
 msgid "Inset"
 msgstr "Унутраны"
@@ -891,31 +918,31 @@ msgstr "Разметка"
 msgid "Learn more"
 msgstr "Падрабязней"
 
-#: src/features/chats/index.tsx:873
+#: src/features/chats/index.tsx:893
 msgid "Leave"
 msgstr "Пакінуць"
 
-#: src/features/chats/index.tsx:696
+#: src/features/chats/index.tsx:712
 #: src/routes/_authenticated/$chatId_.settings.tsx:352
 msgid "Leave chat"
 msgstr "Пакінуць чат"
 
-#: src/features/chats/index.tsx:864
+#: src/features/chats/index.tsx:884
 #: src/routes/_authenticated/$chatId_.settings.tsx:343
 msgid "Leave chat?"
 msgstr "Пакінуць чат?"
 
-#: src/features/chats/index.tsx:500
+#: src/features/chats/index.tsx:503
 #: src/routes/_authenticated/$chatId_.settings.tsx:325
 msgid "Leaving chat..."
 msgstr "Выхад з чата..."
 
-#: src/features/chats/index.tsx:870
+#: src/features/chats/index.tsx:890
 #: src/routes/_authenticated/$chatId_.settings.tsx:349
 msgid "Leaving..."
 msgstr "Выхад..."
 
-#: src/features/chats/index.tsx:501
+#: src/features/chats/index.tsx:504
 #: src/routes/_authenticated/$chatId_.settings.tsx:326
 msgid "Left chat"
 msgstr "Чат пакінуты"
@@ -1027,12 +1054,12 @@ msgstr "Дзеянні з паведамленнем"
 msgid "Message copied"
 msgstr "Паведамленне скапіявана"
 
-#: src/features/chats/index.tsx:395
+#: src/features/chats/index.tsx:398
 msgid "Message deleted"
 msgstr "Паведамленне выдалена"
 
 #: src/features/chats/components/message-quote.tsx:60
-#: src/features/chats/index.tsx:416
+#: src/features/chats/index.tsx:419
 msgid "Message not available"
 msgstr "Паведамленне недаступнае"
 
@@ -1059,7 +1086,7 @@ msgstr "Новы"
 
 #: src/features/chats/components/chat-empty-state.tsx:27
 #: src/features/chats/components/chat-empty-state.tsx:43
-#: src/features/chats/components/new-chat.tsx:176
+#: src/features/chats/components/new-chat.tsx:194
 msgid "New chat"
 msgstr "Новы чат"
 
@@ -1088,12 +1115,11 @@ msgstr "Няма падключаных акаўнтаў"
 msgid "No friends available"
 msgstr "Сяброў няма"
 
-#: src/features/chats/components/new-chat.tsx:216
 #: src/routes/_authenticated/$chatId_.settings.tsx:456
 msgid "No friends found"
 msgstr "Сяброў не знойдзена"
 
-#: src/features/chats/components/new-chat.tsx:194
+#: src/features/chats/components/new-chat.tsx:225
 msgid "No friends yet"
 msgstr "Пакуль няма сяброў"
 
@@ -1104,6 +1130,10 @@ msgstr "Групы недаступны"
 #: src/features/chats/components/chat-message-list.tsx:384
 msgid "No messages yet"
 msgstr "Пакуль няма паведамленняў"
+
+#: src/features/chats/components/new-chat.tsx:219
+msgid "No people found"
+msgstr "Людзі не знойдзены"
 
 #: ../../../lib/web/src/components/place-picker.tsx:132
 msgid "No places found"
@@ -1152,7 +1182,7 @@ msgstr "Не знойдзена"
 msgid "Not set"
 msgstr "Не ўсталявана"
 
-#: src/features/chats/index.tsx:360
+#: src/features/chats/index.tsx:363
 msgid "Nothing to copy"
 msgstr "Няма чаго капіяваць"
 
@@ -1168,11 +1198,15 @@ msgstr "Апавяшчэнні"
 msgid "Older match"
 msgstr "Старэйшае супадзенне"
 
+#: src/features/chats/components/chat-settings-dialog.tsx:40
+msgid "Only friends can start a chat with you (default)."
+msgstr "Толькі сябры могуць пачаць чат з вамі (па змаўчанні)."
+
 #: ../../../lib/web/src/features/errors/not-found-error.tsx:16
 msgid "Oops! Page Not Found!"
 msgstr "Вой! Старонка не знойдзена!"
 
-#: src/features/chats/components/new-chat.tsx:239
+#: src/features/chats/components/new-chat.tsx:259
 msgid "Open"
 msgstr "Адкрыць"
 
@@ -1186,7 +1220,7 @@ msgstr "Адкрыць дзеянні акаўнта"
 msgid "Open actions"
 msgstr "Адкрыць дзеянні"
 
-#: src/features/chats/index.tsx:681
+#: src/features/chats/index.tsx:697
 msgid "Open chat actions"
 msgstr "Адкрыць дзеянні чату"
 
@@ -1200,7 +1234,7 @@ msgstr "Адкрыць навігацыю"
 msgid "Open navigation menu"
 msgstr "Адкрыць меню навігацыі"
 
-#: src/features/chats/components/new-chat.tsx:206
+#: src/features/chats/components/new-chat.tsx:235
 msgid "Open people"
 msgstr "Адкрыць «Людзі»"
 
@@ -1233,23 +1267,26 @@ msgstr "Не ўдалося праверыць ключ доступу. Калі
 msgid "Passkeys"
 msgstr "Ключы доступу"
 
+#: src/features/chats/components/new-chat.tsx:204
+msgid "People"
+msgstr "Людзі"
+
 #: src/components/layout/chat-layout.tsx:212
 msgid "Pin chat"
 msgstr "Замацаваць чат"
 
 #: ../../../lib/web/src/features/errors/general-error.tsx:54
 #: ../../../lib/web/src/lib/api-response-interceptors.ts:304
-#: ../../../lib/web/src/lib/error-normalizer.ts:201
 msgid "Please check your internet connection and try again."
 msgstr "Праверце падключэнне да інтэрнэту і паспрабуйце зноў."
 
-#: src/features/chats/components/new-chat.tsx:120
+#: src/features/chats/components/new-chat.tsx:138
 msgid "Please provide a chat name"
 msgstr "Увядзіце назву чату"
 
-#: src/features/chats/components/new-chat.tsx:110
-msgid "Please select at least one friend"
-msgstr "Абярыце як мінімум аднаго сябра"
+#: src/features/chats/components/new-chat.tsx:128
+msgid "Please select at least one person"
+msgstr "Калі ласка, выберыце хаця б аднаго чалавека"
 
 #: ../../../lib/web/src/features/errors/general-error.tsx:83
 msgid "Please try again."
@@ -1291,7 +1328,7 @@ msgid "Read more"
 msgstr "Чытаць далей"
 
 #: ../../../lib/web/src/components/search-entity-dialog.tsx:216
-#: ../../../lib/web/src/components/search-entity-page.tsx:240
+#: ../../../lib/web/src/components/search-entity-page.tsx:242
 msgid "Recommended"
 msgstr "Рэкамендуецца"
 
@@ -1396,8 +1433,13 @@ msgstr "Субота"
 
 #: ../../../lib/web/src/components/ui/editable-field-row.tsx:122
 #: ../../../lib/web/src/components/ui/secret-field.tsx:77
+#: src/features/chats/components/chat-settings-dialog.tsx:120
 msgid "Save"
 msgstr "Захаваць"
+
+#: src/features/chats/components/chat-settings-dialog.tsx:63
+msgid "Saving..."
+msgstr "Захаванне..."
 
 #: src/features/chats/components/forward-dialog.tsx:194
 msgid "Search chats…"
@@ -1423,7 +1465,7 @@ msgstr "Пошук сяброў…"
 msgid "Search in chat..."
 msgstr "Пошук у чаце..."
 
-#: src/features/chats/index.tsx:671
+#: src/features/chats/index.tsx:687
 msgid "Search messages"
 msgstr "Пошук паведамленняў"
 
@@ -1440,7 +1482,7 @@ msgid "Search..."
 msgstr "Пошук..."
 
 #: ../../../lib/web/src/components/search-entity-dialog.tsx:174
-#: ../../../lib/web/src/components/search-entity-page.tsx:198
+#: ../../../lib/web/src/components/search-entity-page.tsx:200
 #: ../../../lib/web/src/features/access/access-dialog.tsx:202
 msgid "Searching..."
 msgstr "Пошук..."
@@ -1469,10 +1511,6 @@ msgstr "Абярыце правіла доступу"
 msgid "Select account type"
 msgstr "Абярыце тып акаўнта"
 
-#: src/features/chats/components/new-chat.tsx:215
-msgid "Select friends..."
-msgstr "Выбраць сяброў..."
-
 #: ../../../lib/web/src/features/access/access-dialog.tsx:231
 msgid "Select group"
 msgstr "Выбраць групу"
@@ -1488,6 +1526,10 @@ msgstr "Выбраць загружаныя"
 #: src/features/chats/components/chat-message-list.tsx:440
 msgid "Select message"
 msgstr "Выбраць паведамленне"
+
+#: src/features/chats/components/new-chat.tsx:218
+msgid "Select people..."
+msgstr "Выберыце людзей..."
 
 #: ../../../lib/web/src/components/config-drawer.tsx:246
 msgid "Select sidebar style"
@@ -1596,7 +1638,7 @@ msgstr "Прасторны"
 msgid "Start a conversation"
 msgstr "Пачаць размову"
 
-#: src/features/chats/index.tsx:193
+#: src/features/chats/index.tsx:196
 msgid "Starting chat..."
 msgstr "Пачатак чата..."
 
@@ -1660,7 +1702,7 @@ msgstr "гэты чат"
 msgid "This chat may have been deleted or you don't have access to it"
 msgstr "Гэты чат мог быць выдалены, або ў вас няма доступу да яго"
 
-#: src/features/chats/index.tsx:901
+#: src/features/chats/index.tsx:921
 msgid "This deletes the message for everyone and cannot be undone."
 msgstr "Паведамленне будзе выдалена для ўсіх, і гэта нельга адмяніць."
 
@@ -1721,7 +1763,7 @@ msgid "Try a different search term"
 msgstr "Паспрабуйце іншы пошукавы запыт"
 
 #: ../../../lib/web/src/components/search-entity-dialog.tsx:190
-#: ../../../lib/web/src/components/search-entity-page.tsx:214
+#: ../../../lib/web/src/components/search-entity-page.tsx:216
 msgid "Try adjusting your search terms"
 msgstr "Паспрабуйце наладзіць пошукавыя запыты"
 
@@ -1847,19 +1889,19 @@ msgstr "Сайт на тэхнічным абслугоўванні!"
 msgid "Wednesday"
 msgstr "Серада"
 
-#: src/features/chats/index.tsx:276
+#: src/features/chats/index.tsx:279
 msgid "You"
 msgstr "Вы"
 
-#: src/features/chats/components/new-chat.tsx:115
+#: src/features/chats/components/new-chat.tsx:133
 msgid "You already have a chat with this friend"
 msgstr "У вас ужо ёсць чат з гэтым сябрам"
 
-#: src/features/chats/components/new-chat.tsx:227
+#: src/features/chats/components/new-chat.tsx:247
 msgid "You already have chats with:"
 msgstr "У вас ужо ёсць чаты з:"
 
-#: src/features/chats/index.tsx:377
+#: src/features/chats/index.tsx:380
 msgid "You can only delete your own messages"
 msgstr "Вы можаце выдаляць толькі свае паведамленні"
 
@@ -1867,11 +1909,11 @@ msgstr "Вы можаце выдаляць толькі свае паведам�
 msgid "You do not have access to this section."
 msgstr "У вас няма доступу да гэтага раздзела."
 
-#: src/features/chats/index.tsx:817
+#: src/features/chats/index.tsx:837
 msgid "You left this chat"
 msgstr "Вы пакінулі гэты чат"
 
-#: src/features/chats/index.tsx:816
+#: src/features/chats/index.tsx:836
 msgid "You were removed from this chat"
 msgstr "Вас выдалілі з гэтага чата"
 

@@ -13,17 +13,22 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
+#. js-lingui-explicit-id
+#: ../../../lib/web/src/lib/error-normalizer.ts:204
+msgid "Please check your internet connection and try again."
+msgstr "Интернет холболтоо шалгаад дахин оролдоно уу."
+
 #: src/features/chats/components/message-reaction-bar.tsx:183
 msgid " (includes you)"
 msgstr " (танийг оруулсан)"
 
 #. placeholder {0}: deleteTargetIds?.length ?? 0
-#: src/features/chats/index.tsx:897
+#: src/features/chats/index.tsx:917
 msgid "{0, plural, one {Delete message?} other {Delete # messages?}}"
 msgstr "{0, plural, one {Мессежийг устгах уу?} other {# мессеж устгах уу?}}"
 
 #. placeholder {0}: selectedIds.size
-#: src/features/chats/index.tsx:773
+#: src/features/chats/index.tsx:793
 msgid "{0} selected"
 msgstr "{0} сонгогдсон"
 
@@ -185,8 +190,16 @@ msgstr "Гэнэтийн алдаа гарлаа"
 msgid "Angry"
 msgstr "Уурласан"
 
+#: src/features/chats/components/chat-settings-dialog.tsx:44
+msgid "Anyone"
+msgstr "Хэн ч"
+
+#: src/features/chats/components/chat-settings-dialog.tsx:45
+msgid "Anyone can start a chat with you."
+msgstr "Хэн ч тантай чат эхлүүлж болно."
+
 #. placeholder {0}: selectedChat?.name
-#: src/features/chats/index.tsx:865
+#: src/features/chats/index.tsx:885
 msgid "Are you sure you want to leave \"{0}\"? You can be added back by other members."
 msgstr "\"{0}\"-аас гарахдаа итгэлтэй байна уу? Бусад гишүүд таныг буцааж нэмж болно."
 
@@ -255,9 +268,10 @@ msgstr "Сонирхлыг идэвхжүүлэх"
 #: ../../../lib/web/src/features/accounts/account-add.tsx:188
 #: ../../../lib/web/src/features/accounts/account-verify.tsx:89
 #: src/features/chats/components/chat-message-list.tsx:626
+#: src/features/chats/components/chat-settings-dialog.tsx:109
 #: src/features/chats/components/forward-dialog.tsx:249
-#: src/features/chats/components/new-chat.tsx:265
-#: src/features/chats/index.tsx:806
+#: src/features/chats/components/new-chat.tsx:285
+#: src/features/chats/index.tsx:826
 msgid "Cancel"
 msgstr "Цуцлах"
 
@@ -275,18 +289,18 @@ msgstr "Энэ мэдэгдлийн ангилал"
 msgid "Change notification category"
 msgstr "Мэдэгдлийн ангиллыг солих"
 
-#: src/features/chats/index.tsx:73
-#: src/features/chats/index.tsx:190
-#: src/features/chats/index.tsx:190
-#: src/features/chats/index.tsx:616
+#: src/features/chats/index.tsx:75
+#: src/features/chats/index.tsx:193
+#: src/features/chats/index.tsx:193
+#: src/features/chats/index.tsx:620
 msgid "Chat"
 msgstr "Чат"
 
-#: src/features/chats/components/new-chat.tsx:132
+#: src/features/chats/components/new-chat.tsx:150
 msgid "Chat created"
 msgstr "Чат үүссэн"
 
-#: src/features/chats/index.tsx:520
+#: src/features/chats/index.tsx:523
 msgid "Chat deleted"
 msgstr "Чат устгагдсан"
 
@@ -302,7 +316,7 @@ msgstr "Чатыг уншсан гэж тэмдэглэлээ"
 msgid "Chat marked as unread"
 msgstr "Чатыг уншаагүй гэж тэмдэглэлээ"
 
-#: src/features/chats/components/new-chat.tsx:249
+#: src/features/chats/components/new-chat.tsx:269
 #: src/routes/_authenticated/$chatId_.settings.tsx:201
 msgid "Chat name"
 msgstr "Чатын нэр"
@@ -311,7 +325,7 @@ msgstr "Чатын нэр"
 msgid "Chat name is required"
 msgstr "Чатын нэр шаардлагатай"
 
-#: src/features/chats/components/new-chat.tsx:252
+#: src/features/chats/components/new-chat.tsx:272
 msgid "Chat name..."
 msgstr "Чатын нэр..."
 
@@ -323,7 +337,11 @@ msgstr "Чат олдсонгүй"
 msgid "Chat pinned"
 msgstr "Чатыг бэхэллээ"
 
-#: src/features/chats/components/new-chat.tsx:132
+#: src/features/chats/components/chat-settings-dialog.tsx:64
+msgid "Chat policy updated"
+msgstr "Чатын бодлого шинэчлэгдлээ"
+
+#: src/features/chats/components/new-chat.tsx:150
 msgid "Chat ready"
 msgstr "Чат бэлэн боллоо"
 
@@ -331,7 +349,8 @@ msgstr "Чат бэлэн боллоо"
 msgid "Chat renamed"
 msgstr "Чатын нэр өөрчлөгдсөн"
 
-#: src/features/chats/index.tsx:706
+#: src/features/chats/index.tsx:625
+#: src/features/chats/index.tsx:722
 #: src/routes/_authenticated/$chatId_.settings.tsx:84
 #: src/routes/_authenticated/$chatId_.settings.tsx:97
 #: src/routes/_authenticated/$chatId_.settings.tsx:108
@@ -351,10 +370,6 @@ msgstr "Чатын бэхэлгээг авлаа"
 #: src/features/chats/components/forward-dialog.tsx:225
 msgid "Chats"
 msgstr "Чатууд"
-
-#: src/features/chats/components/new-chat.tsx:196
-msgid "Chats are between friends. Add a friend in the People app first."
-msgstr "Чатууд найзуудын хооронд явагдана. Эхлээд People апп дотор найз нэмнэ үү."
 
 #: src/features/chats/components/forward-dialog.tsx:186
 msgid "Choose a chat or friend to forward the selected messages to"
@@ -483,13 +498,13 @@ msgstr "Үргэлжлүүлэх"
 msgid "Continue with {label}"
 msgstr "{label}-р үргэлжлүүлэх"
 
-#: src/features/chats/index.tsx:364
+#: src/features/chats/index.tsx:367
 msgid "Copied"
 msgstr "Хуулагдлаа"
 
 #: ../../../lib/web/src/components/ui/copy-button.tsx:63
 #: src/features/chats/components/message-hover-actions.tsx:103
-#: src/features/chats/index.tsx:782
+#: src/features/chats/index.tsx:802
 msgid "Copy"
 msgstr "Хуулах"
 
@@ -509,20 +524,20 @@ msgstr "Дахин баталгаажуулалтыг эхлүүлж чадса�
 msgid "Couldn't verify with that account. Please try again."
 msgstr "Тэр бүртгэлээр баталгаажуулж чадсангүй. Дахин оролдоно уу."
 
-#: src/features/chats/components/new-chat.tsx:179
+#: src/features/chats/components/new-chat.tsx:197
 msgid "Create a new chat"
 msgstr "Шинэ чат үүсгэх"
 
 #: src/components/layout/chat-layout.tsx:264
-#: src/features/chats/components/new-chat.tsx:273
+#: src/features/chats/components/new-chat.tsx:293
 msgid "Create chat"
 msgstr "Чат үүсгэх"
 
-#: src/features/chats/components/new-chat.tsx:131
+#: src/features/chats/components/new-chat.tsx:149
 msgid "Creating chat..."
 msgstr "Чат үүсгэж байна..."
 
-#: src/features/chats/components/new-chat.tsx:273
+#: src/features/chats/components/new-chat.tsx:293
 msgid "Creating..."
 msgstr "Үүсгэж байна..."
 
@@ -556,17 +571,17 @@ msgid "Default AI account"
 msgstr "Үндсэн AI бүртгэл"
 
 #: src/features/chats/components/message-hover-actions.tsx:135
-#: src/features/chats/index.tsx:799
-#: src/features/chats/index.tsx:909
+#: src/features/chats/index.tsx:819
+#: src/features/chats/index.tsx:929
 msgid "Delete"
 msgstr "Устгах"
 
-#: src/features/chats/index.tsx:689
-#: src/features/chats/index.tsx:830
+#: src/features/chats/index.tsx:705
+#: src/features/chats/index.tsx:850
 msgid "Delete chat"
 msgstr "Чат устгах"
 
-#: src/features/chats/index.tsx:887
+#: src/features/chats/index.tsx:907
 #: src/routes/_authenticated/$chatId_.settings.tsx:366
 msgid "Delete chat history"
 msgstr "Чатын түүх устгах"
@@ -575,12 +590,12 @@ msgstr "Чатын түүх устгах"
 msgid "Delete your account on the old server"
 msgstr "Хуучин серверт байгаа бүртгэлээ устгана уу"
 
-#: src/features/chats/index.tsx:519
+#: src/features/chats/index.tsx:522
 msgid "Deleting chat..."
 msgstr "Чатыг устгаж байна..."
 
-#: src/features/chats/index.tsx:394
-#: src/features/chats/index.tsx:906
+#: src/features/chats/index.tsx:397
+#: src/features/chats/index.tsx:926
 msgid "Deleting..."
 msgstr "Устгаж байна..."
 
@@ -680,7 +695,7 @@ msgstr "Бүртгэл нэмж чадсангүй"
 msgid "Failed to add member"
 msgstr "Гишүүн нэмж чадсангүй"
 
-#: src/features/chats/index.tsx:365
+#: src/features/chats/index.tsx:368
 msgid "Failed to copy"
 msgstr "Хуулж чадсангүй"
 
@@ -688,15 +703,15 @@ msgstr "Хуулж чадсангүй"
 msgid "Failed to copy message"
 msgstr "Мессежийг хуулж чадсангүй"
 
-#: src/features/chats/components/new-chat.tsx:133
+#: src/features/chats/components/new-chat.tsx:151
 msgid "Failed to create chat"
 msgstr "Чат үүсгэж чадсангүй"
 
-#: src/features/chats/index.tsx:396
+#: src/features/chats/index.tsx:399
 msgid "Failed to delete"
 msgstr "Устгаж чадсангүй"
 
-#: src/features/chats/index.tsx:521
+#: src/features/chats/index.tsx:524
 msgid "Failed to delete chat"
 msgstr "Чат устгаж чадсангүй"
 
@@ -704,7 +719,7 @@ msgstr "Чат устгаж чадсангүй"
 msgid "Failed to forward"
 msgstr "Дамжуулж чадсангүй"
 
-#: src/features/chats/index.tsx:502
+#: src/features/chats/index.tsx:505
 #: src/routes/_authenticated/$chatId_.settings.tsx:327
 msgid "Failed to leave chat"
 msgstr "Чатаас гарч чадсангүй"
@@ -725,7 +740,11 @@ msgstr "Гишүүн хасч чадсангүй"
 msgid "Failed to rename chat"
 msgstr "Чатын нэрийг өөрчилж чадсангүй"
 
-#: src/features/chats/index.tsx:850
+#: src/features/chats/components/chat-settings-dialog.tsx:65
+msgid "Failed to save"
+msgstr "Хадгалж чадсангүй"
+
+#: src/features/chats/index.tsx:870
 msgid "Failed to send message"
 msgstr "Мессеж илгээж чадсангүй"
 
@@ -733,7 +752,7 @@ msgstr "Мессеж илгээж чадсангүй"
 msgid "Failed to send verification code"
 msgstr "Баталгаажуулах код илгээж чадсангүй"
 
-#: src/features/chats/index.tsx:196
+#: src/features/chats/index.tsx:199
 msgid "Failed to start chat"
 msgstr "Чат эхлүүлж чадсангүй"
 
@@ -755,7 +774,7 @@ msgstr "Хөвөгч"
 
 #: src/features/chats/components/forward-dialog.tsx:260
 #: src/features/chats/components/message-hover-actions.tsx:124
-#: src/features/chats/index.tsx:790
+#: src/features/chats/index.tsx:810
 msgid "Forward"
 msgstr "Дамжуулах"
 
@@ -776,10 +795,13 @@ msgid "Friday"
 msgstr "Баасан"
 
 #: src/features/chats/components/forward-dialog.tsx:233
-#: src/features/chats/components/new-chat.tsx:186
 #: src/routes/_authenticated/$chatId_.settings.tsx:466
 msgid "Friends"
 msgstr "Найзууд"
+
+#: src/features/chats/components/chat-settings-dialog.tsx:39
+msgid "Friends only"
+msgstr "Зөвхөн найзууд"
 
 #: ../../../lib/web/src/components/travelling-picker.tsx:153
 msgid "From"
@@ -856,6 +878,11 @@ msgstr "Хот"
 msgid "Imperial"
 msgstr "Imperial"
 
+#: src/features/chats/components/chat-settings-dialog.tsx:77
+#: src/features/chats/index.tsx:728
+msgid "Incoming chats"
+msgstr "Ирж буй чатууд"
+
 #: ../../../lib/web/src/components/config-drawer.tsx:252
 msgid "Inset"
 msgstr "Дотогшоо"
@@ -891,31 +918,31 @@ msgstr "Зохион байгуулалт"
 msgid "Learn more"
 msgstr "Илүү ихийг мэдэх"
 
-#: src/features/chats/index.tsx:873
+#: src/features/chats/index.tsx:893
 msgid "Leave"
 msgstr "Гарах"
 
-#: src/features/chats/index.tsx:696
+#: src/features/chats/index.tsx:712
 #: src/routes/_authenticated/$chatId_.settings.tsx:352
 msgid "Leave chat"
 msgstr "Чатаас гарах"
 
-#: src/features/chats/index.tsx:864
+#: src/features/chats/index.tsx:884
 #: src/routes/_authenticated/$chatId_.settings.tsx:343
 msgid "Leave chat?"
 msgstr "Чатаас гарах уу?"
 
-#: src/features/chats/index.tsx:500
+#: src/features/chats/index.tsx:503
 #: src/routes/_authenticated/$chatId_.settings.tsx:325
 msgid "Leaving chat..."
 msgstr "Чатаас гарч байна..."
 
-#: src/features/chats/index.tsx:870
+#: src/features/chats/index.tsx:890
 #: src/routes/_authenticated/$chatId_.settings.tsx:349
 msgid "Leaving..."
 msgstr "Гарч байна..."
 
-#: src/features/chats/index.tsx:501
+#: src/features/chats/index.tsx:504
 #: src/routes/_authenticated/$chatId_.settings.tsx:326
 msgid "Left chat"
 msgstr "Чатаас гарсан"
@@ -1027,12 +1054,12 @@ msgstr "Мессежийн үйлдлүүд"
 msgid "Message copied"
 msgstr "Мессеж хуулагдлаа"
 
-#: src/features/chats/index.tsx:395
+#: src/features/chats/index.tsx:398
 msgid "Message deleted"
 msgstr "Мессеж устгагдлаа"
 
 #: src/features/chats/components/message-quote.tsx:60
-#: src/features/chats/index.tsx:416
+#: src/features/chats/index.tsx:419
 msgid "Message not available"
 msgstr "Мессеж боломжгүй байна"
 
@@ -1059,7 +1086,7 @@ msgstr "Шинэ"
 
 #: src/features/chats/components/chat-empty-state.tsx:27
 #: src/features/chats/components/chat-empty-state.tsx:43
-#: src/features/chats/components/new-chat.tsx:176
+#: src/features/chats/components/new-chat.tsx:194
 msgid "New chat"
 msgstr "Шинэ чат"
 
@@ -1088,12 +1115,11 @@ msgstr "Холбогдсон бүртгэл байхгүй"
 msgid "No friends available"
 msgstr "Боломжит найз байхгүй"
 
-#: src/features/chats/components/new-chat.tsx:216
 #: src/routes/_authenticated/$chatId_.settings.tsx:456
 msgid "No friends found"
 msgstr "Найз олдсонгүй"
 
-#: src/features/chats/components/new-chat.tsx:194
+#: src/features/chats/components/new-chat.tsx:225
 msgid "No friends yet"
 msgstr "Найз алга"
 
@@ -1104,6 +1130,10 @@ msgstr "Боломжит групп байхгүй"
 #: src/features/chats/components/chat-message-list.tsx:384
 msgid "No messages yet"
 msgstr "Зурвас алга"
+
+#: src/features/chats/components/new-chat.tsx:219
+msgid "No people found"
+msgstr "Хүн олдсонгүй"
 
 #: ../../../lib/web/src/components/place-picker.tsx:132
 msgid "No places found"
@@ -1152,7 +1182,7 @@ msgstr "Олдсонгүй"
 msgid "Not set"
 msgstr "Тохируулаагүй"
 
-#: src/features/chats/index.tsx:360
+#: src/features/chats/index.tsx:363
 msgid "Nothing to copy"
 msgstr "Хуулах зүйл алга"
 
@@ -1168,11 +1198,15 @@ msgstr "Мэдэгдэл"
 msgid "Older match"
 msgstr "Илүү хуучин илэрц"
 
+#: src/features/chats/components/chat-settings-dialog.tsx:40
+msgid "Only friends can start a chat with you (default)."
+msgstr "Зөвхөн найзууд тантай чат эхлүүлж болно (өгөгдмөл)."
+
 #: ../../../lib/web/src/features/errors/not-found-error.tsx:16
 msgid "Oops! Page Not Found!"
 msgstr "Уучлаарай! Хуудас олдсонгүй!"
 
-#: src/features/chats/components/new-chat.tsx:239
+#: src/features/chats/components/new-chat.tsx:259
 msgid "Open"
 msgstr "Нээх"
 
@@ -1186,7 +1220,7 @@ msgstr "Бүртгэлийн үйлдлүүдийг нээх"
 msgid "Open actions"
 msgstr "Үйлдлүүдийг нээх"
 
-#: src/features/chats/index.tsx:681
+#: src/features/chats/index.tsx:697
 msgid "Open chat actions"
 msgstr "Чатны үйлдлүүдийг нээх"
 
@@ -1200,7 +1234,7 @@ msgstr "Навигац нээх"
 msgid "Open navigation menu"
 msgstr "Навигацийн цэс нээх"
 
-#: src/features/chats/components/new-chat.tsx:206
+#: src/features/chats/components/new-chat.tsx:235
 msgid "Open people"
 msgstr "«Хүмүүс» нээх"
 
@@ -1233,23 +1267,26 @@ msgstr "Нэвтрэх түлхүүрийн баталгаажуулалт ам�
 msgid "Passkeys"
 msgstr "Passkey-ууд"
 
+#: src/features/chats/components/new-chat.tsx:204
+msgid "People"
+msgstr "Хүмүүс"
+
 #: src/components/layout/chat-layout.tsx:212
 msgid "Pin chat"
 msgstr "Чат бэхлэх"
 
 #: ../../../lib/web/src/features/errors/general-error.tsx:54
 #: ../../../lib/web/src/lib/api-response-interceptors.ts:304
-#: ../../../lib/web/src/lib/error-normalizer.ts:201
 msgid "Please check your internet connection and try again."
 msgstr "Интернет холболтоо шалгаад дахин оролдоно уу."
 
-#: src/features/chats/components/new-chat.tsx:120
+#: src/features/chats/components/new-chat.tsx:138
 msgid "Please provide a chat name"
 msgstr "Чатны нэрийг оруулна уу"
 
-#: src/features/chats/components/new-chat.tsx:110
-msgid "Please select at least one friend"
-msgstr "Дор хаяж нэг найз сонгоно уу"
+#: src/features/chats/components/new-chat.tsx:128
+msgid "Please select at least one person"
+msgstr "Дор хаяж нэг хүн сонгоно уу"
 
 #: ../../../lib/web/src/features/errors/general-error.tsx:83
 msgid "Please try again."
@@ -1291,7 +1328,7 @@ msgid "Read more"
 msgstr "Цааш унших"
 
 #: ../../../lib/web/src/components/search-entity-dialog.tsx:216
-#: ../../../lib/web/src/components/search-entity-page.tsx:240
+#: ../../../lib/web/src/components/search-entity-page.tsx:242
 msgid "Recommended"
 msgstr "Зөвлөмжтэй"
 
@@ -1396,8 +1433,13 @@ msgstr "Бямба"
 
 #: ../../../lib/web/src/components/ui/editable-field-row.tsx:122
 #: ../../../lib/web/src/components/ui/secret-field.tsx:77
+#: src/features/chats/components/chat-settings-dialog.tsx:120
 msgid "Save"
 msgstr "Хадгалах"
+
+#: src/features/chats/components/chat-settings-dialog.tsx:63
+msgid "Saving..."
+msgstr "Хадгалж байна..."
 
 #: src/features/chats/components/forward-dialog.tsx:194
 msgid "Search chats…"
@@ -1423,7 +1465,7 @@ msgstr "Найзуудаа хайх…"
 msgid "Search in chat..."
 msgstr "Чатаас хайх..."
 
-#: src/features/chats/index.tsx:671
+#: src/features/chats/index.tsx:687
 msgid "Search messages"
 msgstr "Мессеж хайх"
 
@@ -1440,7 +1482,7 @@ msgid "Search..."
 msgstr "Хайх..."
 
 #: ../../../lib/web/src/components/search-entity-dialog.tsx:174
-#: ../../../lib/web/src/components/search-entity-page.tsx:198
+#: ../../../lib/web/src/components/search-entity-page.tsx:200
 #: ../../../lib/web/src/features/access/access-dialog.tsx:202
 msgid "Searching..."
 msgstr "Хайж байна..."
@@ -1469,10 +1511,6 @@ msgstr "Хандалтын дүрэм сонгох"
 msgid "Select account type"
 msgstr "Бүртгэлийн төрөл сонгох"
 
-#: src/features/chats/components/new-chat.tsx:215
-msgid "Select friends..."
-msgstr "Найзуудаа сонго..."
-
 #: ../../../lib/web/src/features/access/access-dialog.tsx:231
 msgid "Select group"
 msgstr "Бүлэг сонгох"
@@ -1488,6 +1526,10 @@ msgstr "Ачаалагдсаныг сонгох"
 #: src/features/chats/components/chat-message-list.tsx:440
 msgid "Select message"
 msgstr "Мессеж сонгох"
+
+#: src/features/chats/components/new-chat.tsx:218
+msgid "Select people..."
+msgstr "Хүмүүс сонгох..."
 
 #: ../../../lib/web/src/components/config-drawer.tsx:246
 msgid "Select sidebar style"
@@ -1596,7 +1638,7 @@ msgstr "Уужим"
 msgid "Start a conversation"
 msgstr "Яриа эхлүүлэх"
 
-#: src/features/chats/index.tsx:193
+#: src/features/chats/index.tsx:196
 msgid "Starting chat..."
 msgstr "Чат эхлүүлж байна..."
 
@@ -1660,7 +1702,7 @@ msgstr "энэ чат"
 msgid "This chat may have been deleted or you don't have access to it"
 msgstr "Энэ чат устгагдсан байж болно эсвэл та хандах эрхгүй байна"
 
-#: src/features/chats/index.tsx:901
+#: src/features/chats/index.tsx:921
 msgid "This deletes the message for everyone and cannot be undone."
 msgstr "Энэ нь мессежийг бүх хүнээс устгах бөгөөд буцаах боломжгүй."
 
@@ -1721,7 +1763,7 @@ msgid "Try a different search term"
 msgstr "Өөр хайлтын үг туршаад үз"
 
 #: ../../../lib/web/src/components/search-entity-dialog.tsx:190
-#: ../../../lib/web/src/components/search-entity-page.tsx:214
+#: ../../../lib/web/src/components/search-entity-page.tsx:216
 msgid "Try adjusting your search terms"
 msgstr "Хайлтын үгсээ засахыг туршаад үз"
 
@@ -1847,19 +1889,19 @@ msgstr "Вэбсайт засвартай байна!"
 msgid "Wednesday"
 msgstr "Лхагва гараг"
 
-#: src/features/chats/index.tsx:276
+#: src/features/chats/index.tsx:279
 msgid "You"
 msgstr "Та"
 
-#: src/features/chats/components/new-chat.tsx:115
+#: src/features/chats/components/new-chat.tsx:133
 msgid "You already have a chat with this friend"
 msgstr "Та энэ найзтайгаа аль хэдийн чаттай байна"
 
-#: src/features/chats/components/new-chat.tsx:227
+#: src/features/chats/components/new-chat.tsx:247
 msgid "You already have chats with:"
 msgstr "Та аль хэдийн чаттай байна:"
 
-#: src/features/chats/index.tsx:377
+#: src/features/chats/index.tsx:380
 msgid "You can only delete your own messages"
 msgstr "Та зөвхөн өөрийн мессежийг устгах боломжтой"
 
@@ -1867,11 +1909,11 @@ msgstr "Та зөвхөн өөрийн мессежийг устгах боло�
 msgid "You do not have access to this section."
 msgstr "Та энэ хэсэгт хандах эрхгүй байна."
 
-#: src/features/chats/index.tsx:817
+#: src/features/chats/index.tsx:837
 msgid "You left this chat"
 msgstr "Та энэ чатаас гарсан"
 
-#: src/features/chats/index.tsx:816
+#: src/features/chats/index.tsx:836
 msgid "You were removed from this chat"
 msgstr "Та энэ чатаас хасагдсан"
 

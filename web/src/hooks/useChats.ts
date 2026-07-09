@@ -16,6 +16,7 @@ import {
   useInfiniteQueryWithError,
 } from '@mochi/web'
 import { chatsApi,
+  type ChatPolicy,
   type GetChatsResponse,
   type GetMembersResponse,
   type GetMessagesResponse,
@@ -46,6 +47,7 @@ export const chatKeys = {
   detail: (chatId: string) => ['chats', chatId] as const,
   messages: (chatId: string) => ['chats', chatId, 'messages'] as const,
   newChat: () => ['chats', 'new'] as const,
+  preferences: () => ['chats', 'preferences'] as const,
 }
 
 export const useChatDetailQuery = (
@@ -194,6 +196,22 @@ export const useNewChatFriendsQuery = (
     queryFn: () => chatsApi.getFriendsForNewChat(),
     ...options,
   })
+
+export const useChatPreferencesQuery = () =>
+  useQueryWithError({
+    queryKey: chatKeys.preferences(),
+    queryFn: () => chatsApi.getPreferences(),
+  })
+
+export const useSetChatPreferencesMutation = () => {
+  const queryClient = useQueryClient()
+  return useMutation({
+    mutationFn: (policy: ChatPolicy) => chatsApi.setPreferences(policy),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: chatKeys.preferences() })
+    },
+  })
+}
 
 export const useCreateChatMutation = (
   options?: UseMutationOptions<

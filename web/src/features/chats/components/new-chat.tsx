@@ -3,7 +3,7 @@
 // This file is part of Mochi, licensed under the GNU AGPL v3 with the
 // Mochi Application Interface Exception - see license.txt and license-exception.md.
 
-import { useEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { Trans, useLingui } from '@lingui/react/macro'
 import { useNavigate } from '@tanstack/react-router'
 import {
@@ -26,6 +26,7 @@ import {
 import { Loader2, MessageCircle, UserPlus } from 'lucide-react'
 import { useSidebarContext } from '@/context/sidebar-context'
 import { useNewChatFriendsQuery, useCreateChatMutation } from '@/hooks/useChats'
+import { chatsApi } from '@/api/chats'
 
 export function NewChat() {
   const { t } = useLingui()
@@ -59,6 +60,23 @@ export function NewChat() {
     [friends]
   )
 
+  // Directory search for the picker: non-friends may be addressed too - the
+  // sender-side probe at create refuses anyone whose chat_policy does not
+  // allow it. Names of picked directory people are kept for the chat-name
+  // autofill (the picker resolves its own display names internally).
+  const directoryNames = useRef(new Map<string, string>())
+  const searchDirectory = useCallback(async (query: string): Promise<Person[]> => {
+    const response = await chatsApi.personSearch(query)
+    const results = response.results ?? []
+    for (const person of results) directoryNames.current.set(person.id, person.name)
+    return results.map((person) => ({ id: person.id, name: person.name }))
+  }, [])
+
+  const memberName = useCallback(
+    (id: string) => friends.find((f) => f.id === id)?.name ?? directoryNames.current.get(id),
+    [friends]
+  )
+
   // Check if any selected friends have existing chats
   const existingChats = useMemo(() => {
     return selectedFriends
@@ -79,7 +97,7 @@ export function NewChat() {
     }
 
     const selectedNames = selectedFriends
-      .map((id) => friends.find((f) => f.id === id)?.name)
+      .map((id) => memberName(id))
       .filter(Boolean) as string[]
 
     if (selectedFriends.length === 1) {
@@ -89,7 +107,7 @@ export function NewChat() {
       allNames.sort((a, b) => naturalCompare(a, b))
       setChatName(allNames.join(', '))
     }
-  }, [selectedFriends, friends, myName])
+  }, [selectedFriends, friends, myName, memberName])
 
   const handleFriendsChange = (value: string | string[]) => {
     setSelectedFriends(value as string[])
@@ -107,7 +125,7 @@ export function NewChat() {
 
   const handleCreateChat = async () => {
     if (selectedFriends.length === 0) {
-      toast.error(t`Please select at least one friend`)
+      toast.error(t`Please select at least one person`)
       return
     }
 
@@ -156,7 +174,7 @@ export function NewChat() {
 
   // Auto-open friends picker when dialog opens and friends are loaded
   useEffect(() => {
-    if (open && !isLoading && friends.length > 0) {
+    if (open && !isLoading) {
       // Small delay to ensure dialog is rendered
       const timer = setTimeout(() => setFriendsPickerOpen(true), 50)
       return () => clearTimeout(timer)
@@ -183,40 +201,42 @@ export function NewChat() {
         <div className='space-y-4'>
           {/* Friend Picker */}
           <div className='space-y-2'>
-            <label className='text-sm font-medium'><Trans>Friends</Trans></label>
+            <label className='text-sm font-medium'><Trans>People</Trans></label>
             {isLoading ? (
               <Skeleton className='h-9 w-full' />
             ) : error ? (
               <GeneralError error={error} minimal mode='inline' reset={refetch} />
-            ) : friends.length === 0 ? (
-              <div className='flex flex-col items-center justify-center rounded-lg border px-4 py-8 text-center'>
-                <UserPlus className='text-muted-foreground mb-3 h-10 w-10 opacity-50' />
-                <p className='text-muted-foreground text-sm font-medium'><Trans>No friends yet</Trans></p>
-                <p className='text-muted-foreground mt-1 mb-4 text-xs'>
-                  <Trans>Chats are between friends. Add a friend in the People app first.</Trans>
-                </p>
-                <Button
-                  size='sm'
-                  onClick={() => {
-                    onOpenChange(false)
-                    shellNavigateExternal('/people/')
-                  }}
-                >
-                  <UserPlus className='size-4' />
-                  <Trans>Open people</Trans>
-                </Button>
-              </div>
             ) : (
-              <PersonPicker
-                mode='multiple'
-                value={selectedFriends}
-                onChange={handleFriendsChange}
-                local={friendsAsPeople}
-                placeholder={t`Select friends...`}
-                emptyMessage={t`No friends found`}
-                open={friendsPickerOpen}
-                onOpenChange={setFriendsPickerOpen}
-              />
+              <>
+                <PersonPicker
+                  mode='multiple'
+                  value={selectedFriends}
+                  onChange={handleFriendsChange}
+                  local={friendsAsPeople}
+                  directory
+                  directoryFn={searchDirectory}
+                  placeholder={t`Select people...`}
+                  emptyMessage={t`No people found`}
+                  open={friendsPickerOpen}
+                  onOpenChange={setFriendsPickerOpen}
+                />
+                {friends.length === 0 && (
+                  <div className='flex items-center justify-between rounded-lg border px-3 py-2'>
+                    <p className='text-muted-foreground text-xs'><Trans>No friends yet</Trans></p>
+                    <Button
+                      variant='outline'
+                      size='xs'
+                      onClick={() => {
+                        onOpenChange(false)
+                        shellNavigateExternal('/people/')
+                      }}
+                    >
+                      <UserPlus className='size-3.5' />
+                      <Trans>Open people</Trans>
+                    </Button>
+                  </div>
+                )}
+              </>
             )}
           </div>
 

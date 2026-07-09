@@ -6,7 +6,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { Trans, useLingui } from '@lingui/react/macro'
 import { plural } from '@lingui/core/macro'
-import { useAuthStore, usePageTitle, PageHeader, Main, GeneralError, Button, Checkbox, ConfirmDialog, EntityAvatar, IconButton, DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger, Label, toast, toastAction, getErrorMessage, shellClipboardWrite } from '@mochi/web'
+import { useAuthStore, usePageTitle, PageHeader, Main, GeneralError, Button, Checkbox, ConfirmDialog, EntityAvatar, IconButton, DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger, Label, toast, toastAction, getErrorMessage, shellClipboardWrite } from '@mochi/web'
 import { useMessageSelection } from '@/hooks/use-message-selection'
 import { useNavigate, useParams, useSearch } from '@tanstack/react-router'
 import { useQueryClient, type InfiniteData } from '@tanstack/react-query'
@@ -16,6 +16,7 @@ import {
   Forward,
   MoreHorizontal,
   Settings,
+  Inbox,
   LogOut,
   Loader2,
   Trash2,
@@ -52,6 +53,7 @@ import {
 import type { GetMessagesResponse } from '@/api/types/chats'
 import { chatActive } from '@/api/types/chats'
 import { ChatEmptyState } from './components/chat-empty-state'
+import { ChatSettingsDialog } from './components/chat-settings-dialog'
 import { ChatInput, type ChatInputHandle } from './components/chat-input'
 import { ChatMessageList } from './components/chat-message-list'
 import { ChatSearchHeader } from './components/chat-search-header'
@@ -78,6 +80,7 @@ export function Chats() {
     useSidebarContext()
   const [newMessage, setNewMessage] = useState('')
   const [showLeaveDialog, setShowLeaveDialog] = useState(false)
+  const [chatSettingsOpen, setChatSettingsOpen] = useState(false)
   const [deleteOnLeave, setDeleteOnLeave] = useState(false)
 
   const {
@@ -613,7 +616,20 @@ export function Chats() {
   if (!selectedChat) {
     return (
       <div className='flex h-full flex-col overflow-hidden'>
-        <PageHeader title={t`Chat`} icon={<MessageCircle className='size-4 md:size-5' />} />
+        <PageHeader
+          title={t`Chat`}
+          icon={<MessageCircle className='size-4 md:size-5' />}
+          menuAction={
+            <IconButton
+              variant='ghost'
+              label={t`Chat settings`}
+              onClick={() => setChatSettingsOpen(true)}
+            >
+              <Settings className='size-5' />
+            </IconButton>
+          }
+        />
+        <ChatSettingsDialog open={chatSettingsOpen} onOpenChange={setChatSettingsOpen} />
         <Main className='flex min-h-0 flex-1 flex-col gap-4 overflow-hidden'>
           {chatsQuery.error ? (
             <GeneralError
@@ -707,6 +723,10 @@ export function Chats() {
                     </DropdownMenuItem>
                   </>
                 )}
+                <DropdownMenuSeparator />
+                <DropdownMenuItem onClick={() => setChatSettingsOpen(true)}>
+                  <Inbox className='me-2 size-4' /> <Trans>Incoming chats</Trans>
+                </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
             </div>
@@ -928,6 +948,7 @@ export function Chats() {
           }}
         />
       ) : null}
+      <ChatSettingsDialog open={chatSettingsOpen} onOpenChange={setChatSettingsOpen} />
     </>
   )
 }
