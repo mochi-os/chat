@@ -18,17 +18,21 @@ msgstr ""
 msgid "Please check your internet connection and try again."
 msgstr "Gwiriwch eich cysylltiad rhyngrwyd a rhowch gynnig arall arni."
 
-#: src/features/chats/components/message-reaction-bar.tsx:183
+#: src/features/chats/components/message-reaction-bar.tsx:182
 msgid " (includes you)"
 msgstr " (yn eich cynnwys chi)"
 
+#: src/features/chats/index.tsx:567
+#~ msgid "\"{names}\" is too large to attach"
+#~ msgstr ""
+
 #. placeholder {0}: deleteTargetIds?.length ?? 0
-#: src/features/chats/index.tsx:917
+#: src/features/chats/index.tsx:940
 msgid "{0, plural, one {Delete message?} other {Delete # messages?}}"
 msgstr "{0, plural, zero {Dileu # negeseuon?} one {Dileu'r neges?} two {Dileu # neges?} few {Dileu # neges?} many {Dileu # neges?} other {Dileu # neges?}}"
 
 #. placeholder {0}: selectedIds.size
-#: src/features/chats/index.tsx:793
+#: src/features/chats/index.tsx:820
 msgid "{0} selected"
 msgstr "{0} wedi'u dewis"
 
@@ -38,8 +42,12 @@ msgstr "{0} wedi'u dewis"
 msgid "{0} settings"
 msgstr "Gosodiadau {0}"
 
-#: src/features/chats/components/chat-message-list.tsx:642
-#: src/features/chats/components/chat-message-list.tsx:659
+#: src/features/chats/components/message-attachments.tsx:129
+msgid "{hiddenCount, plural, one {Show 1 more file} other {Show # more files}}"
+msgstr ""
+
+#: src/features/chats/components/chat-message-list.tsx:686
+#: src/features/chats/components/chat-message-list.tsx:703
 msgid "{newMessageCount, plural, one {Jump to 1 new message} other {Jump to # new messages}}"
 msgstr "{newMessageCount, plural, zero {Neidio i # negeseuon newydd} one {Neidio i 1 neges newydd} two {Neidio i # neges newydd} few {Neidio i # neges newydd} many {Neidio i # neges newydd} other {Neidio i # neges newydd}}"
 
@@ -50,6 +58,10 @@ msgstr "12 awr"
 #: ../../../lib/web/src/lib/preference-utils.ts:41
 msgid "24 hours"
 msgstr "24 awr"
+
+#: src/features/chats/index.tsx:484
+msgid "A file is too large to upload. Try a smaller attachment."
+msgstr ""
 
 #: ../../../lib/web/src/lib/preference-utils.ts:51
 msgid "Absolute (date and time)"
@@ -109,8 +121,8 @@ msgstr "Ychwanegu cyfrif"
 msgid "Add an account to receive notifications and use services."
 msgstr "Ychwanegu cyfrif i dderbyn hysbysiadau a defnyddio gwasanaethau."
 
-#: src/features/chats/components/chat-input.tsx:245
-#: src/features/chats/components/chat-input.tsx:250
+#: src/features/chats/components/chat-input.tsx:260
+#: src/features/chats/components/chat-input.tsx:265
 msgid "Add attachment"
 msgstr "Ychwanegu atodiad"
 
@@ -199,7 +211,7 @@ msgid "Anyone can start a chat with you."
 msgstr "Gall unrhyw un ddechrau sgwrs gyda chi."
 
 #. placeholder {0}: selectedChat?.name
-#: src/features/chats/index.tsx:885
+#: src/features/chats/index.tsx:908
 msgid "Are you sure you want to leave \"{0}\"? You can be added back by other members."
 msgstr "Ydych chi'n siŵr eich bod am adael \"{0}\"? Gellir eich ychwanegu yn ôl gan aelodau eraill."
 
@@ -224,10 +236,14 @@ msgstr "Esg"
 msgid "Ascending"
 msgstr "Esgynnol"
 
-#: src/features/chats/components/chat-input.tsx:147
+#: src/features/chats/components/chat-input.tsx:164
 #: src/features/chats/components/message-quote.tsx:56
 msgid "Attachment"
 msgstr "Atodiad"
+
+#: src/features/chats/index.tsx:482
+msgid "Attachments are too large to upload. Remove or shrink files and try again."
+msgstr ""
 
 #: ../../../lib/web/src/components/step-up-dialog.tsx:315
 msgid "Authenticator code"
@@ -249,7 +265,7 @@ msgstr "Yn ôl i'r sgwrs"
 msgid "Back to home"
 msgstr "Yn ôl i’r cartref"
 
-#: src/features/chats/components/chat-message-list.tsx:385
+#: src/features/chats/components/chat-message-list.tsx:407
 msgid "Be the first to say something!"
 msgstr "Byddwch y cyntaf i ddweud rhywbeth!"
 
@@ -267,16 +283,16 @@ msgstr "Hybu diddordeb"
 #: ../../../lib/web/src/features/access/access-list.tsx:263
 #: ../../../lib/web/src/features/accounts/account-add.tsx:188
 #: ../../../lib/web/src/features/accounts/account-verify.tsx:89
-#: src/features/chats/components/chat-message-list.tsx:626
+#: src/features/chats/components/chat-message-list.tsx:670
 #: src/features/chats/components/chat-settings-dialog.tsx:109
 #: src/features/chats/components/forward-dialog.tsx:249
 #: src/features/chats/components/new-chat.tsx:285
-#: src/features/chats/index.tsx:826
+#: src/features/chats/index.tsx:853
 msgid "Cancel"
 msgstr "Canslo"
 
-#: src/features/chats/components/chat-input.tsx:157
-#: src/features/chats/components/chat-input.tsx:162
+#: src/features/chats/components/chat-input.tsx:174
+#: src/features/chats/components/chat-input.tsx:179
 msgid "Cancel reply"
 msgstr "Canslo ateb"
 
@@ -289,10 +305,10 @@ msgstr "Categori ar gyfer yr hysbysiad hwn"
 msgid "Change notification category"
 msgstr "Newid categori hysbysiad"
 
-#: src/features/chats/index.tsx:75
-#: src/features/chats/index.tsx:193
-#: src/features/chats/index.tsx:193
-#: src/features/chats/index.tsx:620
+#: src/features/chats/index.tsx:81
+#: src/features/chats/index.tsx:199
+#: src/features/chats/index.tsx:199
+#: src/features/chats/index.tsx:647
 msgid "Chat"
 msgstr "Sgwrs"
 
@@ -300,7 +316,7 @@ msgstr "Sgwrs"
 msgid "Chat created"
 msgstr "Sgwrs wedi'i chreu"
 
-#: src/features/chats/index.tsx:523
+#: src/features/chats/index.tsx:543
 msgid "Chat deleted"
 msgstr "Sgwrs wedi'i dileu"
 
@@ -349,8 +365,8 @@ msgstr "Sgwrs yn barod"
 msgid "Chat renamed"
 msgstr "Sgwrs wedi'i hailenwi"
 
-#: src/features/chats/index.tsx:625
-#: src/features/chats/index.tsx:722
+#: src/features/chats/index.tsx:652
+#: src/features/chats/index.tsx:749
 #: src/routes/_authenticated/$chatId_.settings.tsx:84
 #: src/routes/_authenticated/$chatId_.settings.tsx:97
 #: src/routes/_authenticated/$chatId_.settings.tsx:108
@@ -358,7 +374,7 @@ msgstr "Sgwrs wedi'i hailenwi"
 msgid "Chat settings"
 msgstr "Gosodiadau sgwrs"
 
-#: src/features/chats/components/chat-input.tsx:254
+#: src/features/chats/components/chat-input.tsx:269
 msgid "Chat Text Box"
 msgstr "Blwch testun sgwrs"
 
@@ -498,13 +514,13 @@ msgstr "Parhau"
 msgid "Continue with {label}"
 msgstr "Parhau gyda {label}"
 
-#: src/features/chats/index.tsx:367
+#: src/features/chats/index.tsx:373
 msgid "Copied"
 msgstr "Copïwyd"
 
 #: ../../../lib/web/src/components/ui/copy-button.tsx:63
 #: src/features/chats/components/message-hover-actions.tsx:103
-#: src/features/chats/index.tsx:802
+#: src/features/chats/index.tsx:829
 msgid "Copy"
 msgstr "Copïo"
 
@@ -571,17 +587,17 @@ msgid "Default AI account"
 msgstr "Cyfrif AI diofyn"
 
 #: src/features/chats/components/message-hover-actions.tsx:135
-#: src/features/chats/index.tsx:819
-#: src/features/chats/index.tsx:929
+#: src/features/chats/index.tsx:846
+#: src/features/chats/index.tsx:952
 msgid "Delete"
 msgstr "Dileu"
 
-#: src/features/chats/index.tsx:705
-#: src/features/chats/index.tsx:850
+#: src/features/chats/index.tsx:732
+#: src/features/chats/index.tsx:877
 msgid "Delete chat"
 msgstr "Dileu sgwrs"
 
-#: src/features/chats/index.tsx:907
+#: src/features/chats/index.tsx:930
 #: src/routes/_authenticated/$chatId_.settings.tsx:366
 msgid "Delete chat history"
 msgstr "Dileu hanes sgwrs"
@@ -590,12 +606,12 @@ msgstr "Dileu hanes sgwrs"
 msgid "Delete your account on the old server"
 msgstr "Dilëwch eich cyfrif ar yr hen weinydd"
 
-#: src/features/chats/index.tsx:522
+#: src/features/chats/index.tsx:542
 msgid "Deleting chat..."
 msgstr "Yn dileu sgwrs..."
 
-#: src/features/chats/index.tsx:397
-#: src/features/chats/index.tsx:926
+#: src/features/chats/index.tsx:403
+#: src/features/chats/index.tsx:949
 msgid "Deleting..."
 msgstr "Yn dileu..."
 
@@ -695,7 +711,7 @@ msgstr "Methwyd ychwanegu cyfrif"
 msgid "Failed to add member"
 msgstr "Methwyd ychwanegu aelod"
 
-#: src/features/chats/index.tsx:368
+#: src/features/chats/index.tsx:374
 msgid "Failed to copy"
 msgstr "Methwyd copïo"
 
@@ -707,11 +723,11 @@ msgstr "Methwyd copïo'r neges"
 msgid "Failed to create chat"
 msgstr "Methwyd creu sgwrs"
 
-#: src/features/chats/index.tsx:399
+#: src/features/chats/index.tsx:405
 msgid "Failed to delete"
 msgstr "Methwyd dileu"
 
-#: src/features/chats/index.tsx:524
+#: src/features/chats/index.tsx:544
 msgid "Failed to delete chat"
 msgstr "Methwyd dileu'r sgwrs"
 
@@ -719,7 +735,7 @@ msgstr "Methwyd dileu'r sgwrs"
 msgid "Failed to forward"
 msgstr "Methwyd anfon ymlaen"
 
-#: src/features/chats/index.tsx:505
+#: src/features/chats/index.tsx:525
 #: src/routes/_authenticated/$chatId_.settings.tsx:327
 msgid "Failed to leave chat"
 msgstr "Methwyd gadael y sgwrs"
@@ -744,7 +760,7 @@ msgstr "Methwyd ailenwi'r sgwrs"
 msgid "Failed to save"
 msgstr "Methwyd cadw"
 
-#: src/features/chats/index.tsx:870
+#: src/features/chats/index.tsx:481
 msgid "Failed to send message"
 msgstr "Methwyd anfon y neges"
 
@@ -752,7 +768,7 @@ msgstr "Methwyd anfon y neges"
 msgid "Failed to send verification code"
 msgstr "Methwyd anfon y cod dilysu"
 
-#: src/features/chats/index.tsx:199
+#: src/features/chats/index.tsx:205
 msgid "Failed to start chat"
 msgstr "Methwyd cychwyn sgwrs"
 
@@ -774,7 +790,7 @@ msgstr "Arnofiol"
 
 #: src/features/chats/components/forward-dialog.tsx:260
 #: src/features/chats/components/message-hover-actions.tsx:124
-#: src/features/chats/index.tsx:810
+#: src/features/chats/index.tsx:837
 msgid "Forward"
 msgstr "Anfon ymlaen"
 
@@ -879,7 +895,7 @@ msgid "Imperial"
 msgstr "Imperial"
 
 #: src/features/chats/components/chat-settings-dialog.tsx:77
-#: src/features/chats/index.tsx:728
+#: src/features/chats/index.tsx:755
 msgid "Incoming chats"
 msgstr "Sgyrsiau sy'n dod i mewn"
 
@@ -895,8 +911,8 @@ msgstr "Diddordebau"
 msgid "Invalid verification code"
 msgstr "Cod dilysu annilys"
 
-#: src/features/chats/components/chat-message-list.tsx:646
-#: src/features/chats/components/chat-message-list.tsx:663
+#: src/features/chats/components/chat-message-list.tsx:690
+#: src/features/chats/components/chat-message-list.tsx:707
 msgid "Jump to bottom"
 msgstr "Neidio i'r gwaelod"
 
@@ -918,31 +934,31 @@ msgstr "Cynllun"
 msgid "Learn more"
 msgstr "Dysgu mwy"
 
-#: src/features/chats/index.tsx:893
+#: src/features/chats/index.tsx:916
 msgid "Leave"
 msgstr "Gadael"
 
-#: src/features/chats/index.tsx:712
+#: src/features/chats/index.tsx:739
 #: src/routes/_authenticated/$chatId_.settings.tsx:352
 msgid "Leave chat"
 msgstr "Gadael y sgwrs"
 
-#: src/features/chats/index.tsx:884
+#: src/features/chats/index.tsx:907
 #: src/routes/_authenticated/$chatId_.settings.tsx:343
 msgid "Leave chat?"
 msgstr "Gadael y sgwrs?"
 
-#: src/features/chats/index.tsx:503
+#: src/features/chats/index.tsx:523
 #: src/routes/_authenticated/$chatId_.settings.tsx:325
 msgid "Leaving chat..."
 msgstr "Yn gadael y sgwrs..."
 
-#: src/features/chats/index.tsx:890
+#: src/features/chats/index.tsx:913
 #: src/routes/_authenticated/$chatId_.settings.tsx:349
 msgid "Leaving..."
 msgstr "Yn gadael..."
 
-#: src/features/chats/index.tsx:504
+#: src/features/chats/index.tsx:524
 #: src/routes/_authenticated/$chatId_.settings.tsx:326
 msgid "Left chat"
 msgstr "Wedi gadael y sgwrs"
@@ -1054,12 +1070,16 @@ msgstr "Gweithredoedd neges"
 msgid "Message copied"
 msgstr "Copïwyd y neges"
 
-#: src/features/chats/index.tsx:398
+#: src/features/chats/index.tsx:483
+msgid "Message could not be sent. Attachments may be too large, or your connection failed. Try smaller files."
+msgstr ""
+
+#: src/features/chats/index.tsx:404
 msgid "Message deleted"
 msgstr "Dilëwyd y neges"
 
 #: src/features/chats/components/message-quote.tsx:60
-#: src/features/chats/index.tsx:419
+#: src/features/chats/index.tsx:425
 msgid "Message not available"
 msgstr "Nid yw'r neges ar gael"
 
@@ -1127,7 +1147,7 @@ msgstr "Dim ffrindiau eto"
 msgid "No groups available"
 msgstr "Dim grwpiau ar gael"
 
-#: src/features/chats/components/chat-message-list.tsx:384
+#: src/features/chats/components/chat-message-list.tsx:406
 msgid "No messages yet"
 msgstr "Dim negeseuon eto"
 
@@ -1182,7 +1202,7 @@ msgstr "Heb ei ganfod"
 msgid "Not set"
 msgstr "Heb ei osod"
 
-#: src/features/chats/index.tsx:363
+#: src/features/chats/index.tsx:369
 msgid "Nothing to copy"
 msgstr "Dim byd i'w gopïo"
 
@@ -1220,7 +1240,7 @@ msgstr "Agor camau gweithredu cyfrif"
 msgid "Open actions"
 msgstr "Agor gweithredoedd"
 
-#: src/features/chats/index.tsx:697
+#: src/features/chats/index.tsx:724
 msgid "Open chat actions"
 msgstr "Agor camau gweithredu sgwrs"
 
@@ -1357,8 +1377,7 @@ msgstr "Tynnu"
 
 #. placeholder {0}: attachment.file.name
 #. placeholder {0}: reaction.label.toLowerCase()
-#: src/features/chats/components/chat-input.tsx:224
-#: src/features/chats/components/chat-input.tsx:229
+#: src/features/chats/components/chat-input.tsx:237
 #: src/features/chats/components/message-reaction-bar.tsx:121
 msgid "Remove {0}"
 msgstr "Tynnu {0}"
@@ -1398,7 +1417,7 @@ msgid "Reply"
 msgstr "Ymateb"
 
 #. placeholder {0}: replyTo.name
-#: src/features/chats/components/chat-input.tsx:138
+#: src/features/chats/components/chat-input.tsx:155
 msgid "Replying to {0}"
 msgstr "Yn ateb {0}"
 
@@ -1465,7 +1484,7 @@ msgstr "Chwilio am ffrindiau…"
 msgid "Search in chat..."
 msgstr "Chwilio yn y sgwrs..."
 
-#: src/features/chats/index.tsx:687
+#: src/features/chats/index.tsx:714
 msgid "Search messages"
 msgstr "Chwilio negeseuon"
 
@@ -1519,11 +1538,11 @@ msgstr "Dewis grŵp"
 msgid "Select layout style"
 msgstr "Dewis arddull cynllun"
 
-#: src/features/chats/components/chat-message-list.tsx:617
+#: src/features/chats/components/chat-message-list.tsx:661
 msgid "Select loaded"
 msgstr "Dewis rhai wedi'u llwytho"
 
-#: src/features/chats/components/chat-message-list.tsx:440
+#: src/features/chats/components/chat-message-list.tsx:474
 msgid "Select message"
 msgstr "Dewis neges"
 
@@ -1543,11 +1562,11 @@ msgstr "Dewis cyfeiriad y safle"
 msgid "Select theme preference"
 msgstr "Dewis dewis thema"
 
-#: src/features/chats/components/chat-message-list.tsx:607
+#: src/features/chats/components/chat-message-list.tsx:651
 msgid "selected"
 msgstr "wedi'u dewis"
 
-#: src/features/chats/components/chat-message-list.tsx:615
+#: src/features/chats/components/chat-message-list.tsx:659
 msgid "Selects messages loaded so far"
 msgstr "Yn dewis y negeseuon sydd wedi'u llwytho hyd yma"
 
@@ -1559,8 +1578,8 @@ msgstr "Anfon eto"
 msgid "Send email"
 msgstr "Anfon e-bost"
 
-#: src/features/chats/components/chat-input.tsx:278
-#: src/features/chats/components/chat-input.tsx:287
+#: src/features/chats/components/chat-input.tsx:293
+#: src/features/chats/components/chat-input.tsx:302
 msgid "Send message"
 msgstr "Anfon neges"
 
@@ -1594,6 +1613,7 @@ msgstr "Gosod tarddiad a chyrchfan"
 msgid "Settings"
 msgstr "Gosodiadau"
 
+#: src/features/chats/components/message-attachments.tsx:127
 #: src/features/chats/components/message-body.tsx:74
 msgid "Show less"
 msgstr "Dangos llai"
@@ -1638,7 +1658,7 @@ msgstr "Helaeth"
 msgid "Start a conversation"
 msgstr "Cychwyn sgwrs"
 
-#: src/features/chats/index.tsx:196
+#: src/features/chats/index.tsx:202
 msgid "Starting chat..."
 msgstr "Yn dechrau sgwrs..."
 
@@ -1694,6 +1714,10 @@ msgstr "Thema"
 msgid "Theme Settings"
 msgstr "Gosodiadau Thema"
 
+#: src/features/chats/index.tsx:568
+#~ msgid "These files are too large to attach: {names}"
+#~ msgstr ""
+
 #: src/routes/_authenticated/$chatId_.settings.tsx:160
 msgid "this chat"
 msgstr "y sgwrs hon"
@@ -1702,11 +1726,11 @@ msgstr "y sgwrs hon"
 msgid "This chat may have been deleted or you don't have access to it"
 msgstr "Efallai bod y sgwrs hon wedi'i dileu neu nad oes gennych fynediad iddi"
 
-#: src/features/chats/index.tsx:921
+#: src/features/chats/index.tsx:944
 msgid "This deletes the message for everyone and cannot be undone."
 msgstr "Mae hyn yn dileu'r neges i bawb ac ni ellir ei ddadwneud."
 
-#: src/features/chats/components/chat-message-list.tsx:520
+#: src/features/chats/components/chat-message-list.tsx:539
 #: src/features/chats/components/message-quote.tsx:50
 msgid "This message was deleted"
 msgstr "Cafodd y neges hon ei dileu"
@@ -1746,6 +1770,10 @@ msgstr "Toglo'r Bar Ochr"
 msgid "Toggle theme"
 msgstr "Toglo thema"
 
+#: src/features/chats/components/chat-input.tsx:248
+#~ msgid "Too large"
+#~ msgstr ""
+
 #: ../../../lib/web/src/features/errors/general-error.tsx:74
 msgid "Too many requests"
 msgstr "Gormod o geisiadau"
@@ -1753,6 +1781,10 @@ msgstr "Gormod o geisiadau"
 #: ../../../lib/web/src/components/ui/sort-selector.tsx:45
 msgid "Top"
 msgstr "Brig"
+
+#: src/features/chats/components/chat-input.tsx:271
+#~ msgid "Total attachment size exceeds {0}. Remove a file to send."
+#~ msgstr ""
 
 #: ../../../lib/web/src/components/travelling-picker.tsx:145
 msgid "Travelling"
@@ -1789,11 +1821,11 @@ msgstr "Teipiwch i chwilio defnyddwyr"
 msgid "Type to search..."
 msgstr "Teipiwch i chwilio..."
 
-#: src/features/chats/components/chat-input.tsx:258
+#: src/features/chats/components/chat-input.tsx:273
 msgid "Type your message…"
 msgstr "Teipiwch eich neges…"
 
-#: src/features/chats/components/chat-input.tsx:258
+#: src/features/chats/components/chat-input.tsx:273
 msgid "Type your reply…"
 msgstr "Teipiwch eich ateb…"
 
@@ -1830,6 +1862,14 @@ msgstr "Dadbinio'r sgwrs"
 msgid "Unverified"
 msgstr "Heb ei ddilysu"
 
+#: src/features/chats/components/chat-input.tsx:299
+#~ msgid "Up to {0} per file, {1} total per message"
+#~ msgstr ""
+
+#: src/features/chats/index.tsx:485
+msgid "Upload failed because this account has reached its storage limit."
+msgstr ""
+
 #: ../../../lib/web/src/components/step-up-dialog.tsx:338
 msgid "Use your passkey"
 msgstr "Defnyddiwch eich allwedd mynediad"
@@ -1860,7 +1900,8 @@ msgstr "Dilysu"
 msgid "Verify email address"
 msgstr "Dilysu cyfeiriad e-bost"
 
-#: ../../../lib/web/src/components/attachment-gallery.tsx:66
+#: ../../../lib/web/src/components/attachment-gallery.tsx:75
+#: src/features/chats/components/message-media-grid.tsx:52
 msgid "Video thumbnail"
 msgstr "Bawd fideo"
 
@@ -1889,7 +1930,7 @@ msgstr "Mae'r wefan yn cael ei chynnal!"
 msgid "Wednesday"
 msgstr "Dydd Mercher"
 
-#: src/features/chats/index.tsx:279
+#: src/features/chats/index.tsx:285
 msgid "You"
 msgstr "Chi"
 
@@ -1901,7 +1942,7 @@ msgstr "Mae gennych sgwrs eisoes gyda'r ffrind hwn"
 msgid "You already have chats with:"
 msgstr "Mae gennych sgyrsiau eisoes gyda:"
 
-#: src/features/chats/index.tsx:380
+#: src/features/chats/index.tsx:386
 msgid "You can only delete your own messages"
 msgstr "Dim ond eich negeseuon eich hun y gallwch eu dileu"
 
@@ -1909,11 +1950,11 @@ msgstr "Dim ond eich negeseuon eich hun y gallwch eu dileu"
 msgid "You do not have access to this section."
 msgstr "Nid oes gennych fynediad i'r adran hon."
 
-#: src/features/chats/index.tsx:837
+#: src/features/chats/index.tsx:864
 msgid "You left this chat"
 msgstr "Gadawoch y sgwrs hon"
 
-#: src/features/chats/index.tsx:836
+#: src/features/chats/index.tsx:863
 msgid "You were removed from this chat"
 msgstr "Ymddiswyddoch — mae {opponentName} yn ennill"
 

@@ -228,7 +228,9 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(
                   </AttachmentMedia>
                   <AttachmentContent>
                     <AttachmentTitle>{attachment.file.name}</AttachmentTitle>
-                    <AttachmentDescription>{formatFileSize(attachment.file.size)}</AttachmentDescription>
+                    <AttachmentDescription>
+                      {formatFileSize(attachment.file.size)}
+                    </AttachmentDescription>
                   </AttachmentContent>
                   <AttachmentActions>
                     <AttachmentAction

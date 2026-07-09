@@ -14,6 +14,7 @@ import {
 } from 'react'
 import { useFormat } from '@mochi/web'
 import { plural } from '@lingui/core/macro'
+import { useLingui as useLinguiRuntime } from '@lingui/react'
 import { Trans, useLingui } from '@lingui/react/macro'
 import type {
   UseInfiniteQueryResult,
@@ -141,6 +142,7 @@ export function ChatMessageList({
   onClearSelection,
 }: ChatMessageListProps) {
   const { t } = useLingui()
+  const { _ } = useLinguiRuntime()
   const { formatDate, formatTime, formatNumber } = useFormat()
   const scrollContainerRef = useRef<HTMLDivElement | null>(null)
   const messagesEndRef = useRef<HTMLDivElement | null>(null)
@@ -522,7 +524,15 @@ export function ChatMessageList({
                         )}
                       >
                         <BubbleContent
-                          className={cn(isDeleted && 'bg-transparent text-muted-foreground italic border-dashed')}
+                          className={cn(
+                            isDeleted &&
+                              'bg-transparent text-muted-foreground italic border-dashed',
+                            message.attachments?.length &&
+                              'w-full max-w-full',
+                            message.attachments?.length &&
+                              !message.body &&
+                              'px-1.5 py-1.5'
+                          )}
                         >
                         {isDeleted ? (
                           <p className='text-muted-foreground text-sm italic'>
@@ -539,12 +549,11 @@ export function ChatMessageList({
                             ) : null}
 
                             {message.attachments?.length ? (
-                              <div className='space-y-2'>
-                                <MessageAttachments
-                                  attachments={message.attachments}
-                                  chatId={message.chat}
-                                />
-                              </div>
+                              <MessageAttachments
+                                attachments={message.attachments}
+                                chatId={message.chat}
+                                isSent={isSent}
+                              />
                             ) : null}
 
                             {message.body ? (
@@ -674,10 +683,10 @@ export function ChatMessageList({
                 onClick={scrollToBottom}
                 aria-label={
                   newMessageCount > 0
-                    ? plural(newMessageCount, {
+                    ? _(plural(newMessageCount, {
                       one: 'Jump to 1 new message',
                       other: 'Jump to # new messages',
-                    })
+                    }))
                     : t`Jump to bottom`
                 }
               >
@@ -691,10 +700,10 @@ export function ChatMessageList({
             </TooltipTrigger>
             <TooltipContent>
               {newMessageCount > 0
-                ? plural(newMessageCount, {
+                ? _(plural(newMessageCount, {
                   one: 'Jump to 1 new message',
                   other: 'Jump to # new messages',
-                })
+                }))
                 : t`Jump to bottom`}
             </TooltipContent>
           </Tooltip>
