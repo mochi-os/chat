@@ -153,6 +153,7 @@ export function ChatMessageList({
   const [isScrolledAwayFromBottom, setIsScrolledAwayFromBottom] = useState(false)
   const [newMessageCount, setNewMessageCount] = useState(0)
   const [suppressHistoryReveal, setSuppressHistoryReveal] = useState(false)
+  const [activeMessageId, setActiveMessageId] = useState<string | null>(null)
   const [enteringMessageIds, setEnteringMessageIds] = useState<Set<string>>(
     () => new Set()
   )
@@ -412,6 +413,7 @@ export function ChatMessageList({
       <div
         ref={scrollContainerRef}
         onScroll={handleScroll}
+        onClick={() => !isSelecting && setActiveMessageId(null)}
         className='flex w-full flex-1 flex-col justify-start gap-4 overflow-y-auto px-4 py-2 pb-4'
       >
         {/* Load more trigger at top for older messages */}
@@ -447,7 +449,14 @@ export function ChatMessageList({
                     isSelecting && 'cursor-pointer select-none',
                     isSelecting && isSelected && 'bg-primary/8'
                   )}
-                  onClick={isSelecting ? () => onToggleSelect?.(message.id) : undefined}
+                  onClick={(e) => {
+                    if (isSelecting) {
+                      onToggleSelect?.(message.id)
+                    } else {
+                      e.stopPropagation()
+                      setActiveMessageId((prev) => (prev === message.id ? null : message.id))
+                    }
+                  }}
                 >
                   {/* Checkbox column — slides in when selection mode is active */}
                   <div
@@ -503,6 +512,7 @@ export function ChatMessageList({
                       <Bubble
                         variant={isSent ? 'default' : 'muted'}
                         align={isSent ? 'end' : 'start'}
+                        data-active={activeMessageId === message.id}
                         className={cn(
                           'transition-[opacity,transform,max-height] duration-300 ease-out',
                           isDeleted && 'scale-[0.97] opacity-60',
@@ -565,7 +575,7 @@ export function ChatMessageList({
                             className={cn(
                               isSent ? "flex-row-reverse" : "flex-row",
                               (!message.reaction_counts || Object.keys(message.reaction_counts).length === 0)
-                                ? "opacity-0 group-hover/bubble:opacity-100 focus-within:opacity-100 has-[[data-state=open]]:opacity-100 transition-opacity"
+                                ? "opacity-0 group-hover/bubble:opacity-100 group-data-[active=true]/bubble:opacity-100 focus-within:opacity-100 has-[[data-state=open]]:opacity-100 transition-opacity"
                                 : ""
                             )}
                           >
@@ -580,7 +590,7 @@ export function ChatMessageList({
                               "flex items-center gap-0.5",
                               isSent ? "flex-row-reverse" : "flex-row",
                               (message.reaction_counts && Object.keys(message.reaction_counts).length > 0)
-                                ? "max-w-0 overflow-hidden opacity-0 group-hover/bubble:max-w-[200px] group-hover/bubble:opacity-100 focus-within:max-w-[200px] focus-within:opacity-100 has-[[data-state=open]]:max-w-[200px] has-[[data-state=open]]:opacity-100 transition-all duration-200 ease-out"
+                                ? "max-w-0 overflow-hidden opacity-0 group-hover/bubble:max-w-[200px] group-hover/bubble:opacity-100 group-data-[active=true]/bubble:max-w-[200px] group-data-[active=true]/bubble:opacity-100 focus-within:max-w-[200px] focus-within:opacity-100 has-[[data-state=open]]:max-w-[200px] has-[[data-state=open]]:opacity-100 transition-all duration-200 ease-out"
                                 : ""
                             )}>
                               {onReact && (

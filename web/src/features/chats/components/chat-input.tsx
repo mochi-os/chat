@@ -16,8 +16,6 @@ import {
   type MouseEvent,
 } from 'react'
 import { Trans, useLingui } from '@lingui/react/macro'
-import { Button, Tooltip, TooltipContent, TooltipTrigger, cn } from '@mochi/web'
-import { Loader2, Paperclip, Send, X } from 'lucide-react'
 import {
   Attachment,
   AttachmentAction,
@@ -27,8 +25,14 @@ import {
   AttachmentGroup,
   AttachmentMedia,
   AttachmentTitle,
-} from '@/components/ui/attachment'
-import { useFormat } from '@mochi/web'
+  Button,
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+  cn,
+  useFormat,
+} from '@mochi/web'
+import { Loader2, Paperclip, Send, X } from 'lucide-react'
 import type { PendingAttachment } from '../utils'
 import type { ReplyTarget } from '../utils/reply'
 import { ReplyQuoteContent } from './reply-quote-content'
