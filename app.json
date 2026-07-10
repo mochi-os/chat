@@ -5,7 +5,7 @@
 // Mochi Application Interface Exception - see license.txt and license-exception.md.
 
 {
-	"version": "2.104",
+	"version": "2.105",
 	"label": "app.name",
 	"classes": ["chat"],
 	"paths": ["chat"],
@@ -15,9 +15,10 @@
 	"execute": ["chat.star"],
 
 	"database": {
-		"schema": 1,
+		"schema": 2,
 		"file": "chat.db",
 		"create": {"function": "database_create"},
+		"upgrade": {"function": "database_upgrade"},
 	},
 
 	"icons": [
@@ -40,6 +41,7 @@
 		":chat/-/resync": {"function": "action_resync"},
 		":chat/-/messages": {"function": "action_messages"},
 		":chat/-/messages/delete": {"function": "action_messages_delete"},
+		":chat/-/messages/edit": {"function": "action_message_edit"},
 		":chat/-/messages/forward": {"function": "action_messages_forward"},
 		":chat/-/messages/forward/friend": {"function": "action_messages_forward_friend"},
 		":chat/-/search": {"function": "action_search"},
@@ -66,6 +68,7 @@
 		"accept/query": {"function": "event_accept_query"},
 		"message": {"function": "event_message"},
 		"message/delete": {"function": "event_message_delete"},
+		"message/edit": {"function": "event_message_edit"},
 		"message/react": {"function": "event_message_react"},
 		"new": {"function": "event_new"},
 		"info": {"function": "event_info"},

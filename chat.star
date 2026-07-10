@@ -82,7 +82,20 @@ def chat_websocket(key, payload):
 		mochi.websocket.write(key, payload)
 
 def chat_commit_hook(table, kind, row_uid):
-	if kind != "insert" or not row_uid:
+	if not row_uid:
+		return
+	# A messages row update is an own-message edit (local action or
+	# received event): push the new body so open tabs replace it in place.
+	if table == "messages" and kind == "update":
+		message = mochi.db.row("select * from messages where id=?", row_uid)
+		if not message:
+			return
+		chat = mochi.db.row("select key from chats where id=?", message["chat"])
+		if not chat:
+			return
+		chat_websocket(chat["key"], {"event": "edit", "message": row_uid, "body": message["body"], "edited": message.get("edited", 0)})
+		return
+	if kind != "insert":
 		return
 	# A deletions row commit (local delete or replicated apply) tells every
 	# host's open tabs to replace the message with a "deleted" placeholder.
@@ -124,6 +137,7 @@ def chat_commit_hook(table, kind, row_uid):
 		"name": message["name"],
 		"body": message["body"],
 		"reply_to": message.get("reply_to"),
+		"edited": message.get("edited", 0),
 		"attachments": attachments,
 	})
 
@@ -142,7 +156,7 @@ def database_create():
 	mochi.db.execute("create table if not exists members ( chat references chats( id ), member text not null, name text not null default '', primary key ( chat, member ) )")
 	mochi.db.execute("create index if not exists members_member on members( member )")
 
-	mochi.db.execute("create table if not exists messages ( id text not null primary key, chat references chats( id ), member text not null, name text not null, body text not null, created integer not null, reply_to text references messages( id ) )")
+	mochi.db.execute("create table if not exists messages ( id text not null primary key, chat references chats( id ), member text not null, name text not null, body text not null, created integer not null, reply_to text references messages( id ), edited integer not null default 0 )")
 	mochi.db.execute("create index if not exists messages_chat_created on messages( chat, created )")
 
 	# Per-chat read watermark for the local account (read tracking / unread
@@ -163,6 +177,13 @@ def database_create():
 	mochi.db.execute("create table if not exists deletions ( chat text not null, message text not null primary key, member text not null, created integer not null )")
 	mochi.db.execute("create index if not exists deletions_chat on deletions( chat )")
 
+def database_upgrade(version):
+	if version == 2:
+		# Own-message editing: last-edit timestamp, 0 = never edited.
+		# Idempotent via the column check.
+		columns = [c["name"] for c in mochi.db.table("messages")]
+		if "edited" not in columns:
+			mochi.db.execute("alter table messages add column edited integer not null default 0")
 
 def stream_asset(a, entity_id, service, asset):
 	if not entity_id:
@@ -509,6 +530,46 @@ def action_send(a):
 	else:
 		reply_to = None
 
+	# Optional @mentions: a JSON array of member identity ids. The body
+	# carries the @[Name] display markup; the ids here are what recipients
+	# use to decide "mentions me" precisely (names collide, ids do not).
+	# Each id must be a current member of this chat.
+	mentions = []
+	mentions_raw = a.input("mentions")
+	if mentions_raw:
+		decoded = json.decode(mentions_raw, None)
+		if type(decoded) != "list" or len(decoded) > 50:
+			a.error.label(400, "errors.invalid_message")
+			return
+		for raw in decoded:
+			member_id = str(raw)
+			if not mochi.text.valid(member_id, "entity"):
+				a.error.label(400, "errors.invalid_message")
+				return
+			if member_id in mentions:
+				continue
+			if not mochi.db.exists("select 1 from members where chat=? and member=?", chat["id"], member_id):
+				a.error.label(400, "errors.mentioned_not_a_member")
+				return
+			mentions.append(member_id)
+
+	# Optional per-file captions for attachment metadata (JSON array of
+	# strings aligned with the files' order). Voice notes use this to carry
+	# their duration so recipients can render a player before downloading.
+	captions = []
+	captions_raw = a.input("captions")
+	if captions_raw:
+		decoded = json.decode(captions_raw, None)
+		if type(decoded) != "list" or len(decoded) > 100:
+			a.error.label(400, "errors.invalid_message")
+			return
+		for raw in decoded:
+			caption = str(raw)
+			if len(caption) > 200:
+				a.error.label(400, "errors.invalid_message")
+				return
+			captions.append(caption)
+
 	chat_ensure_commit_hook()
 	id = mochi.uid()
 	now_send = mochi.time.now()
@@ -524,7 +585,7 @@ def action_send(a):
 	# Save any uploaded attachments locally
 	attachments = []
 	if has_files:
-		attachments = mochi.attachment.save("chat/" + chat["id"] + "/" + id, "files", [], [], [])
+		attachments = mochi.attachment.save("chat/" + chat["id"] + "/" + id, "files", captions, [], [])
 
 	# Live-update websocket: fired from chat_commit_hook on every host
 	# that sees this messages row (local + paired replicas via the
@@ -540,8 +601,10 @@ def action_send(a):
 	msg_data = {"chat": chat["id"], "message": id, "created": now_send, "body": body, "name": a.user.identity.name}
 	if reply_to:
 		msg_data["reply_to"] = reply_to
+	if mentions:
+		msg_data["mentions"] = mentions
 	if attachments:
-		msg_data["attachments"] = [{"id": att["id"], "name": att["name"], "size": att["size"], "content_type": att.get("type", ""), "rank": att.get("rank", 0), "created": att.get("created", now_send)} for att in attachments]
+		msg_data["attachments"] = [{"id": att["id"], "name": att["name"], "size": att["size"], "content_type": att.get("type", ""), "rank": att.get("rank", 0), "created": att.get("created", now_send), "caption": att.get("caption", ""), "description": att.get("description", "")} for att in attachments]
 	broadcast_chat(chat["id"], a.user.identity.id, member_ids, "message", msg_data)
 
 	return {
@@ -856,6 +919,97 @@ def event_message_delete(e):
 		if not owner or owner["member"] != sender:
 			continue
 		message_delete_apply(chat["id"], message_id, sender, now_delete)
+
+# Edit one of the caller's own messages for everyone. Same body rules as
+# send; editing to empty is a delete and is refused. Deleted messages stay
+# deleted. The edited timestamp is what recipients converge on (LWW).
+def action_message_edit(a):
+	if not mochi.text.valid(a.input("chat"), "id"):
+		a.error.label(400, "errors.invalid_chat_id")
+		return
+	chat = mochi.db.row("select * from chats where id=?", a.input("chat"))
+	if not chat:
+		a.error.label(404, "errors.chat_not_found")
+		return
+	if not mochi.db.exists("select 1 from members where chat=? and member=?", chat["id"], a.user.identity.id):
+		a.error.label(403, "errors.not_a_member_of_this_chat")
+		return
+
+	message_id = a.input("message", "")
+	if not mochi.text.valid(message_id, "id"):
+		a.error.label(400, "errors.invalid_message")
+		return
+	row = mochi.db.row("select member, edited from messages where id=? and chat=?", message_id, chat["id"])
+	if not row:
+		a.error.label(404, "errors.message_not_found")
+		return
+	if row["member"] != a.user.identity.id:
+		a.error.label(403, "errors.not_your_message")
+		return
+	if mochi.db.exists("select 1 from deletions where message=?", message_id):
+		a.error.label(404, "errors.message_not_found")
+		return
+
+	body = a.input("body", "")
+	if not mochi.text.valid(body, "text"):
+		a.error.label(400, "errors.invalid_message")
+		return
+	if len(body) > 10000:
+		a.error.label(400, "errors.message_too_long")
+		return
+	if not body.strip():
+		a.error.label(400, "errors.message_empty")
+		return
+
+	now_edit = mochi.time.now()
+	mochi.db.execute("update messages set body=?, edited=? where id=? and chat=?", body, now_edit, message_id, chat["id"])
+	chat_ensure_commit_hook()
+	mochi.db.commit.fire("messages", "update", message_id)
+
+	members = mochi.db.rows("select member from members where chat=? and member!=?", chat["id"], a.user.identity.id)
+	member_ids = [m["member"] for m in members]
+	broadcast_chat(chat["id"], a.user.identity.id, member_ids, "message/edit", {"chat": chat["id"], "message": message_id, "body": body, "edited": now_edit})
+
+	return {"data": {"id": message_id, "edited": now_edit}}
+
+# A member edited their own message. Apply if the sender is the author and
+# the edit is newer than what we hold; the deletion tombstone always wins.
+# Broadcast ordering guarantees the original message arrives before its own
+# edit, so a missing row means we were never sent the message — ignore.
+def event_message_edit(e):
+	chat = mochi.db.row("select * from chats where id=?", e.content("chat"))
+	if not chat or chat["status"] != "active":
+		return
+	sender = e.header("from")
+	if not mochi.db.exists("select 1 from members where chat=? and member=?", chat["id"], sender):
+		return
+
+	message_id = str(e.content("message"))
+	if not mochi.text.valid(message_id, "id"):
+		return
+	edited = e.content("edited")
+	if not mochi.text.valid(str(edited), "integer"):
+		return
+	now = mochi.time.now()
+	if edited > now + 86400 or edited < now - 31536000:
+		return
+	body = e.content("body")
+	if not mochi.text.valid(str(body), "text"):
+		return
+	if len(str(body)) > 10000 or not str(body).strip():
+		return
+
+	row = mochi.db.row("select member, edited from messages where id=? and chat=?", message_id, chat["id"])
+	if not row or row["member"] != sender:
+		return
+	if mochi.db.exists("select 1 from deletions where message=?", message_id):
+		return
+	if edited <= (row["edited"] or 0):
+		return
+
+	mochi.db.execute("update messages set body=?, edited=? where id=? and chat=?", body, edited, message_id, chat["id"])
+	chat_ensure_commit_hook()
+	mochi.db.commit.fire("messages", "update", message_id)
 
 # Forward messages from this chat into another chat the caller belongs to,
 # copying body and attachment bytes as new messages authored by the caller.
@@ -1207,6 +1361,14 @@ def event_message(e):
 	if mochi.db.exists("select 1 from deletions where message=?", id):
 		body = ""
 
+	# Same for edits: a replayed original carries the pre-edit body, and the
+	# replace below would silently un-edit the message. Keep the edited copy.
+	edited = 0
+	existing = mochi.db.row("select body, edited from messages where id=? and chat=?", id, chat["id"])
+	if existing and existing["edited"]:
+		body = existing["body"]
+		edited = existing["edited"]
+
 	# Structured reply: keep only if the quoted message is one we hold in
 	# this chat (out-of-order delivery may not have it yet — drop silently).
 	reply_to = e.content("reply_to") or None
@@ -1216,7 +1378,7 @@ def event_message(e):
 		elif not mochi.db.exists("select 1 from messages where id=? and chat=?", reply_to, chat["id"]):
 			reply_to = None
 
-	mochi.db.execute("replace into messages ( id, chat, member, name, body, created, reply_to ) values ( ?, ?, ?, ?, ?, ?, ? )", id, chat["id"], member["member"], name, body, created, reply_to)
+	mochi.db.execute("replace into messages ( id, chat, member, name, body, created, reply_to, edited ) values ( ?, ?, ?, ?, ?, ?, ?, ? )", id, chat["id"], member["member"], name, body, created, reply_to, edited)
 	# Bump the chat's updated timestamp so the chat list sorts by last
 	# message activity. Use the message's own `created` (not now()) so
 	# replayed history doesn't drag the chat forward in time.
@@ -1236,7 +1398,18 @@ def event_message(e):
 	# message arrive without a refresh.
 	chat_ensure_commit_hook()
 	mochi.db.commit.fire("messages", "insert", id)
-	notify("message", chat["id"], mochi.app.label("notifications.title.message"), name + ": " + body, "/chat/" + chat["id"], chat["name"], event_id="message:" + str(id))
+
+	# Targeted notification: a message that @mentions this user notifies on
+	# the separately-configurable "mention" topic instead of the generic
+	# message topic, so mentions cut through even when Messages is muted.
+	# The sender supplies the mentioned ids; trust them only as far as the
+	# roster — a mention of a non-member is ignored.
+	mentions = e.content("mentions")
+	if type(mentions) in ("list", "tuple") and e.header("to") in [str(m) for m in mentions]:
+		excerpt = str(body).strip()[:80]
+		notify("mention", chat["id"], mochi.app.label("notifications.title.mention"), mochi.app.label("notifications.body.mentioned_you", author=name, excerpt=excerpt), "/chat/" + chat["id"], chat["name"], event_id="mention:" + str(id))
+	else:
+		notify("message", chat["id"], mochi.app.label("notifications.title.message"), name + ": " + body, "/chat/" + chat["id"], chat["name"], event_id="message:" + str(id))
 
 # Received a new chat event
 def event_new(e):
