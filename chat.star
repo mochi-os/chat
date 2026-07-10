@@ -265,7 +265,11 @@ def chat_member_allowed(user, member_id):
 	if friend:
 		return {"name": friend["name"]}
 	response = mochi.remote.request(member_id, "chat", "accept/query", {})
-	if response == None:
+	# A transport failure is not a refusal: mochi.remote.request reports
+	# it as {"error": ..., "code": ...}, never None, so an "error" key
+	# means the member's server could not be reached or did not answer -
+	# distinct from an explicit {"accept": False} policy refusal.
+	if response == None or response.get("error"):
 		return {"error": "errors.member_unreachable"}
 	if response.get("accept") and mochi.text.valid(response.get("name", ""), "name"):
 		return {"name": response["name"]}
