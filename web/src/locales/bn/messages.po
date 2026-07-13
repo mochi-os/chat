@@ -18,17 +18,21 @@ msgstr ""
 msgid "Please check your internet connection and try again."
 msgstr "অনুগ্রহ করে আপনার ইন্টারনেট সংযোগ পরীক্ষা করে আবার চেষ্টা করুন।"
 
-#: src/features/chats/components/message-reaction-bar.tsx:183
+#: src/features/chats/components/message-reaction-bar.tsx:182
 msgid " (includes you)"
 msgstr " (আপনাকে অন্তর্ভুক্ত করে)"
 
+#: src/features/chats/index.tsx:567
+#~ msgid "\"{names}\" is too large to attach"
+#~ msgstr ""
+
 #. placeholder {0}: deleteTargetIds?.length ?? 0
-#: src/features/chats/index.tsx:917
+#: src/features/chats/index.tsx:934
 msgid "{0, plural, one {Delete message?} other {Delete # messages?}}"
 msgstr "{0, plural, one {বার্তাটি মুছবেন?} other {#টি বার্তা মুছবেন?}}"
 
 #. placeholder {0}: selectedIds.size
-#: src/features/chats/index.tsx:793
+#: src/features/chats/index.tsx:814
 msgid "{0} selected"
 msgstr "{0}টি নির্বাচিত"
 
@@ -38,8 +42,12 @@ msgstr "{0}টি নির্বাচিত"
 msgid "{0} settings"
 msgstr "{0} সেটিংস"
 
-#: src/features/chats/components/chat-message-list.tsx:642
-#: src/features/chats/components/chat-message-list.tsx:659
+#: src/features/chats/components/message-attachments.tsx:129
+msgid "{hiddenCount, plural, one {Show 1 more file} other {Show # more files}}"
+msgstr ""
+
+#: src/features/chats/components/chat-message-list.tsx:686
+#: src/features/chats/components/chat-message-list.tsx:703
 msgid "{newMessageCount, plural, one {Jump to 1 new message} other {Jump to # new messages}}"
 msgstr "{newMessageCount, plural, one {১টি নতুন বার্তায় যান} other {#টি নতুন বার্তায় যান}}"
 
@@ -50,6 +58,10 @@ msgstr "১২ ঘণ্টা"
 #: ../../../lib/web/src/lib/preference-utils.ts:41
 msgid "24 hours"
 msgstr "২৪ ঘণ্টা"
+
+#: src/features/chats/index.tsx:484
+#~ msgid "A file is too large to upload. Try a smaller attachment."
+#~ msgstr ""
 
 #: ../../../lib/web/src/lib/preference-utils.ts:51
 msgid "Absolute (date and time)"
@@ -109,8 +121,8 @@ msgstr "অ্যাকাউন্ট যোগ করুন"
 msgid "Add an account to receive notifications and use services."
 msgstr "নোটিফিকেশন পেতে এবং পরিষেবা ব্যবহার করতে একটি অ্যাকাউন্ট যোগ করুন।"
 
-#: src/features/chats/components/chat-input.tsx:245
-#: src/features/chats/components/chat-input.tsx:250
+#: src/features/chats/components/chat-input.tsx:260
+#: src/features/chats/components/chat-input.tsx:265
 msgid "Add attachment"
 msgstr "অ্যাটাচমেন্ট যোগ করুন"
 
@@ -199,7 +211,7 @@ msgid "Anyone can start a chat with you."
 msgstr "যে কেউ আপনার সাথে চ্যাট শুরু করতে পারে।"
 
 #. placeholder {0}: selectedChat?.name
-#: src/features/chats/index.tsx:885
+#: src/features/chats/index.tsx:902
 msgid "Are you sure you want to leave \"{0}\"? You can be added back by other members."
 msgstr "আপনি কি নিশ্চিত যে আপনি \"{0}\" ছাড়তে চান? অন্যান্য সদস্যরা আপনাকে আবার যোগ করতে পারবে।"
 
@@ -224,10 +236,14 @@ msgstr "ঊর্ধ্বক্রম"
 msgid "Ascending"
 msgstr "ঊর্ধ্বক্রম"
 
-#: src/features/chats/components/chat-input.tsx:147
+#: src/features/chats/components/chat-input.tsx:164
 #: src/features/chats/components/message-quote.tsx:56
 msgid "Attachment"
 msgstr "সংযুক্তি"
+
+#: src/features/chats/index.tsx:478
+msgid "Attachments are too large to upload. Remove or shrink files and try again."
+msgstr ""
 
 #: ../../../lib/web/src/components/step-up-dialog.tsx:315
 msgid "Authenticator code"
@@ -249,7 +265,7 @@ msgstr "চ্যাটে ফিরে যান"
 msgid "Back to home"
 msgstr "হোমে ফিরে যান"
 
-#: src/features/chats/components/chat-message-list.tsx:385
+#: src/features/chats/components/chat-message-list.tsx:407
 msgid "Be the first to say something!"
 msgstr "সবার আগে কিছু বলুন!"
 
@@ -267,16 +283,16 @@ msgstr "আগ্রহ বৃদ্ধি করুন"
 #: ../../../lib/web/src/features/access/access-list.tsx:263
 #: ../../../lib/web/src/features/accounts/account-add.tsx:188
 #: ../../../lib/web/src/features/accounts/account-verify.tsx:89
-#: src/features/chats/components/chat-message-list.tsx:626
+#: src/features/chats/components/chat-message-list.tsx:670
 #: src/features/chats/components/chat-settings-dialog.tsx:109
 #: src/features/chats/components/forward-dialog.tsx:249
 #: src/features/chats/components/new-chat.tsx:285
-#: src/features/chats/index.tsx:826
+#: src/features/chats/index.tsx:847
 msgid "Cancel"
 msgstr "বাতিল করুন"
 
-#: src/features/chats/components/chat-input.tsx:157
-#: src/features/chats/components/chat-input.tsx:162
+#: src/features/chats/components/chat-input.tsx:174
+#: src/features/chats/components/chat-input.tsx:179
 msgid "Cancel reply"
 msgstr "উত্তর বাতিল করুন"
 
@@ -289,10 +305,10 @@ msgstr "এই নোটিফিকেশনের ক্যাটেগরি"
 msgid "Change notification category"
 msgstr "নোটিফিকেশন ক্যাটেগরি পরিবর্তন করুন"
 
-#: src/features/chats/index.tsx:75
-#: src/features/chats/index.tsx:193
-#: src/features/chats/index.tsx:193
-#: src/features/chats/index.tsx:620
+#: src/features/chats/index.tsx:77
+#: src/features/chats/index.tsx:195
+#: src/features/chats/index.tsx:195
+#: src/features/chats/index.tsx:641
 msgid "Chat"
 msgstr "চ্যাট"
 
@@ -300,7 +316,7 @@ msgstr "চ্যাট"
 msgid "Chat created"
 msgstr "চ্যাট তৈরি হয়েছে"
 
-#: src/features/chats/index.tsx:523
+#: src/features/chats/index.tsx:537
 msgid "Chat deleted"
 msgstr "চ্যাট মুছে ফেলা হয়েছে"
 
@@ -349,8 +365,8 @@ msgstr "চ্যাট প্রস্তুত"
 msgid "Chat renamed"
 msgstr "চ্যাটের নাম পরিবর্তন করা হয়েছে"
 
-#: src/features/chats/index.tsx:625
-#: src/features/chats/index.tsx:722
+#: src/features/chats/index.tsx:646
+#: src/features/chats/index.tsx:743
 #: src/routes/_authenticated/$chatId_.settings.tsx:84
 #: src/routes/_authenticated/$chatId_.settings.tsx:97
 #: src/routes/_authenticated/$chatId_.settings.tsx:108
@@ -358,7 +374,7 @@ msgstr "চ্যাটের নাম পরিবর্তন করা হ�
 msgid "Chat settings"
 msgstr "চ্যাট সেটিংস"
 
-#: src/features/chats/components/chat-input.tsx:254
+#: src/features/chats/components/chat-input.tsx:269
 msgid "Chat Text Box"
 msgstr "চ্যাট টেক্সট বক্স"
 
@@ -498,13 +514,13 @@ msgstr "চালিয়ে যান"
 msgid "Continue with {label}"
 msgstr "{label} দিয়ে চালিয়ে যান"
 
-#: src/features/chats/index.tsx:367
+#: src/features/chats/index.tsx:369
 msgid "Copied"
 msgstr "কপি করা হয়েছে"
 
 #: ../../../lib/web/src/components/ui/copy-button.tsx:63
 #: src/features/chats/components/message-hover-actions.tsx:103
-#: src/features/chats/index.tsx:802
+#: src/features/chats/index.tsx:823
 msgid "Copy"
 msgstr "কপি করুন"
 
@@ -571,17 +587,17 @@ msgid "Default AI account"
 msgstr "ডিফল্ট AI অ্যাকাউন্ট"
 
 #: src/features/chats/components/message-hover-actions.tsx:135
-#: src/features/chats/index.tsx:819
-#: src/features/chats/index.tsx:929
+#: src/features/chats/index.tsx:840
+#: src/features/chats/index.tsx:946
 msgid "Delete"
 msgstr "মুছুন"
 
-#: src/features/chats/index.tsx:705
-#: src/features/chats/index.tsx:850
+#: src/features/chats/index.tsx:726
+#: src/features/chats/index.tsx:871
 msgid "Delete chat"
 msgstr "চ্যাট মুছুন"
 
-#: src/features/chats/index.tsx:907
+#: src/features/chats/index.tsx:924
 #: src/routes/_authenticated/$chatId_.settings.tsx:366
 msgid "Delete chat history"
 msgstr "চ্যাট ইতিহাস মুছুন"
@@ -590,12 +606,12 @@ msgstr "চ্যাট ইতিহাস মুছুন"
 msgid "Delete your account on the old server"
 msgstr "পুরানো সার্ভারে আপনার অ্যাকাউন্ট মুছুন"
 
-#: src/features/chats/index.tsx:522
+#: src/features/chats/index.tsx:536
 msgid "Deleting chat..."
 msgstr "চ্যাট মুছে ফেলা হচ্ছে..."
 
-#: src/features/chats/index.tsx:397
-#: src/features/chats/index.tsx:926
+#: src/features/chats/index.tsx:399
+#: src/features/chats/index.tsx:943
 msgid "Deleting..."
 msgstr "মুছে ফেলা হচ্ছে..."
 
@@ -695,7 +711,7 @@ msgstr "অ্যাকাউন্ট যোগ করতে ব্যর্থ
 msgid "Failed to add member"
 msgstr "সদস্য যোগ করতে ব্যর্থ"
 
-#: src/features/chats/index.tsx:368
+#: src/features/chats/index.tsx:370
 msgid "Failed to copy"
 msgstr "কপি করতে ব্যর্থ"
 
@@ -707,11 +723,11 @@ msgstr "বার্তা কপি করা যায়নি"
 msgid "Failed to create chat"
 msgstr "চ্যাট তৈরি করতে ব্যর্থ"
 
-#: src/features/chats/index.tsx:399
+#: src/features/chats/index.tsx:401
 msgid "Failed to delete"
 msgstr "মুছতে ব্যর্থ"
 
-#: src/features/chats/index.tsx:524
+#: src/features/chats/index.tsx:538
 msgid "Failed to delete chat"
 msgstr "চ্যাট মুছতে ব্যর্থ"
 
@@ -719,7 +735,7 @@ msgstr "চ্যাট মুছতে ব্যর্থ"
 msgid "Failed to forward"
 msgstr "ফরোয়ার্ড করা যায়নি"
 
-#: src/features/chats/index.tsx:505
+#: src/features/chats/index.tsx:519
 #: src/routes/_authenticated/$chatId_.settings.tsx:327
 msgid "Failed to leave chat"
 msgstr "চ্যাট ছাড়তে ব্যর্থ"
@@ -744,7 +760,7 @@ msgstr "চ্যাটের নাম পরিবর্তন করতে �
 msgid "Failed to save"
 msgstr "সংরক্ষণ করতে ব্যর্থ"
 
-#: src/features/chats/index.tsx:870
+#: src/features/chats/index.tsx:477
 msgid "Failed to send message"
 msgstr "বার্তা পাঠাতে ব্যর্থ"
 
@@ -752,7 +768,7 @@ msgstr "বার্তা পাঠাতে ব্যর্থ"
 msgid "Failed to send verification code"
 msgstr "যাচাইকরণ কোড পাঠাতে ব্যর্থ"
 
-#: src/features/chats/index.tsx:199
+#: src/features/chats/index.tsx:201
 msgid "Failed to start chat"
 msgstr "চ্যাট শুরু করতে ব্যর্থ"
 
@@ -774,7 +790,7 @@ msgstr "ফ্লোটিং"
 
 #: src/features/chats/components/forward-dialog.tsx:260
 #: src/features/chats/components/message-hover-actions.tsx:124
-#: src/features/chats/index.tsx:810
+#: src/features/chats/index.tsx:831
 msgid "Forward"
 msgstr "ফরোয়ার্ড"
 
@@ -879,7 +895,7 @@ msgid "Imperial"
 msgstr "ইম্পেরিয়াল"
 
 #: src/features/chats/components/chat-settings-dialog.tsx:77
-#: src/features/chats/index.tsx:728
+#: src/features/chats/index.tsx:749
 msgid "Incoming chats"
 msgstr "আগত চ্যাট"
 
@@ -895,8 +911,8 @@ msgstr "আগ্রহসমূহ"
 msgid "Invalid verification code"
 msgstr "অবৈধ যাচাইকরণ কোড"
 
-#: src/features/chats/components/chat-message-list.tsx:646
-#: src/features/chats/components/chat-message-list.tsx:663
+#: src/features/chats/components/chat-message-list.tsx:690
+#: src/features/chats/components/chat-message-list.tsx:707
 msgid "Jump to bottom"
 msgstr "একদম নিচে যান"
 
@@ -918,31 +934,31 @@ msgstr "লেআউট"
 msgid "Learn more"
 msgstr "আরও জানুন"
 
-#: src/features/chats/index.tsx:893
+#: src/features/chats/index.tsx:910
 msgid "Leave"
 msgstr "ছাড়ুন"
 
-#: src/features/chats/index.tsx:712
+#: src/features/chats/index.tsx:733
 #: src/routes/_authenticated/$chatId_.settings.tsx:352
 msgid "Leave chat"
 msgstr "চ্যাট ছেড়ে দিন"
 
-#: src/features/chats/index.tsx:884
+#: src/features/chats/index.tsx:901
 #: src/routes/_authenticated/$chatId_.settings.tsx:343
 msgid "Leave chat?"
 msgstr "চ্যাট ছেড়ে দেবেন?"
 
-#: src/features/chats/index.tsx:503
+#: src/features/chats/index.tsx:517
 #: src/routes/_authenticated/$chatId_.settings.tsx:325
 msgid "Leaving chat..."
 msgstr "চ্যাট ছেড়ে যাওয়া হচ্ছে..."
 
-#: src/features/chats/index.tsx:890
+#: src/features/chats/index.tsx:907
 #: src/routes/_authenticated/$chatId_.settings.tsx:349
 msgid "Leaving..."
 msgstr "ছাড়ছেন..."
 
-#: src/features/chats/index.tsx:504
+#: src/features/chats/index.tsx:518
 #: src/routes/_authenticated/$chatId_.settings.tsx:326
 msgid "Left chat"
 msgstr "চ্যাট ছেড়েছেন"
@@ -1054,12 +1070,16 @@ msgstr "বার্তার অ্যাকশন"
 msgid "Message copied"
 msgstr "বার্তা কপি করা হয়েছে"
 
-#: src/features/chats/index.tsx:398
+#: src/features/chats/index.tsx:479
+msgid "Message could not be sent. Attachments may be too large, or your connection failed. Try smaller files."
+msgstr ""
+
+#: src/features/chats/index.tsx:400
 msgid "Message deleted"
 msgstr "বার্তা মুছে ফেলা হয়েছে"
 
 #: src/features/chats/components/message-quote.tsx:60
-#: src/features/chats/index.tsx:419
+#: src/features/chats/index.tsx:421
 msgid "Message not available"
 msgstr "বার্তা উপলব্ধ নয়"
 
@@ -1127,7 +1147,7 @@ msgstr "এখনও কোনো বন্ধু নেই"
 msgid "No groups available"
 msgstr "কোনো গ্রুপ উপলব্ধ নেই"
 
-#: src/features/chats/components/chat-message-list.tsx:384
+#: src/features/chats/components/chat-message-list.tsx:406
 msgid "No messages yet"
 msgstr "এখনও কোনো বার্তা নেই"
 
@@ -1182,7 +1202,7 @@ msgstr "খুঁজে পাওয়া যায়নি"
 msgid "Not set"
 msgstr "সেট করা নেই"
 
-#: src/features/chats/index.tsx:363
+#: src/features/chats/index.tsx:365
 msgid "Nothing to copy"
 msgstr "কপি করার কিছু নেই"
 
@@ -1220,7 +1240,7 @@ msgstr "অ্যাকাউন্ট অ্যাকশন খুলুন"
 msgid "Open actions"
 msgstr "অ্যাকশন খুলুন"
 
-#: src/features/chats/index.tsx:697
+#: src/features/chats/index.tsx:718
 msgid "Open chat actions"
 msgstr "চ্যাট অ্যাকশন খুলুন"
 
@@ -1357,8 +1377,7 @@ msgstr "সরান"
 
 #. placeholder {0}: attachment.file.name
 #. placeholder {0}: reaction.label.toLowerCase()
-#: src/features/chats/components/chat-input.tsx:224
-#: src/features/chats/components/chat-input.tsx:229
+#: src/features/chats/components/chat-input.tsx:237
 #: src/features/chats/components/message-reaction-bar.tsx:121
 msgid "Remove {0}"
 msgstr "{0} সরান"
@@ -1398,7 +1417,7 @@ msgid "Reply"
 msgstr "উত্তর দিন"
 
 #. placeholder {0}: replyTo.name
-#: src/features/chats/components/chat-input.tsx:138
+#: src/features/chats/components/chat-input.tsx:155
 msgid "Replying to {0}"
 msgstr "{0}-কে উত্তর দিচ্ছেন"
 
@@ -1465,7 +1484,7 @@ msgstr "বন্ধু খুঁজুন…"
 msgid "Search in chat..."
 msgstr "চ্যাটে খুঁজুন..."
 
-#: src/features/chats/index.tsx:687
+#: src/features/chats/index.tsx:708
 msgid "Search messages"
 msgstr "বার্তা খুঁজুন"
 
@@ -1519,11 +1538,11 @@ msgstr "গ্রুপ নির্বাচন করুন"
 msgid "Select layout style"
 msgstr "লেআউট স্টাইল নির্বাচন করুন"
 
-#: src/features/chats/components/chat-message-list.tsx:617
+#: src/features/chats/components/chat-message-list.tsx:661
 msgid "Select loaded"
 msgstr "লোড হওয়াগুলি নির্বাচন করুন"
 
-#: src/features/chats/components/chat-message-list.tsx:440
+#: src/features/chats/components/chat-message-list.tsx:474
 msgid "Select message"
 msgstr "বার্তা নির্বাচন করুন"
 
@@ -1543,11 +1562,11 @@ msgstr "সাইটের দিক নির্বাচন করুন"
 msgid "Select theme preference"
 msgstr "থিম পছন্দ নির্বাচন করুন"
 
-#: src/features/chats/components/chat-message-list.tsx:607
+#: src/features/chats/components/chat-message-list.tsx:651
 msgid "selected"
 msgstr "নির্বাচিত"
 
-#: src/features/chats/components/chat-message-list.tsx:615
+#: src/features/chats/components/chat-message-list.tsx:659
 msgid "Selects messages loaded so far"
 msgstr "এ পর্যন্ত লোড হওয়া বার্তাগুলি নির্বাচন করে"
 
@@ -1559,8 +1578,8 @@ msgstr "আবার পাঠান"
 msgid "Send email"
 msgstr "ইমেইল পাঠান"
 
-#: src/features/chats/components/chat-input.tsx:278
-#: src/features/chats/components/chat-input.tsx:287
+#: src/features/chats/components/chat-input.tsx:293
+#: src/features/chats/components/chat-input.tsx:302
 msgid "Send message"
 msgstr "বার্তা পাঠান"
 
@@ -1594,6 +1613,7 @@ msgstr "উৎস ও গন্তব্য সেট করুন"
 msgid "Settings"
 msgstr "সেটিংস"
 
+#: src/features/chats/components/message-attachments.tsx:127
 #: src/features/chats/components/message-body.tsx:74
 msgid "Show less"
 msgstr "কম দেখান"
@@ -1638,7 +1658,7 @@ msgstr "প্রশস্ত"
 msgid "Start a conversation"
 msgstr "একটি কথোপকথন শুরু করুন"
 
-#: src/features/chats/index.tsx:196
+#: src/features/chats/index.tsx:198
 msgid "Starting chat..."
 msgstr "চ্যাট শুরু করা হচ্ছে..."
 
@@ -1694,6 +1714,10 @@ msgstr "থিম"
 msgid "Theme Settings"
 msgstr "থিম সেটিংস"
 
+#: src/features/chats/index.tsx:568
+#~ msgid "These files are too large to attach: {names}"
+#~ msgstr ""
+
 #: src/routes/_authenticated/$chatId_.settings.tsx:160
 msgid "this chat"
 msgstr "এই চ্যাট"
@@ -1702,11 +1726,11 @@ msgstr "এই চ্যাট"
 msgid "This chat may have been deleted or you don't have access to it"
 msgstr "এই চ্যাটটি মুছে ফেলা হয়ে থাকতে পারে বা আপনার কাছে এতে প্রবেশাধিকার নেই"
 
-#: src/features/chats/index.tsx:921
+#: src/features/chats/index.tsx:938
 msgid "This deletes the message for everyone and cannot be undone."
 msgstr "এটি সবার জন্য বার্তাটি মুছে ফেলবে এবং পূর্বাবস্থায় ফেরানো যাবে না।"
 
-#: src/features/chats/components/chat-message-list.tsx:520
+#: src/features/chats/components/chat-message-list.tsx:539
 #: src/features/chats/components/message-quote.tsx:50
 msgid "This message was deleted"
 msgstr "এই বার্তাটি মুছে ফেলা হয়েছে"
@@ -1746,6 +1770,10 @@ msgstr "সাইডবার টগল করুন"
 msgid "Toggle theme"
 msgstr "থিম টগল করুন"
 
+#: src/features/chats/components/chat-input.tsx:248
+#~ msgid "Too large"
+#~ msgstr ""
+
 #: ../../../lib/web/src/features/errors/general-error.tsx:74
 msgid "Too many requests"
 msgstr "অনেক বেশি অনুরোধ"
@@ -1753,6 +1781,10 @@ msgstr "অনেক বেশি অনুরোধ"
 #: ../../../lib/web/src/components/ui/sort-selector.tsx:45
 msgid "Top"
 msgstr "উপরে"
+
+#: src/features/chats/components/chat-input.tsx:271
+#~ msgid "Total attachment size exceeds {0}. Remove a file to send."
+#~ msgstr ""
 
 #: ../../../lib/web/src/components/travelling-picker.tsx:145
 msgid "Travelling"
@@ -1789,11 +1821,11 @@ msgstr "ব্যবহারকারী অনুসন্ধান করত�
 msgid "Type to search..."
 msgstr "অনুসন্ধান করতে টাইপ করুন..."
 
-#: src/features/chats/components/chat-input.tsx:258
+#: src/features/chats/components/chat-input.tsx:273
 msgid "Type your message…"
 msgstr "আপনার বার্তা টাইপ করুন…"
 
-#: src/features/chats/components/chat-input.tsx:258
+#: src/features/chats/components/chat-input.tsx:273
 msgid "Type your reply…"
 msgstr "আপনার উত্তর লিখুন…"
 
@@ -1830,6 +1862,14 @@ msgstr "চ্যাট আনপিন করুন"
 msgid "Unverified"
 msgstr "যাচাই করা হয়নি"
 
+#: src/features/chats/components/chat-input.tsx:299
+#~ msgid "Up to {0} per file, {1} total per message"
+#~ msgstr ""
+
+#: src/features/chats/index.tsx:485
+#~ msgid "Upload failed because this account has reached its storage limit."
+#~ msgstr ""
+
 #: ../../../lib/web/src/components/step-up-dialog.tsx:338
 msgid "Use your passkey"
 msgstr "আপনার পাসকি ব্যবহার করুন"
@@ -1860,7 +1900,8 @@ msgstr "যাচাই করুন"
 msgid "Verify email address"
 msgstr "ইমেল ঠিকানা যাচাই করুন"
 
-#: ../../../lib/web/src/components/attachment-gallery.tsx:66
+#: ../../../lib/web/src/components/attachment-gallery.tsx:74
+#: src/features/chats/components/message-media-grid.tsx:52
 msgid "Video thumbnail"
 msgstr "ভিডিও থাম্বনেইল"
 
@@ -1889,7 +1930,7 @@ msgstr "ওয়েবসাইট রক্ষণাবেক্ষণাধ�
 msgid "Wednesday"
 msgstr "বুধবার"
 
-#: src/features/chats/index.tsx:279
+#: src/features/chats/index.tsx:281
 msgid "You"
 msgstr "আপনি"
 
@@ -1901,7 +1942,7 @@ msgstr "আপনার ইতিমধ্যে এই বন্ধুর স�
 msgid "You already have chats with:"
 msgstr "আপনার ইতিমধ্যে এদের সাথে চ্যাট রয়েছে:"
 
-#: src/features/chats/index.tsx:380
+#: src/features/chats/index.tsx:382
 msgid "You can only delete your own messages"
 msgstr "আপনি শুধু নিজের বার্তা মুছতে পারবেন"
 
@@ -1909,11 +1950,11 @@ msgstr "আপনি শুধু নিজের বার্তা মুছ�
 msgid "You do not have access to this section."
 msgstr "এই বিভাগে আপনার অ্যাক্সেস নেই।"
 
-#: src/features/chats/index.tsx:837
+#: src/features/chats/index.tsx:858
 msgid "You left this chat"
 msgstr "আপনি এই চ্যাট ছেড়ে দিয়েছেন"
 
-#: src/features/chats/index.tsx:836
+#: src/features/chats/index.tsx:857
 msgid "You were removed from this chat"
 msgstr "আপনাকে এই চ্যাট থেকে সরানো হয়েছে"
 

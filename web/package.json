@@ -13,7 +13,7 @@
     "format": "prettier --write .",
     "knip": "pnpm -C ../../.. exec knip --workspace apps/chat/web",
     "i18n:extract": "lingui extract",
-    "i18n:check": "lingui extract --clean && git diff --exit-code -- src/locales || (echo \"\\033[1;31mCatalogs out of date \u2014 run pnpm i18n:extract and commit.\\033[0m\" && exit 1)"
+    "i18n:check": "lingui extract --clean && git diff --exit-code -- src/locales || (echo \"\\033[1;31mCatalogs out of date — run pnpm i18n:extract and commit.\\033[0m\" && exit 1)"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",
@@ -26,6 +26,7 @@
     "@tanstack/react-table": "^8.21.3",
     "axios": "^1.12.2",
     "chess.js": "^1.4.0",
+    "class-variance-authority": "^0.7.1",
     "cmdk": "1.1.1",
     "date-fns": "^4.1.0",
     "input-otp": "^1.4.2",

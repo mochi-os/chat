@@ -165,17 +165,16 @@ export function MessageReactionSummary({
         const count = counts[r.id] ?? 0
         const isYours = r.id === activeReaction
         return (
-          <Tooltip key={r.id} delayDuration={300}>
+          <Tooltip key={`${r.id}-${count}`} delayDuration={300}>
             <TooltipTrigger asChild>
               <span
-                className={`inline-flex items-center gap-0.5 rounded-full px-1.5 py-0.5 text-[11px] leading-none ${
-                  isYours
-                    ? 'bg-foreground/10 text-foreground'
-                    : 'bg-muted text-muted-foreground'
-                }`}
+                className={cn(
+                  "inline-flex items-center gap-1 text-[11px] leading-none transition-colors animate-in zoom-in-50 duration-300 ease-out",
+                  isYours ? "text-foreground font-semibold" : "text-muted-foreground"
+                )}
               >
-                <span>{r.emoji}</span>
-                <span className='font-medium'>{formatNumber(count)}</span>
+                <span className="text-[13px]">{r.emoji}</span>
+                {count > 1 ? <span>{formatNumber(count)}</span> : null}
               </span>
             </TooltipTrigger>
             <TooltipContent side='bottom' className='text-xs'>

@@ -6,7 +6,8 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { Trans, useLingui } from '@lingui/react/macro'
 import { plural } from '@lingui/core/macro'
-import { useAuthStore, usePageTitle, PageHeader, Main, GeneralError, Button, Checkbox, ConfirmDialog, EntityAvatar, IconButton, DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger, Label, toast, toastAction, getErrorMessage, shellClipboardWrite } from '@mochi/web'
+import { useLingui as useLinguiRuntime } from '@lingui/react'
+import { useAuthStore, usePageTitle, PageHeader, Main, GeneralError, Button, Checkbox, ConfirmDialog, EntityAvatar, IconButton, DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger, Label, toast, toastAction, getErrorMessage, shellClipboardWrite, getSendAttachmentErrorMessage, isAttachmentPayloadTooLargeError } from '@mochi/web'
 import { useMessageSelection } from '@/hooks/use-message-selection'
 import { useNavigate, useParams, useSearch } from '@tanstack/react-router'
 import { useQueryClient, type InfiniteData } from '@tanstack/react-query'
@@ -72,6 +73,7 @@ import type { ChatMessage } from '@/api/chats'
 
 export function Chats() {
   const { t } = useLingui()
+  const { _ } = useLinguiRuntime()
   usePageTitle(t`Chat`)
 
   const navigate = useNavigate()
@@ -471,12 +473,24 @@ export function Chats() {
   }, [isChatActive, openSearch])
 
   // Send message
+  const sendAttachmentErrorMessages = {
+    fallback: t`Failed to send message`,
+    tooLargeForServer: t`Attachments are too large to upload. Remove or shrink files and try again.`,
+    networkMaybeTooLarge: t`Message could not be sent. Attachments may be too large, or your connection failed. Try smaller files.`,
+  }
+
   const sendMessageMutation = useSendMessageMutation({
     onSuccess: () => {
       setNewMessage('')
       setReplyTo(null)
       clearAttachments()
       if (selectedChat) clearDraft(selectedChat.id)
+    },
+    onError: (error) => {
+      if (!isAttachmentPayloadTooLargeError(error)) return
+      toast.error(
+        getSendAttachmentErrorMessage(error, sendAttachmentErrorMessages)
+      )
     },
   })
 
@@ -607,6 +621,13 @@ export function Chats() {
   const canSendMessage =
     !sendMessageMutation.isPending &&
     (Boolean(newMessage.trim()) || pendingAttachments.length > 0)
+
+  const sendAttachmentErrorMessage = sendMessageMutation.error
+    ? getSendAttachmentErrorMessage(
+        sendMessageMutation.error,
+        sendAttachmentErrorMessages
+      )
+    : null
 
   // Loading state: show full skeleton (includes its own PageHeader + Main)
   if (selectedChatId && chatsQuery.isLoading) {
@@ -865,11 +886,7 @@ export function Chats() {
               onAttachmentSelection={handleAttachmentSelection}
               replyTo={replyTo}
               onClearReply={() => setReplyTo(null)}
-              sendMessageErrorMessage={
-                sendMessageMutation.error
-                  ? getErrorMessage(sendMessageMutation.error, t`Failed to send message`)
-                  : null
-              }
+              sendMessageErrorMessage={sendAttachmentErrorMessage}
             />
           )}
         </Main>
@@ -914,10 +931,10 @@ export function Chats() {
         onOpenChange={(open) => {
           if (!open) setDeleteTargetIds(null)
         }}
-        title={plural(deleteTargetIds?.length ?? 0, {
+        title={_(plural(deleteTargetIds?.length ?? 0, {
           one: 'Delete message?',
           other: 'Delete # messages?',
-        })}
+        }))}
         desc={t`This deletes the message for everyone and cannot be undone.`}
         confirmText={
           deleteMessagesMutation.isPending ? (

@@ -13,9 +13,25 @@ import {
   useImperativeHandle,
   useRef,
   useState,
+  type MouseEvent,
 } from 'react'
 import { Trans, useLingui } from '@lingui/react/macro'
-import { Button, Tooltip, TooltipContent, TooltipTrigger, cn } from '@mochi/web'
+import {
+  Attachment,
+  AttachmentAction,
+  AttachmentActions,
+  AttachmentContent,
+  AttachmentDescription,
+  AttachmentGroup,
+  AttachmentMedia,
+  AttachmentTitle,
+  Button,
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+  cn,
+  useFormat,
+} from '@mochi/web'
 import { Loader2, Paperclip, Send, X } from 'lucide-react'
 import type { PendingAttachment } from '../utils'
 import type { ReplyTarget } from '../utils/reply'
@@ -59,6 +75,7 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(
     ref
   ) {
   const { t } = useLingui()
+  const { formatFileSize } = useFormat()
   const fileInputRef = useRef<HTMLInputElement | null>(null)
   const textareaRef = useRef<HTMLTextAreaElement | null>(null)
   const [draggingId, setDraggingId] = useState<string | null>(null)
@@ -164,8 +181,8 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(
           </div>
         ) : null}
         {hasPendingAttachments && (
-          <div
-            className='border-border/50 flex gap-2 overflow-x-auto border-b px-4 pt-2 pb-2'
+          <AttachmentGroup
+            className='border-border/50 border-b px-4 pt-2 pb-2'
             onDragOver={(e) => {
               if (canReorder) e.preventDefault()
             }}
@@ -177,61 +194,59 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(
               const isDropTarget = dropTargetId === attachment.id
 
               return (
-                <div
+                <Attachment
                   key={attachment.id}
                   draggable={canReorder}
-                  onDragStart={(e) => handleDragStart(e, attachment.id)}
-                  onDragOver={(e) => handleDragOver(e, attachment.id)}
-                  onDrop={(e) => handleDrop(e, attachment.id)}
+                  onDragStart={(e: DragEvent<HTMLDivElement>) => handleDragStart(e, attachment.id)}
+                  onDragOver={(e: DragEvent<HTMLDivElement>) => handleDragOver(e, attachment.id)}
+                  onDrop={(e: DragEvent<HTMLDivElement>) => handleDrop(e, attachment.id)}
                   onDragEnd={handleDragEnd}
                   className={cn(
-                    'relative shrink-0',
                     canReorder && 'cursor-grab active:cursor-grabbing',
                     isDragging && 'opacity-40',
                     isDropTarget && 'ring-primary rounded-lg ring-2 ring-inset'
                   )}
+                  state={isSending ? 'uploading' : 'idle'}
                 >
-                  {isImage && attachment.previewUrl ? (
-                    <img
-                      src={attachment.previewUrl}
-                      alt={attachment.file.name}
-                      className='size-14 rounded-lg object-cover'
-                      draggable={false}
-                    />
-                  ) : isVideo && attachment.previewUrl ? (
-                    <video
-                      src={attachment.previewUrl}
-                      className='size-14 rounded-lg object-cover'
-                      muted
-                      playsInline
-                      draggable={false}
-                    />
-                  ) : (
-                    <div className='bg-muted flex max-w-40 items-center gap-1.5 rounded-lg px-2.5 py-1.5 text-xs'>
-                      <Paperclip className='text-muted-foreground size-3 shrink-0' />
-                      <span className='truncate'>{attachment.file.name}</span>
-                    </div>
-                  )}
-                  <Tooltip>
-                    <TooltipTrigger asChild>
-                      <button
-                        type='button'
-                        className='absolute -top-1.5 -end-1.5 flex size-5 items-center justify-center rounded-full bg-black/70 text-white hover:bg-black/90'
-                        onClick={(e) => {
-                          e.stopPropagation()
-                          onRemoveAttachment(attachment.id)
-                        }}
-                        aria-label={t`Remove ${attachment.file.name}`}
-                      >
-                        <X className='size-3' />
-                      </button>
-                    </TooltipTrigger>
-                    <TooltipContent>{t`Remove ${attachment.file.name}`}</TooltipContent>
-                  </Tooltip>
-                </div>
+                  <AttachmentMedia variant={isImage || isVideo ? "image" : "icon"}>
+                    {isImage && attachment.previewUrl ? (
+                      <img
+                        src={attachment.previewUrl}
+                        alt={attachment.file.name}
+                        draggable={false}
+                      />
+                    ) : isVideo && attachment.previewUrl ? (
+                      <video
+                        src={attachment.previewUrl}
+                        muted
+                        playsInline
+                        draggable={false}
+                      />
+                    ) : (
+                      <Paperclip />
+                    )}
+                  </AttachmentMedia>
+                  <AttachmentContent>
+                    <AttachmentTitle>{attachment.file.name}</AttachmentTitle>
+                    <AttachmentDescription>
+                      {formatFileSize(attachment.file.size)}
+                    </AttachmentDescription>
+                  </AttachmentContent>
+                  <AttachmentActions>
+                    <AttachmentAction
+                      aria-label={t`Remove ${attachment.file.name}`}
+                      onClick={(e: MouseEvent<HTMLButtonElement>) => {
+                        e.stopPropagation()
+                        onRemoveAttachment(attachment.id)
+                      }}
+                    >
+                      <X className='size-4' />
+                    </AttachmentAction>
+                  </AttachmentActions>
+                </Attachment>
               )
             })}
-          </div>
+          </AttachmentGroup>
         )}
         <div className='flex w-full items-end gap-2 px-4 py-2'>
           <div className='flex items-end pb-0.5'>

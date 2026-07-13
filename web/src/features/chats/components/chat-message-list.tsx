@@ -14,6 +14,7 @@ import {
 } from 'react'
 import { useFormat } from '@mochi/web'
 import { plural } from '@lingui/core/macro'
+import { useLingui as useLinguiRuntime } from '@lingui/react'
 import { Trans, useLingui } from '@lingui/react/macro'
 import type {
   UseInfiniteQueryResult,
@@ -31,12 +32,12 @@ import {
   TooltipTrigger,
   cn,
   Skeleton,
-  getChatBubbleToneClass,
   getAppPath,
 } from '@mochi/web'
 import { ChevronsDown, MessageCircle } from 'lucide-react'
 import type { ChatMessage } from '@/api/chats'
 import type { GetMessagesResponse } from '@/api/types/chats'
+import { Bubble, BubbleContent, BubbleReactions, BubbleGroup } from '@mochi/web'
 import { MessageAttachments } from './message-attachments'
 import { MessageBody } from './message-body'
 import { MessageHoverActions } from './message-hover-actions'
@@ -50,6 +51,25 @@ import { highlightSearchText } from '../utils/highlight-search-text'
 
 const BOTTOM_THRESHOLD_PX = 80
 const MESSAGE_ENTER_MS = 200
+
+
+function groupMessagesBySender(messages: ChatMessage[]) {
+  const groups: ChatMessage[][] = []
+  let currentGroup: ChatMessage[] = []
+  let currentSenderId: string | null = null
+
+  for (const msg of messages) {
+    if (msg.member !== currentSenderId) {
+      if (currentGroup.length > 0) groups.push(currentGroup)
+      currentGroup = [msg]
+      currentSenderId = msg.member
+    } else {
+      currentGroup.push(msg)
+    }
+  }
+  if (currentGroup.length > 0) groups.push(currentGroup)
+  return groups
+}
 
 function checkIsAtBottom(el: HTMLDivElement) {
   return el.scrollHeight - el.scrollTop - el.clientHeight <= BOTTOM_THRESHOLD_PX
@@ -122,7 +142,8 @@ export function ChatMessageList({
   onClearSelection,
 }: ChatMessageListProps) {
   const { t } = useLingui()
-  const { formatDate, formatDateTime, formatNumber } = useFormat()
+  const { _ } = useLinguiRuntime()
+  const { formatDate, formatTime, formatNumber } = useFormat()
   const scrollContainerRef = useRef<HTMLDivElement | null>(null)
   const messagesEndRef = useRef<HTMLDivElement | null>(null)
   const prevScrollHeightRef = useRef<number>(0)
@@ -134,6 +155,7 @@ export function ChatMessageList({
   const [isScrolledAwayFromBottom, setIsScrolledAwayFromBottom] = useState(false)
   const [newMessageCount, setNewMessageCount] = useState(0)
   const [suppressHistoryReveal, setSuppressHistoryReveal] = useState(false)
+  const [activeMessageId, setActiveMessageId] = useState<string | null>(null)
   const [enteringMessageIds, setEnteringMessageIds] = useState<Set<string>>(
     () => new Set()
   )
@@ -393,6 +415,7 @@ export function ChatMessageList({
       <div
         ref={scrollContainerRef}
         onScroll={handleScroll}
+        onClick={() => !isSelecting && setActiveMessageId(null)}
         className='flex w-full flex-1 flex-col justify-start gap-4 overflow-y-auto px-4 py-2 pb-4'
       >
         {/* Load more trigger at top for older messages */}
@@ -412,7 +435,11 @@ export function ChatMessageList({
               <div className='text-muted-foreground text-xs'>{formatDate(new Date(key + 'T00:00:00'))}</div>
             </div>
 
-            {groupedMessages[key].map((message) => {
+            {groupMessagesBySender(groupedMessages[key]).map((messageGroup) => {
+              const isSentGroup = isCurrentUserMessage(messageGroup[0])
+              return (
+                <BubbleGroup key={messageGroup[0].id} className={cn("w-full mb-3", isSentGroup ? 'items-end' : 'items-start')}>
+                  {messageGroup.map((message) => {
               const isSent = isCurrentUserMessage(message)
               const isSelected = selectedIds?.has(message.id) ?? false
               const isDeleted = message.deleted === true
@@ -424,7 +451,14 @@ export function ChatMessageList({
                     isSelecting && 'cursor-pointer select-none',
                     isSelecting && isSelected && 'bg-primary/8'
                   )}
-                  onClick={isSelecting ? () => onToggleSelect?.(message.id) : undefined}
+                  onClick={(e) => {
+                    if (isSelecting) {
+                      onToggleSelect?.(message.id)
+                    } else {
+                      e.stopPropagation()
+                      setActiveMessageId((prev) => (prev === message.id ? null : message.id))
+                    }
+                  }}
                 >
                   {/* Checkbox column — slides in when selection mode is active */}
                   <div
@@ -445,7 +479,7 @@ export function ChatMessageList({
                   <div
                     id={`chat-message-${message.id}`}
                     className={cn(
-                      'group mb-3 flex flex-1 flex-col gap-1 rounded-lg transition-shadow',
+                      'group flex flex-1 flex-col gap-1 rounded-lg transition-shadow',
                       isSent ? 'items-end' : 'items-start',
                       highlightMessageId === message.id &&
                       'ring-primary/60 bg-primary/5 ring-2',
@@ -475,46 +509,31 @@ export function ChatMessageList({
                         isSent ? 'justify-end' : 'justify-start'
                       )}
                     >
-                      {isSent ? (
-                        <div className='flex items-center gap-0.5'>
-                          <span className='text-muted-foreground/70 text-[10px] opacity-0 transition-opacity group-hover:opacity-100 [@media(hover:none)]:opacity-100'>
-                            {formatDateTime(new Date(message.created * 1000))}
-                          </span>
-                          {!isSelecting && !isDeleted && onReply ? (
-                            <MessageHoverActions
-                              message={message}
-                              onReply={onReply}
-                              onSelect={onSelectMessage ? () => onSelectMessage(message) : undefined}
-                              onForward={onForward ? () => onForward(message) : undefined}
-                              onDelete={onDelete ? () => onDelete(message) : undefined}
-                              canDelete={isSent}
-                            />
-                          ) : null}
-                          {!isSelecting && !isDeleted && onReact ? (
-                            <>
-                              <MessageReactionPicker
-                                activeReaction={message.my_reaction}
-                                onSelect={(reaction) => onReact(message.id, reaction)}
-                                isSent
-                              />
-                              <MessageReactionSummary
-                                counts={message.reaction_counts ?? {}}
-                                activeReaction={message.my_reaction}
-                              />
-                            </>
-                          ) : null}
-                        </div>
-                      ) : null}
+                      {/* Hover actions moved to BubbleReactions */}
 
-                      <div
+                      <Bubble
+                        variant={isSent ? 'default' : 'muted'}
+                        align={isSent ? 'end' : 'start'}
+                        data-active={activeMessageId === message.id}
                         className={cn(
-                          'message-content relative min-w-0 max-w-[70%] px-2 py-2 wrap-break-word transition-[opacity,transform,max-height] duration-300 ease-out',
-                          getChatBubbleToneClass(isSent),
+                          'transition-[opacity,transform,max-height] duration-300 ease-out',
                           isDeleted && 'scale-[0.97] opacity-60',
                           enteringMessageIds.has(message.id) &&
-                            'animate-in fade-in-0 slide-in-from-bottom-2 fill-mode-backwards duration-200 ease-out'
+                            'animate-in fade-in-0 slide-in-from-bottom-2 fill-mode-backwards duration-200 ease-out',
+                          (!isSelecting && !isDeleted && message.reaction_counts && Object.keys(message.reaction_counts).length > 0) && 'mb-4'
                         )}
                       >
+                        <BubbleContent
+                          className={cn(
+                            isDeleted &&
+                              'bg-transparent text-muted-foreground italic border-dashed',
+                            message.attachments?.length &&
+                              'w-full max-w-full',
+                            message.attachments?.length &&
+                              !message.body &&
+                              'px-1.5 py-1.5'
+                          )}
+                        >
                         {isDeleted ? (
                           <p className='text-muted-foreground text-sm italic'>
                             <Trans>This message was deleted</Trans>
@@ -530,12 +549,11 @@ export function ChatMessageList({
                             ) : null}
 
                             {message.attachments?.length ? (
-                              <div className='space-y-2'>
-                                <MessageAttachments
-                                  attachments={message.attachments}
-                                  chatId={message.chat}
-                                />
-                              </div>
+                              <MessageAttachments
+                                attachments={message.attachments}
+                                chatId={message.chat}
+                                isSent={isSent}
+                              />
                             ) : null}
 
                             {message.body ? (
@@ -558,40 +576,66 @@ export function ChatMessageList({
                             ) : null}
                           </>
                         )}
-                      </div>
-
-                      {!isSent ? (
-                        <div className='flex items-center gap-0.5'>
-                          {!isSelecting && !isDeleted && onReact ? (
-                            <>
+                        </BubbleContent>
+                        
+                        {!isSelecting && !isDeleted ? (
+                          <BubbleReactions
+                            align={isSent ? 'end' : 'start'}
+                            className={cn(
+                              isSent ? "flex-row-reverse" : "flex-row",
+                              (!message.reaction_counts || Object.keys(message.reaction_counts).length === 0)
+                                ? "opacity-0 group-hover/bubble:opacity-100 group-data-[active=true]/bubble:opacity-100 focus-within:opacity-100 has-[[data-state=open]]:opacity-100 transition-opacity"
+                                : ""
+                            )}
+                          >
+                            {(message.reaction_counts && Object.keys(message.reaction_counts).length > 0) && (
                               <MessageReactionSummary
                                 counts={message.reaction_counts ?? {}}
                                 activeReaction={message.my_reaction}
                               />
-                              <MessageReactionPicker
-                                activeReaction={message.my_reaction}
-                                onSelect={(reaction) => onReact(message.id, reaction)}
-                              />
-                            </>
-                          ) : null}
-                          {!isSelecting && !isDeleted && onReply ? (
-                            <MessageHoverActions
-                              message={message}
-                              onReply={onReply}
-                              onSelect={onSelectMessage ? () => onSelectMessage(message) : undefined}
-                              onForward={onForward ? () => onForward(message) : undefined}
-                              onDelete={onDelete ? () => onDelete(message) : undefined}
-                              canDelete={isSent}
-                            />
-                          ) : null}
-                          <span className='text-muted-foreground/70 text-[10px] opacity-0 transition-opacity group-hover:opacity-100 [@media(hover:none)]:opacity-100'>
-                            {formatDateTime(new Date(message.created * 1000))}
-                          </span>
-                        </div>
-                      ) : null}
+                            )}
+                            
+                            <div className={cn(
+                              "flex items-center gap-0.5",
+                              isSent ? "flex-row-reverse" : "flex-row",
+                              (message.reaction_counts && Object.keys(message.reaction_counts).length > 0)
+                                ? "max-w-0 overflow-hidden opacity-0 group-hover/bubble:max-w-[200px] group-hover/bubble:opacity-100 group-data-[active=true]/bubble:max-w-[200px] group-data-[active=true]/bubble:opacity-100 focus-within:max-w-[200px] focus-within:opacity-100 has-[[data-state=open]]:max-w-[200px] has-[[data-state=open]]:opacity-100 transition-all duration-200 ease-out"
+                                : ""
+                            )}>
+                              {onReact && (
+                                <MessageReactionPicker
+                                  activeReaction={message.my_reaction}
+                                  onSelect={(reaction) => onReact(message.id, reaction)}
+                                  isSent={isSent}
+                                  className="!opacity-100"
+                                />
+                              )}
+                              {onReply && (
+                                <MessageHoverActions
+                                  message={message}
+                                  onReply={onReply}
+                                  onSelect={onSelectMessage ? () => onSelectMessage(message) : undefined}
+                                  onForward={onForward ? () => onForward(message) : undefined}
+                                  onDelete={onDelete ? () => onDelete(message) : undefined}
+                                  canDelete={isSent}
+                                  className="!opacity-100"
+                                />
+                              )}
+                              <span className="text-muted-foreground/70 text-[10px] whitespace-nowrap px-1">
+                                {formatTime(new Date(message.created * 1000))}
+                              </span>
+                            </div>
+                          </BubbleReactions>
+                        ) : null}
+                      </Bubble>
+
+                      {/* Hover actions moved to BubbleReactions */}
                     </div>
                   </div>
                 </div>
+              )
+            })}
+                </BubbleGroup>
               )
             })}
           </Fragment>
@@ -639,10 +683,10 @@ export function ChatMessageList({
                 onClick={scrollToBottom}
                 aria-label={
                   newMessageCount > 0
-                    ? plural(newMessageCount, {
+                    ? _(plural(newMessageCount, {
                       one: 'Jump to 1 new message',
                       other: 'Jump to # new messages',
-                    })
+                    }))
                     : t`Jump to bottom`
                 }
               >
@@ -656,10 +700,10 @@ export function ChatMessageList({
             </TooltipTrigger>
             <TooltipContent>
               {newMessageCount > 0
-                ? plural(newMessageCount, {
+                ? _(plural(newMessageCount, {
                   one: 'Jump to 1 new message',
                   other: 'Jump to # new messages',
-                })
+                }))
                 : t`Jump to bottom`}
             </TooltipContent>
           </Tooltip>
