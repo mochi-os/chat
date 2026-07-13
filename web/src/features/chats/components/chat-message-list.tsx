@@ -37,7 +37,7 @@ import {
 import { ChevronsDown, MessageCircle } from 'lucide-react'
 import type { ChatMessage } from '@/api/chats'
 import type { GetMessagesResponse } from '@/api/types/chats'
-import { Bubble, BubbleContent, BubbleReactions, BubbleGroup } from '@/components/ui/bubble'
+import { Bubble, BubbleContent, BubbleReactions, BubbleGroup } from '@mochi/web'
 import { MessageAttachments } from './message-attachments'
 import { MessageBody } from './message-body'
 import { MessageHoverActions } from './message-hover-actions'
@@ -435,10 +435,10 @@ export function ChatMessageList({
               <div className='text-muted-foreground text-xs'>{formatDate(new Date(key + 'T00:00:00'))}</div>
             </div>
 
-            {groupMessagesBySender(groupedMessages[key]).map((messageGroup, groupIdx) => {
+            {groupMessagesBySender(groupedMessages[key]).map((messageGroup) => {
               const isSentGroup = isCurrentUserMessage(messageGroup[0])
               return (
-                <BubbleGroup key={`group-${groupIdx}`} className={cn("w-full mb-3", isSentGroup ? 'items-end' : 'items-start')}>
+                <BubbleGroup key={messageGroup[0].id} className={cn("w-full mb-3", isSentGroup ? 'items-end' : 'items-start')}>
                   {messageGroup.map((message) => {
               const isSent = isCurrentUserMessage(message)
               const isSelected = selectedIds?.has(message.id) ?? false

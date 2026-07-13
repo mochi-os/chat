@@ -7,7 +7,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { Trans, useLingui } from '@lingui/react/macro'
 import { plural } from '@lingui/core/macro'
 import { useLingui as useLinguiRuntime } from '@lingui/react'
-import { useAuthStore, usePageTitle, PageHeader, Main, GeneralError, Button, Checkbox, ConfirmDialog, EntityAvatar, IconButton, DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger, Label, toast, toastAction, getErrorMessage, shellClipboardWrite } from '@mochi/web'
+import { useAuthStore, usePageTitle, PageHeader, Main, GeneralError, Button, Checkbox, ConfirmDialog, EntityAvatar, IconButton, DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger, Label, toast, toastAction, getErrorMessage, shellClipboardWrite, getSendAttachmentErrorMessage, isAttachmentPayloadTooLargeError } from '@mochi/web'
 import { useMessageSelection } from '@/hooks/use-message-selection'
 import { useNavigate, useParams, useSearch } from '@tanstack/react-router'
 import { useQueryClient, type InfiniteData } from '@tanstack/react-query'
@@ -65,10 +65,6 @@ import {
   createPendingAttachment,
   revokePendingAttachmentPreview,
 } from './utils'
-import {
-  getSendAttachmentErrorMessage,
-  isAttachmentPayloadTooLargeError,
-} from './utils/send-attachment-error'
 import {
   type ReplyTarget,
   messageToReplyTarget,
@@ -481,8 +477,6 @@ export function Chats() {
     fallback: t`Failed to send message`,
     tooLargeForServer: t`Attachments are too large to upload. Remove or shrink files and try again.`,
     networkMaybeTooLarge: t`Message could not be sent. Attachments may be too large, or your connection failed. Try smaller files.`,
-    serverFileTooLarge: t`A file is too large to upload. Try a smaller attachment.`,
-    storageLimitExceeded: t`Upload failed because this account has reached its storage limit.`,
   }
 
   const sendMessageMutation = useSendMessageMutation({
