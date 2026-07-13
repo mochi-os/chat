@@ -33,6 +33,8 @@ import {
   cn,
   Skeleton,
   getAppPath,
+  actionPillExpandMaxWidthMap,
+  actionPillExpandOpacityMap,
 } from '@mochi/web'
 import { ChevronsDown, MessageCircle } from 'lucide-react'
 import type { ChatMessage } from '@/api/chats'
@@ -584,7 +586,7 @@ export function ChatMessageList({
                             className={cn(
                               isSent ? "flex-row-reverse" : "flex-row",
                               (!message.reaction_counts || Object.keys(message.reaction_counts).length === 0)
-                                ? "opacity-0 group-hover/bubble:opacity-100 group-data-[active=true]/bubble:opacity-100 focus-within:opacity-100 has-[[data-state=open]]:opacity-100 transition-opacity"
+                                ? actionPillExpandOpacityMap.bubble
                                 : ""
                             )}
                           >
@@ -599,7 +601,7 @@ export function ChatMessageList({
                               "flex items-center gap-0.5",
                               isSent ? "flex-row-reverse" : "flex-row",
                               (message.reaction_counts && Object.keys(message.reaction_counts).length > 0)
-                                ? "max-w-0 overflow-hidden opacity-0 group-hover/bubble:max-w-[200px] group-hover/bubble:opacity-100 group-data-[active=true]/bubble:max-w-[200px] group-data-[active=true]/bubble:opacity-100 focus-within:max-w-[200px] focus-within:opacity-100 has-[[data-state=open]]:max-w-[200px] has-[[data-state=open]]:opacity-100 transition-all duration-200 ease-out"
+                                ? actionPillExpandMaxWidthMap.bubble[200]
                                 : ""
                             )}>
                               {onReact && (
