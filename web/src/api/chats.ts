@@ -12,6 +12,7 @@ import type {
   SearchMessagesResponse,
   SendMessageRequest,
   SendMessageResponse,
+  EditMessageResponse,
   GetNewChatResponse,
   CreateChatRequest,
   CreateChatResponse,
@@ -101,6 +102,12 @@ export const chatsApi = {
       if (payload.reply_to) {
         formData.append('reply_to', payload.reply_to)
       }
+      if (payload.mentions && payload.mentions.length > 0) {
+        formData.append('mentions', JSON.stringify(payload.mentions))
+      }
+      if (payload.captions && payload.captions.length > 0) {
+        formData.append('captions', JSON.stringify(payload.captions))
+      }
       payload.attachments.forEach((file) => {
         formData.append('files', file)
       })
@@ -114,6 +121,13 @@ export const chatsApi = {
     
     return client.post<SendMessageResponse>(endpoints.chat.send(chatId), payload)
   },
+
+  editMessage: (chatId: string, messageId: string, body: string): Promise<EditMessageResponse> =>
+    client.post<EditMessageResponse | { data: EditMessageResponse }>(endpoints.chat.messagesEdit(chatId), {
+      chat: chatId,
+      message: messageId,
+      body,
+    }).then((res) => unwrapData<EditMessageResponse>(res)),
 
   getFriendsForNewChat: () =>
   client.get<{ data: GetNewChatResponse }>(endpoints.chat.new)

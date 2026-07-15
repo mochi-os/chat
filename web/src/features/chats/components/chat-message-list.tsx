@@ -53,7 +53,27 @@ import { highlightSearchText } from '../utils/highlight-search-text'
 
 const BOTTOM_THRESHOLD_PX = 80
 const MESSAGE_ENTER_MS = 200
+/** Matches server `action_message_edit` body length limit. */
+const MESSAGE_EDIT_MAX_LENGTH = 10000
 
+/** Edit = body text only. Media-only / deleted / others' messages stay non-editable. */
+function canEditMessage(message: ChatMessage, isOwn: boolean): boolean {
+  return isOwn && message.deleted !== true && Boolean(message.body?.trim())
+}
+
+function isEditSaveDisabled(
+  editBody: string,
+  originalBody: string | undefined,
+  isSaving: boolean
+): boolean {
+  const trimmed = editBody.trim()
+  return (
+    isSaving ||
+    trimmed === '' ||
+    editBody.length > MESSAGE_EDIT_MAX_LENGTH ||
+    editBody === (originalBody ?? '')
+  )
+}
 
 function groupMessagesBySender(messages: ChatMessage[]) {
   const groups: ChatMessage[][] = []
@@ -112,6 +132,7 @@ interface ChatMessageListProps {
   onSelectMessage?: (message: ChatMessage) => void
   onSelectAll?: (ids: string[]) => void
   onClearSelection?: () => void
+  onEdit?: (messageId: string, body: string) => Promise<void>
 }
 
 export function ChatMessageList({
@@ -142,12 +163,16 @@ export function ChatMessageList({
   onSelectMessage,
   onSelectAll,
   onClearSelection,
+  onEdit,
 }: ChatMessageListProps) {
   const { t } = useLingui()
   const { _ } = useLinguiRuntime()
   const { formatDate, formatTime, formatNumber } = useFormat()
   const scrollContainerRef = useRef<HTMLDivElement | null>(null)
   const messagesEndRef = useRef<HTMLDivElement | null>(null)
+  const [editingMessageId, setEditingMessageId] = useState<string | null>(null)
+  const [editBody, setEditBody] = useState('')
+  const [isEditingSaving, setIsEditingSaving] = useState(false)
   const prevScrollHeightRef = useRef<number>(0)
   const isLoadingMoreRef = useRef(false)
   const skipNextAutoScrollRef = useRef(false)
@@ -558,22 +583,81 @@ export function ChatMessageList({
                               />
                             ) : null}
 
-                            {message.body ? (
+                            {editingMessageId === message.id ? (
+                              <div className={cn("flex flex-col gap-2 w-full", message.attachments?.length ? 'mt-2' : '')}>
+                                <textarea
+                                  className="w-full min-h-[60px] rounded-md border border-input bg-transparent px-3 py-2 text-sm shadow-sm placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
+                                  value={editBody}
+                                  onChange={(e) => setEditBody(e.target.value)}
+                                  disabled={isEditingSaving}
+                                />
+                                <div className="flex items-center justify-end gap-2">
+                                  <Button
+                                    variant="ghost"
+                                    size="sm"
+                                    onClick={() => {
+                                      setEditingMessageId(null)
+                                      setEditBody('')
+                                    }}
+                                    disabled={isEditingSaving}
+                                  >
+                                    <Trans>Cancel</Trans>
+                                  </Button>
+                                  <Button
+                                    size="sm"
+                                    disabled={isEditSaveDisabled(editBody, message.body, isEditingSaving)}
+                                    onClick={async () => {
+                                      setIsEditingSaving(true)
+                                      try {
+                                        await onEdit?.(message.id, editBody)
+                                        setEditingMessageId(null)
+                                        setEditBody('')
+                                      } finally {
+                                        setIsEditingSaving(false)
+                                      }
+                                    }}
+                                  >
+                                    <Trans>Save</Trans>
+                                  </Button>
+                                </div>
+                              </div>
+                            ) : message.body ? (
                               <MessageBody
                                 isSent={isSent}
                                 className={
                                   message.attachments?.length ? 'mt-2' : undefined
                                 }
                               >
-                                {searchActive &&
-                                  searchQuery.length >= 2 &&
-                                  matchedMessageIds?.has(message.id)
-                                  ? highlightSearchText(
-                                    message.body,
-                                    searchQuery,
-                                    activeMatchId === message.id
-                                  )
-                                  : message.body}
+                                {(() => {
+                                  // 1. Parse mentions first
+                                  const mentionParts = message.body.split(/(@\[[^\]]+\])/g)
+                                  return mentionParts.map((part, i) => {
+                                    if (part.startsWith('@[')) {
+                                      return (
+                                        <span
+                                          key={i}
+                                          className={cn(
+                                            'rounded-sm px-1 py-0.5 font-medium',
+                                            isSent
+                                              ? 'bg-primary-foreground/20 text-primary-foreground'
+                                              : 'bg-primary/15 text-primary'
+                                          )}
+                                        >
+                                          @{part.slice(2, -1)}
+                                        </span>
+                                      )
+                                    }
+                                    // 2. Apply search highlight to the plain text parts
+                                    if (searchActive && searchQuery.length >= 2 && matchedMessageIds?.has(message.id)) {
+                                      return (
+                                        <Fragment key={i}>
+                                          {highlightSearchText(part, searchQuery, activeMatchId === message.id)}
+                                        </Fragment>
+                                      )
+                                    }
+                                    return <Fragment key={i}>{part}</Fragment>
+                                  })
+                                })()}
                               </MessageBody>
                             ) : null}
                           </>
@@ -619,12 +703,22 @@ export function ChatMessageList({
                                   onSelect={onSelectMessage ? () => onSelectMessage(message) : undefined}
                                   onForward={onForward ? () => onForward(message) : undefined}
                                   onDelete={onDelete ? () => onDelete(message) : undefined}
+                                  onEdit={
+                                    canEditMessage(message, isSent)
+                                      ? () => {
+                                          setEditBody(message.body ?? '')
+                                          setEditingMessageId(message.id)
+                                        }
+                                      : undefined
+                                  }
                                   canDelete={isSent}
+                                  canEdit={canEditMessage(message, isSent)}
                                   className="!opacity-100"
                                 />
                               )}
                               <span className="text-muted-foreground/70 text-[10px] whitespace-nowrap px-1">
                                 {formatTime(new Date(message.created * 1000))}
+                                {message.edited ? <span className="ml-1 italic"><Trans>(edited)</Trans></span> : null}
                               </span>
                             </div>
                           </BubbleReactions>

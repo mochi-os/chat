@@ -31,11 +31,25 @@ import {
   TooltipTrigger,
   cn,
   useFormat,
+  MentionTextarea,
+  type MentionUser,
+  toast,
+  isInShell,
+  shellMicStart,
+  shellMicStop,
+  shellMicCancel,
+  onShellMicLevel,
+  createMicSessionHost,
+  micDurationSecs,
+  micFilenameForMime,
 } from '@mochi/web'
-import { Loader2, Paperclip, Send, X } from 'lucide-react'
+import { Loader2, Paperclip, Send, X, Mic, Trash, Square } from 'lucide-react'
 import type { PendingAttachment } from '../utils'
 import type { ReplyTarget } from '../utils/reply'
 import { ReplyQuoteContent } from './reply-quote-content'
+import { VoiceNotePlayer } from './audio-player'
+import { VoiceWaveform } from './voice-waveform'
+import { placeholderPeaks, pushLiveLevel } from '../utils/audio-peaks'
 
 export interface ChatInputHandle {
   focusInput: () => void
@@ -44,6 +58,10 @@ export interface ChatInputHandle {
 interface ChatInputProps {
   newMessage: string
   setNewMessage: (msg: string) => void
+  /** Current chat members available for @mention (excludes self). */
+  people?: MentionUser[]
+  selectedMentions: MentionUser[]
+  onMentionsChange: (mentions: MentionUser[]) => void
   onSendMessage: (e: FormEvent) => void
   isSending: boolean
   isSendDisabled: boolean
@@ -51,6 +69,7 @@ interface ChatInputProps {
   onRemoveAttachment: (id: string) => void
   onReorderAttachments: (fromIndex: number, toIndex: number) => void
   onAttachmentSelection: (e: ChangeEvent<HTMLInputElement>) => void
+  onAddVoiceNote?: (file: File, durationSecs: number) => void
   sendMessageErrorMessage: string | null
   replyTo?: ReplyTarget | null
   onClearReply?: () => void
@@ -61,6 +80,9 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(
     {
       newMessage,
       setNewMessage,
+      people = [],
+      selectedMentions,
+      onMentionsChange,
       onSendMessage,
       isSending,
       isSendDisabled,
@@ -68,6 +90,7 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(
       onRemoveAttachment,
       onReorderAttachments,
       onAttachmentSelection,
+      onAddVoiceNote,
       sendMessageErrorMessage,
       replyTo,
       onClearReply,
@@ -80,8 +103,28 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(
   const textareaRef = useRef<HTMLTextAreaElement | null>(null)
   const [draggingId, setDraggingId] = useState<string | null>(null)
   const [dropTargetId, setDropTargetId] = useState<string | null>(null)
+  
+  const [isRecording, setIsRecording] = useState(false)
+  const [recordingDuration, setRecordingDuration] = useState(0)
+  const [livePeaks, setLivePeaks] = useState<number[]>(() =>
+    placeholderPeaks(32, 3).map((p) => p * 0.2)
+  )
+  const mediaRecorderRef = useRef<MediaRecorder | null>(null)
+  const audioChunksRef = useRef<Blob[]>([])
+  const timerRef = useRef<ReturnType<typeof setInterval> | null>(null)
+  const recordingStartedAtRef = useRef<number>(0)
+  const shellMicRequestIdRef = useRef<number | null>(null)
+  const localMicHostRef = useRef<ReturnType<typeof createMicSessionHost> | null>(null)
+  const stoppingRef = useRef(false)
+  const startingRef = useRef(false)
+  const livePeaksRef = useRef<number[]>([])
+
   const hasPendingAttachments = pendingAttachments.length > 0
   const canReorder = pendingAttachments.length > 1
+  const pendingFiles = pendingAttachments.filter((a) => typeof a.duration !== 'number')
+  const pendingVoiceNotes = pendingAttachments.filter(
+    (a) => typeof a.duration === 'number'
+  )
 
   const focusInput = useCallback(() => {
     window.setTimeout(() => {
@@ -91,6 +134,21 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(
 
   useImperativeHandle(ref, () => ({ focusInput }), [focusInput])
 
+  const pushLevel = useCallback((level: number) => {
+    livePeaksRef.current = pushLiveLevel(livePeaksRef.current, level, 32)
+    setLivePeaks(livePeaksRef.current.slice())
+  }, [])
+
+  // Live levels from shell while recording
+  useEffect(() => {
+    if (!isRecording || !isInShell()) return
+    return onShellMicLevel((requestId, level) => {
+      if (shellMicRequestIdRef.current === requestId) {
+        pushLevel(level)
+      }
+    })
+  }, [isRecording, pushLevel])
+
   // Auto-resize: grow with content, shrink when cleared
   useEffect(() => {
     const el = textareaRef.current
@@ -98,6 +156,299 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(
     el.style.height = 'auto'
     el.style.height = `${el.scrollHeight}px`
   }, [newMessage])
+
+  const clearRecordingTimer = () => {
+    if (timerRef.current) {
+      clearInterval(timerRef.current)
+      timerRef.current = null
+    }
+  }
+
+  const beginRecordingUi = () => {
+    setIsRecording(true)
+    setRecordingDuration(0)
+    livePeaksRef.current = placeholderPeaks(32, 3).map((p) => p * 0.18)
+    setLivePeaks(livePeaksRef.current.slice())
+    recordingStartedAtRef.current =
+      typeof performance !== 'undefined' && performance.now
+        ? performance.now()
+        : Date.now()
+    clearRecordingTimer()
+    timerRef.current = setInterval(() => {
+      const started = recordingStartedAtRef.current
+      const now =
+        typeof performance !== 'undefined' && performance.now
+          ? performance.now()
+          : Date.now()
+      setRecordingDuration(micDurationSecs(now - started))
+    }, 250)
+  }
+
+  const endRecordingUi = () => {
+    clearRecordingTimer()
+    setIsRecording(false)
+    setRecordingDuration(0)
+    shellMicRequestIdRef.current = null
+    mediaRecorderRef.current = null
+    audioChunksRef.current = []
+    localMicHostRef.current = null
+    stoppingRef.current = false
+    startingRef.current = false
+  }
+
+  const toastMicError = (err: unknown) => {
+    const name =
+      err && typeof err === 'object' && 'name' in err
+        ? String((err as { name: unknown }).name)
+        : ''
+    const message =
+      err && typeof err === 'object' && 'message' in err
+        ? String((err as { message: unknown }).message)
+        : ''
+
+    if (name === 'TimeoutError') {
+      toast.error(
+        t`Installed Mochi shell may not support voice recording. Update the Menu/shell app and try again.`
+      )
+      return
+    }
+    if (name === 'NotAllowedError' || name === 'PermissionDeniedError') {
+      toast.error(t`Microphone permission denied`)
+      return
+    }
+    if (name === 'NotFoundError' || name === 'DevicesNotFoundError') {
+      toast.error(t`No microphone found`)
+      return
+    }
+    if (name === 'NotReadableError' || name === 'TrackStartError') {
+      toast.error(t`Microphone is already in use`)
+      return
+    }
+    if (name === 'OverconstrainedError' || name === 'ConstraintNotSatisfiedError') {
+      toast.error(t`Microphone constraints could not be satisfied`)
+      return
+    }
+    if (name === 'AbortError') {
+      // User or navigation cancelled — no toast.
+      return
+    }
+    if (name === 'NotSupportedError' || name === 'TypeError') {
+      toast.error(t`Voice recording is not supported in this browser`)
+      return
+    }
+    if (name === 'SecurityError') {
+      if (typeof window !== 'undefined' && window.isSecureContext === false) {
+        toast.error(t`Microphone access requires a secure context (HTTPS or localhost)`)
+      } else if (isInShell()) {
+        toast.error(
+          t`Microphone is blocked in this embedded view. Update the Mochi shell and try again.`
+        )
+      } else {
+        toast.error(t`Microphone access was blocked by the browser`)
+      }
+      return
+    }
+    if (name === 'EmptyRecordingError') {
+      toast.error(t`Recording produced no audio`)
+      return
+    }
+    if (message) {
+      toast.error(t`Microphone error: ${message}`)
+      return
+    }
+    toast.error(t`Microphone access denied`)
+  }
+
+  const attachVoiceNote = (blob: Blob, mimeType: string, filename: string, durationSecs: number) => {
+    const file = new File([blob], filename || micFilenameForMime(mimeType), {
+      type: mimeType || blob.type || 'audio/webm',
+    })
+    onAddVoiceNote?.(file, durationSecs)
+  }
+
+  const startRecording = async () => {
+    if (isRecording || stoppingRef.current || startingRef.current) return
+    startingRef.current = true
+
+    // Secure-context check separate from iframe permission failures.
+    if (typeof window !== 'undefined' && window.isSecureContext === false) {
+      startingRef.current = false
+      toast.error(t`Microphone access requires a secure context (HTTPS or localhost)`)
+      return
+    }
+
+    try {
+      if (isInShell()) {
+        try {
+          const requestId = await shellMicStart()
+          shellMicRequestIdRef.current = requestId
+          startingRef.current = false
+          beginRecordingUi()
+        } catch (err) {
+          endRecordingUi()
+          toastMicError(err)
+        }
+        return
+      }
+
+      if (
+        typeof navigator === 'undefined' ||
+        !navigator.mediaDevices ||
+        !navigator.mediaDevices.getUserMedia
+      ) {
+        startingRef.current = false
+        toast.error(t`Microphone access requires a secure context (HTTPS or localhost)`)
+        return
+      }
+
+      if (typeof MediaRecorder === 'undefined') {
+        startingRef.current = false
+        toast.error(t`Voice recording is not supported in this browser`)
+        return
+      }
+
+      const host = createMicSessionHost({
+        getUserMedia: (c) => navigator.mediaDevices.getUserMedia(c),
+        MediaRecorder,
+        now: () =>
+          typeof performance !== 'undefined' && performance.now
+            ? performance.now()
+            : Date.now(),
+        onLevel: pushLevel,
+      })
+      localMicHostRef.current = host
+      try {
+        await host.start()
+        startingRef.current = false
+        beginRecordingUi()
+      } catch (err) {
+        endRecordingUi()
+        toastMicError(err)
+      }
+    } catch (err) {
+      endRecordingUi()
+      toastMicError(err)
+    }
+  }
+
+  const stopRecording = async (cancel: boolean = false) => {
+    if (stoppingRef.current) return
+    stoppingRef.current = true
+    clearRecordingTimer()
+
+    const elapsedMs = (() => {
+      const started = recordingStartedAtRef.current
+      if (!started) return 0
+      const now =
+        typeof performance !== 'undefined' && performance.now
+          ? performance.now()
+          : Date.now()
+      return now - started
+    })()
+
+    try {
+      if (isInShell() && shellMicRequestIdRef.current != null) {
+        const requestId = shellMicRequestIdRef.current
+        if (cancel) {
+          await shellMicCancel(requestId)
+          endRecordingUi()
+          return
+        }
+        try {
+          const result = await shellMicStop(requestId)
+          attachVoiceNote(
+            result.blob,
+            result.mimeType,
+            result.filename,
+            result.durationSecs || micDurationSecs(elapsedMs)
+          )
+        } catch (err) {
+          toastMicError(err)
+        } finally {
+          endRecordingUi()
+        }
+        return
+      }
+
+      const host = localMicHostRef.current
+      if (host) {
+        const requestId = host.getActiveRequestId()
+        if (cancel) {
+          if (requestId != null) await host.cancel(requestId)
+          else await host.cancel()
+          endRecordingUi()
+          return
+        }
+        if (requestId == null) {
+          endRecordingUi()
+          return
+        }
+        try {
+          const result = await host.stop(requestId)
+          if (result.ok) {
+            attachVoiceNote(
+              result.blob,
+              result.mimeType,
+              result.filename,
+              result.durationSecs || micDurationSecs(elapsedMs)
+            )
+          } else if (result.error) {
+            toastMicError(result.error)
+          }
+        } catch (err) {
+          toastMicError(err)
+        } finally {
+          endRecordingUi()
+        }
+        return
+      }
+
+      // Legacy local MediaRecorder path (should not normally be reached)
+      if (!mediaRecorderRef.current) {
+        endRecordingUi()
+        return
+      }
+      const recorder = mediaRecorderRef.current
+      const stream = recorder.stream
+      await new Promise<void>((resolve) => {
+        recorder.onstop = () => {
+          stream.getTracks().forEach((track) => track.stop())
+          if (!cancel && audioChunksRef.current.length > 0) {
+            const mimeType = recorder.mimeType || 'audio/webm'
+            const blob = new Blob(audioChunksRef.current, { type: mimeType })
+            attachVoiceNote(
+              blob,
+              mimeType,
+              micFilenameForMime(mimeType),
+              micDurationSecs(elapsedMs)
+            )
+          }
+          resolve()
+        }
+        try {
+          recorder.stop()
+        } catch {
+          resolve()
+        }
+      })
+      endRecordingUi()
+    } catch (err) {
+      toastMicError(err)
+      endRecordingUi()
+    }
+  }
+
+  // Cleanup on unmount — cancel any in-flight shell/local recording.
+  useEffect(() => {
+    return () => {
+      clearRecordingTimer()
+      const shellId = shellMicRequestIdRef.current
+      if (shellId != null && isInShell()) {
+        void shellMicCancel(shellId)
+      }
+      localMicHostRef.current?.abortAll()
+    }
+  }, [])
 
   useEffect(() => {
     if (replyTo) {
@@ -181,128 +532,249 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(
           </div>
         ) : null}
         {hasPendingAttachments && (
-          <AttachmentGroup
-            className='border-border/50 border-b px-4 pt-2 pb-2'
-            onDragOver={(e) => {
-              if (canReorder) e.preventDefault()
-            }}
-          >
-            {pendingAttachments.map((attachment) => {
-              const isImage = attachment.kind === 'image'
-              const isVideo = attachment.kind === 'video'
-              const isDragging = draggingId === attachment.id
-              const isDropTarget = dropTargetId === attachment.id
+          <div className='border-border/50 flex flex-col gap-2 border-b px-4 pt-2 pb-2'>
+            {pendingVoiceNotes.length > 0 ? (
+              <div className='flex flex-col gap-2'>
+                {pendingVoiceNotes.map((attachment) => (
+                  <VoiceNotePlayer
+                    key={attachment.id}
+                    src={attachment.previewUrl ?? ''}
+                    durationSecs={attachment.duration ?? 1}
+                    variant='composer'
+                    onRemove={() => onRemoveAttachment(attachment.id)}
+                  />
+                ))}
+              </div>
+            ) : null}
+            {pendingFiles.length > 0 ? (
+              <AttachmentGroup
+                onDragOver={(e) => {
+                  if (canReorder) e.preventDefault()
+                }}
+              >
+                {pendingFiles.map((attachment) => {
+                  const isImage = attachment.kind === 'image'
+                  const isVideo = attachment.kind === 'video'
+                  const isDragging = draggingId === attachment.id
+                  const isDropTarget = dropTargetId === attachment.id
 
-              return (
-                <Attachment
-                  key={attachment.id}
-                  draggable={canReorder}
-                  onDragStart={(e: DragEvent<HTMLDivElement>) => handleDragStart(e, attachment.id)}
-                  onDragOver={(e: DragEvent<HTMLDivElement>) => handleDragOver(e, attachment.id)}
-                  onDrop={(e: DragEvent<HTMLDivElement>) => handleDrop(e, attachment.id)}
-                  onDragEnd={handleDragEnd}
-                  className={cn(
-                    canReorder && 'cursor-grab active:cursor-grabbing',
-                    isDragging && 'opacity-40',
-                    isDropTarget && 'ring-primary rounded-lg ring-2 ring-inset'
-                  )}
-                  state={isSending ? 'uploading' : 'idle'}
-                >
-                  <AttachmentMedia variant={isImage || isVideo ? "image" : "icon"}>
-                    {isImage && attachment.previewUrl ? (
-                      <img
-                        src={attachment.previewUrl}
-                        alt={attachment.file.name}
-                        draggable={false}
-                      />
-                    ) : isVideo && attachment.previewUrl ? (
-                      <video
-                        src={attachment.previewUrl}
-                        muted
-                        playsInline
-                        draggable={false}
-                      />
-                    ) : (
-                      <Paperclip />
-                    )}
-                  </AttachmentMedia>
-                  <AttachmentContent>
-                    <AttachmentTitle>{attachment.file.name}</AttachmentTitle>
-                    <AttachmentDescription>
-                      {formatFileSize(attachment.file.size)}
-                    </AttachmentDescription>
-                  </AttachmentContent>
-                  <AttachmentActions>
-                    <AttachmentAction
-                      aria-label={t`Remove ${attachment.file.name}`}
-                      onClick={(e: MouseEvent<HTMLButtonElement>) => {
-                        e.stopPropagation()
-                        onRemoveAttachment(attachment.id)
-                      }}
+                  return (
+                    <Attachment
+                      key={attachment.id}
+                      draggable={canReorder}
+                      onDragStart={(e: DragEvent<HTMLDivElement>) =>
+                        handleDragStart(e, attachment.id)
+                      }
+                      onDragOver={(e: DragEvent<HTMLDivElement>) =>
+                        handleDragOver(e, attachment.id)
+                      }
+                      onDrop={(e: DragEvent<HTMLDivElement>) =>
+                        handleDrop(e, attachment.id)
+                      }
+                      onDragEnd={handleDragEnd}
+                      className={cn(
+                        canReorder && 'cursor-grab active:cursor-grabbing',
+                        isDragging && 'opacity-40',
+                        isDropTarget &&
+                          'ring-primary rounded-lg ring-2 ring-inset'
+                      )}
+                      state={isSending ? 'uploading' : 'idle'}
                     >
-                      <X className='size-4' />
-                    </AttachmentAction>
-                  </AttachmentActions>
-                </Attachment>
-              )
-            })}
-          </AttachmentGroup>
+                      <AttachmentMedia
+                        variant={isImage || isVideo ? 'image' : 'icon'}
+                      >
+                        {isImage && attachment.previewUrl ? (
+                          <img
+                            src={attachment.previewUrl}
+                            alt={attachment.file.name}
+                            draggable={false}
+                          />
+                        ) : isVideo && attachment.previewUrl ? (
+                          <video
+                            src={attachment.previewUrl}
+                            muted
+                            playsInline
+                            draggable={false}
+                          />
+                        ) : (
+                          <Paperclip />
+                        )}
+                      </AttachmentMedia>
+                      <AttachmentContent>
+                        <AttachmentTitle>{attachment.file.name}</AttachmentTitle>
+                        <AttachmentDescription>
+                          {formatFileSize(attachment.file.size)}
+                        </AttachmentDescription>
+                      </AttachmentContent>
+                      <AttachmentActions>
+                        <AttachmentAction
+                          aria-label={t`Remove ${attachment.file.name}`}
+                          onClick={(e: MouseEvent<HTMLButtonElement>) => {
+                            e.stopPropagation()
+                            onRemoveAttachment(attachment.id)
+                          }}
+                        >
+                          <X className='size-4' />
+                        </AttachmentAction>
+                      </AttachmentActions>
+                    </Attachment>
+                  )
+                })}
+              </AttachmentGroup>
+            ) : null}
+          </div>
         )}
         <div className='flex w-full items-end gap-2 px-4 py-2'>
-          <div className='flex items-end pb-0.5'>
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <Button
-                  size='icon'
-                  type='button'
-                  variant='ghost'
-                  onClick={() => fileInputRef.current?.click()}
-                  aria-label={t`Add attachment`}
-                >
-                  <Paperclip size={16} className='stroke-muted-foreground' />
-                </Button>
-              </TooltipTrigger>
-              <TooltipContent>{t`Add attachment`}</TooltipContent>
-            </Tooltip>
-          </div>
-          <label className='flex-1'>
-            <span className='sr-only'><Trans>Chat Text Box</Trans></span>
-            <textarea
-              ref={textareaRef}
-              rows={1}
-              placeholder={replyTo ? t`Type your reply…` : t`Type your message…`}
-              value={newMessage}
-              onChange={(e) => setNewMessage(e.target.value)}
-              onKeyDown={(e) => {
-                if (e.key === 'Enter' && !e.shiftKey) {
-                  e.preventDefault()
-                  onSendMessage(e as unknown as FormEvent)
-                }
-              }}
-              className='max-h-40 w-full resize-none overflow-y-auto bg-transparent text-sm leading-5 focus-visible:outline-none'
-            />
-          </label>
-          <div className='flex items-end pb-0.5'>
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <Button
-                  type='submit'
-                  size='icon'
-                  className='bg-primary hover:bg-primary/80 transition-colors'
-                  disabled={isSendDisabled}
-                  aria-label={t`Send message`}
-                >
-                  {isSending ? (
-                    <Loader2 size={16} className='animate-spin' />
-                  ) : (
-                    <Send size={16} />
-                  )}
-                </Button>
-              </TooltipTrigger>
-              <TooltipContent>{t`Send message`}</TooltipContent>
-            </Tooltip>
-          </div>
-          <input
+          {isRecording ? (
+            <div
+              className='border-border/50 bg-muted/30 mb-0.5 flex w-full min-w-0 flex-1 items-center gap-3 rounded-xl border px-3 py-2'
+              role='status'
+              aria-live='polite'
+              aria-label={t`Recording voice note`}
+            >
+              <div
+                className='bg-destructive size-2.5 shrink-0 animate-pulse rounded-full'
+                aria-hidden
+              />
+              <div
+                className='text-muted-foreground shrink-0 text-sm font-medium tracking-wider tabular-nums'
+                aria-label={t`Elapsed ${Math.floor(recordingDuration / 60)}:${Math.floor(
+                  recordingDuration % 60
+                )
+                  .toString()
+                  .padStart(2, '0')}`}
+              >
+                {Math.floor(recordingDuration / 60)}:
+                {Math.floor(recordingDuration % 60)
+                  .toString()
+                  .padStart(2, '0')}
+              </div>
+              <VoiceWaveform
+                peaks={livePeaks}
+                tone='recording'
+                progress={1}
+                className='min-w-0 flex-1'
+              />
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Button
+                    type='button'
+                    variant='ghost'
+                    size='icon'
+                    className='text-muted-foreground hover:text-destructive h-8 w-8 shrink-0'
+                    onClick={() => void stopRecording(true)}
+                    aria-label={t`Discard recording`}
+                  >
+                    <Trash className='size-4' />
+                  </Button>
+                </TooltipTrigger>
+                <TooltipContent>{t`Discard recording`}</TooltipContent>
+              </Tooltip>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Button
+                    type='button'
+                    size='icon'
+                    className='bg-primary h-8 w-8 shrink-0 rounded-full'
+                    onClick={() => void stopRecording(false)}
+                    aria-label={t`Stop recording`}
+                  >
+                    <Square className='size-3.5' fill='currentColor' />
+                  </Button>
+                </TooltipTrigger>
+                <TooltipContent>{t`Stop recording`}</TooltipContent>
+              </Tooltip>
+            </div>
+          ) : (
+            <>
+              <div className='flex items-end pb-0.5'>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <Button
+                      size='icon'
+                      type='button'
+                      variant='ghost'
+                      onClick={() => fileInputRef.current?.click()}
+                      aria-label={t`Add attachment`}
+                    >
+                      <Paperclip size={16} className='stroke-muted-foreground' />
+                    </Button>
+                  </TooltipTrigger>
+                  <TooltipContent>{t`Add attachment`}</TooltipContent>
+                </Tooltip>
+              </div>
+              <label className='flex-1'>
+                <span className='sr-only'><Trans>Chat Text Box</Trans></span>
+                <MentionTextarea
+                  ref={textareaRef}
+                  rows={1}
+                  placeholder={replyTo ? t`Type your reply…` : t`Type your message…`}
+                  value={newMessage}
+                  people={people}
+                  onValueChange={(val) => {
+                    setNewMessage(val)
+                    const nextMentions = selectedMentions.filter((m) =>
+                      val.includes(`@[${m.name}]`)
+                    )
+                    if (nextMentions.length !== selectedMentions.length) {
+                      onMentionsChange(nextMentions)
+                    }
+                  }}
+                  onMentionSelect={(person) => {
+                    if (selectedMentions.some((m) => m.id === person.id)) return
+                    onMentionsChange([...selectedMentions, person])
+                  }}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' && !e.shiftKey) {
+                      e.preventDefault()
+                      onSendMessage(e as unknown as FormEvent)
+                    }
+                  }}
+                  className='border-0 bg-transparent min-h-0 focus-visible:ring-0 focus-visible:ring-offset-0 px-0 py-1.5 resize-none w-full max-h-40 overflow-y-auto text-sm leading-5 focus-visible:outline-none shadow-none rounded-none'
+                />
+              </label>
+              <div className='flex items-end pb-0.5'>
+                {isSendDisabled ? (
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <Button
+                        type='button'
+                        size='icon'
+                        variant='ghost'
+                        className='transition-colors'
+                        onClick={startRecording}
+                        aria-label={t`Record voice note`}
+                      >
+                        <Mic size={16} className='stroke-muted-foreground' />
+                      </Button>
+                    </TooltipTrigger>
+                    <TooltipContent>{t`Record voice note`}</TooltipContent>
+                  </Tooltip>
+                ) : (
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <Button
+                        type='submit'
+                        size='icon'
+                        className='bg-primary hover:bg-primary/80 transition-colors'
+                        disabled={isSendDisabled}
+                        aria-label={t`Send message`}
+                      >
+                        {isSending ? (
+                          <Loader2 size={16} className='animate-spin' />
+                        ) : (
+                          <Send size={16} />
+                        )}
+                      </Button>
+                    </TooltipTrigger>
+                    <TooltipContent>{t`Send message`}</TooltipContent>
+                  </Tooltip>
+                )}
+              </div>
+            </>
+          )}
+        </div>
+        <input
             ref={fileInputRef}
             type='file'
             multiple
@@ -313,7 +785,6 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(
               e.target.value = ''
             }}
           />
-        </div>
       </div>
       {sendMessageErrorMessage && (
         <p className='text-destructive w-full pe-2 text-end text-xs'>

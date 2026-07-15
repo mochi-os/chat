@@ -12,6 +12,7 @@ const endpoints = {
     preferencesGet: '/-/preferences/get',
     preferencesSet: '/-/preferences/set',
     messages: (chatId: string) => `/${chatId}/-/messages`,
+    messagesEdit: (chatId: string) => `/${chatId}/-/messages/edit`,
     messagesDelete: (chatId: string) => `/${chatId}/-/messages/delete`,
     messagesForward: (chatId: string) => `/${chatId}/-/messages/forward`,
     search: (chatId: string) => `/${chatId}/-/search`,

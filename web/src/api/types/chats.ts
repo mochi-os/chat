@@ -69,6 +69,7 @@ export interface ChatMessageAttachment {
   url?: string
   thumbnail_url?: string
   created?: number
+  caption?: string
 }
 
 export interface ChatMessage {
@@ -85,6 +86,7 @@ export interface ChatMessage {
   reaction_counts?: ReactionCounts
   my_reaction?: ReactionId | null
   deleted?: boolean
+  edited?: number
   [key: string]: unknown
 }
 
@@ -156,11 +158,18 @@ export interface SendMessageRequest {
   body: string
   reply_to?: string
   attachments?: SendMessageAttachment[]
+  mentions?: string[]
+  captions?: string[]
 }
 
 export interface SendMessageResponse {
   id: string
   [key: string]: unknown
+}
+
+export interface EditMessageResponse {
+  id: string
+  edited: number
 }
 
 export interface GetMembersResponse {

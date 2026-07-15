@@ -45,11 +45,13 @@ import {
   useChatsQuery,
   useSendMessageMutation,
   useChatDetailQuery,
+  useChatMembersQuery,
   useLeaveChatMutation,
   useDeleteChatMutation,
   useCreateChatMutation,
   useMarkChatReadMutation,
   useDeleteMessagesMutation,
+  useEditMessageMutation,
 } from '@/hooks/useChats'
 import type { GetMessagesResponse } from '@/api/types/chats'
 import { chatActive } from '@/api/types/chats'
@@ -63,6 +65,7 @@ import { useChatMessageSearch } from './hooks/use-chat-message-search'
 import {
   type PendingAttachment,
   createPendingAttachment,
+  createPendingVoiceNote,
   revokePendingAttachmentPreview,
 } from './utils'
 import {
@@ -102,6 +105,8 @@ export function Chats() {
     PendingAttachment[]
   >([])
   const [replyTo, setReplyTo] = useState<ReplyTarget | null>(null)
+  const [selectedMentions, setSelectedMentions] = useState<{ id: string, name: string }[]>([])
+  const editMessageMutation = useEditMessageMutation()
   const [scrollToMessageId, setScrollToMessageId] = useState<string | null>(
     null
   )
@@ -140,6 +145,7 @@ export function Chats() {
     setScrollToMessageId(null)
     setHighlightMessageId(null)
     clearSelection()
+    setSelectedMentions([])
     setDeleteTargetIds(null)
     setForwardTargetIds(null)
     if (!selectedChatId) return
@@ -269,6 +275,28 @@ export function Chats() {
 
   // Chat detail (members, names)
   const { data: chatDetail } = useChatDetailQuery(selectedChat?.id)
+  const detailMembers = chatDetail?.chat.members
+  const { data: membersResponse } = useChatMembersQuery(selectedChat?.id, {
+    enabled: Boolean(selectedChat?.id) && !(detailMembers && detailMembers.length > 0),
+  })
+
+  const chatMemberRoster = useMemo(
+    () =>
+      detailMembers && detailMembers.length > 0
+        ? detailMembers
+        : (membersResponse?.members ?? []),
+    [detailMembers, membersResponse?.members]
+  )
+
+  // 1:1 chats: no @mention dropdown (WhatsApp-style). Groups only.
+  const isDirectChat =
+    (selectedChat?.members === 2) ||
+    (chatMemberRoster.length > 0 && chatMemberRoster.length <= 2)
+
+  const mentionPeople = useMemo(() => {
+    if (isDirectChat) return []
+    return chatMemberRoster.filter((m) => m.id !== currentUserIdentity)
+  }, [isDirectChat, chatMemberRoster, currentUserIdentity])
 
   const subtitle = useMemo(() => {
     if (!chatDetail?.chat.members || chatDetail.chat.members.length <= 2) return null
@@ -483,6 +511,7 @@ export function Chats() {
     onSuccess: () => {
       setNewMessage('')
       setReplyTo(null)
+      setSelectedMentions([])
       clearAttachments()
       if (selectedChat) clearDraft(selectedChat.id)
     },
@@ -610,11 +639,22 @@ export function Chats() {
       return
     }
 
+    const rosterIds = new Set(chatMemberRoster.map((m) => m.id))
     sendMessageMutation.mutate({
       chatId: selectedChat.id,
       body,
       reply_to: replyTo?.id,
       attachments: pendingAttachments.map((a) => a.file),
+      mentions: isDirectChat
+        ? []
+        : Array.from(
+            new Set(
+              selectedMentions.map((m) => m.id).filter((id) => rosterIds.has(id))
+            )
+          ),
+      captions: pendingAttachments.some(a => 'duration' in a)
+        ? pendingAttachments.map(a => 'duration' in a && typeof a.duration === 'number' ? `voice:${Math.round(a.duration)}` : "")
+        : undefined,
     })
   }
 
@@ -805,6 +845,9 @@ export function Chats() {
             onSelectMessage={(message) => selectOne(message.id)}
             onSelectAll={(ids) => selectAllMessages(ids)}
             onClearSelection={clearSelection}
+            onEdit={chatActive(selectedChat) ? async (messageId, body) => {
+              await editMessageMutation.mutateAsync({ chatId: selectedChat!.id, messageId, body })
+            } : undefined}
           />
 
           {isSelecting ? (
@@ -877,6 +920,9 @@ export function Chats() {
               ref={chatInputRef}
               newMessage={newMessage}
               setNewMessage={setNewMessage}
+              people={mentionPeople}
+              selectedMentions={selectedMentions}
+              onMentionsChange={setSelectedMentions}
               onSendMessage={handleSendMessage}
               isSending={sendMessageMutation.isPending}
               isSendDisabled={!canSendMessage}
@@ -884,6 +930,12 @@ export function Chats() {
               onRemoveAttachment={handleRemoveAttachment}
               onReorderAttachments={handleReorderAttachments}
               onAttachmentSelection={handleAttachmentSelection}
+              onAddVoiceNote={(file, durationSecs) => {
+                setPendingAttachments((prev) => [
+                  ...prev,
+                  createPendingVoiceNote(file, durationSecs),
+                ])
+              }}
               replyTo={replyTo}
               onClearReply={() => setReplyTo(null)}
               sendMessageErrorMessage={sendAttachmentErrorMessage}

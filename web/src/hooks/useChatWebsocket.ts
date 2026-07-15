@@ -208,6 +208,51 @@ const markMessageDeletedFromWebsocket = (
   )
 }
 
+const patchMessageEditFromWebsocket = (
+  chatId: string,
+  payload: NormalizedChatWebsocketMessagePayload,
+  queryClient: QueryClient
+) => {
+  const messageId = typeof payload.message === 'string' ? payload.message : undefined
+  const body = typeof payload.body === 'string' ? payload.body : undefined
+  const edited = typeof payload.edited === 'number' ? payload.edited : undefined
+
+  if (!messageId || body === undefined || edited === undefined) {
+    return
+  }
+
+  queryClient.setQueryData<InfiniteData<GetMessagesResponse>>(
+    chatKeys.messages(chatId),
+    (current) => {
+      if (!current?.pages) return current
+
+      let found = false
+      const pages = current.pages.map((page) => ({
+        ...page,
+        messages: page.messages.map((message) => {
+          if (message.id === messageId) {
+            // LWW protection: ignore if the incoming event is older than or equal to cached edited timestamp
+            if ((message.edited ?? 0) >= edited) {
+              found = true // Message found but skipped
+              return message
+            }
+
+            found = true
+            return {
+              ...message,
+              body,
+              edited,
+            }
+          }
+          return message
+        }),
+      }))
+
+      return found ? { ...current, pages } : current
+    }
+  )
+}
+
 const handleWebsocketEvent = (
   chatId: string,
   payload: NormalizedChatWebsocketMessagePayload,
@@ -231,6 +276,9 @@ const handleWebsocketEvent = (
         return 'reaction'
       case 'delete':
         markMessageDeletedFromWebsocket(chatId, payload, queryClient)
+        return 'event'
+      case 'edit':
+        patchMessageEditFromWebsocket(chatId, payload, queryClient)
         return 'event'
       case 'removed':
       case 'rename':

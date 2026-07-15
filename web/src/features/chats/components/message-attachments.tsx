@@ -23,6 +23,7 @@ import {
 import type { GalleryAttachment } from '@mochi/web'
 import type { ChatMessageAttachment } from '@/api/chats'
 import { MessageMediaGrid } from './message-media-grid'
+import { VoiceNotePlayer } from './audio-player'
 
 interface MessageAttachmentsProps {
   attachments: ChatMessageAttachment[]
@@ -154,10 +155,16 @@ export function MessageAttachments({
     [attachments]
   )
 
+  const voiceNotes = useMemo(
+    () =>
+      normalizedAttachments.filter((att) => att.caption?.startsWith('voice:')),
+    [normalizedAttachments]
+  )
+
   const media = useMemo(
     () =>
       normalizedAttachments.filter(
-        (att) => isImage(att.type) || isVideo(att.type)
+        (att) => (isImage(att.type) || isVideo(att.type)) && !att.caption?.startsWith('voice:')
       ),
     [normalizedAttachments]
   )
@@ -165,7 +172,7 @@ export function MessageAttachments({
   const files = useMemo(
     () =>
       normalizedAttachments.filter(
-        (att) => !isImage(att.type) && !isVideo(att.type)
+        (att) => !isImage(att.type) && !isVideo(att.type) && !att.caption?.startsWith('voice:')
       ),
     [normalizedAttachments]
   )
@@ -176,6 +183,21 @@ export function MessageAttachments({
 
   return (
     <div className='flex w-full min-w-0 max-w-full flex-col gap-2'>
+          {voiceNotes.length > 0 ? (
+        <div className='flex w-full flex-col gap-2'>
+          {voiceNotes.map((att) => {
+            const duration = parseInt(att.caption!.slice(6), 10) || 0
+            return (
+              <VoiceNotePlayer
+                key={att.id}
+                src={getUrl(att)}
+                durationSecs={duration}
+                variant={isSent ? 'sent' : 'received'}
+              />
+            )
+          })}
+        </div>
+      ) : null}
       {media.length > 0 ? (
         <MessageMediaGrid
           media={media}

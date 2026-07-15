@@ -10,6 +10,7 @@ export interface PendingAttachment {
   file: File
   kind: AttachmentKind
   previewUrl?: string
+  duration?: number
 }
 
 const IMAGE_EXTENSIONS = new Set([
@@ -50,6 +51,11 @@ export const detectAttachmentKind = (
   if (normalizedMime.startsWith('image/')) {
     return 'image'
   }
+  // Classify audio before extension fallback — voice notes are often .webm /
+  // .ogg which VIDEO_EXTENSIONS would otherwise treat as video.
+  if (normalizedMime.startsWith('audio/')) {
+    return 'file'
+  }
   if (normalizedMime.startsWith('video/')) {
     return 'video'
   }
@@ -72,6 +78,20 @@ export const createPendingAttachment = (file: File): PendingAttachment => {
     file,
     kind,
     previewUrl: kind === 'file' ? undefined : URL.createObjectURL(file),
+  }
+}
+
+/** Create a pending voice-note attachment with object-URL preview for playback. */
+export const createPendingVoiceNote = (
+  file: File,
+  durationSecs: number
+): PendingAttachment => {
+  return {
+    id: `${file.name}-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
+    file,
+    kind: 'file',
+    previewUrl: URL.createObjectURL(file),
+    duration: durationSecs,
   }
 }
 

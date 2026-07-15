@@ -19,7 +19,7 @@ import {
   shellClipboardWrite,
   toast,
 } from '@mochi/web'
-import { CheckSquare, Copy, Forward, MoreHorizontal, Reply, Trash2 } from 'lucide-react'
+import { CheckSquare, Copy, Forward, MoreHorizontal, Reply, Trash2, Pencil } from 'lucide-react'
 import type { ChatMessage } from '@/api/chats'
 
 interface MessageHoverActionsProps {
@@ -28,7 +28,9 @@ interface MessageHoverActionsProps {
   onSelect?: () => void
   onForward?: () => void
   onDelete?: () => void
+  onEdit?: () => void
   canDelete?: boolean
+  canEdit?: boolean
   className?: string
 }
 
@@ -38,7 +40,9 @@ export function MessageHoverActions({
   onSelect,
   onForward,
   onDelete,
+  onEdit,
   canDelete = false,
+  canEdit = false,
   className,
 }: MessageHoverActionsProps) {
   const { t } = useLingui()
@@ -107,6 +111,16 @@ export function MessageHoverActions({
             <DropdownMenuItem onSelect={onSelect}>
               <CheckSquare className='me-2 size-3.5' />
               {t`Select`}
+            </DropdownMenuItem>
+          ) : null}
+          {canEdit && onEdit ? (
+            <DropdownMenuItem
+              onSelect={() => {
+                onEdit()
+              }}
+            >
+              <Pencil className='me-2 size-3.5' />
+              {t`Edit`}
             </DropdownMenuItem>
           ) : null}
           <DropdownMenuItem
