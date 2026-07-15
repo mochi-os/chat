@@ -23,6 +23,7 @@ import {
 } from '@/lib/websocket-manager'
 import { chatKeys } from '@/hooks/useChats'
 import { useWebsocketManager } from '@/hooks/useWebsocketManager'
+import { applyMessageEditLWW } from '@/features/chats/utils/message-edit-lww'
 
 type NormalizedChatWebsocketMessagePayload = Omit<
   ChatWebsocketMessagePayload,
@@ -231,18 +232,8 @@ const patchMessageEditFromWebsocket = (
         ...page,
         messages: page.messages.map((message) => {
           if (message.id === messageId) {
-            // LWW protection: ignore if the incoming event is older than or equal to cached edited timestamp
-            if ((message.edited ?? 0) >= edited) {
-              found = true // Message found but skipped
-              return message
-            }
-
             found = true
-            return {
-              ...message,
-              body,
-              edited,
-            }
+            return applyMessageEditLWW(message, { body, edited })
           }
           return message
         }),

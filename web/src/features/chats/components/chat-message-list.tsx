@@ -33,6 +33,8 @@ import {
   cn,
   Skeleton,
   getAppPath,
+  getErrorMessage,
+  toast,
   actionPillExpandMaxWidthMap,
   actionPillExpandOpacityMap,
 } from '@mochi/web'
@@ -173,6 +175,23 @@ export function ChatMessageList({
   const [editingMessageId, setEditingMessageId] = useState<string | null>(null)
   const [editBody, setEditBody] = useState('')
   const [isEditingSaving, setIsEditingSaving] = useState(false)
+  const clearEdit = useCallback(() => {
+    setEditingMessageId(null)
+    setEditBody('')
+    setIsEditingSaving(false)
+  }, [])
+
+  useEffect(() => {
+    clearEdit()
+  }, [chatId, clearEdit])
+
+  useEffect(() => {
+    if (!editingMessageId) return
+    if (!chatMessages.some((message) => message.id === editingMessageId)) {
+      clearEdit()
+    }
+  }, [editingMessageId, chatMessages, clearEdit])
+
   const prevScrollHeightRef = useRef<number>(0)
   const isLoadingMoreRef = useRef(false)
   const skipNextAutoScrollRef = useRef(false)
@@ -595,10 +614,7 @@ export function ChatMessageList({
                                   <Button
                                     variant="ghost"
                                     size="sm"
-                                    onClick={() => {
-                                      setEditingMessageId(null)
-                                      setEditBody('')
-                                    }}
+                                    onClick={clearEdit}
                                     disabled={isEditingSaving}
                                   >
                                     <Trans>Cancel</Trans>
@@ -610,8 +626,14 @@ export function ChatMessageList({
                                       setIsEditingSaving(true)
                                       try {
                                         await onEdit?.(message.id, editBody)
-                                        setEditingMessageId(null)
-                                        setEditBody('')
+                                        clearEdit()
+                                      } catch (error) {
+                                        toast.error(
+                                          getErrorMessage(
+                                            error,
+                                            t`Failed to edit message`
+                                          )
+                                        )
                                       } finally {
                                         setIsEditingSaving(false)
                                       }

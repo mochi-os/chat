@@ -42,6 +42,7 @@ import { chatsApi,
   type ForwardMessagesResponse,
 } from '@/api/chats'
 import type { ChatMessage } from '@/api/types/chats'
+import { applyMessageEditLWW } from '@/features/chats/utils/message-edit-lww'
 
 export const chatKeys = {
   all: () => ['chats'] as const,
@@ -192,65 +193,51 @@ export const useEditMessageMutation = (
     EditMessageResponse,
     Error,
     EditMessageVariables,
-    { previousMessages: InfiniteData<GetMessagesResponse> | undefined }
+    unknown
   >
 ) => {
   const queryClient = useQueryClient()
   const { onMutate, onError, onSuccess, ...restOptions } = options ?? {}
 
   return useMutation({
+    ...restOptions,
     mutationFn: ({ chatId, messageId, body }) =>
       chatsApi.editMessage(chatId, messageId, body),
     onMutate: async (variables) => {
-      const queryKey = chatKeys.messages(variables.chatId)
-      await queryClient.cancelQueries({ queryKey })
-      const previousMessages = queryClient.getQueryData<InfiniteData<GetMessagesResponse>>(queryKey)
-
-      queryClient.setQueryData<InfiniteData<GetMessagesResponse>>(queryKey, (current) => {
-        if (!current?.pages) return current
-        return {
-          ...current,
-          pages: current.pages.map((page) => ({
-            ...page,
-            messages: page.messages.map((message) =>
-              message.id === variables.messageId
-                ? { ...message, body: variables.body }
-                : message
-            ),
-          })),
-        }
+      await queryClient.cancelQueries({
+        queryKey: chatKeys.messages(variables.chatId),
       })
-
       // @ts-expect-error type mismatches with different tanstack query versions
-      onMutate?.(variables)
-      return { previousMessages }
+      return await onMutate?.(variables)
     },
-    onError: (err, variables, context) => {
-      if (context?.previousMessages) {
-        queryClient.setQueryData(chatKeys.messages(variables.chatId), context.previousMessages)
-      }
+    onError: async (err, variables, context) => {
       // @ts-expect-error type mismatches
-      onError?.(err, variables, context)
+      await onError?.(err, variables, context)
     },
-    onSuccess: (data, variables, context) => {
-      queryClient.setQueryData<InfiniteData<GetMessagesResponse>>(chatKeys.messages(variables.chatId), (current) => {
-        if (!current?.pages) return current
-        return {
-          ...current,
-          pages: current.pages.map((page) => ({
-            ...page,
-            messages: page.messages.map((message) =>
-              message.id === variables.messageId
-                ? { ...message, edited: data.edited }
-                : message
-            ),
-          })),
+    onSuccess: async (data, variables, context) => {
+      queryClient.setQueryData<InfiniteData<GetMessagesResponse>>(
+        chatKeys.messages(variables.chatId),
+        (current) => {
+          if (!current?.pages) return current
+          return {
+            ...current,
+            pages: current.pages.map((page) => ({
+              ...page,
+              messages: page.messages.map((message) =>
+                message.id === variables.messageId
+                  ? applyMessageEditLWW(message, {
+                      body: variables.body,
+                      edited: data.edited,
+                    })
+                  : message
+              ),
+            })),
+          }
         }
-      })
+      )
       // @ts-expect-error type mismatches
-      onSuccess?.(data, variables, context)
+      await onSuccess?.(data, variables, context)
     },
-    ...restOptions,
   })
 }
 
