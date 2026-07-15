@@ -187,7 +187,8 @@ export function ChatMessageList({
 
   useEffect(() => {
     if (!editingMessageId) return
-    if (!chatMessages.some((message) => message.id === editingMessageId)) {
+    const editing = chatMessages.find((message) => message.id === editingMessageId)
+    if (!editing || editing.deleted === true) {
       clearEdit()
     }
   }, [editingMessageId, chatMessages, clearEdit])
