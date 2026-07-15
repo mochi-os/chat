@@ -533,30 +533,24 @@ export function ChatMessageList({
                       isSelecting && 'pointer-events-none'
                     )}
                   >
-                    {/* Message metadata: avatar + name (only for group chats) */}
-                    {isGroupChat && !isSent && (
-                      <div className='flex flex-row items-center gap-1.5 px-1 text-xs'>
+                    {/* Message bubble + avatar (left, group incoming) + hover actions */}
+                    <div
+                      className={cn(
+                        'flex w-full min-w-0 gap-1.5',
+                        isGroupChat && !isSent ? 'items-start' : 'items-end',
+                        isSent ? 'justify-end' : 'justify-start'
+                      )}
+                    >
+                      {isGroupChat && !isSent && (
                         <EntityAvatar
                           src={`${getAppPath()}/${message.chat}/-/${message.id}/asset/avatar`}
                           styleUrl={`${getAppPath()}/${message.chat}/-/${message.id}/asset/style`}
                           seed={message.member}
                           name={message.name}
                           size="xs"
+                          className="mt-0.5 shrink-0"
                         />
-                        <span className='text-muted-foreground font-medium'>
-                          {message.name}
-                        </span>
-                      </div>
-                    )}
-
-                    {/* Message bubble + inline hover actions (react, menu, time) */}
-                    <div
-                      className={cn(
-                        'flex w-full min-w-0 items-end gap-1',
-                        isSent ? 'justify-end' : 'justify-start'
                       )}
-                    >
-                      {/* Hover actions moved to BubbleReactions */}
 
                       <Bubble
                         variant={isSent ? 'default' : 'muted'}
