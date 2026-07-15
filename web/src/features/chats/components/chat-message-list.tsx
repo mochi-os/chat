@@ -14,7 +14,6 @@ import {
 } from 'react'
 import { useFormat } from '@mochi/web'
 import { plural } from '@lingui/core/macro'
-import { useLingui as useLinguiRuntime } from '@lingui/react'
 import { Trans, useLingui } from '@lingui/react/macro'
 import type {
   UseInfiniteQueryResult,
@@ -168,7 +167,6 @@ export function ChatMessageList({
   onEdit,
 }: ChatMessageListProps) {
   const { t } = useLingui()
-  const { _ } = useLinguiRuntime()
   const { formatDate, formatTime, formatNumber } = useFormat()
   const scrollContainerRef = useRef<HTMLDivElement | null>(null)
   const messagesEndRef = useRef<HTMLDivElement | null>(null)
@@ -796,10 +794,10 @@ export function ChatMessageList({
                 onClick={scrollToBottom}
                 aria-label={
                   newMessageCount > 0
-                    ? _(plural(newMessageCount, {
+                    ? plural(newMessageCount, {
                       one: 'Jump to 1 new message',
                       other: 'Jump to # new messages',
-                    }))
+                    })
                     : t`Jump to bottom`
                 }
               >
@@ -813,10 +811,10 @@ export function ChatMessageList({
             </TooltipTrigger>
             <TooltipContent>
               {newMessageCount > 0
-                ? _(plural(newMessageCount, {
+                ? plural(newMessageCount, {
                   one: 'Jump to 1 new message',
                   other: 'Jump to # new messages',
-                }))
+                })
                 : t`Jump to bottom`}
             </TooltipContent>
           </Tooltip>

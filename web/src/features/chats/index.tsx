@@ -6,7 +6,6 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { Trans, useLingui } from '@lingui/react/macro'
 import { plural } from '@lingui/core/macro'
-import { useLingui as useLinguiRuntime } from '@lingui/react'
 import { useAuthStore, usePageTitle, PageHeader, Main, GeneralError, Button, Checkbox, ConfirmDialog, EntityAvatar, IconButton, DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger, Label, toast, toastAction, getErrorMessage, shellClipboardWrite, getSendAttachmentErrorMessage, isAttachmentPayloadTooLargeError } from '@mochi/web'
 import { useMessageSelection } from '@/hooks/use-message-selection'
 import { useNavigate, useParams, useSearch } from '@tanstack/react-router'
@@ -76,7 +75,6 @@ import type { ChatMessage } from '@/api/chats'
 
 export function Chats() {
   const { t } = useLingui()
-  const { _ } = useLinguiRuntime()
   usePageTitle(t`Chat`)
 
   const navigate = useNavigate()
@@ -983,10 +981,10 @@ export function Chats() {
         onOpenChange={(open) => {
           if (!open) setDeleteTargetIds(null)
         }}
-        title={_(plural(deleteTargetIds?.length ?? 0, {
+        title={plural(deleteTargetIds?.length ?? 0, {
           one: 'Delete message?',
           other: 'Delete # messages?',
-        }))}
+        })}
         desc={t`This deletes the message for everyone and cannot be undone.`}
         confirmText={
           deleteMessagesMutation.isPending ? (
