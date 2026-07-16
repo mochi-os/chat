@@ -73,6 +73,8 @@ import {
 } from './utils/reply'
 import type { ChatMessage } from '@/api/chats'
 
+const MESSAGE_EDIT_MAX_LENGTH = 10000
+
 export function Chats() {
   const { t } = useLingui()
   usePageTitle(t`Chat`)
@@ -105,6 +107,9 @@ export function Chats() {
   const [replyTo, setReplyTo] = useState<ReplyTarget | null>(null)
   const [selectedMentions, setSelectedMentions] = useState<{ id: string, name: string }[]>([])
   const editMessageMutation = useEditMessageMutation()
+  const [editingMessage, setEditingMessage] = useState<ChatMessage | null>(null)
+  const [draftMessage, setDraftMessage] = useState('')
+  const [isEditingSaving, setIsEditingSaving] = useState(false)
   const [scrollToMessageId, setScrollToMessageId] = useState<string | null>(
     null
   )
@@ -365,9 +370,93 @@ export function Chats() {
   }, [])
 
   const handleReply = useCallback((message: ChatMessage) => {
+    setEditingMessage((prev) => {
+      if (prev) {
+        setNewMessage(draftMessage)
+        setDraftMessage('')
+      }
+      return null
+    })
+    setIsEditingSaving(false)
     setReplyTo(messageToReplyTarget(message))
     chatInputRef.current?.focusInput()
-  }, [])
+  }, [draftMessage])
+
+  const handleStartEdit = useCallback((message: ChatMessage) => {
+    setDraftMessage((prev) => {
+      // Only capture input draft if not already in edit mode
+      return editingMessage ? prev : newMessage
+    })
+    setEditingMessage(message)
+    setNewMessage(message.body ?? '')
+    setReplyTo(null)
+    
+    // Focus the input
+    chatInputRef.current?.focusInput()
+    
+    // Scroll and highlight
+    setScrollToMessageId(message.id)
+    flashHighlight(message.id)
+  }, [newMessage, editingMessage, flashHighlight])
+
+  const handleCancelEdit = useCallback(() => {
+    setEditingMessage(null)
+    setNewMessage(draftMessage)
+    setDraftMessage('')
+    setIsEditingSaving(false)
+  }, [draftMessage])
+
+  const handleSaveEdit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    if (!editingMessage || isEditingSaving || !selectedChat) return
+    
+    const body = newMessage.trim()
+    if (!body) return
+    if (body.length > MESSAGE_EDIT_MAX_LENGTH) return
+    if (body === editingMessage.body?.trim()) {
+      handleCancelEdit()
+      return
+    }
+    
+    setIsEditingSaving(true)
+    try {
+      await editMessageMutation.mutateAsync({
+        chatId: selectedChat.id,
+        messageId: editingMessage.id,
+        body,
+      })
+      setEditingMessage(null)
+      setNewMessage(draftMessage)
+      setDraftMessage('')
+    } catch (error) {
+      toast.error(
+        getErrorMessage(
+          error,
+          t`Failed to edit message`
+        )
+      )
+    } finally {
+      setIsEditingSaving(false)
+    }
+  }
+
+  useEffect(() => {
+    // Reset editing state when switching chats
+    setEditingMessage(null)
+    setDraftMessage('')
+    setIsEditingSaving(false)
+  }, [selectedChatId])
+
+  useEffect(() => {
+    if (!editingMessage) return
+    const editing = chatMessages.find((message) => message.id === editingMessage.id)
+    if (!editing || editing.deleted === true) {
+      setEditingMessage(null)
+      setNewMessage(draftMessage)
+      setDraftMessage('')
+      setIsEditingSaving(false)
+    }
+  }, [editingMessage, chatMessages, draftMessage])
 
   const reactToMessageMutation = useReactToMessageMutation()
 
@@ -660,6 +749,15 @@ export function Chats() {
     !sendMessageMutation.isPending &&
     (Boolean(newMessage.trim()) || pendingAttachments.length > 0)
 
+  const isEditSaveDisabled =
+    editingMessage !== null &&
+    (isEditingSaving ||
+      !newMessage.trim() ||
+      newMessage.trim() === editingMessage.body?.trim() ||
+      newMessage.length > MESSAGE_EDIT_MAX_LENGTH)
+
+  const isSendDisabled = editingMessage ? isEditSaveDisabled : !canSendMessage
+
   const sendAttachmentErrorMessage = sendMessageMutation.error
     ? getSendAttachmentErrorMessage(
         sendMessageMutation.error,
@@ -843,9 +941,8 @@ export function Chats() {
             onSelectMessage={(message) => selectOne(message.id)}
             onSelectAll={(ids) => selectAllMessages(ids)}
             onClearSelection={clearSelection}
-            onEdit={chatActive(selectedChat) ? async (messageId, body) => {
-              await editMessageMutation.mutateAsync({ chatId: selectedChat!.id, messageId, body })
-            } : undefined}
+            editingMessageId={editingMessage?.id}
+            onStartEdit={chatActive(selectedChat) ? handleStartEdit : undefined}
           />
 
           {isSelecting ? (
@@ -922,8 +1019,8 @@ export function Chats() {
               selectedMentions={selectedMentions}
               onMentionsChange={setSelectedMentions}
               onSendMessage={handleSendMessage}
-              isSending={sendMessageMutation.isPending}
-              isSendDisabled={!canSendMessage}
+              isSending={sendMessageMutation.isPending || isEditingSaving}
+              isSendDisabled={isSendDisabled}
               pendingAttachments={pendingAttachments}
               onRemoveAttachment={handleRemoveAttachment}
               onReorderAttachments={handleReorderAttachments}
@@ -937,6 +1034,9 @@ export function Chats() {
               replyTo={replyTo}
               onClearReply={() => setReplyTo(null)}
               sendMessageErrorMessage={sendAttachmentErrorMessage}
+              editingMessage={editingMessage}
+              onCancelEdit={handleCancelEdit}
+              onSaveEdit={handleSaveEdit}
             />
           )}
         </Main>

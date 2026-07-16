@@ -43,13 +43,19 @@ import {
   micDurationSecs,
   micFilenameForMime,
 } from '@mochi/web'
-import { Loader2, Paperclip, Send, X, Mic, Trash, Square } from 'lucide-react'
+import { Loader2, Paperclip, Send, X, Mic, Trash, Square, Check, Edit3 } from 'lucide-react'
+import type { ChatMessage } from '@/api/chats'
 import type { PendingAttachment } from '../utils'
 import type { ReplyTarget } from '../utils/reply'
 import { ReplyQuoteContent } from './reply-quote-content'
 import { VoiceNotePlayer } from './audio-player'
 import { VoiceWaveform } from './voice-waveform'
 import { placeholderPeaks, pushLiveLevel } from '../utils/audio-peaks'
+
+/** Soft cap for voice notes — auto-stop and keep the clip. */
+const MAX_VOICE_DURATION_SECS = 300
+/** Reject attach if encoded blob exceeds this (bitrate runaway safety). */
+const MAX_VOICE_BLOB_BYTES = 16 * 1024 * 1024
 
 export interface ChatInputHandle {
   focusInput: () => void
@@ -73,6 +79,9 @@ interface ChatInputProps {
   sendMessageErrorMessage: string | null
   replyTo?: ReplyTarget | null
   onClearReply?: () => void
+  editingMessage?: ChatMessage | null
+  onCancelEdit?: () => void
+  onSaveEdit?: (e: FormEvent) => void
 }
 
 export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(
@@ -94,6 +103,9 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(
       sendMessageErrorMessage,
       replyTo,
       onClearReply,
+      editingMessage,
+      onCancelEdit,
+      onSaveEdit,
     },
     ref
   ) {
@@ -117,6 +129,10 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(
   const localMicHostRef = useRef<ReturnType<typeof createMicSessionHost> | null>(null)
   const stoppingRef = useRef(false)
   const startingRef = useRef(false)
+  const autoStoppedRef = useRef(false)
+  const stopRecordingRef = useRef<(cancel?: boolean) => Promise<void>>(
+    async () => {}
+  )
   const livePeaksRef = useRef<number[]>([])
 
   const hasPendingAttachments = pendingAttachments.length > 0
@@ -167,6 +183,7 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(
   const beginRecordingUi = () => {
     setIsRecording(true)
     setRecordingDuration(0)
+    autoStoppedRef.current = false
     livePeaksRef.current = placeholderPeaks(32, 3).map((p) => p * 0.18)
     setLivePeaks(livePeaksRef.current.slice())
     recordingStartedAtRef.current =
@@ -180,7 +197,17 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(
         typeof performance !== 'undefined' && performance.now
           ? performance.now()
           : Date.now()
-      setRecordingDuration(micDurationSecs(now - started))
+      const secs = micDurationSecs(now - started)
+      setRecordingDuration(secs)
+      if (
+        secs >= MAX_VOICE_DURATION_SECS &&
+        !stoppingRef.current &&
+        !autoStoppedRef.current
+      ) {
+        autoStoppedRef.current = true
+        toast.info(t`Recording stopped at the 5-minute limit`)
+        void stopRecordingRef.current(false)
+      }
     }, 250)
   }
 
@@ -188,6 +215,7 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(
     clearRecordingTimer()
     setIsRecording(false)
     setRecordingDuration(0)
+    autoStoppedRef.current = false
     shellMicRequestIdRef.current = null
     mediaRecorderRef.current = null
     audioChunksRef.current = []
@@ -260,6 +288,10 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(
   }
 
   const attachVoiceNote = (blob: Blob, mimeType: string, filename: string, durationSecs: number) => {
+    if (blob.size > MAX_VOICE_BLOB_BYTES) {
+      toast.error(t`Recording is too large to send`)
+      return
+    }
     const file = new File([blob], filename || micFilenameForMime(mimeType), {
       type: mimeType || blob.type || 'audio/webm',
     })
@@ -437,6 +469,7 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(
       endRecordingUi()
     }
   }
+  stopRecordingRef.current = stopRecording
 
   // Cleanup on unmount — cancel any in-flight shell/local recording.
   useEffect(() => {
@@ -493,13 +526,47 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(
     setDropTargetId(null)
   }
 
+  const handleSubmit = (e: FormEvent) => {
+    e.preventDefault()
+    if (editingMessage) {
+      onSaveEdit?.(e)
+    } else {
+      onSendMessage(e)
+    }
+  }
+
   return (
     <form
-      onSubmit={onSendMessage}
+      onSubmit={handleSubmit}
       className='flex w-full flex-none flex-col gap-2'
     >
       <div className='border-input bg-card focus-within:ring-ring flex w-full flex-col rounded-xl border focus-within:ring-1 focus-within:outline-hidden'>
-        {replyTo ? (
+        {editingMessage ? (
+          <div className='border-border/50 flex items-center justify-between border-b px-4 py-2.5 bg-muted/40'>
+            <div className='flex items-center gap-2 min-w-0'>
+              <span className='text-sm font-semibold text-primary flex items-center gap-1.5 shrink-0'>
+                <Edit3 className='size-4' />
+                <Trans>Editing Message</Trans>
+              </span>
+              <span className='text-muted-foreground text-xs truncate max-w-[200px] sm:max-w-md'>
+                {editingMessage.body}
+              </span>
+            </div>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <button
+                  type='button'
+                  className='text-muted-foreground hover:text-foreground shrink-0 rounded p-0.5'
+                  onClick={onCancelEdit}
+                  aria-label={t`Cancel edit`}
+                >
+                  <X className='size-4' />
+                </button>
+              </TooltipTrigger>
+              <TooltipContent>{t`Cancel edit`}</TooltipContent>
+            </Tooltip>
+          </div>
+        ) : replyTo ? (
           <div className='border-border/50 flex items-start gap-2 border-b px-4 py-2.5'>
             <div className='flex min-w-0 flex-1 flex-col gap-1 overflow-hidden'>
               <div className='text-foreground text-sm font-medium'>
@@ -531,7 +598,7 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(
             </Tooltip>
           </div>
         ) : null}
-        {hasPendingAttachments && (
+        {hasPendingAttachments && !editingMessage && (
           <div className='border-border/50 flex flex-col gap-2 border-b px-4 pt-2 pb-2'>
             {pendingVoiceNotes.length > 0 ? (
               <div className='flex flex-col gap-2'>
@@ -687,28 +754,36 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(
             </div>
           ) : (
             <>
-              <div className='flex items-end pb-0.5'>
-                <Tooltip>
-                  <TooltipTrigger asChild>
-                    <Button
-                      size='icon'
-                      type='button'
-                      variant='ghost'
-                      onClick={() => fileInputRef.current?.click()}
-                      aria-label={t`Add attachment`}
-                    >
-                      <Paperclip size={16} className='stroke-muted-foreground' />
-                    </Button>
-                  </TooltipTrigger>
-                  <TooltipContent>{t`Add attachment`}</TooltipContent>
-                </Tooltip>
-              </div>
+              {!editingMessage && (
+                <div className='flex items-end pb-0.5'>
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <Button
+                        size='icon'
+                        type='button'
+                        variant='ghost'
+                        onClick={() => fileInputRef.current?.click()}
+                        aria-label={t`Add attachment`}
+                      >
+                        <Paperclip size={16} className='stroke-muted-foreground' />
+                      </Button>
+                    </TooltipTrigger>
+                    <TooltipContent>{t`Add attachment`}</TooltipContent>
+                  </Tooltip>
+                </div>
+              )}
               <label className='flex-1'>
                 <span className='sr-only'><Trans>Chat Text Box</Trans></span>
                 <MentionTextarea
                   ref={textareaRef}
                   rows={1}
-                  placeholder={replyTo ? t`Type your reply…` : t`Type your message…`}
+                  placeholder={
+                    editingMessage
+                      ? t`Edit message…`
+                      : replyTo
+                      ? t`Type your reply…`
+                      : t`Type your message…`
+                  }
                   value={newMessage}
                   people={people}
                   onValueChange={(val) => {
@@ -727,14 +802,33 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(
                   onKeyDown={(e) => {
                     if (e.key === 'Enter' && !e.shiftKey) {
                       e.preventDefault()
-                      onSendMessage(e as unknown as FormEvent)
+                      handleSubmit(e as unknown as FormEvent)
                     }
                   }}
                   className='border-0 bg-transparent min-h-0 focus-visible:ring-0 focus-visible:ring-offset-0 px-0 py-1.5 resize-none w-full max-h-40 overflow-y-auto text-sm leading-5 focus-visible:outline-none shadow-none rounded-none'
                 />
               </label>
               <div className='flex items-end pb-0.5'>
-                {isSendDisabled ? (
+                {editingMessage ? (
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <Button
+                        type='submit'
+                        size='icon'
+                        className='bg-primary hover:bg-primary/80 transition-colors'
+                        disabled={isSendDisabled}
+                        aria-label={t`Save message`}
+                      >
+                        {isSending ? (
+                          <Loader2 size={16} className='animate-spin' />
+                        ) : (
+                          <Check size={16} />
+                        )}
+                      </Button>
+                    </TooltipTrigger>
+                    <TooltipContent>{t`Save message`}</TooltipContent>
+                  </Tooltip>
+                ) : isSendDisabled ? (
                   <Tooltip>
                     <TooltipTrigger asChild>
                       <Button

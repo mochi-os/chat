@@ -32,8 +32,6 @@ import {
   cn,
   Skeleton,
   getAppPath,
-  getErrorMessage,
-  toast,
   actionPillExpandMaxWidthMap,
   actionPillExpandOpacityMap,
 } from '@mochi/web'
@@ -54,26 +52,9 @@ import { highlightSearchText } from '../utils/highlight-search-text'
 
 const BOTTOM_THRESHOLD_PX = 80
 const MESSAGE_ENTER_MS = 200
-/** Matches server `action_message_edit` body length limit. */
-const MESSAGE_EDIT_MAX_LENGTH = 10000
-
 /** Edit = body text only. Media-only / deleted / others' messages stay non-editable. */
 function canEditMessage(message: ChatMessage, isOwn: boolean): boolean {
   return isOwn && message.deleted !== true && Boolean(message.body?.trim())
-}
-
-function isEditSaveDisabled(
-  editBody: string,
-  originalBody: string | undefined,
-  isSaving: boolean
-): boolean {
-  const trimmed = editBody.trim()
-  return (
-    isSaving ||
-    trimmed === '' ||
-    editBody.length > MESSAGE_EDIT_MAX_LENGTH ||
-    editBody === (originalBody ?? '')
-  )
 }
 
 function groupMessagesBySender(messages: ChatMessage[]) {
@@ -133,7 +114,8 @@ interface ChatMessageListProps {
   onSelectMessage?: (message: ChatMessage) => void
   onSelectAll?: (ids: string[]) => void
   onClearSelection?: () => void
-  onEdit?: (messageId: string, body: string) => Promise<void>
+  onStartEdit?: (message: ChatMessage) => void
+  editingMessageId?: string | null
 }
 
 export function ChatMessageList({
@@ -164,32 +146,14 @@ export function ChatMessageList({
   onSelectMessage,
   onSelectAll,
   onClearSelection,
-  onEdit,
+  onStartEdit,
+  editingMessageId,
 }: ChatMessageListProps) {
   const { t } = useLingui()
   const { formatDate, formatTime, formatNumber } = useFormat()
   const scrollContainerRef = useRef<HTMLDivElement | null>(null)
   const messagesEndRef = useRef<HTMLDivElement | null>(null)
-  const [editingMessageId, setEditingMessageId] = useState<string | null>(null)
-  const [editBody, setEditBody] = useState('')
-  const [isEditingSaving, setIsEditingSaving] = useState(false)
-  const clearEdit = useCallback(() => {
-    setEditingMessageId(null)
-    setEditBody('')
-    setIsEditingSaving(false)
-  }, [])
 
-  useEffect(() => {
-    clearEdit()
-  }, [chatId, clearEdit])
-
-  useEffect(() => {
-    if (!editingMessageId) return
-    const editing = chatMessages.find((message) => message.id === editingMessageId)
-    if (!editing || editing.deleted === true) {
-      clearEdit()
-    }
-  }, [editingMessageId, chatMessages, clearEdit])
 
   const prevScrollHeightRef = useRef<number>(0)
   const isLoadingMoreRef = useRef(false)
@@ -494,7 +458,9 @@ export function ChatMessageList({
                   className={cn(
                     'flex w-full items-start gap-2 rounded-lg transition-colors',
                     isSelecting && 'cursor-pointer select-none',
-                    isSelecting && isSelected && 'bg-primary/8'
+                    isSelecting && isSelected && 'bg-primary/8',
+                    editingMessageId === message.id && 'bg-primary/8',
+                    editingMessageId && editingMessageId !== message.id && 'opacity-40 transition-opacity duration-300'
                   )}
                   onClick={(e) => {
                     if (isSelecting) {
@@ -595,48 +561,7 @@ export function ChatMessageList({
                               />
                             ) : null}
 
-                            {editingMessageId === message.id ? (
-                              <div className={cn("flex flex-col gap-2 w-full", message.attachments?.length ? 'mt-2' : '')}>
-                                <textarea
-                                  className="w-full min-h-[60px] rounded-md border border-input bg-transparent px-3 py-2 text-sm shadow-sm placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
-                                  value={editBody}
-                                  onChange={(e) => setEditBody(e.target.value)}
-                                  disabled={isEditingSaving}
-                                />
-                                <div className="flex items-center justify-end gap-2">
-                                  <Button
-                                    variant="ghost"
-                                    size="sm"
-                                    onClick={clearEdit}
-                                    disabled={isEditingSaving}
-                                  >
-                                    <Trans>Cancel</Trans>
-                                  </Button>
-                                  <Button
-                                    size="sm"
-                                    disabled={isEditSaveDisabled(editBody, message.body, isEditingSaving)}
-                                    onClick={async () => {
-                                      setIsEditingSaving(true)
-                                      try {
-                                        await onEdit?.(message.id, editBody)
-                                        clearEdit()
-                                      } catch (error) {
-                                        toast.error(
-                                          getErrorMessage(
-                                            error,
-                                            t`Failed to edit message`
-                                          )
-                                        )
-                                      } finally {
-                                        setIsEditingSaving(false)
-                                      }
-                                    }}
-                                  >
-                                    <Trans>Save</Trans>
-                                  </Button>
-                                </div>
-                              </div>
-                            ) : message.body ? (
+                            {message.body ? (
                               <MessageBody
                                 isSent={isSent}
                                 className={
@@ -720,10 +645,7 @@ export function ChatMessageList({
                                   onDelete={onDelete ? () => onDelete(message) : undefined}
                                   onEdit={
                                     canEditMessage(message, isSent)
-                                      ? () => {
-                                          setEditBody(message.body ?? '')
-                                          setEditingMessageId(message.id)
-                                        }
+                                      ? () => onStartEdit?.(message)
                                       : undefined
                                   }
                                   canDelete={isSent}
