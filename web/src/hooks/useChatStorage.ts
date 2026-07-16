@@ -13,6 +13,7 @@ const LEGACY_READ_KEY = 'mochi-chat-read'
 const READ_MIGRATED_KEY = 'mochi-chat-read-migrated'
 const MARKED_UNREAD_KEY = 'mochi-chat-marked-unread'
 const PINNED_CHATS_KEY = 'mochi-chat-pinned'
+const DRAFT_CHATS_KEY = 'mochi-chat-draft-chats'
 
 export async function getPinnedChats(): Promise<Set<string>> {
   const raw = await shellStorage.getItem(PINNED_CHATS_KEY)
@@ -73,8 +74,40 @@ export function clearLastChat(): void {
   shellStorage.removeItem(STORAGE_KEY)
 }
 
+export async function getDraftChatIds(): Promise<Set<string>> {
+  const raw = await shellStorage.getItem(DRAFT_CHATS_KEY)
+  if (!raw) return new Set()
+  try {
+    const ids = JSON.parse(raw) as string[]
+    return new Set(ids)
+  } catch {
+    return new Set()
+  }
+}
+
+export function setDraftChatIds(chatIds: Iterable<string>): void {
+  shellStorage.setItem(DRAFT_CHATS_KEY, JSON.stringify([...chatIds]))
+}
+
+function addDraftChatId(chatId: string): void {
+  void getDraftChatIds().then((ids) => {
+    if (ids.has(chatId)) return
+    ids.add(chatId)
+    setDraftChatIds(ids)
+  })
+}
+
+function removeDraftChatId(chatId: string): void {
+  void getDraftChatIds().then((ids) => {
+    if (!ids.has(chatId)) return
+    ids.delete(chatId)
+    setDraftChatIds(ids)
+  })
+}
+
 export function setDraft(chatId: string, text: string): void {
   shellStorage.setItem(DRAFT_KEY(chatId), text)
+  addDraftChatId(chatId)
 }
 
 export async function getDraft(chatId: string): Promise<string | null> {
@@ -83,6 +116,7 @@ export async function getDraft(chatId: string): Promise<string | null> {
 
 export function clearDraft(chatId: string): void {
   shellStorage.removeItem(DRAFT_KEY(chatId))
+  removeDraftChatId(chatId)
 }
 
 export async function isReadTimestampsMigrated(): Promise<boolean> {

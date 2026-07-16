@@ -12,8 +12,10 @@ import {
   type ReactNode,
 } from 'react'
 import {
+  getDraftChatIds,
   getMarkedUnreadChats,
   getPinnedChats,
+  setDraftChatIds,
   setMarkedUnreadChats,
   setPinnedChats,
 } from '@/hooks/useChatStorage'
@@ -44,6 +46,9 @@ type SidebarContextValue = {
   isChatPinned: (chatId: string) => boolean
   pinChat: (chatId: string) => void
   unpinChat: (chatId: string) => void
+  draftChatIds: ReadonlySet<string>
+  hasChatDraft: (chatId: string) => boolean
+  setChatDraftPresent: (chatId: string, present: boolean) => void
 }
 
 const SidebarContext = createContext<SidebarContextValue | null>(null)
@@ -61,10 +66,14 @@ export function SidebarProvider({ children }: { children: ReactNode }) {
   const [pinnedChatIds, setPinnedChatIds] = useState<Set<string>>(
     () => new Set()
   )
+  const [draftChatIds, setDraftChatIdsState] = useState<Set<string>>(
+    () => new Set()
+  )
 
   useEffect(() => {
     void getMarkedUnreadChats().then(setMarkedUnreadChatIds)
     void getPinnedChats().then(setPinnedChatIds)
+    void getDraftChatIds().then(setDraftChatIdsState)
   }, [])
 
   const isChatMarkedUnread = useCallback(
@@ -117,6 +126,23 @@ export function SidebarProvider({ children }: { children: ReactNode }) {
     })
   }, [])
 
+  const hasChatDraft = useCallback(
+    (chatId: string) => draftChatIds.has(chatId),
+    [draftChatIds]
+  )
+
+  const setChatDraftPresent = useCallback((chatId: string, present: boolean) => {
+    setDraftChatIdsState((prev) => {
+      const has = prev.has(chatId)
+      if (present === has) return prev
+      const next = new Set(prev)
+      if (present) next.add(chatId)
+      else next.delete(chatId)
+      setDraftChatIds(next)
+      return next
+    })
+  }, [])
+
   const setChat = useCallback((id: string | null, name?: string) => {
     setChatId(id)
     setChatName(name ?? null)
@@ -163,6 +189,9 @@ export function SidebarProvider({ children }: { children: ReactNode }) {
         isChatPinned,
         pinChat,
         unpinChat,
+        draftChatIds,
+        hasChatDraft,
+        setChatDraftPresent,
       }}
     >
       {children}

@@ -86,8 +86,12 @@ export function Chats() {
 
   const navigate = useNavigate()
   const queryClient = useQueryClient()
-  const { openNewChatDialog, setWebsocketStatus, clearMarkedUnread } =
-    useSidebarContext()
+  const {
+    openNewChatDialog,
+    setWebsocketStatus,
+    clearMarkedUnread,
+    setChatDraftPresent,
+  } = useSidebarContext()
   const [newMessage, setNewMessage] = useState('')
   const [showLeaveDialog, setShowLeaveDialog] = useState(false)
   const [chatSettingsOpen, setChatSettingsOpen] = useState(false)
@@ -128,6 +132,8 @@ export function Chats() {
     null
   )
   const selectedChatIdRef = useRef<string | undefined>(undefined)
+  const composerTextRef = useRef('')
+  const previousChatIdRef = useRef<string | undefined>(undefined)
 
   const {
     identity: currentUserIdentity,
@@ -142,6 +148,7 @@ export function Chats() {
   const params = useParams({ strict: false }) as { chatId?: string }
   const selectedChatId = params?.chatId
   selectedChatIdRef.current = selectedChatId
+  composerTextRef.current = newMessage
   // Search params (only present on the index route, never on /$chatId)
   const search = useSearch({ strict: false }) as { with?: string; name?: string }
 
@@ -151,78 +158,6 @@ export function Chats() {
       setLastChat(selectedChatId)
     }
   }, [selectedChatId])
-
-  // Reset composer/selection/edit and restore draft when selected chat changes.
-  // Cancel stale getDraft; block persist until hydration finishes so the empty
-  // reset cannot clearDraft the newly selected chat.
-  useEffect(() => {
-    setNewMessage('')
-    setReplyTo(null)
-    setScrollToMessageId(null)
-    setHighlightMessageId(null)
-    clearSelection()
-    setSelectedMentions([])
-    setDeleteTargetIds(null)
-    setForwardTargetIds(null)
-    setEditingMessage(null)
-    setEditingBody('')
-    setIsEditingSaving(false)
-    setDraftHydratedChatId(null)
-
-    if (!selectedChatId) return
-
-    let cancelled = false
-    const chatId = selectedChatId
-
-    void getDraft(chatId)
-      .then((draft) => {
-        if (cancelled || selectedChatIdRef.current !== chatId) return
-
-        setNewMessage((composerText) => {
-          const restored = resolveComposerDraftRestore({
-            composerText,
-            draft,
-          })
-          return restored === null ? composerText : restored
-        })
-        // State (not ref) so persist re-runs even when composer text is unchanged
-        // (e.g. user typed during the async gap and restore was skipped).
-        setDraftHydratedChatId(chatId)
-      })
-      .catch(() => {
-        // Storage failure must not leave persist permanently gated.
-        if (!cancelled && selectedChatIdRef.current === chatId) {
-          setDraftHydratedChatId(chatId)
-        }
-      })
-
-    return () => {
-      cancelled = true
-    }
-  }, [selectedChatId, clearSelection])
-
-  // Debounced draft persist — only after hydration for this chat
-  useEffect(() => {
-    if (!selectedChatId) return
-    if (
-      !canPersistComposerDraft({
-        chatId: selectedChatId,
-        hydratedChatId: draftHydratedChatId,
-      })
-    ) {
-      return
-    }
-
-    const chatId = selectedChatId
-    const timer = setTimeout(() => {
-      if (newMessage) {
-        setDraft(chatId, newMessage)
-      } else {
-        clearDraft(chatId)
-      }
-    }, 300)
-    return () => clearTimeout(timer)
-  }, [newMessage, selectedChatId, draftHydratedChatId])
 
   // Chats list
   const chatsQuery = useChatsQuery()
@@ -294,6 +229,110 @@ export function Chats() {
       ) ?? null,
     [chats, selectedChatId]
   )
+
+  // Canonical id for draft storage (URL may use fingerprint).
+  // Wait until the chat row resolves so we never key drafts by fingerprint.
+  const draftChatKey = selectedChat?.id
+
+  // Reset composer/selection/edit and restore draft when selected chat changes.
+  // Flush the leaving chat's draft first so a pending debounce cannot drop text.
+  // Cancel stale getDraft; block persist until hydration finishes so the empty
+  // reset cannot clearDraft the newly selected chat.
+  useEffect(() => {
+    // Still resolving chat id from the list — do not flush/reset yet.
+    if (selectedChatId && !draftChatKey) return
+
+    const leavingId = previousChatIdRef.current
+    if (leavingId && leavingId !== draftChatKey) {
+      const leavingRaw = composerTextRef.current
+      if (leavingRaw.trim()) {
+        setDraft(leavingId, leavingRaw)
+        setChatDraftPresent(leavingId, true)
+      } else {
+        clearDraft(leavingId)
+        setChatDraftPresent(leavingId, false)
+      }
+    }
+    previousChatIdRef.current = draftChatKey
+
+    setNewMessage('')
+    setReplyTo(null)
+    setScrollToMessageId(null)
+    setHighlightMessageId(null)
+    clearSelection()
+    setSelectedMentions([])
+    setDeleteTargetIds(null)
+    setForwardTargetIds(null)
+    setEditingMessage(null)
+    setEditingBody('')
+    setIsEditingSaving(false)
+    setDraftHydratedChatId(null)
+
+    if (!draftChatKey) return
+
+    let cancelled = false
+    const chatId = draftChatKey
+    const urlKey = selectedChatId
+
+    void (async () => {
+      try {
+        let draft = await getDraft(chatId)
+        // Migrate drafts previously keyed by fingerprint URL segment.
+        if (!draft && urlKey && urlKey !== chatId) {
+          const legacy = await getDraft(urlKey)
+          if (legacy) {
+            draft = legacy
+            setDraft(chatId, legacy)
+            clearDraft(urlKey)
+            setChatDraftPresent(chatId, true)
+          }
+        }
+        if (cancelled || selectedChatIdRef.current !== urlKey) return
+
+        setNewMessage((composerText) => {
+          const restored = resolveComposerDraftRestore({
+            composerText,
+            draft,
+          })
+          return restored === null ? composerText : restored
+        })
+        setDraftHydratedChatId(chatId)
+      } catch {
+        if (!cancelled && selectedChatIdRef.current === urlKey) {
+          setDraftHydratedChatId(chatId)
+        }
+      }
+    })()
+
+    return () => {
+      cancelled = true
+    }
+  }, [draftChatKey, selectedChatId, clearSelection, setChatDraftPresent])
+
+  // Debounced draft persist — only after hydration for this chat
+  useEffect(() => {
+    if (!draftChatKey) return
+    if (
+      !canPersistComposerDraft({
+        chatId: draftChatKey,
+        hydratedChatId: draftHydratedChatId,
+      })
+    ) {
+      return
+    }
+
+    const chatId = draftChatKey
+    const timer = setTimeout(() => {
+      if (newMessage) {
+        setDraft(chatId, newMessage)
+        setChatDraftPresent(chatId, true)
+      } else {
+        clearDraft(chatId)
+        setChatDraftPresent(chatId, false)
+      }
+    }, 300)
+    return () => clearTimeout(timer)
+  }, [newMessage, draftChatKey, draftHydratedChatId, setChatDraftPresent])
 
   const { mutate: markChatRead } = useMarkChatReadMutation()
   const readMigrationStarted = useRef(false)
@@ -643,7 +682,10 @@ export function Chats() {
       setReplyTo(null)
       setSelectedMentions([])
       clearAttachments()
-      if (selectedChat) clearDraft(selectedChat.id)
+      if (selectedChat) {
+        clearDraft(selectedChat.id)
+        setChatDraftPresent(selectedChat.id, false)
+      }
     },
     onError: (error) => {
       if (!isAttachmentPayloadTooLargeError(error)) return

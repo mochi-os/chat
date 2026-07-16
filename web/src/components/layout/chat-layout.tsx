@@ -118,6 +118,8 @@ function ChatLayoutInner() {
     isChatPinned,
     pinChat,
     unpinChat,
+    hasChatDraft,
+    draftChatIds,
   } = useSidebarContext()
 
   const params = useParams({ strict: false }) as { chatId?: string }
@@ -240,6 +242,11 @@ function ChatLayoutInner() {
             ? personIcon(chat.other, chat.name)
             : groupIcon(chat.id),
         endIcon: pinned ? Pin : undefined,
+        tooltipAlways: true,
+        meta:
+          hasChatDraft(chat.id) && chat.id !== activeChatId
+            ? t`Draft`
+            : undefined,
         badge:
           chatActive(chat) && chat.id !== activeChatId
             ? formatChatSidebarBadge(unread, markedUnread)
@@ -271,10 +278,12 @@ function ChatLayoutInner() {
     }
   }, [
     chats,
+    draftChatIds,
     handleMarkChatRead,
     handleMarkChatUnread,
     handlePinChat,
     handleUnpinChat,
+    hasChatDraft,
     isChatMarkedUnread,
     isChatPinned,
     openNewChatDialog,
