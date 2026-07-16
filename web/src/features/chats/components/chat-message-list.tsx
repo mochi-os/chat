@@ -494,7 +494,11 @@ export function ChatMessageList({
                     isSelecting && 'cursor-pointer select-none',
                     isSelecting && isSelected && 'bg-primary/8',
                     editingMessageId === message.id && 'bg-primary/8',
-                    editingMessageId && editingMessageId !== message.id && 'opacity-40 transition-opacity duration-300'
+                    // Dim siblings without transition — animating opacity on every
+                    // row at once is expensive on long threads.
+                    editingMessageId &&
+                      editingMessageId !== message.id &&
+                      'opacity-40'
                   )}
                   onClick={(e) => {
                     if (isSelecting) {

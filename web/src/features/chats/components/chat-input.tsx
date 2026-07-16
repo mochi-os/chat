@@ -235,7 +235,6 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(
     shellMicRequestIdRef.current = null
     mediaRecorderRef.current = null
     audioChunksRef.current = []
-    localMicHostRef.current = null
     stoppingRef.current = false
     startingRef.current = false
   }
@@ -355,16 +354,18 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(
         return
       }
 
-      const host = createMicSessionHost({
-        getUserMedia: (c) => navigator.mediaDevices.getUserMedia(c),
-        MediaRecorder,
-        now: () =>
-          typeof performance !== 'undefined' && performance.now
-            ? performance.now()
-            : Date.now(),
-        onLevel: pushLevel,
-      })
-      localMicHostRef.current = host
+      if (!localMicHostRef.current) {
+        localMicHostRef.current = createMicSessionHost({
+          getUserMedia: (c) => navigator.mediaDevices.getUserMedia(c),
+          MediaRecorder,
+          now: () =>
+            typeof performance !== 'undefined' && performance.now
+              ? performance.now()
+              : Date.now(),
+          onLevel: pushLevel,
+        })
+      }
+      const host = localMicHostRef.current
       try {
         await host.start()
         startingRef.current = false
@@ -786,6 +787,11 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(
                     onMentionsChange([...selectedMentions, person])
                   }}
                   onKeyDown={(e) => {
+                    if (e.key === 'Escape' && replyTo) {
+                      e.preventDefault()
+                      onClearReply?.()
+                      return
+                    }
                     if (e.key === 'Enter' && !e.shiftKey) {
                       e.preventDefault()
                       handleSubmit(e as unknown as FormEvent)

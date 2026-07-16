@@ -68,6 +68,11 @@ import {
   revokePendingAttachmentPreview,
 } from './utils'
 import {
+  canPersistComposerDraft,
+  resolveComposerDraftRestore,
+} from './utils/composer-draft'
+import { shouldDiscardMessageEdit } from './utils/message-edit-session'
+import {
   type ReplyTarget,
   messageToReplyTarget,
 } from './utils/reply'
@@ -118,6 +123,11 @@ export function Chats() {
   )
   const highlightTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
   const chatInputRef = useRef<ChatInputHandle>(null)
+  /** Chat id whose draft restore finished; blocks persist until set. */
+  const [draftHydratedChatId, setDraftHydratedChatId] = useState<string | null>(
+    null
+  )
+  const selectedChatIdRef = useRef<string | undefined>(undefined)
 
   const {
     identity: currentUserIdentity,
@@ -131,6 +141,7 @@ export function Chats() {
   // URL param
   const params = useParams({ strict: false }) as { chatId?: string }
   const selectedChatId = params?.chatId
+  selectedChatIdRef.current = selectedChatId
   // Search params (only present on the index route, never on /$chatId)
   const search = useSearch({ strict: false }) as { with?: string; name?: string }
 
@@ -141,7 +152,9 @@ export function Chats() {
     }
   }, [selectedChatId])
 
-  // Reset input, selection, and restore draft when selected chat changes
+  // Reset composer/selection/edit and restore draft when selected chat changes.
+  // Cancel stale getDraft; block persist until hydration finishes so the empty
+  // reset cannot clearDraft the newly selected chat.
   useEffect(() => {
     setNewMessage('')
     setReplyTo(null)
@@ -151,24 +164,65 @@ export function Chats() {
     setSelectedMentions([])
     setDeleteTargetIds(null)
     setForwardTargetIds(null)
-    if (!selectedChatId) return
-    getDraft(selectedChatId).then((draft) => {
-      if (draft) setNewMessage(draft)
-    })
-  }, [selectedChatId])
+    setEditingMessage(null)
+    setEditingBody('')
+    setIsEditingSaving(false)
+    setDraftHydratedChatId(null)
 
-  // Debounced draft save on every keystroke
+    if (!selectedChatId) return
+
+    let cancelled = false
+    const chatId = selectedChatId
+
+    void getDraft(chatId)
+      .then((draft) => {
+        if (cancelled || selectedChatIdRef.current !== chatId) return
+
+        setNewMessage((composerText) => {
+          const restored = resolveComposerDraftRestore({
+            composerText,
+            draft,
+          })
+          return restored === null ? composerText : restored
+        })
+        // State (not ref) so persist re-runs even when composer text is unchanged
+        // (e.g. user typed during the async gap and restore was skipped).
+        setDraftHydratedChatId(chatId)
+      })
+      .catch(() => {
+        // Storage failure must not leave persist permanently gated.
+        if (!cancelled && selectedChatIdRef.current === chatId) {
+          setDraftHydratedChatId(chatId)
+        }
+      })
+
+    return () => {
+      cancelled = true
+    }
+  }, [selectedChatId, clearSelection])
+
+  // Debounced draft persist — only after hydration for this chat
   useEffect(() => {
     if (!selectedChatId) return
+    if (
+      !canPersistComposerDraft({
+        chatId: selectedChatId,
+        hydratedChatId: draftHydratedChatId,
+      })
+    ) {
+      return
+    }
+
+    const chatId = selectedChatId
     const timer = setTimeout(() => {
       if (newMessage) {
-        setDraft(selectedChatId, newMessage)
+        setDraft(chatId, newMessage)
       } else {
-        clearDraft(selectedChatId)
+        clearDraft(chatId)
       }
     }, 300)
     return () => clearTimeout(timer)
-  }, [newMessage, selectedChatId])
+  }, [newMessage, selectedChatId, draftHydratedChatId])
 
   // Chats list
   const chatsQuery = useChatsQuery()
@@ -427,21 +481,25 @@ export function Chats() {
   }
 
   useEffect(() => {
-    // Reset editing state when switching chats
+    if (!editingMessage || isEditingSaving) return
+    if (
+      !shouldDiscardMessageEdit({
+        isFetched: messagesQuery.isFetched,
+        messages: chatMessages,
+        editingMessageId: editingMessage.id,
+      })
+    ) {
+      return
+    }
     setEditingMessage(null)
     setEditingBody('')
     setIsEditingSaving(false)
-  }, [selectedChatId])
-
-  useEffect(() => {
-    if (!editingMessage) return
-    const editing = chatMessages.find((message) => message.id === editingMessage.id)
-    if (!editing || editing.deleted === true) {
-      setEditingMessage(null)
-      setEditingBody('')
-      setIsEditingSaving(false)
-    }
-  }, [editingMessage, chatMessages])
+  }, [
+    editingMessage,
+    chatMessages,
+    isEditingSaving,
+    messagesQuery.isFetched,
+  ])
 
   const reactToMessageMutation = useReactToMessageMutation()
 
