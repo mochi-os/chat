@@ -34,8 +34,10 @@ import {
   getAppPath,
   actionPillExpandMaxWidthMap,
   actionPillExpandOpacityMap,
+  MentionTextarea,
+  type MentionUser,
 } from '@mochi/web'
-import { ChevronsDown, MessageCircle } from 'lucide-react'
+import { ChevronsDown, MessageCircle, Loader2 } from 'lucide-react'
 import type { ChatMessage } from '@/api/chats'
 import type { GetMessagesResponse } from '@/api/types/chats'
 import { Bubble, BubbleContent, BubbleReactions, BubbleGroup } from '@mochi/web'
@@ -116,6 +118,13 @@ interface ChatMessageListProps {
   onClearSelection?: () => void
   onStartEdit?: (message: ChatMessage) => void
   editingMessageId?: string | null
+  editingBody?: string
+  setEditingBody?: (val: string) => void
+  isEditingSaving?: boolean
+  isEditSaveDisabled?: boolean
+  onSaveEdit?: (e: React.FormEvent) => void
+  onCancelEdit?: () => void
+  people?: MentionUser[]
 }
 
 export function ChatMessageList({
@@ -148,11 +157,36 @@ export function ChatMessageList({
   onClearSelection,
   onStartEdit,
   editingMessageId,
+  editingBody,
+  setEditingBody,
+  isEditingSaving = false,
+  isEditSaveDisabled = false,
+  onSaveEdit,
+  onCancelEdit,
+  people = [],
 }: ChatMessageListProps) {
   const { t } = useLingui()
   const { formatDate, formatTime, formatNumber } = useFormat()
   const scrollContainerRef = useRef<HTMLDivElement | null>(null)
   const messagesEndRef = useRef<HTMLDivElement | null>(null)
+  const inlineTextareaRef = useRef<HTMLTextAreaElement>(null)
+
+  // Auto-resize inline editor textarea
+  useEffect(() => {
+    const el = inlineTextareaRef.current
+    if (!el) return
+    el.style.height = 'auto'
+    el.style.height = `${el.scrollHeight}px`
+  }, [editingBody])
+
+  // Focus inline editor on start edit
+  useEffect(() => {
+    if (editingMessageId && inlineTextareaRef.current) {
+      inlineTextareaRef.current.focus()
+      const len = inlineTextareaRef.current.value.length
+      inlineTextareaRef.current.setSelectionRange(len, len)
+    }
+  }, [editingMessageId])
 
 
   const prevScrollHeightRef = useRef<number>(0)
@@ -516,151 +550,205 @@ export function ChatMessageList({
                         />
                       )}
 
-                      <Bubble
-                        variant={isSent ? 'default' : 'muted'}
-                        align={isSent ? 'end' : 'start'}
-                        data-active={activeMessageId === message.id}
-                        className={cn(
-                          'transition-[opacity,transform,max-height] duration-300 ease-out',
-                          isDeleted && 'scale-[0.97] opacity-60',
-                          enteringMessageIds.has(message.id) &&
-                            'animate-in fade-in-0 slide-in-from-bottom-2 fill-mode-backwards duration-200 ease-out',
-                          (!isSelecting && !isDeleted && message.reaction_counts && Object.keys(message.reaction_counts).length > 0) && 'mb-4'
-                        )}
-                      >
-                        <BubbleContent
+                      {editingMessageId === message.id ? (
+                        <div
                           className={cn(
-                            isDeleted &&
-                              'bg-transparent text-muted-foreground italic border-dashed',
-                            message.attachments?.length &&
-                              'w-full max-w-full',
-                            message.attachments?.length &&
-                              !message.body &&
-                              'px-1.5 py-1.5'
+                            'w-full max-w-[500px] border border-border bg-card rounded-xl p-3 flex flex-col gap-2 shadow-sm',
+                            isSent ? 'ml-auto' : 'mr-auto'
                           )}
                         >
-                        {isDeleted ? (
-                          <p className='text-muted-foreground text-sm italic'>
-                            <Trans>This message was deleted</Trans>
-                          </p>
-                        ) : (
-                          <>
-                            {message.reply_to && onScrollToMessage ? (
-                              <MessageQuote
-                                quoted={messagesById.get(message.reply_to)}
-                                isSent={isSent}
-                                onClick={() => onScrollToMessage(message.reply_to!)}
-                              />
-                            ) : null}
-
-                            {message.attachments?.length ? (
-                              <MessageAttachments
-                                attachments={message.attachments}
-                                chatId={message.chat}
-                                isSent={isSent}
-                              />
-                            ) : null}
-
-                            {message.body ? (
-                              <MessageBody
-                                isSent={isSent}
-                                className={
-                                  message.attachments?.length ? 'mt-2' : undefined
-                                }
+                          <MentionTextarea
+                            ref={inlineTextareaRef}
+                            value={editingBody ?? ''}
+                            people={people}
+                            onValueChange={(val) => setEditingBody?.(val)}
+                            onKeyDown={(e) => {
+                              if (e.key === 'Enter' && !e.shiftKey) {
+                                e.preventDefault()
+                                onSaveEdit?.(e)
+                              } else if (e.key === 'Escape') {
+                                e.preventDefault()
+                                onCancelEdit?.()
+                              }
+                            }}
+                            className='border-0 bg-transparent min-h-[40px] focus-visible:ring-0 focus-visible:ring-offset-0 px-0 py-1 resize-none w-full max-h-40 overflow-y-auto text-sm leading-5 focus-visible:outline-none shadow-none rounded-none'
+                          />
+                          <div className='flex items-center justify-between text-[10px] text-muted-foreground/60 px-0.5 mt-1'>
+                            <span>
+                              <Trans>escape to cancel • enter to save</Trans>
+                            </span>
+                            <div className='flex items-center gap-2 text-xs'>
+                              <Button
+                                type='button'
+                                variant='ghost'
+                                size='sm'
+                                onClick={onCancelEdit}
+                                className='h-7 px-2.5 text-muted-foreground hover:text-foreground'
                               >
-                                {(() => {
-                                  // 1. Parse mentions first
-                                  const mentionParts = message.body.split(/(@\[[^\]]+\])/g)
-                                  return mentionParts.map((part, i) => {
-                                    if (part.startsWith('@[')) {
-                                      return (
-                                        <span
-                                          key={i}
-                                          className={cn(
-                                            'rounded-sm px-1 py-0.5 font-medium',
-                                            isSent
-                                              ? 'bg-primary-foreground/20 text-primary-foreground'
-                                              : 'bg-primary/15 text-primary'
-                                          )}
-                                        >
-                                          @{part.slice(2, -1)}
-                                        </span>
-                                      )
-                                    }
-                                    // 2. Apply search highlight to the plain text parts
-                                    if (searchActive && searchQuery.length >= 2 && matchedMessageIds?.has(message.id)) {
-                                      return (
-                                        <Fragment key={i}>
-                                          {highlightSearchText(part, searchQuery, activeMatchId === message.id)}
-                                        </Fragment>
-                                      )
-                                    }
-                                    return <Fragment key={i}>{part}</Fragment>
-                                  })
-                                })()}
-                              </MessageBody>
-                            ) : null}
-                          </>
-                        )}
-                        </BubbleContent>
-                        
-                        {!isSelecting && !isDeleted ? (
-                          <BubbleReactions
-                            align={isSent ? 'end' : 'start'}
+                                <Trans>Cancel</Trans>
+                              </Button>
+                              <Button
+                                type='button'
+                                size='sm'
+                                disabled={isEditSaveDisabled || isEditingSaving}
+                                onClick={onSaveEdit}
+                                className='h-7 px-2.5 bg-primary hover:bg-primary/80 text-primary-foreground font-medium transition-colors'
+                              >
+                                {isEditingSaving ? (
+                                  <Loader2 className='me-1 size-3 animate-spin' />
+                                ) : null}
+                                <Trans>Save</Trans>
+                              </Button>
+                            </div>
+                          </div>
+                        </div>
+                      ) : (
+                        <Bubble
+                          variant={isSent ? 'default' : 'muted'}
+                          align={isSent ? 'end' : 'start'}
+                          data-active={activeMessageId === message.id}
+                          className={cn(
+                            'transition-[opacity,transform,max-height] duration-300 ease-out',
+                            isDeleted && 'scale-[0.97] opacity-60',
+                            enteringMessageIds.has(message.id) &&
+                              'animate-in fade-in-0 slide-in-from-bottom-2 fill-mode-backwards duration-200 ease-out',
+                            (!isSelecting && !isDeleted && message.reaction_counts && Object.keys(message.reaction_counts).length > 0) && 'mb-4'
+                          )}
+                        >
+                          <BubbleContent
                             className={cn(
-                              isSent ? "flex-row-reverse" : "flex-row",
-                              (!message.reaction_counts || Object.keys(message.reaction_counts).length === 0)
-                                ? actionPillExpandOpacityMap.bubble
-                                : ""
+                              isDeleted &&
+                                'bg-transparent text-muted-foreground italic border-dashed',
+                              message.attachments?.length &&
+                                'w-full max-w-full',
+                              message.attachments?.length &&
+                                !message.body &&
+                                'px-1.5 py-1.5'
                             )}
                           >
-                            {(message.reaction_counts && Object.keys(message.reaction_counts).length > 0) && (
-                              <MessageReactionSummary
-                                counts={message.reaction_counts ?? {}}
-                                activeReaction={message.my_reaction}
-                              />
-                            )}
-                            
-                            <div className={cn(
-                              "flex items-center gap-0.5",
-                              isSent ? "flex-row-reverse" : "flex-row",
-                              (message.reaction_counts && Object.keys(message.reaction_counts).length > 0)
-                                ? actionPillExpandMaxWidthMap.bubble[200]
-                                : ""
-                            )}>
-                              {onReact && (
-                                <MessageReactionPicker
-                                  activeReaction={message.my_reaction}
-                                  onSelect={(reaction) => onReact(message.id, reaction)}
+                          {isDeleted ? (
+                            <p className='text-muted-foreground text-sm italic'>
+                              <Trans>This message was deleted</Trans>
+                            </p>
+                          ) : (
+                            <>
+                              {message.reply_to && onScrollToMessage ? (
+                                <MessageQuote
+                                  quoted={messagesById.get(message.reply_to)}
                                   isSent={isSent}
-                                  className="!opacity-100"
+                                  onClick={() => onScrollToMessage(message.reply_to!)}
                                 />
-                              )}
-                              {onReply && (
-                                <MessageHoverActions
-                                  message={message}
-                                  onReply={onReply}
-                                  onSelect={onSelectMessage ? () => onSelectMessage(message) : undefined}
-                                  onForward={onForward ? () => onForward(message) : undefined}
-                                  onDelete={onDelete ? () => onDelete(message) : undefined}
-                                  onEdit={
-                                    canEditMessage(message, isSent)
-                                      ? () => onStartEdit?.(message)
-                                      : undefined
+                              ) : null}
+
+                              {message.attachments?.length ? (
+                                <MessageAttachments
+                                  attachments={message.attachments}
+                                  chatId={message.chat}
+                                  isSent={isSent}
+                                />
+                              ) : null}
+
+                              {message.body ? (
+                                <MessageBody
+                                  isSent={isSent}
+                                  className={
+                                    message.attachments?.length ? 'mt-2' : undefined
                                   }
-                                  canDelete={isSent}
-                                  canEdit={canEditMessage(message, isSent)}
-                                  className="!opacity-100"
+                                >
+                                  {(() => {
+                                    // 1. Parse mentions first
+                                    const mentionParts = message.body.split(/(@\[[^\]]+\])/g)
+                                    return mentionParts.map((part, i) => {
+                                      if (part.startsWith('@[')) {
+                                        return (
+                                          <span
+                                            key={i}
+                                            className={cn(
+                                              'rounded-sm px-1 py-0.5 font-medium',
+                                              isSent
+                                                ? 'bg-primary-foreground/20 text-primary-foreground'
+                                                : 'bg-primary/15 text-primary'
+                                            )}
+                                          >
+                                            @{part.slice(2, -1)}
+                                          </span>
+                                        )
+                                      }
+                                      // 2. Apply search highlight to the plain text parts
+                                      if (searchActive && searchQuery.length >= 2 && matchedMessageIds?.has(message.id)) {
+                                        return (
+                                          <Fragment key={i}>
+                                            {highlightSearchText(part, searchQuery, activeMatchId === message.id)}
+                                          </Fragment>
+                                        )
+                                      }
+                                      return <Fragment key={i}>{part}</Fragment>
+                                    })
+                                  })()}
+                                </MessageBody>
+                              ) : null}
+                            </>
+                          )}
+                          </BubbleContent>
+                          
+                          {!isSelecting && !isDeleted ? (
+                            <BubbleReactions
+                              align={isSent ? 'end' : 'start'}
+                              className={cn(
+                                isSent ? "flex-row-reverse" : "flex-row",
+                                (!message.reaction_counts || Object.keys(message.reaction_counts).length === 0)
+                                  ? actionPillExpandOpacityMap.bubble
+                                  : ""
+                              )}
+                            >
+                              {(message.reaction_counts && Object.keys(message.reaction_counts).length > 0) && (
+                                <MessageReactionSummary
+                                  counts={message.reaction_counts ?? {}}
+                                  activeReaction={message.my_reaction}
                                 />
                               )}
-                              <span className="text-muted-foreground/70 text-[10px] whitespace-nowrap px-1">
-                                {formatTime(new Date(message.created * 1000))}
-                                {message.edited ? <span className="ml-1 italic"><Trans>(edited)</Trans></span> : null}
-                              </span>
-                            </div>
-                          </BubbleReactions>
-                        ) : null}
-                      </Bubble>
+                              
+                              <div className={cn(
+                                "flex items-center gap-0.5",
+                                isSent ? "flex-row-reverse" : "flex-row",
+                                (message.reaction_counts && Object.keys(message.reaction_counts).length > 0)
+                                  ? actionPillExpandMaxWidthMap.bubble[200]
+                                  : ""
+                              )}>
+                                {onReact && (
+                                  <MessageReactionPicker
+                                    activeReaction={message.my_reaction}
+                                    onSelect={(reaction) => onReact(message.id, reaction)}
+                                    isSent={isSent}
+                                    className="!opacity-100"
+                                  />
+                                )}
+                                {onReply && (
+                                  <MessageHoverActions
+                                    message={message}
+                                    onReply={onReply}
+                                    onSelect={onSelectMessage ? () => onSelectMessage(message) : undefined}
+                                    onForward={onForward ? () => onForward(message) : undefined}
+                                    onDelete={onDelete ? () => onDelete(message) : undefined}
+                                    onEdit={
+                                      canEditMessage(message, isSent)
+                                        ? () => onStartEdit?.(message)
+                                        : undefined
+                                    }
+                                    canDelete={isSent}
+                                    canEdit={canEditMessage(message, isSent)}
+                                    className="!opacity-100"
+                                  />
+                                )}
+                                <span className="text-muted-foreground/70 text-[10px] whitespace-nowrap px-1">
+                                  {formatTime(new Date(message.created * 1000))}
+                                  {message.edited ? <span className="ml-1 italic"><Trans>(edited)</Trans></span> : null}
+                                </span>
+                              </div>
+                            </BubbleReactions>
+                          ) : null}
+                        </Bubble>
+                      )}
 
                       {/* Hover actions moved to BubbleReactions */}
                     </div>

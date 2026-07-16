@@ -108,7 +108,7 @@ export function Chats() {
   const [selectedMentions, setSelectedMentions] = useState<{ id: string, name: string }[]>([])
   const editMessageMutation = useEditMessageMutation()
   const [editingMessage, setEditingMessage] = useState<ChatMessage | null>(null)
-  const [draftMessage, setDraftMessage] = useState('')
+  const [editingBody, setEditingBody] = useState('')
   const [isEditingSaving, setIsEditingSaving] = useState(false)
   const [scrollToMessageId, setScrollToMessageId] = useState<string | null>(
     null
@@ -370,47 +370,34 @@ export function Chats() {
   }, [])
 
   const handleReply = useCallback((message: ChatMessage) => {
-    setEditingMessage((prev) => {
-      if (prev) {
-        setNewMessage(draftMessage)
-        setDraftMessage('')
-      }
-      return null
-    })
+    setEditingMessage(null)
+    setEditingBody('')
     setIsEditingSaving(false)
     setReplyTo(messageToReplyTarget(message))
     chatInputRef.current?.focusInput()
-  }, [draftMessage])
+  }, [])
 
   const handleStartEdit = useCallback((message: ChatMessage) => {
-    setDraftMessage((prev) => {
-      // Only capture input draft if not already in edit mode
-      return editingMessage ? prev : newMessage
-    })
     setEditingMessage(message)
-    setNewMessage(message.body ?? '')
+    setEditingBody(message.body ?? '')
     setReplyTo(null)
-    
-    // Focus the input
-    chatInputRef.current?.focusInput()
     
     // Scroll and highlight
     setScrollToMessageId(message.id)
     flashHighlight(message.id)
-  }, [newMessage, editingMessage, flashHighlight])
+  }, [flashHighlight])
 
   const handleCancelEdit = useCallback(() => {
     setEditingMessage(null)
-    setNewMessage(draftMessage)
-    setDraftMessage('')
+    setEditingBody('')
     setIsEditingSaving(false)
-  }, [draftMessage])
+  }, [])
 
-  const handleSaveEdit = async (e: React.FormEvent) => {
-    e.preventDefault()
+  const handleSaveEdit = async (e?: React.FormEvent) => {
+    e?.preventDefault()
     if (!editingMessage || isEditingSaving || !selectedChat) return
     
-    const body = newMessage.trim()
+    const body = editingBody.trim()
     if (!body) return
     if (body.length > MESSAGE_EDIT_MAX_LENGTH) return
     if (body === editingMessage.body?.trim()) {
@@ -426,8 +413,7 @@ export function Chats() {
         body,
       })
       setEditingMessage(null)
-      setNewMessage(draftMessage)
-      setDraftMessage('')
+      setEditingBody('')
     } catch (error) {
       toast.error(
         getErrorMessage(
@@ -443,7 +429,7 @@ export function Chats() {
   useEffect(() => {
     // Reset editing state when switching chats
     setEditingMessage(null)
-    setDraftMessage('')
+    setEditingBody('')
     setIsEditingSaving(false)
   }, [selectedChatId])
 
@@ -452,11 +438,10 @@ export function Chats() {
     const editing = chatMessages.find((message) => message.id === editingMessage.id)
     if (!editing || editing.deleted === true) {
       setEditingMessage(null)
-      setNewMessage(draftMessage)
-      setDraftMessage('')
+      setEditingBody('')
       setIsEditingSaving(false)
     }
-  }, [editingMessage, chatMessages, draftMessage])
+  }, [editingMessage, chatMessages])
 
   const reactToMessageMutation = useReactToMessageMutation()
 
@@ -752,11 +737,11 @@ export function Chats() {
   const isEditSaveDisabled =
     editingMessage !== null &&
     (isEditingSaving ||
-      !newMessage.trim() ||
-      newMessage.trim() === editingMessage.body?.trim() ||
-      newMessage.length > MESSAGE_EDIT_MAX_LENGTH)
+      !editingBody.trim() ||
+      editingBody.trim() === editingMessage.body?.trim() ||
+      editingBody.length > MESSAGE_EDIT_MAX_LENGTH)
 
-  const isSendDisabled = editingMessage ? isEditSaveDisabled : !canSendMessage
+  const isSendDisabled = !canSendMessage
 
   const sendAttachmentErrorMessage = sendMessageMutation.error
     ? getSendAttachmentErrorMessage(
@@ -942,6 +927,13 @@ export function Chats() {
             onSelectAll={(ids) => selectAllMessages(ids)}
             onClearSelection={clearSelection}
             editingMessageId={editingMessage?.id}
+            editingBody={editingBody}
+            setEditingBody={setEditingBody}
+            isEditingSaving={isEditingSaving}
+            isEditSaveDisabled={isEditSaveDisabled}
+            onSaveEdit={handleSaveEdit}
+            onCancelEdit={handleCancelEdit}
+            people={mentionPeople}
             onStartEdit={chatActive(selectedChat) ? handleStartEdit : undefined}
           />
 
@@ -1019,7 +1011,7 @@ export function Chats() {
               selectedMentions={selectedMentions}
               onMentionsChange={setSelectedMentions}
               onSendMessage={handleSendMessage}
-              isSending={sendMessageMutation.isPending || isEditingSaving}
+              isSending={sendMessageMutation.isPending}
               isSendDisabled={isSendDisabled}
               pendingAttachments={pendingAttachments}
               onRemoveAttachment={handleRemoveAttachment}
@@ -1034,9 +1026,6 @@ export function Chats() {
               replyTo={replyTo}
               onClearReply={() => setReplyTo(null)}
               sendMessageErrorMessage={sendAttachmentErrorMessage}
-              editingMessage={editingMessage}
-              onCancelEdit={handleCancelEdit}
-              onSaveEdit={handleSaveEdit}
             />
           )}
         </Main>

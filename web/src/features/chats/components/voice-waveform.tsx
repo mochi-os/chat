@@ -75,7 +75,12 @@ export function VoiceWaveform({
     [interactive, onSeek, progress]
   )
 
-  const bars = peaks.length > 0 ? peaks : Array.from({ length: 32 }, () => 0.35)
+  const bars =
+    peaks.length > 0
+      ? peaks
+      : tone === 'recording'
+      ? []
+      : Array.from({ length: 32 }, () => 0.35)
 
   return (
     <div
@@ -93,7 +98,10 @@ export function VoiceWaveform({
       onKeyDown={handleKeyDown}
       className={cn(
         // Explicit height — percentage bar heights fail inside flex and collapse to 0.
-        'flex h-9 min-h-9 min-w-0 w-full flex-1 items-center gap-[3px]',
+        'flex h-9 min-h-9 min-w-0 w-full flex-1 items-center',
+        tone === 'recording'
+          ? 'max-w-[160px] sm:max-w-[240px] justify-end overflow-hidden gap-[2px]'
+          : 'gap-[3px]',
         interactive && 'cursor-pointer touch-none',
         className
       )}
@@ -102,15 +110,19 @@ export function VoiceWaveform({
         const ratio = (i + 0.5) / bars.length
         const played = ratio <= progress
         // Pixel heights always paint; % height on empty flex spans often resolve to 0.
-        const heightPx = Math.round(7 + normalizePeak(peak) * 22)
+        const heightPx =
+          tone === 'recording'
+            ? Math.round(3 + Math.min(1, Math.max(0, peak)) * 21)
+            : Math.round(7 + normalizePeak(peak) * 22)
         return (
           <span
             key={i}
             aria-hidden
             className={cn(
-              'block min-w-[2px] flex-1 rounded-full',
+              'block rounded-full',
+              tone === 'recording' ? 'w-[3px] shrink-0' : 'min-w-[2px] flex-1',
               tone === 'recording'
-                ? 'bg-destructive/80 transition-[height] duration-150 ease-out'
+                ? 'bg-muted-foreground/60 transition-[height] duration-75 ease-out'
                 : 'transition-[height,background-color] duration-100 ease-out',
               // Sent sits on primary bubble: white played, translucent unplayed.
               tone === 'sent' &&

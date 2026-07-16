@@ -43,14 +43,12 @@ import {
   micDurationSecs,
   micFilenameForMime,
 } from '@mochi/web'
-import { Loader2, Paperclip, Send, X, Mic, Trash, Square, Check, Edit3 } from 'lucide-react'
-import type { ChatMessage } from '@/api/chats'
+import { Loader2, Paperclip, Send, X, Mic, Trash, Square } from 'lucide-react'
 import type { PendingAttachment } from '../utils'
 import type { ReplyTarget } from '../utils/reply'
 import { ReplyQuoteContent } from './reply-quote-content'
 import { VoiceNotePlayer } from './audio-player'
 import { VoiceWaveform } from './voice-waveform'
-import { placeholderPeaks, pushLiveLevel } from '../utils/audio-peaks'
 
 /** Soft cap for voice notes — auto-stop and keep the clip. */
 const MAX_VOICE_DURATION_SECS = 300
@@ -79,9 +77,6 @@ interface ChatInputProps {
   sendMessageErrorMessage: string | null
   replyTo?: ReplyTarget | null
   onClearReply?: () => void
-  editingMessage?: ChatMessage | null
-  onCancelEdit?: () => void
-  onSaveEdit?: (e: FormEvent) => void
 }
 
 export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(
@@ -103,9 +98,6 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(
       sendMessageErrorMessage,
       replyTo,
       onClearReply,
-      editingMessage,
-      onCancelEdit,
-      onSaveEdit,
     },
     ref
   ) {
@@ -118,12 +110,11 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(
   
   const [isRecording, setIsRecording] = useState(false)
   const [recordingDuration, setRecordingDuration] = useState(0)
-  const [livePeaks, setLivePeaks] = useState<number[]>(() =>
-    placeholderPeaks(32, 3).map((p) => p * 0.2)
-  )
+  const [livePeaks, setLivePeaks] = useState<number[]>([])
   const mediaRecorderRef = useRef<MediaRecorder | null>(null)
   const audioChunksRef = useRef<Blob[]>([])
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null)
+  const waveformIntervalRef = useRef<ReturnType<typeof setInterval> | null>(null)
   const recordingStartedAtRef = useRef<number>(0)
   const shellMicRequestIdRef = useRef<number | null>(null)
   const localMicHostRef = useRef<ReturnType<typeof createMicSessionHost> | null>(null)
@@ -151,8 +142,16 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(
   useImperativeHandle(ref, () => ({ focusInput }), [focusInput])
 
   const pushLevel = useCallback((level: number) => {
-    livePeaksRef.current = pushLiveLevel(livePeaksRef.current, level, 32)
-    setLivePeaks(livePeaksRef.current.slice())
+    const softened = Math.min(1, Math.max(0.08, Math.pow(level, 0.75)))
+    const next = [...livePeaksRef.current]
+    if (next.length > 0) {
+      const prev = next[next.length - 1]
+      next[next.length - 1] = prev * 0.35 + softened * 0.65
+    } else {
+      next.push(softened)
+    }
+    livePeaksRef.current = next
+    setLivePeaks(next)
   }, [])
 
   // Live levels from shell while recording
@@ -184,8 +183,20 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(
     setIsRecording(true)
     setRecordingDuration(0)
     autoStoppedRef.current = false
-    livePeaksRef.current = placeholderPeaks(32, 3).map((p) => p * 0.18)
-    setLivePeaks(livePeaksRef.current.slice())
+    livePeaksRef.current = []
+    setLivePeaks([])
+    if (waveformIntervalRef.current) {
+      clearInterval(waveformIntervalRef.current)
+    }
+    waveformIntervalRef.current = setInterval(() => {
+      const next = [...livePeaksRef.current]
+      if (next.length >= 100) {
+        next.shift()
+      }
+      next.push(0.0)
+      livePeaksRef.current = next
+      setLivePeaks(next)
+    }, 80)
     recordingStartedAtRef.current =
       typeof performance !== 'undefined' && performance.now
         ? performance.now()
@@ -213,8 +224,13 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(
 
   const endRecordingUi = () => {
     clearRecordingTimer()
+    if (waveformIntervalRef.current) {
+      clearInterval(waveformIntervalRef.current)
+      waveformIntervalRef.current = null
+    }
     setIsRecording(false)
     setRecordingDuration(0)
+    setLivePeaks([])
     autoStoppedRef.current = false
     shellMicRequestIdRef.current = null
     mediaRecorderRef.current = null
@@ -475,6 +491,9 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(
   useEffect(() => {
     return () => {
       clearRecordingTimer()
+      if (waveformIntervalRef.current) {
+        clearInterval(waveformIntervalRef.current)
+      }
       const shellId = shellMicRequestIdRef.current
       if (shellId != null && isInShell()) {
         void shellMicCancel(shellId)
@@ -528,11 +547,7 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault()
-    if (editingMessage) {
-      onSaveEdit?.(e)
-    } else {
-      onSendMessage(e)
-    }
+    onSendMessage(e)
   }
 
   return (
@@ -541,32 +556,7 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(
       className='flex w-full flex-none flex-col gap-2'
     >
       <div className='border-input bg-card focus-within:ring-ring flex w-full flex-col rounded-xl border focus-within:ring-1 focus-within:outline-hidden'>
-        {editingMessage ? (
-          <div className='border-border/50 flex items-center justify-between border-b px-4 py-2.5 bg-muted/40'>
-            <div className='flex items-center gap-2 min-w-0'>
-              <span className='text-sm font-semibold text-primary flex items-center gap-1.5 shrink-0'>
-                <Edit3 className='size-4' />
-                <Trans>Editing Message</Trans>
-              </span>
-              <span className='text-muted-foreground text-xs truncate max-w-[200px] sm:max-w-md'>
-                {editingMessage.body}
-              </span>
-            </div>
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <button
-                  type='button'
-                  className='text-muted-foreground hover:text-foreground shrink-0 rounded p-0.5'
-                  onClick={onCancelEdit}
-                  aria-label={t`Cancel edit`}
-                >
-                  <X className='size-4' />
-                </button>
-              </TooltipTrigger>
-              <TooltipContent>{t`Cancel edit`}</TooltipContent>
-            </Tooltip>
-          </div>
-        ) : replyTo ? (
+        {replyTo ? (
           <div className='border-border/50 flex items-start gap-2 border-b px-4 py-2.5'>
             <div className='flex min-w-0 flex-1 flex-col gap-1 overflow-hidden'>
               <div className='text-foreground text-sm font-medium'>
@@ -598,7 +588,7 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(
             </Tooltip>
           </div>
         ) : null}
-        {hasPendingAttachments && !editingMessage && (
+        {hasPendingAttachments && (
           <div className='border-border/50 flex flex-col gap-2 border-b px-4 pt-2 pb-2'>
             {pendingVoiceNotes.length > 0 ? (
               <div className='flex flex-col gap-2'>
@@ -694,11 +684,26 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(
         <div className='flex w-full items-end gap-2 px-4 py-2'>
           {isRecording ? (
             <div
-              className='border-border/50 bg-muted/30 mb-0.5 flex w-full min-w-0 flex-1 items-center gap-3 rounded-xl border px-3 py-2'
+              className='border-border/50 bg-muted/30 mb-0.5 flex w-full min-w-0 flex-1 items-center gap-3 rounded-xl border px-3 py-2 justify-end'
               role='status'
               aria-live='polite'
               aria-label={t`Recording voice note`}
             >
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Button
+                    type='button'
+                    variant='ghost'
+                    size='icon'
+                    className='text-muted-foreground hover:text-destructive h-8 w-8 shrink-0'
+                    onClick={() => void stopRecording(true)}
+                    aria-label={t`Discard recording`}
+                  >
+                    <Trash className='size-4' />
+                  </Button>
+                </TooltipTrigger>
+                <TooltipContent>{t`Discard recording`}</TooltipContent>
+              </Tooltip>
               <div
                 className='bg-destructive size-2.5 shrink-0 animate-pulse rounded-full'
                 aria-hidden
@@ -726,21 +731,6 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(
                 <TooltipTrigger asChild>
                   <Button
                     type='button'
-                    variant='ghost'
-                    size='icon'
-                    className='text-muted-foreground hover:text-destructive h-8 w-8 shrink-0'
-                    onClick={() => void stopRecording(true)}
-                    aria-label={t`Discard recording`}
-                  >
-                    <Trash className='size-4' />
-                  </Button>
-                </TooltipTrigger>
-                <TooltipContent>{t`Discard recording`}</TooltipContent>
-              </Tooltip>
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <Button
-                    type='button'
                     size='icon'
                     className='bg-primary h-8 w-8 shrink-0 rounded-full'
                     onClick={() => void stopRecording(false)}
@@ -754,33 +744,29 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(
             </div>
           ) : (
             <>
-              {!editingMessage && (
-                <div className='flex items-end pb-0.5'>
-                  <Tooltip>
-                    <TooltipTrigger asChild>
-                      <Button
-                        size='icon'
-                        type='button'
-                        variant='ghost'
-                        onClick={() => fileInputRef.current?.click()}
-                        aria-label={t`Add attachment`}
-                      >
-                        <Paperclip size={16} className='stroke-muted-foreground' />
-                      </Button>
-                    </TooltipTrigger>
-                    <TooltipContent>{t`Add attachment`}</TooltipContent>
-                  </Tooltip>
-                </div>
-              )}
+              <div className='flex items-end pb-0.5'>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <Button
+                      size='icon'
+                      type='button'
+                      variant='ghost'
+                      onClick={() => fileInputRef.current?.click()}
+                      aria-label={t`Add attachment`}
+                    >
+                      <Paperclip size={16} className='stroke-muted-foreground' />
+                    </Button>
+                  </TooltipTrigger>
+                  <TooltipContent>{t`Add attachment`}</TooltipContent>
+                </Tooltip>
+              </div>
               <label className='flex-1'>
                 <span className='sr-only'><Trans>Chat Text Box</Trans></span>
                 <MentionTextarea
                   ref={textareaRef}
                   rows={1}
                   placeholder={
-                    editingMessage
-                      ? t`Edit message…`
-                      : replyTo
+                    replyTo
                       ? t`Type your reply…`
                       : t`Type your message…`
                   }
@@ -809,26 +795,7 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(
                 />
               </label>
               <div className='flex items-end pb-0.5'>
-                {editingMessage ? (
-                  <Tooltip>
-                    <TooltipTrigger asChild>
-                      <Button
-                        type='submit'
-                        size='icon'
-                        className='bg-primary hover:bg-primary/80 transition-colors'
-                        disabled={isSendDisabled}
-                        aria-label={t`Save message`}
-                      >
-                        {isSending ? (
-                          <Loader2 size={16} className='animate-spin' />
-                        ) : (
-                          <Check size={16} />
-                        )}
-                      </Button>
-                    </TooltipTrigger>
-                    <TooltipContent>{t`Save message`}</TooltipContent>
-                  </Tooltip>
-                ) : isSendDisabled ? (
+                {isSendDisabled ? (
                   <Tooltip>
                     <TooltipTrigger asChild>
                       <Button
