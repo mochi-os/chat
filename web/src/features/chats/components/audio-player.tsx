@@ -18,6 +18,7 @@ import {
   extractAudioPeaks,
   placeholderPeaks,
 } from '../utils/audio-peaks'
+import { claimActiveAudio, releaseActiveAudio } from '../utils/active-audio'
 
 export interface VoiceNotePlayerProps {
   src: string
@@ -85,6 +86,12 @@ export function VoiceNotePlayer({
     const onEnded = () => {
       setIsPlaying(false)
       setProgress(0)
+      releaseActiveAudio(audio)
+    }
+    const onPause = () => {
+      // Another player claimed exclusive playback — sync UI.
+      if (!audio.paused) return
+      setIsPlaying(false)
     }
     const onLoaded = () => {
       if (Number.isFinite(audio.duration) && audio.duration > 0) {
@@ -94,11 +101,14 @@ export function VoiceNotePlayer({
 
     audio.addEventListener('timeupdate', onTimeUpdate)
     audio.addEventListener('ended', onEnded)
+    audio.addEventListener('pause', onPause)
     audio.addEventListener('loadedmetadata', onLoaded)
     return () => {
       audio.removeEventListener('timeupdate', onTimeUpdate)
       audio.removeEventListener('ended', onEnded)
+      audio.removeEventListener('pause', onPause)
       audio.removeEventListener('loadedmetadata', onLoaded)
+      releaseActiveAudio(audio)
     }
   }, [src])
 
@@ -108,10 +118,15 @@ export function VoiceNotePlayer({
     if (isPlaying) {
       audio.pause()
       setIsPlaying(false)
+      releaseActiveAudio(audio)
     } else {
+      claimActiveAudio(audio)
       void audio.play().then(
         () => setIsPlaying(true),
-        () => setIsPlaying(false)
+        () => {
+          setIsPlaying(false)
+          releaseActiveAudio(audio)
+        }
       )
     }
   }

@@ -6,7 +6,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { Trans, useLingui } from '@lingui/react/macro'
 import { plural } from '@lingui/core/macro'
-import { useAuthStore, usePageTitle, PageHeader, Main, GeneralError, Button, Checkbox, ConfirmDialog, EntityAvatar, IconButton, DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger, Label, toast, toastAction, getErrorMessage, shellClipboardWrite, getSendAttachmentErrorMessage, isAttachmentPayloadTooLargeError, resolveMentionsFromBody } from '@mochi/web'
+import { useAuthStore, usePageTitle, PageHeader, Main, GeneralError, Button, Checkbox, ConfirmDialog, EntityAvatar, IconButton, DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger, Label, toast, toastAction, getErrorMessage, shellClipboardWrite, getSendAttachmentErrorMessage, isAttachmentPayloadTooLargeError, resolveMentionsFromBody, unresolvedMentionDisplayNames } from '@mochi/web'
 import { useMessageSelection } from '@/hooks/use-message-selection'
 import { useNavigate, useParams, useSearch } from '@tanstack/react-router'
 import { useQueryClient, type InfiniteData } from '@tanstack/react-query'
@@ -843,18 +843,33 @@ export function Chats() {
       return
     }
 
+    const mentions = isDirectChat
+      ? []
+      : resolveMentionsFromBody({
+          body,
+          people: mentionPeople,
+          preferred: selectedMentions,
+        }).map((m) => m.id)
+
+    if (!isDirectChat && body) {
+      const unresolved = unresolvedMentionDisplayNames({
+        body,
+        people: mentionPeople,
+        preferred: selectedMentions,
+      })
+      if (unresolved.length > 0) {
+        toast.warning(
+          t`Some mentions could not be linked: ${unresolved.join(', ')}. Pick them from the @ list so the right person is notified.`
+        )
+      }
+    }
+
     sendMessageMutation.mutate({
       chatId: selectedChat.id,
       body,
       reply_to: replyTo?.id,
       attachments: pendingAttachments.map((a) => a.file),
-      mentions: isDirectChat
-        ? []
-        : resolveMentionsFromBody({
-            body,
-            people: mentionPeople,
-            preferred: selectedMentions,
-          }).map((m) => m.id),
+      mentions,
       captions: pendingAttachments.some(a => 'duration' in a)
         ? pendingAttachments.map(a => 'duration' in a && typeof a.duration === 'number' ? `voice:${Math.round(a.duration)}` : "")
         : undefined,

@@ -800,24 +800,23 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(
                   className='border-0 bg-transparent min-h-0 focus-visible:ring-0 focus-visible:ring-offset-0 px-0 py-1.5 resize-none w-full max-h-40 overflow-y-auto text-sm leading-5 focus-visible:outline-none shadow-none rounded-none'
                 />
               </label>
-              <div className='flex items-end pb-0.5'>
-                {isSendDisabled ? (
-                  <Tooltip>
-                    <TooltipTrigger asChild>
-                      <Button
-                        type='button'
-                        size='icon'
-                        variant='ghost'
-                        className='transition-colors'
-                        onClick={startRecording}
-                        aria-label={t`Record voice note`}
-                      >
-                        <Mic size={16} className='stroke-muted-foreground' />
-                      </Button>
-                    </TooltipTrigger>
-                    <TooltipContent>{t`Record voice note`}</TooltipContent>
-                  </Tooltip>
-                ) : (
+              <div className='flex items-end gap-0.5 pb-0.5'>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <Button
+                      type='button'
+                      size='icon'
+                      variant='ghost'
+                      className='transition-colors'
+                      onClick={startRecording}
+                      aria-label={t`Record voice note`}
+                    >
+                      <Mic size={16} className='stroke-muted-foreground' />
+                    </Button>
+                  </TooltipTrigger>
+                  <TooltipContent>{t`Record voice note`}</TooltipContent>
+                </Tooltip>
+                {!isSendDisabled ? (
                   <Tooltip>
                     <TooltipTrigger asChild>
                       <Button
@@ -836,7 +835,7 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(
                     </TooltipTrigger>
                     <TooltipContent>{t`Send message`}</TooltipContent>
                   </Tooltip>
-                )}
+                ) : null}
               </div>
             </>
           )}
