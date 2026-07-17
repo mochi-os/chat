@@ -41,6 +41,10 @@ import type { ChatMessage } from '@/api/chats'
 import type { GetMessagesResponse } from '@/api/types/chats'
 import { Bubble, BubbleContent, BubbleReactions, BubbleGroup } from '@mochi/web'
 import { MessageAttachments } from './message-attachments'
+import {
+  CHAT_MEDIA_BUBBLE_CLASS,
+  attachmentsNeedFixedMediaWidth,
+} from '../utils/chat-media-size'
 import { MessageBody } from './message-body'
 import { MessageHoverActions } from './message-hover-actions'
 import { MessageQuote } from './message-quote'
@@ -621,8 +625,13 @@ export function ChatMessageList({
                             className={cn(
                               isDeleted &&
                                 'bg-transparent text-muted-foreground italic border-dashed',
+                              attachmentsNeedFixedMediaWidth(message.attachments) &&
+                                (message.body
+                                  ? 'min-w-[17.5rem] w-fit max-w-[calc(100vw-4.5rem)]'
+                                  : CHAT_MEDIA_BUBBLE_CLASS),
                               message.attachments?.length &&
-                                'w-full max-w-full',
+                                !attachmentsNeedFixedMediaWidth(message.attachments) &&
+                                'w-full max-w-full min-w-0',
                               message.attachments?.length &&
                                 !message.body &&
                                 'px-1.5 py-1.5'

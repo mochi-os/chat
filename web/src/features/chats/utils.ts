@@ -11,6 +11,8 @@ export interface PendingAttachment {
   kind: AttachmentKind
   previewUrl?: string
   duration?: number
+  /** Mic voice note vs paperclip Audio. Undefined = document/media file card. */
+  playable?: 'voice' | 'audio'
 }
 
 const IMAGE_EXTENSIONS = new Set([
@@ -92,6 +94,22 @@ export const createPendingVoiceNote = (
     kind: 'file',
     previewUrl: URL.createObjectURL(file),
     duration: durationSecs,
+    playable: 'voice',
+  }
+}
+
+/** Paperclip → Audio: playable file (not a document card). */
+export const createPendingAudioAttachment = (
+  file: File,
+  durationSecs = 0
+): PendingAttachment => {
+  return {
+    id: `${file.name}-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
+    file,
+    kind: 'file',
+    previewUrl: URL.createObjectURL(file),
+    duration: durationSecs,
+    playable: 'audio',
   }
 }
 

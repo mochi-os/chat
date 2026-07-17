@@ -26,6 +26,10 @@ import {
   AttachmentMedia,
   AttachmentTitle,
   Button,
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
   Tooltip,
   TooltipContent,
   TooltipTrigger,
@@ -43,7 +47,7 @@ import {
   micDurationSecs,
   micFilenameForMime,
 } from '@mochi/web'
-import { Loader2, Paperclip, Send, X, Mic, Trash, Square } from 'lucide-react'
+import { Loader2, Paperclip, Send, X, Mic, Trash, Square, FileText, Music } from 'lucide-react'
 import type { PendingAttachment } from '../utils'
 import type { ReplyTarget } from '../utils/reply'
 import { ReplyQuoteContent } from './reply-quote-content'
@@ -73,6 +77,7 @@ interface ChatInputProps {
   onRemoveAttachment: (id: string) => void
   onReorderAttachments: (fromIndex: number, toIndex: number) => void
   onAttachmentSelection: (e: ChangeEvent<HTMLInputElement>) => void
+  onAudioAttachmentSelection: (e: ChangeEvent<HTMLInputElement>) => void
   onAddVoiceNote?: (file: File, durationSecs: number) => void
   sendMessageErrorMessage: string | null
   replyTo?: ReplyTarget | null
@@ -94,6 +99,7 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(
       onRemoveAttachment,
       onReorderAttachments,
       onAttachmentSelection,
+      onAudioAttachmentSelection,
       onAddVoiceNote,
       sendMessageErrorMessage,
       replyTo,
@@ -104,6 +110,7 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(
   const { t } = useLingui()
   const { formatFileSize } = useFormat()
   const fileInputRef = useRef<HTMLInputElement | null>(null)
+  const audioInputRef = useRef<HTMLInputElement | null>(null)
   const textareaRef = useRef<HTMLTextAreaElement | null>(null)
   const [draggingId, setDraggingId] = useState<string | null>(null)
   const [dropTargetId, setDropTargetId] = useState<string | null>(null)
@@ -128,10 +135,8 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(
 
   const hasPendingAttachments = pendingAttachments.length > 0
   const canReorder = pendingAttachments.length > 1
-  const pendingFiles = pendingAttachments.filter((a) => typeof a.duration !== 'number')
-  const pendingVoiceNotes = pendingAttachments.filter(
-    (a) => typeof a.duration === 'number'
-  )
+  const pendingFiles = pendingAttachments.filter((a) => !a.playable)
+  const pendingPlayableNotes = pendingAttachments.filter((a) => Boolean(a.playable))
 
   const focusInput = useCallback(() => {
     window.setTimeout(() => {
@@ -591,13 +596,19 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(
         ) : null}
         {hasPendingAttachments && (
           <div className='border-border/50 flex flex-col gap-2 border-b px-4 pt-2 pb-2'>
-            {pendingVoiceNotes.length > 0 ? (
+            {pendingPlayableNotes.length > 0 ? (
               <div className='flex flex-col gap-2'>
-                {pendingVoiceNotes.map((attachment) => (
+                {pendingPlayableNotes.map((attachment) => (
                   <VoiceNotePlayer
                     key={attachment.id}
                     src={attachment.previewUrl ?? ''}
                     durationSecs={attachment.duration ?? 1}
+                    kind={attachment.playable === 'audio' ? 'audio' : 'voice'}
+                    title={
+                      attachment.playable === 'audio'
+                        ? attachment.file.name
+                        : undefined
+                    }
                     variant='composer'
                     onRemove={() => onRemoveAttachment(attachment.id)}
                   />
@@ -746,20 +757,37 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(
           ) : (
             <>
               <div className='flex items-end pb-0.5'>
-                <Tooltip>
-                  <TooltipTrigger asChild>
-                    <Button
-                      size='icon'
-                      type='button'
-                      variant='ghost'
-                      onClick={() => fileInputRef.current?.click()}
-                      aria-label={t`Add attachment`}
+                <DropdownMenu>
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <DropdownMenuTrigger asChild>
+                        <Button
+                          size='icon'
+                          type='button'
+                          variant='ghost'
+                          aria-label={t`Add attachment`}
+                        >
+                          <Paperclip size={16} className='stroke-muted-foreground' />
+                        </Button>
+                      </DropdownMenuTrigger>
+                    </TooltipTrigger>
+                    <TooltipContent>{t`Add attachment`}</TooltipContent>
+                  </Tooltip>
+                  <DropdownMenuContent align='start' className='min-w-44'>
+                    <DropdownMenuItem
+                      onSelect={() => fileInputRef.current?.click()}
                     >
-                      <Paperclip size={16} className='stroke-muted-foreground' />
-                    </Button>
-                  </TooltipTrigger>
-                  <TooltipContent>{t`Add attachment`}</TooltipContent>
-                </Tooltip>
+                      <FileText className='me-2 size-4' />
+                      <Trans>Document</Trans>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem
+                      onSelect={() => audioInputRef.current?.click()}
+                    >
+                      <Music className='me-2 size-4' />
+                      <Trans>Audio</Trans>
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
               </div>
               <label className='flex-1'>
                 <span className='sr-only'><Trans>Chat Text Box</Trans></span>
@@ -847,7 +875,17 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(
             className='hidden'
             onChange={(e) => {
               onAttachmentSelection(e)
-              // Reset input value so the same file can be selected again
+              e.target.value = ''
+            }}
+          />
+        <input
+            ref={audioInputRef}
+            type='file'
+            multiple
+            accept='audio/*'
+            className='hidden'
+            onChange={(e) => {
+              onAudioAttachmentSelection(e)
               e.target.value = ''
             }}
           />

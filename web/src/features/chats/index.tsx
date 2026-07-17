@@ -64,6 +64,7 @@ import { useChatMessageSearch } from './hooks/use-chat-message-search'
 import {
   type PendingAttachment,
   createPendingAttachment,
+  createPendingAudioAttachment,
   createPendingVoiceNote,
   revokePendingAttachmentPreview,
 } from './utils'
@@ -802,6 +803,25 @@ export function Chats() {
     setPendingAttachments((prev) => [...prev, ...newAttachments])
   }
 
+  const handleAudioAttachmentSelection = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const files = Array.from(e.target.files || [])
+    if (files.length === 0) return
+
+    const audioFiles = files.filter(
+      (file) =>
+        file.type.startsWith('audio/') ||
+        /\.(mp3|m4a|aac|ogg|opus|wav|webm|flac)$/i.test(file.name)
+    )
+    if (audioFiles.length === 0) return
+
+    setPendingAttachments((prev) => [
+      ...prev,
+      ...audioFiles.map((file) => createPendingAudioAttachment(file)),
+    ])
+  }
+
   const handleRemoveAttachment = (id: string) => {
     setPendingAttachments((prev) => {
       const attachment = prev.find((a) => a.id === id)
@@ -861,6 +881,7 @@ export function Chats() {
         toast.warning(
           t`Some mentions could not be linked: ${unresolved.join(', ')}. Pick them from the @ list so the right person is notified.`
         )
+        return
       }
     }
 
@@ -870,8 +891,16 @@ export function Chats() {
       reply_to: replyTo?.id,
       attachments: pendingAttachments.map((a) => a.file),
       mentions,
-      captions: pendingAttachments.some(a => 'duration' in a)
-        ? pendingAttachments.map(a => 'duration' in a && typeof a.duration === 'number' ? `voice:${Math.round(a.duration)}` : "")
+      captions: pendingAttachments.some((a) => a.playable)
+        ? pendingAttachments.map((a) => {
+            if (a.playable === 'voice') {
+              return `voice:${Math.round(a.duration ?? 0)}`
+            }
+            if (a.playable === 'audio') {
+              return `audio:${Math.round(a.duration ?? 0)}`
+            }
+            return ''
+          })
         : undefined,
     })
   }
@@ -1162,6 +1191,7 @@ export function Chats() {
               onRemoveAttachment={handleRemoveAttachment}
               onReorderAttachments={handleReorderAttachments}
               onAttachmentSelection={handleAttachmentSelection}
+              onAudioAttachmentSelection={handleAudioAttachmentSelection}
               onAddVoiceNote={(file, durationSecs) => {
                 setPendingAttachments((prev) => [
                   ...prev,

@@ -3,9 +3,16 @@
 // This file is part of Mochi, licensed under the GNU AGPL v3 with the
 // Mochi Application Interface Exception - see license.txt and license-exception.md.
 
-import { useEffect, useRef, useState } from 'react'
+import {
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+  type KeyboardEvent,
+  type PointerEvent,
+} from 'react'
 import { useLingui } from '@lingui/react/macro'
-import { Pause, Play, X } from 'lucide-react'
+import { Headphones, Pause, Play, X } from 'lucide-react'
 import {
   Button,
   Tooltip,
@@ -20,13 +27,19 @@ import {
 } from '../utils/audio-peaks'
 import { claimActiveAudio, releaseActiveAudio } from '../utils/active-audio'
 
+export type PlayableAudioKind = 'voice' | 'audio'
+
 export interface VoiceNotePlayerProps {
   src: string
   durationSecs: number
+  /** Mic voice note (waveform) vs attached audio file (headphones + bar). */
+  kind?: PlayableAudioKind
   /** Visual treatment */
   variant?: 'composer' | 'sent' | 'received'
   /** Optional precomputed peaks (0..1); otherwise placeholder then lazy decode */
   peaks?: number[]
+  /** Shown under audio-file chrome (filename). */
+  title?: string
   onRemove?: () => void
   className?: string
 }
@@ -40,16 +53,25 @@ function formatTime(seconds: number) {
 
 const PREVIEW_BAR_COUNT = 36
 
+function seekRatioFromClientX(el: HTMLElement, clientX: number): number {
+  const rect = el.getBoundingClientRect()
+  if (rect.width <= 0) return 0
+  return Math.min(1, Math.max(0, (clientX - rect.left) / rect.width))
+}
+
 export function VoiceNotePlayer({
   src,
   durationSecs,
+  kind = 'voice',
   variant = 'received',
   peaks: peaksProp,
+  title,
   onRemove,
   className,
 }: VoiceNotePlayerProps) {
   const { t } = useLingui()
   const audioRef = useRef<HTMLAudioElement | null>(null)
+  const scrubRef = useRef<HTMLDivElement | null>(null)
   const [isPlaying, setIsPlaying] = useState(false)
   const [progress, setProgress] = useState(0)
   const [duration, setDuration] = useState(Math.max(1, durationSecs))
@@ -59,7 +81,10 @@ export function VoiceNotePlayer({
       placeholderPeaks(PREVIEW_BAR_COUNT, Math.round(durationSecs * 10) || 7)
   )
 
+  const isAudioFile = kind === 'audio'
+
   useEffect(() => {
+    if (isAudioFile) return
     if (peaksProp) {
       setPeaks(peaksProp)
       return
@@ -72,7 +97,7 @@ export function VoiceNotePlayer({
     return () => {
       cancelled = true
     }
-  }, [src, peaksProp])
+  }, [src, peaksProp, isAudioFile])
 
   useEffect(() => {
     setDuration(Math.max(1, durationSecs))
@@ -89,7 +114,6 @@ export function VoiceNotePlayer({
       releaseActiveAudio(audio)
     }
     const onPause = () => {
-      // Another player claimed exclusive playback — sync UI.
       if (!audio.paused) return
       setIsPlaying(false)
     }
@@ -131,13 +155,49 @@ export function VoiceNotePlayer({
     }
   }
 
-  const seekRatio = (ratio: number) => {
-    const audio = audioRef.current
-    if (!audio) return
-    const next = ratio * duration
-    audio.currentTime = next
-    setProgress(next)
-  }
+  const seekRatio = useCallback(
+    (ratio: number) => {
+      const audio = audioRef.current
+      if (!audio) return
+      const next = ratio * duration
+      audio.currentTime = next
+      setProgress(next)
+    },
+    [duration]
+  )
+
+  const handleScrubPointer = useCallback(
+    (e: PointerEvent<HTMLDivElement>) => {
+      if (!scrubRef.current) return
+      e.preventDefault()
+      e.stopPropagation()
+      scrubRef.current.setPointerCapture(e.pointerId)
+      seekRatio(seekRatioFromClientX(scrubRef.current, e.clientX))
+    },
+    [seekRatio]
+  )
+
+  const handleScrubMove = useCallback(
+    (e: PointerEvent<HTMLDivElement>) => {
+      if (!scrubRef.current?.hasPointerCapture(e.pointerId)) return
+      seekRatio(seekRatioFromClientX(scrubRef.current, e.clientX))
+    },
+    [seekRatio]
+  )
+
+  const handleScrubKey = useCallback(
+    (e: KeyboardEvent<HTMLDivElement>) => {
+      const ratio = duration > 0 ? progress / duration : 0
+      if (e.key === 'ArrowLeft') {
+        e.preventDefault()
+        seekRatio(Math.max(0, ratio - 0.05))
+      } else if (e.key === 'ArrowRight') {
+        e.preventDefault()
+        seekRatio(Math.min(1, ratio + 0.05))
+      }
+    },
+    [duration, progress, seekRatio]
+  )
 
   const tone =
     variant === 'sent'
@@ -147,9 +207,16 @@ export function VoiceNotePlayer({
         : 'received'
 
   const displayTime = isPlaying || progress > 0 ? progress : duration
-  const playLabel = isPlaying ? t`Pause voice note` : t`Play voice note`
-  const removeLabel = t`Remove voice note`
+  const playLabel = isPlaying
+    ? isAudioFile
+      ? t`Pause audio`
+      : t`Pause voice note`
+    : isAudioFile
+      ? t`Play audio`
+      : t`Play voice note`
+  const removeLabel = isAudioFile ? t`Remove audio` : t`Remove voice note`
   const isBubble = variant === 'sent' || variant === 'received'
+  const progressRatio = duration > 0 ? progress / duration : 0
 
   const playButton = (
     <Tooltip>
@@ -184,17 +251,6 @@ export function VoiceNotePlayer({
     </Tooltip>
   )
 
-  const waveform = (
-    <VoiceWaveform
-      peaks={peaks}
-      progress={duration > 0 ? progress / duration : 0}
-      interactive
-      onSeek={seekRatio}
-      tone={tone}
-      className='min-w-0 flex-1'
-    />
-  )
-
   const durationEl = (
     <span
       className={cn(
@@ -209,15 +265,136 @@ export function VoiceNotePlayer({
     </span>
   )
 
+  const removeButton =
+    onRemove && variant === 'composer' ? (
+      <Tooltip>
+        <TooltipTrigger asChild>
+          <Button
+            type='button'
+            variant='ghost'
+            size='icon'
+            aria-label={removeLabel}
+            className='text-muted-foreground hover:text-destructive size-8 shrink-0'
+            onClick={(e) => {
+              e.stopPropagation()
+              onRemove()
+            }}
+          >
+            <X className='size-3.5' />
+          </Button>
+        </TooltipTrigger>
+        <TooltipContent>{removeLabel}</TooltipContent>
+      </Tooltip>
+    ) : null
+
+  // Attached audio file: headphones badge + linear scrubber (WhatsApp-style).
+  if (isAudioFile) {
+    return (
+      <div
+        className={cn(
+          'flex items-center gap-2.5',
+          variant === 'composer' &&
+            'border-border/60 bg-muted/30 w-full max-w-full rounded-2xl border px-2.5 py-1.5 sm:max-w-[28rem]',
+          isBubble && 'w-full max-w-full min-w-0 bg-transparent p-0',
+          className
+        )}
+      >
+        <audio ref={audioRef} src={src} preload='metadata' />
+        <div
+          className={cn(
+            'flex size-10 shrink-0 items-center justify-center rounded-full',
+            variant === 'sent' && 'bg-amber-500/90 text-white',
+            variant === 'received' && 'bg-amber-500 text-white',
+            variant === 'composer' && 'bg-amber-500 text-white'
+          )}
+          aria-hidden
+        >
+          <Headphones className='size-4' strokeWidth={2} />
+        </div>
+        {playButton}
+        <div className='flex min-w-0 flex-1 flex-col gap-1 py-0.5'>
+          {title ? (
+            <span
+              className={cn(
+                'truncate text-xs font-medium leading-tight',
+                variant === 'sent' && 'text-primary-foreground/90',
+                (variant === 'received' || variant === 'composer') &&
+                  'text-foreground'
+              )}
+            >
+              {title}
+            </span>
+          ) : null}
+          <div className='flex items-center gap-2'>
+            <div
+              ref={scrubRef}
+              role='slider'
+              tabIndex={0}
+              aria-label={t`Seek in audio`}
+              aria-valuemin={0}
+              aria-valuemax={100}
+              aria-valuenow={Math.round(progressRatio * 100)}
+              onPointerDown={handleScrubPointer}
+              onPointerMove={handleScrubMove}
+              onKeyDown={handleScrubKey}
+              className='flex h-5 min-w-0 flex-1 cursor-pointer touch-none items-center'
+            >
+              <div
+                className={cn(
+                  'relative h-1 w-full rounded-full',
+                  variant === 'sent' && 'bg-primary-foreground/30',
+                  (variant === 'received' || variant === 'composer') &&
+                    'bg-muted-foreground/30'
+                )}
+              >
+                <div
+                  className={cn(
+                    'absolute inset-y-0 start-0 rounded-full',
+                    variant === 'sent' && 'bg-sky-300',
+                    (variant === 'received' || variant === 'composer') &&
+                      'bg-sky-500'
+                  )}
+                  style={{ width: `${progressRatio * 100}%` }}
+                />
+                <div
+                  className={cn(
+                    'absolute top-1/2 size-2.5 -translate-y-1/2 rounded-full',
+                    variant === 'sent' && 'bg-sky-200',
+                    (variant === 'received' || variant === 'composer') &&
+                      'bg-sky-500'
+                  )}
+                  style={{
+                    left: `calc(${progressRatio * 100}% - 5px)`,
+                  }}
+                />
+              </div>
+            </div>
+            {durationEl}
+          </div>
+        </div>
+        {removeButton}
+      </div>
+    )
+  }
+
+  const waveform = (
+    <VoiceWaveform
+      peaks={peaks}
+      progress={progressRatio}
+      interactive
+      onSeek={seekRatio}
+      tone={tone}
+      className='min-w-0 flex-1'
+    />
+  )
+
   return (
     <div
       className={cn(
-        'flex min-w-[14rem] items-center gap-2.5',
-        // Composer: bordered preview strip
+        'flex items-center gap-2.5',
         variant === 'composer' &&
           'border-border/60 bg-muted/30 w-full max-w-full rounded-2xl border px-2.5 py-1.5 sm:max-w-[28rem]',
-        // Bubble variant: sit flush in message bubble (no nested card)
-        isBubble && 'w-full max-w-[17.5rem] bg-transparent p-0',
+        isBubble && 'w-full max-w-full min-w-0 bg-transparent p-0',
         className
       )}
     >
@@ -228,29 +405,9 @@ export function VoiceNotePlayer({
           {playButton}
           {waveform}
           {durationEl}
-          {onRemove ? (
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <Button
-                  type='button'
-                  variant='ghost'
-                  size='icon'
-                  aria-label={removeLabel}
-                  className='text-muted-foreground hover:text-destructive size-8 shrink-0'
-                  onClick={(e) => {
-                    e.stopPropagation()
-                    onRemove()
-                  }}
-                >
-                  <X className='size-3.5' />
-                </Button>
-              </TooltipTrigger>
-              <TooltipContent>{removeLabel}</TooltipContent>
-            </Tooltip>
-          ) : null}
+          {removeButton}
         </>
       ) : (
-        // Bubble layout: play · waveform · duration
         <>
           {playButton}
           {waveform}

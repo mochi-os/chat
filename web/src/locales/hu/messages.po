@@ -27,12 +27,12 @@ msgid "(edited)"
 msgstr ""
 
 #. placeholder {0}: deleteTargetIds?.length ?? 0
-#: src/features/chats/index.tsx:1218
+#: src/features/chats/index.tsx:1248
 msgid "{0, plural, one {Delete message?} other {Delete # messages?}}"
 msgstr "{0, plural, one {Üzenet törlése?} other {# üzenet törlése?}}"
 
 #. placeholder {0}: selectedIds.size
-#: src/features/chats/index.tsx:1089
+#: src/features/chats/index.tsx:1118
 msgid "{0} selected"
 msgstr "{0} kijelölve"
 
@@ -42,7 +42,7 @@ msgstr "{0} kijelölve"
 msgid "{0} settings"
 msgstr "{0} beállításai"
 
-#: src/features/chats/components/message-attachments.tsx:130
+#: src/features/chats/components/message-attachments.tsx:133
 msgid "{hiddenCount, plural, one {Show 1 more file} other {Show # more files}}"
 msgstr "{hiddenCount, plural, one {További 1 fájl megjelenítése} other {További # fájl megjelenítése}}"
 
@@ -117,8 +117,8 @@ msgstr "Fiók hozzáadása"
 msgid "Add an account to receive notifications and use services."
 msgstr "Adjon hozzá egy fiókot az értesítések fogadásához és a szolgáltatások használatához."
 
-#: src/features/chats/components/chat-input.tsx:756
-#: src/features/chats/components/chat-input.tsx:761
+#: src/features/chats/components/chat-input.tsx:768
+#: src/features/chats/components/chat-input.tsx:774
 msgid "Add attachment"
 msgstr "Melléklet hozzáadása"
 
@@ -207,7 +207,7 @@ msgid "Anyone can start a chat with you."
 msgstr "Bárki indíthat csevegést veled."
 
 #. placeholder {0}: selectedChat?.name
-#: src/features/chats/index.tsx:1186
+#: src/features/chats/index.tsx:1216
 msgid "Are you sure you want to leave \"{0}\"? You can be added back by other members."
 msgstr "Biztosan elhagyod a következőt: \"{0}\"? Más tagok hozzáadhatnak újra."
 
@@ -232,14 +232,18 @@ msgstr "Növekvő"
 msgid "Ascending"
 msgstr "Növekvő"
 
-#: src/features/chats/components/chat-input.tsx:573
+#: src/features/chats/components/chat-input.tsx:578
 #: src/features/chats/components/message-quote.tsx:56
 msgid "Attachment"
 msgstr "Melléklet"
 
-#: src/features/chats/index.tsx:707
+#: src/features/chats/index.tsx:708
 msgid "Attachments are too large to upload. Remove or shrink files and try again."
 msgstr "A mellékletek túl nagyok a feltöltéshez. Távolítsa el vagy csökkentse a fájlok méretét, majd próbálja újra."
+
+#: src/features/chats/components/chat-input.tsx:787
+msgid "Audio"
+msgstr ""
 
 #: ../../../lib/web/src/components/step-up-dialog.tsx:315
 msgid "Authenticator code"
@@ -284,7 +288,7 @@ msgstr "Érdeklődés növelése"
 #: src/features/chats/components/chat-settings-dialog.tsx:109
 #: src/features/chats/components/forward-dialog.tsx:249
 #: src/features/chats/components/new-chat.tsx:285
-#: src/features/chats/index.tsx:1122
+#: src/features/chats/index.tsx:1151
 msgid "Cancel"
 msgstr "Mégse"
 
@@ -297,8 +301,8 @@ msgstr "Mégse"
 #~ msgid "Cancel recording"
 #~ msgstr ""
 
-#: src/features/chats/components/chat-input.tsx:583
 #: src/features/chats/components/chat-input.tsx:588
+#: src/features/chats/components/chat-input.tsx:593
 msgid "Cancel reply"
 msgstr "Válasz elvetése"
 
@@ -311,10 +315,10 @@ msgstr "Az értesítés kategóriája"
 msgid "Change notification category"
 msgstr "Értesítési kategória módosítása"
 
-#: src/features/chats/index.tsx:85
-#: src/features/chats/index.tsx:193
-#: src/features/chats/index.tsx:193
-#: src/features/chats/index.tsx:908
+#: src/features/chats/index.tsx:86
+#: src/features/chats/index.tsx:194
+#: src/features/chats/index.tsx:194
+#: src/features/chats/index.tsx:937
 msgid "Chat"
 msgstr "Chat"
 
@@ -322,7 +326,7 @@ msgstr "Chat"
 msgid "Chat created"
 msgstr "Chat létrehozva"
 
-#: src/features/chats/index.tsx:770
+#: src/features/chats/index.tsx:771
 msgid "Chat deleted"
 msgstr "Chat törölve"
 
@@ -371,8 +375,8 @@ msgstr "A chat kész"
 msgid "Chat renamed"
 msgstr "Chat átnevezve"
 
-#: src/features/chats/index.tsx:913
-#: src/features/chats/index.tsx:1010
+#: src/features/chats/index.tsx:942
+#: src/features/chats/index.tsx:1039
 #: src/routes/_authenticated/$chatId_.settings.tsx:84
 #: src/routes/_authenticated/$chatId_.settings.tsx:97
 #: src/routes/_authenticated/$chatId_.settings.tsx:108
@@ -380,7 +384,7 @@ msgstr "Chat átnevezve"
 msgid "Chat settings"
 msgstr "Chatbeállítások"
 
-#: src/features/chats/components/chat-input.tsx:765
+#: src/features/chats/components/chat-input.tsx:793
 msgid "Chat Text Box"
 msgstr "Chat szövegmező"
 
@@ -520,13 +524,13 @@ msgstr "Folytatás"
 msgid "Continue with {label}"
 msgstr "Folytatás a következővel: {label}"
 
-#: src/features/chats/index.tsx:598
+#: src/features/chats/index.tsx:599
 msgid "Copied"
 msgstr "Másolva"
 
 #: ../../../lib/web/src/components/ui/copy-button.tsx:63
 #: src/features/chats/components/message-hover-actions.tsx:107
-#: src/features/chats/index.tsx:1098
+#: src/features/chats/index.tsx:1127
 msgid "Copy"
 msgstr "Másolás"
 
@@ -593,17 +597,17 @@ msgid "Default AI account"
 msgstr "Alapértelmezett MI-fiók"
 
 #: src/features/chats/components/message-hover-actions.tsx:149
-#: src/features/chats/index.tsx:1115
-#: src/features/chats/index.tsx:1230
+#: src/features/chats/index.tsx:1144
+#: src/features/chats/index.tsx:1260
 msgid "Delete"
 msgstr "Törlés"
 
-#: src/features/chats/index.tsx:993
-#: src/features/chats/index.tsx:1146
+#: src/features/chats/index.tsx:1022
+#: src/features/chats/index.tsx:1175
 msgid "Delete chat"
 msgstr "Chat törlése"
 
-#: src/features/chats/index.tsx:1208
+#: src/features/chats/index.tsx:1238
 #: src/routes/_authenticated/$chatId_.settings.tsx:366
 msgid "Delete chat history"
 msgstr "Chatelőzmények törlése"
@@ -612,12 +616,12 @@ msgstr "Chatelőzmények törlése"
 msgid "Delete your account on the old server"
 msgstr "Törölje fiókját a régi szerveren"
 
-#: src/features/chats/index.tsx:769
+#: src/features/chats/index.tsx:770
 msgid "Deleting chat..."
 msgstr "Csevegés törlése..."
 
-#: src/features/chats/index.tsx:628
-#: src/features/chats/index.tsx:1227
+#: src/features/chats/index.tsx:629
+#: src/features/chats/index.tsx:1257
 msgid "Deleting..."
 msgstr "Törlés..."
 
@@ -652,8 +656,8 @@ msgstr "Irány"
 msgid "Disagree"
 msgstr "Nem értek egyet"
 
-#: src/features/chats/components/chat-input.tsx:701
-#: src/features/chats/components/chat-input.tsx:706
+#: src/features/chats/components/chat-input.tsx:712
+#: src/features/chats/components/chat-input.tsx:717
 msgid "Discard recording"
 msgstr ""
 
@@ -670,6 +674,10 @@ msgstr "Elvetés"
 msgid "Displays the mobile sidebar."
 msgstr "Megjeleníti a mobil oldalsávot."
 
+#: src/features/chats/components/chat-input.tsx:781
+msgid "Document"
+msgstr ""
+
 #: ../../../lib/web/src/components/ui/image-lightbox.tsx:338
 #: ../../../lib/web/src/components/ui/image-lightbox.tsx:348
 msgid "Download"
@@ -684,7 +692,7 @@ msgid "Draft"
 msgstr ""
 
 #. placeholder {0}: formatTime(displayTime)
-#: src/features/chats/components/audio-player.tsx:206
+#: src/features/chats/components/audio-player.tsx:262
 msgid "Duration {0}"
 msgstr ""
 
@@ -710,7 +718,7 @@ msgstr "{label} szerkesztése"
 
 #. placeholder {0}: Math.floor(recordingDuration / 60)
 #. placeholder {1}: Math.floor( recordingDuration % 60 ) .toString() .padStart(2, '0')
-#: src/features/chats/components/chat-input.tsx:714
+#: src/features/chats/components/chat-input.tsx:725
 msgid "Elapsed {0}:{1}"
 msgstr ""
 
@@ -753,7 +761,7 @@ msgstr "Nem sikerült hozzáadni a fiókot"
 msgid "Failed to add member"
 msgstr "Nem sikerült hozzáadni a tagot"
 
-#: src/features/chats/index.tsx:599
+#: src/features/chats/index.tsx:600
 msgid "Failed to copy"
 msgstr "Nem sikerült másolni"
 
@@ -765,15 +773,15 @@ msgstr "Nem sikerült másolni az üzenetet"
 msgid "Failed to create chat"
 msgstr "Nem sikerült létrehozni a csevegést"
 
-#: src/features/chats/index.tsx:630
+#: src/features/chats/index.tsx:631
 msgid "Failed to delete"
 msgstr "Nem sikerült törölni"
 
-#: src/features/chats/index.tsx:771
+#: src/features/chats/index.tsx:772
 msgid "Failed to delete chat"
 msgstr "Nem sikerült törölni a csevegést"
 
-#: src/features/chats/index.tsx:546
+#: src/features/chats/index.tsx:547
 msgid "Failed to edit message"
 msgstr ""
 
@@ -781,7 +789,7 @@ msgstr ""
 msgid "Failed to forward"
 msgstr "Nem sikerült továbbítani"
 
-#: src/features/chats/index.tsx:752
+#: src/features/chats/index.tsx:753
 #: src/routes/_authenticated/$chatId_.settings.tsx:327
 msgid "Failed to leave chat"
 msgstr "Nem sikerült elhagyni a csevegést"
@@ -806,7 +814,7 @@ msgstr "Nem sikerült átnevezni a csevegést"
 msgid "Failed to save"
 msgstr "Nem sikerült menteni"
 
-#: src/features/chats/index.tsx:706
+#: src/features/chats/index.tsx:707
 msgid "Failed to send message"
 msgstr "Nem sikerült elküldeni az üzenetet"
 
@@ -814,7 +822,7 @@ msgstr "Nem sikerült elküldeni az üzenetet"
 msgid "Failed to send verification code"
 msgstr "Nem sikerült elküldeni az ellenőrző kódot"
 
-#: src/features/chats/index.tsx:199
+#: src/features/chats/index.tsx:200
 msgid "Failed to start chat"
 msgstr "Nem sikerült elindítani a csevegést"
 
@@ -836,7 +844,7 @@ msgstr "Lebegő"
 
 #: src/features/chats/components/forward-dialog.tsx:260
 #: src/features/chats/components/message-hover-actions.tsx:138
-#: src/features/chats/index.tsx:1106
+#: src/features/chats/index.tsx:1135
 msgid "Forward"
 msgstr "Továbbítás"
 
@@ -941,7 +949,7 @@ msgid "Imperial"
 msgstr "Imperial"
 
 #: src/features/chats/components/chat-settings-dialog.tsx:77
-#: src/features/chats/index.tsx:1016
+#: src/features/chats/index.tsx:1045
 msgid "Incoming chats"
 msgstr "Bejövő csevegések"
 
@@ -949,7 +957,7 @@ msgstr "Bejövő csevegések"
 msgid "Inset"
 msgstr "Beillesztett"
 
-#: src/features/chats/components/chat-input.tsx:254
+#: src/features/chats/components/chat-input.tsx:259
 msgid "Installed Mochi shell may not support voice recording. Update the Menu/shell app and try again."
 msgstr ""
 
@@ -984,31 +992,31 @@ msgstr "Elrendezés"
 msgid "Learn more"
 msgstr "Tudjon meg többet"
 
-#: src/features/chats/index.tsx:1194
+#: src/features/chats/index.tsx:1224
 msgid "Leave"
 msgstr "Elhagyás"
 
-#: src/features/chats/index.tsx:1000
+#: src/features/chats/index.tsx:1029
 #: src/routes/_authenticated/$chatId_.settings.tsx:352
 msgid "Leave chat"
 msgstr "Csevegés elhagyása"
 
-#: src/features/chats/index.tsx:1185
+#: src/features/chats/index.tsx:1215
 #: src/routes/_authenticated/$chatId_.settings.tsx:343
 msgid "Leave chat?"
 msgstr "Elhagyja a csevegést?"
 
-#: src/features/chats/index.tsx:750
+#: src/features/chats/index.tsx:751
 #: src/routes/_authenticated/$chatId_.settings.tsx:325
 msgid "Leaving chat..."
 msgstr "Kilépés a csevegésből..."
 
-#: src/features/chats/index.tsx:1191
+#: src/features/chats/index.tsx:1221
 #: src/routes/_authenticated/$chatId_.settings.tsx:349
 msgid "Leaving..."
 msgstr "Elhagyás..."
 
-#: src/features/chats/index.tsx:751
+#: src/features/chats/index.tsx:752
 #: src/routes/_authenticated/$chatId_.settings.tsx:326
 msgid "Left chat"
 msgstr "Csevegés elhagyva"
@@ -1120,16 +1128,16 @@ msgstr "Üzenetműveletek"
 msgid "Message copied"
 msgstr "Üzenet másolva"
 
-#: src/features/chats/index.tsx:708
+#: src/features/chats/index.tsx:709
 msgid "Message could not be sent. Attachments may be too large, or your connection failed. Try smaller files."
 msgstr "Az üzenetet nem sikerült elküldeni. Lehet, hogy a mellékletek túl nagyok, vagy megszakadt a kapcsolat. Próbálja meg kisebb fájlokkal."
 
-#: src/features/chats/index.tsx:629
+#: src/features/chats/index.tsx:630
 msgid "Message deleted"
 msgstr "Üzenet törölve"
 
 #: src/features/chats/components/message-quote.tsx:60
-#: src/features/chats/index.tsx:650
+#: src/features/chats/index.tsx:651
 msgid "Message not available"
 msgstr "Az üzenet nem érhető el"
 
@@ -1137,7 +1145,7 @@ msgstr "Az üzenet nem érhető el"
 msgid "Metric"
 msgstr "Metrika"
 
-#: src/features/chats/components/chat-input.tsx:302
+#: src/features/chats/components/chat-input.tsx:307
 msgid "Microphone access denied"
 msgstr ""
 
@@ -1145,33 +1153,33 @@ msgstr ""
 #~ msgid "Microphone access denied: {0}"
 #~ msgstr ""
 
-#: src/features/chats/components/chat-input.tsx:284
-#: src/features/chats/components/chat-input.tsx:323
-#: src/features/chats/components/chat-input.tsx:347
+#: src/features/chats/components/chat-input.tsx:289
+#: src/features/chats/components/chat-input.tsx:328
+#: src/features/chats/components/chat-input.tsx:352
 msgid "Microphone access requires a secure context (HTTPS or localhost)"
 msgstr ""
 
-#: src/features/chats/components/chat-input.tsx:290
+#: src/features/chats/components/chat-input.tsx:295
 msgid "Microphone access was blocked by the browser"
 msgstr ""
 
-#: src/features/chats/components/chat-input.tsx:271
+#: src/features/chats/components/chat-input.tsx:276
 msgid "Microphone constraints could not be satisfied"
 msgstr ""
 
-#: src/features/chats/components/chat-input.tsx:299
+#: src/features/chats/components/chat-input.tsx:304
 msgid "Microphone error: {message}"
 msgstr ""
 
-#: src/features/chats/components/chat-input.tsx:267
+#: src/features/chats/components/chat-input.tsx:272
 msgid "Microphone is already in use"
 msgstr ""
 
-#: src/features/chats/components/chat-input.tsx:287
+#: src/features/chats/components/chat-input.tsx:292
 msgid "Microphone is blocked in this embedded view. Update the Mochi shell and try again."
 msgstr ""
 
-#: src/features/chats/components/chat-input.tsx:259
+#: src/features/chats/components/chat-input.tsx:264
 msgid "Microphone permission denied"
 msgstr ""
 
@@ -1239,7 +1247,7 @@ msgstr "Nincsenek elérhető csoportok"
 msgid "No messages yet"
 msgstr "Még nincsenek üzenetek"
 
-#: src/features/chats/components/chat-input.tsx:263
+#: src/features/chats/components/chat-input.tsx:268
 msgid "No microphone found"
 msgstr ""
 
@@ -1294,7 +1302,7 @@ msgstr "Nem található"
 msgid "Not set"
 msgstr "Nincs beállítva"
 
-#: src/features/chats/index.tsx:594
+#: src/features/chats/index.tsx:595
 msgid "Nothing to copy"
 msgstr "Nincs mit másolni"
 
@@ -1332,7 +1340,7 @@ msgstr "Fiókműveletek megnyitása"
 msgid "Open actions"
 msgstr "Műveletek megnyitása"
 
-#: src/features/chats/index.tsx:985
+#: src/features/chats/index.tsx:1014
 msgid "Open chat actions"
 msgstr "Csevegési műveletek megnyitása"
 
@@ -1383,7 +1391,11 @@ msgstr "Passkey-ek"
 #~ msgid "Pause"
 #~ msgstr ""
 
-#: src/features/chats/components/audio-player.tsx:150
+#: src/features/chats/components/audio-player.tsx:212
+msgid "Pause audio"
+msgstr ""
+
+#: src/features/chats/components/audio-player.tsx:213
 msgid "Pause voice note"
 msgstr ""
 
@@ -1399,7 +1411,11 @@ msgstr "Chat kitűzése"
 #~ msgid "Play"
 #~ msgstr ""
 
-#: src/features/chats/components/audio-player.tsx:150
+#: src/features/chats/components/audio-player.tsx:215
+msgid "Play audio"
+msgstr ""
+
+#: src/features/chats/components/audio-player.tsx:216
 msgid "Play voice note"
 msgstr ""
 
@@ -1460,24 +1476,24 @@ msgstr "Továbbiak"
 msgid "Recommended"
 msgstr "Ajánlott"
 
-#: src/features/chats/components/chat-input.tsx:812
-#: src/features/chats/components/chat-input.tsx:817
+#: src/features/chats/components/chat-input.tsx:840
+#: src/features/chats/components/chat-input.tsx:845
 msgid "Record voice note"
 msgstr ""
 
-#: src/features/chats/components/chat-input.tsx:307
+#: src/features/chats/components/chat-input.tsx:312
 msgid "Recording is too large to send"
 msgstr ""
 
-#: src/features/chats/components/chat-input.tsx:295
+#: src/features/chats/components/chat-input.tsx:300
 msgid "Recording produced no audio"
 msgstr ""
 
-#: src/features/chats/components/chat-input.tsx:219
+#: src/features/chats/components/chat-input.tsx:224
 msgid "Recording stopped at the 5-minute limit"
 msgstr ""
 
-#: src/features/chats/components/chat-input.tsx:691
+#: src/features/chats/components/chat-input.tsx:702
 msgid "Recording voice note"
 msgstr ""
 
@@ -1506,7 +1522,7 @@ msgstr "Eltávolítás"
 
 #. placeholder {0}: attachment.file.name
 #. placeholder {0}: reaction.label.toLowerCase()
-#: src/features/chats/components/chat-input.tsx:669
+#: src/features/chats/components/chat-input.tsx:680
 #: src/features/chats/components/message-reaction-bar.tsx:121
 msgid "Remove {0}"
 msgstr "{0} eltávolítása"
@@ -1520,6 +1536,10 @@ msgstr "Hozzáférési szabály eltávolítása"
 msgid "Remove access?"
 msgstr "Eltávolítja a hozzáférést?"
 
+#: src/features/chats/components/audio-player.tsx:217
+msgid "Remove audio"
+msgstr ""
+
 #: ../../../lib/web/src/components/post-tags.tsx:220
 #: ../../../lib/web/src/components/post-tags.tsx:232
 msgid "Remove interest"
@@ -1529,7 +1549,7 @@ msgstr "Érdeklődés eltávolítása"
 msgid "Remove member?"
 msgstr "Eltávolítja a tagot?"
 
-#: src/features/chats/components/audio-player.tsx:151
+#: src/features/chats/components/audio-player.tsx:217
 msgid "Remove voice note"
 msgstr ""
 
@@ -1550,7 +1570,7 @@ msgid "Reply"
 msgstr "Válasz"
 
 #. placeholder {0}: replyTo.name
-#: src/features/chats/components/chat-input.tsx:564
+#: src/features/chats/components/chat-input.tsx:569
 msgid "Replying to {0}"
 msgstr "Válasz neki: {0}"
 
@@ -1623,7 +1643,7 @@ msgstr "Ismerősök keresése…"
 msgid "Search in chat..."
 msgstr "Keresés a chatben..."
 
-#: src/features/chats/index.tsx:975
+#: src/features/chats/index.tsx:1004
 msgid "Search messages"
 msgstr "Üzenetek keresése"
 
@@ -1644,6 +1664,10 @@ msgstr "Keresés..."
 #: ../../../lib/web/src/features/access/access-dialog.tsx:202
 msgid "Searching..."
 msgstr "Keresés folyamatban..."
+
+#: src/features/chats/components/audio-player.tsx:332
+msgid "Seek in audio"
+msgstr ""
 
 #: src/features/chats/components/voice-waveform.tsx:90
 msgid "Seek in voice note"
@@ -1721,8 +1745,8 @@ msgstr "Újraküldés"
 msgid "Send email"
 msgstr "E-mail küldése"
 
-#: src/features/chats/components/chat-input.tsx:827
-#: src/features/chats/components/chat-input.tsx:836
+#: src/features/chats/components/chat-input.tsx:855
+#: src/features/chats/components/chat-input.tsx:864
 msgid "Send message"
 msgstr "Üzenet küldése"
 
@@ -1756,7 +1780,7 @@ msgstr "Kiindulási és úti cél beállítása"
 msgid "Settings"
 msgstr "Beállítások"
 
-#: src/features/chats/components/message-attachments.tsx:128
+#: src/features/chats/components/message-attachments.tsx:131
 #: src/features/chats/components/message-body.tsx:74
 msgid "Show less"
 msgstr "Kevesebb"
@@ -1794,7 +1818,7 @@ msgid "Small"
 msgstr "Kicsi"
 
 #. placeholder {0}: unresolved.join(', ')
-#: src/features/chats/index.tsx:862
+#: src/features/chats/index.tsx:882
 msgid "Some mentions could not be linked: {0}. Pick them from the @ list so the right person is notified."
 msgstr ""
 
@@ -1806,7 +1830,7 @@ msgstr "Tágas"
 msgid "Start a conversation"
 msgstr "Beszélgetés indítása"
 
-#: src/features/chats/index.tsx:196
+#: src/features/chats/index.tsx:197
 msgid "Starting chat..."
 msgstr "Csevegés indítása..."
 
@@ -1814,8 +1838,8 @@ msgstr "Csevegés indítása..."
 msgid "Stay tuned though!"
 msgstr "De maradjon velünk!"
 
-#: src/features/chats/components/chat-input.tsx:738
-#: src/features/chats/components/chat-input.tsx:743
+#: src/features/chats/components/chat-input.tsx:749
+#: src/features/chats/components/chat-input.tsx:754
 msgid "Stop recording"
 msgstr ""
 
@@ -1875,7 +1899,7 @@ msgstr "ezt a csevegést"
 msgid "This chat may have been deleted or you don't have access to it"
 msgstr "Lehet, hogy ezt a csevegést törölték, vagy nincs hozzáférésed"
 
-#: src/features/chats/index.tsx:1222
+#: src/features/chats/index.tsx:1252
 msgid "This deletes the message for everyone and cannot be undone."
 msgstr "Ez mindenkinél törli az üzenetet, és nem vonható vissza."
 
@@ -1962,11 +1986,11 @@ msgstr "Gépeljen a felhasználók kereséséhez"
 msgid "Type to search..."
 msgstr "Gépeljen a kereséshez..."
 
-#: src/features/chats/components/chat-input.tsx:772
+#: src/features/chats/components/chat-input.tsx:800
 msgid "Type your message…"
 msgstr "Írja be az üzenetét…"
 
-#: src/features/chats/components/chat-input.tsx:771
+#: src/features/chats/components/chat-input.tsx:799
 msgid "Type your reply…"
 msgstr "Írd meg a válaszod…"
 
@@ -2055,8 +2079,8 @@ msgstr "Összes értesítés megtekintése"
 msgid "Voice note waveform"
 msgstr ""
 
-#: src/features/chats/components/chat-input.tsx:279
-#: src/features/chats/components/chat-input.tsx:353
+#: src/features/chats/components/chat-input.tsx:284
+#: src/features/chats/components/chat-input.tsx:358
 msgid "Voice recording is not supported in this browser"
 msgstr ""
 
@@ -2072,7 +2096,7 @@ msgstr "A webhely karbantartás alatt áll!"
 msgid "Wednesday"
 msgstr "Szerda"
 
-#: src/features/chats/index.tsx:437
+#: src/features/chats/index.tsx:438
 msgid "You"
 msgstr "Ön"
 
@@ -2084,7 +2108,7 @@ msgstr "Már van csevegése ezzel a baráttal"
 msgid "You already have chats with:"
 msgstr "Már van csevegésed velük:"
 
-#: src/features/chats/index.tsx:611
+#: src/features/chats/index.tsx:612
 msgid "You can only delete your own messages"
 msgstr "Csak a saját üzeneteidet törölheted"
 
@@ -2092,11 +2116,11 @@ msgstr "Csak a saját üzeneteidet törölheted"
 msgid "You do not have access to this section."
 msgstr "Nincs hozzáférése ehhez a részhez."
 
-#: src/features/chats/index.tsx:1133
+#: src/features/chats/index.tsx:1162
 msgid "You left this chat"
 msgstr "Elhagytad ezt a csevegést"
 
-#: src/features/chats/index.tsx:1132
+#: src/features/chats/index.tsx:1161
 msgid "You were removed from this chat"
 msgstr "Eltávolítottak ebből a csevegésből"
 

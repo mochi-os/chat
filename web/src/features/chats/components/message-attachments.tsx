@@ -37,6 +37,9 @@ const CHAT_FILE_COLLAPSED_COUNT = 3
 const isAbsoluteUrl = (value: string) => /^https?:\/\//i.test(value)
 const isAttachmentPathCompatible = (value: string) => value.includes('/-/attachments/')
 
+const isPlayableCaption = (caption?: string) =>
+  Boolean(caption?.startsWith('voice:') || caption?.startsWith('audio:'))
+
 function useAttachmentUrls(chatId: string) {
   const appBase = import.meta.env.VITE_APP_BASE_URL || '/chat'
 
@@ -85,11 +88,15 @@ function MessageFileList({
     : 'text-primary hover:text-primary/90'
 
   return (
-    <div className='flex w-full min-w-0 max-w-full flex-col gap-1.5'>
+    <div className='flex w-full min-w-0 flex-col gap-1.5'>
       {visibleFiles.map((attachment) => {
         const FileIcon = getFileIcon(attachment.type)
         return (
-          <Attachment key={attachment.id} size='sm' className='w-full min-w-0 max-w-full'>
+          <Attachment
+            key={attachment.id}
+            size='sm'
+            className='w-full min-w-0 max-w-full'
+          >
             <AttachmentTrigger asChild>
               <a
                 href={getUrl(attachment)}
@@ -161,10 +168,17 @@ export function MessageAttachments({
     [normalizedAttachments]
   )
 
+  const audioFiles = useMemo(
+    () =>
+      normalizedAttachments.filter((att) => att.caption?.startsWith('audio:')),
+    [normalizedAttachments]
+  )
+
   const media = useMemo(
     () =>
       normalizedAttachments.filter(
-        (att) => (isImage(att.type) || isVideo(att.type)) && !att.caption?.startsWith('voice:')
+        (att) =>
+          (isImage(att.type) || isVideo(att.type)) && !isPlayableCaption(att.caption)
       ),
     [normalizedAttachments]
   )
@@ -172,7 +186,10 @@ export function MessageAttachments({
   const files = useMemo(
     () =>
       normalizedAttachments.filter(
-        (att) => !isImage(att.type) && !isVideo(att.type) && !att.caption?.startsWith('voice:')
+        (att) =>
+          !isImage(att.type) &&
+          !isVideo(att.type) &&
+          !isPlayableCaption(att.caption)
       ),
     [normalizedAttachments]
   )
@@ -181,21 +198,34 @@ export function MessageAttachments({
     return null
   }
 
+  const playableRow = (
+    att: (typeof normalizedAttachments)[number],
+    kind: 'voice' | 'audio'
+  ) => {
+    const colon = att.caption!.indexOf(':')
+    const duration = parseInt(att.caption!.slice(colon + 1), 10) || 0
+    return (
+      <VoiceNotePlayer
+        key={att.id}
+        src={getUrl(att)}
+        durationSecs={duration}
+        kind={kind}
+        title={kind === 'audio' ? att.name : undefined}
+        variant={isSent ? 'sent' : 'received'}
+      />
+    )
+  }
+
   return (
-    <div className='flex w-full min-w-0 max-w-full flex-col gap-2'>
-          {voiceNotes.length > 0 ? (
-        <div className='flex w-full flex-col gap-2'>
-          {voiceNotes.map((att) => {
-            const duration = parseInt(att.caption!.slice(6), 10) || 0
-            return (
-              <VoiceNotePlayer
-                key={att.id}
-                src={getUrl(att)}
-                durationSecs={duration}
-                variant={isSent ? 'sent' : 'received'}
-              />
-            )
-          })}
+    <div className='flex w-full min-w-0 flex-col gap-2'>
+      {voiceNotes.length > 0 ? (
+        <div className='flex flex-col gap-2'>
+          {voiceNotes.map((att) => playableRow(att, 'voice'))}
+        </div>
+      ) : null}
+      {audioFiles.length > 0 ? (
+        <div className='flex flex-col gap-2'>
+          {audioFiles.map((att) => playableRow(att, 'audio'))}
         </div>
       ) : null}
       {media.length > 0 ? (
