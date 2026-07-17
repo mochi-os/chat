@@ -482,8 +482,8 @@ export function ChatMessageList({
             {groupMessagesBySender(groupedMessages[key]).map((messageGroup) => {
               const isSentGroup = isCurrentUserMessage(messageGroup[0])
               return (
-                <BubbleGroup key={messageGroup[0].id} className={cn("w-full mb-3", isSentGroup ? 'items-end' : 'items-start')}>
-                  {messageGroup.map((message) => {
+                <BubbleGroup key={messageGroup[0].id} className={cn("w-full mb-4 gap-1", isSentGroup ? 'items-end' : 'items-start')}>
+                  {messageGroup.map((message, index) => {
               const isSent = isCurrentUserMessage(message)
               const isSelected = selectedIds?.has(message.id) ?? false
               const isDeleted = message.deleted === true
@@ -545,14 +545,18 @@ export function ChatMessageList({
                       )}
                     >
                       {isGroupChat && !isSent && (
-                        <EntityAvatar
-                          src={`${getAppPath()}/${message.chat}/-/${message.id}/asset/avatar`}
-                          styleUrl={`${getAppPath()}/${message.chat}/-/${message.id}/asset/style`}
-                          seed={message.member}
-                          name={message.name}
-                          size="xs"
-                          className="mt-0.5 shrink-0"
-                        />
+                        index === 0 ? (
+                          <EntityAvatar
+                            src={`${getAppPath()}/${message.chat}/-/${message.id}/asset/avatar`}
+                            styleUrl={`${getAppPath()}/${message.chat}/-/${message.id}/asset/style`}
+                            seed={message.member}
+                            name={message.name}
+                            size="xs"
+                            className="mt-0.5 shrink-0"
+                          />
+                        ) : (
+                          <div className="w-5 shrink-0" />
+                        )
                       )}
 
                       {editingMessageId === message.id ? (
