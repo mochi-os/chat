@@ -141,10 +141,7 @@ export function MessageHoverActions({
           {canDelete && onDelete ? (
             <>
               <DropdownMenuSeparator />
-              <DropdownMenuItem
-                onSelect={onDelete}
-                className='text-destructive focus:text-destructive'
-              >
+              <DropdownMenuItem onSelect={onDelete}>
                 <Trash2 className='me-2 size-3.5' />
                 {t`Delete`}
               </DropdownMenuItem>

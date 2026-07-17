@@ -1138,7 +1138,6 @@ export function Chats() {
                     variant='ghost'
                     size='sm'
                     onClick={() => requestDelete([...selectedIds])}
-                    className='text-destructive hover:text-destructive'
                   >
                     <Trash2 className='me-1.5 size-4' />
                     <Trans>Delete</Trans>
