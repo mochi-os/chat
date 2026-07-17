@@ -35,7 +35,6 @@ import {
   actionPillExpandMaxWidthMap,
   actionPillExpandOpacityMap,
   MentionTextarea,
-  type MentionUser,
 } from '@mochi/web'
 import { ChevronsDown, MessageCircle, Loader2 } from 'lucide-react'
 import type { ChatMessage } from '@/api/chats'
@@ -124,7 +123,6 @@ interface ChatMessageListProps {
   isEditSaveDisabled?: boolean
   onSaveEdit?: (e: React.FormEvent) => void
   onCancelEdit?: () => void
-  people?: MentionUser[]
 }
 
 export function ChatMessageList({
@@ -163,7 +161,6 @@ export function ChatMessageList({
   isEditSaveDisabled = false,
   onSaveEdit,
   onCancelEdit,
-  people = [],
 }: ChatMessageListProps) {
   const { t } = useLingui()
   const { formatDate, formatTime, formatNumber } = useFormat()
@@ -564,7 +561,8 @@ export function ChatMessageList({
                           <MentionTextarea
                             ref={inlineTextareaRef}
                             value={editingBody ?? ''}
-                            people={people}
+                            // No @ autocomplete on edit until backend accepts mention ids.
+                            people={[]}
                             onValueChange={(val) => setEditingBody?.(val)}
                             onKeyDown={(e) => {
                               if (e.key === 'Enter' && !e.shiftKey) {

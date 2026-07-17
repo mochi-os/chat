@@ -1079,7 +1079,6 @@ export function Chats() {
             isEditSaveDisabled={isEditSaveDisabled}
             onSaveEdit={handleSaveEdit}
             onCancelEdit={handleCancelEdit}
-            people={mentionPeople}
             onStartEdit={chatActive(selectedChat) ? handleStartEdit : undefined}
           />
 
