@@ -6,7 +6,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { Trans, useLingui } from '@lingui/react/macro'
 import { plural } from '@lingui/core/macro'
-import { useAuthStore, usePageTitle, PageHeader, Main, GeneralError, Button, Checkbox, ConfirmDialog, EntityAvatar, IconButton, DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger, Label, toast, toastAction, getErrorMessage, shellClipboardWrite, getSendAttachmentErrorMessage, isAttachmentPayloadTooLargeError, resolveMentionsFromBody, unresolvedMentionDisplayNames } from '@mochi/web'
+import { useAuthStore, usePageTitle, PageHeader, Main, GeneralError, Button, Checkbox, ConfirmDialog, EntityAvatar, IconButton, DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger, Label, toast, toastAction, getErrorMessage, shellClipboardWrite, getSendAttachmentErrorMessage, isAttachmentPayloadTooLargeError, resolveMentionsFromBody, classifyUnresolvedMentions } from '@mochi/web'
 import { useMessageSelection } from '@/hooks/use-message-selection'
 import { useNavigate, useParams, useSearch } from '@tanstack/react-router'
 import { useQueryClient, type InfiniteData } from '@tanstack/react-query'
@@ -268,6 +268,11 @@ export function Chats() {
     setEditingBody('')
     setIsEditingSaving(false)
     setDraftHydratedChatId(null)
+    // Discard pending files/voice/audio — never carry into another chat.
+    setPendingAttachments((prev) => {
+      prev.forEach(revokePendingAttachmentPreview)
+      return []
+    })
 
     if (!draftChatKey) return
 
@@ -392,7 +397,19 @@ export function Chats() {
 
   const mentionPeople = useMemo(() => {
     if (isDirectChat) return []
-    return chatMemberRoster.filter((m) => m.id !== currentUserIdentity)
+    const others = chatMemberRoster.filter((m) => m.id !== currentUserIdentity)
+    const nameCounts = new Map<string, number>()
+    for (const member of others) {
+      nameCounts.set(member.name, (nameCounts.get(member.name) ?? 0) + 1)
+    }
+    return others.map((member) => {
+      if ((nameCounts.get(member.name) ?? 0) <= 1) {
+        return { id: member.id, name: member.name }
+      }
+      const detail =
+        member.id.length > 8 ? member.id.slice(-8) : member.id
+      return { id: member.id, name: member.name, detail }
+    })
   }, [isDirectChat, chatMemberRoster, currentUserIdentity])
 
   // Rehydrate mention ids from composer body after draft restore / roster load.
@@ -872,15 +889,25 @@ export function Chats() {
         }).map((m) => m.id)
 
     if (!isDirectChat && body) {
-      const unresolved = unresolvedMentionDisplayNames({
+      const { unknown, ambiguous } = classifyUnresolvedMentions({
         body,
         people: mentionPeople,
         preferred: selectedMentions,
       })
-      if (unresolved.length > 0) {
-        toast.warning(
-          t`Some mentions could not be linked: ${unresolved.join(', ')}. Pick them from the @ list so the right person is notified.`
-        )
+      if (unknown.length > 0 || ambiguous.length > 0) {
+        if (ambiguous.length > 0 && unknown.length === 0) {
+          toast.warning(
+            t`Multiple people share these names: ${ambiguous.join(', ')}. Pick them from the @ list so the right person is notified.`
+          )
+        } else if (unknown.length > 0 && ambiguous.length === 0) {
+          toast.warning(
+            t`These names are not in this chat: ${unknown.join(', ')}. Pick from the @ list or remove them.`
+          )
+        } else {
+          toast.warning(
+            t`Could not link mentions. Multiple people share: ${ambiguous.join(', ')}. Not in this chat: ${unknown.join(', ')}. Pick from the @ list.`
+          )
+        }
         return
       }
     }
@@ -1177,6 +1204,7 @@ export function Chats() {
             </div>
           ) : (
             <ChatInput
+              key={selectedChat.id}
               ref={chatInputRef}
               newMessage={newMessage}
               setNewMessage={setNewMessage}

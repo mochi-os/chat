@@ -42,6 +42,7 @@ import {
   shellMicStart,
   shellMicStop,
   shellMicCancel,
+  shellMicProbe,
   onShellMicLevel,
   createMicSessionHost,
   micDurationSecs,
@@ -125,6 +126,7 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(
   const recordingStartedAtRef = useRef<number>(0)
   const shellMicRequestIdRef = useRef<number | null>(null)
   const localMicHostRef = useRef<ReturnType<typeof createMicSessionHost> | null>(null)
+  const shellMicSupportedRef = useRef<boolean | null>(null)
   const stoppingRef = useRef(false)
   const startingRef = useRef(false)
   const autoStoppedRef = useRef(false)
@@ -332,6 +334,16 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(
     try {
       if (isInShell()) {
         try {
+          if (shellMicSupportedRef.current === null) {
+            shellMicSupportedRef.current = await shellMicProbe()
+          }
+          if (!shellMicSupportedRef.current) {
+            startingRef.current = false
+            toast.error(
+              t`Installed Mochi shell may not support voice recording. Update the Menu/shell app and try again.`
+            )
+            return
+          }
           const requestId = await shellMicStart()
           shellMicRequestIdRef.current = requestId
           startingRef.current = false
