@@ -6,7 +6,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { Trans, useLingui } from '@lingui/react/macro'
 import { plural } from '@lingui/core/macro'
-import { useAuthStore, usePageTitle, PageHeader, Main, GeneralError, Button, Checkbox, ConfirmDialog, EntityAvatar, IconButton, DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger, Label, toast, toastAction, getErrorMessage, shellClipboardWrite, getSendAttachmentErrorMessage, isAttachmentPayloadTooLargeError } from '@mochi/web'
+import { useAuthStore, usePageTitle, PageHeader, Main, GeneralError, Button, Checkbox, ConfirmDialog, EntityAvatar, IconButton, DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger, Label, toast, toastAction, getErrorMessage, shellClipboardWrite, getSendAttachmentErrorMessage, isAttachmentPayloadTooLargeError, resolveMentionsFromBody } from '@mochi/web'
 import { useMessageSelection } from '@/hooks/use-message-selection'
 import { useNavigate, useParams, useSearch } from '@tanstack/react-router'
 import { useQueryClient, type InfiniteData } from '@tanstack/react-query'
@@ -393,6 +393,38 @@ export function Chats() {
     if (isDirectChat) return []
     return chatMemberRoster.filter((m) => m.id !== currentUserIdentity)
   }, [isDirectChat, chatMemberRoster, currentUserIdentity])
+
+  // Rehydrate mention ids from composer body after draft restore / roster load.
+  // Body is source of truth; selectedMentions keeps collision preferences.
+  useEffect(() => {
+    if (!draftHydratedChatId || draftHydratedChatId !== draftChatKey) return
+    if (isDirectChat) {
+      setSelectedMentions((prev) => (prev.length === 0 ? prev : []))
+      return
+    }
+
+    setSelectedMentions((prev) => {
+      const next = resolveMentionsFromBody({
+        body: newMessage,
+        people: mentionPeople,
+        preferred: prev,
+      })
+      if (
+        prev.length === next.length &&
+        prev.every((person) => next.some((n) => n.id === person.id)) &&
+        next.every((person) => prev.some((p) => p.id === person.id))
+      ) {
+        return prev
+      }
+      return next
+    })
+  }, [
+    draftHydratedChatId,
+    draftChatKey,
+    mentionPeople,
+    isDirectChat,
+    newMessage,
+  ])
 
   const subtitle = useMemo(() => {
     if (!chatDetail?.chat.members || chatDetail.chat.members.length <= 2) return null
@@ -811,7 +843,6 @@ export function Chats() {
       return
     }
 
-    const rosterIds = new Set(chatMemberRoster.map((m) => m.id))
     sendMessageMutation.mutate({
       chatId: selectedChat.id,
       body,
@@ -819,11 +850,11 @@ export function Chats() {
       attachments: pendingAttachments.map((a) => a.file),
       mentions: isDirectChat
         ? []
-        : Array.from(
-            new Set(
-              selectedMentions.map((m) => m.id).filter((id) => rosterIds.has(id))
-            )
-          ),
+        : resolveMentionsFromBody({
+            body,
+            people: mentionPeople,
+            preferred: selectedMentions,
+          }).map((m) => m.id),
       captions: pendingAttachments.some(a => 'duration' in a)
         ? pendingAttachments.map(a => 'duration' in a && typeof a.duration === 'number' ? `voice:${Math.round(a.duration)}` : "")
         : undefined,
