@@ -113,6 +113,43 @@ export const createPendingAudioAttachment = (
   }
 }
 
+/**
+ * Read the duration (seconds) of an audio object URL via metadata preload.
+ * Resolves 0 when the browser cannot determine it (caption falls back to
+ * "audio:0" and the player corrects itself on loadedmetadata).
+ */
+export const probeAudioDuration = (url: string): Promise<number> =>
+  new Promise((resolve) => {
+    if (typeof Audio === 'undefined' || !url) {
+      resolve(0)
+      return
+    }
+    const audio = new Audio()
+    let settled = false
+    const done = (secs: number) => {
+      if (settled) return
+      settled = true
+      clearTimeout(timer)
+      audio.removeAttribute('src')
+      resolve(secs)
+    }
+    const timer = setTimeout(() => done(0), 5000)
+    audio.addEventListener(
+      'loadedmetadata',
+      () => {
+        done(
+          Number.isFinite(audio.duration) && audio.duration > 0
+            ? audio.duration
+            : 0
+        )
+      },
+      { once: true }
+    )
+    audio.addEventListener('error', () => done(0), { once: true })
+    audio.preload = 'metadata'
+    audio.src = url
+  })
+
 export const revokePendingAttachmentPreview = (
   attachment: PendingAttachment
 ) => {

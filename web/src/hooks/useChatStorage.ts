@@ -85,29 +85,16 @@ export async function getDraftChatIds(): Promise<Set<string>> {
   }
 }
 
+// The draft-id badge set has a single writer: SidebarProvider's
+// setChatDraftPresent. setDraft/clearDraft only touch the draft text —
+// callers pair them with setChatDraftPresent so two writers never race
+// read-modify-write on the same storage key.
 export function setDraftChatIds(chatIds: Iterable<string>): void {
   shellStorage.setItem(DRAFT_CHATS_KEY, JSON.stringify([...chatIds]))
 }
 
-function addDraftChatId(chatId: string): void {
-  void getDraftChatIds().then((ids) => {
-    if (ids.has(chatId)) return
-    ids.add(chatId)
-    setDraftChatIds(ids)
-  })
-}
-
-function removeDraftChatId(chatId: string): void {
-  void getDraftChatIds().then((ids) => {
-    if (!ids.has(chatId)) return
-    ids.delete(chatId)
-    setDraftChatIds(ids)
-  })
-}
-
 export function setDraft(chatId: string, text: string): void {
   shellStorage.setItem(DRAFT_KEY(chatId), text)
-  addDraftChatId(chatId)
 }
 
 export async function getDraft(chatId: string): Promise<string | null> {
@@ -116,7 +103,6 @@ export async function getDraft(chatId: string): Promise<string | null> {
 
 export function clearDraft(chatId: string): void {
   shellStorage.removeItem(DRAFT_KEY(chatId))
-  removeDraftChatId(chatId)
 }
 
 export async function isReadTimestampsMigrated(): Promise<boolean> {

@@ -66,6 +66,7 @@ import {
   createPendingAttachment,
   createPendingAudioAttachment,
   createPendingVoiceNote,
+  probeAudioDuration,
   revokePendingAttachmentPreview,
 } from './utils'
 import {
@@ -831,12 +832,35 @@ export function Chats() {
         file.type.startsWith('audio/') ||
         /\.(mp3|m4a|aac|ogg|opus|wav|webm|flac)$/i.test(file.name)
     )
+    const skippedCount = files.length - audioFiles.length
+    if (skippedCount > 0) {
+      toast.warning(
+        plural(skippedCount, {
+          one: 'Skipped # file that is not audio',
+          other: 'Skipped # files that are not audio',
+        })
+      )
+    }
     if (audioFiles.length === 0) return
 
-    setPendingAttachments((prev) => [
-      ...prev,
-      ...audioFiles.map((file) => createPendingAudioAttachment(file)),
-    ])
+    const newAttachments = audioFiles.map((file) =>
+      createPendingAudioAttachment(file)
+    )
+    setPendingAttachments((prev) => [...prev, ...newAttachments])
+
+    // Fill in real durations once metadata is readable so the caption the
+    // recipient sees is not "audio:0".
+    for (const attachment of newAttachments) {
+      if (!attachment.previewUrl) continue
+      void probeAudioDuration(attachment.previewUrl).then((secs) => {
+        if (secs <= 0) return
+        setPendingAttachments((prev) =>
+          prev.map((a) =>
+            a.id === attachment.id ? { ...a, duration: secs } : a
+          )
+        )
+      })
+    }
   }
 
   const handleRemoveAttachment = (id: string) => {

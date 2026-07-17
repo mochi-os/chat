@@ -47,6 +47,7 @@ import {
   createMicSessionHost,
   micDurationSecs,
   micFilenameForMime,
+  startShellMicGuarded,
 } from '@mochi/web'
 import { Loader2, Paperclip, Send, X, Mic, Trash, Square, FileText, Music } from 'lucide-react'
 import type { PendingAttachment } from '../utils'
@@ -130,6 +131,8 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(
   const stoppingRef = useRef(false)
   const startingRef = useRef(false)
   const autoStoppedRef = useRef(false)
+  /** True after unmount — mic starts resolving late must cancel, not record. */
+  const disposedRef = useRef(false)
   const stopRecordingRef = useRef<(cancel?: boolean) => Promise<void>>(
     async () => {}
   )
@@ -334,23 +337,36 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(
     try {
       if (isInShell()) {
         try {
-          if (shellMicSupportedRef.current === null) {
-            shellMicSupportedRef.current = await shellMicProbe()
+          const outcome = await startShellMicGuarded({
+            ensureSupported: async () => {
+              if (shellMicSupportedRef.current === null) {
+                shellMicSupportedRef.current = await shellMicProbe()
+              }
+              return shellMicSupportedRef.current
+            },
+            start: shellMicStart,
+            cancel: (requestId) => {
+              void shellMicCancel(requestId).catch(() => {})
+            },
+            isDisposed: () => disposedRef.current,
+          })
+          if (outcome.status === 'disposed') {
+            startingRef.current = false
+            return
           }
-          if (!shellMicSupportedRef.current) {
+          if (outcome.status === 'unsupported') {
             startingRef.current = false
             toast.error(
               t`Installed Mochi shell may not support voice recording. Update the Menu/shell app and try again.`
             )
             return
           }
-          const requestId = await shellMicStart()
-          shellMicRequestIdRef.current = requestId
+          shellMicRequestIdRef.current = outcome.requestId
           startingRef.current = false
           beginRecordingUi()
         } catch (err) {
           endRecordingUi()
-          toastMicError(err)
+          if (!disposedRef.current) toastMicError(err)
         }
         return
       }
@@ -385,15 +401,21 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(
       const host = localMicHostRef.current
       try {
         await host.start()
+        if (disposedRef.current) {
+          // Unmounted while the permission prompt was open — cleanup's
+          // abortAll may have run before start resolved; stop again to be sure.
+          host.abortAll()
+          return
+        }
         startingRef.current = false
         beginRecordingUi()
       } catch (err) {
         endRecordingUi()
-        toastMicError(err)
+        if (!disposedRef.current) toastMicError(err)
       }
     } catch (err) {
       endRecordingUi()
-      toastMicError(err)
+      if (!disposedRef.current) toastMicError(err)
     }
   }
 
@@ -507,14 +529,16 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(
 
   // Cleanup on unmount — cancel any in-flight shell/local recording.
   useEffect(() => {
+    disposedRef.current = false
     return () => {
+      disposedRef.current = true
       clearRecordingTimer()
       if (waveformIntervalRef.current) {
         clearInterval(waveformIntervalRef.current)
       }
       const shellId = shellMicRequestIdRef.current
       if (shellId != null && isInShell()) {
-        void shellMicCancel(shellId)
+        void shellMicCancel(shellId).catch(() => {})
       }
       localMicHostRef.current?.abortAll()
     }
