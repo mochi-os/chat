@@ -410,6 +410,34 @@ def action_new(a):
 		"data": {"name": a.user.identity.name, "friends": friends}
 	}
 
+# HTTP handlers serving a chat's message attachments (and thumbnails). Auth-only
+# routes. Core's a.write.attachment serves the bytes with no access check of its
+# own, so this handler is the gate: only members may view a chat's attachments
+# (mirrors action_messages), and the attachment must belong to a message in THIS
+# chat — its object is "chat/<chat_id>/<message_id>", so a prefix check binds it.
+def action_attachment(a):
+	serve_attachment(a, False)
+
+def action_attachment_thumbnail(a):
+	serve_attachment(a, True)
+
+def serve_attachment(a, thumbnail):
+	attachment = a.input("id")
+	chat = mochi.db.row("select * from chats where id=?", a.input("chat"))
+	if not chat:
+		a.error.label(404, "errors.chat_not_found")
+		return
+	is_member = mochi.db.exists("select 1 from members where chat=? and member=?", chat["id"], a.user.identity.id)
+	if not is_member and chat["status"] not in ("left", "removed"):
+		a.error.label(403, "errors.not_a_member_of_this_chat")
+		return
+	# Bind the attachment to this chat: its object is "chat/<chat_id>/<message_id>".
+	att = mochi.attachment.get(attachment)
+	if not att or not att.get("object", "").startswith("chat/" + chat["id"] + "/"):
+		a.error.label(404, "errors.attachment_not_found")
+		return
+	a.write.attachment(attachment, thumbnail=thumbnail)
+
 # Get messages for a chat with cursor-based pagination
 def action_messages(a):
 	if not mochi.text.valid(a.input("chat"), "id"):
