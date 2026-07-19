@@ -266,7 +266,7 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(
             </Tooltip>
           </div>
           <label className='flex-1'>
-            <span className='sr-only'><Trans>Chat Text Box</Trans></span>
+            <span className='sr-only'><Trans>Chat text box</Trans></span>
             <textarea
               ref={textareaRef}
               rows={1}
