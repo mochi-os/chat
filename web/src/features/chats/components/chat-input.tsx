@@ -120,8 +120,6 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(
   const [isRecording, setIsRecording] = useState(false)
   const [recordingDuration, setRecordingDuration] = useState(0)
   const [livePeaks, setLivePeaks] = useState<number[]>([])
-  const mediaRecorderRef = useRef<MediaRecorder | null>(null)
-  const audioChunksRef = useRef<Blob[]>([])
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null)
   const waveformIntervalRef = useRef<ReturnType<typeof setInterval> | null>(null)
   const recordingStartedAtRef = useRef<number>(0)
@@ -243,8 +241,6 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(
     setLivePeaks([])
     autoStoppedRef.current = false
     shellMicRequestIdRef.current = null
-    mediaRecorderRef.current = null
-    audioChunksRef.current = []
     stoppingRef.current = false
     startingRef.current = false
   }
@@ -261,7 +257,7 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(
 
     if (name === 'TimeoutError') {
       toast.error(
-        t`Installed Mochi shell may not support voice recording. Update the Menu/shell app and try again.`
+        t`Voice recording isn't available in this app version. Please update the app and try again.`
       )
       return
     }
@@ -294,7 +290,7 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(
         toast.error(t`Microphone access requires a secure context (HTTPS or localhost)`)
       } else if (isInShell()) {
         toast.error(
-          t`Microphone is blocked in this embedded view. Update the Mochi shell and try again.`
+          t`Microphone access is blocked here. Please update the app and try again.`
         )
       } else {
         toast.error(t`Microphone access was blocked by the browser`)
@@ -357,7 +353,7 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(
           if (outcome.status === 'unsupported') {
             startingRef.current = false
             toast.error(
-              t`Installed Mochi shell may not support voice recording. Update the Menu/shell app and try again.`
+              t`Voice recording is currently unavailable. Please check your setup and try again.`
             )
             return
           }
@@ -491,35 +487,6 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(
         return
       }
 
-      // Legacy local MediaRecorder path (should not normally be reached)
-      if (!mediaRecorderRef.current) {
-        endRecordingUi()
-        return
-      }
-      const recorder = mediaRecorderRef.current
-      const stream = recorder.stream
-      await new Promise<void>((resolve) => {
-        recorder.onstop = () => {
-          stream.getTracks().forEach((track) => track.stop())
-          if (!cancel && audioChunksRef.current.length > 0) {
-            const mimeType = recorder.mimeType || 'audio/webm'
-            const blob = new Blob(audioChunksRef.current, { type: mimeType })
-            attachVoiceNote(
-              blob,
-              mimeType,
-              micFilenameForMime(mimeType),
-              micDurationSecs(elapsedMs)
-            )
-          }
-          resolve()
-        }
-        try {
-          recorder.stop()
-        } catch {
-          resolve()
-        }
-      })
-      endRecordingUi()
     } catch (err) {
       toastMicError(err)
       endRecordingUi()

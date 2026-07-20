@@ -303,9 +303,8 @@ export function VoiceNotePlayer({
         <div
           className={cn(
             'flex size-10 shrink-0 items-center justify-center rounded-full',
-            variant === 'sent' && 'bg-amber-500/90 text-white',
-            variant === 'received' && 'bg-amber-500 text-white',
-            variant === 'composer' && 'bg-amber-500 text-white'
+            variant === 'sent' && 'bg-primary-foreground/20 text-primary-foreground',
+            (variant === 'received' || variant === 'composer') && 'bg-primary text-primary-foreground'
           )}
           aria-hidden
         >
@@ -350,18 +349,18 @@ export function VoiceNotePlayer({
                 <div
                   className={cn(
                     'absolute inset-y-0 start-0 rounded-full',
-                    variant === 'sent' && 'bg-sky-300',
+                    variant === 'sent' && 'bg-primary-foreground',
                     (variant === 'received' || variant === 'composer') &&
-                      'bg-sky-500'
+                      'bg-primary'
                   )}
                   style={{ width: `${progressRatio * 100}%` }}
                 />
                 <div
                   className={cn(
                     'absolute top-1/2 size-2.5 -translate-y-1/2 rounded-full',
-                    variant === 'sent' && 'bg-sky-200',
+                    variant === 'sent' && 'bg-primary-foreground',
                     (variant === 'received' || variant === 'composer') &&
-                      'bg-sky-500'
+                      'bg-primary'
                   )}
                   style={{
                     left: `calc(${progressRatio * 100}% - 5px)`,

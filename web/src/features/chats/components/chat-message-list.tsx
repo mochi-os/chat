@@ -625,6 +625,11 @@ export function ChatMessageList({
                             (!isSelecting && !isDeleted && message.reaction_counts && Object.keys(message.reaction_counts).length > 0) && 'mb-4'
                           )}
                         >
+                          {isGroupChat && !isSent && index === 0 && message.name ? (
+                            <span className="text-xs font-semibold text-muted-foreground ml-1.5 -mb-0.5">
+                              {message.name}
+                            </span>
+                          ) : null}
                           <BubbleContent
                             className={cn(
                               isDeleted &&
@@ -710,6 +715,7 @@ export function ChatMessageList({
                             <BubbleReactions
                               align={isSent ? 'end' : 'start'}
                               className={cn(
+                                'rounded-lg',
                                 isSent ? "flex-row-reverse" : "flex-row",
                                 (!message.reaction_counts || Object.keys(message.reaction_counts).length === 0)
                                   ? actionPillExpandOpacityMap.bubble
