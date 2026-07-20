@@ -1,4 +1,4 @@
-// Copyright © 2026 Mochi OÜ
+// Copyright © 2026 Mochisoft OÜ
 // SPDX-License-Identifier: AGPL-3.0-only
 // This file is part of Mochi, licensed under the GNU AGPL v3 with the
 // Mochi Application Interface Exception - see license.txt and license-exception.md.
@@ -125,7 +125,7 @@ function ChatSettingsPage() {
       />
       <Main className='space-y-8'>
         {chatDetailError ? (
-          <Section title={t`General`} description={t`Adjust chat settings`}>
+          <Section title={t`General`}>
             <GeneralError
               error={chatDetailError}
               minimal
@@ -196,7 +196,7 @@ function ChatNameSection({ chatId, name }: { chatId: string, name: string }) {
   }
 
   return (
-    <Section title={t`General`} description={t`Adjust chat settings`}>
+    <Section title={t`General`}>
       <EditableFieldRow
         label={t`Chat name`}
         value={name}
@@ -245,7 +245,6 @@ function MembersSection({
   return (
     <Section
       title={t`Members`}
-      description={t`List of people in this chat`}
       action={!error && !isLoading ? (
         <Button size='sm' onClick={onAddMember} variant="outline">
           <UserPlus className='me-2 size-4' />

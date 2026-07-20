@@ -1,4 +1,4 @@
-// Copyright © 2026 Mochi OÜ
+// Copyright © 2026 Mochisoft OÜ
 // SPDX-License-Identifier: AGPL-3.0-only
 // This file is part of Mochi, licensed under the GNU AGPL v3 with the
 // Mochi Application Interface Exception - see license.txt and license-exception.md.
@@ -793,7 +793,7 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(
                 </DropdownMenu>
               </div>
               <label className='flex-1'>
-                <span className='sr-only'><Trans>Chat Text Box</Trans></span>
+                <span className='sr-only'><Trans>Chat text box</Trans></span>
                 <MentionTextarea
                   ref={textareaRef}
                   rows={1}

@@ -1,11 +1,11 @@
 // Mochi Chat app
-// Copyright © 2026 Mochi OÜ
+// Copyright © 2026 Mochisoft OÜ
 // SPDX-License-Identifier: AGPL-3.0-only
 // This file is part of Mochi, licensed under the GNU AGPL v3 with the
 // Mochi Application Interface Exception - see license.txt and license-exception.md.
 
 {
-	"version": "2.107",
+	"version": "2.110",
 	"label": "app.name",
 	"classes": ["chat"],
 	"paths": ["chat"],
@@ -15,7 +15,7 @@
 	"execute": ["chat.star"],
 
 	"database": {
-		"schema": 2,
+		"schema": 3,
 		"file": "chat.db",
 		"create": {"function": "database_create"},
 		"upgrade": {"function": "database_upgrade"},
@@ -54,8 +54,8 @@
 		":chat/-/delete": {"function": "action_delete"},
 		":chat/-/member/add": {"function": "action_member_add"},
 		":chat/-/member/remove": {"function": "action_member_remove"},
-		":chat/-/attachments/:id": {"feature": "attachment"},
-		":chat/-/attachments/:id/thumbnail": {"feature": "attachment/thumbnail"},
+		":chat/-/attachments/:id": {"function": "action_attachment"},
+		":chat/-/attachments/:id/thumbnail": {"function": "action_attachment_thumbnail"},
 		":chat/-/:message/asset/:asset": {"function": "action_message_asset", "public": true},
 		":chat/settings": {"file": "web/dist/index.html"},
 		":chat/settings/assets": {"files": "web/dist/assets"},

@@ -1,5 +1,5 @@
 # Mochi Chat app
-# Copyright © 2026 Mochi OÜ
+# Copyright © 2026 Mochisoft OÜ
 # SPDX-License-Identifier: AGPL-3.0-only
 # This file is part of Mochi, licensed under the GNU AGPL v3 with the
 # Mochi Application Interface Exception - see license.txt and license-exception.md.
@@ -147,6 +147,14 @@ def chat_commit_hook(table, kind, row_uid):
 # the AppVersion struct - cheap and idempotent at the framework level.
 def chat_ensure_commit_hook():
 	mochi.db.commit.hook("chat_commit_hook")
+
+def database_upgrade(version):
+	if version == 3:
+		# Drop the pre-2026-07 broadcast tables left in the app data DB when
+		# broadcast state moved to the per-app system DB - inert, but stale
+		# sequence/log copies mislead diagnosis.
+		for table in ["sequence", "log", "acknowledged", "received"]:
+			mochi.db.execute("drop table if exists " + table)
 
 # Create database
 def database_create():
@@ -401,6 +409,34 @@ def action_new(a):
 	return {
 		"data": {"name": a.user.identity.name, "friends": friends}
 	}
+
+# HTTP handlers serving a chat's message attachments (and thumbnails). Auth-only
+# routes. Core's a.write.attachment serves the bytes with no access check of its
+# own, so this handler is the gate: only members may view a chat's attachments
+# (mirrors action_messages), and the attachment must belong to a message in THIS
+# chat — its object is "chat/<chat_id>/<message_id>", so a prefix check binds it.
+def action_attachment(a):
+	serve_attachment(a, False)
+
+def action_attachment_thumbnail(a):
+	serve_attachment(a, True)
+
+def serve_attachment(a, thumbnail):
+	attachment = a.input("id")
+	chat = mochi.db.row("select * from chats where id=?", a.input("chat"))
+	if not chat:
+		a.error.label(404, "errors.chat_not_found")
+		return
+	is_member = mochi.db.exists("select 1 from members where chat=? and member=?", chat["id"], a.user.identity.id)
+	if not is_member and chat["status"] not in ("left", "removed"):
+		a.error.label(403, "errors.not_a_member_of_this_chat")
+		return
+	# Bind the attachment to this chat: its object is "chat/<chat_id>/<message_id>".
+	att = mochi.attachment.get(attachment)
+	if not att or not att.get("object", "").startswith("chat/" + chat["id"] + "/"):
+		a.error.label(404, "errors.attachment_not_found")
+		return
+	a.write.attachment(attachment, thumbnail=thumbnail)
 
 # Get messages for a chat with cursor-based pagination
 def action_messages(a):
