@@ -301,6 +301,14 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(
       toast.error(t`Recording produced no audio`)
       return
     }
+    if (name === 'MediaRecorderError') {
+      toast.error(t`Recording failed. Please try again.`)
+      return
+    }
+    if (name === 'InvalidStateError') {
+      toast.error(t`A recording is already in progress.`)
+      return
+    }
     if (message) {
       toast.error(t`Microphone error: ${message}`)
       return

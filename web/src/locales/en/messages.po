@@ -63,6 +63,10 @@ msgstr "12 hours"
 msgid "24 hours"
 msgstr "24 hours"
 
+#: src/features/chats/components/chat-input.tsx:309
+msgid "A recording is already in progress."
+msgstr "A recording is already in progress."
+
 #: ../../../lib/web/src/lib/preference-utils.ts:51
 msgid "Absolute (date and time)"
 msgstr "Absolute (date and time)"
@@ -121,8 +125,8 @@ msgstr "Add account"
 msgid "Add an account to receive notifications and use services."
 msgstr "Add an account to receive notifications and use services."
 
-#: src/features/chats/components/chat-input.tsx:771
-#: src/features/chats/components/chat-input.tsx:777
+#: src/features/chats/components/chat-input.tsx:779
+#: src/features/chats/components/chat-input.tsx:785
 msgid "Add attachment"
 msgstr "Add attachment"
 
@@ -231,7 +235,7 @@ msgstr "Asc"
 msgid "Ascending"
 msgstr "Ascending"
 
-#: src/features/chats/components/chat-input.tsx:581
+#: src/features/chats/components/chat-input.tsx:589
 #: src/features/chats/components/message-quote.tsx:56
 msgid "Attachment"
 msgstr "Attachment"
@@ -240,7 +244,7 @@ msgstr "Attachment"
 msgid "Attachments are too large to upload. Remove or shrink files and try again."
 msgstr "Attachments are too large to upload. Remove or shrink files and try again."
 
-#: src/features/chats/components/chat-input.tsx:790
+#: src/features/chats/components/chat-input.tsx:798
 msgid "Audio"
 msgstr "Audio"
 
@@ -291,8 +295,8 @@ msgstr "Boost interest"
 msgid "Cancel"
 msgstr "Cancel"
 
-#: src/features/chats/components/chat-input.tsx:591
-#: src/features/chats/components/chat-input.tsx:596
+#: src/features/chats/components/chat-input.tsx:599
+#: src/features/chats/components/chat-input.tsx:604
 msgid "Cancel reply"
 msgstr "Cancel reply"
 
@@ -374,7 +378,7 @@ msgstr "Chat renamed"
 msgid "Chat settings"
 msgstr "Chat settings"
 
-#: src/features/chats/components/chat-input.tsx:796
+#: src/features/chats/components/chat-input.tsx:804
 msgid "Chat text box"
 msgstr "Chat text box"
 
@@ -652,8 +656,8 @@ msgstr "Direction"
 msgid "Disagree"
 msgstr "Disagree"
 
-#: src/features/chats/components/chat-input.tsx:715
-#: src/features/chats/components/chat-input.tsx:720
+#: src/features/chats/components/chat-input.tsx:723
+#: src/features/chats/components/chat-input.tsx:728
 msgid "Discard recording"
 msgstr "Discard recording"
 
@@ -670,7 +674,7 @@ msgstr "Dismiss"
 msgid "Displays the mobile sidebar."
 msgstr "Displays the mobile sidebar."
 
-#: src/features/chats/components/chat-input.tsx:784
+#: src/features/chats/components/chat-input.tsx:792
 msgid "Document"
 msgstr "Document"
 
@@ -706,7 +710,7 @@ msgstr "Edit {label}"
 
 #. placeholder {0}: Math.floor(recordingDuration / 60)
 #. placeholder {1}: Math.floor( recordingDuration % 60 ) .toString() .padStart(2, '0')
-#: src/features/chats/components/chat-input.tsx:728
+#: src/features/chats/components/chat-input.tsx:736
 msgid "Elapsed {0}:{1}"
 msgstr "Elapsed {0}:{1}"
 
@@ -1125,7 +1129,7 @@ msgstr "Message not available"
 msgid "Metric"
 msgstr "Metric"
 
-#: src/features/chats/components/chat-input.tsx:308
+#: src/features/chats/components/chat-input.tsx:316
 msgid "Microphone access denied"
 msgstr "Microphone access denied"
 
@@ -1134,8 +1138,8 @@ msgid "Microphone access is blocked here. Please update the app and try again."
 msgstr "Microphone access is blocked here. Please update the app and try again."
 
 #: src/features/chats/components/chat-input.tsx:290
-#: src/features/chats/components/chat-input.tsx:329
-#: src/features/chats/components/chat-input.tsx:376
+#: src/features/chats/components/chat-input.tsx:337
+#: src/features/chats/components/chat-input.tsx:384
 msgid "Microphone access requires a secure context (HTTPS or localhost)"
 msgstr "Microphone access requires a secure context (HTTPS or localhost)"
 
@@ -1147,7 +1151,7 @@ msgstr "Microphone access was blocked by the browser"
 msgid "Microphone constraints could not be satisfied"
 msgstr "Microphone constraints could not be satisfied"
 
-#: src/features/chats/components/chat-input.tsx:305
+#: src/features/chats/components/chat-input.tsx:313
 msgid "Microphone error: {message}"
 msgstr "Microphone error: {message}"
 
@@ -1449,12 +1453,16 @@ msgstr "Read more"
 msgid "Recommended"
 msgstr "Recommended"
 
-#: src/features/chats/components/chat-input.tsx:843
-#: src/features/chats/components/chat-input.tsx:848
+#: src/features/chats/components/chat-input.tsx:851
+#: src/features/chats/components/chat-input.tsx:856
 msgid "Record voice note"
 msgstr "Record voice note"
 
-#: src/features/chats/components/chat-input.tsx:313
+#: src/features/chats/components/chat-input.tsx:305
+msgid "Recording failed. Please try again."
+msgstr "Recording failed. Please try again."
+
+#: src/features/chats/components/chat-input.tsx:321
 msgid "Recording is too large to send"
 msgstr "Recording is too large to send"
 
@@ -1466,7 +1474,7 @@ msgstr "Recording produced no audio"
 msgid "Recording stopped at the 5-minute limit"
 msgstr "Recording stopped at the 5-minute limit"
 
-#: src/features/chats/components/chat-input.tsx:705
+#: src/features/chats/components/chat-input.tsx:713
 msgid "Recording voice note"
 msgstr "Recording voice note"
 
@@ -1495,7 +1503,7 @@ msgstr "Remove"
 
 #. placeholder {0}: attachment.file.name
 #. placeholder {0}: reaction.label.toLowerCase()
-#: src/features/chats/components/chat-input.tsx:683
+#: src/features/chats/components/chat-input.tsx:691
 #: src/features/chats/components/message-reaction-bar.tsx:121
 msgid "Remove {0}"
 msgstr "Remove {0}"
@@ -1543,7 +1551,7 @@ msgid "Reply"
 msgstr "Reply"
 
 #. placeholder {0}: replyTo.name
-#: src/features/chats/components/chat-input.tsx:572
+#: src/features/chats/components/chat-input.tsx:580
 msgid "Replying to {0}"
 msgstr "Replying to {0}"
 
@@ -1713,8 +1721,8 @@ msgstr "Send again"
 msgid "Send email"
 msgstr "Send email"
 
-#: src/features/chats/components/chat-input.tsx:858
-#: src/features/chats/components/chat-input.tsx:867
+#: src/features/chats/components/chat-input.tsx:866
+#: src/features/chats/components/chat-input.tsx:875
 msgid "Send message"
 msgstr "Send message"
 
@@ -1801,8 +1809,8 @@ msgstr "Starting chat..."
 msgid "Stay tuned though!"
 msgstr "Stay tuned though!"
 
-#: src/features/chats/components/chat-input.tsx:752
-#: src/features/chats/components/chat-input.tsx:757
+#: src/features/chats/components/chat-input.tsx:760
+#: src/features/chats/components/chat-input.tsx:765
 msgid "Stop recording"
 msgstr "Stop recording"
 
@@ -1954,11 +1962,11 @@ msgstr "Type to search users"
 msgid "Type to search..."
 msgstr "Type to search..."
 
-#: src/features/chats/components/chat-input.tsx:803
+#: src/features/chats/components/chat-input.tsx:811
 msgid "Type your message…"
 msgstr "Type your message…"
 
-#: src/features/chats/components/chat-input.tsx:802
+#: src/features/chats/components/chat-input.tsx:810
 msgid "Type your reply…"
 msgstr "Type your reply…"
 
@@ -2047,12 +2055,12 @@ msgstr "View all notifications"
 msgid "Voice note waveform"
 msgstr "Voice note waveform"
 
-#: src/features/chats/components/chat-input.tsx:356
+#: src/features/chats/components/chat-input.tsx:364
 msgid "Voice recording is currently unavailable. Please check your setup and try again."
 msgstr "Voice recording is currently unavailable. Please check your setup and try again."
 
 #: src/features/chats/components/chat-input.tsx:285
-#: src/features/chats/components/chat-input.tsx:382
+#: src/features/chats/components/chat-input.tsx:390
 msgid "Voice recording is not supported in this browser"
 msgstr "Voice recording is not supported in this browser"
 

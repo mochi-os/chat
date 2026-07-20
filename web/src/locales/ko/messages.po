@@ -63,6 +63,10 @@ msgstr "12시간"
 msgid "24 hours"
 msgstr "24시간"
 
+#: src/features/chats/components/chat-input.tsx:309
+msgid "A recording is already in progress."
+msgstr ""
+
 #: ../../../lib/web/src/lib/preference-utils.ts:51
 msgid "Absolute (date and time)"
 msgstr "절대값 (날짜 및 시간)"
@@ -121,8 +125,8 @@ msgstr "계정 추가"
 msgid "Add an account to receive notifications and use services."
 msgstr "알림을 받고 서비스를 이용하려면 계정을 추가하세요."
 
-#: src/features/chats/components/chat-input.tsx:771
-#: src/features/chats/components/chat-input.tsx:777
+#: src/features/chats/components/chat-input.tsx:779
+#: src/features/chats/components/chat-input.tsx:785
 msgid "Add attachment"
 msgstr "첨부 파일 추가"
 
@@ -231,7 +235,7 @@ msgstr "오름차순"
 msgid "Ascending"
 msgstr "오름차순"
 
-#: src/features/chats/components/chat-input.tsx:581
+#: src/features/chats/components/chat-input.tsx:589
 #: src/features/chats/components/message-quote.tsx:56
 msgid "Attachment"
 msgstr "첨부 파일"
@@ -240,7 +244,7 @@ msgstr "첨부 파일"
 msgid "Attachments are too large to upload. Remove or shrink files and try again."
 msgstr "첨부 파일이 너무 커서 업로드할 수 없어요. 파일을 제거하거나 크기를 줄인 후 다시 시도하세요."
 
-#: src/features/chats/components/chat-input.tsx:790
+#: src/features/chats/components/chat-input.tsx:798
 msgid "Audio"
 msgstr ""
 
@@ -291,8 +295,8 @@ msgstr "관심도 부스트"
 msgid "Cancel"
 msgstr "취소"
 
-#: src/features/chats/components/chat-input.tsx:591
-#: src/features/chats/components/chat-input.tsx:596
+#: src/features/chats/components/chat-input.tsx:599
+#: src/features/chats/components/chat-input.tsx:604
 msgid "Cancel reply"
 msgstr "답글 취소"
 
@@ -374,7 +378,7 @@ msgstr "채팅 이름이 변경되었어요"
 msgid "Chat settings"
 msgstr "채팅 설정"
 
-#: src/features/chats/components/chat-input.tsx:796
+#: src/features/chats/components/chat-input.tsx:804
 msgid "Chat text box"
 msgstr ""
 
@@ -652,8 +656,8 @@ msgstr "방향"
 msgid "Disagree"
 msgstr "동의하지 않음"
 
-#: src/features/chats/components/chat-input.tsx:715
-#: src/features/chats/components/chat-input.tsx:720
+#: src/features/chats/components/chat-input.tsx:723
+#: src/features/chats/components/chat-input.tsx:728
 msgid "Discard recording"
 msgstr ""
 
@@ -670,7 +674,7 @@ msgstr "닫기"
 msgid "Displays the mobile sidebar."
 msgstr "모바일 사이드바를 표시해요."
 
-#: src/features/chats/components/chat-input.tsx:784
+#: src/features/chats/components/chat-input.tsx:792
 msgid "Document"
 msgstr ""
 
@@ -706,7 +710,7 @@ msgstr "{label} 편집"
 
 #. placeholder {0}: Math.floor(recordingDuration / 60)
 #. placeholder {1}: Math.floor( recordingDuration % 60 ) .toString() .padStart(2, '0')
-#: src/features/chats/components/chat-input.tsx:728
+#: src/features/chats/components/chat-input.tsx:736
 msgid "Elapsed {0}:{1}"
 msgstr ""
 
@@ -1125,7 +1129,7 @@ msgstr "메시지를 사용할 수 없습니다"
 msgid "Metric"
 msgstr "측정 항목"
 
-#: src/features/chats/components/chat-input.tsx:308
+#: src/features/chats/components/chat-input.tsx:316
 msgid "Microphone access denied"
 msgstr ""
 
@@ -1134,8 +1138,8 @@ msgid "Microphone access is blocked here. Please update the app and try again."
 msgstr ""
 
 #: src/features/chats/components/chat-input.tsx:290
-#: src/features/chats/components/chat-input.tsx:329
-#: src/features/chats/components/chat-input.tsx:376
+#: src/features/chats/components/chat-input.tsx:337
+#: src/features/chats/components/chat-input.tsx:384
 msgid "Microphone access requires a secure context (HTTPS or localhost)"
 msgstr ""
 
@@ -1147,7 +1151,7 @@ msgstr ""
 msgid "Microphone constraints could not be satisfied"
 msgstr ""
 
-#: src/features/chats/components/chat-input.tsx:305
+#: src/features/chats/components/chat-input.tsx:313
 msgid "Microphone error: {message}"
 msgstr ""
 
@@ -1449,12 +1453,16 @@ msgstr "더 보기"
 msgid "Recommended"
 msgstr "추천됨"
 
-#: src/features/chats/components/chat-input.tsx:843
-#: src/features/chats/components/chat-input.tsx:848
+#: src/features/chats/components/chat-input.tsx:851
+#: src/features/chats/components/chat-input.tsx:856
 msgid "Record voice note"
 msgstr ""
 
-#: src/features/chats/components/chat-input.tsx:313
+#: src/features/chats/components/chat-input.tsx:305
+msgid "Recording failed. Please try again."
+msgstr ""
+
+#: src/features/chats/components/chat-input.tsx:321
 msgid "Recording is too large to send"
 msgstr ""
 
@@ -1466,7 +1474,7 @@ msgstr ""
 msgid "Recording stopped at the 5-minute limit"
 msgstr ""
 
-#: src/features/chats/components/chat-input.tsx:705
+#: src/features/chats/components/chat-input.tsx:713
 msgid "Recording voice note"
 msgstr ""
 
@@ -1495,7 +1503,7 @@ msgstr "제거"
 
 #. placeholder {0}: attachment.file.name
 #. placeholder {0}: reaction.label.toLowerCase()
-#: src/features/chats/components/chat-input.tsx:683
+#: src/features/chats/components/chat-input.tsx:691
 #: src/features/chats/components/message-reaction-bar.tsx:121
 msgid "Remove {0}"
 msgstr "{0} 제거"
@@ -1543,7 +1551,7 @@ msgid "Reply"
 msgstr "답글"
 
 #. placeholder {0}: replyTo.name
-#: src/features/chats/components/chat-input.tsx:572
+#: src/features/chats/components/chat-input.tsx:580
 msgid "Replying to {0}"
 msgstr "{0}에게 답장 중"
 
@@ -1713,8 +1721,8 @@ msgstr "다시 보내기"
 msgid "Send email"
 msgstr "이메일 보내기"
 
-#: src/features/chats/components/chat-input.tsx:858
-#: src/features/chats/components/chat-input.tsx:867
+#: src/features/chats/components/chat-input.tsx:866
+#: src/features/chats/components/chat-input.tsx:875
 msgid "Send message"
 msgstr "메시지 보내기"
 
@@ -1801,8 +1809,8 @@ msgstr "채팅 시작 중..."
 msgid "Stay tuned though!"
 msgstr "기대해 주세요!"
 
-#: src/features/chats/components/chat-input.tsx:752
-#: src/features/chats/components/chat-input.tsx:757
+#: src/features/chats/components/chat-input.tsx:760
+#: src/features/chats/components/chat-input.tsx:765
 msgid "Stop recording"
 msgstr ""
 
@@ -1954,11 +1962,11 @@ msgstr "입력하여 사용자 검색"
 msgid "Type to search..."
 msgstr "입력하여 검색..."
 
-#: src/features/chats/components/chat-input.tsx:803
+#: src/features/chats/components/chat-input.tsx:811
 msgid "Type your message…"
 msgstr "메시지 입력…"
 
-#: src/features/chats/components/chat-input.tsx:802
+#: src/features/chats/components/chat-input.tsx:810
 msgid "Type your reply…"
 msgstr "답장을 입력하세요…"
 
@@ -2047,12 +2055,12 @@ msgstr "모든 알림 보기"
 msgid "Voice note waveform"
 msgstr ""
 
-#: src/features/chats/components/chat-input.tsx:356
+#: src/features/chats/components/chat-input.tsx:364
 msgid "Voice recording is currently unavailable. Please check your setup and try again."
 msgstr ""
 
 #: src/features/chats/components/chat-input.tsx:285
-#: src/features/chats/components/chat-input.tsx:382
+#: src/features/chats/components/chat-input.tsx:390
 msgid "Voice recording is not supported in this browser"
 msgstr ""
 
