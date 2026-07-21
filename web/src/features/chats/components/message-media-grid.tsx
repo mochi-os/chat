@@ -22,7 +22,7 @@ const GRID_SLOT_COUNT = 4
 interface MessageMediaGridProps {
   media: GalleryAttachment[]
   getUrl: (att: GalleryAttachment) => string
-  getThumbnailUrl: (att: GalleryAttachment) => string
+  getPreviewUrl: (att: GalleryAttachment) => string
 }
 
 function VideoTile({ url }: { url: string }) {
@@ -80,7 +80,7 @@ function tileClassName(count: number, index: number) {
 export function MessageMediaGrid({
   media,
   getUrl,
-  getThumbnailUrl,
+  getPreviewUrl,
 }: MessageMediaGridProps) {
   const extraCount = Math.max(0, media.length - GRID_SLOT_COUNT)
   const visibleMedia =
@@ -124,7 +124,7 @@ export function MessageMediaGrid({
                 <VideoTile url={getUrl(attachment)} />
               ) : (
                 <img
-                  src={getThumbnailUrl(attachment)}
+                  src={getPreviewUrl(attachment)}
                   alt={attachment.name}
                   className='h-full w-full object-cover'
                 />

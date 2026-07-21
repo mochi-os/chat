@@ -416,12 +416,15 @@ def action_new(a):
 # (mirrors action_messages), and the attachment must belong to a message in THIS
 # chat — its object is "chat/<chat_id>/<message_id>", so a prefix check binds it.
 def action_attachment(a):
-	serve_attachment(a, False)
+	serve_attachment(a, "")
 
 def action_attachment_thumbnail(a):
-	serve_attachment(a, True)
+	serve_attachment(a, "thumbnail")
 
-def serve_attachment(a, thumbnail):
+def action_attachment_preview(a):
+	serve_attachment(a, "preview")
+
+def serve_attachment(a, variant):
 	attachment = a.input("id")
 	chat = mochi.db.row("select * from chats where id=?", a.input("chat"))
 	if not chat:
@@ -436,7 +439,7 @@ def serve_attachment(a, thumbnail):
 	if not att or not att.get("object", "").startswith("chat/" + chat["id"] + "/"):
 		a.error.label(404, "errors.attachment_not_found")
 		return
-	a.write.attachment(attachment, thumbnail=thumbnail)
+	a.write.attachment(attachment, variant=variant)
 
 # Get messages for a chat with cursor-based pagination
 def action_messages(a):

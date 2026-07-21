@@ -52,10 +52,12 @@ function useAttachmentUrls(chatId: string) {
   return {
     getUrl: (att: GalleryAttachment) =>
       resolve(att.url, `${appBase}/${chatId}/-/attachments/${att.id}`),
-    getThumbnailUrl: (att: GalleryAttachment) =>
+    // Bubble media tiles render large enough that the 250px thumbnail blurs;
+    // use the preview variant.
+    getPreviewUrl: (att: GalleryAttachment) =>
       resolve(
-        att.thumbnail_url,
-        `${appBase}/${chatId}/-/attachments/${att.id}/thumbnail`
+        att.preview_url,
+        `${appBase}/${chatId}/-/attachments/${att.id}/preview`
       ),
   }
 }
@@ -151,7 +153,7 @@ export function MessageAttachments({
   chatId,
   isSent = false,
 }: MessageAttachmentsProps) {
-  const { getUrl, getThumbnailUrl } = useAttachmentUrls(chatId)
+  const { getUrl, getPreviewUrl } = useAttachmentUrls(chatId)
 
   const normalizedAttachments = useMemo(
     () =>
@@ -232,7 +234,7 @@ export function MessageAttachments({
         <MessageMediaGrid
           media={media}
           getUrl={getUrl}
-          getThumbnailUrl={getThumbnailUrl}
+          getPreviewUrl={getPreviewUrl}
         />
       ) : null}
       <MessageFileList files={files} getUrl={getUrl} isSent={isSent} />
