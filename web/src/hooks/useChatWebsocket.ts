@@ -21,7 +21,7 @@ import {
   type ChatWebsocketMessagePayload,
   type WebsocketConnectionStatus,
 } from '@/lib/websocket-manager'
-import { chatKeys } from '@/hooks/useChats'
+import { chatKeys, invalidateChatsExceptChat } from '@/hooks/useChats'
 import { useWebsocketManager } from '@/hooks/useWebsocketManager'
 import { applyMessageEditLWW } from '@/features/chats/utils/message-edit-lww'
 
@@ -275,11 +275,23 @@ const handleWebsocketEvent = (
       case 'rename':
       case 'leave':
       case 'member/add':
-      case 'member/remove':
+      case 'member/remove': {
+        // We lose access to this chat when we are removed, or when the leave
+        // event is our own (the server echoes our leave back to us). Refetching
+        // this chat's detail/members then 403s, so refresh the list but skip
+        // this chat. `removed` never carries a member and only ever targets us.
+        const iLostAccess =
+          event === 'removed' ||
+          (event === 'leave' && payload.member === currentUserId)
+        if (iLostAccess) {
+          void invalidateChatsExceptChat(queryClient, chatId)
+          return 'event'
+        }
         void queryClient.invalidateQueries({ queryKey: chatKeys.all() })
         void queryClient.invalidateQueries({ queryKey: chatKeys.detail(chatId) })
         void queryClient.invalidateQueries({ queryKey: ['chats', chatId, 'members'] })
         return 'event'
+      }
     }
   }
 

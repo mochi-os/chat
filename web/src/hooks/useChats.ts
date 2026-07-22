@@ -52,6 +52,15 @@ export const chatKeys = {
   preferences: () => ['chats', 'preferences'] as const,
 }
 
+export const invalidateChatsExceptChat = (
+  queryClient: QueryClient,
+  chatId: string,
+) =>
+  queryClient.invalidateQueries({
+    predicate: (query) =>
+      query.queryKey[0] === 'chats' && query.queryKey[1] !== chatId,
+  })
+
 export const useChatDetailQuery = (
   chatId?: string,
   options?: Omit<
@@ -352,7 +361,7 @@ export const useLeaveChatMutation = (
     mutationFn: ({ chatId, ...payload }: LeaveChatVariables) =>
       chatsApi.leave(chatId, payload),
     onSuccess: (data, variables, context, mutation) => {
-      queryClient.invalidateQueries({ queryKey: chatKeys.all() })
+      invalidateChatsExceptChat(queryClient, variables.chatId)
       onSuccess?.(data, variables, context, mutation)
     },
     ...restOptions,
@@ -371,7 +380,7 @@ export const useDeleteChatMutation = (
   return useMutation({
     mutationFn: ({ chatId }: DeleteChatVariables) => chatsApi.delete(chatId),
     onSuccess: (data, variables, context, mutation) => {
-      queryClient.invalidateQueries({ queryKey: chatKeys.all() })
+      invalidateChatsExceptChat(queryClient, variables.chatId)
       onSuccess?.(data, variables, context, mutation)
     },
     ...restOptions,
