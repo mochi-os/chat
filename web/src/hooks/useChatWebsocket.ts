@@ -282,7 +282,9 @@ const handleWebsocketEvent = (
         // this chat. `removed` never carries a member and only ever targets us.
         const iLostAccess =
           event === 'removed' ||
-          (event === 'leave' && payload.member === currentUserId)
+          (event === 'leave' &&
+            !!currentUserId &&
+            payload.member === currentUserId)
         if (iLostAccess) {
           void invalidateChatsExceptChat(queryClient, chatId)
           return 'event'
