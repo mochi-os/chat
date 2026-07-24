@@ -1502,14 +1502,29 @@ def event_new(e):
 	existing = mochi.db.row("select status from chats where id=?", chat)
 	if existing and existing["status"] == "active":
 		return
-	if existing:
-		mochi.db.execute("update chats set status='active', name=?, updated=? where id=?", name, mochi.time.now(), chat)
-	else:
-		mochi.db.execute("insert or ignore into chats ( id, name, key, updated ) values ( ?, ?, ?, ? )", chat, name, mochi.random.alphanumeric(16), mochi.time.now())
 
 	members = e.read()
 	if len(members) > 10000:
 		return
+
+	if existing:
+		# Reactivating a tombstone needs evidence of a genuine re-add: the
+		# sender must be a remembered co-member of this chat, and the roster
+		# must list us. Otherwise any sender passing the policy gate above
+		# could force a chat the user deliberately left back to active, with
+		# any roster, forever. A 'deleted' tombstone has no remembered
+		# members (chat_delete_local purges them), so a deleted chat can
+		# never be reactivated - a sender wanting to talk again must start a
+		# fresh chat, and their stale roster self-heals via the leave-back in
+		# event_message. A former co-member can still replay a captured
+		# re-add; the stricter invite/accept round-trip is a future option.
+		if not mochi.db.exists("select 1 from members where chat=? and member=?", chat, e.header("from")):
+			return
+		if e.header("to") not in [m["id"] for m in members if type(m) == "dict" and "id" in m]:
+			return
+		mochi.db.execute("update chats set status='active', name=?, updated=? where id=?", name, mochi.time.now(), chat)
+	else:
+		mochi.db.execute("insert or ignore into chats ( id, name, key, updated ) values ( ?, ?, ?, ? )", chat, name, mochi.random.alphanumeric(16), mochi.time.now())
 
 	for member in members:
 		if not mochi.text.valid(member["id"], "entity"):
