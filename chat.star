@@ -220,7 +220,9 @@ def action_message_asset(a):
 	if asset not in _PERSON_ASSETS:
 		a.error.label(404, "errors.unknown_asset")
 		return
-	row = mochi.db.row("select member from messages where id=?", a.input("message"))
+	# Bind the message to the route chat so this can't be used to resolve a
+	# message (and its author) in a chat the URL doesn't name.
+	row = mochi.db.row("select member from messages where id=? and chat=?", a.input("message"), a.input("chat"))
 	return stream_asset(a, row["member"] if row else "", "people", asset)
 
 # Whom may start a chat with this user: friends only (default) or anyone.
@@ -1379,6 +1381,15 @@ def event_message(e):
 
 	id = e.content("message")
 	if not mochi.text.valid(str(id), "id"):
+		return
+
+	# messages.id is a global primary key, so the replace-into below would delete
+	# any existing row with this id - in another chat, or authored by someone
+	# else - and re-insert it here. A member may only (re)create their OWN message
+	# in THIS chat; refuse a collision that is anything else. event_message_edit
+	# enforces the same author check for edits.
+	prior = mochi.db.row("select chat, member from messages where id=?", id)
+	if prior and (prior["chat"] != chat["id"] or prior["member"] != e.header("from")):
 		return
 
 	created = e.content("created")
