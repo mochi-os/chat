@@ -820,7 +820,8 @@ def event_message_react(e):
 	member = mochi.db.row("select name from members where chat=? and member=?", chat["id"], member_id)
 	if not member:
 		return
-	name = e.content("name") or member["name"]
+	# Roster name only - payload names are untrusted (see event_message).
+	name = member["name"]
 	message_reaction_apply(chat["id"], message_id, member_id, name, reaction)
 
 # --- Search ----------------------------------------------------------------
@@ -1407,8 +1408,12 @@ def event_message(e):
 	if len(str(body)) > 10000:
 		return
 
-	# Use current name from event, fall back to cached member name
-	name = e.content("name") or member["name"]
+	# Display name comes from the local members row, never the event payload.
+	# The sender identity is authenticated, but a payload name is whatever
+	# string the sending client chose - trusting it would let a member label
+	# their own messages with another participant's name, in the UI and in
+	# notifications. Event-provided names are untrusted metadata.
+	name = member["name"]
 
 	# If this message was already deleted-for-everyone, an out-of-order or
 	# replayed copy must not resurrect its body. Keep the tombstone.
