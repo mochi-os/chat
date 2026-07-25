@@ -213,14 +213,39 @@ def stream_asset(a, entity_id, service, asset):
 	a.write.stream(s)
 	return None
 
-_PERSON_ASSETS = ("avatar", "banner", "favicon", "style", "information")
+# Only what the message list renders. The people service offers banner,
+# favicon and information too, but proxying those here would widen what a
+# chat URL discloses about its participants for no caller that wants them.
+_PERSON_ASSETS = ("avatar", "style")
 
-# Proxy a message sender's person asset from the people service.
+# Proxy a message sender's person asset from the people service. Not public:
+# the caller must be able to read the chat, so a leaked URL can't be replayed
+# by an outsider to confirm that a message exists in a chat and tie it to a
+# person. The web client authenticates the <img> with authenticatedUrl(),
+# which appends the app token core accepts on image URLs - a bare cookie
+# doesn't survive the shell's sandboxed iframe.
 def action_message_asset(a):
 	asset = a.input("asset")
 	if asset not in _PERSON_ASSETS:
 		a.error.label(404, "errors.unknown_asset")
 		return
+
+	chat = mochi.db.row("select status from chats where id=?", a.input("chat"))
+	if not chat:
+		a.error.label(404, "errors.chat_not_found")
+		return
+
+	# Same rule action_messages applies: a member, or a chat we left but can
+	# still read back. Gated on a.user so an unauthenticated caller is refused
+	# rather than resolved to some other user.
+	user = a.user.identity.id if a.user and a.user.identity else None
+	if not user:
+		a.error.label(403, "errors.not_a_member_of_this_chat")
+		return
+	if not mochi.db.exists("select 1 from members where chat=? and member=?", a.input("chat"), user) and chat["status"] not in ("left", "removed"):
+		a.error.label(403, "errors.not_a_member_of_this_chat")
+		return
+
 	# Bind the message to the route chat so this can't be used to resolve a
 	# message (and its author) in a chat the URL doesn't name.
 	row = mochi.db.row("select member from messages where id=? and chat=?", a.input("message"), a.input("chat"))

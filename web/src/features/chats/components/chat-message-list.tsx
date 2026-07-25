@@ -31,6 +31,9 @@ import {
   cn,
   Skeleton,
   getAppPath,
+  authenticatedUrl,
+  isInShell,
+  useAuthStore,
   actionPillExpandMaxWidthMap,
   actionPillExpandOpacityMap,
   MentionTextarea,
@@ -171,6 +174,19 @@ export function ChatMessageList({
 }: ChatMessageListProps) {
   const { t } = useLingui()
   const { formatDate, formatTime, formatNumber } = useFormat()
+
+  // The message asset route is member-only, so an <img> has to carry the app
+  // token: a session cookie alone is refused, and inside the shell's sandboxed
+  // iframe no cookie is sent at all. authenticatedUrl() covers the in-shell
+  // case; the top window (direct link, no shell) needs the store's token.
+  const appToken = useAuthStore((state) => state.token)
+  const assetUrl = (path: string) => {
+    if (isInShell()) return authenticatedUrl(path)
+    if (!appToken) return path
+    const raw = appToken.startsWith('Bearer ') ? appToken.slice(7) : appToken
+    return `${path}?token=${encodeURIComponent(raw)}`
+  }
+
   const scrollContainerRef = useRef<HTMLDivElement | null>(null)
   const messagesEndRef = useRef<HTMLDivElement | null>(null)
   const inlineTextareaRef = useRef<HTMLTextAreaElement>(null)
@@ -550,8 +566,12 @@ export function ChatMessageList({
                       {isGroupChat && !isSent && (
                         index === 0 ? (
                           <EntityAvatar
-                            src={`${getAppPath()}/${message.chat}/-/${message.id}/asset/avatar`}
-                            styleUrl={`${getAppPath()}/${message.chat}/-/${message.id}/asset/style`}
+                            src={assetUrl(
+                              `${getAppPath()}/${message.chat}/-/${message.id}/asset/avatar`
+                            )}
+                            styleUrl={assetUrl(
+                              `${getAppPath()}/${message.chat}/-/${message.id}/asset/style`
+                            )}
                             seed={message.member}
                             name={message.name}
                             size="xs"
