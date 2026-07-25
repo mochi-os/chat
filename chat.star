@@ -214,6 +214,33 @@ def event_integer(value):
 		return int(value)
 	return None
 
+# May this user WRITE to `chat`? Membership plus an active chat.
+#
+# Reads deliberately don't use this: a member who left or was removed keeps
+# read access to their own history (action_messages, action_search,
+# action_view, action_members, action_mark_read, serve_attachment,
+# action_message_asset), which is why those check membership OR a
+# left/removed status instead.
+#
+# The status test is what stops a REMOVED member writing. The other two
+# departures already fail the membership test as a side effect - action_leave
+# deletes our own members row and chat_delete_local purges every row - but
+# event_removed only flips the status and leaves the row in place, so without
+# this a member someone else ejected keeps the entire write surface,
+# including action_member_add, which mails the chat id and full roster to a
+# third party of their choosing.
+#
+# Both refusals share one label so the response doesn't distinguish "never a
+# member" from "no longer a member".
+def chat_write_allowed(a, chat):
+	if not mochi.db.exists("select 1 from members where chat=? and member=?", chat["id"], a.user.identity.id):
+		a.error.label(403, "errors.not_a_member_of_this_chat")
+		return False
+	if chat["status"] != "active":
+		a.error.label(403, "errors.not_a_member_of_this_chat")
+		return False
+	return True
+
 def stream_asset(a, entity_id, service, asset):
 	if not entity_id:
 		a.error.label(404, "errors.asset_unavailable", asset=asset)
@@ -612,8 +639,7 @@ def action_send(a):
 		a.error.label(404, "errors.chat_not_found")
 		return
 
-	if not mochi.db.exists("select 1 from members where chat=? and member=?", chat["id"], a.user.identity.id):
-		a.error.label(403, "errors.not_a_member_of_this_chat")
+	if not chat_write_allowed(a, chat):
 		return
 
 	body = a.input("body", "")
@@ -833,8 +859,7 @@ def action_react(a):
 	if not chat:
 		a.error.label(404, "errors.chat_not_found")
 		return
-	if not mochi.db.exists("select 1 from members where chat=? and member=?", chat["id"], a.user.identity.id):
-		a.error.label(403, "errors.not_a_member_of_this_chat")
+	if not chat_write_allowed(a, chat):
 		return
 
 	message_id = a.input("message")
@@ -965,8 +990,7 @@ def action_messages_delete(a):
 	if not chat:
 		a.error.label(404, "errors.chat_not_found")
 		return
-	if not mochi.db.exists("select 1 from members where chat=? and member=?", chat["id"], a.user.identity.id):
-		a.error.label(403, "errors.not_a_member_of_this_chat")
+	if not chat_write_allowed(a, chat):
 		return
 
 	raw_ids = a.input("message_ids")
@@ -1044,8 +1068,7 @@ def action_message_edit(a):
 	if not chat:
 		a.error.label(404, "errors.chat_not_found")
 		return
-	if not mochi.db.exists("select 1 from members where chat=? and member=?", chat["id"], a.user.identity.id):
-		a.error.label(403, "errors.not_a_member_of_this_chat")
+	if not chat_write_allowed(a, chat):
 		return
 
 	message_id = a.input("message", "")
@@ -1196,8 +1219,7 @@ def action_messages_forward(a):
 	if not source:
 		a.error.label(404, "errors.chat_not_found")
 		return
-	if not mochi.db.exists("select 1 from members where chat=? and member=?", source["id"], a.user.identity.id):
-		a.error.label(403, "errors.not_a_member_of_this_chat")
+	if not chat_write_allowed(a, source):
 		return
 
 	to_chat = a.input("to_chat")
@@ -1208,8 +1230,7 @@ def action_messages_forward(a):
 	if not target:
 		a.error.label(404, "errors.chat_not_found")
 		return
-	if not mochi.db.exists("select 1 from members where chat=? and member=?", target["id"], a.user.identity.id):
-		a.error.label(403, "errors.not_a_member_of_this_chat")
+	if not chat_write_allowed(a, target):
 		return
 
 	source_messages = chat_collect_forwardable(source["id"], a.input("message_ids"))
@@ -1237,8 +1258,7 @@ def action_messages_forward_friend(a):
 	if not source:
 		a.error.label(404, "errors.chat_not_found")
 		return
-	if not mochi.db.exists("select 1 from members where chat=? and member=?", source["id"], a.user.identity.id):
-		a.error.label(403, "errors.not_a_member_of_this_chat")
+	if not chat_write_allowed(a, source):
 		return
 
 	member_id = a.input("member")
@@ -1334,8 +1354,7 @@ def action_resync(a):
 		a.error.label(404, "errors.chat_not_found")
 		return
 	identity = a.user.identity.id
-	if not mochi.db.exists("select 1 from members where chat=? and member=?", chat_id, identity):
-		a.error.label(403, "errors.not_a_member_of_this_chat")
+	if not chat_write_allowed(a, chat):
 		return
 	# Pick the most recently active member who isn't us as the responder.
 	row = mochi.db.row(
@@ -1770,8 +1789,7 @@ def action_rename(a):
 		a.error.label(404, "errors.chat_not_found")
 		return
 
-	if not mochi.db.exists("select 1 from members where chat=? and member=?", chat["id"], a.user.identity.id):
-		a.error.label(403, "errors.not_a_member_of_this_chat")
+	if not chat_write_allowed(a, chat):
 		return
 
 	name = a.input("name")
@@ -1865,8 +1883,7 @@ def action_member_add(a):
 		a.error.label(404, "errors.chat_not_found")
 		return
 
-	if not mochi.db.exists("select 1 from members where chat=? and member=?", chat["id"], a.user.identity.id):
-		a.error.label(403, "errors.not_a_member_of_this_chat")
+	if not chat_write_allowed(a, chat):
 		return
 
 	member_id = a.input("member")
@@ -1929,8 +1946,7 @@ def action_member_remove(a):
 		a.error.label(404, "errors.chat_not_found")
 		return
 
-	if not mochi.db.exists("select 1 from members where chat=? and member=?", chat["id"], a.user.identity.id):
-		a.error.label(403, "errors.not_a_member_of_this_chat")
+	if not chat_write_allowed(a, chat):
 		return
 
 	member_id = a.input("member")
