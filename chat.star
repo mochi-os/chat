@@ -229,6 +229,13 @@ def action_message_asset(a):
 # Whom may start a chat with this user: friends only (default) or anyone.
 _VALID_CHAT_POLICIES = ("friends", "anyone")
 
+# Most members one chat may hold, counting the creator. A product limit, not a
+# security threshold: it bounds the work a single create or bootstrap event can
+# demand (one remote policy probe and one delivery per member on the way out,
+# one database write per roster entry on the way in) while sitting far above any
+# real conversation.
+_MEMBERS_MAXIMUM = 1000
+
 # Preferences: incoming chat policy
 def action_preferences_get(a):
 	return {"data": {"chat_policy": a.user.preference.get("chat_policy") or "friends"}}
@@ -296,6 +303,13 @@ def action_create(a):
 	# Build prospective member list
 	prospective_members = [{"id": a.user.identity.id, "name": a.user.identity.name}]
 	
+	# Collect the requested ids first: deduplicated, and capped before any
+	# probing below. Each id costs a remote round trip and a delivery, so a
+	# list that repeats one id would otherwise aim that multiple at a single
+	# server. Duplicates also broke the one-on-one handling further down,
+	# which keys off len(prospective_members) == 2: "x,x" made a three-entry
+	# list, so an existing one-on-one chat was neither found nor named as one.
+	member_ids = []
 	members_str = a.input("members")
 	if members_str:
 		for member_id in members_str.split(","):
@@ -304,17 +318,24 @@ def action_create(a):
 			if not mochi.text.valid(member_id, "entity"):
 				a.error.label(400, "errors.invalid_member_id")
 				return
+			if member_id not in member_ids:
+				member_ids.append(member_id)
 
-			# Friends may always be added; a non-friend only if their
-			# chat_policy allows (verified by probing their server), so the
-			# creation fails loudly here instead of the recipient's
-			# event_new dropping it silently (#206).
-			member = chat_member_allowed(a.user.identity.id, member_id)
-			if member.get("error"):
-				a.error.label(400, member["error"])
-				return
+	if len(member_ids) + 1 > _MEMBERS_MAXIMUM:
+		a.error.label(400, "errors.too_many_members", maximum=_MEMBERS_MAXIMUM)
+		return
 
-			prospective_members.append({"id": member_id, "name": member["name"]})
+	for member_id in member_ids:
+		# Friends may always be added; a non-friend only if their
+		# chat_policy allows (verified by probing their server), so the
+		# creation fails loudly here instead of the recipient's
+		# event_new dropping it silently (#206).
+		member = chat_member_allowed(a.user.identity.id, member_id)
+		if member.get("error"):
+			a.error.label(400, member["error"])
+			return
+
+		prospective_members.append({"id": member_id, "name": member["name"]})
 
 	# Check for existing 1-on-1 chat
 	if len(prospective_members) == 2:
@@ -1505,8 +1526,26 @@ def event_new(e):
 		return
 
 	members = e.read()
-	if len(members) > 10000:
+	if len(members) > _MEMBERS_MAXIMUM:
 		return
+
+	# Validate the whole roster before creating or reactivating anything, and
+	# deduplicate it: membership is all-or-nothing, so a roster that turns bad
+	# part way through can't leave a chat holding the entries that happened to
+	# come before it.
+	roster = []
+	seen = {}
+	for member in members:
+		if type(member) != "dict":
+			return
+		if not mochi.text.valid(member.get("id"), "entity"):
+			return
+		if not mochi.text.valid(member.get("name"), "name"):
+			return
+		if member["id"] in seen:
+			continue
+		seen[member["id"]] = True
+		roster.append(member)
 
 	if existing:
 		# Reactivating a tombstone needs evidence of a genuine re-add: the
@@ -1521,17 +1560,13 @@ def event_new(e):
 		# re-add; the stricter invite/accept round-trip is a future option.
 		if not mochi.db.exists("select 1 from members where chat=? and member=?", chat, e.header("from")):
 			return
-		if e.header("to") not in [m["id"] for m in members if type(m) == "dict" and "id" in m]:
+		if e.header("to") not in [m["id"] for m in roster]:
 			return
 		mochi.db.execute("update chats set status='active', name=?, updated=? where id=?", name, mochi.time.now(), chat)
 	else:
 		mochi.db.execute("insert or ignore into chats ( id, name, key, updated ) values ( ?, ?, ?, ? )", chat, name, mochi.random.alphanumeric(16), mochi.time.now())
 
-	for member in members:
-		if not mochi.text.valid(member["id"], "entity"):
-			continue
-		if not mochi.text.valid(member["name"], "name"):
-			continue
+	for member in roster:
 		mochi.db.execute("insert into members ( chat, member, name ) values ( ?, ?, ? ) on conflict ( chat, member ) do update set name=excluded.name", chat, member["id"], member["name"])
 
 # Would-you-accept probe: a prospective sender asks whether they may start a
@@ -1799,6 +1834,13 @@ def action_member_add(a):
 	# Check if already a member
 	if mochi.db.exists("select 1 from members where chat=? and member=?", chat["id"], member_id):
 		a.error.label(400, "errors.already_member")
+		return
+
+	# The same cap action_create applies, so a chat can't grow past it one
+	# member at a time.
+	count = mochi.db.row("select count(*) as members from members where chat=?", chat["id"])
+	if count and count["members"] >= _MEMBERS_MAXIMUM:
+		a.error.label(400, "errors.too_many_members", maximum=_MEMBERS_MAXIMUM)
 		return
 
 	# Friends may always be added; a non-friend only if their chat_policy
