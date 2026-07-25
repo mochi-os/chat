@@ -194,6 +194,26 @@ def database_upgrade(version):
 		for table in ["sequence", "log", "acknowledged", "received"]:
 			mochi.db.execute("drop table if exists " + table)
 
+# Read a whole-number field from an event, or None if it isn't one.
+#
+# Live delivery carries numbers as CBOR integers, but a broadcast-log replay
+# does not: core stores the log payload as JSON, where every number is a
+# double, so the same field arrives as a float. str() of a timestamp-sized
+# float is "1.7534e+09", which fails the "integer" pattern - so validating the
+# string form dropped every message and edit recovered through a delivery gap,
+# on the one path that exists to repair missed messages. A peer may also send
+# the field as text, which used to pass validation and then raise on the
+# range comparison below. Coerce first, compare numerically after.
+def event_integer(value):
+	kind = type(value)
+	if kind == "int":
+		return value
+	if kind == "float":
+		return int(value)
+	if kind == "string" and mochi.text.valid(value, "integer"):
+		return int(value)
+	return None
+
 def stream_asset(a, entity_id, service, asset):
 	if not entity_id:
 		a.error.label(404, "errors.asset_unavailable", asset=asset)
@@ -1080,8 +1100,8 @@ def event_message_edit(e):
 	message_id = str(e.content("message"))
 	if not mochi.text.valid(message_id, "id"):
 		return
-	edited = e.content("edited")
-	if not mochi.text.valid(str(edited), "integer"):
+	edited = event_integer(e.content("edited"))
+	if edited == None:
 		return
 	now = mochi.time.now()
 	if edited > now + 86400 or edited < now - 31536000:
@@ -1440,8 +1460,8 @@ def event_message(e):
 	if prior and (prior["chat"] != chat["id"] or prior["member"] != e.header("from")):
 		return
 
-	created = e.content("created")
-	if not mochi.text.valid(str(created), "integer"):
+	created = event_integer(e.content("created"))
+	if created == None:
 		return
 
 	# Validate timestamp is within reasonable range (not more than 1 day in future or 1 year in past)
@@ -1634,10 +1654,8 @@ def event_rename(e):
 	# events without `updated` (pre-conversion senders) fall back to
 	# applying with local now, preserving prior behaviour.
 	now = mochi.time.now()
-	incoming = str(e.content("updated", "0"))
-	if mochi.text.valid(incoming, "integer"):
-		incoming = int(incoming)
-	else:
+	incoming = event_integer(e.content("updated", "0"))
+	if incoming == None:
 		incoming = 0
 	if incoming and chat["updated"] and incoming <= chat["updated"]:
 		return
