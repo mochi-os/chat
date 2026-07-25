@@ -232,6 +232,19 @@ def event_integer(value):
 #
 # Both refusals share one label so the response doesn't distinguish "never a
 # member" from "no longer a member".
+# May a peer still reshape this chat? The event-side counterpart of
+# chat_write_allowed.
+#
+# A departed chat keeps its name and roster frozen as history. Departure does
+# not by itself make that safe: leaving deletes only OUR members row and a
+# delete purges them all, but a 'left' or 'removed' chat still holds the OTHER
+# members' rows - so a peer whose roster is stale, because our leave never
+# reached them, would otherwise still be able to rename it or add and remove
+# members in it. event_message applies the same rule and additionally sends a
+# leave-back, which is what eventually prunes us from that stale roster.
+def chat_active(chat):
+	return chat and chat["status"] == "active"
+
 def chat_write_allowed(a, chat):
 	if not mochi.db.exists("select 1 from members where chat=? and member=?", chat["id"], a.user.identity.id):
 		a.error.label(403, "errors.not_a_member_of_this_chat")
@@ -1655,7 +1668,7 @@ def event_accept_query(e):
 # Received a rename event
 def event_rename(e):
 	chat = mochi.db.row("select * from chats where id=?", e.content("id"))
-	if not chat:
+	if not chat_active(chat):
 		return
 
 	sender = e.header("from")
@@ -1687,7 +1700,7 @@ def event_rename(e):
 # Received a leave event - a member left the chat
 def event_leave(e):
 	chat = mochi.db.row("select * from chats where id=?", e.content("id"))
-	if not chat:
+	if not chat_active(chat):
 		return
 
 	member = e.content("member")
@@ -1704,7 +1717,7 @@ def event_leave(e):
 # Received a member/add event - someone added a new member
 def event_member_add(e):
 	chat = mochi.db.row("select * from chats where id=?", e.content("id"))
-	if not chat:
+	if not chat_active(chat):
 		return
 
 	sender = e.header("from")
@@ -1728,7 +1741,7 @@ def event_member_add(e):
 # Received a member/remove event - someone removed a member
 def event_member_remove(e):
 	chat = mochi.db.row("select * from chats where id=?", e.content("id"))
-	if not chat:
+	if not chat_active(chat):
 		return
 
 	sender = e.header("from")
@@ -1747,7 +1760,7 @@ def event_member_remove(e):
 # Received a removed event - current user was removed from chat
 def event_removed(e):
 	chat = mochi.db.row("select * from chats where id=?", e.content("id"))
-	if not chat:
+	if not chat_active(chat):
 		return
 
 	# Verify the sender is a member (the remover). Without this, any peer that
