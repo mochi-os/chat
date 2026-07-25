@@ -964,11 +964,17 @@ def action_search(a):
 # resurrects the instant a peer who still lists us sends a message. One tiny
 # row per deleted chat; chats are low-cardinality, so retention is a non-issue.
 def chat_delete_local(chat_id):
+	# Attachments FIRST, and per message: they are keyed "chat/<chat>/<message>"
+	# and mochi.attachment.clear matches that object exactly - there is no
+	# prefix form - so the messages rows are the only record of which objects
+	# exist. Delete them first and every attachment row and file is stranded
+	# on disk with nothing left to enumerate it.
+	for _row in mochi.db.rows("select id from messages where chat=?", chat_id) or []:
+		mochi.attachment.clear("chat/" + chat_id + "/" + _row["id"])
 	mochi.db.execute("delete from reactions where chat=?", chat_id)
 	mochi.db.execute("delete from deletions where chat=?", chat_id)
 	mochi.db.execute("delete from messages where chat=?", chat_id)
-	for _row in mochi.db.rows("select member from members where chat=?", chat_id) or []:
-		mochi.db.execute("delete from members where chat=? and member=?", chat_id, _row["member"])
+	mochi.db.execute("delete from members where chat=?", chat_id)
 	mochi.db.execute("delete from chat_read where chat=?", chat_id)
 	mochi.db.execute("update chats set status='deleted', updated=? where id=?", mochi.time.now(), chat_id)
 
