@@ -34,7 +34,7 @@ import {
   getLegacyReadTimestamps,
   markReadTimestampsMigrated,
 } from '@/hooks/useChatStorage'
-import { chatsApi } from '@/api/chats'
+import { chatsApi, type ChatMessage } from '@/api/chats'
 import { useChatWebsocket } from '@/hooks/useChatWebsocket'
 import { useReactToMessageMutation } from '@/hooks/use-message-reactions'
 import type { ReactionId } from '@/features/chats/constants/reactions'
@@ -52,8 +52,7 @@ import {
   useDeleteMessagesMutation,
   useEditMessageMutation,
 } from '@/hooks/useChats'
-import type { GetMessagesResponse } from '@/api/types/chats'
-import { chatActive } from '@/api/types/chats'
+import { chatActive, type GetMessagesResponse } from '@/api/types/chats'
 import { ChatEmptyState } from './components/chat-empty-state'
 import { ChatSettingsDialog } from './components/chat-settings-dialog'
 import { ChatInput, type ChatInputHandle } from './components/chat-input'
@@ -78,7 +77,6 @@ import {
   type ReplyTarget,
   messageToReplyTarget,
 } from './utils/reply'
-import type { ChatMessage } from '@/api/chats'
 
 const MESSAGE_EDIT_MAX_LENGTH = 10000
 
@@ -364,17 +362,24 @@ export function Chats() {
     })()
   }, [])
 
+  // Keyed on the id and status alone, not the whole chat: any other field
+  // changing (a new message bumping `updated`, say) must not re-mark the
+  // chat read.
+  // Not selectedChatId above: that one is the URL parameter, which is set
+  // before the chat itself has loaded.
+  const loadedChatId = selectedChat?.id
+  const loadedChatStatus = selectedChat?.status
   useEffect(() => {
-    if (!selectedChat?.id) {
+    if (!loadedChatId) {
       markedChatIdRef.current = null
       return
     }
-    if (!chatActive(selectedChat)) return
-    if (markedChatIdRef.current === selectedChat.id) return
-    markedChatIdRef.current = selectedChat.id
-    clearMarkedUnread(selectedChat.id)
-    markChatRead({ chatId: selectedChat.id })
-  }, [selectedChat?.id, selectedChat?.status, clearMarkedUnread, markChatRead])
+    if (!chatActive({ status: loadedChatStatus })) return
+    if (markedChatIdRef.current === loadedChatId) return
+    markedChatIdRef.current = loadedChatId
+    clearMarkedUnread(loadedChatId)
+    markChatRead({ chatId: loadedChatId })
+  }, [loadedChatId, loadedChatStatus, clearMarkedUnread, markChatRead])
 
   // Chat detail (members, names)
   const { data: chatDetail } = useChatDetailQuery(selectedChat?.id)

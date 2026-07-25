@@ -12,7 +12,6 @@ import {
   useRef,
   useState,
 } from 'react'
-import { useFormat } from '@mochi/web'
 import { plural } from '@lingui/core/macro'
 import { Trans, useLingui } from '@lingui/react/macro'
 import type {
@@ -35,11 +34,15 @@ import {
   actionPillExpandMaxWidthMap,
   actionPillExpandOpacityMap,
   MentionTextarea,
+  Bubble,
+  BubbleContent,
+  BubbleReactions,
+  BubbleGroup,
+  useFormat,
 } from '@mochi/web'
 import { ChevronsDown, MessageCircle, Loader2 } from 'lucide-react'
 import type { ChatMessage } from '@/api/chats'
 import type { GetMessagesResponse } from '@/api/types/chats'
-import { Bubble, BubbleContent, BubbleReactions, BubbleGroup } from '@mochi/web'
 import { MessageAttachments } from './message-attachments'
 import {
   CHAT_MEDIA_BUBBLE_CLASS,

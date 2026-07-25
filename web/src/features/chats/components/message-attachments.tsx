@@ -19,8 +19,8 @@ import {
   isVideo,
   normalizeEntityUrl,
   useFormat,
+  type GalleryAttachment,
 } from '@mochi/web'
-import type { GalleryAttachment } from '@mochi/web'
 import type { ChatMessageAttachment } from '@/api/chats'
 import { MessageMediaGrid } from './message-media-grid'
 import { VoiceNotePlayer } from './audio-player'

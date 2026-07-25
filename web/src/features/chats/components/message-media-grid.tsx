@@ -13,8 +13,8 @@ import {
   isVideo,
   useLightboxHash,
   useVideoThumbnailCached,
+  type GalleryAttachment,
 } from '@mochi/web'
-import type { GalleryAttachment } from '@mochi/web'
 
 /** Visible slots in the bubble media grid; the 4th tile shows +N when exceeded. */
 const GRID_SLOT_COUNT = 4
@@ -72,7 +72,9 @@ function gridClassName(count: number) {
 }
 
 function tileClassName(count: number, index: number) {
+  // eslint-disable-next-line lingui/no-unlocalized-strings -- Tailwind class names
   if (count === 1) return 'aspect-[4/3] max-h-56'
+  // eslint-disable-next-line lingui/no-unlocalized-strings -- Tailwind class names
   if (count === 3 && index === 2) return 'col-span-2 aspect-[2/1]'
   return 'aspect-square'
 }

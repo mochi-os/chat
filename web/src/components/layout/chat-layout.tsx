@@ -119,7 +119,6 @@ function ChatLayoutInner() {
     pinChat,
     unpinChat,
     hasChatDraft,
-    draftChatIds,
   } = useSidebarContext()
 
   const params = useParams({ strict: false }) as { chatId?: string }
@@ -278,7 +277,6 @@ function ChatLayoutInner() {
     }
   }, [
     chats,
-    draftChatIds,
     handleMarkChatRead,
     handleMarkChatUnread,
     handlePinChat,
