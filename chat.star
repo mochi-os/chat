@@ -245,6 +245,29 @@ def event_integer(value):
 def chat_active(chat):
 	return chat and chat["status"] == "active"
 
+# The live one-on-one chat between these two members, or None.
+#
+# Active only. A chat someone removed us from keeps BOTH members rows -
+# event_removed flips the status and nothing else - so without the status test
+# it still matched here, and the user could never start a fresh chat with that
+# person: every attempt handed them back the tombstone, which now refuses
+# writes. (Leaving or deleting drops our own row, so those never matched.)
+#
+# Skipping a tombstone means a second chat can exist for the same pair, so
+# order by `updated` rather than relying on row order to pick between them.
+def chat_direct(first, second):
+	rows = mochi.db.rows("""
+		select c.id, c.name
+		from chats c
+		join members m1 on c.id = m1.chat
+		join members m2 on c.id = m2.chat
+		where m1.member = ? and m2.member = ? and c.status = 'active'
+		group by c.id
+		having (select count(*) from members where chat = c.id) = 2
+		order by c.updated desc
+	""", first, second)
+	return rows[0] if rows else None
+
 def chat_write_allowed(a, chat):
 	if not mochi.db.exists("select 1 from members where chat=? and member=?", chat["id"], a.user.identity.id):
 		a.error.label(403, "errors.not_a_member_of_this_chat")
@@ -425,19 +448,8 @@ def action_create(a):
 	# Check for existing 1-on-1 chat
 	if len(prospective_members) == 2:
 		other_member = prospective_members[1]
-		# Find chat where both are members and total members is 2
-		existing_rows = mochi.db.rows("""
-			select c.id, c.name
-			from chats c
-			join members m1 on c.id = m1.chat
-			join members m2 on c.id = m2.chat
-			where m1.member = ? and m2.member = ?
-			group by c.id
-			having (select count(*) from members where chat = c.id) = 2
-		""", a.user.identity.id, other_member["id"])
-		
-		if existing_rows:
-			existing_chat = existing_rows[0]
+		existing_chat = chat_direct(a.user.identity.id, other_member["id"])
+		if existing_chat:
 			return {
 				"data": {"id": existing_chat["id"], "name": existing_chat["name"], "members": prospective_members}
 			}
@@ -1307,18 +1319,10 @@ def action_messages_forward_friend(a):
 
 	# Reuse the existing 1-on-1 chat with this member if there is one, else
 	# create it (mirrors action_create's direct-chat path).
-	existing = mochi.db.rows("""
-		select c.id
-		from chats c
-		join members m1 on c.id = m1.chat
-		join members m2 on c.id = m2.chat
-		where m1.member = ? and m2.member = ?
-		group by c.id
-		having (select count(*) from members where chat = c.id) = 2
-	""", a.user.identity.id, member_id)
+	existing = chat_direct(a.user.identity.id, member_id)
 
 	if existing:
-		target_id = existing[0]["id"]
+		target_id = existing["id"]
 	else:
 		target_id = mochi.uid()
 		mochi.db.execute("replace into chats ( id, name, key, updated ) values ( ?, ?, ?, ? )", target_id, member_name, mochi.random.alphanumeric(16), mochi.time.now())
