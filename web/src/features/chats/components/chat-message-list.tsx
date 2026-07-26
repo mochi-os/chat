@@ -813,7 +813,7 @@ export function ChatMessageList({
         <div className='absolute bottom-3 left-1/2 z-10 -translate-x-1/2'>
           <div className='bg-background flex items-center gap-2 rounded-full border px-4 py-2 shadow-md'>
             <span className='text-sm font-medium'>
-              {selectedIds?.size ?? 0} <Trans>selected</Trans>
+              <Trans>{selectedIds?.size ?? 0} selected</Trans>
             </span>
             <Button
               type='button'

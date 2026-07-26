@@ -19,9 +19,11 @@ import {
   Skeleton,
   cn,
   getErrorMessage,
+  naturalCompare,
   toastAction,
 } from '@mochi/web'
 import { Forward, Loader2, MessageCircle, Users } from 'lucide-react'
+import { nameMatches } from '../utils'
 import {
   useChatsQuery,
   useForwardMessagesMutation,
@@ -68,19 +70,21 @@ export function ForwardDialog({
 
     const chatDests: Destination[] = chats
       .filter((c) => c.id !== sourceChatId && chatActive(c))
-      .filter((c) => (query ? c.name.toLowerCase().includes(query) : true))
+      .filter((c) => nameMatches(c.name, query))
       .map((c) => ({
-        kind: 'chat',
+        kind: 'chat' as const,
         id: c.id,
         name: c.name,
         other: c.other,
         members: c.members,
       }))
+      .sort((a, b) => naturalCompare(a.name, b.name))
 
     const friendDests: Destination[] = friends
       .filter((f) => !f.chatId)
-      .filter((f) => (query ? f.name.toLowerCase().includes(query) : true))
-      .map((f) => ({ kind: 'friend', id: f.id, name: f.name }))
+      .filter((f) => nameMatches(f.name, query))
+      .map((f) => ({ kind: 'friend' as const, id: f.id, name: f.name }))
+      .sort((a, b) => naturalCompare(a.name, b.name))
 
     return { chatDests, friendDests }
   }, [chatsQuery.data, friendsQuery.data, sourceChatId, filter])

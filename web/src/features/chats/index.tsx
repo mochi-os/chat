@@ -6,7 +6,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { Trans, useLingui } from '@lingui/react/macro'
 import { plural } from '@lingui/core/macro'
-import { useAuthStore, usePageTitle, PageHeader, Main, GeneralError, Button, Checkbox, ConfirmDialog, EntityAvatar, IconButton, DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger, Label, toast, toastAction, getErrorMessage, shellClipboardWrite, getSendAttachmentErrorMessage, isAttachmentPayloadTooLargeError, resolveMentionsFromBody, classifyUnresolvedMentions } from '@mochi/web'
+import { useAuthStore, usePageTitle, PageHeader, Main, GeneralError, Button, Checkbox, ConfirmDialog, EntityAvatar, IconButton, DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger, Label, toast, toastAction, getErrorMessage, shellClipboardWrite, getSendAttachmentErrorMessage, isAttachmentPayloadTooLargeError, resolveMentionsFromBody, classifyUnresolvedMentions, naturalCompare } from '@mochi/web'
 import { useMessageSelection } from '@/hooks/use-message-selection'
 import { useNavigate, useParams, useSearch } from '@tanstack/react-router'
 import { useQueryClient, type InfiniteData } from '@tanstack/react-query'
@@ -408,14 +408,16 @@ export function Chats() {
     for (const member of others) {
       nameCounts.set(member.name, (nameCounts.get(member.name) ?? 0) + 1)
     }
-    return others.map((member) => {
-      if ((nameCounts.get(member.name) ?? 0) <= 1) {
-        return { id: member.id, name: member.name }
-      }
-      const detail =
-        member.id.length > 8 ? member.id.slice(-8) : member.id
-      return { id: member.id, name: member.name, detail }
-    })
+    return others
+      .map((member) => {
+        if ((nameCounts.get(member.name) ?? 0) <= 1) {
+          return { id: member.id, name: member.name }
+        }
+        const detail =
+          member.id.length > 8 ? member.id.slice(-8) : member.id
+        return { id: member.id, name: member.name, detail }
+      })
+      .sort((a, b) => naturalCompare(a.name, b.name))
   }, [isDirectChat, chatMemberRoster, currentUserIdentity])
 
   // Rehydrate mention ids from composer body after draft restore / roster load.
@@ -456,9 +458,14 @@ export function Chats() {
     const members = chatDetail.chat.members
     const myIndex = members.findIndex((m) => m.id === currentUserIdentity)
 
-    let display = members.map((m) => m.name)
+    // "You" stays first; everyone else is alphabetical. Drop myself by id, not
+    // by name, so a member who shares my name isn't dropped with me.
+    let display = members
+      .filter((m) => m.id !== currentUserIdentity)
+      .map((m) => m.name)
+      .sort(naturalCompare)
     if (myIndex !== -1) {
-      display = [t`You`, ...display.filter((_, i) => i !== myIndex)]
+      display = [t`You`, ...display]
     }
 
     return display.join(', ')

@@ -19,6 +19,7 @@ import {
   TooltipContent,
   TooltipTrigger,
   cn,
+  formatVideoDuration,
 } from '@mochi/web'
 import { VoiceWaveform } from './voice-waveform'
 import {
@@ -44,11 +45,10 @@ export interface VoiceNotePlayerProps {
   className?: string
 }
 
+// formatVideoDuration is the shared clock format, and unlike the local version
+// it handles durations past an hour.
 function formatTime(seconds: number) {
-  const s = Math.max(0, seconds)
-  return `${Math.floor(s / 60)}:${Math.floor(s % 60)
-    .toString()
-    .padStart(2, '0')}`
+  return formatVideoDuration(Math.max(0, seconds))
 }
 
 const PREVIEW_BAR_COUNT = 36

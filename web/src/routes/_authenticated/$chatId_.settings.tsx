@@ -34,6 +34,7 @@ import {
   DetailSkeleton,
   naturalCompare,
 } from '@mochi/web'
+import { nameMatches } from '@/features/chats/utils'
 import {
   Loader2,
   MessageCircle,
@@ -274,7 +275,9 @@ function MembersSection({
                   />
                   <span className="font-medium">{member.name}</span>
                   {isCurrentUser && (
-                    <span className='text-muted-foreground text-xs'>(you)</span>
+                    <span className='text-muted-foreground text-xs'>
+                      <Trans>(you)</Trans>
+                    </span>
                   )}
                 </div>
                 <Button
@@ -396,7 +399,8 @@ function AddMemberDialog({
     const query = filter.trim().toLowerCase()
     return friendsData.friends
       .filter((f) => !existingMemberIds.includes(f.id))
-      .filter((f) => (query ? f.name.toLowerCase().includes(query) : true))
+      .filter((f) => nameMatches(f.name, query))
+      .sort((a, b) => naturalCompare(a.name, b.name))
   }, [friendsData?.friends, existingMemberIds, filter])
 
   // Reset the search field whenever the dialog closes.

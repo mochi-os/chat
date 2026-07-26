@@ -118,7 +118,7 @@ export function MessageReactionPicker({
                 </TooltipTrigger>
                 <TooltipContent side='bottom' className='text-xs'>
                   {activeReaction === reaction.id ? (
-                    <Trans>Remove {reaction.label.toLowerCase()}</Trans>
+                    <Trans>Remove {reaction.label}</Trans>
                   ) : (
                     reaction.label
                   )}
@@ -178,8 +178,7 @@ export function MessageReactionSummary({
               </span>
             </TooltipTrigger>
             <TooltipContent side='bottom' className='text-xs'>
-              {r.label}
-              {isYours ? <Trans> (includes you)</Trans> : null}
+              {isYours ? <Trans>{r.label} (includes you)</Trans> : r.label}
             </TooltipContent>
           </Tooltip>
         )

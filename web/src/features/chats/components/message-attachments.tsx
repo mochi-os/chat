@@ -14,6 +14,7 @@ import {
   AttachmentTrigger,
   authenticatedUrl,
   cn,
+  getAppPath,
   getFileIcon,
   isImage,
   isVideo,
@@ -41,7 +42,7 @@ const isPlayableCaption = (caption?: string) =>
   Boolean(caption?.startsWith('voice:') || caption?.startsWith('audio:'))
 
 function useAttachmentUrls(chatId: string) {
-  const appBase = import.meta.env.VITE_APP_BASE_URL || '/chat'
+  const appBase = getAppPath()
 
   const resolve = (own: string | undefined, fallback: string) => {
     const path =

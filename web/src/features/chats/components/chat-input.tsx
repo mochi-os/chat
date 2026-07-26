@@ -35,6 +35,7 @@ import {
   TooltipTrigger,
   cn,
   useFormat,
+  formatVideoDuration,
   MentionTextarea,
   type MentionUser,
   toast,
@@ -733,16 +734,9 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(
               />
               <div
                 className='text-muted-foreground shrink-0 text-sm font-medium tracking-wider tabular-nums'
-                aria-label={t`Elapsed ${Math.floor(recordingDuration / 60)}:${Math.floor(
-                  recordingDuration % 60
-                )
-                  .toString()
-                  .padStart(2, '0')}`}
+                aria-label={t`Elapsed ${formatVideoDuration(recordingDuration)}`}
               >
-                {Math.floor(recordingDuration / 60)}:
-                {Math.floor(recordingDuration % 60)
-                  .toString()
-                  .padStart(2, '0')}
+                {formatVideoDuration(recordingDuration)}
               </div>
               <VoiceWaveform
                 peaks={livePeaks}

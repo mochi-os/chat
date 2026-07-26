@@ -6,7 +6,7 @@
 import { useRef, useEffect } from 'react'
 import { useLingui } from '@lingui/react/macro'
 import { ChevronDown, ChevronUp, Search, X } from 'lucide-react'
-import { IconButton, Input, cn } from '@mochi/web'
+import { IconButton, Input, cn, useFormat } from '@mochi/web'
 
 interface ChatSearchHeaderProps {
   query: string
@@ -30,6 +30,7 @@ export function ChatSearchHeader({
   onClose,
 }: ChatSearchHeaderProps) {
   const { t } = useLingui()
+  const { formatNumber } = useFormat()
   const inputRef = useRef<HTMLInputElement>(null)
 
   useEffect(() => {
@@ -40,7 +41,7 @@ export function ChatSearchHeader({
   const counterText =
     totalMatches === 0
       ? t`No results`
-      : `${activeIndex + 1}/${totalMatches}`
+      : `${formatNumber(activeIndex + 1)}/${formatNumber(totalMatches)}`
 
   return (
     <header

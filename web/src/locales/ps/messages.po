@@ -19,39 +19,50 @@ msgid "Please check your internet connection and try again."
 msgstr "مهرباني وکړئ خپل د انټرنیټ اړیکه وګورئ او بیا هڅه وکړئ."
 
 #: src/features/chats/components/message-reaction-bar.tsx:182
-msgid " (includes you)"
-msgstr " (تاسو هم شامل یاست)"
+#~ msgid " (includes you)"
+#~ msgstr " (تاسو هم شامل یاست)"
 
-#: src/features/chats/components/chat-message-list.tsx:769
+#: src/features/chats/components/chat-message-list.tsx:789
 msgid "(edited)"
 msgstr "(سمول شوی)"
 
+#: src/routes/_authenticated/$chatId_.settings.tsx:279
+msgid "(you)"
+msgstr "(تاسو)"
+
 #. placeholder {0}: deleteTargetIds?.length ?? 0
-#: src/features/chats/index.tsx:1304
+#: src/features/chats/index.tsx:1311
 msgid "{0, plural, one {Delete message?} other {Delete # messages?}}"
 msgstr "{0, plural, one {پیغام ړنګ شي؟} other {# پیغامونه ړنګ شي؟}}"
 
+#. placeholder {0}: r.label
+#: src/features/chats/components/message-reaction-bar.tsx:181
+msgid "{0} (includes you)"
+msgstr "{0} (تاسو هم پکې یاست)"
+
 #. placeholder {0}: selectedIds.size
-#: src/features/chats/index.tsx:1174
+#. placeholder {0}: selectedIds?.size ?? 0
+#: src/features/chats/components/chat-message-list.tsx:816
+#: src/features/chats/index.tsx:1181
 msgid "{0} selected"
 msgstr "{0} ټاکل شوي"
 
 #. placeholder {0}: chatDetail.chat.name
-#: src/routes/_authenticated/$chatId_.settings.tsx:84
-#: src/routes/_authenticated/$chatId_.settings.tsx:123
+#: src/routes/_authenticated/$chatId_.settings.tsx:85
+#: src/routes/_authenticated/$chatId_.settings.tsx:124
 msgid "{0} settings"
 msgstr "د {0} ترتیبات"
 
-#: src/features/chats/components/message-attachments.tsx:139
+#: src/features/chats/components/message-attachments.tsx:140
 msgid "{hiddenCount, plural, one {Show 1 more file} other {Show # more files}}"
 msgstr "{hiddenCount, plural, one {1 بل فایل ښکاره کړئ} other {# نور فایلونه ښکاره کړئ}}"
 
-#: src/features/chats/components/chat-message-list.tsx:831
-#: src/features/chats/components/chat-message-list.tsx:848
+#: src/features/chats/components/chat-message-list.tsx:851
+#: src/features/chats/components/chat-message-list.tsx:868
 msgid "{newMessageCount, plural, one {Jump to 1 new message} other {Jump to # new messages}}"
 msgstr "{newMessageCount, plural, one {1 نوي پیغام ته لاړ شئ} other {# نویو پیغامونو ته لاړ شئ}}"
 
-#: src/features/chats/index.tsx:843
+#: src/features/chats/index.tsx:850
 msgid "{skippedCount, plural, one {Skipped # file that is not audio} other {Skipped # files that are not audio}}"
 msgstr "{skippedCount, plural, one {# دوتنه پرېښودل شوه چې غږ نه دی} other {# دوتنې پرېښودل شوې چې غږ نه دي}}"
 
@@ -63,7 +74,7 @@ msgstr "12 ساعته"
 msgid "24 hours"
 msgstr "24 ساعته"
 
-#: src/features/chats/components/chat-input.tsx:309
+#: src/features/chats/components/chat-input.tsx:310
 msgid "A recording is already in progress."
 msgstr "ثبت لا دمخه روان دی."
 
@@ -104,7 +115,7 @@ msgid "Add"
 msgstr "اضافه کړئ"
 
 #. placeholder {0}: friend.name
-#: src/routes/_authenticated/$chatId_.settings.tsx:471
+#: src/routes/_authenticated/$chatId_.settings.tsx:475
 msgid "Add {0} to chat"
 msgstr "{0} چټ ته اضافه کړئ"
 
@@ -125,13 +136,13 @@ msgstr "حساب اضافه کړئ"
 msgid "Add an account to receive notifications and use services."
 msgstr "د خبرتیاوو ترلاسه کولو او خدماتو کارولو لپاره حساب اضافه کړئ."
 
+#: src/features/chats/components/chat-input.tsx:773
 #: src/features/chats/components/chat-input.tsx:779
-#: src/features/chats/components/chat-input.tsx:785
 msgid "Add attachment"
 msgstr "ضمیمه اضافه کړئ"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:251
-#: src/routes/_authenticated/$chatId_.settings.tsx:430
+#: src/routes/_authenticated/$chatId_.settings.tsx:252
+#: src/routes/_authenticated/$chatId_.settings.tsx:434
 msgid "Add member"
 msgstr "غړی اضافه کړئ"
 
@@ -161,7 +172,7 @@ msgstr "موجوده خبرتیاو ته اضافه کړئ"
 msgid "Add view"
 msgstr "لید اضافه کړئ"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:412
+#: src/routes/_authenticated/$chatId_.settings.tsx:416
 msgid "Adding member..."
 msgstr "غړی ورزیاتیږي..."
 
@@ -181,7 +192,7 @@ msgstr "AI"
 msgid "All"
 msgstr "ټول"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:459
+#: src/routes/_authenticated/$chatId_.settings.tsx:463
 msgid "All your friends are already in this chat"
 msgstr "ستاسو ټول ملګري دمخه په دې چټ کې دي"
 
@@ -210,11 +221,11 @@ msgid "Anyone can start a chat with you."
 msgstr "هر څوک کولی شي تاسو سره چیټ پیل کړي."
 
 #. placeholder {0}: selectedChat?.name
-#: src/features/chats/index.tsx:1272
+#: src/features/chats/index.tsx:1279
 msgid "Are you sure you want to leave \"{0}\"? You can be added back by other members."
 msgstr "ایا تاسو ډاډه یاست چې غواړئ \"{0}\" پریږدئ؟ نور غړي کولی شي تاسو بیرته اضافه کړي."
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:343
+#: src/routes/_authenticated/$chatId_.settings.tsx:346
 msgid "Are you sure you want to leave \"{chatName}\"? You can be added back by other members."
 msgstr "ایا تاسو ډاډه یاست چې غواړئ \"{chatName}\" پریږدئ؟ نور غړي کولی شي تاسو بیرته اضافه کړي."
 
@@ -223,7 +234,7 @@ msgid "Are you sure you want to log out? You will need to log in again to access
 msgstr "ایا تاسو ډاډه یاست چې غواړئ وتل وکړئ؟ تاسو به اړتیا ولرئ بیا ننوځئ ترڅو خپل حساب ته لاسرسی ولرئ."
 
 #. placeholder {0}: member?.name
-#: src/routes/_authenticated/$chatId_.settings.tsx:534
+#: src/routes/_authenticated/$chatId_.settings.tsx:538
 msgid "Are you sure you want to remove {0} from this chat?"
 msgstr "ایا تاسو ډاډه یاست چې غواړئ {0} له دې چټ څخه لرې کړئ؟"
 
@@ -235,16 +246,16 @@ msgstr "صعودي"
 msgid "Ascending"
 msgstr "د کم څخه ډېر"
 
-#: src/features/chats/components/chat-input.tsx:589
+#: src/features/chats/components/chat-input.tsx:590
 #: src/features/chats/components/message-quote.tsx:56
 msgid "Attachment"
 msgstr "ضمیمه"
 
-#: src/features/chats/index.tsx:731
+#: src/features/chats/index.tsx:738
 msgid "Attachments are too large to upload. Remove or shrink files and try again."
 msgstr "ضمیمې د اپلوډ لپاره ډېرې لویې دي. فایلونه لرې کړئ یا کوچني یې کړئ او بیا هڅه وکړئ."
 
-#: src/features/chats/components/chat-input.tsx:798
+#: src/features/chats/components/chat-input.tsx:792
 msgid "Audio"
 msgstr "غږ"
 
@@ -256,9 +267,9 @@ msgstr "د Authenticator کوډ"
 msgid "Back"
 msgstr "شاته"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:97
-#: src/routes/_authenticated/$chatId_.settings.tsx:108
-#: src/routes/_authenticated/$chatId_.settings.tsx:124
+#: src/routes/_authenticated/$chatId_.settings.tsx:98
+#: src/routes/_authenticated/$chatId_.settings.tsx:109
+#: src/routes/_authenticated/$chatId_.settings.tsx:125
 msgid "Back to chat"
 msgstr "بیرته چټ ته"
 
@@ -268,7 +279,7 @@ msgstr "بیرته چټ ته"
 msgid "Back to home"
 msgstr "کور ته بېرته"
 
-#: src/features/chats/components/chat-message-list.tsx:454
+#: src/features/chats/components/chat-message-list.tsx:470
 msgid "Be the first to say something!"
 msgstr "لومړی شئ چې څه ووایاست!"
 
@@ -286,17 +297,17 @@ msgstr "دلچسپي ډیره کړه"
 #: ../../../lib/web/src/features/access/access-list.tsx:263
 #: ../../../lib/web/src/features/accounts/account-add.tsx:188
 #: ../../../lib/web/src/features/accounts/account-verify.tsx:89
-#: src/features/chats/components/chat-message-list.tsx:601
-#: src/features/chats/components/chat-message-list.tsx:815
+#: src/features/chats/components/chat-message-list.tsx:621
+#: src/features/chats/components/chat-message-list.tsx:835
 #: src/features/chats/components/chat-settings-dialog.tsx:109
-#: src/features/chats/components/forward-dialog.tsx:249
+#: src/features/chats/components/forward-dialog.tsx:253
 #: src/features/chats/components/new-chat.tsx:285
-#: src/features/chats/index.tsx:1206
+#: src/features/chats/index.tsx:1213
 msgid "Cancel"
 msgstr "لغوه کول"
 
-#: src/features/chats/components/chat-input.tsx:599
-#: src/features/chats/components/chat-input.tsx:604
+#: src/features/chats/components/chat-input.tsx:600
+#: src/features/chats/components/chat-input.tsx:605
 msgid "Cancel reply"
 msgstr "ځواب لغوه کړه"
 
@@ -312,7 +323,7 @@ msgstr "د خبرتیا کټګورۍ بدله کړه"
 #: src/features/chats/index.tsx:85
 #: src/features/chats/index.tsx:193
 #: src/features/chats/index.tsx:193
-#: src/features/chats/index.tsx:993
+#: src/features/chats/index.tsx:1000
 msgid "Chat"
 msgstr "چټ"
 
@@ -320,28 +331,28 @@ msgstr "چټ"
 msgid "Chat created"
 msgstr "چټ جوړ شو"
 
-#: src/features/chats/index.tsx:794
+#: src/features/chats/index.tsx:801
 msgid "Chat deleted"
 msgstr "چټ ړنګ شو"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:217
+#: src/routes/_authenticated/$chatId_.settings.tsx:218
 msgid "Chat ID"
 msgstr "د چټ ID"
 
-#: src/components/layout/chat-layout.tsx:135
+#: src/components/layout/chat-layout.tsx:143
 msgid "Chat marked as read"
 msgstr "چټ د لوستل شوي په توګه نښه شو"
 
-#: src/components/layout/chat-layout.tsx:149
+#: src/components/layout/chat-layout.tsx:157
 msgid "Chat marked as unread"
 msgstr "چټ د نالوستي په توګه نښه شو"
 
 #: src/features/chats/components/new-chat.tsx:269
-#: src/routes/_authenticated/$chatId_.settings.tsx:201
+#: src/routes/_authenticated/$chatId_.settings.tsx:202
 msgid "Chat name"
 msgstr "د چټ نوم"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:193
+#: src/routes/_authenticated/$chatId_.settings.tsx:194
 msgid "Chat name is required"
 msgstr "د چټ نوم اړین دی"
 
@@ -349,11 +360,11 @@ msgstr "د چټ نوم اړین دی"
 msgid "Chat name..."
 msgstr "د چټ نوم..."
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:112
+#: src/routes/_authenticated/$chatId_.settings.tsx:113
 msgid "Chat not found"
 msgstr "چټ ونه موندل شو"
 
-#: src/components/layout/chat-layout.tsx:157
+#: src/components/layout/chat-layout.tsx:165
 msgid "Chat pinned"
 msgstr "چټ وټومبل شو"
 
@@ -365,33 +376,33 @@ msgstr "د چیټ تګلاره تازه شوه"
 msgid "Chat ready"
 msgstr "چټ چمتو دی"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:208
+#: src/routes/_authenticated/$chatId_.settings.tsx:209
 msgid "Chat renamed"
 msgstr "د چټ نوم بدل شو"
 
-#: src/features/chats/index.tsx:998
-#: src/features/chats/index.tsx:1095
-#: src/routes/_authenticated/$chatId_.settings.tsx:84
-#: src/routes/_authenticated/$chatId_.settings.tsx:97
-#: src/routes/_authenticated/$chatId_.settings.tsx:108
-#: src/routes/_authenticated/$chatId_.settings.tsx:123
+#: src/features/chats/index.tsx:1005
+#: src/features/chats/index.tsx:1102
+#: src/routes/_authenticated/$chatId_.settings.tsx:85
+#: src/routes/_authenticated/$chatId_.settings.tsx:98
+#: src/routes/_authenticated/$chatId_.settings.tsx:109
+#: src/routes/_authenticated/$chatId_.settings.tsx:124
 msgid "Chat settings"
 msgstr "د چټ ترتیبات"
 
-#: src/features/chats/components/chat-input.tsx:804
+#: src/features/chats/components/chat-input.tsx:798
 msgid "Chat text box"
 msgstr "د چیٹ متن ځای"
 
-#: src/components/layout/chat-layout.tsx:165
+#: src/components/layout/chat-layout.tsx:173
 msgid "Chat unpinned"
 msgstr "د چټ ټومبنه لرې شوه"
 
-#: src/components/layout/chat-layout.tsx:260
-#: src/features/chats/components/forward-dialog.tsx:225
+#: src/components/layout/chat-layout.tsx:268
+#: src/features/chats/components/forward-dialog.tsx:229
 msgid "Chats"
 msgstr "چټونه"
 
-#: src/features/chats/components/forward-dialog.tsx:186
+#: src/features/chats/components/forward-dialog.tsx:190
 msgid "Choose a chat or friend to forward the selected messages to"
 msgstr "غوره شوي پیغامونه لیږلو لپاره چټ یا ملګری وټاکئ"
 
@@ -437,8 +448,8 @@ msgstr "ټول پاک کړئ"
 msgid "Clear filters"
 msgstr "فیلټرونه پاک کړئ"
 
-#: src/features/chats/components/forward-dialog.tsx:195
-#: src/routes/_authenticated/$chatId_.settings.tsx:442
+#: src/features/chats/components/forward-dialog.tsx:199
+#: src/routes/_authenticated/$chatId_.settings.tsx:446
 msgid "Clear search"
 msgstr "لټون پاک کړئ"
 
@@ -469,7 +480,7 @@ msgid "Close panel"
 msgstr "پټۍ بنده کړئ"
 
 #: ../../../lib/web/src/components/header-search.tsx:54
-#: src/features/chats/components/chat-search-header.tsx:110
+#: src/features/chats/components/chat-search-header.tsx:111
 msgid "Close search"
 msgstr "لټون وتړئ"
 
@@ -518,19 +529,19 @@ msgstr "دوام ورکړئ"
 msgid "Continue with {label}"
 msgstr "د {label} سره دوام ورکړئ"
 
-#: src/features/chats/index.tsx:622
+#: src/features/chats/index.tsx:629
 msgid "Copied"
 msgstr "کاپي شو"
 
 #: ../../../lib/web/src/components/ui/copy-button.tsx:63
 #: src/features/chats/components/message-hover-actions.tsx:107
-#: src/features/chats/index.tsx:1183
+#: src/features/chats/index.tsx:1190
 msgid "Copy"
 msgstr "کاپي کړئ"
 
 #. placeholder {0}: ambiguous.join(', ')
 #. placeholder {1}: unknown.join(', ')
-#: src/features/chats/index.tsx:937
+#: src/features/chats/index.tsx:944
 msgid "Could not link mentions. Multiple people share: {0}. Not in this chat: {1}. Pick from the @ list."
 msgstr "یادونې ونه تړل شوې. څو کسان دا نوم لري: {0}. په دې چیٹ کې نشته: {1}. د @ له لیسته یې وټاکئ."
 
@@ -554,7 +565,7 @@ msgstr "د دغه حساب سره تصدیق ونشو. مهرباني وکړئ �
 msgid "Create a new chat"
 msgstr "نوی چټ جوړ کړئ"
 
-#: src/components/layout/chat-layout.tsx:270
+#: src/components/layout/chat-layout.tsx:278
 #: src/features/chats/components/new-chat.tsx:293
 msgid "Create chat"
 msgstr "چټ جوړ کړئ"
@@ -597,18 +608,18 @@ msgid "Default AI account"
 msgstr "د AI ډیفالټ حساب"
 
 #: src/features/chats/components/message-hover-actions.tsx:146
-#: src/features/chats/index.tsx:1199
-#: src/features/chats/index.tsx:1316
+#: src/features/chats/index.tsx:1206
+#: src/features/chats/index.tsx:1323
 msgid "Delete"
 msgstr "ړنګ کړئ"
 
-#: src/features/chats/index.tsx:1078
-#: src/features/chats/index.tsx:1230
+#: src/features/chats/index.tsx:1085
+#: src/features/chats/index.tsx:1237
 msgid "Delete chat"
 msgstr "چټ ړنګ کړئ"
 
-#: src/features/chats/index.tsx:1294
-#: src/routes/_authenticated/$chatId_.settings.tsx:365
+#: src/features/chats/index.tsx:1301
+#: src/routes/_authenticated/$chatId_.settings.tsx:368
 msgid "Delete chat history"
 msgstr "د چټ تاریخچه ړنګه کړئ"
 
@@ -616,12 +627,12 @@ msgstr "د چټ تاریخچه ړنګه کړئ"
 msgid "Delete your account on the old server"
 msgstr "د پخوانی سرور پر سر خپل حساب ړنګ کړئ"
 
-#: src/features/chats/index.tsx:793
+#: src/features/chats/index.tsx:800
 msgid "Deleting chat..."
 msgstr "چټ ړنګیږي..."
 
-#: src/features/chats/index.tsx:652
-#: src/features/chats/index.tsx:1313
+#: src/features/chats/index.tsx:659
+#: src/features/chats/index.tsx:1320
 msgid "Deleting..."
 msgstr "ړنګیږي..."
 
@@ -656,8 +667,8 @@ msgstr "لوری"
 msgid "Disagree"
 msgstr "موافق نه یم"
 
-#: src/features/chats/components/chat-input.tsx:723
-#: src/features/chats/components/chat-input.tsx:728
+#: src/features/chats/components/chat-input.tsx:724
+#: src/features/chats/components/chat-input.tsx:729
 msgid "Discard recording"
 msgstr "ثبت لرې کړئ"
 
@@ -674,7 +685,7 @@ msgstr "وردکړه"
 msgid "Displays the mobile sidebar."
 msgstr "موبایل څنګې پټۍ ښیي."
 
-#: src/features/chats/components/chat-input.tsx:792
+#: src/features/chats/components/chat-input.tsx:786
 msgid "Document"
 msgstr "سند"
 
@@ -687,7 +698,7 @@ msgstr "ډاونلوډ"
 msgid "Download failed"
 msgstr "ډاونلوډ ناکام شو"
 
-#: src/components/layout/chat-layout.tsx:247
+#: src/components/layout/chat-layout.tsx:255
 msgid "Draft"
 msgstr "مسوده"
 
@@ -708,11 +719,14 @@ msgstr "سمول"
 msgid "Edit {label}"
 msgstr "{label} سمول"
 
-#. placeholder {0}: Math.floor(recordingDuration / 60)
-#. placeholder {1}: Math.floor( recordingDuration % 60 ) .toString() .padStart(2, '0')
+#. placeholder {0}: formatVideoDuration(recordingDuration)
+#: src/features/chats/components/chat-input.tsx:737
+msgid "Elapsed {0}"
+msgstr "تېر شوی {0}"
+
 #: src/features/chats/components/chat-input.tsx:736
-msgid "Elapsed {0}:{1}"
-msgstr "تېر شوی {0}:{1}"
+#~ msgid "Elapsed {0}:{1}"
+#~ msgstr "تېر شوی {0}:{1}"
 
 #: ../../../lib/web/src/components/step-up-dialog.tsx:289
 msgid "Email code"
@@ -726,7 +740,7 @@ msgstr "هغه کوډ دننه کړئ چې ستاسو په برېښنالیک ک
 msgid "Enter your authenticator code"
 msgstr "د خپل تصدیق کوونکي کوډ دننه کړئ"
 
-#: src/features/chats/components/chat-message-list.tsx:591
+#: src/features/chats/components/chat-message-list.tsx:611
 msgid "escape to cancel • enter to save"
 msgstr "د لغوه کولو لپاره Escape • د ساتلو لپاره Enter"
 
@@ -749,11 +763,11 @@ msgstr "ډېر لوی"
 msgid "Failed to add account"
 msgstr "د حساب اضافه کولو پاتې راغلل"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:414
+#: src/routes/_authenticated/$chatId_.settings.tsx:418
 msgid "Failed to add member"
 msgstr "د غړي اضافه کولو پاتې راغلل"
 
-#: src/features/chats/index.tsx:623
+#: src/features/chats/index.tsx:630
 msgid "Failed to copy"
 msgstr "د کاپي کولو پاتې راغلل"
 
@@ -765,28 +779,28 @@ msgstr "د پیغام کاپي کول ونه شول"
 msgid "Failed to create chat"
 msgstr "د چیټ جوړولو پاتې راغلل"
 
-#: src/features/chats/index.tsx:654
+#: src/features/chats/index.tsx:661
 msgid "Failed to delete"
 msgstr "د حذف کولو پاتې راغلل"
 
-#: src/features/chats/index.tsx:795
+#: src/features/chats/index.tsx:802
 msgid "Failed to delete chat"
 msgstr "د چیټ حذف کولو پاتې راغلل"
 
-#: src/features/chats/index.tsx:570
+#: src/features/chats/index.tsx:577
 msgid "Failed to edit message"
 msgstr "پیغام سمول ونه شول"
 
-#: src/features/chats/components/forward-dialog.tsx:124
+#: src/features/chats/components/forward-dialog.tsx:128
 msgid "Failed to forward"
 msgstr "ورلېږل ونه شول"
 
-#: src/features/chats/index.tsx:776
-#: src/routes/_authenticated/$chatId_.settings.tsx:326
+#: src/features/chats/index.tsx:783
+#: src/routes/_authenticated/$chatId_.settings.tsx:329
 msgid "Failed to leave chat"
 msgstr "د چیټ پریښودلو پاتې راغلل"
 
-#: src/components/layout/chat-layout.tsx:137
+#: src/components/layout/chat-layout.tsx:145
 msgid "Failed to mark chat as read"
 msgstr "چټ د لوستل شوي په توګه نښه کول ونه شول"
 
@@ -794,11 +808,11 @@ msgstr "چټ د لوستل شوي په توګه نښه کول ونه شول"
 msgid "Failed to remove account"
 msgstr "د حساب لیرې کولو پاتې راغلل"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:520
+#: src/routes/_authenticated/$chatId_.settings.tsx:524
 msgid "Failed to remove member"
 msgstr "د غړي لیرې کولو پاتې راغلل"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:210
+#: src/routes/_authenticated/$chatId_.settings.tsx:211
 msgid "Failed to rename chat"
 msgstr "د چیټ نوم بدلولو پاتې راغلل"
 
@@ -806,7 +820,7 @@ msgstr "د چیټ نوم بدلولو پاتې راغلل"
 msgid "Failed to save"
 msgstr "د خوندي کولو پاتې راغلل"
 
-#: src/features/chats/index.tsx:730
+#: src/features/chats/index.tsx:737
 msgid "Failed to send message"
 msgstr "د پیغام لیږلو پاتې راغلل"
 
@@ -834,21 +848,21 @@ msgstr "هوار"
 msgid "Floating"
 msgstr "ځړیدلی"
 
-#: src/features/chats/components/forward-dialog.tsx:260
+#: src/features/chats/components/forward-dialog.tsx:264
 #: src/features/chats/components/message-hover-actions.tsx:138
-#: src/features/chats/index.tsx:1191
+#: src/features/chats/index.tsx:1198
 msgid "Forward"
 msgstr "ورلېږل"
 
-#: src/features/chats/components/forward-dialog.tsx:183
+#: src/features/chats/components/forward-dialog.tsx:187
 msgid "Forward to…"
 msgstr "ورلېږل…"
 
-#: src/features/chats/components/forward-dialog.tsx:123
+#: src/features/chats/components/forward-dialog.tsx:127
 msgid "Forwarded"
 msgstr "ورولېږل شو"
 
-#: src/features/chats/components/forward-dialog.tsx:122
+#: src/features/chats/components/forward-dialog.tsx:126
 msgid "Forwarding..."
 msgstr "لیږدول کیږي..."
 
@@ -856,8 +870,8 @@ msgstr "لیږدول کیږي..."
 msgid "Friday"
 msgstr "جمعه"
 
-#: src/features/chats/components/forward-dialog.tsx:233
-#: src/routes/_authenticated/$chatId_.settings.tsx:465
+#: src/features/chats/components/forward-dialog.tsx:237
+#: src/routes/_authenticated/$chatId_.settings.tsx:469
 msgid "Friends"
 msgstr "ملګري"
 
@@ -882,8 +896,8 @@ msgstr "د ښکارندوی څخه"
 msgid "Full layout"
 msgstr "بشپړ ترتیب"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:128
-#: src/routes/_authenticated/$chatId_.settings.tsx:199
+#: src/routes/_authenticated/$chatId_.settings.tsx:129
+#: src/routes/_authenticated/$chatId_.settings.tsx:200
 msgid "General"
 msgstr "عمومي"
 
@@ -941,7 +955,7 @@ msgid "Imperial"
 msgstr "Imperial"
 
 #: src/features/chats/components/chat-settings-dialog.tsx:77
-#: src/features/chats/index.tsx:1101
+#: src/features/chats/index.tsx:1108
 msgid "Incoming chats"
 msgstr "راتلونکي چیټونه"
 
@@ -957,8 +971,8 @@ msgstr "علاقې"
 msgid "Invalid verification code"
 msgstr "د تصدیق ناسم کوډ"
 
-#: src/features/chats/components/chat-message-list.tsx:835
-#: src/features/chats/components/chat-message-list.tsx:852
+#: src/features/chats/components/chat-message-list.tsx:855
+#: src/features/chats/components/chat-message-list.tsx:872
 msgid "Jump to bottom"
 msgstr "پای ته لاړ شئ"
 
@@ -980,32 +994,32 @@ msgstr "ترتیب"
 msgid "Learn more"
 msgstr "نور زده کړئ"
 
-#: src/features/chats/index.tsx:1280
+#: src/features/chats/index.tsx:1287
 msgid "Leave"
 msgstr "پریږدئ"
 
-#: src/features/chats/index.tsx:1085
-#: src/routes/_authenticated/$chatId_.settings.tsx:351
+#: src/features/chats/index.tsx:1092
+#: src/routes/_authenticated/$chatId_.settings.tsx:354
 msgid "Leave chat"
 msgstr "چیټ پریږدئ"
 
-#: src/features/chats/index.tsx:1271
-#: src/routes/_authenticated/$chatId_.settings.tsx:342
+#: src/features/chats/index.tsx:1278
+#: src/routes/_authenticated/$chatId_.settings.tsx:345
 msgid "Leave chat?"
 msgstr "چیټ پریږدئ؟"
 
-#: src/features/chats/index.tsx:774
-#: src/routes/_authenticated/$chatId_.settings.tsx:324
+#: src/features/chats/index.tsx:781
+#: src/routes/_authenticated/$chatId_.settings.tsx:327
 msgid "Leaving chat..."
 msgstr "له چټ څخه وتل کیږي..."
 
-#: src/features/chats/index.tsx:1277
-#: src/routes/_authenticated/$chatId_.settings.tsx:348
+#: src/features/chats/index.tsx:1284
+#: src/routes/_authenticated/$chatId_.settings.tsx:351
 msgid "Leaving..."
 msgstr "پریږدي..."
 
-#: src/features/chats/index.tsx:775
-#: src/routes/_authenticated/$chatId_.settings.tsx:325
+#: src/features/chats/index.tsx:782
+#: src/routes/_authenticated/$chatId_.settings.tsx:328
 msgid "Left chat"
 msgstr "چیټ پریښودل شو"
 
@@ -1067,15 +1081,15 @@ msgstr "مینه"
 msgid "Mark all as read"
 msgstr "ټول د لوستل شویو په توګه نښه کړئ"
 
-#: src/components/layout/chat-layout.tsx:222
+#: src/components/layout/chat-layout.tsx:230
 msgid "Mark as read"
 msgstr "د لوستل شوي په توګه نښه کړئ"
 
-#: src/components/layout/chat-layout.tsx:228
+#: src/components/layout/chat-layout.tsx:236
 msgid "Mark as unread"
 msgstr "د نالوستي په توګه نښه کړئ"
 
-#: src/components/layout/chat-layout.tsx:134
+#: src/components/layout/chat-layout.tsx:142
 msgid "Marking as read..."
 msgstr "د لوستل شوي په توګه نښل کیږي..."
 
@@ -1083,15 +1097,15 @@ msgstr "د لوستل شوي په توګه نښل کیږي..."
 msgid "Medium"
 msgstr "منځنی"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:413
+#: src/routes/_authenticated/$chatId_.settings.tsx:417
 msgid "Member added"
 msgstr "غړی اضافه شو"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:519
+#: src/routes/_authenticated/$chatId_.settings.tsx:523
 msgid "Member removed"
 msgstr "غړی لیرې شو"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:247
+#: src/routes/_authenticated/$chatId_.settings.tsx:248
 msgid "Members"
 msgstr "غړي"
 
@@ -1112,16 +1126,16 @@ msgstr "د پیغام کړنې"
 msgid "Message copied"
 msgstr "پیغام کاپي شو"
 
-#: src/features/chats/index.tsx:732
+#: src/features/chats/index.tsx:739
 msgid "Message could not be sent. Attachments may be too large, or your connection failed. Try smaller files."
 msgstr "پیغام ونه لېږل شو. ښایي ضمیمې ډېرې لویې وي، یا ستاسو اړیکه ناکامه شوې وي. کوچني فایلونه وازموئ."
 
-#: src/features/chats/index.tsx:653
+#: src/features/chats/index.tsx:660
 msgid "Message deleted"
 msgstr "پیغام ړنګ شو"
 
 #: src/features/chats/components/message-quote.tsx:60
-#: src/features/chats/index.tsx:674
+#: src/features/chats/index.tsx:681
 msgid "Message not available"
 msgstr "پیغام شتون نه لري"
 
@@ -1129,37 +1143,37 @@ msgstr "پیغام شتون نه لري"
 msgid "Metric"
 msgstr "میټریک"
 
-#: src/features/chats/components/chat-input.tsx:316
+#: src/features/chats/components/chat-input.tsx:317
 msgid "Microphone access denied"
 msgstr "مایکروفون ته لاسرسی رد شو"
 
-#: src/features/chats/components/chat-input.tsx:293
+#: src/features/chats/components/chat-input.tsx:294
 msgid "Microphone access is blocked here. Please update the app and try again."
 msgstr "مایکروفون ته لاسرسی دلته بند دی. مهرباني وکړئ اپلیکیشن تازه کړئ او بیا هڅه وکړئ."
 
-#: src/features/chats/components/chat-input.tsx:290
-#: src/features/chats/components/chat-input.tsx:337
-#: src/features/chats/components/chat-input.tsx:384
+#: src/features/chats/components/chat-input.tsx:291
+#: src/features/chats/components/chat-input.tsx:338
+#: src/features/chats/components/chat-input.tsx:385
 msgid "Microphone access requires a secure context (HTTPS or localhost)"
 msgstr "مایکروفون ته لاسرسي لپاره خوندي چاپېریال اړین دی (HTTPS یا localhost)"
 
-#: src/features/chats/components/chat-input.tsx:296
+#: src/features/chats/components/chat-input.tsx:297
 msgid "Microphone access was blocked by the browser"
 msgstr "براوزر مایکروفون ته لاسرسی بند کړ"
 
-#: src/features/chats/components/chat-input.tsx:277
+#: src/features/chats/components/chat-input.tsx:278
 msgid "Microphone constraints could not be satisfied"
 msgstr "د مایکروفون شرطونه پوره نه شول"
 
-#: src/features/chats/components/chat-input.tsx:313
+#: src/features/chats/components/chat-input.tsx:314
 msgid "Microphone error: {message}"
 msgstr "د مایکروفون تېروتنه: {message}"
 
-#: src/features/chats/components/chat-input.tsx:273
+#: src/features/chats/components/chat-input.tsx:274
 msgid "Microphone is already in use"
 msgstr "مایکروفون لا دمخه کارول کېږي"
 
-#: src/features/chats/components/chat-input.tsx:265
+#: src/features/chats/components/chat-input.tsx:266
 msgid "Microphone permission denied"
 msgstr "د مایکروفون اجازه رد شوه"
 
@@ -1168,11 +1182,11 @@ msgid "Monday"
 msgstr "دوشنبه"
 
 #. placeholder {0}: ambiguous.join(', ')
-#: src/features/chats/index.tsx:929
+#: src/features/chats/index.tsx:936
 msgid "Multiple people share these names: {0}. Pick them from the @ list so the right person is notified."
 msgstr "څو کسان دا نومونه لري: {0}. د @ له لیسته یې وټاکئ ترڅو سم کس خبر شي."
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:194
+#: src/routes/_authenticated/$chatId_.settings.tsx:195
 msgid "Name must be 1000 characters or less"
 msgstr "نوم باید 1000 توري یا لږ وي"
 
@@ -1191,7 +1205,7 @@ msgstr "نوی"
 msgid "New chat"
 msgstr "نوې چټ"
 
-#: src/features/chats/components/chat-search-header.tsx:101
+#: src/features/chats/components/chat-search-header.tsx:102
 msgid "Newer match"
 msgstr "نوی سمون"
 
@@ -1204,7 +1218,7 @@ msgstr "بله انځور"
 msgid "No access rules configured. Add rules to control who can access this resource."
 msgstr "د لاسرسي قاعدې نه دي تنظیم شوې. د دې سرچینې لاسرسي د کنترول لپاره قاعدې اضافه کړئ."
 
-#: src/features/chats/components/forward-dialog.tsx:217
+#: src/features/chats/components/forward-dialog.tsx:221
 msgid "No chats to forward to"
 msgstr "د لېږلو لپاره کوم چټ نشته"
 
@@ -1212,11 +1226,11 @@ msgstr "د لېږلو لپاره کوم چټ نشته"
 msgid "No connected accounts"
 msgstr "هیڅ نښلول شوي حسابونه نشته"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:455
+#: src/routes/_authenticated/$chatId_.settings.tsx:459
 msgid "No friends available"
 msgstr "هیڅ ملګري شتون نلري"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:455
+#: src/routes/_authenticated/$chatId_.settings.tsx:459
 msgid "No friends found"
 msgstr "هیڅ ملګري ونه موندل شول"
 
@@ -1228,11 +1242,11 @@ msgstr "تر اوسه هیڅ ملګري نشته"
 msgid "No groups available"
 msgstr "هیڅ ډلې شتون نلري"
 
-#: src/features/chats/components/chat-message-list.tsx:453
+#: src/features/chats/components/chat-message-list.tsx:469
 msgid "No messages yet"
 msgstr "تر اوسه هیڅ پیغامونه نشته"
 
-#: src/features/chats/components/chat-input.tsx:269
+#: src/features/chats/components/chat-input.tsx:270
 msgid "No microphone found"
 msgstr "مایکروفون ونه موندل شو"
 
@@ -1248,7 +1262,7 @@ msgstr "هیڅ ځایونه ونه موندل شول"
 msgid "No profile"
 msgstr "هیڅ پروفایل نشته"
 
-#: src/features/chats/components/chat-search-header.tsx:42
+#: src/features/chats/components/chat-search-header.tsx:43
 msgid "No results"
 msgstr "پایلې نشته"
 
@@ -1287,7 +1301,7 @@ msgstr "ونه موندل شو"
 msgid "Not set"
 msgstr "نه دی ټاکل شوی"
 
-#: src/features/chats/index.tsx:618
+#: src/features/chats/index.tsx:625
 msgid "Nothing to copy"
 msgstr "د کاپي کولو لپاره څه نشته"
 
@@ -1299,7 +1313,7 @@ msgstr "د کاپي کولو لپاره څه نشته"
 msgid "Notifications"
 msgstr "خبرتیاوې"
 
-#: src/features/chats/components/chat-search-header.tsx:90
+#: src/features/chats/components/chat-search-header.tsx:91
 msgid "Older match"
 msgstr "زوړ سمون"
 
@@ -1325,7 +1339,7 @@ msgstr "د حساب کړنې خلاصې کړئ"
 msgid "Open actions"
 msgstr "کړنې پرانیزئ"
 
-#: src/features/chats/index.tsx:1070
+#: src/features/chats/index.tsx:1077
 msgid "Open chat actions"
 msgstr "د چټ کړنې خلاصې کړئ"
 
@@ -1384,7 +1398,7 @@ msgstr "غږیز پیغام ودروئ"
 msgid "People"
 msgstr "خلک"
 
-#: src/components/layout/chat-layout.tsx:213
+#: src/components/layout/chat-layout.tsx:221
 msgid "Pin chat"
 msgstr "چټ وټومبئ"
 
@@ -1453,28 +1467,28 @@ msgstr "نور ولولئ"
 msgid "Recommended"
 msgstr "سپارښتل شوی"
 
-#: src/features/chats/components/chat-input.tsx:851
-#: src/features/chats/components/chat-input.tsx:856
+#: src/features/chats/components/chat-input.tsx:845
+#: src/features/chats/components/chat-input.tsx:850
 msgid "Record voice note"
 msgstr "غږیز پیغام ثبت کړئ"
 
-#: src/features/chats/components/chat-input.tsx:305
+#: src/features/chats/components/chat-input.tsx:306
 msgid "Recording failed. Please try again."
 msgstr "ثبت ناکام شو. مهرباني وکړئ بیا هڅه وکړئ."
 
-#: src/features/chats/components/chat-input.tsx:321
+#: src/features/chats/components/chat-input.tsx:322
 msgid "Recording is too large to send"
 msgstr "ثبت د لېږلو لپاره ډېر لوی دی"
 
-#: src/features/chats/components/chat-input.tsx:301
+#: src/features/chats/components/chat-input.tsx:302
 msgid "Recording produced no audio"
 msgstr "ثبت هیڅ غږ نه لري"
 
-#: src/features/chats/components/chat-input.tsx:227
+#: src/features/chats/components/chat-input.tsx:228
 msgid "Recording stopped at the 5-minute limit"
 msgstr "ثبت د ۵ دقیقو په حد کې ودرېد"
 
-#: src/features/chats/components/chat-input.tsx:713
+#: src/features/chats/components/chat-input.tsx:714
 msgid "Recording voice note"
 msgstr "غږیز پیغام ثبتېږي"
 
@@ -1497,13 +1511,13 @@ msgstr "په 24 ساعتونو کې نسبي، که نه نو مطلق"
 
 #: ../../../lib/web/src/features/access/access-list.tsx:265
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:180
-#: src/routes/_authenticated/$chatId_.settings.tsx:542
+#: src/routes/_authenticated/$chatId_.settings.tsx:546
 msgid "Remove"
 msgstr "لرې کول"
 
 #. placeholder {0}: attachment.file.name
-#. placeholder {0}: reaction.label.toLowerCase()
-#: src/features/chats/components/chat-input.tsx:691
+#. placeholder {0}: reaction.label
+#: src/features/chats/components/chat-input.tsx:692
 #: src/features/chats/components/message-reaction-bar.tsx:121
 msgid "Remove {0}"
 msgstr "{0} لرې کړئ"
@@ -1526,7 +1540,7 @@ msgstr "غږ لرې کړئ"
 msgid "Remove interest"
 msgstr "علاقه لرې کړئ"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:533
+#: src/routes/_authenticated/$chatId_.settings.tsx:537
 msgid "Remove member?"
 msgstr "غړی لرې کړو؟"
 
@@ -1534,15 +1548,15 @@ msgstr "غړی لرې کړو؟"
 msgid "Remove voice note"
 msgstr "غږیز پیغام لرې کړئ"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:518
+#: src/routes/_authenticated/$chatId_.settings.tsx:522
 msgid "Removing member..."
 msgstr "غړی لرې کیږي..."
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:539
+#: src/routes/_authenticated/$chatId_.settings.tsx:543
 msgid "Removing..."
 msgstr "د لرې کولو په حال کې..."
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:207
+#: src/routes/_authenticated/$chatId_.settings.tsx:208
 msgid "Renaming chat..."
 msgstr "د چټ نوم بدلیږي..."
 
@@ -1551,7 +1565,7 @@ msgid "Reply"
 msgstr "ځواب"
 
 #. placeholder {0}: replyTo.name
-#: src/features/chats/components/chat-input.tsx:580
+#: src/features/chats/components/chat-input.tsx:581
 msgid "Replying to {0}"
 msgstr "{0} ته ځواب ورکوئ"
 
@@ -1586,7 +1600,7 @@ msgstr "شنبه"
 
 #: ../../../lib/web/src/components/ui/editable-field-row.tsx:122
 #: ../../../lib/web/src/components/ui/secret-field.tsx:77
-#: src/features/chats/components/chat-message-list.tsx:613
+#: src/features/chats/components/chat-message-list.tsx:633
 #: src/features/chats/components/chat-settings-dialog.tsx:120
 msgid "Save"
 msgstr "خوندي کول"
@@ -1595,7 +1609,7 @@ msgstr "خوندي کول"
 msgid "Saving..."
 msgstr "د خوندي کولو په حال کې..."
 
-#: src/features/chats/components/forward-dialog.tsx:194
+#: src/features/chats/components/forward-dialog.tsx:198
 msgid "Search chats…"
 msgstr "چټونه ولټوئ…"
 
@@ -1611,15 +1625,15 @@ msgstr "د منزل لپاره وپلټئ..."
 msgid "Search for origin..."
 msgstr "د سرچینې لپاره وپلټئ..."
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:441
+#: src/routes/_authenticated/$chatId_.settings.tsx:445
 msgid "Search friends…"
 msgstr "ملګري ولټوئ…"
 
-#: src/features/chats/components/chat-search-header.tsx:58
+#: src/features/chats/components/chat-search-header.tsx:59
 msgid "Search in chat..."
 msgstr "په چټ کې ولټوئ..."
 
-#: src/features/chats/index.tsx:1060
+#: src/features/chats/index.tsx:1067
 msgid "Search messages"
 msgstr "پیغامونه ولټوئ"
 
@@ -1657,7 +1671,7 @@ msgstr "وټاکئ"
 msgid "Select a chat"
 msgstr "یوه چټ وټاکئ"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:433
+#: src/routes/_authenticated/$chatId_.settings.tsx:437
 msgid "Select a friend to add to this chat."
 msgstr "د دې چټ سره د اضافه کولو لپاره ملګری وټاکئ."
 
@@ -1681,11 +1695,11 @@ msgstr "ګروپ وټاکئ"
 msgid "Select layout style"
 msgstr "د طرحې سټایل وټاکئ"
 
-#: src/features/chats/components/chat-message-list.tsx:806
+#: src/features/chats/components/chat-message-list.tsx:826
 msgid "Select loaded"
 msgstr "لوډ شوي وټاکئ"
 
-#: src/features/chats/components/chat-message-list.tsx:527
+#: src/features/chats/components/chat-message-list.tsx:543
 msgid "Select message"
 msgstr "پیغام وټاکئ"
 
@@ -1706,10 +1720,10 @@ msgid "Select theme preference"
 msgstr "د ښکارندوی غوره توب وټاکئ"
 
 #: src/features/chats/components/chat-message-list.tsx:796
-msgid "selected"
-msgstr "ټاکل شوي"
+#~ msgid "selected"
+#~ msgstr "ټاکل شوي"
 
-#: src/features/chats/components/chat-message-list.tsx:804
+#: src/features/chats/components/chat-message-list.tsx:824
 msgid "Selects messages loaded so far"
 msgstr "تر اوسه لوډ شوي پیغامونه ټاکي"
 
@@ -1721,8 +1735,8 @@ msgstr "بیا ولیږئ"
 msgid "Send email"
 msgstr "بریښنالیک ولېږئ"
 
-#: src/features/chats/components/chat-input.tsx:866
-#: src/features/chats/components/chat-input.tsx:875
+#: src/features/chats/components/chat-input.tsx:860
+#: src/features/chats/components/chat-input.tsx:869
 msgid "Send message"
 msgstr "پیغام ولېږئ"
 
@@ -1756,7 +1770,7 @@ msgstr "سرچینه او منزل وټاکئ"
 msgid "Settings"
 msgstr "ترتیبات"
 
-#: src/features/chats/components/message-attachments.tsx:137
+#: src/features/chats/components/message-attachments.tsx:138
 #: src/features/chats/components/message-body.tsx:74
 msgid "Show less"
 msgstr "لږ وښایاست"
@@ -1809,8 +1823,8 @@ msgstr "چټ پیلیږي..."
 msgid "Stay tuned though!"
 msgstr "خو خبر اوسئ!"
 
-#: src/features/chats/components/chat-input.tsx:760
-#: src/features/chats/components/chat-input.tsx:765
+#: src/features/chats/components/chat-input.tsx:754
+#: src/features/chats/components/chat-input.tsx:759
 msgid "Stop recording"
 msgstr "ثبت بند کړئ"
 
@@ -1863,23 +1877,23 @@ msgid "Theme Settings"
 msgstr "د ښکارندوی ترتیبات"
 
 #. placeholder {0}: unknown.join(', ')
-#: src/features/chats/index.tsx:933
+#: src/features/chats/index.tsx:940
 msgid "These names are not in this chat: {0}. Pick from the @ list or remove them."
 msgstr "دا نومونه په دې چیٹ کې نشته: {0}. د @ له لیسته وټاکئ یا یې لرې کړئ."
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:160
+#: src/routes/_authenticated/$chatId_.settings.tsx:161
 msgid "this chat"
 msgstr "دا چټ"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:113
+#: src/routes/_authenticated/$chatId_.settings.tsx:114
 msgid "This chat may have been deleted or you don't have access to it"
 msgstr "ښایي دا چټ حذف شوی وي یا تاسو ورته لاسرسی نه لرئ"
 
-#: src/features/chats/index.tsx:1308
+#: src/features/chats/index.tsx:1315
 msgid "This deletes the message for everyone and cannot be undone."
 msgstr "دا پیغام د ټولو لپاره ړنګوي او بېرته نه شي کېدای."
 
-#: src/features/chats/components/chat-message-list.tsx:654
+#: src/features/chats/components/chat-message-list.tsx:674
 #: src/features/chats/components/message-quote.tsx:50
 msgid "This message was deleted"
 msgstr "دا پیغام ړنګ شوی دی"
@@ -1931,7 +1945,7 @@ msgstr "بره"
 msgid "Travelling"
 msgstr "په سفر کې"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:458
+#: src/routes/_authenticated/$chatId_.settings.tsx:462
 msgid "Try a different search term"
 msgstr "بل د لټون اصطلاح هڅه وکړئ"
 
@@ -1962,11 +1976,11 @@ msgstr "د کاروونکو لټون لپاره ولیکئ"
 msgid "Type to search..."
 msgstr "د لټون لپاره ولیکئ..."
 
-#: src/features/chats/components/chat-input.tsx:811
+#: src/features/chats/components/chat-input.tsx:805
 msgid "Type your message…"
 msgstr "خپل پیغام ولیکئ…"
 
-#: src/features/chats/components/chat-input.tsx:810
+#: src/features/chats/components/chat-input.tsx:804
 msgid "Type your reply…"
 msgstr "خپل ځواب ولیکئ…"
 
@@ -1995,7 +2009,7 @@ msgstr "متحده ایالات"
 msgid "Unknown"
 msgstr "نامعلوم"
 
-#: src/components/layout/chat-layout.tsx:207
+#: src/components/layout/chat-layout.tsx:215
 msgid "Unpin chat"
 msgstr "د چټ ټومبنه لرې کړئ"
 
@@ -2055,16 +2069,16 @@ msgstr "ټولې خبرتیاوې وګورئ"
 msgid "Voice note waveform"
 msgstr "د غږیز پیغام څپه بڼه"
 
-#: src/features/chats/components/chat-input.tsx:364
+#: src/features/chats/components/chat-input.tsx:365
 msgid "Voice recording is currently unavailable. Please check your setup and try again."
 msgstr "غږ ثبتول اوس مهال شتون نه لري. مهرباني وکړئ خپل تنظیمات وګورئ او بیا هڅه وکړئ."
 
-#: src/features/chats/components/chat-input.tsx:285
-#: src/features/chats/components/chat-input.tsx:390
+#: src/features/chats/components/chat-input.tsx:286
+#: src/features/chats/components/chat-input.tsx:391
 msgid "Voice recording is not supported in this browser"
 msgstr "په دې براوزر کې غږ ثبتول ملاتړ نه لري"
 
-#: src/features/chats/components/chat-input.tsx:260
+#: src/features/chats/components/chat-input.tsx:261
 msgid "Voice recording isn't available in this app version. Please update the app and try again."
 msgstr "د اپلیکیشن په دې نسخه کې غږ ثبتول شتون نه لري. مهرباني وکړئ اپلیکیشن تازه کړئ او بیا هڅه وکړئ."
 
@@ -2080,7 +2094,7 @@ msgstr "ویب پاڼه د خدمت په حال کې ده!"
 msgid "Wednesday"
 msgstr "چهارشنبه"
 
-#: src/features/chats/index.tsx:461
+#: src/features/chats/index.tsx:468
 msgid "You"
 msgstr "تاسو"
 
@@ -2092,7 +2106,7 @@ msgstr "تاسو دمخه له دې ملګري سره چټ لرئ"
 msgid "You already have chats with:"
 msgstr "تاسو دمخه له دې سره چټ لرئ:"
 
-#: src/features/chats/index.tsx:635
+#: src/features/chats/index.tsx:642
 msgid "You can only delete your own messages"
 msgstr "تاسو یوازې خپل پیغامونه ړنګولای شئ"
 
@@ -2100,11 +2114,11 @@ msgstr "تاسو یوازې خپل پیغامونه ړنګولای شئ"
 msgid "You do not have access to this section."
 msgstr "تاسو دې برخې ته لاسرسی نه لرئ."
 
-#: src/features/chats/index.tsx:1217
+#: src/features/chats/index.tsx:1224
 msgid "You left this chat"
 msgstr "تاسو دا چټ پرېښود"
 
-#: src/features/chats/index.tsx:1216
+#: src/features/chats/index.tsx:1223
 msgid "You were removed from this chat"
 msgstr "تاسو له دې چټ څخه لرې شوئ"
 

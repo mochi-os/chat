@@ -14,6 +14,7 @@ import {
   getErrorMessage,
   toast,
   toastAction,
+  useFormat,
   type NavMenuItem,
   type SidebarData,
 } from '@mochi/web'
@@ -25,16 +26,22 @@ import { NewChat } from '@/features/chats/components/new-chat'
 
 const UNREAD_DOT = '●'
 
-function formatUnreadBadge(unread: number): string | undefined {
+// The formatter is passed in because these are module-level helpers: the digits
+// belong to the reader's locale, which only useFormat() knows.
+function formatUnreadBadge(
+  unread: number,
+  formatNumber: (value: number) => string
+): string | undefined {
   if (unread <= 0) return undefined
-  return unread > 99 ? '99+' : String(unread)
+  return unread > 99 ? `${formatNumber(99)}+` : formatNumber(unread)
 }
 
 function formatChatSidebarBadge(
   unread: number,
-  markedUnread: boolean
+  markedUnread: boolean,
+  formatNumber: (value: number) => string
 ): string | undefined {
-  const countBadge = formatUnreadBadge(unread)
+  const countBadge = formatUnreadBadge(unread, formatNumber)
   if (countBadge) return countBadge
   if (markedUnread) return UNREAD_DOT
   return undefined
@@ -104,6 +111,7 @@ function WebsocketStatusIndicator() {
 
 function ChatLayoutInner() {
   const { t } = useLingui()
+  const { formatNumber } = useFormat()
   const chatsQuery = useChatsQuery({ refetchInterval: 60_000 })
   const chats = useMemo(
     () => chatsQuery.data?.chats ?? [],
@@ -248,7 +256,7 @@ function ChatLayoutInner() {
             : undefined,
         badge:
           chatActive(chat) && chat.id !== activeChatId
-            ? formatChatSidebarBadge(unread, markedUnread)
+            ? formatChatSidebarBadge(unread, markedUnread, formatNumber)
             : undefined,
         menu,
       }
@@ -277,6 +285,7 @@ function ChatLayoutInner() {
     }
   }, [
     chats,
+    formatNumber,
     handleMarkChatRead,
     handleMarkChatUnread,
     handlePinChat,

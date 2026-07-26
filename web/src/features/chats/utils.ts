@@ -157,3 +157,20 @@ export const revokePendingAttachmentPreview = (
     URL.revokeObjectURL(attachment.previewUrl)
   }
 }
+
+/**
+ * Accent- and case-insensitive substring match for filtering people and chats
+ * by name, so "cafe" finds "Café" and "Ana" finds "Ána". naturalCompare covers
+ * the ordering side of the same problem but cannot answer "contains".
+ */
+export function nameMatches(name: string, query: string): boolean {
+  if (!query) return true
+  return fold(name).includes(fold(query))
+}
+
+function fold(value: string): string {
+  return value
+    .normalize('NFD')
+    .replace(/\p{Diacritic}/gu, '')
+    .toLocaleLowerCase()
+}
