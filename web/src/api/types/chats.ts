@@ -116,7 +116,6 @@ export interface ChatSearchResult {
   member: string
   name: string
   body: string
-  excerpt: string
   created: number
 }
 

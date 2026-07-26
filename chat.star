@@ -356,6 +356,14 @@ _MEMBERS_MAXIMUM = 1000
 _RESYNC_AUTOMATIC = 60
 _RESYNC_MANUAL = 5
 
+# How much probing one create may do. Only non-friends are probed, so a chat
+# built from friends never meets either bound; these cap what a chat of
+# strangers can demand of one request. The time budget is the real protection -
+# an unreachable member costs seconds, not milliseconds - and the count keeps
+# the limit predictable when everyone answers quickly.
+_PROBES_MAXIMUM = 100
+_PROBES_BUDGET = 45
+
 # Preferences: incoming chat policy
 def action_preferences_get(a):
 	return {"data": {"chat_policy": a.user.preference.get("chat_policy") or "friends"}}
@@ -401,7 +409,8 @@ def action_person_search(a):
 def chat_member_allowed(user, member_id):
 	friend = mochi.service.call("friends", "get", user, member_id)
 	if friend:
-		return {"name": friend["name"]}
+		# No network cost, so callers metering probes don't count this one.
+		return {"name": friend["name"], "probed": False}
 	response = mochi.remote.request(member_id, "chat", "accept/query", {})
 	# A transport failure is not a refusal: mochi.remote.request reports
 	# it as {"error": ..., "code": ...}, never None, so an "error" key
@@ -410,7 +419,7 @@ def chat_member_allowed(user, member_id):
 	if response == None or response.get("error"):
 		return {"error": "errors.member_unreachable"}
 	if response.get("accept") and mochi.text.valid(response.get("name", ""), "name"):
-		return {"name": response["name"]}
+		return {"name": response["name"], "probed": True}
 	return {"error": "errors.does_not_accept_chats"}
 
 # Create new chat
@@ -445,7 +454,21 @@ def action_create(a):
 		a.error.label(400, "errors.too_many_members", maximum=_MEMBERS_MAXIMUM)
 		return
 
+	# Probing is the expensive part of creating a chat, and only non-friends
+	# cost anything: a friend resolves locally, a stranger costs a blocking
+	# round trip to their server - up to remote_address_wait (5s in core) when
+	# they can't be reached at all. Around eighteen unreachable strangers would
+	# therefore burn the whole 90s request budget and the action would be killed
+	# mid-loop, so bound the probing by BOTH count and elapsed time and stop
+	# with a message the user can act on. A chat of friends is unaffected; a
+	# bulk chat of strangers is built as create-then-add rather than one call.
+	probes = 0
+	started = mochi.time.now()
 	for member_id in member_ids:
+		if probes >= _PROBES_MAXIMUM or (probes and mochi.time.now() - started >= _PROBES_BUDGET):
+			a.error.label(400, "errors.too_many_to_check", maximum=_PROBES_MAXIMUM)
+			return
+
 		# Friends may always be added; a non-friend only if their
 		# chat_policy allows (verified by probing their server), so the
 		# creation fails loudly here instead of the recipient's
@@ -454,6 +477,8 @@ def action_create(a):
 		if member.get("error"):
 			a.error.label(400, member["error"])
 			return
+		if member.get("probed"):
+			probes += 1
 
 		prospective_members.append({"id": member_id, "name": member["name"]})
 
@@ -975,7 +1000,7 @@ def action_search(a):
 	# Escape LIKE wildcards in the user's term so they match literally.
 	escaped = query.replace("\\", "\\\\").replace("%", "\\%").replace("_", "\\_")
 	pattern = "%" + escaped + "%"
-	results = mochi.db.rows("select id, member, name, body, created, substr(body, 1, 200) as excerpt from messages where chat=? and body like ? escape '\\' and id not in (select message from deletions where chat=?) order by created desc limit 100", chat["id"], pattern, chat["id"])
+	results = mochi.db.rows("select id, member, name, body, created from messages where chat=? and body like ? escape '\\' and id not in (select message from deletions where chat=?) order by created desc limit 100", chat["id"], pattern, chat["id"])
 	return {"data": {"query": query, "results": results or []}}
 
 # Remove every local row for a chat (reactions, tombstones, messages,
@@ -1628,17 +1653,19 @@ def event_new(e):
 	if not mochi.text.valid(name, "name"):
 		return
 
-	# mochi.db.execute returns None, not a row count, so a duplicate can't be
-	# detected from its result - check the row explicitly. An existing active
-	# row is a genuine duplicate event (skip). An existing non-active row is a
-	# departure tombstone (we left / were removed / deleted earlier): being
-	# freshly added back reactivates it, where a bare insert-or-ignore would
-	# silently drop the re-add.
+	# Read the row rather than relying on an insert-or-ignore, because the two
+	# cases need different answers. An existing active row is a genuine
+	# duplicate event (skip). An existing non-active row is a departure
+	# tombstone - we left, were removed, or deleted the chat earlier - and
+	# being freshly added back reactivates it, subject to the guard below,
+	# where a bare insert-or-ignore would silently drop the re-add.
 	existing = mochi.db.row("select status from chats where id=?", chat)
 	if existing and existing["status"] == "active":
 		return
 
-	members = e.read()
+	# e.read() answers None at EOF, so an event sent with no stream body would
+	# raise here rather than being dropped.
+	members = e.read() or []
 	if len(members) > _MEMBERS_MAXIMUM:
 		return
 
