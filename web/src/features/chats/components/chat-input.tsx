@@ -52,10 +52,14 @@ import {
 } from '@mochi/web'
 import { Loader2, Paperclip, Send, X, Mic, Trash, Square, FileText, Music } from 'lucide-react'
 import type { PendingAttachment } from '../utils'
+import { MESSAGE_MAX_LENGTH } from '../constants/limits'
 import type { ReplyTarget } from '../utils/reply'
 import { ReplyQuoteContent } from './reply-quote-content'
 import { VoiceNotePlayer } from './audio-player'
 import { VoiceWaveform } from './voice-waveform'
+
+/** Character count appears this close to the limit, not before. */
+const MESSAGE_COUNTER_FROM = MESSAGE_MAX_LENGTH - 500
 
 /** Soft cap for voice notes — auto-stop and keep the clip. */
 const MAX_VOICE_DURATION_SECS = 300
@@ -111,7 +115,7 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(
     ref
   ) {
   const { t } = useLingui()
-  const { formatFileSize } = useFormat()
+  const { formatFileSize, formatNumber } = useFormat()
   const fileInputRef = useRef<HTMLInputElement | null>(null)
   const audioInputRef = useRef<HTMLInputElement | null>(null)
   const textareaRef = useRef<HTMLTextAreaElement | null>(null)
@@ -895,6 +899,22 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(
             }}
           />
       </div>
+      {/* Shown only as the limit approaches, so it isn't noise on every
+          message, and turns red once the send is actually blocked. */}
+      {newMessage.length >= MESSAGE_COUNTER_FROM && (
+        <p
+          className={cn(
+            'w-full pe-2 text-end text-xs tabular-nums',
+            newMessage.length > MESSAGE_MAX_LENGTH
+              ? 'text-destructive'
+              : 'text-muted-foreground'
+          )}
+        >
+          {newMessage.length > MESSAGE_MAX_LENGTH
+            ? t`Message is ${formatNumber(newMessage.length - MESSAGE_MAX_LENGTH)} characters too long`
+            : `${formatNumber(newMessage.length)}/${formatNumber(MESSAGE_MAX_LENGTH)}`}
+        </p>
+      )}
       {sendMessageErrorMessage && (
         <p className='text-destructive w-full pe-2 text-end text-xs'>
           {sendMessageErrorMessage}

@@ -26,12 +26,12 @@ msgstr "Tafadhali angalia muunganisho wako wa intaneti na ujaribu tena."
 msgid "(edited)"
 msgstr "(imehaririwa)"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:279
+#: src/routes/_authenticated/$chatId_.settings.tsx:289
 msgid "(you)"
 msgstr "(wewe)"
 
 #. placeholder {0}: deleteTargetIds?.length ?? 0
-#: src/features/chats/index.tsx:1328
+#: src/features/chats/index.tsx:1356
 msgid "{0, plural, one {Delete message?} other {Delete # messages?}}"
 msgstr "{0, plural, one {Futa ujumbe?} other {Futa jumbe #?}}"
 
@@ -43,13 +43,13 @@ msgstr "{0} (ikijumuisha wewe)"
 #. placeholder {0}: selectedIds.size
 #. placeholder {0}: selectedIds?.size ?? 0
 #: src/features/chats/components/chat-message-list.tsx:816
-#: src/features/chats/index.tsx:1198
+#: src/features/chats/index.tsx:1226
 msgid "{0} selected"
 msgstr "{0} zimechaguliwa"
 
 #. placeholder {0}: chatDetail.chat.name
-#: src/routes/_authenticated/$chatId_.settings.tsx:85
-#: src/routes/_authenticated/$chatId_.settings.tsx:124
+#: src/routes/_authenticated/$chatId_.settings.tsx:89
+#: src/routes/_authenticated/$chatId_.settings.tsx:128
 msgid "{0} settings"
 msgstr "Mipangilio ya {0}"
 
@@ -62,7 +62,7 @@ msgstr "{hiddenCount, plural, one {Onyesha faili 1 zaidi} other {Onyesha faili #
 msgid "{newMessageCount, plural, one {Jump to 1 new message} other {Jump to # new messages}}"
 msgstr "{newMessageCount, plural, one {Nenda kwenye ujumbe 1 mpya} other {Nenda kwenye jumbe # mpya}}"
 
-#: src/features/chats/index.tsx:865
+#: src/features/chats/index.tsx:869
 msgid "{skippedCount, plural, one {Skipped # file that is not audio} other {Skipped # files that are not audio}}"
 msgstr "{skippedCount, plural, one {Faili # lisilo la sauti limerukwa} other {Faili # yasiyo ya sauti yamerukwa}}"
 
@@ -74,7 +74,7 @@ msgstr "Masaa 12"
 msgid "24 hours"
 msgstr "Masaa 24"
 
-#: src/features/chats/components/chat-input.tsx:310
+#: src/features/chats/components/chat-input.tsx:314
 msgid "A recording is already in progress."
 msgstr "Kurekodi tayari kunaendelea."
 
@@ -115,7 +115,7 @@ msgid "Add"
 msgstr "Ongeza"
 
 #. placeholder {0}: friend.name
-#: src/routes/_authenticated/$chatId_.settings.tsx:475
+#: src/routes/_authenticated/$chatId_.settings.tsx:485
 msgid "Add {0} to chat"
 msgstr "Mwongeze {0} kwenye gumzo"
 
@@ -136,13 +136,13 @@ msgstr "Ongeza akaunti"
 msgid "Add an account to receive notifications and use services."
 msgstr "Ongeza akaunti ili kupokea arifa na kutumia huduma."
 
-#: src/features/chats/components/chat-input.tsx:773
-#: src/features/chats/components/chat-input.tsx:779
+#: src/features/chats/components/chat-input.tsx:777
+#: src/features/chats/components/chat-input.tsx:783
 msgid "Add attachment"
 msgstr "Ongeza kiambatisho"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:252
-#: src/routes/_authenticated/$chatId_.settings.tsx:434
+#: src/routes/_authenticated/$chatId_.settings.tsx:262
+#: src/routes/_authenticated/$chatId_.settings.tsx:444
 msgid "Add member"
 msgstr "Ongeza mwanachama"
 
@@ -172,7 +172,19 @@ msgstr "Ongeza kwenye arifa zilizopo"
 msgid "Add view"
 msgstr "Ongeza mwonekano"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:416
+#. placeholder {0}: remainder.length
+#. placeholder {1}: refused.length
+#: src/features/chats/components/new-chat.tsx:218
+msgid "Added {added} of {0} remaining people; {1} could not be added"
+msgstr "Imeongeza {added} kati ya {0} waliobaki; {1} hawakuweza kuongezwa"
+
+#. placeholder {0}: addingRemainder.done
+#. placeholder {1}: addingRemainder.total
+#: src/features/chats/components/new-chat.tsx:363
+msgid "Adding {0}/{1}..."
+msgstr "Inaongeza {0}/{1}..."
+
+#: src/routes/_authenticated/$chatId_.settings.tsx:426
 msgid "Adding member..."
 msgstr "Inaongeza mwanachama..."
 
@@ -192,7 +204,7 @@ msgstr "AI"
 msgid "All"
 msgstr "Vyote"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:463
+#: src/routes/_authenticated/$chatId_.settings.tsx:473
 msgid "All your friends are already in this chat"
 msgstr "Marafiki wako wote tayari wapo kwenye gumzo hili"
 
@@ -221,11 +233,11 @@ msgid "Anyone can start a chat with you."
 msgstr "Mtu yeyote anaweza kuanzisha gumzo nawe."
 
 #. placeholder {0}: selectedChat?.name
-#: src/features/chats/index.tsx:1296
+#: src/features/chats/index.tsx:1324
 msgid "Are you sure you want to leave \"{0}\"? You can be added back by other members."
 msgstr "Una uhakika unataka kuondoka \"{0}\"? Wanachama wengine wanaweza kukuongeza tena."
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:346
+#: src/routes/_authenticated/$chatId_.settings.tsx:356
 msgid "Are you sure you want to leave \"{chatName}\"? You can be added back by other members."
 msgstr "Una uhakika unataka kuondoka \"{chatName}\"? Wanachama wengine wanaweza kukuongeza tena."
 
@@ -234,7 +246,7 @@ msgid "Are you sure you want to log out? You will need to log in again to access
 msgstr "Una uhakika unataka kuondoka? Utahitaji kuingia tena kufikia akaunti yako."
 
 #. placeholder {0}: member?.name
-#: src/routes/_authenticated/$chatId_.settings.tsx:538
+#: src/routes/_authenticated/$chatId_.settings.tsx:548
 msgid "Are you sure you want to remove {0} from this chat?"
 msgstr "Una uhakika unataka kumwondoa {0} kwenye gumzo hili?"
 
@@ -246,16 +258,16 @@ msgstr "Pandisha"
 msgid "Ascending"
 msgstr "Kupanda"
 
-#: src/features/chats/components/chat-input.tsx:590
+#: src/features/chats/components/chat-input.tsx:594
 #: src/features/chats/components/message-quote.tsx:56
 msgid "Attachment"
 msgstr "Kiambatisho"
 
-#: src/features/chats/index.tsx:753
+#: src/features/chats/index.tsx:757
 msgid "Attachments are too large to upload. Remove or shrink files and try again."
 msgstr "Viambatisho ni vikubwa mno kupakiwa. Ondoa au punguza ukubwa wa faili kisha ujaribu tena."
 
-#: src/features/chats/components/chat-input.tsx:792
+#: src/features/chats/components/chat-input.tsx:796
 msgid "Audio"
 msgstr "Sauti"
 
@@ -267,9 +279,9 @@ msgstr "Msimbo wa mthibitishaji"
 msgid "Back"
 msgstr "Rudi"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:98
-#: src/routes/_authenticated/$chatId_.settings.tsx:109
-#: src/routes/_authenticated/$chatId_.settings.tsx:125
+#: src/routes/_authenticated/$chatId_.settings.tsx:102
+#: src/routes/_authenticated/$chatId_.settings.tsx:113
+#: src/routes/_authenticated/$chatId_.settings.tsx:129
 msgid "Back to chat"
 msgstr "Rudi kwa gumzo"
 
@@ -301,13 +313,13 @@ msgstr "Ongeza mvuto"
 #: src/features/chats/components/chat-message-list.tsx:835
 #: src/features/chats/components/chat-settings-dialog.tsx:116
 #: src/features/chats/components/forward-dialog.tsx:253
-#: src/features/chats/components/new-chat.tsx:295
-#: src/features/chats/index.tsx:1230
+#: src/features/chats/components/new-chat.tsx:354
+#: src/features/chats/index.tsx:1258
 msgid "Cancel"
 msgstr "Ghairi"
 
-#: src/features/chats/components/chat-input.tsx:600
-#: src/features/chats/components/chat-input.tsx:605
+#: src/features/chats/components/chat-input.tsx:604
+#: src/features/chats/components/chat-input.tsx:609
 msgid "Cancel reply"
 msgstr "Ghairi jibu"
 
@@ -320,22 +332,22 @@ msgstr "Kategoria ya arifa hii"
 msgid "Change notification category"
 msgstr "Badilisha kategoria ya arifa"
 
-#: src/features/chats/index.tsx:85
-#: src/features/chats/index.tsx:193
-#: src/features/chats/index.tsx:193
-#: src/features/chats/index.tsx:1016
+#: src/features/chats/index.tsx:89
+#: src/features/chats/index.tsx:197
+#: src/features/chats/index.tsx:197
+#: src/features/chats/index.tsx:1035
 msgid "Chat"
 msgstr "Gumzo"
 
-#: src/features/chats/components/new-chat.tsx:160
+#: src/features/chats/components/new-chat.tsx:195
 msgid "Chat created"
 msgstr "Gumzo limeundwa"
 
-#: src/features/chats/index.tsx:816
+#: src/features/chats/index.tsx:820
 msgid "Chat deleted"
 msgstr "Gumzo limefutwa"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:218
+#: src/routes/_authenticated/$chatId_.settings.tsx:228
 msgid "Chat ID"
 msgstr "Kitambulisho cha Gumzo"
 
@@ -347,20 +359,20 @@ msgstr "Gumzo limewekwa alama kuwa limesomwa"
 msgid "Chat marked as unread"
 msgstr "Gumzo limewekwa alama kuwa halijasomwa"
 
-#: src/features/chats/components/new-chat.tsx:279
-#: src/routes/_authenticated/$chatId_.settings.tsx:202
+#: src/features/chats/components/new-chat.tsx:338
+#: src/routes/_authenticated/$chatId_.settings.tsx:212
 msgid "Chat name"
 msgstr "Jina la gumzo"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:194
+#: src/routes/_authenticated/$chatId_.settings.tsx:198
 msgid "Chat name is required"
 msgstr "Jina la gumzo linahitajika"
 
-#: src/features/chats/components/new-chat.tsx:282
+#: src/features/chats/components/new-chat.tsx:341
 msgid "Chat name..."
 msgstr "Jina la gumzo..."
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:113
+#: src/routes/_authenticated/$chatId_.settings.tsx:117
 msgid "Chat not found"
 msgstr "Gumzo halijapatikana"
 
@@ -372,24 +384,24 @@ msgstr "Gumzo limebandikwa"
 msgid "Chat policy updated"
 msgstr "Sera ya gumzo imesasishwa"
 
-#: src/features/chats/components/new-chat.tsx:160
+#: src/features/chats/components/new-chat.tsx:195
 msgid "Chat ready"
 msgstr "Gumzo liko tayari"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:209
+#: src/routes/_authenticated/$chatId_.settings.tsx:219
 msgid "Chat renamed"
 msgstr "Gumzo limepewa jina jipya"
 
-#: src/features/chats/index.tsx:1021
-#: src/features/chats/index.tsx:1119
-#: src/routes/_authenticated/$chatId_.settings.tsx:85
-#: src/routes/_authenticated/$chatId_.settings.tsx:98
-#: src/routes/_authenticated/$chatId_.settings.tsx:109
-#: src/routes/_authenticated/$chatId_.settings.tsx:124
+#: src/features/chats/index.tsx:1040
+#: src/features/chats/index.tsx:1138
+#: src/routes/_authenticated/$chatId_.settings.tsx:89
+#: src/routes/_authenticated/$chatId_.settings.tsx:102
+#: src/routes/_authenticated/$chatId_.settings.tsx:113
+#: src/routes/_authenticated/$chatId_.settings.tsx:128
 msgid "Chat settings"
 msgstr "Mipangilio ya gumzo"
 
-#: src/features/chats/components/chat-input.tsx:798
+#: src/features/chats/components/chat-input.tsx:802
 msgid "Chat text box"
 msgstr "Kisanduku cha maandishi cha gumzo"
 
@@ -449,7 +461,7 @@ msgid "Clear filters"
 msgstr "Futa vichujio"
 
 #: src/features/chats/components/forward-dialog.tsx:199
-#: src/routes/_authenticated/$chatId_.settings.tsx:446
+#: src/routes/_authenticated/$chatId_.settings.tsx:456
 msgid "Clear search"
 msgstr "Futa utafutaji"
 
@@ -529,19 +541,19 @@ msgstr "Endelea"
 msgid "Continue with {label}"
 msgstr "Endelea na {label}"
 
-#: src/features/chats/index.tsx:644
+#: src/features/chats/index.tsx:648
 msgid "Copied"
 msgstr "Imenakiliwa"
 
 #: ../../../lib/web/src/components/ui/copy-button.tsx:63
 #: src/features/chats/components/message-hover-actions.tsx:107
-#: src/features/chats/index.tsx:1207
+#: src/features/chats/index.tsx:1235
 msgid "Copy"
 msgstr "Nakili"
 
 #. placeholder {0}: ambiguous.join(', ')
 #. placeholder {1}: unknown.join(', ')
-#: src/features/chats/index.tsx:960
+#: src/features/chats/index.tsx:975
 msgid "Could not link mentions. Multiple people share: {0}. Not in this chat: {1}. Pick from the @ list."
 msgstr "Imeshindwa kuunganisha kutajwa. Watu kadhaa wana jina moja: {0}. Hawapo kwenye gumzo hili: {1}. Chagua kutoka kwenye orodha ya @."
 
@@ -561,20 +573,20 @@ msgstr "Imeshindwa kuanza uthibitishaji upya. Tafadhali jaribu tena."
 msgid "Couldn't verify with that account. Please try again."
 msgstr "Imeshindwa kuthibitisha kwa akaunti hiyo. Tafadhali jaribu tena."
 
-#: src/features/chats/components/new-chat.tsx:207
+#: src/features/chats/components/new-chat.tsx:266
 msgid "Create a new chat"
 msgstr "Unda gumzo jipya"
 
 #: src/components/layout/chat-layout.tsx:278
-#: src/features/chats/components/new-chat.tsx:303
+#: src/features/chats/components/new-chat.tsx:366
 msgid "Create chat"
 msgstr "Unda gumzo"
 
-#: src/features/chats/components/new-chat.tsx:159
+#: src/features/chats/components/new-chat.tsx:194
 msgid "Creating chat..."
 msgstr "Inaunda gumzo..."
 
-#: src/features/chats/components/new-chat.tsx:303
+#: src/features/chats/components/new-chat.tsx:365
 msgid "Creating..."
 msgstr "Inaunda..."
 
@@ -608,18 +620,18 @@ msgid "Default AI account"
 msgstr "Akaunti chaguo-msingi ya AI"
 
 #: src/features/chats/components/message-hover-actions.tsx:146
-#: src/features/chats/index.tsx:1223
-#: src/features/chats/index.tsx:1340
+#: src/features/chats/index.tsx:1251
+#: src/features/chats/index.tsx:1368
 msgid "Delete"
 msgstr "Futa"
 
-#: src/features/chats/index.tsx:1102
-#: src/features/chats/index.tsx:1254
+#: src/features/chats/index.tsx:1121
+#: src/features/chats/index.tsx:1282
 msgid "Delete chat"
 msgstr "Futa gumzo"
 
-#: src/features/chats/index.tsx:1318
-#: src/routes/_authenticated/$chatId_.settings.tsx:368
+#: src/features/chats/index.tsx:1346
+#: src/routes/_authenticated/$chatId_.settings.tsx:378
 msgid "Delete chat history"
 msgstr "Futa historia ya gumzo"
 
@@ -627,12 +639,12 @@ msgstr "Futa historia ya gumzo"
 msgid "Delete your account on the old server"
 msgstr "Futa akaunti yako kwenye seva ya zamani"
 
-#: src/features/chats/index.tsx:815
+#: src/features/chats/index.tsx:819
 msgid "Deleting chat..."
 msgstr "Inafuta gumzo..."
 
-#: src/features/chats/index.tsx:674
-#: src/features/chats/index.tsx:1337
+#: src/features/chats/index.tsx:678
+#: src/features/chats/index.tsx:1365
 msgid "Deleting..."
 msgstr "Inafuta..."
 
@@ -663,7 +675,7 @@ msgstr "Tambua kutoka kwa kivinjari cha wavuti"
 msgid "Direction"
 msgstr "Mwelekeo"
 
-#: src/features/chats/components/new-chat.tsx:78
+#: src/features/chats/components/new-chat.tsx:88
 msgid "Directory search failed"
 msgstr "Utafutaji katika saraka umeshindwa"
 
@@ -671,8 +683,8 @@ msgstr "Utafutaji katika saraka umeshindwa"
 msgid "Disagree"
 msgstr "Sikubaliani"
 
-#: src/features/chats/components/chat-input.tsx:724
-#: src/features/chats/components/chat-input.tsx:729
+#: src/features/chats/components/chat-input.tsx:728
+#: src/features/chats/components/chat-input.tsx:733
 msgid "Discard recording"
 msgstr "Tupa rekodi"
 
@@ -689,7 +701,7 @@ msgstr "Ondoa"
 msgid "Displays the mobile sidebar."
 msgstr "Huonyesha utepe wa simu."
 
-#: src/features/chats/components/chat-input.tsx:786
+#: src/features/chats/components/chat-input.tsx:790
 msgid "Document"
 msgstr "Hati"
 
@@ -724,7 +736,7 @@ msgid "Edit {label}"
 msgstr "Hariri {label}"
 
 #. placeholder {0}: formatVideoDuration(recordingDuration)
-#: src/features/chats/components/chat-input.tsx:737
+#: src/features/chats/components/chat-input.tsx:741
 msgid "Elapsed {0}"
 msgstr "Imepita {0}"
 
@@ -767,11 +779,11 @@ msgstr "Kubwa zaidi"
 msgid "Failed to add account"
 msgstr "Imeshindwa kuongeza akaunti"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:418
+#: src/routes/_authenticated/$chatId_.settings.tsx:428
 msgid "Failed to add member"
 msgstr "Imeshindwa kuongeza mwanachama"
 
-#: src/features/chats/index.tsx:645
+#: src/features/chats/index.tsx:649
 msgid "Failed to copy"
 msgstr "Imeshindwa kunakili"
 
@@ -779,19 +791,19 @@ msgstr "Imeshindwa kunakili"
 msgid "Failed to copy message"
 msgstr "Imeshindwa kunakili ujumbe"
 
-#: src/features/chats/components/new-chat.tsx:161
+#: src/features/chats/components/new-chat.tsx:196
 msgid "Failed to create chat"
 msgstr "Imeshindwa kuunda gumzo"
 
-#: src/features/chats/index.tsx:676
+#: src/features/chats/index.tsx:680
 msgid "Failed to delete"
 msgstr "Imeshindwa kufuta"
 
-#: src/features/chats/index.tsx:817
+#: src/features/chats/index.tsx:821
 msgid "Failed to delete chat"
 msgstr "Imeshindwa kufuta gumzo"
 
-#: src/features/chats/index.tsx:584
+#: src/features/chats/index.tsx:588
 msgid "Failed to edit message"
 msgstr "Imeshindwa kuhariri ujumbe"
 
@@ -799,8 +811,8 @@ msgstr "Imeshindwa kuhariri ujumbe"
 msgid "Failed to forward"
 msgstr "Imeshindwa kusambaza"
 
-#: src/features/chats/index.tsx:798
-#: src/routes/_authenticated/$chatId_.settings.tsx:329
+#: src/features/chats/index.tsx:802
+#: src/routes/_authenticated/$chatId_.settings.tsx:339
 msgid "Failed to leave chat"
 msgstr "Imeshindwa kuondoka kwenye gumzo"
 
@@ -812,7 +824,7 @@ msgstr "Imeshindwa kupakia sera yako ya gumzo"
 msgid "Failed to mark chat as read"
 msgstr "Imeshindwa kuweka gumzo alama kuwa limesomwa"
 
-#: src/features/chats/index.tsx:628
+#: src/features/chats/index.tsx:632
 msgid "Failed to react"
 msgstr "Imeshindwa kuitikia"
 
@@ -820,11 +832,11 @@ msgstr "Imeshindwa kuitikia"
 msgid "Failed to remove account"
 msgstr "Imeshindwa kuondoa akaunti"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:524
+#: src/routes/_authenticated/$chatId_.settings.tsx:534
 msgid "Failed to remove member"
 msgstr "Imeshindwa kuondoa mwanachama"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:211
+#: src/routes/_authenticated/$chatId_.settings.tsx:221
 msgid "Failed to rename chat"
 msgstr "Imeshindwa kubadilisha jina la gumzo"
 
@@ -832,7 +844,7 @@ msgstr "Imeshindwa kubadilisha jina la gumzo"
 msgid "Failed to save"
 msgstr "Imeshindwa kuhifadhi"
 
-#: src/features/chats/index.tsx:752
+#: src/features/chats/index.tsx:756
 msgid "Failed to send message"
 msgstr "Imeshindwa kutuma ujumbe"
 
@@ -840,7 +852,7 @@ msgstr "Imeshindwa kutuma ujumbe"
 msgid "Failed to send verification code"
 msgstr "Imeshindwa kutuma msimbo wa uthibitisho"
 
-#: src/features/chats/index.tsx:199
+#: src/features/chats/index.tsx:203
 msgid "Failed to start chat"
 msgstr "Imeshindwa kuanzisha gumzo"
 
@@ -862,7 +874,7 @@ msgstr "Inayoelea"
 
 #: src/features/chats/components/forward-dialog.tsx:264
 #: src/features/chats/components/message-hover-actions.tsx:138
-#: src/features/chats/index.tsx:1215
+#: src/features/chats/index.tsx:1243
 msgid "Forward"
 msgstr "Sambaza"
 
@@ -883,7 +895,7 @@ msgid "Friday"
 msgstr "Ijumaa"
 
 #: src/features/chats/components/forward-dialog.tsx:237
-#: src/routes/_authenticated/$chatId_.settings.tsx:469
+#: src/routes/_authenticated/$chatId_.settings.tsx:479
 msgid "Friends"
 msgstr "Marafiki"
 
@@ -908,8 +920,8 @@ msgstr "Kutoka mandhari"
 msgid "Full layout"
 msgstr "Mpangilio kamili"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:129
-#: src/routes/_authenticated/$chatId_.settings.tsx:200
+#: src/routes/_authenticated/$chatId_.settings.tsx:133
+#: src/routes/_authenticated/$chatId_.settings.tsx:210
 msgid "General"
 msgstr "Jumla"
 
@@ -967,7 +979,7 @@ msgid "Imperial"
 msgstr "Imperial"
 
 #: src/features/chats/components/chat-settings-dialog.tsx:80
-#: src/features/chats/index.tsx:1125
+#: src/features/chats/index.tsx:1144
 msgid "Incoming chats"
 msgstr "Gumzo zinazoingia"
 
@@ -1006,32 +1018,32 @@ msgstr "Mpangilio"
 msgid "Learn more"
 msgstr "Jifunze zaidi"
 
-#: src/features/chats/index.tsx:1304
+#: src/features/chats/index.tsx:1332
 msgid "Leave"
 msgstr "Ondoka"
 
-#: src/features/chats/index.tsx:1109
-#: src/routes/_authenticated/$chatId_.settings.tsx:354
+#: src/features/chats/index.tsx:1128
+#: src/routes/_authenticated/$chatId_.settings.tsx:364
 msgid "Leave chat"
 msgstr "Ondoka kwenye gumzo"
 
-#: src/features/chats/index.tsx:1295
-#: src/routes/_authenticated/$chatId_.settings.tsx:345
+#: src/features/chats/index.tsx:1323
+#: src/routes/_authenticated/$chatId_.settings.tsx:355
 msgid "Leave chat?"
 msgstr "Ondoka kwenye gumzo?"
 
-#: src/features/chats/index.tsx:796
-#: src/routes/_authenticated/$chatId_.settings.tsx:327
+#: src/features/chats/index.tsx:800
+#: src/routes/_authenticated/$chatId_.settings.tsx:337
 msgid "Leaving chat..."
 msgstr "Inaondoka kwenye gumzo..."
 
-#: src/features/chats/index.tsx:1301
-#: src/routes/_authenticated/$chatId_.settings.tsx:351
+#: src/features/chats/index.tsx:1329
+#: src/routes/_authenticated/$chatId_.settings.tsx:361
 msgid "Leaving..."
 msgstr "Inaondoka..."
 
-#: src/features/chats/index.tsx:797
-#: src/routes/_authenticated/$chatId_.settings.tsx:328
+#: src/features/chats/index.tsx:801
+#: src/routes/_authenticated/$chatId_.settings.tsx:338
 msgid "Left chat"
 msgstr "Imeondoka kwenye gumzo"
 
@@ -1109,15 +1121,15 @@ msgstr "Inaweka kuwa imesomwa..."
 msgid "Medium"
 msgstr "Wastani"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:417
+#: src/routes/_authenticated/$chatId_.settings.tsx:427
 msgid "Member added"
 msgstr "Mwanachama ameongezwa"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:523
+#: src/routes/_authenticated/$chatId_.settings.tsx:533
 msgid "Member removed"
 msgstr "Mwanachama ameondolewa"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:248
+#: src/routes/_authenticated/$chatId_.settings.tsx:258
 msgid "Members"
 msgstr "Wanachama"
 
@@ -1138,16 +1150,21 @@ msgstr "Vitendo vya ujumbe"
 msgid "Message copied"
 msgstr "Ujumbe umenakiliwa"
 
-#: src/features/chats/index.tsx:754
+#: src/features/chats/index.tsx:758
 msgid "Message could not be sent. Attachments may be too large, or your connection failed. Try smaller files."
 msgstr "Ujumbe haukuweza kutumwa. Huenda viambatisho ni vikubwa mno, au muunganisho wako ulishindwa. Jaribu faili ndogo zaidi."
 
-#: src/features/chats/index.tsx:675
+#: src/features/chats/index.tsx:679
 msgid "Message deleted"
 msgstr "Ujumbe umefutwa"
 
+#. placeholder {0}: formatNumber(newMessage.length - MESSAGE_MAX_LENGTH)
+#: src/features/chats/components/chat-input.tsx:914
+msgid "Message is {0} characters too long"
+msgstr "Ujumbe ni mrefu kwa herufi {0}"
+
 #: src/features/chats/components/message-quote.tsx:60
-#: src/features/chats/index.tsx:696
+#: src/features/chats/index.tsx:700
 msgid "Message not available"
 msgstr "Ujumbe haupatikani"
 
@@ -1155,37 +1172,37 @@ msgstr "Ujumbe haupatikani"
 msgid "Metric"
 msgstr "Metriki"
 
-#: src/features/chats/components/chat-input.tsx:317
+#: src/features/chats/components/chat-input.tsx:321
 msgid "Microphone access denied"
 msgstr "Ufikiaji wa maikrofoni umekataliwa"
 
-#: src/features/chats/components/chat-input.tsx:294
+#: src/features/chats/components/chat-input.tsx:298
 msgid "Microphone access is blocked here. Please update the app and try again."
 msgstr "Ufikiaji wa maikrofoni umezuiwa hapa. Tafadhali sasisha programu kisha ujaribu tena."
 
-#: src/features/chats/components/chat-input.tsx:291
-#: src/features/chats/components/chat-input.tsx:338
-#: src/features/chats/components/chat-input.tsx:385
+#: src/features/chats/components/chat-input.tsx:295
+#: src/features/chats/components/chat-input.tsx:342
+#: src/features/chats/components/chat-input.tsx:389
 msgid "Microphone access requires a secure context (HTTPS or localhost)"
 msgstr "Ufikiaji wa maikrofoni unahitaji mazingira salama (HTTPS au localhost)"
 
-#: src/features/chats/components/chat-input.tsx:297
+#: src/features/chats/components/chat-input.tsx:301
 msgid "Microphone access was blocked by the browser"
 msgstr "Kivinjari kimezuia ufikiaji wa maikrofoni"
 
-#: src/features/chats/components/chat-input.tsx:278
+#: src/features/chats/components/chat-input.tsx:282
 msgid "Microphone constraints could not be satisfied"
 msgstr "Mahitaji ya maikrofoni hayakuweza kutimizwa"
 
-#: src/features/chats/components/chat-input.tsx:314
+#: src/features/chats/components/chat-input.tsx:318
 msgid "Microphone error: {message}"
 msgstr "Hitilafu ya maikrofoni: {message}"
 
-#: src/features/chats/components/chat-input.tsx:274
+#: src/features/chats/components/chat-input.tsx:278
 msgid "Microphone is already in use"
 msgstr "Maikrofoni tayari inatumika"
 
-#: src/features/chats/components/chat-input.tsx:266
+#: src/features/chats/components/chat-input.tsx:270
 msgid "Microphone permission denied"
 msgstr "Ruhusa ya maikrofoni imekataliwa"
 
@@ -1194,13 +1211,17 @@ msgid "Monday"
 msgstr "Jumatatu"
 
 #. placeholder {0}: ambiguous.join(', ')
-#: src/features/chats/index.tsx:952
+#: src/features/chats/index.tsx:967
 msgid "Multiple people share these names: {0}. Pick them from the @ list so the right person is notified."
 msgstr "Watu kadhaa wana majina haya: {0}. Wachague kutoka kwenye orodha ya @ ili mtu sahihi apate arifa."
 
+#: src/routes/_authenticated/$chatId_.settings.tsx:200
+msgid "Name must be {CHAT_NAME_MAX_LENGTH} characters or less"
+msgstr "Jina lazima liwe na herufi {CHAT_NAME_MAX_LENGTH} au chini"
+
 #: src/routes/_authenticated/$chatId_.settings.tsx:195
-msgid "Name must be 1000 characters or less"
-msgstr "Jina lazima liwe na herufi 1000 au chini"
+#~ msgid "Name must be 1000 characters or less"
+#~ msgstr "Jina lazima liwe na herufi 1000 au chini"
 
 #: ../../../lib/web/src/features/errors/general-error.tsx:53
 #: ../../../lib/web/src/lib/api-response-interceptors.ts:303
@@ -1213,7 +1234,7 @@ msgstr "Mpya"
 
 #: src/features/chats/components/chat-empty-state.tsx:27
 #: src/features/chats/components/chat-empty-state.tsx:43
-#: src/features/chats/components/new-chat.tsx:204
+#: src/features/chats/components/new-chat.tsx:263
 msgid "New chat"
 msgstr "Mazungumzo mapya"
 
@@ -1238,15 +1259,15 @@ msgstr "Hakuna gumzo la kusambaza"
 msgid "No connected accounts"
 msgstr "Hakuna akaunti zilizounganishwa"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:459
+#: src/routes/_authenticated/$chatId_.settings.tsx:469
 msgid "No friends available"
 msgstr "Hakuna marafiki wanaopatikana"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:459
+#: src/routes/_authenticated/$chatId_.settings.tsx:469
 msgid "No friends found"
 msgstr "Hakuna marafiki waliopatikana"
 
-#: src/features/chats/components/new-chat.tsx:235
+#: src/features/chats/components/new-chat.tsx:294
 msgid "No friends yet"
 msgstr "Hakuna marafiki bado"
 
@@ -1258,11 +1279,11 @@ msgstr "Hakuna vikundi vinavyopatikana"
 msgid "No messages yet"
 msgstr "Hakuna ujumbe bado"
 
-#: src/features/chats/components/chat-input.tsx:270
+#: src/features/chats/components/chat-input.tsx:274
 msgid "No microphone found"
 msgstr "Hakuna maikrofoni iliyopatikana"
 
-#: src/features/chats/components/new-chat.tsx:229
+#: src/features/chats/components/new-chat.tsx:288
 msgid "No people found"
 msgstr "Hakuna watu waliopatikana"
 
@@ -1313,7 +1334,7 @@ msgstr "Haikupatikana"
 msgid "Not set"
 msgstr "Haijawekwa"
 
-#: src/features/chats/index.tsx:640
+#: src/features/chats/index.tsx:644
 msgid "Nothing to copy"
 msgstr "Hakuna cha kunakili"
 
@@ -1337,7 +1358,7 @@ msgstr "Marafiki pekee ndio wanaweza kuanzisha gumzo nawe (chaguo-msingi)."
 msgid "Oops! Page Not Found!"
 msgstr "Lo! Ukurasa Haukupatikana!"
 
-#: src/features/chats/components/new-chat.tsx:269
+#: src/features/chats/components/new-chat.tsx:328
 msgid "Open"
 msgstr "Fungua"
 
@@ -1351,7 +1372,7 @@ msgstr "Fungua vitendo vya akaunti"
 msgid "Open actions"
 msgstr "Fungua vitendo"
 
-#: src/features/chats/index.tsx:1094
+#: src/features/chats/index.tsx:1113
 msgid "Open chat actions"
 msgstr "Fungua vitendo vya mazungumzo"
 
@@ -1365,7 +1386,7 @@ msgstr "Fungua urambazaji"
 msgid "Open navigation menu"
 msgstr "Fungua menyu ya urambazaji"
 
-#: src/features/chats/components/new-chat.tsx:245
+#: src/features/chats/components/new-chat.tsx:304
 msgid "Open people"
 msgstr "Fungua Watu"
 
@@ -1406,7 +1427,7 @@ msgstr "Simamisha sauti kwa muda"
 msgid "Pause voice note"
 msgstr "Simamisha ujumbe wa sauti kwa muda"
 
-#: src/features/chats/components/new-chat.tsx:214
+#: src/features/chats/components/new-chat.tsx:273
 msgid "People"
 msgstr "Watu"
 
@@ -1427,11 +1448,11 @@ msgstr "Cheza ujumbe wa sauti"
 msgid "Please check your internet connection and try again."
 msgstr "Tafadhali angalia muunganisho wako wa intaneti na ujaribu tena."
 
-#: src/features/chats/components/new-chat.tsx:148
+#: src/features/chats/components/new-chat.tsx:161
 msgid "Please provide a chat name"
 msgstr "Tafadhali toa jina la mazungumzo"
 
-#: src/features/chats/components/new-chat.tsx:138
+#: src/features/chats/components/new-chat.tsx:151
 msgid "Please select at least one person"
 msgstr "Tafadhali chagua angalau mtu mmoja"
 
@@ -1479,28 +1500,28 @@ msgstr "Soma zaidi"
 msgid "Recommended"
 msgstr "Inapendekezwa"
 
-#: src/features/chats/components/chat-input.tsx:845
-#: src/features/chats/components/chat-input.tsx:850
+#: src/features/chats/components/chat-input.tsx:849
+#: src/features/chats/components/chat-input.tsx:854
 msgid "Record voice note"
 msgstr "Rekodi ujumbe wa sauti"
 
-#: src/features/chats/components/chat-input.tsx:306
+#: src/features/chats/components/chat-input.tsx:310
 msgid "Recording failed. Please try again."
 msgstr "Kurekodi kumeshindikana. Tafadhali jaribu tena."
 
-#: src/features/chats/components/chat-input.tsx:322
+#: src/features/chats/components/chat-input.tsx:326
 msgid "Recording is too large to send"
 msgstr "Rekodi ni kubwa mno kutumwa"
 
-#: src/features/chats/components/chat-input.tsx:302
+#: src/features/chats/components/chat-input.tsx:306
 msgid "Recording produced no audio"
 msgstr "Rekodi haina sauti"
 
-#: src/features/chats/components/chat-input.tsx:228
+#: src/features/chats/components/chat-input.tsx:232
 msgid "Recording stopped at the 5-minute limit"
 msgstr "Kurekodi kumesimama kwenye kikomo cha dakika 5"
 
-#: src/features/chats/components/chat-input.tsx:714
+#: src/features/chats/components/chat-input.tsx:718
 msgid "Recording voice note"
 msgstr "Inarekodi ujumbe wa sauti"
 
@@ -1523,13 +1544,13 @@ msgstr "Linganifu ndani ya saa 24, vinginevyo kamili"
 
 #: ../../../lib/web/src/features/access/access-list.tsx:265
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:180
-#: src/routes/_authenticated/$chatId_.settings.tsx:546
+#: src/routes/_authenticated/$chatId_.settings.tsx:556
 msgid "Remove"
 msgstr "Ondoa"
 
 #. placeholder {0}: attachment.file.name
 #. placeholder {0}: reaction.label
-#: src/features/chats/components/chat-input.tsx:692
+#: src/features/chats/components/chat-input.tsx:696
 #: src/features/chats/components/message-reaction-bar.tsx:121
 msgid "Remove {0}"
 msgstr "Ondoa {0}"
@@ -1552,7 +1573,7 @@ msgstr "Ondoa sauti"
 msgid "Remove interest"
 msgstr "Ondoa shauku"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:537
+#: src/routes/_authenticated/$chatId_.settings.tsx:547
 msgid "Remove member?"
 msgstr "Ondoa mwanachama?"
 
@@ -1560,15 +1581,15 @@ msgstr "Ondoa mwanachama?"
 msgid "Remove voice note"
 msgstr "Ondoa ujumbe wa sauti"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:522
+#: src/routes/_authenticated/$chatId_.settings.tsx:532
 msgid "Removing member..."
 msgstr "Inaondoa mwanachama..."
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:543
+#: src/routes/_authenticated/$chatId_.settings.tsx:553
 msgid "Removing..."
 msgstr "Inaondoa..."
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:208
+#: src/routes/_authenticated/$chatId_.settings.tsx:218
 msgid "Renaming chat..."
 msgstr "Inabadilisha jina la gumzo..."
 
@@ -1577,7 +1598,7 @@ msgid "Reply"
 msgstr "Jibu"
 
 #. placeholder {0}: replyTo.name
-#: src/features/chats/components/chat-input.tsx:581
+#: src/features/chats/components/chat-input.tsx:585
 msgid "Replying to {0}"
 msgstr "Unamjibu {0}"
 
@@ -1641,7 +1662,7 @@ msgstr "Tafuta marudio..."
 msgid "Search for origin..."
 msgstr "Tafuta chanzo..."
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:445
+#: src/routes/_authenticated/$chatId_.settings.tsx:455
 msgid "Search friends…"
 msgstr "Tafuta marafiki…"
 
@@ -1649,7 +1670,7 @@ msgstr "Tafuta marafiki…"
 msgid "Search in chat..."
 msgstr "Tafuta kwenye gumzo..."
 
-#: src/features/chats/index.tsx:1084
+#: src/features/chats/index.tsx:1103
 msgid "Search messages"
 msgstr "Tafuta jumbe"
 
@@ -1687,7 +1708,7 @@ msgstr "Chagua"
 msgid "Select a chat"
 msgstr "Chagua mazungumzo"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:437
+#: src/routes/_authenticated/$chatId_.settings.tsx:447
 msgid "Select a friend to add to this chat."
 msgstr "Chagua rafiki wa kuongeza kwenye mazungumzo haya."
 
@@ -1719,7 +1740,7 @@ msgstr "Chagua zilizopakiwa"
 msgid "Select message"
 msgstr "Chagua ujumbe"
 
-#: src/features/chats/components/new-chat.tsx:228
+#: src/features/chats/components/new-chat.tsx:287
 msgid "Select people..."
 msgstr "Chagua watu..."
 
@@ -1739,6 +1760,10 @@ msgstr "Chagua mapendeleo ya mandhari"
 #~ msgid "selected"
 #~ msgstr "zimechaguliwa"
 
+#: src/features/chats/index.tsx:1206
+msgid "Selected the newest {BULK_MESSAGES_MAX} messages, the most that can be forwarded or deleted at once"
+msgstr "Imechagua ujumbe {BULK_MESSAGES_MAX} mpya zaidi, idadi kubwa zaidi inayoweza kusambazwa au kufutwa kwa wakati mmoja"
+
 #: src/features/chats/components/chat-message-list.tsx:824
 msgid "Selects messages loaded so far"
 msgstr "Huchagua jumbe zilizopakiwa hadi sasa"
@@ -1751,8 +1776,8 @@ msgstr "Tuma tena"
 msgid "Send email"
 msgstr "Tuma barua pepe"
 
-#: src/features/chats/components/chat-input.tsx:860
-#: src/features/chats/components/chat-input.tsx:869
+#: src/features/chats/components/chat-input.tsx:864
+#: src/features/chats/components/chat-input.tsx:873
 msgid "Send message"
 msgstr "Tuma ujumbe"
 
@@ -1831,7 +1856,7 @@ msgstr "Pana"
 msgid "Start a conversation"
 msgstr "Anza mazungumzo"
 
-#: src/features/chats/index.tsx:196
+#: src/features/chats/index.tsx:200
 msgid "Starting chat..."
 msgstr "Inaanzisha gumzo..."
 
@@ -1839,8 +1864,8 @@ msgstr "Inaanzisha gumzo..."
 msgid "Stay tuned though!"
 msgstr "Endelea kufuatilia!"
 
-#: src/features/chats/components/chat-input.tsx:754
-#: src/features/chats/components/chat-input.tsx:759
+#: src/features/chats/components/chat-input.tsx:758
+#: src/features/chats/components/chat-input.tsx:763
 msgid "Stop recording"
 msgstr "Simamisha kurekodi"
 
@@ -1880,6 +1905,15 @@ msgstr "Masharti na vigezo"
 msgid "That code is incorrect or has expired."
 msgstr "Msimbo huo si sahihi au umekwisha muda wake."
 
+#: src/features/chats/components/new-chat.tsx:167
+msgid "The chat name can be at most {CHAT_NAME_MAX_LENGTH} characters"
+msgstr "Jina la gumzo linaweza kuwa na herufi {CHAT_NAME_MAX_LENGTH} kwa juu zaidi"
+
+#: src/features/chats/components/new-chat.tsx:173
+#: src/routes/_authenticated/$chatId_.settings.tsx:204
+msgid "The chat name cannot contain < or >"
+msgstr "Jina la gumzo haliwezi kuwa na < au >"
+
 #: ../../../lib/web/src/features/errors/general-error.tsx:68
 msgid "The requested content could not be found."
 msgstr "Maudhui yaliyoombwa hayakupatikana."
@@ -1893,19 +1927,19 @@ msgid "Theme Settings"
 msgstr "Mipangilio ya Mandhari"
 
 #. placeholder {0}: unknown.join(', ')
-#: src/features/chats/index.tsx:956
+#: src/features/chats/index.tsx:971
 msgid "These names are not in this chat: {0}. Pick from the @ list or remove them."
 msgstr "Majina haya hayapo kwenye gumzo hili: {0}. Chagua kutoka kwenye orodha ya @ au yaondoe."
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:161
+#: src/routes/_authenticated/$chatId_.settings.tsx:165
 msgid "this chat"
 msgstr "gumzo hili"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:114
+#: src/routes/_authenticated/$chatId_.settings.tsx:118
 msgid "This chat may have been deleted or you don't have access to it"
 msgstr "Gumzo hili huenda limefutwa au huna ufikiaji"
 
-#: src/features/chats/index.tsx:1332
+#: src/features/chats/index.tsx:1360
 msgid "This deletes the message for everyone and cannot be undone."
 msgstr "Hii itafuta ujumbe kwa kila mtu na haiwezi kutenduliwa."
 
@@ -1961,7 +1995,7 @@ msgstr "Juu"
 msgid "Travelling"
 msgstr "Kusafiri"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:462
+#: src/routes/_authenticated/$chatId_.settings.tsx:472
 msgid "Try a different search term"
 msgstr "Jaribu neno la utafutaji tofauti"
 
@@ -1992,11 +2026,11 @@ msgstr "Andika kutafuta watumiaji"
 msgid "Type to search..."
 msgstr "Andika kutafuta..."
 
-#: src/features/chats/components/chat-input.tsx:805
+#: src/features/chats/components/chat-input.tsx:809
 msgid "Type your message…"
 msgstr "Andika ujumbe wako…"
 
-#: src/features/chats/components/chat-input.tsx:804
+#: src/features/chats/components/chat-input.tsx:808
 msgid "Type your reply…"
 msgstr "Andika jibu lako…"
 
@@ -2085,16 +2119,16 @@ msgstr "Tazama arifa zote"
 msgid "Voice note waveform"
 msgstr "Umbo la mawimbi la ujumbe wa sauti"
 
-#: src/features/chats/components/chat-input.tsx:365
+#: src/features/chats/components/chat-input.tsx:369
 msgid "Voice recording is currently unavailable. Please check your setup and try again."
 msgstr "Kurekodi sauti hakupatikani kwa sasa. Tafadhali kagua mipangilio yako kisha ujaribu tena."
 
-#: src/features/chats/components/chat-input.tsx:286
-#: src/features/chats/components/chat-input.tsx:391
+#: src/features/chats/components/chat-input.tsx:290
+#: src/features/chats/components/chat-input.tsx:395
 msgid "Voice recording is not supported in this browser"
 msgstr "Kurekodi sauti hakutumiki kwenye kivinjari hiki"
 
-#: src/features/chats/components/chat-input.tsx:261
+#: src/features/chats/components/chat-input.tsx:265
 msgid "Voice recording isn't available in this app version. Please update the app and try again."
 msgstr "Kurekodi sauti hakupatikani kwenye toleo hili la programu. Tafadhali sasisha programu kisha ujaribu tena."
 
@@ -2110,19 +2144,27 @@ msgstr "Tovuti iko chini ya matengenezo!"
 msgid "Wednesday"
 msgstr "Jumatano"
 
-#: src/features/chats/index.tsx:475
+#: src/features/chats/index.tsx:479
 msgid "You"
 msgstr "Wewe"
 
-#: src/features/chats/components/new-chat.tsx:143
+#: src/features/chats/components/new-chat.tsx:156
 msgid "You already have a chat with this friend"
 msgstr "Tayari una mazungumzo na rafiki huyu"
 
-#: src/features/chats/components/new-chat.tsx:257
+#: src/features/chats/components/new-chat.tsx:316
 msgid "You already have chats with:"
 msgstr "Tayari una magumzo na:"
 
-#: src/features/chats/index.tsx:657
+#: src/features/chats/index.tsx:954
+msgid "You can attach at most {CAPTIONS_MAX} files to a message"
+msgstr "Unaweza kuambatisha faili {CAPTIONS_MAX} kwa juu zaidi kwenye ujumbe"
+
+#: src/features/chats/index.tsx:950
+msgid "You can mention at most {MENTIONS_MAX} people in a message"
+msgstr "Unaweza kutaja watu {MENTIONS_MAX} kwa juu zaidi katika ujumbe"
+
+#: src/features/chats/index.tsx:661
 msgid "You can only delete your own messages"
 msgstr "Unaweza kufuta jumbe zako pekee"
 
@@ -2130,11 +2172,11 @@ msgstr "Unaweza kufuta jumbe zako pekee"
 msgid "You do not have access to this section."
 msgstr "Huna ruhusa ya kufikia sehemu hii."
 
-#: src/features/chats/index.tsx:1241
+#: src/features/chats/index.tsx:1269
 msgid "You left this chat"
 msgstr "Umeondoka kwenye gumzo hili"
 
-#: src/features/chats/index.tsx:1240
+#: src/features/chats/index.tsx:1268
 msgid "You were removed from this chat"
 msgstr "Umeondolewa kwenye gumzo hili"
 

@@ -36,6 +36,10 @@ import {
 } from '@mochi/web'
 import { nameMatches } from '@/features/chats/utils'
 import {
+  CHAT_NAME_FORBIDDEN,
+  CHAT_NAME_MAX_LENGTH,
+} from '@/features/chats/constants/limits'
+import {
   Loader2,
   MessageCircle,
   UserMinus,
@@ -192,7 +196,13 @@ function ChatNameSection({ chatId, name }: { chatId: string, name: string }) {
 
   const validateName = (value: string): string | null => {
     if (!value.trim()) return t`Chat name is required`
-    if (value.length > 1000) return t`Name must be 1000 characters or less`
+    if (value.length > CHAT_NAME_MAX_LENGTH) {
+      return t`Name must be ${CHAT_NAME_MAX_LENGTH} characters or less`
+    }
+    // The server's name pattern excludes these, so the rename would 400.
+    if (CHAT_NAME_FORBIDDEN.test(value)) {
+      return t`The chat name cannot contain < or >`
+    }
     return null
   }
 

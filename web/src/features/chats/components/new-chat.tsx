@@ -27,6 +27,11 @@ import { Loader2, MessageCircle, UserPlus } from 'lucide-react'
 import { useSidebarContext } from '@/context/sidebar-context'
 import { useNewChatFriendsQuery, useCreateChatMutation } from '@/hooks/useChats'
 import { chatsApi } from '@/api/chats'
+import {
+  CHAT_NAME_FORBIDDEN,
+  CHAT_NAME_MAX_LENGTH,
+  CREATE_NON_FRIENDS_MAX,
+} from '../constants/limits'
 
 export function NewChat() {
   const { t } = useLingui()
@@ -37,6 +42,11 @@ export function NewChat() {
   }
   const [selectedFriends, setSelectedFriends] = useState<string[]>([])
   const [chatName, setChatName] = useState('')
+  /** Progress while adding the members that did not fit in the create. */
+  const [addingRemainder, setAddingRemainder] = useState<{
+    done: number
+    total: number
+  } | null>(null)
   const [friendsPickerOpen, setFriendsPickerOpen] = useState(false)
 
   const handleOpenChat = (chatId: string) => {
@@ -111,11 +121,13 @@ export function NewChat() {
       .filter(Boolean) as string[]
 
     if (selectedFriends.length === 1) {
-      setChatName(selectedNames[0] || '')
+      setChatName((selectedNames[0] || '').slice(0, CHAT_NAME_MAX_LENGTH))
     } else {
       const allNames = myName ? [...selectedNames, myName] : selectedNames
       allNames.sort((a, b) => naturalCompare(a, b))
-      setChatName(allNames.join(', '))
+      // A large group's joined names run past the server's limit on their own,
+      // so the autofill must not produce a name it would then reject.
+      setChatName(allNames.join(', ').slice(0, CHAT_NAME_MAX_LENGTH))
     }
   }, [selectedFriends, friends, myName, memberName])
 
@@ -131,7 +143,8 @@ export function NewChat() {
     selectedFriends.length > 0 &&
     isChatNameValid &&
     !hasExistingDirectChat &&
-    !createChatMutation.isPending
+    !createChatMutation.isPending &&
+    addingRemainder === null
 
   const handleCreateChat = async () => {
     if (selectedFriends.length === 0) {
@@ -149,10 +162,32 @@ export function NewChat() {
       return
     }
 
+    if (trimmedChatName.length > CHAT_NAME_MAX_LENGTH) {
+      toast.error(
+        t`The chat name can be at most ${CHAT_NAME_MAX_LENGTH} characters`
+      )
+      return
+    }
+
+    if (CHAT_NAME_FORBIDDEN.test(trimmedChatName)) {
+      toast.error(t`The chat name cannot contain < or >`)
+      return
+    }
+
+    // Only non-friends cost the server a probe, and it stops after
+    // CREATE_NON_FRIENDS_MAX of them. Put the friends and the first batch of
+    // non-friends in the create, then add the remainder one at a time - each
+    // of those is its own bounded request.
+    const friendIds = new Set(friends.map((f) => f.id))
+    const withFriends = selectedFriends.filter((id) => friendIds.has(id))
+    const strangers = selectedFriends.filter((id) => !friendIds.has(id))
+    const firstBatch = strangers.slice(0, CREATE_NON_FRIENDS_MAX)
+    const remainder = strangers.slice(CREATE_NON_FRIENDS_MAX)
+
     try {
       const data = await toastAction(
         createChatMutation.mutateAsync({
-          members: selectedFriends.join(','),
+          members: [...withFriends, ...firstBatch].join(','),
           name: trimmedChatName,
         }),
         {
@@ -161,6 +196,30 @@ export function NewChat() {
           error: (error) => getErrorMessage(error, t`Failed to create chat`),
         }
       )
+
+      if (remainder.length > 0 && data.id) {
+        setAddingRemainder({ done: 0, total: remainder.length })
+        let added = 0
+        const refused: string[] = []
+        for (const memberId of remainder) {
+          try {
+            await chatsApi.addMember(data.id, { member: memberId })
+            added += 1
+          } catch {
+            // Individually, not fatally: someone whose policy refuses us or
+            // whose server is unreachable should not stop the rest.
+            refused.push(memberId)
+          }
+          setAddingRemainder({ done: added + refused.length, total: remainder.length })
+        }
+        setAddingRemainder(null)
+        if (refused.length > 0) {
+          toast.warning(
+            t`Added ${added} of ${remainder.length} remaining people; ${refused.length} could not be added`
+          )
+        }
+      }
+
       onOpenChange(false)
       if (data.id) {
         void navigate({
@@ -295,12 +354,16 @@ export function NewChat() {
             <Trans>Cancel</Trans>
           </Button>
           <Button onClick={handleCreateChat} disabled={!canSubmit}>
-            {createChatMutation.isPending ? (
+            {createChatMutation.isPending || addingRemainder ? (
               <Loader2 className='size-4 animate-spin' />
             ) : (
               <MessageCircle className='size-4' />
             )}
-            {createChatMutation.isPending ? t`Creating...` : t`Create chat`}
+            {addingRemainder
+              ? t`Adding ${addingRemainder.done}/${addingRemainder.total}...`
+              : createChatMutation.isPending
+                ? t`Creating...`
+                : t`Create chat`}
           </Button>
         </ResponsiveDialogFooter>
       </ResponsiveDialogContent>

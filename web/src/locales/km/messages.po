@@ -26,12 +26,12 @@ msgstr "សូមពិនិត្យការតភ្ជាប់អ៊ីន
 msgid "(edited)"
 msgstr "(បានកែ)"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:279
+#: src/routes/_authenticated/$chatId_.settings.tsx:289
 msgid "(you)"
 msgstr "(អ្នក)"
 
 #. placeholder {0}: deleteTargetIds?.length ?? 0
-#: src/features/chats/index.tsx:1328
+#: src/features/chats/index.tsx:1356
 msgid "{0, plural, one {Delete message?} other {Delete # messages?}}"
 msgstr "{0, plural, other {លុបសារចំនួន #?}}"
 
@@ -43,13 +43,13 @@ msgstr "{0} (រួមទាំងអ្នក)"
 #. placeholder {0}: selectedIds.size
 #. placeholder {0}: selectedIds?.size ?? 0
 #: src/features/chats/components/chat-message-list.tsx:816
-#: src/features/chats/index.tsx:1198
+#: src/features/chats/index.tsx:1226
 msgid "{0} selected"
 msgstr "បានជ្រើសរើស {0}"
 
 #. placeholder {0}: chatDetail.chat.name
-#: src/routes/_authenticated/$chatId_.settings.tsx:85
-#: src/routes/_authenticated/$chatId_.settings.tsx:124
+#: src/routes/_authenticated/$chatId_.settings.tsx:89
+#: src/routes/_authenticated/$chatId_.settings.tsx:128
 msgid "{0} settings"
 msgstr "ការកំណត់ {0}"
 
@@ -62,7 +62,7 @@ msgstr "{hiddenCount, plural, other {បង្ហាញឯកសារ # បន�
 msgid "{newMessageCount, plural, one {Jump to 1 new message} other {Jump to # new messages}}"
 msgstr "{newMessageCount, plural, other {ទៅកាន់សារថ្មីចំនួន #}}"
 
-#: src/features/chats/index.tsx:865
+#: src/features/chats/index.tsx:869
 msgid "{skippedCount, plural, one {Skipped # file that is not audio} other {Skipped # files that are not audio}}"
 msgstr "{skippedCount, plural, other {បានរំលង # ឯកសារដែលមិនមែនជាសំឡេង}}"
 
@@ -74,7 +74,7 @@ msgstr "១២ ម៉ោង"
 msgid "24 hours"
 msgstr "២៤ ម៉ោង"
 
-#: src/features/chats/components/chat-input.tsx:310
+#: src/features/chats/components/chat-input.tsx:314
 msgid "A recording is already in progress."
 msgstr "ការថតកំពុងដំណើរការរួចហើយ។"
 
@@ -115,7 +115,7 @@ msgid "Add"
 msgstr "បន្ថែម"
 
 #. placeholder {0}: friend.name
-#: src/routes/_authenticated/$chatId_.settings.tsx:475
+#: src/routes/_authenticated/$chatId_.settings.tsx:485
 msgid "Add {0} to chat"
 msgstr "បន្ថែម {0} ទៅជជែក"
 
@@ -136,13 +136,13 @@ msgstr "បន្ថែមគណនី"
 msgid "Add an account to receive notifications and use services."
 msgstr "បន្ថែមគណនីដើម្បីទទួលបានការជូនដំណឹង និងប្រើប្រាស់សេវាកម្ម។"
 
-#: src/features/chats/components/chat-input.tsx:773
-#: src/features/chats/components/chat-input.tsx:779
+#: src/features/chats/components/chat-input.tsx:777
+#: src/features/chats/components/chat-input.tsx:783
 msgid "Add attachment"
 msgstr "បន្ថែមឯកសារភ្ជាប់"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:252
-#: src/routes/_authenticated/$chatId_.settings.tsx:434
+#: src/routes/_authenticated/$chatId_.settings.tsx:262
+#: src/routes/_authenticated/$chatId_.settings.tsx:444
 msgid "Add member"
 msgstr "បន្ថែមសមាជិក"
 
@@ -172,7 +172,19 @@ msgstr "បន្ថែមទៅការជូនដំណឹងដែលមា
 msgid "Add view"
 msgstr "បន្ថែមទិដ្ឋភាព"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:416
+#. placeholder {0}: remainder.length
+#. placeholder {1}: refused.length
+#: src/features/chats/components/new-chat.tsx:218
+msgid "Added {added} of {0} remaining people; {1} could not be added"
+msgstr "បានបន្ថែម {added} ក្នុងចំណោម {0} ដែលនៅសល់; {1} មិនអាចបន្ថែមបានទេ"
+
+#. placeholder {0}: addingRemainder.done
+#. placeholder {1}: addingRemainder.total
+#: src/features/chats/components/new-chat.tsx:363
+msgid "Adding {0}/{1}..."
+msgstr "កំពុងបន្ថែម {0}/{1}..."
+
+#: src/routes/_authenticated/$chatId_.settings.tsx:426
 msgid "Adding member..."
 msgstr "កំពុងបន្ថែមសមាជិក..."
 
@@ -192,7 +204,7 @@ msgstr "AI"
 msgid "All"
 msgstr "ទាំងអស់"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:463
+#: src/routes/_authenticated/$chatId_.settings.tsx:473
 msgid "All your friends are already in this chat"
 msgstr "មិត្តភក្តិទាំងអស់របស់អ្នកស្ថិតនៅក្នុងជជែកនេះរួចហើយ"
 
@@ -221,11 +233,11 @@ msgid "Anyone can start a chat with you."
 msgstr "នរណាម្នាក់ក៏អាចចាប់ផ្តើមការជជែកជាមួយអ្នកបាន។"
 
 #. placeholder {0}: selectedChat?.name
-#: src/features/chats/index.tsx:1296
+#: src/features/chats/index.tsx:1324
 msgid "Are you sure you want to leave \"{0}\"? You can be added back by other members."
 msgstr "តើអ្នកប្រាកដថាចង់ចេញពី \"{0}\" មែនទេ? សមាជិកផ្សេងទៀតអាចបន្ថែមអ្នកត្រឡប់មកវិញ។"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:346
+#: src/routes/_authenticated/$chatId_.settings.tsx:356
 msgid "Are you sure you want to leave \"{chatName}\"? You can be added back by other members."
 msgstr "តើអ្នកប្រាកដថាចង់ចេញពី \"{chatName}\" មែនទេ? សមាជិកផ្សេងទៀតអាចបន្ថែមអ្នកត្រឡប់មកវិញ។"
 
@@ -234,7 +246,7 @@ msgid "Are you sure you want to log out? You will need to log in again to access
 msgstr "តើអ្នកប្រាកដថាចង់ចាកចេញមែនទេ? អ្នកនឹងត្រូវចូលម្តងទៀតដើម្បីចូលប្រើគណនីរបស់អ្នក។"
 
 #. placeholder {0}: member?.name
-#: src/routes/_authenticated/$chatId_.settings.tsx:538
+#: src/routes/_authenticated/$chatId_.settings.tsx:548
 msgid "Are you sure you want to remove {0} from this chat?"
 msgstr "តើអ្នកប្រាកដថាចង់ដក {0} ចេញពីជជែកនេះមែនទេ?"
 
@@ -246,16 +258,16 @@ msgstr "ឡើង"
 msgid "Ascending"
 msgstr "តាមលំដាប់កើន"
 
-#: src/features/chats/components/chat-input.tsx:590
+#: src/features/chats/components/chat-input.tsx:594
 #: src/features/chats/components/message-quote.tsx:56
 msgid "Attachment"
 msgstr "ឯកសារភ្ជាប់"
 
-#: src/features/chats/index.tsx:753
+#: src/features/chats/index.tsx:757
 msgid "Attachments are too large to upload. Remove or shrink files and try again."
 msgstr "ឯកសារភ្ជាប់ធំពេកមិនអាចបង្ហោះបានទេ។ សូមយកចេញ ឬបង្រួមទំហំឯកសារ រួចព្យាយាមម្តងទៀត។"
 
-#: src/features/chats/components/chat-input.tsx:792
+#: src/features/chats/components/chat-input.tsx:796
 msgid "Audio"
 msgstr "សំឡេង"
 
@@ -267,9 +279,9 @@ msgstr "កូដ Authenticator"
 msgid "Back"
 msgstr "ត្រឡប់"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:98
-#: src/routes/_authenticated/$chatId_.settings.tsx:109
-#: src/routes/_authenticated/$chatId_.settings.tsx:125
+#: src/routes/_authenticated/$chatId_.settings.tsx:102
+#: src/routes/_authenticated/$chatId_.settings.tsx:113
+#: src/routes/_authenticated/$chatId_.settings.tsx:129
 msgid "Back to chat"
 msgstr "ត្រឡប់ទៅជជែក"
 
@@ -301,13 +313,13 @@ msgstr "បង្កើនចំណាប់អារម្មណ៍"
 #: src/features/chats/components/chat-message-list.tsx:835
 #: src/features/chats/components/chat-settings-dialog.tsx:116
 #: src/features/chats/components/forward-dialog.tsx:253
-#: src/features/chats/components/new-chat.tsx:295
-#: src/features/chats/index.tsx:1230
+#: src/features/chats/components/new-chat.tsx:354
+#: src/features/chats/index.tsx:1258
 msgid "Cancel"
 msgstr "បោះបង់"
 
-#: src/features/chats/components/chat-input.tsx:600
-#: src/features/chats/components/chat-input.tsx:605
+#: src/features/chats/components/chat-input.tsx:604
+#: src/features/chats/components/chat-input.tsx:609
 msgid "Cancel reply"
 msgstr "បោះបង់ការឆ្លើយតប"
 
@@ -320,22 +332,22 @@ msgstr "ប្រភេទសម្រាប់ការជូនដំណឹង
 msgid "Change notification category"
 msgstr "ប្ដូរប្រភេទការជូនដំណឹង"
 
-#: src/features/chats/index.tsx:85
-#: src/features/chats/index.tsx:193
-#: src/features/chats/index.tsx:193
-#: src/features/chats/index.tsx:1016
+#: src/features/chats/index.tsx:89
+#: src/features/chats/index.tsx:197
+#: src/features/chats/index.tsx:197
+#: src/features/chats/index.tsx:1035
 msgid "Chat"
 msgstr "ជជែក"
 
-#: src/features/chats/components/new-chat.tsx:160
+#: src/features/chats/components/new-chat.tsx:195
 msgid "Chat created"
 msgstr "បានបង្កើតការជជែក"
 
-#: src/features/chats/index.tsx:816
+#: src/features/chats/index.tsx:820
 msgid "Chat deleted"
 msgstr "បានលុបការជជែក"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:218
+#: src/routes/_authenticated/$chatId_.settings.tsx:228
 msgid "Chat ID"
 msgstr "លេខសម្គាល់ជជែក"
 
@@ -347,20 +359,20 @@ msgstr "បានសម្គាល់ការជជែកថាបានអា
 msgid "Chat marked as unread"
 msgstr "បានសម្គាល់ការជជែកថាមិនទាន់អាន"
 
-#: src/features/chats/components/new-chat.tsx:279
-#: src/routes/_authenticated/$chatId_.settings.tsx:202
+#: src/features/chats/components/new-chat.tsx:338
+#: src/routes/_authenticated/$chatId_.settings.tsx:212
 msgid "Chat name"
 msgstr "ឈ្មោះជជែក"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:194
+#: src/routes/_authenticated/$chatId_.settings.tsx:198
 msgid "Chat name is required"
 msgstr "ឈ្មោះជជែកគឺត្រូវការ"
 
-#: src/features/chats/components/new-chat.tsx:282
+#: src/features/chats/components/new-chat.tsx:341
 msgid "Chat name..."
 msgstr "ឈ្មោះជជែក..."
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:113
+#: src/routes/_authenticated/$chatId_.settings.tsx:117
 msgid "Chat not found"
 msgstr "រកមិនឃើញការជជែក"
 
@@ -372,24 +384,24 @@ msgstr "បានខ្ទាស់ការជជែក"
 msgid "Chat policy updated"
 msgstr "គោលការណ៍ជជែកបានធ្វើបច្ចុប្បន្នភាព"
 
-#: src/features/chats/components/new-chat.tsx:160
+#: src/features/chats/components/new-chat.tsx:195
 msgid "Chat ready"
 msgstr "ការជជែករួចរាល់"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:209
+#: src/routes/_authenticated/$chatId_.settings.tsx:219
 msgid "Chat renamed"
 msgstr "បានប្ដូរឈ្មោះជជែក"
 
-#: src/features/chats/index.tsx:1021
-#: src/features/chats/index.tsx:1119
-#: src/routes/_authenticated/$chatId_.settings.tsx:85
-#: src/routes/_authenticated/$chatId_.settings.tsx:98
-#: src/routes/_authenticated/$chatId_.settings.tsx:109
-#: src/routes/_authenticated/$chatId_.settings.tsx:124
+#: src/features/chats/index.tsx:1040
+#: src/features/chats/index.tsx:1138
+#: src/routes/_authenticated/$chatId_.settings.tsx:89
+#: src/routes/_authenticated/$chatId_.settings.tsx:102
+#: src/routes/_authenticated/$chatId_.settings.tsx:113
+#: src/routes/_authenticated/$chatId_.settings.tsx:128
 msgid "Chat settings"
 msgstr "ការកំណត់ជជែក"
 
-#: src/features/chats/components/chat-input.tsx:798
+#: src/features/chats/components/chat-input.tsx:802
 msgid "Chat text box"
 msgstr "ប្រអប់អត្ថបទជជែក"
 
@@ -449,7 +461,7 @@ msgid "Clear filters"
 msgstr "សម្អាតតម្រង"
 
 #: src/features/chats/components/forward-dialog.tsx:199
-#: src/routes/_authenticated/$chatId_.settings.tsx:446
+#: src/routes/_authenticated/$chatId_.settings.tsx:456
 msgid "Clear search"
 msgstr "សម្អាតការស្វែងរក"
 
@@ -529,19 +541,19 @@ msgstr "បន្ត"
 msgid "Continue with {label}"
 msgstr "បន្តជាមួយ {label}"
 
-#: src/features/chats/index.tsx:644
+#: src/features/chats/index.tsx:648
 msgid "Copied"
 msgstr "បានចម្លង"
 
 #: ../../../lib/web/src/components/ui/copy-button.tsx:63
 #: src/features/chats/components/message-hover-actions.tsx:107
-#: src/features/chats/index.tsx:1207
+#: src/features/chats/index.tsx:1235
 msgid "Copy"
 msgstr "ចម្លង"
 
 #. placeholder {0}: ambiguous.join(', ')
 #. placeholder {1}: unknown.join(', ')
-#: src/features/chats/index.tsx:960
+#: src/features/chats/index.tsx:975
 msgid "Could not link mentions. Multiple people share: {0}. Not in this chat: {1}. Pick from the @ list."
 msgstr "មិនអាចភ្ជាប់ការលើកឡើងបានទេ។ មនុស្សច្រើននាក់មានឈ្មោះដូចគ្នា៖ {0}។ មិននៅក្នុងការជជែកនេះ៖ {1}។ សូមជ្រើសរើសពីបញ្ជី @។"
 
@@ -561,20 +573,20 @@ msgstr "មិនអាចចាប់ផ្ដើមការផ្ទៀងផ
 msgid "Couldn't verify with that account. Please try again."
 msgstr "មិនអាចផ្ទៀងផ្ទាត់ជាមួយគណនីនោះបានទេ។ សូមព្យាយាមម្តងទៀត។"
 
-#: src/features/chats/components/new-chat.tsx:207
+#: src/features/chats/components/new-chat.tsx:266
 msgid "Create a new chat"
 msgstr "បង្កើតការជជែកថ្មី"
 
 #: src/components/layout/chat-layout.tsx:278
-#: src/features/chats/components/new-chat.tsx:303
+#: src/features/chats/components/new-chat.tsx:366
 msgid "Create chat"
 msgstr "បង្កើតការជជែក"
 
-#: src/features/chats/components/new-chat.tsx:159
+#: src/features/chats/components/new-chat.tsx:194
 msgid "Creating chat..."
 msgstr "កំពុងបង្កើតការជជែក..."
 
-#: src/features/chats/components/new-chat.tsx:303
+#: src/features/chats/components/new-chat.tsx:365
 msgid "Creating..."
 msgstr "កំពុងបង្កើត..."
 
@@ -608,18 +620,18 @@ msgid "Default AI account"
 msgstr "គណនី AI លំនាំដើម"
 
 #: src/features/chats/components/message-hover-actions.tsx:146
-#: src/features/chats/index.tsx:1223
-#: src/features/chats/index.tsx:1340
+#: src/features/chats/index.tsx:1251
+#: src/features/chats/index.tsx:1368
 msgid "Delete"
 msgstr "លុប"
 
-#: src/features/chats/index.tsx:1102
-#: src/features/chats/index.tsx:1254
+#: src/features/chats/index.tsx:1121
+#: src/features/chats/index.tsx:1282
 msgid "Delete chat"
 msgstr "លុបការជជែក"
 
-#: src/features/chats/index.tsx:1318
-#: src/routes/_authenticated/$chatId_.settings.tsx:368
+#: src/features/chats/index.tsx:1346
+#: src/routes/_authenticated/$chatId_.settings.tsx:378
 msgid "Delete chat history"
 msgstr "លុបប្រវត្តិការជជែក"
 
@@ -627,12 +639,12 @@ msgstr "លុបប្រវត្តិការជជែក"
 msgid "Delete your account on the old server"
 msgstr "លុបគណនីរបស់អ្នកនៅម៉ាស៊ីនមេចាស់"
 
-#: src/features/chats/index.tsx:815
+#: src/features/chats/index.tsx:819
 msgid "Deleting chat..."
 msgstr "កំពុងលុបការជជែក..."
 
-#: src/features/chats/index.tsx:674
-#: src/features/chats/index.tsx:1337
+#: src/features/chats/index.tsx:678
+#: src/features/chats/index.tsx:1365
 msgid "Deleting..."
 msgstr "កំពុងលុប..."
 
@@ -663,7 +675,7 @@ msgstr "រកឃើញពីកម្មវិធីរុករកគេហទ
 msgid "Direction"
 msgstr "ទិស"
 
-#: src/features/chats/components/new-chat.tsx:78
+#: src/features/chats/components/new-chat.tsx:88
 msgid "Directory search failed"
 msgstr "ការស្វែងរកក្នុងបញ្ជីបានបរាជ័យ"
 
@@ -671,8 +683,8 @@ msgstr "ការស្វែងរកក្នុងបញ្ជីបានប
 msgid "Disagree"
 msgstr "មិនយល់ព្រម"
 
-#: src/features/chats/components/chat-input.tsx:724
-#: src/features/chats/components/chat-input.tsx:729
+#: src/features/chats/components/chat-input.tsx:728
+#: src/features/chats/components/chat-input.tsx:733
 msgid "Discard recording"
 msgstr "បោះបង់ការថត"
 
@@ -689,7 +701,7 @@ msgstr "បិទ"
 msgid "Displays the mobile sidebar."
 msgstr "បង្ហាញរបារចំហៀងទូរស័ព្ទ។"
 
-#: src/features/chats/components/chat-input.tsx:786
+#: src/features/chats/components/chat-input.tsx:790
 msgid "Document"
 msgstr "ឯកសារ"
 
@@ -724,7 +736,7 @@ msgid "Edit {label}"
 msgstr "កែ {label}"
 
 #. placeholder {0}: formatVideoDuration(recordingDuration)
-#: src/features/chats/components/chat-input.tsx:737
+#: src/features/chats/components/chat-input.tsx:741
 msgid "Elapsed {0}"
 msgstr "កន្លងផុត {0}"
 
@@ -767,11 +779,11 @@ msgstr "ធំពិសេស"
 msgid "Failed to add account"
 msgstr "បរាជ័យក្នុងការបន្ថែមគណនី"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:418
+#: src/routes/_authenticated/$chatId_.settings.tsx:428
 msgid "Failed to add member"
 msgstr "បរាជ័យក្នុងការបន្ថែមសមាជិក"
 
-#: src/features/chats/index.tsx:645
+#: src/features/chats/index.tsx:649
 msgid "Failed to copy"
 msgstr "បរាជ័យក្នុងការចម្លង"
 
@@ -779,19 +791,19 @@ msgstr "បរាជ័យក្នុងការចម្លង"
 msgid "Failed to copy message"
 msgstr "មិនអាចចម្លងសារបានទេ"
 
-#: src/features/chats/components/new-chat.tsx:161
+#: src/features/chats/components/new-chat.tsx:196
 msgid "Failed to create chat"
 msgstr "បរាជ័យក្នុងការបង្កើតការជជែក"
 
-#: src/features/chats/index.tsx:676
+#: src/features/chats/index.tsx:680
 msgid "Failed to delete"
 msgstr "បរាជ័យក្នុងការលុប"
 
-#: src/features/chats/index.tsx:817
+#: src/features/chats/index.tsx:821
 msgid "Failed to delete chat"
 msgstr "បរាជ័យក្នុងការលុបការជជែក"
 
-#: src/features/chats/index.tsx:584
+#: src/features/chats/index.tsx:588
 msgid "Failed to edit message"
 msgstr "មិនអាចកែសម្រួលសារបានទេ"
 
@@ -799,8 +811,8 @@ msgstr "មិនអាចកែសម្រួលសារបានទេ"
 msgid "Failed to forward"
 msgstr "មិនអាចបញ្ជូនបន្តបានទេ"
 
-#: src/features/chats/index.tsx:798
-#: src/routes/_authenticated/$chatId_.settings.tsx:329
+#: src/features/chats/index.tsx:802
+#: src/routes/_authenticated/$chatId_.settings.tsx:339
 msgid "Failed to leave chat"
 msgstr "បរាជ័យក្នុងការចាកចេញពីការជជែក"
 
@@ -812,7 +824,7 @@ msgstr "មិនអាចផ្ទុកគោលការណ៍ជជែករ
 msgid "Failed to mark chat as read"
 msgstr "មិនអាចសម្គាល់ការជជែកថាបានអានទេ"
 
-#: src/features/chats/index.tsx:628
+#: src/features/chats/index.tsx:632
 msgid "Failed to react"
 msgstr "មិនអាចប្រតិកម្មបានទេ"
 
@@ -820,11 +832,11 @@ msgstr "មិនអាចប្រតិកម្មបានទេ"
 msgid "Failed to remove account"
 msgstr "បរាជ័យក្នុងការដកគណនី"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:524
+#: src/routes/_authenticated/$chatId_.settings.tsx:534
 msgid "Failed to remove member"
 msgstr "បរាជ័យក្នុងការដកសមាជិក"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:211
+#: src/routes/_authenticated/$chatId_.settings.tsx:221
 msgid "Failed to rename chat"
 msgstr "បរាជ័យក្នុងការប្ដូរឈ្មោះការជជែក"
 
@@ -832,7 +844,7 @@ msgstr "បរាជ័យក្នុងការប្ដូរឈ្មោះ
 msgid "Failed to save"
 msgstr "បរាជ័យក្នុងការរក្សាទុក"
 
-#: src/features/chats/index.tsx:752
+#: src/features/chats/index.tsx:756
 msgid "Failed to send message"
 msgstr "បរាជ័យក្នុងការផ្ញើសារ"
 
@@ -840,7 +852,7 @@ msgstr "បរាជ័យក្នុងការផ្ញើសារ"
 msgid "Failed to send verification code"
 msgstr "បរាជ័យក្នុងការផ្ញើកូដផ្ទៀងផ្ទាត់"
 
-#: src/features/chats/index.tsx:199
+#: src/features/chats/index.tsx:203
 msgid "Failed to start chat"
 msgstr "បរាជ័យក្នុងការចាប់ផ្ដើមការជជែក"
 
@@ -862,7 +874,7 @@ msgstr "អណ្ដែត"
 
 #: src/features/chats/components/forward-dialog.tsx:264
 #: src/features/chats/components/message-hover-actions.tsx:138
-#: src/features/chats/index.tsx:1215
+#: src/features/chats/index.tsx:1243
 msgid "Forward"
 msgstr "បញ្ជូនបន្ត"
 
@@ -883,7 +895,7 @@ msgid "Friday"
 msgstr "ថ្ងៃសុក្រ"
 
 #: src/features/chats/components/forward-dialog.tsx:237
-#: src/routes/_authenticated/$chatId_.settings.tsx:469
+#: src/routes/_authenticated/$chatId_.settings.tsx:479
 msgid "Friends"
 msgstr "មិត្ត"
 
@@ -908,8 +920,8 @@ msgstr "ពីរូបរាង"
 msgid "Full layout"
 msgstr "ប្លង់ពេញលេញ"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:129
-#: src/routes/_authenticated/$chatId_.settings.tsx:200
+#: src/routes/_authenticated/$chatId_.settings.tsx:133
+#: src/routes/_authenticated/$chatId_.settings.tsx:210
 msgid "General"
 msgstr "ទូទៅ"
 
@@ -967,7 +979,7 @@ msgid "Imperial"
 msgstr "Imperial"
 
 #: src/features/chats/components/chat-settings-dialog.tsx:80
-#: src/features/chats/index.tsx:1125
+#: src/features/chats/index.tsx:1144
 msgid "Incoming chats"
 msgstr "ការជជែកចូល"
 
@@ -1006,32 +1018,32 @@ msgstr "ប្លង់"
 msgid "Learn more"
 msgstr "ស្វែងយល់បន្ថែម"
 
-#: src/features/chats/index.tsx:1304
+#: src/features/chats/index.tsx:1332
 msgid "Leave"
 msgstr "ចាកចេញ"
 
-#: src/features/chats/index.tsx:1109
-#: src/routes/_authenticated/$chatId_.settings.tsx:354
+#: src/features/chats/index.tsx:1128
+#: src/routes/_authenticated/$chatId_.settings.tsx:364
 msgid "Leave chat"
 msgstr "ចាកចេញពីការជជែក"
 
-#: src/features/chats/index.tsx:1295
-#: src/routes/_authenticated/$chatId_.settings.tsx:345
+#: src/features/chats/index.tsx:1323
+#: src/routes/_authenticated/$chatId_.settings.tsx:355
 msgid "Leave chat?"
 msgstr "ចាកចេញពីការជជែក?"
 
-#: src/features/chats/index.tsx:796
-#: src/routes/_authenticated/$chatId_.settings.tsx:327
+#: src/features/chats/index.tsx:800
+#: src/routes/_authenticated/$chatId_.settings.tsx:337
 msgid "Leaving chat..."
 msgstr "កំពុងចាកចេញពីការជជែក..."
 
-#: src/features/chats/index.tsx:1301
-#: src/routes/_authenticated/$chatId_.settings.tsx:351
+#: src/features/chats/index.tsx:1329
+#: src/routes/_authenticated/$chatId_.settings.tsx:361
 msgid "Leaving..."
 msgstr "កំពុងចាកចេញ..."
 
-#: src/features/chats/index.tsx:797
-#: src/routes/_authenticated/$chatId_.settings.tsx:328
+#: src/features/chats/index.tsx:801
+#: src/routes/_authenticated/$chatId_.settings.tsx:338
 msgid "Left chat"
 msgstr "បានចាកចេញពីការជជែក"
 
@@ -1109,15 +1121,15 @@ msgstr "កំពុងសម្គាល់ថាបានអាន..."
 msgid "Medium"
 msgstr "មធ្យម"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:417
+#: src/routes/_authenticated/$chatId_.settings.tsx:427
 msgid "Member added"
 msgstr "បានបន្ថែមសមាជិក"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:523
+#: src/routes/_authenticated/$chatId_.settings.tsx:533
 msgid "Member removed"
 msgstr "បានដកសមាជិក"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:248
+#: src/routes/_authenticated/$chatId_.settings.tsx:258
 msgid "Members"
 msgstr "សមាជិក"
 
@@ -1138,16 +1150,21 @@ msgstr "សកម្មភាពសារ"
 msgid "Message copied"
 msgstr "បានចម្លងសារ"
 
-#: src/features/chats/index.tsx:754
+#: src/features/chats/index.tsx:758
 msgid "Message could not be sent. Attachments may be too large, or your connection failed. Try smaller files."
 msgstr "មិនអាចផ្ញើសារបានទេ។ ឯកសារភ្ជាប់អាចនឹងធំពេក ឬការតភ្ជាប់របស់អ្នកមានបញ្ហា។ សូមសាកល្បងជាមួយឯកសារតូចជាងនេះ។"
 
-#: src/features/chats/index.tsx:675
+#: src/features/chats/index.tsx:679
 msgid "Message deleted"
 msgstr "បានលុបសារ"
 
+#. placeholder {0}: formatNumber(newMessage.length - MESSAGE_MAX_LENGTH)
+#: src/features/chats/components/chat-input.tsx:914
+msgid "Message is {0} characters too long"
+msgstr "សារវែងជាង {0} តួអក្សរ"
+
 #: src/features/chats/components/message-quote.tsx:60
-#: src/features/chats/index.tsx:696
+#: src/features/chats/index.tsx:700
 msgid "Message not available"
 msgstr "សារមិនអាចប្រើបានទេ"
 
@@ -1155,37 +1172,37 @@ msgstr "សារមិនអាចប្រើបានទេ"
 msgid "Metric"
 msgstr "ម៉ែត្រ"
 
-#: src/features/chats/components/chat-input.tsx:317
+#: src/features/chats/components/chat-input.tsx:321
 msgid "Microphone access denied"
 msgstr "ការចូលប្រើមីក្រូហ្វូនត្រូវបានបដិសេធ"
 
-#: src/features/chats/components/chat-input.tsx:294
+#: src/features/chats/components/chat-input.tsx:298
 msgid "Microphone access is blocked here. Please update the app and try again."
 msgstr "ការចូលប្រើមីក្រូហ្វូនត្រូវបានរារាំងនៅទីនេះ។ សូមធ្វើបច្ចុប្បន្នភាពកម្មវិធី រួចព្យាយាមម្តងទៀត។"
 
-#: src/features/chats/components/chat-input.tsx:291
-#: src/features/chats/components/chat-input.tsx:338
-#: src/features/chats/components/chat-input.tsx:385
+#: src/features/chats/components/chat-input.tsx:295
+#: src/features/chats/components/chat-input.tsx:342
+#: src/features/chats/components/chat-input.tsx:389
 msgid "Microphone access requires a secure context (HTTPS or localhost)"
 msgstr "ការចូលប្រើមីក្រូហ្វូនត្រូវការបរិយាកាសសុវត្ថិភាព (HTTPS ឬ localhost)"
 
-#: src/features/chats/components/chat-input.tsx:297
+#: src/features/chats/components/chat-input.tsx:301
 msgid "Microphone access was blocked by the browser"
 msgstr "កម្មវិធីរុករកបានរារាំងការចូលប្រើមីក្រូហ្វូន"
 
-#: src/features/chats/components/chat-input.tsx:278
+#: src/features/chats/components/chat-input.tsx:282
 msgid "Microphone constraints could not be satisfied"
 msgstr "មិនអាចបំពេញលក្ខខណ្ឌរបស់មីក្រូហ្វូនបានទេ"
 
-#: src/features/chats/components/chat-input.tsx:314
+#: src/features/chats/components/chat-input.tsx:318
 msgid "Microphone error: {message}"
 msgstr "កំហុសមីក្រូហ្វូន៖ {message}"
 
-#: src/features/chats/components/chat-input.tsx:274
+#: src/features/chats/components/chat-input.tsx:278
 msgid "Microphone is already in use"
 msgstr "មីក្រូហ្វូនកំពុងប្រើប្រាស់រួចហើយ"
 
-#: src/features/chats/components/chat-input.tsx:266
+#: src/features/chats/components/chat-input.tsx:270
 msgid "Microphone permission denied"
 msgstr "ការអនុញ្ញាតមីក្រូហ្វូនត្រូវបានបដិសេធ"
 
@@ -1194,13 +1211,17 @@ msgid "Monday"
 msgstr "ថ្ងៃច័ន្ទ"
 
 #. placeholder {0}: ambiguous.join(', ')
-#: src/features/chats/index.tsx:952
+#: src/features/chats/index.tsx:967
 msgid "Multiple people share these names: {0}. Pick them from the @ list so the right person is notified."
 msgstr "មនុស្សច្រើននាក់មានឈ្មោះទាំងនេះ៖ {0}។ សូមជ្រើសរើសពួកគេពីបញ្ជី @ ដើម្បីឱ្យមនុស្សត្រឹមត្រូវទទួលបានការជូនដំណឹង។"
 
+#: src/routes/_authenticated/$chatId_.settings.tsx:200
+msgid "Name must be {CHAT_NAME_MAX_LENGTH} characters or less"
+msgstr "ឈ្មោះត្រូវតែមាន {CHAT_NAME_MAX_LENGTH} តួអក្សរ ឬតិចជាង"
+
 #: src/routes/_authenticated/$chatId_.settings.tsx:195
-msgid "Name must be 1000 characters or less"
-msgstr "ឈ្មោះត្រូវតែមាន 1000 តួអក្សរ ឬតិចជាង"
+#~ msgid "Name must be 1000 characters or less"
+#~ msgstr "ឈ្មោះត្រូវតែមាន 1000 តួអក្សរ ឬតិចជាង"
 
 #: ../../../lib/web/src/features/errors/general-error.tsx:53
 #: ../../../lib/web/src/lib/api-response-interceptors.ts:303
@@ -1213,7 +1234,7 @@ msgstr "ថ្មី"
 
 #: src/features/chats/components/chat-empty-state.tsx:27
 #: src/features/chats/components/chat-empty-state.tsx:43
-#: src/features/chats/components/new-chat.tsx:204
+#: src/features/chats/components/new-chat.tsx:263
 msgid "New chat"
 msgstr "ការសន្ទនាថ្មី"
 
@@ -1238,15 +1259,15 @@ msgstr "គ្មានការជជែកដើម្បីបញ្ជូន
 msgid "No connected accounts"
 msgstr "មិនមានគណនីភ្ជាប់"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:459
+#: src/routes/_authenticated/$chatId_.settings.tsx:469
 msgid "No friends available"
 msgstr "មិនមានមិត្តភក្តិ"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:459
+#: src/routes/_authenticated/$chatId_.settings.tsx:469
 msgid "No friends found"
 msgstr "រកមិនឃើញមិត្តភក្តិ"
 
-#: src/features/chats/components/new-chat.tsx:235
+#: src/features/chats/components/new-chat.tsx:294
 msgid "No friends yet"
 msgstr "មិនទាន់មានមិត្តភក្តិ"
 
@@ -1258,11 +1279,11 @@ msgstr "មិនមានក្រុម"
 msgid "No messages yet"
 msgstr "មិនទាន់មានសារ"
 
-#: src/features/chats/components/chat-input.tsx:270
+#: src/features/chats/components/chat-input.tsx:274
 msgid "No microphone found"
 msgstr "រកមិនឃើញមីក្រូហ្វូនទេ"
 
-#: src/features/chats/components/new-chat.tsx:229
+#: src/features/chats/components/new-chat.tsx:288
 msgid "No people found"
 msgstr "រកមិនឃើញមនុស្ស"
 
@@ -1313,7 +1334,7 @@ msgstr "រកមិនឃើញ"
 msgid "Not set"
 msgstr "មិនបានកំណត់"
 
-#: src/features/chats/index.tsx:640
+#: src/features/chats/index.tsx:644
 msgid "Nothing to copy"
 msgstr "គ្មានអ្វីដើម្បីចម្លងទេ"
 
@@ -1337,7 +1358,7 @@ msgstr "មានតែមិត្តភ័ក្តិប៉ុណ្ណោះ
 msgid "Oops! Page Not Found!"
 msgstr "អូ! រកមិនឃើញទំព័រ!"
 
-#: src/features/chats/components/new-chat.tsx:269
+#: src/features/chats/components/new-chat.tsx:328
 msgid "Open"
 msgstr "បើក"
 
@@ -1351,7 +1372,7 @@ msgstr "បើកសកម្មភាពគណនី"
 msgid "Open actions"
 msgstr "បើកសកម្មភាព"
 
-#: src/features/chats/index.tsx:1094
+#: src/features/chats/index.tsx:1113
 msgid "Open chat actions"
 msgstr "បើកសកម្មភាពសន្ទនា"
 
@@ -1365,7 +1386,7 @@ msgstr "បើកការរុករក"
 msgid "Open navigation menu"
 msgstr "បើកម៉ឺនុយរុករក"
 
-#: src/features/chats/components/new-chat.tsx:245
+#: src/features/chats/components/new-chat.tsx:304
 msgid "Open people"
 msgstr "បើកមនុស្ស"
 
@@ -1406,7 +1427,7 @@ msgstr "ផ្អាកសំឡេង"
 msgid "Pause voice note"
 msgstr "ផ្អាកសារជាសំឡេង"
 
-#: src/features/chats/components/new-chat.tsx:214
+#: src/features/chats/components/new-chat.tsx:273
 msgid "People"
 msgstr "មនុស្ស"
 
@@ -1427,11 +1448,11 @@ msgstr "ចាក់សារជាសំឡេង"
 msgid "Please check your internet connection and try again."
 msgstr "សូមពិនិត្យការតភ្ជាប់អ៊ីនធឺណិតរបស់អ្នក រួចព្យាយាមម្តងទៀត។"
 
-#: src/features/chats/components/new-chat.tsx:148
+#: src/features/chats/components/new-chat.tsx:161
 msgid "Please provide a chat name"
 msgstr "សូមផ្តល់ឈ្មោះការសន្ទនា"
 
-#: src/features/chats/components/new-chat.tsx:138
+#: src/features/chats/components/new-chat.tsx:151
 msgid "Please select at least one person"
 msgstr "សូមជ្រើសរើសមនុស្សយ៉ាងតិចម្នាក់"
 
@@ -1479,28 +1500,28 @@ msgstr "អានបន្ថែម"
 msgid "Recommended"
 msgstr "បានណែនាំ"
 
-#: src/features/chats/components/chat-input.tsx:845
-#: src/features/chats/components/chat-input.tsx:850
+#: src/features/chats/components/chat-input.tsx:849
+#: src/features/chats/components/chat-input.tsx:854
 msgid "Record voice note"
 msgstr "ថតសារជាសំឡេង"
 
-#: src/features/chats/components/chat-input.tsx:306
+#: src/features/chats/components/chat-input.tsx:310
 msgid "Recording failed. Please try again."
 msgstr "ការថតបានបរាជ័យ។ សូមព្យាយាមម្តងទៀត។"
 
-#: src/features/chats/components/chat-input.tsx:322
+#: src/features/chats/components/chat-input.tsx:326
 msgid "Recording is too large to send"
 msgstr "ការថតធំពេកមិនអាចផ្ញើបានទេ"
 
-#: src/features/chats/components/chat-input.tsx:302
+#: src/features/chats/components/chat-input.tsx:306
 msgid "Recording produced no audio"
 msgstr "ការថតគ្មានសំឡេងទេ"
 
-#: src/features/chats/components/chat-input.tsx:228
+#: src/features/chats/components/chat-input.tsx:232
 msgid "Recording stopped at the 5-minute limit"
 msgstr "ការថតបានឈប់នៅដែនកំណត់ 5 នាទី"
 
-#: src/features/chats/components/chat-input.tsx:714
+#: src/features/chats/components/chat-input.tsx:718
 msgid "Recording voice note"
 msgstr "កំពុងថតសារជាសំឡេង"
 
@@ -1523,13 +1544,13 @@ msgstr "ទាក់ទងក្នុង 24 ម៉ោង បើមិនដូ�
 
 #: ../../../lib/web/src/features/access/access-list.tsx:265
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:180
-#: src/routes/_authenticated/$chatId_.settings.tsx:546
+#: src/routes/_authenticated/$chatId_.settings.tsx:556
 msgid "Remove"
 msgstr "យកចេញ"
 
 #. placeholder {0}: attachment.file.name
 #. placeholder {0}: reaction.label
-#: src/features/chats/components/chat-input.tsx:692
+#: src/features/chats/components/chat-input.tsx:696
 #: src/features/chats/components/message-reaction-bar.tsx:121
 msgid "Remove {0}"
 msgstr "យក {0} ចេញ"
@@ -1552,7 +1573,7 @@ msgstr "ដកសំឡេងចេញ"
 msgid "Remove interest"
 msgstr "យកចំណាប់អារម្មណ៍ចេញ"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:537
+#: src/routes/_authenticated/$chatId_.settings.tsx:547
 msgid "Remove member?"
 msgstr "យកសមាជិកចេញ?"
 
@@ -1560,15 +1581,15 @@ msgstr "យកសមាជិកចេញ?"
 msgid "Remove voice note"
 msgstr "ដកសារជាសំឡេងចេញ"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:522
+#: src/routes/_authenticated/$chatId_.settings.tsx:532
 msgid "Removing member..."
 msgstr "កំពុងដកសមាជិកចេញ..."
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:543
+#: src/routes/_authenticated/$chatId_.settings.tsx:553
 msgid "Removing..."
 msgstr "កំពុងយកចេញ..."
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:208
+#: src/routes/_authenticated/$chatId_.settings.tsx:218
 msgid "Renaming chat..."
 msgstr "កំពុងប្តូរឈ្មោះការជជែក..."
 
@@ -1577,7 +1598,7 @@ msgid "Reply"
 msgstr "ឆ្លើយតប"
 
 #. placeholder {0}: replyTo.name
-#: src/features/chats/components/chat-input.tsx:581
+#: src/features/chats/components/chat-input.tsx:585
 msgid "Replying to {0}"
 msgstr "កំពុងឆ្លើយតបទៅ {0}"
 
@@ -1641,7 +1662,7 @@ msgstr "ស្វែងរកទិសដៅ..."
 msgid "Search for origin..."
 msgstr "ស្វែងរកប្រភពដើម..."
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:445
+#: src/routes/_authenticated/$chatId_.settings.tsx:455
 msgid "Search friends…"
 msgstr "ស្វែងរកមិត្តភ័ក្តិ…"
 
@@ -1649,7 +1670,7 @@ msgstr "ស្វែងរកមិត្តភ័ក្តិ…"
 msgid "Search in chat..."
 msgstr "ស្វែងរកក្នុងការជជែក..."
 
-#: src/features/chats/index.tsx:1084
+#: src/features/chats/index.tsx:1103
 msgid "Search messages"
 msgstr "ស្វែងរកសារ"
 
@@ -1687,7 +1708,7 @@ msgstr "ជ្រើសរើស"
 msgid "Select a chat"
 msgstr "ជ្រើសរើសការសន្ទនា"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:437
+#: src/routes/_authenticated/$chatId_.settings.tsx:447
 msgid "Select a friend to add to this chat."
 msgstr "ជ្រើសរើសមិត្តភក្តិដើម្បីបន្ថែមទៅការសន្ទនានេះ។"
 
@@ -1719,7 +1740,7 @@ msgstr "ជ្រើសរើសសារដែលបានផ្ទុក"
 msgid "Select message"
 msgstr "ជ្រើសរើសសារ"
 
-#: src/features/chats/components/new-chat.tsx:228
+#: src/features/chats/components/new-chat.tsx:287
 msgid "Select people..."
 msgstr "ជ្រើសរើសមនុស្ស..."
 
@@ -1739,6 +1760,10 @@ msgstr "ជ្រើសរើសចំណូលចិត្តរូបរាង
 #~ msgid "selected"
 #~ msgstr "បានជ្រើសរើស"
 
+#: src/features/chats/index.tsx:1206
+msgid "Selected the newest {BULK_MESSAGES_MAX} messages, the most that can be forwarded or deleted at once"
+msgstr "បានជ្រើសរើសសារថ្មីបំផុត {BULK_MESSAGES_MAX} ដែលជាចំនួនច្រើនបំផុតអាចបញ្ជូនបន្ត ឬលុបក្នុងពេលតែមួយ"
+
 #: src/features/chats/components/chat-message-list.tsx:824
 msgid "Selects messages loaded so far"
 msgstr "ជ្រើសរើសសារដែលបានផ្ទុករហូតមកដល់ពេលនេះ"
@@ -1751,8 +1776,8 @@ msgstr "ផ្ញើម្តងទៀត"
 msgid "Send email"
 msgstr "ផ្ញើអ៊ីមែល"
 
-#: src/features/chats/components/chat-input.tsx:860
-#: src/features/chats/components/chat-input.tsx:869
+#: src/features/chats/components/chat-input.tsx:864
+#: src/features/chats/components/chat-input.tsx:873
 msgid "Send message"
 msgstr "ផ្ញើសារ"
 
@@ -1831,7 +1856,7 @@ msgstr "ធំទូលាយ"
 msgid "Start a conversation"
 msgstr "ចាប់ផ្តើមការសន្ទនា"
 
-#: src/features/chats/index.tsx:196
+#: src/features/chats/index.tsx:200
 msgid "Starting chat..."
 msgstr "កំពុងចាប់ផ្តើមការជជែក..."
 
@@ -1839,8 +1864,8 @@ msgstr "កំពុងចាប់ផ្តើមការជជែក..."
 msgid "Stay tuned though!"
 msgstr "ប៉ុន្តែសូមតាមដាន!"
 
-#: src/features/chats/components/chat-input.tsx:754
-#: src/features/chats/components/chat-input.tsx:759
+#: src/features/chats/components/chat-input.tsx:758
+#: src/features/chats/components/chat-input.tsx:763
 msgid "Stop recording"
 msgstr "បញ្ឈប់ការថត"
 
@@ -1880,6 +1905,15 @@ msgstr "លក្ខខណ្ឌ"
 msgid "That code is incorrect or has expired."
 msgstr "កូដនោះមិនត្រឹមត្រូវ ឬផុតកំណត់ហើយ។"
 
+#: src/features/chats/components/new-chat.tsx:167
+msgid "The chat name can be at most {CHAT_NAME_MAX_LENGTH} characters"
+msgstr "ឈ្មោះការជជែកអាចមានយ៉ាងច្រើន {CHAT_NAME_MAX_LENGTH} តួអក្សរ"
+
+#: src/features/chats/components/new-chat.tsx:173
+#: src/routes/_authenticated/$chatId_.settings.tsx:204
+msgid "The chat name cannot contain < or >"
+msgstr "ឈ្មោះការជជែកមិនអាចមាន < ឬ > ទេ"
+
 #: ../../../lib/web/src/features/errors/general-error.tsx:68
 msgid "The requested content could not be found."
 msgstr "រកមិនឃើញខ្លឹមសារដែលបានស្នើសុំទេ។"
@@ -1893,19 +1927,19 @@ msgid "Theme Settings"
 msgstr "ការកំណត់រូបរាង"
 
 #. placeholder {0}: unknown.join(', ')
-#: src/features/chats/index.tsx:956
+#: src/features/chats/index.tsx:971
 msgid "These names are not in this chat: {0}. Pick from the @ list or remove them."
 msgstr "ឈ្មោះទាំងនេះមិននៅក្នុងការជជែកនេះទេ៖ {0}។ សូមជ្រើសរើសពីបញ្ជី @ ឬដកចេញ។"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:161
+#: src/routes/_authenticated/$chatId_.settings.tsx:165
 msgid "this chat"
 msgstr "ការជជែកនេះ"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:114
+#: src/routes/_authenticated/$chatId_.settings.tsx:118
 msgid "This chat may have been deleted or you don't have access to it"
 msgstr "ការជជែកនេះប្រហែលជាត្រូវបានលុប ឬអ្នកមិនមានសិទ្ធិចូលប្រើ"
 
-#: src/features/chats/index.tsx:1332
+#: src/features/chats/index.tsx:1360
 msgid "This deletes the message for everyone and cannot be undone."
 msgstr "វាលុបសារសម្រាប់គ្រប់គ្នា ហើយមិនអាចត្រឡប់វិញបានទេ។"
 
@@ -1961,7 +1995,7 @@ msgstr "កំពូល"
 msgid "Travelling"
 msgstr "កំពុងធ្វើដំណើរ"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:462
+#: src/routes/_authenticated/$chatId_.settings.tsx:472
 msgid "Try a different search term"
 msgstr "សាកល្បងពាក្យស្វែងរកផ្សេង"
 
@@ -1992,11 +2026,11 @@ msgstr "វាយដើម្បីស្វែងរកអ្នកប្រើ
 msgid "Type to search..."
 msgstr "វាយដើម្បីស្វែងរក..."
 
-#: src/features/chats/components/chat-input.tsx:805
+#: src/features/chats/components/chat-input.tsx:809
 msgid "Type your message…"
 msgstr "វាយសាររបស់អ្នក..."
 
-#: src/features/chats/components/chat-input.tsx:804
+#: src/features/chats/components/chat-input.tsx:808
 msgid "Type your reply…"
 msgstr "វាយការឆ្លើយតបរបស់អ្នក…"
 
@@ -2085,16 +2119,16 @@ msgstr "មើលការជូនដំណឹងទាំងអស់"
 msgid "Voice note waveform"
 msgstr "រូបរាងរលកសំឡេងនៃសារជាសំឡេង"
 
-#: src/features/chats/components/chat-input.tsx:365
+#: src/features/chats/components/chat-input.tsx:369
 msgid "Voice recording is currently unavailable. Please check your setup and try again."
 msgstr "ការថតសំឡេងមិនអាចប្រើបានទេឥឡូវនេះ។ សូមពិនិត្យការកំណត់របស់អ្នក រួចព្យាយាមម្តងទៀត។"
 
-#: src/features/chats/components/chat-input.tsx:286
-#: src/features/chats/components/chat-input.tsx:391
+#: src/features/chats/components/chat-input.tsx:290
+#: src/features/chats/components/chat-input.tsx:395
 msgid "Voice recording is not supported in this browser"
 msgstr "កម្មវិធីរុករកនេះមិនគាំទ្រការថតសំឡេងទេ"
 
-#: src/features/chats/components/chat-input.tsx:261
+#: src/features/chats/components/chat-input.tsx:265
 msgid "Voice recording isn't available in this app version. Please update the app and try again."
 msgstr "កំណែកម្មវិធីនេះមិនមានការថតសំឡេងទេ។ សូមធ្វើបច្ចុប្បន្នភាពកម្មវិធី រួចព្យាយាមម្តងទៀត។"
 
@@ -2110,19 +2144,27 @@ msgstr "គេហទំព័រកំពុងស្ថិតក្រោមក
 msgid "Wednesday"
 msgstr "ថ្ងៃពុធ"
 
-#: src/features/chats/index.tsx:475
+#: src/features/chats/index.tsx:479
 msgid "You"
 msgstr "អ្នក"
 
-#: src/features/chats/components/new-chat.tsx:143
+#: src/features/chats/components/new-chat.tsx:156
 msgid "You already have a chat with this friend"
 msgstr "អ្នកមានជជែកជាមួយមិត្តភក្តិនេះរួចហើយ"
 
-#: src/features/chats/components/new-chat.tsx:257
+#: src/features/chats/components/new-chat.tsx:316
 msgid "You already have chats with:"
 msgstr "អ្នកមានជជែកជាមួយ៖"
 
-#: src/features/chats/index.tsx:657
+#: src/features/chats/index.tsx:954
+msgid "You can attach at most {CAPTIONS_MAX} files to a message"
+msgstr "អ្នកអាចភ្ជាប់ឯកសារយ៉ាងច្រើន {CAPTIONS_MAX} ទៅសារមួយ"
+
+#: src/features/chats/index.tsx:950
+msgid "You can mention at most {MENTIONS_MAX} people in a message"
+msgstr "អ្នកអាចនិយាយអំពីមនុស្សយ៉ាងច្រើន {MENTIONS_MAX} នាក់ក្នុងសារមួយ"
+
+#: src/features/chats/index.tsx:661
 msgid "You can only delete your own messages"
 msgstr "អ្នកអាចលុបបានតែសាររបស់អ្នកប៉ុណ្ណោះ"
 
@@ -2130,11 +2172,11 @@ msgstr "អ្នកអាចលុបបានតែសាររបស់អ្
 msgid "You do not have access to this section."
 msgstr "អ្នកមិនមានសិទ្ធិចូលប្រើផ្នែកនេះទេ។"
 
-#: src/features/chats/index.tsx:1241
+#: src/features/chats/index.tsx:1269
 msgid "You left this chat"
 msgstr "អ្នកបានចាកចេញពីការជជែកនេះ"
 
-#: src/features/chats/index.tsx:1240
+#: src/features/chats/index.tsx:1268
 msgid "You were removed from this chat"
 msgstr "អ្នកត្រូវបានដកចេញពីការជជែកនេះ"
 

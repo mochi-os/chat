@@ -26,12 +26,12 @@ msgstr "Проверете интернет връзката си и опита�
 msgid "(edited)"
 msgstr "(редактирано)"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:279
+#: src/routes/_authenticated/$chatId_.settings.tsx:289
 msgid "(you)"
 msgstr "(вие)"
 
 #. placeholder {0}: deleteTargetIds?.length ?? 0
-#: src/features/chats/index.tsx:1328
+#: src/features/chats/index.tsx:1356
 msgid "{0, plural, one {Delete message?} other {Delete # messages?}}"
 msgstr "{0, plural, one {Да се изтрие ли съобщението?} other {Да се изтрият ли # съобщения?}}"
 
@@ -43,13 +43,13 @@ msgstr "{0} (включва вас)"
 #. placeholder {0}: selectedIds.size
 #. placeholder {0}: selectedIds?.size ?? 0
 #: src/features/chats/components/chat-message-list.tsx:816
-#: src/features/chats/index.tsx:1198
+#: src/features/chats/index.tsx:1226
 msgid "{0} selected"
 msgstr "{0} избрани"
 
 #. placeholder {0}: chatDetail.chat.name
-#: src/routes/_authenticated/$chatId_.settings.tsx:85
-#: src/routes/_authenticated/$chatId_.settings.tsx:124
+#: src/routes/_authenticated/$chatId_.settings.tsx:89
+#: src/routes/_authenticated/$chatId_.settings.tsx:128
 msgid "{0} settings"
 msgstr "{0} настройки"
 
@@ -62,7 +62,7 @@ msgstr "{hiddenCount, plural, one {Покажи още 1 файл} other {Пок
 msgid "{newMessageCount, plural, one {Jump to 1 new message} other {Jump to # new messages}}"
 msgstr "{newMessageCount, plural, one {Към 1 ново съобщение} other {Към # нови съобщения}}"
 
-#: src/features/chats/index.tsx:865
+#: src/features/chats/index.tsx:869
 msgid "{skippedCount, plural, one {Skipped # file that is not audio} other {Skipped # files that are not audio}}"
 msgstr "{skippedCount, plural, one {Пропуснат е # файл, който не е аудио} other {Пропуснати са # файла, които не са аудио}}"
 
@@ -74,7 +74,7 @@ msgstr "12 часа"
 msgid "24 hours"
 msgstr "24 часа"
 
-#: src/features/chats/components/chat-input.tsx:310
+#: src/features/chats/components/chat-input.tsx:314
 msgid "A recording is already in progress."
 msgstr "Вече тече запис."
 
@@ -115,7 +115,7 @@ msgid "Add"
 msgstr "Добави"
 
 #. placeholder {0}: friend.name
-#: src/routes/_authenticated/$chatId_.settings.tsx:475
+#: src/routes/_authenticated/$chatId_.settings.tsx:485
 msgid "Add {0} to chat"
 msgstr "Добави {0} в чата"
 
@@ -136,13 +136,13 @@ msgstr "Добави акаунт"
 msgid "Add an account to receive notifications and use services."
 msgstr "Добавете акаунт, за да получавате известия и да използвате услуги."
 
-#: src/features/chats/components/chat-input.tsx:773
-#: src/features/chats/components/chat-input.tsx:779
+#: src/features/chats/components/chat-input.tsx:777
+#: src/features/chats/components/chat-input.tsx:783
 msgid "Add attachment"
 msgstr "Добави прикачен файл"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:252
-#: src/routes/_authenticated/$chatId_.settings.tsx:434
+#: src/routes/_authenticated/$chatId_.settings.tsx:262
+#: src/routes/_authenticated/$chatId_.settings.tsx:444
 msgid "Add member"
 msgstr "Добави член"
 
@@ -172,7 +172,19 @@ msgstr "Добави към съществуващите известия"
 msgid "Add view"
 msgstr "Добави изглед"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:416
+#. placeholder {0}: remainder.length
+#. placeholder {1}: refused.length
+#: src/features/chats/components/new-chat.tsx:218
+msgid "Added {added} of {0} remaining people; {1} could not be added"
+msgstr "Добавени са {added} от {0} останали; {1} не бяха добавени"
+
+#. placeholder {0}: addingRemainder.done
+#. placeholder {1}: addingRemainder.total
+#: src/features/chats/components/new-chat.tsx:363
+msgid "Adding {0}/{1}..."
+msgstr "Добавяне на {0}/{1}..."
+
+#: src/routes/_authenticated/$chatId_.settings.tsx:426
 msgid "Adding member..."
 msgstr "Добавяне на член..."
 
@@ -192,7 +204,7 @@ msgstr "AI"
 msgid "All"
 msgstr "Всички"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:463
+#: src/routes/_authenticated/$chatId_.settings.tsx:473
 msgid "All your friends are already in this chat"
 msgstr "Всички ваши приятели вече са в този чат"
 
@@ -221,11 +233,11 @@ msgid "Anyone can start a chat with you."
 msgstr "Всеки може да започне чат с вас."
 
 #. placeholder {0}: selectedChat?.name
-#: src/features/chats/index.tsx:1296
+#: src/features/chats/index.tsx:1324
 msgid "Are you sure you want to leave \"{0}\"? You can be added back by other members."
 msgstr "Сигурни ли сте, че искате да напуснете \"{0}\"? Други членове могат да ви добавят обратно."
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:346
+#: src/routes/_authenticated/$chatId_.settings.tsx:356
 msgid "Are you sure you want to leave \"{chatName}\"? You can be added back by other members."
 msgstr "Сигурни ли сте, че искате да напуснете \"{chatName}\"? Други членове могат да ви добавят обратно."
 
@@ -234,7 +246,7 @@ msgid "Are you sure you want to log out? You will need to log in again to access
 msgstr "Сигурни ли сте, че искате да излезете? Ще трябва да влезете отново, за да достъпите акаунта си."
 
 #. placeholder {0}: member?.name
-#: src/routes/_authenticated/$chatId_.settings.tsx:538
+#: src/routes/_authenticated/$chatId_.settings.tsx:548
 msgid "Are you sure you want to remove {0} from this chat?"
 msgstr "Сигурни ли сте, че искате да премахнете {0} от този чат?"
 
@@ -246,16 +258,16 @@ msgstr "Възх."
 msgid "Ascending"
 msgstr "Възходящ"
 
-#: src/features/chats/components/chat-input.tsx:590
+#: src/features/chats/components/chat-input.tsx:594
 #: src/features/chats/components/message-quote.tsx:56
 msgid "Attachment"
 msgstr "Прикачен файл"
 
-#: src/features/chats/index.tsx:753
+#: src/features/chats/index.tsx:757
 msgid "Attachments are too large to upload. Remove or shrink files and try again."
 msgstr "Прикачените файлове са твърде големи за качване. Премахнете или намалете файловете и опитайте отново."
 
-#: src/features/chats/components/chat-input.tsx:792
+#: src/features/chats/components/chat-input.tsx:796
 msgid "Audio"
 msgstr "Аудио"
 
@@ -267,9 +279,9 @@ msgstr "Код от authenticator"
 msgid "Back"
 msgstr "Назад"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:98
-#: src/routes/_authenticated/$chatId_.settings.tsx:109
-#: src/routes/_authenticated/$chatId_.settings.tsx:125
+#: src/routes/_authenticated/$chatId_.settings.tsx:102
+#: src/routes/_authenticated/$chatId_.settings.tsx:113
+#: src/routes/_authenticated/$chatId_.settings.tsx:129
 msgid "Back to chat"
 msgstr "Обратно към чата"
 
@@ -301,13 +313,13 @@ msgstr "Усили интереса"
 #: src/features/chats/components/chat-message-list.tsx:835
 #: src/features/chats/components/chat-settings-dialog.tsx:116
 #: src/features/chats/components/forward-dialog.tsx:253
-#: src/features/chats/components/new-chat.tsx:295
-#: src/features/chats/index.tsx:1230
+#: src/features/chats/components/new-chat.tsx:354
+#: src/features/chats/index.tsx:1258
 msgid "Cancel"
 msgstr "Отказ"
 
-#: src/features/chats/components/chat-input.tsx:600
-#: src/features/chats/components/chat-input.tsx:605
+#: src/features/chats/components/chat-input.tsx:604
+#: src/features/chats/components/chat-input.tsx:609
 msgid "Cancel reply"
 msgstr "Отказ от отговора"
 
@@ -320,22 +332,22 @@ msgstr "Категория за това известие"
 msgid "Change notification category"
 msgstr "Смени категорията на известие"
 
-#: src/features/chats/index.tsx:85
-#: src/features/chats/index.tsx:193
-#: src/features/chats/index.tsx:193
-#: src/features/chats/index.tsx:1016
+#: src/features/chats/index.tsx:89
+#: src/features/chats/index.tsx:197
+#: src/features/chats/index.tsx:197
+#: src/features/chats/index.tsx:1035
 msgid "Chat"
 msgstr "Чат"
 
-#: src/features/chats/components/new-chat.tsx:160
+#: src/features/chats/components/new-chat.tsx:195
 msgid "Chat created"
 msgstr "Чатът е създаден"
 
-#: src/features/chats/index.tsx:816
+#: src/features/chats/index.tsx:820
 msgid "Chat deleted"
 msgstr "Чатът е изтрит"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:218
+#: src/routes/_authenticated/$chatId_.settings.tsx:228
 msgid "Chat ID"
 msgstr "ID на чата"
 
@@ -347,20 +359,20 @@ msgstr "Чатът е отбелязан като прочетен"
 msgid "Chat marked as unread"
 msgstr "Чатът е отбелязан като непрочетен"
 
-#: src/features/chats/components/new-chat.tsx:279
-#: src/routes/_authenticated/$chatId_.settings.tsx:202
+#: src/features/chats/components/new-chat.tsx:338
+#: src/routes/_authenticated/$chatId_.settings.tsx:212
 msgid "Chat name"
 msgstr "Име на чата"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:194
+#: src/routes/_authenticated/$chatId_.settings.tsx:198
 msgid "Chat name is required"
 msgstr "Името на чата е задължително"
 
-#: src/features/chats/components/new-chat.tsx:282
+#: src/features/chats/components/new-chat.tsx:341
 msgid "Chat name..."
 msgstr "Име на чата..."
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:113
+#: src/routes/_authenticated/$chatId_.settings.tsx:117
 msgid "Chat not found"
 msgstr "Чатът не е намерен"
 
@@ -372,24 +384,24 @@ msgstr "Чатът е закачен"
 msgid "Chat policy updated"
 msgstr "Политиката за чат е обновена"
 
-#: src/features/chats/components/new-chat.tsx:160
+#: src/features/chats/components/new-chat.tsx:195
 msgid "Chat ready"
 msgstr "Чатът е готов"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:209
+#: src/routes/_authenticated/$chatId_.settings.tsx:219
 msgid "Chat renamed"
 msgstr "Чатът е преименуван"
 
-#: src/features/chats/index.tsx:1021
-#: src/features/chats/index.tsx:1119
-#: src/routes/_authenticated/$chatId_.settings.tsx:85
-#: src/routes/_authenticated/$chatId_.settings.tsx:98
-#: src/routes/_authenticated/$chatId_.settings.tsx:109
-#: src/routes/_authenticated/$chatId_.settings.tsx:124
+#: src/features/chats/index.tsx:1040
+#: src/features/chats/index.tsx:1138
+#: src/routes/_authenticated/$chatId_.settings.tsx:89
+#: src/routes/_authenticated/$chatId_.settings.tsx:102
+#: src/routes/_authenticated/$chatId_.settings.tsx:113
+#: src/routes/_authenticated/$chatId_.settings.tsx:128
 msgid "Chat settings"
 msgstr "Настройки на чата"
 
-#: src/features/chats/components/chat-input.tsx:798
+#: src/features/chats/components/chat-input.tsx:802
 msgid "Chat text box"
 msgstr "Текстово поле на чата"
 
@@ -449,7 +461,7 @@ msgid "Clear filters"
 msgstr "Изчисти филтрите"
 
 #: src/features/chats/components/forward-dialog.tsx:199
-#: src/routes/_authenticated/$chatId_.settings.tsx:446
+#: src/routes/_authenticated/$chatId_.settings.tsx:456
 msgid "Clear search"
 msgstr "Изчисти търсенето"
 
@@ -529,19 +541,19 @@ msgstr "Продължи"
 msgid "Continue with {label}"
 msgstr "Продължи с {label}"
 
-#: src/features/chats/index.tsx:644
+#: src/features/chats/index.tsx:648
 msgid "Copied"
 msgstr "Копирано"
 
 #: ../../../lib/web/src/components/ui/copy-button.tsx:63
 #: src/features/chats/components/message-hover-actions.tsx:107
-#: src/features/chats/index.tsx:1207
+#: src/features/chats/index.tsx:1235
 msgid "Copy"
 msgstr "Копирай"
 
 #. placeholder {0}: ambiguous.join(', ')
 #. placeholder {1}: unknown.join(', ')
-#: src/features/chats/index.tsx:960
+#: src/features/chats/index.tsx:975
 msgid "Could not link mentions. Multiple people share: {0}. Not in this chat: {1}. Pick from the @ list."
 msgstr "Споменаванията не можаха да бъдат свързани. Няколко души споделят: {0}. Не са в този чат: {1}. Изберете от списъка @."
 
@@ -561,20 +573,20 @@ msgstr "Повторното удостоверяване не можа да з�
 msgid "Couldn't verify with that account. Please try again."
 msgstr "Потвърждаването с този акаунт не бе успешно. Моля, опитайте отново."
 
-#: src/features/chats/components/new-chat.tsx:207
+#: src/features/chats/components/new-chat.tsx:266
 msgid "Create a new chat"
 msgstr "Създайте нов чат"
 
 #: src/components/layout/chat-layout.tsx:278
-#: src/features/chats/components/new-chat.tsx:303
+#: src/features/chats/components/new-chat.tsx:366
 msgid "Create chat"
 msgstr "Създай чат"
 
-#: src/features/chats/components/new-chat.tsx:159
+#: src/features/chats/components/new-chat.tsx:194
 msgid "Creating chat..."
 msgstr "Създаване на чат..."
 
-#: src/features/chats/components/new-chat.tsx:303
+#: src/features/chats/components/new-chat.tsx:365
 msgid "Creating..."
 msgstr "Създаване..."
 
@@ -608,18 +620,18 @@ msgid "Default AI account"
 msgstr "AI акаунт по подразбиране"
 
 #: src/features/chats/components/message-hover-actions.tsx:146
-#: src/features/chats/index.tsx:1223
-#: src/features/chats/index.tsx:1340
+#: src/features/chats/index.tsx:1251
+#: src/features/chats/index.tsx:1368
 msgid "Delete"
 msgstr "Изтрий"
 
-#: src/features/chats/index.tsx:1102
-#: src/features/chats/index.tsx:1254
+#: src/features/chats/index.tsx:1121
+#: src/features/chats/index.tsx:1282
 msgid "Delete chat"
 msgstr "Изтрий чата"
 
-#: src/features/chats/index.tsx:1318
-#: src/routes/_authenticated/$chatId_.settings.tsx:368
+#: src/features/chats/index.tsx:1346
+#: src/routes/_authenticated/$chatId_.settings.tsx:378
 msgid "Delete chat history"
 msgstr "Изтрий историята на чата"
 
@@ -627,12 +639,12 @@ msgstr "Изтрий историята на чата"
 msgid "Delete your account on the old server"
 msgstr "Изтрийте профила си на стария сървър"
 
-#: src/features/chats/index.tsx:815
+#: src/features/chats/index.tsx:819
 msgid "Deleting chat..."
 msgstr "Изтриване на чата..."
 
-#: src/features/chats/index.tsx:674
-#: src/features/chats/index.tsx:1337
+#: src/features/chats/index.tsx:678
+#: src/features/chats/index.tsx:1365
 msgid "Deleting..."
 msgstr "Изтриване..."
 
@@ -663,7 +675,7 @@ msgstr "Засечи от уеб браузъра"
 msgid "Direction"
 msgstr "Посока"
 
-#: src/features/chats/components/new-chat.tsx:78
+#: src/features/chats/components/new-chat.tsx:88
 msgid "Directory search failed"
 msgstr "Търсенето в указателя е неуспешно"
 
@@ -671,8 +683,8 @@ msgstr "Търсенето в указателя е неуспешно"
 msgid "Disagree"
 msgstr "Не съм съгласен"
 
-#: src/features/chats/components/chat-input.tsx:724
-#: src/features/chats/components/chat-input.tsx:729
+#: src/features/chats/components/chat-input.tsx:728
+#: src/features/chats/components/chat-input.tsx:733
 msgid "Discard recording"
 msgstr "Отхвърляне на записа"
 
@@ -689,7 +701,7 @@ msgstr "Отхвърли"
 msgid "Displays the mobile sidebar."
 msgstr "Показва мобилната странична лента."
 
-#: src/features/chats/components/chat-input.tsx:786
+#: src/features/chats/components/chat-input.tsx:790
 msgid "Document"
 msgstr "Документ"
 
@@ -724,7 +736,7 @@ msgid "Edit {label}"
 msgstr "Редактиране на {label}"
 
 #. placeholder {0}: formatVideoDuration(recordingDuration)
-#: src/features/chats/components/chat-input.tsx:737
+#: src/features/chats/components/chat-input.tsx:741
 msgid "Elapsed {0}"
 msgstr "Изминало {0}"
 
@@ -767,11 +779,11 @@ msgstr "Много голям"
 msgid "Failed to add account"
 msgstr "Неуспешно добавяне на акаунт"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:418
+#: src/routes/_authenticated/$chatId_.settings.tsx:428
 msgid "Failed to add member"
 msgstr "Неуспешно добавяне на член"
 
-#: src/features/chats/index.tsx:645
+#: src/features/chats/index.tsx:649
 msgid "Failed to copy"
 msgstr "Неуспешно копиране"
 
@@ -779,19 +791,19 @@ msgstr "Неуспешно копиране"
 msgid "Failed to copy message"
 msgstr "Неуспешно копиране на съобщението"
 
-#: src/features/chats/components/new-chat.tsx:161
+#: src/features/chats/components/new-chat.tsx:196
 msgid "Failed to create chat"
 msgstr "Неуспешно създаване на чат"
 
-#: src/features/chats/index.tsx:676
+#: src/features/chats/index.tsx:680
 msgid "Failed to delete"
 msgstr "Неуспешно изтриване"
 
-#: src/features/chats/index.tsx:817
+#: src/features/chats/index.tsx:821
 msgid "Failed to delete chat"
 msgstr "Неуспешно изтриване на чат"
 
-#: src/features/chats/index.tsx:584
+#: src/features/chats/index.tsx:588
 msgid "Failed to edit message"
 msgstr "Съобщението не можа да бъде редактирано"
 
@@ -799,8 +811,8 @@ msgstr "Съобщението не можа да бъде редактиран�
 msgid "Failed to forward"
 msgstr "Неуспешно препращане"
 
-#: src/features/chats/index.tsx:798
-#: src/routes/_authenticated/$chatId_.settings.tsx:329
+#: src/features/chats/index.tsx:802
+#: src/routes/_authenticated/$chatId_.settings.tsx:339
 msgid "Failed to leave chat"
 msgstr "Неуспешно напускане на чат"
 
@@ -812,7 +824,7 @@ msgstr "Правилата ви за чат не бяха заредени"
 msgid "Failed to mark chat as read"
 msgstr "Неуспешно отбелязване на чата като прочетен"
 
-#: src/features/chats/index.tsx:628
+#: src/features/chats/index.tsx:632
 msgid "Failed to react"
 msgstr "Реакцията е неуспешна"
 
@@ -820,11 +832,11 @@ msgstr "Реакцията е неуспешна"
 msgid "Failed to remove account"
 msgstr "Неуспешно премахване на акаунт"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:524
+#: src/routes/_authenticated/$chatId_.settings.tsx:534
 msgid "Failed to remove member"
 msgstr "Неуспешно премахване на член"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:211
+#: src/routes/_authenticated/$chatId_.settings.tsx:221
 msgid "Failed to rename chat"
 msgstr "Неуспешно преименуване на чат"
 
@@ -832,7 +844,7 @@ msgstr "Неуспешно преименуване на чат"
 msgid "Failed to save"
 msgstr "Неуспешно записване"
 
-#: src/features/chats/index.tsx:752
+#: src/features/chats/index.tsx:756
 msgid "Failed to send message"
 msgstr "Неуспешно изпращане на съобщение"
 
@@ -840,7 +852,7 @@ msgstr "Неуспешно изпращане на съобщение"
 msgid "Failed to send verification code"
 msgstr "Неуспешно изпращане на код за потвърждение"
 
-#: src/features/chats/index.tsx:199
+#: src/features/chats/index.tsx:203
 msgid "Failed to start chat"
 msgstr "Неуспешно започване на чат"
 
@@ -862,7 +874,7 @@ msgstr "Плаващо"
 
 #: src/features/chats/components/forward-dialog.tsx:264
 #: src/features/chats/components/message-hover-actions.tsx:138
-#: src/features/chats/index.tsx:1215
+#: src/features/chats/index.tsx:1243
 msgid "Forward"
 msgstr "Препрати"
 
@@ -883,7 +895,7 @@ msgid "Friday"
 msgstr "Петък"
 
 #: src/features/chats/components/forward-dialog.tsx:237
-#: src/routes/_authenticated/$chatId_.settings.tsx:469
+#: src/routes/_authenticated/$chatId_.settings.tsx:479
 msgid "Friends"
 msgstr "Приятели"
 
@@ -908,8 +920,8 @@ msgstr "От темата"
 msgid "Full layout"
 msgstr "Пълно оформление"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:129
-#: src/routes/_authenticated/$chatId_.settings.tsx:200
+#: src/routes/_authenticated/$chatId_.settings.tsx:133
+#: src/routes/_authenticated/$chatId_.settings.tsx:210
 msgid "General"
 msgstr "Общи"
 
@@ -967,7 +979,7 @@ msgid "Imperial"
 msgstr "Имперски"
 
 #: src/features/chats/components/chat-settings-dialog.tsx:80
-#: src/features/chats/index.tsx:1125
+#: src/features/chats/index.tsx:1144
 msgid "Incoming chats"
 msgstr "Входящи чатове"
 
@@ -1006,32 +1018,32 @@ msgstr "Оформление"
 msgid "Learn more"
 msgstr "Научи повече"
 
-#: src/features/chats/index.tsx:1304
+#: src/features/chats/index.tsx:1332
 msgid "Leave"
 msgstr "Напусни"
 
-#: src/features/chats/index.tsx:1109
-#: src/routes/_authenticated/$chatId_.settings.tsx:354
+#: src/features/chats/index.tsx:1128
+#: src/routes/_authenticated/$chatId_.settings.tsx:364
 msgid "Leave chat"
 msgstr "Напусни чата"
 
-#: src/features/chats/index.tsx:1295
-#: src/routes/_authenticated/$chatId_.settings.tsx:345
+#: src/features/chats/index.tsx:1323
+#: src/routes/_authenticated/$chatId_.settings.tsx:355
 msgid "Leave chat?"
 msgstr "Да напусна ли чата?"
 
-#: src/features/chats/index.tsx:796
-#: src/routes/_authenticated/$chatId_.settings.tsx:327
+#: src/features/chats/index.tsx:800
+#: src/routes/_authenticated/$chatId_.settings.tsx:337
 msgid "Leaving chat..."
 msgstr "Напускане на чата..."
 
-#: src/features/chats/index.tsx:1301
-#: src/routes/_authenticated/$chatId_.settings.tsx:351
+#: src/features/chats/index.tsx:1329
+#: src/routes/_authenticated/$chatId_.settings.tsx:361
 msgid "Leaving..."
 msgstr "Напускане..."
 
-#: src/features/chats/index.tsx:797
-#: src/routes/_authenticated/$chatId_.settings.tsx:328
+#: src/features/chats/index.tsx:801
+#: src/routes/_authenticated/$chatId_.settings.tsx:338
 msgid "Left chat"
 msgstr "Напуснат чат"
 
@@ -1109,15 +1121,15 @@ msgstr "Маркиране като прочетено..."
 msgid "Medium"
 msgstr "Среден"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:417
+#: src/routes/_authenticated/$chatId_.settings.tsx:427
 msgid "Member added"
 msgstr "Членът е добавен"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:523
+#: src/routes/_authenticated/$chatId_.settings.tsx:533
 msgid "Member removed"
 msgstr "Членът е премахнат"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:248
+#: src/routes/_authenticated/$chatId_.settings.tsx:258
 msgid "Members"
 msgstr "Членове"
 
@@ -1138,16 +1150,21 @@ msgstr "Действия със съобщението"
 msgid "Message copied"
 msgstr "Съобщението е копирано"
 
-#: src/features/chats/index.tsx:754
+#: src/features/chats/index.tsx:758
 msgid "Message could not be sent. Attachments may be too large, or your connection failed. Try smaller files."
 msgstr "Съобщението не можа да бъде изпратено. Прикачените файлове може да са твърде големи или връзката е прекъснала. Опитайте с по-малки файлове."
 
-#: src/features/chats/index.tsx:675
+#: src/features/chats/index.tsx:679
 msgid "Message deleted"
 msgstr "Съобщението е изтрито"
 
+#. placeholder {0}: formatNumber(newMessage.length - MESSAGE_MAX_LENGTH)
+#: src/features/chats/components/chat-input.tsx:914
+msgid "Message is {0} characters too long"
+msgstr "Съобщението е с {0} знака по-дълго"
+
 #: src/features/chats/components/message-quote.tsx:60
-#: src/features/chats/index.tsx:696
+#: src/features/chats/index.tsx:700
 msgid "Message not available"
 msgstr "Съобщението не е налично"
 
@@ -1155,37 +1172,37 @@ msgstr "Съобщението не е налично"
 msgid "Metric"
 msgstr "Метричен"
 
-#: src/features/chats/components/chat-input.tsx:317
+#: src/features/chats/components/chat-input.tsx:321
 msgid "Microphone access denied"
 msgstr "Достъпът до микрофона е отказан"
 
-#: src/features/chats/components/chat-input.tsx:294
+#: src/features/chats/components/chat-input.tsx:298
 msgid "Microphone access is blocked here. Please update the app and try again."
 msgstr "Достъпът до микрофона е блокиран тук. Актуализирайте приложението и опитайте отново."
 
-#: src/features/chats/components/chat-input.tsx:291
-#: src/features/chats/components/chat-input.tsx:338
-#: src/features/chats/components/chat-input.tsx:385
+#: src/features/chats/components/chat-input.tsx:295
+#: src/features/chats/components/chat-input.tsx:342
+#: src/features/chats/components/chat-input.tsx:389
 msgid "Microphone access requires a secure context (HTTPS or localhost)"
 msgstr "Достъпът до микрофона изисква защитен контекст (HTTPS или localhost)"
 
-#: src/features/chats/components/chat-input.tsx:297
+#: src/features/chats/components/chat-input.tsx:301
 msgid "Microphone access was blocked by the browser"
 msgstr "Браузърът блокира достъпа до микрофона"
 
-#: src/features/chats/components/chat-input.tsx:278
+#: src/features/chats/components/chat-input.tsx:282
 msgid "Microphone constraints could not be satisfied"
 msgstr "Изискванията към микрофона не можаха да бъдат изпълнени"
 
-#: src/features/chats/components/chat-input.tsx:314
+#: src/features/chats/components/chat-input.tsx:318
 msgid "Microphone error: {message}"
 msgstr "Грешка на микрофона: {message}"
 
-#: src/features/chats/components/chat-input.tsx:274
+#: src/features/chats/components/chat-input.tsx:278
 msgid "Microphone is already in use"
 msgstr "Микрофонът вече се използва"
 
-#: src/features/chats/components/chat-input.tsx:266
+#: src/features/chats/components/chat-input.tsx:270
 msgid "Microphone permission denied"
 msgstr "Разрешението за микрофон е отказано"
 
@@ -1194,13 +1211,17 @@ msgid "Monday"
 msgstr "Понеделник"
 
 #. placeholder {0}: ambiguous.join(', ')
-#: src/features/chats/index.tsx:952
+#: src/features/chats/index.tsx:967
 msgid "Multiple people share these names: {0}. Pick them from the @ list so the right person is notified."
 msgstr "Няколко души споделят тези имена: {0}. Изберете ги от списъка @, за да бъде уведомен правилният човек."
 
+#: src/routes/_authenticated/$chatId_.settings.tsx:200
+msgid "Name must be {CHAT_NAME_MAX_LENGTH} characters or less"
+msgstr "Името трябва да е до {CHAT_NAME_MAX_LENGTH} символа"
+
 #: src/routes/_authenticated/$chatId_.settings.tsx:195
-msgid "Name must be 1000 characters or less"
-msgstr "Името трябва да е до 1000 символа"
+#~ msgid "Name must be 1000 characters or less"
+#~ msgstr "Името трябва да е до 1000 символа"
 
 #: ../../../lib/web/src/features/errors/general-error.tsx:53
 #: ../../../lib/web/src/lib/api-response-interceptors.ts:303
@@ -1213,7 +1234,7 @@ msgstr "Ново"
 
 #: src/features/chats/components/chat-empty-state.tsx:27
 #: src/features/chats/components/chat-empty-state.tsx:43
-#: src/features/chats/components/new-chat.tsx:204
+#: src/features/chats/components/new-chat.tsx:263
 msgid "New chat"
 msgstr "Нов чат"
 
@@ -1238,15 +1259,15 @@ msgstr "Няма чатове за препращане"
 msgid "No connected accounts"
 msgstr "Няма свързани акаунти"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:459
+#: src/routes/_authenticated/$chatId_.settings.tsx:469
 msgid "No friends available"
 msgstr "Няма налични приятели"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:459
+#: src/routes/_authenticated/$chatId_.settings.tsx:469
 msgid "No friends found"
 msgstr "Не са намерени приятели"
 
-#: src/features/chats/components/new-chat.tsx:235
+#: src/features/chats/components/new-chat.tsx:294
 msgid "No friends yet"
 msgstr "Все още няма приятели"
 
@@ -1258,11 +1279,11 @@ msgstr "Няма налични групи"
 msgid "No messages yet"
 msgstr "Все още няма съобщения"
 
-#: src/features/chats/components/chat-input.tsx:270
+#: src/features/chats/components/chat-input.tsx:274
 msgid "No microphone found"
 msgstr "Не е намерен микрофон"
 
-#: src/features/chats/components/new-chat.tsx:229
+#: src/features/chats/components/new-chat.tsx:288
 msgid "No people found"
 msgstr "Не са намерени хора"
 
@@ -1313,7 +1334,7 @@ msgstr "Не е намерено"
 msgid "Not set"
 msgstr "Не е зададен"
 
-#: src/features/chats/index.tsx:640
+#: src/features/chats/index.tsx:644
 msgid "Nothing to copy"
 msgstr "Няма нищо за копиране"
 
@@ -1337,7 +1358,7 @@ msgstr "Само приятели могат да започнат чат с в�
 msgid "Oops! Page Not Found!"
 msgstr "Опа! Страницата не е намерена!"
 
-#: src/features/chats/components/new-chat.tsx:269
+#: src/features/chats/components/new-chat.tsx:328
 msgid "Open"
 msgstr "Отвори"
 
@@ -1351,7 +1372,7 @@ msgstr "Отвори действия за акаунта"
 msgid "Open actions"
 msgstr "Отвори действията"
 
-#: src/features/chats/index.tsx:1094
+#: src/features/chats/index.tsx:1113
 msgid "Open chat actions"
 msgstr "Отвори действия за чата"
 
@@ -1365,7 +1386,7 @@ msgstr "Отвори навигацията"
 msgid "Open navigation menu"
 msgstr "Отвори менюто за навигация"
 
-#: src/features/chats/components/new-chat.tsx:245
+#: src/features/chats/components/new-chat.tsx:304
 msgid "Open people"
 msgstr "Отвори „Хора“"
 
@@ -1406,7 +1427,7 @@ msgstr "Пауза на аудиото"
 msgid "Pause voice note"
 msgstr "Пауза на гласовата бележка"
 
-#: src/features/chats/components/new-chat.tsx:214
+#: src/features/chats/components/new-chat.tsx:273
 msgid "People"
 msgstr "Хора"
 
@@ -1427,11 +1448,11 @@ msgstr "Пускане на гласовата бележка"
 msgid "Please check your internet connection and try again."
 msgstr "Проверете интернет връзката си и опитайте отново."
 
-#: src/features/chats/components/new-chat.tsx:148
+#: src/features/chats/components/new-chat.tsx:161
 msgid "Please provide a chat name"
 msgstr "Моля, въведете име на чата"
 
-#: src/features/chats/components/new-chat.tsx:138
+#: src/features/chats/components/new-chat.tsx:151
 msgid "Please select at least one person"
 msgstr "Моля, изберете поне един човек"
 
@@ -1479,28 +1500,28 @@ msgstr "Покажи още"
 msgid "Recommended"
 msgstr "Препоръчано"
 
-#: src/features/chats/components/chat-input.tsx:845
-#: src/features/chats/components/chat-input.tsx:850
+#: src/features/chats/components/chat-input.tsx:849
+#: src/features/chats/components/chat-input.tsx:854
 msgid "Record voice note"
 msgstr "Запис на гласова бележка"
 
-#: src/features/chats/components/chat-input.tsx:306
+#: src/features/chats/components/chat-input.tsx:310
 msgid "Recording failed. Please try again."
 msgstr "Записът не успя. Опитайте отново."
 
-#: src/features/chats/components/chat-input.tsx:322
+#: src/features/chats/components/chat-input.tsx:326
 msgid "Recording is too large to send"
 msgstr "Записът е твърде голям за изпращане"
 
-#: src/features/chats/components/chat-input.tsx:302
+#: src/features/chats/components/chat-input.tsx:306
 msgid "Recording produced no audio"
 msgstr "Записът не съдържа звук"
 
-#: src/features/chats/components/chat-input.tsx:228
+#: src/features/chats/components/chat-input.tsx:232
 msgid "Recording stopped at the 5-minute limit"
 msgstr "Записът спря на лимита от 5 минути"
 
-#: src/features/chats/components/chat-input.tsx:714
+#: src/features/chats/components/chat-input.tsx:718
 msgid "Recording voice note"
 msgstr "Записва се гласова бележка"
 
@@ -1523,13 +1544,13 @@ msgstr "Относително в рамките на 24 часа, иначе а
 
 #: ../../../lib/web/src/features/access/access-list.tsx:265
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:180
-#: src/routes/_authenticated/$chatId_.settings.tsx:546
+#: src/routes/_authenticated/$chatId_.settings.tsx:556
 msgid "Remove"
 msgstr "Премахни"
 
 #. placeholder {0}: attachment.file.name
 #. placeholder {0}: reaction.label
-#: src/features/chats/components/chat-input.tsx:692
+#: src/features/chats/components/chat-input.tsx:696
 #: src/features/chats/components/message-reaction-bar.tsx:121
 msgid "Remove {0}"
 msgstr "Премахни {0}"
@@ -1552,7 +1573,7 @@ msgstr "Премахване на аудиото"
 msgid "Remove interest"
 msgstr "Премахни интерес"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:537
+#: src/routes/_authenticated/$chatId_.settings.tsx:547
 msgid "Remove member?"
 msgstr "Да премахна ли члена?"
 
@@ -1560,15 +1581,15 @@ msgstr "Да премахна ли члена?"
 msgid "Remove voice note"
 msgstr "Премахване на гласовата бележка"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:522
+#: src/routes/_authenticated/$chatId_.settings.tsx:532
 msgid "Removing member..."
 msgstr "Премахване на член..."
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:543
+#: src/routes/_authenticated/$chatId_.settings.tsx:553
 msgid "Removing..."
 msgstr "Премахва се..."
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:208
+#: src/routes/_authenticated/$chatId_.settings.tsx:218
 msgid "Renaming chat..."
 msgstr "Преименуване на чата..."
 
@@ -1577,7 +1598,7 @@ msgid "Reply"
 msgstr "Отговор"
 
 #. placeholder {0}: replyTo.name
-#: src/features/chats/components/chat-input.tsx:581
+#: src/features/chats/components/chat-input.tsx:585
 msgid "Replying to {0}"
 msgstr "В отговор на {0}"
 
@@ -1641,7 +1662,7 @@ msgstr "Търси дестинация..."
 msgid "Search for origin..."
 msgstr "Търси произход..."
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:445
+#: src/routes/_authenticated/$chatId_.settings.tsx:455
 msgid "Search friends…"
 msgstr "Търсене на приятели…"
 
@@ -1649,7 +1670,7 @@ msgstr "Търсене на приятели…"
 msgid "Search in chat..."
 msgstr "Търсене в чата..."
 
-#: src/features/chats/index.tsx:1084
+#: src/features/chats/index.tsx:1103
 msgid "Search messages"
 msgstr "Търсене на съобщения"
 
@@ -1687,7 +1708,7 @@ msgstr "Избери"
 msgid "Select a chat"
 msgstr "Изберете чат"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:437
+#: src/routes/_authenticated/$chatId_.settings.tsx:447
 msgid "Select a friend to add to this chat."
 msgstr "Изберете приятел за добавяне в чата."
 
@@ -1719,7 +1740,7 @@ msgstr "Избери заредените"
 msgid "Select message"
 msgstr "Избери съобщение"
 
-#: src/features/chats/components/new-chat.tsx:228
+#: src/features/chats/components/new-chat.tsx:287
 msgid "Select people..."
 msgstr "Изберете хора..."
 
@@ -1739,6 +1760,10 @@ msgstr "Избор на предпочитание за тема"
 #~ msgid "selected"
 #~ msgstr "избрани"
 
+#: src/features/chats/index.tsx:1206
+msgid "Selected the newest {BULK_MESSAGES_MAX} messages, the most that can be forwarded or deleted at once"
+msgstr "Избрани са най-новите {BULK_MESSAGES_MAX} съобщения — максимумът за препращане или изтриване наведнъж"
+
 #: src/features/chats/components/chat-message-list.tsx:824
 msgid "Selects messages loaded so far"
 msgstr "Избира заредените досега съобщения"
@@ -1751,8 +1776,8 @@ msgstr "Изпрати отново"
 msgid "Send email"
 msgstr "Изпрати имейл"
 
-#: src/features/chats/components/chat-input.tsx:860
-#: src/features/chats/components/chat-input.tsx:869
+#: src/features/chats/components/chat-input.tsx:864
+#: src/features/chats/components/chat-input.tsx:873
 msgid "Send message"
 msgstr "Изпрати съобщение"
 
@@ -1831,7 +1856,7 @@ msgstr "Просторно"
 msgid "Start a conversation"
 msgstr "Започни разговор"
 
-#: src/features/chats/index.tsx:196
+#: src/features/chats/index.tsx:200
 msgid "Starting chat..."
 msgstr "Стартиране на чат..."
 
@@ -1839,8 +1864,8 @@ msgstr "Стартиране на чат..."
 msgid "Stay tuned though!"
 msgstr "Все пак следете!"
 
-#: src/features/chats/components/chat-input.tsx:754
-#: src/features/chats/components/chat-input.tsx:759
+#: src/features/chats/components/chat-input.tsx:758
+#: src/features/chats/components/chat-input.tsx:763
 msgid "Stop recording"
 msgstr "Спиране на записа"
 
@@ -1880,6 +1905,15 @@ msgstr "Общи условия"
 msgid "That code is incorrect or has expired."
 msgstr "Този код е неправилен или е изтекъл."
 
+#: src/features/chats/components/new-chat.tsx:167
+msgid "The chat name can be at most {CHAT_NAME_MAX_LENGTH} characters"
+msgstr "Името на чата може да е най-много {CHAT_NAME_MAX_LENGTH} знака"
+
+#: src/features/chats/components/new-chat.tsx:173
+#: src/routes/_authenticated/$chatId_.settings.tsx:204
+msgid "The chat name cannot contain < or >"
+msgstr "Името на чата не може да съдържа < или >"
+
 #: ../../../lib/web/src/features/errors/general-error.tsx:68
 msgid "The requested content could not be found."
 msgstr "Заявеното съдържание не беше намерено."
@@ -1893,19 +1927,19 @@ msgid "Theme Settings"
 msgstr "Настройки на темата"
 
 #. placeholder {0}: unknown.join(', ')
-#: src/features/chats/index.tsx:956
+#: src/features/chats/index.tsx:971
 msgid "These names are not in this chat: {0}. Pick from the @ list or remove them."
 msgstr "Тези имена не са в този чат: {0}. Изберете от списъка @ или ги премахнете."
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:161
+#: src/routes/_authenticated/$chatId_.settings.tsx:165
 msgid "this chat"
 msgstr "този чат"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:114
+#: src/routes/_authenticated/$chatId_.settings.tsx:118
 msgid "This chat may have been deleted or you don't have access to it"
 msgstr "Този чат може да е изтрит или нямате достъп до него"
 
-#: src/features/chats/index.tsx:1332
+#: src/features/chats/index.tsx:1360
 msgid "This deletes the message for everyone and cannot be undone."
 msgstr "Това изтрива съобщението за всички и не може да бъде отменено."
 
@@ -1961,7 +1995,7 @@ msgstr "Най-горе"
 msgid "Travelling"
 msgstr "Пътуване"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:462
+#: src/routes/_authenticated/$chatId_.settings.tsx:472
 msgid "Try a different search term"
 msgstr "Опитайте друг термин за търсене"
 
@@ -1992,11 +2026,11 @@ msgstr "Пишете, за да търсите потребители"
 msgid "Type to search..."
 msgstr "Пишете, за да търсите..."
 
-#: src/features/chats/components/chat-input.tsx:805
+#: src/features/chats/components/chat-input.tsx:809
 msgid "Type your message…"
 msgstr "Въведете съобщението си…"
 
-#: src/features/chats/components/chat-input.tsx:804
+#: src/features/chats/components/chat-input.tsx:808
 msgid "Type your reply…"
 msgstr "Напишете отговора си…"
 
@@ -2085,16 +2119,16 @@ msgstr "Виж всички известия"
 msgid "Voice note waveform"
 msgstr "Вълнова форма на гласовата бележка"
 
-#: src/features/chats/components/chat-input.tsx:365
+#: src/features/chats/components/chat-input.tsx:369
 msgid "Voice recording is currently unavailable. Please check your setup and try again."
 msgstr "Гласовият запис в момента не е достъпен. Проверете настройките си и опитайте отново."
 
-#: src/features/chats/components/chat-input.tsx:286
-#: src/features/chats/components/chat-input.tsx:391
+#: src/features/chats/components/chat-input.tsx:290
+#: src/features/chats/components/chat-input.tsx:395
 msgid "Voice recording is not supported in this browser"
 msgstr "Гласовият запис не се поддържа в този браузър"
 
-#: src/features/chats/components/chat-input.tsx:261
+#: src/features/chats/components/chat-input.tsx:265
 msgid "Voice recording isn't available in this app version. Please update the app and try again."
 msgstr "Гласовият запис не е достъпен в тази версия на приложението. Актуализирайте приложението и опитайте отново."
 
@@ -2110,19 +2144,27 @@ msgstr "Уебсайтът е в поддръжка!"
 msgid "Wednesday"
 msgstr "Сряда"
 
-#: src/features/chats/index.tsx:475
+#: src/features/chats/index.tsx:479
 msgid "You"
 msgstr "Вие"
 
-#: src/features/chats/components/new-chat.tsx:143
+#: src/features/chats/components/new-chat.tsx:156
 msgid "You already have a chat with this friend"
 msgstr "Вече имате чат с този приятел"
 
-#: src/features/chats/components/new-chat.tsx:257
+#: src/features/chats/components/new-chat.tsx:316
 msgid "You already have chats with:"
 msgstr "Вече имате чатове с:"
 
-#: src/features/chats/index.tsx:657
+#: src/features/chats/index.tsx:954
+msgid "You can attach at most {CAPTIONS_MAX} files to a message"
+msgstr "Може да прикачите най-много {CAPTIONS_MAX} файла към съобщение"
+
+#: src/features/chats/index.tsx:950
+msgid "You can mention at most {MENTIONS_MAX} people in a message"
+msgstr "Може да споменете най-много {MENTIONS_MAX} души в съобщение"
+
+#: src/features/chats/index.tsx:661
 msgid "You can only delete your own messages"
 msgstr "Можете да изтривате само собствените си съобщения"
 
@@ -2130,11 +2172,11 @@ msgstr "Можете да изтривате само собствените с�
 msgid "You do not have access to this section."
 msgstr "Нямате достъп до този раздел."
 
-#: src/features/chats/index.tsx:1241
+#: src/features/chats/index.tsx:1269
 msgid "You left this chat"
 msgstr "Напуснахте този чат"
 
-#: src/features/chats/index.tsx:1240
+#: src/features/chats/index.tsx:1268
 msgid "You were removed from this chat"
 msgstr "Бяхте премахнати от този чат"
 

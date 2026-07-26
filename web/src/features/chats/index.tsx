@@ -77,8 +77,12 @@ import {
   type ReplyTarget,
   messageToReplyTarget,
 } from './utils/reply'
-
-const MESSAGE_EDIT_MAX_LENGTH = 10000
+import {
+  BULK_MESSAGES_MAX,
+  CAPTIONS_MAX,
+  MENTIONS_MAX,
+  MESSAGE_MAX_LENGTH,
+} from './constants/limits'
 
 export function Chats() {
   const { t } = useLingui()
@@ -562,7 +566,7 @@ export function Chats() {
     
     const body = editingBody.trim()
     if (!body) return
-    if (body.length > MESSAGE_EDIT_MAX_LENGTH) return
+    if (body.length > MESSAGE_MAX_LENGTH) return
     if (body === editingMessage.body?.trim()) {
       handleCancelEdit()
       return
@@ -940,6 +944,17 @@ export function Chats() {
           preferred: selectedMentions,
         }).map((m) => m.id)
 
+    // The server refuses the whole message past these, so say so before the
+    // attachments go up rather than after.
+    if (mentions.length > MENTIONS_MAX) {
+      toast.error(t`You can mention at most ${MENTIONS_MAX} people in a message`)
+      return
+    }
+    if (pendingAttachments.length > CAPTIONS_MAX) {
+      toast.error(t`You can attach at most ${CAPTIONS_MAX} files to a message`)
+      return
+    }
+
     if (!isDirectChat && body) {
       const { unknown, ambiguous } = classifyUnresolvedMentions({
         body,
@@ -984,8 +999,12 @@ export function Chats() {
     })
   }
 
+  // Length is checked here rather than capping the textarea: a maxLength would
+  // silently swallow the tail of a paste, and the server rejects an over-long
+  // body only AFTER the attachments have finished uploading.
   const canSendMessage =
     !sendMessageMutation.isPending &&
+    newMessage.length <= MESSAGE_MAX_LENGTH &&
     (Boolean(newMessage.trim()) || pendingAttachments.length > 0)
 
   const isEditSaveDisabled =
@@ -993,7 +1012,7 @@ export function Chats() {
     (isEditingSaving ||
       !editingBody.trim() ||
       editingBody.trim() === editingMessage.body?.trim() ||
-      editingBody.length > MESSAGE_EDIT_MAX_LENGTH)
+      editingBody.length > MESSAGE_MAX_LENGTH)
 
   const isSendDisabled = !canSendMessage
 
@@ -1179,7 +1198,16 @@ export function Chats() {
             selectedIds={selectedIds}
             onToggleSelect={toggleMessageSelection}
             onSelectMessage={(message) => selectOne(message.id)}
-            onSelectAll={(ids) => selectAllMessages(ids)}
+            onSelectAll={(ids) => {
+              // Forward and delete take at most BULK_MESSAGES_MAX ids, and
+              // "select loaded" grows with how far the user has scrolled.
+              if (ids.length > BULK_MESSAGES_MAX) {
+                toast.info(
+                  t`Selected the newest ${BULK_MESSAGES_MAX} messages, the most that can be forwarded or deleted at once`
+                )
+              }
+              selectAllMessages(ids.slice(-BULK_MESSAGES_MAX))
+            }}
             onClearSelection={clearSelection}
             editingMessageId={editingMessage?.id}
             editingBody={editingBody}

@@ -26,12 +26,12 @@ msgstr "உங்கள் இணைய இணைப்பைச் சரிப
 msgid "(edited)"
 msgstr "(திருத்தப்பட்டது)"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:279
+#: src/routes/_authenticated/$chatId_.settings.tsx:289
 msgid "(you)"
 msgstr "(நீங்கள்)"
 
 #. placeholder {0}: deleteTargetIds?.length ?? 0
-#: src/features/chats/index.tsx:1328
+#: src/features/chats/index.tsx:1356
 msgid "{0, plural, one {Delete message?} other {Delete # messages?}}"
 msgstr "{0, plural, one {செய்தியை நீக்கவா?} other {# செய்திகளை நீக்கவா?}}"
 
@@ -43,13 +43,13 @@ msgstr "{0} (உங்களையும் சேர்த்து)"
 #. placeholder {0}: selectedIds.size
 #. placeholder {0}: selectedIds?.size ?? 0
 #: src/features/chats/components/chat-message-list.tsx:816
-#: src/features/chats/index.tsx:1198
+#: src/features/chats/index.tsx:1226
 msgid "{0} selected"
 msgstr "{0} தேர்ந்தெடுக்கப்பட்டது"
 
 #. placeholder {0}: chatDetail.chat.name
-#: src/routes/_authenticated/$chatId_.settings.tsx:85
-#: src/routes/_authenticated/$chatId_.settings.tsx:124
+#: src/routes/_authenticated/$chatId_.settings.tsx:89
+#: src/routes/_authenticated/$chatId_.settings.tsx:128
 msgid "{0} settings"
 msgstr "{0} அமைப்புகள்"
 
@@ -62,7 +62,7 @@ msgstr "{hiddenCount, plural, one {மேலும் 1 கோப்பைக்
 msgid "{newMessageCount, plural, one {Jump to 1 new message} other {Jump to # new messages}}"
 msgstr "{newMessageCount, plural, one {1 புதிய செய்திக்குச் செல்} other {# புதிய செய்திகளுக்குச் செல்}}"
 
-#: src/features/chats/index.tsx:865
+#: src/features/chats/index.tsx:869
 msgid "{skippedCount, plural, one {Skipped # file that is not audio} other {Skipped # files that are not audio}}"
 msgstr "{skippedCount, plural, one {ஒலி அல்லாத # கோப்பு தவிர்க்கப்பட்டது} other {ஒலி அல்லாத # கோப்புகள் தவிர்க்கப்பட்டன}}"
 
@@ -74,7 +74,7 @@ msgstr "12 மணிநேரம்"
 msgid "24 hours"
 msgstr "24 மணிநேரம்"
 
-#: src/features/chats/components/chat-input.tsx:310
+#: src/features/chats/components/chat-input.tsx:314
 msgid "A recording is already in progress."
 msgstr "ஒரு பதிவு ஏற்கனவே நடைபெறுகிறது."
 
@@ -115,7 +115,7 @@ msgid "Add"
 msgstr "சேர்"
 
 #. placeholder {0}: friend.name
-#: src/routes/_authenticated/$chatId_.settings.tsx:475
+#: src/routes/_authenticated/$chatId_.settings.tsx:485
 msgid "Add {0} to chat"
 msgstr "{0} ஐ அரட்டையில் சேர்க்கவும்"
 
@@ -136,13 +136,13 @@ msgstr "கணக்கு சேர்"
 msgid "Add an account to receive notifications and use services."
 msgstr "அறிவிப்புகளைப் பெறவும் சேவைகளைப் பயன்படுத்தவும் கணக்கைச் சேர்க்கவும்."
 
-#: src/features/chats/components/chat-input.tsx:773
-#: src/features/chats/components/chat-input.tsx:779
+#: src/features/chats/components/chat-input.tsx:777
+#: src/features/chats/components/chat-input.tsx:783
 msgid "Add attachment"
 msgstr "இணைப்பு சேர்"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:252
-#: src/routes/_authenticated/$chatId_.settings.tsx:434
+#: src/routes/_authenticated/$chatId_.settings.tsx:262
+#: src/routes/_authenticated/$chatId_.settings.tsx:444
 msgid "Add member"
 msgstr "உறுப்பினர் சேர்"
 
@@ -172,7 +172,19 @@ msgstr "உள்ள அறிவிப்புகளுக்குச் ச�
 msgid "Add view"
 msgstr "காட்சி சேர்"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:416
+#. placeholder {0}: remainder.length
+#. placeholder {1}: refused.length
+#: src/features/chats/components/new-chat.tsx:218
+msgid "Added {added} of {0} remaining people; {1} could not be added"
+msgstr "மீதமுள்ள {0} இல் {added} சேர்க்கப்பட்டது; {1} சேர்க்க முடியவில்லை"
+
+#. placeholder {0}: addingRemainder.done
+#. placeholder {1}: addingRemainder.total
+#: src/features/chats/components/new-chat.tsx:363
+msgid "Adding {0}/{1}..."
+msgstr "{0}/{1} சேர்க்கப்படுகிறது..."
+
+#: src/routes/_authenticated/$chatId_.settings.tsx:426
 msgid "Adding member..."
 msgstr "உறுப்பினரைச் சேர்க்கிறது..."
 
@@ -192,7 +204,7 @@ msgstr "AI"
 msgid "All"
 msgstr "அனைத்தும்"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:463
+#: src/routes/_authenticated/$chatId_.settings.tsx:473
 msgid "All your friends are already in this chat"
 msgstr "உங்கள் நண்பர்கள் அனைவரும் ஏற்கனவே இந்த அரட்டையில் உள்ளனர்"
 
@@ -221,11 +233,11 @@ msgid "Anyone can start a chat with you."
 msgstr "எவரும் உங்களுடன் அரட்டையைத் தொடங்கலாம்."
 
 #. placeholder {0}: selectedChat?.name
-#: src/features/chats/index.tsx:1296
+#: src/features/chats/index.tsx:1324
 msgid "Are you sure you want to leave \"{0}\"? You can be added back by other members."
 msgstr "\"{0}\" ஐ விட்டு வெளியேற விரும்புகிறீர்களா? மற்ற உறுப்பினர்கள் உங்களை மீண்டும் சேர்க்கலாம்."
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:346
+#: src/routes/_authenticated/$chatId_.settings.tsx:356
 msgid "Are you sure you want to leave \"{chatName}\"? You can be added back by other members."
 msgstr "\"{chatName}\" ஐ விட்டு வெளியேற விரும்புகிறீர்களா? மற்ற உறுப்பினர்கள் உங்களை மீண்டும் சேர்க்கலாம்."
 
@@ -234,7 +246,7 @@ msgid "Are you sure you want to log out? You will need to log in again to access
 msgstr "வெளியேற விரும்புகிறீர்களா? உங்கள் கணக்கை அணுக மீண்டும் உள்நுழைய வேண்டும்."
 
 #. placeholder {0}: member?.name
-#: src/routes/_authenticated/$chatId_.settings.tsx:538
+#: src/routes/_authenticated/$chatId_.settings.tsx:548
 msgid "Are you sure you want to remove {0} from this chat?"
 msgstr "நிச்சயமாக {0} ஐ இந்த அரட்டையிலிருந்து அகற்ற விரும்புகிறீர்களா?"
 
@@ -246,16 +258,16 @@ msgstr "ஏறு"
 msgid "Ascending"
 msgstr "ஏறுவரிசை"
 
-#: src/features/chats/components/chat-input.tsx:590
+#: src/features/chats/components/chat-input.tsx:594
 #: src/features/chats/components/message-quote.tsx:56
 msgid "Attachment"
 msgstr "இணைப்பு"
 
-#: src/features/chats/index.tsx:753
+#: src/features/chats/index.tsx:757
 msgid "Attachments are too large to upload. Remove or shrink files and try again."
 msgstr "இணைப்புகள் பதிவேற்ற முடியாத அளவுக்கு மிகப் பெரியவை. கோப்புகளை அகற்றவும் அல்லது சுருக்கவும், பின்னர் மீண்டும் முயற்சிக்கவும்."
 
-#: src/features/chats/components/chat-input.tsx:792
+#: src/features/chats/components/chat-input.tsx:796
 msgid "Audio"
 msgstr "ஒலி"
 
@@ -267,9 +279,9 @@ msgstr "அங்கீகரிப்பு குறியீடு"
 msgid "Back"
 msgstr "பின்"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:98
-#: src/routes/_authenticated/$chatId_.settings.tsx:109
-#: src/routes/_authenticated/$chatId_.settings.tsx:125
+#: src/routes/_authenticated/$chatId_.settings.tsx:102
+#: src/routes/_authenticated/$chatId_.settings.tsx:113
+#: src/routes/_authenticated/$chatId_.settings.tsx:129
 msgid "Back to chat"
 msgstr "அரட்டைக்கு திரும்பு"
 
@@ -301,13 +313,13 @@ msgstr "ஆர்வத்தை அதிகரி"
 #: src/features/chats/components/chat-message-list.tsx:835
 #: src/features/chats/components/chat-settings-dialog.tsx:116
 #: src/features/chats/components/forward-dialog.tsx:253
-#: src/features/chats/components/new-chat.tsx:295
-#: src/features/chats/index.tsx:1230
+#: src/features/chats/components/new-chat.tsx:354
+#: src/features/chats/index.tsx:1258
 msgid "Cancel"
 msgstr "ரத்துசெய்"
 
-#: src/features/chats/components/chat-input.tsx:600
-#: src/features/chats/components/chat-input.tsx:605
+#: src/features/chats/components/chat-input.tsx:604
+#: src/features/chats/components/chat-input.tsx:609
 msgid "Cancel reply"
 msgstr "பதிலளிப்பை ரத்துசெய்"
 
@@ -320,22 +332,22 @@ msgstr "இந்த அறிவிப்புக்கான வகை"
 msgid "Change notification category"
 msgstr "அறிவிப்பு வகையை மாற்று"
 
-#: src/features/chats/index.tsx:85
-#: src/features/chats/index.tsx:193
-#: src/features/chats/index.tsx:193
-#: src/features/chats/index.tsx:1016
+#: src/features/chats/index.tsx:89
+#: src/features/chats/index.tsx:197
+#: src/features/chats/index.tsx:197
+#: src/features/chats/index.tsx:1035
 msgid "Chat"
 msgstr "அரட்டை"
 
-#: src/features/chats/components/new-chat.tsx:160
+#: src/features/chats/components/new-chat.tsx:195
 msgid "Chat created"
 msgstr "அரட்டை உருவாக்கப்பட்டது"
 
-#: src/features/chats/index.tsx:816
+#: src/features/chats/index.tsx:820
 msgid "Chat deleted"
 msgstr "அரட்டை நீக்கப்பட்டது"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:218
+#: src/routes/_authenticated/$chatId_.settings.tsx:228
 msgid "Chat ID"
 msgstr "அரட்டை ID"
 
@@ -347,20 +359,20 @@ msgstr "அரட்டை படித்ததாகக் குறிக்�
 msgid "Chat marked as unread"
 msgstr "அரட்டை படிக்காததாகக் குறிக்கப்பட்டது"
 
-#: src/features/chats/components/new-chat.tsx:279
-#: src/routes/_authenticated/$chatId_.settings.tsx:202
+#: src/features/chats/components/new-chat.tsx:338
+#: src/routes/_authenticated/$chatId_.settings.tsx:212
 msgid "Chat name"
 msgstr "அரட்டை பெயர்"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:194
+#: src/routes/_authenticated/$chatId_.settings.tsx:198
 msgid "Chat name is required"
 msgstr "அரட்டையின் பெயர் தேவை"
 
-#: src/features/chats/components/new-chat.tsx:282
+#: src/features/chats/components/new-chat.tsx:341
 msgid "Chat name..."
 msgstr "அரட்டை பெயர்..."
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:113
+#: src/routes/_authenticated/$chatId_.settings.tsx:117
 msgid "Chat not found"
 msgstr "அரட்டை கிடைக்கவில்லை"
 
@@ -372,24 +384,24 @@ msgstr "அரட்டை பின் செய்யப்பட்டது"
 msgid "Chat policy updated"
 msgstr "அரட்டைக் கொள்கை புதுப்பிக்கப்பட்டது"
 
-#: src/features/chats/components/new-chat.tsx:160
+#: src/features/chats/components/new-chat.tsx:195
 msgid "Chat ready"
 msgstr "அரட்டை தயார்"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:209
+#: src/routes/_authenticated/$chatId_.settings.tsx:219
 msgid "Chat renamed"
 msgstr "அரட்டை மறுபெயரிடப்பட்டது"
 
-#: src/features/chats/index.tsx:1021
-#: src/features/chats/index.tsx:1119
-#: src/routes/_authenticated/$chatId_.settings.tsx:85
-#: src/routes/_authenticated/$chatId_.settings.tsx:98
-#: src/routes/_authenticated/$chatId_.settings.tsx:109
-#: src/routes/_authenticated/$chatId_.settings.tsx:124
+#: src/features/chats/index.tsx:1040
+#: src/features/chats/index.tsx:1138
+#: src/routes/_authenticated/$chatId_.settings.tsx:89
+#: src/routes/_authenticated/$chatId_.settings.tsx:102
+#: src/routes/_authenticated/$chatId_.settings.tsx:113
+#: src/routes/_authenticated/$chatId_.settings.tsx:128
 msgid "Chat settings"
 msgstr "அரட்டை அமைப்புகள்"
 
-#: src/features/chats/components/chat-input.tsx:798
+#: src/features/chats/components/chat-input.tsx:802
 msgid "Chat text box"
 msgstr "அரட்டை உரைப் பெட்டி"
 
@@ -449,7 +461,7 @@ msgid "Clear filters"
 msgstr "வடிப்பான்களை அழி"
 
 #: src/features/chats/components/forward-dialog.tsx:199
-#: src/routes/_authenticated/$chatId_.settings.tsx:446
+#: src/routes/_authenticated/$chatId_.settings.tsx:456
 msgid "Clear search"
 msgstr "தேடலை அழி"
 
@@ -529,19 +541,19 @@ msgstr "தொடர்"
 msgid "Continue with {label}"
 msgstr "{label} மூலம் தொடரவும்"
 
-#: src/features/chats/index.tsx:644
+#: src/features/chats/index.tsx:648
 msgid "Copied"
 msgstr "நகலெடுக்கப்பட்டது"
 
 #: ../../../lib/web/src/components/ui/copy-button.tsx:63
 #: src/features/chats/components/message-hover-actions.tsx:107
-#: src/features/chats/index.tsx:1207
+#: src/features/chats/index.tsx:1235
 msgid "Copy"
 msgstr "நகலெடு"
 
 #. placeholder {0}: ambiguous.join(', ')
 #. placeholder {1}: unknown.join(', ')
-#: src/features/chats/index.tsx:960
+#: src/features/chats/index.tsx:975
 msgid "Could not link mentions. Multiple people share: {0}. Not in this chat: {1}. Pick from the @ list."
 msgstr "குறிப்பீடுகளை இணைக்க முடியவில்லை. பலருக்கு ஒரே பெயர்: {0}. இந்த அரட்டையில் இல்லை: {1}. @ பட்டியலிலிருந்து தேர்ந்தெடுக்கவும்."
 
@@ -561,20 +573,20 @@ msgstr "மறுஅங்கீகாரத்தைத் தொடங்க �
 msgid "Couldn't verify with that account. Please try again."
 msgstr "அந்தக் கணக்கைச் சரிபார்க்க முடியவில்லை. மீண்டும் முயற்சிக்கவும்."
 
-#: src/features/chats/components/new-chat.tsx:207
+#: src/features/chats/components/new-chat.tsx:266
 msgid "Create a new chat"
 msgstr "புதிய அரட்டை உருவாக்கு"
 
 #: src/components/layout/chat-layout.tsx:278
-#: src/features/chats/components/new-chat.tsx:303
+#: src/features/chats/components/new-chat.tsx:366
 msgid "Create chat"
 msgstr "அரட்டை உருவாக்கு"
 
-#: src/features/chats/components/new-chat.tsx:159
+#: src/features/chats/components/new-chat.tsx:194
 msgid "Creating chat..."
 msgstr "அரட்டையை உருவாக்குகிறது..."
 
-#: src/features/chats/components/new-chat.tsx:303
+#: src/features/chats/components/new-chat.tsx:365
 msgid "Creating..."
 msgstr "உருவாக்குகிறது..."
 
@@ -608,18 +620,18 @@ msgid "Default AI account"
 msgstr "இயல்புநிலை AI கணக்கு"
 
 #: src/features/chats/components/message-hover-actions.tsx:146
-#: src/features/chats/index.tsx:1223
-#: src/features/chats/index.tsx:1340
+#: src/features/chats/index.tsx:1251
+#: src/features/chats/index.tsx:1368
 msgid "Delete"
 msgstr "நீக்கு"
 
-#: src/features/chats/index.tsx:1102
-#: src/features/chats/index.tsx:1254
+#: src/features/chats/index.tsx:1121
+#: src/features/chats/index.tsx:1282
 msgid "Delete chat"
 msgstr "அரட்டையை நீக்கு"
 
-#: src/features/chats/index.tsx:1318
-#: src/routes/_authenticated/$chatId_.settings.tsx:368
+#: src/features/chats/index.tsx:1346
+#: src/routes/_authenticated/$chatId_.settings.tsx:378
 msgid "Delete chat history"
 msgstr "அரட்டை வரலாற்றை நீக்கு"
 
@@ -627,12 +639,12 @@ msgstr "அரட்டை வரலாற்றை நீக்கு"
 msgid "Delete your account on the old server"
 msgstr "பழைய சேவையகத்தில் உங்கள் கணக்கை நீக்கவும்"
 
-#: src/features/chats/index.tsx:815
+#: src/features/chats/index.tsx:819
 msgid "Deleting chat..."
 msgstr "அரட்டையை நீக்குகிறது..."
 
-#: src/features/chats/index.tsx:674
-#: src/features/chats/index.tsx:1337
+#: src/features/chats/index.tsx:678
+#: src/features/chats/index.tsx:1365
 msgid "Deleting..."
 msgstr "நீக்குகிறது..."
 
@@ -663,7 +675,7 @@ msgstr "வலை உலாவியிலிருந்து கண்டற�
 msgid "Direction"
 msgstr "திசை"
 
-#: src/features/chats/components/new-chat.tsx:78
+#: src/features/chats/components/new-chat.tsx:88
 msgid "Directory search failed"
 msgstr "அடைவு தேடல் தோல்வியடைந்தது"
 
@@ -671,8 +683,8 @@ msgstr "அடைவு தேடல் தோல்வியடைந்தத�
 msgid "Disagree"
 msgstr "உடன்படவில்லை"
 
-#: src/features/chats/components/chat-input.tsx:724
-#: src/features/chats/components/chat-input.tsx:729
+#: src/features/chats/components/chat-input.tsx:728
+#: src/features/chats/components/chat-input.tsx:733
 msgid "Discard recording"
 msgstr "பதிவை நிராகரிக்கவும்"
 
@@ -689,7 +701,7 @@ msgstr "நிராகரி"
 msgid "Displays the mobile sidebar."
 msgstr "மொபைல் பக்கப்பட்டியைக் காட்டுகிறது."
 
-#: src/features/chats/components/chat-input.tsx:786
+#: src/features/chats/components/chat-input.tsx:790
 msgid "Document"
 msgstr "ஆவணம்"
 
@@ -724,7 +736,7 @@ msgid "Edit {label}"
 msgstr "{label} திருத்து"
 
 #. placeholder {0}: formatVideoDuration(recordingDuration)
-#: src/features/chats/components/chat-input.tsx:737
+#: src/features/chats/components/chat-input.tsx:741
 msgid "Elapsed {0}"
 msgstr "கடந்தது {0}"
 
@@ -767,11 +779,11 @@ msgstr "மிகப் பெரியது"
 msgid "Failed to add account"
 msgstr "கணக்கைச் சேர்க்க முடியவில்லை"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:418
+#: src/routes/_authenticated/$chatId_.settings.tsx:428
 msgid "Failed to add member"
 msgstr "உறுப்பினரைச் சேர்க்க முடியவில்லை"
 
-#: src/features/chats/index.tsx:645
+#: src/features/chats/index.tsx:649
 msgid "Failed to copy"
 msgstr "நகலெடுக்க முடியவில்லை"
 
@@ -779,19 +791,19 @@ msgstr "நகலெடுக்க முடியவில்லை"
 msgid "Failed to copy message"
 msgstr "செய்தியை நகலெடுக்க முடியவில்லை"
 
-#: src/features/chats/components/new-chat.tsx:161
+#: src/features/chats/components/new-chat.tsx:196
 msgid "Failed to create chat"
 msgstr "சாட்டை உருவாக்க முடியவில்லை"
 
-#: src/features/chats/index.tsx:676
+#: src/features/chats/index.tsx:680
 msgid "Failed to delete"
 msgstr "நீக்க முடியவில்லை"
 
-#: src/features/chats/index.tsx:817
+#: src/features/chats/index.tsx:821
 msgid "Failed to delete chat"
 msgstr "சாட்டை நீக்க முடியவில்லை"
 
-#: src/features/chats/index.tsx:584
+#: src/features/chats/index.tsx:588
 msgid "Failed to edit message"
 msgstr "செய்தியைத் திருத்த முடியவில்லை"
 
@@ -799,8 +811,8 @@ msgstr "செய்தியைத் திருத்த முடியவ�
 msgid "Failed to forward"
 msgstr "முன்னனுப்ப முடியவில்லை"
 
-#: src/features/chats/index.tsx:798
-#: src/routes/_authenticated/$chatId_.settings.tsx:329
+#: src/features/chats/index.tsx:802
+#: src/routes/_authenticated/$chatId_.settings.tsx:339
 msgid "Failed to leave chat"
 msgstr "சாட்டை விட்டு வெளியேற முடியவில்லை"
 
@@ -812,7 +824,7 @@ msgstr "உங்கள் அரட்டைக் கொள்கையை ஏ
 msgid "Failed to mark chat as read"
 msgstr "அரட்டையைப் படித்ததாகக் குறிக்க முடியவில்லை"
 
-#: src/features/chats/index.tsx:628
+#: src/features/chats/index.tsx:632
 msgid "Failed to react"
 msgstr "எதிர்வினையாற்ற முடியவில்லை"
 
@@ -820,11 +832,11 @@ msgstr "எதிர்வினையாற்ற முடியவில்�
 msgid "Failed to remove account"
 msgstr "கணக்கை நீக்க முடியவில்லை"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:524
+#: src/routes/_authenticated/$chatId_.settings.tsx:534
 msgid "Failed to remove member"
 msgstr "உறுப்பினரை நீக்க முடியவில்லை"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:211
+#: src/routes/_authenticated/$chatId_.settings.tsx:221
 msgid "Failed to rename chat"
 msgstr "சாட்டின் பெயரை மாற்ற முடியவில்லை"
 
@@ -832,7 +844,7 @@ msgstr "சாட்டின் பெயரை மாற்ற முடிய
 msgid "Failed to save"
 msgstr "சேமிக்க முடியவில்லை"
 
-#: src/features/chats/index.tsx:752
+#: src/features/chats/index.tsx:756
 msgid "Failed to send message"
 msgstr "செய்தியை அனுப்ப முடியவில்லை"
 
@@ -840,7 +852,7 @@ msgstr "செய்தியை அனுப்ப முடியவில்�
 msgid "Failed to send verification code"
 msgstr "சரிபார்ப்பு குறியீட்டை அனுப்ப முடியவில்லை"
 
-#: src/features/chats/index.tsx:199
+#: src/features/chats/index.tsx:203
 msgid "Failed to start chat"
 msgstr "சாட்டைத் தொடங்க முடியவில்லை"
 
@@ -862,7 +874,7 @@ msgstr "மிதக்கும்"
 
 #: src/features/chats/components/forward-dialog.tsx:264
 #: src/features/chats/components/message-hover-actions.tsx:138
-#: src/features/chats/index.tsx:1215
+#: src/features/chats/index.tsx:1243
 msgid "Forward"
 msgstr "முன்னனுப்பு"
 
@@ -883,7 +895,7 @@ msgid "Friday"
 msgstr "வெள்ளிக்கிழமை"
 
 #: src/features/chats/components/forward-dialog.tsx:237
-#: src/routes/_authenticated/$chatId_.settings.tsx:469
+#: src/routes/_authenticated/$chatId_.settings.tsx:479
 msgid "Friends"
 msgstr "நண்பர்கள்"
 
@@ -908,8 +920,8 @@ msgstr "தீமிலிருந்து"
 msgid "Full layout"
 msgstr "முழு தளவமைப்பு"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:129
-#: src/routes/_authenticated/$chatId_.settings.tsx:200
+#: src/routes/_authenticated/$chatId_.settings.tsx:133
+#: src/routes/_authenticated/$chatId_.settings.tsx:210
 msgid "General"
 msgstr "பொது"
 
@@ -967,7 +979,7 @@ msgid "Imperial"
 msgstr "இம்பீரியல்"
 
 #: src/features/chats/components/chat-settings-dialog.tsx:80
-#: src/features/chats/index.tsx:1125
+#: src/features/chats/index.tsx:1144
 msgid "Incoming chats"
 msgstr "உள்வரும் அரட்டைகள்"
 
@@ -1006,32 +1018,32 @@ msgstr "தளவமைப்பு"
 msgid "Learn more"
 msgstr "மேலும் அறிய"
 
-#: src/features/chats/index.tsx:1304
+#: src/features/chats/index.tsx:1332
 msgid "Leave"
 msgstr "வெளியேறு"
 
-#: src/features/chats/index.tsx:1109
-#: src/routes/_authenticated/$chatId_.settings.tsx:354
+#: src/features/chats/index.tsx:1128
+#: src/routes/_authenticated/$chatId_.settings.tsx:364
 msgid "Leave chat"
 msgstr "சாட்டை விட்டு வெளியேறு"
 
-#: src/features/chats/index.tsx:1295
-#: src/routes/_authenticated/$chatId_.settings.tsx:345
+#: src/features/chats/index.tsx:1323
+#: src/routes/_authenticated/$chatId_.settings.tsx:355
 msgid "Leave chat?"
 msgstr "சாட்டை விட்டு வெளியேறவா?"
 
-#: src/features/chats/index.tsx:796
-#: src/routes/_authenticated/$chatId_.settings.tsx:327
+#: src/features/chats/index.tsx:800
+#: src/routes/_authenticated/$chatId_.settings.tsx:337
 msgid "Leaving chat..."
 msgstr "அரட்டையிலிருந்து வெளியேறுகிறது..."
 
-#: src/features/chats/index.tsx:1301
-#: src/routes/_authenticated/$chatId_.settings.tsx:351
+#: src/features/chats/index.tsx:1329
+#: src/routes/_authenticated/$chatId_.settings.tsx:361
 msgid "Leaving..."
 msgstr "வெளியேறுகிறது..."
 
-#: src/features/chats/index.tsx:797
-#: src/routes/_authenticated/$chatId_.settings.tsx:328
+#: src/features/chats/index.tsx:801
+#: src/routes/_authenticated/$chatId_.settings.tsx:338
 msgid "Left chat"
 msgstr "சாட்டை விட்டு வெளியேறியது"
 
@@ -1109,15 +1121,15 @@ msgstr "படித்ததாகக் குறிக்கிறது..."
 msgid "Medium"
 msgstr "நடுத்தரம்"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:417
+#: src/routes/_authenticated/$chatId_.settings.tsx:427
 msgid "Member added"
 msgstr "உறுப்பினர் சேர்க்கப்பட்டார்"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:523
+#: src/routes/_authenticated/$chatId_.settings.tsx:533
 msgid "Member removed"
 msgstr "உறுப்பினர் அகற்றப்பட்டார்"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:248
+#: src/routes/_authenticated/$chatId_.settings.tsx:258
 msgid "Members"
 msgstr "உறுப்பினர்கள்"
 
@@ -1138,16 +1150,21 @@ msgstr "செய்தி செயல்கள்"
 msgid "Message copied"
 msgstr "செய்தி நகலெடுக்கப்பட்டது"
 
-#: src/features/chats/index.tsx:754
+#: src/features/chats/index.tsx:758
 msgid "Message could not be sent. Attachments may be too large, or your connection failed. Try smaller files."
 msgstr "செய்தியை அனுப்ப முடியவில்லை. இணைப்புகள் மிகப் பெரியதாக இருக்கலாம் அல்லது உங்கள் இணைய இணைப்பு தோல்வியடைந்திருக்கலாம். சிறிய கோப்புகளை முயற்சிக்கவும்."
 
-#: src/features/chats/index.tsx:675
+#: src/features/chats/index.tsx:679
 msgid "Message deleted"
 msgstr "செய்தி நீக்கப்பட்டது"
 
+#. placeholder {0}: formatNumber(newMessage.length - MESSAGE_MAX_LENGTH)
+#: src/features/chats/components/chat-input.tsx:914
+msgid "Message is {0} characters too long"
+msgstr "செய்தி {0} எழுத்துகள் நீளமாக உள்ளது"
+
 #: src/features/chats/components/message-quote.tsx:60
-#: src/features/chats/index.tsx:696
+#: src/features/chats/index.tsx:700
 msgid "Message not available"
 msgstr "செய்தி கிடைக்கவில்லை"
 
@@ -1155,37 +1172,37 @@ msgstr "செய்தி கிடைக்கவில்லை"
 msgid "Metric"
 msgstr "மெட்ரிக்"
 
-#: src/features/chats/components/chat-input.tsx:317
+#: src/features/chats/components/chat-input.tsx:321
 msgid "Microphone access denied"
 msgstr "மைக்ரோஃபோன் அணுகல் மறுக்கப்பட்டது"
 
-#: src/features/chats/components/chat-input.tsx:294
+#: src/features/chats/components/chat-input.tsx:298
 msgid "Microphone access is blocked here. Please update the app and try again."
 msgstr "மைக்ரோஃபோன் அணுகல் இங்கே தடுக்கப்பட்டுள்ளது. செயலியைப் புதுப்பித்து மீண்டும் முயற்சிக்கவும்."
 
-#: src/features/chats/components/chat-input.tsx:291
-#: src/features/chats/components/chat-input.tsx:338
-#: src/features/chats/components/chat-input.tsx:385
+#: src/features/chats/components/chat-input.tsx:295
+#: src/features/chats/components/chat-input.tsx:342
+#: src/features/chats/components/chat-input.tsx:389
 msgid "Microphone access requires a secure context (HTTPS or localhost)"
 msgstr "மைக்ரோஃபோன் அணுகலுக்குப் பாதுகாப்பான சூழல் தேவை (HTTPS அல்லது localhost)"
 
-#: src/features/chats/components/chat-input.tsx:297
+#: src/features/chats/components/chat-input.tsx:301
 msgid "Microphone access was blocked by the browser"
 msgstr "உலாவி மைக்ரோஃபோன் அணுகலைத் தடுத்தது"
 
-#: src/features/chats/components/chat-input.tsx:278
+#: src/features/chats/components/chat-input.tsx:282
 msgid "Microphone constraints could not be satisfied"
 msgstr "மைக்ரோஃபோன் தேவைகளை நிறைவேற்ற முடியவில்லை"
 
-#: src/features/chats/components/chat-input.tsx:314
+#: src/features/chats/components/chat-input.tsx:318
 msgid "Microphone error: {message}"
 msgstr "மைக்ரோஃபோன் பிழை: {message}"
 
-#: src/features/chats/components/chat-input.tsx:274
+#: src/features/chats/components/chat-input.tsx:278
 msgid "Microphone is already in use"
 msgstr "மைக்ரோஃபோன் ஏற்கனவே பயன்பாட்டில் உள்ளது"
 
-#: src/features/chats/components/chat-input.tsx:266
+#: src/features/chats/components/chat-input.tsx:270
 msgid "Microphone permission denied"
 msgstr "மைக்ரோஃபோன் அனுமதி மறுக்கப்பட்டது"
 
@@ -1194,13 +1211,17 @@ msgid "Monday"
 msgstr "திங்கட்கிழமை"
 
 #. placeholder {0}: ambiguous.join(', ')
-#: src/features/chats/index.tsx:952
+#: src/features/chats/index.tsx:967
 msgid "Multiple people share these names: {0}. Pick them from the @ list so the right person is notified."
 msgstr "பலருக்கு இந்தப் பெயர்கள் உள்ளன: {0}. சரியான நபருக்கு அறிவிப்பு செல்ல அவர்களை @ பட்டியலிலிருந்து தேர்ந்தெடுக்கவும்."
 
+#: src/routes/_authenticated/$chatId_.settings.tsx:200
+msgid "Name must be {CHAT_NAME_MAX_LENGTH} characters or less"
+msgstr "பெயர் {CHAT_NAME_MAX_LENGTH} எழுத்துக்கள் அல்லது அதற்கும் குறைவாக இருக்க வேண்டும்"
+
 #: src/routes/_authenticated/$chatId_.settings.tsx:195
-msgid "Name must be 1000 characters or less"
-msgstr "பெயர் 1000 எழுத்துக்கள் அல்லது அதற்கும் குறைவாக இருக்க வேண்டும்"
+#~ msgid "Name must be 1000 characters or less"
+#~ msgstr "பெயர் 1000 எழுத்துக்கள் அல்லது அதற்கும் குறைவாக இருக்க வேண்டும்"
 
 #: ../../../lib/web/src/features/errors/general-error.tsx:53
 #: ../../../lib/web/src/lib/api-response-interceptors.ts:303
@@ -1213,7 +1234,7 @@ msgstr "புதியது"
 
 #: src/features/chats/components/chat-empty-state.tsx:27
 #: src/features/chats/components/chat-empty-state.tsx:43
-#: src/features/chats/components/new-chat.tsx:204
+#: src/features/chats/components/new-chat.tsx:263
 msgid "New chat"
 msgstr "புதிய அரட்டை"
 
@@ -1238,15 +1259,15 @@ msgstr "முன்னனுப்ப அரட்டைகள் இல்ல�
 msgid "No connected accounts"
 msgstr "இணைக்கப்பட்ட கணக்குகள் இல்லை"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:459
+#: src/routes/_authenticated/$chatId_.settings.tsx:469
 msgid "No friends available"
 msgstr "நண்பர்கள் கிடைக்கவில்லை"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:459
+#: src/routes/_authenticated/$chatId_.settings.tsx:469
 msgid "No friends found"
 msgstr "நண்பர்கள் எதுவும் கிடைக்கவில்லை"
 
-#: src/features/chats/components/new-chat.tsx:235
+#: src/features/chats/components/new-chat.tsx:294
 msgid "No friends yet"
 msgstr "நண்பர்கள் இன்னும் இல்லை"
 
@@ -1258,11 +1279,11 @@ msgstr "குழுக்கள் கிடைக்கவில்லை"
 msgid "No messages yet"
 msgstr "செய்திகள் இன்னும் இல்லை"
 
-#: src/features/chats/components/chat-input.tsx:270
+#: src/features/chats/components/chat-input.tsx:274
 msgid "No microphone found"
 msgstr "மைக்ரோஃபோன் கிடைக்கவில்லை"
 
-#: src/features/chats/components/new-chat.tsx:229
+#: src/features/chats/components/new-chat.tsx:288
 msgid "No people found"
 msgstr "நபர்கள் எதுவும் கிடைக்கவில்லை"
 
@@ -1313,7 +1334,7 @@ msgstr "கிடைக்கவில்லை"
 msgid "Not set"
 msgstr "அமைக்கப்படவில்லை"
 
-#: src/features/chats/index.tsx:640
+#: src/features/chats/index.tsx:644
 msgid "Nothing to copy"
 msgstr "நகலெடுக்க எதுவும் இல்லை"
 
@@ -1337,7 +1358,7 @@ msgstr "நண்பர்கள் மட்டுமே உங்களுட�
 msgid "Oops! Page Not Found!"
 msgstr "அய்யோ! பக்கம் கிடைக்கவில்லை!"
 
-#: src/features/chats/components/new-chat.tsx:269
+#: src/features/chats/components/new-chat.tsx:328
 msgid "Open"
 msgstr "திற"
 
@@ -1351,7 +1372,7 @@ msgstr "கணக்கு செயல்களைத் திறக்கவ�
 msgid "Open actions"
 msgstr "செயல்களைத் திற"
 
-#: src/features/chats/index.tsx:1094
+#: src/features/chats/index.tsx:1113
 msgid "Open chat actions"
 msgstr "அரட்டை செயல்களைத் திறக்கவும்"
 
@@ -1365,7 +1386,7 @@ msgstr "வழிசெலுத்தலைத் திறக்கவும�
 msgid "Open navigation menu"
 msgstr "வழிசெலுத்தல் மெனுவைத் திறக்கவும்"
 
-#: src/features/chats/components/new-chat.tsx:245
+#: src/features/chats/components/new-chat.tsx:304
 msgid "Open people"
 msgstr "மக்கள் என்பதைத் திற"
 
@@ -1406,7 +1427,7 @@ msgstr "ஒலியை இடைநிறுத்தவும்"
 msgid "Pause voice note"
 msgstr "குரல் குறிப்பை இடைநிறுத்தவும்"
 
-#: src/features/chats/components/new-chat.tsx:214
+#: src/features/chats/components/new-chat.tsx:273
 msgid "People"
 msgstr "மக்கள்"
 
@@ -1427,11 +1448,11 @@ msgstr "குரல் குறிப்பை இயக்கவும்"
 msgid "Please check your internet connection and try again."
 msgstr "உங்கள் இணைய இணைப்பைச் சரிபார்த்து மீண்டும் முயற்சிக்கவும்."
 
-#: src/features/chats/components/new-chat.tsx:148
+#: src/features/chats/components/new-chat.tsx:161
 msgid "Please provide a chat name"
 msgstr "அரட்டையின் பெயரை வழங்கவும்"
 
-#: src/features/chats/components/new-chat.tsx:138
+#: src/features/chats/components/new-chat.tsx:151
 msgid "Please select at least one person"
 msgstr "குறைந்தது ஒரு நபரையாவது தேர்ந்தெடுக்கவும்"
 
@@ -1479,28 +1500,28 @@ msgstr "மேலும் படிக்க"
 msgid "Recommended"
 msgstr "பரிந்துரைக்கப்பட்டது"
 
-#: src/features/chats/components/chat-input.tsx:845
-#: src/features/chats/components/chat-input.tsx:850
+#: src/features/chats/components/chat-input.tsx:849
+#: src/features/chats/components/chat-input.tsx:854
 msgid "Record voice note"
 msgstr "குரல் குறிப்பைப் பதிவு செய்யவும்"
 
-#: src/features/chats/components/chat-input.tsx:306
+#: src/features/chats/components/chat-input.tsx:310
 msgid "Recording failed. Please try again."
 msgstr "பதிவு தோல்வியடைந்தது. மீண்டும் முயற்சிக்கவும்."
 
-#: src/features/chats/components/chat-input.tsx:322
+#: src/features/chats/components/chat-input.tsx:326
 msgid "Recording is too large to send"
 msgstr "பதிவு அனுப்ப முடியாத அளவுக்குப் பெரியது"
 
-#: src/features/chats/components/chat-input.tsx:302
+#: src/features/chats/components/chat-input.tsx:306
 msgid "Recording produced no audio"
 msgstr "பதிவில் ஒலி இல்லை"
 
-#: src/features/chats/components/chat-input.tsx:228
+#: src/features/chats/components/chat-input.tsx:232
 msgid "Recording stopped at the 5-minute limit"
 msgstr "பதிவு 5 நிமிட வரம்பில் நின்றது"
 
-#: src/features/chats/components/chat-input.tsx:714
+#: src/features/chats/components/chat-input.tsx:718
 msgid "Recording voice note"
 msgstr "குரல் குறிப்பு பதிவாகிறது"
 
@@ -1523,13 +1544,13 @@ msgstr "24 மணி நேரத்திற்குள் சார்பு,
 
 #: ../../../lib/web/src/features/access/access-list.tsx:265
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:180
-#: src/routes/_authenticated/$chatId_.settings.tsx:546
+#: src/routes/_authenticated/$chatId_.settings.tsx:556
 msgid "Remove"
 msgstr "அகற்று"
 
 #. placeholder {0}: attachment.file.name
 #. placeholder {0}: reaction.label
-#: src/features/chats/components/chat-input.tsx:692
+#: src/features/chats/components/chat-input.tsx:696
 #: src/features/chats/components/message-reaction-bar.tsx:121
 msgid "Remove {0}"
 msgstr "{0}-ஐ அகற்று"
@@ -1552,7 +1573,7 @@ msgstr "ஒலியை அகற்றவும்"
 msgid "Remove interest"
 msgstr "ஆர்வத்தை அகற்று"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:537
+#: src/routes/_authenticated/$chatId_.settings.tsx:547
 msgid "Remove member?"
 msgstr "உறுப்பினரை அகற்றவா?"
 
@@ -1560,15 +1581,15 @@ msgstr "உறுப்பினரை அகற்றவா?"
 msgid "Remove voice note"
 msgstr "குரல் குறிப்பை அகற்றவும்"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:522
+#: src/routes/_authenticated/$chatId_.settings.tsx:532
 msgid "Removing member..."
 msgstr "உறுப்பினரை அகற்றுகிறது..."
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:543
+#: src/routes/_authenticated/$chatId_.settings.tsx:553
 msgid "Removing..."
 msgstr "அகற்றப்படுகிறது..."
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:208
+#: src/routes/_authenticated/$chatId_.settings.tsx:218
 msgid "Renaming chat..."
 msgstr "அரட்டையை மறுபெயரிடுகிறது..."
 
@@ -1577,7 +1598,7 @@ msgid "Reply"
 msgstr "பதில்"
 
 #. placeholder {0}: replyTo.name
-#: src/features/chats/components/chat-input.tsx:581
+#: src/features/chats/components/chat-input.tsx:585
 msgid "Replying to {0}"
 msgstr "{0}க்குப் பதிலளிக்கிறீர்கள்"
 
@@ -1641,7 +1662,7 @@ msgstr "சேருமிடத்தைத் தேடு..."
 msgid "Search for origin..."
 msgstr "துவக்கத்தைத் தேடு..."
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:445
+#: src/routes/_authenticated/$chatId_.settings.tsx:455
 msgid "Search friends…"
 msgstr "நண்பர்களைத் தேடு…"
 
@@ -1649,7 +1670,7 @@ msgstr "நண்பர்களைத் தேடு…"
 msgid "Search in chat..."
 msgstr "அரட்டையில் தேடு..."
 
-#: src/features/chats/index.tsx:1084
+#: src/features/chats/index.tsx:1103
 msgid "Search messages"
 msgstr "செய்திகளைத் தேடு"
 
@@ -1687,7 +1708,7 @@ msgstr "தேர்ந்தெடு"
 msgid "Select a chat"
 msgstr "ஒரு அரட்டையை தேர்ந்தெடு"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:437
+#: src/routes/_authenticated/$chatId_.settings.tsx:447
 msgid "Select a friend to add to this chat."
 msgstr "இந்த அரட்டைக்கு சேர்க்க ஒரு நண்பரை தேர்ந்தெடு."
 
@@ -1719,7 +1740,7 @@ msgstr "ஏற்றியவற்றைத் தேர்வுசெய்"
 msgid "Select message"
 msgstr "செய்தியைத் தேர்ந்தெடு"
 
-#: src/features/chats/components/new-chat.tsx:228
+#: src/features/chats/components/new-chat.tsx:287
 msgid "Select people..."
 msgstr "நபர்களைத் தேர்ந்தெடுக்கவும்..."
 
@@ -1739,6 +1760,10 @@ msgstr "தீம் விருப்பத்தை தேர்ந்தெ�
 #~ msgid "selected"
 #~ msgstr "தேர்ந்தெடுக்கப்பட்டது"
 
+#: src/features/chats/index.tsx:1206
+msgid "Selected the newest {BULK_MESSAGES_MAX} messages, the most that can be forwarded or deleted at once"
+msgstr "சமீபத்திய {BULK_MESSAGES_MAX} செய்திகள் தேர்ந்தெடுக்கப்பட்டன, ஒரே நேரத்தில் அனுப்பவோ நீக்கவோ கூடிய அதிகபட்சம்"
+
 #: src/features/chats/components/chat-message-list.tsx:824
 msgid "Selects messages loaded so far"
 msgstr "இதுவரை ஏற்றப்பட்ட செய்திகளைத் தேர்ந்தெடுக்கும்"
@@ -1751,8 +1776,8 @@ msgstr "மீண்டும் அனுப்பு"
 msgid "Send email"
 msgstr "மின்னஞ்சல் அனுப்பு"
 
-#: src/features/chats/components/chat-input.tsx:860
-#: src/features/chats/components/chat-input.tsx:869
+#: src/features/chats/components/chat-input.tsx:864
+#: src/features/chats/components/chat-input.tsx:873
 msgid "Send message"
 msgstr "செய்தியை அனுப்பு"
 
@@ -1831,7 +1856,7 @@ msgstr "விரிவான"
 msgid "Start a conversation"
 msgstr "ஒரு உரையாடலை தொடங்கு"
 
-#: src/features/chats/index.tsx:196
+#: src/features/chats/index.tsx:200
 msgid "Starting chat..."
 msgstr "அரட்டையைத் தொடங்குகிறது..."
 
@@ -1839,8 +1864,8 @@ msgstr "அரட்டையைத் தொடங்குகிறது..."
 msgid "Stay tuned though!"
 msgstr "எனினும் காத்திருங்கள்!"
 
-#: src/features/chats/components/chat-input.tsx:754
-#: src/features/chats/components/chat-input.tsx:759
+#: src/features/chats/components/chat-input.tsx:758
+#: src/features/chats/components/chat-input.tsx:763
 msgid "Stop recording"
 msgstr "பதிவை நிறுத்தவும்"
 
@@ -1880,6 +1905,15 @@ msgstr "விதிமுறைகள் மற்றும் நிபந்�
 msgid "That code is incorrect or has expired."
 msgstr "அந்தக் குறியீடு தவறானது அல்லது காலாவதியாகிவிட்டது."
 
+#: src/features/chats/components/new-chat.tsx:167
+msgid "The chat name can be at most {CHAT_NAME_MAX_LENGTH} characters"
+msgstr "அரட்டையின் பெயர் அதிகபட்சம் {CHAT_NAME_MAX_LENGTH} எழுத்துகள் இருக்கலாம்"
+
+#: src/features/chats/components/new-chat.tsx:173
+#: src/routes/_authenticated/$chatId_.settings.tsx:204
+msgid "The chat name cannot contain < or >"
+msgstr "அரட்டையின் பெயரில் < அல்லது > இருக்கக் கூடாது"
+
 #: ../../../lib/web/src/features/errors/general-error.tsx:68
 msgid "The requested content could not be found."
 msgstr "கோரப்பட்ட உள்ளடக்கத்தைக் கண்டறிய முடியவில்லை."
@@ -1893,19 +1927,19 @@ msgid "Theme Settings"
 msgstr "தீம் அமைப்புகள்"
 
 #. placeholder {0}: unknown.join(', ')
-#: src/features/chats/index.tsx:956
+#: src/features/chats/index.tsx:971
 msgid "These names are not in this chat: {0}. Pick from the @ list or remove them."
 msgstr "இந்தப் பெயர்கள் இந்த அரட்டையில் இல்லை: {0}. @ பட்டியலிலிருந்து தேர்ந்தெடுக்கவும் அல்லது அவற்றை அகற்றவும்."
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:161
+#: src/routes/_authenticated/$chatId_.settings.tsx:165
 msgid "this chat"
 msgstr "இந்த அரட்டை"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:114
+#: src/routes/_authenticated/$chatId_.settings.tsx:118
 msgid "This chat may have been deleted or you don't have access to it"
 msgstr "இந்த அரட்டை நீக்கப்பட்டிருக்கலாம் அல்லது உங்களுக்கு அணுகல் இல்லை"
 
-#: src/features/chats/index.tsx:1332
+#: src/features/chats/index.tsx:1360
 msgid "This deletes the message for everyone and cannot be undone."
 msgstr "இது எல்லோருக்கும் செய்தியை நீக்கும், மேலும் இதைச் செயல்தவிர்க்க முடியாது."
 
@@ -1961,7 +1995,7 @@ msgstr "மேல்"
 msgid "Travelling"
 msgstr "பயணிக்கிறது"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:462
+#: src/routes/_authenticated/$chatId_.settings.tsx:472
 msgid "Try a different search term"
 msgstr "வேறு தேடல் சொல்லை முயற்சிக்கவும்"
 
@@ -1992,11 +2026,11 @@ msgstr "பயனர்களை தேட தட்டச்சு செய்
 msgid "Type to search..."
 msgstr "தேட தட்டச்சு செய்..."
 
-#: src/features/chats/components/chat-input.tsx:805
+#: src/features/chats/components/chat-input.tsx:809
 msgid "Type your message…"
 msgstr "உங்கள் செய்தியை தட்டச்சு செய்…"
 
-#: src/features/chats/components/chat-input.tsx:804
+#: src/features/chats/components/chat-input.tsx:808
 msgid "Type your reply…"
 msgstr "உங்கள் பதிலை உள்ளிடுங்கள்…"
 
@@ -2085,16 +2119,16 @@ msgstr "அனைத்து அறிவிப்புகளையும் �
 msgid "Voice note waveform"
 msgstr "குரல் குறிப்பின் அலைவடிவம்"
 
-#: src/features/chats/components/chat-input.tsx:365
+#: src/features/chats/components/chat-input.tsx:369
 msgid "Voice recording is currently unavailable. Please check your setup and try again."
 msgstr "குரல் பதிவு தற்போது கிடைக்கவில்லை. உங்கள் அமைப்பைச் சரிபார்த்து மீண்டும் முயற்சிக்கவும்."
 
-#: src/features/chats/components/chat-input.tsx:286
-#: src/features/chats/components/chat-input.tsx:391
+#: src/features/chats/components/chat-input.tsx:290
+#: src/features/chats/components/chat-input.tsx:395
 msgid "Voice recording is not supported in this browser"
 msgstr "இந்த உலாவியில் குரல் பதிவு ஆதரிக்கப்படவில்லை"
 
-#: src/features/chats/components/chat-input.tsx:261
+#: src/features/chats/components/chat-input.tsx:265
 msgid "Voice recording isn't available in this app version. Please update the app and try again."
 msgstr "செயலியின் இந்தப் பதிப்பில் குரல் பதிவு கிடைக்கவில்லை. செயலியைப் புதுப்பித்து மீண்டும் முயற்சிக்கவும்."
 
@@ -2110,19 +2144,27 @@ msgstr "இணையதளம் பராமரிப்பில் உள்�
 msgid "Wednesday"
 msgstr "புதன்கிழமை"
 
-#: src/features/chats/index.tsx:475
+#: src/features/chats/index.tsx:479
 msgid "You"
 msgstr "நீங்கள்"
 
-#: src/features/chats/components/new-chat.tsx:143
+#: src/features/chats/components/new-chat.tsx:156
 msgid "You already have a chat with this friend"
 msgstr "உங்களிடம் ஏற்கனவே இந்த நண்பருடன் ஒரு அரட்டை உள்ளது"
 
-#: src/features/chats/components/new-chat.tsx:257
+#: src/features/chats/components/new-chat.tsx:316
 msgid "You already have chats with:"
 msgstr "உங்களிடம் ஏற்கனவே இவர்களுடன் அரட்டைகள் உள்ளன:"
 
-#: src/features/chats/index.tsx:657
+#: src/features/chats/index.tsx:954
+msgid "You can attach at most {CAPTIONS_MAX} files to a message"
+msgstr "ஒரு செய்தியில் அதிகபட்சம் {CAPTIONS_MAX} கோப்புகளை இணைக்கலாம்"
+
+#: src/features/chats/index.tsx:950
+msgid "You can mention at most {MENTIONS_MAX} people in a message"
+msgstr "ஒரு செய்தியில் அதிகபட்சம் {MENTIONS_MAX} நபர்களைக் குறிப்பிடலாம்"
+
+#: src/features/chats/index.tsx:661
 msgid "You can only delete your own messages"
 msgstr "உங்கள் சொந்தச் செய்திகளை மட்டுமே நீக்க முடியும்"
 
@@ -2130,11 +2172,11 @@ msgstr "உங்கள் சொந்தச் செய்திகளை ம
 msgid "You do not have access to this section."
 msgstr "இந்தப் பிரிவுக்கான அணுகல் உங்களுக்கு இல்லை."
 
-#: src/features/chats/index.tsx:1241
+#: src/features/chats/index.tsx:1269
 msgid "You left this chat"
 msgstr "நீங்கள் இந்த அரட்டையை விட்டு வெளியேறினீர்கள்"
 
-#: src/features/chats/index.tsx:1240
+#: src/features/chats/index.tsx:1268
 msgid "You were removed from this chat"
 msgstr "நீங்கள் இந்த அரட்டையிலிருந்து அகற்றப்பட்டீர்கள்"
 

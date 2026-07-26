@@ -26,12 +26,12 @@ msgstr "దయచేసి మీ ఇంటర్నెట్ కనెక్ష
 msgid "(edited)"
 msgstr "(సవరించబడింది)"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:279
+#: src/routes/_authenticated/$chatId_.settings.tsx:289
 msgid "(you)"
 msgstr "(మీరు)"
 
 #. placeholder {0}: deleteTargetIds?.length ?? 0
-#: src/features/chats/index.tsx:1328
+#: src/features/chats/index.tsx:1356
 msgid "{0, plural, one {Delete message?} other {Delete # messages?}}"
 msgstr "{0, plural, one {సందేశాన్ని తొలగించాలా?} other {# సందేశాలను తొలగించాలా?}}"
 
@@ -43,13 +43,13 @@ msgstr "{0} (మిమ్మల్ని కలిపి)"
 #. placeholder {0}: selectedIds.size
 #. placeholder {0}: selectedIds?.size ?? 0
 #: src/features/chats/components/chat-message-list.tsx:816
-#: src/features/chats/index.tsx:1198
+#: src/features/chats/index.tsx:1226
 msgid "{0} selected"
 msgstr "{0} ఎంచుకోబడ్డాయి"
 
 #. placeholder {0}: chatDetail.chat.name
-#: src/routes/_authenticated/$chatId_.settings.tsx:85
-#: src/routes/_authenticated/$chatId_.settings.tsx:124
+#: src/routes/_authenticated/$chatId_.settings.tsx:89
+#: src/routes/_authenticated/$chatId_.settings.tsx:128
 msgid "{0} settings"
 msgstr "{0} సెట్టింగ్‌లు"
 
@@ -62,7 +62,7 @@ msgstr "{hiddenCount, plural, one {మరో 1 ఫైల్‌ను చూప�
 msgid "{newMessageCount, plural, one {Jump to 1 new message} other {Jump to # new messages}}"
 msgstr "{newMessageCount, plural, one {1 కొత్త సందేశానికి వెళ్లండి} other {# కొత్త సందేశాలకు వెళ్లండి}}"
 
-#: src/features/chats/index.tsx:865
+#: src/features/chats/index.tsx:869
 msgid "{skippedCount, plural, one {Skipped # file that is not audio} other {Skipped # files that are not audio}}"
 msgstr "{skippedCount, plural, one {ఆడియో కాని # ఫైల్ దాటవేయబడింది} other {ఆడియో కాని # ఫైళ్లు దాటవేయబడ్డాయి}}"
 
@@ -74,7 +74,7 @@ msgstr "12 గంటలు"
 msgid "24 hours"
 msgstr "24 గంటలు"
 
-#: src/features/chats/components/chat-input.tsx:310
+#: src/features/chats/components/chat-input.tsx:314
 msgid "A recording is already in progress."
 msgstr "రికార్డింగ్ ఇప్పటికే జరుగుతోంది."
 
@@ -115,7 +115,7 @@ msgid "Add"
 msgstr "జోడించండి"
 
 #. placeholder {0}: friend.name
-#: src/routes/_authenticated/$chatId_.settings.tsx:475
+#: src/routes/_authenticated/$chatId_.settings.tsx:485
 msgid "Add {0} to chat"
 msgstr "{0} ను చాట్‌కు జోడించండి"
 
@@ -136,13 +136,13 @@ msgstr "ఖాతాను జోడించండి"
 msgid "Add an account to receive notifications and use services."
 msgstr "నోటిఫికేషన్‌లను అందుకోవడానికి మరియు సేవలను ఉపయోగించడానికి ఖాతాను జోడించండి."
 
-#: src/features/chats/components/chat-input.tsx:773
-#: src/features/chats/components/chat-input.tsx:779
+#: src/features/chats/components/chat-input.tsx:777
+#: src/features/chats/components/chat-input.tsx:783
 msgid "Add attachment"
 msgstr "అటాచ్‌మెంట్‌ను జోడించండి"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:252
-#: src/routes/_authenticated/$chatId_.settings.tsx:434
+#: src/routes/_authenticated/$chatId_.settings.tsx:262
+#: src/routes/_authenticated/$chatId_.settings.tsx:444
 msgid "Add member"
 msgstr "సభ్యుడిని జోడించండి"
 
@@ -172,7 +172,19 @@ msgstr "ప్రస్తుత నోటిఫికేషన్‌లకు �
 msgid "Add view"
 msgstr "వీక్షణను జోడించండి"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:416
+#. placeholder {0}: remainder.length
+#. placeholder {1}: refused.length
+#: src/features/chats/components/new-chat.tsx:218
+msgid "Added {added} of {0} remaining people; {1} could not be added"
+msgstr "మిగిలిన {0} లో {added} జోడించబడ్డాయి; {1} జోడించలేకపోయాం"
+
+#. placeholder {0}: addingRemainder.done
+#. placeholder {1}: addingRemainder.total
+#: src/features/chats/components/new-chat.tsx:363
+msgid "Adding {0}/{1}..."
+msgstr "{0}/{1} జోడిస్తోంది..."
+
+#: src/routes/_authenticated/$chatId_.settings.tsx:426
 msgid "Adding member..."
 msgstr "సభ్యుడిని జోడిస్తోంది..."
 
@@ -192,7 +204,7 @@ msgstr "AI"
 msgid "All"
 msgstr "అన్నీ"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:463
+#: src/routes/_authenticated/$chatId_.settings.tsx:473
 msgid "All your friends are already in this chat"
 msgstr "మీ స్నేహితులందరూ ఇప్పటికే ఈ చాట్‌లో ఉన్నారు"
 
@@ -221,11 +233,11 @@ msgid "Anyone can start a chat with you."
 msgstr "ఎవరైనా మీతో చాట్ ప్రారంభించవచ్చు."
 
 #. placeholder {0}: selectedChat?.name
-#: src/features/chats/index.tsx:1296
+#: src/features/chats/index.tsx:1324
 msgid "Are you sure you want to leave \"{0}\"? You can be added back by other members."
 msgstr "మీరు ఖచ్చితంగా \"{0}\" నుండి నిష్క్రమించాలనుకుంటున్నారా? ఇతర సభ్యులు మిమ్మల్ని తిరిగి జోడించవచ్చు."
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:346
+#: src/routes/_authenticated/$chatId_.settings.tsx:356
 msgid "Are you sure you want to leave \"{chatName}\"? You can be added back by other members."
 msgstr "మీరు ఖచ్చితంగా \"{chatName}\" నుండి నిష్క్రమించాలనుకుంటున్నారా? ఇతర సభ్యులు మిమ్మల్ని తిరిగి జోడించవచ్చు."
 
@@ -234,7 +246,7 @@ msgid "Are you sure you want to log out? You will need to log in again to access
 msgstr "మీరు లాగ్ అవుట్ చేయాలనుకుంటున్నారా? మీ ఖాతాను యాక్సెస్ చేయడానికి మీరు మళ్లీ లాగిన్ చేయవలసి ఉంటుంది."
 
 #. placeholder {0}: member?.name
-#: src/routes/_authenticated/$chatId_.settings.tsx:538
+#: src/routes/_authenticated/$chatId_.settings.tsx:548
 msgid "Are you sure you want to remove {0} from this chat?"
 msgstr "మీరు ఖచ్చితంగా {0} ను ఈ చాట్ నుండి తీసివేయాలనుకుంటున్నారా?"
 
@@ -246,16 +258,16 @@ msgstr "ఆరోహణ"
 msgid "Ascending"
 msgstr "ఆరోహణ"
 
-#: src/features/chats/components/chat-input.tsx:590
+#: src/features/chats/components/chat-input.tsx:594
 #: src/features/chats/components/message-quote.tsx:56
 msgid "Attachment"
 msgstr "అటాచ్‌మెంట్"
 
-#: src/features/chats/index.tsx:753
+#: src/features/chats/index.tsx:757
 msgid "Attachments are too large to upload. Remove or shrink files and try again."
 msgstr "అటాచ్‌మెంట్‌లు అప్‌లోడ్ చేయడానికి చాలా పెద్దగా ఉన్నాయి. ఫైళ్లను తీసివేయండి లేదా చిన్నవి చేసి మళ్లీ ప్రయత్నించండి."
 
-#: src/features/chats/components/chat-input.tsx:792
+#: src/features/chats/components/chat-input.tsx:796
 msgid "Audio"
 msgstr "ఆడియో"
 
@@ -267,9 +279,9 @@ msgstr "ఆథెంటికేటర్ కోడ్"
 msgid "Back"
 msgstr "వెనుకకు"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:98
-#: src/routes/_authenticated/$chatId_.settings.tsx:109
-#: src/routes/_authenticated/$chatId_.settings.tsx:125
+#: src/routes/_authenticated/$chatId_.settings.tsx:102
+#: src/routes/_authenticated/$chatId_.settings.tsx:113
+#: src/routes/_authenticated/$chatId_.settings.tsx:129
 msgid "Back to chat"
 msgstr "చాట్‌కి తిరిగి"
 
@@ -301,13 +313,13 @@ msgstr "ఆసక్తిని పెంచండి"
 #: src/features/chats/components/chat-message-list.tsx:835
 #: src/features/chats/components/chat-settings-dialog.tsx:116
 #: src/features/chats/components/forward-dialog.tsx:253
-#: src/features/chats/components/new-chat.tsx:295
-#: src/features/chats/index.tsx:1230
+#: src/features/chats/components/new-chat.tsx:354
+#: src/features/chats/index.tsx:1258
 msgid "Cancel"
 msgstr "రద్దు చేయండి"
 
-#: src/features/chats/components/chat-input.tsx:600
-#: src/features/chats/components/chat-input.tsx:605
+#: src/features/chats/components/chat-input.tsx:604
+#: src/features/chats/components/chat-input.tsx:609
 msgid "Cancel reply"
 msgstr "ప్రత్యుత్తరాన్ని రద్దు చేయండి"
 
@@ -320,22 +332,22 @@ msgstr "ఈ నోటిఫికేషన్ కోసం వర్గం"
 msgid "Change notification category"
 msgstr "నోటిఫికేషన్ వర్గాన్ని మార్చండి"
 
-#: src/features/chats/index.tsx:85
-#: src/features/chats/index.tsx:193
-#: src/features/chats/index.tsx:193
-#: src/features/chats/index.tsx:1016
+#: src/features/chats/index.tsx:89
+#: src/features/chats/index.tsx:197
+#: src/features/chats/index.tsx:197
+#: src/features/chats/index.tsx:1035
 msgid "Chat"
 msgstr "చాట్"
 
-#: src/features/chats/components/new-chat.tsx:160
+#: src/features/chats/components/new-chat.tsx:195
 msgid "Chat created"
 msgstr "చాట్ సృష్టించబడింది"
 
-#: src/features/chats/index.tsx:816
+#: src/features/chats/index.tsx:820
 msgid "Chat deleted"
 msgstr "చాట్ తొలగించబడింది"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:218
+#: src/routes/_authenticated/$chatId_.settings.tsx:228
 msgid "Chat ID"
 msgstr "చాట్ ID"
 
@@ -347,20 +359,20 @@ msgstr "చాట్ చదివినట్లుగా గుర్తు ప
 msgid "Chat marked as unread"
 msgstr "చాట్ చదవనట్లుగా గుర్తు పెట్టబడింది"
 
-#: src/features/chats/components/new-chat.tsx:279
-#: src/routes/_authenticated/$chatId_.settings.tsx:202
+#: src/features/chats/components/new-chat.tsx:338
+#: src/routes/_authenticated/$chatId_.settings.tsx:212
 msgid "Chat name"
 msgstr "చాట్ పేరు"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:194
+#: src/routes/_authenticated/$chatId_.settings.tsx:198
 msgid "Chat name is required"
 msgstr "చాట్ పేరు అవసరం"
 
-#: src/features/chats/components/new-chat.tsx:282
+#: src/features/chats/components/new-chat.tsx:341
 msgid "Chat name..."
 msgstr "చాట్ పేరు..."
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:113
+#: src/routes/_authenticated/$chatId_.settings.tsx:117
 msgid "Chat not found"
 msgstr "చాట్ కనుగొనబడలేదు"
 
@@ -372,24 +384,24 @@ msgstr "చాట్ పిన్ చేయబడింది"
 msgid "Chat policy updated"
 msgstr "చాట్ విధానం నవీకరించబడింది"
 
-#: src/features/chats/components/new-chat.tsx:160
+#: src/features/chats/components/new-chat.tsx:195
 msgid "Chat ready"
 msgstr "చాట్ సిద్ధంగా ఉంది"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:209
+#: src/routes/_authenticated/$chatId_.settings.tsx:219
 msgid "Chat renamed"
 msgstr "చాట్ పేరు మార్చబడింది"
 
-#: src/features/chats/index.tsx:1021
-#: src/features/chats/index.tsx:1119
-#: src/routes/_authenticated/$chatId_.settings.tsx:85
-#: src/routes/_authenticated/$chatId_.settings.tsx:98
-#: src/routes/_authenticated/$chatId_.settings.tsx:109
-#: src/routes/_authenticated/$chatId_.settings.tsx:124
+#: src/features/chats/index.tsx:1040
+#: src/features/chats/index.tsx:1138
+#: src/routes/_authenticated/$chatId_.settings.tsx:89
+#: src/routes/_authenticated/$chatId_.settings.tsx:102
+#: src/routes/_authenticated/$chatId_.settings.tsx:113
+#: src/routes/_authenticated/$chatId_.settings.tsx:128
 msgid "Chat settings"
 msgstr "చాట్ సెట్టింగ్‌లు"
 
-#: src/features/chats/components/chat-input.tsx:798
+#: src/features/chats/components/chat-input.tsx:802
 msgid "Chat text box"
 msgstr "చాట్ టెక్స్ట్ బాక్స్"
 
@@ -449,7 +461,7 @@ msgid "Clear filters"
 msgstr "ఫిల్టర్‌లను క్లియర్ చేయండి"
 
 #: src/features/chats/components/forward-dialog.tsx:199
-#: src/routes/_authenticated/$chatId_.settings.tsx:446
+#: src/routes/_authenticated/$chatId_.settings.tsx:456
 msgid "Clear search"
 msgstr "శోధనను క్లియర్ చేయండి"
 
@@ -529,19 +541,19 @@ msgstr "కొనసాగించండి"
 msgid "Continue with {label}"
 msgstr "{label}తో కొనసాగించండి"
 
-#: src/features/chats/index.tsx:644
+#: src/features/chats/index.tsx:648
 msgid "Copied"
 msgstr "కాపీ అయింది"
 
 #: ../../../lib/web/src/components/ui/copy-button.tsx:63
 #: src/features/chats/components/message-hover-actions.tsx:107
-#: src/features/chats/index.tsx:1207
+#: src/features/chats/index.tsx:1235
 msgid "Copy"
 msgstr "కాపీ చేయండి"
 
 #. placeholder {0}: ambiguous.join(', ')
 #. placeholder {1}: unknown.join(', ')
-#: src/features/chats/index.tsx:960
+#: src/features/chats/index.tsx:975
 msgid "Could not link mentions. Multiple people share: {0}. Not in this chat: {1}. Pick from the @ list."
 msgstr "ప్రస్తావనలను అనుసంధానించలేకపోయాం. చాలామందికి ఒకే పేరు ఉంది: {0}. ఈ చాట్‌లో లేరు: {1}. @ జాబితా నుండి ఎంచుకోండి."
 
@@ -561,20 +573,20 @@ msgstr "పునఃప్రమాణీకరణను ప్రారంభ�
 msgid "Couldn't verify with that account. Please try again."
 msgstr "ఆ ఖాతాతో ధృవీకరించడం సాధ్యం కాలేదు. దయచేసి మళ్లీ ప్రయత్నించండి."
 
-#: src/features/chats/components/new-chat.tsx:207
+#: src/features/chats/components/new-chat.tsx:266
 msgid "Create a new chat"
 msgstr "కొత్త చాట్‌ను సృష్టించండి"
 
 #: src/components/layout/chat-layout.tsx:278
-#: src/features/chats/components/new-chat.tsx:303
+#: src/features/chats/components/new-chat.tsx:366
 msgid "Create chat"
 msgstr "చాట్‌ను సృష్టించండి"
 
-#: src/features/chats/components/new-chat.tsx:159
+#: src/features/chats/components/new-chat.tsx:194
 msgid "Creating chat..."
 msgstr "చాట్‌ను సృష్టిస్తోంది..."
 
-#: src/features/chats/components/new-chat.tsx:303
+#: src/features/chats/components/new-chat.tsx:365
 msgid "Creating..."
 msgstr "సృష్టిస్తోంది..."
 
@@ -608,18 +620,18 @@ msgid "Default AI account"
 msgstr "డిఫాల్ట్ AI ఖాతా"
 
 #: src/features/chats/components/message-hover-actions.tsx:146
-#: src/features/chats/index.tsx:1223
-#: src/features/chats/index.tsx:1340
+#: src/features/chats/index.tsx:1251
+#: src/features/chats/index.tsx:1368
 msgid "Delete"
 msgstr "తొలగించండి"
 
-#: src/features/chats/index.tsx:1102
-#: src/features/chats/index.tsx:1254
+#: src/features/chats/index.tsx:1121
+#: src/features/chats/index.tsx:1282
 msgid "Delete chat"
 msgstr "చాట్‌ను తొలగించండి"
 
-#: src/features/chats/index.tsx:1318
-#: src/routes/_authenticated/$chatId_.settings.tsx:368
+#: src/features/chats/index.tsx:1346
+#: src/routes/_authenticated/$chatId_.settings.tsx:378
 msgid "Delete chat history"
 msgstr "చాట్ చరిత్రను తొలగించండి"
 
@@ -627,12 +639,12 @@ msgstr "చాట్ చరిత్రను తొలగించండి"
 msgid "Delete your account on the old server"
 msgstr "పాత సర్వర్‌లో మీ ఖాతాను తొలగించండి"
 
-#: src/features/chats/index.tsx:815
+#: src/features/chats/index.tsx:819
 msgid "Deleting chat..."
 msgstr "చాట్‌ను తొలగిస్తోంది..."
 
-#: src/features/chats/index.tsx:674
-#: src/features/chats/index.tsx:1337
+#: src/features/chats/index.tsx:678
+#: src/features/chats/index.tsx:1365
 msgid "Deleting..."
 msgstr "తొలగిస్తోంది..."
 
@@ -663,7 +675,7 @@ msgstr "వెబ్ బ్రౌజర్ నుండి గుర్తిం
 msgid "Direction"
 msgstr "దిశ"
 
-#: src/features/chats/components/new-chat.tsx:78
+#: src/features/chats/components/new-chat.tsx:88
 msgid "Directory search failed"
 msgstr "డైరెక్టరీ శోధన విఫలమైంది"
 
@@ -671,8 +683,8 @@ msgstr "డైరెక్టరీ శోధన విఫలమైంది"
 msgid "Disagree"
 msgstr "ఏకీభవించను"
 
-#: src/features/chats/components/chat-input.tsx:724
-#: src/features/chats/components/chat-input.tsx:729
+#: src/features/chats/components/chat-input.tsx:728
+#: src/features/chats/components/chat-input.tsx:733
 msgid "Discard recording"
 msgstr "రికార్డింగ్‌ను వదిలేయండి"
 
@@ -689,7 +701,7 @@ msgstr "విస్మరించండి"
 msgid "Displays the mobile sidebar."
 msgstr "మొబైల్ సైడ్‌బార్‌ను ప్రదర్శిస్తుంది."
 
-#: src/features/chats/components/chat-input.tsx:786
+#: src/features/chats/components/chat-input.tsx:790
 msgid "Document"
 msgstr "పత్రం"
 
@@ -724,7 +736,7 @@ msgid "Edit {label}"
 msgstr "{label} సవరించు"
 
 #. placeholder {0}: formatVideoDuration(recordingDuration)
-#: src/features/chats/components/chat-input.tsx:737
+#: src/features/chats/components/chat-input.tsx:741
 msgid "Elapsed {0}"
 msgstr "గడిచింది {0}"
 
@@ -767,11 +779,11 @@ msgstr "అదనపు పెద్దది"
 msgid "Failed to add account"
 msgstr "ఖాతాను జోడించడంలో విఫలమైంది"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:418
+#: src/routes/_authenticated/$chatId_.settings.tsx:428
 msgid "Failed to add member"
 msgstr "సభ్యుని జోడించడంలో విఫలమైంది"
 
-#: src/features/chats/index.tsx:645
+#: src/features/chats/index.tsx:649
 msgid "Failed to copy"
 msgstr "కాపీ చేయడంలో విఫలమైంది"
 
@@ -779,19 +791,19 @@ msgstr "కాపీ చేయడంలో విఫలమైంది"
 msgid "Failed to copy message"
 msgstr "సందేశాన్ని కాపీ చేయడం విఫలమైంది"
 
-#: src/features/chats/components/new-chat.tsx:161
+#: src/features/chats/components/new-chat.tsx:196
 msgid "Failed to create chat"
 msgstr "చాట్‌ను సృష్టించడంలో విఫలమైంది"
 
-#: src/features/chats/index.tsx:676
+#: src/features/chats/index.tsx:680
 msgid "Failed to delete"
 msgstr "తొలగించడంలో విఫలమైంది"
 
-#: src/features/chats/index.tsx:817
+#: src/features/chats/index.tsx:821
 msgid "Failed to delete chat"
 msgstr "చాట్‌ను తొలగించడంలో విఫలమైంది"
 
-#: src/features/chats/index.tsx:584
+#: src/features/chats/index.tsx:588
 msgid "Failed to edit message"
 msgstr "సందేశాన్ని సవరించలేకపోయాం"
 
@@ -799,8 +811,8 @@ msgstr "సందేశాన్ని సవరించలేకపోయా�
 msgid "Failed to forward"
 msgstr "ఫార్వర్డ్ చేయడం విఫలమైంది"
 
-#: src/features/chats/index.tsx:798
-#: src/routes/_authenticated/$chatId_.settings.tsx:329
+#: src/features/chats/index.tsx:802
+#: src/routes/_authenticated/$chatId_.settings.tsx:339
 msgid "Failed to leave chat"
 msgstr "చాట్ నుండి బయటపడడంలో విఫలమైంది"
 
@@ -812,7 +824,7 @@ msgstr "మీ చాట్ విధానాన్ని లోడ్ చే�
 msgid "Failed to mark chat as read"
 msgstr "చాట్‌ను చదివినట్లుగా గుర్తు పెట్టడం విఫలమైంది"
 
-#: src/features/chats/index.tsx:628
+#: src/features/chats/index.tsx:632
 msgid "Failed to react"
 msgstr "స్పందించడంలో విఫలమైంది"
 
@@ -820,11 +832,11 @@ msgstr "స్పందించడంలో విఫలమైంది"
 msgid "Failed to remove account"
 msgstr "ఖాతాను తీసివేయడంలో విఫలమైంది"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:524
+#: src/routes/_authenticated/$chatId_.settings.tsx:534
 msgid "Failed to remove member"
 msgstr "సభ్యుని తీసివేయడంలో విఫలమైంది"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:211
+#: src/routes/_authenticated/$chatId_.settings.tsx:221
 msgid "Failed to rename chat"
 msgstr "చాట్ పేరు మార్చడంలో విఫలమైంది"
 
@@ -832,7 +844,7 @@ msgstr "చాట్ పేరు మార్చడంలో విఫలమై
 msgid "Failed to save"
 msgstr "సేవ్ చేయడంలో విఫలమైంది"
 
-#: src/features/chats/index.tsx:752
+#: src/features/chats/index.tsx:756
 msgid "Failed to send message"
 msgstr "సందేశాన్ని పంపడంలో విఫలమైంది"
 
@@ -840,7 +852,7 @@ msgstr "సందేశాన్ని పంపడంలో విఫలమై�
 msgid "Failed to send verification code"
 msgstr "ధృవీకరణ కోడ్‌ను పంపడంలో విఫలమైంది"
 
-#: src/features/chats/index.tsx:199
+#: src/features/chats/index.tsx:203
 msgid "Failed to start chat"
 msgstr "చాట్‌ను ప్రారంభించడంలో విఫలమైంది"
 
@@ -862,7 +874,7 @@ msgstr "ఫ్లోటింగ్"
 
 #: src/features/chats/components/forward-dialog.tsx:264
 #: src/features/chats/components/message-hover-actions.tsx:138
-#: src/features/chats/index.tsx:1215
+#: src/features/chats/index.tsx:1243
 msgid "Forward"
 msgstr "ఫార్వర్డ్ చేయండి"
 
@@ -883,7 +895,7 @@ msgid "Friday"
 msgstr "శుక్రవారం"
 
 #: src/features/chats/components/forward-dialog.tsx:237
-#: src/routes/_authenticated/$chatId_.settings.tsx:469
+#: src/routes/_authenticated/$chatId_.settings.tsx:479
 msgid "Friends"
 msgstr "స్నేహితులు"
 
@@ -908,8 +920,8 @@ msgstr "థీమ్ నుండి"
 msgid "Full layout"
 msgstr "పూర్తి లేఅవుట్"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:129
-#: src/routes/_authenticated/$chatId_.settings.tsx:200
+#: src/routes/_authenticated/$chatId_.settings.tsx:133
+#: src/routes/_authenticated/$chatId_.settings.tsx:210
 msgid "General"
 msgstr "సాధారణం"
 
@@ -967,7 +979,7 @@ msgid "Imperial"
 msgstr "ఇంపీరియల్"
 
 #: src/features/chats/components/chat-settings-dialog.tsx:80
-#: src/features/chats/index.tsx:1125
+#: src/features/chats/index.tsx:1144
 msgid "Incoming chats"
 msgstr "ఇన్‌కమింగ్ చాట్‌లు"
 
@@ -1006,32 +1018,32 @@ msgstr "లేఅవుట్"
 msgid "Learn more"
 msgstr "మరింత తెలుసుకోండి"
 
-#: src/features/chats/index.tsx:1304
+#: src/features/chats/index.tsx:1332
 msgid "Leave"
 msgstr "నిష్క్రమించు"
 
-#: src/features/chats/index.tsx:1109
-#: src/routes/_authenticated/$chatId_.settings.tsx:354
+#: src/features/chats/index.tsx:1128
+#: src/routes/_authenticated/$chatId_.settings.tsx:364
 msgid "Leave chat"
 msgstr "చాట్ నుండి బయటపడండి"
 
-#: src/features/chats/index.tsx:1295
-#: src/routes/_authenticated/$chatId_.settings.tsx:345
+#: src/features/chats/index.tsx:1323
+#: src/routes/_authenticated/$chatId_.settings.tsx:355
 msgid "Leave chat?"
 msgstr "చాట్ నుండి బయటపడాలా?"
 
-#: src/features/chats/index.tsx:796
-#: src/routes/_authenticated/$chatId_.settings.tsx:327
+#: src/features/chats/index.tsx:800
+#: src/routes/_authenticated/$chatId_.settings.tsx:337
 msgid "Leaving chat..."
 msgstr "చాట్ నుండి నిష్క్రమిస్తోంది..."
 
-#: src/features/chats/index.tsx:1301
-#: src/routes/_authenticated/$chatId_.settings.tsx:351
+#: src/features/chats/index.tsx:1329
+#: src/routes/_authenticated/$chatId_.settings.tsx:361
 msgid "Leaving..."
 msgstr "బయటపడుతోంది..."
 
-#: src/features/chats/index.tsx:797
-#: src/routes/_authenticated/$chatId_.settings.tsx:328
+#: src/features/chats/index.tsx:801
+#: src/routes/_authenticated/$chatId_.settings.tsx:338
 msgid "Left chat"
 msgstr "చాట్ నుండి బయటపడ్డారు"
 
@@ -1109,15 +1121,15 @@ msgstr "చదివినట్లు గుర్తిస్తోంది..
 msgid "Medium"
 msgstr "మధ్యస్థం"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:417
+#: src/routes/_authenticated/$chatId_.settings.tsx:427
 msgid "Member added"
 msgstr "సభ్యుడు జోడించబడ్డారు"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:523
+#: src/routes/_authenticated/$chatId_.settings.tsx:533
 msgid "Member removed"
 msgstr "సభ్యుడు తొలగించబడ్డారు"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:248
+#: src/routes/_authenticated/$chatId_.settings.tsx:258
 msgid "Members"
 msgstr "సభ్యులు"
 
@@ -1138,16 +1150,21 @@ msgstr "సందేశ చర్యలు"
 msgid "Message copied"
 msgstr "సందేశం కాపీ అయింది"
 
-#: src/features/chats/index.tsx:754
+#: src/features/chats/index.tsx:758
 msgid "Message could not be sent. Attachments may be too large, or your connection failed. Try smaller files."
 msgstr "సందేశాన్ని పంపడం సాధ్యం కాలేదు. అటాచ్‌మెంట్‌లు చాలా పెద్దగా ఉండవచ్చు లేదా మీ కనెక్షన్ విఫలమై ఉండవచ్చు. చిన్న ఫైళ్లతో ప్రయత్నించండి."
 
-#: src/features/chats/index.tsx:675
+#: src/features/chats/index.tsx:679
 msgid "Message deleted"
 msgstr "సందేశం తొలగించబడింది"
 
+#. placeholder {0}: formatNumber(newMessage.length - MESSAGE_MAX_LENGTH)
+#: src/features/chats/components/chat-input.tsx:914
+msgid "Message is {0} characters too long"
+msgstr "సందేశం {0} అక్షరాలు ఎక్కువ పొడవుగా ఉంది"
+
 #: src/features/chats/components/message-quote.tsx:60
-#: src/features/chats/index.tsx:696
+#: src/features/chats/index.tsx:700
 msgid "Message not available"
 msgstr "సందేశం అందుబాటులో లేదు"
 
@@ -1155,37 +1172,37 @@ msgstr "సందేశం అందుబాటులో లేదు"
 msgid "Metric"
 msgstr "మెట్రిక్"
 
-#: src/features/chats/components/chat-input.tsx:317
+#: src/features/chats/components/chat-input.tsx:321
 msgid "Microphone access denied"
 msgstr "మైక్రోఫోన్ యాక్సెస్ నిరాకరించబడింది"
 
-#: src/features/chats/components/chat-input.tsx:294
+#: src/features/chats/components/chat-input.tsx:298
 msgid "Microphone access is blocked here. Please update the app and try again."
 msgstr "మైక్రోఫోన్ యాక్సెస్ ఇక్కడ నిరోధించబడింది. దయచేసి యాప్‌ను అప్‌డేట్ చేసి మళ్లీ ప్రయత్నించండి."
 
-#: src/features/chats/components/chat-input.tsx:291
-#: src/features/chats/components/chat-input.tsx:338
-#: src/features/chats/components/chat-input.tsx:385
+#: src/features/chats/components/chat-input.tsx:295
+#: src/features/chats/components/chat-input.tsx:342
+#: src/features/chats/components/chat-input.tsx:389
 msgid "Microphone access requires a secure context (HTTPS or localhost)"
 msgstr "మైక్రోఫోన్ యాక్సెస్‌కు సురక్షిత సందర్భం అవసరం (HTTPS లేదా localhost)"
 
-#: src/features/chats/components/chat-input.tsx:297
+#: src/features/chats/components/chat-input.tsx:301
 msgid "Microphone access was blocked by the browser"
 msgstr "బ్రౌజర్ మైక్రోఫోన్ యాక్సెస్‌ను నిరోధించింది"
 
-#: src/features/chats/components/chat-input.tsx:278
+#: src/features/chats/components/chat-input.tsx:282
 msgid "Microphone constraints could not be satisfied"
 msgstr "మైక్రోఫోన్ అవసరాలను తీర్చలేకపోయాం"
 
-#: src/features/chats/components/chat-input.tsx:314
+#: src/features/chats/components/chat-input.tsx:318
 msgid "Microphone error: {message}"
 msgstr "మైక్రోఫోన్ లోపం: {message}"
 
-#: src/features/chats/components/chat-input.tsx:274
+#: src/features/chats/components/chat-input.tsx:278
 msgid "Microphone is already in use"
 msgstr "మైక్రోఫోన్ ఇప్పటికే వాడుకలో ఉంది"
 
-#: src/features/chats/components/chat-input.tsx:266
+#: src/features/chats/components/chat-input.tsx:270
 msgid "Microphone permission denied"
 msgstr "మైక్రోఫోన్ అనుమతి నిరాకరించబడింది"
 
@@ -1194,13 +1211,17 @@ msgid "Monday"
 msgstr "సోమవారం"
 
 #. placeholder {0}: ambiguous.join(', ')
-#: src/features/chats/index.tsx:952
+#: src/features/chats/index.tsx:967
 msgid "Multiple people share these names: {0}. Pick them from the @ list so the right person is notified."
 msgstr "చాలామందికి ఈ పేర్లు ఉన్నాయి: {0}. సరైన వ్యక్తికి నోటిఫికేషన్ వెళ్లేలా వారిని @ జాబితా నుండి ఎంచుకోండి."
 
+#: src/routes/_authenticated/$chatId_.settings.tsx:200
+msgid "Name must be {CHAT_NAME_MAX_LENGTH} characters or less"
+msgstr "పేరు {CHAT_NAME_MAX_LENGTH} క్యారెక్టర్‌లు లేదా అంతకంటే తక్కువ ఉండాలి"
+
 #: src/routes/_authenticated/$chatId_.settings.tsx:195
-msgid "Name must be 1000 characters or less"
-msgstr "పేరు 1000 క్యారెక్టర్‌లు లేదా అంతకంటే తక్కువ ఉండాలి"
+#~ msgid "Name must be 1000 characters or less"
+#~ msgstr "పేరు 1000 క్యారెక్టర్‌లు లేదా అంతకంటే తక్కువ ఉండాలి"
 
 #: ../../../lib/web/src/features/errors/general-error.tsx:53
 #: ../../../lib/web/src/lib/api-response-interceptors.ts:303
@@ -1213,7 +1234,7 @@ msgstr "కొత్తది"
 
 #: src/features/chats/components/chat-empty-state.tsx:27
 #: src/features/chats/components/chat-empty-state.tsx:43
-#: src/features/chats/components/new-chat.tsx:204
+#: src/features/chats/components/new-chat.tsx:263
 msgid "New chat"
 msgstr "కొత్త చాట్"
 
@@ -1238,15 +1259,15 @@ msgstr "ఫార్వర్డ్ చేయడానికి చాట్‌�
 msgid "No connected accounts"
 msgstr "కనెక్ట్ చేయబడిన ఖాతాలు లేవు"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:459
+#: src/routes/_authenticated/$chatId_.settings.tsx:469
 msgid "No friends available"
 msgstr "స్నేహితులు అందుబాటులో లేరు"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:459
+#: src/routes/_authenticated/$chatId_.settings.tsx:469
 msgid "No friends found"
 msgstr "స్నేహితులు ఎవరూ కనుగొనబడలేదు"
 
-#: src/features/chats/components/new-chat.tsx:235
+#: src/features/chats/components/new-chat.tsx:294
 msgid "No friends yet"
 msgstr "ఇంకా స్నేహితులు లేరు"
 
@@ -1258,11 +1279,11 @@ msgstr "గ్రూపులు అందుబాటులో లేవు"
 msgid "No messages yet"
 msgstr "ఇంకా సందేశాలు లేవు"
 
-#: src/features/chats/components/chat-input.tsx:270
+#: src/features/chats/components/chat-input.tsx:274
 msgid "No microphone found"
 msgstr "మైక్రోఫోన్ కనుగొనబడలేదు"
 
-#: src/features/chats/components/new-chat.tsx:229
+#: src/features/chats/components/new-chat.tsx:288
 msgid "No people found"
 msgstr "ఎవరూ కనుగొనబడలేదు"
 
@@ -1313,7 +1334,7 @@ msgstr "కనుగొనబడలేదు"
 msgid "Not set"
 msgstr "సెట్ చేయబడలేదు"
 
-#: src/features/chats/index.tsx:640
+#: src/features/chats/index.tsx:644
 msgid "Nothing to copy"
 msgstr "కాపీ చేయడానికి ఏమీ లేదు"
 
@@ -1337,7 +1358,7 @@ msgstr "స్నేహితులు మాత్రమే మీతో చా
 msgid "Oops! Page Not Found!"
 msgstr "అయ్యో! పేజీ కనుగొనబడలేదు!"
 
-#: src/features/chats/components/new-chat.tsx:269
+#: src/features/chats/components/new-chat.tsx:328
 msgid "Open"
 msgstr "ఓపెన్"
 
@@ -1351,7 +1372,7 @@ msgstr "ఖాతా చర్యలను ఓపెన్ చేయండి"
 msgid "Open actions"
 msgstr "చర్యలను తెరవండి"
 
-#: src/features/chats/index.tsx:1094
+#: src/features/chats/index.tsx:1113
 msgid "Open chat actions"
 msgstr "చాట్ చర్యలను ఓపెన్ చేయండి"
 
@@ -1365,7 +1386,7 @@ msgstr "నావిగేషన్‌ను ఓపెన్ చేయండి"
 msgid "Open navigation menu"
 msgstr "నావిగేషన్ మెనుని ఓపెన్ చేయండి"
 
-#: src/features/chats/components/new-chat.tsx:245
+#: src/features/chats/components/new-chat.tsx:304
 msgid "Open people"
 msgstr "వ్యక్తులను తెరవండి"
 
@@ -1406,7 +1427,7 @@ msgstr "ఆడియోను పాజ్ చేయండి"
 msgid "Pause voice note"
 msgstr "వాయిస్ నోట్‌ను పాజ్ చేయండి"
 
-#: src/features/chats/components/new-chat.tsx:214
+#: src/features/chats/components/new-chat.tsx:273
 msgid "People"
 msgstr "పీపుల్"
 
@@ -1427,11 +1448,11 @@ msgstr "వాయిస్ నోట్‌ను ప్లే చేయండి
 msgid "Please check your internet connection and try again."
 msgstr "దయచేసి మీ ఇంటర్నెట్ కనెక్షన్‌ను తనిఖీ చేసి మళ్లీ ప్రయత్నించండి."
 
-#: src/features/chats/components/new-chat.tsx:148
+#: src/features/chats/components/new-chat.tsx:161
 msgid "Please provide a chat name"
 msgstr "చాట్ పేరును అందించండి"
 
-#: src/features/chats/components/new-chat.tsx:138
+#: src/features/chats/components/new-chat.tsx:151
 msgid "Please select at least one person"
 msgstr "దయచేసి కనీసం ఒక వ్యక్తిని ఎంచుకోండి"
 
@@ -1479,28 +1500,28 @@ msgstr "మరింత చదవండి"
 msgid "Recommended"
 msgstr "రికమెండ్ చేయబడింది"
 
-#: src/features/chats/components/chat-input.tsx:845
-#: src/features/chats/components/chat-input.tsx:850
+#: src/features/chats/components/chat-input.tsx:849
+#: src/features/chats/components/chat-input.tsx:854
 msgid "Record voice note"
 msgstr "వాయిస్ నోట్ రికార్డ్ చేయండి"
 
-#: src/features/chats/components/chat-input.tsx:306
+#: src/features/chats/components/chat-input.tsx:310
 msgid "Recording failed. Please try again."
 msgstr "రికార్డింగ్ విఫలమైంది. దయచేసి మళ్లీ ప్రయత్నించండి."
 
-#: src/features/chats/components/chat-input.tsx:322
+#: src/features/chats/components/chat-input.tsx:326
 msgid "Recording is too large to send"
 msgstr "రికార్డింగ్ పంపడానికి చాలా పెద్దది"
 
-#: src/features/chats/components/chat-input.tsx:302
+#: src/features/chats/components/chat-input.tsx:306
 msgid "Recording produced no audio"
 msgstr "రికార్డింగ్‌లో శబ్దం లేదు"
 
-#: src/features/chats/components/chat-input.tsx:228
+#: src/features/chats/components/chat-input.tsx:232
 msgid "Recording stopped at the 5-minute limit"
 msgstr "రికార్డింగ్ 5 నిమిషాల పరిమితి వద్ద ఆగిపోయింది"
 
-#: src/features/chats/components/chat-input.tsx:714
+#: src/features/chats/components/chat-input.tsx:718
 msgid "Recording voice note"
 msgstr "వాయిస్ నోట్ రికార్డ్ అవుతోంది"
 
@@ -1523,13 +1544,13 @@ msgstr "24 గంటల్లో సాపేక్ష, లేకపోతే �
 
 #: ../../../lib/web/src/features/access/access-list.tsx:265
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:180
-#: src/routes/_authenticated/$chatId_.settings.tsx:546
+#: src/routes/_authenticated/$chatId_.settings.tsx:556
 msgid "Remove"
 msgstr "తొలగించండి"
 
 #. placeholder {0}: attachment.file.name
 #. placeholder {0}: reaction.label
-#: src/features/chats/components/chat-input.tsx:692
+#: src/features/chats/components/chat-input.tsx:696
 #: src/features/chats/components/message-reaction-bar.tsx:121
 msgid "Remove {0}"
 msgstr "{0}ని తొలగించండి"
@@ -1552,7 +1573,7 @@ msgstr "ఆడియోను తీసివేయండి"
 msgid "Remove interest"
 msgstr "ఆసక్తిని తొలగించండి"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:537
+#: src/routes/_authenticated/$chatId_.settings.tsx:547
 msgid "Remove member?"
 msgstr "సభ్యుడిని తొలగించాలా?"
 
@@ -1560,15 +1581,15 @@ msgstr "సభ్యుడిని తొలగించాలా?"
 msgid "Remove voice note"
 msgstr "వాయిస్ నోట్‌ను తీసివేయండి"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:522
+#: src/routes/_authenticated/$chatId_.settings.tsx:532
 msgid "Removing member..."
 msgstr "సభ్యుడిని తీసివేస్తోంది..."
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:543
+#: src/routes/_authenticated/$chatId_.settings.tsx:553
 msgid "Removing..."
 msgstr "తొలగిస్తోంది..."
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:208
+#: src/routes/_authenticated/$chatId_.settings.tsx:218
 msgid "Renaming chat..."
 msgstr "చాట్‌కు పేరు మారుస్తోంది..."
 
@@ -1577,7 +1598,7 @@ msgid "Reply"
 msgstr "రిప్లై"
 
 #. placeholder {0}: replyTo.name
-#: src/features/chats/components/chat-input.tsx:581
+#: src/features/chats/components/chat-input.tsx:585
 msgid "Replying to {0}"
 msgstr "{0}కి ప్రత్యుత్తరం ఇస్తున్నారు"
 
@@ -1641,7 +1662,7 @@ msgstr "గమ్యస్థానాన్ని శోధించండి..
 msgid "Search for origin..."
 msgstr "మూలాన్ని శోధించండి..."
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:445
+#: src/routes/_authenticated/$chatId_.settings.tsx:455
 msgid "Search friends…"
 msgstr "స్నేహితులను వెతుకు…"
 
@@ -1649,7 +1670,7 @@ msgstr "స్నేహితులను వెతుకు…"
 msgid "Search in chat..."
 msgstr "చాట్‌లో వెతకండి..."
 
-#: src/features/chats/index.tsx:1084
+#: src/features/chats/index.tsx:1103
 msgid "Search messages"
 msgstr "సందేశాలను వెతకండి"
 
@@ -1687,7 +1708,7 @@ msgstr "ఎంచుకోండి"
 msgid "Select a chat"
 msgstr "ఒక చాట్‌ను ఎంచుకోండి"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:437
+#: src/routes/_authenticated/$chatId_.settings.tsx:447
 msgid "Select a friend to add to this chat."
 msgstr "ఈ చాట్‌కు జోడించడానికి ఒక ఫ్రెండ్‌ను ఎంచుకోండి."
 
@@ -1719,7 +1740,7 @@ msgstr "లోడ్ అయినవి ఎంచుకోండి"
 msgid "Select message"
 msgstr "సందేశాన్ని ఎంచుకోండి"
 
-#: src/features/chats/components/new-chat.tsx:228
+#: src/features/chats/components/new-chat.tsx:287
 msgid "Select people..."
 msgstr "వ్యక్తులను ఎంచుకోండి..."
 
@@ -1739,6 +1760,10 @@ msgstr "థీమ్ ప్రాధాన్యతను ఎంచుకోం�
 #~ msgid "selected"
 #~ msgstr "ఎంచుకోబడింది"
 
+#: src/features/chats/index.tsx:1206
+msgid "Selected the newest {BULK_MESSAGES_MAX} messages, the most that can be forwarded or deleted at once"
+msgstr "సరికొత్త {BULK_MESSAGES_MAX} సందేశాలు ఎంపికయ్యాయి, ఒకేసారి ఫార్వర్డ్ చేయగల లేదా తొలగించగల గరిష్ఠ సంఖ్య"
+
 #: src/features/chats/components/chat-message-list.tsx:824
 msgid "Selects messages loaded so far"
 msgstr "ఇప్పటివరకు లోడ్ అయిన సందేశాలను ఎంచుకుంటుంది"
@@ -1751,8 +1776,8 @@ msgstr "మళ్ళీ పంపండి"
 msgid "Send email"
 msgstr "ఇమెయిల్ పంపండి"
 
-#: src/features/chats/components/chat-input.tsx:860
-#: src/features/chats/components/chat-input.tsx:869
+#: src/features/chats/components/chat-input.tsx:864
+#: src/features/chats/components/chat-input.tsx:873
 msgid "Send message"
 msgstr "సందేశాన్ని పంపండి"
 
@@ -1831,7 +1856,7 @@ msgstr "విశాలమైన"
 msgid "Start a conversation"
 msgstr "సంభాషణ ప్రారంభించండి"
 
-#: src/features/chats/index.tsx:196
+#: src/features/chats/index.tsx:200
 msgid "Starting chat..."
 msgstr "చాట్‌ను ప్రారంభిస్తోంది..."
 
@@ -1839,8 +1864,8 @@ msgstr "చాట్‌ను ప్రారంభిస్తోంది..."
 msgid "Stay tuned though!"
 msgstr "అయితే వేచి ఉండండి!"
 
-#: src/features/chats/components/chat-input.tsx:754
-#: src/features/chats/components/chat-input.tsx:759
+#: src/features/chats/components/chat-input.tsx:758
+#: src/features/chats/components/chat-input.tsx:763
 msgid "Stop recording"
 msgstr "రికార్డింగ్ ఆపండి"
 
@@ -1880,6 +1905,15 @@ msgstr "నియమాలు మరియు షరతులు"
 msgid "That code is incorrect or has expired."
 msgstr "ఆ కోడ్ తప్పు లేదా గడువు ముగిసింది."
 
+#: src/features/chats/components/new-chat.tsx:167
+msgid "The chat name can be at most {CHAT_NAME_MAX_LENGTH} characters"
+msgstr "చాట్ పేరు గరిష్ఠంగా {CHAT_NAME_MAX_LENGTH} అక్షరాలు ఉండవచ్చు"
+
+#: src/features/chats/components/new-chat.tsx:173
+#: src/routes/_authenticated/$chatId_.settings.tsx:204
+msgid "The chat name cannot contain < or >"
+msgstr "చాట్ పేరులో < లేదా > ఉండకూడదు"
+
 #: ../../../lib/web/src/features/errors/general-error.tsx:68
 msgid "The requested content could not be found."
 msgstr "అభ్యర్థించిన కంటెంట్ కనుగొనబడలేదు."
@@ -1893,19 +1927,19 @@ msgid "Theme Settings"
 msgstr "థీమ్ సెట్టింగ్‌లు"
 
 #. placeholder {0}: unknown.join(', ')
-#: src/features/chats/index.tsx:956
+#: src/features/chats/index.tsx:971
 msgid "These names are not in this chat: {0}. Pick from the @ list or remove them."
 msgstr "ఈ పేర్లు ఈ చాట్‌లో లేవు: {0}. @ జాబితా నుండి ఎంచుకోండి లేదా వాటిని తీసివేయండి."
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:161
+#: src/routes/_authenticated/$chatId_.settings.tsx:165
 msgid "this chat"
 msgstr "ఈ చాట్"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:114
+#: src/routes/_authenticated/$chatId_.settings.tsx:118
 msgid "This chat may have been deleted or you don't have access to it"
 msgstr "ఈ చాట్ తొలగించబడి ఉండవచ్చు లేదా మీకు ప్రాప్యత లేదు"
 
-#: src/features/chats/index.tsx:1332
+#: src/features/chats/index.tsx:1360
 msgid "This deletes the message for everyone and cannot be undone."
 msgstr "ఇది సందేశాన్ని అందరికీ తొలగిస్తుంది, దీన్ని వెనక్కి తీసుకోలేరు."
 
@@ -1961,7 +1995,7 @@ msgstr "ఎగువ"
 msgid "Travelling"
 msgstr "ప్రయాణిస్తోంది"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:462
+#: src/routes/_authenticated/$chatId_.settings.tsx:472
 msgid "Try a different search term"
 msgstr "వేరే శోధన పదాన్ని ప్రయత్నించండి"
 
@@ -1992,11 +2026,11 @@ msgstr "యూజర్లను శోధించడానికి టైప�
 msgid "Type to search..."
 msgstr "శోధించడానికి టైప్ చేయండి..."
 
-#: src/features/chats/components/chat-input.tsx:805
+#: src/features/chats/components/chat-input.tsx:809
 msgid "Type your message…"
 msgstr "మీ సందేశాన్ని టైప్ చేయండి…"
 
-#: src/features/chats/components/chat-input.tsx:804
+#: src/features/chats/components/chat-input.tsx:808
 msgid "Type your reply…"
 msgstr "మీ ప్రత్యుత్తరాన్ని టైప్ చేయండి…"
 
@@ -2085,16 +2119,16 @@ msgstr "అన్ని నోటిఫికేషన్‌లను వీక�
 msgid "Voice note waveform"
 msgstr "వాయిస్ నోట్ తరంగరూపం"
 
-#: src/features/chats/components/chat-input.tsx:365
+#: src/features/chats/components/chat-input.tsx:369
 msgid "Voice recording is currently unavailable. Please check your setup and try again."
 msgstr "వాయిస్ రికార్డింగ్ ప్రస్తుతం అందుబాటులో లేదు. దయచేసి మీ సెటప్‌ను తనిఖీ చేసి మళ్లీ ప్రయత్నించండి."
 
-#: src/features/chats/components/chat-input.tsx:286
-#: src/features/chats/components/chat-input.tsx:391
+#: src/features/chats/components/chat-input.tsx:290
+#: src/features/chats/components/chat-input.tsx:395
 msgid "Voice recording is not supported in this browser"
 msgstr "ఈ బ్రౌజర్‌లో వాయిస్ రికార్డింగ్‌కు మద్దతు లేదు"
 
-#: src/features/chats/components/chat-input.tsx:261
+#: src/features/chats/components/chat-input.tsx:265
 msgid "Voice recording isn't available in this app version. Please update the app and try again."
 msgstr "యాప్ యొక్క ఈ వెర్షన్‌లో వాయిస్ రికార్డింగ్ అందుబాటులో లేదు. దయచేసి యాప్‌ను అప్‌డేట్ చేసి మళ్లీ ప్రయత్నించండి."
 
@@ -2110,19 +2144,27 @@ msgstr "వెబ్‌సైట్ మెయింటెనెన్స్‌�
 msgid "Wednesday"
 msgstr "బుధవారం"
 
-#: src/features/chats/index.tsx:475
+#: src/features/chats/index.tsx:479
 msgid "You"
 msgstr "మీరు"
 
-#: src/features/chats/components/new-chat.tsx:143
+#: src/features/chats/components/new-chat.tsx:156
 msgid "You already have a chat with this friend"
 msgstr "మీకు ఈ ఫ్రెండ్‌తో ఇప్పటికే ఒక చాట్ ఉంది"
 
-#: src/features/chats/components/new-chat.tsx:257
+#: src/features/chats/components/new-chat.tsx:316
 msgid "You already have chats with:"
 msgstr "మీకు ఇప్పటికే వీరితో చాట్‌లు ఉన్నాయి:"
 
-#: src/features/chats/index.tsx:657
+#: src/features/chats/index.tsx:954
+msgid "You can attach at most {CAPTIONS_MAX} files to a message"
+msgstr "ఒక సందేశానికి గరిష్ఠంగా {CAPTIONS_MAX} ఫైళ్లను జతచేయవచ్చు"
+
+#: src/features/chats/index.tsx:950
+msgid "You can mention at most {MENTIONS_MAX} people in a message"
+msgstr "ఒక సందేశంలో గరిష్ఠంగా {MENTIONS_MAX} మందిని పేర్కొనవచ్చు"
+
+#: src/features/chats/index.tsx:661
 msgid "You can only delete your own messages"
 msgstr "మీరు మీ స్వంత సందేశాలను మాత్రమే తొలగించగలరు"
 
@@ -2130,11 +2172,11 @@ msgstr "మీరు మీ స్వంత సందేశాలను మా�
 msgid "You do not have access to this section."
 msgstr "ఈ విభాగానికి మీకు యాక్సెస్ లేదు."
 
-#: src/features/chats/index.tsx:1241
+#: src/features/chats/index.tsx:1269
 msgid "You left this chat"
 msgstr "మీరు ఈ చాట్ నుండి నిష్క్రమించారు"
 
-#: src/features/chats/index.tsx:1240
+#: src/features/chats/index.tsx:1268
 msgid "You were removed from this chat"
 msgstr "మిమ్మల్ని ఈ చాట్ నుండి తీసివేశారు"
 
