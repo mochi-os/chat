@@ -212,18 +212,19 @@ export const useEditMessageMutation = (
     ...restOptions,
     mutationFn: ({ chatId, messageId, body }) =>
       chatsApi.editMessage(chatId, messageId, body),
-    onMutate: async (variables) => {
+    // Every argument is forwarded verbatim. The suppressions these replace hid
+    // an arity mismatch, not a version quirk: a caller's onError was handed the
+    // context in the onMutate-result slot and nothing in the context slot.
+    onMutate: async (variables, context) => {
       await queryClient.cancelQueries({
         queryKey: chatKeys.messages(variables.chatId),
       })
-      // @ts-expect-error type mismatches with different tanstack query versions
-      return await onMutate?.(variables)
+      return await onMutate?.(variables, context)
     },
-    onError: async (err, variables, context) => {
-      // @ts-expect-error type mismatches
-      await onError?.(err, variables, context)
+    onError: async (err, variables, onMutateResult, context) => {
+      await onError?.(err, variables, onMutateResult, context)
     },
-    onSuccess: async (data, variables, context) => {
+    onSuccess: async (data, variables, onMutateResult, context) => {
       queryClient.setQueryData<InfiniteData<GetMessagesResponse>>(
         chatKeys.messages(variables.chatId),
         (current) => {
@@ -244,8 +245,7 @@ export const useEditMessageMutation = (
           }
         }
       )
-      // @ts-expect-error type mismatches
-      await onSuccess?.(data, variables, context)
+      await onSuccess?.(data, variables, onMutateResult, context)
     },
   })
 }

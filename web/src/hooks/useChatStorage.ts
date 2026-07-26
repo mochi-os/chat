@@ -45,20 +45,6 @@ export function setMarkedUnreadChats(chatIds: Iterable<string>): void {
   shellStorage.setItem(MARKED_UNREAD_KEY, JSON.stringify([...chatIds]))
 }
 
-export function addMarkedUnreadChat(chatId: string): void {
-  void getMarkedUnreadChats().then((ids) => {
-    ids.add(chatId)
-    setMarkedUnreadChats(ids)
-  })
-}
-
-export function removeMarkedUnreadChat(chatId: string): void {
-  void getMarkedUnreadChats().then((ids) => {
-    ids.delete(chatId)
-    setMarkedUnreadChats(ids)
-  })
-}
-
 // Store last visited chat
 export function setLastChat(chatId: string): void {
   shellStorage.setItem(STORAGE_KEY, chatId)

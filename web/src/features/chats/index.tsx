@@ -352,11 +352,18 @@ export function Chats() {
       const legacy = await getLegacyReadTimestamps()
       const entries = Object.entries(legacy)
       if (entries.length > 0) {
-        await Promise.all(
+        const outcomes = await Promise.all(
           entries.map(([chatId, readAt]) =>
-            chatsApi.markRead(chatId, { read: readAt }).catch(() => undefined)
+            chatsApi
+              .markRead(chatId, { read: readAt })
+              .then(() => true)
+              .catch(() => false)
           )
         )
+        // Only retire the legacy timestamps once every one of them landed:
+        // marking the migration done after a failure discards read state the
+        // server never received, and there is no second copy to retry from.
+        if (outcomes.includes(false)) return
       }
       markReadTimestampsMigrated()
     })()
@@ -608,13 +615,21 @@ export function Chats() {
   const handleReact = useCallback(
     (messageId: string, reaction: ReactionId | '') => {
       if (!selectedChat) return
-      reactToMessageMutation.mutate({
-        chatId: selectedChat.id,
-        messageId,
-        reaction,
-      })
+      reactToMessageMutation.mutate(
+        {
+          chatId: selectedChat.id,
+          messageId,
+          reaction,
+        },
+        {
+          // Without this the optimistic reaction just disappears again, which
+          // reads as a misclick rather than a failure.
+          onError: (error) =>
+            toast.error(getErrorMessage(error, t`Failed to react`)),
+        }
+      )
     },
-    [selectedChat, reactToMessageMutation]
+    [selectedChat, reactToMessageMutation, t]
   )
 
   const handleCopySelected = useCallback(async () => {
@@ -903,8 +918,9 @@ export function Chats() {
     })
   }
 
-  const handleSendMessage = (e: React.FormEvent) => {
-    e.preventDefault()
+  // The composer prevents the form's default before calling this, so the
+  // event itself was never used here.
+  const handleSendMessage = () => {
     if (!selectedChat || sendMessageMutation.isPending) return
 
     const body = newMessage.trim()
@@ -1039,6 +1055,7 @@ export function Chats() {
             activeIndex={messageSearch.activeIndex}
             totalMatches={messageSearch.matches.length}
             isSearching={messageSearch.isSearching}
+            searchError={messageSearch.searchError}
             onNewer={messageSearch.goNewer}
             onOlder={messageSearch.goOlder}
             onClose={messageSearch.closeSearch}

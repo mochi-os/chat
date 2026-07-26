@@ -47,6 +47,8 @@ export const useReactToMessageMutation = () => {
 
       return { previous, chatId }
     },
+    // Rolls the optimistic update back; the caller reports it, since the
+    // message text belongs where useLingui is available.
     onError: (_error, { chatId }, context) => {
       if (context?.previous) {
         queryClient.setQueryData(chatKeys.messages(chatId), context.previous)

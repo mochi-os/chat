@@ -73,7 +73,7 @@ interface ChatInputProps {
   people?: MentionUser[]
   selectedMentions: MentionUser[]
   onMentionsChange: (mentions: MentionUser[]) => void
-  onSendMessage: (e: FormEvent) => void
+  onSendMessage: () => void
   isSending: boolean
   isSendDisabled: boolean
   pendingAttachments: PendingAttachment[]
@@ -565,7 +565,7 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault()
-    onSendMessage(e)
+    onSendMessage()
   }
 
   return (
@@ -827,7 +827,7 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(
                     }
                     if (e.key === 'Enter' && !e.shiftKey) {
                       e.preventDefault()
-                      handleSubmit(e as unknown as FormEvent)
+                      onSendMessage()
                     }
                   }}
                   className='border-0 bg-transparent min-h-0 focus-visible:ring-0 focus-visible:ring-offset-0 px-0 py-1.5 resize-none w-full max-h-40 overflow-y-auto text-sm leading-5 focus-visible:outline-none shadow-none rounded-none'

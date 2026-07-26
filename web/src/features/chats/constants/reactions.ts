@@ -5,18 +5,11 @@
 
 import { useLingui } from '@lingui/react/macro'
 
-export type ReactionId =
-  | 'like'
-  | 'dislike'
-  | 'laugh'
-  | 'amazed'
-  | 'love'
-  | 'sad'
-  | 'angry'
-  | 'agree'
-  | 'disagree'
-
-export type ReactionCounts = Partial<Record<ReactionId, number>>
+// Re-exported, not redefined: the reaction set is a wire contract the server
+// validates, so api/types owns it and this module supplies the presentation
+// (emoji, labels) and the runtime guard. Two copies could drift apart silently.
+import type { ReactionId, ReactionCounts } from '@/api/types/chats'
+export type { ReactionId, ReactionCounts }
 
 export const reactionOptions: { id: ReactionId; emoji: string }[] = [
   { id: 'like', emoji: '👍' },

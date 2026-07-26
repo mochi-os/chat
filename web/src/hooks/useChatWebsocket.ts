@@ -53,13 +53,27 @@ const isSameMessage = (incoming: ChatMessage, existing: ChatMessage): boolean =>
   )
 }
 
+// Websocket payloads arrive from the wire, so check each element rather than
+// asserting the array's shape: one malformed entry would otherwise reach the
+// renderer as a well-typed attachment and fail there instead of here.
+const isAttachment = (value: unknown): value is ChatMessageAttachment => {
+  if (typeof value !== 'object' || value === null) return false
+  const candidate = value as Record<string, unknown>
+  return (
+    typeof candidate.id === 'string' &&
+    typeof candidate.name === 'string' &&
+    typeof candidate.size === 'number' &&
+    typeof candidate.type === 'string'
+  )
+}
+
 const normalizeAttachments = (
   attachments: unknown
 ): ChatMessageAttachment[] => {
   if (!Array.isArray(attachments)) {
     return []
   }
-  return attachments as ChatMessageAttachment[]
+  return attachments.filter(isAttachment)
 }
 
 const normalizePayload = (

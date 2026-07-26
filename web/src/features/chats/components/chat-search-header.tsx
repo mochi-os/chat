@@ -6,7 +6,7 @@
 import { useRef, useEffect } from 'react'
 import { useLingui } from '@lingui/react/macro'
 import { ChevronDown, ChevronUp, Search, X } from 'lucide-react'
-import { IconButton, Input, cn, useFormat } from '@mochi/web'
+import { IconButton, Input, cn, getErrorMessage, useFormat } from '@mochi/web'
 
 interface ChatSearchHeaderProps {
   query: string
@@ -14,6 +14,7 @@ interface ChatSearchHeaderProps {
   activeIndex: number
   totalMatches: number
   isSearching: boolean
+  searchError?: unknown
   onNewer: () => void
   onOlder: () => void
   onClose: () => void
@@ -25,6 +26,7 @@ export function ChatSearchHeader({
   activeIndex,
   totalMatches,
   isSearching,
+  searchError,
   onNewer,
   onOlder,
   onClose,
@@ -38,8 +40,11 @@ export function ChatSearchHeader({
   }, [])
 
   const showCounter = query.length >= 2
-  const counterText =
-    totalMatches === 0
+  // A failed search must not read as an empty one: "No results" is an answer,
+  // and the user would trust it.
+  const counterText = searchError
+    ? getErrorMessage(searchError, t`Search failed`)
+    : totalMatches === 0
       ? t`No results`
       : `${formatNumber(activeIndex + 1)}/${formatNumber(totalMatches)}`
 
@@ -77,7 +82,8 @@ export function ChatSearchHeader({
         {showCounter ? (
           <span
             className={cn(
-              'text-muted-foreground shrink-0 text-sm tabular-nums',
+              'shrink-0 text-sm tabular-nums',
+              searchError ? 'text-destructive' : 'text-muted-foreground',
               isSearching && 'opacity-60'
             )}
             aria-live='polite'

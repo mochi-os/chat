@@ -65,12 +65,22 @@ export function NewChat() {
   // allow it. Names of picked directory people are kept for the chat-name
   // autofill (the picker resolves its own display names internally).
   const directoryNames = useRef(new Map<string, string>())
-  const searchDirectory = useCallback(async (query: string): Promise<Person[]> => {
-    const response = await chatsApi.personSearch(query)
-    const results = response.results ?? []
-    for (const person of results) directoryNames.current.set(person.id, person.name)
-    return results.map((person) => ({ id: person.id, name: person.name }))
-  }, [])
+  const searchDirectory = useCallback(
+    async (query: string): Promise<Person[]> => {
+      try {
+        const response = await chatsApi.personSearch(query)
+        const results = response.results ?? []
+        for (const person of results) directoryNames.current.set(person.id, person.name)
+        return results.map((person) => ({ id: person.id, name: person.name }))
+      } catch (error) {
+        // Returning an empty list on failure is indistinguishable from "nobody
+        // by that name", which is what the user would otherwise conclude.
+        toast.error(getErrorMessage(error, t`Directory search failed`))
+        return []
+      }
+    },
+    [t]
+  )
 
   const memberName = useCallback(
     (id: string) => friends.find((f) => f.id === id)?.name ?? directoryNames.current.get(id),

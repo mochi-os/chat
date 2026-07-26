@@ -27,12 +27,6 @@ const endpoints = {
     memberAdd: (chatId: string) => `/${chatId}/-/member/add`,
     memberRemove: (chatId: string) => `/${chatId}/-/member/remove`,
   },
-  auth: {
-    code: '/_/code',
-    verify: '/_/verify',
-    identity: '/_/identity',
-    logout: '/_/logout',
-  },
 } as const
 
 export default endpoints

@@ -143,8 +143,14 @@ export const chatsApi = {
       .get<{ data: ChatPreferences }>(endpoints.chat.preferencesGet)
       .then((res) => res.data),
 
-  setPreferences: (policy: ChatPolicy) =>
-    client.post(endpoints.chat.preferencesSet, { chat_policy: policy }),
+  // The action answers {"data": {}} - there is nothing to read back, so the
+  // call resolves to void rather than unknown.
+  setPreferences: (policy: ChatPolicy): Promise<void> =>
+    client
+      .post<{ data: Record<string, never> }>(endpoints.chat.preferencesSet, {
+        chat_policy: policy,
+      })
+      .then(() => undefined),
 
   create: (payload: CreateChatRequest) =>
     client

@@ -45,7 +45,10 @@ export function ChatSettingsDialog({ open, onOpenChange }: Props) {
       description: t`Anyone can start a chat with you.`,
     },
   ]
-  const { data, isLoading } = useChatPreferencesQuery()
+  // The load error matters more than most: without it a failed load left the
+  // radio on its 'friends' default, which looks like the user's real setting,
+  // and saving then overwrote whatever they actually had.
+  const { data, isLoading, isError, error } = useChatPreferencesQuery()
   const setPolicy = useSetChatPreferencesMutation()
   const [value, setValue] = useState<ChatPolicy>('friends')
 
@@ -81,6 +84,10 @@ export function ChatSettingsDialog({ open, onOpenChange }: Props) {
             <Skeleton className='h-12 w-full' />
             <Skeleton className='h-12 w-full' />
           </div>
+        ) : isError ? (
+          <p className='text-destructive py-2 text-sm'>
+            {getErrorMessage(error, t`Failed to load your chat policy`)}
+          </p>
         ) : (
           <RadioGroup
             value={value}
@@ -113,6 +120,7 @@ export function ChatSettingsDialog({ open, onOpenChange }: Props) {
             disabled={
               setPolicy.isPending ||
               isLoading ||
+              isError ||
               (!!data?.chat_policy && value === data.chat_policy)
             }
           >

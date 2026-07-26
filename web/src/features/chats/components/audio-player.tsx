@@ -416,6 +416,3 @@ export function VoiceNotePlayer({
     </div>
   )
 }
-
-/** @deprecated Prefer VoiceNotePlayer — kept as alias during refactor */
-export const AudioPlayer = VoiceNotePlayer

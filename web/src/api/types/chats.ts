@@ -87,7 +87,6 @@ export interface ChatMessage {
   my_reaction?: ReactionId | null
   deleted?: boolean
   edited?: number
-  [key: string]: unknown
 }
 
 export interface PaginationMeta {
@@ -134,7 +133,6 @@ export interface CreateChatResponse {
   fingerprint?: string
   members: ChatMember[]
   name: string
-  [key: string]: unknown
 }
 
 export interface NewChatFriend {
@@ -163,7 +161,6 @@ export interface SendMessageRequest {
 
 export interface SendMessageResponse {
   id: string
-  [key: string]: unknown
 }
 
 export interface EditMessageResponse {
@@ -210,11 +207,6 @@ export interface MemberRemoveRequest {
 
 export interface MemberRemoveResponse {
   success: boolean
-}
-
-export interface ReactToMessageRequest {
-  message: string
-  reaction: string
 }
 
 export interface ReactToMessageResponse {

@@ -31,7 +31,7 @@ msgid "(you)"
 msgstr "(나)"
 
 #. placeholder {0}: deleteTargetIds?.length ?? 0
-#: src/features/chats/index.tsx:1311
+#: src/features/chats/index.tsx:1328
 msgid "{0, plural, one {Delete message?} other {Delete # messages?}}"
 msgstr "{0, plural, other {메시지 #개를 삭제할까요?}}"
 
@@ -43,7 +43,7 @@ msgstr "{0}(나 포함)"
 #. placeholder {0}: selectedIds.size
 #. placeholder {0}: selectedIds?.size ?? 0
 #: src/features/chats/components/chat-message-list.tsx:816
-#: src/features/chats/index.tsx:1181
+#: src/features/chats/index.tsx:1198
 msgid "{0} selected"
 msgstr "{0}개 선택됨"
 
@@ -62,7 +62,7 @@ msgstr "{hiddenCount, plural, other {파일 #개 더 보기}}"
 msgid "{newMessageCount, plural, one {Jump to 1 new message} other {Jump to # new messages}}"
 msgstr "{newMessageCount, plural, other {새 메시지 #개로 이동}}"
 
-#: src/features/chats/index.tsx:850
+#: src/features/chats/index.tsx:865
 msgid "{skippedCount, plural, one {Skipped # file that is not audio} other {Skipped # files that are not audio}}"
 msgstr "{skippedCount, plural, other {오디오가 아닌 파일 #개를 건너뛰었습니다}}"
 
@@ -180,7 +180,7 @@ msgstr "멤버 추가 중..."
 msgid "Adjust the appearance and layout to suit your preferences."
 msgstr "원하는 대로 외관과 레이아웃을 조정하세요."
 
-#: src/features/chats/constants/reactions.ts:47
+#: src/features/chats/constants/reactions.ts:40
 msgid "Agree"
 msgstr "동의"
 
@@ -196,7 +196,7 @@ msgstr "전체"
 msgid "All your friends are already in this chat"
 msgstr "친구가 모두 이 채팅에 있어요"
 
-#: src/features/chats/constants/reactions.ts:43
+#: src/features/chats/constants/reactions.ts:36
 msgid "Amazed"
 msgstr "놀람"
 
@@ -208,7 +208,7 @@ msgstr "오류가 발생했습니다"
 msgid "An unexpected error occurred"
 msgstr "예기치 않은 오류가 발생했습니다"
 
-#: src/features/chats/constants/reactions.ts:46
+#: src/features/chats/constants/reactions.ts:39
 msgid "Angry"
 msgstr "분노"
 
@@ -221,7 +221,7 @@ msgid "Anyone can start a chat with you."
 msgstr "누구나 회원님과 채팅을 시작할 수 있어요."
 
 #. placeholder {0}: selectedChat?.name
-#: src/features/chats/index.tsx:1279
+#: src/features/chats/index.tsx:1296
 msgid "Are you sure you want to leave \"{0}\"? You can be added back by other members."
 msgstr "\"{0}\"에서 나가시겠습니까? 다른 멤버가 다시 추가할 수 있습니다."
 
@@ -251,7 +251,7 @@ msgstr "오름차순"
 msgid "Attachment"
 msgstr "첨부 파일"
 
-#: src/features/chats/index.tsx:738
+#: src/features/chats/index.tsx:753
 msgid "Attachments are too large to upload. Remove or shrink files and try again."
 msgstr "첨부 파일이 너무 커서 업로드할 수 없어요. 파일을 제거하거나 크기를 줄인 후 다시 시도하세요."
 
@@ -299,10 +299,10 @@ msgstr "관심도 부스트"
 #: ../../../lib/web/src/features/accounts/account-verify.tsx:89
 #: src/features/chats/components/chat-message-list.tsx:621
 #: src/features/chats/components/chat-message-list.tsx:835
-#: src/features/chats/components/chat-settings-dialog.tsx:109
+#: src/features/chats/components/chat-settings-dialog.tsx:116
 #: src/features/chats/components/forward-dialog.tsx:253
-#: src/features/chats/components/new-chat.tsx:285
-#: src/features/chats/index.tsx:1213
+#: src/features/chats/components/new-chat.tsx:295
+#: src/features/chats/index.tsx:1230
 msgid "Cancel"
 msgstr "취소"
 
@@ -323,15 +323,15 @@ msgstr "알림 카테고리 변경"
 #: src/features/chats/index.tsx:85
 #: src/features/chats/index.tsx:193
 #: src/features/chats/index.tsx:193
-#: src/features/chats/index.tsx:1000
+#: src/features/chats/index.tsx:1016
 msgid "Chat"
 msgstr "채팅"
 
-#: src/features/chats/components/new-chat.tsx:150
+#: src/features/chats/components/new-chat.tsx:160
 msgid "Chat created"
 msgstr "채팅이 생성되었어요"
 
-#: src/features/chats/index.tsx:801
+#: src/features/chats/index.tsx:816
 msgid "Chat deleted"
 msgstr "채팅이 삭제되었어요"
 
@@ -347,7 +347,7 @@ msgstr "채팅을 읽음으로 표시했습니다"
 msgid "Chat marked as unread"
 msgstr "채팅을 읽지 않음으로 표시했습니다"
 
-#: src/features/chats/components/new-chat.tsx:269
+#: src/features/chats/components/new-chat.tsx:279
 #: src/routes/_authenticated/$chatId_.settings.tsx:202
 msgid "Chat name"
 msgstr "채팅 이름"
@@ -356,7 +356,7 @@ msgstr "채팅 이름"
 msgid "Chat name is required"
 msgstr "대화 이름이 필요합니다"
 
-#: src/features/chats/components/new-chat.tsx:272
+#: src/features/chats/components/new-chat.tsx:282
 msgid "Chat name..."
 msgstr "채팅 이름..."
 
@@ -368,11 +368,11 @@ msgstr "채팅을 찾을 수 없어요"
 msgid "Chat pinned"
 msgstr "채팅을 고정했습니다"
 
-#: src/features/chats/components/chat-settings-dialog.tsx:64
+#: src/features/chats/components/chat-settings-dialog.tsx:67
 msgid "Chat policy updated"
 msgstr "채팅 정책이 업데이트되었어요"
 
-#: src/features/chats/components/new-chat.tsx:150
+#: src/features/chats/components/new-chat.tsx:160
 msgid "Chat ready"
 msgstr "채팅 준비 완료"
 
@@ -380,8 +380,8 @@ msgstr "채팅 준비 완료"
 msgid "Chat renamed"
 msgstr "채팅 이름이 변경되었어요"
 
-#: src/features/chats/index.tsx:1005
-#: src/features/chats/index.tsx:1102
+#: src/features/chats/index.tsx:1021
+#: src/features/chats/index.tsx:1119
 #: src/routes/_authenticated/$chatId_.settings.tsx:85
 #: src/routes/_authenticated/$chatId_.settings.tsx:98
 #: src/routes/_authenticated/$chatId_.settings.tsx:109
@@ -480,7 +480,7 @@ msgid "Close panel"
 msgstr "패널 닫기"
 
 #: ../../../lib/web/src/components/header-search.tsx:54
-#: src/features/chats/components/chat-search-header.tsx:111
+#: src/features/chats/components/chat-search-header.tsx:117
 msgid "Close search"
 msgstr "검색 닫기"
 
@@ -529,19 +529,19 @@ msgstr "계속"
 msgid "Continue with {label}"
 msgstr "{label}(으)로 계속하기"
 
-#: src/features/chats/index.tsx:629
+#: src/features/chats/index.tsx:644
 msgid "Copied"
 msgstr "복사됨"
 
 #: ../../../lib/web/src/components/ui/copy-button.tsx:63
 #: src/features/chats/components/message-hover-actions.tsx:107
-#: src/features/chats/index.tsx:1190
+#: src/features/chats/index.tsx:1207
 msgid "Copy"
 msgstr "복사"
 
 #. placeholder {0}: ambiguous.join(', ')
 #. placeholder {1}: unknown.join(', ')
-#: src/features/chats/index.tsx:944
+#: src/features/chats/index.tsx:960
 msgid "Could not link mentions. Multiple people share: {0}. Not in this chat: {1}. Pick from the @ list."
 msgstr "멘션을 연결할 수 없습니다. 같은 이름을 가진 사람이 여러 명입니다: {0}. 이 채팅에 없음: {1}. @ 목록에서 선택하세요."
 
@@ -561,20 +561,20 @@ msgstr "재인증을 시작할 수 없습니다. 다시 시도해 주세요."
 msgid "Couldn't verify with that account. Please try again."
 msgstr "해당 계정으로 인증하지 못했습니다. 다시 시도해 주세요."
 
-#: src/features/chats/components/new-chat.tsx:197
+#: src/features/chats/components/new-chat.tsx:207
 msgid "Create a new chat"
 msgstr "새 채팅 생성"
 
 #: src/components/layout/chat-layout.tsx:278
-#: src/features/chats/components/new-chat.tsx:293
+#: src/features/chats/components/new-chat.tsx:303
 msgid "Create chat"
 msgstr "채팅 생성"
 
-#: src/features/chats/components/new-chat.tsx:149
+#: src/features/chats/components/new-chat.tsx:159
 msgid "Creating chat..."
 msgstr "채팅 생성 중..."
 
-#: src/features/chats/components/new-chat.tsx:293
+#: src/features/chats/components/new-chat.tsx:303
 msgid "Creating..."
 msgstr "생성 중..."
 
@@ -608,17 +608,17 @@ msgid "Default AI account"
 msgstr "기본 AI 계정"
 
 #: src/features/chats/components/message-hover-actions.tsx:146
-#: src/features/chats/index.tsx:1206
-#: src/features/chats/index.tsx:1323
+#: src/features/chats/index.tsx:1223
+#: src/features/chats/index.tsx:1340
 msgid "Delete"
 msgstr "삭제"
 
-#: src/features/chats/index.tsx:1085
-#: src/features/chats/index.tsx:1237
+#: src/features/chats/index.tsx:1102
+#: src/features/chats/index.tsx:1254
 msgid "Delete chat"
 msgstr "채팅 삭제"
 
-#: src/features/chats/index.tsx:1301
+#: src/features/chats/index.tsx:1318
 #: src/routes/_authenticated/$chatId_.settings.tsx:368
 msgid "Delete chat history"
 msgstr "채팅 내역 삭제"
@@ -627,12 +627,12 @@ msgstr "채팅 내역 삭제"
 msgid "Delete your account on the old server"
 msgstr "이전 서버에서 계정 삭제"
 
-#: src/features/chats/index.tsx:800
+#: src/features/chats/index.tsx:815
 msgid "Deleting chat..."
 msgstr "채팅 삭제 중..."
 
-#: src/features/chats/index.tsx:659
-#: src/features/chats/index.tsx:1320
+#: src/features/chats/index.tsx:674
+#: src/features/chats/index.tsx:1337
 msgid "Deleting..."
 msgstr "삭제 중..."
 
@@ -663,7 +663,11 @@ msgstr "웹 브라우저에서 감지"
 msgid "Direction"
 msgstr "방향"
 
-#: src/features/chats/constants/reactions.ts:48
+#: src/features/chats/components/new-chat.tsx:78
+msgid "Directory search failed"
+msgstr "디렉터리 검색에 실패했습니다"
+
+#: src/features/chats/constants/reactions.ts:41
 msgid "Disagree"
 msgstr "동의하지 않음"
 
@@ -672,7 +676,7 @@ msgstr "동의하지 않음"
 msgid "Discard recording"
 msgstr "녹음 버리기"
 
-#: src/features/chats/constants/reactions.ts:41
+#: src/features/chats/constants/reactions.ts:34
 msgid "Dislike"
 msgstr "싫어요"
 
@@ -767,7 +771,7 @@ msgstr "계정 추가에 실패했어요"
 msgid "Failed to add member"
 msgstr "멤버 추가에 실패했어요"
 
-#: src/features/chats/index.tsx:630
+#: src/features/chats/index.tsx:645
 msgid "Failed to copy"
 msgstr "복사에 실패했어요"
 
@@ -775,19 +779,19 @@ msgstr "복사에 실패했어요"
 msgid "Failed to copy message"
 msgstr "메시지를 복사하지 못했습니다"
 
-#: src/features/chats/components/new-chat.tsx:151
+#: src/features/chats/components/new-chat.tsx:161
 msgid "Failed to create chat"
 msgstr "채팅 생성에 실패했어요"
 
-#: src/features/chats/index.tsx:661
+#: src/features/chats/index.tsx:676
 msgid "Failed to delete"
 msgstr "삭제에 실패했어요"
 
-#: src/features/chats/index.tsx:802
+#: src/features/chats/index.tsx:817
 msgid "Failed to delete chat"
 msgstr "채팅 삭제에 실패했어요"
 
-#: src/features/chats/index.tsx:577
+#: src/features/chats/index.tsx:584
 msgid "Failed to edit message"
 msgstr "메시지를 편집하지 못했습니다"
 
@@ -795,14 +799,22 @@ msgstr "메시지를 편집하지 못했습니다"
 msgid "Failed to forward"
 msgstr "전달하지 못했습니다"
 
-#: src/features/chats/index.tsx:783
+#: src/features/chats/index.tsx:798
 #: src/routes/_authenticated/$chatId_.settings.tsx:329
 msgid "Failed to leave chat"
 msgstr "채팅 나가기에 실패했어요"
 
+#: src/features/chats/components/chat-settings-dialog.tsx:89
+msgid "Failed to load your chat policy"
+msgstr "채팅 정책을 불러오지 못했습니다"
+
 #: src/components/layout/chat-layout.tsx:145
 msgid "Failed to mark chat as read"
 msgstr "채팅을 읽음으로 표시하지 못했습니다"
+
+#: src/features/chats/index.tsx:628
+msgid "Failed to react"
+msgstr "반응하지 못했습니다"
 
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:234
 msgid "Failed to remove account"
@@ -816,11 +828,11 @@ msgstr "멤버 제거에 실패했어요"
 msgid "Failed to rename chat"
 msgstr "채팅 이름 변경에 실패했어요"
 
-#: src/features/chats/components/chat-settings-dialog.tsx:65
+#: src/features/chats/components/chat-settings-dialog.tsx:68
 msgid "Failed to save"
 msgstr "저장에 실패했어요"
 
-#: src/features/chats/index.tsx:737
+#: src/features/chats/index.tsx:752
 msgid "Failed to send message"
 msgstr "메시지 전송에 실패했어요"
 
@@ -850,7 +862,7 @@ msgstr "플로팅"
 
 #: src/features/chats/components/forward-dialog.tsx:264
 #: src/features/chats/components/message-hover-actions.tsx:138
-#: src/features/chats/index.tsx:1198
+#: src/features/chats/index.tsx:1215
 msgid "Forward"
 msgstr "전달"
 
@@ -954,8 +966,8 @@ msgstr "인기"
 msgid "Imperial"
 msgstr "야드파운드법"
 
-#: src/features/chats/components/chat-settings-dialog.tsx:77
-#: src/features/chats/index.tsx:1108
+#: src/features/chats/components/chat-settings-dialog.tsx:80
+#: src/features/chats/index.tsx:1125
 msgid "Incoming chats"
 msgstr "수신 채팅"
 
@@ -981,7 +993,7 @@ msgstr "맨 아래로 이동"
 msgid "Large"
 msgstr "크게"
 
-#: src/features/chats/constants/reactions.ts:42
+#: src/features/chats/constants/reactions.ts:35
 msgid "Laugh"
 msgstr "웃음"
 
@@ -994,31 +1006,31 @@ msgstr "레이아웃"
 msgid "Learn more"
 msgstr "자세히 보기"
 
-#: src/features/chats/index.tsx:1287
+#: src/features/chats/index.tsx:1304
 msgid "Leave"
 msgstr "나가기"
 
-#: src/features/chats/index.tsx:1092
+#: src/features/chats/index.tsx:1109
 #: src/routes/_authenticated/$chatId_.settings.tsx:354
 msgid "Leave chat"
 msgstr "채팅 나가기"
 
-#: src/features/chats/index.tsx:1278
+#: src/features/chats/index.tsx:1295
 #: src/routes/_authenticated/$chatId_.settings.tsx:345
 msgid "Leave chat?"
 msgstr "채팅을 나갈까요?"
 
-#: src/features/chats/index.tsx:781
+#: src/features/chats/index.tsx:796
 #: src/routes/_authenticated/$chatId_.settings.tsx:327
 msgid "Leaving chat..."
 msgstr "채팅 나가는 중..."
 
-#: src/features/chats/index.tsx:1284
+#: src/features/chats/index.tsx:1301
 #: src/routes/_authenticated/$chatId_.settings.tsx:351
 msgid "Leaving..."
 msgstr "나가는 중..."
 
-#: src/features/chats/index.tsx:782
+#: src/features/chats/index.tsx:797
 #: src/routes/_authenticated/$chatId_.settings.tsx:328
 msgid "Left chat"
 msgstr "채팅을 나갔어요"
@@ -1032,7 +1044,7 @@ msgstr "왼쪽에서 오른쪽"
 msgid "Light"
 msgstr "라이트"
 
-#: src/features/chats/constants/reactions.ts:40
+#: src/features/chats/constants/reactions.ts:33
 msgid "Like"
 msgstr "좋아요"
 
@@ -1071,7 +1083,7 @@ msgstr "성공적으로 로그아웃되었어요"
 msgid "Logging out…"
 msgstr "로그아웃 중…"
 
-#: src/features/chats/constants/reactions.ts:44
+#: src/features/chats/constants/reactions.ts:37
 msgid "Love"
 msgstr "사랑"
 
@@ -1126,16 +1138,16 @@ msgstr "메시지 작업"
 msgid "Message copied"
 msgstr "메시지가 복사되었습니다"
 
-#: src/features/chats/index.tsx:739
+#: src/features/chats/index.tsx:754
 msgid "Message could not be sent. Attachments may be too large, or your connection failed. Try smaller files."
 msgstr "메시지를 보내지 못했어요. 첨부 파일이 너무 크거나 연결이 실패했을 수 있어요. 더 작은 파일로 시도해 보세요."
 
-#: src/features/chats/index.tsx:660
+#: src/features/chats/index.tsx:675
 msgid "Message deleted"
 msgstr "메시지가 삭제되었습니다"
 
 #: src/features/chats/components/message-quote.tsx:60
-#: src/features/chats/index.tsx:681
+#: src/features/chats/index.tsx:696
 msgid "Message not available"
 msgstr "메시지를 사용할 수 없습니다"
 
@@ -1182,7 +1194,7 @@ msgid "Monday"
 msgstr "월요일"
 
 #. placeholder {0}: ambiguous.join(', ')
-#: src/features/chats/index.tsx:936
+#: src/features/chats/index.tsx:952
 msgid "Multiple people share these names: {0}. Pick them from the @ list so the right person is notified."
 msgstr "같은 이름을 가진 사람이 여러 명입니다: {0}. 올바른 사람에게 알림이 가도록 @ 목록에서 선택하세요."
 
@@ -1201,11 +1213,11 @@ msgstr "새로 만들기"
 
 #: src/features/chats/components/chat-empty-state.tsx:27
 #: src/features/chats/components/chat-empty-state.tsx:43
-#: src/features/chats/components/new-chat.tsx:194
+#: src/features/chats/components/new-chat.tsx:204
 msgid "New chat"
 msgstr "새 채팅"
 
-#: src/features/chats/components/chat-search-header.tsx:102
+#: src/features/chats/components/chat-search-header.tsx:108
 msgid "Newer match"
 msgstr "더 최근 결과"
 
@@ -1234,7 +1246,7 @@ msgstr "이용 가능한 친구가 없어요"
 msgid "No friends found"
 msgstr "친구를 찾을 수 없어요"
 
-#: src/features/chats/components/new-chat.tsx:225
+#: src/features/chats/components/new-chat.tsx:235
 msgid "No friends yet"
 msgstr "아직 친구가 없어요"
 
@@ -1250,7 +1262,7 @@ msgstr "아직 메시지가 없어요"
 msgid "No microphone found"
 msgstr "마이크를 찾을 수 없습니다"
 
-#: src/features/chats/components/new-chat.tsx:219
+#: src/features/chats/components/new-chat.tsx:229
 msgid "No people found"
 msgstr "사람을 찾을 수 없어요"
 
@@ -1262,7 +1274,7 @@ msgstr "장소를 찾을 수 없어요"
 msgid "No profile"
 msgstr "프로필이 없어요"
 
-#: src/features/chats/components/chat-search-header.tsx:43
+#: src/features/chats/components/chat-search-header.tsx:48
 msgid "No results"
 msgstr "결과 없음"
 
@@ -1301,7 +1313,7 @@ msgstr "찾을 수 없음"
 msgid "Not set"
 msgstr "설정되지 않음"
 
-#: src/features/chats/index.tsx:625
+#: src/features/chats/index.tsx:640
 msgid "Nothing to copy"
 msgstr "복사할 내용이 없습니다"
 
@@ -1313,7 +1325,7 @@ msgstr "복사할 내용이 없습니다"
 msgid "Notifications"
 msgstr "알림"
 
-#: src/features/chats/components/chat-search-header.tsx:91
+#: src/features/chats/components/chat-search-header.tsx:97
 msgid "Older match"
 msgstr "더 오래된 결과"
 
@@ -1325,7 +1337,7 @@ msgstr "친구만 회원님과 채팅을 시작할 수 있어요 (기본값)."
 msgid "Oops! Page Not Found!"
 msgstr "이런! 페이지를 찾을 수 없어요!"
 
-#: src/features/chats/components/new-chat.tsx:259
+#: src/features/chats/components/new-chat.tsx:269
 msgid "Open"
 msgstr "열기"
 
@@ -1339,7 +1351,7 @@ msgstr "계정 작업 열기"
 msgid "Open actions"
 msgstr "작업 열기"
 
-#: src/features/chats/index.tsx:1077
+#: src/features/chats/index.tsx:1094
 msgid "Open chat actions"
 msgstr "채팅 작업 열기"
 
@@ -1353,7 +1365,7 @@ msgstr "내비게이션 열기"
 msgid "Open navigation menu"
 msgstr "내비게이션 메뉴 열기"
 
-#: src/features/chats/components/new-chat.tsx:235
+#: src/features/chats/components/new-chat.tsx:245
 msgid "Open people"
 msgstr "사용자 열기"
 
@@ -1394,7 +1406,7 @@ msgstr "오디오 일시정지"
 msgid "Pause voice note"
 msgstr "음성 메모 일시정지"
 
-#: src/features/chats/components/new-chat.tsx:204
+#: src/features/chats/components/new-chat.tsx:214
 msgid "People"
 msgstr "사람"
 
@@ -1415,11 +1427,11 @@ msgstr "음성 메모 재생"
 msgid "Please check your internet connection and try again."
 msgstr "인터넷 연결을 확인하고 다시 시도하세요."
 
-#: src/features/chats/components/new-chat.tsx:138
+#: src/features/chats/components/new-chat.tsx:148
 msgid "Please provide a chat name"
 msgstr "채팅 이름을 입력해 주세요"
 
-#: src/features/chats/components/new-chat.tsx:128
+#: src/features/chats/components/new-chat.tsx:138
 msgid "Please select at least one person"
 msgstr "한 명 이상 선택해 주세요"
 
@@ -1590,7 +1602,7 @@ msgstr "오른쪽에서 왼쪽"
 msgid "Rows per page"
 msgstr "페이지당 행"
 
-#: src/features/chats/constants/reactions.ts:45
+#: src/features/chats/constants/reactions.ts:38
 msgid "Sad"
 msgstr "슬픔"
 
@@ -1601,17 +1613,21 @@ msgstr "토요일"
 #: ../../../lib/web/src/components/ui/editable-field-row.tsx:122
 #: ../../../lib/web/src/components/ui/secret-field.tsx:77
 #: src/features/chats/components/chat-message-list.tsx:633
-#: src/features/chats/components/chat-settings-dialog.tsx:120
+#: src/features/chats/components/chat-settings-dialog.tsx:128
 msgid "Save"
 msgstr "저장"
 
-#: src/features/chats/components/chat-settings-dialog.tsx:63
+#: src/features/chats/components/chat-settings-dialog.tsx:66
 msgid "Saving..."
 msgstr "저장 중..."
 
 #: src/features/chats/components/forward-dialog.tsx:198
 msgid "Search chats…"
 msgstr "채팅 검색…"
+
+#: src/features/chats/components/chat-search-header.tsx:46
+msgid "Search failed"
+msgstr "검색에 실패했어요"
 
 #: ../../../lib/web/src/components/place-picker.tsx:85
 msgid "Search for a place"
@@ -1629,11 +1645,11 @@ msgstr "출발지 검색..."
 msgid "Search friends…"
 msgstr "친구 검색…"
 
-#: src/features/chats/components/chat-search-header.tsx:59
+#: src/features/chats/components/chat-search-header.tsx:64
 msgid "Search in chat..."
 msgstr "채팅에서 검색..."
 
-#: src/features/chats/index.tsx:1067
+#: src/features/chats/index.tsx:1084
 msgid "Search messages"
 msgstr "메시지 검색"
 
@@ -1703,7 +1719,7 @@ msgstr "불러온 항목 선택"
 msgid "Select message"
 msgstr "메시지 선택"
 
-#: src/features/chats/components/new-chat.tsx:218
+#: src/features/chats/components/new-chat.tsx:228
 msgid "Select people..."
 msgstr "사람 선택..."
 
@@ -1877,7 +1893,7 @@ msgid "Theme Settings"
 msgstr "테마 설정"
 
 #. placeholder {0}: unknown.join(', ')
-#: src/features/chats/index.tsx:940
+#: src/features/chats/index.tsx:956
 msgid "These names are not in this chat: {0}. Pick from the @ list or remove them."
 msgstr "이 이름들은 이 채팅에 없습니다: {0}. @ 목록에서 선택하거나 제거하세요."
 
@@ -1889,7 +1905,7 @@ msgstr "이 대화"
 msgid "This chat may have been deleted or you don't have access to it"
 msgstr "이 대화가 삭제되었거나 접근 권한이 없을 수 있습니다"
 
-#: src/features/chats/index.tsx:1315
+#: src/features/chats/index.tsx:1332
 msgid "This deletes the message for everyone and cannot be undone."
 msgstr "모든 사람에게서 메시지가 삭제되며 되돌릴 수 없습니다."
 
@@ -2005,7 +2021,7 @@ msgstr "허용되지 않은 접근"
 msgid "United States"
 msgstr "미국"
 
-#: src/hooks/useChatWebsocket.ts:373
+#: src/hooks/useChatWebsocket.ts:387
 msgid "Unknown"
 msgstr "알 수 없음"
 
@@ -2094,19 +2110,19 @@ msgstr "웹사이트가 점검 중이에요!"
 msgid "Wednesday"
 msgstr "수요일"
 
-#: src/features/chats/index.tsx:468
+#: src/features/chats/index.tsx:475
 msgid "You"
 msgstr "본인"
 
-#: src/features/chats/components/new-chat.tsx:133
+#: src/features/chats/components/new-chat.tsx:143
 msgid "You already have a chat with this friend"
 msgstr "이 친구와 이미 채팅이 있어요"
 
-#: src/features/chats/components/new-chat.tsx:247
+#: src/features/chats/components/new-chat.tsx:257
 msgid "You already have chats with:"
 msgstr "이미 다음과 대화가 있습니다:"
 
-#: src/features/chats/index.tsx:642
+#: src/features/chats/index.tsx:657
 msgid "You can only delete your own messages"
 msgstr "자신의 메시지만 삭제할 수 있습니다"
 
@@ -2114,11 +2130,11 @@ msgstr "자신의 메시지만 삭제할 수 있습니다"
 msgid "You do not have access to this section."
 msgstr "이 섹션에 대한 접근 권한이 없습니다."
 
-#: src/features/chats/index.tsx:1224
+#: src/features/chats/index.tsx:1241
 msgid "You left this chat"
 msgstr "이 대화에서 나갔습니다"
 
-#: src/features/chats/index.tsx:1223
+#: src/features/chats/index.tsx:1240
 msgid "You were removed from this chat"
 msgstr "이 대화에서 내보내졌습니다"
 
