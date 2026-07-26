@@ -1624,11 +1624,14 @@ def event_message(e):
 	# The sender supplies the mentioned ids; trust them only as far as the
 	# roster — a mention of a non-member is ignored.
 	mentions = e.content("mentions")
+	excerpt = str(body).strip()[:80]
 	if type(mentions) in ("list", "tuple") and e.header("to") in [str(m) for m in mentions]:
-		excerpt = str(body).strip()[:80]
 		notify("mention", chat["id"], mochi.app.label("notifications.title.mention"), mochi.app.label("notifications.body.mentioned_you", author=name, excerpt=excerpt), "/chat/" + chat["id"], chat["name"], event_id="mention:" + str(id))
 	else:
-		notify("message", chat["id"], mochi.app.label("notifications.title.message"), name + ": " + body, "/chat/" + chat["id"], chat["name"], event_id="message:" + str(id))
+		# Same excerpt and the same label treatment as the mention above: the
+		# body may be 10000 characters, and a locale may want the author and
+		# the text in the other order.
+		notify("message", chat["id"], mochi.app.label("notifications.title.message"), mochi.app.label("notifications.body.message", author=name, excerpt=excerpt), "/chat/" + chat["id"], chat["name"], event_id="message:" + str(id))
 
 # Received a new chat event
 def event_new(e):
