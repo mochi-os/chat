@@ -337,11 +337,12 @@ def action_message_asset(a):
 # Whom may start a chat with this user: friends only (default) or anyone.
 _VALID_CHAT_POLICIES = ("friends", "anyone")
 
-# Most members one chat may hold, counting the creator. A product limit, not a
-# security threshold: it bounds the work a single create or bootstrap event can
-# demand (one remote policy probe and one delivery per member on the way out,
-# one database write per roster entry on the way in) while sitting far above any
-# real conversation.
+# Most members one chat may hold, counting the creator. A real maximum, not a
+# suggestion: enforced on every path that grows a roster - action_create,
+# action_member_add, and the two receive paths (event_new's bootstrap roster and
+# event_member_add). That also bounds the work a single create or event can
+# demand: one remote policy probe and one delivery per member on the way out,
+# one database write per roster entry on the way in.
 _MEMBERS_MAXIMUM = 1000
 
 # Preferences: incoming chat policy
@@ -1743,6 +1744,17 @@ def event_member_add(e):
 	name = e.content("name")
 	if not mochi.text.valid(name, "name"):
 		return
+
+	# The cap is a real maximum, so it holds on the way in too: without this a
+	# peer could push a roster past it one add at a time, which is the per-entry
+	# work the limit exists to bound. Only a genuinely new member is refused - an
+	# existing one is a name update and doesn't grow the roster. A refusal leaves
+	# our roster short of the sender's, repairable by resync; that is the
+	# accepted cost of the limit being a maximum rather than a suggestion.
+	if not mochi.db.exists("select 1 from members where chat=? and member=?", chat["id"], member):
+		count = mochi.db.row("select count(*) as members from members where chat=?", chat["id"])
+		if count and count["members"] >= _MEMBERS_MAXIMUM:
+			return
 
 	mochi.db.execute("insert into members ( chat, member, name ) values ( ?, ?, ? ) on conflict ( chat, member ) do update set name=excluded.name", chat["id"], member, name)
 	mochi.db.execute("update chats set updated=? where id=?", mochi.time.now(), chat["id"])
