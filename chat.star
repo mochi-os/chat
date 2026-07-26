@@ -364,6 +364,10 @@ _RESYNC_MANUAL = 5
 _PROBES_MAXIMUM = 100
 _PROBES_BUDGET = 45
 
+# Most attachments one forward may copy. Messages are already capped at 100 per
+# forward; this bounds the per-attachment work that cap does not.
+_FORWARD_ATTACHMENTS_MAXIMUM = 100
+
 # Preferences: incoming chat policy
 def action_preferences_get(a):
 	return {"data": {"chat_policy": a.user.preference.get("chat_policy") or "friends"}}
@@ -1249,6 +1253,26 @@ def chat_collect_forwardable(source_id, raw_ids):
 # the commit hook, and broadcasting each to the target's members. Returns the
 # list of new message ids. Shared by forward-to-existing-chat and
 # forward-to-friend so both paths stay identical.
+# May this forward's attachments be copied?
+#
+# Copying reads each file's bytes into memory (mochi.attachment.data) and
+# writes them back under the new message - there is no server-side copy - so a
+# forward of up to 100 attachment-heavy messages can exhaust the request's
+# memory or its 90s budget. Counting comes from attachment METADATA, so this
+# costs no bytes, and refusing up front matters: failing part way would leave
+# some messages forwarded and the rest not, with nothing to roll back.
+#
+# This bounds the COUNT, not the total size. A server-side copy primitive is
+# the real fix and would help every app that duplicates content.
+def chat_forward_allowed(a, source_id, source_messages):
+	total = 0
+	for source_message in source_messages:
+		total += len(mochi.attachment.list("chat/" + source_id + "/" + source_message["id"]) or [])
+		if total > _FORWARD_ATTACHMENTS_MAXIMUM:
+			a.error.label(400, "errors.too_many_attachments", maximum=_FORWARD_ATTACHMENTS_MAXIMUM)
+			return False
+	return True
+
 def chat_forward_into(a, source_id, target_id, source_messages):
 	chat_ensure_commit_hook()
 	members = mochi.db.rows("select member from members where chat=? and member!=?", target_id, a.user.identity.id)
@@ -1306,6 +1330,9 @@ def action_messages_forward(a):
 		a.error.label(400, "errors.invalid_message")
 		return
 
+	if not chat_forward_allowed(a, source["id"], source_messages):
+		return
+
 	forwarded = chat_forward_into(a, source["id"], target["id"], source_messages)
 	if not forwarded:
 		a.error.label(404, "errors.message_not_found")
@@ -1342,6 +1369,10 @@ def action_messages_forward_friend(a):
 		return
 	if not source_messages:
 		a.error.label(404, "errors.message_not_found")
+		return
+	# Checked here for the same reason the messages are: refusing after the
+	# chat exists would leave an empty one behind.
+	if not chat_forward_allowed(a, source["id"], source_messages):
 		return
 
 	# Friends may always be targeted; a non-friend only if their chat_policy
