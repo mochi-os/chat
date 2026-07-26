@@ -345,6 +345,17 @@ _VALID_CHAT_POLICIES = ("friends", "anyone")
 # one database write per roster entry on the way in.
 _MEMBERS_MAXIMUM = 1000
 
+# Seconds between resync attempts for one chat. The automatic window suits
+# event-driven repair, where a minute of staleness costs nothing. A user who
+# presses "resync" is reacting to something that looks wrong now, so the manual
+# window is short enough to be invisible to a person while still stopping a
+# scripted loop: every call is one blocking remote request aimed at a peer of
+# the caller's choosing. Core bounds the ends of that path already (1000 API
+# requests per minute per address inbound, 100 per second per peer at the
+# target); this bounds what one caller can aim at one peer in between.
+_RESYNC_AUTOMATIC = 60
+_RESYNC_MANUAL = 5
+
 # Preferences: incoming chat policy
 def action_preferences_get(a):
 	return {"data": {"chat_policy": a.user.preference.get("chat_policy") or "friends"}}
@@ -1394,25 +1405,39 @@ def action_resync(a):
 	if not peer:
 		# Solo chat — nothing to sync from.
 		return {"data": {"synced": False}}
-	mochi.db.execute("update chats set synced=0 where id=?", chat_id)
-	synced = request_resync(chat_id, peer)
-	return {"data": {"synced": synced}}
+	# A manual resync uses a shorter window than the automatic one rather than
+	# clearing `synced` outright, which defeated the throttle entirely.
+	# `throttled` lets the client say "just a moment" instead of showing a
+	# forced sync as a failure.
+	row = mochi.db.row("select synced from chats where id=?", chat_id)
+	throttled = row and row["synced"] and mochi.time.now() - row["synced"] < _RESYNC_MANUAL
+	synced = request_resync(chat_id, peer, _RESYNC_MANUAL)
+	return {"data": {"synced": synced, "throttled": True if throttled else False}}
 
 # request_resync asks a member peer for the chat's metadata + member list
 # when we receive an event referencing a chat we haven't seen yet. Chat
 # is peer-to-peer (no central owner) so the responder is whoever just
 # messaged us; they answer if they hold the chat. Throttled to one call
 # per 60 seconds per chat so a burst of out-of-order events can't spam.
-def request_resync(chat_id, peer_member):
+def request_resync(chat_id, peer_member, minimum=_RESYNC_AUTOMATIC):
 	"""Returns True iff data was actually fetched and applied from the peer.
 	Throttle-skipped calls, missing args, and remote-request failures all
-	return False so callers don't lie about convergence."""
+	return False so callers don't lie about convergence.
+
+	`minimum` is the seconds that must have passed since the last attempt.
+	The manual path passes a shorter window than the automatic one."""
 	if not chat_id or not peer_member:
 		return False
 	row = mochi.db.row("select synced from chats where id=?", chat_id)
 	now = mochi.time.now()
-	if row and row["synced"] and now - row["synced"] < 60:
+	if row and row["synced"] and now - row["synced"] < minimum:
 		return False
+	# Stamp the ATTEMPT, not just the success below: the remote request that
+	# follows is the expensive part, and a peer that never answers used to
+	# leave `synced` untouched, so every retry re-issued it. Throttling has to
+	# cover the failing case above all - that is the one worth flooding.
+	if row:
+		mochi.db.execute("update chats set synced=? where id=?", now, chat_id)
 	response = mochi.remote.request(peer_member, "chat", "info", {"chat": chat_id})
 	if not response or response.get("error"):
 		return False
