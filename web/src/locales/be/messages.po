@@ -26,6 +26,11 @@ msgstr "(зменена)"
 msgid "(you)"
 msgstr "(вы)"
 
+#. placeholder {0}: selectedValues.size
+#: ../../../lib/web/src/components/data-table/faceted-filter.tsx:66
+msgid "{0, plural, one {# selected} other {# selected}}"
+msgstr "{0, plural, one {# выбрана} few {# выбрана} many {# выбрана} other {# выбрана}}"
+
 #. placeholder {0}: deleteTargetIds?.length ?? 0
 #: src/features/chats/index.tsx:1356
 msgid "{0, plural, one {Delete message?} other {Delete # messages?}}"
@@ -49,6 +54,10 @@ msgstr "Выбрана: {0}"
 msgid "{0} settings"
 msgstr "Налады {0}"
 
+#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:173
+msgid "{entityLabel} name"
+msgstr "Назва {entityLabel}"
+
 #: src/features/chats/components/message-attachments.tsx:140
 msgid "{hiddenCount, plural, one {Show 1 more file} other {Show # more files}}"
 msgstr "{hiddenCount, plural, one {Паказаць яшчэ # файл} few {Паказаць яшчэ # файлы} many {Паказаць яшчэ # файлаў} other {Паказаць яшчэ # файла}}"
@@ -57,6 +66,22 @@ msgstr "{hiddenCount, plural, one {Паказаць яшчэ # файл} few {П
 #: src/features/chats/components/chat-message-list.tsx:868
 msgid "{newMessageCount, plural, one {Jump to 1 new message} other {Jump to # new messages}}"
 msgstr "{newMessageCount, plural, one {Перайсці да # новага паведамлення} few {Перайсці да # новых паведамленняў} many {Перайсці да # новых паведамленняў} other {Перайсці да # новага паведамлення}}"
+
+#: ../../../lib/web/src/components/data-table/bulk-actions.tsx:210
+msgid "{selectedCount, plural, one {{entityName} selected} other {{manyName} selected}}"
+msgstr "{selectedCount, plural, one {{entityName} выбраны} few {{manyName} выбраныя} many {{manyName} выбраных} other {{manyName} выбранага}}"
+
+#: ../../../lib/web/src/components/data-table/bulk-actions.tsx:52
+msgid "{selectedCount, plural, one {# {entityName} selected. Bulk actions toolbar is available.} other {# {manyName} selected. Bulk actions toolbar is available.}}"
+msgstr "{selectedCount, plural, one {# {entityName} выбраны. Панэль масавых дзеянняў даступная.} few {# {manyName} выбраныя. Панэль масавых дзеянняў даступная.} many {# {manyName} выбраных. Панэль масавых дзеянняў даступная.} other {# {manyName} выбранага. Панэль масавых дзеянняў даступная.}}"
+
+#: ../../../lib/web/src/components/data-table/bulk-actions.tsx:202
+msgid "{selectedCount, plural, one {# selected} other {# selected}}"
+msgstr "{selectedCount, plural, one {# выбрана} few {# выбрана} many {# выбрана} other {# выбрана}}"
+
+#: ../../../lib/web/src/components/data-table/bulk-actions.tsx:149
+msgid "{selectedCount, plural, one {Bulk actions for # selected {entityName}} other {Bulk actions for # selected {manyName}}}"
+msgstr "{selectedCount, plural, one {Масавыя дзеянні для # выбранага {entityName}} few {Масавыя дзеянні для # выбраных {manyName}} many {Масавыя дзеянні для # выбраных {manyName}} other {Масавыя дзеянні для # выбранага {manyName}}}"
 
 #: src/features/chats/index.tsx:869
 msgid "{skippedCount, plural, one {Skipped # file that is not audio} other {Skipped # files that are not audio}}"
@@ -281,9 +306,9 @@ msgstr "Назад"
 msgid "Back to chat"
 msgstr "Назад у чат"
 
-#: ../../../lib/web/src/features/errors/forbidden.tsx:26
-#: ../../../lib/web/src/features/errors/not-found-error.tsx:26
-#: ../../../lib/web/src/features/errors/unauthorized-error.tsx:26
+#: ../../../lib/web/src/features/errors/forbidden.tsx:28
+#: ../../../lib/web/src/features/errors/not-found-error.tsx:28
+#: ../../../lib/web/src/features/errors/unauthorized-error.tsx:28
 msgid "Back to home"
 msgstr "На галоўную"
 
@@ -304,7 +329,7 @@ msgstr "Узмацніць цікавасць"
 #: ../../../lib/web/src/features/access/access-dialog.tsx:328
 #: ../../../lib/web/src/features/access/access-list.tsx:263
 #: ../../../lib/web/src/features/accounts/account-add.tsx:188
-#: ../../../lib/web/src/features/accounts/account-verify.tsx:89
+#: ../../../lib/web/src/features/accounts/account-verify.tsx:91
 #: src/features/chats/components/chat-message-list.tsx:621
 #: src/features/chats/components/chat-message-list.tsx:835
 #: src/features/chats/components/chat-settings-dialog.tsx:116
@@ -452,7 +477,7 @@ msgstr "Ачысціць"
 msgid "Clear all"
 msgstr "Ачысціць усё"
 
-#: ../../../lib/web/src/components/data-table/faceted-filter.tsx:140
+#: ../../../lib/web/src/components/data-table/faceted-filter.tsx:144
 msgid "Clear filters"
 msgstr "Ачысціць фільтры"
 
@@ -461,24 +486,25 @@ msgstr "Ачысціць фільтры"
 msgid "Clear search"
 msgstr "Ачысціць пошук"
 
-#: ../../../lib/web/src/components/data-table/bulk-actions.tsx:167
-#: ../../../lib/web/src/components/data-table/bulk-actions.tsx:171
+#: ../../../lib/web/src/components/data-table/bulk-actions.tsx:177
+#: ../../../lib/web/src/components/data-table/bulk-actions.tsx:181
 msgid "Clear selection"
 msgstr "Ачысціць выбар"
 
-#: ../../../lib/web/src/components/data-table/bulk-actions.tsx:168
+#: ../../../lib/web/src/components/data-table/bulk-actions.tsx:178
+#: ../../../lib/web/src/components/data-table/bulk-actions.tsx:185
 msgid "Clear selection (Escape)"
 msgstr "Ачысціць выбар (Escape)"
 
 #: ../../../lib/web/src/components/ui/dialog.tsx:78
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:354
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:357
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:358
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:361
 #: ../../../lib/web/src/components/ui/sheet.tsx:79
 msgid "Close"
 msgstr "Закрыць"
 
-#: ../../../lib/web/src/components/layout/app-sidebar.tsx:107
-#: ../../../lib/web/src/components/layout/app-sidebar.tsx:112
+#: ../../../lib/web/src/components/layout/app-sidebar.tsx:108
+#: ../../../lib/web/src/components/layout/app-sidebar.tsx:113
 msgid "Close navigation"
 msgstr "Закрыць навігацыю"
 
@@ -591,6 +617,7 @@ msgid "Custom"
 msgstr "Карыстальніцкі"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:218
+#: ../../../lib/web/src/components/theme-switch.tsx:52
 #: ../../../lib/web/src/lib/preference-utils.ts:20
 msgid "Dark"
 msgstr "Цёмны"
@@ -701,8 +728,8 @@ msgstr "Адлюстроўвае мабільную бакавую панэль.
 msgid "Document"
 msgstr "Дакумент"
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:338
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:348
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:342
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:352
 msgid "Download"
 msgstr "Спампаваць"
 
@@ -807,6 +834,14 @@ msgstr "Не ўдалося пераслаць"
 #: src/routes/_authenticated/$chatId_.settings.tsx:339
 msgid "Failed to leave chat"
 msgstr "Не ўдалося пакінуць чат"
+
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:263
+msgid "Failed to load image"
+msgstr "Не ўдалося загрузіць відарыс"
+
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:263
+msgid "Failed to load video"
+msgstr "Не ўдалося загрузіць відэа"
 
 #: src/features/chats/components/chat-settings-dialog.tsx:89
 msgid "Failed to load your chat policy"
@@ -917,29 +952,29 @@ msgstr "Поўная разметка"
 msgid "General"
 msgstr "Агульныя"
 
-#: ../../../lib/web/src/features/errors/forbidden.tsx:24
-#: ../../../lib/web/src/features/errors/not-found-error.tsx:24
-#: ../../../lib/web/src/features/errors/unauthorized-error.tsx:24
+#: ../../../lib/web/src/features/errors/forbidden.tsx:26
+#: ../../../lib/web/src/features/errors/not-found-error.tsx:26
+#: ../../../lib/web/src/features/errors/unauthorized-error.tsx:26
 msgid "Go back"
 msgstr "Назад"
 
-#: ../../../lib/web/src/components/data-table/pagination.tsx:78
+#: ../../../lib/web/src/components/data-table/pagination.tsx:82
 msgid "Go to first page"
 msgstr "На першую старонку"
 
-#: ../../../lib/web/src/components/data-table/pagination.tsx:124
+#: ../../../lib/web/src/components/data-table/pagination.tsx:128
 msgid "Go to last page"
 msgstr "На апошнюю старонку"
 
-#: ../../../lib/web/src/components/data-table/pagination.tsx:115
+#: ../../../lib/web/src/components/data-table/pagination.tsx:119
 msgid "Go to next page"
 msgstr "На наступную старонку"
 
-#: ../../../lib/web/src/components/data-table/pagination.tsx:102
+#: ../../../lib/web/src/components/data-table/pagination.tsx:106
 msgid "Go to page {pageNumber}"
 msgstr "Перайсці на старонку {pageNumber}"
 
-#: ../../../lib/web/src/components/data-table/pagination.tsx:87
+#: ../../../lib/web/src/components/data-table/pagination.tsx:91
 msgid "Go to previous page"
 msgstr "На папярэднюю старонку"
 
@@ -966,6 +1001,11 @@ msgstr "Галоўная"
 msgid "Hot"
 msgstr "Папулярнае"
 
+#. placeholder {0}: currentMedia.name
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:247
+msgid "Image viewer: {0}"
+msgstr "Прагляд відарысаў: {0}"
+
 #: ../../../lib/web/src/lib/preference-utils.ts:86
 msgid "Imperial"
 msgstr "Імперская"
@@ -986,6 +1026,10 @@ msgstr "Інтарэсы"
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:245
 msgid "Invalid verification code"
 msgstr "Няправільны код пацвярджэння"
+
+#: ../../../lib/web/src/features/errors/not-found-error.tsx:18
+msgid "It seems like the page you're looking for <0/>does not exist or might have been removed."
+msgstr "Здаецца, старонка, якую вы шукаеце, <0/>не існуе або была выдалена."
 
 #: src/features/chats/components/chat-message-list.tsx:855
 #: src/features/chats/components/chat-message-list.tsx:872
@@ -1044,6 +1088,7 @@ msgid "Left to Right"
 msgstr "Злева направа"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:213
+#: ../../../lib/web/src/components/theme-switch.tsx:45
 #: ../../../lib/web/src/lib/preference-utils.ts:19
 msgid "Light"
 msgstr "Светлая"
@@ -1091,8 +1136,8 @@ msgstr "Выхад…"
 msgid "Love"
 msgstr "Кахаю"
 
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:92
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:99
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:93
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:100
 #: ../../../lib/web/src/components/notifications-dropdown.tsx:224
 msgid "Mark all as read"
 msgstr "Адзначыць усё як прачытанае"
@@ -1230,8 +1275,8 @@ msgstr "Новы чат"
 msgid "Newer match"
 msgstr "Навейшае супадзенне"
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:388
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:393
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:392
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:397
 msgid "Next image"
 msgstr "Наступная выява"
 
@@ -1288,7 +1333,7 @@ msgid "No results"
 msgstr "Нічога не знойдзена"
 
 #: ../../../lib/web/src/components/command-menu.tsx:55
-#: ../../../lib/web/src/components/data-table/faceted-filter.tsx:90
+#: ../../../lib/web/src/components/data-table/faceted-filter.tsx:94
 msgid "No results found."
 msgstr "Вынікі не знойдзены."
 
@@ -1333,6 +1378,11 @@ msgstr "Няма чаго капіяваць"
 #: ../../../lib/web/src/components/notifications-dropdown.tsx:261
 msgid "Notifications"
 msgstr "Апавяшчэнні"
+
+#. placeholder {0}: unread.length
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:86
+msgid "Notifications: {0}"
+msgstr "Апавяшчэнні: {0}"
 
 #: src/features/chats/components/chat-search-header.tsx:97
 msgid "Older match"
@@ -1395,6 +1445,11 @@ msgstr "Іншае"
 msgid "Owner"
 msgstr "Уладальнік"
 
+#: ../../../lib/web/src/components/data-table/pagination.tsx:43
+#: ../../../lib/web/src/components/data-table/pagination.tsx:71
+msgid "Page {currentPage} of {totalPages}"
+msgstr "Старонка {currentPage} з {totalPages}"
+
 #: ../../../lib/web/src/components/step-up-dialog.tsx:334
 msgid "Passkey"
 msgstr "Ключ доступу"
@@ -1436,6 +1491,10 @@ msgstr "Прайграць галасавое паведамленне"
 msgid "Please check your internet connection and try again."
 msgstr "Праверце падключэнне да інтэрнэту і паспрабуйце зноў."
 
+#: ../../../lib/web/src/features/errors/unauthorized-error.tsx:18
+msgid "Please log in with the appropriate credentials <0/> to access this resource."
+msgstr "Калі ласка, увайдзіце з адпаведнымі ўліковымі дадзенымі, <0/> каб атрымаць доступ да гэтага рэсурсу."
+
 #: src/features/chats/components/new-chat.tsx:161
 msgid "Please provide a chat name"
 msgstr "Увядзіце назву чату"
@@ -1452,8 +1511,8 @@ msgstr "Паспрабуйце яшчэ раз."
 msgid "Please wait a moment and try again."
 msgstr "Калі ласка, пачакайце крыху і паспрабуйце зноў."
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:373
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:378
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:377
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:382
 msgid "Previous image"
 msgstr "Папярэдняя выява"
 
@@ -1548,6 +1607,11 @@ msgstr "Выдаліць {0}"
 msgid "Remove access rule"
 msgstr "Выдаліць правіла доступу"
 
+#. placeholder {0}: formatSubject(subject, data.name)
+#: ../../../lib/web/src/features/access/access-list.tsx:259
+msgid "Remove access rule for \"{0}\"?"
+msgstr "Выдаліць правіла доступу для \"{0}\"?"
+
 #: ../../../lib/web/src/features/access/access-list.tsx:257
 msgid "Remove access?"
 msgstr "Выдаліць доступ?"
@@ -1607,7 +1671,7 @@ msgstr "Скінуць усе налады да значэнняў па змаў
 msgid "Right to Left"
 msgstr "Справа налева"
 
-#: ../../../lib/web/src/components/data-table/pagination.tsx:63
+#: ../../../lib/web/src/components/data-table/pagination.tsx:65
 msgid "Rows per page"
 msgstr "Радкоў на старонцы"
 
@@ -1744,15 +1808,24 @@ msgstr "Выбраць напрамак сайта"
 msgid "Select theme preference"
 msgstr "Выбраць перавагу тэмы"
 
+#: ../../../lib/web/src/components/data-table/bulk-actions.tsx:216
+msgid "selected"
+msgstr "выбрана"
+
 #: src/features/chats/index.tsx:1206
 msgid "Selected the newest {BULK_MESSAGES_MAX} messages, the most that can be forwarded or deleted at once"
 msgstr "Выбрана {BULK_MESSAGES_MAX} апошніх паведамленняў — максімум, які можна пераслаць ці выдаліць за раз"
+
+#. placeholder {0}: getSelectedName()
+#: ../../../lib/web/src/features/access/access-dialog.tsx:309
+msgid "Selected: <0>{0}</0>"
+msgstr "Выбрана: <0>{0}</0>"
 
 #: src/features/chats/components/chat-message-list.tsx:824
 msgid "Selects messages loaded so far"
 msgstr "Выбірае загружаныя на гэты момант паведамленні"
 
-#: ../../../lib/web/src/features/accounts/account-verify.tsx:98
+#: ../../../lib/web/src/features/accounts/account-verify.tsx:100
 msgid "Send again"
 msgstr "Адправіць яшчэ раз"
 
@@ -1862,6 +1935,7 @@ msgid "Sunday"
 msgstr "Нядзеля"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:208
+#: ../../../lib/web/src/components/theme-switch.tsx:59
 #: ../../../lib/web/src/lib/preference-utils.ts:21
 #: ../../../lib/web/src/lib/preference-utils.ts:144
 msgid "System"
@@ -1902,6 +1976,10 @@ msgstr "Назва чата не можа змяшчаць < або >"
 msgid "The requested content could not be found."
 msgstr "Запытанае змесціва не знойдзена."
 
+#: ../../../lib/web/src/features/errors/maintenance-error.tsx:15
+msgid "The site is not available at the moment."
+msgstr "Сайт зараз недаступны."
+
 #: ../../../lib/web/src/components/config-drawer.tsx:194
 msgid "Theme"
 msgstr "Тэма"
@@ -1932,9 +2010,17 @@ msgstr "Паведамленне будзе выдалена для ўсіх, і
 msgid "This message was deleted"
 msgstr "Гэта паведамленне было выдалена"
 
+#: ../../../lib/web/src/components/coming-soon.tsx:14
+msgid "This page has not been created yet."
+msgstr "Гэта старонка яшчэ не створана."
+
 #: ../../../lib/web/src/lib/preference-utils.ts:62
 msgid "Thursday"
 msgstr "Чацвер"
+
+#: ../../../lib/web/src/components/travelling-picker.tsx:220
+msgid "To"
+msgstr "Куды"
 
 #: ../../../lib/web/src/components/data-table/view-options.tsx:37
 msgid "Toggle columns"
@@ -2059,7 +2145,7 @@ msgstr "Скарыстайцеся ключом доступу"
 msgid "User"
 msgstr "Карыстальнік"
 
-#: ../../../lib/web/src/features/accounts/account-verify.tsx:71
+#: ../../../lib/web/src/features/accounts/account-verify.tsx:73
 msgid "Verification code"
 msgstr "Код праверкі"
 
@@ -2073,7 +2159,7 @@ msgstr "Праверка не атрымалася"
 
 #: ../../../lib/web/src/components/step-up-dialog.tsx:388
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:172
-#: ../../../lib/web/src/features/accounts/account-verify.tsx:109
+#: ../../../lib/web/src/features/accounts/account-verify.tsx:111
 msgid "Verify"
 msgstr "Праверыць"
 
@@ -2086,6 +2172,11 @@ msgstr "Пацвердзіць email-адрас"
 msgid "Video thumbnail"
 msgstr "Мініяцюра відэа"
 
+#. placeholder {0}: currentMedia.name
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:246
+msgid "Video viewer: {0}"
+msgstr "Прагляд відэа: {0}"
+
 #: ../../../lib/web/src/components/data-table/view-options.tsx:33
 msgid "View"
 msgstr "Прагляд"
@@ -2094,8 +2185,8 @@ msgstr "Прагляд"
 msgid "View all"
 msgstr "Паглядзець усё"
 
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:105
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:113
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:106
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:114
 msgid "View all notifications"
 msgstr "Паглядзець усе апавяшчэнні"
 
@@ -2115,6 +2206,11 @@ msgstr "Запіс голасу не падтрымліваецца ў гэты�
 #: src/features/chats/components/chat-input.tsx:265
 msgid "Voice recording isn't available in this app version. Please update the app and try again."
 msgstr "Запіс голасу недаступны ў гэтай версіі праграмы. Абнавіце праграму і паспрабуйце зноў."
+
+#. placeholder {0}: account.identifier
+#: ../../../lib/web/src/features/accounts/account-verify.tsx:63
+msgid "We sent a verification code to <0>{0}</0>. Enter the code below to verify your email address."
+msgstr "Мы адправілі код пацвярджэння на <0>{0}</0>. Увядзіце код ніжэй, каб пацвердзіць свой адрас электроннай пошты."
 
 #: ../../../lib/web/src/features/errors/maintenance-error.tsx:16
 msgid "We'll be back online shortly."
@@ -2155,6 +2251,10 @@ msgstr "Вы можаце выдаляць толькі свае паведам�
 #: ../../../lib/web/src/features/errors/general-error.tsx:61
 msgid "You do not have access to this section."
 msgstr "У вас няма доступу да гэтага раздзела."
+
+#: ../../../lib/web/src/features/errors/forbidden.tsx:18
+msgid "You don't have necessary permission <0/>to view this resource."
+msgstr "У вас няма патрэбнага дазволу, <0/>каб праглядзець гэты рэсурс."
 
 #: src/features/chats/index.tsx:1269
 msgid "You left this chat"

@@ -26,6 +26,11 @@ msgstr "(modificato)"
 msgid "(you)"
 msgstr "(tu)"
 
+#. placeholder {0}: selectedValues.size
+#: ../../../lib/web/src/components/data-table/faceted-filter.tsx:66
+msgid "{0, plural, one {# selected} other {# selected}}"
+msgstr "{0, plural, one {# selezionato} other {# selezionati}}"
+
 #. placeholder {0}: deleteTargetIds?.length ?? 0
 #: src/features/chats/index.tsx:1356
 msgid "{0, plural, one {Delete message?} other {Delete # messages?}}"
@@ -49,6 +54,10 @@ msgstr "{0} selezionati"
 msgid "{0} settings"
 msgstr "Impostazioni di {0}"
 
+#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:173
+msgid "{entityLabel} name"
+msgstr "Nome {entityLabel}"
+
 #: src/features/chats/components/message-attachments.tsx:140
 msgid "{hiddenCount, plural, one {Show 1 more file} other {Show # more files}}"
 msgstr "{hiddenCount, plural, one {Mostra 1 altro file} other {Mostra altri # file}}"
@@ -57,6 +66,22 @@ msgstr "{hiddenCount, plural, one {Mostra 1 altro file} other {Mostra altri # fi
 #: src/features/chats/components/chat-message-list.tsx:868
 msgid "{newMessageCount, plural, one {Jump to 1 new message} other {Jump to # new messages}}"
 msgstr "{newMessageCount, plural, one {Vai a 1 nuovo messaggio} other {Vai a # nuovi messaggi}}"
+
+#: ../../../lib/web/src/components/data-table/bulk-actions.tsx:210
+msgid "{selectedCount, plural, one {{entityName} selected} other {{manyName} selected}}"
+msgstr "{selectedCount, plural, one {{entityName} selezionato} other {{manyName} selezionati}}"
+
+#: ../../../lib/web/src/components/data-table/bulk-actions.tsx:52
+msgid "{selectedCount, plural, one {# {entityName} selected. Bulk actions toolbar is available.} other {# {manyName} selected. Bulk actions toolbar is available.}}"
+msgstr "{selectedCount, plural, one {# {entityName} selezionato. La barra delle azioni collettive è disponibile.} other {# {manyName} selezionati. La barra delle azioni collettive è disponibile.}}"
+
+#: ../../../lib/web/src/components/data-table/bulk-actions.tsx:202
+msgid "{selectedCount, plural, one {# selected} other {# selected}}"
+msgstr "{selectedCount, plural, one {# selezionati} other {# selezionati}}"
+
+#: ../../../lib/web/src/components/data-table/bulk-actions.tsx:149
+msgid "{selectedCount, plural, one {Bulk actions for # selected {entityName}} other {Bulk actions for # selected {manyName}}}"
+msgstr "{selectedCount, plural, one {Azioni collettive per # {entityName} selezionato} other {Azioni collettive per # {manyName} selezionati}}"
 
 #: src/features/chats/index.tsx:869
 msgid "{skippedCount, plural, one {Skipped # file that is not audio} other {Skipped # files that are not audio}}"
@@ -281,9 +306,9 @@ msgstr "Indietro"
 msgid "Back to chat"
 msgstr "Torna alla chat"
 
-#: ../../../lib/web/src/features/errors/forbidden.tsx:26
-#: ../../../lib/web/src/features/errors/not-found-error.tsx:26
-#: ../../../lib/web/src/features/errors/unauthorized-error.tsx:26
+#: ../../../lib/web/src/features/errors/forbidden.tsx:28
+#: ../../../lib/web/src/features/errors/not-found-error.tsx:28
+#: ../../../lib/web/src/features/errors/unauthorized-error.tsx:28
 msgid "Back to home"
 msgstr "Torna alla home"
 
@@ -304,7 +329,7 @@ msgstr "Aumenta l'interesse"
 #: ../../../lib/web/src/features/access/access-dialog.tsx:328
 #: ../../../lib/web/src/features/access/access-list.tsx:263
 #: ../../../lib/web/src/features/accounts/account-add.tsx:188
-#: ../../../lib/web/src/features/accounts/account-verify.tsx:89
+#: ../../../lib/web/src/features/accounts/account-verify.tsx:91
 #: src/features/chats/components/chat-message-list.tsx:621
 #: src/features/chats/components/chat-message-list.tsx:835
 #: src/features/chats/components/chat-settings-dialog.tsx:116
@@ -452,7 +477,7 @@ msgstr "Cancella"
 msgid "Clear all"
 msgstr "Cancella tutto"
 
-#: ../../../lib/web/src/components/data-table/faceted-filter.tsx:140
+#: ../../../lib/web/src/components/data-table/faceted-filter.tsx:144
 msgid "Clear filters"
 msgstr "Cancella filtri"
 
@@ -461,24 +486,25 @@ msgstr "Cancella filtri"
 msgid "Clear search"
 msgstr "Cancella ricerca"
 
-#: ../../../lib/web/src/components/data-table/bulk-actions.tsx:167
-#: ../../../lib/web/src/components/data-table/bulk-actions.tsx:171
+#: ../../../lib/web/src/components/data-table/bulk-actions.tsx:177
+#: ../../../lib/web/src/components/data-table/bulk-actions.tsx:181
 msgid "Clear selection"
 msgstr "Cancella selezione"
 
-#: ../../../lib/web/src/components/data-table/bulk-actions.tsx:168
+#: ../../../lib/web/src/components/data-table/bulk-actions.tsx:178
+#: ../../../lib/web/src/components/data-table/bulk-actions.tsx:185
 msgid "Clear selection (Escape)"
 msgstr "Cancella selezione (Esc)"
 
 #: ../../../lib/web/src/components/ui/dialog.tsx:78
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:354
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:357
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:358
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:361
 #: ../../../lib/web/src/components/ui/sheet.tsx:79
 msgid "Close"
 msgstr "Chiudi"
 
-#: ../../../lib/web/src/components/layout/app-sidebar.tsx:107
-#: ../../../lib/web/src/components/layout/app-sidebar.tsx:112
+#: ../../../lib/web/src/components/layout/app-sidebar.tsx:108
+#: ../../../lib/web/src/components/layout/app-sidebar.tsx:113
 msgid "Close navigation"
 msgstr "Chiudi navigazione"
 
@@ -591,6 +617,7 @@ msgid "Custom"
 msgstr "Personalizzato"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:218
+#: ../../../lib/web/src/components/theme-switch.tsx:52
 #: ../../../lib/web/src/lib/preference-utils.ts:20
 msgid "Dark"
 msgstr "Scuro"
@@ -701,8 +728,8 @@ msgstr "Mostra la barra laterale mobile."
 msgid "Document"
 msgstr "Documento"
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:338
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:348
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:342
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:352
 msgid "Download"
 msgstr "Scarica"
 
@@ -807,6 +834,14 @@ msgstr "Inoltro non riuscito"
 #: src/routes/_authenticated/$chatId_.settings.tsx:339
 msgid "Failed to leave chat"
 msgstr "Impossibile uscire dalla chat"
+
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:263
+msgid "Failed to load image"
+msgstr "Impossibile caricare l'immagine"
+
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:263
+msgid "Failed to load video"
+msgstr "Impossibile caricare il video"
 
 #: src/features/chats/components/chat-settings-dialog.tsx:89
 msgid "Failed to load your chat policy"
@@ -917,29 +952,29 @@ msgstr "Layout completo"
 msgid "General"
 msgstr "Generale"
 
-#: ../../../lib/web/src/features/errors/forbidden.tsx:24
-#: ../../../lib/web/src/features/errors/not-found-error.tsx:24
-#: ../../../lib/web/src/features/errors/unauthorized-error.tsx:24
+#: ../../../lib/web/src/features/errors/forbidden.tsx:26
+#: ../../../lib/web/src/features/errors/not-found-error.tsx:26
+#: ../../../lib/web/src/features/errors/unauthorized-error.tsx:26
 msgid "Go back"
 msgstr "Indietro"
 
-#: ../../../lib/web/src/components/data-table/pagination.tsx:78
+#: ../../../lib/web/src/components/data-table/pagination.tsx:82
 msgid "Go to first page"
 msgstr "Vai alla prima pagina"
 
-#: ../../../lib/web/src/components/data-table/pagination.tsx:124
+#: ../../../lib/web/src/components/data-table/pagination.tsx:128
 msgid "Go to last page"
 msgstr "Vai all'ultima pagina"
 
-#: ../../../lib/web/src/components/data-table/pagination.tsx:115
+#: ../../../lib/web/src/components/data-table/pagination.tsx:119
 msgid "Go to next page"
 msgstr "Vai alla pagina successiva"
 
-#: ../../../lib/web/src/components/data-table/pagination.tsx:102
+#: ../../../lib/web/src/components/data-table/pagination.tsx:106
 msgid "Go to page {pageNumber}"
 msgstr "Vai alla pagina {pageNumber}"
 
-#: ../../../lib/web/src/components/data-table/pagination.tsx:87
+#: ../../../lib/web/src/components/data-table/pagination.tsx:91
 msgid "Go to previous page"
 msgstr "Vai alla pagina precedente"
 
@@ -966,6 +1001,11 @@ msgstr "Home"
 msgid "Hot"
 msgstr "Popolare"
 
+#. placeholder {0}: currentMedia.name
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:247
+msgid "Image viewer: {0}"
+msgstr "Visualizzatore immagini: {0}"
+
 #: ../../../lib/web/src/lib/preference-utils.ts:86
 msgid "Imperial"
 msgstr "Imperiale"
@@ -986,6 +1026,10 @@ msgstr "Interessi"
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:245
 msgid "Invalid verification code"
 msgstr "Codice di verifica non valido"
+
+#: ../../../lib/web/src/features/errors/not-found-error.tsx:18
+msgid "It seems like the page you're looking for <0/>does not exist or might have been removed."
+msgstr "Sembra che la pagina che stai cercando <0/>non esista o sia stata rimossa."
 
 #: src/features/chats/components/chat-message-list.tsx:855
 #: src/features/chats/components/chat-message-list.tsx:872
@@ -1044,6 +1088,7 @@ msgid "Left to Right"
 msgstr "Da sinistra a destra"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:213
+#: ../../../lib/web/src/components/theme-switch.tsx:45
 #: ../../../lib/web/src/lib/preference-utils.ts:19
 msgid "Light"
 msgstr "Chiaro"
@@ -1091,8 +1136,8 @@ msgstr "Disconnessione in corso…"
 msgid "Love"
 msgstr "Amore"
 
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:92
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:99
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:93
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:100
 #: ../../../lib/web/src/components/notifications-dropdown.tsx:224
 msgid "Mark all as read"
 msgstr "Segna tutto come letto"
@@ -1230,8 +1275,8 @@ msgstr "Nuova chat"
 msgid "Newer match"
 msgstr "Risultato più recente"
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:388
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:393
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:392
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:397
 msgid "Next image"
 msgstr "Immagine successiva"
 
@@ -1288,7 +1333,7 @@ msgid "No results"
 msgstr "Nessun risultato"
 
 #: ../../../lib/web/src/components/command-menu.tsx:55
-#: ../../../lib/web/src/components/data-table/faceted-filter.tsx:90
+#: ../../../lib/web/src/components/data-table/faceted-filter.tsx:94
 msgid "No results found."
 msgstr "Nessun risultato trovato."
 
@@ -1333,6 +1378,11 @@ msgstr "Niente da copiare"
 #: ../../../lib/web/src/components/notifications-dropdown.tsx:261
 msgid "Notifications"
 msgstr "Notifiche"
+
+#. placeholder {0}: unread.length
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:86
+msgid "Notifications: {0}"
+msgstr "Notifiche: {0}"
 
 #: src/features/chats/components/chat-search-header.tsx:97
 msgid "Older match"
@@ -1395,6 +1445,11 @@ msgstr "Altro"
 msgid "Owner"
 msgstr "Proprietario"
 
+#: ../../../lib/web/src/components/data-table/pagination.tsx:43
+#: ../../../lib/web/src/components/data-table/pagination.tsx:71
+msgid "Page {currentPage} of {totalPages}"
+msgstr "Pagina {currentPage} di {totalPages}"
+
 #: ../../../lib/web/src/components/step-up-dialog.tsx:334
 msgid "Passkey"
 msgstr "Passkey"
@@ -1436,6 +1491,10 @@ msgstr "Riproduci nota vocale"
 msgid "Please check your internet connection and try again."
 msgstr "Controlla la connessione a internet e riprova."
 
+#: ../../../lib/web/src/features/errors/unauthorized-error.tsx:18
+msgid "Please log in with the appropriate credentials <0/> to access this resource."
+msgstr "Accedi con le credenziali appropriate <0/> per accedere a questa risorsa."
+
 #: src/features/chats/components/new-chat.tsx:161
 msgid "Please provide a chat name"
 msgstr "Fornisci un nome per la chat"
@@ -1452,8 +1511,8 @@ msgstr "Riprova."
 msgid "Please wait a moment and try again."
 msgstr "Attendi qualche istante e riprova."
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:373
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:378
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:377
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:382
 msgid "Previous image"
 msgstr "Immagine precedente"
 
@@ -1548,6 +1607,11 @@ msgstr "Rimuovi {0}"
 msgid "Remove access rule"
 msgstr "Rimuovi regola di accesso"
 
+#. placeholder {0}: formatSubject(subject, data.name)
+#: ../../../lib/web/src/features/access/access-list.tsx:259
+msgid "Remove access rule for \"{0}\"?"
+msgstr "Rimuovere la regola di accesso per «{0}»?"
+
 #: ../../../lib/web/src/features/access/access-list.tsx:257
 msgid "Remove access?"
 msgstr "Rimuovere l'accesso?"
@@ -1607,7 +1671,7 @@ msgstr "Reimposta tutte le impostazioni ai valori predefiniti"
 msgid "Right to Left"
 msgstr "Da destra a sinistra"
 
-#: ../../../lib/web/src/components/data-table/pagination.tsx:63
+#: ../../../lib/web/src/components/data-table/pagination.tsx:65
 msgid "Rows per page"
 msgstr "Righe per pagina"
 
@@ -1744,15 +1808,24 @@ msgstr "Seleziona direzione del sito"
 msgid "Select theme preference"
 msgstr "Seleziona preferenza del tema"
 
+#: ../../../lib/web/src/components/data-table/bulk-actions.tsx:216
+msgid "selected"
+msgstr "selezionati"
+
 #: src/features/chats/index.tsx:1206
 msgid "Selected the newest {BULK_MESSAGES_MAX} messages, the most that can be forwarded or deleted at once"
 msgstr "Selezionati i {BULK_MESSAGES_MAX} messaggi più recenti, il massimo che si può inoltrare o eliminare in una volta"
+
+#. placeholder {0}: getSelectedName()
+#: ../../../lib/web/src/features/access/access-dialog.tsx:309
+msgid "Selected: <0>{0}</0>"
+msgstr "Selezionato: <0>{0}</0>"
 
 #: src/features/chats/components/chat-message-list.tsx:824
 msgid "Selects messages loaded so far"
 msgstr "Seleziona i messaggi caricati finora"
 
-#: ../../../lib/web/src/features/accounts/account-verify.tsx:98
+#: ../../../lib/web/src/features/accounts/account-verify.tsx:100
 msgid "Send again"
 msgstr "Invia di nuovo"
 
@@ -1862,6 +1935,7 @@ msgid "Sunday"
 msgstr "Domenica"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:208
+#: ../../../lib/web/src/components/theme-switch.tsx:59
 #: ../../../lib/web/src/lib/preference-utils.ts:21
 #: ../../../lib/web/src/lib/preference-utils.ts:144
 msgid "System"
@@ -1902,6 +1976,10 @@ msgstr "Il nome della chat non può contenere < o >"
 msgid "The requested content could not be found."
 msgstr "Impossibile trovare il contenuto richiesto."
 
+#: ../../../lib/web/src/features/errors/maintenance-error.tsx:15
+msgid "The site is not available at the moment."
+msgstr "Il sito non è disponibile al momento."
+
 #: ../../../lib/web/src/components/config-drawer.tsx:194
 msgid "Theme"
 msgstr "Tema"
@@ -1932,9 +2010,17 @@ msgstr "Questo elimina il messaggio per tutti e non può essere annullato."
 msgid "This message was deleted"
 msgstr "Questo messaggio è stato eliminato"
 
+#: ../../../lib/web/src/components/coming-soon.tsx:14
+msgid "This page has not been created yet."
+msgstr "Questa pagina non è ancora stata creata."
+
 #: ../../../lib/web/src/lib/preference-utils.ts:62
 msgid "Thursday"
 msgstr "Giovedì"
+
+#: ../../../lib/web/src/components/travelling-picker.tsx:220
+msgid "To"
+msgstr "A"
 
 #: ../../../lib/web/src/components/data-table/view-options.tsx:37
 msgid "Toggle columns"
@@ -2059,7 +2145,7 @@ msgstr "Usa la tua passkey"
 msgid "User"
 msgstr "Utente"
 
-#: ../../../lib/web/src/features/accounts/account-verify.tsx:71
+#: ../../../lib/web/src/features/accounts/account-verify.tsx:73
 msgid "Verification code"
 msgstr "Codice di verifica"
 
@@ -2073,7 +2159,7 @@ msgstr "Verifica non riuscita"
 
 #: ../../../lib/web/src/components/step-up-dialog.tsx:388
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:172
-#: ../../../lib/web/src/features/accounts/account-verify.tsx:109
+#: ../../../lib/web/src/features/accounts/account-verify.tsx:111
 msgid "Verify"
 msgstr "Verifica"
 
@@ -2086,6 +2172,11 @@ msgstr "Verifica indirizzo email"
 msgid "Video thumbnail"
 msgstr "Miniatura video"
 
+#. placeholder {0}: currentMedia.name
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:246
+msgid "Video viewer: {0}"
+msgstr "Visualizzatore video: {0}"
+
 #: ../../../lib/web/src/components/data-table/view-options.tsx:33
 msgid "View"
 msgstr "Visualizza"
@@ -2094,8 +2185,8 @@ msgstr "Visualizza"
 msgid "View all"
 msgstr "Visualizza tutto"
 
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:105
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:113
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:106
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:114
 msgid "View all notifications"
 msgstr "Visualizza tutte le notifiche"
 
@@ -2115,6 +2206,11 @@ msgstr "La registrazione vocale non è supportata in questo browser"
 #: src/features/chats/components/chat-input.tsx:265
 msgid "Voice recording isn't available in this app version. Please update the app and try again."
 msgstr "La registrazione vocale non è disponibile in questa versione dell'app. Aggiorna l'app e riprova."
+
+#. placeholder {0}: account.identifier
+#: ../../../lib/web/src/features/accounts/account-verify.tsx:63
+msgid "We sent a verification code to <0>{0}</0>. Enter the code below to verify your email address."
+msgstr "Abbiamo inviato un codice di verifica a <0>{0}</0>. Inserisci il codice qui sotto per verificare il tuo indirizzo email."
 
 #: ../../../lib/web/src/features/errors/maintenance-error.tsx:16
 msgid "We'll be back online shortly."
@@ -2155,6 +2251,10 @@ msgstr "Puoi eliminare solo i tuoi messaggi"
 #: ../../../lib/web/src/features/errors/general-error.tsx:61
 msgid "You do not have access to this section."
 msgstr "Non hai accesso a questa sezione."
+
+#: ../../../lib/web/src/features/errors/forbidden.tsx:18
+msgid "You don't have necessary permission <0/>to view this resource."
+msgstr "Non disponi dell'autorizzazione necessaria <0/>per visualizzare questa risorsa."
 
 #: src/features/chats/index.tsx:1269
 msgid "You left this chat"

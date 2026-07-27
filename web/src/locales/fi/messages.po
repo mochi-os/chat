@@ -26,6 +26,11 @@ msgstr "(muokattu)"
 msgid "(you)"
 msgstr "(sinä)"
 
+#. placeholder {0}: selectedValues.size
+#: ../../../lib/web/src/components/data-table/faceted-filter.tsx:66
+msgid "{0, plural, one {# selected} other {# selected}}"
+msgstr "{0, plural, one {# valittu} other {# valittu}}"
+
 #. placeholder {0}: deleteTargetIds?.length ?? 0
 #: src/features/chats/index.tsx:1356
 msgid "{0, plural, one {Delete message?} other {Delete # messages?}}"
@@ -49,6 +54,10 @@ msgstr "{0} valittu"
 msgid "{0} settings"
 msgstr "{0}-asetukset"
 
+#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:173
+msgid "{entityLabel} name"
+msgstr "{entityLabel}: nimi"
+
 #: src/features/chats/components/message-attachments.tsx:140
 msgid "{hiddenCount, plural, one {Show 1 more file} other {Show # more files}}"
 msgstr "{hiddenCount, plural, one {Näytä 1 tiedosto lisää} other {Näytä # tiedostoa lisää}}"
@@ -57,6 +66,22 @@ msgstr "{hiddenCount, plural, one {Näytä 1 tiedosto lisää} other {Näytä # 
 #: src/features/chats/components/chat-message-list.tsx:868
 msgid "{newMessageCount, plural, one {Jump to 1 new message} other {Jump to # new messages}}"
 msgstr "{newMessageCount, plural, one {Siirry 1 uuteen viestiin} other {Siirry # uuteen viestiin}}"
+
+#: ../../../lib/web/src/components/data-table/bulk-actions.tsx:210
+msgid "{selectedCount, plural, one {{entityName} selected} other {{manyName} selected}}"
+msgstr "{selectedCount, plural, one {{entityName} valittu} other {{manyName} valittu}}"
+
+#: ../../../lib/web/src/components/data-table/bulk-actions.tsx:52
+msgid "{selectedCount, plural, one {# {entityName} selected. Bulk actions toolbar is available.} other {# {manyName} selected. Bulk actions toolbar is available.}}"
+msgstr "{selectedCount, plural, one {# {entityName} valittu. Joukkotoimintojen työkalurivi on käytettävissä.} other {# {manyName} valittu. Joukkotoimintojen työkalurivi on käytettävissä.}}"
+
+#: ../../../lib/web/src/components/data-table/bulk-actions.tsx:202
+msgid "{selectedCount, plural, one {# selected} other {# selected}}"
+msgstr "{selectedCount, plural, one {# valittu} other {# valittu}}"
+
+#: ../../../lib/web/src/components/data-table/bulk-actions.tsx:149
+msgid "{selectedCount, plural, one {Bulk actions for # selected {entityName}} other {Bulk actions for # selected {manyName}}}"
+msgstr "{selectedCount, plural, one {Joukkotoiminnot # valitulle {entityName}} other {Joukkotoiminnot # valitulle {manyName}}}"
 
 #: src/features/chats/index.tsx:869
 msgid "{skippedCount, plural, one {Skipped # file that is not audio} other {Skipped # files that are not audio}}"
@@ -281,9 +306,9 @@ msgstr "Takaisin"
 msgid "Back to chat"
 msgstr "Takaisin chattiin"
 
-#: ../../../lib/web/src/features/errors/forbidden.tsx:26
-#: ../../../lib/web/src/features/errors/not-found-error.tsx:26
-#: ../../../lib/web/src/features/errors/unauthorized-error.tsx:26
+#: ../../../lib/web/src/features/errors/forbidden.tsx:28
+#: ../../../lib/web/src/features/errors/not-found-error.tsx:28
+#: ../../../lib/web/src/features/errors/unauthorized-error.tsx:28
 msgid "Back to home"
 msgstr "Takaisin etusivulle"
 
@@ -304,7 +329,7 @@ msgstr "Korosta kiinnostusta"
 #: ../../../lib/web/src/features/access/access-dialog.tsx:328
 #: ../../../lib/web/src/features/access/access-list.tsx:263
 #: ../../../lib/web/src/features/accounts/account-add.tsx:188
-#: ../../../lib/web/src/features/accounts/account-verify.tsx:89
+#: ../../../lib/web/src/features/accounts/account-verify.tsx:91
 #: src/features/chats/components/chat-message-list.tsx:621
 #: src/features/chats/components/chat-message-list.tsx:835
 #: src/features/chats/components/chat-settings-dialog.tsx:116
@@ -452,7 +477,7 @@ msgstr "Tyhjennä"
 msgid "Clear all"
 msgstr "Tyhjennä kaikki"
 
-#: ../../../lib/web/src/components/data-table/faceted-filter.tsx:140
+#: ../../../lib/web/src/components/data-table/faceted-filter.tsx:144
 msgid "Clear filters"
 msgstr "Tyhjennä suodattimet"
 
@@ -461,24 +486,25 @@ msgstr "Tyhjennä suodattimet"
 msgid "Clear search"
 msgstr "Tyhjennä haku"
 
-#: ../../../lib/web/src/components/data-table/bulk-actions.tsx:167
-#: ../../../lib/web/src/components/data-table/bulk-actions.tsx:171
+#: ../../../lib/web/src/components/data-table/bulk-actions.tsx:177
+#: ../../../lib/web/src/components/data-table/bulk-actions.tsx:181
 msgid "Clear selection"
 msgstr "Tyhjennä valinta"
 
-#: ../../../lib/web/src/components/data-table/bulk-actions.tsx:168
+#: ../../../lib/web/src/components/data-table/bulk-actions.tsx:178
+#: ../../../lib/web/src/components/data-table/bulk-actions.tsx:185
 msgid "Clear selection (Escape)"
 msgstr "Tyhjennä valinta (Escape)"
 
 #: ../../../lib/web/src/components/ui/dialog.tsx:78
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:354
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:357
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:358
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:361
 #: ../../../lib/web/src/components/ui/sheet.tsx:79
 msgid "Close"
 msgstr "Sulje"
 
-#: ../../../lib/web/src/components/layout/app-sidebar.tsx:107
-#: ../../../lib/web/src/components/layout/app-sidebar.tsx:112
+#: ../../../lib/web/src/components/layout/app-sidebar.tsx:108
+#: ../../../lib/web/src/components/layout/app-sidebar.tsx:113
 msgid "Close navigation"
 msgstr "Sulje navigointi"
 
@@ -591,6 +617,7 @@ msgid "Custom"
 msgstr "Mukautettu"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:218
+#: ../../../lib/web/src/components/theme-switch.tsx:52
 #: ../../../lib/web/src/lib/preference-utils.ts:20
 msgid "Dark"
 msgstr "Tumma"
@@ -701,8 +728,8 @@ msgstr "Näyttää mobiilisivupalkin."
 msgid "Document"
 msgstr "Asiakirja"
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:338
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:348
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:342
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:352
 msgid "Download"
 msgstr "Lataa"
 
@@ -807,6 +834,14 @@ msgstr "Välitys epäonnistui"
 #: src/routes/_authenticated/$chatId_.settings.tsx:339
 msgid "Failed to leave chat"
 msgstr "Keskustelusta poistuminen epäonnistui"
+
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:263
+msgid "Failed to load image"
+msgstr "Kuvan lataus epäonnistui"
+
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:263
+msgid "Failed to load video"
+msgstr "Videon lataus epäonnistui"
 
 #: src/features/chats/components/chat-settings-dialog.tsx:89
 msgid "Failed to load your chat policy"
@@ -917,29 +952,29 @@ msgstr "Täysi asettelu"
 msgid "General"
 msgstr "Yleiset"
 
-#: ../../../lib/web/src/features/errors/forbidden.tsx:24
-#: ../../../lib/web/src/features/errors/not-found-error.tsx:24
-#: ../../../lib/web/src/features/errors/unauthorized-error.tsx:24
+#: ../../../lib/web/src/features/errors/forbidden.tsx:26
+#: ../../../lib/web/src/features/errors/not-found-error.tsx:26
+#: ../../../lib/web/src/features/errors/unauthorized-error.tsx:26
 msgid "Go back"
 msgstr "Takaisin"
 
-#: ../../../lib/web/src/components/data-table/pagination.tsx:78
+#: ../../../lib/web/src/components/data-table/pagination.tsx:82
 msgid "Go to first page"
 msgstr "Siirry ensimmäiselle sivulle"
 
-#: ../../../lib/web/src/components/data-table/pagination.tsx:124
+#: ../../../lib/web/src/components/data-table/pagination.tsx:128
 msgid "Go to last page"
 msgstr "Siirry viimeiselle sivulle"
 
-#: ../../../lib/web/src/components/data-table/pagination.tsx:115
+#: ../../../lib/web/src/components/data-table/pagination.tsx:119
 msgid "Go to next page"
 msgstr "Siirry seuraavalle sivulle"
 
-#: ../../../lib/web/src/components/data-table/pagination.tsx:102
+#: ../../../lib/web/src/components/data-table/pagination.tsx:106
 msgid "Go to page {pageNumber}"
 msgstr "Siirry sivulle {pageNumber}"
 
-#: ../../../lib/web/src/components/data-table/pagination.tsx:87
+#: ../../../lib/web/src/components/data-table/pagination.tsx:91
 msgid "Go to previous page"
 msgstr "Siirry edelliselle sivulle"
 
@@ -966,6 +1001,11 @@ msgstr "Etusivu"
 msgid "Hot"
 msgstr "Kuuma"
 
+#. placeholder {0}: currentMedia.name
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:247
+msgid "Image viewer: {0}"
+msgstr "Kuvankatselin: {0}"
+
 #: ../../../lib/web/src/lib/preference-utils.ts:86
 msgid "Imperial"
 msgstr "Brittiläinen"
@@ -986,6 +1026,10 @@ msgstr "Kiinnostuksen kohteet"
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:245
 msgid "Invalid verification code"
 msgstr "Virheellinen vahvistuskoodi"
+
+#: ../../../lib/web/src/features/errors/not-found-error.tsx:18
+msgid "It seems like the page you're looking for <0/>does not exist or might have been removed."
+msgstr "Näyttää siltä, että etsimääsi sivua <0/>ei ole olemassa tai se on poistettu."
 
 #: src/features/chats/components/chat-message-list.tsx:855
 #: src/features/chats/components/chat-message-list.tsx:872
@@ -1044,6 +1088,7 @@ msgid "Left to Right"
 msgstr "Vasemmalta oikealle"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:213
+#: ../../../lib/web/src/components/theme-switch.tsx:45
 #: ../../../lib/web/src/lib/preference-utils.ts:19
 msgid "Light"
 msgstr "Vaalea"
@@ -1091,8 +1136,8 @@ msgstr "Kirjaudutaan ulos…"
 msgid "Love"
 msgstr "Rakkaus"
 
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:92
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:99
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:93
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:100
 #: ../../../lib/web/src/components/notifications-dropdown.tsx:224
 msgid "Mark all as read"
 msgstr "Merkitse kaikki luetuiksi"
@@ -1230,8 +1275,8 @@ msgstr "Uusi keskustelu"
 msgid "Newer match"
 msgstr "Uudempi osuma"
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:388
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:393
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:392
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:397
 msgid "Next image"
 msgstr "Seuraava kuva"
 
@@ -1288,7 +1333,7 @@ msgid "No results"
 msgstr "Ei tuloksia"
 
 #: ../../../lib/web/src/components/command-menu.tsx:55
-#: ../../../lib/web/src/components/data-table/faceted-filter.tsx:90
+#: ../../../lib/web/src/components/data-table/faceted-filter.tsx:94
 msgid "No results found."
 msgstr "Tuloksia ei löytynyt."
 
@@ -1333,6 +1378,11 @@ msgstr "Ei kopioitavaa"
 #: ../../../lib/web/src/components/notifications-dropdown.tsx:261
 msgid "Notifications"
 msgstr "Ilmoitukset"
+
+#. placeholder {0}: unread.length
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:86
+msgid "Notifications: {0}"
+msgstr "Ilmoitukset: {0}"
 
 #: src/features/chats/components/chat-search-header.tsx:97
 msgid "Older match"
@@ -1395,6 +1445,11 @@ msgstr "Muu"
 msgid "Owner"
 msgstr "Omistaja"
 
+#: ../../../lib/web/src/components/data-table/pagination.tsx:43
+#: ../../../lib/web/src/components/data-table/pagination.tsx:71
+msgid "Page {currentPage} of {totalPages}"
+msgstr "Sivu {currentPage} / {totalPages}"
+
 #: ../../../lib/web/src/components/step-up-dialog.tsx:334
 msgid "Passkey"
 msgstr "Avainkoodi"
@@ -1436,6 +1491,10 @@ msgstr "Toista ääniviesti"
 msgid "Please check your internet connection and try again."
 msgstr "Tarkista internetyhteytesi ja yritä uudelleen."
 
+#: ../../../lib/web/src/features/errors/unauthorized-error.tsx:18
+msgid "Please log in with the appropriate credentials <0/> to access this resource."
+msgstr "Kirjaudu sisään asianmukaisilla tunnuksilla <0/> päästäksesi tähän resurssiin."
+
 #: src/features/chats/components/new-chat.tsx:161
 msgid "Please provide a chat name"
 msgstr "Anna keskustelun nimi"
@@ -1452,8 +1511,8 @@ msgstr "Yritä uudelleen."
 msgid "Please wait a moment and try again."
 msgstr "Odota hetki ja yritä uudelleen."
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:373
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:378
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:377
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:382
 msgid "Previous image"
 msgstr "Edellinen kuva"
 
@@ -1548,6 +1607,11 @@ msgstr "Poista {0}"
 msgid "Remove access rule"
 msgstr "Poista käyttöoikeussääntö"
 
+#. placeholder {0}: formatSubject(subject, data.name)
+#: ../../../lib/web/src/features/access/access-list.tsx:259
+msgid "Remove access rule for \"{0}\"?"
+msgstr "Poistetaanko käyttöoikeussääntö kohteelle ”{0}”?"
+
 #: ../../../lib/web/src/features/access/access-list.tsx:257
 msgid "Remove access?"
 msgstr "Poistetaanko käyttöoikeus?"
@@ -1607,7 +1671,7 @@ msgstr "Palauta kaikki asetukset oletusarvoihin"
 msgid "Right to Left"
 msgstr "Oikealta vasemmalle"
 
-#: ../../../lib/web/src/components/data-table/pagination.tsx:63
+#: ../../../lib/web/src/components/data-table/pagination.tsx:65
 msgid "Rows per page"
 msgstr "Rivejä sivulla"
 
@@ -1744,15 +1808,24 @@ msgstr "Valitse sivuston suunta"
 msgid "Select theme preference"
 msgstr "Valitse teeman asetus"
 
+#: ../../../lib/web/src/components/data-table/bulk-actions.tsx:216
+msgid "selected"
+msgstr "valittu"
+
 #: src/features/chats/index.tsx:1206
 msgid "Selected the newest {BULK_MESSAGES_MAX} messages, the most that can be forwarded or deleted at once"
 msgstr "Valittiin {BULK_MESSAGES_MAX} uusinta viestiä – enempää ei voi välittää tai poistaa kerralla"
+
+#. placeholder {0}: getSelectedName()
+#: ../../../lib/web/src/features/access/access-dialog.tsx:309
+msgid "Selected: <0>{0}</0>"
+msgstr "Valittu: <0>{0}</0>"
 
 #: src/features/chats/components/chat-message-list.tsx:824
 msgid "Selects messages loaded so far"
 msgstr "Valitsee tähän mennessä ladatut viestit"
 
-#: ../../../lib/web/src/features/accounts/account-verify.tsx:98
+#: ../../../lib/web/src/features/accounts/account-verify.tsx:100
 msgid "Send again"
 msgstr "Lähetä uudelleen"
 
@@ -1862,6 +1935,7 @@ msgid "Sunday"
 msgstr "Sunnuntai"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:208
+#: ../../../lib/web/src/components/theme-switch.tsx:59
 #: ../../../lib/web/src/lib/preference-utils.ts:21
 #: ../../../lib/web/src/lib/preference-utils.ts:144
 msgid "System"
@@ -1902,6 +1976,10 @@ msgstr "Keskustelun nimessä ei voi olla merkkejä < tai >"
 msgid "The requested content could not be found."
 msgstr "Pyydettyä sisältöä ei löytynyt."
 
+#: ../../../lib/web/src/features/errors/maintenance-error.tsx:15
+msgid "The site is not available at the moment."
+msgstr "Sivusto ei ole tällä hetkellä käytettävissä."
+
 #: ../../../lib/web/src/components/config-drawer.tsx:194
 msgid "Theme"
 msgstr "Teema"
@@ -1932,9 +2010,17 @@ msgstr "Tämä poistaa viestin kaikilta, eikä sitä voi kumota."
 msgid "This message was deleted"
 msgstr "Tämä viesti poistettiin"
 
+#: ../../../lib/web/src/components/coming-soon.tsx:14
+msgid "This page has not been created yet."
+msgstr "Tätä sivua ei ole vielä luotu."
+
 #: ../../../lib/web/src/lib/preference-utils.ts:62
 msgid "Thursday"
 msgstr "Torstai"
+
+#: ../../../lib/web/src/components/travelling-picker.tsx:220
+msgid "To"
+msgstr "Määränpää"
 
 #: ../../../lib/web/src/components/data-table/view-options.tsx:37
 msgid "Toggle columns"
@@ -2059,7 +2145,7 @@ msgstr "Käytä avainkoodiasi"
 msgid "User"
 msgstr "Käyttäjä"
 
-#: ../../../lib/web/src/features/accounts/account-verify.tsx:71
+#: ../../../lib/web/src/features/accounts/account-verify.tsx:73
 msgid "Verification code"
 msgstr "Vahvistuskoodi"
 
@@ -2073,7 +2159,7 @@ msgstr "Vahvistus epäonnistui"
 
 #: ../../../lib/web/src/components/step-up-dialog.tsx:388
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:172
-#: ../../../lib/web/src/features/accounts/account-verify.tsx:109
+#: ../../../lib/web/src/features/accounts/account-verify.tsx:111
 msgid "Verify"
 msgstr "Vahvista"
 
@@ -2086,6 +2172,11 @@ msgstr "Vahvista sähköpostiosoite"
 msgid "Video thumbnail"
 msgstr "Videon pikkukuva"
 
+#. placeholder {0}: currentMedia.name
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:246
+msgid "Video viewer: {0}"
+msgstr "Videokatselin: {0}"
+
 #: ../../../lib/web/src/components/data-table/view-options.tsx:33
 msgid "View"
 msgstr "Näytä"
@@ -2094,8 +2185,8 @@ msgstr "Näytä"
 msgid "View all"
 msgstr "Näytä kaikki"
 
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:105
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:113
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:106
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:114
 msgid "View all notifications"
 msgstr "Näytä kaikki ilmoitukset"
 
@@ -2115,6 +2206,11 @@ msgstr "Äänitallennusta ei tueta tässä selaimessa"
 #: src/features/chats/components/chat-input.tsx:265
 msgid "Voice recording isn't available in this app version. Please update the app and try again."
 msgstr "Äänitallennus ei ole käytettävissä tässä sovellusversiossa. Päivitä sovellus ja yritä uudelleen."
+
+#. placeholder {0}: account.identifier
+#: ../../../lib/web/src/features/accounts/account-verify.tsx:63
+msgid "We sent a verification code to <0>{0}</0>. Enter the code below to verify your email address."
+msgstr "Lähetimme vahvistuskoodin osoitteeseen <0>{0}</0>. Syötä koodi alle vahvistaaksesi sähköpostiosoitteesi."
 
 #: ../../../lib/web/src/features/errors/maintenance-error.tsx:16
 msgid "We'll be back online shortly."
@@ -2155,6 +2251,10 @@ msgstr "Voit poistaa vain omia viestejäsi"
 #: ../../../lib/web/src/features/errors/general-error.tsx:61
 msgid "You do not have access to this section."
 msgstr "Sinulla ei ole pääsyä tähän osioon."
+
+#: ../../../lib/web/src/features/errors/forbidden.tsx:18
+msgid "You don't have necessary permission <0/>to view this resource."
+msgstr "Sinulla ei ole tarvittavaa käyttöoikeutta <0/>tämän resurssin tarkasteluun."
 
 #: src/features/chats/index.tsx:1269
 msgid "You left this chat"

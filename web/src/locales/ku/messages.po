@@ -26,6 +26,11 @@ msgstr "(hatî sererast kirin)"
 msgid "(you)"
 msgstr "(tu)"
 
+#. placeholder {0}: selectedValues.size
+#: ../../../lib/web/src/components/data-table/faceted-filter.tsx:66
+msgid "{0, plural, one {# selected} other {# selected}}"
+msgstr "{0, plural, one {# hilbijartî} other {# hilbijartî}}"
+
 #. placeholder {0}: deleteTargetIds?.length ?? 0
 #: src/features/chats/index.tsx:1356
 msgid "{0, plural, one {Delete message?} other {Delete # messages?}}"
@@ -49,6 +54,10 @@ msgstr "{0} hilbijartî"
 msgid "{0} settings"
 msgstr "Mîhengên {0}"
 
+#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:173
+msgid "{entityLabel} name"
+msgstr "Navê {entityLabel}"
+
 #: src/features/chats/components/message-attachments.tsx:140
 msgid "{hiddenCount, plural, one {Show 1 more file} other {Show # more files}}"
 msgstr "{hiddenCount, plural, one {# pelê din nîşan bide} other {# pelên din nîşan bide}}"
@@ -57,6 +66,22 @@ msgstr "{hiddenCount, plural, one {# pelê din nîşan bide} other {# pelên din
 #: src/features/chats/components/chat-message-list.tsx:868
 msgid "{newMessageCount, plural, one {Jump to 1 new message} other {Jump to # new messages}}"
 msgstr "{newMessageCount, plural, one {Biçe 1 peyama nû} other {Biçe # peyamên nû}}"
+
+#: ../../../lib/web/src/components/data-table/bulk-actions.tsx:210
+msgid "{selectedCount, plural, one {{entityName} selected} other {{manyName} selected}}"
+msgstr "{selectedCount, plural, one {{entityName} hilbijartî} other {{manyName} hilbijartî}}"
+
+#: ../../../lib/web/src/components/data-table/bulk-actions.tsx:52
+msgid "{selectedCount, plural, one {# {entityName} selected. Bulk actions toolbar is available.} other {# {manyName} selected. Bulk actions toolbar is available.}}"
+msgstr "{selectedCount, plural, one {# {entityName} hilbijartî. Darikê kiryarên girseyî berdest e.} other {# {manyName} hilbijartî. Darikê kiryarên girseyî berdest e.}}"
+
+#: ../../../lib/web/src/components/data-table/bulk-actions.tsx:202
+msgid "{selectedCount, plural, one {# selected} other {# selected}}"
+msgstr "{selectedCount, plural, one {# hilbijartî} other {# hilbijartî}}"
+
+#: ../../../lib/web/src/components/data-table/bulk-actions.tsx:149
+msgid "{selectedCount, plural, one {Bulk actions for # selected {entityName}} other {Bulk actions for # selected {manyName}}}"
+msgstr "{selectedCount, plural, one {Kiryarên girseyî ji bo # {entityName} hilbijartî} other {Kiryarên girseyî ji bo # {manyName} hilbijartî}}"
 
 #: src/features/chats/index.tsx:869
 msgid "{skippedCount, plural, one {Skipped # file that is not audio} other {Skipped # files that are not audio}}"
@@ -281,9 +306,9 @@ msgstr "Vegere"
 msgid "Back to chat"
 msgstr "Vegere chatê"
 
-#: ../../../lib/web/src/features/errors/forbidden.tsx:26
-#: ../../../lib/web/src/features/errors/not-found-error.tsx:26
-#: ../../../lib/web/src/features/errors/unauthorized-error.tsx:26
+#: ../../../lib/web/src/features/errors/forbidden.tsx:28
+#: ../../../lib/web/src/features/errors/not-found-error.tsx:28
+#: ../../../lib/web/src/features/errors/unauthorized-error.tsx:28
 msgid "Back to home"
 msgstr "Vegere ser malê"
 
@@ -304,7 +329,7 @@ msgstr "Berjewendiyê zêde bike"
 #: ../../../lib/web/src/features/access/access-dialog.tsx:328
 #: ../../../lib/web/src/features/access/access-list.tsx:263
 #: ../../../lib/web/src/features/accounts/account-add.tsx:188
-#: ../../../lib/web/src/features/accounts/account-verify.tsx:89
+#: ../../../lib/web/src/features/accounts/account-verify.tsx:91
 #: src/features/chats/components/chat-message-list.tsx:621
 #: src/features/chats/components/chat-message-list.tsx:835
 #: src/features/chats/components/chat-settings-dialog.tsx:116
@@ -452,7 +477,7 @@ msgstr "Paqij bike"
 msgid "Clear all"
 msgstr "Hemûyan paqij bike"
 
-#: ../../../lib/web/src/components/data-table/faceted-filter.tsx:140
+#: ../../../lib/web/src/components/data-table/faceted-filter.tsx:144
 msgid "Clear filters"
 msgstr "Parzûnan paqij bike"
 
@@ -461,24 +486,25 @@ msgstr "Parzûnan paqij bike"
 msgid "Clear search"
 msgstr "Lêgerînê paqij bike"
 
-#: ../../../lib/web/src/components/data-table/bulk-actions.tsx:167
-#: ../../../lib/web/src/components/data-table/bulk-actions.tsx:171
+#: ../../../lib/web/src/components/data-table/bulk-actions.tsx:177
+#: ../../../lib/web/src/components/data-table/bulk-actions.tsx:181
 msgid "Clear selection"
 msgstr "Hilbijartinê paqij bike"
 
-#: ../../../lib/web/src/components/data-table/bulk-actions.tsx:168
+#: ../../../lib/web/src/components/data-table/bulk-actions.tsx:178
+#: ../../../lib/web/src/components/data-table/bulk-actions.tsx:185
 msgid "Clear selection (Escape)"
 msgstr "Hilbijartinê paqij bike (Escape)"
 
 #: ../../../lib/web/src/components/ui/dialog.tsx:78
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:354
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:357
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:358
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:361
 #: ../../../lib/web/src/components/ui/sheet.tsx:79
 msgid "Close"
 msgstr "Bigire"
 
-#: ../../../lib/web/src/components/layout/app-sidebar.tsx:107
-#: ../../../lib/web/src/components/layout/app-sidebar.tsx:112
+#: ../../../lib/web/src/components/layout/app-sidebar.tsx:108
+#: ../../../lib/web/src/components/layout/app-sidebar.tsx:113
 msgid "Close navigation"
 msgstr "Gerînê bigire"
 
@@ -591,6 +617,7 @@ msgid "Custom"
 msgstr "Taybet"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:218
+#: ../../../lib/web/src/components/theme-switch.tsx:52
 #: ../../../lib/web/src/lib/preference-utils.ts:20
 msgid "Dark"
 msgstr "Tarî"
@@ -701,8 +728,8 @@ msgstr "Panela kêlekê ya mobîl nîşan dide."
 msgid "Document"
 msgstr "Belge"
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:338
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:348
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:342
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:352
 msgid "Download"
 msgstr "Daxe"
 
@@ -807,6 +834,14 @@ msgstr "Beralîkirin bi ser neket"
 #: src/routes/_authenticated/$chatId_.settings.tsx:339
 msgid "Failed to leave chat"
 msgstr "Derketina chatê neserkeftî bû"
+
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:263
+msgid "Failed to load image"
+msgstr "Wêne nehat barkirin"
+
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:263
+msgid "Failed to load video"
+msgstr "Vîdyo nehat barkirin"
 
 #: src/features/chats/components/chat-settings-dialog.tsx:89
 msgid "Failed to load your chat policy"
@@ -917,29 +952,29 @@ msgstr "Bargeyê tev"
 msgid "General"
 msgstr "Giştî"
 
-#: ../../../lib/web/src/features/errors/forbidden.tsx:24
-#: ../../../lib/web/src/features/errors/not-found-error.tsx:24
-#: ../../../lib/web/src/features/errors/unauthorized-error.tsx:24
+#: ../../../lib/web/src/features/errors/forbidden.tsx:26
+#: ../../../lib/web/src/features/errors/not-found-error.tsx:26
+#: ../../../lib/web/src/features/errors/unauthorized-error.tsx:26
 msgid "Go back"
 msgstr "Vegere"
 
-#: ../../../lib/web/src/components/data-table/pagination.tsx:78
+#: ../../../lib/web/src/components/data-table/pagination.tsx:82
 msgid "Go to first page"
 msgstr "Biçe rûpelê yekem"
 
-#: ../../../lib/web/src/components/data-table/pagination.tsx:124
+#: ../../../lib/web/src/components/data-table/pagination.tsx:128
 msgid "Go to last page"
 msgstr "Biçe rûpelê dawîn"
 
-#: ../../../lib/web/src/components/data-table/pagination.tsx:115
+#: ../../../lib/web/src/components/data-table/pagination.tsx:119
 msgid "Go to next page"
 msgstr "Biçe rûpelê paşîn"
 
-#: ../../../lib/web/src/components/data-table/pagination.tsx:102
+#: ../../../lib/web/src/components/data-table/pagination.tsx:106
 msgid "Go to page {pageNumber}"
 msgstr "Here rûpela {pageNumber}"
 
-#: ../../../lib/web/src/components/data-table/pagination.tsx:87
+#: ../../../lib/web/src/components/data-table/pagination.tsx:91
 msgid "Go to previous page"
 msgstr "Biçe rûpelê pêşîn"
 
@@ -966,6 +1001,11 @@ msgstr "Mal"
 msgid "Hot"
 msgstr "Germ"
 
+#. placeholder {0}: currentMedia.name
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:247
+msgid "Image viewer: {0}"
+msgstr "Nêrîna wêneyan: {0}"
+
 #: ../../../lib/web/src/lib/preference-utils.ts:86
 msgid "Imperial"
 msgstr "Imperial"
@@ -986,6 +1026,10 @@ msgstr "Balkêşî"
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:245
 msgid "Invalid verification code"
 msgstr "Koda rastandinê nederbasdar"
+
+#: ../../../lib/web/src/features/errors/not-found-error.tsx:18
+msgid "It seems like the page you're looking for <0/>does not exist or might have been removed."
+msgstr "Wisa xuya dike ku rûpela ku tu lê digerî <0/>tune ye an hatiye rakirin."
 
 #: src/features/chats/components/chat-message-list.tsx:855
 #: src/features/chats/components/chat-message-list.tsx:872
@@ -1044,6 +1088,7 @@ msgid "Left to Right"
 msgstr "Ji çepê ber bi rastê"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:213
+#: ../../../lib/web/src/components/theme-switch.tsx:45
 #: ../../../lib/web/src/lib/preference-utils.ts:19
 msgid "Light"
 msgstr "Ronî"
@@ -1091,8 +1136,8 @@ msgstr "Tê derketin…"
 msgid "Love"
 msgstr "Hez"
 
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:92
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:99
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:93
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:100
 #: ../../../lib/web/src/components/notifications-dropdown.tsx:224
 msgid "Mark all as read"
 msgstr "Hemû wek xwendî nîşan bike"
@@ -1230,8 +1275,8 @@ msgstr "Chata nû"
 msgid "Newer match"
 msgstr "Encama nûtir"
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:388
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:393
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:392
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:397
 msgid "Next image"
 msgstr "Wêneya pêştir"
 
@@ -1288,7 +1333,7 @@ msgid "No results"
 msgstr "Encam tune"
 
 #: ../../../lib/web/src/components/command-menu.tsx:55
-#: ../../../lib/web/src/components/data-table/faceted-filter.tsx:90
+#: ../../../lib/web/src/components/data-table/faceted-filter.tsx:94
 msgid "No results found."
 msgstr "Tu encam nehatin dîtin."
 
@@ -1333,6 +1378,11 @@ msgstr "Tiştek ji bo kopîkirinê tune"
 #: ../../../lib/web/src/components/notifications-dropdown.tsx:261
 msgid "Notifications"
 msgstr "Agahdarî"
+
+#. placeholder {0}: unread.length
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:86
+msgid "Notifications: {0}"
+msgstr "Agahdarî: {0}"
 
 #: src/features/chats/components/chat-search-header.tsx:97
 msgid "Older match"
@@ -1395,6 +1445,11 @@ msgstr "Yên din"
 msgid "Owner"
 msgstr "Xwedî"
 
+#: ../../../lib/web/src/components/data-table/pagination.tsx:43
+#: ../../../lib/web/src/components/data-table/pagination.tsx:71
+msgid "Page {currentPage} of {totalPages}"
+msgstr "Rûpel {currentPage} ji {totalPages}"
+
 #: ../../../lib/web/src/components/step-up-dialog.tsx:334
 msgid "Passkey"
 msgstr "Passkey"
@@ -1436,6 +1491,10 @@ msgstr "Peyama dengî lê bide"
 msgid "Please check your internet connection and try again."
 msgstr "Ji kerema xwe girêdana xwe ya înternetê kontrol bike û dîsa biceribîne."
 
+#: ../../../lib/web/src/features/errors/unauthorized-error.tsx:18
+msgid "Please log in with the appropriate credentials <0/> to access this resource."
+msgstr "Ji kerema xwe ji bo gihîştina vê çavkaniyê <0/> bi pêbaweriyên guncaw têkeve."
+
 #: src/features/chats/components/new-chat.tsx:161
 msgid "Please provide a chat name"
 msgstr "Ji kerema xwe navê chatê bide"
@@ -1452,8 +1511,8 @@ msgstr "Ji kerema xwe dîsa biceribîne."
 msgid "Please wait a moment and try again."
 msgstr "Ji kerema xwe kêliyekê bisekine û dîsa biceribîne."
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:373
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:378
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:377
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:382
 msgid "Previous image"
 msgstr "Wêneya pêştir"
 
@@ -1548,6 +1607,11 @@ msgstr "{0} rake"
 msgid "Remove access rule"
 msgstr "Rêzika destpêkirinê rake"
 
+#. placeholder {0}: formatSubject(subject, data.name)
+#: ../../../lib/web/src/features/access/access-list.tsx:259
+msgid "Remove access rule for \"{0}\"?"
+msgstr "Rêbaza gihîştinê ya \"{0}\" were rakirin?"
+
 #: ../../../lib/web/src/features/access/access-list.tsx:257
 msgid "Remove access?"
 msgstr "Destpêkirinê rake?"
@@ -1607,7 +1671,7 @@ msgstr "Hemû mîhengan ber bi standardan ve veguhêze"
 msgid "Right to Left"
 msgstr "Ji rast ber bi çep"
 
-#: ../../../lib/web/src/components/data-table/pagination.tsx:63
+#: ../../../lib/web/src/components/data-table/pagination.tsx:65
 msgid "Rows per page"
 msgstr "Rêz li ser her rûpel"
 
@@ -1744,15 +1808,24 @@ msgstr "Beralîkirina malperê hilbijêre"
 msgid "Select theme preference"
 msgstr "Tercîha temayê hilbijêre"
 
+#: ../../../lib/web/src/components/data-table/bulk-actions.tsx:216
+msgid "selected"
+msgstr "hilbijartî"
+
 #: src/features/chats/index.tsx:1206
 msgid "Selected the newest {BULK_MESSAGES_MAX} messages, the most that can be forwarded or deleted at once"
 msgstr "{BULK_MESSAGES_MAX} peyamên herî nû hatin hilbijartin, ev jî hejmara herî zêde ye ku bi carekê tê şandin an jêbirin"
+
+#. placeholder {0}: getSelectedName()
+#: ../../../lib/web/src/features/access/access-dialog.tsx:309
+msgid "Selected: <0>{0}</0>"
+msgstr "Hilbijartî: <0>{0}</0>"
 
 #: src/features/chats/components/chat-message-list.tsx:824
 msgid "Selects messages loaded so far"
 msgstr "Peyamên ku heta niha hatine barkirin hildibijêre"
 
-#: ../../../lib/web/src/features/accounts/account-verify.tsx:98
+#: ../../../lib/web/src/features/accounts/account-verify.tsx:100
 msgid "Send again"
 msgstr "Dîsa bişîne"
 
@@ -1862,6 +1935,7 @@ msgid "Sunday"
 msgstr "Yekşem"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:208
+#: ../../../lib/web/src/components/theme-switch.tsx:59
 #: ../../../lib/web/src/lib/preference-utils.ts:21
 #: ../../../lib/web/src/lib/preference-utils.ts:144
 msgid "System"
@@ -1902,6 +1976,10 @@ msgstr "Navê sohbetê nikare < an > bihewîne"
 msgid "The requested content could not be found."
 msgstr "Naveroka xwestî nehat dîtin."
 
+#: ../../../lib/web/src/features/errors/maintenance-error.tsx:15
+msgid "The site is not available at the moment."
+msgstr "Malper niha ne berdest e."
+
 #: ../../../lib/web/src/components/config-drawer.tsx:194
 msgid "Theme"
 msgstr "Tema"
@@ -1932,9 +2010,17 @@ msgstr "Ev yek peyamê ji bo her kesî jê dibe û nikare bê vegerandin."
 msgid "This message was deleted"
 msgstr "Ev peyam hat jêbirin"
 
+#: ../../../lib/web/src/components/coming-soon.tsx:14
+msgid "This page has not been created yet."
+msgstr "Ev rûpel hîna nehatiye çêkirin."
+
 #: ../../../lib/web/src/lib/preference-utils.ts:62
 msgid "Thursday"
 msgstr "Pêncşem"
+
+#: ../../../lib/web/src/components/travelling-picker.tsx:220
+msgid "To"
+msgstr "Bo"
 
 #: ../../../lib/web/src/components/data-table/view-options.tsx:37
 msgid "Toggle columns"
@@ -2059,7 +2145,7 @@ msgstr "Passkey-ya xwe bikar bîne"
 msgid "User"
 msgstr "Bikarhêner"
 
-#: ../../../lib/web/src/features/accounts/account-verify.tsx:71
+#: ../../../lib/web/src/features/accounts/account-verify.tsx:73
 msgid "Verification code"
 msgstr "Koda verifîkasyonê"
 
@@ -2073,7 +2159,7 @@ msgstr "Verifîkasyon têk çû"
 
 #: ../../../lib/web/src/components/step-up-dialog.tsx:388
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:172
-#: ../../../lib/web/src/features/accounts/account-verify.tsx:109
+#: ../../../lib/web/src/features/accounts/account-verify.tsx:111
 msgid "Verify"
 msgstr "Verifîke bike"
 
@@ -2086,6 +2172,11 @@ msgstr "Navnîşana e-nameyê verifîke bike"
 msgid "Video thumbnail"
 msgstr "Wêneya pêşgir a vîdeoyê"
 
+#. placeholder {0}: currentMedia.name
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:246
+msgid "Video viewer: {0}"
+msgstr "Nêrîna vîdyoyan: {0}"
+
 #: ../../../lib/web/src/components/data-table/view-options.tsx:33
 msgid "View"
 msgstr "Bibîne"
@@ -2094,8 +2185,8 @@ msgstr "Bibîne"
 msgid "View all"
 msgstr "Hemûyan bibîne"
 
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:105
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:113
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:106
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:114
 msgid "View all notifications"
 msgstr "Hemû agahdariyan bibîne"
 
@@ -2115,6 +2206,11 @@ msgstr "Tomarkirina dengî di vê gerokê de nayê destekkirin"
 #: src/features/chats/components/chat-input.tsx:265
 msgid "Voice recording isn't available in this app version. Please update the app and try again."
 msgstr "Tomarkirina dengî di vê guhertoya sepanê de ne berdest e. Ji kerema xwe sepanê nû bike û dîsa biceribîne."
+
+#. placeholder {0}: account.identifier
+#: ../../../lib/web/src/features/accounts/account-verify.tsx:63
+msgid "We sent a verification code to <0>{0}</0>. Enter the code below to verify your email address."
+msgstr "Me kodek pejirandinê şand bo <0>{0}</0>. Ji bo pejirandina navnîşana e-nameya xwe kodê li jêr binivîse."
 
 #: ../../../lib/web/src/features/errors/maintenance-error.tsx:16
 msgid "We'll be back online shortly."
@@ -2155,6 +2251,10 @@ msgstr "Tu tenê dikarî peyamên xwe jê bibî"
 #: ../../../lib/web/src/features/errors/general-error.tsx:61
 msgid "You do not have access to this section."
 msgstr "Destûra te ya gihîştina vê beşê tune ye."
+
+#: ../../../lib/web/src/features/errors/forbidden.tsx:18
+msgid "You don't have necessary permission <0/>to view this resource."
+msgstr "Destûra pêwîst a te tune <0/>ji bo dîtina vê çavkaniyê."
 
 #: src/features/chats/index.tsx:1269
 msgid "You left this chat"
