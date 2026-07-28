@@ -41,6 +41,11 @@ msgstr "{0, plural, one {Eyða skilaboðum?} other {Eyða # skilaboðum?}}"
 msgid "{0} (includes you)"
 msgstr "{0} (þar á meðal þú)"
 
+#. placeholder {0}: item.label
+#: ../../../lib/web/src/components/config-drawer.tsx:160
+msgid "{0} option preview"
+msgstr ""
+
 #. placeholder {0}: selectedIds.size
 #. placeholder {0}: selectedIds?.size ?? 0
 #: src/features/chats/components/chat-message-list.tsx:816
@@ -54,9 +59,13 @@ msgstr "{0} valin"
 msgid "{0} settings"
 msgstr "{0}-stillingar"
 
-#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:173
+#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:174
 msgid "{entityLabel} name"
 msgstr "Nafn {entityLabel}"
+
+#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:99
+msgid "{entityLabel} name is required"
+msgstr ""
 
 #: src/features/chats/components/message-attachments.tsx:140
 msgid "{hiddenCount, plural, one {Show 1 more file} other {Show # more files}}"
@@ -87,6 +96,10 @@ msgstr "{selectedCount, plural, one {Magnaðgerðir fyrir # valið {entityName}}
 msgid "{skippedCount, plural, one {Skipped # file that is not audio} other {Skipped # files that are not audio}}"
 msgstr "{skippedCount, plural, one {Sleppti # skrá sem er ekki hljóð} other {Sleppti # skrám sem eru ekki hljóð}}"
 
+#: ../../../lib/web/src/components/layout/mochi-menu.tsx:132
+msgid "{unreadCount, plural, one {Open menu (# unread notification)} other {Open menu (# unread notifications)}}"
+msgstr ""
+
 #: ../../../lib/web/src/lib/preference-utils.ts:42
 msgid "12 hours"
 msgstr "12 klukkustundir"
@@ -111,7 +124,7 @@ msgstr "Aðgangi hafnað"
 msgid "Access Forbidden"
 msgstr "Aðgangur bannaður"
 
-#: ../../../lib/web/src/features/access/access-list.tsx:192
+#: ../../../lib/web/src/features/access/access-list.tsx:197
 msgid "Access level"
 msgstr "Aðgangsstig"
 
@@ -131,6 +144,7 @@ msgstr "Tegund reiknings"
 msgid "Account verified"
 msgstr "Reikningur staðfestur"
 
+#: ../../../lib/web/src/features/access/access-dialog.tsx:332
 #: ../../../lib/web/src/features/accounts/account-add.tsx:196
 msgid "Add"
 msgstr "Bæta við"
@@ -167,7 +181,7 @@ msgstr "Bæta við viðhengi"
 msgid "Add member"
 msgstr "Bæta við meðlim"
 
-#: ../../../lib/web/src/features/accounts/account-picker.tsx:101
+#: ../../../lib/web/src/features/accounts/account-picker.tsx:102
 msgid "Add new account"
 msgstr "Bæta við nýjum reikningi"
 
@@ -177,6 +191,7 @@ msgid "Add reaction"
 msgstr "Bæta við viðbrögðum"
 
 #: ../../../lib/web/src/components/post-tags.tsx:137
+#: ../../../lib/web/src/components/tag-input.tsx:40
 msgid "Add tag..."
 msgstr "Bæta við merki..."
 
@@ -209,7 +224,11 @@ msgstr "Bæti við {0}/{1}..."
 msgid "Adding member..."
 msgstr "Bæti við meðlim..."
 
-#: ../../../lib/web/src/components/config-drawer.tsx:71
+#: ../../../lib/web/src/features/access/access-dialog.tsx:332
+msgid "Adding..."
+msgstr "Bæti við..."
+
+#: ../../../lib/web/src/components/config-drawer.tsx:72
 msgid "Adjust the appearance and layout to suit your preferences."
 msgstr "Stilltu útlit og uppsetningu eftir þínum smekk."
 
@@ -229,6 +248,11 @@ msgstr "Allt"
 msgid "All your friends are already in this chat"
 msgstr "Allir vinir þínir eru þegar í þessu spjalli"
 
+#. placeholder {0}: entityLabel.toLowerCase()
+#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:85
+msgid "Allow anyone to search for {0}"
+msgstr ""
+
 #: src/features/chats/constants/reactions.ts:36
 msgid "Amazed"
 msgstr "Undrandi"
@@ -241,10 +265,16 @@ msgstr "Villa kom upp"
 msgid "An unexpected error occurred"
 msgstr "Óvænt villa kom upp"
 
+#: ../../../lib/web/src/features/accounts/types.ts:16
+msgid "Android push"
+msgstr ""
+
 #: src/features/chats/constants/reactions.ts:39
 msgid "Angry"
 msgstr "Reiður"
 
+#: ../../../lib/web/src/features/access/access-list.tsx:45
+#: ../../../lib/web/src/features/access/types.ts:42
 #: src/features/chats/components/chat-settings-dialog.tsx:44
 msgid "Anyone"
 msgstr "Hver sem er"
@@ -252,6 +282,10 @@ msgstr "Hver sem er"
 #: src/features/chats/components/chat-settings-dialog.tsx:45
 msgid "Anyone can start a chat with you."
 msgstr "Hver sem er getur hafið spjall við þig."
+
+#: ../../../lib/web/src/features/access/types.ts:41
+msgid "Anyone who is logged in"
+msgstr ""
 
 #. placeholder {0}: selectedChat?.name
 #: src/features/chats/index.tsx:1324
@@ -292,11 +326,24 @@ msgstr "Viðhengin eru of stór til að hlaða upp. Fjarlægðu eða minnkaðu s
 msgid "Audio"
 msgstr "Hljóð"
 
+#: ../../../lib/web/src/features/access/access-list.tsx:46
+#: ../../../lib/web/src/features/access/types.ts:41
+msgid "Authenticated users"
+msgstr "Auðkenndir notendur"
+
 #: ../../../lib/web/src/components/step-up-dialog.tsx:315
 msgid "Authenticator code"
 msgstr "Auðkennisnúmer"
 
-#: ../../../lib/web/src/components/place-picker.tsx:155
+#: ../../../lib/web/src/components/entity-avatar.tsx:99
+msgid "Avatar"
+msgstr "Auðkennismynd"
+
+#: ../../../lib/web/src/components/entity-avatar.tsx:99
+msgid "Avatar for {name}"
+msgstr ""
+
+#: ../../../lib/web/src/components/place-picker.tsx:156
 msgid "Back"
 msgstr "Til baka"
 
@@ -312,6 +359,10 @@ msgstr "Til baka í spjall"
 msgid "Back to home"
 msgstr "Til baka á forsíðu"
 
+#: ../../../lib/web/src/components/entity-banner.tsx:17
+msgid "Banner"
+msgstr "Borði"
+
 #: src/features/chats/components/chat-message-list.tsx:470
 msgid "Be the first to say something!"
 msgstr "Vertu fyrst til að segja eitthvað!"
@@ -321,13 +372,17 @@ msgstr "Vertu fyrst til að segja eitthvað!"
 msgid "Boost interest"
 msgstr "Auka áhuga"
 
+#: ../../../lib/web/src/features/accounts/types.ts:13
+msgid "Browser notifications"
+msgstr "Tilkynningar vafra"
+
 #: ../../../lib/web/src/components/responsive-confirm-dialog.tsx:67
 #: ../../../lib/web/src/components/step-up-dialog.tsx:363
 #: ../../../lib/web/src/components/travelling-picker.tsx:308
-#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:248
+#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:249
 #: ../../../lib/web/src/components/ui/editable-field-row.tsx:132
 #: ../../../lib/web/src/features/access/access-dialog.tsx:328
-#: ../../../lib/web/src/features/access/access-list.tsx:263
+#: ../../../lib/web/src/features/access/access-list.tsx:268
 #: ../../../lib/web/src/features/accounts/account-add.tsx:188
 #: ../../../lib/web/src/features/accounts/account-verify.tsx:91
 #: src/features/chats/components/chat-message-list.tsx:621
@@ -435,6 +490,10 @@ msgstr "Spjall losað"
 msgid "Chats"
 msgstr "Spjöll"
 
+#: ../../../lib/web/src/components/notifications-dropdown.tsx:198
+msgid "Check \"All\" to see your past notifications."
+msgstr "Veldu \"Allt\" til að sjá fyrri tilkynningar."
+
 #: src/features/chats/components/forward-dialog.tsx:190
 msgid "Choose a chat or friend to forward the selected messages to"
 msgstr "Veldu spjall eða vin til að áframsenda völdu skilaboðin á"
@@ -443,19 +502,19 @@ msgstr "Veldu spjall eða vin til að áframsenda völdu skilaboðin á"
 msgid "Choose a conversation from the sidebar or start a new one."
 msgstr "Veldu samtal úr hliðarstikunni eða byrjaðu nýtt."
 
-#: ../../../lib/web/src/components/config-drawer.tsx:328
+#: ../../../lib/web/src/components/config-drawer.tsx:329
 msgid "Choose between default expanded, compact icon-only, or full layout mode"
 msgstr "Veldu milli sjálfgefins útvíkkaðs, þétts (aðeins táknmyndir) eða fulls uppsetningarham"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:270
+#: ../../../lib/web/src/components/config-drawer.tsx:271
 msgid "Choose between inset, floating, or standard sidebar layout"
 msgstr "Veldu milli innskotinnar, fljótandi eða venjulegrar hliðarstiku"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:371
+#: ../../../lib/web/src/components/config-drawer.tsx:372
 msgid "Choose between left-to-right or right-to-left site direction"
 msgstr "Veldu milli stefnu vefsvæðis frá vinstri til hægri eða hægri til vinstri"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:226
+#: ../../../lib/web/src/components/config-drawer.tsx:227
 msgid "Choose between system preference, light mode, or dark mode"
 msgstr "Veldu milli kerfisstillingar, ljóss hams eða dökks hams"
 
@@ -464,8 +523,8 @@ msgstr "Veldu milli kerfisstillingar, ljóss hams eða dökks hams"
 msgid "Choose language"
 msgstr "Veldu tungumál"
 
-#: ../../../lib/web/src/components/colour-picker.tsx:269
-#: ../../../lib/web/src/components/colour-picker.tsx:350
+#: ../../../lib/web/src/components/colour-picker.tsx:270
+#: ../../../lib/web/src/components/colour-picker.tsx:351
 #: ../../../lib/web/src/components/travelling-picker.tsx:164
 #: ../../../lib/web/src/components/travelling-picker.tsx:170
 #: ../../../lib/web/src/components/travelling-picker.tsx:231
@@ -473,7 +532,7 @@ msgstr "Veldu tungumál"
 msgid "Clear"
 msgstr "Hreinsa"
 
-#: ../../../lib/web/src/components/filter-bar.tsx:73
+#: ../../../lib/web/src/components/filter-bar.tsx:74
 msgid "Clear all"
 msgstr "Hreinsa allt"
 
@@ -481,6 +540,7 @@ msgstr "Hreinsa allt"
 msgid "Clear filters"
 msgstr "Hreinsa síur"
 
+#: ../../../lib/web/src/components/search-input.tsx:26
 #: src/features/chats/components/forward-dialog.tsx:199
 #: src/routes/_authenticated/$chatId_.settings.tsx:456
 msgid "Clear search"
@@ -537,15 +597,35 @@ msgstr "Þægilegt"
 msgid "Coming Soon!"
 msgstr "Væntanlegt!"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:315
+#: ../../../lib/web/src/components/ui/command.tsx:34
+msgid "Command Palette"
+msgstr ""
+
+#: ../../../lib/web/src/components/config-drawer.tsx:316
 #: ../../../lib/web/src/lib/preference-utils.ts:95
 msgid "Compact"
 msgstr "Þétt"
 
-#: ../../../lib/web/src/components/place-picker.tsx:159
+#: ../../../lib/web/src/components/place-picker.tsx:160
 #: ../../../lib/web/src/components/travelling-picker.tsx:316
 msgid "Confirm"
 msgstr "Staðfesta"
+
+#: ../../../lib/web/src/lib/chat-ui.ts:18
+msgid "Connected"
+msgstr "Tengt"
+
+#: ../../../lib/web/src/features/accounts/account-manager.tsx:191
+msgid "Connected accounts"
+msgstr "Tengdir reikningar"
+
+#: ../../../lib/web/src/lib/chat-ui.ts:21
+msgid "Connecting..."
+msgstr "Tengist..."
+
+#: ../../../lib/web/src/lib/handle-server-error.ts:18
+msgid "Content not found."
+msgstr "Efnið fannst ekki."
 
 #: ../../../lib/web/src/lib/query-client.ts:81
 msgid "Content not modified"
@@ -563,11 +643,16 @@ msgstr "Halda áfram"
 msgid "Continue with {label}"
 msgstr "Halda áfram með {label}"
 
+#: ../../../lib/web/src/lib/toast-utils.ts:42
 #: src/features/chats/index.tsx:648
 msgid "Copied"
 msgstr "Afritað"
 
-#: ../../../lib/web/src/components/ui/copy-button.tsx:63
+#: ../../../lib/web/src/components/ui/copy-button.tsx:25
+msgid "Copied to clipboard"
+msgstr "Afritað á klippiborðið"
+
+#: ../../../lib/web/src/components/ui/copy-button.tsx:64
 #: src/features/chats/components/message-hover-actions.tsx:107
 #: src/features/chats/index.tsx:1235
 msgid "Copy"
@@ -595,6 +680,11 @@ msgstr "Ekki tókst að hefja endurauðkenningu. Reyndu aftur."
 msgid "Couldn't verify with that account. Please try again."
 msgstr "Ekki tókst að staðfesta með þeim reikningi. Reyndu aftur."
 
+#. placeholder {0}: entityLabel.toLowerCase()
+#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:144
+msgid "Create {0}"
+msgstr ""
+
 #: src/features/chats/components/new-chat.tsx:266
 msgid "Create a new chat"
 msgstr "Búa til nýtt spjall"
@@ -608,15 +698,20 @@ msgstr "Búa til spjall"
 msgid "Creating chat..."
 msgstr "Bý til spjall..."
 
+#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:258
 #: src/features/chats/components/new-chat.tsx:365
 msgid "Creating..."
 msgstr "Bý til..."
 
-#: ../../../lib/web/src/components/colour-picker.tsx:260
+#: ../../../lib/web/src/components/map-view.tsx:208
+msgid "Current location"
+msgstr "Núverandi staðsetning"
+
+#: ../../../lib/web/src/components/colour-picker.tsx:261
 msgid "Custom"
 msgstr "Sérsniðið"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:218
+#: ../../../lib/web/src/components/config-drawer.tsx:219
 #: ../../../lib/web/src/components/theme-switch.tsx:52
 #: ../../../lib/web/src/lib/preference-utils.ts:20
 msgid "Dark"
@@ -634,7 +729,7 @@ msgstr "Dökkur hamur"
 msgid "Data conflict"
 msgstr "Gagnaárekstur"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:310
+#: ../../../lib/web/src/components/config-drawer.tsx:311
 msgid "Default"
 msgstr "Sjálfgefið"
 
@@ -679,6 +774,10 @@ msgstr "Lækkandi"
 msgid "Descending"
 msgstr "Lækkandi"
 
+#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:83
+msgid "Description"
+msgstr "Lýsing"
+
 #: ../../../lib/web/src/components/layout/right-panel.tsx:148
 msgid "Details Panel"
 msgstr "Smáatriðaspjald"
@@ -694,9 +793,13 @@ msgstr "Smáatriðaspjald"
 msgid "Detect from web browser"
 msgstr "Greina út frá vafra"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:340
+#: ../../../lib/web/src/components/config-drawer.tsx:341
 msgid "Direction"
 msgstr "Stefna"
+
+#: ../../../lib/web/src/components/person-picker.tsx:214
+msgid "Directory"
+msgstr "Skrá"
 
 #: src/features/chats/components/new-chat.tsx:88
 msgid "Directory search failed"
@@ -710,6 +813,11 @@ msgstr "Ósammála"
 #: src/features/chats/components/chat-input.tsx:733
 msgid "Discard recording"
 msgstr "Henda upptöku"
+
+#: ../../../lib/web/src/lib/chat-ui.ts:25
+#: ../../../lib/web/src/lib/chat-ui.ts:29
+msgid "Disconnected"
+msgstr "Aftengt"
 
 #: src/features/chats/constants/reactions.ts:34
 msgid "Dislike"
@@ -763,6 +871,10 @@ msgstr "Breyta {label}"
 msgid "Elapsed {0}"
 msgstr "Liðið {0}"
 
+#: ../../../lib/web/src/features/accounts/types.ts:15
+msgid "Email"
+msgstr "Tölvupóstur"
+
 #: ../../../lib/web/src/components/step-up-dialog.tsx:289
 msgid "Email code"
 msgstr "Tölvupóstkóði"
@@ -790,6 +902,10 @@ msgstr "Fletta út"
 msgid "Expand sidebar"
 msgstr "Útvíkka hliðarstiku"
 
+#: ../../../lib/web/src/features/accounts/types.ts:22
+msgid "External URL"
+msgstr "Ytri slóð"
+
 #: ../../../lib/web/src/lib/preference-utils.ts:136
 msgid "Extra large"
 msgstr "Mjög stórt"
@@ -802,6 +918,12 @@ msgstr "Tókst ekki að bæta við reikningi"
 msgid "Failed to add member"
 msgstr "Tókst ekki að bæta við meðlimi"
 
+#: ../../../lib/web/src/components/tag-input.tsx:39
+msgid "Failed to add tag"
+msgstr "Tókst ekki að bæta við merki"
+
+#: ../../../lib/web/src/components/ui/copy-button.tsx:26
+#: ../../../lib/web/src/lib/toast-utils.ts:44
 #: src/features/chats/index.tsx:649
 msgid "Failed to copy"
 msgstr "Tókst ekki að afrita"
@@ -834,6 +956,10 @@ msgstr "Ekki tókst að áframsenda"
 #: src/routes/_authenticated/$chatId_.settings.tsx:339
 msgid "Failed to leave chat"
 msgstr "Tókst ekki að yfirgefa spjall"
+
+#: ../../../lib/web/src/hooks/use-load-more.ts:74
+msgid "Failed to load"
+msgstr "Tókst ekki að hlaða"
 
 #: ../../../lib/web/src/components/ui/image-lightbox.tsx:263
 msgid "Failed to load image"
@@ -887,6 +1013,10 @@ msgstr "Tókst ekki að hefja spjall"
 msgid "Failed to update category"
 msgstr "Tókst ekki að uppfæra flokk"
 
+#: ../../../lib/web/src/components/data-table/toolbar.tsx:30
+msgid "Filter..."
+msgstr "Sía..."
+
 #: ../../../lib/web/src/components/restore-banner.tsx:88
 msgid "Finish moving your account"
 msgstr "Kláraðu að færa reikninginn þinn"
@@ -895,7 +1025,7 @@ msgstr "Kláraðu að færa reikninginn þinn"
 msgid "Flat"
 msgstr "Flatt"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:257
+#: ../../../lib/web/src/components/config-drawer.tsx:258
 msgid "Floating"
 msgstr "Fljótandi"
 
@@ -921,6 +1051,7 @@ msgstr "Áframsendi..."
 msgid "Friday"
 msgstr "Föstudagur"
 
+#: ../../../lib/web/src/components/person-picker.tsx:207
 #: src/features/chats/components/forward-dialog.tsx:237
 #: src/routes/_authenticated/$chatId_.settings.tsx:479
 msgid "Friends"
@@ -943,7 +1074,7 @@ msgstr "Frá"
 msgid "From theme"
 msgstr "Frá þema"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:320
+#: ../../../lib/web/src/components/config-drawer.tsx:321
 msgid "Full layout"
 msgstr "Full umgjörð"
 
@@ -982,6 +1113,11 @@ msgstr "Fara á fyrri síðu"
 msgid "Group"
 msgstr "Hópur"
 
+#. placeholder {0}: name || subject.slice(1)
+#: ../../../lib/web/src/features/access/access-list.tsx:68
+msgid "Group: {0}"
+msgstr "Hópur: {0}"
+
 #: ../../../lib/web/src/components/data-table/column-header.tsx:70
 msgid "Hide"
 msgstr "Fela"
@@ -1010,18 +1146,34 @@ msgstr "Myndaskoðari: {0}"
 msgid "Imperial"
 msgstr "Bresk mælieining"
 
+#: ../../../lib/web/src/features/access/types.ts:42
+msgid "Including anonymous users"
+msgstr ""
+
 #: src/features/chats/components/chat-settings-dialog.tsx:80
 #: src/features/chats/index.tsx:1144
 msgid "Incoming chats"
 msgstr "Móttekið spjall"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:252
+#: ../../../lib/web/src/components/faceless-avatar.tsx:69
+msgid "Initials avatar"
+msgstr ""
+
+#: ../../../lib/web/src/components/faceless-avatar.tsx:69
+msgid "Initials avatar for {name}"
+msgstr ""
+
+#: ../../../lib/web/src/components/config-drawer.tsx:253
 msgid "Inset"
 msgstr "Innfellt"
 
 #: ../../../lib/web/src/components/ui/sort-selector.tsx:42
 msgid "Interests"
 msgstr "Áhugaefni"
+
+#: ../../../lib/web/src/components/tag-input.tsx:38
+msgid "Invalid tag: letters, numbers, spaces, hyphens, and slashes only (max 50 chars)"
+msgstr ""
 
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:245
 msgid "Invalid verification code"
@@ -1036,6 +1188,10 @@ msgstr "Svo virðist sem síðan sem þú leitar að <0/>sé ekki til eða hafi 
 msgid "Jump to bottom"
 msgstr "Fara neðst"
 
+#: ../../../lib/web/src/lib/locale-format.ts:62
+msgid "Just now"
+msgstr "Rétt í þessu"
+
 #: ../../../lib/web/src/lib/preference-utils.ts:108
 #: ../../../lib/web/src/lib/preference-utils.ts:135
 msgid "Large"
@@ -1045,7 +1201,7 @@ msgstr "Stórt"
 msgid "Laugh"
 msgstr "Hlátur"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:286
+#: ../../../lib/web/src/components/config-drawer.tsx:287
 msgid "Layout"
 msgstr "Umgjörð"
 
@@ -1083,11 +1239,15 @@ msgstr "Yfirgef..."
 msgid "Left chat"
 msgstr "Yfirgaf spjall"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:354
+#: ../../../lib/web/src/components/config-drawer.tsx:355
 msgid "Left to Right"
 msgstr "Vinstri til hægri"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:213
+#: ../../../lib/web/src/components/post-tags.tsx:72
+msgid "Letters, numbers, spaces, and hyphens only"
+msgstr "Aðeins bókstafir, tölur, bil og bandstrik"
+
+#: ../../../lib/web/src/components/config-drawer.tsx:214
 #: ../../../lib/web/src/components/theme-switch.tsx:45
 #: ../../../lib/web/src/lib/preference-utils.ts:19
 msgid "Light"
@@ -1136,6 +1296,10 @@ msgstr "Útskrái…"
 msgid "Love"
 msgstr "Elska"
 
+#: ../../../lib/web/src/features/accounts/account-manager.tsx:192
+msgid "Manage your connected accounts for notifications and services."
+msgstr ""
+
 #: ../../../lib/web/src/components/layout/notification-menu.tsx:93
 #: ../../../lib/web/src/components/layout/notification-menu.tsx:100
 #: ../../../lib/web/src/components/notifications-dropdown.tsx:224
@@ -1153,6 +1317,10 @@ msgstr "Merkja sem ólesið"
 #: src/components/layout/chat-layout.tsx:142
 msgid "Marking as read..."
 msgstr "Merki sem lesið..."
+
+#: ../../../lib/web/src/features/accounts/types.ts:17
+msgid "MCP server"
+msgstr ""
 
 #: ../../../lib/web/src/lib/preference-utils.ts:107
 msgid "Medium"
@@ -1243,6 +1411,10 @@ msgstr "Hljóðneminn er þegar í notkun"
 msgid "Microphone permission denied"
 msgstr "Heimild fyrir hljóðnema hafnað"
 
+#: ../../../lib/web/src/features/accounts/types.ts:23
+msgid "Mochi web"
+msgstr "Mochi-vefur"
+
 #: ../../../lib/web/src/lib/preference-utils.ts:59
 msgid "Monday"
 msgstr "Mánudagur"
@@ -1252,9 +1424,17 @@ msgstr "Mánudagur"
 msgid "Multiple people share these names: {0}. Pick them from the @ list so the right person is notified."
 msgstr "Nokkrir deila þessum nöfnum: {0}. Veldu þau af @-listanum svo rétt manneskja fái tilkynningu."
 
+#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:102
+msgid "Name cannot contain angle brackets, backslash, semicolon, quotes or backticks"
+msgstr ""
+
 #: src/routes/_authenticated/$chatId_.settings.tsx:200
 msgid "Name must be {CHAT_NAME_MAX_LENGTH} characters or less"
 msgstr "Nafn má ekki vera lengra en {CHAT_NAME_MAX_LENGTH} stafir"
+
+#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:100
+msgid "Name must be 1000 characters or less"
+msgstr "Nafn má ekki vera lengra en 1000 stafir"
 
 #: ../../../lib/web/src/features/errors/general-error.tsx:53
 #: ../../../lib/web/src/lib/api-response-interceptors.ts:303
@@ -1280,7 +1460,7 @@ msgstr "Nýrri niðurstaða"
 msgid "Next image"
 msgstr "Næsta mynd"
 
-#: ../../../lib/web/src/features/access/access-list.tsx:160
+#: ../../../lib/web/src/features/access/access-list.tsx:165
 msgid "No access rules configured. Add rules to control who can access this resource."
 msgstr "Engar aðgangsreglur stilltar. Bættu við reglum til að stjórna því hver getur fengið aðgang að þessari auðlind."
 
@@ -1316,11 +1496,16 @@ msgstr "Engin skilaboð ennþá"
 msgid "No microphone found"
 msgstr "Enginn hljóðnemi fannst"
 
+#: ../../../lib/web/src/components/notifications-dropdown.tsx:193
+msgid "No notifications yet"
+msgstr "Engar tilkynningar enn"
+
+#: ../../../lib/web/src/components/person-picker.tsx:84
 #: src/features/chats/components/new-chat.tsx:288
 msgid "No people found"
 msgstr "Engir notendur fundust"
 
-#: ../../../lib/web/src/components/place-picker.tsx:132
+#: ../../../lib/web/src/components/place-picker.tsx:133
 msgid "No places found"
 msgstr "Engir staðir fundust"
 
@@ -1331,6 +1516,11 @@ msgstr "Engin síða"
 #: src/features/chats/components/chat-search-header.tsx:48
 msgid "No results"
 msgstr "Engar niðurstöður"
+
+#: ../../../lib/web/src/components/search-entity-dialog.tsx:82
+#: ../../../lib/web/src/components/search-entity-page.tsx:73
+msgid "No results found"
+msgstr "Engar niðurstöður fundust"
 
 #: ../../../lib/web/src/components/command-menu.tsx:55
 #: ../../../lib/web/src/components/data-table/faceted-filter.tsx:94
@@ -1349,6 +1539,7 @@ msgstr "Engin færsla um efni ennþá — reyndu aftur eftir næstu tilkynningu.
 msgid "No users found"
 msgstr "Engir notendur fundust"
 
+#: ../../../lib/web/src/components/colour-picker.tsx:345
 #: ../../../lib/web/src/components/person-picker.tsx:350
 #: ../../../lib/web/src/lib/preference-utils.ts:105
 #: ../../../lib/web/src/lib/preference-utils.ts:125
@@ -1388,6 +1579,10 @@ msgstr "Tilkynningar: {0}"
 msgid "Older match"
 msgstr "Eldri niðurstaða"
 
+#: ../../../lib/web/src/components/filter-bar.tsx:35
+msgid "On"
+msgstr "Kveikt"
+
 #: src/features/chats/components/chat-settings-dialog.tsx:40
 msgid "Only friends can start a chat with you (default)."
 msgstr "Aðeins vinir geta hafið spjall við þig (sjálfgefið)."
@@ -1414,6 +1609,10 @@ msgstr "Opna aðgerðir"
 msgid "Open chat actions"
 msgstr "Opna spjallaðgerðir"
 
+#: ../../../lib/web/src/components/layout/mochi-menu.tsx:133
+msgid "Open menu"
+msgstr "Opna valmynd"
+
 #: ../../../lib/web/src/components/layout/top-bar.tsx:63
 #: ../../../lib/web/src/components/layout/top-bar.tsx:68
 msgid "Open navigation"
@@ -1428,8 +1627,8 @@ msgstr "Opna leiðsögnarvalmynd"
 msgid "Open people"
 msgstr "Opna Fólk"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:57
-#: ../../../lib/web/src/components/config-drawer.tsx:65
+#: ../../../lib/web/src/components/config-drawer.tsx:58
+#: ../../../lib/web/src/components/config-drawer.tsx:66
 msgid "Open theme settings"
 msgstr "Opna þemastillingar"
 
@@ -1441,7 +1640,7 @@ msgstr "Upprunaleg skilaboð"
 msgid "Other"
 msgstr "Annað"
 
-#: ../../../lib/web/src/features/access/access-list.tsx:217
+#: ../../../lib/web/src/features/access/access-list.tsx:222
 msgid "Owner"
 msgstr "Eigandi"
 
@@ -1473,6 +1672,10 @@ msgstr "Gera hlé á talskilaboðum"
 #: src/features/chats/components/new-chat.tsx:273
 msgid "People"
 msgstr "Fólk"
+
+#: ../../../lib/web/src/components/date-picker.tsx:20
+msgid "Pick a date"
+msgstr "Veldu dagsetningu"
 
 #: src/components/layout/chat-layout.tsx:221
 msgid "Pin chat"
@@ -1526,6 +1729,14 @@ msgstr "Friðhelgi"
 msgid "Profile"
 msgstr "Síða"
 
+#: ../../../lib/web/src/components/person-picker.tsx:200
+msgid "Project members"
+msgstr "Meðlimir verkefnis"
+
+#: ../../../lib/web/src/features/accounts/types.ts:21
+msgid "Push notification"
+msgstr ""
+
 #: ../../../lib/web/src/lib/preference-utils.ts:117
 msgid "Raised"
 msgstr "Upphækkað"
@@ -1542,10 +1753,14 @@ msgstr "Skráðu aðgangslyklana þína aftur á þessum netþjóni"
 msgid "Read more"
 msgstr "Lesa meira"
 
-#: ../../../lib/web/src/components/search-entity-dialog.tsx:216
-#: ../../../lib/web/src/components/search-entity-page.tsx:242
+#: ../../../lib/web/src/components/search-entity-dialog.tsx:217
+#: ../../../lib/web/src/components/search-entity-page.tsx:243
 msgid "Recommended"
 msgstr "Mælt með"
+
+#: ../../../lib/web/src/lib/chat-ui.ts:21
+msgid "Reconnecting ({retries})..."
+msgstr ""
 
 #: src/features/chats/components/chat-input.tsx:849
 #: src/features/chats/components/chat-input.tsx:854
@@ -1589,7 +1804,7 @@ msgstr "Afstætt (5 mín, 3 klst, 2 d)"
 msgid "Relative within 24 hours, else absolute"
 msgstr "Afstætt innan 24 klst, annars algjört"
 
-#: ../../../lib/web/src/features/access/access-list.tsx:265
+#: ../../../lib/web/src/features/access/access-list.tsx:270
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:180
 #: src/routes/_authenticated/$chatId_.settings.tsx:556
 msgid "Remove"
@@ -1602,17 +1817,23 @@ msgstr "Fjarlægja"
 msgid "Remove {0}"
 msgstr "Fjarlægja {0}"
 
-#: ../../../lib/web/src/features/access/access-list.tsx:247
-#: ../../../lib/web/src/features/access/access-list.tsx:253
+#. placeholder {0}: filter.label
+#: ../../../lib/web/src/components/filter-bar.tsx:56
+#: ../../../lib/web/src/components/filter-bar.tsx:62
+msgid "Remove {0} filter"
+msgstr "Fjarlægja síu {0}"
+
+#: ../../../lib/web/src/features/access/access-list.tsx:252
+#: ../../../lib/web/src/features/access/access-list.tsx:258
 msgid "Remove access rule"
 msgstr "Fjarlægja aðgangsreglu"
 
 #. placeholder {0}: formatSubject(subject, data.name)
-#: ../../../lib/web/src/features/access/access-list.tsx:259
+#: ../../../lib/web/src/features/access/access-list.tsx:264
 msgid "Remove access rule for \"{0}\"?"
 msgstr "Fjarlægja aðgangsreglu fyrir „{0}“?"
 
-#: ../../../lib/web/src/features/access/access-list.tsx:257
+#: ../../../lib/web/src/features/access/access-list.tsx:262
 msgid "Remove access?"
 msgstr "Fjarlægja aðgang?"
 
@@ -1658,16 +1879,21 @@ msgstr "Svarar {0}"
 msgid "Resend email"
 msgstr "Senda tölvupóst aftur"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:86
-#: ../../../lib/web/src/components/data-table/toolbar.tsx:81
+#: ../../../lib/web/src/components/config-drawer.tsx:87
+#: ../../../lib/web/src/components/data-table/toolbar.tsx:82
 msgid "Reset"
 msgstr "Endurstilla"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:84
+#: ../../../lib/web/src/components/config-drawer.tsx:122
+#: ../../../lib/web/src/components/config-drawer.tsx:127
+msgid "Reset {title}"
+msgstr ""
+
+#: ../../../lib/web/src/components/config-drawer.tsx:85
 msgid "Reset all settings to default values"
 msgstr "Endurstilla allar stillingar á sjálfgefin gildi"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:361
+#: ../../../lib/web/src/components/config-drawer.tsx:362
 msgid "Right to Left"
 msgstr "Hægri til vinstri"
 
@@ -1694,6 +1920,12 @@ msgstr "Vista"
 msgid "Saving..."
 msgstr "Vista..."
 
+#: ../../../lib/web/src/components/filter-bar.tsx:32
+#: ../../../lib/web/src/components/header-search.tsx:22
+#: ../../../lib/web/src/components/search.tsx:18
+msgid "Search"
+msgstr "Leita"
+
 #: src/features/chats/components/forward-dialog.tsx:198
 msgid "Search chats…"
 msgstr "Leita í spjöllum…"
@@ -1702,9 +1934,17 @@ msgstr "Leita í spjöllum…"
 msgid "Search failed"
 msgstr "Leit mistókst"
 
-#: ../../../lib/web/src/components/place-picker.tsx:85
+#: ../../../lib/web/src/components/ui/command.tsx:35
+msgid "Search for a command to run..."
+msgstr ""
+
+#: ../../../lib/web/src/components/place-picker.tsx:86
 msgid "Search for a place"
 msgstr "Leita að stað"
+
+#: ../../../lib/web/src/components/place-picker.tsx:50
+msgid "Search for a place..."
+msgstr ""
 
 #: ../../../lib/web/src/components/travelling-picker.tsx:250
 msgid "Search for destination..."
@@ -1735,11 +1975,13 @@ msgid "Search users"
 msgstr "Leita að notendum"
 
 #: ../../../lib/web/src/components/person-picker.tsx:324
+#: ../../../lib/web/src/components/search-entity-dialog.tsx:81
+#: ../../../lib/web/src/components/search-entity-page.tsx:72
 msgid "Search..."
 msgstr "Leita..."
 
-#: ../../../lib/web/src/components/search-entity-dialog.tsx:174
-#: ../../../lib/web/src/components/search-entity-page.tsx:200
+#: ../../../lib/web/src/components/search-entity-dialog.tsx:175
+#: ../../../lib/web/src/components/search-entity-page.tsx:201
 #: ../../../lib/web/src/features/access/access-dialog.tsx:202
 msgid "Searching..."
 msgstr "Leita..."
@@ -1755,6 +1997,11 @@ msgstr "Leita í talskilaboðunum"
 #: src/features/chats/components/message-hover-actions.tsx:113
 msgid "Select"
 msgstr "Velja"
+
+#. placeholder {0}: item.label.toLowerCase()
+#: ../../../lib/web/src/components/config-drawer.tsx:149
+msgid "Select {0}"
+msgstr ""
 
 #: src/features/chats/components/chat-empty-state.tsx:22
 msgid "Select a chat"
@@ -1772,6 +2019,10 @@ msgstr "Veldu notanda, hóp eða aðra reglu til að veita aðgang."
 msgid "Select access rule"
 msgstr "Veldu aðgangsreglu"
 
+#: ../../../lib/web/src/features/accounts/account-picker.tsx:34
+msgid "Select account"
+msgstr ""
+
 #: ../../../lib/web/src/features/accounts/account-add.tsx:129
 msgid "Select account type"
 msgstr "Veldu reikningstegund"
@@ -1780,13 +2031,17 @@ msgstr "Veldu reikningstegund"
 msgid "Select group"
 msgstr "Veldu hóp"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:304
+#: ../../../lib/web/src/components/config-drawer.tsx:305
 msgid "Select layout style"
 msgstr "Veldu uppsetningarstíl"
 
 #: src/features/chats/components/chat-message-list.tsx:826
 msgid "Select loaded"
 msgstr "Velja hlaðin"
+
+#: ../../../lib/web/src/components/place-picker.tsx:49
+msgid "Select location"
+msgstr "Velja staðsetningu"
 
 #: src/features/chats/components/chat-message-list.tsx:543
 msgid "Select message"
@@ -1796,15 +2051,19 @@ msgstr "Velja skilaboð"
 msgid "Select people..."
 msgstr "Velja fólk..."
 
-#: ../../../lib/web/src/components/config-drawer.tsx:246
+#: ../../../lib/web/src/components/person-picker.tsx:83
+msgid "Select person..."
+msgstr ""
+
+#: ../../../lib/web/src/components/config-drawer.tsx:247
 msgid "Select sidebar style"
 msgstr "Veldu stíl hliðarstiku"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:348
+#: ../../../lib/web/src/components/config-drawer.tsx:349
 msgid "Select site direction"
 msgstr "Veldu stefnu vefsvæðis"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:202
+#: ../../../lib/web/src/components/config-drawer.tsx:203
 msgid "Select theme preference"
 msgstr "Veldu þemastillingu"
 
@@ -1881,8 +2140,8 @@ msgstr "Sýna lykilorð"
 msgid "Showing {totalShown} of {total}"
 msgstr "Sýni {totalShown} af {total}"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:238
-#: ../../../lib/web/src/components/config-drawer.tsx:262
+#: ../../../lib/web/src/components/config-drawer.tsx:239
+#: ../../../lib/web/src/components/config-drawer.tsx:263
 #: ../../../lib/web/src/components/ui/sidebar.tsx:237
 msgid "Sidebar"
 msgstr "Hliðarstika"
@@ -1926,24 +2185,37 @@ msgstr "En haltu áfram að fylgjast með!"
 msgid "Stop recording"
 msgstr "Stöðva upptöku"
 
-#: ../../../lib/web/src/features/access/access-list.tsx:191
+#: ../../../lib/web/src/features/access/access-list.tsx:196
 msgid "Subject"
 msgstr "Efni"
+
+#: ../../../lib/web/src/components/search-entity-dialog.tsx:83
+#: ../../../lib/web/src/components/search-entity-page.tsx:74
+msgid "Subscribe"
+msgstr "Gerast áskrifandi"
 
 #: ../../../lib/web/src/lib/preference-utils.ts:65
 msgid "Sunday"
 msgstr "Sunnudagur"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:208
+#: ../../../lib/web/src/components/config-drawer.tsx:209
 #: ../../../lib/web/src/components/theme-switch.tsx:59
 #: ../../../lib/web/src/lib/preference-utils.ts:21
 #: ../../../lib/web/src/lib/preference-utils.ts:144
 msgid "System"
 msgstr "Kerfi"
 
-#: ../../../lib/web/src/components/tag-input.tsx:94
+#: ../../../lib/web/src/components/tag-input.tsx:95
 msgid "Tag"
 msgstr "Merki"
+
+#: ../../../lib/web/src/components/post-tags.tsx:76
+msgid "Tag already exists"
+msgstr "Merki er þegar til"
+
+#: ../../../lib/web/src/components/post-tags.tsx:68
+msgid "Tag must be 50 characters or less"
+msgstr "Merkið má mest vera 50 stafir"
 
 #: ../../../lib/web/src/components/post-tags.tsx:101
 #: ../../../lib/web/src/components/post-tags.tsx:115
@@ -1980,11 +2252,11 @@ msgstr "Umbeðið efni fannst ekki."
 msgid "The site is not available at the moment."
 msgstr "Vefurinn er ekki tiltækur í augnablikinu."
 
-#: ../../../lib/web/src/components/config-drawer.tsx:194
+#: ../../../lib/web/src/components/config-drawer.tsx:195
 msgid "Theme"
 msgstr "Þema"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:69
+#: ../../../lib/web/src/components/config-drawer.tsx:70
 msgid "Theme Settings"
 msgstr "Þemastillingar"
 
@@ -2069,8 +2341,8 @@ msgstr "Á ferðalagi"
 msgid "Try a different search term"
 msgstr "Prófaðu annað leitarorð"
 
-#: ../../../lib/web/src/components/search-entity-dialog.tsx:190
-#: ../../../lib/web/src/components/search-entity-page.tsx:216
+#: ../../../lib/web/src/components/search-entity-dialog.tsx:191
+#: ../../../lib/web/src/components/search-entity-page.tsx:217
 msgid "Try adjusting your search terms"
 msgstr "Reyndu að breyta leitarskilyrðum þínum"
 
@@ -2121,10 +2393,16 @@ msgstr "Ekki úthlutað"
 msgid "Unauthorized Access"
 msgstr "Óheimill aðgangur"
 
+#: ../../../lib/web/src/lib/request.ts:133
+#: ../../../lib/web/src/lib/request.ts:206
+msgid "Unexpected API error"
+msgstr "Óvænt API-villa"
+
 #: ../../../lib/web/src/lib/preference-utils.ts:87
 msgid "United States"
 msgstr "Bandaríkin"
 
+#: ../../../lib/web/src/features/accounts/types.ts:29
 #: src/hooks/useChatWebsocket.ts:387
 msgid "Unknown"
 msgstr "Óþekkt"
@@ -2141,6 +2419,7 @@ msgstr "Óstaðfest"
 msgid "Use your passkey"
 msgstr "Notaðu aðgangslykilinn þinn"
 
+#: ../../../lib/web/src/components/layout/mochi-menu.tsx:86
 #: ../../../lib/web/src/features/access/access-dialog.tsx:158
 msgid "User"
 msgstr "Notandi"
@@ -2207,6 +2486,10 @@ msgstr "Talupptaka er ekki studd í þessum vafra"
 msgid "Voice recording isn't available in this app version. Please update the app and try again."
 msgstr "Talupptaka er ekki í boði í þessari útgáfu forritsins. Uppfærðu forritið og reyndu aftur."
 
+#: ../../../lib/web/src/components/filter-bar.tsx:35
+msgid "Watched"
+msgstr "Fylgst með"
+
 #. placeholder {0}: account.identifier
 #: ../../../lib/web/src/features/accounts/account-verify.tsx:63
 msgid "We sent a verification code to <0>{0}</0>. Enter the code below to verify your email address."
@@ -2215,6 +2498,10 @@ msgstr "Við sendum staðfestingarkóða á <0>{0}</0>. Sláðu inn kóðann hé
 #: ../../../lib/web/src/features/errors/maintenance-error.tsx:16
 msgid "We'll be back online shortly."
 msgstr "Við verðum aftur tengd fljótlega."
+
+#: ../../../lib/web/src/components/notifications-dropdown.tsx:197
+msgid "We'll notify you when something important happens."
+msgstr "Við látum þig vita þegar eitthvað mikilvægt gerist."
 
 #: ../../../lib/web/src/features/errors/maintenance-error.tsx:13
 msgid "Website is under maintenance!"
@@ -2260,9 +2547,17 @@ msgstr "Þú hefur ekki nauðsynlega heimild <0/>til að skoða þetta efni."
 msgid "You left this chat"
 msgstr "Þú yfirgafst þetta spjall"
 
+#: ../../../lib/web/src/lib/show-submitted-data.tsx:9
+msgid "You submitted the following values:"
+msgstr ""
+
 #: src/features/chats/index.tsx:1268
 msgid "You were removed from this chat"
 msgstr "Þú varst fjarlægð(ur) úr þessu spjalli"
+
+#: ../../../lib/web/src/components/notifications-dropdown.tsx:193
+msgid "You're all caught up!"
+msgstr "Þú hefur séð allt!"
 
 #: ../../../lib/web/src/components/restore-banner.tsx:91
 msgid "Your account was moved here from {source}. Until you delete it there, messages and notifications may reach both servers, some of your content keeps being served from the old server, and followers may take a few minutes to find you here."

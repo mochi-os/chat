@@ -41,6 +41,11 @@ msgstr "{0, plural, other {메시지 #개를 삭제할까요?}}"
 msgid "{0} (includes you)"
 msgstr "{0}(나 포함)"
 
+#. placeholder {0}: item.label
+#: ../../../lib/web/src/components/config-drawer.tsx:160
+msgid "{0} option preview"
+msgstr ""
+
 #. placeholder {0}: selectedIds.size
 #. placeholder {0}: selectedIds?.size ?? 0
 #: src/features/chats/components/chat-message-list.tsx:816
@@ -54,9 +59,13 @@ msgstr "{0}개 선택됨"
 msgid "{0} settings"
 msgstr "{0} 설정"
 
-#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:173
+#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:174
 msgid "{entityLabel} name"
 msgstr "{entityLabel} 이름"
+
+#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:99
+msgid "{entityLabel} name is required"
+msgstr ""
 
 #: src/features/chats/components/message-attachments.tsx:140
 msgid "{hiddenCount, plural, one {Show 1 more file} other {Show # more files}}"
@@ -87,6 +96,10 @@ msgstr "{selectedCount, plural, one {선택된 {entityName} # 개에 대한 일�
 msgid "{skippedCount, plural, one {Skipped # file that is not audio} other {Skipped # files that are not audio}}"
 msgstr "{skippedCount, plural, other {오디오가 아닌 파일 #개를 건너뛰었습니다}}"
 
+#: ../../../lib/web/src/components/layout/mochi-menu.tsx:132
+msgid "{unreadCount, plural, one {Open menu (# unread notification)} other {Open menu (# unread notifications)}}"
+msgstr ""
+
 #: ../../../lib/web/src/lib/preference-utils.ts:42
 msgid "12 hours"
 msgstr "12시간"
@@ -111,7 +124,7 @@ msgstr "접근이 거부되었어요"
 msgid "Access Forbidden"
 msgstr "접근 금지"
 
-#: ../../../lib/web/src/features/access/access-list.tsx:192
+#: ../../../lib/web/src/features/access/access-list.tsx:197
 msgid "Access level"
 msgstr "접근 수준"
 
@@ -131,6 +144,7 @@ msgstr "계정 유형"
 msgid "Account verified"
 msgstr "계정이 인증되었어요"
 
+#: ../../../lib/web/src/features/access/access-dialog.tsx:332
 #: ../../../lib/web/src/features/accounts/account-add.tsx:196
 msgid "Add"
 msgstr "추가"
@@ -167,7 +181,7 @@ msgstr "첨부 파일 추가"
 msgid "Add member"
 msgstr "멤버 추가"
 
-#: ../../../lib/web/src/features/accounts/account-picker.tsx:101
+#: ../../../lib/web/src/features/accounts/account-picker.tsx:102
 msgid "Add new account"
 msgstr "새 계정 추가"
 
@@ -177,6 +191,7 @@ msgid "Add reaction"
 msgstr "반응 추가"
 
 #: ../../../lib/web/src/components/post-tags.tsx:137
+#: ../../../lib/web/src/components/tag-input.tsx:40
 msgid "Add tag..."
 msgstr "태그 추가..."
 
@@ -209,7 +224,11 @@ msgstr "{0}/{1} 추가 중..."
 msgid "Adding member..."
 msgstr "멤버 추가 중..."
 
-#: ../../../lib/web/src/components/config-drawer.tsx:71
+#: ../../../lib/web/src/features/access/access-dialog.tsx:332
+msgid "Adding..."
+msgstr "추가 중..."
+
+#: ../../../lib/web/src/components/config-drawer.tsx:72
 msgid "Adjust the appearance and layout to suit your preferences."
 msgstr "원하는 대로 외관과 레이아웃을 조정하세요."
 
@@ -229,6 +248,11 @@ msgstr "전체"
 msgid "All your friends are already in this chat"
 msgstr "친구가 모두 이 채팅에 있어요"
 
+#. placeholder {0}: entityLabel.toLowerCase()
+#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:85
+msgid "Allow anyone to search for {0}"
+msgstr ""
+
 #: src/features/chats/constants/reactions.ts:36
 msgid "Amazed"
 msgstr "놀람"
@@ -241,10 +265,16 @@ msgstr "오류가 발생했습니다"
 msgid "An unexpected error occurred"
 msgstr "예기치 않은 오류가 발생했습니다"
 
+#: ../../../lib/web/src/features/accounts/types.ts:16
+msgid "Android push"
+msgstr ""
+
 #: src/features/chats/constants/reactions.ts:39
 msgid "Angry"
 msgstr "분노"
 
+#: ../../../lib/web/src/features/access/access-list.tsx:45
+#: ../../../lib/web/src/features/access/types.ts:42
 #: src/features/chats/components/chat-settings-dialog.tsx:44
 msgid "Anyone"
 msgstr "누구나"
@@ -252,6 +282,10 @@ msgstr "누구나"
 #: src/features/chats/components/chat-settings-dialog.tsx:45
 msgid "Anyone can start a chat with you."
 msgstr "누구나 회원님과 채팅을 시작할 수 있어요."
+
+#: ../../../lib/web/src/features/access/types.ts:41
+msgid "Anyone who is logged in"
+msgstr ""
 
 #. placeholder {0}: selectedChat?.name
 #: src/features/chats/index.tsx:1324
@@ -292,11 +326,24 @@ msgstr "첨부 파일이 너무 커서 업로드할 수 없어요. 파일을 제
 msgid "Audio"
 msgstr "오디오"
 
+#: ../../../lib/web/src/features/access/access-list.tsx:46
+#: ../../../lib/web/src/features/access/types.ts:41
+msgid "Authenticated users"
+msgstr "인증된 사용자"
+
 #: ../../../lib/web/src/components/step-up-dialog.tsx:315
 msgid "Authenticator code"
 msgstr "인증 코드"
 
-#: ../../../lib/web/src/components/place-picker.tsx:155
+#: ../../../lib/web/src/components/entity-avatar.tsx:99
+msgid "Avatar"
+msgstr "아바타"
+
+#: ../../../lib/web/src/components/entity-avatar.tsx:99
+msgid "Avatar for {name}"
+msgstr ""
+
+#: ../../../lib/web/src/components/place-picker.tsx:156
 msgid "Back"
 msgstr "뒤로"
 
@@ -312,6 +359,10 @@ msgstr "채팅으로 돌아가기"
 msgid "Back to home"
 msgstr "홈으로 돌아가기"
 
+#: ../../../lib/web/src/components/entity-banner.tsx:17
+msgid "Banner"
+msgstr "배너"
+
 #: src/features/chats/components/chat-message-list.tsx:470
 msgid "Be the first to say something!"
 msgstr "첫 메시지를 남겨보세요!"
@@ -321,13 +372,17 @@ msgstr "첫 메시지를 남겨보세요!"
 msgid "Boost interest"
 msgstr "관심도 부스트"
 
+#: ../../../lib/web/src/features/accounts/types.ts:13
+msgid "Browser notifications"
+msgstr "브라우저 알림"
+
 #: ../../../lib/web/src/components/responsive-confirm-dialog.tsx:67
 #: ../../../lib/web/src/components/step-up-dialog.tsx:363
 #: ../../../lib/web/src/components/travelling-picker.tsx:308
-#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:248
+#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:249
 #: ../../../lib/web/src/components/ui/editable-field-row.tsx:132
 #: ../../../lib/web/src/features/access/access-dialog.tsx:328
-#: ../../../lib/web/src/features/access/access-list.tsx:263
+#: ../../../lib/web/src/features/access/access-list.tsx:268
 #: ../../../lib/web/src/features/accounts/account-add.tsx:188
 #: ../../../lib/web/src/features/accounts/account-verify.tsx:91
 #: src/features/chats/components/chat-message-list.tsx:621
@@ -435,6 +490,10 @@ msgstr "채팅 고정을 해제했습니다"
 msgid "Chats"
 msgstr "채팅"
 
+#: ../../../lib/web/src/components/notifications-dropdown.tsx:198
+msgid "Check \"All\" to see your past notifications."
+msgstr "지난 알림을 보려면 \"전체\"를 선택하세요."
+
 #: src/features/chats/components/forward-dialog.tsx:190
 msgid "Choose a chat or friend to forward the selected messages to"
 msgstr "선택한 메시지를 전달할 채팅이나 친구를 선택하세요"
@@ -443,19 +502,19 @@ msgstr "선택한 메시지를 전달할 채팅이나 친구를 선택하세요"
 msgid "Choose a conversation from the sidebar or start a new one."
 msgstr "사이드바에서 대화를 선택하거나 새로 시작하세요."
 
-#: ../../../lib/web/src/components/config-drawer.tsx:328
+#: ../../../lib/web/src/components/config-drawer.tsx:329
 msgid "Choose between default expanded, compact icon-only, or full layout mode"
 msgstr "기본 확장, 아이콘 전용 컴팩트, 전체 레이아웃 모드 중에서 선택하세요"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:270
+#: ../../../lib/web/src/components/config-drawer.tsx:271
 msgid "Choose between inset, floating, or standard sidebar layout"
 msgstr "삽입형, 플로팅, 표준 사이드바 레이아웃 중에서 선택하세요"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:371
+#: ../../../lib/web/src/components/config-drawer.tsx:372
 msgid "Choose between left-to-right or right-to-left site direction"
 msgstr "왼쪽에서 오른쪽 또는 오른쪽에서 왼쪽 사이트 방향 중에서 선택하세요"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:226
+#: ../../../lib/web/src/components/config-drawer.tsx:227
 msgid "Choose between system preference, light mode, or dark mode"
 msgstr "시스템 설정, 라이트 모드, 다크 모드 중에서 선택하세요"
 
@@ -464,8 +523,8 @@ msgstr "시스템 설정, 라이트 모드, 다크 모드 중에서 선택하세
 msgid "Choose language"
 msgstr "언어 선택"
 
-#: ../../../lib/web/src/components/colour-picker.tsx:269
-#: ../../../lib/web/src/components/colour-picker.tsx:350
+#: ../../../lib/web/src/components/colour-picker.tsx:270
+#: ../../../lib/web/src/components/colour-picker.tsx:351
 #: ../../../lib/web/src/components/travelling-picker.tsx:164
 #: ../../../lib/web/src/components/travelling-picker.tsx:170
 #: ../../../lib/web/src/components/travelling-picker.tsx:231
@@ -473,7 +532,7 @@ msgstr "언어 선택"
 msgid "Clear"
 msgstr "지우기"
 
-#: ../../../lib/web/src/components/filter-bar.tsx:73
+#: ../../../lib/web/src/components/filter-bar.tsx:74
 msgid "Clear all"
 msgstr "모두 지우기"
 
@@ -481,6 +540,7 @@ msgstr "모두 지우기"
 msgid "Clear filters"
 msgstr "필터 지우기"
 
+#: ../../../lib/web/src/components/search-input.tsx:26
 #: src/features/chats/components/forward-dialog.tsx:199
 #: src/routes/_authenticated/$chatId_.settings.tsx:456
 msgid "Clear search"
@@ -537,15 +597,35 @@ msgstr "편안한"
 msgid "Coming Soon!"
 msgstr "곧 출시!"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:315
+#: ../../../lib/web/src/components/ui/command.tsx:34
+msgid "Command Palette"
+msgstr ""
+
+#: ../../../lib/web/src/components/config-drawer.tsx:316
 #: ../../../lib/web/src/lib/preference-utils.ts:95
 msgid "Compact"
 msgstr "컴팩트"
 
-#: ../../../lib/web/src/components/place-picker.tsx:159
+#: ../../../lib/web/src/components/place-picker.tsx:160
 #: ../../../lib/web/src/components/travelling-picker.tsx:316
 msgid "Confirm"
 msgstr "확인"
+
+#: ../../../lib/web/src/lib/chat-ui.ts:18
+msgid "Connected"
+msgstr "연결됨"
+
+#: ../../../lib/web/src/features/accounts/account-manager.tsx:191
+msgid "Connected accounts"
+msgstr "연결된 계정"
+
+#: ../../../lib/web/src/lib/chat-ui.ts:21
+msgid "Connecting..."
+msgstr "연결 중..."
+
+#: ../../../lib/web/src/lib/handle-server-error.ts:18
+msgid "Content not found."
+msgstr "콘텐츠를 찾을 수 없어요."
 
 #: ../../../lib/web/src/lib/query-client.ts:81
 msgid "Content not modified"
@@ -563,11 +643,16 @@ msgstr "계속"
 msgid "Continue with {label}"
 msgstr "{label}(으)로 계속하기"
 
+#: ../../../lib/web/src/lib/toast-utils.ts:42
 #: src/features/chats/index.tsx:648
 msgid "Copied"
 msgstr "복사됨"
 
-#: ../../../lib/web/src/components/ui/copy-button.tsx:63
+#: ../../../lib/web/src/components/ui/copy-button.tsx:25
+msgid "Copied to clipboard"
+msgstr "클립보드에 복사되었어요"
+
+#: ../../../lib/web/src/components/ui/copy-button.tsx:64
 #: src/features/chats/components/message-hover-actions.tsx:107
 #: src/features/chats/index.tsx:1235
 msgid "Copy"
@@ -595,6 +680,11 @@ msgstr "재인증을 시작할 수 없습니다. 다시 시도해 주세요."
 msgid "Couldn't verify with that account. Please try again."
 msgstr "해당 계정으로 인증하지 못했습니다. 다시 시도해 주세요."
 
+#. placeholder {0}: entityLabel.toLowerCase()
+#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:144
+msgid "Create {0}"
+msgstr ""
+
 #: src/features/chats/components/new-chat.tsx:266
 msgid "Create a new chat"
 msgstr "새 채팅 생성"
@@ -608,15 +698,20 @@ msgstr "채팅 생성"
 msgid "Creating chat..."
 msgstr "채팅 생성 중..."
 
+#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:258
 #: src/features/chats/components/new-chat.tsx:365
 msgid "Creating..."
 msgstr "생성 중..."
 
-#: ../../../lib/web/src/components/colour-picker.tsx:260
+#: ../../../lib/web/src/components/map-view.tsx:208
+msgid "Current location"
+msgstr "현재 위치"
+
+#: ../../../lib/web/src/components/colour-picker.tsx:261
 msgid "Custom"
 msgstr "사용자 지정"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:218
+#: ../../../lib/web/src/components/config-drawer.tsx:219
 #: ../../../lib/web/src/components/theme-switch.tsx:52
 #: ../../../lib/web/src/lib/preference-utils.ts:20
 msgid "Dark"
@@ -634,7 +729,7 @@ msgstr "다크 모드"
 msgid "Data conflict"
 msgstr "데이터 충돌"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:310
+#: ../../../lib/web/src/components/config-drawer.tsx:311
 msgid "Default"
 msgstr "기본값"
 
@@ -679,6 +774,10 @@ msgstr "내림차순"
 msgid "Descending"
 msgstr "내림차순"
 
+#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:83
+msgid "Description"
+msgstr "설명"
+
 #: ../../../lib/web/src/components/layout/right-panel.tsx:148
 msgid "Details Panel"
 msgstr "세부 정보 패널"
@@ -694,9 +793,13 @@ msgstr "세부 정보 패널"
 msgid "Detect from web browser"
 msgstr "웹 브라우저에서 감지"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:340
+#: ../../../lib/web/src/components/config-drawer.tsx:341
 msgid "Direction"
 msgstr "방향"
+
+#: ../../../lib/web/src/components/person-picker.tsx:214
+msgid "Directory"
+msgstr "디렉터리"
 
 #: src/features/chats/components/new-chat.tsx:88
 msgid "Directory search failed"
@@ -710,6 +813,11 @@ msgstr "동의하지 않음"
 #: src/features/chats/components/chat-input.tsx:733
 msgid "Discard recording"
 msgstr "녹음 버리기"
+
+#: ../../../lib/web/src/lib/chat-ui.ts:25
+#: ../../../lib/web/src/lib/chat-ui.ts:29
+msgid "Disconnected"
+msgstr "연결 끊김"
 
 #: src/features/chats/constants/reactions.ts:34
 msgid "Dislike"
@@ -763,6 +871,10 @@ msgstr "{label} 편집"
 msgid "Elapsed {0}"
 msgstr "경과 {0}"
 
+#: ../../../lib/web/src/features/accounts/types.ts:15
+msgid "Email"
+msgstr "이메일"
+
 #: ../../../lib/web/src/components/step-up-dialog.tsx:289
 msgid "Email code"
 msgstr "이메일 코드"
@@ -790,6 +902,10 @@ msgstr "펼치기"
 msgid "Expand sidebar"
 msgstr "사이드바 펼치기"
 
+#: ../../../lib/web/src/features/accounts/types.ts:22
+msgid "External URL"
+msgstr "외부 URL"
+
 #: ../../../lib/web/src/lib/preference-utils.ts:136
 msgid "Extra large"
 msgstr "아주 크게"
@@ -802,6 +918,12 @@ msgstr "계정 추가에 실패했어요"
 msgid "Failed to add member"
 msgstr "멤버 추가에 실패했어요"
 
+#: ../../../lib/web/src/components/tag-input.tsx:39
+msgid "Failed to add tag"
+msgstr "태그 추가에 실패했어요"
+
+#: ../../../lib/web/src/components/ui/copy-button.tsx:26
+#: ../../../lib/web/src/lib/toast-utils.ts:44
 #: src/features/chats/index.tsx:649
 msgid "Failed to copy"
 msgstr "복사에 실패했어요"
@@ -834,6 +956,10 @@ msgstr "전달하지 못했습니다"
 #: src/routes/_authenticated/$chatId_.settings.tsx:339
 msgid "Failed to leave chat"
 msgstr "채팅 나가기에 실패했어요"
+
+#: ../../../lib/web/src/hooks/use-load-more.ts:74
+msgid "Failed to load"
+msgstr "불러오기에 실패했어요"
 
 #: ../../../lib/web/src/components/ui/image-lightbox.tsx:263
 msgid "Failed to load image"
@@ -887,6 +1013,10 @@ msgstr "채팅 시작에 실패했어요"
 msgid "Failed to update category"
 msgstr "카테고리 업데이트에 실패했어요"
 
+#: ../../../lib/web/src/components/data-table/toolbar.tsx:30
+msgid "Filter..."
+msgstr "필터..."
+
 #: ../../../lib/web/src/components/restore-banner.tsx:88
 msgid "Finish moving your account"
 msgstr "계정 이전 완료"
@@ -895,7 +1025,7 @@ msgstr "계정 이전 완료"
 msgid "Flat"
 msgstr "평면"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:257
+#: ../../../lib/web/src/components/config-drawer.tsx:258
 msgid "Floating"
 msgstr "플로팅"
 
@@ -921,6 +1051,7 @@ msgstr "전달 중..."
 msgid "Friday"
 msgstr "금요일"
 
+#: ../../../lib/web/src/components/person-picker.tsx:207
 #: src/features/chats/components/forward-dialog.tsx:237
 #: src/routes/_authenticated/$chatId_.settings.tsx:479
 msgid "Friends"
@@ -943,7 +1074,7 @@ msgstr "보낸이"
 msgid "From theme"
 msgstr "테마에서"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:320
+#: ../../../lib/web/src/components/config-drawer.tsx:321
 msgid "Full layout"
 msgstr "전체 레이아웃"
 
@@ -982,6 +1113,11 @@ msgstr "이전 페이지로 이동"
 msgid "Group"
 msgstr "그룹"
 
+#. placeholder {0}: name || subject.slice(1)
+#: ../../../lib/web/src/features/access/access-list.tsx:68
+msgid "Group: {0}"
+msgstr "그룹: {0}"
+
 #: ../../../lib/web/src/components/data-table/column-header.tsx:70
 msgid "Hide"
 msgstr "숨기기"
@@ -1010,18 +1146,34 @@ msgstr "이미지 뷰어: {0}"
 msgid "Imperial"
 msgstr "야드파운드법"
 
+#: ../../../lib/web/src/features/access/types.ts:42
+msgid "Including anonymous users"
+msgstr ""
+
 #: src/features/chats/components/chat-settings-dialog.tsx:80
 #: src/features/chats/index.tsx:1144
 msgid "Incoming chats"
 msgstr "수신 채팅"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:252
+#: ../../../lib/web/src/components/faceless-avatar.tsx:69
+msgid "Initials avatar"
+msgstr ""
+
+#: ../../../lib/web/src/components/faceless-avatar.tsx:69
+msgid "Initials avatar for {name}"
+msgstr ""
+
+#: ../../../lib/web/src/components/config-drawer.tsx:253
 msgid "Inset"
 msgstr "인셋"
 
 #: ../../../lib/web/src/components/ui/sort-selector.tsx:42
 msgid "Interests"
 msgstr "관심사"
+
+#: ../../../lib/web/src/components/tag-input.tsx:38
+msgid "Invalid tag: letters, numbers, spaces, hyphens, and slashes only (max 50 chars)"
+msgstr ""
 
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:245
 msgid "Invalid verification code"
@@ -1036,6 +1188,10 @@ msgstr "찾으시는 페이지가 <0/>존재하지 않거나 삭제된 것 같�
 msgid "Jump to bottom"
 msgstr "맨 아래로 이동"
 
+#: ../../../lib/web/src/lib/locale-format.ts:62
+msgid "Just now"
+msgstr "방금"
+
 #: ../../../lib/web/src/lib/preference-utils.ts:108
 #: ../../../lib/web/src/lib/preference-utils.ts:135
 msgid "Large"
@@ -1045,7 +1201,7 @@ msgstr "크게"
 msgid "Laugh"
 msgstr "웃음"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:286
+#: ../../../lib/web/src/components/config-drawer.tsx:287
 msgid "Layout"
 msgstr "레이아웃"
 
@@ -1083,11 +1239,15 @@ msgstr "나가는 중..."
 msgid "Left chat"
 msgstr "채팅을 나갔어요"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:354
+#: ../../../lib/web/src/components/config-drawer.tsx:355
 msgid "Left to Right"
 msgstr "왼쪽에서 오른쪽"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:213
+#: ../../../lib/web/src/components/post-tags.tsx:72
+msgid "Letters, numbers, spaces, and hyphens only"
+msgstr "문자, 숫자, 공백, 하이픈만 가능해요"
+
+#: ../../../lib/web/src/components/config-drawer.tsx:214
 #: ../../../lib/web/src/components/theme-switch.tsx:45
 #: ../../../lib/web/src/lib/preference-utils.ts:19
 msgid "Light"
@@ -1136,6 +1296,10 @@ msgstr "로그아웃 중…"
 msgid "Love"
 msgstr "사랑"
 
+#: ../../../lib/web/src/features/accounts/account-manager.tsx:192
+msgid "Manage your connected accounts for notifications and services."
+msgstr ""
+
 #: ../../../lib/web/src/components/layout/notification-menu.tsx:93
 #: ../../../lib/web/src/components/layout/notification-menu.tsx:100
 #: ../../../lib/web/src/components/notifications-dropdown.tsx:224
@@ -1153,6 +1317,10 @@ msgstr "읽지 않음으로 표시"
 #: src/components/layout/chat-layout.tsx:142
 msgid "Marking as read..."
 msgstr "읽음으로 표시하는 중..."
+
+#: ../../../lib/web/src/features/accounts/types.ts:17
+msgid "MCP server"
+msgstr ""
 
 #: ../../../lib/web/src/lib/preference-utils.ts:107
 msgid "Medium"
@@ -1243,6 +1411,10 @@ msgstr "마이크가 이미 사용 중입니다"
 msgid "Microphone permission denied"
 msgstr "마이크 권한이 거부되었습니다"
 
+#: ../../../lib/web/src/features/accounts/types.ts:23
+msgid "Mochi web"
+msgstr "Mochi 웹"
+
 #: ../../../lib/web/src/lib/preference-utils.ts:59
 msgid "Monday"
 msgstr "월요일"
@@ -1252,9 +1424,17 @@ msgstr "월요일"
 msgid "Multiple people share these names: {0}. Pick them from the @ list so the right person is notified."
 msgstr "같은 이름을 가진 사람이 여러 명입니다: {0}. 올바른 사람에게 알림이 가도록 @ 목록에서 선택하세요."
 
+#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:102
+msgid "Name cannot contain angle brackets, backslash, semicolon, quotes or backticks"
+msgstr ""
+
 #: src/routes/_authenticated/$chatId_.settings.tsx:200
 msgid "Name must be {CHAT_NAME_MAX_LENGTH} characters or less"
 msgstr "이름은 {CHAT_NAME_MAX_LENGTH}자 이하여야 해요"
+
+#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:100
+msgid "Name must be 1000 characters or less"
+msgstr "이름은 1000자 이하여야 해요"
 
 #: ../../../lib/web/src/features/errors/general-error.tsx:53
 #: ../../../lib/web/src/lib/api-response-interceptors.ts:303
@@ -1280,7 +1460,7 @@ msgstr "더 최근 결과"
 msgid "Next image"
 msgstr "다음 이미지"
 
-#: ../../../lib/web/src/features/access/access-list.tsx:160
+#: ../../../lib/web/src/features/access/access-list.tsx:165
 msgid "No access rules configured. Add rules to control who can access this resource."
 msgstr "설정된 접근 규칙이 없어요. 이 리소스에 접근할 수 있는 사용자를 제어하려면 규칙을 추가하세요."
 
@@ -1316,11 +1496,16 @@ msgstr "아직 메시지가 없어요"
 msgid "No microphone found"
 msgstr "마이크를 찾을 수 없습니다"
 
+#: ../../../lib/web/src/components/notifications-dropdown.tsx:193
+msgid "No notifications yet"
+msgstr "아직 알림이 없어요"
+
+#: ../../../lib/web/src/components/person-picker.tsx:84
 #: src/features/chats/components/new-chat.tsx:288
 msgid "No people found"
 msgstr "사람을 찾을 수 없어요"
 
-#: ../../../lib/web/src/components/place-picker.tsx:132
+#: ../../../lib/web/src/components/place-picker.tsx:133
 msgid "No places found"
 msgstr "장소를 찾을 수 없어요"
 
@@ -1331,6 +1516,11 @@ msgstr "프로필이 없어요"
 #: src/features/chats/components/chat-search-header.tsx:48
 msgid "No results"
 msgstr "결과 없음"
+
+#: ../../../lib/web/src/components/search-entity-dialog.tsx:82
+#: ../../../lib/web/src/components/search-entity-page.tsx:73
+msgid "No results found"
+msgstr "결과가 없어요"
 
 #: ../../../lib/web/src/components/command-menu.tsx:55
 #: ../../../lib/web/src/components/data-table/faceted-filter.tsx:94
@@ -1349,6 +1539,7 @@ msgstr "아직 토픽 기록이 없어요 — 다음 알림 후에 다시 시도
 msgid "No users found"
 msgstr "사용자를 찾을 수 없어요"
 
+#: ../../../lib/web/src/components/colour-picker.tsx:345
 #: ../../../lib/web/src/components/person-picker.tsx:350
 #: ../../../lib/web/src/lib/preference-utils.ts:105
 #: ../../../lib/web/src/lib/preference-utils.ts:125
@@ -1388,6 +1579,10 @@ msgstr "알림: {0}"
 msgid "Older match"
 msgstr "더 오래된 결과"
 
+#: ../../../lib/web/src/components/filter-bar.tsx:35
+msgid "On"
+msgstr "켜짐"
+
 #: src/features/chats/components/chat-settings-dialog.tsx:40
 msgid "Only friends can start a chat with you (default)."
 msgstr "친구만 회원님과 채팅을 시작할 수 있어요 (기본값)."
@@ -1414,6 +1609,10 @@ msgstr "작업 열기"
 msgid "Open chat actions"
 msgstr "채팅 작업 열기"
 
+#: ../../../lib/web/src/components/layout/mochi-menu.tsx:133
+msgid "Open menu"
+msgstr "메뉴 열기"
+
 #: ../../../lib/web/src/components/layout/top-bar.tsx:63
 #: ../../../lib/web/src/components/layout/top-bar.tsx:68
 msgid "Open navigation"
@@ -1428,8 +1627,8 @@ msgstr "내비게이션 메뉴 열기"
 msgid "Open people"
 msgstr "사용자 열기"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:57
-#: ../../../lib/web/src/components/config-drawer.tsx:65
+#: ../../../lib/web/src/components/config-drawer.tsx:58
+#: ../../../lib/web/src/components/config-drawer.tsx:66
 msgid "Open theme settings"
 msgstr "테마 설정 열기"
 
@@ -1441,7 +1640,7 @@ msgstr "원본 메시지"
 msgid "Other"
 msgstr "기타"
 
-#: ../../../lib/web/src/features/access/access-list.tsx:217
+#: ../../../lib/web/src/features/access/access-list.tsx:222
 msgid "Owner"
 msgstr "소유자"
 
@@ -1473,6 +1672,10 @@ msgstr "음성 메모 일시정지"
 #: src/features/chats/components/new-chat.tsx:273
 msgid "People"
 msgstr "사람"
+
+#: ../../../lib/web/src/components/date-picker.tsx:20
+msgid "Pick a date"
+msgstr "날짜 선택"
 
 #: src/components/layout/chat-layout.tsx:221
 msgid "Pin chat"
@@ -1526,6 +1729,14 @@ msgstr "개인정보"
 msgid "Profile"
 msgstr "프로필"
 
+#: ../../../lib/web/src/components/person-picker.tsx:200
+msgid "Project members"
+msgstr "프로젝트 멤버"
+
+#: ../../../lib/web/src/features/accounts/types.ts:21
+msgid "Push notification"
+msgstr ""
+
 #: ../../../lib/web/src/lib/preference-utils.ts:117
 msgid "Raised"
 msgstr "돌출"
@@ -1542,10 +1753,14 @@ msgstr "이 서버에서 패스키를 다시 등록하세요"
 msgid "Read more"
 msgstr "더 보기"
 
-#: ../../../lib/web/src/components/search-entity-dialog.tsx:216
-#: ../../../lib/web/src/components/search-entity-page.tsx:242
+#: ../../../lib/web/src/components/search-entity-dialog.tsx:217
+#: ../../../lib/web/src/components/search-entity-page.tsx:243
 msgid "Recommended"
 msgstr "추천됨"
+
+#: ../../../lib/web/src/lib/chat-ui.ts:21
+msgid "Reconnecting ({retries})..."
+msgstr ""
 
 #: src/features/chats/components/chat-input.tsx:849
 #: src/features/chats/components/chat-input.tsx:854
@@ -1589,7 +1804,7 @@ msgstr "상대적 (5분, 3시간, 2일)"
 msgid "Relative within 24 hours, else absolute"
 msgstr "24시간 이내는 상대적, 그 외는 절대적"
 
-#: ../../../lib/web/src/features/access/access-list.tsx:265
+#: ../../../lib/web/src/features/access/access-list.tsx:270
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:180
 #: src/routes/_authenticated/$chatId_.settings.tsx:556
 msgid "Remove"
@@ -1602,17 +1817,23 @@ msgstr "제거"
 msgid "Remove {0}"
 msgstr "{0} 제거"
 
-#: ../../../lib/web/src/features/access/access-list.tsx:247
-#: ../../../lib/web/src/features/access/access-list.tsx:253
+#. placeholder {0}: filter.label
+#: ../../../lib/web/src/components/filter-bar.tsx:56
+#: ../../../lib/web/src/components/filter-bar.tsx:62
+msgid "Remove {0} filter"
+msgstr "{0} 필터 제거"
+
+#: ../../../lib/web/src/features/access/access-list.tsx:252
+#: ../../../lib/web/src/features/access/access-list.tsx:258
 msgid "Remove access rule"
 msgstr "접근 규칙 제거"
 
 #. placeholder {0}: formatSubject(subject, data.name)
-#: ../../../lib/web/src/features/access/access-list.tsx:259
+#: ../../../lib/web/src/features/access/access-list.tsx:264
 msgid "Remove access rule for \"{0}\"?"
 msgstr "\"{0}\"의 접근 규칙을 제거할까요?"
 
-#: ../../../lib/web/src/features/access/access-list.tsx:257
+#: ../../../lib/web/src/features/access/access-list.tsx:262
 msgid "Remove access?"
 msgstr "접근 권한을 제거할까요?"
 
@@ -1658,16 +1879,21 @@ msgstr "{0}에게 답장 중"
 msgid "Resend email"
 msgstr "이메일 다시 보내기"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:86
-#: ../../../lib/web/src/components/data-table/toolbar.tsx:81
+#: ../../../lib/web/src/components/config-drawer.tsx:87
+#: ../../../lib/web/src/components/data-table/toolbar.tsx:82
 msgid "Reset"
 msgstr "재설정"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:84
+#: ../../../lib/web/src/components/config-drawer.tsx:122
+#: ../../../lib/web/src/components/config-drawer.tsx:127
+msgid "Reset {title}"
+msgstr ""
+
+#: ../../../lib/web/src/components/config-drawer.tsx:85
 msgid "Reset all settings to default values"
 msgstr "모든 설정을 기본값으로 재설정"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:361
+#: ../../../lib/web/src/components/config-drawer.tsx:362
 msgid "Right to Left"
 msgstr "오른쪽에서 왼쪽"
 
@@ -1694,6 +1920,12 @@ msgstr "저장"
 msgid "Saving..."
 msgstr "저장 중..."
 
+#: ../../../lib/web/src/components/filter-bar.tsx:32
+#: ../../../lib/web/src/components/header-search.tsx:22
+#: ../../../lib/web/src/components/search.tsx:18
+msgid "Search"
+msgstr "검색"
+
 #: src/features/chats/components/forward-dialog.tsx:198
 msgid "Search chats…"
 msgstr "채팅 검색…"
@@ -1702,9 +1934,17 @@ msgstr "채팅 검색…"
 msgid "Search failed"
 msgstr "검색에 실패했어요"
 
-#: ../../../lib/web/src/components/place-picker.tsx:85
+#: ../../../lib/web/src/components/ui/command.tsx:35
+msgid "Search for a command to run..."
+msgstr ""
+
+#: ../../../lib/web/src/components/place-picker.tsx:86
 msgid "Search for a place"
 msgstr "장소 검색"
+
+#: ../../../lib/web/src/components/place-picker.tsx:50
+msgid "Search for a place..."
+msgstr ""
 
 #: ../../../lib/web/src/components/travelling-picker.tsx:250
 msgid "Search for destination..."
@@ -1735,11 +1975,13 @@ msgid "Search users"
 msgstr "사용자 검색"
 
 #: ../../../lib/web/src/components/person-picker.tsx:324
+#: ../../../lib/web/src/components/search-entity-dialog.tsx:81
+#: ../../../lib/web/src/components/search-entity-page.tsx:72
 msgid "Search..."
 msgstr "검색..."
 
-#: ../../../lib/web/src/components/search-entity-dialog.tsx:174
-#: ../../../lib/web/src/components/search-entity-page.tsx:200
+#: ../../../lib/web/src/components/search-entity-dialog.tsx:175
+#: ../../../lib/web/src/components/search-entity-page.tsx:201
 #: ../../../lib/web/src/features/access/access-dialog.tsx:202
 msgid "Searching..."
 msgstr "검색 중..."
@@ -1755,6 +1997,11 @@ msgstr "음성 메모 탐색"
 #: src/features/chats/components/message-hover-actions.tsx:113
 msgid "Select"
 msgstr "선택"
+
+#. placeholder {0}: item.label.toLowerCase()
+#: ../../../lib/web/src/components/config-drawer.tsx:149
+msgid "Select {0}"
+msgstr ""
 
 #: src/features/chats/components/chat-empty-state.tsx:22
 msgid "Select a chat"
@@ -1772,6 +2019,10 @@ msgstr "접근 권한을 부여할 사용자, 그룹 또는 다른 규칙을 선
 msgid "Select access rule"
 msgstr "접근 규칙 선택"
 
+#: ../../../lib/web/src/features/accounts/account-picker.tsx:34
+msgid "Select account"
+msgstr ""
+
 #: ../../../lib/web/src/features/accounts/account-add.tsx:129
 msgid "Select account type"
 msgstr "계정 유형 선택"
@@ -1780,13 +2031,17 @@ msgstr "계정 유형 선택"
 msgid "Select group"
 msgstr "그룹 선택"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:304
+#: ../../../lib/web/src/components/config-drawer.tsx:305
 msgid "Select layout style"
 msgstr "레이아웃 스타일 선택"
 
 #: src/features/chats/components/chat-message-list.tsx:826
 msgid "Select loaded"
 msgstr "불러온 항목 선택"
+
+#: ../../../lib/web/src/components/place-picker.tsx:49
+msgid "Select location"
+msgstr "위치 선택"
 
 #: src/features/chats/components/chat-message-list.tsx:543
 msgid "Select message"
@@ -1796,15 +2051,19 @@ msgstr "메시지 선택"
 msgid "Select people..."
 msgstr "사람 선택..."
 
-#: ../../../lib/web/src/components/config-drawer.tsx:246
+#: ../../../lib/web/src/components/person-picker.tsx:83
+msgid "Select person..."
+msgstr ""
+
+#: ../../../lib/web/src/components/config-drawer.tsx:247
 msgid "Select sidebar style"
 msgstr "사이드바 스타일 선택"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:348
+#: ../../../lib/web/src/components/config-drawer.tsx:349
 msgid "Select site direction"
 msgstr "사이트 방향 선택"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:202
+#: ../../../lib/web/src/components/config-drawer.tsx:203
 msgid "Select theme preference"
 msgstr "테마 환경설정 선택"
 
@@ -1881,8 +2140,8 @@ msgstr "비밀번호 표시"
 msgid "Showing {totalShown} of {total}"
 msgstr "{total} 중 {totalShown} 표시 중"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:238
-#: ../../../lib/web/src/components/config-drawer.tsx:262
+#: ../../../lib/web/src/components/config-drawer.tsx:239
+#: ../../../lib/web/src/components/config-drawer.tsx:263
 #: ../../../lib/web/src/components/ui/sidebar.tsx:237
 msgid "Sidebar"
 msgstr "사이드바"
@@ -1926,24 +2185,37 @@ msgstr "기대해 주세요!"
 msgid "Stop recording"
 msgstr "녹음 중지"
 
-#: ../../../lib/web/src/features/access/access-list.tsx:191
+#: ../../../lib/web/src/features/access/access-list.tsx:196
 msgid "Subject"
 msgstr "제목"
+
+#: ../../../lib/web/src/components/search-entity-dialog.tsx:83
+#: ../../../lib/web/src/components/search-entity-page.tsx:74
+msgid "Subscribe"
+msgstr "구독"
 
 #: ../../../lib/web/src/lib/preference-utils.ts:65
 msgid "Sunday"
 msgstr "일요일"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:208
+#: ../../../lib/web/src/components/config-drawer.tsx:209
 #: ../../../lib/web/src/components/theme-switch.tsx:59
 #: ../../../lib/web/src/lib/preference-utils.ts:21
 #: ../../../lib/web/src/lib/preference-utils.ts:144
 msgid "System"
 msgstr "시스템"
 
-#: ../../../lib/web/src/components/tag-input.tsx:94
+#: ../../../lib/web/src/components/tag-input.tsx:95
 msgid "Tag"
 msgstr "태그"
+
+#: ../../../lib/web/src/components/post-tags.tsx:76
+msgid "Tag already exists"
+msgstr "이미 존재하는 태그예요"
+
+#: ../../../lib/web/src/components/post-tags.tsx:68
+msgid "Tag must be 50 characters or less"
+msgstr "태그는 50자 이하여야 해요"
 
 #: ../../../lib/web/src/components/post-tags.tsx:101
 #: ../../../lib/web/src/components/post-tags.tsx:115
@@ -1980,11 +2252,11 @@ msgstr "요청한 콘텐츠를 찾을 수 없습니다."
 msgid "The site is not available at the moment."
 msgstr "현재 사이트를 이용할 수 없어요."
 
-#: ../../../lib/web/src/components/config-drawer.tsx:194
+#: ../../../lib/web/src/components/config-drawer.tsx:195
 msgid "Theme"
 msgstr "테마"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:69
+#: ../../../lib/web/src/components/config-drawer.tsx:70
 msgid "Theme Settings"
 msgstr "테마 설정"
 
@@ -2069,8 +2341,8 @@ msgstr "이동 중"
 msgid "Try a different search term"
 msgstr "다른 검색어를 시도하세요"
 
-#: ../../../lib/web/src/components/search-entity-dialog.tsx:190
-#: ../../../lib/web/src/components/search-entity-page.tsx:216
+#: ../../../lib/web/src/components/search-entity-dialog.tsx:191
+#: ../../../lib/web/src/components/search-entity-page.tsx:217
 msgid "Try adjusting your search terms"
 msgstr "검색어를 조정해 보세요"
 
@@ -2121,10 +2393,16 @@ msgstr "할당되지 않음"
 msgid "Unauthorized Access"
 msgstr "허용되지 않은 접근"
 
+#: ../../../lib/web/src/lib/request.ts:133
+#: ../../../lib/web/src/lib/request.ts:206
+msgid "Unexpected API error"
+msgstr "예기치 않은 API 오류"
+
 #: ../../../lib/web/src/lib/preference-utils.ts:87
 msgid "United States"
 msgstr "미국"
 
+#: ../../../lib/web/src/features/accounts/types.ts:29
 #: src/hooks/useChatWebsocket.ts:387
 msgid "Unknown"
 msgstr "알 수 없음"
@@ -2141,6 +2419,7 @@ msgstr "확인되지 않음"
 msgid "Use your passkey"
 msgstr "패스키 사용"
 
+#: ../../../lib/web/src/components/layout/mochi-menu.tsx:86
 #: ../../../lib/web/src/features/access/access-dialog.tsx:158
 msgid "User"
 msgstr "사용자"
@@ -2207,6 +2486,10 @@ msgstr "이 브라우저에서는 음성 녹음이 지원되지 않습니다"
 msgid "Voice recording isn't available in this app version. Please update the app and try again."
 msgstr "이 앱 버전에서는 음성 녹음을 사용할 수 없습니다. 앱을 업데이트한 후 다시 시도하세요."
 
+#: ../../../lib/web/src/components/filter-bar.tsx:35
+msgid "Watched"
+msgstr "관찰 중"
+
 #. placeholder {0}: account.identifier
 #: ../../../lib/web/src/features/accounts/account-verify.tsx:63
 msgid "We sent a verification code to <0>{0}</0>. Enter the code below to verify your email address."
@@ -2215,6 +2498,10 @@ msgstr "<0>{0}</0>(으)로 인증 코드를 보냈어요. 이메일 주소를 �
 #: ../../../lib/web/src/features/errors/maintenance-error.tsx:16
 msgid "We'll be back online shortly."
 msgstr "곧 다시 온라인으로 돌아올게요."
+
+#: ../../../lib/web/src/components/notifications-dropdown.tsx:197
+msgid "We'll notify you when something important happens."
+msgstr "중요한 일이 생기면 알려드릴게요."
 
 #: ../../../lib/web/src/features/errors/maintenance-error.tsx:13
 msgid "Website is under maintenance!"
@@ -2260,9 +2547,17 @@ msgstr "이 리소스를 볼 수 있는 <0/>권한이 없어요."
 msgid "You left this chat"
 msgstr "이 대화에서 나갔습니다"
 
+#: ../../../lib/web/src/lib/show-submitted-data.tsx:9
+msgid "You submitted the following values:"
+msgstr ""
+
 #: src/features/chats/index.tsx:1268
 msgid "You were removed from this chat"
 msgstr "이 대화에서 내보내졌습니다"
+
+#: ../../../lib/web/src/components/notifications-dropdown.tsx:193
+msgid "You're all caught up!"
+msgstr "모두 확인했어요!"
 
 #: ../../../lib/web/src/components/restore-banner.tsx:91
 msgid "Your account was moved here from {source}. Until you delete it there, messages and notifications may reach both servers, some of your content keeps being served from the old server, and followers may take a few minutes to find you here."

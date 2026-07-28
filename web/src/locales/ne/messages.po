@@ -41,6 +41,11 @@ msgstr "{0, plural, one {सन्देश मेटाउने हो?} other
 msgid "{0} (includes you)"
 msgstr "{0} (तपाईंसहित)"
 
+#. placeholder {0}: item.label
+#: ../../../lib/web/src/components/config-drawer.tsx:160
+msgid "{0} option preview"
+msgstr ""
+
 #. placeholder {0}: selectedIds.size
 #. placeholder {0}: selectedIds?.size ?? 0
 #: src/features/chats/components/chat-message-list.tsx:816
@@ -54,9 +59,13 @@ msgstr "{0} चयन गरिएको"
 msgid "{0} settings"
 msgstr "{0} सेटिङहरू"
 
-#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:173
+#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:174
 msgid "{entityLabel} name"
 msgstr "{entityLabel} नाम"
+
+#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:99
+msgid "{entityLabel} name is required"
+msgstr ""
 
 #: src/features/chats/components/message-attachments.tsx:140
 msgid "{hiddenCount, plural, one {Show 1 more file} other {Show # more files}}"
@@ -87,6 +96,10 @@ msgstr "{selectedCount, plural, one {# चयनित {entityName} का ल�
 msgid "{skippedCount, plural, one {Skipped # file that is not audio} other {Skipped # files that are not audio}}"
 msgstr "{skippedCount, plural, one {अडियो नभएको # फाइल छाडियो} other {अडियो नभएका # फाइलहरू छाडिए}}"
 
+#: ../../../lib/web/src/components/layout/mochi-menu.tsx:132
+msgid "{unreadCount, plural, one {Open menu (# unread notification)} other {Open menu (# unread notifications)}}"
+msgstr ""
+
 #: ../../../lib/web/src/lib/preference-utils.ts:42
 msgid "12 hours"
 msgstr "१२ घण्टा"
@@ -111,7 +124,7 @@ msgstr "पहुँच अस्वीकृत"
 msgid "Access Forbidden"
 msgstr "पहुँच निषेधित"
 
-#: ../../../lib/web/src/features/access/access-list.tsx:192
+#: ../../../lib/web/src/features/access/access-list.tsx:197
 msgid "Access level"
 msgstr "पहुँच स्तर"
 
@@ -131,6 +144,7 @@ msgstr "खाता प्रकार"
 msgid "Account verified"
 msgstr "खाता प्रमाणीकरण गरियो"
 
+#: ../../../lib/web/src/features/access/access-dialog.tsx:332
 #: ../../../lib/web/src/features/accounts/account-add.tsx:196
 msgid "Add"
 msgstr "थप्नुहोस्"
@@ -167,7 +181,7 @@ msgstr "एट्याचमेन्ट थप्नुहोस्"
 msgid "Add member"
 msgstr "सदस्य थप्नुहोस्"
 
-#: ../../../lib/web/src/features/accounts/account-picker.tsx:101
+#: ../../../lib/web/src/features/accounts/account-picker.tsx:102
 msgid "Add new account"
 msgstr "नयाँ खाता थप्नुहोस्"
 
@@ -177,6 +191,7 @@ msgid "Add reaction"
 msgstr "प्रतिक्रिया थप्नुहोस्"
 
 #: ../../../lib/web/src/components/post-tags.tsx:137
+#: ../../../lib/web/src/components/tag-input.tsx:40
 msgid "Add tag..."
 msgstr "ट्याग थप्नुहोस्..."
 
@@ -209,7 +224,11 @@ msgstr "{0}/{1} थपिँदै..."
 msgid "Adding member..."
 msgstr "सदस्य थप्दै..."
 
-#: ../../../lib/web/src/components/config-drawer.tsx:71
+#: ../../../lib/web/src/features/access/access-dialog.tsx:332
+msgid "Adding..."
+msgstr "थप्दै..."
+
+#: ../../../lib/web/src/components/config-drawer.tsx:72
 msgid "Adjust the appearance and layout to suit your preferences."
 msgstr "तपाईंको प्राथमिकताअनुसार रूप र लेआउट समायोजन गर्नुहोस्।"
 
@@ -229,6 +248,11 @@ msgstr "सबै"
 msgid "All your friends are already in this chat"
 msgstr "तपाईंका सबै साथीहरू यस च्याटमा पहिले नै छन्"
 
+#. placeholder {0}: entityLabel.toLowerCase()
+#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:85
+msgid "Allow anyone to search for {0}"
+msgstr ""
+
 #: src/features/chats/constants/reactions.ts:36
 msgid "Amazed"
 msgstr "अचम्मित"
@@ -241,10 +265,16 @@ msgstr "त्रुटि भयो"
 msgid "An unexpected error occurred"
 msgstr "अनपेक्षित त्रुटि भयो"
 
+#: ../../../lib/web/src/features/accounts/types.ts:16
+msgid "Android push"
+msgstr ""
+
 #: src/features/chats/constants/reactions.ts:39
 msgid "Angry"
 msgstr "रिसाएको"
 
+#: ../../../lib/web/src/features/access/access-list.tsx:45
+#: ../../../lib/web/src/features/access/types.ts:42
 #: src/features/chats/components/chat-settings-dialog.tsx:44
 msgid "Anyone"
 msgstr "जोसुकै"
@@ -252,6 +282,10 @@ msgstr "जोसुकै"
 #: src/features/chats/components/chat-settings-dialog.tsx:45
 msgid "Anyone can start a chat with you."
 msgstr "जोसुकैले तपाईंसँग च्याट सुरु गर्न सक्छ।"
+
+#: ../../../lib/web/src/features/access/types.ts:41
+msgid "Anyone who is logged in"
+msgstr ""
 
 #. placeholder {0}: selectedChat?.name
 #: src/features/chats/index.tsx:1324
@@ -292,11 +326,24 @@ msgstr "संलग्नकहरू अपलोड गर्न धेरै
 msgid "Audio"
 msgstr "अडियो"
 
+#: ../../../lib/web/src/features/access/access-list.tsx:46
+#: ../../../lib/web/src/features/access/types.ts:41
+msgid "Authenticated users"
+msgstr "प्रमाणित प्रयोगकर्ताहरू"
+
 #: ../../../lib/web/src/components/step-up-dialog.tsx:315
 msgid "Authenticator code"
 msgstr "Authenticator कोड"
 
-#: ../../../lib/web/src/components/place-picker.tsx:155
+#: ../../../lib/web/src/components/entity-avatar.tsx:99
+msgid "Avatar"
+msgstr "अवतार"
+
+#: ../../../lib/web/src/components/entity-avatar.tsx:99
+msgid "Avatar for {name}"
+msgstr ""
+
+#: ../../../lib/web/src/components/place-picker.tsx:156
 msgid "Back"
 msgstr "पछाडि"
 
@@ -312,6 +359,10 @@ msgstr "च्याटमा फर्कनुहोस्"
 msgid "Back to home"
 msgstr "गृहमा फर्कनुहोस्"
 
+#: ../../../lib/web/src/components/entity-banner.tsx:17
+msgid "Banner"
+msgstr "ब्यानर"
+
 #: src/features/chats/components/chat-message-list.tsx:470
 msgid "Be the first to say something!"
 msgstr "केही भन्ने पहिलो व्यक्ति बन्नुहोस्!"
@@ -321,13 +372,17 @@ msgstr "केही भन्ने पहिलो व्यक्ति ब�
 msgid "Boost interest"
 msgstr "रुचि बढाउनुहोस्"
 
+#: ../../../lib/web/src/features/accounts/types.ts:13
+msgid "Browser notifications"
+msgstr "ब्राउजर सूचनाहरू"
+
 #: ../../../lib/web/src/components/responsive-confirm-dialog.tsx:67
 #: ../../../lib/web/src/components/step-up-dialog.tsx:363
 #: ../../../lib/web/src/components/travelling-picker.tsx:308
-#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:248
+#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:249
 #: ../../../lib/web/src/components/ui/editable-field-row.tsx:132
 #: ../../../lib/web/src/features/access/access-dialog.tsx:328
-#: ../../../lib/web/src/features/access/access-list.tsx:263
+#: ../../../lib/web/src/features/access/access-list.tsx:268
 #: ../../../lib/web/src/features/accounts/account-add.tsx:188
 #: ../../../lib/web/src/features/accounts/account-verify.tsx:91
 #: src/features/chats/components/chat-message-list.tsx:621
@@ -435,6 +490,10 @@ msgstr "च्याट अनपिन गरियो"
 msgid "Chats"
 msgstr "च्याटहरू"
 
+#: ../../../lib/web/src/components/notifications-dropdown.tsx:198
+msgid "Check \"All\" to see your past notifications."
+msgstr "विगतका सूचनाहरू हेर्न \"सबै\" छान्नुहोस्।"
+
 #: src/features/chats/components/forward-dialog.tsx:190
 msgid "Choose a chat or friend to forward the selected messages to"
 msgstr "चयन गरिएका सन्देशहरू फर्वार्ड गर्न कुराकानी वा साथी छान्नुहोस्"
@@ -443,19 +502,19 @@ msgstr "चयन गरिएका सन्देशहरू फर्वा
 msgid "Choose a conversation from the sidebar or start a new one."
 msgstr "साइडबारबाट कुराकानी छनोट गर्नुहोस् वा नयाँ सुरु गर्नुहोस्।"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:328
+#: ../../../lib/web/src/components/config-drawer.tsx:329
 msgid "Choose between default expanded, compact icon-only, or full layout mode"
 msgstr "पूर्वनिर्धारित विस्तारित, कम्प्याक्ट आइकन-मात्र, वा पूर्ण लेआउट मोडबीच छनोट गर्नुहोस्"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:270
+#: ../../../lib/web/src/components/config-drawer.tsx:271
 msgid "Choose between inset, floating, or standard sidebar layout"
 msgstr "इनसेट, फ्लोटिङ, वा मानक साइडबार लेआउटबीच छनोट गर्नुहोस्"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:371
+#: ../../../lib/web/src/components/config-drawer.tsx:372
 msgid "Choose between left-to-right or right-to-left site direction"
 msgstr "बायाँ-देखि-दायाँ वा दायाँ-देखि-बायाँ साइट दिशाबीच छनोट गर्नुहोस्"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:226
+#: ../../../lib/web/src/components/config-drawer.tsx:227
 msgid "Choose between system preference, light mode, or dark mode"
 msgstr "सिस्टम प्राथमिकता, उज्यालो मोड, वा अँध्यारो मोडबीच छनोट गर्नुहोस्"
 
@@ -464,8 +523,8 @@ msgstr "सिस्टम प्राथमिकता, उज्यालो
 msgid "Choose language"
 msgstr "भाषा छनोट गर्नुहोस्"
 
-#: ../../../lib/web/src/components/colour-picker.tsx:269
-#: ../../../lib/web/src/components/colour-picker.tsx:350
+#: ../../../lib/web/src/components/colour-picker.tsx:270
+#: ../../../lib/web/src/components/colour-picker.tsx:351
 #: ../../../lib/web/src/components/travelling-picker.tsx:164
 #: ../../../lib/web/src/components/travelling-picker.tsx:170
 #: ../../../lib/web/src/components/travelling-picker.tsx:231
@@ -473,7 +532,7 @@ msgstr "भाषा छनोट गर्नुहोस्"
 msgid "Clear"
 msgstr "खाली गर्नुहोस्"
 
-#: ../../../lib/web/src/components/filter-bar.tsx:73
+#: ../../../lib/web/src/components/filter-bar.tsx:74
 msgid "Clear all"
 msgstr "सबै खाली गर्नुहोस्"
 
@@ -481,6 +540,7 @@ msgstr "सबै खाली गर्नुहोस्"
 msgid "Clear filters"
 msgstr "फिल्टरहरू खाली गर्नुहोस्"
 
+#: ../../../lib/web/src/components/search-input.tsx:26
 #: src/features/chats/components/forward-dialog.tsx:199
 #: src/routes/_authenticated/$chatId_.settings.tsx:456
 msgid "Clear search"
@@ -537,15 +597,35 @@ msgstr "आरामदायक"
 msgid "Coming Soon!"
 msgstr "चाँडै आउँदै!"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:315
+#: ../../../lib/web/src/components/ui/command.tsx:34
+msgid "Command Palette"
+msgstr ""
+
+#: ../../../lib/web/src/components/config-drawer.tsx:316
 #: ../../../lib/web/src/lib/preference-utils.ts:95
 msgid "Compact"
 msgstr "कम्प्याक्ट"
 
-#: ../../../lib/web/src/components/place-picker.tsx:159
+#: ../../../lib/web/src/components/place-picker.tsx:160
 #: ../../../lib/web/src/components/travelling-picker.tsx:316
 msgid "Confirm"
 msgstr "पुष्टि गर्नुहोस्"
+
+#: ../../../lib/web/src/lib/chat-ui.ts:18
+msgid "Connected"
+msgstr "जडित"
+
+#: ../../../lib/web/src/features/accounts/account-manager.tsx:191
+msgid "Connected accounts"
+msgstr "जडित खाताहरू"
+
+#: ../../../lib/web/src/lib/chat-ui.ts:21
+msgid "Connecting..."
+msgstr "जडान हुँदै..."
+
+#: ../../../lib/web/src/lib/handle-server-error.ts:18
+msgid "Content not found."
+msgstr "सामग्री फेला परेन।"
 
 #: ../../../lib/web/src/lib/query-client.ts:81
 msgid "Content not modified"
@@ -563,11 +643,16 @@ msgstr "जारी राख्नुहोस्"
 msgid "Continue with {label}"
 msgstr "{label} सँग जारी राख्नुहोस्"
 
+#: ../../../lib/web/src/lib/toast-utils.ts:42
 #: src/features/chats/index.tsx:648
 msgid "Copied"
 msgstr "कपी गरियो"
 
-#: ../../../lib/web/src/components/ui/copy-button.tsx:63
+#: ../../../lib/web/src/components/ui/copy-button.tsx:25
+msgid "Copied to clipboard"
+msgstr "क्लिपबोर्डमा प्रतिलिपि गरियो"
+
+#: ../../../lib/web/src/components/ui/copy-button.tsx:64
 #: src/features/chats/components/message-hover-actions.tsx:107
 #: src/features/chats/index.tsx:1235
 msgid "Copy"
@@ -595,6 +680,11 @@ msgstr "पुन: प्रमाणीकरण सुरु गर्न स�
 msgid "Couldn't verify with that account. Please try again."
 msgstr "त्यो खातासँग प्रमाणित गर्न सकिएन। कृपया फेरि प्रयास गर्नुहोस्।"
 
+#. placeholder {0}: entityLabel.toLowerCase()
+#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:144
+msgid "Create {0}"
+msgstr ""
+
 #: src/features/chats/components/new-chat.tsx:266
 msgid "Create a new chat"
 msgstr "नयाँ च्याट सिर्जना गर्नुहोस्"
@@ -608,15 +698,20 @@ msgstr "च्याट सिर्जना गर्नुहोस्"
 msgid "Creating chat..."
 msgstr "च्याट सिर्जना गर्दै..."
 
+#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:258
 #: src/features/chats/components/new-chat.tsx:365
 msgid "Creating..."
 msgstr "सिर्जना गर्दै..."
 
-#: ../../../lib/web/src/components/colour-picker.tsx:260
+#: ../../../lib/web/src/components/map-view.tsx:208
+msgid "Current location"
+msgstr "हालको स्थान"
+
+#: ../../../lib/web/src/components/colour-picker.tsx:261
 msgid "Custom"
 msgstr "अनुकूलन"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:218
+#: ../../../lib/web/src/components/config-drawer.tsx:219
 #: ../../../lib/web/src/components/theme-switch.tsx:52
 #: ../../../lib/web/src/lib/preference-utils.ts:20
 msgid "Dark"
@@ -634,7 +729,7 @@ msgstr "अँध्यारो मोड"
 msgid "Data conflict"
 msgstr "डेटा द्वन्द्व"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:310
+#: ../../../lib/web/src/components/config-drawer.tsx:311
 msgid "Default"
 msgstr "पूर्वनिर्धारित"
 
@@ -679,6 +774,10 @@ msgstr "घट्दो"
 msgid "Descending"
 msgstr "घट्दो क्रम"
 
+#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:83
+msgid "Description"
+msgstr "विवरण"
+
 #: ../../../lib/web/src/components/layout/right-panel.tsx:148
 msgid "Details Panel"
 msgstr "विवरण प्यानल"
@@ -694,9 +793,13 @@ msgstr "विवरण प्यानल"
 msgid "Detect from web browser"
 msgstr "वेब ब्राउजरबाट पत्ता लगाउनुहोस्"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:340
+#: ../../../lib/web/src/components/config-drawer.tsx:341
 msgid "Direction"
 msgstr "दिशा"
+
+#: ../../../lib/web/src/components/person-picker.tsx:214
+msgid "Directory"
+msgstr "निर्देशिका"
 
 #: src/features/chats/components/new-chat.tsx:88
 msgid "Directory search failed"
@@ -710,6 +813,11 @@ msgstr "असहमत"
 #: src/features/chats/components/chat-input.tsx:733
 msgid "Discard recording"
 msgstr "रेकर्डिङ हटाउनुहोस्"
+
+#: ../../../lib/web/src/lib/chat-ui.ts:25
+#: ../../../lib/web/src/lib/chat-ui.ts:29
+msgid "Disconnected"
+msgstr "जडान विच्छेद"
 
 #: src/features/chats/constants/reactions.ts:34
 msgid "Dislike"
@@ -763,6 +871,10 @@ msgstr "{label} सम्पादन गर्नुहोस्"
 msgid "Elapsed {0}"
 msgstr "बितेको {0}"
 
+#: ../../../lib/web/src/features/accounts/types.ts:15
+msgid "Email"
+msgstr "इमेल"
+
 #: ../../../lib/web/src/components/step-up-dialog.tsx:289
 msgid "Email code"
 msgstr "इमेल कोड"
@@ -790,6 +902,10 @@ msgstr "विस्तार गर्नुहोस्"
 msgid "Expand sidebar"
 msgstr "साइडबार विस्तार गर्नुहोस्"
 
+#: ../../../lib/web/src/features/accounts/types.ts:22
+msgid "External URL"
+msgstr "बाह्य URL"
+
 #: ../../../lib/web/src/lib/preference-utils.ts:136
 msgid "Extra large"
 msgstr "अतिरिक्त ठूलो"
@@ -802,6 +918,12 @@ msgstr "खाता थप्न असफल"
 msgid "Failed to add member"
 msgstr "सदस्य थप्न असफल"
 
+#: ../../../lib/web/src/components/tag-input.tsx:39
+msgid "Failed to add tag"
+msgstr "ट्याग थप्न असफल"
+
+#: ../../../lib/web/src/components/ui/copy-button.tsx:26
+#: ../../../lib/web/src/lib/toast-utils.ts:44
 #: src/features/chats/index.tsx:649
 msgid "Failed to copy"
 msgstr "प्रतिलिपि गर्न असफल"
@@ -834,6 +956,10 @@ msgstr "फर्वार्ड गर्न सकिएन"
 #: src/routes/_authenticated/$chatId_.settings.tsx:339
 msgid "Failed to leave chat"
 msgstr "च्याट छोड्न असफल"
+
+#: ../../../lib/web/src/hooks/use-load-more.ts:74
+msgid "Failed to load"
+msgstr "लोड गर्न असफल"
 
 #: ../../../lib/web/src/components/ui/image-lightbox.tsx:263
 msgid "Failed to load image"
@@ -887,6 +1013,10 @@ msgstr "च्याट सुरु गर्न असफल"
 msgid "Failed to update category"
 msgstr "वर्ग अद्यावधिक गर्न असफल"
 
+#: ../../../lib/web/src/components/data-table/toolbar.tsx:30
+msgid "Filter..."
+msgstr "फिल्टर..."
+
 #: ../../../lib/web/src/components/restore-banner.tsx:88
 msgid "Finish moving your account"
 msgstr "आफ्नो खाता सार्ने काम सम्पन्न गर्नुहोस्"
@@ -895,7 +1025,7 @@ msgstr "आफ्नो खाता सार्ने काम सम्प�
 msgid "Flat"
 msgstr "सम्म"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:257
+#: ../../../lib/web/src/components/config-drawer.tsx:258
 msgid "Floating"
 msgstr "फ्लोटिङ"
 
@@ -921,6 +1051,7 @@ msgstr "फर्वार्ड गर्दै..."
 msgid "Friday"
 msgstr "शुक्रबार"
 
+#: ../../../lib/web/src/components/person-picker.tsx:207
 #: src/features/chats/components/forward-dialog.tsx:237
 #: src/routes/_authenticated/$chatId_.settings.tsx:479
 msgid "Friends"
@@ -943,7 +1074,7 @@ msgstr "बाट"
 msgid "From theme"
 msgstr "थिमबाट"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:320
+#: ../../../lib/web/src/components/config-drawer.tsx:321
 msgid "Full layout"
 msgstr "पूर्ण लेआउट"
 
@@ -982,6 +1113,11 @@ msgstr "अघिल्लो पृष्ठमा जानुहोस्"
 msgid "Group"
 msgstr "समूह"
 
+#. placeholder {0}: name || subject.slice(1)
+#: ../../../lib/web/src/features/access/access-list.tsx:68
+msgid "Group: {0}"
+msgstr "समूह: {0}"
+
 #: ../../../lib/web/src/components/data-table/column-header.tsx:70
 msgid "Hide"
 msgstr "लुकाउनुहोस्"
@@ -1010,18 +1146,34 @@ msgstr "छवि दर्शक: {0}"
 msgid "Imperial"
 msgstr "इम्पेरियल"
 
+#: ../../../lib/web/src/features/access/types.ts:42
+msgid "Including anonymous users"
+msgstr ""
+
 #: src/features/chats/components/chat-settings-dialog.tsx:80
 #: src/features/chats/index.tsx:1144
 msgid "Incoming chats"
 msgstr "आगमन च्याटहरू"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:252
+#: ../../../lib/web/src/components/faceless-avatar.tsx:69
+msgid "Initials avatar"
+msgstr ""
+
+#: ../../../lib/web/src/components/faceless-avatar.tsx:69
+msgid "Initials avatar for {name}"
+msgstr ""
+
+#: ../../../lib/web/src/components/config-drawer.tsx:253
 msgid "Inset"
 msgstr "इनसेट"
 
 #: ../../../lib/web/src/components/ui/sort-selector.tsx:42
 msgid "Interests"
 msgstr "रुचिहरू"
+
+#: ../../../lib/web/src/components/tag-input.tsx:38
+msgid "Invalid tag: letters, numbers, spaces, hyphens, and slashes only (max 50 chars)"
+msgstr ""
 
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:245
 msgid "Invalid verification code"
@@ -1036,6 +1188,10 @@ msgstr "तपाईंले खोज्नुभएको पृष्ठ <0/
 msgid "Jump to bottom"
 msgstr "तल जानुहोस्"
 
+#: ../../../lib/web/src/lib/locale-format.ts:62
+msgid "Just now"
+msgstr "भर्खरै"
+
 #: ../../../lib/web/src/lib/preference-utils.ts:108
 #: ../../../lib/web/src/lib/preference-utils.ts:135
 msgid "Large"
@@ -1045,7 +1201,7 @@ msgstr "ठूलो"
 msgid "Laugh"
 msgstr "हाँसो"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:286
+#: ../../../lib/web/src/components/config-drawer.tsx:287
 msgid "Layout"
 msgstr "लेआउट"
 
@@ -1083,11 +1239,15 @@ msgstr "छोड्दै..."
 msgid "Left chat"
 msgstr "च्याट छोडियो"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:354
+#: ../../../lib/web/src/components/config-drawer.tsx:355
 msgid "Left to Right"
 msgstr "बायाँबाट दायाँ"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:213
+#: ../../../lib/web/src/components/post-tags.tsx:72
+msgid "Letters, numbers, spaces, and hyphens only"
+msgstr "अक्षर, अंक, स्पेस र ह्यायफन मात्र"
+
+#: ../../../lib/web/src/components/config-drawer.tsx:214
 #: ../../../lib/web/src/components/theme-switch.tsx:45
 #: ../../../lib/web/src/lib/preference-utils.ts:19
 msgid "Light"
@@ -1136,6 +1296,10 @@ msgstr "लग आउट हुँदै…"
 msgid "Love"
 msgstr "माया"
 
+#: ../../../lib/web/src/features/accounts/account-manager.tsx:192
+msgid "Manage your connected accounts for notifications and services."
+msgstr ""
+
 #: ../../../lib/web/src/components/layout/notification-menu.tsx:93
 #: ../../../lib/web/src/components/layout/notification-menu.tsx:100
 #: ../../../lib/web/src/components/notifications-dropdown.tsx:224
@@ -1153,6 +1317,10 @@ msgstr "नपढिएको चिन्ह लगाउनुहोस्"
 #: src/components/layout/chat-layout.tsx:142
 msgid "Marking as read..."
 msgstr "पढिएको रूपमा चिन्ह लगाउँदै..."
+
+#: ../../../lib/web/src/features/accounts/types.ts:17
+msgid "MCP server"
+msgstr ""
 
 #: ../../../lib/web/src/lib/preference-utils.ts:107
 msgid "Medium"
@@ -1243,6 +1411,10 @@ msgstr "माइक्रोफोन पहिले नै प्रयोग
 msgid "Microphone permission denied"
 msgstr "माइक्रोफोन अनुमति अस्वीकृत"
 
+#: ../../../lib/web/src/features/accounts/types.ts:23
+msgid "Mochi web"
+msgstr "Mochi वेब"
+
 #: ../../../lib/web/src/lib/preference-utils.ts:59
 msgid "Monday"
 msgstr "सोमबार"
@@ -1252,9 +1424,17 @@ msgstr "सोमबार"
 msgid "Multiple people share these names: {0}. Pick them from the @ list so the right person is notified."
 msgstr "धेरै जनाको यी नामहरू छन्: {0}। सही व्यक्तिलाई सूचना पुगोस् भनेर उनीहरूलाई @ सूचीबाट छान्नुहोस्।"
 
+#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:102
+msgid "Name cannot contain angle brackets, backslash, semicolon, quotes or backticks"
+msgstr ""
+
 #: src/routes/_authenticated/$chatId_.settings.tsx:200
 msgid "Name must be {CHAT_NAME_MAX_LENGTH} characters or less"
 msgstr "नाम {CHAT_NAME_MAX_LENGTH} वर्ण वा सोभन्दा कम हुनुपर्छ"
+
+#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:100
+msgid "Name must be 1000 characters or less"
+msgstr "नाम १००० वर्ण वा सोभन्दा कम हुनुपर्छ"
 
 #: ../../../lib/web/src/features/errors/general-error.tsx:53
 #: ../../../lib/web/src/lib/api-response-interceptors.ts:303
@@ -1280,7 +1460,7 @@ msgstr "नयाँ मिलान"
 msgid "Next image"
 msgstr "अर्को तस्बिर"
 
-#: ../../../lib/web/src/features/access/access-list.tsx:160
+#: ../../../lib/web/src/features/access/access-list.tsx:165
 msgid "No access rules configured. Add rules to control who can access this resource."
 msgstr "कुनै पहुँच नियम कन्फिगर गरिएको छैन। यो स्रोतमा को पहुँच गर्न सक्छ नियन्त्रण गर्न नियमहरू थप्नुहोस्।"
 
@@ -1316,11 +1496,16 @@ msgstr "अहिलेसम्म कुनै सन्देश छैन"
 msgid "No microphone found"
 msgstr "कुनै माइक्रोफोन भेटिएन"
 
+#: ../../../lib/web/src/components/notifications-dropdown.tsx:193
+msgid "No notifications yet"
+msgstr "अझै कुनै सूचना छैन"
+
+#: ../../../lib/web/src/components/person-picker.tsx:84
 #: src/features/chats/components/new-chat.tsx:288
 msgid "No people found"
 msgstr "कुनै व्यक्ति भेटिएन"
 
-#: ../../../lib/web/src/components/place-picker.tsx:132
+#: ../../../lib/web/src/components/place-picker.tsx:133
 msgid "No places found"
 msgstr "कुनै स्थान भेटिएन"
 
@@ -1331,6 +1516,11 @@ msgstr "कुनै प्रोफाइल छैन"
 #: src/features/chats/components/chat-search-header.tsx:48
 msgid "No results"
 msgstr "कुनै नतिजा छैन"
+
+#: ../../../lib/web/src/components/search-entity-dialog.tsx:82
+#: ../../../lib/web/src/components/search-entity-page.tsx:73
+msgid "No results found"
+msgstr "कुनै परिणाम फेला परेन"
 
 #: ../../../lib/web/src/components/command-menu.tsx:55
 #: ../../../lib/web/src/components/data-table/faceted-filter.tsx:94
@@ -1349,6 +1539,7 @@ msgstr "अहिलेसम्म कुनै टपिक रेकर्ड
 msgid "No users found"
 msgstr "कुनै प्रयोगकर्ता भेटिएन"
 
+#: ../../../lib/web/src/components/colour-picker.tsx:345
 #: ../../../lib/web/src/components/person-picker.tsx:350
 #: ../../../lib/web/src/lib/preference-utils.ts:105
 #: ../../../lib/web/src/lib/preference-utils.ts:125
@@ -1388,6 +1579,10 @@ msgstr "सूचनाहरू: {0}"
 msgid "Older match"
 msgstr "पुरानो मिलान"
 
+#: ../../../lib/web/src/components/filter-bar.tsx:35
+msgid "On"
+msgstr "चालु"
+
 #: src/features/chats/components/chat-settings-dialog.tsx:40
 msgid "Only friends can start a chat with you (default)."
 msgstr "साथीहरूले मात्र तपाईंसँग च्याट सुरु गर्न सक्छन् (पूर्वनिर्धारित)।"
@@ -1414,6 +1609,10 @@ msgstr "कार्यहरू खोल्नुहोस्"
 msgid "Open chat actions"
 msgstr "च्याट कार्यहरू खोल्नुहोस्"
 
+#: ../../../lib/web/src/components/layout/mochi-menu.tsx:133
+msgid "Open menu"
+msgstr "मेनु खोल्नुहोस्"
+
 #: ../../../lib/web/src/components/layout/top-bar.tsx:63
 #: ../../../lib/web/src/components/layout/top-bar.tsx:68
 msgid "Open navigation"
@@ -1428,8 +1627,8 @@ msgstr "नेभिगेसन मेनु खोल्नुहोस्"
 msgid "Open people"
 msgstr "मानिसहरू खोल्नुहोस्"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:57
-#: ../../../lib/web/src/components/config-drawer.tsx:65
+#: ../../../lib/web/src/components/config-drawer.tsx:58
+#: ../../../lib/web/src/components/config-drawer.tsx:66
 msgid "Open theme settings"
 msgstr "थिम सेटिङ खोल्नुहोस्"
 
@@ -1441,7 +1640,7 @@ msgstr "मूल सन्देश"
 msgid "Other"
 msgstr "अन्य"
 
-#: ../../../lib/web/src/features/access/access-list.tsx:217
+#: ../../../lib/web/src/features/access/access-list.tsx:222
 msgid "Owner"
 msgstr "मालिक"
 
@@ -1473,6 +1672,10 @@ msgstr "भ्वाइस नोट रोक्नुहोस्"
 #: src/features/chats/components/new-chat.tsx:273
 msgid "People"
 msgstr "पिपल"
+
+#: ../../../lib/web/src/components/date-picker.tsx:20
+msgid "Pick a date"
+msgstr "मिति छान्नुहोस्"
 
 #: src/components/layout/chat-layout.tsx:221
 msgid "Pin chat"
@@ -1526,6 +1729,14 @@ msgstr "गोपनीयता"
 msgid "Profile"
 msgstr "प्रोफाइल"
 
+#: ../../../lib/web/src/components/person-picker.tsx:200
+msgid "Project members"
+msgstr "परियोजना सदस्यहरू"
+
+#: ../../../lib/web/src/features/accounts/types.ts:21
+msgid "Push notification"
+msgstr ""
+
 #: ../../../lib/web/src/lib/preference-utils.ts:117
 msgid "Raised"
 msgstr "उठाइएको"
@@ -1542,10 +1753,14 @@ msgstr "यस सर्भरमा तपाईंका पासकीहर
 msgid "Read more"
 msgstr "थप पढ्नुहोस्"
 
-#: ../../../lib/web/src/components/search-entity-dialog.tsx:216
-#: ../../../lib/web/src/components/search-entity-page.tsx:242
+#: ../../../lib/web/src/components/search-entity-dialog.tsx:217
+#: ../../../lib/web/src/components/search-entity-page.tsx:243
 msgid "Recommended"
 msgstr "सिफारिस गरिएको"
+
+#: ../../../lib/web/src/lib/chat-ui.ts:21
+msgid "Reconnecting ({retries})..."
+msgstr ""
 
 #: src/features/chats/components/chat-input.tsx:849
 #: src/features/chats/components/chat-input.tsx:854
@@ -1589,7 +1804,7 @@ msgstr "सापेक्ष (5m, 3h, 2d)"
 msgid "Relative within 24 hours, else absolute"
 msgstr "२४ घण्टाभित्र सापेक्ष, अन्यथा निरपेक्ष"
 
-#: ../../../lib/web/src/features/access/access-list.tsx:265
+#: ../../../lib/web/src/features/access/access-list.tsx:270
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:180
 #: src/routes/_authenticated/$chatId_.settings.tsx:556
 msgid "Remove"
@@ -1602,17 +1817,23 @@ msgstr "हटाउनुहोस्"
 msgid "Remove {0}"
 msgstr "{0} हटाउनुहोस्"
 
-#: ../../../lib/web/src/features/access/access-list.tsx:247
-#: ../../../lib/web/src/features/access/access-list.tsx:253
+#. placeholder {0}: filter.label
+#: ../../../lib/web/src/components/filter-bar.tsx:56
+#: ../../../lib/web/src/components/filter-bar.tsx:62
+msgid "Remove {0} filter"
+msgstr "{0} फिल्टर हटाउनुहोस्"
+
+#: ../../../lib/web/src/features/access/access-list.tsx:252
+#: ../../../lib/web/src/features/access/access-list.tsx:258
 msgid "Remove access rule"
 msgstr "पहुँच नियम हटाउनुहोस्"
 
 #. placeholder {0}: formatSubject(subject, data.name)
-#: ../../../lib/web/src/features/access/access-list.tsx:259
+#: ../../../lib/web/src/features/access/access-list.tsx:264
 msgid "Remove access rule for \"{0}\"?"
 msgstr "\"{0}\" का लागि पहुँच नियम हटाउने?"
 
-#: ../../../lib/web/src/features/access/access-list.tsx:257
+#: ../../../lib/web/src/features/access/access-list.tsx:262
 msgid "Remove access?"
 msgstr "पहुँच हटाउने?"
 
@@ -1658,16 +1879,21 @@ msgstr "{0}लाई जवाफ दिँदै"
 msgid "Resend email"
 msgstr "इमेल फेरि पठाउनुहोस्"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:86
-#: ../../../lib/web/src/components/data-table/toolbar.tsx:81
+#: ../../../lib/web/src/components/config-drawer.tsx:87
+#: ../../../lib/web/src/components/data-table/toolbar.tsx:82
 msgid "Reset"
 msgstr "रिसेट गर्नुहोस्"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:84
+#: ../../../lib/web/src/components/config-drawer.tsx:122
+#: ../../../lib/web/src/components/config-drawer.tsx:127
+msgid "Reset {title}"
+msgstr ""
+
+#: ../../../lib/web/src/components/config-drawer.tsx:85
 msgid "Reset all settings to default values"
 msgstr "सबै सेटिङहरू पूर्वनिर्धारित मानमा रिसेट गर्नुहोस्"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:361
+#: ../../../lib/web/src/components/config-drawer.tsx:362
 msgid "Right to Left"
 msgstr "दायाँदेखि बायाँ"
 
@@ -1694,6 +1920,12 @@ msgstr "सुरक्षित गर्नुहोस्"
 msgid "Saving..."
 msgstr "सुरक्षित गर्दै..."
 
+#: ../../../lib/web/src/components/filter-bar.tsx:32
+#: ../../../lib/web/src/components/header-search.tsx:22
+#: ../../../lib/web/src/components/search.tsx:18
+msgid "Search"
+msgstr "खोज्नुहोस्"
+
 #: src/features/chats/components/forward-dialog.tsx:198
 msgid "Search chats…"
 msgstr "च्याटहरू खोज्नुहोस्…"
@@ -1702,9 +1934,17 @@ msgstr "च्याटहरू खोज्नुहोस्…"
 msgid "Search failed"
 msgstr "खोज असफल भयो"
 
-#: ../../../lib/web/src/components/place-picker.tsx:85
+#: ../../../lib/web/src/components/ui/command.tsx:35
+msgid "Search for a command to run..."
+msgstr ""
+
+#: ../../../lib/web/src/components/place-picker.tsx:86
 msgid "Search for a place"
 msgstr "स्थान खोज्नुहोस्"
+
+#: ../../../lib/web/src/components/place-picker.tsx:50
+msgid "Search for a place..."
+msgstr ""
 
 #: ../../../lib/web/src/components/travelling-picker.tsx:250
 msgid "Search for destination..."
@@ -1735,11 +1975,13 @@ msgid "Search users"
 msgstr "प्रयोगकर्ताहरू खोज्नुहोस्"
 
 #: ../../../lib/web/src/components/person-picker.tsx:324
+#: ../../../lib/web/src/components/search-entity-dialog.tsx:81
+#: ../../../lib/web/src/components/search-entity-page.tsx:72
 msgid "Search..."
 msgstr "खोज्नुहोस्..."
 
-#: ../../../lib/web/src/components/search-entity-dialog.tsx:174
-#: ../../../lib/web/src/components/search-entity-page.tsx:200
+#: ../../../lib/web/src/components/search-entity-dialog.tsx:175
+#: ../../../lib/web/src/components/search-entity-page.tsx:201
 #: ../../../lib/web/src/features/access/access-dialog.tsx:202
 msgid "Searching..."
 msgstr "खोज्दै..."
@@ -1755,6 +1997,11 @@ msgstr "भ्वाइस नोटमा अगाडि-पछाडि ज�
 #: src/features/chats/components/message-hover-actions.tsx:113
 msgid "Select"
 msgstr "छान्नुहोस्"
+
+#. placeholder {0}: item.label.toLowerCase()
+#: ../../../lib/web/src/components/config-drawer.tsx:149
+msgid "Select {0}"
+msgstr ""
 
 #: src/features/chats/components/chat-empty-state.tsx:22
 msgid "Select a chat"
@@ -1772,6 +2019,10 @@ msgstr "पहुँच दिन प्रयोगकर्ता, समू�
 msgid "Select access rule"
 msgstr "पहुँच नियम छान्नुहोस्"
 
+#: ../../../lib/web/src/features/accounts/account-picker.tsx:34
+msgid "Select account"
+msgstr ""
+
 #: ../../../lib/web/src/features/accounts/account-add.tsx:129
 msgid "Select account type"
 msgstr "खाता प्रकार छान्नुहोस्"
@@ -1780,13 +2031,17 @@ msgstr "खाता प्रकार छान्नुहोस्"
 msgid "Select group"
 msgstr "समूह छान्नुहोस्"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:304
+#: ../../../lib/web/src/components/config-drawer.tsx:305
 msgid "Select layout style"
 msgstr "लेआउट शैली छान्नुहोस्"
 
 #: src/features/chats/components/chat-message-list.tsx:826
 msgid "Select loaded"
 msgstr "लोड भएका चयन गर्नुहोस्"
+
+#: ../../../lib/web/src/components/place-picker.tsx:49
+msgid "Select location"
+msgstr "स्थान चयन गर्नुहोस्"
 
 #: src/features/chats/components/chat-message-list.tsx:543
 msgid "Select message"
@@ -1796,15 +2051,19 @@ msgstr "सन्देश चयन गर्नुहोस्"
 msgid "Select people..."
 msgstr "मानिसहरू चयन गर्नुहोस्..."
 
-#: ../../../lib/web/src/components/config-drawer.tsx:246
+#: ../../../lib/web/src/components/person-picker.tsx:83
+msgid "Select person..."
+msgstr ""
+
+#: ../../../lib/web/src/components/config-drawer.tsx:247
 msgid "Select sidebar style"
 msgstr "साइडबार शैली छान्नुहोस्"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:348
+#: ../../../lib/web/src/components/config-drawer.tsx:349
 msgid "Select site direction"
 msgstr "साइट दिशा छान्नुहोस्"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:202
+#: ../../../lib/web/src/components/config-drawer.tsx:203
 msgid "Select theme preference"
 msgstr "थिम प्राथमिकता छान्नुहोस्"
 
@@ -1881,8 +2140,8 @@ msgstr "पासवर्ड देखाउनुहोस्"
 msgid "Showing {totalShown} of {total}"
 msgstr "{total} मध्ये {totalShown} देखाइँदै"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:238
-#: ../../../lib/web/src/components/config-drawer.tsx:262
+#: ../../../lib/web/src/components/config-drawer.tsx:239
+#: ../../../lib/web/src/components/config-drawer.tsx:263
 #: ../../../lib/web/src/components/ui/sidebar.tsx:237
 msgid "Sidebar"
 msgstr "साइडबार"
@@ -1926,24 +2185,37 @@ msgstr "तर सम्पर्कमा रहनुहोस्!"
 msgid "Stop recording"
 msgstr "रेकर्डिङ बन्द गर्नुहोस्"
 
-#: ../../../lib/web/src/features/access/access-list.tsx:191
+#: ../../../lib/web/src/features/access/access-list.tsx:196
 msgid "Subject"
 msgstr "विषय"
+
+#: ../../../lib/web/src/components/search-entity-dialog.tsx:83
+#: ../../../lib/web/src/components/search-entity-page.tsx:74
+msgid "Subscribe"
+msgstr "सदस्यता लिनुहोस्"
 
 #: ../../../lib/web/src/lib/preference-utils.ts:65
 msgid "Sunday"
 msgstr "आइतबार"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:208
+#: ../../../lib/web/src/components/config-drawer.tsx:209
 #: ../../../lib/web/src/components/theme-switch.tsx:59
 #: ../../../lib/web/src/lib/preference-utils.ts:21
 #: ../../../lib/web/src/lib/preference-utils.ts:144
 msgid "System"
 msgstr "प्रणाली"
 
-#: ../../../lib/web/src/components/tag-input.tsx:94
+#: ../../../lib/web/src/components/tag-input.tsx:95
 msgid "Tag"
 msgstr "ट्याग"
+
+#: ../../../lib/web/src/components/post-tags.tsx:76
+msgid "Tag already exists"
+msgstr "ट्याग पहिले नै अवस्थित छ"
+
+#: ../../../lib/web/src/components/post-tags.tsx:68
+msgid "Tag must be 50 characters or less"
+msgstr "ट्याग ५० वर्ण वा सोभन्दा कम हुनुपर्छ"
 
 #: ../../../lib/web/src/components/post-tags.tsx:101
 #: ../../../lib/web/src/components/post-tags.tsx:115
@@ -1980,11 +2252,11 @@ msgstr "अनुरोध गरिएको सामग्री फेला
 msgid "The site is not available at the moment."
 msgstr "साइट यस समयमा उपलब्ध छैन।"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:194
+#: ../../../lib/web/src/components/config-drawer.tsx:195
 msgid "Theme"
 msgstr "थिम"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:69
+#: ../../../lib/web/src/components/config-drawer.tsx:70
 msgid "Theme Settings"
 msgstr "थिम सेटिङहरू"
 
@@ -2069,8 +2341,8 @@ msgstr "यात्रा गर्दै"
 msgid "Try a different search term"
 msgstr "फरक खोजी शब्द प्रयास गर्नुहोस्"
 
-#: ../../../lib/web/src/components/search-entity-dialog.tsx:190
-#: ../../../lib/web/src/components/search-entity-page.tsx:216
+#: ../../../lib/web/src/components/search-entity-dialog.tsx:191
+#: ../../../lib/web/src/components/search-entity-page.tsx:217
 msgid "Try adjusting your search terms"
 msgstr "आफ्ना खोज सर्तहरू समायोजन गर्ने प्रयास गर्नुहोस्"
 
@@ -2121,10 +2393,16 @@ msgstr "नतोकिएको"
 msgid "Unauthorized Access"
 msgstr "अनधिकृत पहुँच"
 
+#: ../../../lib/web/src/lib/request.ts:133
+#: ../../../lib/web/src/lib/request.ts:206
+msgid "Unexpected API error"
+msgstr "अप्रत्याशित API त्रुटि"
+
 #: ../../../lib/web/src/lib/preference-utils.ts:87
 msgid "United States"
 msgstr "संयुक्त राज्य अमेरिका"
 
+#: ../../../lib/web/src/features/accounts/types.ts:29
 #: src/hooks/useChatWebsocket.ts:387
 msgid "Unknown"
 msgstr "अज्ञात"
@@ -2141,6 +2419,7 @@ msgstr "अप्रमाणित"
 msgid "Use your passkey"
 msgstr "आफ्नो पासकी प्रयोग गर्नुहोस्"
 
+#: ../../../lib/web/src/components/layout/mochi-menu.tsx:86
 #: ../../../lib/web/src/features/access/access-dialog.tsx:158
 msgid "User"
 msgstr "प्रयोगकर्ता"
@@ -2207,6 +2486,10 @@ msgstr "यो ब्राउजरमा भ्वाइस रेकर्ड
 msgid "Voice recording isn't available in this app version. Please update the app and try again."
 msgstr "एपको यो संस्करणमा भ्वाइस रेकर्डिङ उपलब्ध छैन। कृपया एप अपडेट गरेर फेरि प्रयास गर्नुहोस्।"
 
+#: ../../../lib/web/src/components/filter-bar.tsx:35
+msgid "Watched"
+msgstr "हेरिएको"
+
 #. placeholder {0}: account.identifier
 #: ../../../lib/web/src/features/accounts/account-verify.tsx:63
 msgid "We sent a verification code to <0>{0}</0>. Enter the code below to verify your email address."
@@ -2215,6 +2498,10 @@ msgstr "हामीले <0>{0}</0> मा प्रमाणीकरण क�
 #: ../../../lib/web/src/features/errors/maintenance-error.tsx:16
 msgid "We'll be back online shortly."
 msgstr "हामी छिट्टै फेरि अनलाइन हुनेछौँ।"
+
+#: ../../../lib/web/src/components/notifications-dropdown.tsx:197
+msgid "We'll notify you when something important happens."
+msgstr "केही महत्त्वपूर्ण भएमा हामी तपाईंलाई सूचित गर्नेछौं।"
 
 #: ../../../lib/web/src/features/errors/maintenance-error.tsx:13
 msgid "Website is under maintenance!"
@@ -2260,9 +2547,17 @@ msgstr "यो स्रोत हेर्न <0/>तपाईंसँग आ�
 msgid "You left this chat"
 msgstr "तपाईंले यो च्याट छोड्नुभयो"
 
+#: ../../../lib/web/src/lib/show-submitted-data.tsx:9
+msgid "You submitted the following values:"
+msgstr ""
+
 #: src/features/chats/index.tsx:1268
 msgid "You were removed from this chat"
 msgstr "तपाईंलाई यस च्याटबाट हटाइयो"
+
+#: ../../../lib/web/src/components/notifications-dropdown.tsx:193
+msgid "You're all caught up!"
+msgstr "तपाईंले सबै हेर्नुभयो!"
 
 #: ../../../lib/web/src/components/restore-banner.tsx:91
 msgid "Your account was moved here from {source}. Until you delete it there, messages and notifications may reach both servers, some of your content keeps being served from the old server, and followers may take a few minutes to find you here."

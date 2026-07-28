@@ -41,6 +41,11 @@ msgstr "{0, plural, one {Ștergi mesajul?} few {Ștergi # mesaje?} other {Șterg
 msgid "{0} (includes you)"
 msgstr "{0} (te include)"
 
+#. placeholder {0}: item.label
+#: ../../../lib/web/src/components/config-drawer.tsx:160
+msgid "{0} option preview"
+msgstr ""
+
 #. placeholder {0}: selectedIds.size
 #. placeholder {0}: selectedIds?.size ?? 0
 #: src/features/chats/components/chat-message-list.tsx:816
@@ -54,9 +59,13 @@ msgstr "{0} selectate"
 msgid "{0} settings"
 msgstr "Setări {0}"
 
-#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:173
+#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:174
 msgid "{entityLabel} name"
 msgstr "Numele {entityLabel}"
+
+#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:99
+msgid "{entityLabel} name is required"
+msgstr ""
 
 #: src/features/chats/components/message-attachments.tsx:140
 msgid "{hiddenCount, plural, one {Show 1 more file} other {Show # more files}}"
@@ -87,6 +96,10 @@ msgstr "{selectedCount, plural, one {Acțiuni în masă pentru # {entityName} se
 msgid "{skippedCount, plural, one {Skipped # file that is not audio} other {Skipped # files that are not audio}}"
 msgstr "{skippedCount, plural, one {S-a omis # fișier care nu este audio} few {S-au omis # fișiere care nu sunt audio} other {S-au omis # de fișiere care nu sunt audio}}"
 
+#: ../../../lib/web/src/components/layout/mochi-menu.tsx:132
+msgid "{unreadCount, plural, one {Open menu (# unread notification)} other {Open menu (# unread notifications)}}"
+msgstr ""
+
 #: ../../../lib/web/src/lib/preference-utils.ts:42
 msgid "12 hours"
 msgstr "12 ore"
@@ -111,7 +124,7 @@ msgstr "Acces refuzat"
 msgid "Access Forbidden"
 msgstr "Acces interzis"
 
-#: ../../../lib/web/src/features/access/access-list.tsx:192
+#: ../../../lib/web/src/features/access/access-list.tsx:197
 msgid "Access level"
 msgstr "Nivel de acces"
 
@@ -131,6 +144,7 @@ msgstr "Tip de cont"
 msgid "Account verified"
 msgstr "Cont verificat"
 
+#: ../../../lib/web/src/features/access/access-dialog.tsx:332
 #: ../../../lib/web/src/features/accounts/account-add.tsx:196
 msgid "Add"
 msgstr "Adaugă"
@@ -167,7 +181,7 @@ msgstr "Adaugă atașament"
 msgid "Add member"
 msgstr "Adaugă membru"
 
-#: ../../../lib/web/src/features/accounts/account-picker.tsx:101
+#: ../../../lib/web/src/features/accounts/account-picker.tsx:102
 msgid "Add new account"
 msgstr "Adaugă un cont nou"
 
@@ -177,6 +191,7 @@ msgid "Add reaction"
 msgstr "Adaugă reacție"
 
 #: ../../../lib/web/src/components/post-tags.tsx:137
+#: ../../../lib/web/src/components/tag-input.tsx:40
 msgid "Add tag..."
 msgstr "Adaugă etichetă..."
 
@@ -209,7 +224,11 @@ msgstr "Se adaugă {0}/{1}..."
 msgid "Adding member..."
 msgstr "Se adaugă membrul..."
 
-#: ../../../lib/web/src/components/config-drawer.tsx:71
+#: ../../../lib/web/src/features/access/access-dialog.tsx:332
+msgid "Adding..."
+msgstr "Se adaugă..."
+
+#: ../../../lib/web/src/components/config-drawer.tsx:72
 msgid "Adjust the appearance and layout to suit your preferences."
 msgstr "Ajustează aspectul și aranjamentul după preferințe."
 
@@ -229,6 +248,11 @@ msgstr "Toate"
 msgid "All your friends are already in this chat"
 msgstr "Toți prietenii tăi sunt deja în acest chat"
 
+#. placeholder {0}: entityLabel.toLowerCase()
+#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:85
+msgid "Allow anyone to search for {0}"
+msgstr ""
+
 #: src/features/chats/constants/reactions.ts:36
 msgid "Amazed"
 msgstr "Uimit"
@@ -241,10 +265,16 @@ msgstr "A apărut o eroare"
 msgid "An unexpected error occurred"
 msgstr "A apărut o eroare neașteptată"
 
+#: ../../../lib/web/src/features/accounts/types.ts:16
+msgid "Android push"
+msgstr ""
+
 #: src/features/chats/constants/reactions.ts:39
 msgid "Angry"
 msgstr "Supărat"
 
+#: ../../../lib/web/src/features/access/access-list.tsx:45
+#: ../../../lib/web/src/features/access/types.ts:42
 #: src/features/chats/components/chat-settings-dialog.tsx:44
 msgid "Anyone"
 msgstr "Oricine"
@@ -252,6 +282,10 @@ msgstr "Oricine"
 #: src/features/chats/components/chat-settings-dialog.tsx:45
 msgid "Anyone can start a chat with you."
 msgstr "Oricine poate începe o conversație cu tine."
+
+#: ../../../lib/web/src/features/access/types.ts:41
+msgid "Anyone who is logged in"
+msgstr ""
 
 #. placeholder {0}: selectedChat?.name
 #: src/features/chats/index.tsx:1324
@@ -292,11 +326,24 @@ msgstr "Atașamentele sunt prea mari pentru a fi încărcate. Elimină sau micș
 msgid "Audio"
 msgstr "Audio"
 
+#: ../../../lib/web/src/features/access/access-list.tsx:46
+#: ../../../lib/web/src/features/access/types.ts:41
+msgid "Authenticated users"
+msgstr "Utilizatori autentificați"
+
 #: ../../../lib/web/src/components/step-up-dialog.tsx:315
 msgid "Authenticator code"
 msgstr "Cod de autentificare"
 
-#: ../../../lib/web/src/components/place-picker.tsx:155
+#: ../../../lib/web/src/components/entity-avatar.tsx:99
+msgid "Avatar"
+msgstr "Avatar"
+
+#: ../../../lib/web/src/components/entity-avatar.tsx:99
+msgid "Avatar for {name}"
+msgstr ""
+
+#: ../../../lib/web/src/components/place-picker.tsx:156
 msgid "Back"
 msgstr "Înapoi"
 
@@ -312,6 +359,10 @@ msgstr "Înapoi la chat"
 msgid "Back to home"
 msgstr "Înapoi la pornire"
 
+#: ../../../lib/web/src/components/entity-banner.tsx:17
+msgid "Banner"
+msgstr ""
+
 #: src/features/chats/components/chat-message-list.tsx:470
 msgid "Be the first to say something!"
 msgstr "Fii primul care spune ceva!"
@@ -321,13 +372,17 @@ msgstr "Fii primul care spune ceva!"
 msgid "Boost interest"
 msgstr "Promovează interesul"
 
+#: ../../../lib/web/src/features/accounts/types.ts:13
+msgid "Browser notifications"
+msgstr "Notificări de browser"
+
 #: ../../../lib/web/src/components/responsive-confirm-dialog.tsx:67
 #: ../../../lib/web/src/components/step-up-dialog.tsx:363
 #: ../../../lib/web/src/components/travelling-picker.tsx:308
-#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:248
+#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:249
 #: ../../../lib/web/src/components/ui/editable-field-row.tsx:132
 #: ../../../lib/web/src/features/access/access-dialog.tsx:328
-#: ../../../lib/web/src/features/access/access-list.tsx:263
+#: ../../../lib/web/src/features/access/access-list.tsx:268
 #: ../../../lib/web/src/features/accounts/account-add.tsx:188
 #: ../../../lib/web/src/features/accounts/account-verify.tsx:91
 #: src/features/chats/components/chat-message-list.tsx:621
@@ -435,6 +490,10 @@ msgstr "Fixarea chatului a fost anulată"
 msgid "Chats"
 msgstr "Chaturi"
 
+#: ../../../lib/web/src/components/notifications-dropdown.tsx:198
+msgid "Check \"All\" to see your past notifications."
+msgstr "Bifați „Toate” pentru a vedea notificările anterioare."
+
 #: src/features/chats/components/forward-dialog.tsx:190
 msgid "Choose a chat or friend to forward the selected messages to"
 msgstr "Alege un chat sau un prieten căruia să-i redirecționezi mesajele selectate"
@@ -443,19 +502,19 @@ msgstr "Alege un chat sau un prieten căruia să-i redirecționezi mesajele sele
 msgid "Choose a conversation from the sidebar or start a new one."
 msgstr "Alege o conversație din bara laterală sau începe una nouă."
 
-#: ../../../lib/web/src/components/config-drawer.tsx:328
+#: ../../../lib/web/src/components/config-drawer.tsx:329
 msgid "Choose between default expanded, compact icon-only, or full layout mode"
 msgstr "Alege între modul implicit extins, compact doar cu pictograme sau aranjament complet"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:270
+#: ../../../lib/web/src/components/config-drawer.tsx:271
 msgid "Choose between inset, floating, or standard sidebar layout"
 msgstr "Alege între aranjament de bară laterală încadrată, flotantă sau standard"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:371
+#: ../../../lib/web/src/components/config-drawer.tsx:372
 msgid "Choose between left-to-right or right-to-left site direction"
 msgstr "Alege între direcția site-ului de la stânga la dreapta sau de la dreapta la stânga"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:226
+#: ../../../lib/web/src/components/config-drawer.tsx:227
 msgid "Choose between system preference, light mode, or dark mode"
 msgstr "Alege între preferința sistemului, mod luminos sau mod întunecat"
 
@@ -464,8 +523,8 @@ msgstr "Alege între preferința sistemului, mod luminos sau mod întunecat"
 msgid "Choose language"
 msgstr "Alege limba"
 
-#: ../../../lib/web/src/components/colour-picker.tsx:269
-#: ../../../lib/web/src/components/colour-picker.tsx:350
+#: ../../../lib/web/src/components/colour-picker.tsx:270
+#: ../../../lib/web/src/components/colour-picker.tsx:351
 #: ../../../lib/web/src/components/travelling-picker.tsx:164
 #: ../../../lib/web/src/components/travelling-picker.tsx:170
 #: ../../../lib/web/src/components/travelling-picker.tsx:231
@@ -473,7 +532,7 @@ msgstr "Alege limba"
 msgid "Clear"
 msgstr "Golește"
 
-#: ../../../lib/web/src/components/filter-bar.tsx:73
+#: ../../../lib/web/src/components/filter-bar.tsx:74
 msgid "Clear all"
 msgstr "Golește tot"
 
@@ -481,6 +540,7 @@ msgstr "Golește tot"
 msgid "Clear filters"
 msgstr "Golește filtrele"
 
+#: ../../../lib/web/src/components/search-input.tsx:26
 #: src/features/chats/components/forward-dialog.tsx:199
 #: src/routes/_authenticated/$chatId_.settings.tsx:456
 msgid "Clear search"
@@ -537,15 +597,35 @@ msgstr "Confortabil"
 msgid "Coming Soon!"
 msgstr "În curând!"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:315
+#: ../../../lib/web/src/components/ui/command.tsx:34
+msgid "Command Palette"
+msgstr ""
+
+#: ../../../lib/web/src/components/config-drawer.tsx:316
 #: ../../../lib/web/src/lib/preference-utils.ts:95
 msgid "Compact"
 msgstr "Compact"
 
-#: ../../../lib/web/src/components/place-picker.tsx:159
+#: ../../../lib/web/src/components/place-picker.tsx:160
 #: ../../../lib/web/src/components/travelling-picker.tsx:316
 msgid "Confirm"
 msgstr "Confirmă"
+
+#: ../../../lib/web/src/lib/chat-ui.ts:18
+msgid "Connected"
+msgstr "Conectat"
+
+#: ../../../lib/web/src/features/accounts/account-manager.tsx:191
+msgid "Connected accounts"
+msgstr "Conturi conectate"
+
+#: ../../../lib/web/src/lib/chat-ui.ts:21
+msgid "Connecting..."
+msgstr "Se conectează..."
+
+#: ../../../lib/web/src/lib/handle-server-error.ts:18
+msgid "Content not found."
+msgstr "Conținutul nu a fost găsit."
 
 #: ../../../lib/web/src/lib/query-client.ts:81
 msgid "Content not modified"
@@ -563,11 +643,16 @@ msgstr "Continuă"
 msgid "Continue with {label}"
 msgstr "Continuă cu {label}"
 
+#: ../../../lib/web/src/lib/toast-utils.ts:42
 #: src/features/chats/index.tsx:648
 msgid "Copied"
 msgstr "Copiat"
 
-#: ../../../lib/web/src/components/ui/copy-button.tsx:63
+#: ../../../lib/web/src/components/ui/copy-button.tsx:25
+msgid "Copied to clipboard"
+msgstr "Copiat în clipboard"
+
+#: ../../../lib/web/src/components/ui/copy-button.tsx:64
 #: src/features/chats/components/message-hover-actions.tsx:107
 #: src/features/chats/index.tsx:1235
 msgid "Copy"
@@ -595,6 +680,11 @@ msgstr "Reautentificarea nu a putut fi inițiată. Încearcă din nou."
 msgid "Couldn't verify with that account. Please try again."
 msgstr "Nu s-a putut verifica cu acel cont. Încearcă din nou."
 
+#. placeholder {0}: entityLabel.toLowerCase()
+#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:144
+msgid "Create {0}"
+msgstr ""
+
 #: src/features/chats/components/new-chat.tsx:266
 msgid "Create a new chat"
 msgstr "Creează un chat nou"
@@ -608,15 +698,20 @@ msgstr "Creează chat"
 msgid "Creating chat..."
 msgstr "Se creează conversația..."
 
+#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:258
 #: src/features/chats/components/new-chat.tsx:365
 msgid "Creating..."
 msgstr "Se creează..."
 
-#: ../../../lib/web/src/components/colour-picker.tsx:260
+#: ../../../lib/web/src/components/map-view.tsx:208
+msgid "Current location"
+msgstr "Locația curentă"
+
+#: ../../../lib/web/src/components/colour-picker.tsx:261
 msgid "Custom"
 msgstr "Personalizat"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:218
+#: ../../../lib/web/src/components/config-drawer.tsx:219
 #: ../../../lib/web/src/components/theme-switch.tsx:52
 #: ../../../lib/web/src/lib/preference-utils.ts:20
 msgid "Dark"
@@ -634,7 +729,7 @@ msgstr "Mod întunecat"
 msgid "Data conflict"
 msgstr "Conflict de date"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:310
+#: ../../../lib/web/src/components/config-drawer.tsx:311
 msgid "Default"
 msgstr "Implicit"
 
@@ -679,6 +774,10 @@ msgstr "Descresc."
 msgid "Descending"
 msgstr "Descrescător"
 
+#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:83
+msgid "Description"
+msgstr "Descriere"
+
 #: ../../../lib/web/src/components/layout/right-panel.tsx:148
 msgid "Details Panel"
 msgstr "Panou detalii"
@@ -694,9 +793,13 @@ msgstr "Panou detalii"
 msgid "Detect from web browser"
 msgstr "Detectează din browser"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:340
+#: ../../../lib/web/src/components/config-drawer.tsx:341
 msgid "Direction"
 msgstr "Direcție"
+
+#: ../../../lib/web/src/components/person-picker.tsx:214
+msgid "Directory"
+msgstr "Director"
 
 #: src/features/chats/components/new-chat.tsx:88
 msgid "Directory search failed"
@@ -710,6 +813,11 @@ msgstr "Nu sunt de acord"
 #: src/features/chats/components/chat-input.tsx:733
 msgid "Discard recording"
 msgstr "Renunță la înregistrare"
+
+#: ../../../lib/web/src/lib/chat-ui.ts:25
+#: ../../../lib/web/src/lib/chat-ui.ts:29
+msgid "Disconnected"
+msgstr "Deconectat"
 
 #: src/features/chats/constants/reactions.ts:34
 msgid "Dislike"
@@ -763,6 +871,10 @@ msgstr "Editează {label}"
 msgid "Elapsed {0}"
 msgstr "Scurs {0}"
 
+#: ../../../lib/web/src/features/accounts/types.ts:15
+msgid "Email"
+msgstr ""
+
 #: ../../../lib/web/src/components/step-up-dialog.tsx:289
 msgid "Email code"
 msgstr "Cod email"
@@ -790,6 +902,10 @@ msgstr "Extinde"
 msgid "Expand sidebar"
 msgstr "Extinde bara laterală"
 
+#: ../../../lib/web/src/features/accounts/types.ts:22
+msgid "External URL"
+msgstr "URL extern"
+
 #: ../../../lib/web/src/lib/preference-utils.ts:136
 msgid "Extra large"
 msgstr "Extra mare"
@@ -802,6 +918,12 @@ msgstr "Adăugarea contului a eșuat"
 msgid "Failed to add member"
 msgstr "Adăugarea membrului a eșuat"
 
+#: ../../../lib/web/src/components/tag-input.tsx:39
+msgid "Failed to add tag"
+msgstr "Adăugarea etichetei a eșuat"
+
+#: ../../../lib/web/src/components/ui/copy-button.tsx:26
+#: ../../../lib/web/src/lib/toast-utils.ts:44
 #: src/features/chats/index.tsx:649
 msgid "Failed to copy"
 msgstr "Copierea a eșuat"
@@ -834,6 +956,10 @@ msgstr "Redirecționarea a eșuat"
 #: src/routes/_authenticated/$chatId_.settings.tsx:339
 msgid "Failed to leave chat"
 msgstr "Părăsirea conversației a eșuat"
+
+#: ../../../lib/web/src/hooks/use-load-more.ts:74
+msgid "Failed to load"
+msgstr "Încărcarea a eșuat"
 
 #: ../../../lib/web/src/components/ui/image-lightbox.tsx:263
 msgid "Failed to load image"
@@ -887,6 +1013,10 @@ msgstr "Pornirea conversației a eșuat"
 msgid "Failed to update category"
 msgstr "Actualizarea categoriei a eșuat"
 
+#: ../../../lib/web/src/components/data-table/toolbar.tsx:30
+msgid "Filter..."
+msgstr "Filtrare..."
+
 #: ../../../lib/web/src/components/restore-banner.tsx:88
 msgid "Finish moving your account"
 msgstr "Finalizați mutarea contului dvs."
@@ -895,7 +1025,7 @@ msgstr "Finalizați mutarea contului dvs."
 msgid "Flat"
 msgstr "Plat"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:257
+#: ../../../lib/web/src/components/config-drawer.tsx:258
 msgid "Floating"
 msgstr "Flotant"
 
@@ -921,6 +1051,7 @@ msgstr "Se redirecționează..."
 msgid "Friday"
 msgstr "Vineri"
 
+#: ../../../lib/web/src/components/person-picker.tsx:207
 #: src/features/chats/components/forward-dialog.tsx:237
 #: src/routes/_authenticated/$chatId_.settings.tsx:479
 msgid "Friends"
@@ -943,7 +1074,7 @@ msgstr "De la"
 msgid "From theme"
 msgstr "Din temă"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:320
+#: ../../../lib/web/src/components/config-drawer.tsx:321
 msgid "Full layout"
 msgstr "Aspect complet"
 
@@ -982,6 +1113,11 @@ msgstr "Mergi la pagina anterioară"
 msgid "Group"
 msgstr "Grup"
 
+#. placeholder {0}: name || subject.slice(1)
+#: ../../../lib/web/src/features/access/access-list.tsx:68
+msgid "Group: {0}"
+msgstr "Grup: {0}"
+
 #: ../../../lib/web/src/components/data-table/column-header.tsx:70
 msgid "Hide"
 msgstr "Ascunde"
@@ -1010,18 +1146,34 @@ msgstr "Vizualizator de imagini: {0}"
 msgid "Imperial"
 msgstr "Imperial"
 
+#: ../../../lib/web/src/features/access/types.ts:42
+msgid "Including anonymous users"
+msgstr ""
+
 #: src/features/chats/components/chat-settings-dialog.tsx:80
 #: src/features/chats/index.tsx:1144
 msgid "Incoming chats"
 msgstr "Conversații primite"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:252
+#: ../../../lib/web/src/components/faceless-avatar.tsx:69
+msgid "Initials avatar"
+msgstr ""
+
+#: ../../../lib/web/src/components/faceless-avatar.tsx:69
+msgid "Initials avatar for {name}"
+msgstr ""
+
+#: ../../../lib/web/src/components/config-drawer.tsx:253
 msgid "Inset"
 msgstr "Încastrat"
 
 #: ../../../lib/web/src/components/ui/sort-selector.tsx:42
 msgid "Interests"
 msgstr "Interese"
+
+#: ../../../lib/web/src/components/tag-input.tsx:38
+msgid "Invalid tag: letters, numbers, spaces, hyphens, and slashes only (max 50 chars)"
+msgstr ""
 
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:245
 msgid "Invalid verification code"
@@ -1036,6 +1188,10 @@ msgstr "Se pare că pagina pe care o căutați <0/>nu există sau a fost elimina
 msgid "Jump to bottom"
 msgstr "Sari la final"
 
+#: ../../../lib/web/src/lib/locale-format.ts:62
+msgid "Just now"
+msgstr "Chiar acum"
+
 #: ../../../lib/web/src/lib/preference-utils.ts:108
 #: ../../../lib/web/src/lib/preference-utils.ts:135
 msgid "Large"
@@ -1045,7 +1201,7 @@ msgstr "Mare"
 msgid "Laugh"
 msgstr "Râs"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:286
+#: ../../../lib/web/src/components/config-drawer.tsx:287
 msgid "Layout"
 msgstr "Aspect"
 
@@ -1083,11 +1239,15 @@ msgstr "Se părăsește..."
 msgid "Left chat"
 msgstr "Conversație părăsită"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:354
+#: ../../../lib/web/src/components/config-drawer.tsx:355
 msgid "Left to Right"
 msgstr "De la stânga la dreapta"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:213
+#: ../../../lib/web/src/components/post-tags.tsx:72
+msgid "Letters, numbers, spaces, and hyphens only"
+msgstr "Doar litere, cifre, spații și cratime"
+
+#: ../../../lib/web/src/components/config-drawer.tsx:214
 #: ../../../lib/web/src/components/theme-switch.tsx:45
 #: ../../../lib/web/src/lib/preference-utils.ts:19
 msgid "Light"
@@ -1136,6 +1296,10 @@ msgstr "Se deconectează…"
 msgid "Love"
 msgstr "Iubire"
 
+#: ../../../lib/web/src/features/accounts/account-manager.tsx:192
+msgid "Manage your connected accounts for notifications and services."
+msgstr ""
+
 #: ../../../lib/web/src/components/layout/notification-menu.tsx:93
 #: ../../../lib/web/src/components/layout/notification-menu.tsx:100
 #: ../../../lib/web/src/components/notifications-dropdown.tsx:224
@@ -1153,6 +1317,10 @@ msgstr "Marchează ca necitit"
 #: src/components/layout/chat-layout.tsx:142
 msgid "Marking as read..."
 msgstr "Se marchează ca citit..."
+
+#: ../../../lib/web/src/features/accounts/types.ts:17
+msgid "MCP server"
+msgstr ""
 
 #: ../../../lib/web/src/lib/preference-utils.ts:107
 msgid "Medium"
@@ -1243,6 +1411,10 @@ msgstr "Microfonul este deja în uz"
 msgid "Microphone permission denied"
 msgstr "Permisiunea pentru microfon refuzată"
 
+#: ../../../lib/web/src/features/accounts/types.ts:23
+msgid "Mochi web"
+msgstr ""
+
 #: ../../../lib/web/src/lib/preference-utils.ts:59
 msgid "Monday"
 msgstr "Luni"
@@ -1252,9 +1424,17 @@ msgstr "Luni"
 msgid "Multiple people share these names: {0}. Pick them from the @ list so the right person is notified."
 msgstr "Mai multe persoane au aceste nume: {0}. Alegeți-le din lista @ pentru ca persoana potrivită să fie notificată."
 
+#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:102
+msgid "Name cannot contain angle brackets, backslash, semicolon, quotes or backticks"
+msgstr ""
+
 #: src/routes/_authenticated/$chatId_.settings.tsx:200
 msgid "Name must be {CHAT_NAME_MAX_LENGTH} characters or less"
 msgstr "Numele trebuie să aibă cel mult {CHAT_NAME_MAX_LENGTH} de caractere"
+
+#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:100
+msgid "Name must be 1000 characters or less"
+msgstr "Numele trebuie să aibă cel mult 1000 de caractere"
 
 #: ../../../lib/web/src/features/errors/general-error.tsx:53
 #: ../../../lib/web/src/lib/api-response-interceptors.ts:303
@@ -1280,7 +1460,7 @@ msgstr "Rezultat mai nou"
 msgid "Next image"
 msgstr "Imaginea următoare"
 
-#: ../../../lib/web/src/features/access/access-list.tsx:160
+#: ../../../lib/web/src/features/access/access-list.tsx:165
 msgid "No access rules configured. Add rules to control who can access this resource."
 msgstr "Nu sunt configurate reguli de acces. Adaugă reguli pentru a controla cine poate accesa această resursă."
 
@@ -1316,11 +1496,16 @@ msgstr "Încă niciun mesaj"
 msgid "No microphone found"
 msgstr "Nu s-a găsit niciun microfon"
 
+#: ../../../lib/web/src/components/notifications-dropdown.tsx:193
+msgid "No notifications yet"
+msgstr "Încă nicio notificare"
+
+#: ../../../lib/web/src/components/person-picker.tsx:84
 #: src/features/chats/components/new-chat.tsx:288
 msgid "No people found"
 msgstr "Nu s-au găsit persoane"
 
-#: ../../../lib/web/src/components/place-picker.tsx:132
+#: ../../../lib/web/src/components/place-picker.tsx:133
 msgid "No places found"
 msgstr "Nu s-au găsit locuri"
 
@@ -1331,6 +1516,11 @@ msgstr "Niciun profil"
 #: src/features/chats/components/chat-search-header.tsx:48
 msgid "No results"
 msgstr "Niciun rezultat"
+
+#: ../../../lib/web/src/components/search-entity-dialog.tsx:82
+#: ../../../lib/web/src/components/search-entity-page.tsx:73
+msgid "No results found"
+msgstr "Nu s-au găsit rezultate"
 
 #: ../../../lib/web/src/components/command-menu.tsx:55
 #: ../../../lib/web/src/components/data-table/faceted-filter.tsx:94
@@ -1349,6 +1539,7 @@ msgstr "Încă nu există înregistrare de subiect — încearcă din nou după 
 msgid "No users found"
 msgstr "Nu s-au găsit utilizatori"
 
+#: ../../../lib/web/src/components/colour-picker.tsx:345
 #: ../../../lib/web/src/components/person-picker.tsx:350
 #: ../../../lib/web/src/lib/preference-utils.ts:105
 #: ../../../lib/web/src/lib/preference-utils.ts:125
@@ -1388,6 +1579,10 @@ msgstr "Notificări: {0}"
 msgid "Older match"
 msgstr "Rezultat mai vechi"
 
+#: ../../../lib/web/src/components/filter-bar.tsx:35
+msgid "On"
+msgstr "Activat"
+
 #: src/features/chats/components/chat-settings-dialog.tsx:40
 msgid "Only friends can start a chat with you (default)."
 msgstr "Doar prietenii pot începe o conversație cu tine (implicit)."
@@ -1414,6 +1609,10 @@ msgstr "Deschide acțiunile"
 msgid "Open chat actions"
 msgstr "Deschide acțiuni conversație"
 
+#: ../../../lib/web/src/components/layout/mochi-menu.tsx:133
+msgid "Open menu"
+msgstr "Deschide meniul"
+
 #: ../../../lib/web/src/components/layout/top-bar.tsx:63
 #: ../../../lib/web/src/components/layout/top-bar.tsx:68
 msgid "Open navigation"
@@ -1428,8 +1627,8 @@ msgstr "Deschide meniul de navigare"
 msgid "Open people"
 msgstr "Deschide Persoane"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:57
-#: ../../../lib/web/src/components/config-drawer.tsx:65
+#: ../../../lib/web/src/components/config-drawer.tsx:58
+#: ../../../lib/web/src/components/config-drawer.tsx:66
 msgid "Open theme settings"
 msgstr "Deschide setările temei"
 
@@ -1441,7 +1640,7 @@ msgstr "Mesaj original"
 msgid "Other"
 msgstr "Altele"
 
-#: ../../../lib/web/src/features/access/access-list.tsx:217
+#: ../../../lib/web/src/features/access/access-list.tsx:222
 msgid "Owner"
 msgstr "Proprietar"
 
@@ -1473,6 +1672,10 @@ msgstr "Pauză notă vocală"
 #: src/features/chats/components/new-chat.tsx:273
 msgid "People"
 msgstr "Persoane"
+
+#: ../../../lib/web/src/components/date-picker.tsx:20
+msgid "Pick a date"
+msgstr "Alegeți o dată"
 
 #: src/components/layout/chat-layout.tsx:221
 msgid "Pin chat"
@@ -1526,6 +1729,14 @@ msgstr "Confidențialitate"
 msgid "Profile"
 msgstr "Profil"
 
+#: ../../../lib/web/src/components/person-picker.tsx:200
+msgid "Project members"
+msgstr "Membrii proiectului"
+
+#: ../../../lib/web/src/features/accounts/types.ts:21
+msgid "Push notification"
+msgstr ""
+
 #: ../../../lib/web/src/lib/preference-utils.ts:117
 msgid "Raised"
 msgstr "Ridicat"
@@ -1542,10 +1753,14 @@ msgstr "Reînregistrați-vă cheile de acces pe acest server"
 msgid "Read more"
 msgstr "Citește mai mult"
 
-#: ../../../lib/web/src/components/search-entity-dialog.tsx:216
-#: ../../../lib/web/src/components/search-entity-page.tsx:242
+#: ../../../lib/web/src/components/search-entity-dialog.tsx:217
+#: ../../../lib/web/src/components/search-entity-page.tsx:243
 msgid "Recommended"
 msgstr "Recomandat"
+
+#: ../../../lib/web/src/lib/chat-ui.ts:21
+msgid "Reconnecting ({retries})..."
+msgstr ""
 
 #: src/features/chats/components/chat-input.tsx:849
 #: src/features/chats/components/chat-input.tsx:854
@@ -1589,7 +1804,7 @@ msgstr "Relativ (5m, 3h, 2z)"
 msgid "Relative within 24 hours, else absolute"
 msgstr "Relativ în 24 de ore, altfel absolut"
 
-#: ../../../lib/web/src/features/access/access-list.tsx:265
+#: ../../../lib/web/src/features/access/access-list.tsx:270
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:180
 #: src/routes/_authenticated/$chatId_.settings.tsx:556
 msgid "Remove"
@@ -1602,17 +1817,23 @@ msgstr "Elimină"
 msgid "Remove {0}"
 msgstr "Elimină {0}"
 
-#: ../../../lib/web/src/features/access/access-list.tsx:247
-#: ../../../lib/web/src/features/access/access-list.tsx:253
+#. placeholder {0}: filter.label
+#: ../../../lib/web/src/components/filter-bar.tsx:56
+#: ../../../lib/web/src/components/filter-bar.tsx:62
+msgid "Remove {0} filter"
+msgstr "Elimină filtrul {0}"
+
+#: ../../../lib/web/src/features/access/access-list.tsx:252
+#: ../../../lib/web/src/features/access/access-list.tsx:258
 msgid "Remove access rule"
 msgstr "Elimină regula de acces"
 
 #. placeholder {0}: formatSubject(subject, data.name)
-#: ../../../lib/web/src/features/access/access-list.tsx:259
+#: ../../../lib/web/src/features/access/access-list.tsx:264
 msgid "Remove access rule for \"{0}\"?"
 msgstr "Eliminați regula de acces pentru „{0}”?"
 
-#: ../../../lib/web/src/features/access/access-list.tsx:257
+#: ../../../lib/web/src/features/access/access-list.tsx:262
 msgid "Remove access?"
 msgstr "Elimini accesul?"
 
@@ -1658,16 +1879,21 @@ msgstr "Răspuns către {0}"
 msgid "Resend email"
 msgstr "Retrimite e-mailul"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:86
-#: ../../../lib/web/src/components/data-table/toolbar.tsx:81
+#: ../../../lib/web/src/components/config-drawer.tsx:87
+#: ../../../lib/web/src/components/data-table/toolbar.tsx:82
 msgid "Reset"
 msgstr "Resetează"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:84
+#: ../../../lib/web/src/components/config-drawer.tsx:122
+#: ../../../lib/web/src/components/config-drawer.tsx:127
+msgid "Reset {title}"
+msgstr ""
+
+#: ../../../lib/web/src/components/config-drawer.tsx:85
 msgid "Reset all settings to default values"
 msgstr "Resetează toate setările la valorile implicite"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:361
+#: ../../../lib/web/src/components/config-drawer.tsx:362
 msgid "Right to Left"
 msgstr "De la dreapta la stânga"
 
@@ -1694,6 +1920,12 @@ msgstr "Salvează"
 msgid "Saving..."
 msgstr "Se salvează..."
 
+#: ../../../lib/web/src/components/filter-bar.tsx:32
+#: ../../../lib/web/src/components/header-search.tsx:22
+#: ../../../lib/web/src/components/search.tsx:18
+msgid "Search"
+msgstr "Caută"
+
 #: src/features/chats/components/forward-dialog.tsx:198
 msgid "Search chats…"
 msgstr "Caută chaturi…"
@@ -1702,9 +1934,17 @@ msgstr "Caută chaturi…"
 msgid "Search failed"
 msgstr "Căutarea a eșuat"
 
-#: ../../../lib/web/src/components/place-picker.tsx:85
+#: ../../../lib/web/src/components/ui/command.tsx:35
+msgid "Search for a command to run..."
+msgstr ""
+
+#: ../../../lib/web/src/components/place-picker.tsx:86
 msgid "Search for a place"
 msgstr "Caută un loc"
+
+#: ../../../lib/web/src/components/place-picker.tsx:50
+msgid "Search for a place..."
+msgstr ""
 
 #: ../../../lib/web/src/components/travelling-picker.tsx:250
 msgid "Search for destination..."
@@ -1735,11 +1975,13 @@ msgid "Search users"
 msgstr "Caută utilizatori"
 
 #: ../../../lib/web/src/components/person-picker.tsx:324
+#: ../../../lib/web/src/components/search-entity-dialog.tsx:81
+#: ../../../lib/web/src/components/search-entity-page.tsx:72
 msgid "Search..."
 msgstr "Caută..."
 
-#: ../../../lib/web/src/components/search-entity-dialog.tsx:174
-#: ../../../lib/web/src/components/search-entity-page.tsx:200
+#: ../../../lib/web/src/components/search-entity-dialog.tsx:175
+#: ../../../lib/web/src/components/search-entity-page.tsx:201
 #: ../../../lib/web/src/features/access/access-dialog.tsx:202
 msgid "Searching..."
 msgstr "Se caută..."
@@ -1755,6 +1997,11 @@ msgstr "Derulează în nota vocală"
 #: src/features/chats/components/message-hover-actions.tsx:113
 msgid "Select"
 msgstr "Selectează"
+
+#. placeholder {0}: item.label.toLowerCase()
+#: ../../../lib/web/src/components/config-drawer.tsx:149
+msgid "Select {0}"
+msgstr ""
 
 #: src/features/chats/components/chat-empty-state.tsx:22
 msgid "Select a chat"
@@ -1772,6 +2019,10 @@ msgstr "Selectează un utilizator, grup sau altă regulă pentru a acorda accesu
 msgid "Select access rule"
 msgstr "Selectează regula de acces"
 
+#: ../../../lib/web/src/features/accounts/account-picker.tsx:34
+msgid "Select account"
+msgstr ""
+
 #: ../../../lib/web/src/features/accounts/account-add.tsx:129
 msgid "Select account type"
 msgstr "Selectează tipul contului"
@@ -1780,13 +2031,17 @@ msgstr "Selectează tipul contului"
 msgid "Select group"
 msgstr "Selectează grupul"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:304
+#: ../../../lib/web/src/components/config-drawer.tsx:305
 msgid "Select layout style"
 msgstr "Selectează stilul aspectului"
 
 #: src/features/chats/components/chat-message-list.tsx:826
 msgid "Select loaded"
 msgstr "Selectează încărcate"
+
+#: ../../../lib/web/src/components/place-picker.tsx:49
+msgid "Select location"
+msgstr "Selectează locația"
 
 #: src/features/chats/components/chat-message-list.tsx:543
 msgid "Select message"
@@ -1796,15 +2051,19 @@ msgstr "Selectează mesajul"
 msgid "Select people..."
 msgstr "Selectează persoane..."
 
-#: ../../../lib/web/src/components/config-drawer.tsx:246
+#: ../../../lib/web/src/components/person-picker.tsx:83
+msgid "Select person..."
+msgstr ""
+
+#: ../../../lib/web/src/components/config-drawer.tsx:247
 msgid "Select sidebar style"
 msgstr "Selectează stilul barei laterale"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:348
+#: ../../../lib/web/src/components/config-drawer.tsx:349
 msgid "Select site direction"
 msgstr "Selectează direcția site-ului"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:202
+#: ../../../lib/web/src/components/config-drawer.tsx:203
 msgid "Select theme preference"
 msgstr "Selectează preferința de temă"
 
@@ -1881,8 +2140,8 @@ msgstr "Arată parola"
 msgid "Showing {totalShown} of {total}"
 msgstr "Se afișează {totalShown} din {total}"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:238
-#: ../../../lib/web/src/components/config-drawer.tsx:262
+#: ../../../lib/web/src/components/config-drawer.tsx:239
+#: ../../../lib/web/src/components/config-drawer.tsx:263
 #: ../../../lib/web/src/components/ui/sidebar.tsx:237
 msgid "Sidebar"
 msgstr "Bară laterală"
@@ -1926,24 +2185,37 @@ msgstr "Rămâi pe aproape totuși!"
 msgid "Stop recording"
 msgstr "Oprește înregistrarea"
 
-#: ../../../lib/web/src/features/access/access-list.tsx:191
+#: ../../../lib/web/src/features/access/access-list.tsx:196
 msgid "Subject"
 msgstr "Subiect"
+
+#: ../../../lib/web/src/components/search-entity-dialog.tsx:83
+#: ../../../lib/web/src/components/search-entity-page.tsx:74
+msgid "Subscribe"
+msgstr "Abonează-te"
 
 #: ../../../lib/web/src/lib/preference-utils.ts:65
 msgid "Sunday"
 msgstr "Duminică"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:208
+#: ../../../lib/web/src/components/config-drawer.tsx:209
 #: ../../../lib/web/src/components/theme-switch.tsx:59
 #: ../../../lib/web/src/lib/preference-utils.ts:21
 #: ../../../lib/web/src/lib/preference-utils.ts:144
 msgid "System"
 msgstr "Sistem"
 
-#: ../../../lib/web/src/components/tag-input.tsx:94
+#: ../../../lib/web/src/components/tag-input.tsx:95
 msgid "Tag"
 msgstr "Etichetă"
+
+#: ../../../lib/web/src/components/post-tags.tsx:76
+msgid "Tag already exists"
+msgstr "Eticheta există deja"
+
+#: ../../../lib/web/src/components/post-tags.tsx:68
+msgid "Tag must be 50 characters or less"
+msgstr "Eticheta trebuie să aibă cel mult 50 de caractere"
 
 #: ../../../lib/web/src/components/post-tags.tsx:101
 #: ../../../lib/web/src/components/post-tags.tsx:115
@@ -1980,11 +2252,11 @@ msgstr "Conținutul solicitat nu a putut fi găsit."
 msgid "The site is not available at the moment."
 msgstr "Site-ul nu este disponibil momentan."
 
-#: ../../../lib/web/src/components/config-drawer.tsx:194
+#: ../../../lib/web/src/components/config-drawer.tsx:195
 msgid "Theme"
 msgstr "Temă"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:69
+#: ../../../lib/web/src/components/config-drawer.tsx:70
 msgid "Theme Settings"
 msgstr "Setări temă"
 
@@ -2069,8 +2341,8 @@ msgstr "În călătorie"
 msgid "Try a different search term"
 msgstr "Încearcă un alt termen de căutare"
 
-#: ../../../lib/web/src/components/search-entity-dialog.tsx:190
-#: ../../../lib/web/src/components/search-entity-page.tsx:216
+#: ../../../lib/web/src/components/search-entity-dialog.tsx:191
+#: ../../../lib/web/src/components/search-entity-page.tsx:217
 msgid "Try adjusting your search terms"
 msgstr "Încearcă să ajustezi termenii de căutare"
 
@@ -2121,10 +2393,16 @@ msgstr "Neatribuit"
 msgid "Unauthorized Access"
 msgstr "Acces neautorizat"
 
+#: ../../../lib/web/src/lib/request.ts:133
+#: ../../../lib/web/src/lib/request.ts:206
+msgid "Unexpected API error"
+msgstr "Eroare API neașteptată"
+
 #: ../../../lib/web/src/lib/preference-utils.ts:87
 msgid "United States"
 msgstr "Statele Unite"
 
+#: ../../../lib/web/src/features/accounts/types.ts:29
 #: src/hooks/useChatWebsocket.ts:387
 msgid "Unknown"
 msgstr "Necunoscut"
@@ -2141,6 +2419,7 @@ msgstr "Neverificat"
 msgid "Use your passkey"
 msgstr "Folosește cheia de acces"
 
+#: ../../../lib/web/src/components/layout/mochi-menu.tsx:86
 #: ../../../lib/web/src/features/access/access-dialog.tsx:158
 msgid "User"
 msgstr "Utilizator"
@@ -2207,6 +2486,10 @@ msgstr "Înregistrarea vocală nu este acceptată în acest browser"
 msgid "Voice recording isn't available in this app version. Please update the app and try again."
 msgstr "Înregistrarea vocală nu este disponibilă în această versiune a aplicației. Actualizați aplicația și încercați din nou."
 
+#: ../../../lib/web/src/components/filter-bar.tsx:35
+msgid "Watched"
+msgstr "Urmărit"
+
 #. placeholder {0}: account.identifier
 #: ../../../lib/web/src/features/accounts/account-verify.tsx:63
 msgid "We sent a verification code to <0>{0}</0>. Enter the code below to verify your email address."
@@ -2215,6 +2498,10 @@ msgstr "Am trimis un cod de verificare la <0>{0}</0>. Introduceți codul mai jos
 #: ../../../lib/web/src/features/errors/maintenance-error.tsx:16
 msgid "We'll be back online shortly."
 msgstr "Vom reveni online în curând."
+
+#: ../../../lib/web/src/components/notifications-dropdown.tsx:197
+msgid "We'll notify you when something important happens."
+msgstr "Vă vom anunța când se întâmplă ceva important."
 
 #: ../../../lib/web/src/features/errors/maintenance-error.tsx:13
 msgid "Website is under maintenance!"
@@ -2260,9 +2547,17 @@ msgstr "Nu aveți permisiunea necesară <0/>pentru a vizualiza această resursă
 msgid "You left this chat"
 msgstr "Ai părăsit acest chat"
 
+#: ../../../lib/web/src/lib/show-submitted-data.tsx:9
+msgid "You submitted the following values:"
+msgstr ""
+
 #: src/features/chats/index.tsx:1268
 msgid "You were removed from this chat"
 msgstr "Ai fost eliminat din acest chat"
+
+#: ../../../lib/web/src/components/notifications-dropdown.tsx:193
+msgid "You're all caught up!"
+msgstr "Sunteți la zi!"
 
 #: ../../../lib/web/src/components/restore-banner.tsx:91
 msgid "Your account was moved here from {source}. Until you delete it there, messages and notifications may reach both servers, some of your content keeps being served from the old server, and followers may take a few minutes to find you here."

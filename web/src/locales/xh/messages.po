@@ -41,6 +41,11 @@ msgstr "{0, plural, one {Ucime umyalezo?} other {Ucime imiyalezo engu-#?}}"
 msgid "{0} (includes you)"
 msgstr "{0} (kubandakanya wena)"
 
+#. placeholder {0}: item.label
+#: ../../../lib/web/src/components/config-drawer.tsx:160
+msgid "{0} option preview"
+msgstr ""
+
 #. placeholder {0}: selectedIds.size
 #. placeholder {0}: selectedIds?.size ?? 0
 #: src/features/chats/components/chat-message-list.tsx:816
@@ -54,9 +59,13 @@ msgstr "{0} ekhethiweyo"
 msgid "{0} settings"
 msgstr "Iisetingi ze-{0}"
 
-#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:173
+#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:174
 msgid "{entityLabel} name"
 msgstr "Igama le-{entityLabel}"
+
+#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:99
+msgid "{entityLabel} name is required"
+msgstr ""
 
 #: src/features/chats/components/message-attachments.tsx:140
 msgid "{hiddenCount, plural, one {Show 1 more file} other {Show # more files}}"
@@ -87,6 +96,10 @@ msgstr "{selectedCount, plural, one {Izenzo ezininzi ze-{entityName} e-# ekhethi
 msgid "{skippedCount, plural, one {Skipped # file that is not audio} other {Skipped # files that are not audio}}"
 msgstr "{skippedCount, plural, one {Kutsitshwe ifayile e-# engeyosandi} other {Kutsitshwe iifayile ezi-# ezingezizo isandi}}"
 
+#: ../../../lib/web/src/components/layout/mochi-menu.tsx:132
+msgid "{unreadCount, plural, one {Open menu (# unread notification)} other {Open menu (# unread notifications)}}"
+msgstr ""
+
 #: ../../../lib/web/src/lib/preference-utils.ts:42
 msgid "12 hours"
 msgstr "iiyure ezili-12"
@@ -111,7 +124,7 @@ msgstr "Ufikelelo lwaliwe"
 msgid "Access Forbidden"
 msgstr "Ufikelelo Aluvumelekanga"
 
-#: ../../../lib/web/src/features/access/access-list.tsx:192
+#: ../../../lib/web/src/features/access/access-list.tsx:197
 msgid "Access level"
 msgstr "Inqanaba lofikelelo"
 
@@ -131,6 +144,7 @@ msgstr "Uhlobo lwe-akhawunti"
 msgid "Account verified"
 msgstr "I-akhawunti iqinisekisiwe"
 
+#: ../../../lib/web/src/features/access/access-dialog.tsx:332
 #: ../../../lib/web/src/features/accounts/account-add.tsx:196
 msgid "Add"
 msgstr "Yongeza"
@@ -167,7 +181,7 @@ msgstr "Yongeza isiqhotyoshelwa"
 msgid "Add member"
 msgstr "Yongeza ilungu"
 
-#: ../../../lib/web/src/features/accounts/account-picker.tsx:101
+#: ../../../lib/web/src/features/accounts/account-picker.tsx:102
 msgid "Add new account"
 msgstr "Yongeza i-akhawunti entsha"
 
@@ -177,6 +191,7 @@ msgid "Add reaction"
 msgstr "Yongeza uvakalelo"
 
 #: ../../../lib/web/src/components/post-tags.tsx:137
+#: ../../../lib/web/src/components/tag-input.tsx:40
 msgid "Add tag..."
 msgstr "Yongeza ithegi..."
 
@@ -209,7 +224,11 @@ msgstr "Kongezwa {0}/{1}..."
 msgid "Adding member..."
 msgstr "Ukongeza ilungu..."
 
-#: ../../../lib/web/src/components/config-drawer.tsx:71
+#: ../../../lib/web/src/features/access/access-dialog.tsx:332
+msgid "Adding..."
+msgstr "Iyongezwa..."
+
+#: ../../../lib/web/src/components/config-drawer.tsx:72
 msgid "Adjust the appearance and layout to suit your preferences."
 msgstr "Lungelelanisa imbonakalo nesakhiwo ukuze sihambelane neminqweno yakho."
 
@@ -229,6 +248,11 @@ msgstr "Konke"
 msgid "All your friends are already in this chat"
 msgstr "Bonke abahlobo bakho sele bekule ncoko"
 
+#. placeholder {0}: entityLabel.toLowerCase()
+#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:85
+msgid "Allow anyone to search for {0}"
+msgstr ""
+
 #: src/features/chats/constants/reactions.ts:36
 msgid "Amazed"
 msgstr "Umangaliso"
@@ -241,10 +265,16 @@ msgstr "Kwenzeke impazamo"
 msgid "An unexpected error occurred"
 msgstr "Kwenzeke impazamo engalindelekanga"
 
+#: ../../../lib/web/src/features/accounts/types.ts:16
+msgid "Android push"
+msgstr ""
+
 #: src/features/chats/constants/reactions.ts:39
 msgid "Angry"
 msgstr "Umsindo"
 
+#: ../../../lib/web/src/features/access/access-list.tsx:45
+#: ../../../lib/web/src/features/access/types.ts:42
 #: src/features/chats/components/chat-settings-dialog.tsx:44
 msgid "Anyone"
 msgstr "Nabani na"
@@ -252,6 +282,10 @@ msgstr "Nabani na"
 #: src/features/chats/components/chat-settings-dialog.tsx:45
 msgid "Anyone can start a chat with you."
 msgstr "Nabani na anganqala incoko nawe."
+
+#: ../../../lib/web/src/features/access/types.ts:41
+msgid "Anyone who is logged in"
+msgstr ""
 
 #. placeholder {0}: selectedChat?.name
 #: src/features/chats/index.tsx:1324
@@ -292,11 +326,24 @@ msgstr "Iziqhoboshelo zinkulu kakhulu ukuba zingalayishwa. Susa okanye unciphise
 msgid "Audio"
 msgstr "Isandi"
 
+#: ../../../lib/web/src/features/access/access-list.tsx:46
+#: ../../../lib/web/src/features/access/types.ts:41
+msgid "Authenticated users"
+msgstr "Abasebenzisi abaqinisekisiweyo"
+
 #: ../../../lib/web/src/components/step-up-dialog.tsx:315
 msgid "Authenticator code"
 msgstr "Ikhowudi yokuqinisekisa"
 
-#: ../../../lib/web/src/components/place-picker.tsx:155
+#: ../../../lib/web/src/components/entity-avatar.tsx:99
+msgid "Avatar"
+msgstr "I-avatar"
+
+#: ../../../lib/web/src/components/entity-avatar.tsx:99
+msgid "Avatar for {name}"
+msgstr ""
+
+#: ../../../lib/web/src/components/place-picker.tsx:156
 msgid "Back"
 msgstr "Buyela"
 
@@ -312,6 +359,10 @@ msgstr "Buyela kwincoko"
 msgid "Back to home"
 msgstr "Buyela ekhaya"
 
+#: ../../../lib/web/src/components/entity-banner.tsx:17
+msgid "Banner"
+msgstr "Ibhena"
+
 #: src/features/chats/components/chat-message-list.tsx:470
 msgid "Be the first to say something!"
 msgstr "Yiba ngowokuqala ukuthetha into!"
@@ -321,13 +372,17 @@ msgstr "Yiba ngowokuqala ukuthetha into!"
 msgid "Boost interest"
 msgstr "Khulisa umdla"
 
+#: ../../../lib/web/src/features/accounts/types.ts:13
+msgid "Browser notifications"
+msgstr "Izaziso zebhrawuza"
+
 #: ../../../lib/web/src/components/responsive-confirm-dialog.tsx:67
 #: ../../../lib/web/src/components/step-up-dialog.tsx:363
 #: ../../../lib/web/src/components/travelling-picker.tsx:308
-#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:248
+#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:249
 #: ../../../lib/web/src/components/ui/editable-field-row.tsx:132
 #: ../../../lib/web/src/features/access/access-dialog.tsx:328
-#: ../../../lib/web/src/features/access/access-list.tsx:263
+#: ../../../lib/web/src/features/access/access-list.tsx:268
 #: ../../../lib/web/src/features/accounts/account-add.tsx:188
 #: ../../../lib/web/src/features/accounts/account-verify.tsx:91
 #: src/features/chats/components/chat-message-list.tsx:621
@@ -435,6 +490,10 @@ msgstr "Isikhonkwane sisusiwe kwincoko"
 msgid "Chats"
 msgstr "Iincoko"
 
+#: ../../../lib/web/src/components/notifications-dropdown.tsx:198
+msgid "Check \"All\" to see your past notifications."
+msgstr "Khetha \"Konke\" ukubona izaziso zakho zangaphambili."
+
 #: src/features/chats/components/forward-dialog.tsx:190
 msgid "Choose a chat or friend to forward the selected messages to"
 msgstr "Khetha incoko okanye umhlobo wokuthumela imiyalezo ekhethiweyo"
@@ -443,19 +502,19 @@ msgstr "Khetha incoko okanye umhlobo wokuthumela imiyalezo ekhethiweyo"
 msgid "Choose a conversation from the sidebar or start a new one."
 msgstr "Khetha incoko kwibha esecaleni okanye qalisa entsha."
 
-#: ../../../lib/web/src/components/config-drawer.tsx:328
+#: ../../../lib/web/src/components/config-drawer.tsx:329
 msgid "Choose between default expanded, compact icon-only, or full layout mode"
 msgstr "Khetha phakathi kweyandiswe ngokuziqhelileyo, eyifutshane enee-akhoni kuphela, okanye imodi yesakhiwo esipheleleyo"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:270
+#: ../../../lib/web/src/components/config-drawer.tsx:271
 msgid "Choose between inset, floating, or standard sidebar layout"
 msgstr "Khetha phakathi kwesakhiwo sebha esecaleni esifakwe ngaphakathi, esidadayo, okanye esiqhelekileyo"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:371
+#: ../../../lib/web/src/components/config-drawer.tsx:372
 msgid "Choose between left-to-right or right-to-left site direction"
 msgstr "Khetha phakathi kwesalathiso sesayithi sokusuka ekhohlo ukuya ekunene okanye sokusuka ekunene ukuya ekhohlo"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:226
+#: ../../../lib/web/src/components/config-drawer.tsx:227
 msgid "Choose between system preference, light mode, or dark mode"
 msgstr "Khetha phakathi kothando lwesistim, imodi ekhanyayo, okanye imodi emnyama"
 
@@ -464,8 +523,8 @@ msgstr "Khetha phakathi kothando lwesistim, imodi ekhanyayo, okanye imodi emnyam
 msgid "Choose language"
 msgstr "Khetha ulwimi"
 
-#: ../../../lib/web/src/components/colour-picker.tsx:269
-#: ../../../lib/web/src/components/colour-picker.tsx:350
+#: ../../../lib/web/src/components/colour-picker.tsx:270
+#: ../../../lib/web/src/components/colour-picker.tsx:351
 #: ../../../lib/web/src/components/travelling-picker.tsx:164
 #: ../../../lib/web/src/components/travelling-picker.tsx:170
 #: ../../../lib/web/src/components/travelling-picker.tsx:231
@@ -473,7 +532,7 @@ msgstr "Khetha ulwimi"
 msgid "Clear"
 msgstr "Cima"
 
-#: ../../../lib/web/src/components/filter-bar.tsx:73
+#: ../../../lib/web/src/components/filter-bar.tsx:74
 msgid "Clear all"
 msgstr "Cima konke"
 
@@ -481,6 +540,7 @@ msgstr "Cima konke"
 msgid "Clear filters"
 msgstr "Cima izihluzi"
 
+#: ../../../lib/web/src/components/search-input.tsx:26
 #: src/features/chats/components/forward-dialog.tsx:199
 #: src/routes/_authenticated/$chatId_.settings.tsx:456
 msgid "Clear search"
@@ -537,15 +597,35 @@ msgstr "Kumnandi"
 msgid "Coming Soon!"
 msgstr "Iyeza Kungekudala!"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:315
+#: ../../../lib/web/src/components/ui/command.tsx:34
+msgid "Command Palette"
+msgstr ""
+
+#: ../../../lib/web/src/components/config-drawer.tsx:316
 #: ../../../lib/web/src/lib/preference-utils.ts:95
 msgid "Compact"
 msgstr "Mfutshane"
 
-#: ../../../lib/web/src/components/place-picker.tsx:159
+#: ../../../lib/web/src/components/place-picker.tsx:160
 #: ../../../lib/web/src/components/travelling-picker.tsx:316
 msgid "Confirm"
 msgstr "Qinisekisa"
+
+#: ../../../lib/web/src/lib/chat-ui.ts:18
+msgid "Connected"
+msgstr "Idibene"
+
+#: ../../../lib/web/src/features/accounts/account-manager.tsx:191
+msgid "Connected accounts"
+msgstr "Ii-akhawunti ezidibeneyo"
+
+#: ../../../lib/web/src/lib/chat-ui.ts:21
+msgid "Connecting..."
+msgstr "Iyaqhagamshela..."
+
+#: ../../../lib/web/src/lib/handle-server-error.ts:18
+msgid "Content not found."
+msgstr "Umxholo awufunyanwanga."
 
 #: ../../../lib/web/src/lib/query-client.ts:81
 msgid "Content not modified"
@@ -563,11 +643,16 @@ msgstr "Qhubeka"
 msgid "Continue with {label}"
 msgstr "Qhubeka nge-{label}"
 
+#: ../../../lib/web/src/lib/toast-utils.ts:42
 #: src/features/chats/index.tsx:648
 msgid "Copied"
 msgstr "Ikopishiwe"
 
-#: ../../../lib/web/src/components/ui/copy-button.tsx:63
+#: ../../../lib/web/src/components/ui/copy-button.tsx:25
+msgid "Copied to clipboard"
+msgstr "Kukotshelwe kwibhodi yokukotshela"
+
+#: ../../../lib/web/src/components/ui/copy-button.tsx:64
 #: src/features/chats/components/message-hover-actions.tsx:107
 #: src/features/chats/index.tsx:1235
 msgid "Copy"
@@ -595,6 +680,11 @@ msgstr "Ayikwazanga ukuqalisa ukuqinisekiswa kwakhona. Nceda uzame kwakhona."
 msgid "Couldn't verify with that account. Please try again."
 msgstr "Akukwazekanga ukuqinisekisa ngaloo akhawunti. Nceda uzame kwakhona."
 
+#. placeholder {0}: entityLabel.toLowerCase()
+#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:144
+msgid "Create {0}"
+msgstr ""
+
 #: src/features/chats/components/new-chat.tsx:266
 msgid "Create a new chat"
 msgstr "Yenza incoko entsha"
@@ -608,15 +698,20 @@ msgstr "Yenza incoko"
 msgid "Creating chat..."
 msgstr "Ukwenza incoko..."
 
+#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:258
 #: src/features/chats/components/new-chat.tsx:365
 msgid "Creating..."
 msgstr "Iyenziwa..."
 
-#: ../../../lib/web/src/components/colour-picker.tsx:260
+#: ../../../lib/web/src/components/map-view.tsx:208
+msgid "Current location"
+msgstr "Indawo yangoku"
+
+#: ../../../lib/web/src/components/colour-picker.tsx:261
 msgid "Custom"
 msgstr "Ngokwesiqhelo"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:218
+#: ../../../lib/web/src/components/config-drawer.tsx:219
 #: ../../../lib/web/src/components/theme-switch.tsx:52
 #: ../../../lib/web/src/lib/preference-utils.ts:20
 msgid "Dark"
@@ -634,7 +729,7 @@ msgstr "Imodi emnyama"
 msgid "Data conflict"
 msgstr "Ungquzulwano lwedatha"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:310
+#: ../../../lib/web/src/components/config-drawer.tsx:311
 msgid "Default"
 msgstr "Eyoqobo"
 
@@ -679,6 +774,10 @@ msgstr "Ehlayo"
 msgid "Descending"
 msgstr "Ukwehla"
 
+#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:83
+msgid "Description"
+msgstr "Inkcazo"
+
 #: ../../../lib/web/src/components/layout/right-panel.tsx:148
 msgid "Details Panel"
 msgstr "Iphaneli yenkcukacha"
@@ -694,9 +793,13 @@ msgstr "Iphaneli yenkcukacha"
 msgid "Detect from web browser"
 msgstr "Bhaqa kwibhrawuza yewebhu"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:340
+#: ../../../lib/web/src/components/config-drawer.tsx:341
 msgid "Direction"
 msgstr "Icala"
+
+#: ../../../lib/web/src/components/person-picker.tsx:214
+msgid "Directory"
+msgstr "Uluhlu"
 
 #: src/features/chats/components/new-chat.tsx:88
 msgid "Directory search failed"
@@ -710,6 +813,11 @@ msgstr "Hayi"
 #: src/features/chats/components/chat-input.tsx:733
 msgid "Discard recording"
 msgstr "Lahla ushicilelo"
+
+#: ../../../lib/web/src/lib/chat-ui.ts:25
+#: ../../../lib/web/src/lib/chat-ui.ts:29
+msgid "Disconnected"
+msgstr "Iqhawukile"
 
 #: src/features/chats/constants/reactions.ts:34
 msgid "Dislike"
@@ -763,6 +871,10 @@ msgstr "Hlela {label}"
 msgid "Elapsed {0}"
 msgstr "Kudlule {0}"
 
+#: ../../../lib/web/src/features/accounts/types.ts:15
+msgid "Email"
+msgstr "I-imeyili"
+
 #: ../../../lib/web/src/components/step-up-dialog.tsx:289
 msgid "Email code"
 msgstr "Ikhowudi ye-imeyili"
@@ -790,6 +902,10 @@ msgstr "Yandisa"
 msgid "Expand sidebar"
 msgstr "Yandisa ibara lecala"
 
+#: ../../../lib/web/src/features/accounts/types.ts:22
+msgid "External URL"
+msgstr "I-URL yangaphandle"
+
 #: ../../../lib/web/src/lib/preference-utils.ts:136
 msgid "Extra large"
 msgstr "Inkulu kakhulu"
@@ -802,6 +918,12 @@ msgstr "Ayiphumelelanga ukongeza iakhawunti"
 msgid "Failed to add member"
 msgstr "Ayiphumelelanga ukongeza ilungu"
 
+#: ../../../lib/web/src/components/tag-input.tsx:39
+msgid "Failed to add tag"
+msgstr "Ayiphumelelanga ukongeza ithegi"
+
+#: ../../../lib/web/src/components/ui/copy-button.tsx:26
+#: ../../../lib/web/src/lib/toast-utils.ts:44
 #: src/features/chats/index.tsx:649
 msgid "Failed to copy"
 msgstr "Ayiphumelelanga ukukhuphela"
@@ -834,6 +956,10 @@ msgstr "Akukwazekanga ukudlulisela"
 #: src/routes/_authenticated/$chatId_.settings.tsx:339
 msgid "Failed to leave chat"
 msgstr "Ayiphumelelanga ukushiya incoko"
+
+#: ../../../lib/web/src/hooks/use-load-more.ts:74
+msgid "Failed to load"
+msgstr "Ayiphumelelanga ukulayisha"
 
 #: ../../../lib/web/src/components/ui/image-lightbox.tsx:263
 msgid "Failed to load image"
@@ -887,6 +1013,10 @@ msgstr "Ayiphumelelanga ukuqala incoko"
 msgid "Failed to update category"
 msgstr "Ayiphumelelanga ukuhlaziya udidi"
 
+#: ../../../lib/web/src/components/data-table/toolbar.tsx:30
+msgid "Filter..."
+msgstr "Hluza..."
+
 #: ../../../lib/web/src/components/restore-banner.tsx:88
 msgid "Finish moving your account"
 msgstr "Gqiba ukufudusa i-akhawunti yakho"
@@ -895,7 +1025,7 @@ msgstr "Gqiba ukufudusa i-akhawunti yakho"
 msgid "Flat"
 msgstr "Isicaba"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:257
+#: ../../../lib/web/src/components/config-drawer.tsx:258
 msgid "Floating"
 msgstr "Idadayo"
 
@@ -921,6 +1051,7 @@ msgstr "Ukudlulisela..."
 msgid "Friday"
 msgstr "ULwesihlanu"
 
+#: ../../../lib/web/src/components/person-picker.tsx:207
 #: src/features/chats/components/forward-dialog.tsx:237
 #: src/routes/_authenticated/$chatId_.settings.tsx:479
 msgid "Friends"
@@ -943,7 +1074,7 @@ msgstr "Suka"
 msgid "From theme"
 msgstr "Kwitimu"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:320
+#: ../../../lib/web/src/components/config-drawer.tsx:321
 msgid "Full layout"
 msgstr "Ulungelelaniso olupheleleyo"
 
@@ -982,6 +1113,11 @@ msgstr "Yiya kwiphepha elidlulileyo"
 msgid "Group"
 msgstr "Iqela"
 
+#. placeholder {0}: name || subject.slice(1)
+#: ../../../lib/web/src/features/access/access-list.tsx:68
+msgid "Group: {0}"
+msgstr "Iqela: {0}"
+
 #: ../../../lib/web/src/components/data-table/column-header.tsx:70
 msgid "Hide"
 msgstr "Fihla"
@@ -1010,18 +1146,34 @@ msgstr "Umboniso womfanekiso: {0}"
 msgid "Imperial"
 msgstr "I-Imperial"
 
+#: ../../../lib/web/src/features/access/types.ts:42
+msgid "Including anonymous users"
+msgstr ""
+
 #: src/features/chats/components/chat-settings-dialog.tsx:80
 #: src/features/chats/index.tsx:1144
 msgid "Incoming chats"
 msgstr "Iincoko ezingenayo"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:252
+#: ../../../lib/web/src/components/faceless-avatar.tsx:69
+msgid "Initials avatar"
+msgstr ""
+
+#: ../../../lib/web/src/components/faceless-avatar.tsx:69
+msgid "Initials avatar for {name}"
+msgstr ""
+
+#: ../../../lib/web/src/components/config-drawer.tsx:253
 msgid "Inset"
 msgstr "Yangaphakathi"
 
 #: ../../../lib/web/src/components/ui/sort-selector.tsx:42
 msgid "Interests"
 msgstr "Imidla"
+
+#: ../../../lib/web/src/components/tag-input.tsx:38
+msgid "Invalid tag: letters, numbers, spaces, hyphens, and slashes only (max 50 chars)"
+msgstr ""
 
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:245
 msgid "Invalid verification code"
@@ -1036,6 +1188,10 @@ msgstr "Kubonakala ngathi iphepha olikhangelayo <0/>alikho okanye lisusiwe."
 msgid "Jump to bottom"
 msgstr "Yiya ezantsi"
 
+#: ../../../lib/web/src/lib/locale-format.ts:62
+msgid "Just now"
+msgstr "Kwangoku"
+
 #: ../../../lib/web/src/lib/preference-utils.ts:108
 #: ../../../lib/web/src/lib/preference-utils.ts:135
 msgid "Large"
@@ -1045,7 +1201,7 @@ msgstr "Inkulu"
 msgid "Laugh"
 msgstr "Hleka"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:286
+#: ../../../lib/web/src/components/config-drawer.tsx:287
 msgid "Layout"
 msgstr "Ulungelelaniso"
 
@@ -1083,11 +1239,15 @@ msgstr "Iyashiya..."
 msgid "Left chat"
 msgstr "Ushiye incoko"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:354
+#: ../../../lib/web/src/components/config-drawer.tsx:355
 msgid "Left to Right"
 msgstr "Ekhohlo ukuya ekunene"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:213
+#: ../../../lib/web/src/components/post-tags.tsx:72
+msgid "Letters, numbers, spaces, and hyphens only"
+msgstr "Oonobumba, amanani, izithuba, kunye nemigca kuphela"
+
+#: ../../../lib/web/src/components/config-drawer.tsx:214
 #: ../../../lib/web/src/components/theme-switch.tsx:45
 #: ../../../lib/web/src/lib/preference-utils.ts:19
 msgid "Light"
@@ -1136,6 +1296,10 @@ msgstr "Iyaphuma…"
 msgid "Love"
 msgstr "Uthando"
 
+#: ../../../lib/web/src/features/accounts/account-manager.tsx:192
+msgid "Manage your connected accounts for notifications and services."
+msgstr ""
+
 #: ../../../lib/web/src/components/layout/notification-menu.tsx:93
 #: ../../../lib/web/src/components/layout/notification-menu.tsx:100
 #: ../../../lib/web/src/components/notifications-dropdown.tsx:224
@@ -1153,6 +1317,10 @@ msgstr "Phawula njengengafundwanga"
 #: src/components/layout/chat-layout.tsx:142
 msgid "Marking as read..."
 msgstr "Ukuphawula njengokufundiweyo..."
+
+#: ../../../lib/web/src/features/accounts/types.ts:17
+msgid "MCP server"
+msgstr ""
 
 #: ../../../lib/web/src/lib/preference-utils.ts:107
 msgid "Medium"
@@ -1243,6 +1411,10 @@ msgstr "Imakrofoni sele isetyenziswa"
 msgid "Microphone permission denied"
 msgstr "Imvume yemakrofoni ikhatyiwe"
 
+#: ../../../lib/web/src/features/accounts/types.ts:23
+msgid "Mochi web"
+msgstr "Iwebhu ye-Mochi"
+
 #: ../../../lib/web/src/lib/preference-utils.ts:59
 msgid "Monday"
 msgstr "Umvulo"
@@ -1252,9 +1424,17 @@ msgstr "Umvulo"
 msgid "Multiple people share these names: {0}. Pick them from the @ list so the right person is notified."
 msgstr "Abantu abaninzi banala magama: {0}. Bakhethe kuluhlu luka-@ ukuze umntu ofanelekileyo aziswe."
 
+#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:102
+msgid "Name cannot contain angle brackets, backslash, semicolon, quotes or backticks"
+msgstr ""
+
 #: src/routes/_authenticated/$chatId_.settings.tsx:200
 msgid "Name must be {CHAT_NAME_MAX_LENGTH} characters or less"
 msgstr "Igama kufuneka libe yimpawu eziyi-{CHAT_NAME_MAX_LENGTH} okanye ngaphantsi"
+
+#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:100
+msgid "Name must be 1000 characters or less"
+msgstr "Igama kufuneka libe yimpawu eziyi-1000 okanye ngaphantsi"
 
 #: ../../../lib/web/src/features/errors/general-error.tsx:53
 #: ../../../lib/web/src/lib/api-response-interceptors.ts:303
@@ -1280,7 +1460,7 @@ msgstr "Isiphumo esitsha"
 msgid "Next image"
 msgstr "Umfanekiso olandelayo"
 
-#: ../../../lib/web/src/features/access/access-list.tsx:160
+#: ../../../lib/web/src/features/access/access-list.tsx:165
 msgid "No access rules configured. Add rules to control who can access this resource."
 msgstr "Akukho mithetho yofikelelo emiselwe. Yongeza imithetho yokulawula ukuba ngubani onokufikelela kwesi sixhobo."
 
@@ -1316,11 +1496,16 @@ msgstr "Akukho miyalezo okwangoku"
 msgid "No microphone found"
 msgstr "Akukho makrofoni ifunyenweyo"
 
+#: ../../../lib/web/src/components/notifications-dropdown.tsx:193
+msgid "No notifications yet"
+msgstr "Akukho zaziso okwangoku"
+
+#: ../../../lib/web/src/components/person-picker.tsx:84
 #: src/features/chats/components/new-chat.tsx:288
 msgid "No people found"
 msgstr "Akukho bantu bafumanekileyo"
 
-#: ../../../lib/web/src/components/place-picker.tsx:132
+#: ../../../lib/web/src/components/place-picker.tsx:133
 msgid "No places found"
 msgstr "Akukho ndawo zifumanekileyo"
 
@@ -1331,6 +1516,11 @@ msgstr "Akukho profayile"
 #: src/features/chats/components/chat-search-header.tsx:48
 msgid "No results"
 msgstr "Akukho ziphumo"
+
+#: ../../../lib/web/src/components/search-entity-dialog.tsx:82
+#: ../../../lib/web/src/components/search-entity-page.tsx:73
+msgid "No results found"
+msgstr "Akukho ziphumo zifunyenweyo"
 
 #: ../../../lib/web/src/components/command-menu.tsx:55
 #: ../../../lib/web/src/components/data-table/faceted-filter.tsx:94
@@ -1349,6 +1539,7 @@ msgstr "Akukho rekhodi yomxholo okwangoku — zama kwakhona emva kwesaziso esila
 msgid "No users found"
 msgstr "Akukho basebenzisi bafumanekileyo"
 
+#: ../../../lib/web/src/components/colour-picker.tsx:345
 #: ../../../lib/web/src/components/person-picker.tsx:350
 #: ../../../lib/web/src/lib/preference-utils.ts:105
 #: ../../../lib/web/src/lib/preference-utils.ts:125
@@ -1388,6 +1579,10 @@ msgstr "Izaziso: {0}"
 msgid "Older match"
 msgstr "Isiphumo esidala"
 
+#: ../../../lib/web/src/components/filter-bar.tsx:35
+msgid "On"
+msgstr "Ivuliwe"
+
 #: src/features/chats/components/chat-settings-dialog.tsx:40
 msgid "Only friends can start a chat with you (default)."
 msgstr "Ngabahlobo kuphela abanganqala incoko nawe (okumiselweyo)."
@@ -1414,6 +1609,10 @@ msgstr "Vula izenzo"
 msgid "Open chat actions"
 msgstr "Vula izenzo zencoko"
 
+#: ../../../lib/web/src/components/layout/mochi-menu.tsx:133
+msgid "Open menu"
+msgstr "Vula imenyu"
+
 #: ../../../lib/web/src/components/layout/top-bar.tsx:63
 #: ../../../lib/web/src/components/layout/top-bar.tsx:68
 msgid "Open navigation"
@@ -1428,8 +1627,8 @@ msgstr "Vula imenyu yojikelo"
 msgid "Open people"
 msgstr "Vula abantu"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:57
-#: ../../../lib/web/src/components/config-drawer.tsx:65
+#: ../../../lib/web/src/components/config-drawer.tsx:58
+#: ../../../lib/web/src/components/config-drawer.tsx:66
 msgid "Open theme settings"
 msgstr "Vula iisetingi zomxholo"
 
@@ -1441,7 +1640,7 @@ msgstr "Umyalezo wokuqala"
 msgid "Other"
 msgstr "Okunye"
 
-#: ../../../lib/web/src/features/access/access-list.tsx:217
+#: ../../../lib/web/src/features/access/access-list.tsx:222
 msgid "Owner"
 msgstr "Umnini"
 
@@ -1473,6 +1672,10 @@ msgstr "Nqumamisa inqaku lelizwi"
 #: src/features/chats/components/new-chat.tsx:273
 msgid "People"
 msgstr "Abantu"
+
+#: ../../../lib/web/src/components/date-picker.tsx:20
+msgid "Pick a date"
+msgstr "Khetha umhla"
 
 #: src/components/layout/chat-layout.tsx:221
 msgid "Pin chat"
@@ -1526,6 +1729,14 @@ msgstr "Ubumfihlo"
 msgid "Profile"
 msgstr "Iprofayile"
 
+#: ../../../lib/web/src/components/person-picker.tsx:200
+msgid "Project members"
+msgstr "Amalungu eprojekthi"
+
+#: ../../../lib/web/src/features/accounts/types.ts:21
+msgid "Push notification"
+msgstr ""
+
 #: ../../../lib/web/src/lib/preference-utils.ts:117
 msgid "Raised"
 msgstr "Iphakanyisiwe"
@@ -1542,10 +1753,14 @@ msgstr "Phinda ubhalise izitshixo zakho zokufikelela kule seva"
 msgid "Read more"
 msgstr "Funda okungakumbi"
 
-#: ../../../lib/web/src/components/search-entity-dialog.tsx:216
-#: ../../../lib/web/src/components/search-entity-page.tsx:242
+#: ../../../lib/web/src/components/search-entity-dialog.tsx:217
+#: ../../../lib/web/src/components/search-entity-page.tsx:243
 msgid "Recommended"
 msgstr "Iyacetyiswa"
+
+#: ../../../lib/web/src/lib/chat-ui.ts:21
+msgid "Reconnecting ({retries})..."
+msgstr ""
 
 #: src/features/chats/components/chat-input.tsx:849
 #: src/features/chats/components/chat-input.tsx:854
@@ -1589,7 +1804,7 @@ msgstr "Khwiniyene (5m, 3h, 2d)"
 msgid "Relative within 24 hours, else absolute"
 msgstr "Khwiniyene kumayure angama-24, kungenjalo kupheleleyo"
 
-#: ../../../lib/web/src/features/access/access-list.tsx:265
+#: ../../../lib/web/src/features/access/access-list.tsx:270
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:180
 #: src/routes/_authenticated/$chatId_.settings.tsx:556
 msgid "Remove"
@@ -1602,17 +1817,23 @@ msgstr "Susa"
 msgid "Remove {0}"
 msgstr "Susa {0}"
 
-#: ../../../lib/web/src/features/access/access-list.tsx:247
-#: ../../../lib/web/src/features/access/access-list.tsx:253
+#. placeholder {0}: filter.label
+#: ../../../lib/web/src/components/filter-bar.tsx:56
+#: ../../../lib/web/src/components/filter-bar.tsx:62
+msgid "Remove {0} filter"
+msgstr "Susa isihluzi se-{0}"
+
+#: ../../../lib/web/src/features/access/access-list.tsx:252
+#: ../../../lib/web/src/features/access/access-list.tsx:258
 msgid "Remove access rule"
 msgstr "Susa umthetho wofikelelo"
 
 #. placeholder {0}: formatSubject(subject, data.name)
-#: ../../../lib/web/src/features/access/access-list.tsx:259
+#: ../../../lib/web/src/features/access/access-list.tsx:264
 msgid "Remove access rule for \"{0}\"?"
 msgstr "Susa umthetho wofikelelo we-\"{0}\"?"
 
-#: ../../../lib/web/src/features/access/access-list.tsx:257
+#: ../../../lib/web/src/features/access/access-list.tsx:262
 msgid "Remove access?"
 msgstr "Susa ufikelelo?"
 
@@ -1658,16 +1879,21 @@ msgstr "Uphendula u-{0}"
 msgid "Resend email"
 msgstr "Thumela kwakhona i-imeyile"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:86
-#: ../../../lib/web/src/components/data-table/toolbar.tsx:81
+#: ../../../lib/web/src/components/config-drawer.tsx:87
+#: ../../../lib/web/src/components/data-table/toolbar.tsx:82
 msgid "Reset"
 msgstr "Buyisela"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:84
+#: ../../../lib/web/src/components/config-drawer.tsx:122
+#: ../../../lib/web/src/components/config-drawer.tsx:127
+msgid "Reset {title}"
+msgstr ""
+
+#: ../../../lib/web/src/components/config-drawer.tsx:85
 msgid "Reset all settings to default values"
 msgstr "Buyisela zonke iisetingi kumaxabiso amiselweyo"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:361
+#: ../../../lib/web/src/components/config-drawer.tsx:362
 msgid "Right to Left"
 msgstr "Ekunene ukuya Ekhohlo"
 
@@ -1694,6 +1920,12 @@ msgstr "Gcina"
 msgid "Saving..."
 msgstr "Iyagcina..."
 
+#: ../../../lib/web/src/components/filter-bar.tsx:32
+#: ../../../lib/web/src/components/header-search.tsx:22
+#: ../../../lib/web/src/components/search.tsx:18
+msgid "Search"
+msgstr "Khangela"
+
 #: src/features/chats/components/forward-dialog.tsx:198
 msgid "Search chats…"
 msgstr "Khangela iincoko…"
@@ -1702,9 +1934,17 @@ msgstr "Khangela iincoko…"
 msgid "Search failed"
 msgstr "Ukhangelo lusilele"
 
-#: ../../../lib/web/src/components/place-picker.tsx:85
+#: ../../../lib/web/src/components/ui/command.tsx:35
+msgid "Search for a command to run..."
+msgstr ""
+
+#: ../../../lib/web/src/components/place-picker.tsx:86
 msgid "Search for a place"
 msgstr "Khangela indawo"
+
+#: ../../../lib/web/src/components/place-picker.tsx:50
+msgid "Search for a place..."
+msgstr ""
 
 #: ../../../lib/web/src/components/travelling-picker.tsx:250
 msgid "Search for destination..."
@@ -1735,11 +1975,13 @@ msgid "Search users"
 msgstr "Khangela abasebenzisi"
 
 #: ../../../lib/web/src/components/person-picker.tsx:324
+#: ../../../lib/web/src/components/search-entity-dialog.tsx:81
+#: ../../../lib/web/src/components/search-entity-page.tsx:72
 msgid "Search..."
 msgstr "Khangela..."
 
-#: ../../../lib/web/src/components/search-entity-dialog.tsx:174
-#: ../../../lib/web/src/components/search-entity-page.tsx:200
+#: ../../../lib/web/src/components/search-entity-dialog.tsx:175
+#: ../../../lib/web/src/components/search-entity-page.tsx:201
 #: ../../../lib/web/src/features/access/access-dialog.tsx:202
 msgid "Searching..."
 msgstr "Iyakhangela..."
@@ -1755,6 +1997,11 @@ msgstr "Hamba kwinqaku lelizwi"
 #: src/features/chats/components/message-hover-actions.tsx:113
 msgid "Select"
 msgstr "Khetha"
+
+#. placeholder {0}: item.label.toLowerCase()
+#: ../../../lib/web/src/components/config-drawer.tsx:149
+msgid "Select {0}"
+msgstr ""
 
 #: src/features/chats/components/chat-empty-state.tsx:22
 msgid "Select a chat"
@@ -1772,6 +2019,10 @@ msgstr "Khetha umsebenzisi, iqela, okanye omnye umgaqo ovumela ufikelelo."
 msgid "Select access rule"
 msgstr "Khetha umgaqo wofikelelo"
 
+#: ../../../lib/web/src/features/accounts/account-picker.tsx:34
+msgid "Select account"
+msgstr ""
+
 #: ../../../lib/web/src/features/accounts/account-add.tsx:129
 msgid "Select account type"
 msgstr "Khetha uhlobo lwe-akhawunti"
@@ -1780,13 +2031,17 @@ msgstr "Khetha uhlobo lwe-akhawunti"
 msgid "Select group"
 msgstr "Khetha iqela"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:304
+#: ../../../lib/web/src/components/config-drawer.tsx:305
 msgid "Select layout style"
 msgstr "Khetha isimbo solungiselelo"
 
 #: src/features/chats/components/chat-message-list.tsx:826
 msgid "Select loaded"
 msgstr "Khetha ezilayishiweyo"
+
+#: ../../../lib/web/src/components/place-picker.tsx:49
+msgid "Select location"
+msgstr "Khetha indawo"
 
 #: src/features/chats/components/chat-message-list.tsx:543
 msgid "Select message"
@@ -1796,15 +2051,19 @@ msgstr "Khetha umyalezo"
 msgid "Select people..."
 msgstr "Khetha abantu..."
 
-#: ../../../lib/web/src/components/config-drawer.tsx:246
+#: ../../../lib/web/src/components/person-picker.tsx:83
+msgid "Select person..."
+msgstr ""
+
+#: ../../../lib/web/src/components/config-drawer.tsx:247
 msgid "Select sidebar style"
 msgstr "Khetha isimbo sebha esecaleni"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:348
+#: ../../../lib/web/src/components/config-drawer.tsx:349
 msgid "Select site direction"
 msgstr "Khetha icala lesayithi"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:202
+#: ../../../lib/web/src/components/config-drawer.tsx:203
 msgid "Select theme preference"
 msgstr "Khetha okukhethiweyo kwetimu"
 
@@ -1881,8 +2140,8 @@ msgstr "Bonisa iphasiwedi"
 msgid "Showing {totalShown} of {total}"
 msgstr "Kuboniswa {totalShown} kwa-{total}"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:238
-#: ../../../lib/web/src/components/config-drawer.tsx:262
+#: ../../../lib/web/src/components/config-drawer.tsx:239
+#: ../../../lib/web/src/components/config-drawer.tsx:263
 #: ../../../lib/web/src/components/ui/sidebar.tsx:237
 msgid "Sidebar"
 msgstr "Ibha esecaleni"
@@ -1926,24 +2185,37 @@ msgstr "Yiba uphaphile!"
 msgid "Stop recording"
 msgstr "Misa ushicilelo"
 
-#: ../../../lib/web/src/features/access/access-list.tsx:191
+#: ../../../lib/web/src/features/access/access-list.tsx:196
 msgid "Subject"
 msgstr "Isihloko"
+
+#: ../../../lib/web/src/components/search-entity-dialog.tsx:83
+#: ../../../lib/web/src/components/search-entity-page.tsx:74
+msgid "Subscribe"
+msgstr "Rhuma"
 
 #: ../../../lib/web/src/lib/preference-utils.ts:65
 msgid "Sunday"
 msgstr "Icawa"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:208
+#: ../../../lib/web/src/components/config-drawer.tsx:209
 #: ../../../lib/web/src/components/theme-switch.tsx:59
 #: ../../../lib/web/src/lib/preference-utils.ts:21
 #: ../../../lib/web/src/lib/preference-utils.ts:144
 msgid "System"
 msgstr "Inkqubo"
 
-#: ../../../lib/web/src/components/tag-input.tsx:94
+#: ../../../lib/web/src/components/tag-input.tsx:95
 msgid "Tag"
 msgstr "Iletile"
+
+#: ../../../lib/web/src/components/post-tags.tsx:76
+msgid "Tag already exists"
+msgstr "Iletile sele ikhona"
+
+#: ../../../lib/web/src/components/post-tags.tsx:68
+msgid "Tag must be 50 characters or less"
+msgstr "Ithegi kufuneka ibe ngamagama angama-50 okanye ngaphantsi"
 
 #: ../../../lib/web/src/components/post-tags.tsx:101
 #: ../../../lib/web/src/components/post-tags.tsx:115
@@ -1980,11 +2252,11 @@ msgstr "Umxholo oceliweyo awufumanekanga."
 msgid "The site is not available at the moment."
 msgstr "Isiza asifumaneki okwangoku."
 
-#: ../../../lib/web/src/components/config-drawer.tsx:194
+#: ../../../lib/web/src/components/config-drawer.tsx:195
 msgid "Theme"
 msgstr "Itimu"
 
-#: ../../../lib/web/src/components/config-drawer.tsx:69
+#: ../../../lib/web/src/components/config-drawer.tsx:70
 msgid "Theme Settings"
 msgstr "Iisetingi zetimu"
 
@@ -2069,8 +2341,8 @@ msgstr "Ukuhamba"
 msgid "Try a different search term"
 msgstr "Zama elinye igama lokukhangela"
 
-#: ../../../lib/web/src/components/search-entity-dialog.tsx:190
-#: ../../../lib/web/src/components/search-entity-page.tsx:216
+#: ../../../lib/web/src/components/search-entity-dialog.tsx:191
+#: ../../../lib/web/src/components/search-entity-page.tsx:217
 msgid "Try adjusting your search terms"
 msgstr "Zama ukulungisa amabinzana okhangela"
 
@@ -2121,10 +2393,16 @@ msgstr "Akwabelwanga"
 msgid "Unauthorized Access"
 msgstr "Ufikelelo Olungavunyelwanga"
 
+#: ../../../lib/web/src/lib/request.ts:133
+#: ../../../lib/web/src/lib/request.ts:206
+msgid "Unexpected API error"
+msgstr "Impazamo ye-API engalindelekanga"
+
 #: ../../../lib/web/src/lib/preference-utils.ts:87
 msgid "United States"
 msgstr "United States"
 
+#: ../../../lib/web/src/features/accounts/types.ts:29
 #: src/hooks/useChatWebsocket.ts:387
 msgid "Unknown"
 msgstr "Akwaziwa"
@@ -2141,6 +2419,7 @@ msgstr "Ayingqinwanga"
 msgid "Use your passkey"
 msgstr "Sebenzisa i-passkey yakho"
 
+#: ../../../lib/web/src/components/layout/mochi-menu.tsx:86
 #: ../../../lib/web/src/features/access/access-dialog.tsx:158
 msgid "User"
 msgstr "Umsebenzisi"
@@ -2207,6 +2486,10 @@ msgstr "Ushicilelo lwelizwi aluxhaswa kule bhrawuza"
 msgid "Voice recording isn't available in this app version. Please update the app and try again."
 msgstr "Ushicilelo lwelizwi alufumaneki kolu guqulelo lwe-app. Nceda uhlaziye i-app uze uzame kwakhona."
 
+#: ../../../lib/web/src/components/filter-bar.tsx:35
+msgid "Watched"
+msgstr "Kubukelweyo"
+
 #. placeholder {0}: account.identifier
 #: ../../../lib/web/src/features/accounts/account-verify.tsx:63
 msgid "We sent a verification code to <0>{0}</0>. Enter the code below to verify your email address."
@@ -2215,6 +2498,10 @@ msgstr "Sithumele ikhowudi yoqinisekiso ku-<0>{0}</0>. Faka ikhowudi ngezantsi u
 #: ../../../lib/web/src/features/errors/maintenance-error.tsx:16
 msgid "We'll be back online shortly."
 msgstr "Sizakubuyela kungekudala."
+
+#: ../../../lib/web/src/components/notifications-dropdown.tsx:197
+msgid "We'll notify you when something important happens."
+msgstr "Siza kukwazisa xa kwenzeka into ebalulekileyo."
 
 #: ../../../lib/web/src/features/errors/maintenance-error.tsx:13
 msgid "Website is under maintenance!"
@@ -2260,9 +2547,17 @@ msgstr "Awunayo imvume efunekayo <0/>yokujonga olu vimba."
 msgid "You left this chat"
 msgstr "Uyishiyile le ncoko"
 
+#: ../../../lib/web/src/lib/show-submitted-data.tsx:9
+msgid "You submitted the following values:"
+msgstr ""
+
 #: src/features/chats/index.tsx:1268
 msgid "You were removed from this chat"
 msgstr "Ususiwe kule ncoko"
+
+#: ../../../lib/web/src/components/notifications-dropdown.tsx:193
+msgid "You're all caught up!"
+msgstr "Uzibonile zonke!"
 
 #: ../../../lib/web/src/components/restore-banner.tsx:91
 msgid "Your account was moved here from {source}. Until you delete it there, messages and notifications may reach both servers, some of your content keeps being served from the old server, and followers may take a few minutes to find you here."
