@@ -789,7 +789,7 @@ def action_send(a):
 	# Save any uploaded attachments locally
 	attachments = []
 	if has_files:
-		attachments = mochi.attachment.save("chat/" + chat["id"] + "/" + id, "files", captions, [], [])
+		attachments = mochi.attachment.save("chat/" + chat["id"] + "/" + id, "files", captions, [])
 
 	# Live-update websocket: fired from chat_commit_hook on every host
 	# that sees this messages row (local + paired replicas via the
