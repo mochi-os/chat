@@ -5,17 +5,18 @@
 // Mochi Application Interface Exception - see license.txt and license-exception.md.
 
 {
-	"version": "2.118",
+	"version": "2.119",
 	"label": "app.name",
 	"classes": ["chat"],
 	"paths": ["chat"],
 	"services": ["chat"],
 
 	"architecture": {"engine": "starlark", "version": 4},
-	"execute": ["chat.star"],
+	"execute": ["lib/attachments.star", "chat.star"],
+	"require": {"version": {"minimum": "0.4.227"}},
 
 	"database": {
-		"schema": 4,
+		"schema": 5,
 		"file": "chat.db",
 		"create": {"function": "database_create"},
 		"upgrade": {"function": "database_upgrade"},
@@ -67,6 +68,7 @@
 
 	"events": {
 		"accept/query": {"function": "event_accept_query"},
+		"attachment/fetch": {"function": "event_attachment_fetch"},
 		"message": {"function": "event_message"},
 		"message/delete": {"function": "event_message_delete"},
 		"message/edit": {"function": "event_message_edit"},

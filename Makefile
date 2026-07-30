@@ -9,16 +9,20 @@ VERSION = $(shell grep -m1 '"version"' app.json | sed 's/.*"version"[[:space:]]*
 RELEASE = ../../release
 SAFE_PNPM = $(abspath ../../claude/scripts/safe-pnpm.sh)
 
-all: web/dist/index.html
+all: vendor web/dist/index.html
+
+vendor:
+	mkdir -p lib
+	ln -sf ../../../lib/starlark/attachments.star lib/attachments.star
 
 clean:
 	rm -rf web/dist
 
 web/dist/index.html: $(shell find web/src ../../lib/web/src -type f 2>/dev/null)
 	bash -c 'cd web && $(SAFE_PNPM) run build'
-release: web/dist/index.html
+release: vendor web/dist/index.html
 	rm -f $(RELEASE)/$(APP)_*.zip
-	zip -r $(RELEASE)/$(APP)_$(VERSION).zip app.json *.star labels web/dist
+	zip -r $(RELEASE)/$(APP)_$(VERSION).zip app.json *.star lib labels web/dist
 	git tag -a $(VERSION) -m "$(VERSION)" 2>/dev/null || true
 
 deploy:

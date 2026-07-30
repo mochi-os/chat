@@ -129,7 +129,7 @@ def chat_commit_hook(table, kind, row_uid):
 	chat = mochi.db.row("select key from chats where id=?", message["chat"])
 	if not chat:
 		return
-	attachments = mochi.attachment.list("chat/" + message["chat"] + "/" + message["id"])
+	attachments = attachment_list("chat/" + message["chat"] + "/" + message["id"])
 	chat_websocket(chat["key"], {
 		"id": message["id"],
 		"created": message["created"],
@@ -177,6 +177,9 @@ def database_create():
 	mochi.db.execute("create table if not exists deletions ( chat text not null, message text not null primary key, member text not null, created integer not null )")
 	mochi.db.execute("create index if not exists deletions_chat on deletions( chat )")
 
+	# Attachments now live in this database, owned by the shared library.
+	attachment_schema_create()
+
 def database_upgrade(version):
 	if version == 2:
 		# Own-message editing: last-edit timestamp, 0 = never edited.
@@ -193,6 +196,13 @@ def database_upgrade(version):
 		# (drop if exists), so an install that did run version 3 is unharmed.
 		for table in ["sequence", "log", "acknowledged", "received"]:
 			mochi.db.execute("drop table if exists " + table)
+	if version == 5:
+		# Attachments move into this database, owned by the shared library.
+		# Create the table and copy existing rows across the transition bridge;
+		# the migrate helper aborts without advancing the version if the bridge
+		# is gone, so the step retries later.
+		attachment_schema_create()
+		attachment_migrate()
 
 # Read a whole-number field from an event, or None if it isn't one.
 #
@@ -602,12 +612,29 @@ def serve_attachment(a, variant):
 	if not is_member and chat["status"] not in ("left", "removed"):
 		a.error.label(403, "errors.not_a_member_of_this_chat")
 		return
-	# Bind the attachment to this chat: its object is "chat/<chat_id>/<message_id>".
-	att = mochi.attachment.get(attachment)
-	if not att or not att.get("object", "").startswith("chat/" + chat["id"] + "/"):
-		a.error.label(404, "errors.attachment_not_found")
-		return
-	a.write.attachment(attachment, variant=variant)
+	# The library serves the bytes with no access check of its own. Membership
+	# was checked above; the binding runs in the member predicate: the
+	# attachment's object is "chat/<chat_id>/<message_id>", so a prefix check
+	# binds it to this chat and blocks fetching another chat's file by id.
+	prefix = "chat/" + chat["id"] + "/"
+	attachment_serve(a, attachment, chat["id"], lambda container: True, variant=variant,
+		member=lambda object: object.startswith(prefix))
+
+# P2P byte-pull responder. A member on another host stores a message's
+# attachment metadata (entity = the sender), then pulls the bytes from the
+# sender here on demand. The chat id is derived from the attachment's object
+# ("chat/<chat_id>/<message_id>") and the requester must be a current member of
+# that chat; the binding then confirms the attachment really belongs to it, so a
+# lie about the object cannot fetch a file from a chat the requester is in but
+# the attachment is not.
+def event_attachment_fetch(e):
+	object = e.content("object", "")
+	parts = object.split("/")
+	chat_id = parts[1] if len(parts) >= 2 and parts[0] == "chat" else ""
+	prefix = "chat/" + chat_id + "/"
+	attachment_respond(e, chat_id,
+		lambda sender, container: bool(container) and mochi.db.exists("select 1 from members where chat=? and member=?", container, sender),
+		member=lambda obj: obj.startswith(prefix))
 
 # Get messages for a chat with cursor-based pagination
 def action_messages(a):
@@ -683,7 +710,7 @@ def action_messages(a):
 			m["attachments"] = []
 		else:
 			m["deleted"] = False
-			m["attachments"] = mochi.attachment.list("chat/" + chat["id"] + "/" + m["id"])
+			m["attachments"] = attachment_list("chat/" + chat["id"] + "/" + m["id"])
 
 	# Reaction counts + the viewer's own reaction, for non-deleted messages.
 	messages_attach_reactions(chat["id"], [m for m in messages if not m["deleted"]], a.user.identity.id)
@@ -795,7 +822,7 @@ def action_send(a):
 	# Save any uploaded attachments locally
 	attachments = []
 	if has_files:
-		attachments = mochi.attachment.save("chat/" + chat["id"] + "/" + id, "files", captions, [])
+		attachments = attachment_save(a, "chat/" + chat["id"] + "/" + id, captions=captions)
 
 	# Live-update websocket: fired from chat_commit_hook on every host
 	# that sees this messages row (local + paired replicas via the
@@ -1029,7 +1056,7 @@ def chat_delete_local(chat_id):
 	# exist. Delete them first and every attachment row and file is stranded
 	# on disk with nothing left to enumerate it.
 	for _row in mochi.db.rows("select id from messages where chat=?", chat_id) or []:
-		mochi.attachment.clear("chat/" + chat_id + "/" + _row["id"])
+		attachment_clear("chat/" + chat_id + "/" + _row["id"])
 	mochi.db.execute("delete from reactions where chat=?", chat_id)
 	mochi.db.execute("delete from deletions where chat=?", chat_id)
 	mochi.db.execute("delete from messages where chat=?", chat_id)
@@ -1054,7 +1081,7 @@ def messages_deleted_set(chat_id, message_ids):
 def message_delete_apply(chat_id, message_id, member_id, ts):
 	mochi.db.execute("insert or ignore into deletions ( chat, message, member, created ) values ( ?, ?, ?, ? )", chat_id, message_id, member_id, ts)
 	mochi.db.execute("update messages set body='' where id=? and chat=?", message_id, chat_id)
-	mochi.attachment.clear("chat/" + chat_id + "/" + message_id)
+	attachment_clear("chat/" + chat_id + "/" + message_id)
 	chat_ensure_commit_hook()
 	mochi.db.commit.fire("deletions", "insert", message_id)
 
@@ -1273,7 +1300,7 @@ def chat_collect_forwardable(source_id, raw_ids):
 def chat_forward_allowed(a, source_id, source_messages):
 	total = 0
 	for source_message in source_messages:
-		total += len(mochi.attachment.list("chat/" + source_id + "/" + source_message["id"]) or [])
+		total += len(attachment_list("chat/" + source_id + "/" + source_message["id"]) or [])
 		if total > _FORWARD_ATTACHMENTS_MAXIMUM:
 			a.error.label(400, "errors.too_many_attachments", maximum=_FORWARD_ATTACHMENTS_MAXIMUM)
 			return False
@@ -1292,12 +1319,12 @@ def chat_forward_into(a, source_id, target_id, source_messages):
 		mochi.db.execute("update chats set updated=? where id=?", now_forward, target_id)
 
 		# Copy attachment bytes into the new message's object.
-		for att in mochi.attachment.list("chat/" + source_id + "/" + source_message["id"]) or []:
-			data = mochi.attachment.data(att["id"])
+		for att in attachment_list("chat/" + source_id + "/" + source_message["id"]) or []:
+			data = attachment_data(att["id"], a.user.identity.id)
 			if data == None:
 				continue
-			mochi.attachment.create("chat/" + target_id + "/" + new_id, att["name"], data, att.get("type", ""))
-		new_attachments = mochi.attachment.list("chat/" + target_id + "/" + new_id)
+			attachment_create("chat/" + target_id + "/" + new_id, att["name"], data, att.get("type", ""))
+		new_attachments = attachment_list("chat/" + target_id + "/" + new_id)
 
 		mochi.db.commit.fire("messages", "insert", new_id)
 
@@ -1644,8 +1671,8 @@ def event_message(e):
 	# Store attachment metadata from the event
 	attachments = e.content("attachments") or []
 	if attachments:
-		mochi.attachment.store(attachments, e.header("from"), "chat/" + chat["id"] + "/" + id)
-		attachments = mochi.attachment.list("chat/" + chat["id"] + "/" + id)
+		attachment_store(attachments, e.header("from"), "chat/" + chat["id"] + "/" + id)
+		attachments = attachment_list("chat/" + chat["id"] + "/" + id)
 
 	# Live-update websocket: routes through chat_commit_hook now that
 	# both action_send (the sender's host) and event_message (every
