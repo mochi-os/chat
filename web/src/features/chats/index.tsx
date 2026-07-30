@@ -6,7 +6,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { Trans, useLingui } from '@lingui/react/macro'
 import { plural } from '@lingui/core/macro'
-import { useAuthStore, usePageTitle, PageHeader, Main, GeneralError, Button, Checkbox, ConfirmDialog, EntityAvatar, IconButton, DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger, Label, toast, toastAction, getErrorMessage, shellClipboardWrite, getSendAttachmentErrorMessage, isAttachmentPayloadTooLargeError, resolveMentionsFromBody, classifyUnresolvedMentions, naturalCompare } from '@mochi/web'
+import { useAuthStore, usePageTitle, PageHeader, Main, GeneralError, Button, Checkbox, ConfirmDialog, EntityAvatar, IconButton, DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger, Label, toast, toastAction, getErrorMessage, shellClipboardWrite, getSendAttachmentErrorMessage, isAttachmentPayloadTooLargeError, resolveMentionsFromBody, classifyUnresolvedMentions, naturalCompare, useUploadProgress } from '@mochi/web'
 import { useMessageSelection } from '@/hooks/use-message-selection'
 import { useNavigate, useParams, useSearch } from '@tanstack/react-router'
 import { useQueryClient, type InfiniteData } from '@tanstack/react-query'
@@ -758,6 +758,8 @@ export function Chats() {
     networkMaybeTooLarge: t`Message could not be sent. Attachments may be too large, or your connection failed. Try smaller files.`,
   }
 
+  const { progress: sendProgress, upload } = useUploadProgress()
+
   const sendMessageMutation = useSendMessageMutation({
     onSuccess: () => {
       setNewMessage('')
@@ -979,7 +981,7 @@ export function Chats() {
       }
     }
 
-    sendMessageMutation.mutate({
+    const variables = {
       chatId: selectedChat.id,
       body,
       reply_to: replyTo?.id,
@@ -996,7 +998,17 @@ export function Chats() {
             return ''
           })
         : undefined,
-    })
+    }
+    if (pendingAttachments.length > 0) {
+      // Attachments ride a multipart upload — track its byte progress. The
+      // rejection is swallowed because errors already land in the mutation's
+      // error state and onError, same as the fire-and-forget mutate below.
+      void upload((onProgress) =>
+        sendMessageMutation.mutateAsync({ ...variables, onProgress })
+      ).catch(() => {})
+    } else {
+      sendMessageMutation.mutate(variables)
+    }
   }
 
   // Length is checked here rather than capping the textarea: a maxLength would
@@ -1294,6 +1306,7 @@ export function Chats() {
               onMentionsChange={setSelectedMentions}
               onSendMessage={handleSendMessage}
               isSending={sendMessageMutation.isPending}
+              sendProgress={sendProgress}
               isSendDisabled={isSendDisabled}
               pendingAttachments={pendingAttachments}
               onRemoveAttachment={handleRemoveAttachment}

@@ -92,6 +92,10 @@ msgstr "{selectedCount, plural, one {# odabrano} few {# odabrano} other {# odabr
 msgid "{selectedCount, plural, one {Bulk actions for # selected {entityName}} other {Bulk actions for # selected {manyName}}}"
 msgstr "{selectedCount, plural, one {Grupne radnje za # odabrani {entityName}} few {Grupne radnje za # odabrana {manyName}} other {Grupne radnje za # odabranih {manyName}}}"
 
+#: ../../../lib/web/src/components/ui/upload-progress.tsx:52
+msgid "{sentLabel} of {totalLabel}"
+msgstr "{sentLabel} od {totalLabel}"
+
 #: src/features/chats/index.tsx:869
 msgid "{skippedCount, plural, one {Skipped # file that is not audio} other {Skipped # files that are not audio}}"
 msgstr "{skippedCount, plural, one {Preskočena je # datoteka koja nije zvuk} few {Preskočene su # datoteke koje nisu zvuk} other {Preskočeno je # datoteka koje nisu zvuk}}"
@@ -399,12 +403,12 @@ msgstr "Otkaži"
 msgid "Cancel reply"
 msgstr "Otkaži odgovor"
 
-#: ../../../lib/web/src/components/notification-category-button.tsx:143
+#: ../../../lib/web/src/components/notification-category-button.tsx:146
 msgid "Category for this notification"
 msgstr "Kategorija za ovo obavještenje"
 
-#: ../../../lib/web/src/components/notification-category-button.tsx:124
-#: ../../../lib/web/src/components/notification-category-button.tsx:135
+#: ../../../lib/web/src/components/notification-category-button.tsx:127
+#: ../../../lib/web/src/components/notification-category-button.tsx:138
 msgid "Change notification category"
 msgstr "Promijeni kategoriju obavještenja"
 
@@ -809,6 +813,14 @@ msgstr "Pretraga imenika nije uspjela"
 msgid "Disagree"
 msgstr "Ne slažem se"
 
+#: ../../../lib/web/src/components/comment-composer.tsx:300
+msgid "Discard"
+msgstr "Odbaci"
+
+#: ../../../lib/web/src/components/comment-composer.tsx:298
+msgid "Discard draft?"
+msgstr "Odbaciti nacrt?"
+
 #: src/features/chats/components/chat-input.tsx:728
 #: src/features/chats/components/chat-input.tsx:733
 msgid "Discard recording"
@@ -1009,7 +1021,7 @@ msgstr "Slanje verifikacionog koda nije uspjelo"
 msgid "Failed to start chat"
 msgstr "Pokretanje razgovora nije uspjelo"
 
-#: ../../../lib/web/src/components/notification-category-button.tsx:111
+#: ../../../lib/web/src/components/notification-category-button.tsx:114
 msgid "Failed to update category"
 msgstr "Ažuriranje kategorije nije uspjelo"
 
@@ -1531,7 +1543,7 @@ msgstr "Nisu pronađeni rezultati."
 msgid "No time zone found."
 msgstr "Nije pronađena vremenska zona."
 
-#: ../../../lib/web/src/components/notification-category-button.tsx:147
+#: ../../../lib/web/src/components/notification-category-button.tsx:150
 msgid "No topic record yet — try again after the next notification."
 msgstr "Još nema zapisa o temi — pokušajte ponovo nakon sljedećeg obavještenja."
 
@@ -1689,6 +1701,7 @@ msgstr "Reproduciraj zvuk"
 msgid "Play voice note"
 msgstr "Reproduciraj glasovnu poruku"
 
+#: ../../../lib/web/src/components/comment-composer.tsx:95
 #: ../../../lib/web/src/features/errors/general-error.tsx:54
 #: ../../../lib/web/src/lib/api-response-interceptors.ts:304
 msgid "Please check your internet connection and try again."
@@ -1723,6 +1736,10 @@ msgstr "Prethodna slika"
 #: ../../../lib/web/src/features/document/document-page.tsx:44
 msgid "Privacy"
 msgstr "Privatnost"
+
+#: ../../../lib/web/src/components/ui/upload-progress.tsx:50
+msgid "Processing…"
+msgstr "Obrada…"
 
 #: ../../../lib/web/src/components/layout/nav-user.tsx:137
 #: ../../../lib/web/src/components/profile-dropdown.tsx:114
@@ -1804,6 +1821,7 @@ msgstr "Relativno (5m, 3h, 2d)"
 msgid "Relative within 24 hours, else absolute"
 msgstr "Relativno u roku od 24 sata, inače apsolutno"
 
+#: ../../../lib/web/src/components/comment-composer.tsx:232
 #: ../../../lib/web/src/features/access/access-list.tsx:270
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:180
 #: src/routes/_authenticated/$chatId_.settings.tsx:556
@@ -1892,6 +1910,10 @@ msgstr "Poništi {title}"
 #: ../../../lib/web/src/components/config-drawer.tsx:85
 msgid "Reset all settings to default values"
 msgstr "Resetuj sve postavke na zadane vrijednosti"
+
+#: ../../../lib/web/src/components/comment-composer.tsx:249
+msgid "Retry"
+msgstr "Pokušaj ponovo"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:362
 msgid "Right to Left"
@@ -2385,7 +2407,7 @@ msgstr "Nije moguće povezati se s udaljenim serverom"
 msgid "Unable to redirect to login. Please try again."
 msgstr "Nije moguće preusmjeriti na prijavu. Pokušaj ponovo."
 
-#: ../../../lib/web/src/components/notification-category-button.tsx:155
+#: ../../../lib/web/src/components/notification-category-button.tsx:158
 msgid "Unassigned"
 msgstr "Nedodijeljeno"
 
@@ -2414,6 +2436,10 @@ msgstr "Otkači razgovor"
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:135
 msgid "Unverified"
 msgstr "Neverifikovano"
+
+#: ../../../lib/web/src/components/ui/upload-progress.tsx:34
+msgid "Upload progress"
+msgstr "Napredak otpremanja"
 
 #: ../../../lib/web/src/components/step-up-dialog.tsx:338
 msgid "Use your passkey"
@@ -2562,3 +2588,15 @@ msgstr "Sve ste pregledali!"
 #: ../../../lib/web/src/components/restore-banner.tsx:91
 msgid "Your account was moved here from {source}. Until you delete it there, messages and notifications may reach both servers, some of your content keeps being served from the old server, and followers may take a few minutes to find you here."
 msgstr "Vaš račun je premješten ovdje s {source}. Dok ga tamo ne obrišete, poruke i obavještenja mogu stizati na oba servera, dio vašeg sadržaja nastavlja se posluživati sa starog servera, a pratiocima može trebati nekoliko minuta da vas ovdje pronađu."
+
+#: ../../../lib/web/src/components/comment-composer.tsx:291
+msgid "Your attachments will be lost."
+msgstr "Vaši prilozi će biti izgubljeni."
+
+#: ../../../lib/web/src/components/comment-composer.tsx:289
+msgid "Your text and attachments will be lost."
+msgstr "Vaš tekst i prilozi će biti izgubljeni."
+
+#: ../../../lib/web/src/components/comment-composer.tsx:292
+msgid "Your text will be lost."
+msgstr "Vaš tekst će biti izgubljen."

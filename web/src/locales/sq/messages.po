@@ -92,6 +92,10 @@ msgstr "{selectedCount, plural, one {# të zgjedhura} other {# të zgjedhura}}"
 msgid "{selectedCount, plural, one {Bulk actions for # selected {entityName}} other {Bulk actions for # selected {manyName}}}"
 msgstr "{selectedCount, plural, one {Veprime masive për # {entityName} të zgjedhur} other {Veprime masive për # {manyName} të zgjedhur}}"
 
+#: ../../../lib/web/src/components/ui/upload-progress.tsx:52
+msgid "{sentLabel} of {totalLabel}"
+msgstr "{sentLabel} nga {totalLabel}"
+
 #: src/features/chats/index.tsx:869
 msgid "{skippedCount, plural, one {Skipped # file that is not audio} other {Skipped # files that are not audio}}"
 msgstr "{skippedCount, plural, one {U anashkalua # skedar që nuk është audio} other {U anashkaluan # skedarë që nuk janë audio}}"
@@ -399,12 +403,12 @@ msgstr "Anulo"
 msgid "Cancel reply"
 msgstr "Anulo përgjigjen"
 
-#: ../../../lib/web/src/components/notification-category-button.tsx:143
+#: ../../../lib/web/src/components/notification-category-button.tsx:146
 msgid "Category for this notification"
 msgstr "Kategoria për këtë njoftim"
 
-#: ../../../lib/web/src/components/notification-category-button.tsx:124
-#: ../../../lib/web/src/components/notification-category-button.tsx:135
+#: ../../../lib/web/src/components/notification-category-button.tsx:127
+#: ../../../lib/web/src/components/notification-category-button.tsx:138
 msgid "Change notification category"
 msgstr "Ndrysho kategorinë e njoftimit"
 
@@ -809,6 +813,14 @@ msgstr "Kërkimi në drejtori dështoi"
 msgid "Disagree"
 msgstr "Nuk pajtohem"
 
+#: ../../../lib/web/src/components/comment-composer.tsx:300
+msgid "Discard"
+msgstr "Hidh"
+
+#: ../../../lib/web/src/components/comment-composer.tsx:298
+msgid "Discard draft?"
+msgstr "Ta hedhësh draftin?"
+
 #: src/features/chats/components/chat-input.tsx:728
 #: src/features/chats/components/chat-input.tsx:733
 msgid "Discard recording"
@@ -1009,7 +1021,7 @@ msgstr "Dërgimi i kodit të verifikimit dështoi"
 msgid "Failed to start chat"
 msgstr "Nisja e bisedës dështoi"
 
-#: ../../../lib/web/src/components/notification-category-button.tsx:111
+#: ../../../lib/web/src/components/notification-category-button.tsx:114
 msgid "Failed to update category"
 msgstr "Përditësimi i kategorisë dështoi"
 
@@ -1531,7 +1543,7 @@ msgstr "S'u gjet asnjë rezultat."
 msgid "No time zone found."
 msgstr "S'u gjet asnjë zonë kohore."
 
-#: ../../../lib/web/src/components/notification-category-button.tsx:147
+#: ../../../lib/web/src/components/notification-category-button.tsx:150
 msgid "No topic record yet — try again after the next notification."
 msgstr "Ende asnjë regjistrim teme — provoni përsëri pas njoftimit tjetër."
 
@@ -1689,6 +1701,7 @@ msgstr "Luaj audion"
 msgid "Play voice note"
 msgstr "Luaj shënimin zanor"
 
+#: ../../../lib/web/src/components/comment-composer.tsx:95
 #: ../../../lib/web/src/features/errors/general-error.tsx:54
 #: ../../../lib/web/src/lib/api-response-interceptors.ts:304
 msgid "Please check your internet connection and try again."
@@ -1723,6 +1736,10 @@ msgstr "Imazhi i mëparshëm"
 #: ../../../lib/web/src/features/document/document-page.tsx:44
 msgid "Privacy"
 msgstr "Privatësia"
+
+#: ../../../lib/web/src/components/ui/upload-progress.tsx:50
+msgid "Processing…"
+msgstr "Po përpunohet…"
 
 #: ../../../lib/web/src/components/layout/nav-user.tsx:137
 #: ../../../lib/web/src/components/profile-dropdown.tsx:114
@@ -1804,6 +1821,7 @@ msgstr "Relative (5m, 3h, 2d)"
 msgid "Relative within 24 hours, else absolute"
 msgstr "Relative brenda 24 orëve, përndryshe absolute"
 
+#: ../../../lib/web/src/components/comment-composer.tsx:232
 #: ../../../lib/web/src/features/access/access-list.tsx:270
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:180
 #: src/routes/_authenticated/$chatId_.settings.tsx:556
@@ -1892,6 +1910,10 @@ msgstr "Rivendos {title}"
 #: ../../../lib/web/src/components/config-drawer.tsx:85
 msgid "Reset all settings to default values"
 msgstr "Rivendos të gjitha cilësimet në vlerat parazgjedhura"
+
+#: ../../../lib/web/src/components/comment-composer.tsx:249
+msgid "Retry"
+msgstr "Provo përsëri"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:362
 msgid "Right to Left"
@@ -2385,7 +2407,7 @@ msgstr "Nuk u lidh dot me serverin në distancë"
 msgid "Unable to redirect to login. Please try again."
 msgstr "Nuk mund të ridrejtohet te hyrja. Ju lutemi provoni përsëri."
 
-#: ../../../lib/web/src/components/notification-category-button.tsx:155
+#: ../../../lib/web/src/components/notification-category-button.tsx:158
 msgid "Unassigned"
 msgstr "I pacaktuar"
 
@@ -2414,6 +2436,10 @@ msgstr "Hiq fiksimin e bisedës"
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:135
 msgid "Unverified"
 msgstr "I paverifikuar"
+
+#: ../../../lib/web/src/components/ui/upload-progress.tsx:34
+msgid "Upload progress"
+msgstr "Ecuria e ngarkimit"
 
 #: ../../../lib/web/src/components/step-up-dialog.tsx:338
 msgid "Use your passkey"
@@ -2562,3 +2588,15 @@ msgstr "I keni parë të gjitha!"
 #: ../../../lib/web/src/components/restore-banner.tsx:91
 msgid "Your account was moved here from {source}. Until you delete it there, messages and notifications may reach both servers, some of your content keeps being served from the old server, and followers may take a few minutes to find you here."
 msgstr "Llogaria juaj u zhvendos këtu nga {source}. Derisa ta fshini atje, mesazhet dhe njoftimet mund të arrijnë në të dy serverët, një pjesë e përmbajtjes suaj vazhdon të shërbejë nga serveri i vjetër dhe ndjekësit mund të kenë nevojë për disa minuta që t'ju gjejnë këtu."
+
+#: ../../../lib/web/src/components/comment-composer.tsx:291
+msgid "Your attachments will be lost."
+msgstr "Bashkëngjitjet tuaja do të humbasin."
+
+#: ../../../lib/web/src/components/comment-composer.tsx:289
+msgid "Your text and attachments will be lost."
+msgstr "Teksti dhe bashkëngjitjet tuaja do të humbasin."
+
+#: ../../../lib/web/src/components/comment-composer.tsx:292
+msgid "Your text will be lost."
+msgstr "Teksti yt do të humbasë."

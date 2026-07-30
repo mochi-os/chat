@@ -49,6 +49,8 @@ import {
   micDurationSecs,
   micFilenameForMime,
   startShellMicGuarded,
+  UploadProgress,
+  type Upload,
 } from '@mochi/web'
 import { Loader2, Paperclip, Send, X, Mic, Trash, Square, FileText, Music } from 'lucide-react'
 import type { PendingAttachment } from '../utils'
@@ -79,6 +81,8 @@ interface ChatInputProps {
   onMentionsChange: (mentions: MentionUser[]) => void
   onSendMessage: () => void
   isSending: boolean
+  /** Byte progress of the in-flight attachment upload */
+  sendProgress?: Upload | null
   isSendDisabled: boolean
   pendingAttachments: PendingAttachment[]
   onRemoveAttachment: (id: string) => void
@@ -101,6 +105,7 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(
       onMentionsChange,
       onSendMessage,
       isSending,
+      sendProgress,
       isSendDisabled,
       pendingAttachments,
       onRemoveAttachment,
@@ -899,6 +904,7 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(
             }}
           />
       </div>
+      {isSending && <UploadProgress progress={sendProgress ?? null} />}
       {/* Shown only as the limit approaches, so it isn't noise on every
           message, and turns red once the send is actually blocked. */}
       {newMessage.length >= MESSAGE_COUNTER_FROM && (

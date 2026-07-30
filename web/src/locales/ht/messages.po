@@ -92,6 +92,10 @@ msgstr "{selectedCount, plural, other {# chwazi}}"
 msgid "{selectedCount, plural, one {Bulk actions for # selected {entityName}} other {Bulk actions for # selected {manyName}}}"
 msgstr "{selectedCount, plural, other {Aksyon an gwoup pou # {manyName} chwazi}}"
 
+#: ../../../lib/web/src/components/ui/upload-progress.tsx:52
+msgid "{sentLabel} of {totalLabel}"
+msgstr "{sentLabel} sou {totalLabel}"
+
 #: src/features/chats/index.tsx:869
 msgid "{skippedCount, plural, one {Skipped # file that is not audio} other {Skipped # files that are not audio}}"
 msgstr "{skippedCount, plural, one {Nou sote # fichye ki pa odyo} other {Nou sote # fichye ki pa odyo}}"
@@ -399,12 +403,12 @@ msgstr "Anile"
 msgid "Cancel reply"
 msgstr "Anile repons"
 
-#: ../../../lib/web/src/components/notification-category-button.tsx:143
+#: ../../../lib/web/src/components/notification-category-button.tsx:146
 msgid "Category for this notification"
 msgstr "Kategori pou notifikasyon sa a"
 
-#: ../../../lib/web/src/components/notification-category-button.tsx:124
-#: ../../../lib/web/src/components/notification-category-button.tsx:135
+#: ../../../lib/web/src/components/notification-category-button.tsx:127
+#: ../../../lib/web/src/components/notification-category-button.tsx:138
 msgid "Change notification category"
 msgstr "Chanje kategori notifikasyon"
 
@@ -809,6 +813,14 @@ msgstr "Rechèch nan anyè a echwe"
 msgid "Disagree"
 msgstr "Pa dakò"
 
+#: ../../../lib/web/src/components/comment-composer.tsx:300
+msgid "Discard"
+msgstr "Jete"
+
+#: ../../../lib/web/src/components/comment-composer.tsx:298
+msgid "Discard draft?"
+msgstr "Jete bouyon an?"
+
 #: src/features/chats/components/chat-input.tsx:728
 #: src/features/chats/components/chat-input.tsx:733
 msgid "Discard recording"
@@ -1009,7 +1021,7 @@ msgstr "Echwe pou voye kòd verifikasyon"
 msgid "Failed to start chat"
 msgstr "Echwe pou kòmanse chat"
 
-#: ../../../lib/web/src/components/notification-category-button.tsx:111
+#: ../../../lib/web/src/components/notification-category-button.tsx:114
 msgid "Failed to update category"
 msgstr "Echwe pou mete ajou kategori"
 
@@ -1531,7 +1543,7 @@ msgstr "Pa gen rezilta ki jwenn."
 msgid "No time zone found."
 msgstr "Pa gen zòn lè ki jwenn."
 
-#: ../../../lib/web/src/components/notification-category-button.tsx:147
+#: ../../../lib/web/src/components/notification-category-button.tsx:150
 msgid "No topic record yet — try again after the next notification."
 msgstr "Poko gen anrejistreman sijè — eseye ankò apre pwochèn notifikasyon an."
 
@@ -1689,6 +1701,7 @@ msgstr "Jwe odyo a"
 msgid "Play voice note"
 msgstr "Jwe nòt vokal la"
 
+#: ../../../lib/web/src/components/comment-composer.tsx:95
 #: ../../../lib/web/src/features/errors/general-error.tsx:54
 #: ../../../lib/web/src/lib/api-response-interceptors.ts:304
 msgid "Please check your internet connection and try again."
@@ -1723,6 +1736,10 @@ msgstr "Imaj anvan"
 #: ../../../lib/web/src/features/document/document-page.tsx:44
 msgid "Privacy"
 msgstr "Konfidansyalite"
+
+#: ../../../lib/web/src/components/ui/upload-progress.tsx:50
+msgid "Processing…"
+msgstr "Ap trete…"
 
 #: ../../../lib/web/src/components/layout/nav-user.tsx:137
 #: ../../../lib/web/src/components/profile-dropdown.tsx:114
@@ -1804,6 +1821,7 @@ msgstr "Relatif (5m, 3h, 2d)"
 msgid "Relative within 24 hours, else absolute"
 msgstr "Relatif nan 24 èdtan, sinon absoli"
 
+#: ../../../lib/web/src/components/comment-composer.tsx:232
 #: ../../../lib/web/src/features/access/access-list.tsx:270
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:180
 #: src/routes/_authenticated/$chatId_.settings.tsx:556
@@ -1892,6 +1910,10 @@ msgstr "Reyinisyalize {title}"
 #: ../../../lib/web/src/components/config-drawer.tsx:85
 msgid "Reset all settings to default values"
 msgstr "Reset tout paramèt nan valè default"
+
+#: ../../../lib/web/src/components/comment-composer.tsx:249
+msgid "Retry"
+msgstr "Eseye ankò"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:362
 msgid "Right to Left"
@@ -2385,7 +2407,7 @@ msgstr "Pa kapab konekte ak sèvè aleka a"
 msgid "Unable to redirect to login. Please try again."
 msgstr "Pa ka redireksyone pou login. Tanpri eseye ankò."
 
-#: ../../../lib/web/src/components/notification-category-button.tsx:155
+#: ../../../lib/web/src/components/notification-category-button.tsx:158
 msgid "Unassigned"
 msgstr "Pa asiyen"
 
@@ -2414,6 +2436,10 @@ msgstr "Retire epeng chat la"
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:135
 msgid "Unverified"
 msgstr "Pa verifye"
+
+#: ../../../lib/web/src/components/ui/upload-progress.tsx:34
+msgid "Upload progress"
+msgstr "Pwogrè chajman an"
 
 #: ../../../lib/web/src/components/step-up-dialog.tsx:338
 msgid "Use your passkey"
@@ -2562,3 +2588,15 @@ msgstr "Ou wè tout bagay!"
 #: ../../../lib/web/src/components/restore-banner.tsx:91
 msgid "Your account was moved here from {source}. Until you delete it there, messages and notifications may reach both servers, some of your content keeps being served from the old server, and followers may take a few minutes to find you here."
 msgstr "Kont ou te deplase isit la depi {source}. Jiskaske ou efase li la, mesaj ak notifikasyon yo ka rive sou de sèvè yo, yon pati nan kontni ou ap kontinye sèvi depi ansyen sèvè a, epi moun k ap swiv ou yo ka pran kèk minit pou jwenn ou isit la."
+
+#: ../../../lib/web/src/components/comment-composer.tsx:291
+msgid "Your attachments will be lost."
+msgstr "Fichye ou tache yo ap pèdi."
+
+#: ../../../lib/web/src/components/comment-composer.tsx:289
+msgid "Your text and attachments will be lost."
+msgstr "Tèks ou ak fichye ou tache yo ap pèdi."
+
+#: ../../../lib/web/src/components/comment-composer.tsx:292
+msgid "Your text will be lost."
+msgstr "Tèks ou a pral pèdi."

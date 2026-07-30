@@ -4,6 +4,7 @@
 // Mochi Application Interface Exception - see license.txt and license-exception.md.
 
 import { createAppClient } from '@mochi/web'
+import type { AxiosProgressEvent } from 'axios'
 import type {
   Chat,
   GetChatsResponse,
@@ -94,7 +95,11 @@ export const chatsApi = {
       )
       .then((res) => unwrapData<MarkReadResponse>(res)),
 
-  sendMessage: (chatId: string, payload: SendMessageRequest) => {
+  sendMessage: (
+    chatId: string,
+    payload: SendMessageRequest,
+    onProgress?: (event: AxiosProgressEvent) => void
+  ) => {
     // Check if we need to send as FormData (for attachments)
     if (payload.attachments && payload.attachments.length > 0) {
       const formData = new FormData()
@@ -115,7 +120,7 @@ export const chatsApi = {
       return client.post<SendMessageResponse, FormData>(
         endpoints.chat.send(chatId),
         formData,
-        { timeout: 0 }
+        { timeout: 0, onUploadProgress: onProgress }
       )
     }
     

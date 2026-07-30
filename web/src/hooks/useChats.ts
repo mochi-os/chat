@@ -11,6 +11,7 @@ import {
   type UseQueryOptions,
   type InfiniteData,
 } from '@tanstack/react-query'
+import type { AxiosProgressEvent } from 'axios'
 import {
   useQueryWithError,
   useInfiniteQueryWithError,
@@ -153,6 +154,8 @@ export const useInfiniteMessagesQuery = (
 
 interface SendMessageVariables extends SendMessageRequest {
   chatId: string
+  /** Byte-progress callback threaded through to the attachment upload */
+  onProgress?: (event: AxiosProgressEvent) => void
 }
 
 export const useSendMessageMutation = (
@@ -166,8 +169,8 @@ export const useSendMessageMutation = (
   const queryClient = useQueryClient()
   const { onSuccess, ...restOptions } = options ?? {}
   return useMutation({
-    mutationFn: ({ chatId, ...payload }) =>
-      chatsApi.sendMessage(chatId, payload),
+    mutationFn: ({ chatId, onProgress, ...payload }) =>
+      chatsApi.sendMessage(chatId, payload, onProgress),
     onSuccess: (data, variables, context, mutation) => {
       // Only invalidate messages for this specific chat
       queryClient.invalidateQueries({
