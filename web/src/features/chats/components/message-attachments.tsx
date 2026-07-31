@@ -36,7 +36,10 @@ interface MessageAttachmentsProps {
 const CHAT_FILE_COLLAPSED_COUNT = 3
 
 const isAbsoluteUrl = (value: string) => /^https?:\/\//i.test(value)
-const isAttachmentPathCompatible = (value: string) => value.includes('/-/attachments/')
+// A substring test alone would accept "//host/-/attachments/x", which names
+// another origin. Require a path, not something the browser reads as a host.
+const isAttachmentPathCompatible = (value: string) =>
+  !value.startsWith('//') && value.includes('/-/attachments/')
 
 const isPlayableCaption = (caption?: string) =>
   Boolean(caption?.startsWith('voice:') || caption?.startsWith('audio:'))
