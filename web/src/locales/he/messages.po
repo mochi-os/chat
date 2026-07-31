@@ -32,7 +32,7 @@ msgid "{0, plural, one {# selected} other {# selected}}"
 msgstr "{0, plural, one {# נבחר} two {# נבחרו} many {# נבחרו} other {# נבחרו}}"
 
 #. placeholder {0}: deleteTargetIds?.length ?? 0
-#: src/features/chats/index.tsx:1356
+#: src/features/chats/index.tsx:1369
 msgid "{0, plural, one {Delete message?} other {Delete # messages?}}"
 msgstr "{0, plural, one {למחוק את ההודעה?} two {למחוק שתי הודעות?} many {למחוק # הודעות?} other {למחוק # הודעות?}}"
 
@@ -49,7 +49,7 @@ msgstr "תצוגה מקדימה של אפשרות {0}"
 #. placeholder {0}: selectedIds.size
 #. placeholder {0}: selectedIds?.size ?? 0
 #: src/features/chats/components/chat-message-list.tsx:816
-#: src/features/chats/index.tsx:1226
+#: src/features/chats/index.tsx:1238
 msgid "{0} selected"
 msgstr "{0} נבחרו"
 
@@ -67,7 +67,7 @@ msgstr "שם {entityLabel}"
 msgid "{entityLabel} name is required"
 msgstr "נדרש שם {entityLabel}"
 
-#: src/features/chats/components/message-attachments.tsx:140
+#: src/features/chats/components/message-attachments.tsx:143
 msgid "{hiddenCount, plural, one {Show 1 more file} other {Show # more files}}"
 msgstr "{hiddenCount, plural, one {הצגת קובץ אחד נוסף} two {הצגת שני קבצים נוספים} many {הצגת # קבצים נוספים} other {הצגת # קבצים נוספים}}"
 
@@ -75,6 +75,10 @@ msgstr "{hiddenCount, plural, one {הצגת קובץ אחד נוסף} two {הצ�
 #: src/features/chats/components/chat-message-list.tsx:868
 msgid "{newMessageCount, plural, one {Jump to 1 new message} other {Jump to # new messages}}"
 msgstr "{newMessageCount, plural, one {דילוג להודעה חדשה אחת} two {דילוג לשתי הודעות חדשות} many {דילוג ל-# הודעות חדשות} other {דילוג ל-# הודעות חדשות}}"
+
+#: ../../../lib/web/src/components/game/game-draw-offer-banner.tsx:29
+msgid "{opponentName} offered a draw"
+msgstr "{opponentName} הציע תיקו"
 
 #: ../../../lib/web/src/components/data-table/bulk-actions.tsx:210
 msgid "{selectedCount, plural, one {{entityName} selected} other {{manyName} selected}}"
@@ -96,13 +100,18 @@ msgstr "{selectedCount, plural, one {פעולות קבוצתיות עבור {ent
 msgid "{sentLabel} of {totalLabel}"
 msgstr "{sentLabel} מתוך {totalLabel}"
 
-#: src/features/chats/index.tsx:869
+#: src/features/chats/index.tsx:871
 msgid "{skippedCount, plural, one {Skipped # file that is not audio} other {Skipped # files that are not audio}}"
 msgstr "{skippedCount, plural, one {דילגנו על קובץ אחד שאינו שמע} two {דילגנו על שני קבצים שאינם שמע} other {דילגנו על # קבצים שאינם שמע}}"
 
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx:132
 msgid "{unreadCount, plural, one {Open menu (# unread notification)} other {Open menu (# unread notifications)}}"
 msgstr "{unreadCount, plural, one {פתיחת התפריט (התראה אחת שלא נקראה)} two {פתיחת התפריט (# התראות שלא נקראו)} many {פתיחת התפריט (# התראות שלא נקראו)} other {פתיחת התפריט (# התראות שלא נקראו)}}"
+
+#. placeholder {0}: countDeepChildren(object.id)
+#: ../../../lib/web/src/components/entity/entity-board-card.tsx:421
+msgid "+{0} nested"
+msgstr "+{0} מקוננים"
 
 #: ../../../lib/web/src/lib/preference-utils.ts:42
 msgid "12 hours"
@@ -112,13 +121,17 @@ msgstr "12 שעות"
 msgid "24 hours"
 msgstr "24 שעות"
 
-#: src/features/chats/components/chat-input.tsx:314
+#: src/features/chats/components/chat-input.tsx:319
 msgid "A recording is already in progress."
 msgstr "הקלטה כבר מתבצעת."
 
 #: ../../../lib/web/src/lib/preference-utils.ts:51
 msgid "Absolute (date and time)"
 msgstr "מוחלט (תאריך ושעה)"
+
+#: ../../../lib/web/src/components/game/game-draw-offer-banner.tsx:45
+msgid "Accept"
+msgstr "אישור"
 
 #: ../../../lib/web/src/features/errors/general-error.tsx:60
 msgid "Access denied"
@@ -148,6 +161,7 @@ msgstr "סוג חשבון"
 msgid "Account verified"
 msgstr "החשבון אומת"
 
+#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:717
 #: ../../../lib/web/src/features/access/access-dialog.tsx:332
 #: ../../../lib/web/src/features/accounts/account-add.tsx:196
 msgid "Add"
@@ -175,10 +189,18 @@ msgstr "הוסף חשבון"
 msgid "Add an account to receive notifications and use services."
 msgstr "הוסף חשבון כדי לקבל התראות ולהשתמש בשירותים."
 
-#: src/features/chats/components/chat-input.tsx:777
-#: src/features/chats/components/chat-input.tsx:783
+#: src/features/chats/components/chat-input.tsx:782
+#: src/features/chats/components/chat-input.tsx:788
 msgid "Add attachment"
 msgstr "הוסף קובץ מצורף"
+
+#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:687
+msgid "Add checklist item"
+msgstr "הוסף פריט לרשימת משימות"
+
+#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:705
+msgid "Add item..."
+msgstr "הוסף פריט..."
 
 #: src/routes/_authenticated/$chatId_.settings.tsx:262
 #: src/routes/_authenticated/$chatId_.settings.tsx:444
@@ -292,7 +314,7 @@ msgid "Anyone who is logged in"
 msgstr "כל מי שמחובר"
 
 #. placeholder {0}: selectedChat?.name
-#: src/features/chats/index.tsx:1324
+#: src/features/chats/index.tsx:1337
 msgid "Are you sure you want to leave \"{0}\"? You can be added back by other members."
 msgstr "האם אתה בטוח שברצונך לעזוב את \"{0}\"? חברים אחרים יוכלו להוסיף אותך בחזרה."
 
@@ -317,7 +339,7 @@ msgstr "עולה"
 msgid "Ascending"
 msgstr "סדר עולה"
 
-#: src/features/chats/components/chat-input.tsx:594
+#: src/features/chats/components/chat-input.tsx:599
 #: src/features/chats/components/message-quote.tsx:56
 msgid "Attachment"
 msgstr "קובץ מצורף"
@@ -326,7 +348,7 @@ msgstr "קובץ מצורף"
 msgid "Attachments are too large to upload. Remove or shrink files and try again."
 msgstr "הקבצים המצורפים גדולים מדי להעלאה. הסירו או הקטינו את הקבצים ונסו שוב."
 
-#: src/features/chats/components/chat-input.tsx:796
+#: src/features/chats/components/chat-input.tsx:801
 msgid "Audio"
 msgstr "שמע"
 
@@ -371,6 +393,11 @@ msgstr "באנר"
 msgid "Be the first to say something!"
 msgstr "היה הראשון לומר משהו!"
 
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:156
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:166
+msgid "Blocked navigation to untrusted link"
+msgstr "ניווט לקישור לא מהימן נחסם"
+
 #: ../../../lib/web/src/components/post-tags.tsx:180
 #: ../../../lib/web/src/components/post-tags.tsx:192
 msgid "Boost interest"
@@ -394,12 +421,12 @@ msgstr "התראות דפדפן"
 #: src/features/chats/components/chat-settings-dialog.tsx:116
 #: src/features/chats/components/forward-dialog.tsx:253
 #: src/features/chats/components/new-chat.tsx:354
-#: src/features/chats/index.tsx:1258
+#: src/features/chats/index.tsx:1270
 msgid "Cancel"
 msgstr "ביטול"
 
-#: src/features/chats/components/chat-input.tsx:604
 #: src/features/chats/components/chat-input.tsx:609
+#: src/features/chats/components/chat-input.tsx:614
 msgid "Cancel reply"
 msgstr "בטל תשובה"
 
@@ -415,7 +442,7 @@ msgstr "שנה קטגוריית התראה"
 #: src/features/chats/index.tsx:89
 #: src/features/chats/index.tsx:197
 #: src/features/chats/index.tsx:197
-#: src/features/chats/index.tsx:1035
+#: src/features/chats/index.tsx:1047
 msgid "Chat"
 msgstr "צ'אט"
 
@@ -423,7 +450,7 @@ msgstr "צ'אט"
 msgid "Chat created"
 msgstr "הצ'אט נוצר"
 
-#: src/features/chats/index.tsx:820
+#: src/features/chats/index.tsx:822
 msgid "Chat deleted"
 msgstr "הצ'אט נמחק"
 
@@ -472,8 +499,8 @@ msgstr "הצ'אט מוכן"
 msgid "Chat renamed"
 msgstr "הצ'אט שונה את שמו"
 
-#: src/features/chats/index.tsx:1040
-#: src/features/chats/index.tsx:1138
+#: src/features/chats/index.tsx:1052
+#: src/features/chats/index.tsx:1150
 #: src/routes/_authenticated/$chatId_.settings.tsx:89
 #: src/routes/_authenticated/$chatId_.settings.tsx:102
 #: src/routes/_authenticated/$chatId_.settings.tsx:113
@@ -481,7 +508,7 @@ msgstr "הצ'אט שונה את שמו"
 msgid "Chat settings"
 msgstr "הגדרות צ'אט"
 
-#: src/features/chats/components/chat-input.tsx:802
+#: src/features/chats/components/chat-input.tsx:807
 msgid "Chat text box"
 msgstr "תיבת הטקסט של הצ'אט"
 
@@ -505,6 +532,10 @@ msgstr "בחר צ'אט או חבר להעברת ההודעות שנבחרו"
 #: src/features/chats/components/chat-empty-state.tsx:23
 msgid "Choose a conversation from the sidebar or start a new one."
 msgstr "בחר שיחה מהסרגל הצדדי או התחל אחת חדשה."
+
+#: ../../../lib/web/src/components/game/game-empty-state.tsx:38
+msgid "Choose a game from the sidebar or start a new one."
+msgstr "בחר משחק מהסרגל הצדדי או התחל אחד חדש."
 
 #: ../../../lib/web/src/components/config-drawer.tsx:329
 msgid "Choose between default expanded, compact icon-only, or full layout mode"
@@ -658,13 +689,13 @@ msgstr "הועתק ללוח"
 
 #: ../../../lib/web/src/components/ui/copy-button.tsx:64
 #: src/features/chats/components/message-hover-actions.tsx:107
-#: src/features/chats/index.tsx:1235
+#: src/features/chats/index.tsx:1247
 msgid "Copy"
 msgstr "העתק"
 
 #. placeholder {0}: ambiguous.join(', ')
 #. placeholder {1}: unknown.join(', ')
-#: src/features/chats/index.tsx:975
+#: src/features/chats/index.tsx:977
 msgid "Could not link mentions. Multiple people share: {0}. Not in this chat: {1}. Pick from the @ list."
 msgstr "לא ניתן היה לקשר אזכורים. כמה אנשים חולקים: {0}. לא בצ'אט הזה: {1}. בחרו מרשימת ה-@."
 
@@ -733,6 +764,10 @@ msgstr "מצב כהה"
 msgid "Data conflict"
 msgstr "התנגשות נתונים"
 
+#: ../../../lib/web/src/components/game/game-draw-offer-banner.tsx:41
+msgid "Decline"
+msgstr "דחייה"
+
 #: ../../../lib/web/src/components/config-drawer.tsx:311
 msgid "Default"
 msgstr "ברירת מחדל"
@@ -742,31 +777,31 @@ msgid "Default AI account"
 msgstr "חשבון AI ברירת מחדל"
 
 #: src/features/chats/components/message-hover-actions.tsx:146
-#: src/features/chats/index.tsx:1251
-#: src/features/chats/index.tsx:1368
+#: src/features/chats/index.tsx:1263
+#: src/features/chats/index.tsx:1381
 msgid "Delete"
 msgstr "מחק"
 
-#: src/features/chats/index.tsx:1121
-#: src/features/chats/index.tsx:1282
+#: src/features/chats/index.tsx:1133
+#: src/features/chats/index.tsx:1294
 msgid "Delete chat"
 msgstr "מחק צ'אט"
 
-#: src/features/chats/index.tsx:1346
+#: src/features/chats/index.tsx:1359
 #: src/routes/_authenticated/$chatId_.settings.tsx:378
 msgid "Delete chat history"
 msgstr "מחק היסטוריית צ'אט"
 
-#: ../../../lib/web/src/components/restore-banner.tsx:99
+#: ../../../lib/web/src/components/restore-banner.tsx:115
 msgid "Delete your account on the old server"
 msgstr "מחק את חשבונך בשרת הישן"
 
-#: src/features/chats/index.tsx:819
+#: src/features/chats/index.tsx:821
 msgid "Deleting chat..."
 msgstr "מוחק צ'אט..."
 
 #: src/features/chats/index.tsx:678
-#: src/features/chats/index.tsx:1365
+#: src/features/chats/index.tsx:1378
 msgid "Deleting..."
 msgstr "מוחק..."
 
@@ -821,8 +856,8 @@ msgstr "מחיקה"
 msgid "Discard draft?"
 msgstr "למחוק את הטיוטה?"
 
-#: src/features/chats/components/chat-input.tsx:728
 #: src/features/chats/components/chat-input.tsx:733
+#: src/features/chats/components/chat-input.tsx:738
 msgid "Discard recording"
 msgstr "מחיקת ההקלטה"
 
@@ -835,8 +870,8 @@ msgstr "מנותק"
 msgid "Dislike"
 msgstr "לא אוהב"
 
-#: ../../../lib/web/src/components/restore-banner.tsx:79
-#: ../../../lib/web/src/components/restore-banner.tsx:85
+#: ../../../lib/web/src/components/restore-banner.tsx:94
+#: ../../../lib/web/src/components/restore-banner.tsx:100
 msgid "Dismiss"
 msgstr "סגור"
 
@@ -844,7 +879,7 @@ msgstr "סגור"
 msgid "Displays the mobile sidebar."
 msgstr "מציג את סרגל הצד למובייל."
 
-#: src/features/chats/components/chat-input.tsx:790
+#: src/features/chats/components/chat-input.tsx:795
 msgid "Document"
 msgstr "מסמך"
 
@@ -879,7 +914,7 @@ msgid "Edit {label}"
 msgstr "עריכת {label}"
 
 #. placeholder {0}: formatVideoDuration(recordingDuration)
-#: src/features/chats/components/chat-input.tsx:741
+#: src/features/chats/components/chat-input.tsx:746
 msgid "Elapsed {0}"
 msgstr "חלפו {0}"
 
@@ -952,7 +987,7 @@ msgstr "יצירת הצ'אט נכשלה"
 msgid "Failed to delete"
 msgstr "המחיקה נכשלה"
 
-#: src/features/chats/index.tsx:821
+#: src/features/chats/index.tsx:823
 msgid "Failed to delete chat"
 msgstr "מחיקת הצ'אט נכשלה"
 
@@ -964,7 +999,7 @@ msgstr "עריכת ההודעה נכשלה"
 msgid "Failed to forward"
 msgstr "ההעברה נכשלה"
 
-#: src/features/chats/index.tsx:802
+#: src/features/chats/index.tsx:804
 #: src/routes/_authenticated/$chatId_.settings.tsx:339
 msgid "Failed to leave chat"
 msgstr "היציאה מהצ'אט נכשלה"
@@ -1029,7 +1064,7 @@ msgstr "עדכון הקטגוריה נכשל"
 msgid "Filter..."
 msgstr "סינון..."
 
-#: ../../../lib/web/src/components/restore-banner.tsx:88
+#: ../../../lib/web/src/components/restore-banner.tsx:103
 msgid "Finish moving your account"
 msgstr "סיים את העברת החשבון"
 
@@ -1043,7 +1078,7 @@ msgstr "צף"
 
 #: src/features/chats/components/forward-dialog.tsx:264
 #: src/features/chats/components/message-hover-actions.tsx:138
-#: src/features/chats/index.tsx:1243
+#: src/features/chats/index.tsx:1255
 msgid "Forward"
 msgstr "העברה"
 
@@ -1163,7 +1198,7 @@ msgid "Including anonymous users"
 msgstr "כולל משתמשים אנונימיים"
 
 #: src/features/chats/components/chat-settings-dialog.tsx:80
-#: src/features/chats/index.tsx:1144
+#: src/features/chats/index.tsx:1156
 msgid "Incoming chats"
 msgstr "צ'אטים נכנסים"
 
@@ -1182,6 +1217,10 @@ msgstr "פנימי"
 #: ../../../lib/web/src/components/ui/sort-selector.tsx:42
 msgid "Interests"
 msgstr "תחומי עניין"
+
+#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:550
+msgid "Invalid date"
+msgstr "תאריך לא תקין"
 
 #: ../../../lib/web/src/components/tag-input.tsx:38
 msgid "Invalid tag: letters, numbers, spaces, hyphens, and slashes only (max 50 chars)"
@@ -1222,31 +1261,31 @@ msgstr "פריסה"
 msgid "Learn more"
 msgstr "מידע נוסף"
 
-#: src/features/chats/index.tsx:1332
+#: src/features/chats/index.tsx:1345
 msgid "Leave"
 msgstr "עזוב"
 
-#: src/features/chats/index.tsx:1128
+#: src/features/chats/index.tsx:1140
 #: src/routes/_authenticated/$chatId_.settings.tsx:364
 msgid "Leave chat"
 msgstr "צא מהצ'אט"
 
-#: src/features/chats/index.tsx:1323
+#: src/features/chats/index.tsx:1336
 #: src/routes/_authenticated/$chatId_.settings.tsx:355
 msgid "Leave chat?"
 msgstr "לצאת מהצ'אט?"
 
-#: src/features/chats/index.tsx:800
+#: src/features/chats/index.tsx:802
 #: src/routes/_authenticated/$chatId_.settings.tsx:337
 msgid "Leaving chat..."
 msgstr "עוזב את הצ'אט..."
 
-#: src/features/chats/index.tsx:1329
+#: src/features/chats/index.tsx:1342
 #: src/routes/_authenticated/$chatId_.settings.tsx:361
 msgid "Leaving..."
 msgstr "יוצא..."
 
-#: src/features/chats/index.tsx:801
+#: src/features/chats/index.tsx:803
 #: src/routes/_authenticated/$chatId_.settings.tsx:338
 msgid "Left chat"
 msgstr "יצא מהצ'אט"
@@ -1312,8 +1351,8 @@ msgstr "אהבה"
 msgid "Manage your connected accounts for notifications and services."
 msgstr "נהל את החשבונות המחוברים שלך להתראות ולשירותים."
 
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:93
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:100
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:118
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:125
 #: ../../../lib/web/src/components/notifications-dropdown.tsx:224
 msgid "Mark all as read"
 msgstr "סמן הכול כנקרא"
@@ -1354,6 +1393,10 @@ msgstr "חברים"
 msgid "Menu"
 msgstr "תפריט"
 
+#: ../../../lib/web/src/components/game/game-chat-input.tsx:35
+msgid "Message"
+msgstr "הודעה"
+
 #: src/features/chats/components/chat-empty-state.tsx:39
 msgid "Message a friend to start your first chat."
 msgstr "שלחו הודעה לחבר כדי להתחיל את הצ'אט הראשון שלכם."
@@ -1376,7 +1419,7 @@ msgid "Message deleted"
 msgstr "ההודעה נמחקה"
 
 #. placeholder {0}: formatNumber(newMessage.length - MESSAGE_MAX_LENGTH)
-#: src/features/chats/components/chat-input.tsx:914
+#: src/features/chats/components/chat-input.tsx:920
 msgid "Message is {0} characters too long"
 msgstr "ההודעה ארוכה ב-{0} תווים"
 
@@ -1389,37 +1432,37 @@ msgstr "ההודעה אינה זמינה"
 msgid "Metric"
 msgstr "מטרי"
 
-#: src/features/chats/components/chat-input.tsx:321
+#: src/features/chats/components/chat-input.tsx:326
 msgid "Microphone access denied"
 msgstr "הגישה למיקרופון נדחתה"
 
-#: src/features/chats/components/chat-input.tsx:298
+#: src/features/chats/components/chat-input.tsx:303
 msgid "Microphone access is blocked here. Please update the app and try again."
 msgstr "הגישה למיקרופון חסומה כאן. עדכנו את האפליקציה ונסו שוב."
 
-#: src/features/chats/components/chat-input.tsx:295
-#: src/features/chats/components/chat-input.tsx:342
-#: src/features/chats/components/chat-input.tsx:389
+#: src/features/chats/components/chat-input.tsx:300
+#: src/features/chats/components/chat-input.tsx:347
+#: src/features/chats/components/chat-input.tsx:394
 msgid "Microphone access requires a secure context (HTTPS or localhost)"
 msgstr "גישה למיקרופון דורשת הקשר מאובטח (HTTPS או localhost)"
 
-#: src/features/chats/components/chat-input.tsx:301
+#: src/features/chats/components/chat-input.tsx:306
 msgid "Microphone access was blocked by the browser"
 msgstr "הדפדפן חסם את הגישה למיקרופון"
 
-#: src/features/chats/components/chat-input.tsx:282
+#: src/features/chats/components/chat-input.tsx:287
 msgid "Microphone constraints could not be satisfied"
 msgstr "לא ניתן היה לעמוד בדרישות המיקרופון"
 
-#: src/features/chats/components/chat-input.tsx:318
+#: src/features/chats/components/chat-input.tsx:323
 msgid "Microphone error: {message}"
 msgstr "שגיאת מיקרופון: {message}"
 
-#: src/features/chats/components/chat-input.tsx:278
+#: src/features/chats/components/chat-input.tsx:283
 msgid "Microphone is already in use"
 msgstr "המיקרופון כבר בשימוש"
 
-#: src/features/chats/components/chat-input.tsx:270
+#: src/features/chats/components/chat-input.tsx:275
 msgid "Microphone permission denied"
 msgstr "הרשאת המיקרופון נדחתה"
 
@@ -1432,7 +1475,7 @@ msgid "Monday"
 msgstr "יום שני"
 
 #. placeholder {0}: ambiguous.join(', ')
-#: src/features/chats/index.tsx:967
+#: src/features/chats/index.tsx:969
 msgid "Multiple people share these names: {0}. Pick them from the @ list so the right person is notified."
 msgstr "כמה אנשים חולקים את השמות האלה: {0}. בחרו אותם מרשימת ה-@ כדי שהאדם הנכון יקבל התראה."
 
@@ -1462,6 +1505,11 @@ msgstr "חדש"
 #: src/features/chats/components/new-chat.tsx:263
 msgid "New chat"
 msgstr "צ'אט חדש"
+
+#: ../../../lib/web/src/components/game/game-empty-state.tsx:42
+#: ../../../lib/web/src/components/game/game-empty-state.tsx:54
+msgid "New game"
+msgstr "משחק חדש"
 
 #: src/features/chats/components/chat-search-header.tsx:108
 msgid "Newer match"
@@ -1496,6 +1544,10 @@ msgstr "לא נמצאו חברים"
 msgid "No friends yet"
 msgstr "עדיין אין חברים"
 
+#: ../../../lib/web/src/components/game/game-empty-state.tsx:51
+msgid "No games yet"
+msgstr "עדיין אין משחקים"
+
 #: ../../../lib/web/src/features/access/access-dialog.tsx:241
 msgid "No groups available"
 msgstr "אין קבוצות זמינות"
@@ -1504,7 +1556,7 @@ msgstr "אין קבוצות זמינות"
 msgid "No messages yet"
 msgstr "עדיין אין הודעות"
 
-#: src/features/chats/components/chat-input.tsx:274
+#: src/features/chats/components/chat-input.tsx:279
 msgid "No microphone found"
 msgstr "לא נמצא מיקרופון"
 
@@ -1512,6 +1564,7 @@ msgstr "לא נמצא מיקרופון"
 msgid "No notifications yet"
 msgstr "אין עדיין התראות"
 
+#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:336
 #: ../../../lib/web/src/components/person-picker.tsx:84
 #: src/features/chats/components/new-chat.tsx:288
 msgid "No people found"
@@ -1583,7 +1636,7 @@ msgid "Notifications"
 msgstr "התראות"
 
 #. placeholder {0}: unread.length
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:86
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:111
 msgid "Notifications: {0}"
 msgstr "התראות: {0}"
 
@@ -1617,7 +1670,7 @@ msgstr "פתח פעולות חשבון"
 msgid "Open actions"
 msgstr "פתיחת פעולות"
 
-#: src/features/chats/index.tsx:1113
+#: src/features/chats/index.tsx:1125
 msgid "Open chat actions"
 msgstr "פתח פעולות צ'אט"
 
@@ -1669,7 +1722,7 @@ msgstr "מפתח גישה"
 msgid "Passkey verification failed. Please try again."
 msgstr "אימות מפתח הגישה נכשל. נסה שוב."
 
-#: ../../../lib/web/src/components/restore-banner.tsx:135
+#: ../../../lib/web/src/components/restore-banner.tsx:152
 msgid "Passkeys"
 msgstr "מפתחות גישה"
 
@@ -1758,11 +1811,11 @@ msgstr "התראת פוש"
 msgid "Raised"
 msgstr "מורם"
 
-#: ../../../lib/web/src/components/restore-banner.tsx:107
+#: ../../../lib/web/src/components/restore-banner.tsx:124
 msgid "Re-link your accounts on this server"
 msgstr "קשר מחדש את חשבונותיך בשרת זה"
 
-#: ../../../lib/web/src/components/restore-banner.tsx:129
+#: ../../../lib/web/src/components/restore-banner.tsx:146
 msgid "Re-register your passkeys on this server"
 msgstr "רשמו מחדש את מפתחות הגישה שלכם בשרת הזה"
 
@@ -1779,28 +1832,28 @@ msgstr "מומלץ"
 msgid "Reconnecting ({retries})..."
 msgstr "מתחבר מחדש ({retries})..."
 
-#: src/features/chats/components/chat-input.tsx:849
 #: src/features/chats/components/chat-input.tsx:854
+#: src/features/chats/components/chat-input.tsx:859
 msgid "Record voice note"
 msgstr "הקלטת הודעה קולית"
 
-#: src/features/chats/components/chat-input.tsx:310
+#: src/features/chats/components/chat-input.tsx:315
 msgid "Recording failed. Please try again."
 msgstr "ההקלטה נכשלה. נסו שוב."
 
-#: src/features/chats/components/chat-input.tsx:326
+#: src/features/chats/components/chat-input.tsx:331
 msgid "Recording is too large to send"
 msgstr "ההקלטה גדולה מדי לשליחה"
 
-#: src/features/chats/components/chat-input.tsx:306
+#: src/features/chats/components/chat-input.tsx:311
 msgid "Recording produced no audio"
 msgstr "ההקלטה אינה מכילה שמע"
 
-#: src/features/chats/components/chat-input.tsx:232
+#: src/features/chats/components/chat-input.tsx:237
 msgid "Recording stopped at the 5-minute limit"
 msgstr "ההקלטה נעצרה במגבלת 5 הדקות"
 
-#: src/features/chats/components/chat-input.tsx:718
+#: src/features/chats/components/chat-input.tsx:723
 msgid "Recording voice note"
 msgstr "מקליט הודעה קולית"
 
@@ -1830,7 +1883,7 @@ msgstr "הסר"
 
 #. placeholder {0}: attachment.file.name
 #. placeholder {0}: reaction.label
-#: src/features/chats/components/chat-input.tsx:696
+#: src/features/chats/components/chat-input.tsx:701
 #: src/features/chats/components/message-reaction-bar.tsx:121
 msgid "Remove {0}"
 msgstr "הסר {0}"
@@ -1864,6 +1917,10 @@ msgstr "הסרת השמע"
 msgid "Remove interest"
 msgstr "הסר עניין"
 
+#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:671
+msgid "Remove item"
+msgstr "הסר פריט"
+
 #: src/routes/_authenticated/$chatId_.settings.tsx:547
 msgid "Remove member?"
 msgstr "להסיר חבר?"
@@ -1889,7 +1946,7 @@ msgid "Reply"
 msgstr "השב"
 
 #. placeholder {0}: replyTo.name
-#: src/features/chats/components/chat-input.tsx:585
+#: src/features/chats/components/chat-input.tsx:590
 msgid "Replying to {0}"
 msgstr "בתשובה ל{0}"
 
@@ -1984,7 +2041,7 @@ msgstr "חפש חברים…"
 msgid "Search in chat..."
 msgstr "חיפוש בצ'אט..."
 
-#: src/features/chats/index.tsx:1103
+#: src/features/chats/index.tsx:1115
 msgid "Search messages"
 msgstr "חיפוש הודעות"
 
@@ -2032,6 +2089,10 @@ msgstr "בחר שיחה"
 #: src/routes/_authenticated/$chatId_.settings.tsx:447
 msgid "Select a friend to add to this chat."
 msgstr "בחר חבר להוספה לשיחה זו."
+
+#: ../../../lib/web/src/components/game/game-empty-state.tsx:37
+msgid "Select a game"
+msgstr "בחר משחק"
 
 #: ../../../lib/web/src/features/access/access-dialog.tsx:150
 msgid "Select a user, group, or other rule to grant access."
@@ -2089,11 +2150,16 @@ msgstr "בחר כיוון אתר"
 msgid "Select theme preference"
 msgstr "בחר העדפת ערכת נושא"
 
+#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:252
+#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:335
+msgid "Select..."
+msgstr "בחר..."
+
 #: ../../../lib/web/src/components/data-table/bulk-actions.tsx:216
 msgid "selected"
 msgstr "נבחרו"
 
-#: src/features/chats/index.tsx:1206
+#: src/features/chats/index.tsx:1218
 msgid "Selected the newest {BULK_MESSAGES_MAX} messages, the most that can be forwarded or deleted at once"
 msgstr "נבחרו {BULK_MESSAGES_MAX} ההודעות האחרונות, המקסימום שניתן להעביר או למחוק בבת אחת"
 
@@ -2114,8 +2180,10 @@ msgstr "שלח שוב"
 msgid "Send email"
 msgstr "שלח אימייל"
 
-#: src/features/chats/components/chat-input.tsx:864
-#: src/features/chats/components/chat-input.tsx:873
+#: ../../../lib/web/src/components/game/game-chat-input.tsx:52
+#: ../../../lib/web/src/components/game/game-chat-input.tsx:61
+#: src/features/chats/components/chat-input.tsx:869
+#: src/features/chats/components/chat-input.tsx:878
 msgid "Send message"
 msgstr "שלח הודעה"
 
@@ -2149,7 +2217,7 @@ msgstr "קבע מקור ויעד"
 msgid "Settings"
 msgstr "הגדרות"
 
-#: src/features/chats/components/message-attachments.tsx:138
+#: src/features/chats/components/message-attachments.tsx:141
 #: src/features/chats/components/message-body.tsx:74
 msgid "Show less"
 msgstr "הצג פחות"
@@ -2202,8 +2270,8 @@ msgstr "מתחיל צ'אט..."
 msgid "Stay tuned though!"
 msgstr "הישאר מעודכן!"
 
-#: src/features/chats/components/chat-input.tsx:758
 #: src/features/chats/components/chat-input.tsx:763
+#: src/features/chats/components/chat-input.tsx:768
 msgid "Stop recording"
 msgstr "עצירת ההקלטה"
 
@@ -2283,7 +2351,7 @@ msgid "Theme Settings"
 msgstr "הגדרות ערכת נושא"
 
 #. placeholder {0}: unknown.join(', ')
-#: src/features/chats/index.tsx:971
+#: src/features/chats/index.tsx:973
 msgid "These names are not in this chat: {0}. Pick from the @ list or remove them."
 msgstr "השמות האלה אינם בצ'אט הזה: {0}. בחרו מרשימת ה-@ או הסירו אותם."
 
@@ -2295,7 +2363,7 @@ msgstr "הצ'אט הזה"
 msgid "This chat may have been deleted or you don't have access to it"
 msgstr "ייתכן שהצ'אט הזה נמחק או שאין לך גישה אליו"
 
-#: src/features/chats/index.tsx:1360
+#: src/features/chats/index.tsx:1373
 msgid "This deletes the message for everyone and cannot be undone."
 msgstr "פעולה זו מוחקת את ההודעה עבור כולם ולא ניתן לבטל אותה."
 
@@ -2382,6 +2450,10 @@ msgstr "יום שלישי"
 msgid "Type a command or search..."
 msgstr "הקלד פקודה או חיפוש..."
 
+#: ../../../lib/web/src/components/game/game-chat-input.tsx:39
+msgid "Type a message…"
+msgstr "הקלד הודעה…"
+
 #: ../../../lib/web/src/features/access/access-dialog.tsx:191
 msgid "Type to search users"
 msgstr "הקלד לחיפוש משתמשים"
@@ -2390,11 +2462,11 @@ msgstr "הקלד לחיפוש משתמשים"
 msgid "Type to search..."
 msgstr "הקלד לחיפוש..."
 
-#: src/features/chats/components/chat-input.tsx:809
+#: src/features/chats/components/chat-input.tsx:814
 msgid "Type your message…"
 msgstr "הקלד את ההודעה שלך…"
 
-#: src/features/chats/components/chat-input.tsx:808
+#: src/features/chats/components/chat-input.tsx:813
 msgid "Type your reply…"
 msgstr "הקלד את תשובתך…"
 
@@ -2490,8 +2562,8 @@ msgstr "הצג"
 msgid "View all"
 msgstr "הצג הכל"
 
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:106
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:114
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:131
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:139
 msgid "View all notifications"
 msgstr "הצג את כל ההתראות"
 
@@ -2499,16 +2571,16 @@ msgstr "הצג את כל ההתראות"
 msgid "Voice note waveform"
 msgstr "צורת הגל של ההודעה הקולית"
 
-#: src/features/chats/components/chat-input.tsx:369
+#: src/features/chats/components/chat-input.tsx:374
 msgid "Voice recording is currently unavailable. Please check your setup and try again."
 msgstr "הקלטה קולית אינה זמינה כרגע. בדקו את ההגדרות ונסו שוב."
 
-#: src/features/chats/components/chat-input.tsx:290
-#: src/features/chats/components/chat-input.tsx:395
+#: src/features/chats/components/chat-input.tsx:295
+#: src/features/chats/components/chat-input.tsx:400
 msgid "Voice recording is not supported in this browser"
 msgstr "הקלטה קולית אינה נתמכת בדפדפן זה"
 
-#: src/features/chats/components/chat-input.tsx:265
+#: src/features/chats/components/chat-input.tsx:270
 msgid "Voice recording isn't available in this app version. Please update the app and try again."
 msgstr "הקלטה קולית אינה זמינה בגרסה זו של האפליקציה. עדכנו את האפליקציה ונסו שוב."
 
@@ -2549,11 +2621,11 @@ msgstr "כבר יש לך צ'אט עם החבר הזה"
 msgid "You already have chats with:"
 msgstr "כבר יש לך צ'אטים עם:"
 
-#: src/features/chats/index.tsx:954
+#: src/features/chats/index.tsx:956
 msgid "You can attach at most {CAPTIONS_MAX} files to a message"
 msgstr "אפשר לצרף עד {CAPTIONS_MAX} קבצים להודעה"
 
-#: src/features/chats/index.tsx:950
+#: src/features/chats/index.tsx:952
 msgid "You can mention at most {MENTIONS_MAX} people in a message"
 msgstr "אפשר לאזכר עד {MENTIONS_MAX} אנשים בהודעה"
 
@@ -2569,7 +2641,7 @@ msgstr "אין לך גישה לאזור זה."
 msgid "You don't have necessary permission <0/>to view this resource."
 msgstr "אין לך את ההרשאה הנדרשת <0/>כדי להציג את המשאב הזה."
 
-#: src/features/chats/index.tsx:1269
+#: src/features/chats/index.tsx:1281
 msgid "You left this chat"
 msgstr "עזבת את הצ'אט הזה"
 
@@ -2577,7 +2649,7 @@ msgstr "עזבת את הצ'אט הזה"
 msgid "You submitted the following values:"
 msgstr "שלחת את הערכים הבאים:"
 
-#: src/features/chats/index.tsx:1268
+#: src/features/chats/index.tsx:1280
 msgid "You were removed from this chat"
 msgstr "הוסרת מהצ'אט הזה"
 
@@ -2585,7 +2657,7 @@ msgstr "הוסרת מהצ'אט הזה"
 msgid "You're all caught up!"
 msgstr "ראית הכול!"
 
-#: ../../../lib/web/src/components/restore-banner.tsx:91
+#: ../../../lib/web/src/components/restore-banner.tsx:106
 msgid "Your account was moved here from {source}. Until you delete it there, messages and notifications may reach both servers, some of your content keeps being served from the old server, and followers may take a few minutes to find you here."
 msgstr "חשבונך הועבר לכאן מ-{source}. עד שתמחק אותו שם, הודעות והתראות עשויות להגיע לשני השרתים, חלק מהתוכן שלך ממשיך להיות מוגש מהשרת הישן, ועוקבים עשויים לקחת מספר דקות למצוא אותך כאן."
 

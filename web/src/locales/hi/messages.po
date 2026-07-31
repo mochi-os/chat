@@ -32,7 +32,7 @@ msgid "{0, plural, one {# selected} other {# selected}}"
 msgstr "{0, plural, one {# चयनित} other {# चयनित}}"
 
 #. placeholder {0}: deleteTargetIds?.length ?? 0
-#: src/features/chats/index.tsx:1356
+#: src/features/chats/index.tsx:1369
 msgid "{0, plural, one {Delete message?} other {Delete # messages?}}"
 msgstr "{0, plural, one {मैसेज डिलीट करें?} other {# मैसेज डिलीट करें?}}"
 
@@ -49,7 +49,7 @@ msgstr "{0} विकल्प का पूर्वावलोकन"
 #. placeholder {0}: selectedIds.size
 #. placeholder {0}: selectedIds?.size ?? 0
 #: src/features/chats/components/chat-message-list.tsx:816
-#: src/features/chats/index.tsx:1226
+#: src/features/chats/index.tsx:1238
 msgid "{0} selected"
 msgstr "{0} चुने गए"
 
@@ -67,7 +67,7 @@ msgstr "{entityLabel} नाम"
 msgid "{entityLabel} name is required"
 msgstr "{entityLabel} नाम आवश्यक है"
 
-#: src/features/chats/components/message-attachments.tsx:140
+#: src/features/chats/components/message-attachments.tsx:143
 msgid "{hiddenCount, plural, one {Show 1 more file} other {Show # more files}}"
 msgstr "{hiddenCount, plural, one {1 और फ़ाइल दिखाएँ} other {# और फ़ाइलें दिखाएँ}}"
 
@@ -75,6 +75,10 @@ msgstr "{hiddenCount, plural, one {1 और फ़ाइल दिखाएँ} 
 #: src/features/chats/components/chat-message-list.tsx:868
 msgid "{newMessageCount, plural, one {Jump to 1 new message} other {Jump to # new messages}}"
 msgstr "{newMessageCount, plural, one {1 नए मैसेज पर जाएँ} other {# नए मैसेज पर जाएँ}}"
+
+#: ../../../lib/web/src/components/game/game-draw-offer-banner.tsx:29
+msgid "{opponentName} offered a draw"
+msgstr "{opponentName} ने ड्रॉ की पेशकश की"
 
 #: ../../../lib/web/src/components/data-table/bulk-actions.tsx:210
 msgid "{selectedCount, plural, one {{entityName} selected} other {{manyName} selected}}"
@@ -96,13 +100,18 @@ msgstr "{selectedCount, plural, one {# चयनित {entityName} के ल�
 msgid "{sentLabel} of {totalLabel}"
 msgstr "{totalLabel} में से {sentLabel}"
 
-#: src/features/chats/index.tsx:869
+#: src/features/chats/index.tsx:871
 msgid "{skippedCount, plural, one {Skipped # file that is not audio} other {Skipped # files that are not audio}}"
 msgstr "{skippedCount, plural, one {# फ़ाइल छोड़ी गई जो ऑडियो नहीं है} other {# फ़ाइलें छोड़ी गईं जो ऑडियो नहीं हैं}}"
 
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx:132
 msgid "{unreadCount, plural, one {Open menu (# unread notification)} other {Open menu (# unread notifications)}}"
 msgstr "{unreadCount, plural, one {मेन्यू खोलें (# अपठित सूचना)} other {मेन्यू खोलें (# अपठित सूचनाएँ)}}"
+
+#. placeholder {0}: countDeepChildren(object.id)
+#: ../../../lib/web/src/components/entity/entity-board-card.tsx:421
+msgid "+{0} nested"
+msgstr "+{0} नेस्टेड"
 
 #: ../../../lib/web/src/lib/preference-utils.ts:42
 msgid "12 hours"
@@ -112,13 +121,17 @@ msgstr "12 घंटे"
 msgid "24 hours"
 msgstr "24 घंटे"
 
-#: src/features/chats/components/chat-input.tsx:314
+#: src/features/chats/components/chat-input.tsx:319
 msgid "A recording is already in progress."
 msgstr "एक रिकॉर्डिंग पहले से चल रही है।"
 
 #: ../../../lib/web/src/lib/preference-utils.ts:51
 msgid "Absolute (date and time)"
 msgstr "निरपेक्ष (दिनांक और समय)"
+
+#: ../../../lib/web/src/components/game/game-draw-offer-banner.tsx:45
+msgid "Accept"
+msgstr "स्वीकार करें"
 
 #: ../../../lib/web/src/features/errors/general-error.tsx:60
 msgid "Access denied"
@@ -148,6 +161,7 @@ msgstr "अकाउंट प्रकार"
 msgid "Account verified"
 msgstr "अकाउंट सत्यापित"
 
+#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:717
 #: ../../../lib/web/src/features/access/access-dialog.tsx:332
 #: ../../../lib/web/src/features/accounts/account-add.tsx:196
 msgid "Add"
@@ -175,10 +189,18 @@ msgstr "अकाउंट जोड़ें"
 msgid "Add an account to receive notifications and use services."
 msgstr "नोटिफ़िकेशन प्राप्त करने और सेवाएँ उपयोग करने के लिए एक अकाउंट जोड़ें।"
 
-#: src/features/chats/components/chat-input.tsx:777
-#: src/features/chats/components/chat-input.tsx:783
+#: src/features/chats/components/chat-input.tsx:782
+#: src/features/chats/components/chat-input.tsx:788
 msgid "Add attachment"
 msgstr "अटैचमेंट जोड़ें"
+
+#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:687
+msgid "Add checklist item"
+msgstr "चेकलिस्ट आइटम जोड़ें"
+
+#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:705
+msgid "Add item..."
+msgstr "आइटम जोड़ें..."
 
 #: src/routes/_authenticated/$chatId_.settings.tsx:262
 #: src/routes/_authenticated/$chatId_.settings.tsx:444
@@ -292,7 +314,7 @@ msgid "Anyone who is logged in"
 msgstr "कोई भी जो लॉग इन है"
 
 #. placeholder {0}: selectedChat?.name
-#: src/features/chats/index.tsx:1324
+#: src/features/chats/index.tsx:1337
 msgid "Are you sure you want to leave \"{0}\"? You can be added back by other members."
 msgstr "क्या आप वाकई \"{0}\" छोड़ना चाहते हैं? अन्य सदस्य आपको वापस जोड़ सकते हैं।"
 
@@ -317,7 +339,7 @@ msgstr "आरोही"
 msgid "Ascending"
 msgstr "आरोही"
 
-#: src/features/chats/components/chat-input.tsx:594
+#: src/features/chats/components/chat-input.tsx:599
 #: src/features/chats/components/message-quote.tsx:56
 msgid "Attachment"
 msgstr "अटैचमेंट"
@@ -326,7 +348,7 @@ msgstr "अटैचमेंट"
 msgid "Attachments are too large to upload. Remove or shrink files and try again."
 msgstr "अटैचमेंट अपलोड करने के लिए बहुत बड़े हैं। फ़ाइलें हटाएँ या छोटी करें और फिर से प्रयास करें।"
 
-#: src/features/chats/components/chat-input.tsx:796
+#: src/features/chats/components/chat-input.tsx:801
 msgid "Audio"
 msgstr "ऑडियो"
 
@@ -371,6 +393,11 @@ msgstr "बैनर"
 msgid "Be the first to say something!"
 msgstr "सबसे पहले कुछ कहें!"
 
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:156
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:166
+msgid "Blocked navigation to untrusted link"
+msgstr "अविश्वसनीय लिंक पर नेविगेशन ब्लॉक किया गया"
+
 #: ../../../lib/web/src/components/post-tags.tsx:180
 #: ../../../lib/web/src/components/post-tags.tsx:192
 msgid "Boost interest"
@@ -394,12 +421,12 @@ msgstr "ब्राउज़र नोटिफ़िकेशन"
 #: src/features/chats/components/chat-settings-dialog.tsx:116
 #: src/features/chats/components/forward-dialog.tsx:253
 #: src/features/chats/components/new-chat.tsx:354
-#: src/features/chats/index.tsx:1258
+#: src/features/chats/index.tsx:1270
 msgid "Cancel"
 msgstr "रद्द करें"
 
-#: src/features/chats/components/chat-input.tsx:604
 #: src/features/chats/components/chat-input.tsx:609
+#: src/features/chats/components/chat-input.tsx:614
 msgid "Cancel reply"
 msgstr "उत्तर रद्द करें"
 
@@ -415,7 +442,7 @@ msgstr "नोटिफ़िकेशन श्रेणी बदलें"
 #: src/features/chats/index.tsx:89
 #: src/features/chats/index.tsx:197
 #: src/features/chats/index.tsx:197
-#: src/features/chats/index.tsx:1035
+#: src/features/chats/index.tsx:1047
 msgid "Chat"
 msgstr "चैट"
 
@@ -423,7 +450,7 @@ msgstr "चैट"
 msgid "Chat created"
 msgstr "चैट बनाई गई"
 
-#: src/features/chats/index.tsx:820
+#: src/features/chats/index.tsx:822
 msgid "Chat deleted"
 msgstr "चैट हटाई गई"
 
@@ -472,8 +499,8 @@ msgstr "चैट तैयार"
 msgid "Chat renamed"
 msgstr "चैट का नाम बदला गया"
 
-#: src/features/chats/index.tsx:1040
-#: src/features/chats/index.tsx:1138
+#: src/features/chats/index.tsx:1052
+#: src/features/chats/index.tsx:1150
 #: src/routes/_authenticated/$chatId_.settings.tsx:89
 #: src/routes/_authenticated/$chatId_.settings.tsx:102
 #: src/routes/_authenticated/$chatId_.settings.tsx:113
@@ -481,7 +508,7 @@ msgstr "चैट का नाम बदला गया"
 msgid "Chat settings"
 msgstr "चैट सेटिंग्स"
 
-#: src/features/chats/components/chat-input.tsx:802
+#: src/features/chats/components/chat-input.tsx:807
 msgid "Chat text box"
 msgstr "चैट टेक्स्ट बॉक्स"
 
@@ -505,6 +532,10 @@ msgstr "चयनित संदेश अग्रेषित करने �
 #: src/features/chats/components/chat-empty-state.tsx:23
 msgid "Choose a conversation from the sidebar or start a new one."
 msgstr "साइडबार से एक बातचीत चुनें या नई शुरू करें।"
+
+#: ../../../lib/web/src/components/game/game-empty-state.tsx:38
+msgid "Choose a game from the sidebar or start a new one."
+msgstr "साइडबार से एक गेम चुनें या नया शुरू करें।"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:329
 msgid "Choose between default expanded, compact icon-only, or full layout mode"
@@ -658,13 +689,13 @@ msgstr "क्लिपबोर्ड पर कॉपी किया गय�
 
 #: ../../../lib/web/src/components/ui/copy-button.tsx:64
 #: src/features/chats/components/message-hover-actions.tsx:107
-#: src/features/chats/index.tsx:1235
+#: src/features/chats/index.tsx:1247
 msgid "Copy"
 msgstr "कॉपी करें"
 
 #. placeholder {0}: ambiguous.join(', ')
 #. placeholder {1}: unknown.join(', ')
-#: src/features/chats/index.tsx:975
+#: src/features/chats/index.tsx:977
 msgid "Could not link mentions. Multiple people share: {0}. Not in this chat: {1}. Pick from the @ list."
 msgstr "उल्लेख जोड़े नहीं जा सके। कई लोगों का नाम एक जैसा है: {0}। इस चैट में नहीं: {1}। @ सूची से चुनें।"
 
@@ -733,6 +764,10 @@ msgstr "डार्क मोड"
 msgid "Data conflict"
 msgstr "डेटा विरोध"
 
+#: ../../../lib/web/src/components/game/game-draw-offer-banner.tsx:41
+msgid "Decline"
+msgstr "अस्वीकार करें"
+
 #: ../../../lib/web/src/components/config-drawer.tsx:311
 msgid "Default"
 msgstr "डिफ़ॉल्ट"
@@ -742,31 +777,31 @@ msgid "Default AI account"
 msgstr "डिफ़ॉल्ट AI अकाउंट"
 
 #: src/features/chats/components/message-hover-actions.tsx:146
-#: src/features/chats/index.tsx:1251
-#: src/features/chats/index.tsx:1368
+#: src/features/chats/index.tsx:1263
+#: src/features/chats/index.tsx:1381
 msgid "Delete"
 msgstr "हटाएँ"
 
-#: src/features/chats/index.tsx:1121
-#: src/features/chats/index.tsx:1282
+#: src/features/chats/index.tsx:1133
+#: src/features/chats/index.tsx:1294
 msgid "Delete chat"
 msgstr "चैट हटाएँ"
 
-#: src/features/chats/index.tsx:1346
+#: src/features/chats/index.tsx:1359
 #: src/routes/_authenticated/$chatId_.settings.tsx:378
 msgid "Delete chat history"
 msgstr "चैट इतिहास हटाएँ"
 
-#: ../../../lib/web/src/components/restore-banner.tsx:99
+#: ../../../lib/web/src/components/restore-banner.tsx:115
 msgid "Delete your account on the old server"
 msgstr "पुराने सर्वर पर अपना खाता हटाएं"
 
-#: src/features/chats/index.tsx:819
+#: src/features/chats/index.tsx:821
 msgid "Deleting chat..."
 msgstr "चैट हटाई जा रही है..."
 
 #: src/features/chats/index.tsx:678
-#: src/features/chats/index.tsx:1365
+#: src/features/chats/index.tsx:1378
 msgid "Deleting..."
 msgstr "हटा रहे हैं..."
 
@@ -821,8 +856,8 @@ msgstr "त्यागें"
 msgid "Discard draft?"
 msgstr "ड्राफ्ट त्यागें?"
 
-#: src/features/chats/components/chat-input.tsx:728
 #: src/features/chats/components/chat-input.tsx:733
+#: src/features/chats/components/chat-input.tsx:738
 msgid "Discard recording"
 msgstr "रिकॉर्डिंग हटाएँ"
 
@@ -835,8 +870,8 @@ msgstr "डिस्कनेक्ट किया गया"
 msgid "Dislike"
 msgstr "नापसंद"
 
-#: ../../../lib/web/src/components/restore-banner.tsx:79
-#: ../../../lib/web/src/components/restore-banner.tsx:85
+#: ../../../lib/web/src/components/restore-banner.tsx:94
+#: ../../../lib/web/src/components/restore-banner.tsx:100
 msgid "Dismiss"
 msgstr "खारिज करें"
 
@@ -844,7 +879,7 @@ msgstr "खारिज करें"
 msgid "Displays the mobile sidebar."
 msgstr "मोबाइल साइडबार प्रदर्शित करता है।"
 
-#: src/features/chats/components/chat-input.tsx:790
+#: src/features/chats/components/chat-input.tsx:795
 msgid "Document"
 msgstr "दस्तावेज़"
 
@@ -879,7 +914,7 @@ msgid "Edit {label}"
 msgstr "{label} संपादित करें"
 
 #. placeholder {0}: formatVideoDuration(recordingDuration)
-#: src/features/chats/components/chat-input.tsx:741
+#: src/features/chats/components/chat-input.tsx:746
 msgid "Elapsed {0}"
 msgstr "बीता {0}"
 
@@ -952,7 +987,7 @@ msgstr "चैट बनाने में विफल"
 msgid "Failed to delete"
 msgstr "हटाने में विफल"
 
-#: src/features/chats/index.tsx:821
+#: src/features/chats/index.tsx:823
 msgid "Failed to delete chat"
 msgstr "चैट हटाने में विफल"
 
@@ -964,7 +999,7 @@ msgstr "संदेश संपादित नहीं हो सका"
 msgid "Failed to forward"
 msgstr "फ़ॉरवर्ड नहीं किया जा सका"
 
-#: src/features/chats/index.tsx:802
+#: src/features/chats/index.tsx:804
 #: src/routes/_authenticated/$chatId_.settings.tsx:339
 msgid "Failed to leave chat"
 msgstr "चैट छोड़ने में विफल"
@@ -1029,7 +1064,7 @@ msgstr "श्रेणी अपडेट करने में विफल"
 msgid "Filter..."
 msgstr "फ़िल्टर..."
 
-#: ../../../lib/web/src/components/restore-banner.tsx:88
+#: ../../../lib/web/src/components/restore-banner.tsx:103
 msgid "Finish moving your account"
 msgstr "अपना खाता स्थानांतरित करना पूरा करें"
 
@@ -1043,7 +1078,7 @@ msgstr "फ़्लोटिंग"
 
 #: src/features/chats/components/forward-dialog.tsx:264
 #: src/features/chats/components/message-hover-actions.tsx:138
-#: src/features/chats/index.tsx:1243
+#: src/features/chats/index.tsx:1255
 msgid "Forward"
 msgstr "फ़ॉरवर्ड करें"
 
@@ -1163,7 +1198,7 @@ msgid "Including anonymous users"
 msgstr "अनाम उपयोगकर्ताओं सहित"
 
 #: src/features/chats/components/chat-settings-dialog.tsx:80
-#: src/features/chats/index.tsx:1144
+#: src/features/chats/index.tsx:1156
 msgid "Incoming chats"
 msgstr "आने वाली चैट"
 
@@ -1182,6 +1217,10 @@ msgstr "इनसेट"
 #: ../../../lib/web/src/components/ui/sort-selector.tsx:42
 msgid "Interests"
 msgstr "रुचियाँ"
+
+#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:550
+msgid "Invalid date"
+msgstr "अमान्य तारीख"
 
 #: ../../../lib/web/src/components/tag-input.tsx:38
 msgid "Invalid tag: letters, numbers, spaces, hyphens, and slashes only (max 50 chars)"
@@ -1222,31 +1261,31 @@ msgstr "लेआउट"
 msgid "Learn more"
 msgstr "और जानें"
 
-#: src/features/chats/index.tsx:1332
+#: src/features/chats/index.tsx:1345
 msgid "Leave"
 msgstr "छोड़ें"
 
-#: src/features/chats/index.tsx:1128
+#: src/features/chats/index.tsx:1140
 #: src/routes/_authenticated/$chatId_.settings.tsx:364
 msgid "Leave chat"
 msgstr "चैट छोड़ें"
 
-#: src/features/chats/index.tsx:1323
+#: src/features/chats/index.tsx:1336
 #: src/routes/_authenticated/$chatId_.settings.tsx:355
 msgid "Leave chat?"
 msgstr "चैट छोड़ें?"
 
-#: src/features/chats/index.tsx:800
+#: src/features/chats/index.tsx:802
 #: src/routes/_authenticated/$chatId_.settings.tsx:337
 msgid "Leaving chat..."
 msgstr "चैट छोड़ी जा रही है..."
 
-#: src/features/chats/index.tsx:1329
+#: src/features/chats/index.tsx:1342
 #: src/routes/_authenticated/$chatId_.settings.tsx:361
 msgid "Leaving..."
 msgstr "छोड़ रहे हैं..."
 
-#: src/features/chats/index.tsx:801
+#: src/features/chats/index.tsx:803
 #: src/routes/_authenticated/$chatId_.settings.tsx:338
 msgid "Left chat"
 msgstr "चैट छोड़ी"
@@ -1312,8 +1351,8 @@ msgstr "प्यार"
 msgid "Manage your connected accounts for notifications and services."
 msgstr "सूचनाओं और सेवाओं के लिए अपने जुड़े खातों का प्रबंधन करें।"
 
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:93
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:100
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:118
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:125
 #: ../../../lib/web/src/components/notifications-dropdown.tsx:224
 msgid "Mark all as read"
 msgstr "सभी को पढ़ा हुआ मार्क करें"
@@ -1354,6 +1393,10 @@ msgstr "सदस्य"
 msgid "Menu"
 msgstr "मेन्यू"
 
+#: ../../../lib/web/src/components/game/game-chat-input.tsx:35
+msgid "Message"
+msgstr "संदेश"
+
 #: src/features/chats/components/chat-empty-state.tsx:39
 msgid "Message a friend to start your first chat."
 msgstr "अपनी पहली चैट शुरू करने के लिए किसी मित्र को संदेश भेजें।"
@@ -1376,7 +1419,7 @@ msgid "Message deleted"
 msgstr "मैसेज डिलीट किया गया"
 
 #. placeholder {0}: formatNumber(newMessage.length - MESSAGE_MAX_LENGTH)
-#: src/features/chats/components/chat-input.tsx:914
+#: src/features/chats/components/chat-input.tsx:920
 msgid "Message is {0} characters too long"
 msgstr "संदेश {0} वर्ण बहुत लंबा है"
 
@@ -1389,37 +1432,37 @@ msgstr "मैसेज उपलब्ध नहीं है"
 msgid "Metric"
 msgstr "मीट्रिक"
 
-#: src/features/chats/components/chat-input.tsx:321
+#: src/features/chats/components/chat-input.tsx:326
 msgid "Microphone access denied"
 msgstr "माइक्रोफ़ोन एक्सेस अस्वीकृत"
 
-#: src/features/chats/components/chat-input.tsx:298
+#: src/features/chats/components/chat-input.tsx:303
 msgid "Microphone access is blocked here. Please update the app and try again."
 msgstr "माइक्रोफ़ोन एक्सेस यहाँ अवरुद्ध है। कृपया ऐप अपडेट करें और फिर से कोशिश करें।"
 
-#: src/features/chats/components/chat-input.tsx:295
-#: src/features/chats/components/chat-input.tsx:342
-#: src/features/chats/components/chat-input.tsx:389
+#: src/features/chats/components/chat-input.tsx:300
+#: src/features/chats/components/chat-input.tsx:347
+#: src/features/chats/components/chat-input.tsx:394
 msgid "Microphone access requires a secure context (HTTPS or localhost)"
 msgstr "माइक्रोफ़ोन एक्सेस के लिए सुरक्षित संदर्भ चाहिए (HTTPS या localhost)"
 
-#: src/features/chats/components/chat-input.tsx:301
+#: src/features/chats/components/chat-input.tsx:306
 msgid "Microphone access was blocked by the browser"
 msgstr "ब्राउज़र ने माइक्रोफ़ोन एक्सेस अवरुद्ध कर दिया"
 
-#: src/features/chats/components/chat-input.tsx:282
+#: src/features/chats/components/chat-input.tsx:287
 msgid "Microphone constraints could not be satisfied"
 msgstr "माइक्रोफ़ोन की शर्तें पूरी नहीं हो सकीं"
 
-#: src/features/chats/components/chat-input.tsx:318
+#: src/features/chats/components/chat-input.tsx:323
 msgid "Microphone error: {message}"
 msgstr "माइक्रोफ़ोन त्रुटि: {message}"
 
-#: src/features/chats/components/chat-input.tsx:278
+#: src/features/chats/components/chat-input.tsx:283
 msgid "Microphone is already in use"
 msgstr "माइक्रोफ़ोन पहले से उपयोग में है"
 
-#: src/features/chats/components/chat-input.tsx:270
+#: src/features/chats/components/chat-input.tsx:275
 msgid "Microphone permission denied"
 msgstr "माइक्रोफ़ोन अनुमति अस्वीकृत"
 
@@ -1432,7 +1475,7 @@ msgid "Monday"
 msgstr "सोमवार"
 
 #. placeholder {0}: ambiguous.join(', ')
-#: src/features/chats/index.tsx:967
+#: src/features/chats/index.tsx:969
 msgid "Multiple people share these names: {0}. Pick them from the @ list so the right person is notified."
 msgstr "कई लोगों के ये नाम हैं: {0}। उन्हें @ सूची से चुनें ताकि सही व्यक्ति को सूचना मिले।"
 
@@ -1462,6 +1505,11 @@ msgstr "नया"
 #: src/features/chats/components/new-chat.tsx:263
 msgid "New chat"
 msgstr "नया चैट"
+
+#: ../../../lib/web/src/components/game/game-empty-state.tsx:42
+#: ../../../lib/web/src/components/game/game-empty-state.tsx:54
+msgid "New game"
+msgstr "नया गेम"
 
 #: src/features/chats/components/chat-search-header.tsx:108
 msgid "Newer match"
@@ -1496,6 +1544,10 @@ msgstr "कोई मित्र नहीं मिले"
 msgid "No friends yet"
 msgstr "अभी तक कोई मित्र नहीं"
 
+#: ../../../lib/web/src/components/game/game-empty-state.tsx:51
+msgid "No games yet"
+msgstr "अभी तक कोई गेम नहीं"
+
 #: ../../../lib/web/src/features/access/access-dialog.tsx:241
 msgid "No groups available"
 msgstr "कोई ग्रुप उपलब्ध नहीं"
@@ -1504,7 +1556,7 @@ msgstr "कोई ग्रुप उपलब्ध नहीं"
 msgid "No messages yet"
 msgstr "अभी तक कोई संदेश नहीं"
 
-#: src/features/chats/components/chat-input.tsx:274
+#: src/features/chats/components/chat-input.tsx:279
 msgid "No microphone found"
 msgstr "कोई माइक्रोफ़ोन नहीं मिला"
 
@@ -1512,6 +1564,7 @@ msgstr "कोई माइक्रोफ़ोन नहीं मिला"
 msgid "No notifications yet"
 msgstr "अभी तक कोई सूचना नहीं"
 
+#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:336
 #: ../../../lib/web/src/components/person-picker.tsx:84
 #: src/features/chats/components/new-chat.tsx:288
 msgid "No people found"
@@ -1583,7 +1636,7 @@ msgid "Notifications"
 msgstr "नोटिफ़िकेशन"
 
 #. placeholder {0}: unread.length
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:86
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:111
 msgid "Notifications: {0}"
 msgstr "सूचनाएँ: {0}"
 
@@ -1617,7 +1670,7 @@ msgstr "अकाउंट क्रियाएँ खोलें"
 msgid "Open actions"
 msgstr "ऐक्शन खोलें"
 
-#: src/features/chats/index.tsx:1113
+#: src/features/chats/index.tsx:1125
 msgid "Open chat actions"
 msgstr "चैट क्रियाएँ खोलें"
 
@@ -1669,7 +1722,7 @@ msgstr "पासकी"
 msgid "Passkey verification failed. Please try again."
 msgstr "पासकी सत्यापन विफल रहा। कृपया पुनः प्रयास करें।"
 
-#: ../../../lib/web/src/components/restore-banner.tsx:135
+#: ../../../lib/web/src/components/restore-banner.tsx:152
 msgid "Passkeys"
 msgstr "पासकीज़"
 
@@ -1758,11 +1811,11 @@ msgstr "पुश सूचना"
 msgid "Raised"
 msgstr "उठा हुआ"
 
-#: ../../../lib/web/src/components/restore-banner.tsx:107
+#: ../../../lib/web/src/components/restore-banner.tsx:124
 msgid "Re-link your accounts on this server"
 msgstr "इस सर्वर पर अपने खाते पुनः लिंक करें"
 
-#: ../../../lib/web/src/components/restore-banner.tsx:129
+#: ../../../lib/web/src/components/restore-banner.tsx:146
 msgid "Re-register your passkeys on this server"
 msgstr "इस सर्वर पर अपनी पासकी फिर से पंजीकृत करें"
 
@@ -1779,28 +1832,28 @@ msgstr "सुझाया गया"
 msgid "Reconnecting ({retries})..."
 msgstr "पुनः कनेक्ट हो रहा है ({retries})..."
 
-#: src/features/chats/components/chat-input.tsx:849
 #: src/features/chats/components/chat-input.tsx:854
+#: src/features/chats/components/chat-input.tsx:859
 msgid "Record voice note"
 msgstr "वॉयस नोट रिकॉर्ड करें"
 
-#: src/features/chats/components/chat-input.tsx:310
+#: src/features/chats/components/chat-input.tsx:315
 msgid "Recording failed. Please try again."
 msgstr "रिकॉर्डिंग विफल रही। कृपया फिर से कोशिश करें।"
 
-#: src/features/chats/components/chat-input.tsx:326
+#: src/features/chats/components/chat-input.tsx:331
 msgid "Recording is too large to send"
 msgstr "रिकॉर्डिंग भेजने के लिए बहुत बड़ी है"
 
-#: src/features/chats/components/chat-input.tsx:306
+#: src/features/chats/components/chat-input.tsx:311
 msgid "Recording produced no audio"
 msgstr "रिकॉर्डिंग में कोई आवाज़ नहीं है"
 
-#: src/features/chats/components/chat-input.tsx:232
+#: src/features/chats/components/chat-input.tsx:237
 msgid "Recording stopped at the 5-minute limit"
 msgstr "रिकॉर्डिंग 5 मिनट की सीमा पर रुक गई"
 
-#: src/features/chats/components/chat-input.tsx:718
+#: src/features/chats/components/chat-input.tsx:723
 msgid "Recording voice note"
 msgstr "वॉयस नोट रिकॉर्ड हो रहा है"
 
@@ -1830,7 +1883,7 @@ msgstr "हटाएँ"
 
 #. placeholder {0}: attachment.file.name
 #. placeholder {0}: reaction.label
-#: src/features/chats/components/chat-input.tsx:696
+#: src/features/chats/components/chat-input.tsx:701
 #: src/features/chats/components/message-reaction-bar.tsx:121
 msgid "Remove {0}"
 msgstr "{0} हटाएँ"
@@ -1864,6 +1917,10 @@ msgstr "ऑडियो हटाएँ"
 msgid "Remove interest"
 msgstr "रुचि हटाएँ"
 
+#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:671
+msgid "Remove item"
+msgstr "आइटम हटाएँ"
+
 #: src/routes/_authenticated/$chatId_.settings.tsx:547
 msgid "Remove member?"
 msgstr "सदस्य हटाएँ?"
@@ -1889,7 +1946,7 @@ msgid "Reply"
 msgstr "उत्तर"
 
 #. placeholder {0}: replyTo.name
-#: src/features/chats/components/chat-input.tsx:585
+#: src/features/chats/components/chat-input.tsx:590
 msgid "Replying to {0}"
 msgstr "{0} को जवाब दिया जा रहा है"
 
@@ -1984,7 +2041,7 @@ msgstr "मित्र खोजें…"
 msgid "Search in chat..."
 msgstr "चैट में खोजें..."
 
-#: src/features/chats/index.tsx:1103
+#: src/features/chats/index.tsx:1115
 msgid "Search messages"
 msgstr "मैसेज खोजें"
 
@@ -2032,6 +2089,10 @@ msgstr "एक चैट चुनें"
 #: src/routes/_authenticated/$chatId_.settings.tsx:447
 msgid "Select a friend to add to this chat."
 msgstr "इस चैट में जोड़ने के लिए एक दोस्त चुनें।"
+
+#: ../../../lib/web/src/components/game/game-empty-state.tsx:37
+msgid "Select a game"
+msgstr "एक गेम चुनें"
 
 #: ../../../lib/web/src/features/access/access-dialog.tsx:150
 msgid "Select a user, group, or other rule to grant access."
@@ -2089,11 +2150,16 @@ msgstr "साइट दिशा चुनें"
 msgid "Select theme preference"
 msgstr "थीम प्राथमिकता चुनें"
 
+#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:252
+#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:335
+msgid "Select..."
+msgstr "चुनें..."
+
 #: ../../../lib/web/src/components/data-table/bulk-actions.tsx:216
 msgid "selected"
 msgstr "चयनित"
 
-#: src/features/chats/index.tsx:1206
+#: src/features/chats/index.tsx:1218
 msgid "Selected the newest {BULK_MESSAGES_MAX} messages, the most that can be forwarded or deleted at once"
 msgstr "नवीनतम {BULK_MESSAGES_MAX} संदेश चुने गए, एक बार में इतने ही अग्रेषित या हटाए जा सकते हैं"
 
@@ -2114,8 +2180,10 @@ msgstr "फिर से भेजें"
 msgid "Send email"
 msgstr "ईमेल भेजें"
 
-#: src/features/chats/components/chat-input.tsx:864
-#: src/features/chats/components/chat-input.tsx:873
+#: ../../../lib/web/src/components/game/game-chat-input.tsx:52
+#: ../../../lib/web/src/components/game/game-chat-input.tsx:61
+#: src/features/chats/components/chat-input.tsx:869
+#: src/features/chats/components/chat-input.tsx:878
 msgid "Send message"
 msgstr "मैसेज भेजें"
 
@@ -2149,7 +2217,7 @@ msgstr "स्रोत और गंतव्य सेट करें"
 msgid "Settings"
 msgstr "सेटिंग्स"
 
-#: src/features/chats/components/message-attachments.tsx:138
+#: src/features/chats/components/message-attachments.tsx:141
 #: src/features/chats/components/message-body.tsx:74
 msgid "Show less"
 msgstr "कम दिखाएँ"
@@ -2202,8 +2270,8 @@ msgstr "चैट शुरू की जा रही है..."
 msgid "Stay tuned though!"
 msgstr "जुड़े रहिए!"
 
-#: src/features/chats/components/chat-input.tsx:758
 #: src/features/chats/components/chat-input.tsx:763
+#: src/features/chats/components/chat-input.tsx:768
 msgid "Stop recording"
 msgstr "रिकॉर्डिंग बंद करें"
 
@@ -2283,7 +2351,7 @@ msgid "Theme Settings"
 msgstr "थीम सेटिंग्स"
 
 #. placeholder {0}: unknown.join(', ')
-#: src/features/chats/index.tsx:971
+#: src/features/chats/index.tsx:973
 msgid "These names are not in this chat: {0}. Pick from the @ list or remove them."
 msgstr "ये नाम इस चैट में नहीं हैं: {0}। @ सूची से चुनें या उन्हें हटा दें।"
 
@@ -2295,7 +2363,7 @@ msgstr "यह चैट"
 msgid "This chat may have been deleted or you don't have access to it"
 msgstr "हो सकता है यह चैट हटा दी गई हो या आपके पास इसकी पहुँच न हो"
 
-#: src/features/chats/index.tsx:1360
+#: src/features/chats/index.tsx:1373
 msgid "This deletes the message for everyone and cannot be undone."
 msgstr "इससे मैसेज सभी के लिए डिलीट हो जाएगा और इसे वापस नहीं लाया जा सकता।"
 
@@ -2382,6 +2450,10 @@ msgstr "मंगलवार"
 msgid "Type a command or search..."
 msgstr "कमांड टाइप करें या खोजें..."
 
+#: ../../../lib/web/src/components/game/game-chat-input.tsx:39
+msgid "Type a message…"
+msgstr "मैसेज टाइप करें…"
+
 #: ../../../lib/web/src/features/access/access-dialog.tsx:191
 msgid "Type to search users"
 msgstr "यूज़र खोजने के लिए टाइप करें"
@@ -2390,11 +2462,11 @@ msgstr "यूज़र खोजने के लिए टाइप करे�
 msgid "Type to search..."
 msgstr "खोजने के लिए टाइप करें..."
 
-#: src/features/chats/components/chat-input.tsx:809
+#: src/features/chats/components/chat-input.tsx:814
 msgid "Type your message…"
 msgstr "अपना मैसेज टाइप करें…"
 
-#: src/features/chats/components/chat-input.tsx:808
+#: src/features/chats/components/chat-input.tsx:813
 msgid "Type your reply…"
 msgstr "अपना जवाब लिखें…"
 
@@ -2490,8 +2562,8 @@ msgstr "देखें"
 msgid "View all"
 msgstr "सभी देखें"
 
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:106
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:114
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:131
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:139
 msgid "View all notifications"
 msgstr "सभी नोटिफ़िकेशन देखें"
 
@@ -2499,16 +2571,16 @@ msgstr "सभी नोटिफ़िकेशन देखें"
 msgid "Voice note waveform"
 msgstr "वॉयस नोट का वेवफ़ॉर्म"
 
-#: src/features/chats/components/chat-input.tsx:369
+#: src/features/chats/components/chat-input.tsx:374
 msgid "Voice recording is currently unavailable. Please check your setup and try again."
 msgstr "वॉयस रिकॉर्डिंग अभी उपलब्ध नहीं है। कृपया अपनी सेटिंग जाँचें और फिर से कोशिश करें।"
 
-#: src/features/chats/components/chat-input.tsx:290
-#: src/features/chats/components/chat-input.tsx:395
+#: src/features/chats/components/chat-input.tsx:295
+#: src/features/chats/components/chat-input.tsx:400
 msgid "Voice recording is not supported in this browser"
 msgstr "इस ब्राउज़र में वॉयस रिकॉर्डिंग समर्थित नहीं है"
 
-#: src/features/chats/components/chat-input.tsx:265
+#: src/features/chats/components/chat-input.tsx:270
 msgid "Voice recording isn't available in this app version. Please update the app and try again."
 msgstr "ऐप के इस संस्करण में वॉयस रिकॉर्डिंग उपलब्ध नहीं है। कृपया ऐप अपडेट करें और फिर से कोशिश करें।"
 
@@ -2549,11 +2621,11 @@ msgstr "इस दोस्त के साथ आपकी पहले से
 msgid "You already have chats with:"
 msgstr "आपकी पहले से ही इनके साथ चैट हैं:"
 
-#: src/features/chats/index.tsx:954
+#: src/features/chats/index.tsx:956
 msgid "You can attach at most {CAPTIONS_MAX} files to a message"
 msgstr "आप एक संदेश में अधिकतम {CAPTIONS_MAX} फ़ाइलें संलग्न कर सकते हैं"
 
-#: src/features/chats/index.tsx:950
+#: src/features/chats/index.tsx:952
 msgid "You can mention at most {MENTIONS_MAX} people in a message"
 msgstr "आप एक संदेश में अधिकतम {MENTIONS_MAX} लोगों का उल्लेख कर सकते हैं"
 
@@ -2569,7 +2641,7 @@ msgstr "आपके पास इस अनुभाग तक पहुँच 
 msgid "You don't have necessary permission <0/>to view this resource."
 msgstr "इस संसाधन को देखने के लिए <0/>आपके पास आवश्यक अनुमति नहीं है।"
 
-#: src/features/chats/index.tsx:1269
+#: src/features/chats/index.tsx:1281
 msgid "You left this chat"
 msgstr "आपने यह चैट छोड़ दी है"
 
@@ -2577,7 +2649,7 @@ msgstr "आपने यह चैट छोड़ दी है"
 msgid "You submitted the following values:"
 msgstr "आपने निम्नलिखित मान सबमिट किए:"
 
-#: src/features/chats/index.tsx:1268
+#: src/features/chats/index.tsx:1280
 msgid "You were removed from this chat"
 msgstr "आपको इस चैट से हटा दिया गया है"
 
@@ -2585,7 +2657,7 @@ msgstr "आपको इस चैट से हटा दिया गया �
 msgid "You're all caught up!"
 msgstr "आप सब देख चुके हैं!"
 
-#: ../../../lib/web/src/components/restore-banner.tsx:91
+#: ../../../lib/web/src/components/restore-banner.tsx:106
 msgid "Your account was moved here from {source}. Until you delete it there, messages and notifications may reach both servers, some of your content keeps being served from the old server, and followers may take a few minutes to find you here."
 msgstr "आपका खाता {source} से यहाँ स्थानांतरित किया गया। जब तक आप वहाँ इसे हटा नहीं देते, संदेश और सूचनाएं दोनों सर्वर तक पहुँच सकती हैं, आपकी कुछ सामग्री पुराने सर्वर से परोसी जाती रहेगी, और फ़ॉलोअर्स को आपको यहाँ ढूंढने में कुछ मिनट लग सकते हैं।"
 

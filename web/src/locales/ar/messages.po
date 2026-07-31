@@ -32,7 +32,7 @@ msgid "{0, plural, one {# selected} other {# selected}}"
 msgstr "{0, plural, zero {# محدد} one {# محدد} two {# محدد} few {# محدد} many {# محدد} other {# محدد}}"
 
 #. placeholder {0}: deleteTargetIds?.length ?? 0
-#: src/features/chats/index.tsx:1356
+#: src/features/chats/index.tsx:1369
 msgid "{0, plural, one {Delete message?} other {Delete # messages?}}"
 msgstr "{0, plural, zero {حذف # رسالة؟} one {حذف الرسالة؟} two {حذف رسالتين؟} few {حذف # رسائل؟} many {حذف # رسالة؟} other {حذف # رسالة؟}}"
 
@@ -49,7 +49,7 @@ msgstr "معاينة خيار {0}"
 #. placeholder {0}: selectedIds.size
 #. placeholder {0}: selectedIds?.size ?? 0
 #: src/features/chats/components/chat-message-list.tsx:816
-#: src/features/chats/index.tsx:1226
+#: src/features/chats/index.tsx:1238
 msgid "{0} selected"
 msgstr "تم تحديد {0}"
 
@@ -67,7 +67,7 @@ msgstr "اسم {entityLabel}"
 msgid "{entityLabel} name is required"
 msgstr "اسم {entityLabel} مطلوب"
 
-#: src/features/chats/components/message-attachments.tsx:140
+#: src/features/chats/components/message-attachments.tsx:143
 msgid "{hiddenCount, plural, one {Show 1 more file} other {Show # more files}}"
 msgstr "{hiddenCount, plural, zero {عرض # ملف إضافي} one {عرض ملف إضافي واحد} two {عرض ملفين إضافيين} few {عرض # ملفات إضافية} many {عرض # ملفًا إضافيًا} other {عرض # ملف إضافي}}"
 
@@ -75,6 +75,10 @@ msgstr "{hiddenCount, plural, zero {عرض # ملف إضافي} one {عرض مل
 #: src/features/chats/components/chat-message-list.tsx:868
 msgid "{newMessageCount, plural, one {Jump to 1 new message} other {Jump to # new messages}}"
 msgstr "{newMessageCount, plural, zero {الانتقال إلى # رسالة جديدة} one {الانتقال إلى رسالة جديدة واحدة} two {الانتقال إلى رسالتين جديدتين} few {الانتقال إلى # رسائل جديدة} many {الانتقال إلى # رسالة جديدة} other {الانتقال إلى # رسالة جديدة}}"
+
+#: ../../../lib/web/src/components/game/game-draw-offer-banner.tsx:29
+msgid "{opponentName} offered a draw"
+msgstr "عرض {opponentName} التعادل"
 
 #: ../../../lib/web/src/components/data-table/bulk-actions.tsx:210
 msgid "{selectedCount, plural, one {{entityName} selected} other {{manyName} selected}}"
@@ -96,13 +100,18 @@ msgstr "{selectedCount, plural, zero {إجراءات مجمعة لـ {manyName}}
 msgid "{sentLabel} of {totalLabel}"
 msgstr "{sentLabel} من {totalLabel}"
 
-#: src/features/chats/index.tsx:869
+#: src/features/chats/index.tsx:871
 msgid "{skippedCount, plural, one {Skipped # file that is not audio} other {Skipped # files that are not audio}}"
 msgstr "{skippedCount, plural, zero {لم يتم تخطي أي ملف} one {تم تخطي ملف واحد ليس صوتًا} two {تم تخطي ملفين ليسا صوتًا} few {تم تخطي # ملفات ليست صوتًا} many {تم تخطي # ملفًا ليست صوتًا} other {تم تخطي # ملف ليست صوتًا}}"
 
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx:132
 msgid "{unreadCount, plural, one {Open menu (# unread notification)} other {Open menu (# unread notifications)}}"
 msgstr "{unreadCount, plural, zero {فتح القائمة (لا إشعارات غير مقروءة)} one {فتح القائمة (إشعار واحد غير مقروء)} two {فتح القائمة (إشعاران غير مقروءين)} few {فتح القائمة (# إشعارات غير مقروءة)} many {فتح القائمة (# إشعارًا غير مقروء)} other {فتح القائمة (# إشعار غير مقروء)}}"
+
+#. placeholder {0}: countDeepChildren(object.id)
+#: ../../../lib/web/src/components/entity/entity-board-card.tsx:421
+msgid "+{0} nested"
+msgstr "+{0} متداخلة"
 
 #: ../../../lib/web/src/lib/preference-utils.ts:42
 msgid "12 hours"
@@ -112,13 +121,17 @@ msgstr "12 ساعة"
 msgid "24 hours"
 msgstr "24 ساعة"
 
-#: src/features/chats/components/chat-input.tsx:314
+#: src/features/chats/components/chat-input.tsx:319
 msgid "A recording is already in progress."
 msgstr "هناك تسجيل جارٍ بالفعل."
 
 #: ../../../lib/web/src/lib/preference-utils.ts:51
 msgid "Absolute (date and time)"
 msgstr "مطلق (تاريخ ووقت)"
+
+#: ../../../lib/web/src/components/game/game-draw-offer-banner.tsx:45
+msgid "Accept"
+msgstr "قبول"
 
 #: ../../../lib/web/src/features/errors/general-error.tsx:60
 msgid "Access denied"
@@ -148,6 +161,7 @@ msgstr "نوع الحساب"
 msgid "Account verified"
 msgstr "تم التحقق من الحساب"
 
+#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:717
 #: ../../../lib/web/src/features/access/access-dialog.tsx:332
 #: ../../../lib/web/src/features/accounts/account-add.tsx:196
 msgid "Add"
@@ -175,10 +189,18 @@ msgstr "إضافة حساب"
 msgid "Add an account to receive notifications and use services."
 msgstr "أضف حسابًا لتلقي الإشعارات واستخدام الخدمات."
 
-#: src/features/chats/components/chat-input.tsx:777
-#: src/features/chats/components/chat-input.tsx:783
+#: src/features/chats/components/chat-input.tsx:782
+#: src/features/chats/components/chat-input.tsx:788
 msgid "Add attachment"
 msgstr "إضافة مرفق"
+
+#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:687
+msgid "Add checklist item"
+msgstr "إضافة عنصر إلى قائمة المهام"
+
+#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:705
+msgid "Add item..."
+msgstr "إضافة عنصر..."
 
 #: src/routes/_authenticated/$chatId_.settings.tsx:262
 #: src/routes/_authenticated/$chatId_.settings.tsx:444
@@ -292,7 +314,7 @@ msgid "Anyone who is logged in"
 msgstr "أي شخص مسجّل الدخول"
 
 #. placeholder {0}: selectedChat?.name
-#: src/features/chats/index.tsx:1324
+#: src/features/chats/index.tsx:1337
 msgid "Are you sure you want to leave \"{0}\"? You can be added back by other members."
 msgstr "هل أنت متأكد أنك تريد مغادرة \"{0}\"؟ يمكن للأعضاء الآخرين إعادتك."
 
@@ -317,7 +339,7 @@ msgstr "تصاعدي"
 msgid "Ascending"
 msgstr "تصاعدي"
 
-#: src/features/chats/components/chat-input.tsx:594
+#: src/features/chats/components/chat-input.tsx:599
 #: src/features/chats/components/message-quote.tsx:56
 msgid "Attachment"
 msgstr "مرفق"
@@ -326,7 +348,7 @@ msgstr "مرفق"
 msgid "Attachments are too large to upload. Remove or shrink files and try again."
 msgstr "المرفقات كبيرة جدًا بحيث يتعذر رفعها. أزل الملفات أو صغّر حجمها وحاول مرة أخرى."
 
-#: src/features/chats/components/chat-input.tsx:796
+#: src/features/chats/components/chat-input.tsx:801
 msgid "Audio"
 msgstr "صوت"
 
@@ -371,6 +393,11 @@ msgstr "اللافتة"
 msgid "Be the first to say something!"
 msgstr "كن أول من يقول شيئًا!"
 
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:156
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:166
+msgid "Blocked navigation to untrusted link"
+msgstr "تم حظر الانتقال إلى رابط غير موثوق"
+
 #: ../../../lib/web/src/components/post-tags.tsx:180
 #: ../../../lib/web/src/components/post-tags.tsx:192
 msgid "Boost interest"
@@ -394,12 +421,12 @@ msgstr "إشعارات المتصفح"
 #: src/features/chats/components/chat-settings-dialog.tsx:116
 #: src/features/chats/components/forward-dialog.tsx:253
 #: src/features/chats/components/new-chat.tsx:354
-#: src/features/chats/index.tsx:1258
+#: src/features/chats/index.tsx:1270
 msgid "Cancel"
 msgstr "إلغاء"
 
-#: src/features/chats/components/chat-input.tsx:604
 #: src/features/chats/components/chat-input.tsx:609
+#: src/features/chats/components/chat-input.tsx:614
 msgid "Cancel reply"
 msgstr "إلغاء الرد"
 
@@ -415,7 +442,7 @@ msgstr "تغيير فئة الإشعار"
 #: src/features/chats/index.tsx:89
 #: src/features/chats/index.tsx:197
 #: src/features/chats/index.tsx:197
-#: src/features/chats/index.tsx:1035
+#: src/features/chats/index.tsx:1047
 msgid "Chat"
 msgstr "الدردشة"
 
@@ -423,7 +450,7 @@ msgstr "الدردشة"
 msgid "Chat created"
 msgstr "تم إنشاء الدردشة"
 
-#: src/features/chats/index.tsx:820
+#: src/features/chats/index.tsx:822
 msgid "Chat deleted"
 msgstr "تم حذف الدردشة"
 
@@ -472,8 +499,8 @@ msgstr "الدردشة جاهزة"
 msgid "Chat renamed"
 msgstr "تمت إعادة تسمية الدردشة"
 
-#: src/features/chats/index.tsx:1040
-#: src/features/chats/index.tsx:1138
+#: src/features/chats/index.tsx:1052
+#: src/features/chats/index.tsx:1150
 #: src/routes/_authenticated/$chatId_.settings.tsx:89
 #: src/routes/_authenticated/$chatId_.settings.tsx:102
 #: src/routes/_authenticated/$chatId_.settings.tsx:113
@@ -481,7 +508,7 @@ msgstr "تمت إعادة تسمية الدردشة"
 msgid "Chat settings"
 msgstr "إعدادات الدردشة"
 
-#: src/features/chats/components/chat-input.tsx:802
+#: src/features/chats/components/chat-input.tsx:807
 msgid "Chat text box"
 msgstr "مربع نص الدردشة"
 
@@ -505,6 +532,10 @@ msgstr "اختر دردشة أو صديقًا لإعادة توجيه الرسا
 #: src/features/chats/components/chat-empty-state.tsx:23
 msgid "Choose a conversation from the sidebar or start a new one."
 msgstr "اختر محادثة من الشريط الجانبي أو ابدأ محادثة جديدة."
+
+#: ../../../lib/web/src/components/game/game-empty-state.tsx:38
+msgid "Choose a game from the sidebar or start a new one."
+msgstr "اختر لعبة من الشريط الجانبي أو ابدأ لعبة جديدة."
 
 #: ../../../lib/web/src/components/config-drawer.tsx:329
 msgid "Choose between default expanded, compact icon-only, or full layout mode"
@@ -658,13 +689,13 @@ msgstr "تم النسخ إلى الحافظة"
 
 #: ../../../lib/web/src/components/ui/copy-button.tsx:64
 #: src/features/chats/components/message-hover-actions.tsx:107
-#: src/features/chats/index.tsx:1235
+#: src/features/chats/index.tsx:1247
 msgid "Copy"
 msgstr "نسخ"
 
 #. placeholder {0}: ambiguous.join(', ')
 #. placeholder {1}: unknown.join(', ')
-#: src/features/chats/index.tsx:975
+#: src/features/chats/index.tsx:977
 msgid "Could not link mentions. Multiple people share: {0}. Not in this chat: {1}. Pick from the @ list."
 msgstr "تعذّر ربط الإشارات. عدة أشخاص يتشاركون: {0}. ليسوا في هذه الدردشة: {1}. اختر من قائمة @."
 
@@ -733,6 +764,10 @@ msgstr "الوضع الداكن"
 msgid "Data conflict"
 msgstr "تعارض في البيانات"
 
+#: ../../../lib/web/src/components/game/game-draw-offer-banner.tsx:41
+msgid "Decline"
+msgstr "رفض"
+
 #: ../../../lib/web/src/components/config-drawer.tsx:311
 msgid "Default"
 msgstr "افتراضي"
@@ -742,31 +777,31 @@ msgid "Default AI account"
 msgstr "حساب الذكاء الاصطناعي الافتراضي"
 
 #: src/features/chats/components/message-hover-actions.tsx:146
-#: src/features/chats/index.tsx:1251
-#: src/features/chats/index.tsx:1368
+#: src/features/chats/index.tsx:1263
+#: src/features/chats/index.tsx:1381
 msgid "Delete"
 msgstr "حذف"
 
-#: src/features/chats/index.tsx:1121
-#: src/features/chats/index.tsx:1282
+#: src/features/chats/index.tsx:1133
+#: src/features/chats/index.tsx:1294
 msgid "Delete chat"
 msgstr "حذف الدردشة"
 
-#: src/features/chats/index.tsx:1346
+#: src/features/chats/index.tsx:1359
 #: src/routes/_authenticated/$chatId_.settings.tsx:378
 msgid "Delete chat history"
 msgstr "حذف سجل الدردشة"
 
-#: ../../../lib/web/src/components/restore-banner.tsx:99
+#: ../../../lib/web/src/components/restore-banner.tsx:115
 msgid "Delete your account on the old server"
 msgstr "احذف حسابك من الخادم القديم"
 
-#: src/features/chats/index.tsx:819
+#: src/features/chats/index.tsx:821
 msgid "Deleting chat..."
 msgstr "جارٍ حذف المحادثة..."
 
 #: src/features/chats/index.tsx:678
-#: src/features/chats/index.tsx:1365
+#: src/features/chats/index.tsx:1378
 msgid "Deleting..."
 msgstr "جارٍ الحذف..."
 
@@ -821,8 +856,8 @@ msgstr "تجاهل"
 msgid "Discard draft?"
 msgstr "تجاهل المسودة؟"
 
-#: src/features/chats/components/chat-input.tsx:728
 #: src/features/chats/components/chat-input.tsx:733
+#: src/features/chats/components/chat-input.tsx:738
 msgid "Discard recording"
 msgstr "تجاهل التسجيل"
 
@@ -835,8 +870,8 @@ msgstr "غير متصل"
 msgid "Dislike"
 msgstr "لا يعجبني"
 
-#: ../../../lib/web/src/components/restore-banner.tsx:79
-#: ../../../lib/web/src/components/restore-banner.tsx:85
+#: ../../../lib/web/src/components/restore-banner.tsx:94
+#: ../../../lib/web/src/components/restore-banner.tsx:100
 msgid "Dismiss"
 msgstr "تجاهل"
 
@@ -844,7 +879,7 @@ msgstr "تجاهل"
 msgid "Displays the mobile sidebar."
 msgstr "يعرض الشريط الجانبي للهاتف."
 
-#: src/features/chats/components/chat-input.tsx:790
+#: src/features/chats/components/chat-input.tsx:795
 msgid "Document"
 msgstr "مستند"
 
@@ -879,7 +914,7 @@ msgid "Edit {label}"
 msgstr "تعديل {label}"
 
 #. placeholder {0}: formatVideoDuration(recordingDuration)
-#: src/features/chats/components/chat-input.tsx:741
+#: src/features/chats/components/chat-input.tsx:746
 msgid "Elapsed {0}"
 msgstr "المنقضي {0}"
 
@@ -952,7 +987,7 @@ msgstr "فشل إنشاء المحادثة"
 msgid "Failed to delete"
 msgstr "فشل الحذف"
 
-#: src/features/chats/index.tsx:821
+#: src/features/chats/index.tsx:823
 msgid "Failed to delete chat"
 msgstr "فشل حذف المحادثة"
 
@@ -964,7 +999,7 @@ msgstr "تعذّر تعديل الرسالة"
 msgid "Failed to forward"
 msgstr "تعذرت إعادة التوجيه"
 
-#: src/features/chats/index.tsx:802
+#: src/features/chats/index.tsx:804
 #: src/routes/_authenticated/$chatId_.settings.tsx:339
 msgid "Failed to leave chat"
 msgstr "فشل مغادرة المحادثة"
@@ -1029,7 +1064,7 @@ msgstr "فشل تحديث الفئة"
 msgid "Filter..."
 msgstr "تصفية..."
 
-#: ../../../lib/web/src/components/restore-banner.tsx:88
+#: ../../../lib/web/src/components/restore-banner.tsx:103
 msgid "Finish moving your account"
 msgstr "أتمم نقل حسابك"
 
@@ -1043,7 +1078,7 @@ msgstr "عائم"
 
 #: src/features/chats/components/forward-dialog.tsx:264
 #: src/features/chats/components/message-hover-actions.tsx:138
-#: src/features/chats/index.tsx:1243
+#: src/features/chats/index.tsx:1255
 msgid "Forward"
 msgstr "إعادة توجيه"
 
@@ -1163,7 +1198,7 @@ msgid "Including anonymous users"
 msgstr "بما في ذلك المستخدمون المجهولون"
 
 #: src/features/chats/components/chat-settings-dialog.tsx:80
-#: src/features/chats/index.tsx:1144
+#: src/features/chats/index.tsx:1156
 msgid "Incoming chats"
 msgstr "المحادثات الواردة"
 
@@ -1182,6 +1217,10 @@ msgstr "داخلي"
 #: ../../../lib/web/src/components/ui/sort-selector.tsx:42
 msgid "Interests"
 msgstr "الاهتمامات"
+
+#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:550
+msgid "Invalid date"
+msgstr "تاريخ غير صالح"
 
 #: ../../../lib/web/src/components/tag-input.tsx:38
 msgid "Invalid tag: letters, numbers, spaces, hyphens, and slashes only (max 50 chars)"
@@ -1222,31 +1261,31 @@ msgstr "التخطيط"
 msgid "Learn more"
 msgstr "اعرف المزيد"
 
-#: src/features/chats/index.tsx:1332
+#: src/features/chats/index.tsx:1345
 msgid "Leave"
 msgstr "مغادرة"
 
-#: src/features/chats/index.tsx:1128
+#: src/features/chats/index.tsx:1140
 #: src/routes/_authenticated/$chatId_.settings.tsx:364
 msgid "Leave chat"
 msgstr "مغادرة المحادثة"
 
-#: src/features/chats/index.tsx:1323
+#: src/features/chats/index.tsx:1336
 #: src/routes/_authenticated/$chatId_.settings.tsx:355
 msgid "Leave chat?"
 msgstr "مغادرة المحادثة؟"
 
-#: src/features/chats/index.tsx:800
+#: src/features/chats/index.tsx:802
 #: src/routes/_authenticated/$chatId_.settings.tsx:337
 msgid "Leaving chat..."
 msgstr "جارٍ مغادرة المحادثة..."
 
-#: src/features/chats/index.tsx:1329
+#: src/features/chats/index.tsx:1342
 #: src/routes/_authenticated/$chatId_.settings.tsx:361
 msgid "Leaving..."
 msgstr "جارٍ المغادرة..."
 
-#: src/features/chats/index.tsx:801
+#: src/features/chats/index.tsx:803
 #: src/routes/_authenticated/$chatId_.settings.tsx:338
 msgid "Left chat"
 msgstr "غادر المحادثة"
@@ -1312,8 +1351,8 @@ msgstr "حب"
 msgid "Manage your connected accounts for notifications and services."
 msgstr "إدارة حساباتك المتصلة للإشعارات والخدمات."
 
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:93
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:100
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:118
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:125
 #: ../../../lib/web/src/components/notifications-dropdown.tsx:224
 msgid "Mark all as read"
 msgstr "وضع علامة مقروء على الكل"
@@ -1354,6 +1393,10 @@ msgstr "الأعضاء"
 msgid "Menu"
 msgstr "القائمة"
 
+#: ../../../lib/web/src/components/game/game-chat-input.tsx:35
+msgid "Message"
+msgstr "رسالة"
+
 #: src/features/chats/components/chat-empty-state.tsx:39
 msgid "Message a friend to start your first chat."
 msgstr "راسل صديقًا لبدء محادثتك الأولى."
@@ -1376,7 +1419,7 @@ msgid "Message deleted"
 msgstr "تم حذف الرسالة"
 
 #. placeholder {0}: formatNumber(newMessage.length - MESSAGE_MAX_LENGTH)
-#: src/features/chats/components/chat-input.tsx:914
+#: src/features/chats/components/chat-input.tsx:920
 msgid "Message is {0} characters too long"
 msgstr "الرسالة أطول بمقدار {0} حرف"
 
@@ -1389,37 +1432,37 @@ msgstr "الرسالة غير متاحة"
 msgid "Metric"
 msgstr "متري"
 
-#: src/features/chats/components/chat-input.tsx:321
+#: src/features/chats/components/chat-input.tsx:326
 msgid "Microphone access denied"
 msgstr "رُفض الوصول إلى الميكروفون"
 
-#: src/features/chats/components/chat-input.tsx:298
+#: src/features/chats/components/chat-input.tsx:303
 msgid "Microphone access is blocked here. Please update the app and try again."
 msgstr "الوصول إلى الميكروفون محظور هنا. يرجى تحديث التطبيق والمحاولة مرة أخرى."
 
-#: src/features/chats/components/chat-input.tsx:295
-#: src/features/chats/components/chat-input.tsx:342
-#: src/features/chats/components/chat-input.tsx:389
+#: src/features/chats/components/chat-input.tsx:300
+#: src/features/chats/components/chat-input.tsx:347
+#: src/features/chats/components/chat-input.tsx:394
 msgid "Microphone access requires a secure context (HTTPS or localhost)"
 msgstr "يتطلب الوصول إلى الميكروفون سياقًا آمنًا (HTTPS أو localhost)"
 
-#: src/features/chats/components/chat-input.tsx:301
+#: src/features/chats/components/chat-input.tsx:306
 msgid "Microphone access was blocked by the browser"
 msgstr "حظر المتصفح الوصول إلى الميكروفون"
 
-#: src/features/chats/components/chat-input.tsx:282
+#: src/features/chats/components/chat-input.tsx:287
 msgid "Microphone constraints could not be satisfied"
 msgstr "تعذّر استيفاء متطلبات الميكروفون"
 
-#: src/features/chats/components/chat-input.tsx:318
+#: src/features/chats/components/chat-input.tsx:323
 msgid "Microphone error: {message}"
 msgstr "خطأ في الميكروفون: {message}"
 
-#: src/features/chats/components/chat-input.tsx:278
+#: src/features/chats/components/chat-input.tsx:283
 msgid "Microphone is already in use"
 msgstr "الميكروفون قيد الاستخدام بالفعل"
 
-#: src/features/chats/components/chat-input.tsx:270
+#: src/features/chats/components/chat-input.tsx:275
 msgid "Microphone permission denied"
 msgstr "رُفض إذن الميكروفون"
 
@@ -1432,7 +1475,7 @@ msgid "Monday"
 msgstr "الاثنين"
 
 #. placeholder {0}: ambiguous.join(', ')
-#: src/features/chats/index.tsx:967
+#: src/features/chats/index.tsx:969
 msgid "Multiple people share these names: {0}. Pick them from the @ list so the right person is notified."
 msgstr "عدة أشخاص يتشاركون هذه الأسماء: {0}. اخترهم من قائمة @ ليصل الإشعار إلى الشخص الصحيح."
 
@@ -1462,6 +1505,11 @@ msgstr "جديد"
 #: src/features/chats/components/new-chat.tsx:263
 msgid "New chat"
 msgstr "محادثة جديدة"
+
+#: ../../../lib/web/src/components/game/game-empty-state.tsx:42
+#: ../../../lib/web/src/components/game/game-empty-state.tsx:54
+msgid "New game"
+msgstr "لعبة جديدة"
 
 #: src/features/chats/components/chat-search-header.tsx:108
 msgid "Newer match"
@@ -1496,6 +1544,10 @@ msgstr "لم يتم العثور على أصدقاء"
 msgid "No friends yet"
 msgstr "لا يوجد أصدقاء بعد"
 
+#: ../../../lib/web/src/components/game/game-empty-state.tsx:51
+msgid "No games yet"
+msgstr "لا توجد ألعاب بعد"
+
 #: ../../../lib/web/src/features/access/access-dialog.tsx:241
 msgid "No groups available"
 msgstr "لا توجد مجموعات متاحة"
@@ -1504,7 +1556,7 @@ msgstr "لا توجد مجموعات متاحة"
 msgid "No messages yet"
 msgstr "لا توجد رسائل بعد"
 
-#: src/features/chats/components/chat-input.tsx:274
+#: src/features/chats/components/chat-input.tsx:279
 msgid "No microphone found"
 msgstr "لم يتم العثور على ميكروفون"
 
@@ -1512,6 +1564,7 @@ msgstr "لم يتم العثور على ميكروفون"
 msgid "No notifications yet"
 msgstr "لا إشعارات بعد"
 
+#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:336
 #: ../../../lib/web/src/components/person-picker.tsx:84
 #: src/features/chats/components/new-chat.tsx:288
 msgid "No people found"
@@ -1583,7 +1636,7 @@ msgid "Notifications"
 msgstr "الإشعارات"
 
 #. placeholder {0}: unread.length
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:86
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:111
 msgid "Notifications: {0}"
 msgstr "الإشعارات: {0}"
 
@@ -1617,7 +1670,7 @@ msgstr "فتح إجراءات الحساب"
 msgid "Open actions"
 msgstr "فتح الإجراءات"
 
-#: src/features/chats/index.tsx:1113
+#: src/features/chats/index.tsx:1125
 msgid "Open chat actions"
 msgstr "فتح إجراءات المحادثة"
 
@@ -1669,7 +1722,7 @@ msgstr "مفتاح المرور"
 msgid "Passkey verification failed. Please try again."
 msgstr "فشل التحقق من مفتاح المرور. يرجى المحاولة مرة أخرى."
 
-#: ../../../lib/web/src/components/restore-banner.tsx:135
+#: ../../../lib/web/src/components/restore-banner.tsx:152
 msgid "Passkeys"
 msgstr "مفاتيح المرور"
 
@@ -1758,11 +1811,11 @@ msgstr "إشعار فوري"
 msgid "Raised"
 msgstr "بارز"
 
-#: ../../../lib/web/src/components/restore-banner.tsx:107
+#: ../../../lib/web/src/components/restore-banner.tsx:124
 msgid "Re-link your accounts on this server"
 msgstr "أعد ربط حساباتك بهذا الخادم"
 
-#: ../../../lib/web/src/components/restore-banner.tsx:129
+#: ../../../lib/web/src/components/restore-banner.tsx:146
 msgid "Re-register your passkeys on this server"
 msgstr "أعد تسجيل مفاتيح المرور على هذا الخادم"
 
@@ -1779,28 +1832,28 @@ msgstr "موصى به"
 msgid "Reconnecting ({retries})..."
 msgstr "جارٍ إعادة الاتصال ({retries})..."
 
-#: src/features/chats/components/chat-input.tsx:849
 #: src/features/chats/components/chat-input.tsx:854
+#: src/features/chats/components/chat-input.tsx:859
 msgid "Record voice note"
 msgstr "تسجيل رسالة صوتية"
 
-#: src/features/chats/components/chat-input.tsx:310
+#: src/features/chats/components/chat-input.tsx:315
 msgid "Recording failed. Please try again."
 msgstr "فشل التسجيل. يرجى المحاولة مرة أخرى."
 
-#: src/features/chats/components/chat-input.tsx:326
+#: src/features/chats/components/chat-input.tsx:331
 msgid "Recording is too large to send"
 msgstr "التسجيل كبير جدًا بحيث يتعذر إرساله"
 
-#: src/features/chats/components/chat-input.tsx:306
+#: src/features/chats/components/chat-input.tsx:311
 msgid "Recording produced no audio"
 msgstr "التسجيل لا يحتوي على صوت"
 
-#: src/features/chats/components/chat-input.tsx:232
+#: src/features/chats/components/chat-input.tsx:237
 msgid "Recording stopped at the 5-minute limit"
 msgstr "توقف التسجيل عند حد الخمس دقائق"
 
-#: src/features/chats/components/chat-input.tsx:718
+#: src/features/chats/components/chat-input.tsx:723
 msgid "Recording voice note"
 msgstr "جارٍ تسجيل الرسالة الصوتية"
 
@@ -1830,7 +1883,7 @@ msgstr "إزالة"
 
 #. placeholder {0}: attachment.file.name
 #. placeholder {0}: reaction.label
-#: src/features/chats/components/chat-input.tsx:696
+#: src/features/chats/components/chat-input.tsx:701
 #: src/features/chats/components/message-reaction-bar.tsx:121
 msgid "Remove {0}"
 msgstr "إزالة {0}"
@@ -1864,6 +1917,10 @@ msgstr "إزالة الصوت"
 msgid "Remove interest"
 msgstr "إزالة الاهتمام"
 
+#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:671
+msgid "Remove item"
+msgstr "إزالة العنصر"
+
 #: src/routes/_authenticated/$chatId_.settings.tsx:547
 msgid "Remove member?"
 msgstr "إزالة العضو؟"
@@ -1889,7 +1946,7 @@ msgid "Reply"
 msgstr "رد"
 
 #. placeholder {0}: replyTo.name
-#: src/features/chats/components/chat-input.tsx:585
+#: src/features/chats/components/chat-input.tsx:590
 msgid "Replying to {0}"
 msgstr "الرد على {0}"
 
@@ -1984,7 +2041,7 @@ msgstr "ابحث عن الأصدقاء…"
 msgid "Search in chat..."
 msgstr "البحث في الدردشة..."
 
-#: src/features/chats/index.tsx:1103
+#: src/features/chats/index.tsx:1115
 msgid "Search messages"
 msgstr "البحث في الرسائل"
 
@@ -2032,6 +2089,10 @@ msgstr "اختر محادثة"
 #: src/routes/_authenticated/$chatId_.settings.tsx:447
 msgid "Select a friend to add to this chat."
 msgstr "اختر صديقًا لإضافته إلى هذه المحادثة."
+
+#: ../../../lib/web/src/components/game/game-empty-state.tsx:37
+msgid "Select a game"
+msgstr "اختر لعبة"
 
 #: ../../../lib/web/src/features/access/access-dialog.tsx:150
 msgid "Select a user, group, or other rule to grant access."
@@ -2089,11 +2150,16 @@ msgstr "اختر اتجاه الموقع"
 msgid "Select theme preference"
 msgstr "اختر تفضيل السمة"
 
+#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:252
+#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:335
+msgid "Select..."
+msgstr "اختر..."
+
 #: ../../../lib/web/src/components/data-table/bulk-actions.tsx:216
 msgid "selected"
 msgstr "محدد"
 
-#: src/features/chats/index.tsx:1206
+#: src/features/chats/index.tsx:1218
 msgid "Selected the newest {BULK_MESSAGES_MAX} messages, the most that can be forwarded or deleted at once"
 msgstr "تم تحديد أحدث {BULK_MESSAGES_MAX} رسالة، وهو أقصى ما يمكن إعادة توجيهه أو حذفه دفعة واحدة"
 
@@ -2114,8 +2180,10 @@ msgstr "إرسال مرة أخرى"
 msgid "Send email"
 msgstr "إرسال بريد إلكتروني"
 
-#: src/features/chats/components/chat-input.tsx:864
-#: src/features/chats/components/chat-input.tsx:873
+#: ../../../lib/web/src/components/game/game-chat-input.tsx:52
+#: ../../../lib/web/src/components/game/game-chat-input.tsx:61
+#: src/features/chats/components/chat-input.tsx:869
+#: src/features/chats/components/chat-input.tsx:878
 msgid "Send message"
 msgstr "إرسال رسالة"
 
@@ -2149,7 +2217,7 @@ msgstr "تعيين المنشأ والوجهة"
 msgid "Settings"
 msgstr "الإعدادات"
 
-#: src/features/chats/components/message-attachments.tsx:138
+#: src/features/chats/components/message-attachments.tsx:141
 #: src/features/chats/components/message-body.tsx:74
 msgid "Show less"
 msgstr "عرض أقل"
@@ -2202,8 +2270,8 @@ msgstr "جارٍ بدء المحادثة..."
 msgid "Stay tuned though!"
 msgstr "ابقَ على اتصال!"
 
-#: src/features/chats/components/chat-input.tsx:758
 #: src/features/chats/components/chat-input.tsx:763
+#: src/features/chats/components/chat-input.tsx:768
 msgid "Stop recording"
 msgstr "إيقاف التسجيل"
 
@@ -2283,7 +2351,7 @@ msgid "Theme Settings"
 msgstr "إعدادات السمة"
 
 #. placeholder {0}: unknown.join(', ')
-#: src/features/chats/index.tsx:971
+#: src/features/chats/index.tsx:973
 msgid "These names are not in this chat: {0}. Pick from the @ list or remove them."
 msgstr "هذه الأسماء ليست في هذه الدردشة: {0}. اختر من قائمة @ أو أزلها."
 
@@ -2295,7 +2363,7 @@ msgstr "هذه المحادثة"
 msgid "This chat may have been deleted or you don't have access to it"
 msgstr "ربما تم حذف هذه المحادثة أو ليس لديك صلاحية الوصول إليها"
 
-#: src/features/chats/index.tsx:1360
+#: src/features/chats/index.tsx:1373
 msgid "This deletes the message for everyone and cannot be undone."
 msgstr "سيؤدي هذا إلى حذف الرسالة لدى الجميع ولا يمكن التراجع عنه."
 
@@ -2382,6 +2450,10 @@ msgstr "الثلاثاء"
 msgid "Type a command or search..."
 msgstr "اكتب أمرًا أو ابحث..."
 
+#: ../../../lib/web/src/components/game/game-chat-input.tsx:39
+msgid "Type a message…"
+msgstr "اكتب رسالة…"
+
 #: ../../../lib/web/src/features/access/access-dialog.tsx:191
 msgid "Type to search users"
 msgstr "اكتب للبحث عن مستخدمين"
@@ -2390,11 +2462,11 @@ msgstr "اكتب للبحث عن مستخدمين"
 msgid "Type to search..."
 msgstr "اكتب للبحث..."
 
-#: src/features/chats/components/chat-input.tsx:809
+#: src/features/chats/components/chat-input.tsx:814
 msgid "Type your message…"
 msgstr "اكتب رسالتك…"
 
-#: src/features/chats/components/chat-input.tsx:808
+#: src/features/chats/components/chat-input.tsx:813
 msgid "Type your reply…"
 msgstr "اكتب ردك…"
 
@@ -2490,8 +2562,8 @@ msgstr "عرض"
 msgid "View all"
 msgstr "عرض الكل"
 
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:106
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:114
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:131
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:139
 msgid "View all notifications"
 msgstr "عرض جميع الإشعارات"
 
@@ -2499,16 +2571,16 @@ msgstr "عرض جميع الإشعارات"
 msgid "Voice note waveform"
 msgstr "الشكل الموجي للرسالة الصوتية"
 
-#: src/features/chats/components/chat-input.tsx:369
+#: src/features/chats/components/chat-input.tsx:374
 msgid "Voice recording is currently unavailable. Please check your setup and try again."
 msgstr "التسجيل الصوتي غير متاح حاليًا. يرجى التحقق من الإعدادات والمحاولة مرة أخرى."
 
-#: src/features/chats/components/chat-input.tsx:290
-#: src/features/chats/components/chat-input.tsx:395
+#: src/features/chats/components/chat-input.tsx:295
+#: src/features/chats/components/chat-input.tsx:400
 msgid "Voice recording is not supported in this browser"
 msgstr "التسجيل الصوتي غير مدعوم في هذا المتصفح"
 
-#: src/features/chats/components/chat-input.tsx:265
+#: src/features/chats/components/chat-input.tsx:270
 msgid "Voice recording isn't available in this app version. Please update the app and try again."
 msgstr "التسجيل الصوتي غير متاح في هذا الإصدار من التطبيق. يرجى تحديث التطبيق والمحاولة مرة أخرى."
 
@@ -2549,11 +2621,11 @@ msgstr "لديك بالفعل محادثة مع هذا الصديق"
 msgid "You already have chats with:"
 msgstr "لديك بالفعل محادثات مع:"
 
-#: src/features/chats/index.tsx:954
+#: src/features/chats/index.tsx:956
 msgid "You can attach at most {CAPTIONS_MAX} files to a message"
 msgstr "يمكنك إرفاق {CAPTIONS_MAX} ملف كحد أقصى بالرسالة"
 
-#: src/features/chats/index.tsx:950
+#: src/features/chats/index.tsx:952
 msgid "You can mention at most {MENTIONS_MAX} people in a message"
 msgstr "يمكنك ذكر {MENTIONS_MAX} شخص كحد أقصى في الرسالة"
 
@@ -2569,7 +2641,7 @@ msgstr "ليس لديك صلاحية الوصول إلى هذا القسم."
 msgid "You don't have necessary permission <0/>to view this resource."
 msgstr "ليس لديك الإذن اللازم <0/>لعرض هذا المورد."
 
-#: src/features/chats/index.tsx:1269
+#: src/features/chats/index.tsx:1281
 msgid "You left this chat"
 msgstr "لقد غادرت هذه المحادثة"
 
@@ -2577,7 +2649,7 @@ msgstr "لقد غادرت هذه المحادثة"
 msgid "You submitted the following values:"
 msgstr "لقد أرسلت القيم التالية:"
 
-#: src/features/chats/index.tsx:1268
+#: src/features/chats/index.tsx:1280
 msgid "You were removed from this chat"
 msgstr "تمت إزالتك من هذه المحادثة"
 
@@ -2585,7 +2657,7 @@ msgstr "تمت إزالتك من هذه المحادثة"
 msgid "You're all caught up!"
 msgstr "لقد اطّلعت على كل شيء!"
 
-#: ../../../lib/web/src/components/restore-banner.tsx:91
+#: ../../../lib/web/src/components/restore-banner.tsx:106
 msgid "Your account was moved here from {source}. Until you delete it there, messages and notifications may reach both servers, some of your content keeps being served from the old server, and followers may take a few minutes to find you here."
 msgstr "تم نقل حسابك إلى هنا من {source}. حتى تحذفه من هناك، قد تصل الرسائل والإشعارات إلى كلا الخادمين، وقد يظل بعض محتواك يُقدَّم من الخادم القديم، وقد يستغرق المتابعون بضع دقائق للعثور عليك هنا."
 

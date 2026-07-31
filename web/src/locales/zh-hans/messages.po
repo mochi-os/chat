@@ -32,7 +32,7 @@ msgid "{0, plural, one {# selected} other {# selected}}"
 msgstr "{0, plural, one {已选 #} other {已选 #}}"
 
 #. placeholder {0}: deleteTargetIds?.length ?? 0
-#: src/features/chats/index.tsx:1356
+#: src/features/chats/index.tsx:1369
 msgid "{0, plural, one {Delete message?} other {Delete # messages?}}"
 msgstr "{0, plural, other {删除 # 条消息？}}"
 
@@ -49,7 +49,7 @@ msgstr "{0} 选项预览"
 #. placeholder {0}: selectedIds.size
 #. placeholder {0}: selectedIds?.size ?? 0
 #: src/features/chats/components/chat-message-list.tsx:816
-#: src/features/chats/index.tsx:1226
+#: src/features/chats/index.tsx:1238
 msgid "{0} selected"
 msgstr "已选择 {0} 条"
 
@@ -67,7 +67,7 @@ msgstr "{entityLabel}名称"
 msgid "{entityLabel} name is required"
 msgstr "{entityLabel}名称为必填项"
 
-#: src/features/chats/components/message-attachments.tsx:140
+#: src/features/chats/components/message-attachments.tsx:143
 msgid "{hiddenCount, plural, one {Show 1 more file} other {Show # more files}}"
 msgstr "{hiddenCount, plural, other {显示另外 # 个文件}}"
 
@@ -75,6 +75,10 @@ msgstr "{hiddenCount, plural, other {显示另外 # 个文件}}"
 #: src/features/chats/components/chat-message-list.tsx:868
 msgid "{newMessageCount, plural, one {Jump to 1 new message} other {Jump to # new messages}}"
 msgstr "{newMessageCount, plural, other {跳至 # 条新消息}}"
+
+#: ../../../lib/web/src/components/game/game-draw-offer-banner.tsx:29
+msgid "{opponentName} offered a draw"
+msgstr "{opponentName} 提议和棋"
 
 #: ../../../lib/web/src/components/data-table/bulk-actions.tsx:210
 msgid "{selectedCount, plural, one {{entityName} selected} other {{manyName} selected}}"
@@ -96,13 +100,18 @@ msgstr "{selectedCount, plural, one {对已选择的 # 个 {entityName} 执行�
 msgid "{sentLabel} of {totalLabel}"
 msgstr "{sentLabel} / {totalLabel}"
 
-#: src/features/chats/index.tsx:869
+#: src/features/chats/index.tsx:871
 msgid "{skippedCount, plural, one {Skipped # file that is not audio} other {Skipped # files that are not audio}}"
 msgstr "{skippedCount, plural, other {已跳过 # 个非音频文件}}"
 
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx:132
 msgid "{unreadCount, plural, one {Open menu (# unread notification)} other {Open menu (# unread notifications)}}"
 msgstr "{unreadCount, plural, one {打开菜单（# 条未读通知）} other {打开菜单（# 条未读通知）}}"
+
+#. placeholder {0}: countDeepChildren(object.id)
+#: ../../../lib/web/src/components/entity/entity-board-card.tsx:421
+msgid "+{0} nested"
+msgstr "+{0} 个嵌套"
 
 #: ../../../lib/web/src/lib/preference-utils.ts:42
 msgid "12 hours"
@@ -112,13 +121,17 @@ msgstr "12 小时"
 msgid "24 hours"
 msgstr "24 小时"
 
-#: src/features/chats/components/chat-input.tsx:314
+#: src/features/chats/components/chat-input.tsx:319
 msgid "A recording is already in progress."
 msgstr "已有录音正在进行。"
 
 #: ../../../lib/web/src/lib/preference-utils.ts:51
 msgid "Absolute (date and time)"
 msgstr "绝对(日期和时间)"
+
+#: ../../../lib/web/src/components/game/game-draw-offer-banner.tsx:45
+msgid "Accept"
+msgstr "接受"
 
 #: ../../../lib/web/src/features/errors/general-error.tsx:60
 msgid "Access denied"
@@ -148,6 +161,7 @@ msgstr "账户类型"
 msgid "Account verified"
 msgstr "账户已验证"
 
+#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:717
 #: ../../../lib/web/src/features/access/access-dialog.tsx:332
 #: ../../../lib/web/src/features/accounts/account-add.tsx:196
 msgid "Add"
@@ -175,10 +189,18 @@ msgstr "添加账户"
 msgid "Add an account to receive notifications and use services."
 msgstr "添加账户以接收通知并使用服务。"
 
-#: src/features/chats/components/chat-input.tsx:777
-#: src/features/chats/components/chat-input.tsx:783
+#: src/features/chats/components/chat-input.tsx:782
+#: src/features/chats/components/chat-input.tsx:788
 msgid "Add attachment"
 msgstr "添加附件"
+
+#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:687
+msgid "Add checklist item"
+msgstr "添加清单项"
+
+#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:705
+msgid "Add item..."
+msgstr "添加条目..."
 
 #: src/routes/_authenticated/$chatId_.settings.tsx:262
 #: src/routes/_authenticated/$chatId_.settings.tsx:444
@@ -292,7 +314,7 @@ msgid "Anyone who is logged in"
 msgstr "任何已登录的人"
 
 #. placeholder {0}: selectedChat?.name
-#: src/features/chats/index.tsx:1324
+#: src/features/chats/index.tsx:1337
 msgid "Are you sure you want to leave \"{0}\"? You can be added back by other members."
 msgstr "确定要离开\"{0}\"吗？其他成员可以重新添加您。"
 
@@ -317,7 +339,7 @@ msgstr "升序"
 msgid "Ascending"
 msgstr "升序"
 
-#: src/features/chats/components/chat-input.tsx:594
+#: src/features/chats/components/chat-input.tsx:599
 #: src/features/chats/components/message-quote.tsx:56
 msgid "Attachment"
 msgstr "附件"
@@ -326,7 +348,7 @@ msgstr "附件"
 msgid "Attachments are too large to upload. Remove or shrink files and try again."
 msgstr "附件过大，无法上传。请移除或压缩文件后重试。"
 
-#: src/features/chats/components/chat-input.tsx:796
+#: src/features/chats/components/chat-input.tsx:801
 msgid "Audio"
 msgstr "音频"
 
@@ -371,6 +393,11 @@ msgstr "横幅"
 msgid "Be the first to say something!"
 msgstr "来说第一句话吧！"
 
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:156
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:166
+msgid "Blocked navigation to untrusted link"
+msgstr "已阻止跳转到不可信链接"
+
 #: ../../../lib/web/src/components/post-tags.tsx:180
 #: ../../../lib/web/src/components/post-tags.tsx:192
 msgid "Boost interest"
@@ -394,12 +421,12 @@ msgstr "浏览器通知"
 #: src/features/chats/components/chat-settings-dialog.tsx:116
 #: src/features/chats/components/forward-dialog.tsx:253
 #: src/features/chats/components/new-chat.tsx:354
-#: src/features/chats/index.tsx:1258
+#: src/features/chats/index.tsx:1270
 msgid "Cancel"
 msgstr "取消"
 
-#: src/features/chats/components/chat-input.tsx:604
 #: src/features/chats/components/chat-input.tsx:609
+#: src/features/chats/components/chat-input.tsx:614
 msgid "Cancel reply"
 msgstr "取消回复"
 
@@ -415,7 +442,7 @@ msgstr "更改通知分类"
 #: src/features/chats/index.tsx:89
 #: src/features/chats/index.tsx:197
 #: src/features/chats/index.tsx:197
-#: src/features/chats/index.tsx:1035
+#: src/features/chats/index.tsx:1047
 msgid "Chat"
 msgstr "聊天"
 
@@ -423,7 +450,7 @@ msgstr "聊天"
 msgid "Chat created"
 msgstr "聊天已创建"
 
-#: src/features/chats/index.tsx:820
+#: src/features/chats/index.tsx:822
 msgid "Chat deleted"
 msgstr "聊天已删除"
 
@@ -472,8 +499,8 @@ msgstr "聊天就绪"
 msgid "Chat renamed"
 msgstr "聊天已重命名"
 
-#: src/features/chats/index.tsx:1040
-#: src/features/chats/index.tsx:1138
+#: src/features/chats/index.tsx:1052
+#: src/features/chats/index.tsx:1150
 #: src/routes/_authenticated/$chatId_.settings.tsx:89
 #: src/routes/_authenticated/$chatId_.settings.tsx:102
 #: src/routes/_authenticated/$chatId_.settings.tsx:113
@@ -481,7 +508,7 @@ msgstr "聊天已重命名"
 msgid "Chat settings"
 msgstr "聊天设置"
 
-#: src/features/chats/components/chat-input.tsx:802
+#: src/features/chats/components/chat-input.tsx:807
 msgid "Chat text box"
 msgstr "聊天文本框"
 
@@ -505,6 +532,10 @@ msgstr "选择一个聊天或好友以转发所选消息"
 #: src/features/chats/components/chat-empty-state.tsx:23
 msgid "Choose a conversation from the sidebar or start a new one."
 msgstr "从侧边栏选择一个会话或开始新的会话。"
+
+#: ../../../lib/web/src/components/game/game-empty-state.tsx:38
+msgid "Choose a game from the sidebar or start a new one."
+msgstr "从侧边栏选择一个游戏或开始新游戏。"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:329
 msgid "Choose between default expanded, compact icon-only, or full layout mode"
@@ -658,13 +689,13 @@ msgstr "已复制到剪贴板"
 
 #: ../../../lib/web/src/components/ui/copy-button.tsx:64
 #: src/features/chats/components/message-hover-actions.tsx:107
-#: src/features/chats/index.tsx:1235
+#: src/features/chats/index.tsx:1247
 msgid "Copy"
 msgstr "复制"
 
 #. placeholder {0}: ambiguous.join(', ')
 #. placeholder {1}: unknown.join(', ')
-#: src/features/chats/index.tsx:975
+#: src/features/chats/index.tsx:977
 msgid "Could not link mentions. Multiple people share: {0}. Not in this chat: {1}. Pick from the @ list."
 msgstr "无法关联提及。多人同名：{0}。不在此聊天中：{1}。请从 @ 列表中选择。"
 
@@ -733,6 +764,10 @@ msgstr "深色模式"
 msgid "Data conflict"
 msgstr "数据冲突"
 
+#: ../../../lib/web/src/components/game/game-draw-offer-banner.tsx:41
+msgid "Decline"
+msgstr "拒绝"
+
 #: ../../../lib/web/src/components/config-drawer.tsx:311
 msgid "Default"
 msgstr "默认"
@@ -742,31 +777,31 @@ msgid "Default AI account"
 msgstr "默认 AI 账户"
 
 #: src/features/chats/components/message-hover-actions.tsx:146
-#: src/features/chats/index.tsx:1251
-#: src/features/chats/index.tsx:1368
+#: src/features/chats/index.tsx:1263
+#: src/features/chats/index.tsx:1381
 msgid "Delete"
 msgstr "删除"
 
-#: src/features/chats/index.tsx:1121
-#: src/features/chats/index.tsx:1282
+#: src/features/chats/index.tsx:1133
+#: src/features/chats/index.tsx:1294
 msgid "Delete chat"
 msgstr "删除聊天"
 
-#: src/features/chats/index.tsx:1346
+#: src/features/chats/index.tsx:1359
 #: src/routes/_authenticated/$chatId_.settings.tsx:378
 msgid "Delete chat history"
 msgstr "删除聊天记录"
 
-#: ../../../lib/web/src/components/restore-banner.tsx:99
+#: ../../../lib/web/src/components/restore-banner.tsx:115
 msgid "Delete your account on the old server"
 msgstr "删除旧服务器上的账户"
 
-#: src/features/chats/index.tsx:819
+#: src/features/chats/index.tsx:821
 msgid "Deleting chat..."
 msgstr "正在删除聊天..."
 
 #: src/features/chats/index.tsx:678
-#: src/features/chats/index.tsx:1365
+#: src/features/chats/index.tsx:1378
 msgid "Deleting..."
 msgstr "删除中..."
 
@@ -821,8 +856,8 @@ msgstr "放弃"
 msgid "Discard draft?"
 msgstr "放弃草稿?"
 
-#: src/features/chats/components/chat-input.tsx:728
 #: src/features/chats/components/chat-input.tsx:733
+#: src/features/chats/components/chat-input.tsx:738
 msgid "Discard recording"
 msgstr "丢弃录音"
 
@@ -835,8 +870,8 @@ msgstr "已断开"
 msgid "Dislike"
 msgstr "不喜欢"
 
-#: ../../../lib/web/src/components/restore-banner.tsx:79
-#: ../../../lib/web/src/components/restore-banner.tsx:85
+#: ../../../lib/web/src/components/restore-banner.tsx:94
+#: ../../../lib/web/src/components/restore-banner.tsx:100
 msgid "Dismiss"
 msgstr "关闭"
 
@@ -844,7 +879,7 @@ msgstr "关闭"
 msgid "Displays the mobile sidebar."
 msgstr "显示移动端侧边栏。"
 
-#: src/features/chats/components/chat-input.tsx:790
+#: src/features/chats/components/chat-input.tsx:795
 msgid "Document"
 msgstr "文档"
 
@@ -879,7 +914,7 @@ msgid "Edit {label}"
 msgstr "编辑 {label}"
 
 #. placeholder {0}: formatVideoDuration(recordingDuration)
-#: src/features/chats/components/chat-input.tsx:741
+#: src/features/chats/components/chat-input.tsx:746
 msgid "Elapsed {0}"
 msgstr "已过 {0}"
 
@@ -952,7 +987,7 @@ msgstr "创建聊天失败"
 msgid "Failed to delete"
 msgstr "删除失败"
 
-#: src/features/chats/index.tsx:821
+#: src/features/chats/index.tsx:823
 msgid "Failed to delete chat"
 msgstr "删除聊天失败"
 
@@ -964,7 +999,7 @@ msgstr "无法编辑消息"
 msgid "Failed to forward"
 msgstr "转发失败"
 
-#: src/features/chats/index.tsx:802
+#: src/features/chats/index.tsx:804
 #: src/routes/_authenticated/$chatId_.settings.tsx:339
 msgid "Failed to leave chat"
 msgstr "退出聊天失败"
@@ -1029,7 +1064,7 @@ msgstr "更新分类失败"
 msgid "Filter..."
 msgstr "筛选..."
 
-#: ../../../lib/web/src/components/restore-banner.tsx:88
+#: ../../../lib/web/src/components/restore-banner.tsx:103
 msgid "Finish moving your account"
 msgstr "完成账户迁移"
 
@@ -1043,7 +1078,7 @@ msgstr "浮动"
 
 #: src/features/chats/components/forward-dialog.tsx:264
 #: src/features/chats/components/message-hover-actions.tsx:138
-#: src/features/chats/index.tsx:1243
+#: src/features/chats/index.tsx:1255
 msgid "Forward"
 msgstr "转发"
 
@@ -1163,7 +1198,7 @@ msgid "Including anonymous users"
 msgstr "包括匿名用户"
 
 #: src/features/chats/components/chat-settings-dialog.tsx:80
-#: src/features/chats/index.tsx:1144
+#: src/features/chats/index.tsx:1156
 msgid "Incoming chats"
 msgstr "收到的聊天"
 
@@ -1182,6 +1217,10 @@ msgstr "嵌入"
 #: ../../../lib/web/src/components/ui/sort-selector.tsx:42
 msgid "Interests"
 msgstr "兴趣"
+
+#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:550
+msgid "Invalid date"
+msgstr "日期无效"
 
 #: ../../../lib/web/src/components/tag-input.tsx:38
 msgid "Invalid tag: letters, numbers, spaces, hyphens, and slashes only (max 50 chars)"
@@ -1222,31 +1261,31 @@ msgstr "布局"
 msgid "Learn more"
 msgstr "了解更多"
 
-#: src/features/chats/index.tsx:1332
+#: src/features/chats/index.tsx:1345
 msgid "Leave"
 msgstr "离开"
 
-#: src/features/chats/index.tsx:1128
+#: src/features/chats/index.tsx:1140
 #: src/routes/_authenticated/$chatId_.settings.tsx:364
 msgid "Leave chat"
 msgstr "退出聊天"
 
-#: src/features/chats/index.tsx:1323
+#: src/features/chats/index.tsx:1336
 #: src/routes/_authenticated/$chatId_.settings.tsx:355
 msgid "Leave chat?"
 msgstr "退出聊天?"
 
-#: src/features/chats/index.tsx:800
+#: src/features/chats/index.tsx:802
 #: src/routes/_authenticated/$chatId_.settings.tsx:337
 msgid "Leaving chat..."
 msgstr "正在退出聊天..."
 
-#: src/features/chats/index.tsx:1329
+#: src/features/chats/index.tsx:1342
 #: src/routes/_authenticated/$chatId_.settings.tsx:361
 msgid "Leaving..."
 msgstr "正在退出..."
 
-#: src/features/chats/index.tsx:801
+#: src/features/chats/index.tsx:803
 #: src/routes/_authenticated/$chatId_.settings.tsx:338
 msgid "Left chat"
 msgstr "已退出聊天"
@@ -1312,8 +1351,8 @@ msgstr "爱心"
 msgid "Manage your connected accounts for notifications and services."
 msgstr "管理用于通知和服务的已连接账户。"
 
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:93
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:100
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:118
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:125
 #: ../../../lib/web/src/components/notifications-dropdown.tsx:224
 msgid "Mark all as read"
 msgstr "全部标为已读"
@@ -1354,6 +1393,10 @@ msgstr "成员"
 msgid "Menu"
 msgstr "菜单"
 
+#: ../../../lib/web/src/components/game/game-chat-input.tsx:35
+msgid "Message"
+msgstr "消息"
+
 #: src/features/chats/components/chat-empty-state.tsx:39
 msgid "Message a friend to start your first chat."
 msgstr "给好友发条消息，开始你的第一次聊天。"
@@ -1376,7 +1419,7 @@ msgid "Message deleted"
 msgstr "消息已删除"
 
 #. placeholder {0}: formatNumber(newMessage.length - MESSAGE_MAX_LENGTH)
-#: src/features/chats/components/chat-input.tsx:914
+#: src/features/chats/components/chat-input.tsx:920
 msgid "Message is {0} characters too long"
 msgstr "消息超出 {0} 个字符"
 
@@ -1389,37 +1432,37 @@ msgstr "消息不可用"
 msgid "Metric"
 msgstr "公制"
 
-#: src/features/chats/components/chat-input.tsx:321
+#: src/features/chats/components/chat-input.tsx:326
 msgid "Microphone access denied"
 msgstr "麦克风访问被拒绝"
 
-#: src/features/chats/components/chat-input.tsx:298
+#: src/features/chats/components/chat-input.tsx:303
 msgid "Microphone access is blocked here. Please update the app and try again."
 msgstr "此处麦克风访问被阻止。请更新应用后重试。"
 
-#: src/features/chats/components/chat-input.tsx:295
-#: src/features/chats/components/chat-input.tsx:342
-#: src/features/chats/components/chat-input.tsx:389
+#: src/features/chats/components/chat-input.tsx:300
+#: src/features/chats/components/chat-input.tsx:347
+#: src/features/chats/components/chat-input.tsx:394
 msgid "Microphone access requires a secure context (HTTPS or localhost)"
 msgstr "麦克风访问需要安全环境（HTTPS 或 localhost）"
 
-#: src/features/chats/components/chat-input.tsx:301
+#: src/features/chats/components/chat-input.tsx:306
 msgid "Microphone access was blocked by the browser"
 msgstr "浏览器阻止了麦克风访问"
 
-#: src/features/chats/components/chat-input.tsx:282
+#: src/features/chats/components/chat-input.tsx:287
 msgid "Microphone constraints could not be satisfied"
 msgstr "无法满足麦克风要求"
 
-#: src/features/chats/components/chat-input.tsx:318
+#: src/features/chats/components/chat-input.tsx:323
 msgid "Microphone error: {message}"
 msgstr "麦克风错误：{message}"
 
-#: src/features/chats/components/chat-input.tsx:278
+#: src/features/chats/components/chat-input.tsx:283
 msgid "Microphone is already in use"
 msgstr "麦克风已在使用中"
 
-#: src/features/chats/components/chat-input.tsx:270
+#: src/features/chats/components/chat-input.tsx:275
 msgid "Microphone permission denied"
 msgstr "麦克风权限被拒绝"
 
@@ -1432,7 +1475,7 @@ msgid "Monday"
 msgstr "星期一"
 
 #. placeholder {0}: ambiguous.join(', ')
-#: src/features/chats/index.tsx:967
+#: src/features/chats/index.tsx:969
 msgid "Multiple people share these names: {0}. Pick them from the @ list so the right person is notified."
 msgstr "多人同名：{0}。请从 @ 列表中选择，以便通知正确的人。"
 
@@ -1462,6 +1505,11 @@ msgstr "新建"
 #: src/features/chats/components/new-chat.tsx:263
 msgid "New chat"
 msgstr "新聊天"
+
+#: ../../../lib/web/src/components/game/game-empty-state.tsx:42
+#: ../../../lib/web/src/components/game/game-empty-state.tsx:54
+msgid "New game"
+msgstr "新游戏"
 
 #: src/features/chats/components/chat-search-header.tsx:108
 msgid "Newer match"
@@ -1496,6 +1544,10 @@ msgstr "未找到好友"
 msgid "No friends yet"
 msgstr "暂无好友"
 
+#: ../../../lib/web/src/components/game/game-empty-state.tsx:51
+msgid "No games yet"
+msgstr "暂无游戏"
+
 #: ../../../lib/web/src/features/access/access-dialog.tsx:241
 msgid "No groups available"
 msgstr "无可用群组"
@@ -1504,7 +1556,7 @@ msgstr "无可用群组"
 msgid "No messages yet"
 msgstr "暂无消息"
 
-#: src/features/chats/components/chat-input.tsx:274
+#: src/features/chats/components/chat-input.tsx:279
 msgid "No microphone found"
 msgstr "未找到麦克风"
 
@@ -1512,6 +1564,7 @@ msgstr "未找到麦克风"
 msgid "No notifications yet"
 msgstr "暂无通知"
 
+#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:336
 #: ../../../lib/web/src/components/person-picker.tsx:84
 #: src/features/chats/components/new-chat.tsx:288
 msgid "No people found"
@@ -1583,7 +1636,7 @@ msgid "Notifications"
 msgstr "通知"
 
 #. placeholder {0}: unread.length
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:86
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:111
 msgid "Notifications: {0}"
 msgstr "通知：{0}"
 
@@ -1617,7 +1670,7 @@ msgstr "打开账户操作"
 msgid "Open actions"
 msgstr "打开操作"
 
-#: src/features/chats/index.tsx:1113
+#: src/features/chats/index.tsx:1125
 msgid "Open chat actions"
 msgstr "打开聊天操作"
 
@@ -1669,7 +1722,7 @@ msgstr "通行密钥"
 msgid "Passkey verification failed. Please try again."
 msgstr "通行密钥验证失败。请重试。"
 
-#: ../../../lib/web/src/components/restore-banner.tsx:135
+#: ../../../lib/web/src/components/restore-banner.tsx:152
 msgid "Passkeys"
 msgstr "通行密钥"
 
@@ -1758,11 +1811,11 @@ msgstr "推送通知"
 msgid "Raised"
 msgstr "凸起"
 
-#: ../../../lib/web/src/components/restore-banner.tsx:107
+#: ../../../lib/web/src/components/restore-banner.tsx:124
 msgid "Re-link your accounts on this server"
 msgstr "在此服务器上重新关联账户"
 
-#: ../../../lib/web/src/components/restore-banner.tsx:129
+#: ../../../lib/web/src/components/restore-banner.tsx:146
 msgid "Re-register your passkeys on this server"
 msgstr "在此服务器上重新注册您的通行密钥"
 
@@ -1779,28 +1832,28 @@ msgstr "推荐"
 msgid "Reconnecting ({retries})..."
 msgstr "正在重新连接 ({retries})..."
 
-#: src/features/chats/components/chat-input.tsx:849
 #: src/features/chats/components/chat-input.tsx:854
+#: src/features/chats/components/chat-input.tsx:859
 msgid "Record voice note"
 msgstr "录制语音留言"
 
-#: src/features/chats/components/chat-input.tsx:310
+#: src/features/chats/components/chat-input.tsx:315
 msgid "Recording failed. Please try again."
 msgstr "录音失败。请重试。"
 
-#: src/features/chats/components/chat-input.tsx:326
+#: src/features/chats/components/chat-input.tsx:331
 msgid "Recording is too large to send"
 msgstr "录音太大，无法发送"
 
-#: src/features/chats/components/chat-input.tsx:306
+#: src/features/chats/components/chat-input.tsx:311
 msgid "Recording produced no audio"
 msgstr "录音没有声音"
 
-#: src/features/chats/components/chat-input.tsx:232
+#: src/features/chats/components/chat-input.tsx:237
 msgid "Recording stopped at the 5-minute limit"
 msgstr "录音在 5 分钟上限处停止"
 
-#: src/features/chats/components/chat-input.tsx:718
+#: src/features/chats/components/chat-input.tsx:723
 msgid "Recording voice note"
 msgstr "正在录制语音留言"
 
@@ -1830,7 +1883,7 @@ msgstr "移除"
 
 #. placeholder {0}: attachment.file.name
 #. placeholder {0}: reaction.label
-#: src/features/chats/components/chat-input.tsx:696
+#: src/features/chats/components/chat-input.tsx:701
 #: src/features/chats/components/message-reaction-bar.tsx:121
 msgid "Remove {0}"
 msgstr "移除 {0}"
@@ -1864,6 +1917,10 @@ msgstr "移除音频"
 msgid "Remove interest"
 msgstr "移除兴趣"
 
+#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:671
+msgid "Remove item"
+msgstr "移除条目"
+
 #: src/routes/_authenticated/$chatId_.settings.tsx:547
 msgid "Remove member?"
 msgstr "移除成员?"
@@ -1889,7 +1946,7 @@ msgid "Reply"
 msgstr "回复"
 
 #. placeholder {0}: replyTo.name
-#: src/features/chats/components/chat-input.tsx:585
+#: src/features/chats/components/chat-input.tsx:590
 msgid "Replying to {0}"
 msgstr "正在回复 {0}"
 
@@ -1984,7 +2041,7 @@ msgstr "搜索好友…"
 msgid "Search in chat..."
 msgstr "在聊天中搜索..."
 
-#: src/features/chats/index.tsx:1103
+#: src/features/chats/index.tsx:1115
 msgid "Search messages"
 msgstr "搜索消息"
 
@@ -2032,6 +2089,10 @@ msgstr "选择对话"
 #: src/routes/_authenticated/$chatId_.settings.tsx:447
 msgid "Select a friend to add to this chat."
 msgstr "选择一位好友加入此对话。"
+
+#: ../../../lib/web/src/components/game/game-empty-state.tsx:37
+msgid "Select a game"
+msgstr "选择游戏"
 
 #: ../../../lib/web/src/features/access/access-dialog.tsx:150
 msgid "Select a user, group, or other rule to grant access."
@@ -2089,11 +2150,16 @@ msgstr "选择站点方向"
 msgid "Select theme preference"
 msgstr "选择主题偏好"
 
+#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:252
+#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:335
+msgid "Select..."
+msgstr "选择..."
+
 #: ../../../lib/web/src/components/data-table/bulk-actions.tsx:216
 msgid "selected"
 msgstr "项已选择"
 
-#: src/features/chats/index.tsx:1206
+#: src/features/chats/index.tsx:1218
 msgid "Selected the newest {BULK_MESSAGES_MAX} messages, the most that can be forwarded or deleted at once"
 msgstr "已选择最新的 {BULK_MESSAGES_MAX} 条消息，这是一次可转发或删除的上限"
 
@@ -2114,8 +2180,10 @@ msgstr "再次发送"
 msgid "Send email"
 msgstr "发送邮件"
 
-#: src/features/chats/components/chat-input.tsx:864
-#: src/features/chats/components/chat-input.tsx:873
+#: ../../../lib/web/src/components/game/game-chat-input.tsx:52
+#: ../../../lib/web/src/components/game/game-chat-input.tsx:61
+#: src/features/chats/components/chat-input.tsx:869
+#: src/features/chats/components/chat-input.tsx:878
 msgid "Send message"
 msgstr "发送消息"
 
@@ -2149,7 +2217,7 @@ msgstr "设置起点和终点"
 msgid "Settings"
 msgstr "设置"
 
-#: src/features/chats/components/message-attachments.tsx:138
+#: src/features/chats/components/message-attachments.tsx:141
 #: src/features/chats/components/message-body.tsx:74
 msgid "Show less"
 msgstr "收起"
@@ -2202,8 +2270,8 @@ msgstr "正在开始聊天..."
 msgid "Stay tuned though!"
 msgstr "敬请期待!"
 
-#: src/features/chats/components/chat-input.tsx:758
 #: src/features/chats/components/chat-input.tsx:763
+#: src/features/chats/components/chat-input.tsx:768
 msgid "Stop recording"
 msgstr "停止录音"
 
@@ -2283,7 +2351,7 @@ msgid "Theme Settings"
 msgstr "主题设置"
 
 #. placeholder {0}: unknown.join(', ')
-#: src/features/chats/index.tsx:971
+#: src/features/chats/index.tsx:973
 msgid "These names are not in this chat: {0}. Pick from the @ list or remove them."
 msgstr "这些名字不在此聊天中：{0}。请从 @ 列表中选择或移除。"
 
@@ -2295,7 +2363,7 @@ msgstr "此聊天"
 msgid "This chat may have been deleted or you don't have access to it"
 msgstr "此聊天可能已被删除,或者你没有访问权限"
 
-#: src/features/chats/index.tsx:1360
+#: src/features/chats/index.tsx:1373
 msgid "This deletes the message for everyone and cannot be undone."
 msgstr "这将为所有人删除该消息，且无法撤销。"
 
@@ -2382,6 +2450,10 @@ msgstr "星期二"
 msgid "Type a command or search..."
 msgstr "输入命令或搜索..."
 
+#: ../../../lib/web/src/components/game/game-chat-input.tsx:39
+msgid "Type a message…"
+msgstr "输入消息…"
+
 #: ../../../lib/web/src/features/access/access-dialog.tsx:191
 msgid "Type to search users"
 msgstr "输入以搜索用户"
@@ -2390,11 +2462,11 @@ msgstr "输入以搜索用户"
 msgid "Type to search..."
 msgstr "输入以搜索..."
 
-#: src/features/chats/components/chat-input.tsx:809
+#: src/features/chats/components/chat-input.tsx:814
 msgid "Type your message…"
 msgstr "输入您的消息…"
 
-#: src/features/chats/components/chat-input.tsx:808
+#: src/features/chats/components/chat-input.tsx:813
 msgid "Type your reply…"
 msgstr "输入你的回复…"
 
@@ -2490,8 +2562,8 @@ msgstr "查看"
 msgid "View all"
 msgstr "查看全部"
 
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:106
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:114
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:131
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:139
 msgid "View all notifications"
 msgstr "查看所有通知"
 
@@ -2499,16 +2571,16 @@ msgstr "查看所有通知"
 msgid "Voice note waveform"
 msgstr "语音留言波形"
 
-#: src/features/chats/components/chat-input.tsx:369
+#: src/features/chats/components/chat-input.tsx:374
 msgid "Voice recording is currently unavailable. Please check your setup and try again."
 msgstr "语音录制当前不可用。请检查您的设置后重试。"
 
-#: src/features/chats/components/chat-input.tsx:290
-#: src/features/chats/components/chat-input.tsx:395
+#: src/features/chats/components/chat-input.tsx:295
+#: src/features/chats/components/chat-input.tsx:400
 msgid "Voice recording is not supported in this browser"
 msgstr "此浏览器不支持语音录制"
 
-#: src/features/chats/components/chat-input.tsx:265
+#: src/features/chats/components/chat-input.tsx:270
 msgid "Voice recording isn't available in this app version. Please update the app and try again."
 msgstr "此版本的应用不支持语音录制。请更新应用后重试。"
 
@@ -2549,11 +2621,11 @@ msgstr "您已与此好友建立对话"
 msgid "You already have chats with:"
 msgstr "你已经与以下人员有聊天:"
 
-#: src/features/chats/index.tsx:954
+#: src/features/chats/index.tsx:956
 msgid "You can attach at most {CAPTIONS_MAX} files to a message"
 msgstr "一条消息最多可以附加 {CAPTIONS_MAX} 个文件"
 
-#: src/features/chats/index.tsx:950
+#: src/features/chats/index.tsx:952
 msgid "You can mention at most {MENTIONS_MAX} people in a message"
 msgstr "一条消息最多可以提及 {MENTIONS_MAX} 人"
 
@@ -2569,7 +2641,7 @@ msgstr "您无权访问此部分。"
 msgid "You don't have necessary permission <0/>to view this resource."
 msgstr "您没有查看此资源 <0/>所需的权限。"
 
-#: src/features/chats/index.tsx:1269
+#: src/features/chats/index.tsx:1281
 msgid "You left this chat"
 msgstr "你已离开此聊天"
 
@@ -2577,7 +2649,7 @@ msgstr "你已离开此聊天"
 msgid "You submitted the following values:"
 msgstr "您提交了以下值："
 
-#: src/features/chats/index.tsx:1268
+#: src/features/chats/index.tsx:1280
 msgid "You were removed from this chat"
 msgstr "你已被移出此聊天"
 
@@ -2585,7 +2657,7 @@ msgstr "你已被移出此聊天"
 msgid "You're all caught up!"
 msgstr "全部已读！"
 
-#: ../../../lib/web/src/components/restore-banner.tsx:91
+#: ../../../lib/web/src/components/restore-banner.tsx:106
 msgid "Your account was moved here from {source}. Until you delete it there, messages and notifications may reach both servers, some of your content keeps being served from the old server, and followers may take a few minutes to find you here."
 msgstr "您的账户已从 {source} 迁移至此。在您于那里删除之前，消息和通知可能会同时到达两个服务器，您的部分内容仍会从旧服务器提供，关注者可能需要几分钟才能在此找到您。"
 
