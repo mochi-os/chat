@@ -1318,12 +1318,12 @@ def chat_forward_into(a, source_id, target_id, source_messages):
 		mochi.db.execute("replace into messages ( id, chat, member, name, body, created ) values ( ?, ?, ?, ?, ?, ? )", new_id, target_id, a.user.identity.id, a.user.identity.name, source_message["body"], now_forward)
 		mochi.db.execute("update chats set updated=? where id=?", now_forward, target_id)
 
-		# Copy attachment bytes into the new message's object.
+		# Copy attachment bytes into the new message's object. attachment_copy
+		# streams file to file: an attachment may be as large as the uploader's
+		# remaining quota, and reading one into memory to write it back would
+		# charge that to a process every user on this host shares.
 		for att in attachment_list("chat/" + source_id + "/" + source_message["id"]) or []:
-			data = attachment_data(att["id"], a.user.identity.id)
-			if data == None:
-				continue
-			attachment_create("chat/" + target_id + "/" + new_id, att["name"], data, att.get("type", ""))
+			attachment_copy(att["id"], "chat/" + target_id + "/" + new_id, a.user.identity.id)
 		new_attachments = attachment_list("chat/" + target_id + "/" + new_id)
 
 		mochi.db.commit.fire("messages", "insert", new_id)
