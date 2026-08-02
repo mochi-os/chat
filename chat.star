@@ -129,7 +129,7 @@ def chat_commit_hook(table, kind, row_uid):
 	chat = mochi.db.row("select key from chats where id=?", message["chat"])
 	if not chat:
 		return
-	attachments = attachment_list("chat/" + message["chat"] + "/" + message["id"])
+	attachments = attachment_list("chat/" + message["chat"] + "/" + message["id"], message["chat"])
 	chat_websocket(chat["key"], {
 		"id": message["id"],
 		"created": message["created"],
@@ -617,7 +617,7 @@ def serve_attachment(a, variant):
 	# attachment's object is "chat/<chat_id>/<message_id>", so a prefix check
 	# binds it to this chat and blocks fetching another chat's file by id.
 	prefix = "chat/" + chat["id"] + "/"
-	attachment_serve(a, attachment, chat["id"], lambda container: True, variant=variant,
+	attachment_serve(a, attachment, chat["id"], variant=variant,
 		member=lambda object: object.startswith(prefix))
 
 # P2P byte-pull responder. A member on another host stores a message's
@@ -710,7 +710,7 @@ def action_messages(a):
 			m["attachments"] = []
 		else:
 			m["deleted"] = False
-			m["attachments"] = attachment_list("chat/" + chat["id"] + "/" + m["id"])
+			m["attachments"] = attachment_list("chat/" + chat["id"] + "/" + m["id"], chat["id"])
 
 	# Reaction counts + the viewer's own reaction, for non-deleted messages.
 	messages_attach_reactions(chat["id"], [m for m in messages if not m["deleted"]], a.user.identity.id)
@@ -1300,7 +1300,7 @@ def chat_collect_forwardable(source_id, raw_ids):
 def chat_forward_allowed(a, source_id, source_messages):
 	total = 0
 	for source_message in source_messages:
-		total += len(attachment_list("chat/" + source_id + "/" + source_message["id"]) or [])
+		total += len(attachment_list("chat/" + source_id + "/" + source_message["id"], source_id) or [])
 		if total > _FORWARD_ATTACHMENTS_MAXIMUM:
 			a.error.label(400, "errors.too_many_attachments", maximum=_FORWARD_ATTACHMENTS_MAXIMUM)
 			return False
@@ -1322,9 +1322,9 @@ def chat_forward_into(a, source_id, target_id, source_messages):
 		# streams file to file: an attachment may be as large as the uploader's
 		# remaining quota, and reading one into memory to write it back would
 		# charge that to a process every user on this host shares.
-		for att in attachment_list("chat/" + source_id + "/" + source_message["id"]) or []:
+		for att in attachment_list("chat/" + source_id + "/" + source_message["id"], source_id) or []:
 			attachment_copy(att["id"], "chat/" + target_id + "/" + new_id, a.user.identity.id)
-		new_attachments = attachment_list("chat/" + target_id + "/" + new_id)
+		new_attachments = attachment_list("chat/" + target_id + "/" + new_id, target_id)
 
 		mochi.db.commit.fire("messages", "insert", new_id)
 
@@ -1672,7 +1672,7 @@ def event_message(e):
 	attachments = e.content("attachments") or []
 	if attachments:
 		attachment_store(attachments, e.header("from"), "chat/" + chat["id"] + "/" + id)
-		attachments = attachment_list("chat/" + chat["id"] + "/" + id)
+		attachments = attachment_list("chat/" + chat["id"] + "/" + id, chat["id"])
 
 	# Live-update websocket: routes through chat_commit_hook now that
 	# both action_send (the sender's host) and event_message (every
