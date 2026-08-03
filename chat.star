@@ -196,7 +196,12 @@ def database_upgrade(version):
 		# (drop if exists), so an install that did run version 3 is unharmed.
 		for table in ["sequence", "log", "acknowledged", "received"]:
 			mochi.db.execute("drop table if exists " + table)
-	if version == 5 or version == 6:
+	if version == 5 or version == 6 or version == 7:
+		# The last number re-issues the step: a server that installed the
+		# first library version ahead of its core update paid both earlier
+		# numbers for a raise inside the bridge call and was left at full
+		# schema with no attachments table. The step is idempotent, so a
+		# healthy database re-running it changes nothing.
 		# Attachments move into this database, owned by the shared library.
 		# Create the table and copy existing rows across the transition bridge;
 		# the migrate helper aborts without advancing the version if the bridge
