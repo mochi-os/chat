@@ -18,13 +18,26 @@ msgstr ""
 msgid "Please check your internet connection and try again."
 msgstr "Kontrolloni lidhjen tuaj me internetin dhe provoni përsëri."
 
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:302
+msgid " or "
+msgstr " ose "
+
+#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:228
 #: src/features/chats/components/chat-message-list.tsx:789
 msgid "(edited)"
 msgstr "(redaktuar)"
 
+#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:212
+msgid "(expand)"
+msgstr "(zgjero)"
+
 #: src/routes/_authenticated/$chatId_.settings.tsx:289
 msgid "(you)"
 msgstr "(ju)"
+
+#: ../../../lib/web/src/components/entity/entity-board-container.tsx:774
+msgid "[not set]"
+msgstr "[i pavendosur]"
 
 #. placeholder {0}: selectedValues.size
 #: ../../../lib/web/src/components/data-table/faceted-filter.tsx:66
@@ -104,6 +117,10 @@ msgstr "{sentLabel} nga {totalLabel}"
 msgid "{skippedCount, plural, one {Skipped # file that is not audio} other {Skipped # files that are not audio}}"
 msgstr "{skippedCount, plural, one {U anashkalua # skedar që nuk është audio} other {U anashkaluan # skedarë që nuk janë audio}}"
 
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:544
+msgid "{totalCount, plural, one {# item} other {# items}}"
+msgstr "{totalCount, plural, one {# artikull} other {# artikuj}}"
+
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx:165
 msgid "{unreadCount, plural, one {Open menu (# unread notification)} other {Open menu (# unread notifications)}}"
 msgstr "{unreadCount, plural, one {Hap menynë (# njoftim i palexuar)} other {Hap menynë (# njoftime të palexuara)}}"
@@ -112,6 +129,14 @@ msgstr "{unreadCount, plural, one {Hap menynë (# njoftim i palexuar)} other {Ha
 #: ../../../lib/web/src/components/entity/entity-board-card.tsx:421
 msgid "+{0} nested"
 msgstr "+{0} të ndërthurura"
+
+#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:209
+msgid "+{totalDescendants} more replies"
+msgstr "+{totalDescendants} përgjigje të tjera"
+
+#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:208
+msgid "1 reply"
+msgstr "1 përgjigje"
 
 #: ../../../lib/web/src/lib/preference-utils.ts:42
 msgid "12 hours"
@@ -172,9 +197,17 @@ msgstr "Shto"
 msgid "Add {0} to chat"
 msgstr "Shto {0} në bisedë"
 
+#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:360
+msgid "Add a comment..."
+msgstr "Shto një koment..."
+
 #: ../../../lib/web/src/features/accounts/account-add.tsx:133
 msgid "Add a new account"
 msgstr "Shto një llogari të re"
+
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:106
+msgid "Add a new field to this class"
+msgstr "Shto një fushë të re në këtë klasë"
 
 #: ../../../lib/web/src/features/access/access-dialog.tsx:148
 msgid "Add access"
@@ -198,9 +231,18 @@ msgstr "Shto bashkëngjitje"
 msgid "Add checklist item"
 msgstr "Shto element të listës"
 
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:105
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:233
+msgid "Add field"
+msgstr "Shto fushë"
+
 #: ../../../lib/web/src/components/entity/entity-field-editor.tsx:705
 msgid "Add item..."
 msgstr "Shto element..."
+
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:320
+msgid "Add link"
+msgstr "Shto lidhje"
 
 #: src/routes/_authenticated/$chatId_.settings.tsx:262
 #: src/routes/_authenticated/$chatId_.settings.tsx:444
@@ -210,6 +252,14 @@ msgstr "Shto anëtar"
 #: ../../../lib/web/src/features/accounts/account-picker.tsx:102
 msgid "Add new account"
 msgstr "Shto llogari të re"
+
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:215
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:220
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:292
+#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:94
+#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:194
+msgid "Add option"
+msgstr "Shto opsion"
 
 #: src/features/chats/components/message-reaction-bar.tsx:85
 #: src/features/chats/components/message-reaction-bar.tsx:92
@@ -229,6 +279,8 @@ msgstr "Shto ekip/aplikacion"
 msgid "Add to existing notifications"
 msgstr "Shto te njoftimet ekzistuese"
 
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:264
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:519
 #: ../../../lib/web/src/components/view-tabs.tsx:87
 #: ../../../lib/web/src/components/view-tabs.tsx:93
 msgid "Add view"
@@ -279,6 +331,10 @@ msgstr "Të gjithë miqtë e tu janë tashmë në këtë bisedë"
 msgid "Allow anyone to search for {0}"
 msgstr "Lejo këdo të kërkojë {0}"
 
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:226
+msgid "Allow sort by"
+msgstr "Lejo renditjen sipas"
+
 #: src/features/chats/constants/reactions.ts:36
 msgid "Amazed"
 msgstr "I mahnitur"
@@ -313,6 +369,19 @@ msgstr "Kushdo mund të nisë një bisedë me ju."
 msgid "Anyone who is logged in"
 msgstr "Kushdo që ka hyrë"
 
+#. placeholder {0}: deleteTarget?.name
+#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:271
+msgid "Are you sure you want to delete \"{0}\"?"
+msgstr "Je i sigurt që do të fshish \"{0}\"?"
+
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:643
+msgid "Are you sure you want to delete the \"{name}\" column? This cannot be undone."
+msgstr "Je i sigurt që do të fshish kolonën \"{name}\"? Kjo nuk mund të zhbëhet."
+
+#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:485
+msgid "Are you sure you want to delete this comment? This will also delete all replies."
+msgstr "Je i sigurt që do të fshish këtë koment? Kjo do të fshijë gjithashtu të gjitha përgjigjet."
+
 #. placeholder {0}: selectedChat?.name
 #: src/features/chats/index.tsx:1337
 msgid "Are you sure you want to leave \"{0}\"? You can be added back by other members."
@@ -338,6 +407,16 @@ msgstr "Rritës"
 #: ../../../lib/web/src/components/ui/sort-direction-button.tsx:27
 msgid "Ascending"
 msgstr "Në rritje"
+
+#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:398
+#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:403
+msgid "Attach comment files"
+msgstr "Bashkëngjit skedarë komenti"
+
+#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:439
+#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:444
+msgid "Attach reply files"
+msgstr "Bashkëngjit skedarë përgjigjeje"
 
 #: src/features/chats/components/chat-input.tsx:599
 #: src/features/chats/components/message-quote.tsx:56
@@ -397,20 +476,41 @@ msgstr "Banner-i"
 msgid "Be the first to say something!"
 msgstr "Bëhu i pari që thotë diçka!"
 
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:68
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:215
+msgid "Blocked by"
+msgstr "Bllokuar nga"
+
 #: ../../../lib/web/src/components/layout/notification-menu.tsx:237
 #: ../../../lib/web/src/components/layout/notification-menu.tsx:247
 msgid "Blocked navigation to untrusted link"
 msgstr "Lundrimi te lidhja e pabesueshme u bllokua"
+
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:66
+msgid "Blocks"
+msgstr "Blloqe"
+
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:318
+msgid "Board"
+msgstr "Tabela"
 
 #: ../../../lib/web/src/components/post-tags.tsx:180
 #: ../../../lib/web/src/components/post-tags.tsx:192
 msgid "Boost interest"
 msgstr "Rrit interesin"
 
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:405
+msgid "Border colour"
+msgstr "Ngjyra e kornizës"
+
 #: ../../../lib/web/src/features/accounts/types.ts:13
 msgid "Browser notifications"
 msgstr "Njoftime të shfletuesit"
 
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:628
+#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:249
+#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:169
+#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:186
 #: ../../../lib/web/src/components/responsive-confirm-dialog.tsx:67
 #: ../../../lib/web/src/components/step-up-dialog.tsx:363
 #: ../../../lib/web/src/components/travelling-picker.tsx:308
@@ -429,6 +529,13 @@ msgstr "Njoftime të shfletuesit"
 msgid "Cancel"
 msgstr "Anulo"
 
+#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:415
+#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:420
+msgid "Cancel comment"
+msgstr "Anulo komentin"
+
+#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:455
+#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:460
 #: src/features/chats/components/chat-input.tsx:609
 #: src/features/chats/components/chat-input.tsx:614
 msgid "Cancel reply"
@@ -529,6 +636,14 @@ msgstr "Bisedat"
 msgid "Check \"All\" to see your past notifications."
 msgstr "Zgjidhni \"Të gjitha\" për të parë njoftimet e mëparshme."
 
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:137
+msgid "Checkbox"
+msgstr "Kuti zgjedhjeje"
+
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:138
+msgid "Checklist"
+msgstr "Listë kontrolli"
+
 #: src/features/chats/components/forward-dialog.tsx:190
 msgid "Choose a chat or friend to forward the selected messages to"
 msgstr "Zgjidh një bisedë ose mik për t'i përcjellë mesazhet e zgjedhura"
@@ -595,12 +710,21 @@ msgstr "Pastro përzgjedhjen"
 msgid "Clear selection (Escape)"
 msgstr "Pastro përzgjedhjen (Escape)"
 
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:485
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:490
 #: ../../../lib/web/src/components/ui/dialog.tsx:78
 #: ../../../lib/web/src/components/ui/image-lightbox.tsx:358
 #: ../../../lib/web/src/components/ui/image-lightbox.tsx:361
 #: ../../../lib/web/src/components/ui/sheet.tsx:79
 msgid "Close"
 msgstr "Mbyll"
+
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:109
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:113
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:269
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:273
+msgid "Close dialog"
+msgstr "Mbyll dialogun"
 
 #: ../../../lib/web/src/components/layout/app-sidebar.tsx:108
 #: ../../../lib/web/src/components/layout/app-sidebar.tsx:113
@@ -632,6 +756,19 @@ msgstr "Palos"
 msgid "Collapse sidebar"
 msgstr "Mbyll anën"
 
+#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:149
+msgid "Colour"
+msgstr "Ngjyra"
+
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:553
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:558
+msgid "Column actions"
+msgstr "Veprimet e kolonës"
+
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:353
+msgid "Columns group by"
+msgstr "Kolonat grupohen sipas"
+
 #: ../../../lib/web/src/lib/preference-utils.ts:96
 msgid "Comfortable"
 msgstr "I rehatshëm"
@@ -644,10 +781,23 @@ msgstr "Së shpejti!"
 msgid "Command Palette"
 msgstr "Paleta e komandave"
 
+#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:330
+#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:337
+msgid "Comment actions"
+msgstr "Veprimet e komentit"
+
 #: ../../../lib/web/src/components/config-drawer.tsx:316
 #: ../../../lib/web/src/lib/preference-utils.ts:95
 msgid "Compact"
 msgstr "Kompakt"
+
+#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:97
+msgid "Configure option settings"
+msgstr "Konfiguro cilësimet e opsionit"
+
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:265
+msgid "Configure view settings"
+msgstr "Konfiguro cilësimet e pamjes"
 
 #: ../../../lib/web/src/components/place-picker.tsx:160
 #: ../../../lib/web/src/components/travelling-picker.tsx:316
@@ -727,6 +877,14 @@ msgstr "Rivërtetimi nuk mund të niste. Ju lutemi provoni përsëri."
 msgid "Couldn't verify with that account. Please try again."
 msgstr "Nuk u verifikua dot me atë llogari. Ju lutemi provoni përsëri."
 
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:564
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:703
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:475
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:647
+#: ../../../lib/web/src/components/entity/entity-tree-view.tsx:672
+msgid "Create"
+msgstr "Krijo"
+
 #. placeholder {0}: entityLabel.toLowerCase()
 #: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:144
 msgid "Create {0}"
@@ -745,10 +903,16 @@ msgstr "Krijo bisedë"
 msgid "Create new item"
 msgstr "Krijo element të ri"
 
+#: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx:56
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:498
+msgid "Created"
+msgstr "U krijua"
+
 #: src/features/chats/components/new-chat.tsx:194
 msgid "Creating chat..."
 msgstr "Po krijohet biseda..."
 
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:647
 #: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:258
 #: src/features/chats/components/new-chat.tsx:365
 msgid "Creating..."
@@ -777,6 +941,10 @@ msgstr "Modë e errët"
 msgid "Data conflict"
 msgstr "Konflikt të dhënash"
 
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:139
+msgid "Date"
+msgstr "Data"
+
 #: ../../../lib/web/src/components/game/game-draw-offer-banner.tsx:41
 msgid "Decline"
 msgstr "Refuzo"
@@ -789,11 +957,28 @@ msgstr "I parazgjedhur"
 msgid "Default AI account"
 msgstr "Llogaria e parazgjedhur AI"
 
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:485
+msgid "Default sort"
+msgstr "Renditja e parazgjedhur"
+
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:583
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:644
+#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:318
+#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:361
+#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:486
+#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:173
+#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:178
+#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:227
+#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:272
 #: src/features/chats/components/message-hover-actions.tsx:146
 #: src/features/chats/index.tsx:1263
 #: src/features/chats/index.tsx:1381
 msgid "Delete"
 msgstr "Fshi"
+
+#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:270
+msgid "Delete attachment"
+msgstr "Fshi bashkëngjitjen"
 
 #: src/features/chats/index.tsx:1133
 #: src/features/chats/index.tsx:1294
@@ -804,6 +989,32 @@ msgstr "Fshi bisedën"
 #: src/routes/_authenticated/$chatId_.settings.tsx:378
 msgid "Delete chat history"
 msgstr "Fshi historinë e bisedës"
+
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:642
+msgid "Delete column"
+msgstr "Fshi kolonën"
+
+#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:484
+msgid "Delete comment"
+msgstr "Fshi komentin"
+
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:301
+msgid "Delete field"
+msgstr "Fshi fushën"
+
+#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:119
+msgid "Delete option"
+msgstr "Fshi opsionin"
+
+#. placeholder {0}: opt.name
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:279
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:284
+msgid "Delete option {0}"
+msgstr "Fshi opsionin {0}"
+
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:290
+msgid "Delete view"
+msgstr "Fshi pamjen"
 
 #: ../../../lib/web/src/components/restore-banner.tsx:115
 msgid "Delete your account on the old server"
@@ -896,6 +1107,12 @@ msgstr "Shfaq anën mobile."
 msgid "Document"
 msgstr "Dokument"
 
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:306
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:524
+msgid "Done"
+msgstr "Përfunduar"
+
+#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:214
 #: ../../../lib/web/src/components/ui/image-lightbox.tsx:342
 #: ../../../lib/web/src/components/ui/image-lightbox.tsx:352
 msgid "Download"
@@ -909,6 +1126,10 @@ msgstr "Shkarkimi dështoi"
 msgid "Draft"
 msgstr "Skicë"
 
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:67
+msgid "Duplicates"
+msgstr "Dublikatat"
+
 #. placeholder {0}: formatTime(displayTime)
 #: src/features/chats/components/audio-player.tsx:262
 msgid "Duration {0}"
@@ -918,6 +1139,8 @@ msgstr "Kohëzgjatja {0}"
 msgid "Dyslexia-friendly"
 msgstr "I përshtatshëm për disleksi"
 
+#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:307
+#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:352
 #: src/features/chats/components/message-hover-actions.tsx:123
 msgid "Edit"
 msgstr "Modifiko"
@@ -926,9 +1149,31 @@ msgstr "Modifiko"
 msgid "Edit {label}"
 msgstr "Modifiko {label}"
 
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:138
+msgid "Edit field"
+msgstr "Modifiko fushën"
+
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:139
+msgid "Edit field settings"
+msgstr "Modifiko cilësimet e fushës"
+
+#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:94
+msgid "Edit option"
+msgstr "Modifiko opsionin"
+
+#. placeholder {0}: opt.name
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:264
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:269
+msgid "Edit option {0}"
+msgstr "Modifiko opsionin {0}"
+
 #: ../../../lib/web/src/components/entity/keyboard-shortcuts-help.tsx:31
 msgid "Edit selected card"
 msgstr "Modifiko kartën e zgjedhur"
+
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:264
+msgid "Edit view"
+msgstr "Modifiko pamjen"
 
 #. placeholder {0}: formatVideoDuration(recordingDuration)
 #: src/features/chats/components/chat-input.tsx:746
@@ -1000,6 +1245,7 @@ msgstr "Kopjimi i mesazhit dështoi"
 msgid "Failed to create chat"
 msgstr "Krijimi i bisedës dështoi"
 
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:137
 #: ../../../lib/web/src/components/options-menu.tsx:99
 msgid "Failed to create link"
 msgstr "Krijimi i lidhjes dështoi"
@@ -1008,9 +1254,21 @@ msgstr "Krijimi i lidhjes dështoi"
 msgid "Failed to delete"
 msgstr "Fshirja dështoi"
 
+#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:110
+msgid "Failed to delete attachment"
+msgstr "Fshirja e bashkëngjitjes dështoi"
+
 #: src/features/chats/index.tsx:823
 msgid "Failed to delete chat"
 msgstr "Fshirja e bisedës dështoi"
+
+#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:207
+msgid "Failed to delete comment"
+msgstr "Fshirja e komentit dështoi"
+
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:159
+msgid "Failed to delete link"
+msgstr "Fshirja e lidhjes dështoi"
 
 #: src/features/chats/index.tsx:588
 msgid "Failed to edit message"
@@ -1053,6 +1311,10 @@ msgstr "Ngarkimi i politikës suaj të bisedës dështoi"
 msgid "Failed to mark chat as read"
 msgstr "Shënimi i bisedës si e lexuar dështoi"
 
+#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:170
+msgid "Failed to post comment"
+msgstr "Postimi i komentit dështoi"
+
 #: src/features/chats/index.tsx:632
 msgid "Failed to react"
 msgstr "Reagimi dështoi"
@@ -1089,6 +1351,20 @@ msgstr "Dërgimi i kodit të verifikimit dështoi"
 msgid "Failed to start chat"
 msgstr "Nisja e bisedës dështoi"
 
+#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:190
+msgid "Failed to update comment"
+msgstr "Përditësimi i komentit dështoi"
+
+#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:95
+msgid "Failed to upload attachment"
+msgstr "Ngarkimi i bashkëngjitjes dështoi"
+
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:567
+#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:133
+#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:150
+msgid "Files"
+msgstr "Skedarët"
+
 #: ../../../lib/web/src/components/data-table/toolbar.tsx:30
 msgid "Filter..."
 msgstr "Filtro..."
@@ -1096,6 +1372,10 @@ msgstr "Filtro..."
 #: ../../../lib/web/src/components/restore-banner.tsx:103
 msgid "Finish moving your account"
 msgstr "Përfundoni lëvizjen e llogarisë suaj"
+
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:222
+msgid "Flags"
+msgstr "Flamujt"
 
 #: ../../../lib/web/src/lib/preference-utils.ts:116
 msgid "Flat"
@@ -1189,6 +1469,10 @@ msgstr "Shko në faqen e mëparshme"
 msgid "Group"
 msgstr "Grupi"
 
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:353
+msgid "Group by"
+msgstr "Grupo sipas"
+
 #. placeholder {0}: name || subject.slice(1)
 #: ../../../lib/web/src/features/access/access-list.tsx:68
 msgid "Group: {0}"
@@ -1216,6 +1500,10 @@ msgstr "Faqja kryesore"
 #: ../../../lib/web/src/components/ui/sort-selector.tsx:44
 msgid "Hot"
 msgstr "Të nxehta"
+
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:153
+msgid "ID"
+msgstr ""
 
 #. placeholder {0}: currentMedia.name
 #: ../../../lib/web/src/components/ui/image-lightbox.tsx:247
@@ -1290,6 +1578,7 @@ msgid "Laugh"
 msgstr "Qesh"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:287
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:312
 msgid "Layout"
 msgstr "Paraqitja"
 
@@ -1349,6 +1638,14 @@ msgstr "Pëlqej"
 msgid "Link"
 msgstr "Lidhje"
 
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:279
+msgid "Links"
+msgstr "Lidhjet"
+
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:324
+msgid "List"
+msgstr "Lista"
+
 #: ../../../lib/web/src/components/ui/load-more.tsx:35
 msgid "Load more"
 msgstr "Ngarko më shumë"
@@ -1393,6 +1690,10 @@ msgstr "Menaxho kategoritë"
 msgid "Manage your connected accounts for notifications and services."
 msgstr "Menaxhoni llogaritë tuaja të lidhura për njoftime dhe shërbime."
 
+#: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx:52
+msgid "Manual"
+msgstr "Manual"
+
 #: ../../../lib/web/src/components/layout/notification-menu.tsx:202
 #: ../../../lib/web/src/components/layout/notification-menu.tsx:209
 #: ../../../lib/web/src/components/notifications-dropdown.tsx:224
@@ -1410,6 +1711,10 @@ msgstr "Shëno si të palexuar"
 #: src/components/layout/chat-layout.tsx:142
 msgid "Marking as read..."
 msgstr "Po shënohet si e lexuar..."
+
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:199
+msgid "Maximum length"
+msgstr "Gjatësia maksimale"
 
 #: ../../../lib/web/src/features/accounts/types.ts:17
 msgid "MCP server"
@@ -1508,6 +1813,10 @@ msgstr "Mikrofoni është tashmë në përdorim"
 msgid "Microphone permission denied"
 msgstr "Leja e mikrofonit u refuzua"
 
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:188
+msgid "Minimum length"
+msgstr "Gjatësia minimale"
+
 #: ../../../lib/web/src/features/accounts/types.ts:23
 msgid "Mochi web"
 msgstr "Mochi web"
@@ -1530,6 +1839,14 @@ msgstr "Më shumë opsione"
 msgid "Multiple people share these names: {0}. Pick them from the @ list so the right person is notified."
 msgstr "Disa persona ndajnë këta emra: {0}. Zgjidhini nga lista @ që të njoftohet personi i duhur."
 
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:118
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:614
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:143
+#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:128
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:299
+msgid "Name"
+msgstr "Emri"
+
 #: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:102
 msgid "Name cannot contain angle brackets, backslash, semicolon, quotes or backticks"
 msgstr "Emri nuk mund të përmbajë kllapa këndore, vijë të pjerrët mbrapsht, pikëpresje, thonjëza ose thonjëza mbrapsht"
@@ -1547,6 +1864,7 @@ msgstr "Emri duhet të jetë 1000 karaktere ose më pak"
 msgid "Network error"
 msgstr "Gabim rrjeti"
 
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:460
 #: ../../../lib/web/src/components/ui/sort-selector.tsx:43
 msgid "New"
 msgstr "I ri"
@@ -1571,13 +1889,25 @@ msgstr "Përputhja më e re"
 msgid "Next image"
 msgstr "Imazhi tjetër"
 
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:533
+msgid "No {parentClassNames} to add to"
+msgstr "Asnjë {parentClassNames} për të shtuar"
+
 #: ../../../lib/web/src/features/access/access-list.tsx:165
 msgid "No access rules configured. Add rules to control who can access this resource."
 msgstr "Asnjë rregull qasjeje i konfiguruar. Shto rregulla për të kontrolluar kush mund të qaset në këtë burim."
 
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx:65
+msgid "No activity yet"
+msgstr "Ende pa aktivitet"
+
 #: src/features/chats/components/forward-dialog.tsx:221
 msgid "No chats to forward to"
 msgstr "S'ka biseda ku të përcillet"
+
+#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:450
+msgid "No comments yet"
+msgstr "Ende pa komente"
 
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:295
 msgid "No connected accounts"
@@ -1602,6 +1932,14 @@ msgstr "Ende pa lojëra"
 #: ../../../lib/web/src/features/access/access-dialog.tsx:241
 msgid "No groups available"
 msgstr "Asnjë grup i disponueshëm"
+
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:500
+msgid "No item types can be created yet. Create the required parent items first."
+msgstr "Asnjë lloj artikulli nuk mund të krijohet ende. Krijoni fillimisht artikujt prind të kërkuar."
+
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:360
+msgid "No matching objects"
+msgstr "Asnjë objekt përputhës"
 
 #: src/features/chats/components/chat-message-list.tsx:469
 msgid "No messages yet"
@@ -1643,6 +1981,12 @@ msgstr "Nuk u gjetën rezultate"
 msgid "No results found."
 msgstr "S'u gjet asnjë rezultat."
 
+#: ../../../lib/web/src/components/entity/entity-board-container.tsx:845
+#: ../../../lib/web/src/components/entity/entity-board-container.tsx:890
+#: ../../../lib/web/src/components/entity/entity-tree-view.tsx:339
+msgid "No status"
+msgstr "Pa status"
+
 #: ../../../lib/web/src/components/timezone-select.tsx:67
 msgid "No time zone found."
 msgstr "S'u gjet asnjë zonë kohore."
@@ -1659,7 +2003,21 @@ msgstr "Asnjë njoftim i palexuar"
 msgid "No users found"
 msgstr "S'u gjet asnjë përdorues"
 
+#: ../../../lib/web/src/components/entity/entity-design-preview.tsx:115
+msgid "No views"
+msgstr "Asnjë shikim"
+
 #: ../../../lib/web/src/components/colour-picker.tsx:349
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:516
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:519
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:523
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:365
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:388
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:391
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:418
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:421
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:494
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:497
 #: ../../../lib/web/src/components/person-picker.tsx:350
 #: ../../../lib/web/src/lib/preference-utils.ts:105
 #: ../../../lib/web/src/lib/preference-utils.ts:125
@@ -1678,6 +2036,10 @@ msgstr "Nuk u gjet"
 msgid "Not set"
 msgstr "I pacaktuar"
 
+#: ../../../lib/web/src/components/entity/entity-tree-view.tsx:668
+msgid "Nothing found"
+msgstr "S'u gjet asgjë"
+
 #: src/features/chats/index.tsx:644
 msgid "Nothing to copy"
 msgstr "S'ka asgjë për të kopjuar"
@@ -1694,6 +2056,12 @@ msgstr "Njoftime"
 #: ../../../lib/web/src/components/layout/notification-menu.tsx:195
 msgid "Notifications: {0}"
 msgstr "Njoftimet: {0}"
+
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:140
+#: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx:54
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:499
+msgid "Number"
+msgstr "Numri"
 
 #: src/features/chats/components/chat-search-header.tsx:97
 msgid "Older match"
@@ -1743,6 +2111,11 @@ msgstr "Hap navigimin"
 msgid "Open navigation menu"
 msgstr "Hap menynë e navigimit"
 
+#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:108
+#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:114
+msgid "Open option actions"
+msgstr "Hap veprimet e opsionit"
+
 #: src/features/chats/components/new-chat.tsx:304
 msgid "Open people"
 msgstr "Hap Persona"
@@ -1755,6 +2128,26 @@ msgstr "Hap kartën e zgjedhur"
 #: ../../../lib/web/src/components/config-drawer.tsx:66
 msgid "Open theme settings"
 msgstr "Hap cilësimet e temës"
+
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:280
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:285
+msgid "Open view actions"
+msgstr "Hap veprimet e pamjes"
+
+#: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx:150
+#: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx:156
+msgid "Open view controls"
+msgstr "Hap kontrollet e pamjes"
+
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:200
+#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:158
+msgid "Option name"
+msgstr "Emri i opsionit"
+
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:168
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:241
+msgid "Options"
+msgstr "Opsione"
 
 #: src/features/chats/components/message-quote.tsx:46
 msgid "Original message"
@@ -1773,6 +2166,10 @@ msgstr "Pronari"
 msgid "Page {currentPage} of {totalPages}"
 msgstr "Faqja {currentPage} nga {totalPages}"
 
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:508
+msgid "Parent"
+msgstr "Prindi"
+
 #: ../../../lib/web/src/components/step-up-dialog.tsx:334
 msgid "Passkey"
 msgstr "Kyç"
@@ -1784,6 +2181,10 @@ msgstr "Verifikimi i çelësit të hyrjes dështoi. Ju lutemi provoni përsëri.
 #: ../../../lib/web/src/components/restore-banner.tsx:152
 msgid "Passkeys"
 msgstr "Kyçet"
+
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:210
+msgid "Pattern (regex)"
+msgstr "Modeli (regex)"
 
 #: src/features/chats/components/audio-player.tsx:212
 msgid "Pause audio"
@@ -1932,6 +2333,10 @@ msgstr "Duke ridrejtuar te hyrja."
 msgid "Reduce interest"
 msgstr "Zvogëlo interesin"
 
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:65
+msgid "Relates"
+msgstr "Lidhet"
+
 #: ../../../lib/web/src/lib/preference-utils.ts:50
 msgid "Relative (5m, 3h, 2d)"
 msgstr "Relative (5m, 3h, 2d)"
@@ -1941,6 +2346,8 @@ msgid "Relative within 24 hours, else absolute"
 msgstr "Relative brenda 24 orëve, përndryshe absolute"
 
 #: ../../../lib/web/src/components/comment-composer.tsx:236
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:190
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:598
 #: ../../../lib/web/src/features/access/access-list.tsx:270
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:180
 #: src/routes/_authenticated/$chatId_.settings.tsx:556
@@ -1987,6 +2394,11 @@ msgstr "Hiq interesin"
 msgid "Remove item"
 msgstr "Hiq artikullin"
 
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:304
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:309
+msgid "Remove link"
+msgstr "Hiq lidhjen"
+
 #: src/routes/_authenticated/$chatId_.settings.tsx:547
 msgid "Remove member?"
 msgstr "Të hiqet anëtari?"
@@ -2003,18 +2415,42 @@ msgstr "Po hiqet anëtari..."
 msgid "Removing..."
 msgstr "Duke hequr..."
 
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:575
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:632
+msgid "Rename"
+msgstr "Riemërto"
+
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:610
+msgid "Rename column"
+msgstr "Riemërto kolonën"
+
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:611
+msgid "Rename this board column"
+msgstr "Riemërto këtë kolonë të tabelës"
+
 #: src/routes/_authenticated/$chatId_.settings.tsx:218
 msgid "Renaming chat..."
 msgstr "Po riemërtohet biseda..."
 
+#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:294
+#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:342
 #: src/features/chats/components/message-hover-actions.tsx:133
 msgid "Reply"
 msgstr "Përgjigju"
+
+#. placeholder {0}: comment.name || comment.author
+#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:385
+msgid "Reply to {0}..."
+msgstr "Përgjigju {0}..."
 
 #. placeholder {0}: replyTo.name
 #: src/features/chats/components/chat-input.tsx:590
 msgid "Replying to {0}"
 msgstr "Po i përgjigjesh {0}"
+
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:225
+msgid "Required"
+msgstr "I detyrueshëm"
 
 #: ../../../lib/web/src/components/step-up-dialog.tsx:367
 msgid "Resend email"
@@ -2046,6 +2482,15 @@ msgstr "Anulo aksesin"
 msgid "Right to Left"
 msgstr "Nga e djathta në të majtë"
 
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:150
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:169
+msgid "Rows"
+msgstr "Rreshtat"
+
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:379
+msgid "Rows group by"
+msgstr "Rreshtat grupohen sipas"
+
 #: ../../../lib/web/src/components/data-table/pagination.tsx:65
 msgid "Rows per page"
 msgstr "Rreshta për faqe"
@@ -2070,6 +2515,8 @@ msgstr "I trishtuar"
 msgid "Saturday"
 msgstr "E shtunë"
 
+#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:269
+#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:173
 #: ../../../lib/web/src/components/ui/editable-field-row.tsx:122
 #: ../../../lib/web/src/components/ui/secret-field.tsx:77
 #: src/features/chats/components/chat-message-list.tsx:633
@@ -2081,6 +2528,7 @@ msgstr "Ruaj"
 msgid "Saving..."
 msgstr "Duke ruajtur..."
 
+#: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx:177
 #: ../../../lib/web/src/components/filter-bar.tsx:32
 #: ../../../lib/web/src/components/header-search.tsx:22
 #: ../../../lib/web/src/components/search.tsx:18
@@ -2127,6 +2575,10 @@ msgstr "Kërko në bisedë..."
 msgid "Search messages"
 msgstr "Kërko mesazhe"
 
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:337
+msgid "Search objects..."
+msgstr "Kërko objekte..."
+
 #: ../../../lib/web/src/components/timezone-select.tsx:65
 msgid "Search time zone..."
 msgstr "Kërko zonën kohore..."
@@ -2135,6 +2587,12 @@ msgstr "Kërko zonën kohore..."
 msgid "Search users"
 msgstr "Kërko përdorues"
 
+#: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx:173
+msgid "Search, watch, and sort this view."
+msgstr "Kërko, vëzhgo dhe rendit këtë pamje."
+
+#: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx:181
+#: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx:257
 #: ../../../lib/web/src/components/person-picker.tsx:324
 #: ../../../lib/web/src/components/search-entity-dialog.tsx:81
 #: ../../../lib/web/src/components/search-entity-page.tsx:72
@@ -2155,6 +2613,7 @@ msgstr "Lëviz në audio"
 msgid "Seek in voice note"
 msgstr "Lëviz në shënimin zanor"
 
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:141
 #: src/features/chats/components/message-hover-actions.tsx:113
 msgid "Select"
 msgstr "Zgjidh"
@@ -2167,6 +2626,10 @@ msgstr "Zgjidh {0}"
 #: src/features/chats/components/chat-empty-state.tsx:22
 msgid "Select a chat"
 msgstr "Zgjidh një bisedë"
+
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:362
+msgid "Select a field"
+msgstr "Zgjidh një fushë"
 
 #: src/routes/_authenticated/$chatId_.settings.tsx:447
 msgid "Select a friend to add to this chat."
@@ -2305,6 +2768,14 @@ msgstr "Vendos origjinën dhe destinacionin"
 msgid "Settings"
 msgstr "Cilësimet"
 
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:333
+msgid "Show classes"
+msgstr "Shfaq klasat"
+
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:434
+msgid "Show fields"
+msgstr "Shfaq fushat"
+
 #: src/features/chats/components/message-attachments.tsx:141
 #: src/features/chats/components/message-body.tsx:74
 msgid "Show less"
@@ -2337,6 +2808,11 @@ msgstr "Dil"
 msgid "Signing out..."
 msgstr "Duke dalë..."
 
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:161
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:180
+msgid "Single line of text only"
+msgstr "Vetëm një rresht teksti"
+
 #: ../../../lib/web/src/components/skip-to-main.tsx:11
 msgid "Skip to Main"
 msgstr "Kapërce te kryesorja"
@@ -2345,6 +2821,10 @@ msgstr "Kapërce te kryesorja"
 #: ../../../lib/web/src/lib/preference-utils.ts:133
 msgid "Small"
 msgstr "I vogël"
+
+#: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx:199
+msgid "Sort"
+msgstr "Rendit"
 
 #: ../../../lib/web/src/components/options-menu.tsx:158
 msgid "Sources"
@@ -2357,6 +2837,10 @@ msgstr "I hapësirshëm"
 #: src/features/chats/components/chat-empty-state.tsx:38
 msgid "Start a conversation"
 msgstr "Fillo një bisedë"
+
+#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:451
+msgid "Start the discussion by adding the first comment."
+msgstr "Fillo diskutimin duke shtuar komentin e parë."
 
 #: src/features/chats/index.tsx:200
 msgid "Starting chat..."
@@ -2374,6 +2858,16 @@ msgstr "Ndalo regjistrimin"
 #: ../../../lib/web/src/features/access/access-list.tsx:196
 msgid "Subject"
 msgstr "Subjekti"
+
+#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:431
+#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:440
+msgid "Submit comment"
+msgstr "Dërgo komentin"
+
+#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:470
+#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:475
+msgid "Submit reply"
+msgstr "Dërgo përgjigjen"
 
 #: ../../../lib/web/src/components/search-entity-dialog.tsx:83
 #: ../../../lib/web/src/components/search-entity-page.tsx:74
@@ -2421,6 +2915,10 @@ msgstr "Ekipet/Aplikacionet"
 #: ../../../lib/web/src/features/document/document-page.tsx:42
 msgid "Terms and conditions"
 msgstr "Kushtet dhe rregullat"
+
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:142
+msgid "Text"
+msgstr "Teksti"
 
 #: ../../../lib/web/src/components/step-up-dialog.tsx:195
 msgid "That code is incorrect or has expired."
@@ -2524,6 +3022,11 @@ msgstr "Ndrysho temën"
 msgid "Toggle view options"
 msgstr "Ndrysho opsionet e pamjes"
 
+#: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx:190
+#: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx:267
+msgid "Toggle watched filter"
+msgstr "Ndrysho filtrin e të shikuarve"
+
 #: ../../../lib/web/src/features/errors/general-error.tsx:74
 msgid "Too many requests"
 msgstr "Shumë kërkesa"
@@ -2554,6 +3057,11 @@ msgstr "Provo përsëri"
 #: ../../../lib/web/src/lib/preference-utils.ts:60
 msgid "Tuesday"
 msgstr "E martë"
+
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:130
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:163
+msgid "Type"
+msgstr "Lloji"
 
 #: ../../../lib/web/src/components/command-menu.tsx:52
 msgid "Type a command or search..."
@@ -2618,9 +3126,25 @@ msgstr "Hiq fiksimin e bisedës"
 msgid "Unsubscribe"
 msgstr "Çabonohu"
 
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:286
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:103
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:184
+msgid "Untitled"
+msgstr "Pa titull"
+
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:135
 msgid "Unverified"
 msgstr "I paverifikuar"
+
+#: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx:57
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:500
+msgid "Updated"
+msgstr "U përditësua"
+
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:630
+#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:259
+msgid "Upload"
+msgstr "Ngarko"
 
 #: ../../../lib/web/src/components/ui/upload-progress.tsx:34
 msgid "Upload progress"
@@ -2630,6 +3154,7 @@ msgstr "Ecuria e ngarkimit"
 msgid "Use your passkey"
 msgstr "Përdorni çelësin tuaj të hyrjes"
 
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:143
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx:119
 #: ../../../lib/web/src/features/access/access-dialog.tsx:158
 msgid "User"
@@ -2680,6 +3205,10 @@ msgstr "Shiko të gjitha"
 msgid "View all notifications"
 msgstr "Shiko të gjitha njoftimet"
 
+#: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx:172
+msgid "View controls"
+msgstr "Kontrollet e pamjes"
+
 #: src/features/chats/components/voice-waveform.tsx:90
 msgid "Voice note waveform"
 msgstr "Forma valore e shënimit zanor"
@@ -2697,9 +3226,14 @@ msgstr "Regjistrimi zanor nuk mbështetet në këtë shfletues"
 msgid "Voice recording isn't available in this app version. Please update the app and try again."
 msgstr "Regjistrimi zanor nuk është i disponueshëm në këtë version të aplikacionit. Përditësoni aplikacionin dhe provoni sërish."
 
+#: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx:271
 #: ../../../lib/web/src/components/filter-bar.tsx:35
 msgid "Watched"
 msgstr "I shikuar"
+
+#: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx:194
+msgid "Watched only"
+msgstr "Vetëm të shikuarit"
 
 #. placeholder {0}: account.identifier
 #: ../../../lib/web/src/features/accounts/account-verify.tsx:63

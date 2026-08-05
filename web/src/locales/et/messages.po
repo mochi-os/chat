@@ -18,13 +18,26 @@ msgstr ""
 msgid "Please check your internet connection and try again."
 msgstr "Kontrolli internetiühendust ja proovi uuesti."
 
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:302
+msgid " or "
+msgstr " või "
+
+#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:228
 #: src/features/chats/components/chat-message-list.tsx:789
 msgid "(edited)"
 msgstr "(muudetud)"
 
+#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:212
+msgid "(expand)"
+msgstr "(laienda)"
+
 #: src/routes/_authenticated/$chatId_.settings.tsx:289
 msgid "(you)"
 msgstr "(sina)"
+
+#: ../../../lib/web/src/components/entity/entity-board-container.tsx:774
+msgid "[not set]"
+msgstr "[määramata]"
 
 #. placeholder {0}: selectedValues.size
 #: ../../../lib/web/src/components/data-table/faceted-filter.tsx:66
@@ -104,6 +117,10 @@ msgstr "{sentLabel} / {totalLabel}"
 msgid "{skippedCount, plural, one {Skipped # file that is not audio} other {Skipped # files that are not audio}}"
 msgstr "{skippedCount, plural, one {Jäeti vahele # fail, mis pole heli} other {Jäeti vahele # faili, mis pole heli}}"
 
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:544
+msgid "{totalCount, plural, one {# item} other {# items}}"
+msgstr "{totalCount, plural, one {# üksus} other {# üksust}}"
+
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx:165
 msgid "{unreadCount, plural, one {Open menu (# unread notification)} other {Open menu (# unread notifications)}}"
 msgstr "{unreadCount, plural, one {Ava menüü (# lugemata teatis)} other {Ava menüü (# lugemata teatist)}}"
@@ -112,6 +129,14 @@ msgstr "{unreadCount, plural, one {Ava menüü (# lugemata teatis)} other {Ava m
 #: ../../../lib/web/src/components/entity/entity-board-card.tsx:421
 msgid "+{0} nested"
 msgstr "+{0} pesastatud"
+
+#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:209
+msgid "+{totalDescendants} more replies"
+msgstr "+{totalDescendants} vastust veel"
+
+#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:208
+msgid "1 reply"
+msgstr "1 vastus"
 
 #: ../../../lib/web/src/lib/preference-utils.ts:42
 msgid "12 hours"
@@ -172,9 +197,17 @@ msgstr "Lisa"
 msgid "Add {0} to chat"
 msgstr "Lisa {0} vestlusse"
 
+#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:360
+msgid "Add a comment..."
+msgstr "Lisa kommentaar..."
+
 #: ../../../lib/web/src/features/accounts/account-add.tsx:133
 msgid "Add a new account"
 msgstr "Lisa uus konto"
+
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:106
+msgid "Add a new field to this class"
+msgstr "Lisa sellele klassile uus väli"
 
 #: ../../../lib/web/src/features/access/access-dialog.tsx:148
 msgid "Add access"
@@ -198,9 +231,18 @@ msgstr "Lisa manus"
 msgid "Add checklist item"
 msgstr "Lisa kontrollnimekirja kirje"
 
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:105
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:233
+msgid "Add field"
+msgstr "Lisa väli"
+
 #: ../../../lib/web/src/components/entity/entity-field-editor.tsx:705
 msgid "Add item..."
 msgstr "Lisa kirje..."
+
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:320
+msgid "Add link"
+msgstr "Lisa link"
 
 #: src/routes/_authenticated/$chatId_.settings.tsx:262
 #: src/routes/_authenticated/$chatId_.settings.tsx:444
@@ -210,6 +252,14 @@ msgstr "Lisa liige"
 #: ../../../lib/web/src/features/accounts/account-picker.tsx:102
 msgid "Add new account"
 msgstr "Lisa uus konto"
+
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:215
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:220
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:292
+#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:94
+#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:194
+msgid "Add option"
+msgstr "Lisa valik"
 
 #: src/features/chats/components/message-reaction-bar.tsx:85
 #: src/features/chats/components/message-reaction-bar.tsx:92
@@ -229,6 +279,8 @@ msgstr "Lisa meeskond/rakendus"
 msgid "Add to existing notifications"
 msgstr "Lisa olemasolevatele teavitustele"
 
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:264
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:519
 #: ../../../lib/web/src/components/view-tabs.tsx:87
 #: ../../../lib/web/src/components/view-tabs.tsx:93
 msgid "Add view"
@@ -279,6 +331,10 @@ msgstr "Kõik sinu sõbrad on juba selles vestluses"
 msgid "Allow anyone to search for {0}"
 msgstr "Luba kõigil otsida {0}"
 
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:226
+msgid "Allow sort by"
+msgstr "Luba sortimine"
+
 #: src/features/chats/constants/reactions.ts:36
 msgid "Amazed"
 msgstr "Hämmastav"
@@ -313,6 +369,19 @@ msgstr "Igaüks saab sinuga vestlust alustada."
 msgid "Anyone who is logged in"
 msgstr "Kõik, kes on sisse logitud"
 
+#. placeholder {0}: deleteTarget?.name
+#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:271
+msgid "Are you sure you want to delete \"{0}\"?"
+msgstr "Kas oled kindel, et soovid kustutada \"{0}\"?"
+
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:643
+msgid "Are you sure you want to delete the \"{name}\" column? This cannot be undone."
+msgstr "Kas oled kindel, et soovid kustutada veeru \"{name}\"? Seda ei saa tagasi võtta."
+
+#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:485
+msgid "Are you sure you want to delete this comment? This will also delete all replies."
+msgstr "Kas oled kindel, et soovid selle kommentaari kustutada? See kustutab ka kõik vastused."
+
 #. placeholder {0}: selectedChat?.name
 #: src/features/chats/index.tsx:1337
 msgid "Are you sure you want to leave \"{0}\"? You can be added back by other members."
@@ -338,6 +407,16 @@ msgstr "Tõusev"
 #: ../../../lib/web/src/components/ui/sort-direction-button.tsx:27
 msgid "Ascending"
 msgstr "Kasvav"
+
+#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:398
+#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:403
+msgid "Attach comment files"
+msgstr "Lisa kommentaari failid"
+
+#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:439
+#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:444
+msgid "Attach reply files"
+msgstr "Lisa vastuse failid"
 
 #: src/features/chats/components/chat-input.tsx:599
 #: src/features/chats/components/message-quote.tsx:56
@@ -397,20 +476,41 @@ msgstr "Bänner"
 msgid "Be the first to say something!"
 msgstr "Ole esimene, kes midagi ütleb!"
 
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:68
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:215
+msgid "Blocked by"
+msgstr "Blokeeritud"
+
 #: ../../../lib/web/src/components/layout/notification-menu.tsx:237
 #: ../../../lib/web/src/components/layout/notification-menu.tsx:247
 msgid "Blocked navigation to untrusted link"
 msgstr "Liikumine usaldamata lingile blokeeritud"
+
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:66
+msgid "Blocks"
+msgstr "Blokid"
+
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:318
+msgid "Board"
+msgstr "Laud"
 
 #: ../../../lib/web/src/components/post-tags.tsx:180
 #: ../../../lib/web/src/components/post-tags.tsx:192
 msgid "Boost interest"
 msgstr "Tõsta huvi"
 
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:405
+msgid "Border colour"
+msgstr "Äärise värv"
+
 #: ../../../lib/web/src/features/accounts/types.ts:13
 msgid "Browser notifications"
 msgstr "Brauseri teavitused"
 
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:628
+#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:249
+#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:169
+#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:186
 #: ../../../lib/web/src/components/responsive-confirm-dialog.tsx:67
 #: ../../../lib/web/src/components/step-up-dialog.tsx:363
 #: ../../../lib/web/src/components/travelling-picker.tsx:308
@@ -429,6 +529,13 @@ msgstr "Brauseri teavitused"
 msgid "Cancel"
 msgstr "Tühista"
 
+#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:415
+#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:420
+msgid "Cancel comment"
+msgstr "Tühista kommentaar"
+
+#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:455
+#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:460
 #: src/features/chats/components/chat-input.tsx:609
 #: src/features/chats/components/chat-input.tsx:614
 msgid "Cancel reply"
@@ -529,6 +636,14 @@ msgstr "Vestlused"
 msgid "Check \"All\" to see your past notifications."
 msgstr "Varasemate teatiste nägemiseks märkige „Kõik“."
 
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:137
+msgid "Checkbox"
+msgstr "Märkeruut"
+
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:138
+msgid "Checklist"
+msgstr "Kontrollnimekiri"
+
 #: src/features/chats/components/forward-dialog.tsx:190
 msgid "Choose a chat or friend to forward the selected messages to"
 msgstr "Vali vestlus või sõber, kellele valitud sõnumid edasi saata"
@@ -595,12 +710,21 @@ msgstr "Tühjenda valik"
 msgid "Clear selection (Escape)"
 msgstr "Tühjenda valik (Escape)"
 
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:485
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:490
 #: ../../../lib/web/src/components/ui/dialog.tsx:78
 #: ../../../lib/web/src/components/ui/image-lightbox.tsx:358
 #: ../../../lib/web/src/components/ui/image-lightbox.tsx:361
 #: ../../../lib/web/src/components/ui/sheet.tsx:79
 msgid "Close"
 msgstr "Sulge"
+
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:109
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:113
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:269
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:273
+msgid "Close dialog"
+msgstr "Sulge dialoog"
 
 #: ../../../lib/web/src/components/layout/app-sidebar.tsx:108
 #: ../../../lib/web/src/components/layout/app-sidebar.tsx:113
@@ -632,6 +756,19 @@ msgstr "Ahenda"
 msgid "Collapse sidebar"
 msgstr "Sulge külgriba"
 
+#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:149
+msgid "Colour"
+msgstr "Värv"
+
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:553
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:558
+msgid "Column actions"
+msgstr "Veeru toimingud"
+
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:353
+msgid "Columns group by"
+msgstr "Veerud grupeeritud"
+
 #: ../../../lib/web/src/lib/preference-utils.ts:96
 msgid "Comfortable"
 msgstr "Mugav"
@@ -644,10 +781,23 @@ msgstr "Tulekul!"
 msgid "Command Palette"
 msgstr "Käsupalett"
 
+#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:330
+#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:337
+msgid "Comment actions"
+msgstr "Kommentaari toimingud"
+
 #: ../../../lib/web/src/components/config-drawer.tsx:316
 #: ../../../lib/web/src/lib/preference-utils.ts:95
 msgid "Compact"
 msgstr "Kompaktne"
+
+#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:97
+msgid "Configure option settings"
+msgstr "Seadista valiku seaded"
+
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:265
+msgid "Configure view settings"
+msgstr "Seadista vaate seaded"
 
 #: ../../../lib/web/src/components/place-picker.tsx:160
 #: ../../../lib/web/src/components/travelling-picker.tsx:316
@@ -727,6 +877,14 @@ msgstr "Taasautentimist ei õnnestunud alustada. Proovige uuesti."
 msgid "Couldn't verify with that account. Please try again."
 msgstr "Selle kontoga ei õnnestunud kinnitada. Palun proovi uuesti."
 
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:564
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:703
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:475
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:647
+#: ../../../lib/web/src/components/entity/entity-tree-view.tsx:672
+msgid "Create"
+msgstr "Loo"
+
 #. placeholder {0}: entityLabel.toLowerCase()
 #: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:144
 msgid "Create {0}"
@@ -745,10 +903,16 @@ msgstr "Loo vestlus"
 msgid "Create new item"
 msgstr "Loo uus kirje"
 
+#: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx:56
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:498
+msgid "Created"
+msgstr "Loodud"
+
 #: src/features/chats/components/new-chat.tsx:194
 msgid "Creating chat..."
 msgstr "Vestluse loomine..."
 
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:647
 #: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:258
 #: src/features/chats/components/new-chat.tsx:365
 msgid "Creating..."
@@ -777,6 +941,10 @@ msgstr "Tume režiim"
 msgid "Data conflict"
 msgstr "Andmekonflikt"
 
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:139
+msgid "Date"
+msgstr "Kuupäev"
+
 #: ../../../lib/web/src/components/game/game-draw-offer-banner.tsx:41
 msgid "Decline"
 msgstr "Keeldu"
@@ -789,11 +957,28 @@ msgstr "Vaikimisi"
 msgid "Default AI account"
 msgstr "Vaikimisi AI konto"
 
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:485
+msgid "Default sort"
+msgstr "Vaikimisi sortimine"
+
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:583
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:644
+#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:318
+#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:361
+#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:486
+#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:173
+#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:178
+#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:227
+#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:272
 #: src/features/chats/components/message-hover-actions.tsx:146
 #: src/features/chats/index.tsx:1263
 #: src/features/chats/index.tsx:1381
 msgid "Delete"
 msgstr "Kustuta"
+
+#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:270
+msgid "Delete attachment"
+msgstr "Kustuta manus"
 
 #: src/features/chats/index.tsx:1133
 #: src/features/chats/index.tsx:1294
@@ -804,6 +989,32 @@ msgstr "Kustuta vestlus"
 #: src/routes/_authenticated/$chatId_.settings.tsx:378
 msgid "Delete chat history"
 msgstr "Kustuta vestluse ajalugu"
+
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:642
+msgid "Delete column"
+msgstr "Kustuta veerg"
+
+#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:484
+msgid "Delete comment"
+msgstr "Kustuta kommentaar"
+
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:301
+msgid "Delete field"
+msgstr "Kustuta väli"
+
+#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:119
+msgid "Delete option"
+msgstr "Kustuta valik"
+
+#. placeholder {0}: opt.name
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:279
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:284
+msgid "Delete option {0}"
+msgstr "Kustuta valik {0}"
+
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:290
+msgid "Delete view"
+msgstr "Kustuta vaade"
 
 #: ../../../lib/web/src/components/restore-banner.tsx:115
 msgid "Delete your account on the old server"
@@ -896,6 +1107,12 @@ msgstr "Kuvab mobiilse külgriba."
 msgid "Document"
 msgstr "Dokument"
 
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:306
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:524
+msgid "Done"
+msgstr "Tehtud"
+
+#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:214
 #: ../../../lib/web/src/components/ui/image-lightbox.tsx:342
 #: ../../../lib/web/src/components/ui/image-lightbox.tsx:352
 msgid "Download"
@@ -909,6 +1126,10 @@ msgstr "Allalaadimine ebaõnnestus"
 msgid "Draft"
 msgstr "Mustand"
 
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:67
+msgid "Duplicates"
+msgstr "Duplikaadid"
+
 #. placeholder {0}: formatTime(displayTime)
 #: src/features/chats/components/audio-player.tsx:262
 msgid "Duration {0}"
@@ -918,6 +1139,8 @@ msgstr "Kestus {0}"
 msgid "Dyslexia-friendly"
 msgstr "Düsleksiasõbralik"
 
+#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:307
+#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:352
 #: src/features/chats/components/message-hover-actions.tsx:123
 msgid "Edit"
 msgstr "Muuda"
@@ -926,9 +1149,31 @@ msgstr "Muuda"
 msgid "Edit {label}"
 msgstr "Muuda {label}"
 
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:138
+msgid "Edit field"
+msgstr "Muuda välja"
+
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:139
+msgid "Edit field settings"
+msgstr "Muuda välja seadeid"
+
+#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:94
+msgid "Edit option"
+msgstr "Muuda valikut"
+
+#. placeholder {0}: opt.name
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:264
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:269
+msgid "Edit option {0}"
+msgstr "Muuda valikut {0}"
+
 #: ../../../lib/web/src/components/entity/keyboard-shortcuts-help.tsx:31
 msgid "Edit selected card"
 msgstr "Muuda valitud kaarti"
+
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:264
+msgid "Edit view"
+msgstr "Muuda vaadet"
 
 #. placeholder {0}: formatVideoDuration(recordingDuration)
 #: src/features/chats/components/chat-input.tsx:746
@@ -1000,6 +1245,7 @@ msgstr "Sõnumi kopeerimine ebaõnnestus"
 msgid "Failed to create chat"
 msgstr "Vestluse loomine ebaõnnestus"
 
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:137
 #: ../../../lib/web/src/components/options-menu.tsx:99
 msgid "Failed to create link"
 msgstr "Lingi loomine ebaõnnestus"
@@ -1008,9 +1254,21 @@ msgstr "Lingi loomine ebaõnnestus"
 msgid "Failed to delete"
 msgstr "Kustutamine ebaõnnestus"
 
+#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:110
+msgid "Failed to delete attachment"
+msgstr "Manuse kustutamine ebaõnnestus"
+
 #: src/features/chats/index.tsx:823
 msgid "Failed to delete chat"
 msgstr "Vestluse kustutamine ebaõnnestus"
+
+#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:207
+msgid "Failed to delete comment"
+msgstr "Kommentaari kustutamine ebaõnnestus"
+
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:159
+msgid "Failed to delete link"
+msgstr "Lingi kustutamine ebaõnnestus"
 
 #: src/features/chats/index.tsx:588
 msgid "Failed to edit message"
@@ -1053,6 +1311,10 @@ msgstr "Vestluspoliitika laadimine ebaõnnestus"
 msgid "Failed to mark chat as read"
 msgstr "Vestluse loetuks märkimine ebaõnnestus"
 
+#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:170
+msgid "Failed to post comment"
+msgstr "Kommentaari postitamine ebaõnnestus"
+
 #: src/features/chats/index.tsx:632
 msgid "Failed to react"
 msgstr "Reageerimine ebaõnnestus"
@@ -1089,6 +1351,20 @@ msgstr "Kinnituskoodi saatmine ebaõnnestus"
 msgid "Failed to start chat"
 msgstr "Vestluse alustamine ebaõnnestus"
 
+#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:190
+msgid "Failed to update comment"
+msgstr "Kommentaari värskendamine ebaõnnestus"
+
+#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:95
+msgid "Failed to upload attachment"
+msgstr "Manuse üleslaadimine ebaõnnestus"
+
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:567
+#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:133
+#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:150
+msgid "Files"
+msgstr "Failid"
+
 #: ../../../lib/web/src/components/data-table/toolbar.tsx:30
 msgid "Filter..."
 msgstr "Filtreeri..."
@@ -1096,6 +1372,10 @@ msgstr "Filtreeri..."
 #: ../../../lib/web/src/components/restore-banner.tsx:103
 msgid "Finish moving your account"
 msgstr "Lõpeta konto koliminen"
+
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:222
+msgid "Flags"
+msgstr "Lipud"
 
 #: ../../../lib/web/src/lib/preference-utils.ts:116
 msgid "Flat"
@@ -1189,6 +1469,10 @@ msgstr "Mine eelmisele lehele"
 msgid "Group"
 msgstr "Grupp"
 
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:353
+msgid "Group by"
+msgstr "Rühmita"
+
 #. placeholder {0}: name || subject.slice(1)
 #: ../../../lib/web/src/features/access/access-list.tsx:68
 msgid "Group: {0}"
@@ -1216,6 +1500,10 @@ msgstr "Avaleht"
 #: ../../../lib/web/src/components/ui/sort-selector.tsx:44
 msgid "Hot"
 msgstr "Kuum"
+
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:153
+msgid "ID"
+msgstr ""
 
 #. placeholder {0}: currentMedia.name
 #: ../../../lib/web/src/components/ui/image-lightbox.tsx:247
@@ -1290,6 +1578,7 @@ msgid "Laugh"
 msgstr "Naera"
 
 #: ../../../lib/web/src/components/config-drawer.tsx:287
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:312
 msgid "Layout"
 msgstr "Paigutus"
 
@@ -1349,6 +1638,14 @@ msgstr "Meeldib"
 msgid "Link"
 msgstr "Link"
 
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:279
+msgid "Links"
+msgstr "Lingid"
+
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:324
+msgid "List"
+msgstr "Loend"
+
 #: ../../../lib/web/src/components/ui/load-more.tsx:35
 msgid "Load more"
 msgstr "Lae rohkem"
@@ -1393,6 +1690,10 @@ msgstr "Halda kategooriaid"
 msgid "Manage your connected accounts for notifications and services."
 msgstr "Hallake oma ühendatud kontosid teatiste ja teenuste jaoks."
 
+#: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx:52
+msgid "Manual"
+msgstr "Käsitsi"
+
 #: ../../../lib/web/src/components/layout/notification-menu.tsx:202
 #: ../../../lib/web/src/components/layout/notification-menu.tsx:209
 #: ../../../lib/web/src/components/notifications-dropdown.tsx:224
@@ -1410,6 +1711,10 @@ msgstr "Märgi lugemata"
 #: src/components/layout/chat-layout.tsx:142
 msgid "Marking as read..."
 msgstr "Loetuks märkimine..."
+
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:199
+msgid "Maximum length"
+msgstr "Maksimaalne pikkus"
 
 #: ../../../lib/web/src/features/accounts/types.ts:17
 msgid "MCP server"
@@ -1508,6 +1813,10 @@ msgstr "Mikrofon on juba kasutusel"
 msgid "Microphone permission denied"
 msgstr "Mikrofoni luba keelatud"
 
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:188
+msgid "Minimum length"
+msgstr "Minimaalne pikkus"
+
 #: ../../../lib/web/src/features/accounts/types.ts:23
 msgid "Mochi web"
 msgstr "Mochi veeb"
@@ -1530,6 +1839,14 @@ msgstr "Rohkem valikuid"
 msgid "Multiple people share these names: {0}. Pick them from the @ list so the right person is notified."
 msgstr "Mitu inimest jagavad neid nimesid: {0}. Vali nad @-loendist, et õige inimene saaks teate."
 
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:118
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:614
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:143
+#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:128
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:299
+msgid "Name"
+msgstr "Nimi"
+
 #: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:102
 msgid "Name cannot contain angle brackets, backslash, semicolon, quotes or backticks"
 msgstr "Nimi ei tohi sisaldada nurksulge, kurakaldkriipsu, semikoolonit, jutumärke ega tagurpidi ülakomasid"
@@ -1547,6 +1864,7 @@ msgstr "Nimi peab olema 1000 märki või vähem"
 msgid "Network error"
 msgstr "Võrguviga"
 
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:460
 #: ../../../lib/web/src/components/ui/sort-selector.tsx:43
 msgid "New"
 msgstr "Uus"
@@ -1571,13 +1889,25 @@ msgstr "Uuem vaste"
 msgid "Next image"
 msgstr "Järgmine pilt"
 
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:533
+msgid "No {parentClassNames} to add to"
+msgstr "Pole {parentClassNames}, kuhu lisada"
+
 #: ../../../lib/web/src/features/access/access-list.tsx:165
 msgid "No access rules configured. Add rules to control who can access this resource."
 msgstr "Juurdepääsureegleid pole seadistatud. Lisa reeglid, et määrata, kes pääseb sellele ressursile ligi."
 
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx:65
+msgid "No activity yet"
+msgstr "Tegevust veel pole"
+
 #: src/features/chats/components/forward-dialog.tsx:221
 msgid "No chats to forward to"
 msgstr "Pole vestlusi, kuhu edastada"
+
+#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:450
+msgid "No comments yet"
+msgstr "Kommentaare veel pole"
 
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:295
 msgid "No connected accounts"
@@ -1602,6 +1932,14 @@ msgstr "Mänge veel pole"
 #: ../../../lib/web/src/features/access/access-dialog.tsx:241
 msgid "No groups available"
 msgstr "Saadaolevaid gruppe pole"
+
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:500
+msgid "No item types can be created yet. Create the required parent items first."
+msgstr "Ühtegi tüüpi ei saa veel luua. Loo kõigepealt vajalikud vanemüksused."
+
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:360
+msgid "No matching objects"
+msgstr "Vastavaid objekte pole"
 
 #: src/features/chats/components/chat-message-list.tsx:469
 msgid "No messages yet"
@@ -1643,6 +1981,12 @@ msgstr "Tulemusi ei leitud"
 msgid "No results found."
 msgstr "Tulemusi ei leitud."
 
+#: ../../../lib/web/src/components/entity/entity-board-container.tsx:845
+#: ../../../lib/web/src/components/entity/entity-board-container.tsx:890
+#: ../../../lib/web/src/components/entity/entity-tree-view.tsx:339
+msgid "No status"
+msgstr "Olek puudub"
+
 #: ../../../lib/web/src/components/timezone-select.tsx:67
 msgid "No time zone found."
 msgstr "Ajavööndit ei leitud."
@@ -1659,7 +2003,21 @@ msgstr "Lugemata teavitusi pole"
 msgid "No users found"
 msgstr "Kasutajaid ei leitud"
 
+#: ../../../lib/web/src/components/entity/entity-design-preview.tsx:115
+msgid "No views"
+msgstr "Vaatamisi pole"
+
 #: ../../../lib/web/src/components/colour-picker.tsx:349
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:516
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:519
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:523
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:365
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:388
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:391
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:418
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:421
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:494
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:497
 #: ../../../lib/web/src/components/person-picker.tsx:350
 #: ../../../lib/web/src/lib/preference-utils.ts:105
 #: ../../../lib/web/src/lib/preference-utils.ts:125
@@ -1678,6 +2036,10 @@ msgstr "Ei leitud"
 msgid "Not set"
 msgstr "Pole määratud"
 
+#: ../../../lib/web/src/components/entity/entity-tree-view.tsx:668
+msgid "Nothing found"
+msgstr "Midagi ei leitud"
+
 #: src/features/chats/index.tsx:644
 msgid "Nothing to copy"
 msgstr "Pole midagi kopeerida"
@@ -1694,6 +2056,12 @@ msgstr "Teavitused"
 #: ../../../lib/web/src/components/layout/notification-menu.tsx:195
 msgid "Notifications: {0}"
 msgstr "Teatised: {0}"
+
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:140
+#: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx:54
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:499
+msgid "Number"
+msgstr "Number"
 
 #: src/features/chats/components/chat-search-header.tsx:97
 msgid "Older match"
@@ -1743,6 +2111,11 @@ msgstr "Ava navigatsioon"
 msgid "Open navigation menu"
 msgstr "Ava navigatsioonimenüü"
 
+#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:108
+#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:114
+msgid "Open option actions"
+msgstr "Ava valiku tegevused"
+
 #: src/features/chats/components/new-chat.tsx:304
 msgid "Open people"
 msgstr "Ava Inimesed"
@@ -1755,6 +2128,26 @@ msgstr "Ava valitud kaart"
 #: ../../../lib/web/src/components/config-drawer.tsx:66
 msgid "Open theme settings"
 msgstr "Ava teema seaded"
+
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:280
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:285
+msgid "Open view actions"
+msgstr "Ava vaate tegevused"
+
+#: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx:150
+#: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx:156
+msgid "Open view controls"
+msgstr "Ava vaate juhtelemendid"
+
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:200
+#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:158
+msgid "Option name"
+msgstr "Valiku nimi"
+
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:168
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:241
+msgid "Options"
+msgstr "Valikud"
 
 #: src/features/chats/components/message-quote.tsx:46
 msgid "Original message"
@@ -1773,6 +2166,10 @@ msgstr "Omanik"
 msgid "Page {currentPage} of {totalPages}"
 msgstr "Lehekülg {currentPage} / {totalPages}"
 
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:508
+msgid "Parent"
+msgstr "Vanem"
+
 #: ../../../lib/web/src/components/step-up-dialog.tsx:334
 msgid "Passkey"
 msgstr "Pääsuvõti"
@@ -1784,6 +2181,10 @@ msgstr "Pääsuvõtmega kinnitamine ebaõnnestus. Proovige uuesti."
 #: ../../../lib/web/src/components/restore-banner.tsx:152
 msgid "Passkeys"
 msgstr "Pääsuvõtmed"
+
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:210
+msgid "Pattern (regex)"
+msgstr "Muster (regex)"
 
 #: src/features/chats/components/audio-player.tsx:212
 msgid "Pause audio"
@@ -1932,6 +2333,10 @@ msgstr "Ümbersuunamine sisselogimisele."
 msgid "Reduce interest"
 msgstr "Vähenda huvi"
 
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:65
+msgid "Relates"
+msgstr "Seosed"
+
 #: ../../../lib/web/src/lib/preference-utils.ts:50
 msgid "Relative (5m, 3h, 2d)"
 msgstr "Suhteline (5m, 3h, 2d)"
@@ -1941,6 +2346,8 @@ msgid "Relative within 24 hours, else absolute"
 msgstr "Suhteline 24 tunni jooksul, muidu absoluutne"
 
 #: ../../../lib/web/src/components/comment-composer.tsx:236
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:190
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:598
 #: ../../../lib/web/src/features/access/access-list.tsx:270
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:180
 #: src/routes/_authenticated/$chatId_.settings.tsx:556
@@ -1987,6 +2394,11 @@ msgstr "Eemalda huvi"
 msgid "Remove item"
 msgstr "Eemalda üksus"
 
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:304
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:309
+msgid "Remove link"
+msgstr "Eemalda link"
+
 #: src/routes/_authenticated/$chatId_.settings.tsx:547
 msgid "Remove member?"
 msgstr "Kas eemaldada liige?"
@@ -2003,18 +2415,42 @@ msgstr "Liikme eemaldamine..."
 msgid "Removing..."
 msgstr "Eemaldamine..."
 
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:575
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:632
+msgid "Rename"
+msgstr "Nimeta ümber"
+
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:610
+msgid "Rename column"
+msgstr "Nimeta veerg ümber"
+
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:611
+msgid "Rename this board column"
+msgstr "Nimeta see tahvli veerg ümber"
+
 #: src/routes/_authenticated/$chatId_.settings.tsx:218
 msgid "Renaming chat..."
 msgstr "Vestluse ümbernimetamine..."
 
+#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:294
+#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:342
 #: src/features/chats/components/message-hover-actions.tsx:133
 msgid "Reply"
 msgstr "Vasta"
+
+#. placeholder {0}: comment.name || comment.author
+#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:385
+msgid "Reply to {0}..."
+msgstr "Vasta kasutajale {0}..."
 
 #. placeholder {0}: replyTo.name
 #: src/features/chats/components/chat-input.tsx:590
 msgid "Replying to {0}"
 msgstr "Vastad kasutajale {0}"
+
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:225
+msgid "Required"
+msgstr "Kohustuslik"
 
 #: ../../../lib/web/src/components/step-up-dialog.tsx:367
 msgid "Resend email"
@@ -2046,6 +2482,15 @@ msgstr "Tühista juurdepääs"
 msgid "Right to Left"
 msgstr "Paremalt vasakule"
 
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:150
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:169
+msgid "Rows"
+msgstr "Read"
+
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:379
+msgid "Rows group by"
+msgstr "Ridade rühmitamine alusel"
+
 #: ../../../lib/web/src/components/data-table/pagination.tsx:65
 msgid "Rows per page"
 msgstr "Ridu lehel"
@@ -2070,6 +2515,8 @@ msgstr "Kurb"
 msgid "Saturday"
 msgstr "Laupäev"
 
+#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:269
+#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:173
 #: ../../../lib/web/src/components/ui/editable-field-row.tsx:122
 #: ../../../lib/web/src/components/ui/secret-field.tsx:77
 #: src/features/chats/components/chat-message-list.tsx:633
@@ -2081,6 +2528,7 @@ msgstr "Salvesta"
 msgid "Saving..."
 msgstr "Salvestamine..."
 
+#: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx:177
 #: ../../../lib/web/src/components/filter-bar.tsx:32
 #: ../../../lib/web/src/components/header-search.tsx:22
 #: ../../../lib/web/src/components/search.tsx:18
@@ -2127,6 +2575,10 @@ msgstr "Otsi vestlusest..."
 msgid "Search messages"
 msgstr "Otsi sõnumeid"
 
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:337
+msgid "Search objects..."
+msgstr "Otsi objekte..."
+
 #: ../../../lib/web/src/components/timezone-select.tsx:65
 msgid "Search time zone..."
 msgstr "Otsi ajavööndit..."
@@ -2135,6 +2587,12 @@ msgstr "Otsi ajavööndit..."
 msgid "Search users"
 msgstr "Otsi kasutajaid"
 
+#: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx:173
+msgid "Search, watch, and sort this view."
+msgstr "Otsi, jälgi ja sorteeri seda vaadet."
+
+#: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx:181
+#: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx:257
 #: ../../../lib/web/src/components/person-picker.tsx:324
 #: ../../../lib/web/src/components/search-entity-dialog.tsx:81
 #: ../../../lib/web/src/components/search-entity-page.tsx:72
@@ -2155,6 +2613,7 @@ msgstr "Liigu helis"
 msgid "Seek in voice note"
 msgstr "Liigu häälsõnumis"
 
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:141
 #: src/features/chats/components/message-hover-actions.tsx:113
 msgid "Select"
 msgstr "Vali"
@@ -2167,6 +2626,10 @@ msgstr "Vali {0}"
 #: src/features/chats/components/chat-empty-state.tsx:22
 msgid "Select a chat"
 msgstr "Vali vestlus"
+
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:362
+msgid "Select a field"
+msgstr "Vali väli"
 
 #: src/routes/_authenticated/$chatId_.settings.tsx:447
 msgid "Select a friend to add to this chat."
@@ -2305,6 +2768,14 @@ msgstr "Määra lähtekoht ja sihtkoht"
 msgid "Settings"
 msgstr "Seaded"
 
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:333
+msgid "Show classes"
+msgstr "Näita klasse"
+
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:434
+msgid "Show fields"
+msgstr "Näita välju"
+
 #: src/features/chats/components/message-attachments.tsx:141
 #: src/features/chats/components/message-body.tsx:74
 msgid "Show less"
@@ -2337,6 +2808,11 @@ msgstr "Logi välja"
 msgid "Signing out..."
 msgstr "Login välja..."
 
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:161
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:180
+msgid "Single line of text only"
+msgstr "Ainult üks rida teksti"
+
 #: ../../../lib/web/src/components/skip-to-main.tsx:11
 msgid "Skip to Main"
 msgstr "Liigu põhisisule"
@@ -2345,6 +2821,10 @@ msgstr "Liigu põhisisule"
 #: ../../../lib/web/src/lib/preference-utils.ts:133
 msgid "Small"
 msgstr "Väike"
+
+#: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx:199
+msgid "Sort"
+msgstr "Sorteeri"
 
 #: ../../../lib/web/src/components/options-menu.tsx:158
 msgid "Sources"
@@ -2357,6 +2837,10 @@ msgstr "Avar"
 #: src/features/chats/components/chat-empty-state.tsx:38
 msgid "Start a conversation"
 msgstr "Alusta vestlust"
+
+#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:451
+msgid "Start the discussion by adding the first comment."
+msgstr "Alusta arutelu, lisades esimese kommentaari."
 
 #: src/features/chats/index.tsx:200
 msgid "Starting chat..."
@@ -2374,6 +2858,16 @@ msgstr "Lõpeta salvestamine"
 #: ../../../lib/web/src/features/access/access-list.tsx:196
 msgid "Subject"
 msgstr "Teema"
+
+#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:431
+#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:440
+msgid "Submit comment"
+msgstr "Esita kommentaar"
+
+#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:470
+#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:475
+msgid "Submit reply"
+msgstr "Esita vastus"
 
 #: ../../../lib/web/src/components/search-entity-dialog.tsx:83
 #: ../../../lib/web/src/components/search-entity-page.tsx:74
@@ -2421,6 +2915,10 @@ msgstr "Tiimid/Rakendused"
 #: ../../../lib/web/src/features/document/document-page.tsx:42
 msgid "Terms and conditions"
 msgstr "Tingimused"
+
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:142
+msgid "Text"
+msgstr "Tekst"
 
 #: ../../../lib/web/src/components/step-up-dialog.tsx:195
 msgid "That code is incorrect or has expired."
@@ -2524,6 +3022,11 @@ msgstr "Lülita teema"
 msgid "Toggle view options"
 msgstr "Lülita vaatevalikud"
 
+#: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx:190
+#: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx:267
+msgid "Toggle watched filter"
+msgstr "Lülita jälgitud filter"
+
 #: ../../../lib/web/src/features/errors/general-error.tsx:74
 msgid "Too many requests"
 msgstr "Liiga palju päringuid"
@@ -2554,6 +3057,11 @@ msgstr "Proovi uuesti"
 #: ../../../lib/web/src/lib/preference-utils.ts:60
 msgid "Tuesday"
 msgstr "Teisipäev"
+
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:130
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:163
+msgid "Type"
+msgstr "Tüüp"
 
 #: ../../../lib/web/src/components/command-menu.tsx:52
 msgid "Type a command or search..."
@@ -2618,9 +3126,25 @@ msgstr "Eemalda vestluse kinnitus"
 msgid "Unsubscribe"
 msgstr "Tühista tellimus"
 
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:286
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:103
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:184
+msgid "Untitled"
+msgstr "Pealkirjata"
+
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:135
 msgid "Unverified"
 msgstr "Kontrollimata"
+
+#: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx:57
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:500
+msgid "Updated"
+msgstr "Uuendatud"
+
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:630
+#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:259
+msgid "Upload"
+msgstr "Lae üles"
 
 #: ../../../lib/web/src/components/ui/upload-progress.tsx:34
 msgid "Upload progress"
@@ -2630,6 +3154,7 @@ msgstr "Üleslaadimise edenemine"
 msgid "Use your passkey"
 msgstr "Kasutage oma pääsuvõtit"
 
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:143
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx:119
 #: ../../../lib/web/src/features/access/access-dialog.tsx:158
 msgid "User"
@@ -2680,6 +3205,10 @@ msgstr "Vaata kõiki"
 msgid "View all notifications"
 msgstr "Vaata kõiki teateid"
 
+#: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx:172
+msgid "View controls"
+msgstr "Vaate juhtelemendid"
+
 #: src/features/chats/components/voice-waveform.tsx:90
 msgid "Voice note waveform"
 msgstr "Häälsõnumi lainekuju"
@@ -2697,9 +3226,14 @@ msgstr "Häälsalvestust ei toetata selles brauseris"
 msgid "Voice recording isn't available in this app version. Please update the app and try again."
 msgstr "Häälsalvestus pole selles rakenduse versioonis saadaval. Uuenda rakendust ja proovi uuesti."
 
+#: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx:271
 #: ../../../lib/web/src/components/filter-bar.tsx:35
 msgid "Watched"
 msgstr "Jälgitud"
+
+#: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx:194
+msgid "Watched only"
+msgstr "Ainult jälgitud"
 
 #. placeholder {0}: account.identifier
 #: ../../../lib/web/src/features/accounts/account-verify.tsx:63
