@@ -49,6 +49,7 @@ import type { GetMessagesResponse } from '@/api/types/chats'
 import { MessageAttachments } from './message-attachments'
 import {
   CHAT_MEDIA_BUBBLE_CLASS,
+  CHAT_MEDIA_GRID_BUBBLE_CLASS,
   attachmentsNeedFixedMediaWidth,
 } from '../utils/chat-media-size'
 import { MessageBody } from './message-body'
@@ -663,7 +664,7 @@ export function ChatMessageList({
                                   : CHAT_MEDIA_BUBBLE_CLASS),
                               message.attachments?.length &&
                                 !attachmentsNeedFixedMediaWidth(message.attachments) &&
-                                'w-full max-w-full min-w-0',
+                                CHAT_MEDIA_GRID_BUBBLE_CLASS,
                               message.attachments?.length &&
                                 !message.body &&
                                 'px-1.5 py-1.5'

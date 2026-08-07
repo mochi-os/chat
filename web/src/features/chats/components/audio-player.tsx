@@ -217,6 +217,12 @@ export function VoiceNotePlayer({
   const removeLabel = isAudioFile ? t`Remove audio` : t`Remove voice note`
   const isBubble = variant === 'sent' || variant === 'received'
   const progressRatio = duration > 0 ? progress / duration : 0
+  // An attached audio file in a bubble is a file attachment like the document
+  // rows beside it, so it takes the same bordered card. On that card the sent
+  // bubble's inverted palette would be near-invisible, so its controls fall
+  // back to the standard tone. Voice notes keep the bubble palette.
+  const isAudioCard = isAudioFile && isBubble
+  const controlVariant = isAudioCard ? 'received' : variant
 
   const playButton = (
     <Tooltip>
@@ -232,11 +238,11 @@ export function VoiceNotePlayer({
           }}
           className={cn(
             'size-9 shrink-0 rounded-full',
-            variant === 'sent' &&
+            controlVariant === 'sent' &&
               'bg-primary-foreground/20 text-primary-foreground hover:bg-primary-foreground/30 hover:text-primary-foreground',
-            variant === 'received' &&
+            controlVariant === 'received' &&
               'bg-primary text-primary-foreground hover:bg-primary/90',
-            variant === 'composer' &&
+            controlVariant === 'composer' &&
               'bg-primary text-primary-foreground hover:bg-primary/90'
           )}
         >
@@ -255,9 +261,9 @@ export function VoiceNotePlayer({
     <span
       className={cn(
         'shrink-0 tabular-nums text-[11px] font-medium tracking-wide',
-        variant === 'sent' && 'text-primary-foreground/85',
-        variant === 'received' && 'text-muted-foreground',
-        variant === 'composer' && 'text-muted-foreground'
+        controlVariant === 'sent' && 'text-primary-foreground/85',
+        controlVariant === 'received' && 'text-muted-foreground',
+        controlVariant === 'composer' && 'text-muted-foreground'
       )}
       aria-label={t`Duration ${formatTime(displayTime)}`}
     >
@@ -295,7 +301,8 @@ export function VoiceNotePlayer({
           'flex items-center gap-2.5',
           variant === 'composer' &&
             'border-border/60 bg-muted/30 w-full max-w-full rounded-2xl border px-2.5 py-1.5 sm:max-w-[28rem]',
-          isBubble && 'w-full max-w-full min-w-0 bg-transparent p-0',
+          isAudioCard &&
+            'bg-card text-card-foreground w-full max-w-full min-w-0 rounded-xl border px-2 py-1.5',
           className
         )}
       >
@@ -303,8 +310,8 @@ export function VoiceNotePlayer({
         <div
           className={cn(
             'flex size-10 shrink-0 items-center justify-center rounded-full',
-            variant === 'sent' && 'bg-primary-foreground/20 text-primary-foreground',
-            (variant === 'received' || variant === 'composer') && 'bg-primary text-primary-foreground'
+            controlVariant === 'sent' && 'bg-primary-foreground/20 text-primary-foreground',
+            (controlVariant === 'received' || controlVariant === 'composer') && 'bg-primary text-primary-foreground'
           )}
           aria-hidden
         >
@@ -316,8 +323,8 @@ export function VoiceNotePlayer({
             <span
               className={cn(
                 'truncate text-xs font-medium leading-tight',
-                variant === 'sent' && 'text-primary-foreground/90',
-                (variant === 'received' || variant === 'composer') &&
+                controlVariant === 'sent' && 'text-primary-foreground/90',
+                (controlVariant === 'received' || controlVariant === 'composer') &&
                   'text-foreground'
               )}
             >
@@ -341,16 +348,16 @@ export function VoiceNotePlayer({
               <div
                 className={cn(
                   'relative h-1 w-full rounded-full',
-                  variant === 'sent' && 'bg-primary-foreground/30',
-                  (variant === 'received' || variant === 'composer') &&
+                  controlVariant === 'sent' && 'bg-primary-foreground/30',
+                  (controlVariant === 'received' || controlVariant === 'composer') &&
                     'bg-muted-foreground/30'
                 )}
               >
                 <div
                   className={cn(
                     'absolute inset-y-0 start-0 rounded-full',
-                    variant === 'sent' && 'bg-primary-foreground',
-                    (variant === 'received' || variant === 'composer') &&
+                    controlVariant === 'sent' && 'bg-primary-foreground',
+                    (controlVariant === 'received' || controlVariant === 'composer') &&
                       'bg-primary'
                   )}
                   style={{ width: `${progressRatio * 100}%` }}
@@ -358,8 +365,8 @@ export function VoiceNotePlayer({
                 <div
                   className={cn(
                     'absolute top-1/2 size-2.5 -translate-y-1/2 rounded-full',
-                    variant === 'sent' && 'bg-primary-foreground',
-                    (variant === 'received' || variant === 'composer') &&
+                    controlVariant === 'sent' && 'bg-primary-foreground',
+                    (controlVariant === 'received' || controlVariant === 'composer') &&
                       'bg-primary'
                   )}
                   style={{
