@@ -45,7 +45,8 @@ import {
   UploadProgress,
   type Upload,
 } from '@mochi/web'
-import { Loader2, Paperclip, Send, X, Mic, Trash, Square, FileText, Music } from 'lucide-react'
+// Image is aliased: the bare name shadows the DOM Image constructor.
+import { Loader2, Paperclip, Send, X, Mic, Trash, Square, FileText, Music, Image as ImageIcon } from 'lucide-react'
 import type { PendingAttachment } from '../utils'
 import { MESSAGE_MAX_LENGTH } from '../constants/limits'
 import type { ReplyTarget } from '../utils/reply'
@@ -115,6 +116,7 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(
   const { t } = useLingui()
   const { formatNumber } = useFormat()
   const fileInputRef = useRef<HTMLInputElement | null>(null)
+  const mediaInputRef = useRef<HTMLInputElement | null>(null)
   const audioInputRef = useRef<HTMLInputElement | null>(null)
   const textareaRef = useRef<HTMLTextAreaElement | null>(null)
   
@@ -620,6 +622,7 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(
                 items={fileItems}
                 layout='grid'
                 preview='tile'
+                groupMedia
                 state={isSending ? 'uploading' : 'idle'}
                 onRemove={(index) =>
                   onRemoveAttachment(pendingFiles[index].id)
@@ -705,6 +708,14 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(
                     <TooltipContent>{t`Add attachment`}</TooltipContent>
                   </Tooltip>
                   <DropdownMenuContent align='start' className='min-w-44'>
+                    {/* First: the most common pick, and the entry that gives a
+                        phone its camera and gallery rather than a file browser. */}
+                    <DropdownMenuItem
+                      onSelect={() => mediaInputRef.current?.click()}
+                    >
+                      <ImageIcon className='me-2 size-4' />
+                      <Trans>Photo or Video</Trans>
+                    </DropdownMenuItem>
                     <DropdownMenuItem
                       onSelect={() => fileInputRef.current?.click()}
                     >
@@ -803,6 +814,19 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(
             ref={fileInputRef}
             type='file'
             multiple
+            className='hidden'
+            onChange={(e) => {
+              onAttachmentSelection(e)
+              e.target.value = ''
+            }}
+          />
+        {/* Same handler as the Document input: nothing downstream filters by
+            type, so accept only sets what the picker offers first. */}
+        <input
+            ref={mediaInputRef}
+            type='file'
+            multiple
+            accept='image/*,video/*'
             className='hidden'
             onChange={(e) => {
               onAttachmentSelection(e)
