@@ -366,6 +366,11 @@ _VALID_CHAT_POLICIES = ("friends", "anyone")
 # one database write per roster entry on the way in.
 _MEMBERS_MAXIMUM = 1000
 
+# Chat ids bound into one "in (...)" when resolving the counterpart of each
+# two-member chat. Well under any SQLite variable limit, and large enough that
+# a normal account resolves its whole list in a single query.
+_LIST_BATCH = 500
+
 # Seconds between resync attempts for one chat. The automatic window suits
 # event-driven repair, where a minute of staleness costs nothing. A user who
 # presses "resync" is reacting to something that looks wrong now, so the manual
@@ -547,16 +552,27 @@ def action_list(a):
 		WHERE m.member IS NOT NULL OR c.status IN ('left', 'removed')
 		ORDER BY c.updated DESC
 	""", identity, identity)
+	# One query per batch of two-member chats, not one per chat. The list is
+	# every chat the user is in, so on a busy account this was a round trip
+	# per row to add a single column. Batched because the query is unbounded:
+	# an id per placeholder would eventually meet SQLite's variable limit,
+	# which the per-row form could never hit.
+	pair_ids = [chat["id"] for chat in chats if chat.get("members") == 2]
+	others = {}
+	for start in range(0, len(pair_ids), _LIST_BATCH):
+		batch = pair_ids[start:start + _LIST_BATCH]
+		places = ", ".join(["?" for _ in batch])
+		for row in mochi.db.rows(
+			"select chat, member from members where member<>? and chat in (" + places + ")",
+			identity, *batch
+		) or []:
+			others[row["chat"]] = row["member"]
+
 	for chat in chats:
 		if chat.get("status") != "active":
 			chat["unread"] = 0
-		if chat.get("members") == 2:
-			other = mochi.db.row(
-				"select member from members where chat=? and member<>?",
-				chat["id"], identity
-			)
-			if other:
-				chat["other"] = other["member"]
+		if chat.get("members") == 2 and chat["id"] in others:
+			chat["other"] = others[chat["id"]]
 	return {"data": chats}
 
 # Enter details of new chat
@@ -1302,16 +1318,23 @@ def chat_collect_forwardable(source_id, raw_ids):
 #
 # This bounds the COUNT, not the total size. A server-side copy primitive is
 # the real fix and would help every app that duplicates content.
+# Returns the per-message attachment lists it built, or None when the forward
+# is refused. chat_forward_into then copies from those rather than listing the
+# same objects a second time - the gate and the copier were each doing a full
+# attachment_list per source message.
 def chat_forward_allowed(a, source_id, source_messages):
 	total = 0
+	listed = {}
 	for source_message in source_messages:
-		total += len(attachment_list("chat/" + source_id + "/" + source_message["id"], source_id) or [])
+		attachments = attachment_list("chat/" + source_id + "/" + source_message["id"], source_id) or []
+		listed[source_message["id"]] = attachments
+		total += len(attachments)
 		if total > _FORWARD_ATTACHMENTS_MAXIMUM:
 			a.error.label(400, "errors.too_many_attachments", maximum=_FORWARD_ATTACHMENTS_MAXIMUM)
-			return False
-	return True
+			return None
+	return listed
 
-def chat_forward_into(a, source_id, target_id, source_messages):
+def chat_forward_into(a, source_id, target_id, source_messages, listed=None):
 	chat_ensure_commit_hook()
 	members = mochi.db.rows("select member from members where chat=? and member!=?", target_id, a.user.identity.id)
 	member_ids = [m["member"] for m in members]
@@ -1327,7 +1350,8 @@ def chat_forward_into(a, source_id, target_id, source_messages):
 		# streams file to file: an attachment may be as large as the uploader's
 		# remaining quota, and reading one into memory to write it back would
 		# charge that to a process every user on this host shares.
-		for att in attachment_list("chat/" + source_id + "/" + source_message["id"], source_id) or []:
+		source_attachments = listed.get(source_message["id"]) if listed != None else attachment_list("chat/" + source_id + "/" + source_message["id"], source_id)
+		for att in source_attachments or []:
 			attachment_copy(att["id"], "chat/" + target_id + "/" + new_id, a.user.identity.id)
 		new_attachments = attachment_list("chat/" + target_id + "/" + new_id, target_id)
 
@@ -1368,10 +1392,11 @@ def action_messages_forward(a):
 		a.error.label(400, "errors.invalid_message")
 		return
 
-	if not chat_forward_allowed(a, source["id"], source_messages):
+	listed = chat_forward_allowed(a, source["id"], source_messages)
+	if listed == None:
 		return
 
-	forwarded = chat_forward_into(a, source["id"], target["id"], source_messages)
+	forwarded = chat_forward_into(a, source["id"], target["id"], source_messages, listed)
 	if not forwarded:
 		a.error.label(404, "errors.message_not_found")
 		return
@@ -1410,7 +1435,8 @@ def action_messages_forward_friend(a):
 		return
 	# Checked here for the same reason the messages are: refusing after the
 	# chat exists would leave an empty one behind.
-	if not chat_forward_allowed(a, source["id"], source_messages):
+	listed = chat_forward_allowed(a, source["id"], source_messages)
+	if listed == None:
 		return
 
 	# Friends may always be targeted; a non-friend only if their chat_policy
@@ -1437,7 +1463,7 @@ def action_messages_forward_friend(a):
 		# Tell the friend about the new chat; they see our name as its title.
 		mochi.message.send({"from": a.user.identity.id, "to": member_id, "service": "chat", "event": "new"}, {"id": target_id, "name": a.user.identity.name}, [{"id": a.user.identity.id, "name": a.user.identity.name}, {"id": member_id, "name": member_name}])
 
-	forwarded = chat_forward_into(a, source["id"], target_id, source_messages)
+	forwarded = chat_forward_into(a, source["id"], target_id, source_messages, listed)
 	if not forwarded:
 		a.error.label(404, "errors.message_not_found")
 		return
@@ -1562,18 +1588,21 @@ def request_resync(chat_id, peer_member, minimum=_RESYNC_AUTOMATIC):
 # Respond to a peer asking about a chat we both belong to. Returns the
 # chat's name and member list, but only if the requester is a member of
 # the chat — chat membership is private to its members.
+# Errors are label keys, matching what feeds and crm write to their streams
+# and what this app's own errors use. A literal here reaches the requesting
+# server as English regardless of the language its user reads.
 def event_info(e):
 	chat_id = e.content("chat")
 	if not chat_id:
-		e.stream.write({"error": "chat_id required"})
+		e.stream.write({"error": "errors.invalid_chat_id"})
 		return
 	chat = mochi.db.row("select id, name from chats where id=?", chat_id)
 	if not chat:
-		e.stream.write({"error": "chat not found"})
+		e.stream.write({"error": "errors.chat_not_found"})
 		return
 	requester = e.header("from")
 	if not mochi.db.exists("select 1 from members where chat=? and member=?", chat_id, requester):
-		e.stream.write({"error": "not a member"})
+		e.stream.write({"error": "errors.not_a_member_of_this_chat"})
 		return
 	members = mochi.db.rows("select member as id, name from members where chat=?", chat_id) or []
 	e.stream.write({"name": chat["name"], "members": members})
