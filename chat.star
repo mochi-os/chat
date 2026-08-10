@@ -1824,6 +1824,14 @@ def event_rename(e):
 	incoming = event_integer(e.content("updated", "0"))
 	if incoming == None:
 		incoming = 0
+	# The same window event_message and event_edit apply to created/edited.
+	# Without it a member could send a far-future stamp, which pins the chat
+	# to the top of an updated-ordered list and then fails every later rename
+	# against the gate below - so the name freezes and the divergence can
+	# never heal. Fall back to our own clock rather than dropping the rename:
+	# the name itself is still legitimate.
+	if incoming > now + 86400 or incoming < now - 31536000:
+		incoming = 0
 	if incoming and chat["updated"] and incoming <= chat["updated"]:
 		return
 	if not incoming:
