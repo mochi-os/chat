@@ -14,20 +14,20 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. js-lingui-explicit-id
-#: ../../../lib/web/src/lib/error-normalizer.ts:236
+#: ../../../lib/web/src/lib/error-normalizer.ts:244
 msgid "Please check your internet connection and try again."
 msgstr "Интернет байланысын тексеріп, қайталап көріңіз."
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:302
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:293
 msgid " or "
 msgstr " немесе "
 
-#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:228
-#: src/features/chats/components/chat-message-list.tsx:789
+#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:229
+#: src/features/chats/components/chat-message-list.tsx:790
 msgid "(edited)"
 msgstr "(өңделді)"
 
-#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:212
+#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:213
 msgid "(expand)"
 msgstr "(жаю)"
 
@@ -45,7 +45,7 @@ msgid "{0, plural, one {# selected} other {# selected}}"
 msgstr "{0, plural, one {# таңдалды} other {# таңдалды}}"
 
 #. placeholder {0}: deleteTargetIds?.length ?? 0
-#: src/features/chats/index.tsx:1369
+#: src/features/chats/index.tsx:1373
 msgid "{0, plural, one {Delete message?} other {Delete # messages?}}"
 msgstr "{0, plural, one {Хабарлама жойылсын ба?} other {# хабарлама жойылсын ба?}}"
 
@@ -61,8 +61,8 @@ msgstr "{0} опциясын алдын ала қарау"
 
 #. placeholder {0}: selectedIds.size
 #. placeholder {0}: selectedIds?.size ?? 0
-#: src/features/chats/components/chat-message-list.tsx:816
-#: src/features/chats/index.tsx:1238
+#: src/features/chats/components/chat-message-list.tsx:817
+#: src/features/chats/index.tsx:1242
 msgid "{0} selected"
 msgstr "{0} таңдалды"
 
@@ -100,8 +100,8 @@ msgstr "{entityLabel} атауы қажет"
 msgid "{hiddenCount, plural, one {Show 1 more file} other {Show # more files}}"
 msgstr "{hiddenCount, plural, one {Тағы 1 файлды көрсету} other {Тағы # файлды көрсету}}"
 
-#: src/features/chats/components/chat-message-list.tsx:851
-#: src/features/chats/components/chat-message-list.tsx:868
+#: src/features/chats/components/chat-message-list.tsx:852
+#: src/features/chats/components/chat-message-list.tsx:869
 msgid "{newMessageCount, plural, one {Jump to 1 new message} other {Jump to # new messages}}"
 msgstr "{newMessageCount, plural, one {1 жаңа хабарламаға өту} other {# жаңа хабарламаға өту}}"
 
@@ -125,6 +125,7 @@ msgstr "{selectedCount, plural, one {# таңдалды} other {# таңдалд
 msgid "{selectedCount, plural, one {Bulk actions for # selected {entityName}} other {Bulk actions for # selected {manyName}}}"
 msgstr "{selectedCount, plural, one {# таңдалған {entityName} үшін топтық әрекеттер} other {# таңдалған {manyName} үшін топтық әрекеттер}}"
 
+#: ../../../lib/web/src/components/attachment-composer.tsx:189
 #: ../../../lib/web/src/components/ui/upload-progress.tsx:52
 msgid "{sentLabel} of {totalLabel}"
 msgstr "{totalLabel} ішінен {sentLabel}"
@@ -146,11 +147,11 @@ msgstr "{unreadCount, plural, one {Мәзірді ашу (# оқылмаған �
 msgid "+{0} nested"
 msgstr "+{0} кірістірілген"
 
-#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:209
+#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:210
 msgid "+{totalDescendants} more replies"
 msgstr "+{totalDescendants} тағы жауап"
 
-#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:208
+#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:209
 msgid "1 reply"
 msgstr "1 жауап"
 
@@ -162,7 +163,7 @@ msgstr "12 сағат"
 msgid "24 hours"
 msgstr "24 сағат"
 
-#: src/features/chats/components/chat-input.tsx:319
+#: src/features/chats/components/chat-input.tsx:337
 msgid "A recording is already in progress."
 msgstr "Жазба әлдеқашан жүріп жатыр."
 
@@ -213,7 +214,7 @@ msgstr "Қосу"
 msgid "Add {0} to chat"
 msgstr "{0} чатқа қосу"
 
-#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:360
+#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:363
 msgid "Add a comment..."
 msgstr "Пікір қосу..."
 
@@ -238,8 +239,8 @@ msgstr "Тіркелгі қосу"
 msgid "Add an account to receive notifications and use services."
 msgstr "Хабарландырулар алу және қызметтерді пайдалану үшін тіркелгі қосыңыз."
 
-#: src/features/chats/components/chat-input.tsx:782
-#: src/features/chats/components/chat-input.tsx:788
+#: src/features/chats/components/chat-input.tsx:702
+#: src/features/chats/components/chat-input.tsx:708
 msgid "Add attachment"
 msgstr "Тіркеме қосу"
 
@@ -385,8 +386,12 @@ msgstr "Кез келген адам сізбен чатты бастай ала
 msgid "Anyone who is logged in"
 msgstr "Кірген кез келген адам"
 
+#: ../../../lib/web/src/components/options-menu.tsx:249
+msgid "Anything subscribed to this feed will stop receiving it. You can copy a new URL afterwards."
+msgstr ""
+
 #. placeholder {0}: deleteTarget?.name
-#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:271
+#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:308
 msgid "Are you sure you want to delete \"{0}\"?"
 msgstr "\"{0}\" жойылғанына сенімдісіз бе?"
 
@@ -394,12 +399,12 @@ msgstr "\"{0}\" жойылғанына сенімдісіз бе?"
 msgid "Are you sure you want to delete the \"{name}\" column? This cannot be undone."
 msgstr "\"{name}\" бағанын жойғыңыз келетініне сенімдісіз бе? Бұны қайтару мүмкін емес."
 
-#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:485
+#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:491
 msgid "Are you sure you want to delete this comment? This will also delete all replies."
 msgstr "Бұл пікірді жойғыңыз келетініне сенімдісіз бе? Барлық жауаптар да жойылады."
 
 #. placeholder {0}: selectedChat?.name
-#: src/features/chats/index.tsx:1337
+#: src/features/chats/index.tsx:1341
 msgid "Are you sure you want to leave \"{0}\"? You can be added back by other members."
 msgstr "\"{0}\" чатынан шыққыңыз келетініне сенімдісіз бе? Басқа мүшелер сізді қайта қоса алады."
 
@@ -424,17 +429,17 @@ msgstr "Өсу ретімен"
 msgid "Ascending"
 msgstr "Өсу реті"
 
-#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:398
-#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:403
+#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:406
+#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:411
 msgid "Attach comment files"
 msgstr "Пікір файлдарын тіркеу"
 
-#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:439
-#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:444
+#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:445
+#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:450
 msgid "Attach reply files"
 msgstr "Жауап файлдарын тіркеу"
 
-#: src/features/chats/components/chat-input.tsx:599
+#: src/features/chats/components/chat-input.tsx:580
 #: src/features/chats/components/message-quote.tsx:56
 msgid "Attachment"
 msgstr "Тіркеме"
@@ -443,7 +448,7 @@ msgstr "Тіркеме"
 msgid "Attachments are too large to upload. Remove or shrink files and try again."
 msgstr "Тіркемелер тым үлкен болғандықтан жүктеп салынбайды. Файлдарды алып тастаңыз немесе кішірейтіп, қайталап көріңіз."
 
-#: src/features/chats/components/chat-input.tsx:801
+#: src/features/chats/components/chat-input.tsx:729
 msgid "Audio"
 msgstr "Аудио"
 
@@ -452,7 +457,7 @@ msgstr "Аудио"
 msgid "Authenticated users"
 msgstr "Аутентификацияланған пайдаланушылар"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:315
+#: ../../../lib/web/src/components/step-up-dialog.tsx:329
 msgid "Authenticator code"
 msgstr "Authenticator коды"
 
@@ -488,7 +493,7 @@ msgstr "Басты бетке оралу"
 msgid "Banner"
 msgstr "Баннер"
 
-#: src/features/chats/components/chat-message-list.tsx:470
+#: src/features/chats/components/chat-message-list.tsx:471
 msgid "Be the first to say something!"
 msgstr "Бірінші болып бірдеңе жазыңыз!"
 
@@ -524,11 +529,11 @@ msgid "Browser notifications"
 msgstr "Браузер хабарландырулары"
 
 #: ../../../lib/web/src/components/entity/entity-board-column.tsx:628
-#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:249
+#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:250
 #: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:169
 #: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:186
 #: ../../../lib/web/src/components/responsive-confirm-dialog.tsx:67
-#: ../../../lib/web/src/components/step-up-dialog.tsx:363
+#: ../../../lib/web/src/components/step-up-dialog.tsx:377
 #: ../../../lib/web/src/components/travelling-picker.tsx:308
 #: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:249
 #: ../../../lib/web/src/components/ui/editable-field-row.tsx:132
@@ -536,24 +541,24 @@ msgstr "Браузер хабарландырулары"
 #: ../../../lib/web/src/features/access/access-list.tsx:268
 #: ../../../lib/web/src/features/accounts/account-add.tsx:201
 #: ../../../lib/web/src/features/accounts/account-verify.tsx:91
-#: src/features/chats/components/chat-message-list.tsx:621
-#: src/features/chats/components/chat-message-list.tsx:835
+#: src/features/chats/components/chat-message-list.tsx:622
+#: src/features/chats/components/chat-message-list.tsx:836
 #: src/features/chats/components/chat-settings-dialog.tsx:116
 #: src/features/chats/components/forward-dialog.tsx:253
 #: src/features/chats/components/new-chat.tsx:354
-#: src/features/chats/index.tsx:1270
+#: src/features/chats/index.tsx:1274
 msgid "Cancel"
 msgstr "Болдырмау"
 
-#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:415
-#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:420
+#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:423
+#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:428
 msgid "Cancel comment"
 msgstr "Пікірден бас тарту"
 
-#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:455
-#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:460
-#: src/features/chats/components/chat-input.tsx:609
-#: src/features/chats/components/chat-input.tsx:614
+#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:461
+#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:466
+#: src/features/chats/components/chat-input.tsx:590
+#: src/features/chats/components/chat-input.tsx:595
 msgid "Cancel reply"
 msgstr "Жауаптан бас тарту"
 
@@ -569,7 +574,7 @@ msgstr "Хабарландыру санатын өзгерту"
 #: src/features/chats/index.tsx:89
 #: src/features/chats/index.tsx:197
 #: src/features/chats/index.tsx:197
-#: src/features/chats/index.tsx:1047
+#: src/features/chats/index.tsx:1051
 msgid "Chat"
 msgstr "Чат"
 
@@ -626,8 +631,8 @@ msgstr "Чат дайын"
 msgid "Chat renamed"
 msgstr "Чат атауы өзгертілді"
 
-#: src/features/chats/index.tsx:1052
-#: src/features/chats/index.tsx:1150
+#: src/features/chats/index.tsx:1056
+#: src/features/chats/index.tsx:1154
 #: src/routes/_authenticated/$chatId_.settings.tsx:89
 #: src/routes/_authenticated/$chatId_.settings.tsx:102
 #: src/routes/_authenticated/$chatId_.settings.tsx:113
@@ -635,7 +640,7 @@ msgstr "Чат атауы өзгертілді"
 msgid "Chat settings"
 msgstr "Чат параметрлері"
 
-#: src/features/chats/components/chat-input.tsx:807
+#: src/features/chats/components/chat-input.tsx:735
 msgid "Chat text box"
 msgstr "Чаттың мәтін өрісі"
 
@@ -726,8 +731,8 @@ msgstr "Таңдауды тазалау"
 msgid "Clear selection (Escape)"
 msgstr "Таңдауды тазалау (Escape)"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:485
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:490
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:478
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:483
 #: ../../../lib/web/src/components/ui/dialog.tsx:78
 #: ../../../lib/web/src/components/ui/image-lightbox.tsx:358
 #: ../../../lib/web/src/components/ui/image-lightbox.tsx:361
@@ -797,8 +802,8 @@ msgstr "Жақын арада!"
 msgid "Command Palette"
 msgstr "Пәрмендер палитрасы"
 
-#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:330
-#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:337
+#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:331
+#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:338
 msgid "Comment actions"
 msgstr "Пікір әрекеттері"
 
@@ -848,7 +853,7 @@ msgstr "Мәтінмәндік ақпарат пен мәліметтер."
 msgid "Continue"
 msgstr "Жалғастыру"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:352
+#: ../../../lib/web/src/components/step-up-dialog.tsx:366
 msgid "Continue with {label}"
 msgstr "{label} арқылы жалғастыру"
 
@@ -863,7 +868,7 @@ msgstr "Алмасу буферіне көшірілді"
 
 #: ../../../lib/web/src/components/ui/copy-button.tsx:64
 #: src/features/chats/components/message-hover-actions.tsx:107
-#: src/features/chats/index.tsx:1247
+#: src/features/chats/index.tsx:1251
 msgid "Copy"
 msgstr "Көшіру"
 
@@ -881,22 +886,22 @@ msgstr "Бұл құжатты жүктеу мүмкін болмады. Кейі
 msgid "Couldn't load notifications"
 msgstr "Хабарландыруларды жүктеу мүмкін болмады"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:184
+#: ../../../lib/web/src/components/step-up-dialog.tsx:193
 msgid "Couldn't send the code. Please try again."
 msgstr "Кодты жіберу мүмкін болмады. Қайталап көріңіз."
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:136
+#: ../../../lib/web/src/components/step-up-dialog.tsx:145
 msgid "Couldn't start re-authentication. Please try again."
 msgstr "Қайта аутентификацияны бастау мүмкін болмады. Қайталап көріңіз."
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:221
+#: ../../../lib/web/src/components/step-up-dialog.tsx:235
 msgid "Couldn't verify with that account. Please try again."
 msgstr "Бұл тіркелгі арқылы тексеру мүмкін болмады. Қайталап көріңіз."
 
 #: ../../../lib/web/src/components/entity/entity-board-column.tsx:564
 #: ../../../lib/web/src/components/entity/entity-board-column.tsx:703
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:475
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:647
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:468
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:624
 #: ../../../lib/web/src/components/entity/entity-tree-view.tsx:672
 msgid "Create"
 msgstr "Құру"
@@ -928,7 +933,7 @@ msgstr "Құрылды"
 msgid "Creating chat..."
 msgstr "Чат жасалуда..."
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:647
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:624
 #: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:258
 #: src/features/chats/components/new-chat.tsx:365
 msgid "Creating..."
@@ -979,29 +984,29 @@ msgstr "Әдепкі сұрыптау"
 
 #: ../../../lib/web/src/components/entity/entity-board-column.tsx:583
 #: ../../../lib/web/src/components/entity/entity-board-column.tsx:644
-#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:318
-#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:361
-#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:486
-#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:173
-#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:178
-#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:227
-#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:272
+#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:319
+#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:362
+#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:492
+#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:196
+#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:201
+#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:250
+#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:309
 #: src/features/chats/components/message-hover-actions.tsx:146
-#: src/features/chats/index.tsx:1263
-#: src/features/chats/index.tsx:1381
+#: src/features/chats/index.tsx:1267
+#: src/features/chats/index.tsx:1385
 msgid "Delete"
 msgstr "Жою"
 
-#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:270
+#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:307
 msgid "Delete attachment"
 msgstr "Тіркемені жою"
 
-#: src/features/chats/index.tsx:1133
-#: src/features/chats/index.tsx:1294
+#: src/features/chats/index.tsx:1137
+#: src/features/chats/index.tsx:1298
 msgid "Delete chat"
 msgstr "Чатты жою"
 
-#: src/features/chats/index.tsx:1359
+#: src/features/chats/index.tsx:1363
 #: src/routes/_authenticated/$chatId_.settings.tsx:378
 msgid "Delete chat history"
 msgstr "Чат тарихын жою"
@@ -1010,7 +1015,7 @@ msgstr "Чат тарихын жою"
 msgid "Delete column"
 msgstr "Бағанды жою"
 
-#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:484
+#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:490
 msgid "Delete comment"
 msgstr "Пікірді жою"
 
@@ -1041,7 +1046,7 @@ msgid "Deleting chat..."
 msgstr "Чат жойылуда..."
 
 #: src/features/chats/index.tsx:678
-#: src/features/chats/index.tsx:1378
+#: src/features/chats/index.tsx:1382
 msgid "Deleting..."
 msgstr "Жойылуда..."
 
@@ -1088,16 +1093,16 @@ msgstr "Каталогтан іздеу сәтсіз аяқталды"
 msgid "Disagree"
 msgstr "Келіспеу"
 
-#: ../../../lib/web/src/components/comment-composer.tsx:304
+#: ../../../lib/web/src/components/comment-composer.tsx:288
 msgid "Discard"
 msgstr "Алып тастау"
 
-#: ../../../lib/web/src/components/comment-composer.tsx:302
+#: ../../../lib/web/src/components/comment-composer.tsx:286
 msgid "Discard draft?"
 msgstr "Жобаны алып тастау керек пе?"
 
-#: src/features/chats/components/chat-input.tsx:733
-#: src/features/chats/components/chat-input.tsx:738
+#: src/features/chats/components/chat-input.tsx:653
+#: src/features/chats/components/chat-input.tsx:658
 msgid "Discard recording"
 msgstr "Жазбаны алып тастау"
 
@@ -1119,7 +1124,7 @@ msgstr "Жабу"
 msgid "Displays the mobile sidebar."
 msgstr "Мобильді бүйір тақтаны көрсетеді."
 
-#: src/features/chats/components/chat-input.tsx:795
+#: src/features/chats/components/chat-input.tsx:723
 msgid "Document"
 msgstr "Құжат"
 
@@ -1128,7 +1133,7 @@ msgstr "Құжат"
 msgid "Done"
 msgstr "Дайын"
 
-#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:214
+#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:237
 #: ../../../lib/web/src/components/ui/image-lightbox.tsx:342
 #: ../../../lib/web/src/components/ui/image-lightbox.tsx:352
 msgid "Download"
@@ -1147,7 +1152,7 @@ msgid "Duplicates"
 msgstr "Қайталанулар"
 
 #. placeholder {0}: formatTime(displayTime)
-#: src/features/chats/components/audio-player.tsx:262
+#: src/features/chats/components/audio-player.tsx:268
 msgid "Duration {0}"
 msgstr "Ұзақтығы {0}"
 
@@ -1155,8 +1160,8 @@ msgstr "Ұзақтығы {0}"
 msgid "Dyslexia-friendly"
 msgstr "Дислексияға бейімделген"
 
-#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:307
-#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:352
+#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:308
+#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:353
 #: src/features/chats/components/message-hover-actions.tsx:123
 msgid "Edit"
 msgstr "Өңдеу"
@@ -1192,7 +1197,7 @@ msgid "Edit view"
 msgstr "Көріністі өңдеу"
 
 #. placeholder {0}: formatVideoDuration(recordingDuration)
-#: src/features/chats/components/chat-input.tsx:746
+#: src/features/chats/components/chat-input.tsx:666
 msgid "Elapsed {0}"
 msgstr "Өтті {0}"
 
@@ -1200,19 +1205,19 @@ msgstr "Өтті {0}"
 msgid "Email"
 msgstr "Электрондық пошта"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:289
+#: ../../../lib/web/src/components/step-up-dialog.tsx:303
 msgid "Email code"
 msgstr "Электрондық пошта коды"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:299
+#: ../../../lib/web/src/components/step-up-dialog.tsx:313
 msgid "Enter the code from your email"
 msgstr "Электрондық поштаңыздағы кодты енгізіңіз"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:324
+#: ../../../lib/web/src/components/step-up-dialog.tsx:338
 msgid "Enter your authenticator code"
 msgstr "Authenticator кодын енгізіңіз"
 
-#: src/features/chats/components/chat-message-list.tsx:611
+#: src/features/chats/components/chat-message-list.tsx:612
 msgid "escape to cancel • enter to save"
 msgstr "Escape — бас тарту • Enter — сақтау"
 
@@ -1262,7 +1267,7 @@ msgid "Failed to create chat"
 msgstr "Чат жасау сәтсіз аяқталды"
 
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx:137
-#: ../../../lib/web/src/components/options-menu.tsx:99
+#: ../../../lib/web/src/components/options-menu.tsx:101
 msgid "Failed to create link"
 msgstr "Сілтеме жасау сәтсіз аяқталды"
 
@@ -1270,7 +1275,7 @@ msgstr "Сілтеме жасау сәтсіз аяқталды"
 msgid "Failed to delete"
 msgstr "Жою сәтсіз аяқталды"
 
-#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:110
+#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:128
 msgid "Failed to delete attachment"
 msgstr "Тіркемені жою сәтсіз аяқталды"
 
@@ -1278,7 +1283,7 @@ msgstr "Тіркемені жою сәтсіз аяқталды"
 msgid "Failed to delete chat"
 msgstr "Чатты жою сәтсіз аяқталды"
 
-#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:207
+#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:210
 msgid "Failed to delete comment"
 msgstr "Пікірді жою сәтсіз аяқталды"
 
@@ -1294,7 +1299,7 @@ msgstr "Хабарды өңдеу мүмкін болмады"
 msgid "Failed to forward"
 msgstr "Қайта жіберу сәтсіз аяқталды"
 
-#: ../../../lib/web/src/components/options-menu.tsx:123
+#: ../../../lib/web/src/components/options-menu.tsx:125
 msgid "Failed to get RSS token"
 msgstr "RSS токенін алу сәтсіз аяқталды"
 
@@ -1327,7 +1332,7 @@ msgstr "Чат саясатыңызды жүктеу мүмкін болмады
 msgid "Failed to mark chat as read"
 msgstr "Чатты оқылды деп белгілеу сәтсіз аяқталды"
 
-#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:170
+#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:173
 msgid "Failed to post comment"
 msgstr "Пікір қосу сәтсіз аяқталды"
 
@@ -1347,7 +1352,7 @@ msgstr "Мүшені жою сәтсіз аяқталды"
 msgid "Failed to rename chat"
 msgstr "Чаттың атын өзгерту сәтсіз аяқталды"
 
-#: ../../../lib/web/src/components/options-menu.tsx:133
+#: ../../../lib/web/src/components/options-menu.tsx:136
 msgid "Failed to revoke RSS access"
 msgstr "RSS кіру құқығын қайтарып алу сәтсіз аяқталды"
 
@@ -1367,17 +1372,17 @@ msgstr "Растау кодын жіберу сәтсіз аяқталды"
 msgid "Failed to start chat"
 msgstr "Чатты бастау сәтсіз аяқталды"
 
-#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:190
+#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:193
 msgid "Failed to update comment"
 msgstr "Пікірді жаңарту сәтсіз аяқталды"
 
-#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:95
+#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:112
 msgid "Failed to upload attachment"
 msgstr "Тіркемені жүктеп салу сәтсіз аяқталды"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:567
-#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:133
-#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:150
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:560
+#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:153
+#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:173
 msgid "Files"
 msgstr "Файлдар"
 
@@ -1403,7 +1408,7 @@ msgstr "Қалқыма"
 
 #: src/features/chats/components/forward-dialog.tsx:264
 #: src/features/chats/components/message-hover-actions.tsx:138
-#: src/features/chats/index.tsx:1255
+#: src/features/chats/index.tsx:1259
 msgid "Forward"
 msgstr "Қайта жіберу"
 
@@ -1535,7 +1540,7 @@ msgid "Including anonymous users"
 msgstr "Анонимді пайдаланушыларды қоса"
 
 #: src/features/chats/components/chat-settings-dialog.tsx:80
-#: src/features/chats/index.tsx:1156
+#: src/features/chats/index.tsx:1160
 msgid "Incoming chats"
 msgstr "Кіріс чаттар"
 
@@ -1571,8 +1576,8 @@ msgstr "Жарамсыз растау коды"
 msgid "It seems like the page you're looking for <0/>does not exist or might have been removed."
 msgstr "Сіз іздеген бет <0/>жоқ немесе жойылған сияқты."
 
-#: src/features/chats/components/chat-message-list.tsx:855
-#: src/features/chats/components/chat-message-list.tsx:872
+#: src/features/chats/components/chat-message-list.tsx:856
+#: src/features/chats/components/chat-message-list.tsx:873
 msgid "Jump to bottom"
 msgstr "Төменге өту"
 
@@ -1603,16 +1608,16 @@ msgstr "Орналасу"
 msgid "Learn more"
 msgstr "Толығырақ білу"
 
-#: src/features/chats/index.tsx:1345
+#: src/features/chats/index.tsx:1349
 msgid "Leave"
 msgstr "Кету"
 
-#: src/features/chats/index.tsx:1140
+#: src/features/chats/index.tsx:1144
 #: src/routes/_authenticated/$chatId_.settings.tsx:364
 msgid "Leave chat"
 msgstr "Чаттан кету"
 
-#: src/features/chats/index.tsx:1336
+#: src/features/chats/index.tsx:1340
 #: src/routes/_authenticated/$chatId_.settings.tsx:355
 msgid "Leave chat?"
 msgstr "Чаттан кетесіз бе?"
@@ -1622,7 +1627,7 @@ msgstr "Чаттан кетесіз бе?"
 msgid "Leaving chat..."
 msgstr "Чаттан шығуда..."
 
-#: src/features/chats/index.tsx:1342
+#: src/features/chats/index.tsx:1346
 #: src/routes/_authenticated/$chatId_.settings.tsx:361
 msgid "Leaving..."
 msgstr "Кету..."
@@ -1650,7 +1655,7 @@ msgstr "Ашық"
 msgid "Like"
 msgstr "Ұнайды"
 
-#: ../../../lib/web/src/components/options-menu.tsx:190
+#: ../../../lib/web/src/components/options-menu.tsx:193
 msgid "Link"
 msgstr "Сілтеме"
 
@@ -1782,7 +1787,7 @@ msgid "Message deleted"
 msgstr "Хабарлама жойылды"
 
 #. placeholder {0}: formatNumber(newMessage.length - MESSAGE_MAX_LENGTH)
-#: src/features/chats/components/chat-input.tsx:920
+#: src/features/chats/components/chat-input.tsx:861
 msgid "Message is {0} characters too long"
 msgstr "Хабар {0} таңбаға ұзын"
 
@@ -1795,37 +1800,37 @@ msgstr "Хабарлама қолжетімді емес"
 msgid "Metric"
 msgstr "Метрикалық"
 
-#: src/features/chats/components/chat-input.tsx:326
+#: src/features/chats/components/chat-input.tsx:344
 msgid "Microphone access denied"
 msgstr "Микрофонға кіру рұқсаты берілмеді"
 
-#: src/features/chats/components/chat-input.tsx:303
+#: src/features/chats/components/chat-input.tsx:321
 msgid "Microphone access is blocked here. Please update the app and try again."
 msgstr "Микрофонға кіру бұл жерде бұғатталған. Қолданбаны жаңартып, қайталап көріңіз."
 
-#: src/features/chats/components/chat-input.tsx:300
-#: src/features/chats/components/chat-input.tsx:347
-#: src/features/chats/components/chat-input.tsx:394
+#: src/features/chats/components/chat-input.tsx:318
+#: src/features/chats/components/chat-input.tsx:365
+#: src/features/chats/components/chat-input.tsx:412
 msgid "Microphone access requires a secure context (HTTPS or localhost)"
 msgstr "Микрофонға кіру үшін қауіпсіз контекст қажет (HTTPS немесе localhost)"
 
-#: src/features/chats/components/chat-input.tsx:306
+#: src/features/chats/components/chat-input.tsx:324
 msgid "Microphone access was blocked by the browser"
 msgstr "Браузер микрофонға кіруді бұғаттады"
 
-#: src/features/chats/components/chat-input.tsx:287
+#: src/features/chats/components/chat-input.tsx:305
 msgid "Microphone constraints could not be satisfied"
 msgstr "Микрофон талаптарын орындау мүмкін болмады"
 
-#: src/features/chats/components/chat-input.tsx:323
+#: src/features/chats/components/chat-input.tsx:341
 msgid "Microphone error: {message}"
 msgstr "Микрофон қатесі: {message}"
 
-#: src/features/chats/components/chat-input.tsx:283
+#: src/features/chats/components/chat-input.tsx:301
 msgid "Microphone is already in use"
 msgstr "Микрофон әлдеқашан қолданыста"
 
-#: src/features/chats/components/chat-input.tsx:275
+#: src/features/chats/components/chat-input.tsx:293
 msgid "Microphone permission denied"
 msgstr "Микрофон рұқсаты берілмеді"
 
@@ -1837,7 +1842,7 @@ msgstr "Ең аз ұзындық"
 msgid "Mochi web"
 msgstr "Mochi веб"
 
-#: ../../../lib/web/src/components/options-menu.tsx:164
+#: ../../../lib/web/src/components/options-menu.tsx:167
 msgid "Moderation"
 msgstr ""
 
@@ -1845,8 +1850,8 @@ msgstr ""
 msgid "Monday"
 msgstr "Дүйсенбі"
 
-#: ../../../lib/web/src/components/options-menu.tsx:145
-#: ../../../lib/web/src/components/options-menu.tsx:152
+#: ../../../lib/web/src/components/options-menu.tsx:148
+#: ../../../lib/web/src/components/options-menu.tsx:155
 msgid "More options"
 msgstr "Қосымша опциялар"
 
@@ -1880,7 +1885,7 @@ msgstr "Аты 1000 таңбадан аспауы керек"
 msgid "Network error"
 msgstr "Желі қатесі"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:460
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:453
 #: ../../../lib/web/src/components/ui/sort-selector.tsx:43
 msgid "New"
 msgstr "Жаңа"
@@ -1905,7 +1910,7 @@ msgstr "Жаңалау сәйкестік"
 msgid "Next image"
 msgstr "Келесі сурет"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:533
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:526
 msgid "No {parentClassNames} to add to"
 msgstr "Қосуға болатын {parentClassNames} жоқ"
 
@@ -1921,7 +1926,7 @@ msgstr "Әрекет әлі жоқ"
 msgid "No chats to forward to"
 msgstr "Қайта жіберетін чаттар жоқ"
 
-#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:450
+#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:458
 msgid "No comments yet"
 msgstr "Әлі пікірлер жоқ"
 
@@ -1949,7 +1954,7 @@ msgstr "Ойындар әлі жоқ"
 msgid "No groups available"
 msgstr "Топтар қолжетімсіз"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:500
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:493
 msgid "No item types can be created yet. Create the required parent items first."
 msgstr "Әлі бірде-бір элемент түрі жасалмайды. Алдымен қажетті ата-аналық элементтерді жасаңыз."
 
@@ -1957,11 +1962,11 @@ msgstr "Әлі бірде-бір элемент түрі жасалмайды. �
 msgid "No matching objects"
 msgstr "Сәйкес нысандар жоқ"
 
-#: src/features/chats/components/chat-message-list.tsx:469
+#: src/features/chats/components/chat-message-list.tsx:470
 msgid "No messages yet"
 msgstr "Хабарламалар әлі жоқ"
 
-#: src/features/chats/components/chat-input.tsx:279
+#: src/features/chats/components/chat-input.tsx:297
 msgid "No microphone found"
 msgstr "Микрофон табылмады"
 
@@ -1987,6 +1992,7 @@ msgstr "Профиль жоқ"
 msgid "No results"
 msgstr "Нәтижелер жоқ"
 
+#: ../../../lib/web/src/components/inline-entity-search.tsx:74
 #: ../../../lib/web/src/components/search-entity-dialog.tsx:82
 #: ../../../lib/web/src/components/search-entity-page.tsx:73
 msgid "No results found"
@@ -2024,9 +2030,9 @@ msgid "No views"
 msgstr "Көріністер жоқ"
 
 #: ../../../lib/web/src/components/colour-picker.tsx:349
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:509
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:512
 #: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:516
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:519
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:523
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:365
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:388
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:391
@@ -2109,7 +2115,7 @@ msgstr "Тіркелгі әрекеттерін ашу"
 msgid "Open actions"
 msgstr "Әрекеттерді ашу"
 
-#: src/features/chats/index.tsx:1125
+#: src/features/chats/index.tsx:1129
 msgid "Open chat actions"
 msgstr "Чат әрекеттерін ашу"
 
@@ -2182,15 +2188,15 @@ msgstr "Иесі"
 msgid "Page {currentPage} of {totalPages}"
 msgstr "{totalPages} беттің {currentPage} беті"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:508
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:501
 msgid "Parent"
 msgstr "Ата-ана"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:334
+#: ../../../lib/web/src/components/step-up-dialog.tsx:348
 msgid "Passkey"
 msgstr "Passkey"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:209
+#: ../../../lib/web/src/components/step-up-dialog.tsx:218
 msgid "Passkey verification failed. Please try again."
 msgstr "Passkey тексеруі сәтсіз аяқталды. Қайталап көріңіз."
 
@@ -2214,6 +2220,10 @@ msgstr "Дауыстық хабарды кідірту"
 msgid "People"
 msgstr "Адамдар"
 
+#: src/features/chats/components/chat-input.tsx:717
+msgid "Photo or Video"
+msgstr ""
+
 #: ../../../lib/web/src/components/date-picker.tsx:20
 msgid "Pick a date"
 msgstr "Күнді таңдаңыз"
@@ -2230,7 +2240,7 @@ msgstr "Аудионы ойнату"
 msgid "Play voice note"
 msgstr "Дауыстық хабарды ойнату"
 
-#: ../../../lib/web/src/components/comment-composer.tsx:99
+#: ../../../lib/web/src/components/comment-composer.tsx:84
 #: ../../../lib/web/src/features/errors/general-error.tsx:54
 #: ../../../lib/web/src/lib/api-response-interceptors.ts:323
 msgid "Please check your internet connection and try again."
@@ -2256,11 +2266,11 @@ msgstr "Қайталап көріңіз."
 msgid "Please wait a moment and try again."
 msgstr "Сәл күтіп, әрекетті қайталаңыз."
 
-#: ../../../lib/web/src/components/options-menu.tsx:175
+#: ../../../lib/web/src/components/options-menu.tsx:178
 msgid "Posts"
 msgstr "Жазбалар"
 
-#: ../../../lib/web/src/components/options-menu.tsx:178
+#: ../../../lib/web/src/components/options-menu.tsx:181
 msgid "Posts and comments"
 msgstr "Жазбалар мен пікірлер"
 
@@ -2315,28 +2325,28 @@ msgstr "Ұсынылған"
 msgid "Reconnecting ({retries})..."
 msgstr "Қайта қосылуда ({retries})..."
 
-#: src/features/chats/components/chat-input.tsx:854
-#: src/features/chats/components/chat-input.tsx:859
+#: src/features/chats/components/chat-input.tsx:782
+#: src/features/chats/components/chat-input.tsx:787
 msgid "Record voice note"
 msgstr "Дауыстық хабар жазу"
 
-#: src/features/chats/components/chat-input.tsx:315
+#: src/features/chats/components/chat-input.tsx:333
 msgid "Recording failed. Please try again."
 msgstr "Жазу сәтсіз аяқталды. Қайталап көріңіз."
 
-#: src/features/chats/components/chat-input.tsx:331
+#: src/features/chats/components/chat-input.tsx:349
 msgid "Recording is too large to send"
 msgstr "Жазба жіберу үшін тым үлкен"
 
-#: src/features/chats/components/chat-input.tsx:311
+#: src/features/chats/components/chat-input.tsx:329
 msgid "Recording produced no audio"
 msgstr "Жазбада дыбыс жоқ"
 
-#: src/features/chats/components/chat-input.tsx:237
+#: src/features/chats/components/chat-input.tsx:255
 msgid "Recording stopped at the 5-minute limit"
 msgstr "Жазу 5 минуттық шекте тоқтады"
 
-#: src/features/chats/components/chat-input.tsx:723
+#: src/features/chats/components/chat-input.tsx:643
 msgid "Recording voice note"
 msgstr "Дауыстық хабар жазылуда"
 
@@ -2361,18 +2371,16 @@ msgstr "Қатысты (5м, 3с, 2к)"
 msgid "Relative within 24 hours, else absolute"
 msgstr "24 сағат ішінде салыстырмалы, әйтпесе абсолютті"
 
-#: ../../../lib/web/src/components/comment-composer.tsx:236
+#: ../../../lib/web/src/components/attachment-composer.tsx:210
+#: ../../../lib/web/src/components/attachment-composer.tsx:247
 #: ../../../lib/web/src/components/entity/add-field-dialog.tsx:190
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:598
 #: ../../../lib/web/src/features/access/access-list.tsx:270
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:180
 #: src/routes/_authenticated/$chatId_.settings.tsx:556
 msgid "Remove"
 msgstr "Жою"
 
-#. placeholder {0}: attachment.file.name
 #. placeholder {0}: reaction.label
-#: src/features/chats/components/chat-input.tsx:701
 #: src/features/chats/components/message-reaction-bar.tsx:121
 msgid "Remove {0}"
 msgstr "{0} жою"
@@ -2448,19 +2456,19 @@ msgstr "Бұл тақта бағанының атын өзгерту"
 msgid "Renaming chat..."
 msgstr "Чат атауы өзгертілуде..."
 
-#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:294
-#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:342
+#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:295
+#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:343
 #: src/features/chats/components/message-hover-actions.tsx:133
 msgid "Reply"
 msgstr "Жауап беру"
 
 #. placeholder {0}: comment.name || comment.author
-#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:385
+#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:386
 msgid "Reply to {0}..."
 msgstr "{0} жауап беру..."
 
 #. placeholder {0}: replyTo.name
-#: src/features/chats/components/chat-input.tsx:590
+#: src/features/chats/components/chat-input.tsx:571
 msgid "Replying to {0}"
 msgstr "Жауап: {0}"
 
@@ -2468,7 +2476,7 @@ msgstr "Жауап: {0}"
 msgid "Required"
 msgstr "Міндетті"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:367
+#: ../../../lib/web/src/components/step-up-dialog.tsx:381
 msgid "Resend email"
 msgstr "Хатты қайта жіберу"
 
@@ -2486,13 +2494,21 @@ msgstr "{title} қалпына келтіру"
 msgid "Reset all settings to default values"
 msgstr "Барлық параметрлерді әдепкі мәндерге қайтару"
 
-#: ../../../lib/web/src/components/comment-composer.tsx:253
+#: ../../../lib/web/src/components/attachment-composer.tsx:264
 msgid "Retry"
 msgstr "Қайталап көру"
 
-#: ../../../lib/web/src/components/options-menu.tsx:181
+#: ../../../lib/web/src/components/options-menu.tsx:250
+msgid "Revoke"
+msgstr ""
+
+#: ../../../lib/web/src/components/options-menu.tsx:184
 msgid "Revoke access"
 msgstr "Кіруді қайтарып алу"
+
+#: ../../../lib/web/src/components/options-menu.tsx:244
+msgid "Revoke RSS access?"
+msgstr ""
 
 #: ../../../lib/web/src/components/config-drawer.tsx:362
 msgid "Right to Left"
@@ -2511,15 +2527,15 @@ msgstr "Жолдарды топтастыру"
 msgid "Rows per page"
 msgstr "Бетке жолдар"
 
-#: ../../../lib/web/src/components/options-menu.tsx:131
+#: ../../../lib/web/src/components/options-menu.tsx:134
 msgid "RSS access revoked"
 msgstr "RSS кіру құқығы қайтарылды"
 
-#: ../../../lib/web/src/components/options-menu.tsx:171
+#: ../../../lib/web/src/components/options-menu.tsx:174
 msgid "RSS feed"
 msgstr "RSS арнасы"
 
-#: ../../../lib/web/src/components/options-menu.tsx:121
+#: ../../../lib/web/src/components/options-menu.tsx:123
 msgid "RSS URL copied to clipboard"
 msgstr "RSS URL алмасу буферіне көшірілді"
 
@@ -2531,11 +2547,11 @@ msgstr "Қайғылы"
 msgid "Saturday"
 msgstr "Сенбі"
 
-#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:269
+#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:270
 #: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:173
 #: ../../../lib/web/src/components/ui/editable-field-row.tsx:122
 #: ../../../lib/web/src/components/ui/secret-field.tsx:77
-#: src/features/chats/components/chat-message-list.tsx:633
+#: src/features/chats/components/chat-message-list.tsx:634
 #: src/features/chats/components/chat-settings-dialog.tsx:128
 msgid "Save"
 msgstr "Сақтау"
@@ -2587,7 +2603,7 @@ msgstr "Достарды іздеу…"
 msgid "Search in chat..."
 msgstr "Чат ішінен іздеу..."
 
-#: src/features/chats/index.tsx:1115
+#: src/features/chats/index.tsx:1119
 msgid "Search messages"
 msgstr "Хабарламаларды іздеу"
 
@@ -2609,6 +2625,7 @@ msgstr "Бұл көрністі іздеу, бақылау және сұрыпт
 
 #: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx:181
 #: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx:257
+#: ../../../lib/web/src/components/inline-entity-search.tsx:73
 #: ../../../lib/web/src/components/person-picker.tsx:324
 #: ../../../lib/web/src/components/search-entity-dialog.tsx:81
 #: ../../../lib/web/src/components/search-entity-page.tsx:72
@@ -2621,7 +2638,7 @@ msgstr "Іздеу..."
 msgid "Searching..."
 msgstr "Іздеуде..."
 
-#: src/features/chats/components/audio-player.tsx:332
+#: src/features/chats/components/audio-player.tsx:339
 msgid "Seek in audio"
 msgstr "Аудио бойынша жылжу"
 
@@ -2679,7 +2696,7 @@ msgstr "Топты таңдау"
 msgid "Select layout style"
 msgstr "Орналасу стилін таңдау"
 
-#: src/features/chats/components/chat-message-list.tsx:826
+#: src/features/chats/components/chat-message-list.tsx:827
 msgid "Select loaded"
 msgstr "Жүктелгендерді таңдау"
 
@@ -2687,7 +2704,7 @@ msgstr "Жүктелгендерді таңдау"
 msgid "Select location"
 msgstr "Орынды таңдау"
 
-#: src/features/chats/components/chat-message-list.tsx:543
+#: src/features/chats/components/chat-message-list.tsx:544
 msgid "Select message"
 msgstr "Хабарламаны таңдау"
 
@@ -2728,7 +2745,7 @@ msgstr "Таңдау..."
 msgid "selected"
 msgstr "таңдалды"
 
-#: src/features/chats/index.tsx:1218
+#: src/features/chats/index.tsx:1222
 msgid "Selected the newest {BULK_MESSAGES_MAX} messages, the most that can be forwarded or deleted at once"
 msgstr "Ең соңғы {BULK_MESSAGES_MAX} хабар таңдалды — бір мезгілде қайта жіберуге немесе жоюға болатын ең көп саны"
 
@@ -2737,7 +2754,7 @@ msgstr "Ең соңғы {BULK_MESSAGES_MAX} хабар таңдалды — бі
 msgid "Selected: <0>{0}</0>"
 msgstr "Таңдалған: <0>{0}</0>"
 
-#: src/features/chats/components/chat-message-list.tsx:824
+#: src/features/chats/components/chat-message-list.tsx:825
 msgid "Selects messages loaded so far"
 msgstr "Осы уақытқа дейін жүктелген хабарламаларды таңдайды"
 
@@ -2745,14 +2762,14 @@ msgstr "Осы уақытқа дейін жүктелген хабарламал
 msgid "Send again"
 msgstr "Қайта жіберу"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:307
+#: ../../../lib/web/src/components/step-up-dialog.tsx:321
 msgid "Send email"
 msgstr "Электрондық пошта жіберу"
 
 #: ../../../lib/web/src/components/game/game-chat-input.tsx:52
 #: ../../../lib/web/src/components/game/game-chat-input.tsx:61
-#: src/features/chats/components/chat-input.tsx:869
-#: src/features/chats/components/chat-input.tsx:878
+#: src/features/chats/components/chat-input.tsx:797
+#: src/features/chats/components/chat-input.tsx:806
 msgid "Send message"
 msgstr "Хабар жіберу"
 
@@ -2780,7 +2797,7 @@ msgstr "Шығу және бару нүктесін орнату"
 
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx:126
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx:132
-#: ../../../lib/web/src/components/options-menu.tsx:196
+#: ../../../lib/web/src/components/options-menu.tsx:199
 msgid "Settings"
 msgstr "Параметрлер"
 
@@ -2842,7 +2859,7 @@ msgstr "Кіші"
 msgid "Sort"
 msgstr "Сұрыптау"
 
-#: ../../../lib/web/src/components/options-menu.tsx:158
+#: ../../../lib/web/src/components/options-menu.tsx:161
 msgid "Sources"
 msgstr "Дереккөздер"
 
@@ -2854,7 +2871,7 @@ msgstr "Кең"
 msgid "Start a conversation"
 msgstr "Әңгіме бастау"
 
-#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:451
+#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:459
 msgid "Start the discussion by adding the first comment."
 msgstr "Бірінші пікір қосып талқылауды бастаңыз."
 
@@ -2866,8 +2883,8 @@ msgstr "Чат басталуда..."
 msgid "Stay tuned though!"
 msgstr "Хабарласып тұрыңыз!"
 
-#: src/features/chats/components/chat-input.tsx:763
-#: src/features/chats/components/chat-input.tsx:768
+#: src/features/chats/components/chat-input.tsx:683
+#: src/features/chats/components/chat-input.tsx:688
 msgid "Stop recording"
 msgstr "Жазуды тоқтату"
 
@@ -2875,16 +2892,18 @@ msgstr "Жазуды тоқтату"
 msgid "Subject"
 msgstr "Тақырып"
 
-#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:431
-#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:440
+#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:439
+#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:448
 msgid "Submit comment"
 msgstr "Пікірді жіберу"
 
-#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:470
-#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:475
+#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:476
+#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:481
 msgid "Submit reply"
 msgstr "Жауапты жіберу"
 
+#: ../../../lib/web/src/components/inline-entity-search.tsx:76
+#: ../../../lib/web/src/components/recommended-entities.tsx:66
 #: ../../../lib/web/src/components/search-entity-dialog.tsx:83
 #: ../../../lib/web/src/components/search-entity-page.tsx:74
 msgid "Subscribe"
@@ -2936,7 +2955,7 @@ msgstr "Шарттар мен ережелер"
 msgid "Text"
 msgstr "Мәтін"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:195
+#: ../../../lib/web/src/components/step-up-dialog.tsx:204
 msgid "That code is incorrect or has expired."
 msgstr "Бұл код қате немесе мерзімі өткен."
 
@@ -2982,11 +3001,11 @@ msgstr "осы чат"
 msgid "This chat may have been deleted or you don't have access to it"
 msgstr "Бұл чат жойылған болуы мүмкін немесе сізде оған қолжетімділік жоқ"
 
-#: src/features/chats/index.tsx:1373
+#: src/features/chats/index.tsx:1377
 msgid "This deletes the message for everyone and cannot be undone."
 msgstr "Бұл хабарламаны барлығынан жояды және оны кері қайтару мүмкін емес."
 
-#: src/features/chats/components/chat-message-list.tsx:674
+#: src/features/chats/components/chat-message-list.tsx:675
 #: src/features/chats/components/message-quote.tsx:50
 msgid "This message was deleted"
 msgstr "Бұл хабарлама жойылды"
@@ -3095,11 +3114,11 @@ msgstr "Пайдаланушыларды іздеу үшін теріңіз"
 msgid "Type to search..."
 msgstr "Іздеу үшін теріңіз..."
 
-#: src/features/chats/components/chat-input.tsx:814
+#: src/features/chats/components/chat-input.tsx:742
 msgid "Type your message…"
 msgstr "Хабарыңызды теріңіз…"
 
-#: src/features/chats/components/chat-input.tsx:813
+#: src/features/chats/components/chat-input.tsx:741
 msgid "Type your reply…"
 msgstr "Жауабыңызды жазыңыз…"
 
@@ -3138,11 +3157,11 @@ msgstr "Белгісіз"
 msgid "Unpin chat"
 msgstr "Чатты бекітуден алу"
 
-#: ../../../lib/web/src/components/options-menu.tsx:211
+#: ../../../lib/web/src/components/options-menu.tsx:214
 msgid "Unsubscribe"
 msgstr "Жазылудан бас тарту"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:286
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:277
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx:103
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx:184
 msgid "Untitled"
@@ -3157,8 +3176,8 @@ msgstr "Тексерілмеген"
 msgid "Updated"
 msgstr "Жаңартылды"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:630
-#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:259
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:607
+#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:296
 msgid "Upload"
 msgstr "Жүктеп салу"
 
@@ -3166,7 +3185,7 @@ msgstr "Жүктеп салу"
 msgid "Upload progress"
 msgstr "Жүктеп салу барысы"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:338
+#: ../../../lib/web/src/components/step-up-dialog.tsx:352
 msgid "Use your passkey"
 msgstr "Passkey пайдаланыңыз"
 
@@ -3188,7 +3207,7 @@ msgstr "Тексеру коды жіберілді"
 msgid "Verification failed"
 msgstr "Тексеру сәтсіз"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:388
+#: ../../../lib/web/src/components/step-up-dialog.tsx:402
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:172
 #: ../../../lib/web/src/features/accounts/account-verify.tsx:111
 msgid "Verify"
@@ -3229,16 +3248,16 @@ msgstr "Көру басқару элементтері"
 msgid "Voice note waveform"
 msgstr "Дауыстық хабардың толқын пішіні"
 
-#: src/features/chats/components/chat-input.tsx:374
+#: src/features/chats/components/chat-input.tsx:392
 msgid "Voice recording is currently unavailable. Please check your setup and try again."
 msgstr "Дауыс жазу қазір қолжетімсіз. Параметрлерді тексеріп, қайталап көріңіз."
 
-#: src/features/chats/components/chat-input.tsx:295
-#: src/features/chats/components/chat-input.tsx:400
+#: src/features/chats/components/chat-input.tsx:313
+#: src/features/chats/components/chat-input.tsx:418
 msgid "Voice recording is not supported in this browser"
 msgstr "Дауыс жазу бұл браузерде қолдау таппайды"
 
-#: src/features/chats/components/chat-input.tsx:270
+#: src/features/chats/components/chat-input.tsx:288
 msgid "Voice recording isn't available in this app version. Please update the app and try again."
 msgstr "Дауыс жазу қолданбаның бұл нұсқасында қолжетімсіз. Қолданбаны жаңартып, қайталап көріңіз."
 
@@ -3304,11 +3323,11 @@ msgstr "Сізде бұл бөлімге кіру мүмкіндігі жоқ."
 msgid "You don't have necessary permission <0/>to view this resource."
 msgstr "Бұл ресурсты көру үшін <0/>сізде қажетті рұқсат жоқ."
 
-#: src/features/chats/index.tsx:1281
+#: src/features/chats/index.tsx:1285
 msgid "You left this chat"
 msgstr "Сіз бұл чаттан шықтыңыз"
 
-#: src/features/chats/index.tsx:1280
+#: src/features/chats/index.tsx:1284
 msgid "You were removed from this chat"
 msgstr "Сіз бұл чаттан шығарылдыңыз"
 
@@ -3320,14 +3339,14 @@ msgstr "Барлығын көрдіңіз!"
 msgid "Your account was moved here from {source}. Until you delete it there, messages and notifications may reach both servers, some of your content keeps being served from the old server, and followers may take a few minutes to find you here."
 msgstr "Тіркелгіңіз {source} жерінен осында ауыстырылды. Сіз оны сол жерден жоймайынша, хабарлар мен хабарландырулар екі серверге де жетуі мүмкін, кейбір мазмұныңыз ескі серверден берілуін жалғастырады, ал жазылушылар сізді осында табу үшін бірнеше минут кетуі мүмкін."
 
-#: ../../../lib/web/src/components/comment-composer.tsx:295
+#: ../../../lib/web/src/components/comment-composer.tsx:279
 msgid "Your attachments will be lost."
 msgstr "Тіркемелеріңіз жоғалады."
 
-#: ../../../lib/web/src/components/comment-composer.tsx:293
+#: ../../../lib/web/src/components/comment-composer.tsx:277
 msgid "Your text and attachments will be lost."
 msgstr "Мәтініңіз бен тіркемелеріңіз жоғалады."
 
-#: ../../../lib/web/src/components/comment-composer.tsx:296
+#: ../../../lib/web/src/components/comment-composer.tsx:280
 msgid "Your text will be lost."
 msgstr "Мәтініңіз жоғалады."

@@ -14,20 +14,20 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. js-lingui-explicit-id
-#: ../../../lib/web/src/lib/error-normalizer.ts:236
+#: ../../../lib/web/src/lib/error-normalizer.ts:244
 msgid "Please check your internet connection and try again."
 msgstr "Controlla la connessione a internet e riprova."
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:302
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:293
 msgid " or "
 msgstr " o "
 
-#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:228
-#: src/features/chats/components/chat-message-list.tsx:789
+#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:229
+#: src/features/chats/components/chat-message-list.tsx:790
 msgid "(edited)"
 msgstr "(modificato)"
 
-#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:212
+#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:213
 msgid "(expand)"
 msgstr "(espandi)"
 
@@ -45,7 +45,7 @@ msgid "{0, plural, one {# selected} other {# selected}}"
 msgstr "{0, plural, one {# selezionato} other {# selezionati}}"
 
 #. placeholder {0}: deleteTargetIds?.length ?? 0
-#: src/features/chats/index.tsx:1369
+#: src/features/chats/index.tsx:1373
 msgid "{0, plural, one {Delete message?} other {Delete # messages?}}"
 msgstr "{0, plural, one {Eliminare il messaggio?} other {Eliminare # messaggi?}}"
 
@@ -61,8 +61,8 @@ msgstr "Anteprima dell'opzione {0}"
 
 #. placeholder {0}: selectedIds.size
 #. placeholder {0}: selectedIds?.size ?? 0
-#: src/features/chats/components/chat-message-list.tsx:816
-#: src/features/chats/index.tsx:1238
+#: src/features/chats/components/chat-message-list.tsx:817
+#: src/features/chats/index.tsx:1242
 msgid "{0} selected"
 msgstr "{0} selezionati"
 
@@ -100,8 +100,8 @@ msgstr "Il nome di {entityLabel} è obbligatorio"
 msgid "{hiddenCount, plural, one {Show 1 more file} other {Show # more files}}"
 msgstr "{hiddenCount, plural, one {Mostra 1 altro file} other {Mostra altri # file}}"
 
-#: src/features/chats/components/chat-message-list.tsx:851
-#: src/features/chats/components/chat-message-list.tsx:868
+#: src/features/chats/components/chat-message-list.tsx:852
+#: src/features/chats/components/chat-message-list.tsx:869
 msgid "{newMessageCount, plural, one {Jump to 1 new message} other {Jump to # new messages}}"
 msgstr "{newMessageCount, plural, one {Vai a 1 nuovo messaggio} other {Vai a # nuovi messaggi}}"
 
@@ -125,6 +125,7 @@ msgstr "{selectedCount, plural, one {# selezionati} other {# selezionati}}"
 msgid "{selectedCount, plural, one {Bulk actions for # selected {entityName}} other {Bulk actions for # selected {manyName}}}"
 msgstr "{selectedCount, plural, one {Azioni collettive per # {entityName} selezionato} other {Azioni collettive per # {manyName} selezionati}}"
 
+#: ../../../lib/web/src/components/attachment-composer.tsx:189
 #: ../../../lib/web/src/components/ui/upload-progress.tsx:52
 msgid "{sentLabel} of {totalLabel}"
 msgstr "{sentLabel} di {totalLabel}"
@@ -146,11 +147,11 @@ msgstr "{unreadCount, plural, one {Apri il menu (# notifica non letta)} other {A
 msgid "+{0} nested"
 msgstr "+{0} annidati"
 
-#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:209
+#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:210
 msgid "+{totalDescendants} more replies"
 msgstr "+{totalDescendants} altre risposte"
 
-#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:208
+#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:209
 msgid "1 reply"
 msgstr "1 risposta"
 
@@ -162,7 +163,7 @@ msgstr "12 ore"
 msgid "24 hours"
 msgstr "24 ore"
 
-#: src/features/chats/components/chat-input.tsx:319
+#: src/features/chats/components/chat-input.tsx:337
 msgid "A recording is already in progress."
 msgstr "Una registrazione è già in corso."
 
@@ -213,7 +214,7 @@ msgstr "Aggiungi"
 msgid "Add {0} to chat"
 msgstr "Aggiungi {0} alla chat"
 
-#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:360
+#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:363
 msgid "Add a comment..."
 msgstr "Aggiungi un commento..."
 
@@ -238,8 +239,8 @@ msgstr "Aggiungi account"
 msgid "Add an account to receive notifications and use services."
 msgstr "Aggiungi un account per ricevere notifiche e usare i servizi."
 
-#: src/features/chats/components/chat-input.tsx:782
-#: src/features/chats/components/chat-input.tsx:788
+#: src/features/chats/components/chat-input.tsx:702
+#: src/features/chats/components/chat-input.tsx:708
 msgid "Add attachment"
 msgstr "Aggiungi allegato"
 
@@ -385,8 +386,12 @@ msgstr "Chiunque può iniziare una chat con te."
 msgid "Anyone who is logged in"
 msgstr "Chiunque abbia effettuato l'accesso"
 
+#: ../../../lib/web/src/components/options-menu.tsx:249
+msgid "Anything subscribed to this feed will stop receiving it. You can copy a new URL afterwards."
+msgstr ""
+
 #. placeholder {0}: deleteTarget?.name
-#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:271
+#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:308
 msgid "Are you sure you want to delete \"{0}\"?"
 msgstr "Sei sicuro di voler eliminare \"{0}\"?"
 
@@ -394,12 +399,12 @@ msgstr "Sei sicuro di voler eliminare \"{0}\"?"
 msgid "Are you sure you want to delete the \"{name}\" column? This cannot be undone."
 msgstr "Sei sicuro di voler eliminare la colonna \"{name}\"? Questa azione non può essere annullata."
 
-#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:485
+#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:491
 msgid "Are you sure you want to delete this comment? This will also delete all replies."
 msgstr "Sei sicuro di voler eliminare questo commento? Verranno eliminate anche tutte le risposte."
 
 #. placeholder {0}: selectedChat?.name
-#: src/features/chats/index.tsx:1337
+#: src/features/chats/index.tsx:1341
 msgid "Are you sure you want to leave \"{0}\"? You can be added back by other members."
 msgstr "Sei sicuro di voler uscire da \"{0}\"? Altri membri possono aggiungerti di nuovo."
 
@@ -424,17 +429,17 @@ msgstr "Cresc."
 msgid "Ascending"
 msgstr "Crescente"
 
-#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:398
-#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:403
+#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:406
+#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:411
 msgid "Attach comment files"
 msgstr "Allega file al commento"
 
-#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:439
-#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:444
+#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:445
+#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:450
 msgid "Attach reply files"
 msgstr "Allega file alla risposta"
 
-#: src/features/chats/components/chat-input.tsx:599
+#: src/features/chats/components/chat-input.tsx:580
 #: src/features/chats/components/message-quote.tsx:56
 msgid "Attachment"
 msgstr "Allegato"
@@ -443,7 +448,7 @@ msgstr "Allegato"
 msgid "Attachments are too large to upload. Remove or shrink files and try again."
 msgstr "Gli allegati sono troppo grandi per essere caricati. Rimuovi o riduci i file e riprova."
 
-#: src/features/chats/components/chat-input.tsx:801
+#: src/features/chats/components/chat-input.tsx:729
 msgid "Audio"
 msgstr "Audio"
 
@@ -452,7 +457,7 @@ msgstr "Audio"
 msgid "Authenticated users"
 msgstr "Utenti autenticati"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:315
+#: ../../../lib/web/src/components/step-up-dialog.tsx:329
 msgid "Authenticator code"
 msgstr "Codice dell'autenticatore"
 
@@ -488,7 +493,7 @@ msgstr "Torna alla home"
 msgid "Banner"
 msgstr "Banner"
 
-#: src/features/chats/components/chat-message-list.tsx:470
+#: src/features/chats/components/chat-message-list.tsx:471
 msgid "Be the first to say something!"
 msgstr "Sii il primo a dire qualcosa!"
 
@@ -524,11 +529,11 @@ msgid "Browser notifications"
 msgstr "Notifiche del browser"
 
 #: ../../../lib/web/src/components/entity/entity-board-column.tsx:628
-#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:249
+#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:250
 #: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:169
 #: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:186
 #: ../../../lib/web/src/components/responsive-confirm-dialog.tsx:67
-#: ../../../lib/web/src/components/step-up-dialog.tsx:363
+#: ../../../lib/web/src/components/step-up-dialog.tsx:377
 #: ../../../lib/web/src/components/travelling-picker.tsx:308
 #: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:249
 #: ../../../lib/web/src/components/ui/editable-field-row.tsx:132
@@ -536,24 +541,24 @@ msgstr "Notifiche del browser"
 #: ../../../lib/web/src/features/access/access-list.tsx:268
 #: ../../../lib/web/src/features/accounts/account-add.tsx:201
 #: ../../../lib/web/src/features/accounts/account-verify.tsx:91
-#: src/features/chats/components/chat-message-list.tsx:621
-#: src/features/chats/components/chat-message-list.tsx:835
+#: src/features/chats/components/chat-message-list.tsx:622
+#: src/features/chats/components/chat-message-list.tsx:836
 #: src/features/chats/components/chat-settings-dialog.tsx:116
 #: src/features/chats/components/forward-dialog.tsx:253
 #: src/features/chats/components/new-chat.tsx:354
-#: src/features/chats/index.tsx:1270
+#: src/features/chats/index.tsx:1274
 msgid "Cancel"
 msgstr "Annulla"
 
-#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:415
-#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:420
+#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:423
+#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:428
 msgid "Cancel comment"
 msgstr "Annulla commento"
 
-#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:455
-#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:460
-#: src/features/chats/components/chat-input.tsx:609
-#: src/features/chats/components/chat-input.tsx:614
+#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:461
+#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:466
+#: src/features/chats/components/chat-input.tsx:590
+#: src/features/chats/components/chat-input.tsx:595
 msgid "Cancel reply"
 msgstr "Annulla risposta"
 
@@ -569,7 +574,7 @@ msgstr "Cambia categoria di notifica"
 #: src/features/chats/index.tsx:89
 #: src/features/chats/index.tsx:197
 #: src/features/chats/index.tsx:197
-#: src/features/chats/index.tsx:1047
+#: src/features/chats/index.tsx:1051
 msgid "Chat"
 msgstr "Chat"
 
@@ -626,8 +631,8 @@ msgstr "Chat pronta"
 msgid "Chat renamed"
 msgstr "Chat rinominata"
 
-#: src/features/chats/index.tsx:1052
-#: src/features/chats/index.tsx:1150
+#: src/features/chats/index.tsx:1056
+#: src/features/chats/index.tsx:1154
 #: src/routes/_authenticated/$chatId_.settings.tsx:89
 #: src/routes/_authenticated/$chatId_.settings.tsx:102
 #: src/routes/_authenticated/$chatId_.settings.tsx:113
@@ -635,7 +640,7 @@ msgstr "Chat rinominata"
 msgid "Chat settings"
 msgstr "Impostazioni della chat"
 
-#: src/features/chats/components/chat-input.tsx:807
+#: src/features/chats/components/chat-input.tsx:735
 msgid "Chat text box"
 msgstr "Casella di testo della chat"
 
@@ -726,8 +731,8 @@ msgstr "Cancella selezione"
 msgid "Clear selection (Escape)"
 msgstr "Cancella selezione (Esc)"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:485
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:490
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:478
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:483
 #: ../../../lib/web/src/components/ui/dialog.tsx:78
 #: ../../../lib/web/src/components/ui/image-lightbox.tsx:358
 #: ../../../lib/web/src/components/ui/image-lightbox.tsx:361
@@ -797,8 +802,8 @@ msgstr "In arrivo!"
 msgid "Command Palette"
 msgstr "Palette dei comandi"
 
-#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:330
-#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:337
+#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:331
+#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:338
 msgid "Comment actions"
 msgstr "Azioni commento"
 
@@ -848,7 +853,7 @@ msgstr "Informazioni e dettagli contestuali."
 msgid "Continue"
 msgstr "Continua"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:352
+#: ../../../lib/web/src/components/step-up-dialog.tsx:366
 msgid "Continue with {label}"
 msgstr "Continua con {label}"
 
@@ -863,7 +868,7 @@ msgstr "Copiato negli appunti"
 
 #: ../../../lib/web/src/components/ui/copy-button.tsx:64
 #: src/features/chats/components/message-hover-actions.tsx:107
-#: src/features/chats/index.tsx:1247
+#: src/features/chats/index.tsx:1251
 msgid "Copy"
 msgstr "Copia"
 
@@ -881,22 +886,22 @@ msgstr "Impossibile caricare questo documento. Riprova più tardi."
 msgid "Couldn't load notifications"
 msgstr "Impossibile caricare le notifiche"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:184
+#: ../../../lib/web/src/components/step-up-dialog.tsx:193
 msgid "Couldn't send the code. Please try again."
 msgstr "Impossibile inviare il codice. Riprova."
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:136
+#: ../../../lib/web/src/components/step-up-dialog.tsx:145
 msgid "Couldn't start re-authentication. Please try again."
 msgstr "Impossibile avviare la nuova autenticazione. Riprova."
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:221
+#: ../../../lib/web/src/components/step-up-dialog.tsx:235
 msgid "Couldn't verify with that account. Please try again."
 msgstr "Impossibile verificare con quell'account. Riprova."
 
 #: ../../../lib/web/src/components/entity/entity-board-column.tsx:564
 #: ../../../lib/web/src/components/entity/entity-board-column.tsx:703
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:475
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:647
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:468
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:624
 #: ../../../lib/web/src/components/entity/entity-tree-view.tsx:672
 msgid "Create"
 msgstr "Crea"
@@ -928,7 +933,7 @@ msgstr "Creato"
 msgid "Creating chat..."
 msgstr "Creazione chat in corso..."
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:647
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:624
 #: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:258
 #: src/features/chats/components/new-chat.tsx:365
 msgid "Creating..."
@@ -979,29 +984,29 @@ msgstr "Ordinamento predefinito"
 
 #: ../../../lib/web/src/components/entity/entity-board-column.tsx:583
 #: ../../../lib/web/src/components/entity/entity-board-column.tsx:644
-#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:318
-#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:361
-#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:486
-#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:173
-#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:178
-#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:227
-#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:272
+#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:319
+#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:362
+#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:492
+#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:196
+#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:201
+#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:250
+#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:309
 #: src/features/chats/components/message-hover-actions.tsx:146
-#: src/features/chats/index.tsx:1263
-#: src/features/chats/index.tsx:1381
+#: src/features/chats/index.tsx:1267
+#: src/features/chats/index.tsx:1385
 msgid "Delete"
 msgstr "Elimina"
 
-#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:270
+#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:307
 msgid "Delete attachment"
 msgstr "Elimina allegato"
 
-#: src/features/chats/index.tsx:1133
-#: src/features/chats/index.tsx:1294
+#: src/features/chats/index.tsx:1137
+#: src/features/chats/index.tsx:1298
 msgid "Delete chat"
 msgstr "Elimina chat"
 
-#: src/features/chats/index.tsx:1359
+#: src/features/chats/index.tsx:1363
 #: src/routes/_authenticated/$chatId_.settings.tsx:378
 msgid "Delete chat history"
 msgstr "Elimina cronologia chat"
@@ -1010,7 +1015,7 @@ msgstr "Elimina cronologia chat"
 msgid "Delete column"
 msgstr "Elimina colonna"
 
-#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:484
+#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:490
 msgid "Delete comment"
 msgstr "Elimina commento"
 
@@ -1041,7 +1046,7 @@ msgid "Deleting chat..."
 msgstr "Eliminazione chat in corso..."
 
 #: src/features/chats/index.tsx:678
-#: src/features/chats/index.tsx:1378
+#: src/features/chats/index.tsx:1382
 msgid "Deleting..."
 msgstr "Eliminazione in corso..."
 
@@ -1088,16 +1093,16 @@ msgstr "Ricerca nella directory non riuscita"
 msgid "Disagree"
 msgstr "In disaccordo"
 
-#: ../../../lib/web/src/components/comment-composer.tsx:304
+#: ../../../lib/web/src/components/comment-composer.tsx:288
 msgid "Discard"
 msgstr "Scarta"
 
-#: ../../../lib/web/src/components/comment-composer.tsx:302
+#: ../../../lib/web/src/components/comment-composer.tsx:286
 msgid "Discard draft?"
 msgstr "Scartare la bozza?"
 
-#: src/features/chats/components/chat-input.tsx:733
-#: src/features/chats/components/chat-input.tsx:738
+#: src/features/chats/components/chat-input.tsx:653
+#: src/features/chats/components/chat-input.tsx:658
 msgid "Discard recording"
 msgstr "Scarta registrazione"
 
@@ -1119,7 +1124,7 @@ msgstr "Ignora"
 msgid "Displays the mobile sidebar."
 msgstr "Mostra la barra laterale mobile."
 
-#: src/features/chats/components/chat-input.tsx:795
+#: src/features/chats/components/chat-input.tsx:723
 msgid "Document"
 msgstr "Documento"
 
@@ -1128,7 +1133,7 @@ msgstr "Documento"
 msgid "Done"
 msgstr "Fatto"
 
-#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:214
+#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:237
 #: ../../../lib/web/src/components/ui/image-lightbox.tsx:342
 #: ../../../lib/web/src/components/ui/image-lightbox.tsx:352
 msgid "Download"
@@ -1147,7 +1152,7 @@ msgid "Duplicates"
 msgstr "Duplica"
 
 #. placeholder {0}: formatTime(displayTime)
-#: src/features/chats/components/audio-player.tsx:262
+#: src/features/chats/components/audio-player.tsx:268
 msgid "Duration {0}"
 msgstr "Durata {0}"
 
@@ -1155,8 +1160,8 @@ msgstr "Durata {0}"
 msgid "Dyslexia-friendly"
 msgstr "Adatto alla dislessia"
 
-#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:307
-#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:352
+#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:308
+#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:353
 #: src/features/chats/components/message-hover-actions.tsx:123
 msgid "Edit"
 msgstr "Modifica"
@@ -1192,7 +1197,7 @@ msgid "Edit view"
 msgstr "Modifica vista"
 
 #. placeholder {0}: formatVideoDuration(recordingDuration)
-#: src/features/chats/components/chat-input.tsx:746
+#: src/features/chats/components/chat-input.tsx:666
 msgid "Elapsed {0}"
 msgstr "Trascorso {0}"
 
@@ -1200,19 +1205,19 @@ msgstr "Trascorso {0}"
 msgid "Email"
 msgstr "Email"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:289
+#: ../../../lib/web/src/components/step-up-dialog.tsx:303
 msgid "Email code"
 msgstr "Codice email"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:299
+#: ../../../lib/web/src/components/step-up-dialog.tsx:313
 msgid "Enter the code from your email"
 msgstr "Inserisci il codice ricevuto via email"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:324
+#: ../../../lib/web/src/components/step-up-dialog.tsx:338
 msgid "Enter your authenticator code"
 msgstr "Inserisci il codice dell'app di autenticazione"
 
-#: src/features/chats/components/chat-message-list.tsx:611
+#: src/features/chats/components/chat-message-list.tsx:612
 msgid "escape to cancel • enter to save"
 msgstr "Esc per annullare • Invio per salvare"
 
@@ -1262,7 +1267,7 @@ msgid "Failed to create chat"
 msgstr "Impossibile creare la chat"
 
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx:137
-#: ../../../lib/web/src/components/options-menu.tsx:99
+#: ../../../lib/web/src/components/options-menu.tsx:101
 msgid "Failed to create link"
 msgstr "Impossibile creare il link"
 
@@ -1270,7 +1275,7 @@ msgstr "Impossibile creare il link"
 msgid "Failed to delete"
 msgstr "Impossibile eliminare"
 
-#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:110
+#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:128
 msgid "Failed to delete attachment"
 msgstr "Impossibile eliminare l'allegato"
 
@@ -1278,7 +1283,7 @@ msgstr "Impossibile eliminare l'allegato"
 msgid "Failed to delete chat"
 msgstr "Impossibile eliminare la chat"
 
-#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:207
+#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:210
 msgid "Failed to delete comment"
 msgstr "Impossibile eliminare il commento"
 
@@ -1294,7 +1299,7 @@ msgstr "Impossibile modificare il messaggio"
 msgid "Failed to forward"
 msgstr "Inoltro non riuscito"
 
-#: ../../../lib/web/src/components/options-menu.tsx:123
+#: ../../../lib/web/src/components/options-menu.tsx:125
 msgid "Failed to get RSS token"
 msgstr "Impossibile ottenere il token RSS"
 
@@ -1327,7 +1332,7 @@ msgstr "Impossibile caricare la tua politica di chat"
 msgid "Failed to mark chat as read"
 msgstr "Impossibile segnare la chat come letta"
 
-#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:170
+#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:173
 msgid "Failed to post comment"
 msgstr "Impossibile pubblicare il commento"
 
@@ -1347,7 +1352,7 @@ msgstr "Impossibile rimuovere il membro"
 msgid "Failed to rename chat"
 msgstr "Impossibile rinominare la chat"
 
-#: ../../../lib/web/src/components/options-menu.tsx:133
+#: ../../../lib/web/src/components/options-menu.tsx:136
 msgid "Failed to revoke RSS access"
 msgstr "Impossibile revocare l'accesso RSS"
 
@@ -1367,17 +1372,17 @@ msgstr "Impossibile inviare il codice di verifica"
 msgid "Failed to start chat"
 msgstr "Impossibile avviare la chat"
 
-#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:190
+#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:193
 msgid "Failed to update comment"
 msgstr "Impossibile aggiornare il commento"
 
-#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:95
+#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:112
 msgid "Failed to upload attachment"
 msgstr "Impossibile caricare l'allegato"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:567
-#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:133
-#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:150
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:560
+#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:153
+#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:173
 msgid "Files"
 msgstr "File"
 
@@ -1403,7 +1408,7 @@ msgstr "Fluttuante"
 
 #: src/features/chats/components/forward-dialog.tsx:264
 #: src/features/chats/components/message-hover-actions.tsx:138
-#: src/features/chats/index.tsx:1255
+#: src/features/chats/index.tsx:1259
 msgid "Forward"
 msgstr "Inoltra"
 
@@ -1535,7 +1540,7 @@ msgid "Including anonymous users"
 msgstr "Inclusi gli utenti anonimi"
 
 #: src/features/chats/components/chat-settings-dialog.tsx:80
-#: src/features/chats/index.tsx:1156
+#: src/features/chats/index.tsx:1160
 msgid "Incoming chats"
 msgstr "Chat in arrivo"
 
@@ -1571,8 +1576,8 @@ msgstr "Codice di verifica non valido"
 msgid "It seems like the page you're looking for <0/>does not exist or might have been removed."
 msgstr "Sembra che la pagina che stai cercando <0/>non esista o sia stata rimossa."
 
-#: src/features/chats/components/chat-message-list.tsx:855
-#: src/features/chats/components/chat-message-list.tsx:872
+#: src/features/chats/components/chat-message-list.tsx:856
+#: src/features/chats/components/chat-message-list.tsx:873
 msgid "Jump to bottom"
 msgstr "Vai in fondo"
 
@@ -1603,16 +1608,16 @@ msgstr "Layout"
 msgid "Learn more"
 msgstr "Scopri di più"
 
-#: src/features/chats/index.tsx:1345
+#: src/features/chats/index.tsx:1349
 msgid "Leave"
 msgstr "Esci"
 
-#: src/features/chats/index.tsx:1140
+#: src/features/chats/index.tsx:1144
 #: src/routes/_authenticated/$chatId_.settings.tsx:364
 msgid "Leave chat"
 msgstr "Esci dalla chat"
 
-#: src/features/chats/index.tsx:1336
+#: src/features/chats/index.tsx:1340
 #: src/routes/_authenticated/$chatId_.settings.tsx:355
 msgid "Leave chat?"
 msgstr "Uscire dalla chat?"
@@ -1622,7 +1627,7 @@ msgstr "Uscire dalla chat?"
 msgid "Leaving chat..."
 msgstr "Uscita dalla chat in corso..."
 
-#: src/features/chats/index.tsx:1342
+#: src/features/chats/index.tsx:1346
 #: src/routes/_authenticated/$chatId_.settings.tsx:361
 msgid "Leaving..."
 msgstr "Uscita in corso..."
@@ -1650,7 +1655,7 @@ msgstr "Chiaro"
 msgid "Like"
 msgstr "Mi piace"
 
-#: ../../../lib/web/src/components/options-menu.tsx:190
+#: ../../../lib/web/src/components/options-menu.tsx:193
 msgid "Link"
 msgstr "Link"
 
@@ -1782,7 +1787,7 @@ msgid "Message deleted"
 msgstr "Messaggio eliminato"
 
 #. placeholder {0}: formatNumber(newMessage.length - MESSAGE_MAX_LENGTH)
-#: src/features/chats/components/chat-input.tsx:920
+#: src/features/chats/components/chat-input.tsx:861
 msgid "Message is {0} characters too long"
 msgstr "Il messaggio supera di {0} caratteri"
 
@@ -1795,37 +1800,37 @@ msgstr "Messaggio non disponibile"
 msgid "Metric"
 msgstr "Metrico"
 
-#: src/features/chats/components/chat-input.tsx:326
+#: src/features/chats/components/chat-input.tsx:344
 msgid "Microphone access denied"
 msgstr "Accesso al microfono negato"
 
-#: src/features/chats/components/chat-input.tsx:303
+#: src/features/chats/components/chat-input.tsx:321
 msgid "Microphone access is blocked here. Please update the app and try again."
 msgstr "L'accesso al microfono è bloccato qui. Aggiorna l'app e riprova."
 
-#: src/features/chats/components/chat-input.tsx:300
-#: src/features/chats/components/chat-input.tsx:347
-#: src/features/chats/components/chat-input.tsx:394
+#: src/features/chats/components/chat-input.tsx:318
+#: src/features/chats/components/chat-input.tsx:365
+#: src/features/chats/components/chat-input.tsx:412
 msgid "Microphone access requires a secure context (HTTPS or localhost)"
 msgstr "L'accesso al microfono richiede un contesto sicuro (HTTPS o localhost)"
 
-#: src/features/chats/components/chat-input.tsx:306
+#: src/features/chats/components/chat-input.tsx:324
 msgid "Microphone access was blocked by the browser"
 msgstr "Il browser ha bloccato l'accesso al microfono"
 
-#: src/features/chats/components/chat-input.tsx:287
+#: src/features/chats/components/chat-input.tsx:305
 msgid "Microphone constraints could not be satisfied"
 msgstr "Impossibile soddisfare i requisiti del microfono"
 
-#: src/features/chats/components/chat-input.tsx:323
+#: src/features/chats/components/chat-input.tsx:341
 msgid "Microphone error: {message}"
 msgstr "Errore del microfono: {message}"
 
-#: src/features/chats/components/chat-input.tsx:283
+#: src/features/chats/components/chat-input.tsx:301
 msgid "Microphone is already in use"
 msgstr "Il microfono è già in uso"
 
-#: src/features/chats/components/chat-input.tsx:275
+#: src/features/chats/components/chat-input.tsx:293
 msgid "Microphone permission denied"
 msgstr "Autorizzazione del microfono negata"
 
@@ -1837,7 +1842,7 @@ msgstr "Lunghezza minima"
 msgid "Mochi web"
 msgstr "Mochi web"
 
-#: ../../../lib/web/src/components/options-menu.tsx:164
+#: ../../../lib/web/src/components/options-menu.tsx:167
 msgid "Moderation"
 msgstr ""
 
@@ -1845,8 +1850,8 @@ msgstr ""
 msgid "Monday"
 msgstr "Lunedì"
 
-#: ../../../lib/web/src/components/options-menu.tsx:145
-#: ../../../lib/web/src/components/options-menu.tsx:152
+#: ../../../lib/web/src/components/options-menu.tsx:148
+#: ../../../lib/web/src/components/options-menu.tsx:155
 msgid "More options"
 msgstr "Altre opzioni"
 
@@ -1880,7 +1885,7 @@ msgstr "Il nome deve contenere al massimo 1000 caratteri"
 msgid "Network error"
 msgstr "Errore di rete"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:460
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:453
 #: ../../../lib/web/src/components/ui/sort-selector.tsx:43
 msgid "New"
 msgstr "Nuovo"
@@ -1905,7 +1910,7 @@ msgstr "Risultato più recente"
 msgid "Next image"
 msgstr "Immagine successiva"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:533
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:526
 msgid "No {parentClassNames} to add to"
 msgstr "Nessun {parentClassNames} a cui aggiungere"
 
@@ -1921,7 +1926,7 @@ msgstr "Ancora nessuna attività"
 msgid "No chats to forward to"
 msgstr "Nessuna chat a cui inoltrare"
 
-#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:450
+#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:458
 msgid "No comments yet"
 msgstr "Ancora nessun commento"
 
@@ -1949,7 +1954,7 @@ msgstr "Ancora nessuna partita"
 msgid "No groups available"
 msgstr "Nessun gruppo disponibile"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:500
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:493
 msgid "No item types can be created yet. Create the required parent items first."
 msgstr "Nessun tipo di elemento può essere creato per ora. Crea prima gli elementi padre richiesti."
 
@@ -1957,11 +1962,11 @@ msgstr "Nessun tipo di elemento può essere creato per ora. Crea prima gli eleme
 msgid "No matching objects"
 msgstr "Nessun oggetto corrispondente"
 
-#: src/features/chats/components/chat-message-list.tsx:469
+#: src/features/chats/components/chat-message-list.tsx:470
 msgid "No messages yet"
 msgstr "Ancora nessun messaggio"
 
-#: src/features/chats/components/chat-input.tsx:279
+#: src/features/chats/components/chat-input.tsx:297
 msgid "No microphone found"
 msgstr "Nessun microfono trovato"
 
@@ -1987,6 +1992,7 @@ msgstr "Nessun profilo"
 msgid "No results"
 msgstr "Nessun risultato"
 
+#: ../../../lib/web/src/components/inline-entity-search.tsx:74
 #: ../../../lib/web/src/components/search-entity-dialog.tsx:82
 #: ../../../lib/web/src/components/search-entity-page.tsx:73
 msgid "No results found"
@@ -2024,9 +2030,9 @@ msgid "No views"
 msgstr "Nessuna visualizzazione"
 
 #: ../../../lib/web/src/components/colour-picker.tsx:349
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:509
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:512
 #: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:516
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:519
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:523
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:365
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:388
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:391
@@ -2109,7 +2115,7 @@ msgstr "Apri azioni account"
 msgid "Open actions"
 msgstr "Apri azioni"
 
-#: src/features/chats/index.tsx:1125
+#: src/features/chats/index.tsx:1129
 msgid "Open chat actions"
 msgstr "Apri azioni chat"
 
@@ -2182,15 +2188,15 @@ msgstr "Proprietario"
 msgid "Page {currentPage} of {totalPages}"
 msgstr "Pagina {currentPage} di {totalPages}"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:508
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:501
 msgid "Parent"
 msgstr "Padre"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:334
+#: ../../../lib/web/src/components/step-up-dialog.tsx:348
 msgid "Passkey"
 msgstr "Passkey"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:209
+#: ../../../lib/web/src/components/step-up-dialog.tsx:218
 msgid "Passkey verification failed. Please try again."
 msgstr "Verifica della passkey non riuscita. Riprova."
 
@@ -2214,6 +2220,10 @@ msgstr "Metti in pausa la nota vocale"
 msgid "People"
 msgstr "Persone"
 
+#: src/features/chats/components/chat-input.tsx:717
+msgid "Photo or Video"
+msgstr ""
+
 #: ../../../lib/web/src/components/date-picker.tsx:20
 msgid "Pick a date"
 msgstr "Scegli una data"
@@ -2230,7 +2240,7 @@ msgstr "Riproduci audio"
 msgid "Play voice note"
 msgstr "Riproduci nota vocale"
 
-#: ../../../lib/web/src/components/comment-composer.tsx:99
+#: ../../../lib/web/src/components/comment-composer.tsx:84
 #: ../../../lib/web/src/features/errors/general-error.tsx:54
 #: ../../../lib/web/src/lib/api-response-interceptors.ts:323
 msgid "Please check your internet connection and try again."
@@ -2256,11 +2266,11 @@ msgstr "Riprova."
 msgid "Please wait a moment and try again."
 msgstr "Attendi qualche istante e riprova."
 
-#: ../../../lib/web/src/components/options-menu.tsx:175
+#: ../../../lib/web/src/components/options-menu.tsx:178
 msgid "Posts"
 msgstr "Post"
 
-#: ../../../lib/web/src/components/options-menu.tsx:178
+#: ../../../lib/web/src/components/options-menu.tsx:181
 msgid "Posts and comments"
 msgstr "Post e commenti"
 
@@ -2315,28 +2325,28 @@ msgstr "Consigliato"
 msgid "Reconnecting ({retries})..."
 msgstr "Riconnessione ({retries})..."
 
-#: src/features/chats/components/chat-input.tsx:854
-#: src/features/chats/components/chat-input.tsx:859
+#: src/features/chats/components/chat-input.tsx:782
+#: src/features/chats/components/chat-input.tsx:787
 msgid "Record voice note"
 msgstr "Registra nota vocale"
 
-#: src/features/chats/components/chat-input.tsx:315
+#: src/features/chats/components/chat-input.tsx:333
 msgid "Recording failed. Please try again."
 msgstr "Registrazione non riuscita. Riprova."
 
-#: src/features/chats/components/chat-input.tsx:331
+#: src/features/chats/components/chat-input.tsx:349
 msgid "Recording is too large to send"
 msgstr "La registrazione è troppo grande per essere inviata"
 
-#: src/features/chats/components/chat-input.tsx:311
+#: src/features/chats/components/chat-input.tsx:329
 msgid "Recording produced no audio"
 msgstr "La registrazione non ha prodotto audio"
 
-#: src/features/chats/components/chat-input.tsx:237
+#: src/features/chats/components/chat-input.tsx:255
 msgid "Recording stopped at the 5-minute limit"
 msgstr "Registrazione interrotta al limite di 5 minuti"
 
-#: src/features/chats/components/chat-input.tsx:723
+#: src/features/chats/components/chat-input.tsx:643
 msgid "Recording voice note"
 msgstr "Registrazione della nota vocale"
 
@@ -2361,18 +2371,16 @@ msgstr "Relativo (5m, 3h, 2g)"
 msgid "Relative within 24 hours, else absolute"
 msgstr "Relativo entro 24 ore, altrimenti assoluto"
 
-#: ../../../lib/web/src/components/comment-composer.tsx:236
+#: ../../../lib/web/src/components/attachment-composer.tsx:210
+#: ../../../lib/web/src/components/attachment-composer.tsx:247
 #: ../../../lib/web/src/components/entity/add-field-dialog.tsx:190
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:598
 #: ../../../lib/web/src/features/access/access-list.tsx:270
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:180
 #: src/routes/_authenticated/$chatId_.settings.tsx:556
 msgid "Remove"
 msgstr "Rimuovi"
 
-#. placeholder {0}: attachment.file.name
 #. placeholder {0}: reaction.label
-#: src/features/chats/components/chat-input.tsx:701
 #: src/features/chats/components/message-reaction-bar.tsx:121
 msgid "Remove {0}"
 msgstr "Rimuovi {0}"
@@ -2448,19 +2456,19 @@ msgstr "Rinomina questa colonna della bacheca"
 msgid "Renaming chat..."
 msgstr "Ridenominazione chat in corso..."
 
-#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:294
-#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:342
+#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:295
+#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:343
 #: src/features/chats/components/message-hover-actions.tsx:133
 msgid "Reply"
 msgstr "Rispondi"
 
 #. placeholder {0}: comment.name || comment.author
-#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:385
+#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:386
 msgid "Reply to {0}..."
 msgstr "Rispondi a {0}..."
 
 #. placeholder {0}: replyTo.name
-#: src/features/chats/components/chat-input.tsx:590
+#: src/features/chats/components/chat-input.tsx:571
 msgid "Replying to {0}"
 msgstr "In risposta a {0}"
 
@@ -2468,7 +2476,7 @@ msgstr "In risposta a {0}"
 msgid "Required"
 msgstr "Obbligatorio"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:367
+#: ../../../lib/web/src/components/step-up-dialog.tsx:381
 msgid "Resend email"
 msgstr "Invia di nuovo l'email"
 
@@ -2486,13 +2494,21 @@ msgstr "Reimposta {title}"
 msgid "Reset all settings to default values"
 msgstr "Reimposta tutte le impostazioni ai valori predefiniti"
 
-#: ../../../lib/web/src/components/comment-composer.tsx:253
+#: ../../../lib/web/src/components/attachment-composer.tsx:264
 msgid "Retry"
 msgstr "Riprova"
 
-#: ../../../lib/web/src/components/options-menu.tsx:181
+#: ../../../lib/web/src/components/options-menu.tsx:250
+msgid "Revoke"
+msgstr ""
+
+#: ../../../lib/web/src/components/options-menu.tsx:184
 msgid "Revoke access"
 msgstr "Revoca accesso"
+
+#: ../../../lib/web/src/components/options-menu.tsx:244
+msgid "Revoke RSS access?"
+msgstr ""
 
 #: ../../../lib/web/src/components/config-drawer.tsx:362
 msgid "Right to Left"
@@ -2511,15 +2527,15 @@ msgstr "Raggruppa righe per"
 msgid "Rows per page"
 msgstr "Righe per pagina"
 
-#: ../../../lib/web/src/components/options-menu.tsx:131
+#: ../../../lib/web/src/components/options-menu.tsx:134
 msgid "RSS access revoked"
 msgstr "Accesso RSS revocato"
 
-#: ../../../lib/web/src/components/options-menu.tsx:171
+#: ../../../lib/web/src/components/options-menu.tsx:174
 msgid "RSS feed"
 msgstr "Feed RSS"
 
-#: ../../../lib/web/src/components/options-menu.tsx:121
+#: ../../../lib/web/src/components/options-menu.tsx:123
 msgid "RSS URL copied to clipboard"
 msgstr "URL RSS copiato negli appunti"
 
@@ -2531,11 +2547,11 @@ msgstr "Triste"
 msgid "Saturday"
 msgstr "Sabato"
 
-#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:269
+#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:270
 #: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:173
 #: ../../../lib/web/src/components/ui/editable-field-row.tsx:122
 #: ../../../lib/web/src/components/ui/secret-field.tsx:77
-#: src/features/chats/components/chat-message-list.tsx:633
+#: src/features/chats/components/chat-message-list.tsx:634
 #: src/features/chats/components/chat-settings-dialog.tsx:128
 msgid "Save"
 msgstr "Salva"
@@ -2587,7 +2603,7 @@ msgstr "Cerca amici…"
 msgid "Search in chat..."
 msgstr "Cerca nella chat..."
 
-#: src/features/chats/index.tsx:1115
+#: src/features/chats/index.tsx:1119
 msgid "Search messages"
 msgstr "Cerca messaggi"
 
@@ -2609,6 +2625,7 @@ msgstr "Cerca, osserva e ordina questa vista."
 
 #: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx:181
 #: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx:257
+#: ../../../lib/web/src/components/inline-entity-search.tsx:73
 #: ../../../lib/web/src/components/person-picker.tsx:324
 #: ../../../lib/web/src/components/search-entity-dialog.tsx:81
 #: ../../../lib/web/src/components/search-entity-page.tsx:72
@@ -2621,7 +2638,7 @@ msgstr "Cerca..."
 msgid "Searching..."
 msgstr "Ricerca in corso..."
 
-#: src/features/chats/components/audio-player.tsx:332
+#: src/features/chats/components/audio-player.tsx:339
 msgid "Seek in audio"
 msgstr "Scorri nell'audio"
 
@@ -2679,7 +2696,7 @@ msgstr "Seleziona gruppo"
 msgid "Select layout style"
 msgstr "Seleziona stile di layout"
 
-#: src/features/chats/components/chat-message-list.tsx:826
+#: src/features/chats/components/chat-message-list.tsx:827
 msgid "Select loaded"
 msgstr "Seleziona caricati"
 
@@ -2687,7 +2704,7 @@ msgstr "Seleziona caricati"
 msgid "Select location"
 msgstr "Seleziona posizione"
 
-#: src/features/chats/components/chat-message-list.tsx:543
+#: src/features/chats/components/chat-message-list.tsx:544
 msgid "Select message"
 msgstr "Seleziona messaggio"
 
@@ -2728,7 +2745,7 @@ msgstr "Seleziona..."
 msgid "selected"
 msgstr "selezionati"
 
-#: src/features/chats/index.tsx:1218
+#: src/features/chats/index.tsx:1222
 msgid "Selected the newest {BULK_MESSAGES_MAX} messages, the most that can be forwarded or deleted at once"
 msgstr "Selezionati i {BULK_MESSAGES_MAX} messaggi più recenti, il massimo che si può inoltrare o eliminare in una volta"
 
@@ -2737,7 +2754,7 @@ msgstr "Selezionati i {BULK_MESSAGES_MAX} messaggi più recenti, il massimo che 
 msgid "Selected: <0>{0}</0>"
 msgstr "Selezionato: <0>{0}</0>"
 
-#: src/features/chats/components/chat-message-list.tsx:824
+#: src/features/chats/components/chat-message-list.tsx:825
 msgid "Selects messages loaded so far"
 msgstr "Seleziona i messaggi caricati finora"
 
@@ -2745,14 +2762,14 @@ msgstr "Seleziona i messaggi caricati finora"
 msgid "Send again"
 msgstr "Invia di nuovo"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:307
+#: ../../../lib/web/src/components/step-up-dialog.tsx:321
 msgid "Send email"
 msgstr "Invia email"
 
 #: ../../../lib/web/src/components/game/game-chat-input.tsx:52
 #: ../../../lib/web/src/components/game/game-chat-input.tsx:61
-#: src/features/chats/components/chat-input.tsx:869
-#: src/features/chats/components/chat-input.tsx:878
+#: src/features/chats/components/chat-input.tsx:797
+#: src/features/chats/components/chat-input.tsx:806
 msgid "Send message"
 msgstr "Invia messaggio"
 
@@ -2780,7 +2797,7 @@ msgstr "Imposta origine e destinazione"
 
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx:126
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx:132
-#: ../../../lib/web/src/components/options-menu.tsx:196
+#: ../../../lib/web/src/components/options-menu.tsx:199
 msgid "Settings"
 msgstr "Impostazioni"
 
@@ -2842,7 +2859,7 @@ msgstr "Piccolo"
 msgid "Sort"
 msgstr "Ordina"
 
-#: ../../../lib/web/src/components/options-menu.tsx:158
+#: ../../../lib/web/src/components/options-menu.tsx:161
 msgid "Sources"
 msgstr "Sorgenti"
 
@@ -2854,7 +2871,7 @@ msgstr "Spazioso"
 msgid "Start a conversation"
 msgstr "Inizia una conversazione"
 
-#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:451
+#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:459
 msgid "Start the discussion by adding the first comment."
 msgstr "Avvia la discussione aggiungendo il primo commento."
 
@@ -2866,8 +2883,8 @@ msgstr "Avvio chat in corso..."
 msgid "Stay tuned though!"
 msgstr "Resta sintonizzato!"
 
-#: src/features/chats/components/chat-input.tsx:763
-#: src/features/chats/components/chat-input.tsx:768
+#: src/features/chats/components/chat-input.tsx:683
+#: src/features/chats/components/chat-input.tsx:688
 msgid "Stop recording"
 msgstr "Interrompi registrazione"
 
@@ -2875,16 +2892,18 @@ msgstr "Interrompi registrazione"
 msgid "Subject"
 msgstr "Oggetto"
 
-#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:431
-#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:440
+#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:439
+#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:448
 msgid "Submit comment"
 msgstr "Invia commento"
 
-#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:470
-#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:475
+#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:476
+#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:481
 msgid "Submit reply"
 msgstr "Invia risposta"
 
+#: ../../../lib/web/src/components/inline-entity-search.tsx:76
+#: ../../../lib/web/src/components/recommended-entities.tsx:66
 #: ../../../lib/web/src/components/search-entity-dialog.tsx:83
 #: ../../../lib/web/src/components/search-entity-page.tsx:74
 msgid "Subscribe"
@@ -2936,7 +2955,7 @@ msgstr "Termini e condizioni"
 msgid "Text"
 msgstr "Testo"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:195
+#: ../../../lib/web/src/components/step-up-dialog.tsx:204
 msgid "That code is incorrect or has expired."
 msgstr "Il codice non è corretto o è scaduto."
 
@@ -2982,11 +3001,11 @@ msgstr "questa chat"
 msgid "This chat may have been deleted or you don't have access to it"
 msgstr "Questa chat potrebbe essere stata eliminata o non hai accesso"
 
-#: src/features/chats/index.tsx:1373
+#: src/features/chats/index.tsx:1377
 msgid "This deletes the message for everyone and cannot be undone."
 msgstr "Questo elimina il messaggio per tutti e non può essere annullato."
 
-#: src/features/chats/components/chat-message-list.tsx:674
+#: src/features/chats/components/chat-message-list.tsx:675
 #: src/features/chats/components/message-quote.tsx:50
 msgid "This message was deleted"
 msgstr "Questo messaggio è stato eliminato"
@@ -3095,11 +3114,11 @@ msgstr "Digita per cercare utenti"
 msgid "Type to search..."
 msgstr "Digita per cercare..."
 
-#: src/features/chats/components/chat-input.tsx:814
+#: src/features/chats/components/chat-input.tsx:742
 msgid "Type your message…"
 msgstr "Scrivi il tuo messaggio…"
 
-#: src/features/chats/components/chat-input.tsx:813
+#: src/features/chats/components/chat-input.tsx:741
 msgid "Type your reply…"
 msgstr "Scrivi la tua risposta…"
 
@@ -3138,11 +3157,11 @@ msgstr "Sconosciuto"
 msgid "Unpin chat"
 msgstr "Sblocca chat"
 
-#: ../../../lib/web/src/components/options-menu.tsx:211
+#: ../../../lib/web/src/components/options-menu.tsx:214
 msgid "Unsubscribe"
 msgstr "Annulla iscrizione"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:286
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:277
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx:103
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx:184
 msgid "Untitled"
@@ -3157,8 +3176,8 @@ msgstr "Non verificato"
 msgid "Updated"
 msgstr "Aggiornato"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:630
-#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:259
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:607
+#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:296
 msgid "Upload"
 msgstr "Carica"
 
@@ -3166,7 +3185,7 @@ msgstr "Carica"
 msgid "Upload progress"
 msgstr "Avanzamento del caricamento"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:338
+#: ../../../lib/web/src/components/step-up-dialog.tsx:352
 msgid "Use your passkey"
 msgstr "Usa la tua passkey"
 
@@ -3188,7 +3207,7 @@ msgstr "Codice di verifica inviato"
 msgid "Verification failed"
 msgstr "Verifica non riuscita"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:388
+#: ../../../lib/web/src/components/step-up-dialog.tsx:402
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:172
 #: ../../../lib/web/src/features/accounts/account-verify.tsx:111
 msgid "Verify"
@@ -3229,16 +3248,16 @@ msgstr "Controlli di visualizzazione"
 msgid "Voice note waveform"
 msgstr "Forma d'onda della nota vocale"
 
-#: src/features/chats/components/chat-input.tsx:374
+#: src/features/chats/components/chat-input.tsx:392
 msgid "Voice recording is currently unavailable. Please check your setup and try again."
 msgstr "La registrazione vocale non è al momento disponibile. Controlla la configurazione e riprova."
 
-#: src/features/chats/components/chat-input.tsx:295
-#: src/features/chats/components/chat-input.tsx:400
+#: src/features/chats/components/chat-input.tsx:313
+#: src/features/chats/components/chat-input.tsx:418
 msgid "Voice recording is not supported in this browser"
 msgstr "La registrazione vocale non è supportata in questo browser"
 
-#: src/features/chats/components/chat-input.tsx:270
+#: src/features/chats/components/chat-input.tsx:288
 msgid "Voice recording isn't available in this app version. Please update the app and try again."
 msgstr "La registrazione vocale non è disponibile in questa versione dell'app. Aggiorna l'app e riprova."
 
@@ -3304,11 +3323,11 @@ msgstr "Non hai accesso a questa sezione."
 msgid "You don't have necessary permission <0/>to view this resource."
 msgstr "Non disponi dell'autorizzazione necessaria <0/>per visualizzare questa risorsa."
 
-#: src/features/chats/index.tsx:1281
+#: src/features/chats/index.tsx:1285
 msgid "You left this chat"
 msgstr "Hai abbandonato questa chat"
 
-#: src/features/chats/index.tsx:1280
+#: src/features/chats/index.tsx:1284
 msgid "You were removed from this chat"
 msgstr "Sei stato rimosso da questa chat"
 
@@ -3320,14 +3339,14 @@ msgstr "Sei aggiornato!"
 msgid "Your account was moved here from {source}. Until you delete it there, messages and notifications may reach both servers, some of your content keeps being served from the old server, and followers may take a few minutes to find you here."
 msgstr "Il tuo account è stato spostato qui da {source}. Finché non lo elimini lì, i messaggi e le notifiche possono raggiungere entrambi i server, parte dei tuoi contenuti continua a essere servita dal vecchio server e i follower potrebbero impiegare qualche minuto per trovarti qui."
 
-#: ../../../lib/web/src/components/comment-composer.tsx:295
+#: ../../../lib/web/src/components/comment-composer.tsx:279
 msgid "Your attachments will be lost."
 msgstr "I tuoi allegati andranno persi."
 
-#: ../../../lib/web/src/components/comment-composer.tsx:293
+#: ../../../lib/web/src/components/comment-composer.tsx:277
 msgid "Your text and attachments will be lost."
 msgstr "Il tuo testo e i tuoi allegati andranno persi."
 
-#: ../../../lib/web/src/components/comment-composer.tsx:296
+#: ../../../lib/web/src/components/comment-composer.tsx:280
 msgid "Your text will be lost."
 msgstr "Il tuo testo andrà perso."

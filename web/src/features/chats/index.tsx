@@ -1003,8 +1003,12 @@ export function Chats() {
       // Attachments ride a multipart upload — track its byte progress. The
       // rejection is swallowed because errors already land in the mutation's
       // error state and onError, same as the fire-and-forget mutate below.
-      void upload((onProgress) =>
-        sendMessageMutation.mutateAsync({ ...variables, onProgress })
+      void upload(
+        (onProgress) =>
+          sendMessageMutation.mutateAsync({ ...variables, onProgress }),
+        // Sizes come off the same array the FormData is built from, voice notes
+        // included — the composer hides those, but they are still on the wire.
+        { sizes: variables.attachments.map((file) => file.size) }
       ).catch(() => {})
     } else {
       sendMessageMutation.mutate(variables)

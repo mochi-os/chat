@@ -14,20 +14,20 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. js-lingui-explicit-id
-#: ../../../lib/web/src/lib/error-normalizer.ts:236
+#: ../../../lib/web/src/lib/error-normalizer.ts:244
 msgid "Please check your internet connection and try again."
 msgstr "Patikrinkite interneto ryšį ir bandykite dar kartą."
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:302
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:293
 msgid " or "
 msgstr " arba "
 
-#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:228
-#: src/features/chats/components/chat-message-list.tsx:789
+#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:229
+#: src/features/chats/components/chat-message-list.tsx:790
 msgid "(edited)"
 msgstr "(redaguota)"
 
-#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:212
+#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:213
 msgid "(expand)"
 msgstr "(išskleisti)"
 
@@ -45,7 +45,7 @@ msgid "{0, plural, one {# selected} other {# selected}}"
 msgstr "{0, plural, one {# pasirinktas} few {# pasirinkti} many {# pasirinktų} other {# pasirinktų}}"
 
 #. placeholder {0}: deleteTargetIds?.length ?? 0
-#: src/features/chats/index.tsx:1369
+#: src/features/chats/index.tsx:1373
 msgid "{0, plural, one {Delete message?} other {Delete # messages?}}"
 msgstr "{0, plural, one {Ištrinti # žinutę?} few {Ištrinti # žinutes?} many {Ištrinti # žinutės?} other {Ištrinti # žinučių?}}"
 
@@ -61,8 +61,8 @@ msgstr "Parinkties {0} peržiūra"
 
 #. placeholder {0}: selectedIds.size
 #. placeholder {0}: selectedIds?.size ?? 0
-#: src/features/chats/components/chat-message-list.tsx:816
-#: src/features/chats/index.tsx:1238
+#: src/features/chats/components/chat-message-list.tsx:817
+#: src/features/chats/index.tsx:1242
 msgid "{0} selected"
 msgstr "Pasirinkta: {0}"
 
@@ -100,8 +100,8 @@ msgstr "{entityLabel} pavadinimas privalomas"
 msgid "{hiddenCount, plural, one {Show 1 more file} other {Show # more files}}"
 msgstr "{hiddenCount, plural, one {Rodyti dar # failą} few {Rodyti dar # failus} many {Rodyti dar # failo} other {Rodyti dar # failų}}"
 
-#: src/features/chats/components/chat-message-list.tsx:851
-#: src/features/chats/components/chat-message-list.tsx:868
+#: src/features/chats/components/chat-message-list.tsx:852
+#: src/features/chats/components/chat-message-list.tsx:869
 msgid "{newMessageCount, plural, one {Jump to 1 new message} other {Jump to # new messages}}"
 msgstr "{newMessageCount, plural, one {Pereiti prie # naujos žinutės} few {Pereiti prie # naujų žinučių} many {Pereiti prie # naujos žinutės} other {Pereiti prie # naujų žinučių}}"
 
@@ -125,6 +125,7 @@ msgstr "{selectedCount, plural, one {# pasirinkta} few {# pasirinkta} many {# pa
 msgid "{selectedCount, plural, one {Bulk actions for # selected {entityName}} other {Bulk actions for # selected {manyName}}}"
 msgstr "{selectedCount, plural, one {Masiniai veiksmai # pasirinktam {entityName}} few {Masiniai veiksmai # pasirinktiems {manyName}} many {Masiniai veiksmai # pasirinkto {manyName}} other {Masiniai veiksmai # pasirinktų {manyName}}}"
 
+#: ../../../lib/web/src/components/attachment-composer.tsx:189
 #: ../../../lib/web/src/components/ui/upload-progress.tsx:52
 msgid "{sentLabel} of {totalLabel}"
 msgstr "{sentLabel} iš {totalLabel}"
@@ -146,11 +147,11 @@ msgstr "{unreadCount, plural, one {Atidaryti meniu (# neperskaitytas pranešimas
 msgid "+{0} nested"
 msgstr "+{0} įdėtųjų"
 
-#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:209
+#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:210
 msgid "+{totalDescendants} more replies"
 msgstr "+{totalDescendants} daugiau atsakymų"
 
-#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:208
+#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:209
 msgid "1 reply"
 msgstr "1 atsakymas"
 
@@ -162,7 +163,7 @@ msgstr "12 valandų"
 msgid "24 hours"
 msgstr "24 valandos"
 
-#: src/features/chats/components/chat-input.tsx:319
+#: src/features/chats/components/chat-input.tsx:337
 msgid "A recording is already in progress."
 msgstr "Įrašymas jau vyksta."
 
@@ -213,7 +214,7 @@ msgstr "Pridėti"
 msgid "Add {0} to chat"
 msgstr "Pridėti {0} į pokalbį"
 
-#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:360
+#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:363
 msgid "Add a comment..."
 msgstr "Pridėti komentarą..."
 
@@ -238,8 +239,8 @@ msgstr "Pridėti paskyrą"
 msgid "Add an account to receive notifications and use services."
 msgstr "Pridėkite paskyrą, kad gautumėte pranešimus ir naudotumėtės paslaugomis."
 
-#: src/features/chats/components/chat-input.tsx:782
-#: src/features/chats/components/chat-input.tsx:788
+#: src/features/chats/components/chat-input.tsx:702
+#: src/features/chats/components/chat-input.tsx:708
 msgid "Add attachment"
 msgstr "Pridėti priedą"
 
@@ -385,8 +386,12 @@ msgstr "Bet kas gali pradėti pokalbį su jumis."
 msgid "Anyone who is logged in"
 msgstr "Bet kas, kas prisijungęs"
 
+#: ../../../lib/web/src/components/options-menu.tsx:249
+msgid "Anything subscribed to this feed will stop receiving it. You can copy a new URL afterwards."
+msgstr ""
+
 #. placeholder {0}: deleteTarget?.name
-#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:271
+#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:308
 msgid "Are you sure you want to delete \"{0}\"?"
 msgstr "Ar tikrai norite ištrinti „{0}“?"
 
@@ -394,12 +399,12 @@ msgstr "Ar tikrai norite ištrinti „{0}“?"
 msgid "Are you sure you want to delete the \"{name}\" column? This cannot be undone."
 msgstr "Ar tikrai norite ištrinti stulpelį „{name}“? Šio veiksmo atšaukti negalima."
 
-#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:485
+#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:491
 msgid "Are you sure you want to delete this comment? This will also delete all replies."
 msgstr "Ar tikrai norite ištrinti šį komentarą? Tai taip pat ištrins visus atsakymus."
 
 #. placeholder {0}: selectedChat?.name
-#: src/features/chats/index.tsx:1337
+#: src/features/chats/index.tsx:1341
 msgid "Are you sure you want to leave \"{0}\"? You can be added back by other members."
 msgstr "Ar tikrai norite išeiti iš „{0}“? Kiti nariai galės jus pridėti atgal."
 
@@ -424,17 +429,17 @@ msgstr "Did."
 msgid "Ascending"
 msgstr "Didėjančiai"
 
-#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:398
-#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:403
+#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:406
+#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:411
 msgid "Attach comment files"
 msgstr "Pridėti komentaro failus"
 
-#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:439
-#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:444
+#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:445
+#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:450
 msgid "Attach reply files"
 msgstr "Pridėti atsakymo failus"
 
-#: src/features/chats/components/chat-input.tsx:599
+#: src/features/chats/components/chat-input.tsx:580
 #: src/features/chats/components/message-quote.tsx:56
 msgid "Attachment"
 msgstr "Priedas"
@@ -443,7 +448,7 @@ msgstr "Priedas"
 msgid "Attachments are too large to upload. Remove or shrink files and try again."
 msgstr "Priedai per dideli, kad juos būtų galima įkelti. Pašalinkite arba sumažinkite failus ir bandykite dar kartą."
 
-#: src/features/chats/components/chat-input.tsx:801
+#: src/features/chats/components/chat-input.tsx:729
 msgid "Audio"
 msgstr "Garsas"
 
@@ -452,7 +457,7 @@ msgstr "Garsas"
 msgid "Authenticated users"
 msgstr "Autentifikuoti naudotojai"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:315
+#: ../../../lib/web/src/components/step-up-dialog.tsx:329
 msgid "Authenticator code"
 msgstr "Autentifikatoriaus kodas"
 
@@ -488,7 +493,7 @@ msgstr "Atgal į pradžią"
 msgid "Banner"
 msgstr "Reklamjuostė"
 
-#: src/features/chats/components/chat-message-list.tsx:470
+#: src/features/chats/components/chat-message-list.tsx:471
 msgid "Be the first to say something!"
 msgstr "Būkite pirmas, kuris ką nors pasakys!"
 
@@ -524,11 +529,11 @@ msgid "Browser notifications"
 msgstr "Naršyklės pranešimai"
 
 #: ../../../lib/web/src/components/entity/entity-board-column.tsx:628
-#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:249
+#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:250
 #: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:169
 #: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:186
 #: ../../../lib/web/src/components/responsive-confirm-dialog.tsx:67
-#: ../../../lib/web/src/components/step-up-dialog.tsx:363
+#: ../../../lib/web/src/components/step-up-dialog.tsx:377
 #: ../../../lib/web/src/components/travelling-picker.tsx:308
 #: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:249
 #: ../../../lib/web/src/components/ui/editable-field-row.tsx:132
@@ -536,24 +541,24 @@ msgstr "Naršyklės pranešimai"
 #: ../../../lib/web/src/features/access/access-list.tsx:268
 #: ../../../lib/web/src/features/accounts/account-add.tsx:201
 #: ../../../lib/web/src/features/accounts/account-verify.tsx:91
-#: src/features/chats/components/chat-message-list.tsx:621
-#: src/features/chats/components/chat-message-list.tsx:835
+#: src/features/chats/components/chat-message-list.tsx:622
+#: src/features/chats/components/chat-message-list.tsx:836
 #: src/features/chats/components/chat-settings-dialog.tsx:116
 #: src/features/chats/components/forward-dialog.tsx:253
 #: src/features/chats/components/new-chat.tsx:354
-#: src/features/chats/index.tsx:1270
+#: src/features/chats/index.tsx:1274
 msgid "Cancel"
 msgstr "Atšaukti"
 
-#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:415
-#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:420
+#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:423
+#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:428
 msgid "Cancel comment"
 msgstr "Atšaukti komentarą"
 
-#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:455
-#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:460
-#: src/features/chats/components/chat-input.tsx:609
-#: src/features/chats/components/chat-input.tsx:614
+#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:461
+#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:466
+#: src/features/chats/components/chat-input.tsx:590
+#: src/features/chats/components/chat-input.tsx:595
 msgid "Cancel reply"
 msgstr "Atšaukti atsakymą"
 
@@ -569,7 +574,7 @@ msgstr "Pakeisti pranešimo kategoriją"
 #: src/features/chats/index.tsx:89
 #: src/features/chats/index.tsx:197
 #: src/features/chats/index.tsx:197
-#: src/features/chats/index.tsx:1047
+#: src/features/chats/index.tsx:1051
 msgid "Chat"
 msgstr "Pokalbis"
 
@@ -626,8 +631,8 @@ msgstr "Pokalbis paruoštas"
 msgid "Chat renamed"
 msgstr "Pokalbis pervadintas"
 
-#: src/features/chats/index.tsx:1052
-#: src/features/chats/index.tsx:1150
+#: src/features/chats/index.tsx:1056
+#: src/features/chats/index.tsx:1154
 #: src/routes/_authenticated/$chatId_.settings.tsx:89
 #: src/routes/_authenticated/$chatId_.settings.tsx:102
 #: src/routes/_authenticated/$chatId_.settings.tsx:113
@@ -635,7 +640,7 @@ msgstr "Pokalbis pervadintas"
 msgid "Chat settings"
 msgstr "Pokalbio nustatymai"
 
-#: src/features/chats/components/chat-input.tsx:807
+#: src/features/chats/components/chat-input.tsx:735
 msgid "Chat text box"
 msgstr "Pokalbio teksto laukas"
 
@@ -726,8 +731,8 @@ msgstr "Išvalyti pasirinkimą"
 msgid "Clear selection (Escape)"
 msgstr "Išvalyti pasirinkimą (Escape)"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:485
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:490
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:478
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:483
 #: ../../../lib/web/src/components/ui/dialog.tsx:78
 #: ../../../lib/web/src/components/ui/image-lightbox.tsx:358
 #: ../../../lib/web/src/components/ui/image-lightbox.tsx:361
@@ -797,8 +802,8 @@ msgstr "Netrukus!"
 msgid "Command Palette"
 msgstr "Komandų paletė"
 
-#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:330
-#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:337
+#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:331
+#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:338
 msgid "Comment actions"
 msgstr "Komentaro veiksmai"
 
@@ -848,7 +853,7 @@ msgstr "Kontekstinė informacija ir detalės."
 msgid "Continue"
 msgstr "Tęsti"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:352
+#: ../../../lib/web/src/components/step-up-dialog.tsx:366
 msgid "Continue with {label}"
 msgstr "Tęsti su {label}"
 
@@ -863,7 +868,7 @@ msgstr "Nukopijuota į iškarpinę"
 
 #: ../../../lib/web/src/components/ui/copy-button.tsx:64
 #: src/features/chats/components/message-hover-actions.tsx:107
-#: src/features/chats/index.tsx:1247
+#: src/features/chats/index.tsx:1251
 msgid "Copy"
 msgstr "Kopijuoti"
 
@@ -881,22 +886,22 @@ msgstr "Nepavyko įkelti šio dokumento. Pabandykite dar kartą vėliau."
 msgid "Couldn't load notifications"
 msgstr "Nepavyko įkelti pranešimų"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:184
+#: ../../../lib/web/src/components/step-up-dialog.tsx:193
 msgid "Couldn't send the code. Please try again."
 msgstr "Nepavyko išsiųsti kodo. Bandykite dar kartą."
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:136
+#: ../../../lib/web/src/components/step-up-dialog.tsx:145
 msgid "Couldn't start re-authentication. Please try again."
 msgstr "Nepavyko pradėti pakartotinio tapatybės patvirtinimo. Bandykite dar kartą."
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:221
+#: ../../../lib/web/src/components/step-up-dialog.tsx:235
 msgid "Couldn't verify with that account. Please try again."
 msgstr "Nepavyko patvirtinti su ta paskyra. Bandykite dar kartą."
 
 #: ../../../lib/web/src/components/entity/entity-board-column.tsx:564
 #: ../../../lib/web/src/components/entity/entity-board-column.tsx:703
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:475
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:647
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:468
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:624
 #: ../../../lib/web/src/components/entity/entity-tree-view.tsx:672
 msgid "Create"
 msgstr "Sukurti"
@@ -928,7 +933,7 @@ msgstr "Sukurta"
 msgid "Creating chat..."
 msgstr "Kuriamas pokalbis..."
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:647
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:624
 #: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:258
 #: src/features/chats/components/new-chat.tsx:365
 msgid "Creating..."
@@ -979,29 +984,29 @@ msgstr "Numatytasis rūšiavimas"
 
 #: ../../../lib/web/src/components/entity/entity-board-column.tsx:583
 #: ../../../lib/web/src/components/entity/entity-board-column.tsx:644
-#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:318
-#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:361
-#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:486
-#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:173
-#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:178
-#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:227
-#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:272
+#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:319
+#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:362
+#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:492
+#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:196
+#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:201
+#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:250
+#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:309
 #: src/features/chats/components/message-hover-actions.tsx:146
-#: src/features/chats/index.tsx:1263
-#: src/features/chats/index.tsx:1381
+#: src/features/chats/index.tsx:1267
+#: src/features/chats/index.tsx:1385
 msgid "Delete"
 msgstr "Ištrinti"
 
-#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:270
+#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:307
 msgid "Delete attachment"
 msgstr "Ištrinti priedą"
 
-#: src/features/chats/index.tsx:1133
-#: src/features/chats/index.tsx:1294
+#: src/features/chats/index.tsx:1137
+#: src/features/chats/index.tsx:1298
 msgid "Delete chat"
 msgstr "Ištrinti pokalbį"
 
-#: src/features/chats/index.tsx:1359
+#: src/features/chats/index.tsx:1363
 #: src/routes/_authenticated/$chatId_.settings.tsx:378
 msgid "Delete chat history"
 msgstr "Ištrinti pokalbio istoriją"
@@ -1010,7 +1015,7 @@ msgstr "Ištrinti pokalbio istoriją"
 msgid "Delete column"
 msgstr "Ištrinti stulpelį"
 
-#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:484
+#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:490
 msgid "Delete comment"
 msgstr "Ištrinti komentarą"
 
@@ -1041,7 +1046,7 @@ msgid "Deleting chat..."
 msgstr "Šalinamas pokalbis..."
 
 #: src/features/chats/index.tsx:678
-#: src/features/chats/index.tsx:1378
+#: src/features/chats/index.tsx:1382
 msgid "Deleting..."
 msgstr "Ištrinama..."
 
@@ -1088,16 +1093,16 @@ msgstr "Paieška kataloge nepavyko"
 msgid "Disagree"
 msgstr "Nesutinku"
 
-#: ../../../lib/web/src/components/comment-composer.tsx:304
+#: ../../../lib/web/src/components/comment-composer.tsx:288
 msgid "Discard"
 msgstr "Atmesti"
 
-#: ../../../lib/web/src/components/comment-composer.tsx:302
+#: ../../../lib/web/src/components/comment-composer.tsx:286
 msgid "Discard draft?"
 msgstr "Atmesti juodraštį?"
 
-#: src/features/chats/components/chat-input.tsx:733
-#: src/features/chats/components/chat-input.tsx:738
+#: src/features/chats/components/chat-input.tsx:653
+#: src/features/chats/components/chat-input.tsx:658
 msgid "Discard recording"
 msgstr "Atmesti įrašą"
 
@@ -1119,7 +1124,7 @@ msgstr "Atmesti"
 msgid "Displays the mobile sidebar."
 msgstr "Rodo mobiliąją šoninę juostą."
 
-#: src/features/chats/components/chat-input.tsx:795
+#: src/features/chats/components/chat-input.tsx:723
 msgid "Document"
 msgstr "Dokumentas"
 
@@ -1128,7 +1133,7 @@ msgstr "Dokumentas"
 msgid "Done"
 msgstr "Atlikta"
 
-#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:214
+#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:237
 #: ../../../lib/web/src/components/ui/image-lightbox.tsx:342
 #: ../../../lib/web/src/components/ui/image-lightbox.tsx:352
 msgid "Download"
@@ -1147,7 +1152,7 @@ msgid "Duplicates"
 msgstr "Dublikatai"
 
 #. placeholder {0}: formatTime(displayTime)
-#: src/features/chats/components/audio-player.tsx:262
+#: src/features/chats/components/audio-player.tsx:268
 msgid "Duration {0}"
 msgstr "Trukmė {0}"
 
@@ -1155,8 +1160,8 @@ msgstr "Trukmė {0}"
 msgid "Dyslexia-friendly"
 msgstr "Tinkama disleksijai"
 
-#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:307
-#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:352
+#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:308
+#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:353
 #: src/features/chats/components/message-hover-actions.tsx:123
 msgid "Edit"
 msgstr "Redaguoti"
@@ -1192,7 +1197,7 @@ msgid "Edit view"
 msgstr "Redaguoti rodinį"
 
 #. placeholder {0}: formatVideoDuration(recordingDuration)
-#: src/features/chats/components/chat-input.tsx:746
+#: src/features/chats/components/chat-input.tsx:666
 msgid "Elapsed {0}"
 msgstr "Praėjo {0}"
 
@@ -1200,19 +1205,19 @@ msgstr "Praėjo {0}"
 msgid "Email"
 msgstr "El. paštas"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:289
+#: ../../../lib/web/src/components/step-up-dialog.tsx:303
 msgid "Email code"
 msgstr "El. pašto kodas"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:299
+#: ../../../lib/web/src/components/step-up-dialog.tsx:313
 msgid "Enter the code from your email"
 msgstr "Įveskite kodą iš savo el. laiško"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:324
+#: ../../../lib/web/src/components/step-up-dialog.tsx:338
 msgid "Enter your authenticator code"
 msgstr "Įveskite autentifikatoriaus kodą"
 
-#: src/features/chats/components/chat-message-list.tsx:611
+#: src/features/chats/components/chat-message-list.tsx:612
 msgid "escape to cancel • enter to save"
 msgstr "Escape – atšaukti • Enter – išsaugoti"
 
@@ -1262,7 +1267,7 @@ msgid "Failed to create chat"
 msgstr "Nepavyko sukurti pokalbio"
 
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx:137
-#: ../../../lib/web/src/components/options-menu.tsx:99
+#: ../../../lib/web/src/components/options-menu.tsx:101
 msgid "Failed to create link"
 msgstr "Nepavyko sukurti nuorodos"
 
@@ -1270,7 +1275,7 @@ msgstr "Nepavyko sukurti nuorodos"
 msgid "Failed to delete"
 msgstr "Nepavyko ištrinti"
 
-#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:110
+#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:128
 msgid "Failed to delete attachment"
 msgstr "Nepavyko ištrinti priedo"
 
@@ -1278,7 +1283,7 @@ msgstr "Nepavyko ištrinti priedo"
 msgid "Failed to delete chat"
 msgstr "Nepavyko ištrinti pokalbio"
 
-#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:207
+#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:210
 msgid "Failed to delete comment"
 msgstr "Nepavyko ištrinti komentaro"
 
@@ -1294,7 +1299,7 @@ msgstr "Nepavyko redaguoti žinutės"
 msgid "Failed to forward"
 msgstr "Nepavyko persiųsti"
 
-#: ../../../lib/web/src/components/options-menu.tsx:123
+#: ../../../lib/web/src/components/options-menu.tsx:125
 msgid "Failed to get RSS token"
 msgstr "Nepavyko gauti RSS raktelio"
 
@@ -1327,7 +1332,7 @@ msgstr "Nepavyko įkelti jūsų pokalbių politikos"
 msgid "Failed to mark chat as read"
 msgstr "Nepavyko pažymėti pokalbio kaip skaityto"
 
-#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:170
+#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:173
 msgid "Failed to post comment"
 msgstr "Nepavyko paskelbti komentaro"
 
@@ -1347,7 +1352,7 @@ msgstr "Nepavyko pašalinti nario"
 msgid "Failed to rename chat"
 msgstr "Nepavyko pervadinti pokalbio"
 
-#: ../../../lib/web/src/components/options-menu.tsx:133
+#: ../../../lib/web/src/components/options-menu.tsx:136
 msgid "Failed to revoke RSS access"
 msgstr "Nepavyko atšaukti RSS prieigos"
 
@@ -1367,17 +1372,17 @@ msgstr "Nepavyko išsiųsti patvirtinimo kodo"
 msgid "Failed to start chat"
 msgstr "Nepavyko pradėti pokalbio"
 
-#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:190
+#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:193
 msgid "Failed to update comment"
 msgstr "Nepavyko atnaujinti komentaro"
 
-#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:95
+#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:112
 msgid "Failed to upload attachment"
 msgstr "Nepavyko įkelti priedo"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:567
-#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:133
-#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:150
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:560
+#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:153
+#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:173
 msgid "Files"
 msgstr "Failai"
 
@@ -1403,7 +1408,7 @@ msgstr "Plaukiojantis"
 
 #: src/features/chats/components/forward-dialog.tsx:264
 #: src/features/chats/components/message-hover-actions.tsx:138
-#: src/features/chats/index.tsx:1255
+#: src/features/chats/index.tsx:1259
 msgid "Forward"
 msgstr "Persiųsti"
 
@@ -1535,7 +1540,7 @@ msgid "Including anonymous users"
 msgstr "Įskaitant anoniminius naudotojus"
 
 #: src/features/chats/components/chat-settings-dialog.tsx:80
-#: src/features/chats/index.tsx:1156
+#: src/features/chats/index.tsx:1160
 msgid "Incoming chats"
 msgstr "Gaunami pokalbiai"
 
@@ -1571,8 +1576,8 @@ msgstr "Netinkamas patvirtinimo kodas"
 msgid "It seems like the page you're looking for <0/>does not exist or might have been removed."
 msgstr "Atrodo, kad ieškomo puslapio <0/>nėra arba jis buvo pašalintas."
 
-#: src/features/chats/components/chat-message-list.tsx:855
-#: src/features/chats/components/chat-message-list.tsx:872
+#: src/features/chats/components/chat-message-list.tsx:856
+#: src/features/chats/components/chat-message-list.tsx:873
 msgid "Jump to bottom"
 msgstr "Pereiti į apačią"
 
@@ -1603,16 +1608,16 @@ msgstr "Išdėstymas"
 msgid "Learn more"
 msgstr "Sužinoti daugiau"
 
-#: src/features/chats/index.tsx:1345
+#: src/features/chats/index.tsx:1349
 msgid "Leave"
 msgstr "Išeiti"
 
-#: src/features/chats/index.tsx:1140
+#: src/features/chats/index.tsx:1144
 #: src/routes/_authenticated/$chatId_.settings.tsx:364
 msgid "Leave chat"
 msgstr "Išeiti iš pokalbio"
 
-#: src/features/chats/index.tsx:1336
+#: src/features/chats/index.tsx:1340
 #: src/routes/_authenticated/$chatId_.settings.tsx:355
 msgid "Leave chat?"
 msgstr "Išeiti iš pokalbio?"
@@ -1622,7 +1627,7 @@ msgstr "Išeiti iš pokalbio?"
 msgid "Leaving chat..."
 msgstr "Išeinama iš pokalbio..."
 
-#: src/features/chats/index.tsx:1342
+#: src/features/chats/index.tsx:1346
 #: src/routes/_authenticated/$chatId_.settings.tsx:361
 msgid "Leaving..."
 msgstr "Išeinama…"
@@ -1650,7 +1655,7 @@ msgstr "Šviesi"
 msgid "Like"
 msgstr "Patinka"
 
-#: ../../../lib/web/src/components/options-menu.tsx:190
+#: ../../../lib/web/src/components/options-menu.tsx:193
 msgid "Link"
 msgstr "Nuoroda"
 
@@ -1782,7 +1787,7 @@ msgid "Message deleted"
 msgstr "Žinutė ištrinta"
 
 #. placeholder {0}: formatNumber(newMessage.length - MESSAGE_MAX_LENGTH)
-#: src/features/chats/components/chat-input.tsx:920
+#: src/features/chats/components/chat-input.tsx:861
 msgid "Message is {0} characters too long"
 msgstr "Žinutė {0} simboliais per ilga"
 
@@ -1795,37 +1800,37 @@ msgstr "Žinutė nepasiekiama"
 msgid "Metric"
 msgstr "Metrinė"
 
-#: src/features/chats/components/chat-input.tsx:326
+#: src/features/chats/components/chat-input.tsx:344
 msgid "Microphone access denied"
 msgstr "Prieiga prie mikrofono uždrausta"
 
-#: src/features/chats/components/chat-input.tsx:303
+#: src/features/chats/components/chat-input.tsx:321
 msgid "Microphone access is blocked here. Please update the app and try again."
 msgstr "Prieiga prie mikrofono čia užblokuota. Atnaujinkite programą ir bandykite dar kartą."
 
-#: src/features/chats/components/chat-input.tsx:300
-#: src/features/chats/components/chat-input.tsx:347
-#: src/features/chats/components/chat-input.tsx:394
+#: src/features/chats/components/chat-input.tsx:318
+#: src/features/chats/components/chat-input.tsx:365
+#: src/features/chats/components/chat-input.tsx:412
 msgid "Microphone access requires a secure context (HTTPS or localhost)"
 msgstr "Prieigai prie mikrofono reikia saugaus konteksto (HTTPS arba localhost)"
 
-#: src/features/chats/components/chat-input.tsx:306
+#: src/features/chats/components/chat-input.tsx:324
 msgid "Microphone access was blocked by the browser"
 msgstr "Naršyklė užblokavo prieigą prie mikrofono"
 
-#: src/features/chats/components/chat-input.tsx:287
+#: src/features/chats/components/chat-input.tsx:305
 msgid "Microphone constraints could not be satisfied"
 msgstr "Nepavyko įvykdyti mikrofono reikalavimų"
 
-#: src/features/chats/components/chat-input.tsx:323
+#: src/features/chats/components/chat-input.tsx:341
 msgid "Microphone error: {message}"
 msgstr "Mikrofono klaida: {message}"
 
-#: src/features/chats/components/chat-input.tsx:283
+#: src/features/chats/components/chat-input.tsx:301
 msgid "Microphone is already in use"
 msgstr "Mikrofonas jau naudojamas"
 
-#: src/features/chats/components/chat-input.tsx:275
+#: src/features/chats/components/chat-input.tsx:293
 msgid "Microphone permission denied"
 msgstr "Mikrofono leidimas uždraustas"
 
@@ -1837,7 +1842,7 @@ msgstr "Mažiausias ilgis"
 msgid "Mochi web"
 msgstr "Mochi žiniatinklis"
 
-#: ../../../lib/web/src/components/options-menu.tsx:164
+#: ../../../lib/web/src/components/options-menu.tsx:167
 msgid "Moderation"
 msgstr ""
 
@@ -1845,8 +1850,8 @@ msgstr ""
 msgid "Monday"
 msgstr "Pirmadienis"
 
-#: ../../../lib/web/src/components/options-menu.tsx:145
-#: ../../../lib/web/src/components/options-menu.tsx:152
+#: ../../../lib/web/src/components/options-menu.tsx:148
+#: ../../../lib/web/src/components/options-menu.tsx:155
 msgid "More options"
 msgstr "Daugiau parinkčių"
 
@@ -1880,7 +1885,7 @@ msgstr "Pavadinimas turi būti ne ilgesnis nei 1000 simbolių"
 msgid "Network error"
 msgstr "Tinklo klaida"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:460
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:453
 #: ../../../lib/web/src/components/ui/sort-selector.tsx:43
 msgid "New"
 msgstr "Naujas"
@@ -1905,7 +1910,7 @@ msgstr "Naujesnis atitikmuo"
 msgid "Next image"
 msgstr "Kitas paveikslėlis"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:533
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:526
 msgid "No {parentClassNames} to add to"
 msgstr "{parentClassNames} pridėti negalima"
 
@@ -1921,7 +1926,7 @@ msgstr "Dar nėra veiklos"
 msgid "No chats to forward to"
 msgstr "Nėra pokalbių, į kuriuos persiųsti"
 
-#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:450
+#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:458
 msgid "No comments yet"
 msgstr "Dar nėra komentarų"
 
@@ -1949,7 +1954,7 @@ msgstr "Dar nėra games"
 msgid "No groups available"
 msgstr "Grupių nėra"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:500
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:493
 msgid "No item types can be created yet. Create the required parent items first."
 msgstr "Kol kas negalima sukurti jokių elementų tipų. Pirma sukurkite reikalingus tėvinius elementus."
 
@@ -1957,11 +1962,11 @@ msgstr "Kol kas negalima sukurti jokių elementų tipų. Pirma sukurkite reikali
 msgid "No matching objects"
 msgstr "Atitinkančių objektų nėra"
 
-#: src/features/chats/components/chat-message-list.tsx:469
+#: src/features/chats/components/chat-message-list.tsx:470
 msgid "No messages yet"
 msgstr "Dar nėra žinučių"
 
-#: src/features/chats/components/chat-input.tsx:279
+#: src/features/chats/components/chat-input.tsx:297
 msgid "No microphone found"
 msgstr "Mikrofonas nerastas"
 
@@ -1987,6 +1992,7 @@ msgstr "Profilio nėra"
 msgid "No results"
 msgstr "Rezultatų nėra"
 
+#: ../../../lib/web/src/components/inline-entity-search.tsx:74
 #: ../../../lib/web/src/components/search-entity-dialog.tsx:82
 #: ../../../lib/web/src/components/search-entity-page.tsx:73
 msgid "No results found"
@@ -2024,9 +2030,9 @@ msgid "No views"
 msgstr "Peržiūrų nėra"
 
 #: ../../../lib/web/src/components/colour-picker.tsx:349
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:509
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:512
 #: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:516
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:519
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:523
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:365
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:388
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:391
@@ -2109,7 +2115,7 @@ msgstr "Atidaryti paskyros veiksmus"
 msgid "Open actions"
 msgstr "Atidaryti veiksmus"
 
-#: src/features/chats/index.tsx:1125
+#: src/features/chats/index.tsx:1129
 msgid "Open chat actions"
 msgstr "Atidaryti pokalbio veiksmus"
 
@@ -2182,15 +2188,15 @@ msgstr "Savininkas"
 msgid "Page {currentPage} of {totalPages}"
 msgstr "{currentPage} puslapis iš {totalPages}"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:508
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:501
 msgid "Parent"
 msgstr "Tėvas"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:334
+#: ../../../lib/web/src/components/step-up-dialog.tsx:348
 msgid "Passkey"
 msgstr "Slaptaraktis"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:209
+#: ../../../lib/web/src/components/step-up-dialog.tsx:218
 msgid "Passkey verification failed. Please try again."
 msgstr "Slaptarakčio patvirtinimas nepavyko. Bandykite dar kartą."
 
@@ -2214,6 +2220,10 @@ msgstr "Pristabdyti balso žinutę"
 msgid "People"
 msgstr "Žmonės"
 
+#: src/features/chats/components/chat-input.tsx:717
+msgid "Photo or Video"
+msgstr ""
+
 #: ../../../lib/web/src/components/date-picker.tsx:20
 msgid "Pick a date"
 msgstr "Pasirinkite datą"
@@ -2230,7 +2240,7 @@ msgstr "Groti garsą"
 msgid "Play voice note"
 msgstr "Groti balso žinutę"
 
-#: ../../../lib/web/src/components/comment-composer.tsx:99
+#: ../../../lib/web/src/components/comment-composer.tsx:84
 #: ../../../lib/web/src/features/errors/general-error.tsx:54
 #: ../../../lib/web/src/lib/api-response-interceptors.ts:323
 msgid "Please check your internet connection and try again."
@@ -2256,11 +2266,11 @@ msgstr "Bandykite dar kartą."
 msgid "Please wait a moment and try again."
 msgstr "Palaukite šiek tiek ir bandykite dar kartą."
 
-#: ../../../lib/web/src/components/options-menu.tsx:175
+#: ../../../lib/web/src/components/options-menu.tsx:178
 msgid "Posts"
 msgstr "Įrašai"
 
-#: ../../../lib/web/src/components/options-menu.tsx:178
+#: ../../../lib/web/src/components/options-menu.tsx:181
 msgid "Posts and comments"
 msgstr "Įrašai ir komentarai"
 
@@ -2315,28 +2325,28 @@ msgstr "Rekomenduojama"
 msgid "Reconnecting ({retries})..."
 msgstr "Jungiamasi iš naujo ({retries})..."
 
-#: src/features/chats/components/chat-input.tsx:854
-#: src/features/chats/components/chat-input.tsx:859
+#: src/features/chats/components/chat-input.tsx:782
+#: src/features/chats/components/chat-input.tsx:787
 msgid "Record voice note"
 msgstr "Įrašyti balso žinutę"
 
-#: src/features/chats/components/chat-input.tsx:315
+#: src/features/chats/components/chat-input.tsx:333
 msgid "Recording failed. Please try again."
 msgstr "Įrašymas nepavyko. Bandykite dar kartą."
 
-#: src/features/chats/components/chat-input.tsx:331
+#: src/features/chats/components/chat-input.tsx:349
 msgid "Recording is too large to send"
 msgstr "Įrašas per didelis išsiųsti"
 
-#: src/features/chats/components/chat-input.tsx:311
+#: src/features/chats/components/chat-input.tsx:329
 msgid "Recording produced no audio"
 msgstr "Įraše nėra garso"
 
-#: src/features/chats/components/chat-input.tsx:237
+#: src/features/chats/components/chat-input.tsx:255
 msgid "Recording stopped at the 5-minute limit"
 msgstr "Įrašymas sustojo pasiekus 5 minučių ribą"
 
-#: src/features/chats/components/chat-input.tsx:723
+#: src/features/chats/components/chat-input.tsx:643
 msgid "Recording voice note"
 msgstr "Įrašoma balso žinutė"
 
@@ -2361,18 +2371,16 @@ msgstr "Santykinis (5m, 3h, 2d)"
 msgid "Relative within 24 hours, else absolute"
 msgstr "Santykinis per 24 val., kitaip absoliutus"
 
-#: ../../../lib/web/src/components/comment-composer.tsx:236
+#: ../../../lib/web/src/components/attachment-composer.tsx:210
+#: ../../../lib/web/src/components/attachment-composer.tsx:247
 #: ../../../lib/web/src/components/entity/add-field-dialog.tsx:190
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:598
 #: ../../../lib/web/src/features/access/access-list.tsx:270
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:180
 #: src/routes/_authenticated/$chatId_.settings.tsx:556
 msgid "Remove"
 msgstr "Šalinti"
 
-#. placeholder {0}: attachment.file.name
 #. placeholder {0}: reaction.label
-#: src/features/chats/components/chat-input.tsx:701
 #: src/features/chats/components/message-reaction-bar.tsx:121
 msgid "Remove {0}"
 msgstr "Šalinti {0}"
@@ -2448,19 +2456,19 @@ msgstr "Pervadinti šį lentos stulpelį"
 msgid "Renaming chat..."
 msgstr "Pervadinamas pokalbis..."
 
-#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:294
-#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:342
+#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:295
+#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:343
 #: src/features/chats/components/message-hover-actions.tsx:133
 msgid "Reply"
 msgstr "Atsakyti"
 
 #. placeholder {0}: comment.name || comment.author
-#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:385
+#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:386
 msgid "Reply to {0}..."
 msgstr "Atsakyti {0}..."
 
 #. placeholder {0}: replyTo.name
-#: src/features/chats/components/chat-input.tsx:590
+#: src/features/chats/components/chat-input.tsx:571
 msgid "Replying to {0}"
 msgstr "Atsakoma: {0}"
 
@@ -2468,7 +2476,7 @@ msgstr "Atsakoma: {0}"
 msgid "Required"
 msgstr "Privaloma"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:367
+#: ../../../lib/web/src/components/step-up-dialog.tsx:381
 msgid "Resend email"
 msgstr "Siųsti el. laišką dar kartą"
 
@@ -2486,13 +2494,21 @@ msgstr "Atstatyti {title}"
 msgid "Reset all settings to default values"
 msgstr "Atstatyti visus nustatymus į numatytąsias reikšmes"
 
-#: ../../../lib/web/src/components/comment-composer.tsx:253
+#: ../../../lib/web/src/components/attachment-composer.tsx:264
 msgid "Retry"
 msgstr "Bandyti dar kartą"
 
-#: ../../../lib/web/src/components/options-menu.tsx:181
+#: ../../../lib/web/src/components/options-menu.tsx:250
+msgid "Revoke"
+msgstr ""
+
+#: ../../../lib/web/src/components/options-menu.tsx:184
 msgid "Revoke access"
 msgstr "Atšaukti prieigą"
+
+#: ../../../lib/web/src/components/options-menu.tsx:244
+msgid "Revoke RSS access?"
+msgstr ""
 
 #: ../../../lib/web/src/components/config-drawer.tsx:362
 msgid "Right to Left"
@@ -2511,15 +2527,15 @@ msgstr "Grupuoti eilutes pagal"
 msgid "Rows per page"
 msgstr "Eilučių puslapyje"
 
-#: ../../../lib/web/src/components/options-menu.tsx:131
+#: ../../../lib/web/src/components/options-menu.tsx:134
 msgid "RSS access revoked"
 msgstr "RSS prieiga atšaukta"
 
-#: ../../../lib/web/src/components/options-menu.tsx:171
+#: ../../../lib/web/src/components/options-menu.tsx:174
 msgid "RSS feed"
 msgstr "RSS srautas"
 
-#: ../../../lib/web/src/components/options-menu.tsx:121
+#: ../../../lib/web/src/components/options-menu.tsx:123
 msgid "RSS URL copied to clipboard"
 msgstr "RSS URL nukopijuotas į iškarpinę"
 
@@ -2531,11 +2547,11 @@ msgstr "Liūdna"
 msgid "Saturday"
 msgstr "Šeštadienis"
 
-#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:269
+#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:270
 #: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:173
 #: ../../../lib/web/src/components/ui/editable-field-row.tsx:122
 #: ../../../lib/web/src/components/ui/secret-field.tsx:77
-#: src/features/chats/components/chat-message-list.tsx:633
+#: src/features/chats/components/chat-message-list.tsx:634
 #: src/features/chats/components/chat-settings-dialog.tsx:128
 msgid "Save"
 msgstr "Išsaugoti"
@@ -2587,7 +2603,7 @@ msgstr "Ieškoti draugų…"
 msgid "Search in chat..."
 msgstr "Ieškoti pokalbyje..."
 
-#: src/features/chats/index.tsx:1115
+#: src/features/chats/index.tsx:1119
 msgid "Search messages"
 msgstr "Ieškoti žinučių"
 
@@ -2609,6 +2625,7 @@ msgstr "Ieškoti, stebėti ir rūšiuoti šį rodinį."
 
 #: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx:181
 #: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx:257
+#: ../../../lib/web/src/components/inline-entity-search.tsx:73
 #: ../../../lib/web/src/components/person-picker.tsx:324
 #: ../../../lib/web/src/components/search-entity-dialog.tsx:81
 #: ../../../lib/web/src/components/search-entity-page.tsx:72
@@ -2621,7 +2638,7 @@ msgstr "Ieškoti..."
 msgid "Searching..."
 msgstr "Ieškoma..."
 
-#: src/features/chats/components/audio-player.tsx:332
+#: src/features/chats/components/audio-player.tsx:339
 msgid "Seek in audio"
 msgstr "Peršokti garso įraše"
 
@@ -2679,7 +2696,7 @@ msgstr "Pasirinkite grupę"
 msgid "Select layout style"
 msgstr "Pasirinkite išdėstymo stilių"
 
-#: src/features/chats/components/chat-message-list.tsx:826
+#: src/features/chats/components/chat-message-list.tsx:827
 msgid "Select loaded"
 msgstr "Pasirinkti įkeltas"
 
@@ -2687,7 +2704,7 @@ msgstr "Pasirinkti įkeltas"
 msgid "Select location"
 msgstr "Pasirinkite vietą"
 
-#: src/features/chats/components/chat-message-list.tsx:543
+#: src/features/chats/components/chat-message-list.tsx:544
 msgid "Select message"
 msgstr "Pasirinkti žinutę"
 
@@ -2728,7 +2745,7 @@ msgstr "Pasirinkite..."
 msgid "selected"
 msgstr "pasirinkta"
 
-#: src/features/chats/index.tsx:1218
+#: src/features/chats/index.tsx:1222
 msgid "Selected the newest {BULK_MESSAGES_MAX} messages, the most that can be forwarded or deleted at once"
 msgstr "Pasirinktos {BULK_MESSAGES_MAX} naujausios žinutės – daugiausia, kiek galima persiųsti ar ištrinti iš karto"
 
@@ -2737,7 +2754,7 @@ msgstr "Pasirinktos {BULK_MESSAGES_MAX} naujausios žinutės – daugiausia, kie
 msgid "Selected: <0>{0}</0>"
 msgstr "Pasirinkta: <0>{0}</0>"
 
-#: src/features/chats/components/chat-message-list.tsx:824
+#: src/features/chats/components/chat-message-list.tsx:825
 msgid "Selects messages loaded so far"
 msgstr "Pasirenka iki šiol įkeltas žinutes"
 
@@ -2745,14 +2762,14 @@ msgstr "Pasirenka iki šiol įkeltas žinutes"
 msgid "Send again"
 msgstr "Siųsti dar kartą"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:307
+#: ../../../lib/web/src/components/step-up-dialog.tsx:321
 msgid "Send email"
 msgstr "Siųsti el. laišką"
 
 #: ../../../lib/web/src/components/game/game-chat-input.tsx:52
 #: ../../../lib/web/src/components/game/game-chat-input.tsx:61
-#: src/features/chats/components/chat-input.tsx:869
-#: src/features/chats/components/chat-input.tsx:878
+#: src/features/chats/components/chat-input.tsx:797
+#: src/features/chats/components/chat-input.tsx:806
 msgid "Send message"
 msgstr "Siųsti žinutę"
 
@@ -2780,7 +2797,7 @@ msgstr "Nustatyti pradžią ir paskirties vietą"
 
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx:126
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx:132
-#: ../../../lib/web/src/components/options-menu.tsx:196
+#: ../../../lib/web/src/components/options-menu.tsx:199
 msgid "Settings"
 msgstr "Nustatymai"
 
@@ -2842,7 +2859,7 @@ msgstr "Mažas"
 msgid "Sort"
 msgstr "Rūšiuoti"
 
-#: ../../../lib/web/src/components/options-menu.tsx:158
+#: ../../../lib/web/src/components/options-menu.tsx:161
 msgid "Sources"
 msgstr "Šaltiniai"
 
@@ -2854,7 +2871,7 @@ msgstr "Erdvus"
 msgid "Start a conversation"
 msgstr "Pradėti pokalbį"
 
-#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:451
+#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:459
 msgid "Start the discussion by adding the first comment."
 msgstr "Pradėkite diskusiją pridėdami pirmąjį komentarą."
 
@@ -2866,8 +2883,8 @@ msgstr "Pradedamas pokalbis..."
 msgid "Stay tuned though!"
 msgstr "Bet būkite budrūs!"
 
-#: src/features/chats/components/chat-input.tsx:763
-#: src/features/chats/components/chat-input.tsx:768
+#: src/features/chats/components/chat-input.tsx:683
+#: src/features/chats/components/chat-input.tsx:688
 msgid "Stop recording"
 msgstr "Sustabdyti įrašymą"
 
@@ -2875,16 +2892,18 @@ msgstr "Sustabdyti įrašymą"
 msgid "Subject"
 msgstr "Tema"
 
-#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:431
-#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:440
+#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:439
+#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:448
 msgid "Submit comment"
 msgstr "Pateikti komentarą"
 
-#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:470
-#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:475
+#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:476
+#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:481
 msgid "Submit reply"
 msgstr "Pateikti atsakymą"
 
+#: ../../../lib/web/src/components/inline-entity-search.tsx:76
+#: ../../../lib/web/src/components/recommended-entities.tsx:66
 #: ../../../lib/web/src/components/search-entity-dialog.tsx:83
 #: ../../../lib/web/src/components/search-entity-page.tsx:74
 msgid "Subscribe"
@@ -2936,7 +2955,7 @@ msgstr "Sąlygos ir nuostatos"
 msgid "Text"
 msgstr "Tekstas"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:195
+#: ../../../lib/web/src/components/step-up-dialog.tsx:204
 msgid "That code is incorrect or has expired."
 msgstr "Šis kodas neteisingas arba nebegalioja."
 
@@ -2982,11 +3001,11 @@ msgstr "šis pokalbis"
 msgid "This chat may have been deleted or you don't have access to it"
 msgstr "Šis pokalbis galėjo būti ištrintas arba neturite prie jo prieigos"
 
-#: src/features/chats/index.tsx:1373
+#: src/features/chats/index.tsx:1377
 msgid "This deletes the message for everyone and cannot be undone."
 msgstr "Tai ištrins žinutę visiems ir to nebus galima atšaukti."
 
-#: src/features/chats/components/chat-message-list.tsx:674
+#: src/features/chats/components/chat-message-list.tsx:675
 #: src/features/chats/components/message-quote.tsx:50
 msgid "This message was deleted"
 msgstr "Ši žinutė buvo ištrinta"
@@ -3095,11 +3114,11 @@ msgstr "Įveskite, kad surastumėte vartotojus"
 msgid "Type to search..."
 msgstr "Įveskite, kad ieškotumėte..."
 
-#: src/features/chats/components/chat-input.tsx:814
+#: src/features/chats/components/chat-input.tsx:742
 msgid "Type your message…"
 msgstr "Įveskite žinutę…"
 
-#: src/features/chats/components/chat-input.tsx:813
+#: src/features/chats/components/chat-input.tsx:741
 msgid "Type your reply…"
 msgstr "Rašykite savo atsakymą…"
 
@@ -3138,11 +3157,11 @@ msgstr "Nežinoma"
 msgid "Unpin chat"
 msgstr "Atsegti pokalbį"
 
-#: ../../../lib/web/src/components/options-menu.tsx:211
+#: ../../../lib/web/src/components/options-menu.tsx:214
 msgid "Unsubscribe"
 msgstr "Atšaukti prenumeratą"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:286
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:277
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx:103
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx:184
 msgid "Untitled"
@@ -3157,8 +3176,8 @@ msgstr "Nepatvirtinta"
 msgid "Updated"
 msgstr "Atnaujinta"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:630
-#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:259
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:607
+#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:296
 msgid "Upload"
 msgstr "Įkelti"
 
@@ -3166,7 +3185,7 @@ msgstr "Įkelti"
 msgid "Upload progress"
 msgstr "Įkėlimo eiga"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:338
+#: ../../../lib/web/src/components/step-up-dialog.tsx:352
 msgid "Use your passkey"
 msgstr "Naudokite savo slaptaraktį"
 
@@ -3188,7 +3207,7 @@ msgstr "Patvirtinimo kodas išsiųstas"
 msgid "Verification failed"
 msgstr "Patvirtinimas nepavyko"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:388
+#: ../../../lib/web/src/components/step-up-dialog.tsx:402
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:172
 #: ../../../lib/web/src/features/accounts/account-verify.tsx:111
 msgid "Verify"
@@ -3229,16 +3248,16 @@ msgstr "Rodinio valdikliai"
 msgid "Voice note waveform"
 msgstr "Balso žinutės bangos forma"
 
-#: src/features/chats/components/chat-input.tsx:374
+#: src/features/chats/components/chat-input.tsx:392
 msgid "Voice recording is currently unavailable. Please check your setup and try again."
 msgstr "Balso įrašymas šiuo metu nepasiekiamas. Patikrinkite savo sąranką ir bandykite dar kartą."
 
-#: src/features/chats/components/chat-input.tsx:295
-#: src/features/chats/components/chat-input.tsx:400
+#: src/features/chats/components/chat-input.tsx:313
+#: src/features/chats/components/chat-input.tsx:418
 msgid "Voice recording is not supported in this browser"
 msgstr "Balso įrašymas šioje naršyklėje nepalaikomas"
 
-#: src/features/chats/components/chat-input.tsx:270
+#: src/features/chats/components/chat-input.tsx:288
 msgid "Voice recording isn't available in this app version. Please update the app and try again."
 msgstr "Balso įrašymas šioje programos versijoje nepasiekiamas. Atnaujinkite programą ir bandykite dar kartą."
 
@@ -3304,11 +3323,11 @@ msgstr "Neturite prieigos prie šios skilties."
 msgid "You don't have necessary permission <0/>to view this resource."
 msgstr "Neturite reikiamo leidimo <0/>peržiūrėti šį išteklių."
 
-#: src/features/chats/index.tsx:1281
+#: src/features/chats/index.tsx:1285
 msgid "You left this chat"
 msgstr "Jūs palikote šį pokalbį"
 
-#: src/features/chats/index.tsx:1280
+#: src/features/chats/index.tsx:1284
 msgid "You were removed from this chat"
 msgstr "Jūs buvote pašalinti iš šio pokalbio"
 
@@ -3320,14 +3339,14 @@ msgstr "Viską peržiūrėjote!"
 msgid "Your account was moved here from {source}. Until you delete it there, messages and notifications may reach both servers, some of your content keeps being served from the old server, and followers may take a few minutes to find you here."
 msgstr "Jūsų paskyra buvo perkelta čia iš {source}. Kol jos ten neištrinate, žinutės ir pranešimai gali pasiekti abu serverius, dalis jūsų turinio toliau pateikiama iš senojo serverio, o pasekėjams gali prireikti kelių minučių jus rasti čia."
 
-#: ../../../lib/web/src/components/comment-composer.tsx:295
+#: ../../../lib/web/src/components/comment-composer.tsx:279
 msgid "Your attachments will be lost."
 msgstr "Jūsų priedai bus prarasti."
 
-#: ../../../lib/web/src/components/comment-composer.tsx:293
+#: ../../../lib/web/src/components/comment-composer.tsx:277
 msgid "Your text and attachments will be lost."
 msgstr "Jūsų tekstas ir priedai bus prarasti."
 
-#: ../../../lib/web/src/components/comment-composer.tsx:296
+#: ../../../lib/web/src/components/comment-composer.tsx:280
 msgid "Your text will be lost."
 msgstr "Tavo tekstas bus prarastas."

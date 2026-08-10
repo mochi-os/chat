@@ -5,26 +5,19 @@
 
 import {
   type ChangeEvent,
-  type DragEvent,
   type FormEvent,
   forwardRef,
   useCallback,
   useEffect,
   useImperativeHandle,
+  useMemo,
   useRef,
   useState,
-  type MouseEvent,
 } from 'react'
 import { Trans, useLingui } from '@lingui/react/macro'
 import {
-  Attachment,
-  AttachmentAction,
-  AttachmentActions,
-  AttachmentContent,
-  AttachmentDescription,
-  AttachmentGroup,
-  AttachmentMedia,
-  AttachmentTitle,
+  AttachmentComposer,
+  type ComposerItem,
   Button,
   DropdownMenu,
   DropdownMenuContent,
@@ -52,7 +45,8 @@ import {
   UploadProgress,
   type Upload,
 } from '@mochi/web'
-import { Loader2, Paperclip, Send, X, Mic, Trash, Square, FileText, Music } from 'lucide-react'
+// Image is aliased: the bare name shadows the DOM Image constructor.
+import { Loader2, Paperclip, Send, X, Mic, Trash, Square, FileText, Music, Image as ImageIcon } from 'lucide-react'
 import type { PendingAttachment } from '../utils'
 import { MESSAGE_MAX_LENGTH } from '../constants/limits'
 import type { ReplyTarget } from '../utils/reply'
@@ -120,12 +114,11 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(
     ref
   ) {
   const { t } = useLingui()
-  const { formatFileSize, formatNumber } = useFormat()
+  const { formatNumber } = useFormat()
   const fileInputRef = useRef<HTMLInputElement | null>(null)
+  const mediaInputRef = useRef<HTMLInputElement | null>(null)
   const audioInputRef = useRef<HTMLInputElement | null>(null)
   const textareaRef = useRef<HTMLTextAreaElement | null>(null)
-  const [draggingId, setDraggingId] = useState<string | null>(null)
-  const [dropTargetId, setDropTargetId] = useState<string | null>(null)
   
   const [isRecording, setIsRecording] = useState(false)
   const [recordingDuration, setRecordingDuration] = useState(0)
@@ -147,8 +140,33 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(
   const livePeaksRef = useRef<number[]>([])
 
   const hasPendingAttachments = pendingAttachments.length > 0
-  const canReorder = pendingAttachments.length > 1
   const pendingFiles = pendingAttachments.filter((a) => !a.playable)
+
+  const fileItems = useMemo<ComposerItem[]>(
+    () =>
+      pendingFiles.map((attachment) => ({
+        key: attachment.id,
+        name: attachment.file.name,
+        size: attachment.file.size,
+        type: attachment.file.type,
+        previewUrl: attachment.previewUrl ?? null,
+        previewKind: attachment.kind === 'video' ? 'video' : 'image',
+        // Slices are indexed against the body, which carries the voice notes
+        // this list filters out, so the tile has to find its own position in
+        // the full array rather than reuse its position here.
+        progress:
+          sendProgress?.slices?.[
+            pendingAttachments.findIndex((a) => a.id === attachment.id)
+          ],
+      })),
+    [pendingFiles, pendingAttachments, sendProgress]
+  )
+
+  // Voice notes render above as players rather than tiles, so the composer's
+  // indexes address the filtered list while onReorderAttachments addresses the
+  // full one.
+  const absoluteIndex = (fileIndex: number) =>
+    pendingAttachments.findIndex((a) => a.id === pendingFiles[fileIndex]?.id)
   const pendingPlayableNotes = pendingAttachments.filter((a) => Boolean(a.playable))
 
   const focusInput = useCallback(() => {
@@ -535,43 +553,6 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(
     }
   }, [replyTo, focusInput])
 
-  const handleDragStart = (e: DragEvent<HTMLDivElement>, attachmentId: string) => {
-    if (!canReorder) return
-    e.dataTransfer.setData('text/plain', attachmentId)
-    e.dataTransfer.effectAllowed = 'move'
-    setDraggingId(attachmentId)
-  }
-
-  const handleDragOver = (e: DragEvent<HTMLDivElement>, attachmentId: string) => {
-    if (!canReorder || !draggingId || draggingId === attachmentId) return
-    e.preventDefault()
-    e.dataTransfer.dropEffect = 'move'
-    setDropTargetId(attachmentId)
-  }
-
-  const handleDrop = (e: DragEvent<HTMLDivElement>, targetId: string) => {
-    if (!canReorder) return
-    e.preventDefault()
-    const sourceId = e.dataTransfer.getData('text/plain') || draggingId
-    if (!sourceId || sourceId === targetId) {
-      setDraggingId(null)
-      setDropTargetId(null)
-      return
-    }
-    const fromIndex = pendingAttachments.findIndex((a) => a.id === sourceId)
-    const toIndex = pendingAttachments.findIndex((a) => a.id === targetId)
-    if (fromIndex !== -1 && toIndex !== -1) {
-      onReorderAttachments(fromIndex, toIndex)
-    }
-    setDraggingId(null)
-    setDropTargetId(null)
-  }
-
-  const handleDragEnd = () => {
-    setDraggingId(null)
-    setDropTargetId(null)
-  }
-
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault()
     onSendMessage()
@@ -637,80 +618,19 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(
               </div>
             ) : null}
             {pendingFiles.length > 0 ? (
-              <AttachmentGroup
-                onDragOver={(e) => {
-                  if (canReorder) e.preventDefault()
-                }}
-              >
-                {pendingFiles.map((attachment) => {
-                  const isImage = attachment.kind === 'image'
-                  const isVideo = attachment.kind === 'video'
-                  const isDragging = draggingId === attachment.id
-                  const isDropTarget = dropTargetId === attachment.id
-
-                  return (
-                    <Attachment
-                      key={attachment.id}
-                      draggable={canReorder}
-                      onDragStart={(e: DragEvent<HTMLDivElement>) =>
-                        handleDragStart(e, attachment.id)
-                      }
-                      onDragOver={(e: DragEvent<HTMLDivElement>) =>
-                        handleDragOver(e, attachment.id)
-                      }
-                      onDrop={(e: DragEvent<HTMLDivElement>) =>
-                        handleDrop(e, attachment.id)
-                      }
-                      onDragEnd={handleDragEnd}
-                      className={cn(
-                        canReorder && 'cursor-grab active:cursor-grabbing',
-                        isDragging && 'opacity-40',
-                        isDropTarget &&
-                          'ring-primary rounded-lg ring-2 ring-inset'
-                      )}
-                      state={isSending ? 'uploading' : 'idle'}
-                    >
-                      <AttachmentMedia
-                        variant={isImage || isVideo ? 'image' : 'icon'}
-                      >
-                        {isImage && attachment.previewUrl ? (
-                          <img
-                            src={attachment.previewUrl}
-                            alt={attachment.file.name}
-                            draggable={false}
-                          />
-                        ) : isVideo && attachment.previewUrl ? (
-                          <video
-                            src={attachment.previewUrl}
-                            muted
-                            playsInline
-                            draggable={false}
-                          />
-                        ) : (
-                          <Paperclip />
-                        )}
-                      </AttachmentMedia>
-                      <AttachmentContent>
-                        <AttachmentTitle>{attachment.file.name}</AttachmentTitle>
-                        <AttachmentDescription>
-                          {formatFileSize(attachment.file.size)}
-                        </AttachmentDescription>
-                      </AttachmentContent>
-                      <AttachmentActions>
-                        <AttachmentAction
-                          aria-label={t`Remove ${attachment.file.name}`}
-                          onClick={(e: MouseEvent<HTMLButtonElement>) => {
-                            e.stopPropagation()
-                            onRemoveAttachment(attachment.id)
-                          }}
-                        >
-                          <X className='size-4' />
-                        </AttachmentAction>
-                      </AttachmentActions>
-                    </Attachment>
-                  )
-                })}
-              </AttachmentGroup>
+              <AttachmentComposer
+                items={fileItems}
+                layout='grid'
+                preview='tile'
+                groupMedia
+                state={isSending ? 'uploading' : 'idle'}
+                onRemove={(index) =>
+                  onRemoveAttachment(pendingFiles[index].id)
+                }
+                onReorder={(from, to) =>
+                  onReorderAttachments(absoluteIndex(from), absoluteIndex(to))
+                }
+              />
             ) : null}
           </div>
         )}
@@ -788,6 +708,14 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(
                     <TooltipContent>{t`Add attachment`}</TooltipContent>
                   </Tooltip>
                   <DropdownMenuContent align='start' className='min-w-44'>
+                    {/* First: the most common pick, and the entry that gives a
+                        phone its camera and gallery rather than a file browser. */}
+                    <DropdownMenuItem
+                      onSelect={() => mediaInputRef.current?.click()}
+                    >
+                      <ImageIcon className='me-2 size-4' />
+                      <Trans>Photo or Video</Trans>
+                    </DropdownMenuItem>
                     <DropdownMenuItem
                       onSelect={() => fileInputRef.current?.click()}
                     >
@@ -886,6 +814,19 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(
             ref={fileInputRef}
             type='file'
             multiple
+            className='hidden'
+            onChange={(e) => {
+              onAttachmentSelection(e)
+              e.target.value = ''
+            }}
+          />
+        {/* Same handler as the Document input: nothing downstream filters by
+            type, so accept only sets what the picker offers first. */}
+        <input
+            ref={mediaInputRef}
+            type='file'
+            multiple
+            accept='image/*,video/*'
             className='hidden'
             onChange={(e) => {
               onAttachmentSelection(e)
