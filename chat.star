@@ -1884,6 +1884,10 @@ def event_leave(e):
 		return
 
 	mochi.db.execute("delete from members where chat=? and member=?", chat["id"], member)
+	# Every member originates their own stream, so each remaining host has to
+	# revoke the leaver from ITS OWN broadcast log. Doing this only where the
+	# removal is initiated would leave every other member's history replayable.
+	mochi.broadcast.subscriber.remove(chat["id"], member)
 	chat_websocket(chat["key"], {"event": "leave", "member": member})
 
 # Received a member/add event - someone added a new member
@@ -1918,6 +1922,10 @@ def event_member_add(e):
 			return
 
 	mochi.db.execute("insert into members ( chat, member, name ) values ( ?, ?, ? ) on conflict ( chat, member ) do update set name=excluded.name", chat["id"], member, name)
+	# The member/add broadcast goes to the EXISTING members, so the joiner is
+	# absent from the very event that admits them and core would refuse them a
+	# resync of this host's stream until some later message included them.
+	mochi.broadcast.subscriber.add(chat["id"], member)
 	mochi.db.execute("update chats set updated=? where id=?", mochi.time.now(), chat["id"])
 	chat_websocket(chat["key"], {"event": "member/add", "member": member, "name": name})
 
@@ -1938,6 +1946,8 @@ def event_member_remove(e):
 		return
 
 	mochi.db.execute("delete from members where chat=? and member=?", chat["id"], member)
+	# As in event_leave: this host's own stream must stop serving them.
+	mochi.broadcast.subscriber.remove(chat["id"], member)
 	chat_websocket(chat["key"], {"event": "member/remove", "member": member})
 
 # Received a removed event - current user was removed from chat
@@ -2110,6 +2120,9 @@ def action_member_add(a):
 
 	# Add new member
 	mochi.db.execute("insert into members ( chat, member, name ) values ( ?, ?, ? ) on conflict ( chat, member ) do update set name=excluded.name", chat["id"], member_id, member_name)
+	# As in event_member_add: the notification below excludes the joiner, so
+	# record them explicitly or this host's stream will refuse them a resync.
+	mochi.broadcast.subscriber.add(chat["id"], member_id)
 	mochi.db.execute("update chats set updated=? where id=?", mochi.time.now(), chat["id"])
 
 	# Get all current members for the new event
@@ -2162,6 +2175,9 @@ def action_member_remove(a):
 
 	# Remove the member
 	mochi.db.execute("delete from members where chat=? and member=?", chat["id"], member_id)
+	# Stop serving them replay of this host's stream. The other members revoke
+	# from theirs when they handle the member/remove event below.
+	mochi.broadcast.subscriber.remove(chat["id"], member_id)
 	mochi.db.execute("update chats set updated=? where id=?", mochi.time.now(), chat["id"])
 
 	# Notify remaining members. The removed member's row is already gone
