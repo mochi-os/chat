@@ -43,7 +43,7 @@ import {
   BubbleGroup,
   useFormat,
 } from '@mochi/web'
-import { ChevronsDown, MessageCircle, Loader2 } from 'lucide-react'
+import { Check, ChevronsDown, Loader2, MessageCircle } from 'lucide-react'
 import type { ChatMessage } from '@/api/chats'
 import type { GetMessagesResponse } from '@/api/types/chats'
 import { MessageAttachments } from './message-attachments'
@@ -629,8 +629,10 @@ export function ChatMessageList({
                                 className='h-7 px-2.5 bg-primary hover:bg-primary/80 text-primary-foreground font-medium transition-colors'
                               >
                                 {isEditingSaving ? (
-                                  <Loader2 className='me-1 size-3 animate-spin' />
-                                ) : null}
+                                  <Loader2 className='size-3 animate-spin' />
+                                ) : (
+                                  <Check className='size-3' />
+                                )}
                                 <Trans>Save</Trans>
                               </Button>
                             </div>

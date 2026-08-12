@@ -1123,7 +1123,11 @@ def action_messages_delete(a):
 	if not raw_ids:
 		a.error.label(400, "errors.invalid_message")
 		return
-	message_ids = json.decode(raw_ids)
+	# The shape check below was already here and is right, but it never ran on
+	# malformed input: a bare json.decode RAISES, which ends the action before
+	# the caller can be told anything, so a bad body answered 500 instead of
+	# this 400. content_decode returns the fallback instead of aborting.
+	message_ids = content_decode(raw_ids, None)
 	if type(message_ids) != "list" or len(message_ids) == 0 or len(message_ids) > 100:
 		a.error.label(400, "errors.invalid_message")
 		return

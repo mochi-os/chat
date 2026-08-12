@@ -12,7 +12,7 @@
 	"services": ["chat"],
 
 	"architecture": {"engine": "starlark", "version": 4},
-	"execute": ["lib/attachments.star", "chat.star"],
+	"execute": ["lib/attachments.star", "lib/content.star", "chat.star"],
 	"require": {"version": {"minimum": "0.4.230"}},
 
 	"database": {
@@ -64,6 +64,12 @@
 		":chat/settings/images": {"files": "web/dist/images"},
 		":chat/assets": {"files": "web/dist/assets"},
 		":chat/images": {"files": "web/dist/images"}
+	},
+
+	"errors": {
+
+		"message/timeout": {"function": "error_message_timeout"}
+
 	},
 
 	"events": {
