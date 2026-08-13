@@ -158,6 +158,11 @@ interface SendMessageVariables extends SendMessageRequest {
   onProgress?: (event: AxiosProgressEvent) => void
 }
 
+// How long the websocket gets to deliver the sender's own message before the
+// send path refetches instead. The socket round trip is local to the user's
+// own server, so this is generous rather than tuned.
+const SOCKET_DELIVERY_GRACE = 1500
+
 export const useSendMessageMutation = (
   options?: UseMutationOptions<
     SendMessageResponse,
@@ -172,10 +177,37 @@ export const useSendMessageMutation = (
     mutationFn: ({ chatId, onProgress, ...payload }) =>
       chatsApi.sendMessage(chatId, payload, onProgress),
     onSuccess: (data, variables, context, mutation) => {
-      // Only invalidate messages for this specific chat
-      queryClient.invalidateQueries({
-        queryKey: chatKeys.messages(variables.chatId),
-      })
+      // The sender's own message arrives over the websocket like anyone
+      // else's - chat_websocket fires from the insert commit hook, with no
+      // sender exclusion - and appendMessageToCache dedupes on the real id.
+      // So refetching here is normally redundant, and it is not cheap: this
+      // is an infinite query, so invalidating it refetches EVERY loaded page,
+      // one request per page, on every message sent.
+      //
+      // It is still the only way the sender sees their own message when the
+      // socket is down, so it stays as a fallback - taken only when the
+      // socket has not delivered by the time the grace period is up.
+      window.setTimeout(() => {
+        const cached = queryClient.getQueryData<InfiniteData<GetMessagesResponse>>(
+          chatKeys.messages(variables.chatId)
+        )
+        // sendMessage is the one api method that does not unwrapData, so its
+        // result is still {data: {id}}. Read through both shapes rather than
+        // changing the method's contract, which several callers share.
+        const sent = (data as SendMessageResponse | { data: SendMessageResponse })
+        const sentId =
+          'id' in sent ? sent.id : (sent as { data: SendMessageResponse }).data?.id
+        const delivered =
+          !!sentId &&
+          cached?.pages.some((page) =>
+            page.messages.some((message) => message.id === sentId)
+          )
+        if (!delivered) {
+          queryClient.invalidateQueries({
+            queryKey: chatKeys.messages(variables.chatId),
+          })
+        }
+      }, SOCKET_DELIVERY_GRACE)
       // Update the specific chat's timestamp so it sorts to top of list
       queryClient.setQueryData<GetChatsResponse>(chatKeys.all(), (old: GetChatsResponse | undefined) => {
         if (!old) return old

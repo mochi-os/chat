@@ -134,6 +134,9 @@ interface ChatMessageListProps {
   isEditSaveDisabled?: boolean
   onSaveEdit?: (e: React.FormEvent) => void
   onCancelEdit?: () => void
+  /** Reports whether the list is pinned to the newest message. The page uses
+   * it to decide whether an arriving message has actually been read. */
+  onAtBottomChange?: (atBottom: boolean) => void
 }
 
 export function ChatMessageList({
@@ -172,6 +175,7 @@ export function ChatMessageList({
   isEditSaveDisabled = false,
   onSaveEdit,
   onCancelEdit,
+  onAtBottomChange,
 }: ChatMessageListProps) {
   const { t } = useLingui()
   const { formatDate, formatTime, formatNumber } = useFormat()
@@ -217,6 +221,14 @@ export function ChatMessageList({
   const prevMessageCountRef = useRef<number>(0)
   const isAtBottomRef = useRef(true)
   const [isScrolledAwayFromBottom, setIsScrolledAwayFromBottom] = useState(false)
+
+  // Report the state this component already keeps for its own scroll-to-bottom
+  // button, rather than at each of the ten places the ref is touched: this is
+  // the same signal, and it is the one the page needs to know whether an
+  // arriving message was actually in front of the reader.
+  useEffect(() => {
+    onAtBottomChange?.(!isScrolledAwayFromBottom)
+  }, [isScrolledAwayFromBottom, onAtBottomChange])
   const [newMessageCount, setNewMessageCount] = useState(0)
   const [suppressHistoryReveal, setSuppressHistoryReveal] = useState(false)
   const [activeMessageId, setActiveMessageId] = useState<string | null>(null)

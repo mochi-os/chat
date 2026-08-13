@@ -84,6 +84,11 @@ import {
   MESSAGE_MAX_LENGTH,
 } from './constants/limits'
 
+// How long a chat must sit in front of the reader, pinned to the newest
+// message, before the arriving message counts as read. Long enough that a
+// burst of messages produces one call rather than one each.
+const READ_SETTLE = 1000
+
 export function Chats() {
   const { t } = useLingui()
   usePageTitle(t`Chat`)
@@ -346,6 +351,7 @@ export function Chats() {
   const { mutate: markChatRead } = useMarkChatReadMutation()
   const readMigrationStarted = useRef(false)
   const markedChatIdRef = useRef<string | null>(null)
+  const [atBottom, setAtBottom] = useState(true)
 
   useEffect(() => {
     if (readMigrationStarted.current) return
@@ -391,7 +397,6 @@ export function Chats() {
     clearMarkedUnread(loadedChatId)
     markChatRead({ chatId: loadedChatId })
   }, [loadedChatId, loadedChatStatus, clearMarkedUnread, markChatRead])
-
   // Chat detail (members, names)
   const { data: chatDetail } = useChatDetailQuery(selectedChat?.id)
   const detailMembers = chatDetail?.chat.members
@@ -488,6 +493,39 @@ export function Chats() {
     if (!messagesQuery.data?.pages) return []
     return [...messagesQuery.data.pages].reverse().flatMap((p) => p.messages)
   }, [messagesQuery.data?.pages])
+
+  // Marking read once per open watermarks at whatever the newest message was
+  // at that instant, so everything arriving over the websocket while the chat
+  // sat open in front of the reader stayed unread on the server. The badge is
+  // hidden for the active chat, so it only showed on navigating away - from a
+  // chat that had just been read.
+  //
+  // Only while pinned to the newest message: further up the history, an
+  // arriving message is genuinely not in front of the reader, and marking it
+  // read would be the same wrongness in the other direction. The server takes
+  // the later of what it holds and what is sent, so a late or out-of-order
+  // call cannot move the watermark backwards.
+  const newestMessage = chatMessages.length
+    ? chatMessages[chatMessages.length - 1]
+    : undefined
+  const newestCreated = newestMessage?.created
+  useEffect(() => {
+    if (!loadedChatId || !atBottom || !newestCreated) return
+    if (!chatActive({ status: loadedChatStatus })) return
+    if (markedChatIdRef.current !== loadedChatId) return
+    const timer = window.setTimeout(() => {
+      clearMarkedUnread(loadedChatId)
+      markChatRead({ chatId: loadedChatId, read: newestCreated })
+    }, READ_SETTLE)
+    return () => window.clearTimeout(timer)
+  }, [
+    loadedChatId,
+    loadedChatStatus,
+    atBottom,
+    newestCreated,
+    clearMarkedUnread,
+    markChatRead,
+  ])
 
   const messageSearch = useChatMessageSearch(
     selectedChat?.id,
@@ -1177,6 +1215,7 @@ export function Chats() {
             />
           ) : null}
           <ChatMessageList
+            onAtBottomChange={setAtBottom}
             chatId={selectedChat?.id}
             messagesQuery={messagesQuery}
             chatMessages={chatMessages}
