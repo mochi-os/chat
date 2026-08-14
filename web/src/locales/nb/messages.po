@@ -23,7 +23,7 @@ msgid " or "
 msgstr " eller "
 
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:229
-#: src/features/chats/components/chat-message-list.tsx:790
+#: src/features/chats/components/chat-message-list.tsx:804
 msgid "(edited)"
 msgstr "(redigert)"
 
@@ -45,7 +45,7 @@ msgid "{0, plural, one {# selected} other {# selected}}"
 msgstr "{0, plural, one {# valgt} other {# valgt}}"
 
 #. placeholder {0}: deleteTargetIds?.length ?? 0
-#: src/features/chats/index.tsx:1373
+#: src/features/chats/index.tsx:1412
 msgid "{0, plural, one {Delete message?} other {Delete # messages?}}"
 msgstr "{0, plural, one {Slette meldingen?} other {Slette # meldinger?}}"
 
@@ -61,8 +61,8 @@ msgstr "Forhåndsvisning av {0}-alternativet"
 
 #. placeholder {0}: selectedIds.size
 #. placeholder {0}: selectedIds?.size ?? 0
-#: src/features/chats/components/chat-message-list.tsx:817
-#: src/features/chats/index.tsx:1242
+#: src/features/chats/components/chat-message-list.tsx:831
+#: src/features/chats/index.tsx:1281
 msgid "{0} selected"
 msgstr "{0} valgt"
 
@@ -100,8 +100,8 @@ msgstr "{entityLabel}-navn er påkrevd"
 msgid "{hiddenCount, plural, one {Show 1 more file} other {Show # more files}}"
 msgstr "{hiddenCount, plural, one {Vis 1 fil til} other {Vis # filer til}}"
 
-#: src/features/chats/components/chat-message-list.tsx:852
-#: src/features/chats/components/chat-message-list.tsx:869
+#: src/features/chats/components/chat-message-list.tsx:866
+#: src/features/chats/components/chat-message-list.tsx:883
 msgid "{newMessageCount, plural, one {Jump to 1 new message} other {Jump to # new messages}}"
 msgstr "{newMessageCount, plural, one {Hopp til 1 ny melding} other {Hopp til # nye meldinger}}"
 
@@ -125,12 +125,12 @@ msgstr "{selectedCount, plural, one {# valgt} other {# valgt}}"
 msgid "{selectedCount, plural, one {Bulk actions for # selected {entityName}} other {Bulk actions for # selected {manyName}}}"
 msgstr "{selectedCount, plural, one {Masse­handlinger for # valgt {entityName}} other {Masse­handlinger for # valgte {manyName}}}"
 
-#: ../../../lib/web/src/components/attachment-composer.tsx:252
+#: ../../../lib/web/src/components/attachment-composer.tsx:281
 #: ../../../lib/web/src/components/ui/upload-progress.tsx:52
 msgid "{sentLabel} of {totalLabel}"
 msgstr "{sentLabel} av {totalLabel}"
 
-#: src/features/chats/index.tsx:871
+#: src/features/chats/index.tsx:909
 msgid "{skippedCount, plural, one {Skipped # file that is not audio} other {Skipped # files that are not audio}}"
 msgstr "{skippedCount, plural, one {Hoppet over # fil som ikke er lyd} other {Hoppet over # filer som ikke er lyd}}"
 
@@ -171,7 +171,7 @@ msgstr "Et opptak pågår allerede."
 msgid "Absolute (date and time)"
 msgstr "Absolutt (dato og klokkeslett)"
 
-#: ../../../lib/web/src/components/game/game-draw-offer-banner.tsx:45
+#: ../../../lib/web/src/components/game/game-draw-offer-banner.tsx:50
 msgid "Accept"
 msgstr "Godta"
 
@@ -243,6 +243,10 @@ msgstr "Legg til en konto for å motta varsler og bruke tjenester."
 #: src/features/chats/components/chat-input.tsx:708
 msgid "Add attachment"
 msgstr "Legg til vedlegg"
+
+#: ../../../lib/web/src/components/attachment-composer.tsx:324
+msgid "Add caption"
+msgstr "Legg til bildetekst"
 
 #: ../../../lib/web/src/components/entity/entity-field-editor.tsx:687
 msgid "Add checklist item"
@@ -404,7 +408,7 @@ msgid "Are you sure you want to delete this comment? This will also delete all r
 msgstr "Er du sikker på at du vil slette denne kommentaren? Dette vil også slette alle svar."
 
 #. placeholder {0}: selectedChat?.name
-#: src/features/chats/index.tsx:1341
+#: src/features/chats/index.tsx:1380
 msgid "Are you sure you want to leave \"{0}\"? You can be added back by other members."
 msgstr "Er du sikker på at du vil forlate \"{0}\"? Andre medlemmer kan legge deg til igjen."
 
@@ -444,7 +448,7 @@ msgstr "Legg ved svarfiler"
 msgid "Attachment"
 msgstr "Vedlegg"
 
-#: src/features/chats/index.tsx:757
+#: src/features/chats/index.tsx:795
 msgid "Attachments are too large to upload. Remove or shrink files and try again."
 msgstr "Vedleggene er for store til å lastes opp. Fjern eller forminsk filer og prøv igjen."
 
@@ -493,7 +497,7 @@ msgstr "Tilbake til start"
 msgid "Banner"
 msgstr "Banner"
 
-#: src/features/chats/components/chat-message-list.tsx:471
+#: src/features/chats/components/chat-message-list.tsx:483
 msgid "Be the first to say something!"
 msgstr "Vær den første til å si noe!"
 
@@ -528,6 +532,7 @@ msgstr "Kantfarge"
 msgid "Browser notifications"
 msgstr "Nettleservarsler"
 
+#: ../../../lib/web/src/components/attachment-composer.tsx:461
 #: ../../../lib/web/src/components/entity/entity-board-column.tsx:628
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:250
 #: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:169
@@ -541,12 +546,12 @@ msgstr "Nettleservarsler"
 #: ../../../lib/web/src/features/access/access-list.tsx:268
 #: ../../../lib/web/src/features/accounts/account-add.tsx:201
 #: ../../../lib/web/src/features/accounts/account-verify.tsx:91
-#: src/features/chats/components/chat-message-list.tsx:622
-#: src/features/chats/components/chat-message-list.tsx:836
+#: src/features/chats/components/chat-message-list.tsx:634
+#: src/features/chats/components/chat-message-list.tsx:850
 #: src/features/chats/components/chat-settings-dialog.tsx:116
 #: src/features/chats/components/forward-dialog.tsx:253
 #: src/features/chats/components/new-chat.tsx:354
-#: src/features/chats/index.tsx:1274
+#: src/features/chats/index.tsx:1313
 msgid "Cancel"
 msgstr "Avbryt"
 
@@ -562,6 +567,11 @@ msgstr "Avbryt kommentar"
 msgid "Cancel reply"
 msgstr "Avbryt svar"
 
+#: ../../../lib/web/src/components/attachment-composer.tsx:421
+#: ../../../lib/web/src/components/attachment-composer.tsx:456
+msgid "Caption"
+msgstr "Bildetekst"
+
 #: ../../../lib/web/src/components/notification-category-button.tsx:102
 msgid "Category for these notifications"
 msgstr "Kategori for disse varslene"
@@ -571,10 +581,10 @@ msgstr "Kategori for disse varslene"
 msgid "Change notification category"
 msgstr "Endre varselkategori"
 
-#: src/features/chats/index.tsx:89
-#: src/features/chats/index.tsx:197
-#: src/features/chats/index.tsx:197
-#: src/features/chats/index.tsx:1051
+#: src/features/chats/index.tsx:94
+#: src/features/chats/index.tsx:202
+#: src/features/chats/index.tsx:202
+#: src/features/chats/index.tsx:1089
 msgid "Chat"
 msgstr "Chat"
 
@@ -582,7 +592,7 @@ msgstr "Chat"
 msgid "Chat created"
 msgstr "Chat opprettet"
 
-#: src/features/chats/index.tsx:822
+#: src/features/chats/index.tsx:860
 msgid "Chat deleted"
 msgstr "Chat slettet"
 
@@ -631,8 +641,8 @@ msgstr "Chat klar"
 msgid "Chat renamed"
 msgstr "Chat fikk nytt navn"
 
-#: src/features/chats/index.tsx:1056
-#: src/features/chats/index.tsx:1154
+#: src/features/chats/index.tsx:1094
+#: src/features/chats/index.tsx:1192
 #: src/routes/_authenticated/$chatId_.settings.tsx:89
 #: src/routes/_authenticated/$chatId_.settings.tsx:102
 #: src/routes/_authenticated/$chatId_.settings.tsx:113
@@ -734,8 +744,8 @@ msgstr "Tøm utvalg (Escape)"
 #: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:506
 #: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:511
 #: ../../../lib/web/src/components/ui/dialog.tsx:78
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:358
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:361
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:373
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:376
 #: ../../../lib/web/src/components/ui/sheet.tsx:79
 msgid "Close"
 msgstr "Lukk"
@@ -858,7 +868,7 @@ msgid "Continue with {label}"
 msgstr "Fortsett med {label}"
 
 #: ../../../lib/web/src/lib/toast-utils.ts:42
-#: src/features/chats/index.tsx:648
+#: src/features/chats/index.tsx:686
 msgid "Copied"
 msgstr "Kopiert"
 
@@ -868,13 +878,13 @@ msgstr "Kopiert til utklippstavlen"
 
 #: ../../../lib/web/src/components/ui/copy-button.tsx:64
 #: src/features/chats/components/message-hover-actions.tsx:107
-#: src/features/chats/index.tsx:1251
+#: src/features/chats/index.tsx:1290
 msgid "Copy"
 msgstr "Kopier"
 
 #. placeholder {0}: ambiguous.join(', ')
 #. placeholder {1}: unknown.join(', ')
-#: src/features/chats/index.tsx:977
+#: src/features/chats/index.tsx:1015
 msgid "Could not link mentions. Multiple people share: {0}. Not in this chat: {1}. Pick from the @ list."
 msgstr "Omtaler kunne ikke kobles. Flere personer deler: {0}. Ikke i denne chatten: {1}. Velg fra @-listen."
 
@@ -992,8 +1002,8 @@ msgstr "Standard sortering"
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:252
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:314
 #: src/features/chats/components/message-hover-actions.tsx:146
-#: src/features/chats/index.tsx:1267
-#: src/features/chats/index.tsx:1385
+#: src/features/chats/index.tsx:1306
+#: src/features/chats/index.tsx:1424
 msgid "Delete"
 msgstr "Slett"
 
@@ -1001,12 +1011,12 @@ msgstr "Slett"
 msgid "Delete attachment"
 msgstr "Slett vedlegg"
 
-#: src/features/chats/index.tsx:1137
-#: src/features/chats/index.tsx:1298
+#: src/features/chats/index.tsx:1175
+#: src/features/chats/index.tsx:1337
 msgid "Delete chat"
 msgstr "Slett chat"
 
-#: src/features/chats/index.tsx:1363
+#: src/features/chats/index.tsx:1402
 #: src/routes/_authenticated/$chatId_.settings.tsx:378
 msgid "Delete chat history"
 msgstr "Slett chat-historikk"
@@ -1041,12 +1051,12 @@ msgstr "Slett visning"
 msgid "Delete your account on the old server"
 msgstr "Slett kontoen din på den gamle serveren"
 
-#: src/features/chats/index.tsx:821
+#: src/features/chats/index.tsx:859
 msgid "Deleting chat..."
 msgstr "Sletter chat..."
 
-#: src/features/chats/index.tsx:678
-#: src/features/chats/index.tsx:1382
+#: src/features/chats/index.tsx:716
+#: src/features/chats/index.tsx:1421
 msgid "Deleting..."
 msgstr "Sletter …"
 
@@ -1093,11 +1103,11 @@ msgstr "Katalogsøket mislyktes"
 msgid "Disagree"
 msgstr "Uenig"
 
-#: ../../../lib/web/src/components/comment-composer.tsx:300
+#: ../../../lib/web/src/components/comment-composer.tsx:313
 msgid "Discard"
 msgstr "Forkast"
 
-#: ../../../lib/web/src/components/comment-composer.tsx:298
+#: ../../../lib/web/src/components/comment-composer.tsx:311
 msgid "Discard draft?"
 msgstr "Forkaste utkastet?"
 
@@ -1134,12 +1144,12 @@ msgid "Done"
 msgstr "Ferdig"
 
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:239
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:342
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:352
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:357
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:367
 msgid "Download"
 msgstr "Last ned"
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:68
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:69
 msgid "Download failed"
 msgstr "Nedlastingen mislyktes"
 
@@ -1169,6 +1179,10 @@ msgstr "Rediger"
 #: ../../../lib/web/src/components/ui/editable-field-row.tsx:154
 msgid "Edit {label}"
 msgstr "Rediger {label}"
+
+#: ../../../lib/web/src/components/attachment-composer.tsx:324
+msgid "Edit caption"
+msgstr "Rediger bildetekst"
 
 #: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:137
 msgid "Edit field"
@@ -1217,7 +1231,7 @@ msgstr "Skriv inn koden fra e-posten din"
 msgid "Enter your authenticator code"
 msgstr "Skriv inn autentiseringskoden din"
 
-#: src/features/chats/components/chat-message-list.tsx:612
+#: src/features/chats/components/chat-message-list.tsx:624
 msgid "escape to cancel • enter to save"
 msgstr "Escape for å avbryte • Enter for å lagre"
 
@@ -1254,7 +1268,7 @@ msgstr "Kunne ikke legge til tagg"
 
 #: ../../../lib/web/src/components/ui/copy-button.tsx:26
 #: ../../../lib/web/src/lib/toast-utils.ts:44
-#: src/features/chats/index.tsx:649
+#: src/features/chats/index.tsx:687
 msgid "Failed to copy"
 msgstr "Kunne ikke kopiere"
 
@@ -1271,7 +1285,7 @@ msgstr "Kunne ikke opprette chat"
 msgid "Failed to create link"
 msgstr "Kunne ikke opprette lenke"
 
-#: src/features/chats/index.tsx:680
+#: src/features/chats/index.tsx:718
 msgid "Failed to delete"
 msgstr "Kunne ikke slette"
 
@@ -1279,7 +1293,7 @@ msgstr "Kunne ikke slette"
 msgid "Failed to delete attachment"
 msgstr "Kunne ikke slette vedlegg"
 
-#: src/features/chats/index.tsx:823
+#: src/features/chats/index.tsx:861
 msgid "Failed to delete chat"
 msgstr "Kunne ikke slette chat"
 
@@ -1291,7 +1305,7 @@ msgstr "Kunne ikke slette kommentar"
 msgid "Failed to delete link"
 msgstr "Kunne ikke slette lenke"
 
-#: src/features/chats/index.tsx:588
+#: src/features/chats/index.tsx:626
 msgid "Failed to edit message"
 msgstr "Kunne ikke redigere meldingen"
 
@@ -1303,12 +1317,12 @@ msgstr "Kunne ikke videresende"
 msgid "Failed to get RSS token"
 msgstr "Kunne ikke hente RSS-token"
 
-#: src/features/chats/index.tsx:804
+#: src/features/chats/index.tsx:842
 #: src/routes/_authenticated/$chatId_.settings.tsx:339
 msgid "Failed to leave chat"
 msgstr "Kunne ikke forlate chat"
 
-#: ../../../lib/web/src/hooks/use-load-more.ts:74
+#: ../../../lib/web/src/hooks/use-load-more.ts:83
 msgid "Failed to load"
 msgstr "Kunne ikke laste"
 
@@ -1316,11 +1330,11 @@ msgstr "Kunne ikke laste"
 msgid "Failed to load history"
 msgstr "Kunne ikke laste historikk"
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:263
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:264
 msgid "Failed to load image"
 msgstr "Kunne ikke laste bildet"
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:263
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:264
 msgid "Failed to load video"
 msgstr "Kunne ikke laste videoen"
 
@@ -1336,7 +1350,7 @@ msgstr "Kunne ikke merke chatten som lest"
 msgid "Failed to post comment"
 msgstr "Kunne ikke legge ut kommentar"
 
-#: src/features/chats/index.tsx:632
+#: src/features/chats/index.tsx:670
 msgid "Failed to react"
 msgstr "Reaksjonen mislyktes"
 
@@ -1360,7 +1374,7 @@ msgstr "Kunne ikke tilbakekalle RSS-tilgang"
 msgid "Failed to save"
 msgstr "Kunne ikke lagre"
 
-#: src/features/chats/index.tsx:756
+#: src/features/chats/index.tsx:794
 msgid "Failed to send message"
 msgstr "Kunne ikke sende melding"
 
@@ -1368,7 +1382,7 @@ msgstr "Kunne ikke sende melding"
 msgid "Failed to send verification code"
 msgstr "Kunne ikke sende bekreftelseskode"
 
-#: src/features/chats/index.tsx:203
+#: src/features/chats/index.tsx:208
 msgid "Failed to start chat"
 msgstr "Kunne ikke starte chat"
 
@@ -1408,7 +1422,7 @@ msgstr "Flytende"
 
 #: src/features/chats/components/forward-dialog.tsx:264
 #: src/features/chats/components/message-hover-actions.tsx:138
-#: src/features/chats/index.tsx:1259
+#: src/features/chats/index.tsx:1298
 msgid "Forward"
 msgstr "Videresend"
 
@@ -1527,7 +1541,7 @@ msgid "ID"
 msgstr ""
 
 #. placeholder {0}: currentMedia.name
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:247
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:248
 msgid "Image viewer: {0}"
 msgstr "Bildeviser: {0}"
 
@@ -1540,7 +1554,7 @@ msgid "Including anonymous users"
 msgstr "Inkludert anonyme brukere"
 
 #: src/features/chats/components/chat-settings-dialog.tsx:80
-#: src/features/chats/index.tsx:1160
+#: src/features/chats/index.tsx:1198
 msgid "Incoming chats"
 msgstr "Innkommende chatter"
 
@@ -1576,8 +1590,8 @@ msgstr "Ugyldig bekreftelseskode"
 msgid "It seems like the page you're looking for <0/>does not exist or might have been removed."
 msgstr "Det ser ut til at siden du leter etter <0/>ikke finnes eller er blitt fjernet."
 
-#: src/features/chats/components/chat-message-list.tsx:856
-#: src/features/chats/components/chat-message-list.tsx:873
+#: src/features/chats/components/chat-message-list.tsx:870
+#: src/features/chats/components/chat-message-list.tsx:887
 msgid "Jump to bottom"
 msgstr "Hopp til bunnen"
 
@@ -1608,31 +1622,31 @@ msgstr "Layout"
 msgid "Learn more"
 msgstr "Les mer"
 
-#: src/features/chats/index.tsx:1349
+#: src/features/chats/index.tsx:1388
 msgid "Leave"
 msgstr "Forlat"
 
-#: src/features/chats/index.tsx:1144
+#: src/features/chats/index.tsx:1182
 #: src/routes/_authenticated/$chatId_.settings.tsx:364
 msgid "Leave chat"
 msgstr "Forlat chat"
 
-#: src/features/chats/index.tsx:1340
+#: src/features/chats/index.tsx:1379
 #: src/routes/_authenticated/$chatId_.settings.tsx:355
 msgid "Leave chat?"
 msgstr "Forlate chat?"
 
-#: src/features/chats/index.tsx:802
+#: src/features/chats/index.tsx:840
 #: src/routes/_authenticated/$chatId_.settings.tsx:337
 msgid "Leaving chat..."
 msgstr "Forlater chat..."
 
-#: src/features/chats/index.tsx:1346
+#: src/features/chats/index.tsx:1385
 #: src/routes/_authenticated/$chatId_.settings.tsx:361
 msgid "Leaving..."
 msgstr "Forlater ..."
 
-#: src/features/chats/index.tsx:803
+#: src/features/chats/index.tsx:841
 #: src/routes/_authenticated/$chatId_.settings.tsx:338
 msgid "Left chat"
 msgstr "Forlot chat"
@@ -1778,11 +1792,11 @@ msgstr "Meldingshandlinger"
 msgid "Message copied"
 msgstr "Melding kopiert"
 
-#: src/features/chats/index.tsx:758
+#: src/features/chats/index.tsx:796
 msgid "Message could not be sent. Attachments may be too large, or your connection failed. Try smaller files."
 msgstr "Meldingen kunne ikke sendes. Vedleggene kan være for store, eller forbindelsen mislyktes. Prøv mindre filer."
 
-#: src/features/chats/index.tsx:679
+#: src/features/chats/index.tsx:717
 msgid "Message deleted"
 msgstr "Melding slettet"
 
@@ -1792,7 +1806,7 @@ msgid "Message is {0} characters too long"
 msgstr "Meldingen er {0} tegn for lang"
 
 #: src/features/chats/components/message-quote.tsx:60
-#: src/features/chats/index.tsx:700
+#: src/features/chats/index.tsx:738
 msgid "Message not available"
 msgstr "Meldingen er ikke tilgjengelig"
 
@@ -1844,7 +1858,7 @@ msgstr "Mochi web"
 
 #: ../../../lib/web/src/components/options-menu.tsx:167
 msgid "Moderation"
-msgstr ""
+msgstr "Moderering"
 
 #: ../../../lib/web/src/lib/preference-utils.ts:59
 msgid "Monday"
@@ -1856,7 +1870,7 @@ msgid "More options"
 msgstr "Flere alternativer"
 
 #. placeholder {0}: ambiguous.join(', ')
-#: src/features/chats/index.tsx:969
+#: src/features/chats/index.tsx:1007
 msgid "Multiple people share these names: {0}. Pick them from the @ list so the right person is notified."
 msgstr "Flere personer deler disse navnene: {0}. Velg dem fra @-listen slik at riktig person blir varslet."
 
@@ -1905,8 +1919,8 @@ msgstr "Nytt spill"
 msgid "Newer match"
 msgstr "Nyere treff"
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:392
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:397
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:407
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:412
 msgid "Next image"
 msgstr "Neste bilde"
 
@@ -1962,7 +1976,7 @@ msgstr "Ingen elementtyper kan opprettes ennå. Opprett de nødvendige overordne
 msgid "No matching objects"
 msgstr "Ingen samsvarende objekter"
 
-#: src/features/chats/components/chat-message-list.tsx:470
+#: src/features/chats/components/chat-message-list.tsx:482
 msgid "No messages yet"
 msgstr "Ingen meldinger ennå"
 
@@ -2062,7 +2076,7 @@ msgstr "Ikke satt"
 msgid "Nothing found"
 msgstr "Ingenting funnet"
 
-#: src/features/chats/index.tsx:644
+#: src/features/chats/index.tsx:682
 msgid "Nothing to copy"
 msgstr "Ingenting å kopiere"
 
@@ -2115,7 +2129,7 @@ msgstr "Åpne kontohandlinger"
 msgid "Open actions"
 msgstr "Åpne handlinger"
 
-#: src/features/chats/index.tsx:1129
+#: src/features/chats/index.tsx:1167
 msgid "Open chat actions"
 msgstr "Åpne chathandlinger"
 
@@ -2274,8 +2288,8 @@ msgstr "Innlegg"
 msgid "Posts and comments"
 msgstr "Innlegg og kommentarer"
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:377
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:382
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:392
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:397
 msgid "Previous image"
 msgstr "Forrige bilde"
 
@@ -2371,8 +2385,8 @@ msgstr "Relativ (5m, 3t, 2d)"
 msgid "Relative within 24 hours, else absolute"
 msgstr "Relativ innen 24 timer, ellers absolutt"
 
-#: ../../../lib/web/src/components/attachment-composer.tsx:289
-#: ../../../lib/web/src/components/attachment-composer.tsx:328
+#: ../../../lib/web/src/components/attachment-composer.tsx:318
+#: ../../../lib/web/src/components/attachment-composer.tsx:363
 #: ../../../lib/web/src/components/entity/add-field-dialog.tsx:190
 #: ../../../lib/web/src/features/access/access-list.tsx:270
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:180
@@ -2494,7 +2508,7 @@ msgstr "Tilbakestill {title}"
 msgid "Reset all settings to default values"
 msgstr "Tilbakestill alle innstillinger til standardverdier"
 
-#: ../../../lib/web/src/components/attachment-composer.tsx:346
+#: ../../../lib/web/src/components/attachment-composer.tsx:381
 msgid "Retry"
 msgstr "Prøv igjen"
 
@@ -2547,11 +2561,12 @@ msgstr "Trist"
 msgid "Saturday"
 msgstr "Lørdag"
 
+#: ../../../lib/web/src/components/attachment-composer.tsx:465
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:270
 #: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:173
 #: ../../../lib/web/src/components/ui/editable-field-row.tsx:122
-#: ../../../lib/web/src/components/ui/secret-field.tsx:77
-#: src/features/chats/components/chat-message-list.tsx:634
+#: ../../../lib/web/src/components/ui/secret-field.tsx:79
+#: src/features/chats/components/chat-message-list.tsx:648
 #: src/features/chats/components/chat-settings-dialog.tsx:128
 msgid "Save"
 msgstr "Lagre"
@@ -2603,7 +2618,7 @@ msgstr "Søk etter venner…"
 msgid "Search in chat..."
 msgstr "Søk i chatten..."
 
-#: src/features/chats/index.tsx:1119
+#: src/features/chats/index.tsx:1157
 msgid "Search messages"
 msgstr "Søk i meldinger"
 
@@ -2696,7 +2711,7 @@ msgstr "Velg gruppe"
 msgid "Select layout style"
 msgstr "Velg utformingsstil"
 
-#: src/features/chats/components/chat-message-list.tsx:827
+#: src/features/chats/components/chat-message-list.tsx:841
 msgid "Select loaded"
 msgstr "Velg innlastede"
 
@@ -2704,7 +2719,7 @@ msgstr "Velg innlastede"
 msgid "Select location"
 msgstr "Velg sted"
 
-#: src/features/chats/components/chat-message-list.tsx:544
+#: src/features/chats/components/chat-message-list.tsx:556
 msgid "Select message"
 msgstr "Velg melding"
 
@@ -2745,7 +2760,7 @@ msgstr "Velg ..."
 msgid "selected"
 msgstr "valgt"
 
-#: src/features/chats/index.tsx:1222
+#: src/features/chats/index.tsx:1261
 msgid "Selected the newest {BULK_MESSAGES_MAX} messages, the most that can be forwarded or deleted at once"
 msgstr "Valgte de nyeste {BULK_MESSAGES_MAX} meldingene, det meste som kan videresendes eller slettes samtidig"
 
@@ -2754,7 +2769,7 @@ msgstr "Valgte de nyeste {BULK_MESSAGES_MAX} meldingene, det meste som kan vider
 msgid "Selected: <0>{0}</0>"
 msgstr "Valgt: <0>{0}</0>"
 
-#: src/features/chats/components/chat-message-list.tsx:825
+#: src/features/chats/components/chat-message-list.tsx:839
 msgid "Selects messages loaded so far"
 msgstr "Velger meldingene som er lastet inn så langt"
 
@@ -2875,7 +2890,7 @@ msgstr "Start en samtale"
 msgid "Start the discussion by adding the first comment."
 msgstr "Start diskusjonen ved å legge til den første kommentaren."
 
-#: src/features/chats/index.tsx:200
+#: src/features/chats/index.tsx:205
 msgid "Starting chat..."
 msgstr "Starter chat..."
 
@@ -2998,7 +3013,7 @@ msgid "Theme Settings"
 msgstr "Temainnstillinger"
 
 #. placeholder {0}: unknown.join(', ')
-#: src/features/chats/index.tsx:973
+#: src/features/chats/index.tsx:1011
 msgid "These names are not in this chat: {0}. Pick from the @ list or remove them."
 msgstr "Disse navnene er ikke i denne chatten: {0}. Velg fra @-listen eller fjern dem."
 
@@ -3010,11 +3025,11 @@ msgstr "denne chatten"
 msgid "This chat may have been deleted or you don't have access to it"
 msgstr "Denne chatten kan ha blitt slettet, eller du har ikke tilgang til den"
 
-#: src/features/chats/index.tsx:1377
+#: src/features/chats/index.tsx:1416
 msgid "This deletes the message for everyone and cannot be undone."
 msgstr "Dette sletter meldingen for alle og kan ikke angres."
 
-#: src/features/chats/components/chat-message-list.tsx:675
+#: src/features/chats/components/chat-message-list.tsx:689
 #: src/features/chats/components/message-quote.tsx:50
 msgid "This message was deleted"
 msgstr "Denne meldingen ble slettet"
@@ -3226,13 +3241,13 @@ msgstr "Verifiser"
 msgid "Verify email address"
 msgstr "Verifiser e-postadresse"
 
-#: ../../../lib/web/src/components/attachment-gallery.tsx:79
+#: ../../../lib/web/src/components/attachment-gallery.tsx:85
 #: src/features/chats/components/message-media-grid.tsx:52
 msgid "Video thumbnail"
 msgstr "Videominiatyr"
 
 #. placeholder {0}: currentMedia.name
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:246
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:247
 msgid "Video viewer: {0}"
 msgstr "Videoviser: {0}"
 
@@ -3300,7 +3315,7 @@ msgstr "Nettstedet er under vedlikehold!"
 msgid "Wednesday"
 msgstr "Onsdag"
 
-#: src/features/chats/index.tsx:479
+#: src/features/chats/index.tsx:484
 msgid "You"
 msgstr "Du"
 
@@ -3312,15 +3327,15 @@ msgstr "Du har allerede en samtale med denne vennen"
 msgid "You already have chats with:"
 msgstr "Du har allerede chatter med:"
 
-#: src/features/chats/index.tsx:956
+#: src/features/chats/index.tsx:994
 msgid "You can attach at most {CAPTIONS_MAX} files to a message"
 msgstr "Du kan legge ved maksimalt {CAPTIONS_MAX} filer i en melding"
 
-#: src/features/chats/index.tsx:952
+#: src/features/chats/index.tsx:990
 msgid "You can mention at most {MENTIONS_MAX} people in a message"
 msgstr "Du kan nevne maksimalt {MENTIONS_MAX} personer i en melding"
 
-#: src/features/chats/index.tsx:661
+#: src/features/chats/index.tsx:699
 msgid "You can only delete your own messages"
 msgstr "Du kan bare slette dine egne meldinger"
 
@@ -3332,11 +3347,11 @@ msgstr "Du har ikke tilgang til denne delen."
 msgid "You don't have necessary permission <0/>to view this resource."
 msgstr "Du har ikke nødvendig tillatelse <0/>til å se denne ressursen."
 
-#: src/features/chats/index.tsx:1285
+#: src/features/chats/index.tsx:1324
 msgid "You left this chat"
 msgstr "Du forlot denne chatten"
 
-#: src/features/chats/index.tsx:1284
+#: src/features/chats/index.tsx:1323
 msgid "You were removed from this chat"
 msgstr "Du ble fjernet fra denne chatten"
 
@@ -3348,14 +3363,14 @@ msgstr "Du er ajour!"
 msgid "Your account was moved here from {source}. Until you delete it there, messages and notifications may reach both servers, some of your content keeps being served from the old server, and followers may take a few minutes to find you here."
 msgstr "Kontoen din ble flyttet hit fra {source}. Inntil du sletter den der, kan meldinger og varsler nå begge serverne, noe av innholdet ditt fortsetter å bli levert fra den gamle serveren, og følgerne dine kan trenge noen minutter på å finne deg her."
 
-#: ../../../lib/web/src/components/comment-composer.tsx:291
+#: ../../../lib/web/src/components/comment-composer.tsx:304
 msgid "Your attachments will be lost."
 msgstr "Vedleggene dine går tapt."
 
-#: ../../../lib/web/src/components/comment-composer.tsx:289
+#: ../../../lib/web/src/components/comment-composer.tsx:302
 msgid "Your text and attachments will be lost."
 msgstr "Teksten og vedleggene dine går tapt."
 
-#: ../../../lib/web/src/components/comment-composer.tsx:292
+#: ../../../lib/web/src/components/comment-composer.tsx:305
 msgid "Your text will be lost."
 msgstr "Teksten din vil gå tapt."

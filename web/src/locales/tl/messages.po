@@ -23,7 +23,7 @@ msgid " or "
 msgstr " o "
 
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:229
-#: src/features/chats/components/chat-message-list.tsx:790
+#: src/features/chats/components/chat-message-list.tsx:804
 msgid "(edited)"
 msgstr "(in-edit)"
 
@@ -45,7 +45,7 @@ msgid "{0, plural, one {# selected} other {# selected}}"
 msgstr "{0, plural, one {# napili} other {# napili}}"
 
 #. placeholder {0}: deleteTargetIds?.length ?? 0
-#: src/features/chats/index.tsx:1373
+#: src/features/chats/index.tsx:1412
 msgid "{0, plural, one {Delete message?} other {Delete # messages?}}"
 msgstr "{0, plural, one {I-delete ang mensahe?} other {I-delete ang # na mensahe?}}"
 
@@ -61,8 +61,8 @@ msgstr "Preview ng opsyong {0}"
 
 #. placeholder {0}: selectedIds.size
 #. placeholder {0}: selectedIds?.size ?? 0
-#: src/features/chats/components/chat-message-list.tsx:817
-#: src/features/chats/index.tsx:1242
+#: src/features/chats/components/chat-message-list.tsx:831
+#: src/features/chats/index.tsx:1281
 msgid "{0} selected"
 msgstr "{0} ang napili"
 
@@ -100,8 +100,8 @@ msgstr "Kailangan ang pangalan ng {entityLabel}"
 msgid "{hiddenCount, plural, one {Show 1 more file} other {Show # more files}}"
 msgstr "{hiddenCount, plural, one {Ipakita ang 1 pang file} other {Ipakita ang # pang file}}"
 
-#: src/features/chats/components/chat-message-list.tsx:852
-#: src/features/chats/components/chat-message-list.tsx:869
+#: src/features/chats/components/chat-message-list.tsx:866
+#: src/features/chats/components/chat-message-list.tsx:883
 msgid "{newMessageCount, plural, one {Jump to 1 new message} other {Jump to # new messages}}"
 msgstr "{newMessageCount, plural, one {Pumunta sa 1 bagong mensahe} other {Pumunta sa # na bagong mensahe}}"
 
@@ -125,12 +125,12 @@ msgstr "{selectedCount, plural, one {# napili} other {# napili}}"
 msgid "{selectedCount, plural, one {Bulk actions for # selected {entityName}} other {Bulk actions for # selected {manyName}}}"
 msgstr "{selectedCount, plural, one {Mga bulk action para sa # napiling {entityName}} other {Mga bulk action para sa # napiling {manyName}}}"
 
-#: ../../../lib/web/src/components/attachment-composer.tsx:252
+#: ../../../lib/web/src/components/attachment-composer.tsx:281
 #: ../../../lib/web/src/components/ui/upload-progress.tsx:52
 msgid "{sentLabel} of {totalLabel}"
 msgstr "{sentLabel} sa {totalLabel}"
 
-#: src/features/chats/index.tsx:871
+#: src/features/chats/index.tsx:909
 msgid "{skippedCount, plural, one {Skipped # file that is not audio} other {Skipped # files that are not audio}}"
 msgstr "{skippedCount, plural, one {Nilaktawan ang # file na hindi audio} other {Nilaktawan ang # na file na hindi audio}}"
 
@@ -171,7 +171,7 @@ msgstr "May kasalukuyan nang pagre-record."
 msgid "Absolute (date and time)"
 msgstr "Absolute (petsa at oras)"
 
-#: ../../../lib/web/src/components/game/game-draw-offer-banner.tsx:45
+#: ../../../lib/web/src/components/game/game-draw-offer-banner.tsx:50
 msgid "Accept"
 msgstr "Tanggapin"
 
@@ -243,6 +243,10 @@ msgstr "Magdagdag ng account para makatanggap ng notification at gamitin ang mga
 #: src/features/chats/components/chat-input.tsx:708
 msgid "Add attachment"
 msgstr "Magdagdag ng attachment"
+
+#: ../../../lib/web/src/components/attachment-composer.tsx:324
+msgid "Add caption"
+msgstr "Magdagdag ng caption"
 
 #: ../../../lib/web/src/components/entity/entity-field-editor.tsx:687
 msgid "Add checklist item"
@@ -404,7 +408,7 @@ msgid "Are you sure you want to delete this comment? This will also delete all r
 msgstr "Sigurado ka bang gusto mong i-delete ang komentong ito? Made-delete din lahat ng sagot."
 
 #. placeholder {0}: selectedChat?.name
-#: src/features/chats/index.tsx:1341
+#: src/features/chats/index.tsx:1380
 msgid "Are you sure you want to leave \"{0}\"? You can be added back by other members."
 msgstr "Sigurado ka bang gusto mong umalis sa \"{0}\"? Maaari kang idagdag muli ng ibang miyembro."
 
@@ -444,7 +448,7 @@ msgstr "I-attach ang mga file ng sagot"
 msgid "Attachment"
 msgstr "Attachment"
 
-#: src/features/chats/index.tsx:757
+#: src/features/chats/index.tsx:795
 msgid "Attachments are too large to upload. Remove or shrink files and try again."
 msgstr "Masyadong malaki ang mga attachment para ma-upload. Alisin o paliitin ang mga file at subukang muli."
 
@@ -493,7 +497,7 @@ msgstr "Bumalik sa home"
 msgid "Banner"
 msgstr "Banner"
 
-#: src/features/chats/components/chat-message-list.tsx:471
+#: src/features/chats/components/chat-message-list.tsx:483
 msgid "Be the first to say something!"
 msgstr "Maging una kang magsabi ng kahit ano!"
 
@@ -528,6 +532,7 @@ msgstr "Kulay ng border"
 msgid "Browser notifications"
 msgstr "Mga notification ng browser"
 
+#: ../../../lib/web/src/components/attachment-composer.tsx:461
 #: ../../../lib/web/src/components/entity/entity-board-column.tsx:628
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:250
 #: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:169
@@ -541,12 +546,12 @@ msgstr "Mga notification ng browser"
 #: ../../../lib/web/src/features/access/access-list.tsx:268
 #: ../../../lib/web/src/features/accounts/account-add.tsx:201
 #: ../../../lib/web/src/features/accounts/account-verify.tsx:91
-#: src/features/chats/components/chat-message-list.tsx:622
-#: src/features/chats/components/chat-message-list.tsx:836
+#: src/features/chats/components/chat-message-list.tsx:634
+#: src/features/chats/components/chat-message-list.tsx:850
 #: src/features/chats/components/chat-settings-dialog.tsx:116
 #: src/features/chats/components/forward-dialog.tsx:253
 #: src/features/chats/components/new-chat.tsx:354
-#: src/features/chats/index.tsx:1274
+#: src/features/chats/index.tsx:1313
 msgid "Cancel"
 msgstr "Kanselahin"
 
@@ -562,6 +567,11 @@ msgstr "Kanselahin ang komento"
 msgid "Cancel reply"
 msgstr "Kanselahin ang sagot"
 
+#: ../../../lib/web/src/components/attachment-composer.tsx:421
+#: ../../../lib/web/src/components/attachment-composer.tsx:456
+msgid "Caption"
+msgstr "Caption"
+
 #: ../../../lib/web/src/components/notification-category-button.tsx:102
 msgid "Category for these notifications"
 msgstr "Category para sa mga notification na ito"
@@ -571,10 +581,10 @@ msgstr "Category para sa mga notification na ito"
 msgid "Change notification category"
 msgstr "Baguhin ang category ng notification"
 
-#: src/features/chats/index.tsx:89
-#: src/features/chats/index.tsx:197
-#: src/features/chats/index.tsx:197
-#: src/features/chats/index.tsx:1051
+#: src/features/chats/index.tsx:94
+#: src/features/chats/index.tsx:202
+#: src/features/chats/index.tsx:202
+#: src/features/chats/index.tsx:1089
 msgid "Chat"
 msgstr "Chat"
 
@@ -582,7 +592,7 @@ msgstr "Chat"
 msgid "Chat created"
 msgstr "Nagawa ang chat"
 
-#: src/features/chats/index.tsx:822
+#: src/features/chats/index.tsx:860
 msgid "Chat deleted"
 msgstr "Na-delete ang chat"
 
@@ -631,8 +641,8 @@ msgstr "Handa na ang chat"
 msgid "Chat renamed"
 msgstr "Pinalitan ng pangalan ang chat"
 
-#: src/features/chats/index.tsx:1056
-#: src/features/chats/index.tsx:1154
+#: src/features/chats/index.tsx:1094
+#: src/features/chats/index.tsx:1192
 #: src/routes/_authenticated/$chatId_.settings.tsx:89
 #: src/routes/_authenticated/$chatId_.settings.tsx:102
 #: src/routes/_authenticated/$chatId_.settings.tsx:113
@@ -734,8 +744,8 @@ msgstr "Burahin ang piniling (Escape)"
 #: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:506
 #: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:511
 #: ../../../lib/web/src/components/ui/dialog.tsx:78
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:358
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:361
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:373
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:376
 #: ../../../lib/web/src/components/ui/sheet.tsx:79
 msgid "Close"
 msgstr "Isara"
@@ -858,7 +868,7 @@ msgid "Continue with {label}"
 msgstr "Magpatuloy gamit ang {label}"
 
 #: ../../../lib/web/src/lib/toast-utils.ts:42
-#: src/features/chats/index.tsx:648
+#: src/features/chats/index.tsx:686
 msgid "Copied"
 msgstr "Nakopya"
 
@@ -868,13 +878,13 @@ msgstr "Nakopya sa clipboard"
 
 #: ../../../lib/web/src/components/ui/copy-button.tsx:64
 #: src/features/chats/components/message-hover-actions.tsx:107
-#: src/features/chats/index.tsx:1251
+#: src/features/chats/index.tsx:1290
 msgid "Copy"
 msgstr "Kopyahin"
 
 #. placeholder {0}: ambiguous.join(', ')
 #. placeholder {1}: unknown.join(', ')
-#: src/features/chats/index.tsx:977
+#: src/features/chats/index.tsx:1015
 msgid "Could not link mentions. Multiple people share: {0}. Not in this chat: {1}. Pick from the @ list."
 msgstr "Hindi ma-link ang mga pagbanggit. Maraming tao ang magkapareho ng pangalan: {0}. Wala sa chat na ito: {1}. Pumili mula sa listahan ng @."
 
@@ -992,8 +1002,8 @@ msgstr "Default na sort"
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:252
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:314
 #: src/features/chats/components/message-hover-actions.tsx:146
-#: src/features/chats/index.tsx:1267
-#: src/features/chats/index.tsx:1385
+#: src/features/chats/index.tsx:1306
+#: src/features/chats/index.tsx:1424
 msgid "Delete"
 msgstr "I-delete"
 
@@ -1001,12 +1011,12 @@ msgstr "I-delete"
 msgid "Delete attachment"
 msgstr "I-delete ang attachment"
 
-#: src/features/chats/index.tsx:1137
-#: src/features/chats/index.tsx:1298
+#: src/features/chats/index.tsx:1175
+#: src/features/chats/index.tsx:1337
 msgid "Delete chat"
 msgstr "I-delete ang chat"
 
-#: src/features/chats/index.tsx:1363
+#: src/features/chats/index.tsx:1402
 #: src/routes/_authenticated/$chatId_.settings.tsx:378
 msgid "Delete chat history"
 msgstr "I-delete ang kasaysayan ng chat"
@@ -1041,12 +1051,12 @@ msgstr "I-delete ang view"
 msgid "Delete your account on the old server"
 msgstr "Burahin ang iyong account sa lumang server"
 
-#: src/features/chats/index.tsx:821
+#: src/features/chats/index.tsx:859
 msgid "Deleting chat..."
 msgstr "Binubura ang chat..."
 
-#: src/features/chats/index.tsx:678
-#: src/features/chats/index.tsx:1382
+#: src/features/chats/index.tsx:716
+#: src/features/chats/index.tsx:1421
 msgid "Deleting..."
 msgstr "Dini-delete..."
 
@@ -1093,11 +1103,11 @@ msgstr "Nabigo ang paghahanap sa direktoryo"
 msgid "Disagree"
 msgstr "Hindi sumasang-ayon"
 
-#: ../../../lib/web/src/components/comment-composer.tsx:300
+#: ../../../lib/web/src/components/comment-composer.tsx:313
 msgid "Discard"
 msgstr "Itapon"
 
-#: ../../../lib/web/src/components/comment-composer.tsx:298
+#: ../../../lib/web/src/components/comment-composer.tsx:311
 msgid "Discard draft?"
 msgstr "Itapon ang draft?"
 
@@ -1134,12 +1144,12 @@ msgid "Done"
 msgstr "Tapos na"
 
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:239
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:342
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:352
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:357
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:367
 msgid "Download"
 msgstr "I-download"
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:68
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:69
 msgid "Download failed"
 msgstr "Nabigo ang pag-download"
 
@@ -1169,6 +1179,10 @@ msgstr "I-edit"
 #: ../../../lib/web/src/components/ui/editable-field-row.tsx:154
 msgid "Edit {label}"
 msgstr "I-edit ang {label}"
+
+#: ../../../lib/web/src/components/attachment-composer.tsx:324
+msgid "Edit caption"
+msgstr "I-edit ang caption"
 
 #: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:137
 msgid "Edit field"
@@ -1217,7 +1231,7 @@ msgstr "Ilagay ang code mula sa iyong email"
 msgid "Enter your authenticator code"
 msgstr "Ilagay ang iyong authenticator code"
 
-#: src/features/chats/components/chat-message-list.tsx:612
+#: src/features/chats/components/chat-message-list.tsx:624
 msgid "escape to cancel • enter to save"
 msgstr "Escape para kanselahin • Enter para i-save"
 
@@ -1254,7 +1268,7 @@ msgstr "Nabigong magdagdag ng tag"
 
 #: ../../../lib/web/src/components/ui/copy-button.tsx:26
 #: ../../../lib/web/src/lib/toast-utils.ts:44
-#: src/features/chats/index.tsx:649
+#: src/features/chats/index.tsx:687
 msgid "Failed to copy"
 msgstr "Nabigong kumopya"
 
@@ -1271,7 +1285,7 @@ msgstr "Nabigong gumawa ng chat"
 msgid "Failed to create link"
 msgstr "Nabigong gumawa ng link"
 
-#: src/features/chats/index.tsx:680
+#: src/features/chats/index.tsx:718
 msgid "Failed to delete"
 msgstr "Nabigong magdelete"
 
@@ -1279,7 +1293,7 @@ msgstr "Nabigong magdelete"
 msgid "Failed to delete attachment"
 msgstr "Nabigong magdelete ng attachment"
 
-#: src/features/chats/index.tsx:823
+#: src/features/chats/index.tsx:861
 msgid "Failed to delete chat"
 msgstr "Nabigong magdelete ng chat"
 
@@ -1291,7 +1305,7 @@ msgstr "Nabigong magdelete ng comment"
 msgid "Failed to delete link"
 msgstr "Nabigong magdelete ng link"
 
-#: src/features/chats/index.tsx:588
+#: src/features/chats/index.tsx:626
 msgid "Failed to edit message"
 msgstr "Hindi ma-edit ang mensahe"
 
@@ -1303,12 +1317,12 @@ msgstr "Hindi na-forward"
 msgid "Failed to get RSS token"
 msgstr "Nabigong makakuha ng RSS token"
 
-#: src/features/chats/index.tsx:804
+#: src/features/chats/index.tsx:842
 #: src/routes/_authenticated/$chatId_.settings.tsx:339
 msgid "Failed to leave chat"
 msgstr "Nabigong umalis sa chat"
 
-#: ../../../lib/web/src/hooks/use-load-more.ts:74
+#: ../../../lib/web/src/hooks/use-load-more.ts:83
 msgid "Failed to load"
 msgstr "Nabigong i-load"
 
@@ -1316,11 +1330,11 @@ msgstr "Nabigong i-load"
 msgid "Failed to load history"
 msgstr "Nabigong i-load ang history"
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:263
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:264
 msgid "Failed to load image"
 msgstr "Nabigong i-load ang larawan"
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:263
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:264
 msgid "Failed to load video"
 msgstr "Nabigong i-load ang video"
 
@@ -1336,7 +1350,7 @@ msgstr "Hindi namarkahan ang chat bilang nabasa na"
 msgid "Failed to post comment"
 msgstr "Nabigong mag-post ng comment"
 
-#: src/features/chats/index.tsx:632
+#: src/features/chats/index.tsx:670
 msgid "Failed to react"
 msgstr "Nabigong mag-react"
 
@@ -1360,7 +1374,7 @@ msgstr "Nabigong bawiin ang RSS access"
 msgid "Failed to save"
 msgstr "Nabigong i-save"
 
-#: src/features/chats/index.tsx:756
+#: src/features/chats/index.tsx:794
 msgid "Failed to send message"
 msgstr "Nabigong magpadala ng message"
 
@@ -1368,7 +1382,7 @@ msgstr "Nabigong magpadala ng message"
 msgid "Failed to send verification code"
 msgstr "Nabigong magpadala ng verification code"
 
-#: src/features/chats/index.tsx:203
+#: src/features/chats/index.tsx:208
 msgid "Failed to start chat"
 msgstr "Nabigong simulan ang chat"
 
@@ -1408,7 +1422,7 @@ msgstr "Floating"
 
 #: src/features/chats/components/forward-dialog.tsx:264
 #: src/features/chats/components/message-hover-actions.tsx:138
-#: src/features/chats/index.tsx:1259
+#: src/features/chats/index.tsx:1298
 msgid "Forward"
 msgstr "I-forward"
 
@@ -1527,7 +1541,7 @@ msgid "ID"
 msgstr ""
 
 #. placeholder {0}: currentMedia.name
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:247
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:248
 msgid "Image viewer: {0}"
 msgstr "Image viewer: {0}"
 
@@ -1540,7 +1554,7 @@ msgid "Including anonymous users"
 msgstr "Kasama ang mga anonymous na user"
 
 #: src/features/chats/components/chat-settings-dialog.tsx:80
-#: src/features/chats/index.tsx:1160
+#: src/features/chats/index.tsx:1198
 msgid "Incoming chats"
 msgstr "Mga papasok na chat"
 
@@ -1576,8 +1590,8 @@ msgstr "Invalid na verification code"
 msgid "It seems like the page you're looking for <0/>does not exist or might have been removed."
 msgstr "Mukhang ang pahinang hinahanap mo <0/>ay wala o maaaring inalis na."
 
-#: src/features/chats/components/chat-message-list.tsx:856
-#: src/features/chats/components/chat-message-list.tsx:873
+#: src/features/chats/components/chat-message-list.tsx:870
+#: src/features/chats/components/chat-message-list.tsx:887
 msgid "Jump to bottom"
 msgstr "Pumunta sa ibaba"
 
@@ -1608,31 +1622,31 @@ msgstr "Layout"
 msgid "Learn more"
 msgstr "Matuto pa"
 
-#: src/features/chats/index.tsx:1349
+#: src/features/chats/index.tsx:1388
 msgid "Leave"
 msgstr "Umalis"
 
-#: src/features/chats/index.tsx:1144
+#: src/features/chats/index.tsx:1182
 #: src/routes/_authenticated/$chatId_.settings.tsx:364
 msgid "Leave chat"
 msgstr "Umalis sa chat"
 
-#: src/features/chats/index.tsx:1340
+#: src/features/chats/index.tsx:1379
 #: src/routes/_authenticated/$chatId_.settings.tsx:355
 msgid "Leave chat?"
 msgstr "Umalis sa chat?"
 
-#: src/features/chats/index.tsx:802
+#: src/features/chats/index.tsx:840
 #: src/routes/_authenticated/$chatId_.settings.tsx:337
 msgid "Leaving chat..."
 msgstr "Umaalis sa chat..."
 
-#: src/features/chats/index.tsx:1346
+#: src/features/chats/index.tsx:1385
 #: src/routes/_authenticated/$chatId_.settings.tsx:361
 msgid "Leaving..."
 msgstr "Umaalis..."
 
-#: src/features/chats/index.tsx:803
+#: src/features/chats/index.tsx:841
 #: src/routes/_authenticated/$chatId_.settings.tsx:338
 msgid "Left chat"
 msgstr "Umalis sa chat"
@@ -1778,11 +1792,11 @@ msgstr "Mga aksyon sa mensahe"
 msgid "Message copied"
 msgstr "Nakopya ang mensahe"
 
-#: src/features/chats/index.tsx:758
+#: src/features/chats/index.tsx:796
 msgid "Message could not be sent. Attachments may be too large, or your connection failed. Try smaller files."
 msgstr "Hindi naipadala ang mensahe. Maaaring masyadong malaki ang mga attachment, o nabigo ang iyong koneksyon. Subukan ang mas maliliit na file."
 
-#: src/features/chats/index.tsx:679
+#: src/features/chats/index.tsx:717
 msgid "Message deleted"
 msgstr "Na-delete ang mensahe"
 
@@ -1792,7 +1806,7 @@ msgid "Message is {0} characters too long"
 msgstr "Mas mahaba ang mensahe ng {0} character"
 
 #: src/features/chats/components/message-quote.tsx:60
-#: src/features/chats/index.tsx:700
+#: src/features/chats/index.tsx:738
 msgid "Message not available"
 msgstr "Hindi available ang mensahe"
 
@@ -1844,7 +1858,7 @@ msgstr "Mochi web"
 
 #: ../../../lib/web/src/components/options-menu.tsx:167
 msgid "Moderation"
-msgstr ""
+msgstr "Moderasyon"
 
 #: ../../../lib/web/src/lib/preference-utils.ts:59
 msgid "Monday"
@@ -1856,7 +1870,7 @@ msgid "More options"
 msgstr "Iba pang opsyon"
 
 #. placeholder {0}: ambiguous.join(', ')
-#: src/features/chats/index.tsx:969
+#: src/features/chats/index.tsx:1007
 msgid "Multiple people share these names: {0}. Pick them from the @ list so the right person is notified."
 msgstr "Maraming tao ang magkapareho ng mga pangalang ito: {0}. Piliin sila mula sa listahan ng @ para ma-notify ang tamang tao."
 
@@ -1905,8 +1919,8 @@ msgstr "Bagong laro"
 msgid "Newer match"
 msgstr "Mas bagong resulta"
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:392
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:397
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:407
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:412
 msgid "Next image"
 msgstr "Susunod na imahe"
 
@@ -1962,7 +1976,7 @@ msgstr "Wala pang uri ng item na magagawa. Gumawa muna ng kinakailangang parent 
 msgid "No matching objects"
 msgstr "Walang tugmang object"
 
-#: src/features/chats/components/chat-message-list.tsx:470
+#: src/features/chats/components/chat-message-list.tsx:482
 msgid "No messages yet"
 msgstr "Wala pang mensahe"
 
@@ -2062,7 +2076,7 @@ msgstr "Hindi naka-set"
 msgid "Nothing found"
 msgstr "Walang nakita"
 
-#: src/features/chats/index.tsx:644
+#: src/features/chats/index.tsx:682
 msgid "Nothing to copy"
 msgstr "Walang makokopya"
 
@@ -2115,7 +2129,7 @@ msgstr "Buksan ang mga aksyon ng account"
 msgid "Open actions"
 msgstr "Buksan ang mga aksyon"
 
-#: src/features/chats/index.tsx:1129
+#: src/features/chats/index.tsx:1167
 msgid "Open chat actions"
 msgstr "Buksan ang mga aksyon ng chat"
 
@@ -2274,8 +2288,8 @@ msgstr "Mga Post"
 msgid "Posts and comments"
 msgstr "Mga post at komento"
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:377
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:382
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:392
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:397
 msgid "Previous image"
 msgstr "Nakaraang imahe"
 
@@ -2371,8 +2385,8 @@ msgstr "Relatibo (5m, 3h, 2d)"
 msgid "Relative within 24 hours, else absolute"
 msgstr "Relatibo sa loob ng 24 na oras, kung hindi ay absolute"
 
-#: ../../../lib/web/src/components/attachment-composer.tsx:289
-#: ../../../lib/web/src/components/attachment-composer.tsx:328
+#: ../../../lib/web/src/components/attachment-composer.tsx:318
+#: ../../../lib/web/src/components/attachment-composer.tsx:363
 #: ../../../lib/web/src/components/entity/add-field-dialog.tsx:190
 #: ../../../lib/web/src/features/access/access-list.tsx:270
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:180
@@ -2494,7 +2508,7 @@ msgstr "I-reset ang {title}"
 msgid "Reset all settings to default values"
 msgstr "I-reset ang lahat ng setting sa mga default na halaga"
 
-#: ../../../lib/web/src/components/attachment-composer.tsx:346
+#: ../../../lib/web/src/components/attachment-composer.tsx:381
 msgid "Retry"
 msgstr "Subukang muli"
 
@@ -2547,11 +2561,12 @@ msgstr "Malungkot"
 msgid "Saturday"
 msgstr "Sabado"
 
+#: ../../../lib/web/src/components/attachment-composer.tsx:465
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:270
 #: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:173
 #: ../../../lib/web/src/components/ui/editable-field-row.tsx:122
-#: ../../../lib/web/src/components/ui/secret-field.tsx:77
-#: src/features/chats/components/chat-message-list.tsx:634
+#: ../../../lib/web/src/components/ui/secret-field.tsx:79
+#: src/features/chats/components/chat-message-list.tsx:648
 #: src/features/chats/components/chat-settings-dialog.tsx:128
 msgid "Save"
 msgstr "I-save"
@@ -2603,7 +2618,7 @@ msgstr "Maghanap ng mga kaibigan…"
 msgid "Search in chat..."
 msgstr "Maghanap sa chat..."
 
-#: src/features/chats/index.tsx:1119
+#: src/features/chats/index.tsx:1157
 msgid "Search messages"
 msgstr "Maghanap ng mensahe"
 
@@ -2696,7 +2711,7 @@ msgstr "Pumili ng group"
 msgid "Select layout style"
 msgstr "Pumili ng layout style"
 
-#: src/features/chats/components/chat-message-list.tsx:827
+#: src/features/chats/components/chat-message-list.tsx:841
 msgid "Select loaded"
 msgstr "Piliin ang mga na-load"
 
@@ -2704,7 +2719,7 @@ msgstr "Piliin ang mga na-load"
 msgid "Select location"
 msgstr "Pumili ng lokasyon"
 
-#: src/features/chats/components/chat-message-list.tsx:544
+#: src/features/chats/components/chat-message-list.tsx:556
 msgid "Select message"
 msgstr "Piliin ang mensahe"
 
@@ -2745,7 +2760,7 @@ msgstr "Pumili..."
 msgid "selected"
 msgstr "napili"
 
-#: src/features/chats/index.tsx:1222
+#: src/features/chats/index.tsx:1261
 msgid "Selected the newest {BULK_MESSAGES_MAX} messages, the most that can be forwarded or deleted at once"
 msgstr "Pinili ang pinakabagong {BULK_MESSAGES_MAX} mensahe, ang pinakamarami na maaaring i-forward o burahin nang sabay"
 
@@ -2754,7 +2769,7 @@ msgstr "Pinili ang pinakabagong {BULK_MESSAGES_MAX} mensahe, ang pinakamarami na
 msgid "Selected: <0>{0}</0>"
 msgstr "Napili: <0>{0}</0>"
 
-#: src/features/chats/components/chat-message-list.tsx:825
+#: src/features/chats/components/chat-message-list.tsx:839
 msgid "Selects messages loaded so far"
 msgstr "Pinipili ang mga mensaheng na-load na sa ngayon"
 
@@ -2875,7 +2890,7 @@ msgstr "Magsimula ng usapan"
 msgid "Start the discussion by adding the first comment."
 msgstr "Simulan ang diskusyon sa pamamagitan ng pagdagdag ng unang komento."
 
-#: src/features/chats/index.tsx:200
+#: src/features/chats/index.tsx:205
 msgid "Starting chat..."
 msgstr "Sinisimulan ang chat..."
 
@@ -2998,7 +3013,7 @@ msgid "Theme Settings"
 msgstr "Mga Setting ng Theme"
 
 #. placeholder {0}: unknown.join(', ')
-#: src/features/chats/index.tsx:973
+#: src/features/chats/index.tsx:1011
 msgid "These names are not in this chat: {0}. Pick from the @ list or remove them."
 msgstr "Wala sa chat na ito ang mga pangalang ito: {0}. Pumili mula sa listahan ng @ o alisin ang mga ito."
 
@@ -3010,11 +3025,11 @@ msgstr "chat na ito"
 msgid "This chat may have been deleted or you don't have access to it"
 msgstr "Maaaring nabura na ang chat na ito o wala kang access dito"
 
-#: src/features/chats/index.tsx:1377
+#: src/features/chats/index.tsx:1416
 msgid "This deletes the message for everyone and cannot be undone."
 msgstr "Made-delete ang mensahe para sa lahat at hindi na ito maibabalik."
 
-#: src/features/chats/components/chat-message-list.tsx:675
+#: src/features/chats/components/chat-message-list.tsx:689
 #: src/features/chats/components/message-quote.tsx:50
 msgid "This message was deleted"
 msgstr "Na-delete ang mensaheng ito"
@@ -3226,13 +3241,13 @@ msgstr "Beripikahin"
 msgid "Verify email address"
 msgstr "Beripikahin ang email address"
 
-#: ../../../lib/web/src/components/attachment-gallery.tsx:79
+#: ../../../lib/web/src/components/attachment-gallery.tsx:85
 #: src/features/chats/components/message-media-grid.tsx:52
 msgid "Video thumbnail"
 msgstr "Thumbnail ng video"
 
 #. placeholder {0}: currentMedia.name
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:246
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:247
 msgid "Video viewer: {0}"
 msgstr "Video viewer: {0}"
 
@@ -3300,7 +3315,7 @@ msgstr "Nasa ilalim ng maintenance ang website!"
 msgid "Wednesday"
 msgstr "Miyerkules"
 
-#: src/features/chats/index.tsx:479
+#: src/features/chats/index.tsx:484
 msgid "You"
 msgstr "Ikaw"
 
@@ -3312,15 +3327,15 @@ msgstr "Mayroon ka nang chat sa kaibigang ito"
 msgid "You already have chats with:"
 msgstr "May mga chat ka na kasama ang:"
 
-#: src/features/chats/index.tsx:956
+#: src/features/chats/index.tsx:994
 msgid "You can attach at most {CAPTIONS_MAX} files to a message"
 msgstr "Maaari kang maglakip ng hanggang {CAPTIONS_MAX} file sa isang mensahe"
 
-#: src/features/chats/index.tsx:952
+#: src/features/chats/index.tsx:990
 msgid "You can mention at most {MENTIONS_MAX} people in a message"
 msgstr "Maaari kang bumanggit ng hanggang {MENTIONS_MAX} tao sa isang mensahe"
 
-#: src/features/chats/index.tsx:661
+#: src/features/chats/index.tsx:699
 msgid "You can only delete your own messages"
 msgstr "Sarili mong mensahe lang ang puwede mong i-delete"
 
@@ -3332,11 +3347,11 @@ msgstr "Wala kang access sa seksyong ito."
 msgid "You don't have necessary permission <0/>to view this resource."
 msgstr "Wala kang kinakailangang pahintulot <0/>upang tingnan ang mapagkukunang ito."
 
-#: src/features/chats/index.tsx:1285
+#: src/features/chats/index.tsx:1324
 msgid "You left this chat"
 msgstr "Umalis ka sa chat na ito"
 
-#: src/features/chats/index.tsx:1284
+#: src/features/chats/index.tsx:1323
 msgid "You were removed from this chat"
 msgstr "Tinanggal ka sa chat na ito"
 
@@ -3348,14 +3363,14 @@ msgstr "Nakita mo na lahat!"
 msgid "Your account was moved here from {source}. Until you delete it there, messages and notifications may reach both servers, some of your content keeps being served from the old server, and followers may take a few minutes to find you here."
 msgstr "Ang iyong account ay inilipat dito mula sa {source}. Hanggang hindi mo ito binubura doon, ang mga mensahe at abiso ay maaaring maabot ang parehong mga server, ang ilan sa iyong nilalaman ay patuloy na pinaglilingkuran mula sa lumang server, at ang mga tagasunod ay maaaring maglaan ng ilang minuto upang mahanap ka dito."
 
-#: ../../../lib/web/src/components/comment-composer.tsx:291
+#: ../../../lib/web/src/components/comment-composer.tsx:304
 msgid "Your attachments will be lost."
 msgstr "Mawawala ang iyong mga attachment."
 
-#: ../../../lib/web/src/components/comment-composer.tsx:289
+#: ../../../lib/web/src/components/comment-composer.tsx:302
 msgid "Your text and attachments will be lost."
 msgstr "Mawawala ang iyong teksto at mga attachment."
 
-#: ../../../lib/web/src/components/comment-composer.tsx:292
+#: ../../../lib/web/src/components/comment-composer.tsx:305
 msgid "Your text will be lost."
 msgstr "Mawawala ang iyong teksto."

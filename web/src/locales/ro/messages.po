@@ -23,7 +23,7 @@ msgid " or "
 msgstr " sau "
 
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:229
-#: src/features/chats/components/chat-message-list.tsx:790
+#: src/features/chats/components/chat-message-list.tsx:804
 msgid "(edited)"
 msgstr "(editat)"
 
@@ -45,7 +45,7 @@ msgid "{0, plural, one {# selected} other {# selected}}"
 msgstr "{0, plural, one {# selectat} few {# selectate} other {# selectate}}"
 
 #. placeholder {0}: deleteTargetIds?.length ?? 0
-#: src/features/chats/index.tsx:1373
+#: src/features/chats/index.tsx:1412
 msgid "{0, plural, one {Delete message?} other {Delete # messages?}}"
 msgstr "{0, plural, one {Ștergi mesajul?} few {Ștergi # mesaje?} other {Ștergi # de mesaje?}}"
 
@@ -61,8 +61,8 @@ msgstr "Previzualizarea opțiunii {0}"
 
 #. placeholder {0}: selectedIds.size
 #. placeholder {0}: selectedIds?.size ?? 0
-#: src/features/chats/components/chat-message-list.tsx:817
-#: src/features/chats/index.tsx:1242
+#: src/features/chats/components/chat-message-list.tsx:831
+#: src/features/chats/index.tsx:1281
 msgid "{0} selected"
 msgstr "{0} selectate"
 
@@ -100,8 +100,8 @@ msgstr "Numele {entityLabel} este obligatoriu"
 msgid "{hiddenCount, plural, one {Show 1 more file} other {Show # more files}}"
 msgstr "{hiddenCount, plural, one {Arată încă 1 fișier} few {Arată încă # fișiere} other {Arată încă # de fișiere}}"
 
-#: src/features/chats/components/chat-message-list.tsx:852
-#: src/features/chats/components/chat-message-list.tsx:869
+#: src/features/chats/components/chat-message-list.tsx:866
+#: src/features/chats/components/chat-message-list.tsx:883
 msgid "{newMessageCount, plural, one {Jump to 1 new message} other {Jump to # new messages}}"
 msgstr "{newMessageCount, plural, one {Sari la 1 mesaj nou} few {Sari la # mesaje noi} other {Sari la # de mesaje noi}}"
 
@@ -125,12 +125,12 @@ msgstr "{selectedCount, plural, one {# selectate} few {# selectate} other {# sel
 msgid "{selectedCount, plural, one {Bulk actions for # selected {entityName}} other {Bulk actions for # selected {manyName}}}"
 msgstr "{selectedCount, plural, one {Acțiuni în masă pentru # {entityName} selectat} few {Acțiuni în masă pentru # {manyName} selectate} other {Acțiuni în masă pentru # de {manyName} selectate}}"
 
-#: ../../../lib/web/src/components/attachment-composer.tsx:252
+#: ../../../lib/web/src/components/attachment-composer.tsx:281
 #: ../../../lib/web/src/components/ui/upload-progress.tsx:52
 msgid "{sentLabel} of {totalLabel}"
 msgstr "{sentLabel} din {totalLabel}"
 
-#: src/features/chats/index.tsx:871
+#: src/features/chats/index.tsx:909
 msgid "{skippedCount, plural, one {Skipped # file that is not audio} other {Skipped # files that are not audio}}"
 msgstr "{skippedCount, plural, one {S-a omis # fișier care nu este audio} few {S-au omis # fișiere care nu sunt audio} other {S-au omis # de fișiere care nu sunt audio}}"
 
@@ -171,7 +171,7 @@ msgstr "O înregistrare este deja în curs."
 msgid "Absolute (date and time)"
 msgstr "Absolut (dată și oră)"
 
-#: ../../../lib/web/src/components/game/game-draw-offer-banner.tsx:45
+#: ../../../lib/web/src/components/game/game-draw-offer-banner.tsx:50
 msgid "Accept"
 msgstr "Acceptă"
 
@@ -243,6 +243,10 @@ msgstr "Adaugă un cont pentru a primi notificări și a folosi servicii."
 #: src/features/chats/components/chat-input.tsx:708
 msgid "Add attachment"
 msgstr "Adaugă atașament"
+
+#: ../../../lib/web/src/components/attachment-composer.tsx:324
+msgid "Add caption"
+msgstr "Adaugă legendă"
 
 #: ../../../lib/web/src/components/entity/entity-field-editor.tsx:687
 msgid "Add checklist item"
@@ -404,7 +408,7 @@ msgid "Are you sure you want to delete this comment? This will also delete all r
 msgstr "Sigur vrei să ștergi acest comentariu? Asta va șterge și toate răspunsurile."
 
 #. placeholder {0}: selectedChat?.name
-#: src/features/chats/index.tsx:1341
+#: src/features/chats/index.tsx:1380
 msgid "Are you sure you want to leave \"{0}\"? You can be added back by other members."
 msgstr "Sigur vrei să părăsești „{0}”? Poți fi adăugat înapoi de alți membri."
 
@@ -444,7 +448,7 @@ msgstr "Atașează fișiere la răspuns"
 msgid "Attachment"
 msgstr "Atașament"
 
-#: src/features/chats/index.tsx:757
+#: src/features/chats/index.tsx:795
 msgid "Attachments are too large to upload. Remove or shrink files and try again."
 msgstr "Atașamentele sunt prea mari pentru a fi încărcate. Elimină sau micșorează fișierele și încearcă din nou."
 
@@ -493,7 +497,7 @@ msgstr "Înapoi la pornire"
 msgid "Banner"
 msgstr "Banner"
 
-#: src/features/chats/components/chat-message-list.tsx:471
+#: src/features/chats/components/chat-message-list.tsx:483
 msgid "Be the first to say something!"
 msgstr "Fii primul care spune ceva!"
 
@@ -528,6 +532,7 @@ msgstr "Culoare contur"
 msgid "Browser notifications"
 msgstr "Notificări de browser"
 
+#: ../../../lib/web/src/components/attachment-composer.tsx:461
 #: ../../../lib/web/src/components/entity/entity-board-column.tsx:628
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:250
 #: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:169
@@ -541,12 +546,12 @@ msgstr "Notificări de browser"
 #: ../../../lib/web/src/features/access/access-list.tsx:268
 #: ../../../lib/web/src/features/accounts/account-add.tsx:201
 #: ../../../lib/web/src/features/accounts/account-verify.tsx:91
-#: src/features/chats/components/chat-message-list.tsx:622
-#: src/features/chats/components/chat-message-list.tsx:836
+#: src/features/chats/components/chat-message-list.tsx:634
+#: src/features/chats/components/chat-message-list.tsx:850
 #: src/features/chats/components/chat-settings-dialog.tsx:116
 #: src/features/chats/components/forward-dialog.tsx:253
 #: src/features/chats/components/new-chat.tsx:354
-#: src/features/chats/index.tsx:1274
+#: src/features/chats/index.tsx:1313
 msgid "Cancel"
 msgstr "Anulează"
 
@@ -562,6 +567,11 @@ msgstr "Anulează comentariul"
 msgid "Cancel reply"
 msgstr "Anulează răspunsul"
 
+#: ../../../lib/web/src/components/attachment-composer.tsx:421
+#: ../../../lib/web/src/components/attachment-composer.tsx:456
+msgid "Caption"
+msgstr "Legendă"
+
 #: ../../../lib/web/src/components/notification-category-button.tsx:102
 msgid "Category for these notifications"
 msgstr "Categorie pentru aceste notificări"
@@ -571,10 +581,10 @@ msgstr "Categorie pentru aceste notificări"
 msgid "Change notification category"
 msgstr "Schimbă categoria notificării"
 
-#: src/features/chats/index.tsx:89
-#: src/features/chats/index.tsx:197
-#: src/features/chats/index.tsx:197
-#: src/features/chats/index.tsx:1051
+#: src/features/chats/index.tsx:94
+#: src/features/chats/index.tsx:202
+#: src/features/chats/index.tsx:202
+#: src/features/chats/index.tsx:1089
 msgid "Chat"
 msgstr "Chat"
 
@@ -582,7 +592,7 @@ msgstr "Chat"
 msgid "Chat created"
 msgstr "Chat creat"
 
-#: src/features/chats/index.tsx:822
+#: src/features/chats/index.tsx:860
 msgid "Chat deleted"
 msgstr "Chat șters"
 
@@ -631,8 +641,8 @@ msgstr "Chat pregătit"
 msgid "Chat renamed"
 msgstr "Chat redenumit"
 
-#: src/features/chats/index.tsx:1056
-#: src/features/chats/index.tsx:1154
+#: src/features/chats/index.tsx:1094
+#: src/features/chats/index.tsx:1192
 #: src/routes/_authenticated/$chatId_.settings.tsx:89
 #: src/routes/_authenticated/$chatId_.settings.tsx:102
 #: src/routes/_authenticated/$chatId_.settings.tsx:113
@@ -734,8 +744,8 @@ msgstr "Golește selecția (Escape)"
 #: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:506
 #: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:511
 #: ../../../lib/web/src/components/ui/dialog.tsx:78
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:358
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:361
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:373
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:376
 #: ../../../lib/web/src/components/ui/sheet.tsx:79
 msgid "Close"
 msgstr "Închide"
@@ -858,7 +868,7 @@ msgid "Continue with {label}"
 msgstr "Continuă cu {label}"
 
 #: ../../../lib/web/src/lib/toast-utils.ts:42
-#: src/features/chats/index.tsx:648
+#: src/features/chats/index.tsx:686
 msgid "Copied"
 msgstr "Copiat"
 
@@ -868,13 +878,13 @@ msgstr "Copiat în clipboard"
 
 #: ../../../lib/web/src/components/ui/copy-button.tsx:64
 #: src/features/chats/components/message-hover-actions.tsx:107
-#: src/features/chats/index.tsx:1251
+#: src/features/chats/index.tsx:1290
 msgid "Copy"
 msgstr "Copiază"
 
 #. placeholder {0}: ambiguous.join(', ')
 #. placeholder {1}: unknown.join(', ')
-#: src/features/chats/index.tsx:977
+#: src/features/chats/index.tsx:1015
 msgid "Could not link mentions. Multiple people share: {0}. Not in this chat: {1}. Pick from the @ list."
 msgstr "Mențiunile nu au putut fi asociate. Mai multe persoane au: {0}. Nu sunt în această conversație: {1}. Alegeți din lista @."
 
@@ -992,8 +1002,8 @@ msgstr "Sortare implicită"
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:252
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:314
 #: src/features/chats/components/message-hover-actions.tsx:146
-#: src/features/chats/index.tsx:1267
-#: src/features/chats/index.tsx:1385
+#: src/features/chats/index.tsx:1306
+#: src/features/chats/index.tsx:1424
 msgid "Delete"
 msgstr "Șterge"
 
@@ -1001,12 +1011,12 @@ msgstr "Șterge"
 msgid "Delete attachment"
 msgstr "Șterge atașamentul"
 
-#: src/features/chats/index.tsx:1137
-#: src/features/chats/index.tsx:1298
+#: src/features/chats/index.tsx:1175
+#: src/features/chats/index.tsx:1337
 msgid "Delete chat"
 msgstr "Șterge chatul"
 
-#: src/features/chats/index.tsx:1363
+#: src/features/chats/index.tsx:1402
 #: src/routes/_authenticated/$chatId_.settings.tsx:378
 msgid "Delete chat history"
 msgstr "Șterge istoricul chatului"
@@ -1041,12 +1051,12 @@ msgstr "Șterge vizualizarea"
 msgid "Delete your account on the old server"
 msgstr "Ștergeți contul de pe serverul vechi"
 
-#: src/features/chats/index.tsx:821
+#: src/features/chats/index.tsx:859
 msgid "Deleting chat..."
 msgstr "Se șterge conversația..."
 
-#: src/features/chats/index.tsx:678
-#: src/features/chats/index.tsx:1382
+#: src/features/chats/index.tsx:716
+#: src/features/chats/index.tsx:1421
 msgid "Deleting..."
 msgstr "Se șterge..."
 
@@ -1093,11 +1103,11 @@ msgstr "Căutarea în director a eșuat"
 msgid "Disagree"
 msgstr "Nu sunt de acord"
 
-#: ../../../lib/web/src/components/comment-composer.tsx:300
+#: ../../../lib/web/src/components/comment-composer.tsx:313
 msgid "Discard"
 msgstr "Renunță"
 
-#: ../../../lib/web/src/components/comment-composer.tsx:298
+#: ../../../lib/web/src/components/comment-composer.tsx:311
 msgid "Discard draft?"
 msgstr "Renunți la ciornă?"
 
@@ -1134,12 +1144,12 @@ msgid "Done"
 msgstr "Terminat"
 
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:239
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:342
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:352
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:357
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:367
 msgid "Download"
 msgstr "Descarcă"
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:68
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:69
 msgid "Download failed"
 msgstr "Descărcarea a eșuat"
 
@@ -1169,6 +1179,10 @@ msgstr "Editează"
 #: ../../../lib/web/src/components/ui/editable-field-row.tsx:154
 msgid "Edit {label}"
 msgstr "Editează {label}"
+
+#: ../../../lib/web/src/components/attachment-composer.tsx:324
+msgid "Edit caption"
+msgstr "Editează legenda"
 
 #: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:137
 msgid "Edit field"
@@ -1217,7 +1231,7 @@ msgstr "Introduceți codul din e-mailul dumneavoastră"
 msgid "Enter your authenticator code"
 msgstr "Introdu codul din aplicația de autentificare"
 
-#: src/features/chats/components/chat-message-list.tsx:612
+#: src/features/chats/components/chat-message-list.tsx:624
 msgid "escape to cancel • enter to save"
 msgstr "Escape pentru a anula • Enter pentru a salva"
 
@@ -1254,7 +1268,7 @@ msgstr "Adăugarea etichetei a eșuat"
 
 #: ../../../lib/web/src/components/ui/copy-button.tsx:26
 #: ../../../lib/web/src/lib/toast-utils.ts:44
-#: src/features/chats/index.tsx:649
+#: src/features/chats/index.tsx:687
 msgid "Failed to copy"
 msgstr "Copierea a eșuat"
 
@@ -1271,7 +1285,7 @@ msgstr "Crearea conversației a eșuat"
 msgid "Failed to create link"
 msgstr "Crearea linkului a eșuat"
 
-#: src/features/chats/index.tsx:680
+#: src/features/chats/index.tsx:718
 msgid "Failed to delete"
 msgstr "Ștergerea a eșuat"
 
@@ -1279,7 +1293,7 @@ msgstr "Ștergerea a eșuat"
 msgid "Failed to delete attachment"
 msgstr "Ștergerea atașamentului a eșuat"
 
-#: src/features/chats/index.tsx:823
+#: src/features/chats/index.tsx:861
 msgid "Failed to delete chat"
 msgstr "Ștergerea conversației a eșuat"
 
@@ -1291,7 +1305,7 @@ msgstr "Ștergerea comentariului a eșuat"
 msgid "Failed to delete link"
 msgstr "Ștergerea linkului a eșuat"
 
-#: src/features/chats/index.tsx:588
+#: src/features/chats/index.tsx:626
 msgid "Failed to edit message"
 msgstr "Mesajul nu a putut fi editat"
 
@@ -1303,12 +1317,12 @@ msgstr "Redirecționarea a eșuat"
 msgid "Failed to get RSS token"
 msgstr "Obținerea tokenului RSS a eșuat"
 
-#: src/features/chats/index.tsx:804
+#: src/features/chats/index.tsx:842
 #: src/routes/_authenticated/$chatId_.settings.tsx:339
 msgid "Failed to leave chat"
 msgstr "Părăsirea conversației a eșuat"
 
-#: ../../../lib/web/src/hooks/use-load-more.ts:74
+#: ../../../lib/web/src/hooks/use-load-more.ts:83
 msgid "Failed to load"
 msgstr "Încărcarea a eșuat"
 
@@ -1316,11 +1330,11 @@ msgstr "Încărcarea a eșuat"
 msgid "Failed to load history"
 msgstr "Încărcarea istoricului a eșuat"
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:263
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:264
 msgid "Failed to load image"
 msgstr "Imaginea nu a putut fi încărcată"
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:263
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:264
 msgid "Failed to load video"
 msgstr "Videoclipul nu a putut fi încărcat"
 
@@ -1336,7 +1350,7 @@ msgstr "Chatul nu a putut fi marcat ca citit"
 msgid "Failed to post comment"
 msgstr "Postarea comentariului a eșuat"
 
-#: src/features/chats/index.tsx:632
+#: src/features/chats/index.tsx:670
 msgid "Failed to react"
 msgstr "Reacția a eșuat"
 
@@ -1360,7 +1374,7 @@ msgstr "Revocarea accesului RSS a eșuat"
 msgid "Failed to save"
 msgstr "Salvarea a eșuat"
 
-#: src/features/chats/index.tsx:756
+#: src/features/chats/index.tsx:794
 msgid "Failed to send message"
 msgstr "Trimiterea mesajului a eșuat"
 
@@ -1368,7 +1382,7 @@ msgstr "Trimiterea mesajului a eșuat"
 msgid "Failed to send verification code"
 msgstr "Trimiterea codului de verificare a eșuat"
 
-#: src/features/chats/index.tsx:203
+#: src/features/chats/index.tsx:208
 msgid "Failed to start chat"
 msgstr "Pornirea conversației a eșuat"
 
@@ -1408,7 +1422,7 @@ msgstr "Flotant"
 
 #: src/features/chats/components/forward-dialog.tsx:264
 #: src/features/chats/components/message-hover-actions.tsx:138
-#: src/features/chats/index.tsx:1259
+#: src/features/chats/index.tsx:1298
 msgid "Forward"
 msgstr "Redirecționează"
 
@@ -1527,7 +1541,7 @@ msgid "ID"
 msgstr ""
 
 #. placeholder {0}: currentMedia.name
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:247
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:248
 msgid "Image viewer: {0}"
 msgstr "Vizualizator de imagini: {0}"
 
@@ -1540,7 +1554,7 @@ msgid "Including anonymous users"
 msgstr "Inclusiv utilizatorii anonimi"
 
 #: src/features/chats/components/chat-settings-dialog.tsx:80
-#: src/features/chats/index.tsx:1160
+#: src/features/chats/index.tsx:1198
 msgid "Incoming chats"
 msgstr "Conversații primite"
 
@@ -1576,8 +1590,8 @@ msgstr "Cod de verificare invalid"
 msgid "It seems like the page you're looking for <0/>does not exist or might have been removed."
 msgstr "Se pare că pagina pe care o căutați <0/>nu există sau a fost eliminată."
 
-#: src/features/chats/components/chat-message-list.tsx:856
-#: src/features/chats/components/chat-message-list.tsx:873
+#: src/features/chats/components/chat-message-list.tsx:870
+#: src/features/chats/components/chat-message-list.tsx:887
 msgid "Jump to bottom"
 msgstr "Sari la final"
 
@@ -1608,31 +1622,31 @@ msgstr "Aspect"
 msgid "Learn more"
 msgstr "Află mai multe"
 
-#: src/features/chats/index.tsx:1349
+#: src/features/chats/index.tsx:1388
 msgid "Leave"
 msgstr "Părăsește"
 
-#: src/features/chats/index.tsx:1144
+#: src/features/chats/index.tsx:1182
 #: src/routes/_authenticated/$chatId_.settings.tsx:364
 msgid "Leave chat"
 msgstr "Părăsește conversația"
 
-#: src/features/chats/index.tsx:1340
+#: src/features/chats/index.tsx:1379
 #: src/routes/_authenticated/$chatId_.settings.tsx:355
 msgid "Leave chat?"
 msgstr "Părăsești conversația?"
 
-#: src/features/chats/index.tsx:802
+#: src/features/chats/index.tsx:840
 #: src/routes/_authenticated/$chatId_.settings.tsx:337
 msgid "Leaving chat..."
 msgstr "Se părăsește conversația..."
 
-#: src/features/chats/index.tsx:1346
+#: src/features/chats/index.tsx:1385
 #: src/routes/_authenticated/$chatId_.settings.tsx:361
 msgid "Leaving..."
 msgstr "Se părăsește..."
 
-#: src/features/chats/index.tsx:803
+#: src/features/chats/index.tsx:841
 #: src/routes/_authenticated/$chatId_.settings.tsx:338
 msgid "Left chat"
 msgstr "Conversație părăsită"
@@ -1778,11 +1792,11 @@ msgstr "Acțiuni mesaj"
 msgid "Message copied"
 msgstr "Mesaj copiat"
 
-#: src/features/chats/index.tsx:758
+#: src/features/chats/index.tsx:796
 msgid "Message could not be sent. Attachments may be too large, or your connection failed. Try smaller files."
 msgstr "Mesajul nu a putut fi trimis. Atașamentele ar putea fi prea mari sau conexiunea a eșuat. Încearcă fișiere mai mici."
 
-#: src/features/chats/index.tsx:679
+#: src/features/chats/index.tsx:717
 msgid "Message deleted"
 msgstr "Mesaj șters"
 
@@ -1792,7 +1806,7 @@ msgid "Message is {0} characters too long"
 msgstr "Mesajul are cu {0} caractere în plus"
 
 #: src/features/chats/components/message-quote.tsx:60
-#: src/features/chats/index.tsx:700
+#: src/features/chats/index.tsx:738
 msgid "Message not available"
 msgstr "Mesaj indisponibil"
 
@@ -1844,7 +1858,7 @@ msgstr "Mochi web"
 
 #: ../../../lib/web/src/components/options-menu.tsx:167
 msgid "Moderation"
-msgstr ""
+msgstr "Moderare"
 
 #: ../../../lib/web/src/lib/preference-utils.ts:59
 msgid "Monday"
@@ -1856,7 +1870,7 @@ msgid "More options"
 msgstr "Mai multe opțiuni"
 
 #. placeholder {0}: ambiguous.join(', ')
-#: src/features/chats/index.tsx:969
+#: src/features/chats/index.tsx:1007
 msgid "Multiple people share these names: {0}. Pick them from the @ list so the right person is notified."
 msgstr "Mai multe persoane au aceste nume: {0}. Alegeți-le din lista @ pentru ca persoana potrivită să fie notificată."
 
@@ -1905,8 +1919,8 @@ msgstr "Joc nou"
 msgid "Newer match"
 msgstr "Rezultat mai nou"
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:392
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:397
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:407
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:412
 msgid "Next image"
 msgstr "Imaginea următoare"
 
@@ -1962,7 +1976,7 @@ msgstr "Încă nu pot fi create tipuri de elemente. Creează mai întâi element
 msgid "No matching objects"
 msgstr "Niciun obiect potrivit"
 
-#: src/features/chats/components/chat-message-list.tsx:470
+#: src/features/chats/components/chat-message-list.tsx:482
 msgid "No messages yet"
 msgstr "Încă niciun mesaj"
 
@@ -2062,7 +2076,7 @@ msgstr "Nesetat"
 msgid "Nothing found"
 msgstr "Nu s-a găsit nimic"
 
-#: src/features/chats/index.tsx:644
+#: src/features/chats/index.tsx:682
 msgid "Nothing to copy"
 msgstr "Nimic de copiat"
 
@@ -2115,7 +2129,7 @@ msgstr "Deschide acțiuni cont"
 msgid "Open actions"
 msgstr "Deschide acțiunile"
 
-#: src/features/chats/index.tsx:1129
+#: src/features/chats/index.tsx:1167
 msgid "Open chat actions"
 msgstr "Deschide acțiuni conversație"
 
@@ -2274,8 +2288,8 @@ msgstr "Postări"
 msgid "Posts and comments"
 msgstr "Postări și comentarii"
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:377
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:382
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:392
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:397
 msgid "Previous image"
 msgstr "Imaginea anterioară"
 
@@ -2371,8 +2385,8 @@ msgstr "Relativ (5m, 3h, 2z)"
 msgid "Relative within 24 hours, else absolute"
 msgstr "Relativ în 24 de ore, altfel absolut"
 
-#: ../../../lib/web/src/components/attachment-composer.tsx:289
-#: ../../../lib/web/src/components/attachment-composer.tsx:328
+#: ../../../lib/web/src/components/attachment-composer.tsx:318
+#: ../../../lib/web/src/components/attachment-composer.tsx:363
 #: ../../../lib/web/src/components/entity/add-field-dialog.tsx:190
 #: ../../../lib/web/src/features/access/access-list.tsx:270
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:180
@@ -2494,7 +2508,7 @@ msgstr "Resetați {title}"
 msgid "Reset all settings to default values"
 msgstr "Resetează toate setările la valorile implicite"
 
-#: ../../../lib/web/src/components/attachment-composer.tsx:346
+#: ../../../lib/web/src/components/attachment-composer.tsx:381
 msgid "Retry"
 msgstr "Reîncearcă"
 
@@ -2547,11 +2561,12 @@ msgstr "Trist"
 msgid "Saturday"
 msgstr "Sâmbătă"
 
+#: ../../../lib/web/src/components/attachment-composer.tsx:465
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:270
 #: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:173
 #: ../../../lib/web/src/components/ui/editable-field-row.tsx:122
-#: ../../../lib/web/src/components/ui/secret-field.tsx:77
-#: src/features/chats/components/chat-message-list.tsx:634
+#: ../../../lib/web/src/components/ui/secret-field.tsx:79
+#: src/features/chats/components/chat-message-list.tsx:648
 #: src/features/chats/components/chat-settings-dialog.tsx:128
 msgid "Save"
 msgstr "Salvează"
@@ -2603,7 +2618,7 @@ msgstr "Caută prieteni…"
 msgid "Search in chat..."
 msgstr "Caută în chat..."
 
-#: src/features/chats/index.tsx:1119
+#: src/features/chats/index.tsx:1157
 msgid "Search messages"
 msgstr "Caută mesaje"
 
@@ -2696,7 +2711,7 @@ msgstr "Selectează grupul"
 msgid "Select layout style"
 msgstr "Selectează stilul aspectului"
 
-#: src/features/chats/components/chat-message-list.tsx:827
+#: src/features/chats/components/chat-message-list.tsx:841
 msgid "Select loaded"
 msgstr "Selectează încărcate"
 
@@ -2704,7 +2719,7 @@ msgstr "Selectează încărcate"
 msgid "Select location"
 msgstr "Selectează locația"
 
-#: src/features/chats/components/chat-message-list.tsx:544
+#: src/features/chats/components/chat-message-list.tsx:556
 msgid "Select message"
 msgstr "Selectează mesajul"
 
@@ -2745,7 +2760,7 @@ msgstr "Selectează..."
 msgid "selected"
 msgstr "selectate"
 
-#: src/features/chats/index.tsx:1222
+#: src/features/chats/index.tsx:1261
 msgid "Selected the newest {BULK_MESSAGES_MAX} messages, the most that can be forwarded or deleted at once"
 msgstr "Au fost selectate cele mai recente {BULK_MESSAGES_MAX} mesaje, maximul care poate fi redirecționat sau șters odată"
 
@@ -2754,7 +2769,7 @@ msgstr "Au fost selectate cele mai recente {BULK_MESSAGES_MAX} mesaje, maximul c
 msgid "Selected: <0>{0}</0>"
 msgstr "Selectat: <0>{0}</0>"
 
-#: src/features/chats/components/chat-message-list.tsx:825
+#: src/features/chats/components/chat-message-list.tsx:839
 msgid "Selects messages loaded so far"
 msgstr "Selectează mesajele încărcate până acum"
 
@@ -2875,7 +2890,7 @@ msgstr "Începe o conversație"
 msgid "Start the discussion by adding the first comment."
 msgstr "Începe discuția adăugând primul comentariu."
 
-#: src/features/chats/index.tsx:200
+#: src/features/chats/index.tsx:205
 msgid "Starting chat..."
 msgstr "Se începe conversația..."
 
@@ -2998,7 +3013,7 @@ msgid "Theme Settings"
 msgstr "Setări temă"
 
 #. placeholder {0}: unknown.join(', ')
-#: src/features/chats/index.tsx:973
+#: src/features/chats/index.tsx:1011
 msgid "These names are not in this chat: {0}. Pick from the @ list or remove them."
 msgstr "Aceste nume nu sunt în această conversație: {0}. Alegeți din lista @ sau eliminați-le."
 
@@ -3010,11 +3025,11 @@ msgstr "acest chat"
 msgid "This chat may have been deleted or you don't have access to it"
 msgstr "Acest chat poate să fi fost șters sau nu ai acces la el"
 
-#: src/features/chats/index.tsx:1377
+#: src/features/chats/index.tsx:1416
 msgid "This deletes the message for everyone and cannot be undone."
 msgstr "Mesajul va fi șters pentru toți și nu se poate anula."
 
-#: src/features/chats/components/chat-message-list.tsx:675
+#: src/features/chats/components/chat-message-list.tsx:689
 #: src/features/chats/components/message-quote.tsx:50
 msgid "This message was deleted"
 msgstr "Acest mesaj a fost șters"
@@ -3226,13 +3241,13 @@ msgstr "Verifică"
 msgid "Verify email address"
 msgstr "Verifică adresa de email"
 
-#: ../../../lib/web/src/components/attachment-gallery.tsx:79
+#: ../../../lib/web/src/components/attachment-gallery.tsx:85
 #: src/features/chats/components/message-media-grid.tsx:52
 msgid "Video thumbnail"
 msgstr "Miniatură video"
 
 #. placeholder {0}: currentMedia.name
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:246
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:247
 msgid "Video viewer: {0}"
 msgstr "Vizualizator video: {0}"
 
@@ -3300,7 +3315,7 @@ msgstr "Site-ul este în mentenanță!"
 msgid "Wednesday"
 msgstr "Miercuri"
 
-#: src/features/chats/index.tsx:479
+#: src/features/chats/index.tsx:484
 msgid "You"
 msgstr "Tu"
 
@@ -3312,15 +3327,15 @@ msgstr "Ai deja un chat cu acest prieten"
 msgid "You already have chats with:"
 msgstr "Ai deja chat-uri cu:"
 
-#: src/features/chats/index.tsx:956
+#: src/features/chats/index.tsx:994
 msgid "You can attach at most {CAPTIONS_MAX} files to a message"
 msgstr "Poți atașa cel mult {CAPTIONS_MAX} fișiere la un mesaj"
 
-#: src/features/chats/index.tsx:952
+#: src/features/chats/index.tsx:990
 msgid "You can mention at most {MENTIONS_MAX} people in a message"
 msgstr "Poți menționa cel mult {MENTIONS_MAX} persoane într-un mesaj"
 
-#: src/features/chats/index.tsx:661
+#: src/features/chats/index.tsx:699
 msgid "You can only delete your own messages"
 msgstr "Poți șterge doar propriile mesaje"
 
@@ -3332,11 +3347,11 @@ msgstr "Nu aveți acces la această secțiune."
 msgid "You don't have necessary permission <0/>to view this resource."
 msgstr "Nu aveți permisiunea necesară <0/>pentru a vizualiza această resursă."
 
-#: src/features/chats/index.tsx:1285
+#: src/features/chats/index.tsx:1324
 msgid "You left this chat"
 msgstr "Ai părăsit acest chat"
 
-#: src/features/chats/index.tsx:1284
+#: src/features/chats/index.tsx:1323
 msgid "You were removed from this chat"
 msgstr "Ai fost eliminat din acest chat"
 
@@ -3348,14 +3363,14 @@ msgstr "Sunteți la zi!"
 msgid "Your account was moved here from {source}. Until you delete it there, messages and notifications may reach both servers, some of your content keeps being served from the old server, and followers may take a few minutes to find you here."
 msgstr "Contul dvs. a fost mutat aici de la {source}. Până când îl ștergeți de acolo, mesajele și notificările pot ajunge pe ambele servere, o parte din conținutul dvs. continuă să fie servit de pe serverul vechi, iar urmăritorii pot avea nevoie de câteva minute pentru a vă găsi aici."
 
-#: ../../../lib/web/src/components/comment-composer.tsx:291
+#: ../../../lib/web/src/components/comment-composer.tsx:304
 msgid "Your attachments will be lost."
 msgstr "Atașamentele tale se vor pierde."
 
-#: ../../../lib/web/src/components/comment-composer.tsx:289
+#: ../../../lib/web/src/components/comment-composer.tsx:302
 msgid "Your text and attachments will be lost."
 msgstr "Textul și atașamentele tale se vor pierde."
 
-#: ../../../lib/web/src/components/comment-composer.tsx:292
+#: ../../../lib/web/src/components/comment-composer.tsx:305
 msgid "Your text will be lost."
 msgstr "Textul tău va fi pierdut."

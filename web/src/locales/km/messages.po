@@ -23,7 +23,7 @@ msgid " or "
 msgstr " ឬ "
 
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:229
-#: src/features/chats/components/chat-message-list.tsx:790
+#: src/features/chats/components/chat-message-list.tsx:804
 msgid "(edited)"
 msgstr "(បានកែ)"
 
@@ -45,7 +45,7 @@ msgid "{0, plural, one {# selected} other {# selected}}"
 msgstr "{0, plural, other {# បានជ្រើសរើស}}"
 
 #. placeholder {0}: deleteTargetIds?.length ?? 0
-#: src/features/chats/index.tsx:1373
+#: src/features/chats/index.tsx:1412
 msgid "{0, plural, one {Delete message?} other {Delete # messages?}}"
 msgstr "{0, plural, other {លុបសារចំនួន #?}}"
 
@@ -61,8 +61,8 @@ msgstr "មើលជាមុននូវជម្រើស {0}"
 
 #. placeholder {0}: selectedIds.size
 #. placeholder {0}: selectedIds?.size ?? 0
-#: src/features/chats/components/chat-message-list.tsx:817
-#: src/features/chats/index.tsx:1242
+#: src/features/chats/components/chat-message-list.tsx:831
+#: src/features/chats/index.tsx:1281
 msgid "{0} selected"
 msgstr "បានជ្រើសរើស {0}"
 
@@ -100,8 +100,8 @@ msgstr "ត្រូវការឈ្មោះ {entityLabel}"
 msgid "{hiddenCount, plural, one {Show 1 more file} other {Show # more files}}"
 msgstr "{hiddenCount, plural, other {បង្ហាញឯកសារ # បន្ថែមទៀត}}"
 
-#: src/features/chats/components/chat-message-list.tsx:852
-#: src/features/chats/components/chat-message-list.tsx:869
+#: src/features/chats/components/chat-message-list.tsx:866
+#: src/features/chats/components/chat-message-list.tsx:883
 msgid "{newMessageCount, plural, one {Jump to 1 new message} other {Jump to # new messages}}"
 msgstr "{newMessageCount, plural, other {ទៅកាន់សារថ្មីចំនួន #}}"
 
@@ -125,12 +125,12 @@ msgstr "{selectedCount, plural, other {# បានជ្រើសរើស}}"
 msgid "{selectedCount, plural, one {Bulk actions for # selected {entityName}} other {Bulk actions for # selected {manyName}}}"
 msgstr "{selectedCount, plural, other {សកម្មភាពជាបណ្តុំសម្រាប់ {manyName} # ដែលបានជ្រើសរើស}}"
 
-#: ../../../lib/web/src/components/attachment-composer.tsx:252
+#: ../../../lib/web/src/components/attachment-composer.tsx:281
 #: ../../../lib/web/src/components/ui/upload-progress.tsx:52
 msgid "{sentLabel} of {totalLabel}"
 msgstr "{sentLabel} នៃ {totalLabel}"
 
-#: src/features/chats/index.tsx:871
+#: src/features/chats/index.tsx:909
 msgid "{skippedCount, plural, one {Skipped # file that is not audio} other {Skipped # files that are not audio}}"
 msgstr "{skippedCount, plural, other {បានរំលង # ឯកសារដែលមិនមែនជាសំឡេង}}"
 
@@ -171,7 +171,7 @@ msgstr "ការថតកំពុងដំណើរការរួចហើយ
 msgid "Absolute (date and time)"
 msgstr "ដាច់ខាត (កាលបរិច្ឆេទ និងពេលវេលា)"
 
-#: ../../../lib/web/src/components/game/game-draw-offer-banner.tsx:45
+#: ../../../lib/web/src/components/game/game-draw-offer-banner.tsx:50
 msgid "Accept"
 msgstr "ទទួលយក"
 
@@ -243,6 +243,10 @@ msgstr "បន្ថែមគណនីដើម្បីទទួលបានក
 #: src/features/chats/components/chat-input.tsx:708
 msgid "Add attachment"
 msgstr "បន្ថែមឯកសារភ្ជាប់"
+
+#: ../../../lib/web/src/components/attachment-composer.tsx:324
+msgid "Add caption"
+msgstr "បន្ថែមចំណងជើង"
 
 #: ../../../lib/web/src/components/entity/entity-field-editor.tsx:687
 msgid "Add checklist item"
@@ -404,7 +408,7 @@ msgid "Are you sure you want to delete this comment? This will also delete all r
 msgstr "តើអ្នកប្រាកដថាចង់លុបមតិយោបល់នេះមែនទេ? វានឹងលុបការឆ្លើយតបទាំងអស់ផងដែរ។"
 
 #. placeholder {0}: selectedChat?.name
-#: src/features/chats/index.tsx:1341
+#: src/features/chats/index.tsx:1380
 msgid "Are you sure you want to leave \"{0}\"? You can be added back by other members."
 msgstr "តើអ្នកប្រាកដថាចង់ចេញពី \"{0}\" មែនទេ? សមាជិកផ្សេងទៀតអាចបន្ថែមអ្នកត្រឡប់មកវិញ។"
 
@@ -444,7 +448,7 @@ msgstr "ភ្ជាប់ឯកសារឆ្លើយតប"
 msgid "Attachment"
 msgstr "ឯកសារភ្ជាប់"
 
-#: src/features/chats/index.tsx:757
+#: src/features/chats/index.tsx:795
 msgid "Attachments are too large to upload. Remove or shrink files and try again."
 msgstr "ឯកសារភ្ជាប់ធំពេកមិនអាចបង្ហោះបានទេ។ សូមយកចេញ ឬបង្រួមទំហំឯកសារ រួចព្យាយាមម្តងទៀត។"
 
@@ -493,7 +497,7 @@ msgstr "ត្រឡប់ទៅទំព័រដើម"
 msgid "Banner"
 msgstr "បដា"
 
-#: src/features/chats/components/chat-message-list.tsx:471
+#: src/features/chats/components/chat-message-list.tsx:483
 msgid "Be the first to say something!"
 msgstr "ក្លាយជាអ្នកដំបូងដែលនិយាយអ្វីមួយ!"
 
@@ -528,6 +532,7 @@ msgstr "ពណ៌ស៊ុម"
 msgid "Browser notifications"
 msgstr "ការជូនដំណឹងពីកម្មវិធីរុករក"
 
+#: ../../../lib/web/src/components/attachment-composer.tsx:461
 #: ../../../lib/web/src/components/entity/entity-board-column.tsx:628
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:250
 #: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:169
@@ -541,12 +546,12 @@ msgstr "ការជូនដំណឹងពីកម្មវិធីរុក
 #: ../../../lib/web/src/features/access/access-list.tsx:268
 #: ../../../lib/web/src/features/accounts/account-add.tsx:201
 #: ../../../lib/web/src/features/accounts/account-verify.tsx:91
-#: src/features/chats/components/chat-message-list.tsx:622
-#: src/features/chats/components/chat-message-list.tsx:836
+#: src/features/chats/components/chat-message-list.tsx:634
+#: src/features/chats/components/chat-message-list.tsx:850
 #: src/features/chats/components/chat-settings-dialog.tsx:116
 #: src/features/chats/components/forward-dialog.tsx:253
 #: src/features/chats/components/new-chat.tsx:354
-#: src/features/chats/index.tsx:1274
+#: src/features/chats/index.tsx:1313
 msgid "Cancel"
 msgstr "បោះបង់"
 
@@ -562,6 +567,11 @@ msgstr "បោះបង់មតិយោបល់"
 msgid "Cancel reply"
 msgstr "បោះបង់ការឆ្លើយតប"
 
+#: ../../../lib/web/src/components/attachment-composer.tsx:421
+#: ../../../lib/web/src/components/attachment-composer.tsx:456
+msgid "Caption"
+msgstr "ចំណងជើង"
+
 #: ../../../lib/web/src/components/notification-category-button.tsx:102
 msgid "Category for these notifications"
 msgstr "ប្រភេទសម្រាប់ការជូនដំណឹងទាំងនេះ"
@@ -571,10 +581,10 @@ msgstr "ប្រភេទសម្រាប់ការជូនដំណឹង
 msgid "Change notification category"
 msgstr "ប្ដូរប្រភេទការជូនដំណឹង"
 
-#: src/features/chats/index.tsx:89
-#: src/features/chats/index.tsx:197
-#: src/features/chats/index.tsx:197
-#: src/features/chats/index.tsx:1051
+#: src/features/chats/index.tsx:94
+#: src/features/chats/index.tsx:202
+#: src/features/chats/index.tsx:202
+#: src/features/chats/index.tsx:1089
 msgid "Chat"
 msgstr "ជជែក"
 
@@ -582,7 +592,7 @@ msgstr "ជជែក"
 msgid "Chat created"
 msgstr "បានបង្កើតការជជែក"
 
-#: src/features/chats/index.tsx:822
+#: src/features/chats/index.tsx:860
 msgid "Chat deleted"
 msgstr "បានលុបការជជែក"
 
@@ -631,8 +641,8 @@ msgstr "ការជជែករួចរាល់"
 msgid "Chat renamed"
 msgstr "បានប្ដូរឈ្មោះជជែក"
 
-#: src/features/chats/index.tsx:1056
-#: src/features/chats/index.tsx:1154
+#: src/features/chats/index.tsx:1094
+#: src/features/chats/index.tsx:1192
 #: src/routes/_authenticated/$chatId_.settings.tsx:89
 #: src/routes/_authenticated/$chatId_.settings.tsx:102
 #: src/routes/_authenticated/$chatId_.settings.tsx:113
@@ -734,8 +744,8 @@ msgstr "សម្អាតការជ្រើសរើស (Escape)"
 #: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:506
 #: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:511
 #: ../../../lib/web/src/components/ui/dialog.tsx:78
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:358
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:361
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:373
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:376
 #: ../../../lib/web/src/components/ui/sheet.tsx:79
 msgid "Close"
 msgstr "បិទ"
@@ -858,7 +868,7 @@ msgid "Continue with {label}"
 msgstr "បន្តជាមួយ {label}"
 
 #: ../../../lib/web/src/lib/toast-utils.ts:42
-#: src/features/chats/index.tsx:648
+#: src/features/chats/index.tsx:686
 msgid "Copied"
 msgstr "បានចម្លង"
 
@@ -868,13 +878,13 @@ msgstr "បានចម្លងទៅក្ដារតម្បៀតខ្ទ
 
 #: ../../../lib/web/src/components/ui/copy-button.tsx:64
 #: src/features/chats/components/message-hover-actions.tsx:107
-#: src/features/chats/index.tsx:1251
+#: src/features/chats/index.tsx:1290
 msgid "Copy"
 msgstr "ចម្លង"
 
 #. placeholder {0}: ambiguous.join(', ')
 #. placeholder {1}: unknown.join(', ')
-#: src/features/chats/index.tsx:977
+#: src/features/chats/index.tsx:1015
 msgid "Could not link mentions. Multiple people share: {0}. Not in this chat: {1}. Pick from the @ list."
 msgstr "មិនអាចភ្ជាប់ការលើកឡើងបានទេ។ មនុស្សច្រើននាក់មានឈ្មោះដូចគ្នា៖ {0}។ មិននៅក្នុងការជជែកនេះ៖ {1}។ សូមជ្រើសរើសពីបញ្ជី @។"
 
@@ -992,8 +1002,8 @@ msgstr "ការតម្រៀបលំនាំដើម"
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:252
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:314
 #: src/features/chats/components/message-hover-actions.tsx:146
-#: src/features/chats/index.tsx:1267
-#: src/features/chats/index.tsx:1385
+#: src/features/chats/index.tsx:1306
+#: src/features/chats/index.tsx:1424
 msgid "Delete"
 msgstr "លុប"
 
@@ -1001,12 +1011,12 @@ msgstr "លុប"
 msgid "Delete attachment"
 msgstr "លុបឯកសារភ្ជាប់"
 
-#: src/features/chats/index.tsx:1137
-#: src/features/chats/index.tsx:1298
+#: src/features/chats/index.tsx:1175
+#: src/features/chats/index.tsx:1337
 msgid "Delete chat"
 msgstr "លុបការជជែក"
 
-#: src/features/chats/index.tsx:1363
+#: src/features/chats/index.tsx:1402
 #: src/routes/_authenticated/$chatId_.settings.tsx:378
 msgid "Delete chat history"
 msgstr "លុបប្រវត្តិការជជែក"
@@ -1041,12 +1051,12 @@ msgstr "លុបទិដ្ឋភាព"
 msgid "Delete your account on the old server"
 msgstr "លុបគណនីរបស់អ្នកនៅម៉ាស៊ីនមេចាស់"
 
-#: src/features/chats/index.tsx:821
+#: src/features/chats/index.tsx:859
 msgid "Deleting chat..."
 msgstr "កំពុងលុបការជជែក..."
 
-#: src/features/chats/index.tsx:678
-#: src/features/chats/index.tsx:1382
+#: src/features/chats/index.tsx:716
+#: src/features/chats/index.tsx:1421
 msgid "Deleting..."
 msgstr "កំពុងលុប..."
 
@@ -1093,11 +1103,11 @@ msgstr "ការស្វែងរកក្នុងបញ្ជីបានប
 msgid "Disagree"
 msgstr "មិនយល់ព្រម"
 
-#: ../../../lib/web/src/components/comment-composer.tsx:300
+#: ../../../lib/web/src/components/comment-composer.tsx:313
 msgid "Discard"
 msgstr "បោះបង់"
 
-#: ../../../lib/web/src/components/comment-composer.tsx:298
+#: ../../../lib/web/src/components/comment-composer.tsx:311
 msgid "Discard draft?"
 msgstr "បោះបង់សេចក្ដីព្រាងឬ?"
 
@@ -1134,12 +1144,12 @@ msgid "Done"
 msgstr "រួចរាល់"
 
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:239
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:342
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:352
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:357
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:367
 msgid "Download"
 msgstr "ទាញយក"
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:68
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:69
 msgid "Download failed"
 msgstr "ការទាញយកបានបរាជ័យ"
 
@@ -1169,6 +1179,10 @@ msgstr "កែសម្រួល"
 #: ../../../lib/web/src/components/ui/editable-field-row.tsx:154
 msgid "Edit {label}"
 msgstr "កែ {label}"
+
+#: ../../../lib/web/src/components/attachment-composer.tsx:324
+msgid "Edit caption"
+msgstr "កែសម្រួលចំណងជើង"
 
 #: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:137
 msgid "Edit field"
@@ -1217,7 +1231,7 @@ msgstr "បញ្ចូលកូដពីអ៊ីមែលរបស់អ្ន
 msgid "Enter your authenticator code"
 msgstr "បញ្ចូលកូដ authenticator របស់អ្នក"
 
-#: src/features/chats/components/chat-message-list.tsx:612
+#: src/features/chats/components/chat-message-list.tsx:624
 msgid "escape to cancel • enter to save"
 msgstr "Escape ដើម្បីបោះបង់ • Enter ដើម្បីរក្សាទុក"
 
@@ -1254,7 +1268,7 @@ msgstr "បរាជ័យក្នុងការបន្ថែមស្លា
 
 #: ../../../lib/web/src/components/ui/copy-button.tsx:26
 #: ../../../lib/web/src/lib/toast-utils.ts:44
-#: src/features/chats/index.tsx:649
+#: src/features/chats/index.tsx:687
 msgid "Failed to copy"
 msgstr "បរាជ័យក្នុងការចម្លង"
 
@@ -1271,7 +1285,7 @@ msgstr "បរាជ័យក្នុងការបង្កើតការជ
 msgid "Failed to create link"
 msgstr "បរាជ័យក្នុងការបង្កើតតំណ"
 
-#: src/features/chats/index.tsx:680
+#: src/features/chats/index.tsx:718
 msgid "Failed to delete"
 msgstr "បរាជ័យក្នុងការលុប"
 
@@ -1279,7 +1293,7 @@ msgstr "បរាជ័យក្នុងការលុប"
 msgid "Failed to delete attachment"
 msgstr "បរាជ័យក្នុងការលុបឯកសារភ្ជាប់"
 
-#: src/features/chats/index.tsx:823
+#: src/features/chats/index.tsx:861
 msgid "Failed to delete chat"
 msgstr "បរាជ័យក្នុងការលុបការជជែក"
 
@@ -1291,7 +1305,7 @@ msgstr "បរាជ័យក្នុងការលុបមតិយោបល
 msgid "Failed to delete link"
 msgstr "បរាជ័យក្នុងការលុបតំណ"
 
-#: src/features/chats/index.tsx:588
+#: src/features/chats/index.tsx:626
 msgid "Failed to edit message"
 msgstr "មិនអាចកែសម្រួលសារបានទេ"
 
@@ -1303,12 +1317,12 @@ msgstr "មិនអាចបញ្ជូនបន្តបានទេ"
 msgid "Failed to get RSS token"
 msgstr "បរាជ័យក្នុងការទទួលយកថូខឹន RSS"
 
-#: src/features/chats/index.tsx:804
+#: src/features/chats/index.tsx:842
 #: src/routes/_authenticated/$chatId_.settings.tsx:339
 msgid "Failed to leave chat"
 msgstr "បរាជ័យក្នុងការចាកចេញពីការជជែក"
 
-#: ../../../lib/web/src/hooks/use-load-more.ts:74
+#: ../../../lib/web/src/hooks/use-load-more.ts:83
 msgid "Failed to load"
 msgstr "បរាជ័យក្នុងការផ្ទុក"
 
@@ -1316,11 +1330,11 @@ msgstr "បរាជ័យក្នុងការផ្ទុក"
 msgid "Failed to load history"
 msgstr "បរាជ័យក្នុងការផ្ទុកប្រវត្តិ"
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:263
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:264
 msgid "Failed to load image"
 msgstr "បរាជ័យក្នុងការផ្ទុករូបភាព"
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:263
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:264
 msgid "Failed to load video"
 msgstr "បរាជ័យក្នុងការផ្ទុកវីដេអូ"
 
@@ -1336,7 +1350,7 @@ msgstr "មិនអាចសម្គាល់ការជជែកថាបា
 msgid "Failed to post comment"
 msgstr "បរាជ័យក្នុងការបង្ហោះមតិយោបល់"
 
-#: src/features/chats/index.tsx:632
+#: src/features/chats/index.tsx:670
 msgid "Failed to react"
 msgstr "មិនអាចប្រតិកម្មបានទេ"
 
@@ -1360,7 +1374,7 @@ msgstr "បរាជ័យក្នុងការដកហូតការចូ
 msgid "Failed to save"
 msgstr "បរាជ័យក្នុងការរក្សាទុក"
 
-#: src/features/chats/index.tsx:756
+#: src/features/chats/index.tsx:794
 msgid "Failed to send message"
 msgstr "បរាជ័យក្នុងការផ្ញើសារ"
 
@@ -1368,7 +1382,7 @@ msgstr "បរាជ័យក្នុងការផ្ញើសារ"
 msgid "Failed to send verification code"
 msgstr "បរាជ័យក្នុងការផ្ញើកូដផ្ទៀងផ្ទាត់"
 
-#: src/features/chats/index.tsx:203
+#: src/features/chats/index.tsx:208
 msgid "Failed to start chat"
 msgstr "បរាជ័យក្នុងការចាប់ផ្ដើមការជជែក"
 
@@ -1408,7 +1422,7 @@ msgstr "អណ្ដែត"
 
 #: src/features/chats/components/forward-dialog.tsx:264
 #: src/features/chats/components/message-hover-actions.tsx:138
-#: src/features/chats/index.tsx:1259
+#: src/features/chats/index.tsx:1298
 msgid "Forward"
 msgstr "បញ្ជូនបន្ត"
 
@@ -1527,7 +1541,7 @@ msgid "ID"
 msgstr ""
 
 #. placeholder {0}: currentMedia.name
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:247
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:248
 msgid "Image viewer: {0}"
 msgstr "កម្មវិធីមើលរូបភាព៖ {0}"
 
@@ -1540,7 +1554,7 @@ msgid "Including anonymous users"
 msgstr "រួមទាំងអ្នកប្រើអនាមិក"
 
 #: src/features/chats/components/chat-settings-dialog.tsx:80
-#: src/features/chats/index.tsx:1160
+#: src/features/chats/index.tsx:1198
 msgid "Incoming chats"
 msgstr "ការជជែកចូល"
 
@@ -1576,8 +1590,8 @@ msgstr "កូដផ្ទៀងផ្ទាត់មិនត្រឹមត្
 msgid "It seems like the page you're looking for <0/>does not exist or might have been removed."
 msgstr "ហាក់ដូចជាទំព័រដែលអ្នកកំពុងស្វែងរក <0/>មិនមាន ឬត្រូវបានលុបចេញ។"
 
-#: src/features/chats/components/chat-message-list.tsx:856
-#: src/features/chats/components/chat-message-list.tsx:873
+#: src/features/chats/components/chat-message-list.tsx:870
+#: src/features/chats/components/chat-message-list.tsx:887
 msgid "Jump to bottom"
 msgstr "ទៅក្រោមបំផុត"
 
@@ -1608,31 +1622,31 @@ msgstr "ប្លង់"
 msgid "Learn more"
 msgstr "ស្វែងយល់បន្ថែម"
 
-#: src/features/chats/index.tsx:1349
+#: src/features/chats/index.tsx:1388
 msgid "Leave"
 msgstr "ចាកចេញ"
 
-#: src/features/chats/index.tsx:1144
+#: src/features/chats/index.tsx:1182
 #: src/routes/_authenticated/$chatId_.settings.tsx:364
 msgid "Leave chat"
 msgstr "ចាកចេញពីការជជែក"
 
-#: src/features/chats/index.tsx:1340
+#: src/features/chats/index.tsx:1379
 #: src/routes/_authenticated/$chatId_.settings.tsx:355
 msgid "Leave chat?"
 msgstr "ចាកចេញពីការជជែក?"
 
-#: src/features/chats/index.tsx:802
+#: src/features/chats/index.tsx:840
 #: src/routes/_authenticated/$chatId_.settings.tsx:337
 msgid "Leaving chat..."
 msgstr "កំពុងចាកចេញពីការជជែក..."
 
-#: src/features/chats/index.tsx:1346
+#: src/features/chats/index.tsx:1385
 #: src/routes/_authenticated/$chatId_.settings.tsx:361
 msgid "Leaving..."
 msgstr "កំពុងចាកចេញ..."
 
-#: src/features/chats/index.tsx:803
+#: src/features/chats/index.tsx:841
 #: src/routes/_authenticated/$chatId_.settings.tsx:338
 msgid "Left chat"
 msgstr "បានចាកចេញពីការជជែក"
@@ -1778,11 +1792,11 @@ msgstr "សកម្មភាពសារ"
 msgid "Message copied"
 msgstr "បានចម្លងសារ"
 
-#: src/features/chats/index.tsx:758
+#: src/features/chats/index.tsx:796
 msgid "Message could not be sent. Attachments may be too large, or your connection failed. Try smaller files."
 msgstr "មិនអាចផ្ញើសារបានទេ។ ឯកសារភ្ជាប់អាចនឹងធំពេក ឬការតភ្ជាប់របស់អ្នកមានបញ្ហា។ សូមសាកល្បងជាមួយឯកសារតូចជាងនេះ។"
 
-#: src/features/chats/index.tsx:679
+#: src/features/chats/index.tsx:717
 msgid "Message deleted"
 msgstr "បានលុបសារ"
 
@@ -1792,7 +1806,7 @@ msgid "Message is {0} characters too long"
 msgstr "សារវែងជាង {0} តួអក្សរ"
 
 #: src/features/chats/components/message-quote.tsx:60
-#: src/features/chats/index.tsx:700
+#: src/features/chats/index.tsx:738
 msgid "Message not available"
 msgstr "សារមិនអាចប្រើបានទេ"
 
@@ -1844,7 +1858,7 @@ msgstr "Mochi វេប"
 
 #: ../../../lib/web/src/components/options-menu.tsx:167
 msgid "Moderation"
-msgstr ""
+msgstr "ការត្រួតពិនិត្យ"
 
 #: ../../../lib/web/src/lib/preference-utils.ts:59
 msgid "Monday"
@@ -1856,7 +1870,7 @@ msgid "More options"
 msgstr "ជម្រើសច្រើនទៀត"
 
 #. placeholder {0}: ambiguous.join(', ')
-#: src/features/chats/index.tsx:969
+#: src/features/chats/index.tsx:1007
 msgid "Multiple people share these names: {0}. Pick them from the @ list so the right person is notified."
 msgstr "មនុស្សច្រើននាក់មានឈ្មោះទាំងនេះ៖ {0}។ សូមជ្រើសរើសពួកគេពីបញ្ជី @ ដើម្បីឱ្យមនុស្សត្រឹមត្រូវទទួលបានការជូនដំណឹង។"
 
@@ -1905,8 +1919,8 @@ msgstr "ហ្គេមថ្មី"
 msgid "Newer match"
 msgstr "លទ្ធផលថ្មីជាង"
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:392
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:397
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:407
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:412
 msgid "Next image"
 msgstr "រូបភាពបន្ទាប់"
 
@@ -1962,7 +1976,7 @@ msgstr "មិនអាចបង្កើតប្រភេទធាតុបា
 msgid "No matching objects"
 msgstr "មិនមានវត្ថុដែលត្រូវនឹង"
 
-#: src/features/chats/components/chat-message-list.tsx:470
+#: src/features/chats/components/chat-message-list.tsx:482
 msgid "No messages yet"
 msgstr "មិនទាន់មានសារ"
 
@@ -2062,7 +2076,7 @@ msgstr "មិនបានកំណត់"
 msgid "Nothing found"
 msgstr "រកមិនឃើញ"
 
-#: src/features/chats/index.tsx:644
+#: src/features/chats/index.tsx:682
 msgid "Nothing to copy"
 msgstr "គ្មានអ្វីដើម្បីចម្លងទេ"
 
@@ -2115,7 +2129,7 @@ msgstr "បើកសកម្មភាពគណនី"
 msgid "Open actions"
 msgstr "បើកសកម្មភាព"
 
-#: src/features/chats/index.tsx:1129
+#: src/features/chats/index.tsx:1167
 msgid "Open chat actions"
 msgstr "បើកសកម្មភាពសន្ទនា"
 
@@ -2274,8 +2288,8 @@ msgstr "ប្រកាស"
 msgid "Posts and comments"
 msgstr "ប្រកាស និងមតិយោបល់"
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:377
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:382
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:392
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:397
 msgid "Previous image"
 msgstr "រូបភាពមុន"
 
@@ -2371,8 +2385,8 @@ msgstr "ទាក់ទង (5m, 3h, 2d)"
 msgid "Relative within 24 hours, else absolute"
 msgstr "ទាក់ទងក្នុង 24 ម៉ោង បើមិនដូច្នេះទេដាច់ខាត"
 
-#: ../../../lib/web/src/components/attachment-composer.tsx:289
-#: ../../../lib/web/src/components/attachment-composer.tsx:328
+#: ../../../lib/web/src/components/attachment-composer.tsx:318
+#: ../../../lib/web/src/components/attachment-composer.tsx:363
 #: ../../../lib/web/src/components/entity/add-field-dialog.tsx:190
 #: ../../../lib/web/src/features/access/access-list.tsx:270
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:180
@@ -2494,7 +2508,7 @@ msgstr "កំណត់ {title} ឡើងវិញ"
 msgid "Reset all settings to default values"
 msgstr "កំណត់ការកំណត់ទាំងអស់ឡើងវិញទៅតម្លៃលំនាំដើម"
 
-#: ../../../lib/web/src/components/attachment-composer.tsx:346
+#: ../../../lib/web/src/components/attachment-composer.tsx:381
 msgid "Retry"
 msgstr "ព្យាយាមម្ដងទៀត"
 
@@ -2547,11 +2561,12 @@ msgstr "សោកសៅ"
 msgid "Saturday"
 msgstr "ថ្ងៃសៅរ៍"
 
+#: ../../../lib/web/src/components/attachment-composer.tsx:465
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:270
 #: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:173
 #: ../../../lib/web/src/components/ui/editable-field-row.tsx:122
-#: ../../../lib/web/src/components/ui/secret-field.tsx:77
-#: src/features/chats/components/chat-message-list.tsx:634
+#: ../../../lib/web/src/components/ui/secret-field.tsx:79
+#: src/features/chats/components/chat-message-list.tsx:648
 #: src/features/chats/components/chat-settings-dialog.tsx:128
 msgid "Save"
 msgstr "រក្សាទុក"
@@ -2603,7 +2618,7 @@ msgstr "ស្វែងរកមិត្តភ័ក្តិ…"
 msgid "Search in chat..."
 msgstr "ស្វែងរកក្នុងការជជែក..."
 
-#: src/features/chats/index.tsx:1119
+#: src/features/chats/index.tsx:1157
 msgid "Search messages"
 msgstr "ស្វែងរកសារ"
 
@@ -2696,7 +2711,7 @@ msgstr "ជ្រើសរើសក្រុម"
 msgid "Select layout style"
 msgstr "ជ្រើសរើសរចនាបថប្លង់"
 
-#: src/features/chats/components/chat-message-list.tsx:827
+#: src/features/chats/components/chat-message-list.tsx:841
 msgid "Select loaded"
 msgstr "ជ្រើសរើសសារដែលបានផ្ទុក"
 
@@ -2704,7 +2719,7 @@ msgstr "ជ្រើសរើសសារដែលបានផ្ទុក"
 msgid "Select location"
 msgstr "ជ្រើសរើសទីតាំង"
 
-#: src/features/chats/components/chat-message-list.tsx:544
+#: src/features/chats/components/chat-message-list.tsx:556
 msgid "Select message"
 msgstr "ជ្រើសរើសសារ"
 
@@ -2745,7 +2760,7 @@ msgstr "ជ្រើសរើស..."
 msgid "selected"
 msgstr "បានជ្រើសរើស"
 
-#: src/features/chats/index.tsx:1222
+#: src/features/chats/index.tsx:1261
 msgid "Selected the newest {BULK_MESSAGES_MAX} messages, the most that can be forwarded or deleted at once"
 msgstr "បានជ្រើសរើសសារថ្មីបំផុត {BULK_MESSAGES_MAX} ដែលជាចំនួនច្រើនបំផុតអាចបញ្ជូនបន្ត ឬលុបក្នុងពេលតែមួយ"
 
@@ -2754,7 +2769,7 @@ msgstr "បានជ្រើសរើសសារថ្មីបំផុត {B
 msgid "Selected: <0>{0}</0>"
 msgstr "បានជ្រើសរើស៖ <0>{0}</0>"
 
-#: src/features/chats/components/chat-message-list.tsx:825
+#: src/features/chats/components/chat-message-list.tsx:839
 msgid "Selects messages loaded so far"
 msgstr "ជ្រើសរើសសារដែលបានផ្ទុករហូតមកដល់ពេលនេះ"
 
@@ -2875,7 +2890,7 @@ msgstr "ចាប់ផ្តើមការសន្ទនា"
 msgid "Start the discussion by adding the first comment."
 msgstr "ចាប់ផ្តើមការពិភាក្សាដោយបន្ថែមមតិយោបល់ដំបូង។"
 
-#: src/features/chats/index.tsx:200
+#: src/features/chats/index.tsx:205
 msgid "Starting chat..."
 msgstr "កំពុងចាប់ផ្តើមការជជែក..."
 
@@ -2998,7 +3013,7 @@ msgid "Theme Settings"
 msgstr "ការកំណត់រូបរាង"
 
 #. placeholder {0}: unknown.join(', ')
-#: src/features/chats/index.tsx:973
+#: src/features/chats/index.tsx:1011
 msgid "These names are not in this chat: {0}. Pick from the @ list or remove them."
 msgstr "ឈ្មោះទាំងនេះមិននៅក្នុងការជជែកនេះទេ៖ {0}។ សូមជ្រើសរើសពីបញ្ជី @ ឬដកចេញ។"
 
@@ -3010,11 +3025,11 @@ msgstr "ការជជែកនេះ"
 msgid "This chat may have been deleted or you don't have access to it"
 msgstr "ការជជែកនេះប្រហែលជាត្រូវបានលុប ឬអ្នកមិនមានសិទ្ធិចូលប្រើ"
 
-#: src/features/chats/index.tsx:1377
+#: src/features/chats/index.tsx:1416
 msgid "This deletes the message for everyone and cannot be undone."
 msgstr "វាលុបសារសម្រាប់គ្រប់គ្នា ហើយមិនអាចត្រឡប់វិញបានទេ។"
 
-#: src/features/chats/components/chat-message-list.tsx:675
+#: src/features/chats/components/chat-message-list.tsx:689
 #: src/features/chats/components/message-quote.tsx:50
 msgid "This message was deleted"
 msgstr "សារនេះត្រូវបានលុប"
@@ -3226,13 +3241,13 @@ msgstr "ផ្ទៀងផ្ទាត់"
 msgid "Verify email address"
 msgstr "ផ្ទៀងផ្ទាត់អាសយដ្ឋានអ៊ីមែល"
 
-#: ../../../lib/web/src/components/attachment-gallery.tsx:79
+#: ../../../lib/web/src/components/attachment-gallery.tsx:85
 #: src/features/chats/components/message-media-grid.tsx:52
 msgid "Video thumbnail"
 msgstr "រូបភាពតូចវីដេអូ"
 
 #. placeholder {0}: currentMedia.name
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:246
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:247
 msgid "Video viewer: {0}"
 msgstr "កម្មវិធីមើលវីដេអូ៖ {0}"
 
@@ -3300,7 +3315,7 @@ msgstr "គេហទំព័រកំពុងស្ថិតក្រោមក
 msgid "Wednesday"
 msgstr "ថ្ងៃពុធ"
 
-#: src/features/chats/index.tsx:479
+#: src/features/chats/index.tsx:484
 msgid "You"
 msgstr "អ្នក"
 
@@ -3312,15 +3327,15 @@ msgstr "អ្នកមានជជែកជាមួយមិត្តភក្
 msgid "You already have chats with:"
 msgstr "អ្នកមានជជែកជាមួយ៖"
 
-#: src/features/chats/index.tsx:956
+#: src/features/chats/index.tsx:994
 msgid "You can attach at most {CAPTIONS_MAX} files to a message"
 msgstr "អ្នកអាចភ្ជាប់ឯកសារយ៉ាងច្រើន {CAPTIONS_MAX} ទៅសារមួយ"
 
-#: src/features/chats/index.tsx:952
+#: src/features/chats/index.tsx:990
 msgid "You can mention at most {MENTIONS_MAX} people in a message"
 msgstr "អ្នកអាចនិយាយអំពីមនុស្សយ៉ាងច្រើន {MENTIONS_MAX} នាក់ក្នុងសារមួយ"
 
-#: src/features/chats/index.tsx:661
+#: src/features/chats/index.tsx:699
 msgid "You can only delete your own messages"
 msgstr "អ្នកអាចលុបបានតែសាររបស់អ្នកប៉ុណ្ណោះ"
 
@@ -3332,11 +3347,11 @@ msgstr "អ្នកមិនមានសិទ្ធិចូលប្រើផ
 msgid "You don't have necessary permission <0/>to view this resource."
 msgstr "អ្នកមិនមានការអនុញ្ញាតចាំបាច់ <0/>ដើម្បីមើលធនធាននេះទេ។"
 
-#: src/features/chats/index.tsx:1285
+#: src/features/chats/index.tsx:1324
 msgid "You left this chat"
 msgstr "អ្នកបានចាកចេញពីការជជែកនេះ"
 
-#: src/features/chats/index.tsx:1284
+#: src/features/chats/index.tsx:1323
 msgid "You were removed from this chat"
 msgstr "អ្នកត្រូវបានដកចេញពីការជជែកនេះ"
 
@@ -3348,14 +3363,14 @@ msgstr "អ្នកបានមើលទាំងអស់ហើយ!"
 msgid "Your account was moved here from {source}. Until you delete it there, messages and notifications may reach both servers, some of your content keeps being served from the old server, and followers may take a few minutes to find you here."
 msgstr "គណនីរបស់អ្នកត្រូវបានផ្លាស់ប្តូរមកទីនេះពី {source}។ រហូតដល់អ្នកលុបវានៅទីនោះ សារ និងការជូនដំណឹងអាចទៅដល់ម៉ាស៊ីនមេទាំងពីរ មាតិកាមួយចំនួនរបស់អ្នកនៅតែត្រូវបានបម្រើពីម៉ាស៊ីនមេចាស់ ហើយអ្នកតាមដានអាចចំណាយពេលប៉ុន្មាននាទីដើម្បីរកអ្នកនៅទីនេះ។"
 
-#: ../../../lib/web/src/components/comment-composer.tsx:291
+#: ../../../lib/web/src/components/comment-composer.tsx:304
 msgid "Your attachments will be lost."
 msgstr "ឯកសារភ្ជាប់របស់អ្នកនឹងបាត់បង់។"
 
-#: ../../../lib/web/src/components/comment-composer.tsx:289
+#: ../../../lib/web/src/components/comment-composer.tsx:302
 msgid "Your text and attachments will be lost."
 msgstr "អត្ថបទ និងឯកសារភ្ជាប់របស់អ្នកនឹងបាត់បង់។"
 
-#: ../../../lib/web/src/components/comment-composer.tsx:292
+#: ../../../lib/web/src/components/comment-composer.tsx:305
 msgid "Your text will be lost."
 msgstr "អត្ថបទរបស់អ្នកនឹងបាត់បង់។"

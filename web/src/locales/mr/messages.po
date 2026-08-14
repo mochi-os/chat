@@ -23,7 +23,7 @@ msgid " or "
 msgstr " किंवा "
 
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:229
-#: src/features/chats/components/chat-message-list.tsx:790
+#: src/features/chats/components/chat-message-list.tsx:804
 msgid "(edited)"
 msgstr "(संपादित)"
 
@@ -45,7 +45,7 @@ msgid "{0, plural, one {# selected} other {# selected}}"
 msgstr "{0, plural, one {# निवडले} other {# निवडले}}"
 
 #. placeholder {0}: deleteTargetIds?.length ?? 0
-#: src/features/chats/index.tsx:1373
+#: src/features/chats/index.tsx:1412
 msgid "{0, plural, one {Delete message?} other {Delete # messages?}}"
 msgstr "{0, plural, one {संदेश हटवायचा?} other {# संदेश हटवायचे?}}"
 
@@ -61,8 +61,8 @@ msgstr "{0} पर्यायाचे पूर्वावलोकन"
 
 #. placeholder {0}: selectedIds.size
 #. placeholder {0}: selectedIds?.size ?? 0
-#: src/features/chats/components/chat-message-list.tsx:817
-#: src/features/chats/index.tsx:1242
+#: src/features/chats/components/chat-message-list.tsx:831
+#: src/features/chats/index.tsx:1281
 msgid "{0} selected"
 msgstr "{0} निवडले"
 
@@ -100,8 +100,8 @@ msgstr "{entityLabel} नाव आवश्यक आहे"
 msgid "{hiddenCount, plural, one {Show 1 more file} other {Show # more files}}"
 msgstr "{hiddenCount, plural, one {आणखी 1 फाइल दाखवा} other {आणखी # फायली दाखवा}}"
 
-#: src/features/chats/components/chat-message-list.tsx:852
-#: src/features/chats/components/chat-message-list.tsx:869
+#: src/features/chats/components/chat-message-list.tsx:866
+#: src/features/chats/components/chat-message-list.tsx:883
 msgid "{newMessageCount, plural, one {Jump to 1 new message} other {Jump to # new messages}}"
 msgstr "{newMessageCount, plural, one {1 नवीन संदेशावर जा} other {# नवीन संदेशांवर जा}}"
 
@@ -125,12 +125,12 @@ msgstr "{selectedCount, plural, one {# निवडलेले} other {# नि
 msgid "{selectedCount, plural, one {Bulk actions for # selected {entityName}} other {Bulk actions for # selected {manyName}}}"
 msgstr "{selectedCount, plural, one {# निवडलेल्या {entityName} साठी मोठ्या प्रमाणात क्रिया} other {# निवडलेल्या {manyName} साठी मोठ्या प्रमाणात क्रिया}}"
 
-#: ../../../lib/web/src/components/attachment-composer.tsx:252
+#: ../../../lib/web/src/components/attachment-composer.tsx:281
 #: ../../../lib/web/src/components/ui/upload-progress.tsx:52
 msgid "{sentLabel} of {totalLabel}"
 msgstr "{totalLabel}पैकी {sentLabel}"
 
-#: src/features/chats/index.tsx:871
+#: src/features/chats/index.tsx:909
 msgid "{skippedCount, plural, one {Skipped # file that is not audio} other {Skipped # files that are not audio}}"
 msgstr "{skippedCount, plural, one {# फाइल वगळली जी ऑडिओ नाही} other {# फाइली वगळल्या ज्या ऑडिओ नाहीत}}"
 
@@ -171,7 +171,7 @@ msgstr "एक रेकॉर्डिंग आधीच सुरू आह�
 msgid "Absolute (date and time)"
 msgstr "निरपेक्ष (तारीख आणि वेळ)"
 
-#: ../../../lib/web/src/components/game/game-draw-offer-banner.tsx:45
+#: ../../../lib/web/src/components/game/game-draw-offer-banner.tsx:50
 msgid "Accept"
 msgstr "स्वीकारा"
 
@@ -243,6 +243,10 @@ msgstr "सूचना प्राप्त करण्यासाठी आ
 #: src/features/chats/components/chat-input.tsx:708
 msgid "Add attachment"
 msgstr "संलग्नक जोडा"
+
+#: ../../../lib/web/src/components/attachment-composer.tsx:324
+msgid "Add caption"
+msgstr "कॅप्शन जोडा"
 
 #: ../../../lib/web/src/components/entity/entity-field-editor.tsx:687
 msgid "Add checklist item"
@@ -404,7 +408,7 @@ msgid "Are you sure you want to delete this comment? This will also delete all r
 msgstr "तुम्हाला खरोखरच ही टिप्पणी हटवायची आहे का? यामुळे सर्व उत्तरे देखील हटतील."
 
 #. placeholder {0}: selectedChat?.name
-#: src/features/chats/index.tsx:1341
+#: src/features/chats/index.tsx:1380
 msgid "Are you sure you want to leave \"{0}\"? You can be added back by other members."
 msgstr "तुम्हाला \"{0}\" सोडायचे आहे याची खात्री आहे का? इतर सदस्य तुम्हाला पुन्हा जोडू शकतात."
 
@@ -444,7 +448,7 @@ msgstr "उत्तर फाइल्स संलग्न करा"
 msgid "Attachment"
 msgstr "अटॅचमेंट"
 
-#: src/features/chats/index.tsx:757
+#: src/features/chats/index.tsx:795
 msgid "Attachments are too large to upload. Remove or shrink files and try again."
 msgstr "संलग्नके अपलोड करण्यासाठी खूप मोठी आहेत. फायली काढून टाका किंवा लहान करा आणि पुन्हा प्रयत्न करा."
 
@@ -493,7 +497,7 @@ msgstr "मुख्यपृष्ठावर परत जा"
 msgid "Banner"
 msgstr "बॅनर"
 
-#: src/features/chats/components/chat-message-list.tsx:471
+#: src/features/chats/components/chat-message-list.tsx:483
 msgid "Be the first to say something!"
 msgstr "काहीतरी म्हणणारे पहिले व्हा!"
 
@@ -528,6 +532,7 @@ msgstr "सीमा रंग"
 msgid "Browser notifications"
 msgstr "ब्राउझर सूचना"
 
+#: ../../../lib/web/src/components/attachment-composer.tsx:461
 #: ../../../lib/web/src/components/entity/entity-board-column.tsx:628
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:250
 #: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:169
@@ -541,12 +546,12 @@ msgstr "ब्राउझर सूचना"
 #: ../../../lib/web/src/features/access/access-list.tsx:268
 #: ../../../lib/web/src/features/accounts/account-add.tsx:201
 #: ../../../lib/web/src/features/accounts/account-verify.tsx:91
-#: src/features/chats/components/chat-message-list.tsx:622
-#: src/features/chats/components/chat-message-list.tsx:836
+#: src/features/chats/components/chat-message-list.tsx:634
+#: src/features/chats/components/chat-message-list.tsx:850
 #: src/features/chats/components/chat-settings-dialog.tsx:116
 #: src/features/chats/components/forward-dialog.tsx:253
 #: src/features/chats/components/new-chat.tsx:354
-#: src/features/chats/index.tsx:1274
+#: src/features/chats/index.tsx:1313
 msgid "Cancel"
 msgstr "रद्द करा"
 
@@ -562,6 +567,11 @@ msgstr "टिप्पणी रद्द करा"
 msgid "Cancel reply"
 msgstr "उत्तर रद्द करा"
 
+#: ../../../lib/web/src/components/attachment-composer.tsx:421
+#: ../../../lib/web/src/components/attachment-composer.tsx:456
+msgid "Caption"
+msgstr "कॅप्शन"
+
 #: ../../../lib/web/src/components/notification-category-button.tsx:102
 msgid "Category for these notifications"
 msgstr "या सूचनांसाठी श्रेणी"
@@ -571,10 +581,10 @@ msgstr "या सूचनांसाठी श्रेणी"
 msgid "Change notification category"
 msgstr "सूचना श्रेणी बदला"
 
-#: src/features/chats/index.tsx:89
-#: src/features/chats/index.tsx:197
-#: src/features/chats/index.tsx:197
-#: src/features/chats/index.tsx:1051
+#: src/features/chats/index.tsx:94
+#: src/features/chats/index.tsx:202
+#: src/features/chats/index.tsx:202
+#: src/features/chats/index.tsx:1089
 msgid "Chat"
 msgstr "चॅट"
 
@@ -582,7 +592,7 @@ msgstr "चॅट"
 msgid "Chat created"
 msgstr "चॅट तयार केला"
 
-#: src/features/chats/index.tsx:822
+#: src/features/chats/index.tsx:860
 msgid "Chat deleted"
 msgstr "चॅट हटवला"
 
@@ -631,8 +641,8 @@ msgstr "चॅट तयार"
 msgid "Chat renamed"
 msgstr "चॅटचे नाव बदलले"
 
-#: src/features/chats/index.tsx:1056
-#: src/features/chats/index.tsx:1154
+#: src/features/chats/index.tsx:1094
+#: src/features/chats/index.tsx:1192
 #: src/routes/_authenticated/$chatId_.settings.tsx:89
 #: src/routes/_authenticated/$chatId_.settings.tsx:102
 #: src/routes/_authenticated/$chatId_.settings.tsx:113
@@ -734,8 +744,8 @@ msgstr "निवड साफ करा (Escape)"
 #: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:506
 #: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:511
 #: ../../../lib/web/src/components/ui/dialog.tsx:78
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:358
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:361
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:373
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:376
 #: ../../../lib/web/src/components/ui/sheet.tsx:79
 msgid "Close"
 msgstr "बंद करा"
@@ -858,7 +868,7 @@ msgid "Continue with {label}"
 msgstr "{label} सह सुरू ठेवा"
 
 #: ../../../lib/web/src/lib/toast-utils.ts:42
-#: src/features/chats/index.tsx:648
+#: src/features/chats/index.tsx:686
 msgid "Copied"
 msgstr "कॉपी केले"
 
@@ -868,13 +878,13 @@ msgstr "क्लिपबोर्डवर कॉपी केले"
 
 #: ../../../lib/web/src/components/ui/copy-button.tsx:64
 #: src/features/chats/components/message-hover-actions.tsx:107
-#: src/features/chats/index.tsx:1251
+#: src/features/chats/index.tsx:1290
 msgid "Copy"
 msgstr "कॉपी करा"
 
 #. placeholder {0}: ambiguous.join(', ')
 #. placeholder {1}: unknown.join(', ')
-#: src/features/chats/index.tsx:977
+#: src/features/chats/index.tsx:1015
 msgid "Could not link mentions. Multiple people share: {0}. Not in this chat: {1}. Pick from the @ list."
 msgstr "उल्लेख जोडता आले नाहीत. अनेक लोकांचे नाव सारखे आहे: {0}. या चॅटमध्ये नाहीत: {1}. @ यादीतून निवडा."
 
@@ -992,8 +1002,8 @@ msgstr "डीफॉल्ट क्रमवारी"
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:252
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:314
 #: src/features/chats/components/message-hover-actions.tsx:146
-#: src/features/chats/index.tsx:1267
-#: src/features/chats/index.tsx:1385
+#: src/features/chats/index.tsx:1306
+#: src/features/chats/index.tsx:1424
 msgid "Delete"
 msgstr "हटवा"
 
@@ -1001,12 +1011,12 @@ msgstr "हटवा"
 msgid "Delete attachment"
 msgstr "संलग्नक हटवा"
 
-#: src/features/chats/index.tsx:1137
-#: src/features/chats/index.tsx:1298
+#: src/features/chats/index.tsx:1175
+#: src/features/chats/index.tsx:1337
 msgid "Delete chat"
 msgstr "चॅट हटवा"
 
-#: src/features/chats/index.tsx:1363
+#: src/features/chats/index.tsx:1402
 #: src/routes/_authenticated/$chatId_.settings.tsx:378
 msgid "Delete chat history"
 msgstr "चॅट इतिहास हटवा"
@@ -1041,12 +1051,12 @@ msgstr "दृश्य हटवा"
 msgid "Delete your account on the old server"
 msgstr "जुन्या सर्व्हरवरील तुमचे खाते हटवा"
 
-#: src/features/chats/index.tsx:821
+#: src/features/chats/index.tsx:859
 msgid "Deleting chat..."
 msgstr "चॅट हटवत आहे..."
 
-#: src/features/chats/index.tsx:678
-#: src/features/chats/index.tsx:1382
+#: src/features/chats/index.tsx:716
+#: src/features/chats/index.tsx:1421
 msgid "Deleting..."
 msgstr "हटवत आहे..."
 
@@ -1093,11 +1103,11 @@ msgstr "निर्देशिका शोध अयशस्वी"
 msgid "Disagree"
 msgstr "असहमत"
 
-#: ../../../lib/web/src/components/comment-composer.tsx:300
+#: ../../../lib/web/src/components/comment-composer.tsx:313
 msgid "Discard"
 msgstr "टाकून द्या"
 
-#: ../../../lib/web/src/components/comment-composer.tsx:298
+#: ../../../lib/web/src/components/comment-composer.tsx:311
 msgid "Discard draft?"
 msgstr "मसुदा टाकून द्यायचा?"
 
@@ -1134,12 +1144,12 @@ msgid "Done"
 msgstr "पूर्ण"
 
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:239
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:342
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:352
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:357
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:367
 msgid "Download"
 msgstr "डाउनलोड"
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:68
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:69
 msgid "Download failed"
 msgstr "डाउनलोड अयशस्वी"
 
@@ -1169,6 +1179,10 @@ msgstr "संपादित करा"
 #: ../../../lib/web/src/components/ui/editable-field-row.tsx:154
 msgid "Edit {label}"
 msgstr "{label} संपादित करा"
+
+#: ../../../lib/web/src/components/attachment-composer.tsx:324
+msgid "Edit caption"
+msgstr "कॅप्शन संपादित करा"
 
 #: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:137
 msgid "Edit field"
@@ -1217,7 +1231,7 @@ msgstr "तुमच्या ईमेलमधील कोड प्रवि
 msgid "Enter your authenticator code"
 msgstr "तुमचा ऑथेंटिकेटर कोड टाका"
 
-#: src/features/chats/components/chat-message-list.tsx:612
+#: src/features/chats/components/chat-message-list.tsx:624
 msgid "escape to cancel • enter to save"
 msgstr "रद्द करण्यासाठी Escape • जतन करण्यासाठी Enter"
 
@@ -1254,7 +1268,7 @@ msgstr "टॅग जोडण्यात अयशस्वी"
 
 #: ../../../lib/web/src/components/ui/copy-button.tsx:26
 #: ../../../lib/web/src/lib/toast-utils.ts:44
-#: src/features/chats/index.tsx:649
+#: src/features/chats/index.tsx:687
 msgid "Failed to copy"
 msgstr "कॉपी करण्यात अयशस्वी"
 
@@ -1271,7 +1285,7 @@ msgstr "चॅट तयार करण्यात अयशस्वी"
 msgid "Failed to create link"
 msgstr "लिंक तयार करण्यात अयशस्वी"
 
-#: src/features/chats/index.tsx:680
+#: src/features/chats/index.tsx:718
 msgid "Failed to delete"
 msgstr "हटवण्यात अयशस्वी"
 
@@ -1279,7 +1293,7 @@ msgstr "हटवण्यात अयशस्वी"
 msgid "Failed to delete attachment"
 msgstr "अटॅचमेंट हटवण्यात अयशस्वी"
 
-#: src/features/chats/index.tsx:823
+#: src/features/chats/index.tsx:861
 msgid "Failed to delete chat"
 msgstr "चॅट हटवण्यात अयशस्वी"
 
@@ -1291,7 +1305,7 @@ msgstr "टिप्पणी हटवण्यात अयशस्वी"
 msgid "Failed to delete link"
 msgstr "लिंक हटवण्यात अयशस्वी"
 
-#: src/features/chats/index.tsx:588
+#: src/features/chats/index.tsx:626
 msgid "Failed to edit message"
 msgstr "संदेश संपादित करता आला नाही"
 
@@ -1303,12 +1317,12 @@ msgstr "फॉरवर्ड करता आले नाही"
 msgid "Failed to get RSS token"
 msgstr "RSS टोकन मिळवण्यात अयशस्वी"
 
-#: src/features/chats/index.tsx:804
+#: src/features/chats/index.tsx:842
 #: src/routes/_authenticated/$chatId_.settings.tsx:339
 msgid "Failed to leave chat"
 msgstr "चॅट सोडण्यात अयशस्वी"
 
-#: ../../../lib/web/src/hooks/use-load-more.ts:74
+#: ../../../lib/web/src/hooks/use-load-more.ts:83
 msgid "Failed to load"
 msgstr "लोड करण्यात अयशस्वी"
 
@@ -1316,11 +1330,11 @@ msgstr "लोड करण्यात अयशस्वी"
 msgid "Failed to load history"
 msgstr "इतिहास लोड करण्यात अयशस्वी"
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:263
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:264
 msgid "Failed to load image"
 msgstr "प्रतिमा लोड करण्यात अयशस्वी"
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:263
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:264
 msgid "Failed to load video"
 msgstr "व्हिडिओ लोड करण्यात अयशस्वी"
 
@@ -1336,7 +1350,7 @@ msgstr "चॅट वाचले म्हणून चिन्हांकि
 msgid "Failed to post comment"
 msgstr "टिप्पणी पोस्ट करण्यात अयशस्वी"
 
-#: src/features/chats/index.tsx:632
+#: src/features/chats/index.tsx:670
 msgid "Failed to react"
 msgstr "प्रतिक्रिया देता आली नाही"
 
@@ -1360,7 +1374,7 @@ msgstr "RSS प्रवेश रद्द करण्यात अयशस�
 msgid "Failed to save"
 msgstr "सेव्ह करण्यात अयशस्वी"
 
-#: src/features/chats/index.tsx:756
+#: src/features/chats/index.tsx:794
 msgid "Failed to send message"
 msgstr "संदेश पाठवण्यात अयशस्वी"
 
@@ -1368,7 +1382,7 @@ msgstr "संदेश पाठवण्यात अयशस्वी"
 msgid "Failed to send verification code"
 msgstr "पडताळणी कोड पाठवण्यात अयशस्वी"
 
-#: src/features/chats/index.tsx:203
+#: src/features/chats/index.tsx:208
 msgid "Failed to start chat"
 msgstr "चॅट सुरू करण्यात अयशस्वी"
 
@@ -1408,7 +1422,7 @@ msgstr "फ्लोटिंग"
 
 #: src/features/chats/components/forward-dialog.tsx:264
 #: src/features/chats/components/message-hover-actions.tsx:138
-#: src/features/chats/index.tsx:1259
+#: src/features/chats/index.tsx:1298
 msgid "Forward"
 msgstr "फॉरवर्ड करा"
 
@@ -1527,7 +1541,7 @@ msgid "ID"
 msgstr ""
 
 #. placeholder {0}: currentMedia.name
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:247
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:248
 msgid "Image viewer: {0}"
 msgstr "प्रतिमा दर्शक: {0}"
 
@@ -1540,7 +1554,7 @@ msgid "Including anonymous users"
 msgstr "निनावी वापरकर्त्यांसह"
 
 #: src/features/chats/components/chat-settings-dialog.tsx:80
-#: src/features/chats/index.tsx:1160
+#: src/features/chats/index.tsx:1198
 msgid "Incoming chats"
 msgstr "येणाऱ्या चॅट"
 
@@ -1576,8 +1590,8 @@ msgstr "अवैध पडताळणी कोड"
 msgid "It seems like the page you're looking for <0/>does not exist or might have been removed."
 msgstr "असे दिसते की तुम्ही शोधत असलेले पृष्ठ <0/>अस्तित्वात नाही किंवा काढून टाकले गेले आहे."
 
-#: src/features/chats/components/chat-message-list.tsx:856
-#: src/features/chats/components/chat-message-list.tsx:873
+#: src/features/chats/components/chat-message-list.tsx:870
+#: src/features/chats/components/chat-message-list.tsx:887
 msgid "Jump to bottom"
 msgstr "तळाशी जा"
 
@@ -1608,31 +1622,31 @@ msgstr "लेआउट"
 msgid "Learn more"
 msgstr "अधिक जाणून घ्या"
 
-#: src/features/chats/index.tsx:1349
+#: src/features/chats/index.tsx:1388
 msgid "Leave"
 msgstr "सोडा"
 
-#: src/features/chats/index.tsx:1144
+#: src/features/chats/index.tsx:1182
 #: src/routes/_authenticated/$chatId_.settings.tsx:364
 msgid "Leave chat"
 msgstr "चॅट सोडा"
 
-#: src/features/chats/index.tsx:1340
+#: src/features/chats/index.tsx:1379
 #: src/routes/_authenticated/$chatId_.settings.tsx:355
 msgid "Leave chat?"
 msgstr "चॅट सोडायचा?"
 
-#: src/features/chats/index.tsx:802
+#: src/features/chats/index.tsx:840
 #: src/routes/_authenticated/$chatId_.settings.tsx:337
 msgid "Leaving chat..."
 msgstr "चॅट सोडत आहे..."
 
-#: src/features/chats/index.tsx:1346
+#: src/features/chats/index.tsx:1385
 #: src/routes/_authenticated/$chatId_.settings.tsx:361
 msgid "Leaving..."
 msgstr "सोडत आहे..."
 
-#: src/features/chats/index.tsx:803
+#: src/features/chats/index.tsx:841
 #: src/routes/_authenticated/$chatId_.settings.tsx:338
 msgid "Left chat"
 msgstr "चॅट सोडला"
@@ -1778,11 +1792,11 @@ msgstr "संदेश क्रिया"
 msgid "Message copied"
 msgstr "संदेश कॉपी केला"
 
-#: src/features/chats/index.tsx:758
+#: src/features/chats/index.tsx:796
 msgid "Message could not be sent. Attachments may be too large, or your connection failed. Try smaller files."
 msgstr "संदेश पाठवता आला नाही. संलग्नके खूप मोठी असू शकतात किंवा तुमचे कनेक्शन अयशस्वी झाले. लहान फायली वापरून पहा."
 
-#: src/features/chats/index.tsx:679
+#: src/features/chats/index.tsx:717
 msgid "Message deleted"
 msgstr "संदेश हटवला"
 
@@ -1792,7 +1806,7 @@ msgid "Message is {0} characters too long"
 msgstr "संदेश {0} अक्षरांनी जास्त लांब आहे"
 
 #: src/features/chats/components/message-quote.tsx:60
-#: src/features/chats/index.tsx:700
+#: src/features/chats/index.tsx:738
 msgid "Message not available"
 msgstr "संदेश उपलब्ध नाही"
 
@@ -1844,7 +1858,7 @@ msgstr "Mochi वेब"
 
 #: ../../../lib/web/src/components/options-menu.tsx:167
 msgid "Moderation"
-msgstr ""
+msgstr "नियमन"
 
 #: ../../../lib/web/src/lib/preference-utils.ts:59
 msgid "Monday"
@@ -1856,7 +1870,7 @@ msgid "More options"
 msgstr "अधिक पर्याय"
 
 #. placeholder {0}: ambiguous.join(', ')
-#: src/features/chats/index.tsx:969
+#: src/features/chats/index.tsx:1007
 msgid "Multiple people share these names: {0}. Pick them from the @ list so the right person is notified."
 msgstr "अनेक लोकांची ही नावे आहेत: {0}. योग्य व्यक्तीला सूचना मिळावी म्हणून त्यांना @ यादीतून निवडा."
 
@@ -1905,8 +1919,8 @@ msgstr "नवीन गेम"
 msgid "Newer match"
 msgstr "नवीन जुळणी"
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:392
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:397
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:407
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:412
 msgid "Next image"
 msgstr "पुढील इमेज"
 
@@ -1962,7 +1976,7 @@ msgstr "अद्याप कोणतेही आयटम प्रकार
 msgid "No matching objects"
 msgstr "जुळणारे ऑब्जेक्ट्स नाहीत"
 
-#: src/features/chats/components/chat-message-list.tsx:470
+#: src/features/chats/components/chat-message-list.tsx:482
 msgid "No messages yet"
 msgstr "अद्याप मेसेजेस नाहीत"
 
@@ -2062,7 +2076,7 @@ msgstr "सेट केलेले नाही"
 msgid "Nothing found"
 msgstr "काहीही सापडले नाही"
 
-#: src/features/chats/index.tsx:644
+#: src/features/chats/index.tsx:682
 msgid "Nothing to copy"
 msgstr "कॉपी करण्यासाठी काही नाही"
 
@@ -2115,7 +2129,7 @@ msgstr "अकाउंट क्रिया उघडा"
 msgid "Open actions"
 msgstr "क्रिया उघडा"
 
-#: src/features/chats/index.tsx:1129
+#: src/features/chats/index.tsx:1167
 msgid "Open chat actions"
 msgstr "चॅट क्रिया उघडा"
 
@@ -2274,8 +2288,8 @@ msgstr "पोस्ट्स"
 msgid "Posts and comments"
 msgstr "पोस्ट्स आणि कमेंट्स"
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:377
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:382
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:392
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:397
 msgid "Previous image"
 msgstr "मागील इमेज"
 
@@ -2371,8 +2385,8 @@ msgstr "सापेक्ष (5m, 3h, 2d)"
 msgid "Relative within 24 hours, else absolute"
 msgstr "24 तासांच्या आत सापेक्ष, अन्यथा निरपेक्ष"
 
-#: ../../../lib/web/src/components/attachment-composer.tsx:289
-#: ../../../lib/web/src/components/attachment-composer.tsx:328
+#: ../../../lib/web/src/components/attachment-composer.tsx:318
+#: ../../../lib/web/src/components/attachment-composer.tsx:363
 #: ../../../lib/web/src/components/entity/add-field-dialog.tsx:190
 #: ../../../lib/web/src/features/access/access-list.tsx:270
 #: ../../../lib/web/src/features/accounts/account-manager.tsx:180
@@ -2494,7 +2508,7 @@ msgstr "{title} रीसेट करा"
 msgid "Reset all settings to default values"
 msgstr "सर्व सेटिंग्ज डीफॉल्ट मूल्यांवर रीसेट करा"
 
-#: ../../../lib/web/src/components/attachment-composer.tsx:346
+#: ../../../lib/web/src/components/attachment-composer.tsx:381
 msgid "Retry"
 msgstr "पुन्हा प्रयत्न करा"
 
@@ -2547,11 +2561,12 @@ msgstr "दुःखी"
 msgid "Saturday"
 msgstr "शनिवार"
 
+#: ../../../lib/web/src/components/attachment-composer.tsx:465
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:270
 #: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:173
 #: ../../../lib/web/src/components/ui/editable-field-row.tsx:122
-#: ../../../lib/web/src/components/ui/secret-field.tsx:77
-#: src/features/chats/components/chat-message-list.tsx:634
+#: ../../../lib/web/src/components/ui/secret-field.tsx:79
+#: src/features/chats/components/chat-message-list.tsx:648
 #: src/features/chats/components/chat-settings-dialog.tsx:128
 msgid "Save"
 msgstr "जतन करा"
@@ -2603,7 +2618,7 @@ msgstr "मित्र शोधा…"
 msgid "Search in chat..."
 msgstr "चॅटमध्ये शोधा..."
 
-#: src/features/chats/index.tsx:1119
+#: src/features/chats/index.tsx:1157
 msgid "Search messages"
 msgstr "संदेश शोधा"
 
@@ -2696,7 +2711,7 @@ msgstr "गट निवडा"
 msgid "Select layout style"
 msgstr "लेआउट शैली निवडा"
 
-#: src/features/chats/components/chat-message-list.tsx:827
+#: src/features/chats/components/chat-message-list.tsx:841
 msgid "Select loaded"
 msgstr "लोड केलेले निवडा"
 
@@ -2704,7 +2719,7 @@ msgstr "लोड केलेले निवडा"
 msgid "Select location"
 msgstr "स्थान निवडा"
 
-#: src/features/chats/components/chat-message-list.tsx:544
+#: src/features/chats/components/chat-message-list.tsx:556
 msgid "Select message"
 msgstr "संदेश निवडा"
 
@@ -2745,7 +2760,7 @@ msgstr "निवडा..."
 msgid "selected"
 msgstr "निवडलेले"
 
-#: src/features/chats/index.tsx:1222
+#: src/features/chats/index.tsx:1261
 msgid "Selected the newest {BULK_MESSAGES_MAX} messages, the most that can be forwarded or deleted at once"
 msgstr "सर्वात नवीन {BULK_MESSAGES_MAX} संदेश निवडले, एकाच वेळी फॉरवर्ड किंवा हटवता येणारे कमाल"
 
@@ -2754,7 +2769,7 @@ msgstr "सर्वात नवीन {BULK_MESSAGES_MAX} संदेश न�
 msgid "Selected: <0>{0}</0>"
 msgstr "निवडलेले: <0>{0}</0>"
 
-#: src/features/chats/components/chat-message-list.tsx:825
+#: src/features/chats/components/chat-message-list.tsx:839
 msgid "Selects messages loaded so far"
 msgstr "आतापर्यंत लोड केलेले संदेश निवडते"
 
@@ -2875,7 +2890,7 @@ msgstr "संभाषण सुरू करा"
 msgid "Start the discussion by adding the first comment."
 msgstr "पहिली टिप्पणी जोडून चर्चा सुरू करा."
 
-#: src/features/chats/index.tsx:200
+#: src/features/chats/index.tsx:205
 msgid "Starting chat..."
 msgstr "चॅट सुरू करत आहे..."
 
@@ -2998,7 +3013,7 @@ msgid "Theme Settings"
 msgstr "थीम सेटिंग्ज"
 
 #. placeholder {0}: unknown.join(', ')
-#: src/features/chats/index.tsx:973
+#: src/features/chats/index.tsx:1011
 msgid "These names are not in this chat: {0}. Pick from the @ list or remove them."
 msgstr "ही नावे या चॅटमध्ये नाहीत: {0}. @ यादीतून निवडा किंवा ती काढून टाका."
 
@@ -3010,11 +3025,11 @@ msgstr "ही चॅट"
 msgid "This chat may have been deleted or you don't have access to it"
 msgstr "ही चॅट हटवली गेली असेल किंवा तुम्हाला त्यात प्रवेश नाही"
 
-#: src/features/chats/index.tsx:1377
+#: src/features/chats/index.tsx:1416
 msgid "This deletes the message for everyone and cannot be undone."
 msgstr "हे सर्वांसाठी संदेश हटवते आणि पूर्ववत करता येत नाही."
 
-#: src/features/chats/components/chat-message-list.tsx:675
+#: src/features/chats/components/chat-message-list.tsx:689
 #: src/features/chats/components/message-quote.tsx:50
 msgid "This message was deleted"
 msgstr "हा संदेश हटवला गेला"
@@ -3226,13 +3241,13 @@ msgstr "पडताळा"
 msgid "Verify email address"
 msgstr "ईमेल पत्ता पडताळा"
 
-#: ../../../lib/web/src/components/attachment-gallery.tsx:79
+#: ../../../lib/web/src/components/attachment-gallery.tsx:85
 #: src/features/chats/components/message-media-grid.tsx:52
 msgid "Video thumbnail"
 msgstr "व्हिडिओ थंबनेल"
 
 #. placeholder {0}: currentMedia.name
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:246
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:247
 msgid "Video viewer: {0}"
 msgstr "व्हिडिओ दर्शक: {0}"
 
@@ -3300,7 +3315,7 @@ msgstr "वेबसाइट देखभालीखाली आहे!"
 msgid "Wednesday"
 msgstr "बुधवार"
 
-#: src/features/chats/index.tsx:479
+#: src/features/chats/index.tsx:484
 msgid "You"
 msgstr "तुम्ही"
 
@@ -3312,15 +3327,15 @@ msgstr "तुमचा या मित्रासह आधीच चॅट �
 msgid "You already have chats with:"
 msgstr "तुमच्याकडे आधीच यांच्यासोबत चॅट्स आहेत:"
 
-#: src/features/chats/index.tsx:956
+#: src/features/chats/index.tsx:994
 msgid "You can attach at most {CAPTIONS_MAX} files to a message"
 msgstr "तुम्ही एका संदेशाला जास्तीत जास्त {CAPTIONS_MAX} फाइल जोडू शकता"
 
-#: src/features/chats/index.tsx:952
+#: src/features/chats/index.tsx:990
 msgid "You can mention at most {MENTIONS_MAX} people in a message"
 msgstr "तुम्ही एका संदेशात जास्तीत जास्त {MENTIONS_MAX} लोकांचा उल्लेख करू शकता"
 
-#: src/features/chats/index.tsx:661
+#: src/features/chats/index.tsx:699
 msgid "You can only delete your own messages"
 msgstr "तुम्ही फक्त तुमचेच संदेश हटवू शकता"
 
@@ -3332,11 +3347,11 @@ msgstr "तुम्हाला या विभागात प्रवेश
 msgid "You don't have necessary permission <0/>to view this resource."
 msgstr "हे संसाधन पाहण्यासाठी <0/>तुमच्याकडे आवश्यक परवानगी नाही."
 
-#: src/features/chats/index.tsx:1285
+#: src/features/chats/index.tsx:1324
 msgid "You left this chat"
 msgstr "तुम्ही ही चॅट सोडली आहे"
 
-#: src/features/chats/index.tsx:1284
+#: src/features/chats/index.tsx:1323
 msgid "You were removed from this chat"
 msgstr "तुम्हाला या चॅटमधून काढले गेले आहे"
 
@@ -3348,14 +3363,14 @@ msgstr "तुम्ही सर्व पाहिले!"
 msgid "Your account was moved here from {source}. Until you delete it there, messages and notifications may reach both servers, some of your content keeps being served from the old server, and followers may take a few minutes to find you here."
 msgstr "तुमचे खाते {source} वरून येथे हलवले गेले. जोपर्यंत तुम्ही ते तेथे हटवत नाही, तोपर्यंत संदेश आणि सूचना दोन्ही सर्व्हरपर्यंत पोहोचू शकतात, तुमचा काही मजकूर जुन्या सर्व्हरवरून सर्व्ह होत राहतो आणि अनुयायांना येथे तुम्हाला शोधण्यास काही मिनिटे लागू शकतात."
 
-#: ../../../lib/web/src/components/comment-composer.tsx:291
+#: ../../../lib/web/src/components/comment-composer.tsx:304
 msgid "Your attachments will be lost."
 msgstr "तुमची संलग्नके गमावली जातील."
 
-#: ../../../lib/web/src/components/comment-composer.tsx:289
+#: ../../../lib/web/src/components/comment-composer.tsx:302
 msgid "Your text and attachments will be lost."
 msgstr "तुमचा मजकूर आणि संलग्नके गमावली जातील."
 
-#: ../../../lib/web/src/components/comment-composer.tsx:292
+#: ../../../lib/web/src/components/comment-composer.tsx:305
 msgid "Your text will be lost."
 msgstr "तुमचा मजकूर हरवेल."
