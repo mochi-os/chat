@@ -203,9 +203,9 @@ def database_upgrade(version):
 		# schema with no attachments table. The step is idempotent, so a
 		# healthy database re-running it changes nothing.
 		# Attachments move into this database, owned by the shared library.
-		# Create the table and copy existing rows across the transition bridge;
-		# the migrate helper aborts without advancing the version if the bridge
-		# is gone, so the step retries later.
+		# Create the table and copy existing rows out of core's store - through
+		# the transition bridge while a core still has one, else from the
+		# export file core's cleanup wrote before dropping it.
 		attachment_schema_create()
 		attachment_migrate()
 
@@ -616,7 +616,7 @@ def action_new(a):
 	}
 
 # HTTP handlers serving a chat's message attachments (and thumbnails). Auth-only
-# routes. Core's a.write.attachment serves the bytes with no access check of its
+# routes. The library's attachment_serve performs no access check of its
 # own, so this handler is the gate: only members may view a chat's attachments
 # (mirrors action_messages), and the attachment must belong to a message in THIS
 # chat — its object is "chat/<chat_id>/<message_id>", so a prefix check binds it.
@@ -1078,7 +1078,7 @@ def action_search(a):
 # row per deleted chat; chats are low-cardinality, so retention is a non-issue.
 def chat_delete_local(chat_id):
 	# Attachments FIRST, and per message: they are keyed "chat/<chat>/<message>"
-	# and mochi.attachment.clear matches that object exactly - there is no
+	# and attachment_clear matches that object exactly - there is no
 	# prefix form - so the messages rows are the only record of which objects
 	# exist. Delete them first and every attachment row and file is stranded
 	# on disk with nothing left to enumerate it.
@@ -1319,7 +1319,7 @@ def chat_collect_forwardable(source_id, raw_ids):
 # forward-to-friend so both paths stay identical.
 # May this forward's attachments be copied?
 #
-# Copying reads each file's bytes into memory (mochi.attachment.data) and
+# Copying reads each file's bytes into memory (attachment_data) and
 # writes them back under the new message - there is no server-side copy - so a
 # forward of up to 100 attachment-heavy messages can exhaust the request's
 # memory or its 90s budget. Counting comes from attachment METADATA, so this
