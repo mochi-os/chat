@@ -177,16 +177,10 @@ export const useSendMessageMutation = (
     mutationFn: ({ chatId, onProgress, ...payload }) =>
       chatsApi.sendMessage(chatId, payload, onProgress),
     onSuccess: (data, variables, context, mutation) => {
-      // The sender's own message arrives over the websocket like anyone
-      // else's - chat_websocket fires from the insert commit hook, with no
-      // sender exclusion - and appendMessageToCache dedupes on the real id.
-      // So refetching here is normally redundant, and it is not cheap: this
-      // is an infinite query, so invalidating it refetches EVERY loaded page,
-      // one request per page, on every message sent.
-      //
-      // It is still the only way the sender sees their own message when the
-      // socket is down, so it stays as a fallback - taken only when the
-      // socket has not delivered by the time the grace period is up.
+      // The sender's own message normally arrives over the websocket (the
+      // commit hook has no sender exclusion), and invalidating an infinite
+      // query refetches every loaded page. Refetch only as a fallback when the
+      // socket has not delivered within the grace period.
       window.setTimeout(() => {
         const cached = queryClient.getQueryData<InfiniteData<GetMessagesResponse>>(
           chatKeys.messages(variables.chatId)

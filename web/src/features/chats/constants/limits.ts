@@ -25,9 +25,7 @@ export const CAPTION_MAX_LENGTH = 200
 export const BULK_MESSAGES_MAX = 100
 
 /**
- * action_create probes one non-friend per remote round trip and stops at
- * _PROBES_MAXIMUM, so a larger group is created in batches: the first batch of
- * non-friends goes in the create, the rest follow as member/add calls. Friends
- * cost no probe and are not counted.
+ * action_create stops probing non-friends at _PROBES_MAXIMUM; larger groups go
+ * in as a create plus member/add batches. Friends are not counted.
  */
 export const CREATE_NON_FRIENDS_MAX = 100

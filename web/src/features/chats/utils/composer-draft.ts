@@ -4,9 +4,8 @@
 // Mochi Application Interface Exception - see license.txt and license-exception.md.
 
 /**
- * Async draft restore may resolve after the user already typed. Only apply
- * storage when the composer is still empty; callers must gate cancellation /
- * chat-id staleness before invoking.
+ * Apply a restored draft only while the composer is still empty - the async
+ * restore may resolve after the user has typed.
  */
 export function resolveComposerDraftRestore(options: {
   composerText: string

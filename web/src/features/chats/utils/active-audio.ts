@@ -6,10 +6,6 @@
 /** Ensures only one voice-note `<audio>` plays at a time across the chat UI. */
 let activeAudio: HTMLAudioElement | null = null
 
-/**
- * Claim exclusive playback. Pauses any previously active element that is not
- * `el`. Call before starting playback.
- */
 export function claimActiveAudio(el: HTMLAudioElement): void {
   if (activeAudio && activeAudio !== el) {
     try {

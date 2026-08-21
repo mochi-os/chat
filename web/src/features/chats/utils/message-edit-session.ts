@@ -4,9 +4,8 @@
 // Mochi Application Interface Exception - see license.txt and license-exception.md.
 
 /**
- * Drop an in-progress edit only when the message list is stable and the target
- * is confirmed missing or soft-deleted. Empty/unfetched lists are treated as
- * transient (chat switch, cache warm-up, reconnect) and must not abort editing.
+ * Discard an edit only when the fetched list confirms the target missing or
+ * deleted; an empty or unfetched list is transient (chat switch, reconnect).
  */
 export function shouldDiscardMessageEdit(options: {
   isFetched: boolean

@@ -16,12 +16,9 @@ export function placeholderPeaks(count = 40, seed = 7): number[] {
   return peaks
 }
 
-// Peaks already computed for a URL, so scrolling a voice note out of view and
-// back does not fetch and decode the whole file again. A note is up to 5
-// minutes and 16MB, and the player decodes on mount with no other cache, so a
-// thread of them re-read tens of megabytes on every pass. Keyed by URL only:
-// a Blob or ArrayBuffer has no stable identity to key on, and the caller that
-// passes one already holds the bytes.
+// Peaks per URL, so a voice note scrolled out of view and back is not fetched
+// and decoded again (up to 16MB each). Keyed by URL only: a Blob or ArrayBuffer
+// has no stable identity.
 const peakCache = new Map<string, number[]>()
 
 // One in-flight decode per URL. Several players showing the same note - or one

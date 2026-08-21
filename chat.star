@@ -7,44 +7,25 @@
 def notify(topic, object="", title="", body="", url="", name="", event_id=""):
 	mochi.service.call("notifications", "send", topic, object, title, body, url, mochi.app.label("notifications.topic." + topic.replace("/", ".")), name, "", None, event_id)
 
-# Helper: Broadcast event to chat members via the durable broadcast log.
-# Sequence + log + gap-detection live in core. The chat UID is the
-# stream key, so every member sees one ordered stream per originating
-# host per chat.
-#
-# Unlike feeds / forums / projects / crm / wikis, chat has no per-chat
-# owner entity: any member can broadcast as themselves, so `from_id` is
-# passed explicitly (the broadcasting member's identity). Membership is
-# per-chat in the `members` table; call sites do the lookup themselves
-# (some sites exclude the new member, the kicked member, etc.) and pass
-# the resolved list as `subscribers`.
-#
-# Single-recipient bootstrap events (`new` to a fresh member, `removed`
-# to a kicked member) stay on raw mochi.message.send because there is
-# no stream to sequence against.
+# Broadcast a chat event to `subscribers` through core's durable broadcast log,
+# keyed on the chat id. Chat has no owner entity, so `from_id` is the
+# broadcasting member and callers resolve the roster. Single-recipient bootstrap
+# events (`new`, `removed`) use mochi.message.send - there is no stream to
+# sequence against.
 def broadcast_chat(chat_id, from_id, subscribers, event, data, exclude=None):
 	if not subscribers:
 		return
 	mochi.broadcast.send(from_id, chat_id, subscribers, "chat", event, data, exclude or "")
 
-# Tell a peer who still lists us in `chat` to drop us. Sent when a broadcast
-# arrives for a chat we've left / been removed from / deleted: the sender's
-# roster is stale (our `leave` never reached them, or their host was the one
-# host the broadcast missed). It is the exact `leave` a member sends on
-# departure, so the receiver's event_leave deletes precisely (chat, us) - it
-# can only ever prune our own membership, never another member's row. That
-# self-only property is what makes this inline signal safe for chat where the
-# bidirectional/chaining handlers of wikis would make it unsafe.
+# Tell a peer whose roster still lists us to drop us: the same `leave` a
+# departing member sends, so the receiver deletes only (chat, us) and can never
+# prune another member's row.
 def chat_leave_back(chat_id, me, peer):
 	mochi.message.send({"from": me, "to": peer, "service": "chat", "event": "leave"}, {"id": chat_id, "member": me})
 
-# error_message_timeout: core calls this when a fan-out to a member stayed
-# undeliverable past the queue max age. If the member now resolves to zero
-# locations their host is gone for good, so prune them from every local chat
-# roster - the dead-host half of stale-roster cleanup that leave-back (which
-# needs a live host to answer) can't reach. Each surviving member's host runs
-# this independently as its own fan-out to the dead member expires, so the
-# rosters converge without anyone broadcasting a removal.
+# Core calls this when a fan-out stayed undeliverable past the queue max age.
+# Zero locations means the member's host is gone for good: prune them from every
+# local roster, the case leave-back (which needs a live host) cannot cover.
 def error_message_timeout(e):
 	if e.detail.get("locations", 1) != 0:
 		return
@@ -57,26 +38,11 @@ def error_message_timeout(e):
 		if row:
 			chat_websocket(row["key"], {"event": "member/remove", "member": member})
 
-# Commit hook: fires the message-arrival websocket on every host that
-# sees a new messages row commit, whether locally (via action_send /
-# event_message calling mochi.db.commit.fire) or via replication
-# apply (auto-fired by core with op.UID set, per the row-uid wire
-# field added in #36). Both replicas of a paired account thus see the
-# live update in any open browser tab, instead of only the host that
-# served the action.
-#
-# Scoped narrowly to messages.insert. Multi-semantic chats / members
-# updates (rename, kick, leave) stay on direct mochi.websocket.write
-# for now; the hook can't disambiguate "name changed" from "left flag
-# flipped" from "updated timestamp bumped" by looking at the row state
-# alone, and routing those through the hook would need either parallel
-# semantic-marker tables or per-event log rows.
-# chat_websocket pushes a websocket update, skipping chats whose key is empty.
-# Older shared chats predate the per-chat websocket key and carry key='' (the
-# column is `not null` but '' slips through and replicates across members); core
-# rejects an empty key, which would otherwise fail the whole commit hook or
-# action with "invalid key". Such chats get no live push until their key is
-# backfilled.
+# Live-update pushes. Only messages and deletions commits route through
+# chat_commit_hook; chats/members updates (rename, kick, leave) stay on direct
+# writes because the hook cannot tell them apart from the row state.
+# chat_websocket skips an empty key: older shared chats carry key='' and core
+# rejects it, which would fail the whole commit hook or action.
 def chat_websocket(key, payload):
 	if key:
 		mochi.websocket.write(key, payload)
@@ -169,11 +135,9 @@ def database_create():
 	mochi.db.execute("create table if not exists reactions ( chat text not null, message text not null, member text not null, name text not null, reaction text not null, primary key ( chat, message, member ) )")
 	mochi.db.execute("create index if not exists reactions_message on reactions ( chat, message )")
 
-	# Append-only tombstone log for "delete for everyone". A message is
-	# deleted iff a row exists here; the body is also blanked on delete so
-	# the content is gone, but the log row is what drives convergence — it
-	# merges naturally under multi-host and survives an out-of-order replay
-	# of the original message (event_message checks it before storing).
+	# Append-only tombstones for "delete for everyone": a message is deleted iff a
+	# row exists here. The body is blanked too, but the row is what survives an
+	# out-of-order replay of the original (event_message checks it before storing).
 	mochi.db.execute("create table if not exists deletions ( chat text not null, message text not null primary key, member text not null, created integer not null )")
 	mochi.db.execute("create index if not exists deletions_chat on deletions( chat )")
 
@@ -188,37 +152,21 @@ def database_upgrade(version):
 		if "edited" not in columns:
 			mochi.db.execute("alter table messages add column edited integer not null default 0")
 	if version == 3 or version == 4:
-		# Drop the pre-2026-07 broadcast tables left in the app data DB when
-		# broadcast state moved to the per-app system DB - inert, but stale
-		# sequence/log copies mislead diagnosis. Version 4 re-issues version
-		# 3: a second database_upgrade definition shadowed the first, so
-		# installs reached schema 3 with the tables still present. Idempotent
-		# (drop if exists), so an install that did run version 3 is unharmed.
+		# Drop the broadcast tables left behind when broadcast state moved to the
+		# per-app system DB. Version 4 re-issues version 3; idempotent.
 		for table in ["sequence", "log", "acknowledged", "received"]:
 			mochi.db.execute("drop table if exists " + table)
 	if version == 5 or version == 6 or version == 7:
-		# The last number re-issues the step: a server that installed the
-		# first library version ahead of its core update paid both earlier
-		# numbers for a raise inside the bridge call and was left at full
-		# schema with no attachments table. The step is idempotent, so a
-		# healthy database re-running it changes nothing.
-		# Attachments move into this database, owned by the shared library.
-		# Create the table and copy existing rows out of core's store - through
-		# the transition bridge while a core still has one, else from the
-		# export file core's cleanup wrote before dropping it.
+		# Attachments move into this database, owned by the shared library: create the
+		# table and copy rows out of core's store (bridge or export file). Versions 6
+		# and 7 re-issue the step; idempotent.
 		attachment_schema_create()
 		attachment_migrate()
 
-# Read a whole-number field from an event, or None if it isn't one.
-#
-# Live delivery carries numbers as CBOR integers, but a broadcast-log replay
-# does not: core stores the log payload as JSON, where every number is a
-# double, so the same field arrives as a float. str() of a timestamp-sized
-# float is "1.7534e+09", which fails the "integer" pattern - so validating the
-# string form dropped every message and edit recovered through a delivery gap,
-# on the one path that exists to repair missed messages. A peer may also send
-# the field as text, which used to pass validation and then raise on the
-# range comparison below. Coerce first, compare numerically after.
+# Read a whole-number field from an event, or None. Live delivery carries CBOR
+# integers but a broadcast-log replay carries JSON doubles, and a peer may send
+# text - so coerce by type, never validate str(value) ("1.7534e+09" fails the
+# integer pattern).
 def event_integer(value):
 	kind = type(value)
 	if kind == "int":
@@ -229,47 +177,19 @@ def event_integer(value):
 		return int(value)
 	return None
 
-# May this user WRITE to `chat`? Membership plus an active chat.
-#
-# Reads deliberately don't use this: a member who left or was removed keeps
-# read access to their own history (action_messages, action_search,
-# action_view, action_members, action_mark_read, serve_attachment,
-# action_message_asset), which is why those check membership OR a
-# left/removed status instead.
-#
-# The status test is what stops a REMOVED member writing. The other two
-# departures already fail the membership test as a side effect - action_leave
-# deletes our own members row and chat_delete_local purges every row - but
-# event_removed only flips the status and leaves the row in place, so without
-# this a member someone else ejected keeps the entire write surface,
-# including action_member_add, which mails the chat id and full roster to a
-# third party of their choosing.
-#
-# Both refusals share one label so the response doesn't distinguish "never a
-# member" from "no longer a member".
-# May a peer still reshape this chat? The event-side counterpart of
-# chat_write_allowed.
-#
-# A departed chat keeps its name and roster frozen as history. Departure does
-# not by itself make that safe: leaving deletes only OUR members row and a
-# delete purges them all, but a 'left' or 'removed' chat still holds the OTHER
-# members' rows - so a peer whose roster is stale, because our leave never
-# reached them, would otherwise still be able to rename it or add and remove
-# members in it. event_message applies the same rule and additionally sends a
-# leave-back, which is what eventually prunes us from that stale roster.
+# Writes need membership plus an active chat; reads of a left/removed chat's
+# history check membership OR status instead. The status test is what stops a
+# removed member (event_removed keeps their row). One label for both refusals.
+# chat_active also gates peer events: a departed chat still holds the other
+# members' rows, so a stale-roster peer could otherwise rename it or change its
+# membership.
 def chat_active(chat):
 	return chat and chat["status"] == "active"
 
-# The live one-on-one chat between these two members, or None.
-#
-# Active only. A chat someone removed us from keeps BOTH members rows -
-# event_removed flips the status and nothing else - so without the status test
-# it still matched here, and the user could never start a fresh chat with that
-# person: every attempt handed them back the tombstone, which now refuses
-# writes. (Leaving or deleting drops our own row, so those never matched.)
-#
-# Skipping a tombstone means a second chat can exist for the same pair, so
-# order by `updated` rather than relying on row order to pick between them.
+# The live one-on-one chat between two members, or None. Active only: a chat we
+# were removed from keeps both members rows, and matching it would hand back a
+# tombstone that refuses writes. Newest first, since skipping tombstones allows
+# a second chat for the same pair.
 def chat_direct(first, second):
 	rows = mochi.db.rows("""
 		select c.id, c.name
@@ -314,11 +234,9 @@ def stream_asset(a, entity_id, service, asset):
 	if "data" in header:
 		return {"data": header["data"]}
 	a.header("Content-Type", header.get("content_type", "application/octet-stream"))
-	# Bytes to relay per slot, matching what the people app accepts on upload.
-	# Without a cap, a peer answering for a person can stream indefinitely through
-	# this route, which is public. Only the three binary slots reach here - style
-	# and information returned above as data - so an unrecognised slot falls back
-	# to the largest of them rather than breaking a route that would otherwise work.
+	# Per-slot byte caps matching what the people app accepts on upload; the route
+	# is public, so an uncapped stream could run indefinitely. Unknown slots fall
+	# back to the largest cap.
 	caps = {"avatar": 2 * 1024 * 1024, "banner": 10 * 1024 * 1024, "favicon": 64 * 1024}
 	a.write.stream(s, maximum=caps.get(asset, 10 * 1024 * 1024))
 	return None
@@ -328,12 +246,10 @@ def stream_asset(a, entity_id, service, asset):
 # chat URL discloses about its participants for no caller that wants them.
 _PERSON_ASSETS = ("avatar", "style")
 
-# Proxy a message sender's person asset from the people service. Not public:
-# the caller must be able to read the chat, so a leaked URL can't be replayed
-# by an outsider to confirm that a message exists in a chat and tie it to a
-# person. The web client authenticates the <img> with authenticatedUrl(),
-# which appends the app token core accepts on image URLs - a bare cookie
-# doesn't survive the shell's sandboxed iframe.
+# Proxy a message sender's person asset. Not public: the caller must be able to
+# read the chat, so a leaked URL cannot confirm a message exists. The web client
+# appends the app token (authenticatedUrl) since cookies do not survive the
+# shell's sandboxed iframe.
 def action_message_asset(a):
 	asset = a.input("asset")
 	if asset not in _PERSON_ASSETS:
@@ -364,12 +280,9 @@ def action_message_asset(a):
 # Whom may start a chat with this user: friends only (default) or anyone.
 _VALID_CHAT_POLICIES = ("friends", "anyone")
 
-# Most members one chat may hold, counting the creator. A real maximum, not a
-# suggestion: enforced on every path that grows a roster - action_create,
-# action_member_add, and the two receive paths (event_new's bootstrap roster and
-# event_member_add). That also bounds the work a single create or event can
-# demand: one remote policy probe and one delivery per member on the way out,
-# one database write per roster entry on the way in.
+# Most members one chat may hold, including the creator. Enforced on every path
+# that grows a roster: action_create, action_member_add, event_new,
+# event_member_add.
 _MEMBERS_MAXIMUM = 1000
 
 # Chat ids bound into one "in (...)" when resolving the counterpart of each
@@ -377,22 +290,15 @@ _MEMBERS_MAXIMUM = 1000
 # a normal account resolves its whole list in a single query.
 _LIST_BATCH = 500
 
-# Seconds between resync attempts for one chat. The automatic window suits
-# event-driven repair, where a minute of staleness costs nothing. A user who
-# presses "resync" is reacting to something that looks wrong now, so the manual
-# window is short enough to be invisible to a person while still stopping a
-# scripted loop: every call is one blocking remote request aimed at a peer of
-# the caller's choosing. Core bounds the ends of that path already (1000 API
-# requests per minute per address inbound, 100 per second per peer at the
-# target); this bounds what one caller can aim at one peer in between.
+# Seconds between resync attempts per chat. Each call is a blocking remote
+# request at a peer of the caller's choosing; the manual window is short enough
+# to be invisible to a person but still stops a scripted loop.
 _RESYNC_AUTOMATIC = 60
 _RESYNC_MANUAL = 5
 
-# How much probing one create may do. Only non-friends are probed, so a chat
-# built from friends never meets either bound; these cap what a chat of
-# strangers can demand of one request. The time budget is the real protection -
-# an unreachable member costs seconds, not milliseconds - and the count keeps
-# the limit predictable when everyone answers quickly.
+# Bounds on non-friend probing in one create: a count and a time budget. An
+# unreachable member costs seconds, so the time budget is the real protection;
+# friends are never probed.
 _PROBES_MAXIMUM = 100
 _PROBES_BUDGET = 45
 
@@ -436,12 +342,10 @@ def action_person_search(a):
 	found = [{"id": r.get("id"), "name": r.get("name"), "fingerprint": r.get("fingerprint", "")} for r in results[:20]]
 	return {"data": {"results": found}}
 
-# May `user` start a chat with `member`? Friends always may. For a non-friend,
-# ask the member's own server (the accept/query event answers from their
-# chat_policy preference), so the sender's create fails loudly up front
-# instead of the recipient's event_new dropping it silently (#206). Returns
-# {"name": display} when allowed (the probe response carries the name, so no
-# directory dependency) or {"error": label} for the caller to surface.
+# May `user` start a chat with `member`? Friends always may; a non-friend's own
+# server answers from their chat_policy (accept/query), so create fails loudly
+# instead of event_new dropping it silently (#206). Returns {"name": ...} or
+# {"error": label}.
 def chat_member_allowed(user, member_id):
 	friend = mochi.service.call("friends", "get", user, member_id)
 	if friend:
@@ -468,12 +372,9 @@ def action_create(a):
 	# Build prospective member list
 	prospective_members = [{"id": a.user.identity.id, "name": a.user.identity.name}]
 	
-	# Collect the requested ids first: deduplicated, and capped before any
-	# probing below. Each id costs a remote round trip and a delivery, so a
-	# list that repeats one id would otherwise aim that multiple at a single
-	# server. Duplicates also broke the one-on-one handling further down,
-	# which keys off len(prospective_members) == 2: "x,x" made a three-entry
-	# list, so an existing one-on-one chat was neither found nor named as one.
+	# Deduplicate and cap the requested ids before probing: each id costs a round
+	# trip and a delivery, and a repeated id breaks the one-on-one detection below
+	# (len == 2).
 	member_ids = []
 	members_str = a.input("members")
 	if members_str:
@@ -490,14 +391,9 @@ def action_create(a):
 		a.error.label(400, "errors.too_many_members", maximum=_MEMBERS_MAXIMUM)
 		return
 
-	# Probing is the expensive part of creating a chat, and only non-friends
-	# cost anything: a friend resolves locally, a stranger costs a blocking
-	# round trip to their server - up to remote_address_wait (5s in core) when
-	# they can't be reached at all. Around eighteen unreachable strangers would
-	# therefore burn the whole 90s request budget and the action would be killed
-	# mid-loop, so bound the probing by BOTH count and elapsed time and stop
-	# with a message the user can act on. A chat of friends is unaffected; a
-	# bulk chat of strangers is built as create-then-add rather than one call.
+	# Bound probing by count AND elapsed time: an unreachable stranger blocks up to
+	# remote_address_wait (5s in core), so eighteen of them would exhaust the 90s
+	# request budget mid-loop. Friends resolve locally and cost nothing.
 	probes = 0
 	started = mochi.time.now()
 	for member_id in member_ids:
@@ -558,11 +454,8 @@ def action_list(a):
 		WHERE m.member IS NOT NULL OR c.status IN ('left', 'removed')
 		ORDER BY c.updated DESC
 	""", identity, identity)
-	# One query per batch of two-member chats, not one per chat. The list is
-	# every chat the user is in, so on a busy account this was a round trip
-	# per row to add a single column. Batched because the query is unbounded:
-	# an id per placeholder would eventually meet SQLite's variable limit,
-	# which the per-row form could never hit.
+	# One query per batch of two-member chats rather than one per chat; batched so
+	# an unbounded list cannot hit SQLite's variable limit.
 	pair_ids = [chat["id"] for chat in chats if chat.get("members") == 2]
 	others = {}
 	for start in range(0, len(pair_ids), _LIST_BATCH):
@@ -615,11 +508,10 @@ def action_new(a):
 		"data": {"name": a.user.identity.name, "friends": friends}
 	}
 
-# HTTP handlers serving a chat's message attachments (and thumbnails). Auth-only
-# routes. The library's attachment_serve performs no access check of its
-# own, so this handler is the gate: only members may view a chat's attachments
-# (mirrors action_messages), and the attachment must belong to a message in THIS
-# chat — its object is "chat/<chat_id>/<message_id>", so a prefix check binds it.
+# Attachment routes (bytes, thumbnail, preview). attachment_serve performs no
+# access check: serve_attachment is the gate (same rule as action_messages) and
+# binds the attachment to this chat via its "chat/<chat>/<message>" object
+# prefix.
 def action_attachment(a):
 	serve_attachment(a, "")
 
@@ -647,13 +539,10 @@ def serve_attachment(a, variant):
 	attachment_serve(a, attachment, chat["id"], variant=variant,
 		member=lambda object: object.startswith(prefix))
 
-# P2P byte-pull responder. A member on another host stores a message's
-# attachment metadata (entity = the sender), then pulls the bytes from the
-# sender here on demand. The chat id is derived from the attachment's object
-# ("chat/<chat_id>/<message_id>") and the requester must be a current member of
-# that chat; the binding then confirms the attachment really belongs to it, so a
-# lie about the object cannot fetch a file from a chat the requester is in but
-# the attachment is not.
+# P2P byte-pull responder: a member on another host stores the metadata and
+# pulls bytes from the sender on demand. The chat id comes from the attachment's
+# object; the requester must be a current member and the object prefix binds the
+# attachment to that chat.
 def event_attachment_fetch(e):
 	object = e.content("object", "")
 	parts = object.split("/")
@@ -685,12 +574,9 @@ def action_messages(a):
 	if limit_str and mochi.text.valid(limit_str, "natural"):
 		limit = min(int(limit_str), 100)
 
-	# Keyset cursor. `created` is whole seconds, so a busy chat has many
-	# messages sharing one timestamp; a `created`-only cursor can't separate
-	# them, so pages overlap (duplicates) or stall on a same-second run. The
-	# message id (a UUIDv7, already time-ordered) is the unique tiebreaker,
-	# giving the total order (created desc, id desc). `before_id` is optional
-	# so older clients that send only `before` keep working.
+	# Keyset cursor on (created desc, id desc): `created` is whole seconds, so the
+	# id (UUIDv7, time-ordered) breaks ties that would otherwise duplicate or stall
+	# pages. `before_id` is optional for older clients.
 	before = None
 	before_str = a.input("before")
 	# "integer" (<=12 digits), NOT "natural": the natural pattern caps at 9
@@ -857,11 +743,8 @@ def action_send(a):
 	# see the message arrive without a refresh.
 	mochi.db.commit.fire("messages", "insert", id)
 
-	# Send message to other members with attachment metadata piggybacked.
-	# member_ids comes pre-filtered to exclude the sender, so no exclude
-	# arg is needed here.
-	# Reuse now_send (already written to the DB) so sender and recipients
-	# store the identical created value.
+	# Broadcast with attachment metadata piggybacked; `created` is now_send so
+	# every host stores the same timestamp.
 	msg_data = {"chat": chat["id"], "message": id, "created": now_send, "body": body, "name": a.user.identity.name}
 	if reply_to:
 		msg_data["reply_to"] = reply_to
@@ -1067,21 +950,14 @@ def action_search(a):
 	results = mochi.db.rows("select id, member, name, body, created from messages where chat=? and body like ? escape '\\' and id not in (select message from deletions where chat=?) order by created desc limit 100", chat["id"], pattern, chat["id"])
 	return {"data": {"query": query, "results": results or []}}
 
-# Remove every local row for a chat (reactions, tombstones, messages,
-# members, read state, then the chat). One consistent cleanup path for the
-# leave/delete flows so new tables don't leak orphan rows.
-# Purge a chat's local content but keep a lightweight 'deleted' tombstone
-# row. The tombstone is what lets event_message tell "we deleted this chat"
-# (drop the message + leave-back to prune the stale sender) from "we were never
-# a member" (out-of-order delivery, resync). Without it a deleted chat
-# resurrects the instant a peer who still lists us sends a message. One tiny
-# row per deleted chat; chats are low-cardinality, so retention is a non-issue.
+# Purge a chat's local rows but keep a 'deleted' tombstone row: it lets
+# event_message tell "we deleted this chat" (drop and leave-back) from "never a
+# member" (bootstrap from the sender). Without it a deleted chat resurrects on
+# the next message from a stale peer.
 def chat_delete_local(chat_id):
-	# Attachments FIRST, and per message: they are keyed "chat/<chat>/<message>"
-	# and attachment_clear matches that object exactly - there is no
-	# prefix form - so the messages rows are the only record of which objects
-	# exist. Delete them first and every attachment row and file is stranded
-	# on disk with nothing left to enumerate it.
+	# Attachments first, per message: attachment_clear matches the exact object
+	# "chat/<chat>/<message>", so the messages rows are the only way to enumerate
+	# them.
 	for _row in mochi.db.rows("select id from messages where chat=?", chat_id) or []:
 		attachment_clear("chat/" + chat_id + "/" + _row["id"])
 	mochi.db.execute("delete from reactions where chat=?", chat_id)
@@ -1283,15 +1159,10 @@ def event_message_edit(e):
 	chat_ensure_commit_hook()
 	mochi.db.commit.fire("messages", "update", message_id)
 
-# Forward messages from this chat into another chat the caller belongs to,
-# copying body and attachment bytes as new messages authored by the caller.
-# Input `message_ids` is a JSON-encoded array string; `to_chat` is the target.
-# Helper: collect the forwardable source messages named by a JSON-array
-# `message_ids` string. Returns the list of message rows that exist in the
-# source chat and are not tombstoned, or None if the payload itself is
-# malformed/empty/oversized (the caller maps that to errors.invalid_message).
-# An empty-but-valid payload returns [] so the caller can decide whether
-# "nothing to forward" is an error in its context.
+# Collect the forwardable source messages named by a JSON-array `message_ids`
+# string: rows that exist in the source chat and are not tombstoned. None when
+# the payload is malformed, empty or oversized (caller maps to
+# errors.invalid_message); [] when none of the named messages qualify.
 def chat_collect_forwardable(source_id, raw_ids):
 	if not raw_ids:
 		return None
@@ -1312,26 +1183,13 @@ def chat_collect_forwardable(source_id, raw_ids):
 		out.append(source_message)
 	return out
 
-# Helper: copy the given (already-validated) source messages into target_id as
-# new messages authored by the forwarding member, carrying attachments, firing
-# the commit hook, and broadcasting each to the target's members. Returns the
-# list of new message ids. Shared by forward-to-existing-chat and
-# forward-to-friend so both paths stay identical.
-# May this forward's attachments be copied?
-#
-# Copying reads each file's bytes into memory (attachment_data) and
-# writes them back under the new message - there is no server-side copy - so a
-# forward of up to 100 attachment-heavy messages can exhaust the request's
-# memory or its 90s budget. Counting comes from attachment METADATA, so this
-# costs no bytes, and refusing up front matters: failing part way would leave
-# some messages forwarded and the rest not, with nothing to roll back.
-#
-# This bounds the COUNT, not the total size. A server-side copy primitive is
-# the real fix and would help every app that duplicates content.
-# Returns the per-message attachment lists it built, or None when the forward
-# is refused. chat_forward_into then copies from those rather than listing the
-# same objects a second time - the gate and the copier were each doing a full
-# attachment_list per source message.
+# chat_forward_allowed: may this forward's attachments be copied? Copying reads
+# each file into memory (no server-side copy), so the count is bounded up front
+# from metadata - failing part way would leave a half-forwarded set with nothing
+# to roll back. Returns the per-message attachment lists for chat_forward_into
+# to reuse, or None when refused. chat_forward_into: copy validated source
+# messages into target_id as new messages by the caller, with attachments,
+# commit hook and broadcast. Shared by both forward paths.
 def chat_forward_allowed(a, source_id, source_messages):
 	total = 0
 	listed = {}
@@ -1413,11 +1271,9 @@ def action_messages_forward(a):
 
 	return {"data": {"forwarded": forwarded, "to_chat": target["id"]}}
 
-# Forward messages to a friend, creating (or reusing) the 1-on-1 chat as part
-# of the same action. The source messages are validated BEFORE any chat is
-# created, so a forward with nothing to send can never leave an orphaned empty
-# chat behind — the failure case Numan's two-call (create-then-forward) flow
-# left open.
+# Forward messages to a friend, creating or reusing the one-on-one chat. Source
+# messages are validated before any chat is created, so an empty forward never
+# leaves an orphaned chat.
 def action_messages_forward_friend(a):
 	if not mochi.text.valid(a.input("chat"), "id"):
 		a.error.label(400, "errors.invalid_chat_id")
@@ -1504,11 +1360,8 @@ def action_view(a):
 		"data": {"chat": chat, "identity": a.user.identity.id}
 	}
 
-# Force a fresh info pull from another member of the chat. Unlike the
-# event-driven request_resync, this picks a peer for the user (the most
-# recently active member who isn't us) and bypasses the throttle so the
-# user can always force a sync. Useful when the member list is stale or
-# the chat is suspected to have drifted.
+# Manual resync from the most recently active other member, under the shorter
+# manual throttle window.
 def action_resync(a):
 	chat_id = a.input("chat")
 	if not mochi.text.valid(chat_id, "id"):
@@ -1544,28 +1397,19 @@ def action_resync(a):
 	synced = request_resync(chat_id, peer, _RESYNC_MANUAL)
 	return {"data": {"synced": synced, "throttled": True if throttled else False}}
 
-# request_resync asks a member peer for the chat's metadata + member list
-# when we receive an event referencing a chat we haven't seen yet. Chat
-# is peer-to-peer (no central owner) so the responder is whoever just
-# messaged us; they answer if they hold the chat. Throttled to one call
-# per 60 seconds per chat so a burst of out-of-order events can't spam.
+# Ask a member peer for the chat's name and roster when an event references a
+# chat we do not hold; throttled per chat so a burst of out-of-order events
+# cannot spam.
 def request_resync(chat_id, peer_member, minimum=_RESYNC_AUTOMATIC):
-	"""Returns True iff data was actually fetched and applied from the peer.
-	Throttle-skipped calls, missing args, and remote-request failures all
-	return False so callers don't lie about convergence.
-
-	`minimum` is the seconds that must have passed since the last attempt.
-	The manual path passes a shorter window than the automatic one."""
+	"""True only when data was fetched and applied; throttled, invalid and failed calls return False. `minimum` is the seconds since the last attempt."""
 	if not chat_id or not peer_member:
 		return False
 	row = mochi.db.row("select synced from chats where id=?", chat_id)
 	now = mochi.time.now()
 	if row and row["synced"] and now - row["synced"] < minimum:
 		return False
-	# Stamp the ATTEMPT, not just the success below: the remote request that
-	# follows is the expensive part, and a peer that never answers used to
-	# leave `synced` untouched, so every retry re-issued it. Throttling has to
-	# cover the failing case above all - that is the one worth flooding.
+	# Stamp the attempt, not only the success: a peer that never answers is the
+	# case the throttle must cover.
 	if row:
 		mochi.db.execute("update chats set synced=? where id=?", now, chat_id)
 	response = mochi.remote.request(peer_member, "chat", "info", {"chat": chat_id})
@@ -1595,12 +1439,9 @@ def request_resync(chat_id, peer_member, minimum=_RESYNC_AUTOMATIC):
 		mochi.db.execute("insert into members ( chat, member, name ) values ( ?, ?, ? ) on conflict ( chat, member ) do update set name=excluded.name", chat_id, m["id"], m["name"])
 	return True
 
-# Respond to a peer asking about a chat we both belong to. Returns the
-# chat's name and member list, but only if the requester is a member of
-# the chat — chat membership is private to its members.
-# Errors are label keys, matching what feeds and crm write to their streams
-# and what this app's own errors use. A literal here reaches the requesting
-# server as English regardless of the language its user reads.
+# Answer a member's resync request with the chat's name and roster; non-members
+# are refused since membership is private. Errors are label keys so the
+# requesting server can localise them.
 def event_info(e):
 	chat_id = e.content("chat")
 	if not chat_id:
@@ -1622,15 +1463,10 @@ def event_message(e):
 	chat_id = e.content("chat")
 	chat = mochi.db.row("select * from chats where id=?", chat_id)
 	if not chat:
-		# No row at all means we were never a member: departures keep a
-		# status tombstone, so a missing row is unambiguous. Treat as
-		# out-of-order delivery (event_new was missed) and bootstrap from the
-		# sender, who must be a member if they're sending us a message they
-		# thought we'd want. Only trust the sender if they're a known friend —
-		# otherwise any peer that knows a chat UID could plant a fabricated
-		# chat + member roster via request_resync. Mirrors the friends.get
-		# gate in event_new. (action_resync is exempt: it resyncs from a
-		# verified co-member of a chat the user already belongs to.)
+		# No row means we were never a member (departures keep a tombstone), so treat
+		# this as a missed event_new and bootstrap from the sender - but only a
+		# friend, or any peer knowing a chat id could plant a fabricated chat and
+		# roster via request_resync.
 		if not mochi.service.call("friends", "get", e.header("to"), e.header("from")):
 			return
 		request_resync(chat_id, e.header("from"))
@@ -1652,11 +1488,8 @@ def event_message(e):
 	if not mochi.text.valid(str(id), "id"):
 		return
 
-	# messages.id is a global primary key, so the replace-into below would delete
-	# any existing row with this id - in another chat, or authored by someone
-	# else - and re-insert it here. A member may only (re)create their OWN message
-	# in THIS chat; refuse a collision that is anything else. event_message_edit
-	# enforces the same author check for edits.
+	# messages.id is global: replace-into would move a row from another chat or
+	# author. A member may only (re)create their own message in this chat.
 	prior = mochi.db.row("select chat, member from messages where id=?", id)
 	if prior and (prior["chat"] != chat["id"] or prior["member"] != e.header("from")):
 		return
@@ -1676,11 +1509,8 @@ def event_message(e):
 	if len(str(body)) > 10000:
 		return
 
-	# Display name comes from the local members row, never the event payload.
-	# The sender identity is authenticated, but a payload name is whatever
-	# string the sending client chose - trusting it would let a member label
-	# their own messages with another participant's name, in the UI and in
-	# notifications. Event-provided names are untrusted metadata.
+	# Name from the local members row, never the payload: a sender could otherwise
+	# label their messages with another participant's name.
 	name = member["name"]
 
 	# If this message was already deleted-for-everyone, an out-of-order or
@@ -1718,19 +1548,12 @@ def event_message(e):
 		attachment_store(attachments, e.header("from"), "chat/" + chat["id"] + "/" + id)
 		attachments = attachment_list("chat/" + chat["id"] + "/" + id, chat["id"])
 
-	# Live-update websocket: routes through chat_commit_hook now that
-	# both action_send (the sender's host) and event_message (every
-	# recipient host) write the same messages row. The hook fires once
-	# per host that sees the row commit, so paired tabs see the
-	# message arrive without a refresh.
+	# The live-update push fires from chat_commit_hook.
 	chat_ensure_commit_hook()
 	mochi.db.commit.fire("messages", "insert", id)
 
-	# Targeted notification: a message that @mentions this user notifies on
-	# the separately-configurable "mention" topic instead of the generic
-	# message topic, so mentions cut through even when Messages is muted.
-	# The sender supplies the mentioned ids; trust them only as far as the
-	# roster — a mention of a non-member is ignored.
+	# An @mention of this user notifies on the separate "mention" topic so it cuts
+	# through a muted Messages topic.
 	mentions = e.content("mentions")
 	excerpt = str(body).strip()[:80]
 	if type(mentions) in ("list", "tuple") and e.header("to") in [str(m) for m in mentions]:
@@ -1743,14 +1566,10 @@ def event_message(e):
 
 # Received a new chat event
 def event_new(e):
-	# Chats come from friends (cross-app dependency on the people app's
-	# friends service) or, when the user's chat_policy preference is
-	# "anyone", from any sender. A refused invite is dropped silently ON
-	# PURPOSE: any peer can invoke this event directly, and an unfriended or
-	# blocked sender must not receive confirmation that they were dropped.
-	# The sender-side rejection lives in action_create / action_member_add /
-	# action_messages_forward_friend, which probe this user's accept/query
-	# event and refuse with a clear error before anything is created (#206).
+	# Accept from friends, or from anyone when chat_policy is "anyone". A refused
+	# invite is dropped silently on purpose: any peer can send this event, and an
+	# unfriended or blocked sender must not learn they were dropped. The
+	# sender-side refusal is the accept/query probe (#206).
 	f = mochi.service.call("friends", "get", e.header("to"), e.header("from"))
 	if not f:
 		if (e.user.preference.get("chat_policy") or "friends") != "anyone":
@@ -1764,12 +1583,9 @@ def event_new(e):
 	if not mochi.text.valid(name, "name"):
 		return
 
-	# Read the row rather than relying on an insert-or-ignore, because the two
-	# cases need different answers. An existing active row is a genuine
-	# duplicate event (skip). An existing non-active row is a departure
-	# tombstone - we left, were removed, or deleted the chat earlier - and
-	# being freshly added back reactivates it, subject to the guard below,
-	# where a bare insert-or-ignore would silently drop the re-add.
+	# Read rather than insert-or-ignore: an active row is a duplicate event, a
+	# non-active row is a departure tombstone that a genuine re-add reactivates
+	# (guarded below).
 	existing = mochi.db.row("select status from chats where id=?", chat)
 	if existing and existing["status"] == "active":
 		return
@@ -1799,16 +1615,11 @@ def event_new(e):
 		roster.append(member)
 
 	if existing:
-		# Reactivating a tombstone needs evidence of a genuine re-add: the
-		# sender must be a remembered co-member of this chat, and the roster
-		# must list us. Otherwise any sender passing the policy gate above
-		# could force a chat the user deliberately left back to active, with
-		# any roster, forever. A 'deleted' tombstone has no remembered
-		# members (chat_delete_local purges them), so a deleted chat can
-		# never be reactivated - a sender wanting to talk again must start a
-		# fresh chat, and their stale roster self-heals via the leave-back in
-		# event_message. A former co-member can still replay a captured
-		# re-add; the stricter invite/accept round-trip is a future option.
+		# Reactivating a tombstone needs evidence of a real re-add: the sender must be
+		# a remembered co-member and the roster must list us, or any sender past the
+		# policy gate could force a deliberately-left chat back to active. A deleted
+		# chat has no remembered members, so it can never be reactivated - the sender
+		# must start a fresh chat.
 		if not mochi.db.exists("select 1 from members where chat=? and member=?", chat, e.header("from")):
 			return
 		if e.header("to") not in [m["id"] for m in roster]:
@@ -1820,13 +1631,10 @@ def event_new(e):
 	for member in roster:
 		mochi.db.execute("insert into members ( chat, member, name ) values ( ?, ?, ? ) on conflict ( chat, member ) do update set name=excluded.name", chat, member["id"], member["name"])
 
-# Would-you-accept probe: a prospective sender asks whether they may start a
-# chat with this user, before creating anything. Answers from the same rule
-# event_new applies — friendship, or chat_policy == "anyone" — and carries
-# the display name so the sender needs no directory lookup. This does reveal
-# accept/refuse to a non-friend, but only at new-contact time: the create
-# attempt itself would reveal the same, and existing-relationship silence
-# (the unfriended-sender case) is unaffected because friends never probe.
+# Would-you-accept probe: answers from the same rule as event_new (friendship or
+# chat_policy "anyone") and carries the display name so the sender needs no
+# directory lookup. Reveals accept/refuse to a non-friend, which the create
+# attempt would reveal anyway.
 def event_accept_query(e):
 	accept = False
 	if mochi.service.call("friends", "get", e.header("to"), e.header("from")):
@@ -1863,12 +1671,9 @@ def event_rename(e):
 	incoming = event_integer(e.content("updated", "0"))
 	if incoming == None:
 		incoming = 0
-	# The same window event_message and event_edit apply to created/edited.
-	# Without it a member could send a far-future stamp, which pins the chat
-	# to the top of an updated-ordered list and then fails every later rename
-	# against the gate below - so the name freezes and the divergence can
-	# never heal. Fall back to our own clock rather than dropping the rename:
-	# the name itself is still legitimate.
+	# Same window as created/edited. A far-future stamp would pin the chat to the
+	# top of the list and make every later rename lose to the gate below, freezing
+	# the name. Fall back to our clock; the name itself is legitimate.
 	if incoming > now + 86400 or incoming < now - 31536000:
 		incoming = 0
 	if incoming and chat["updated"] and incoming <= chat["updated"]:
@@ -1920,12 +1725,9 @@ def event_member_add(e):
 	if not mochi.text.valid(name, "name"):
 		return
 
-	# The cap is a real maximum, so it holds on the way in too: without this a
-	# peer could push a roster past it one add at a time, which is the per-entry
-	# work the limit exists to bound. Only a genuinely new member is refused - an
-	# existing one is a name update and doesn't grow the roster. A refusal leaves
-	# our roster short of the sender's, repairable by resync; that is the
-	# accepted cost of the limit being a maximum rather than a suggestion.
+	# The cap holds on the way in too, or a peer could grow a roster past it one
+	# add at a time. Only a genuinely new member is refused; a refusal leaves our
+	# roster short, repairable by resync.
 	if not mochi.db.exists("select 1 from members where chat=? and member=?", chat["id"], member):
 		count = mochi.db.row("select count(*) as members from members where chat=?", chat["id"])
 		if count and count["members"] >= _MEMBERS_MAXIMUM:
@@ -2145,11 +1947,8 @@ def action_member_add(a):
 	existing_member_ids = [m["member"] for m in existing_members]
 	broadcast_chat(chat["id"], a.user.identity.id, existing_member_ids, "member/add", {"id": chat["id"], "member": member_id, "name": member_name}, exclude=a.user.identity.id)
 
-	# Send new event to the added member with full chat details. This is
-	# a single-recipient bootstrap event carrying the member list as
-	# stream body — broadcast.send doesn't carry a body and the receiver
-	# has no prior _received state, so raw mochi.message.send is the
-	# right shape.
+	# Single-recipient bootstrap with the roster as stream body: broadcast.send
+	# carries no body and the receiver has no stream state yet.
 	mochi.message.send({"from": a.user.identity.id, "to": member_id, "service": "chat", "event": "new"}, {"id": chat["id"], "name": chat["name"]}, all_members)
 
 	chat_websocket(chat["key"], {"event": "member/add", "member": member_id, "name": member_name})

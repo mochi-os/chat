@@ -180,10 +180,10 @@ export function ChatMessageList({
   const { t } = useLingui()
   const { formatDate, formatTime, formatNumber } = useFormat()
 
-  // The message asset route is member-only, so an <img> has to carry the app
-  // token: a session cookie alone is refused, and inside the shell's sandboxed
-  // iframe no cookie is sent at all. authenticatedUrl() covers the in-shell
-  // case; the top window (direct link, no shell) needs the store's token.
+  // The asset route is member-only, so the <img> carries the app token: cookies
+  // are refused, and none are sent inside the shell's sandboxed iframe.
+  // authenticatedUrl() covers the shell; the top window appends the store's
+  // token.
   const appToken = useAuthStore((state) => state.token)
   const assetUrl = (path: string) => {
     if (isInShell()) return authenticatedUrl(path)

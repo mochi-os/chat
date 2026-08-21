@@ -114,9 +114,8 @@ export const createPendingAudioAttachment = (
 }
 
 /**
- * Read the duration (seconds) of an audio object URL via metadata preload.
- * Resolves 0 when the browser cannot determine it (caption falls back to
- * "audio:0" and the player corrects itself on loadedmetadata).
+ * Audio duration in seconds via metadata preload; 0 when the browser cannot
+ * determine it (the player corrects itself on loadedmetadata).
  */
 export const probeAudioDuration = (url: string): Promise<number> =>
   new Promise((resolve) => {
@@ -159,9 +158,8 @@ export const revokePendingAttachmentPreview = (
 }
 
 /**
- * Accent- and case-insensitive substring match for filtering people and chats
- * by name, so "cafe" finds "Café" and "Ana" finds "Ána". naturalCompare covers
- * the ordering side of the same problem but cannot answer "contains".
+ * Accent- and case-insensitive substring match ("cafe" finds "Café");
+ * naturalCompare orders but cannot answer "contains".
  */
 export function nameMatches(name: string, query: string): boolean {
   if (!query) return true

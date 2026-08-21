@@ -6,17 +6,16 @@
 import { isImage, isVideo } from '@mochi/web'
 
 /**
- * Fixed column for voice / audio / document bubbles (WhatsApp-style).
- * Must use rem width — NOT width:min(100%, …) under w-fit parents
- * (percent resolves to content size → short filenames stay narrow).
+ * Fixed column for voice / audio / document bubbles. Must be a rem width: under
+ * w-fit parents a percentage resolves to content size, so short filenames stay
+ * narrow.
  */
 export const CHAT_MEDIA_BUBBLE_CLASS =
   'box-border w-[17.5rem] max-w-[calc(100vw-4.5rem)] shrink-0'
 
 /**
- * Column for image / video bubbles. Without a cap these follow the bubble's
- * 80% width, so on a wide desktop a single photo renders several hundred
- * pixels tall and one message fills the viewport.
+ * Column for image / video bubbles, capped so one photo does not fill a wide
+ * viewport.
  */
 export const CHAT_MEDIA_GRID_BUBBLE_CLASS =
   'w-full max-w-[20rem] min-w-0'

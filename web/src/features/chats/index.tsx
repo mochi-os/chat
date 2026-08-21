@@ -379,11 +379,9 @@ export function Chats() {
     })()
   }, [])
 
-  // Keyed on the id and status alone, not the whole chat: any other field
-  // changing (a new message bumping `updated`, say) must not re-mark the
-  // chat read.
-  // Not selectedChatId above: that one is the URL parameter, which is set
-  // before the chat itself has loaded.
+  // Keyed on id and status only: a new message bumping `updated` must not
+  // re-mark the chat read. Not selectedChatId - that is the URL parameter, set
+  // before the chat has loaded.
   const loadedChatId = selectedChat?.id
   const loadedChatStatus = selectedChat?.status
   useEffect(() => {
@@ -494,17 +492,10 @@ export function Chats() {
     return [...messagesQuery.data.pages].reverse().flatMap((p) => p.messages)
   }, [messagesQuery.data?.pages])
 
-  // Marking read once per open watermarks at whatever the newest message was
-  // at that instant, so everything arriving over the websocket while the chat
-  // sat open in front of the reader stayed unread on the server. The badge is
-  // hidden for the active chat, so it only showed on navigating away - from a
-  // chat that had just been read.
-  //
-  // Only while pinned to the newest message: further up the history, an
-  // arriving message is genuinely not in front of the reader, and marking it
-  // read would be the same wrongness in the other direction. The server takes
-  // the later of what it holds and what is sent, so a late or out-of-order
-  // call cannot move the watermark backwards.
+  // Re-mark read as messages arrive while the chat is open, but only while
+  // pinned to the newest message; further up the history an arrival is not in
+  // front of the reader. The server keeps the later watermark, so a late call
+  // cannot move it backwards.
   const newestMessage = chatMessages.length
     ? chatMessages[chatMessages.length - 1]
     : undefined

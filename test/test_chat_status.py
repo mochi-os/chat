@@ -4,17 +4,10 @@
 # This file is part of Mochi, licensed under the GNU AGPL v3 with the
 # Mochi Application Interface Exception - see license.txt and license-exception.md.
 
-# Chat status/tombstone behaviour test (dual-identity, instance 2).
-#
-# Exercises the per-chat `status` redesign end to end against a live dev
-# instance: receive-as-active (event_new), message ingestion (event_message
-# active path), leave + roster prune (event_leave), and the re-add
-# reactivation of a departure tombstone (event_new reactivation). Asserts on
-# real chat.db state, not just API responses.
-#
-# Topology: admin (dev1) and user (dev21) are mutual friends on instance 2.
-# Both are driven through port 8082; chat P2P loops back within the host but
-# every event handler runs for real.
+# Chat status/tombstone test against live dev instance 2: event_new,
+# event_message, event_leave and tombstone reactivation, asserting on chat.db
+# state. admin (dev1) and user (dev21) are mutual friends, both driven through
+# port 8082.
 import json, subprocess, sqlite3, sys, time, urllib.request
 
 SCRIPTS = "/home/alistair/mochi/claude/scripts"
