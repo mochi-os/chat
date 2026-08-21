@@ -6,6 +6,7 @@
 import { Loader2, Play } from 'lucide-react'
 import { useLingui } from '@lingui/react/macro'
 import {
+  AttachmentImage,
   ImageLightbox,
   type LightboxMedia,
   cn,
@@ -125,7 +126,7 @@ export function MessageMediaGrid({
               {isVideo(attachment.type) ? (
                 <VideoTile url={getUrl(attachment)} />
               ) : (
-                <img
+                <AttachmentImage
                   src={getPreviewUrl(attachment)}
                   alt={attachment.name}
                   className='h-full w-full object-cover'
