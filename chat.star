@@ -1757,6 +1757,15 @@ def event_member_remove(e):
 	if not mochi.text.valid(member, "entity"):
 		return
 
+	# Our own removal must arrive as `removed`; converge on that handler's state
+	# rather than deleting our own row, which strands the chat - dropped from the
+	# list, 403 on every read, and refused by delete, with no resync able to
+	# repair it.
+	if member == e.header("to"):
+		mochi.db.execute("update chats set status='removed', updated=? where id=?", mochi.time.now(), chat["id"])
+		chat_websocket(chat["key"], {"event": "removed"})
+		return
+
 	mochi.db.execute("delete from members where chat=? and member=?", chat["id"], member)
 	# As in event_leave: this host's own stream must stop serving them.
 	mochi.broadcast.subscriber.remove(chat["id"], member)
