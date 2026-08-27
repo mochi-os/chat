@@ -31,7 +31,7 @@ def error_message_timeout(e):
 		return
 	member = e.entity
 	affected = mochi.db.rows("select distinct chat from members where member=?", member)
-	for row in affected or []:
+	for row in affected:
 		mochi.db.execute("delete from members where chat=? and member=?", row["chat"], member)
 	for r in affected:
 		row = mochi.db.row("select key from chats where id=?", r["chat"])
@@ -277,6 +277,37 @@ def action_message_asset(a):
 	row = mochi.db.row("select member from messages where id=? and chat=?", a.input("message"), a.input("chat"))
 	return stream_asset(a, row["member"] if row else "", "people", asset)
 
+# Serves a person's avatar or style through THIS app, so the SPA never fetches
+# /people/<id>/-/avatar itself. A cross-app image request carries Origin: null
+# and no cookies inside the shell's sandboxed iframe, and the people route is
+# public - so with no locally-known entity core resolves the owner to the first
+# administrator, and the ADMIN's account performs the outbound stream for every
+# avatar every chat user renders.
+#
+# The gate is what chat legitimately knows about a person: we share a chat with
+# them, or they are a friend. Both are cheap and neither leaks a person the
+# caller could not already name.
+def action_person_asset(a):
+	asset = a.input("asset")
+	if asset not in _PERSON_ASSETS:
+		a.error.label(404, "errors.unknown_asset")
+		return
+
+	person = a.input("person")
+	user = a.user.identity.id if a.user and a.user.identity else None
+	if not user:
+		a.error.label(403, "errors.asset_unavailable", asset=asset)
+		return
+
+	shared = mochi.db.exists(
+		"select 1 from members m1 join members m2 on m1.chat=m2.chat where m1.member=? and m2.member=?",
+		user, person)
+	if not shared and not mochi.service.call("friends", "get", user, person):
+		a.error.label(403, "errors.asset_unavailable", asset=asset)
+		return
+
+	return stream_asset(a, person, "people", asset)
+
 # Whom may start a chat with this user: friends only (default) or anyone.
 _VALID_CHAT_POLICIES = ("friends", "anyone")
 
@@ -358,8 +389,9 @@ def chat_member_allowed(user, member_id):
 	# distinct from an explicit {"accept": False} policy refusal.
 	if response == None or response.get("error"):
 		return {"error": "errors.member_unreachable"}
-	if response.get("accept") and mochi.text.valid(response.get("name", ""), "name"):
-		return {"name": response["name"], "probed": True}
+	answered = response.get("name", "")
+	if response.get("accept") and type(answered) == "string" and mochi.text.valid(answered, "display"):
+		return {"name": answered, "probed": True}
 	return {"error": "errors.does_not_accept_chats"}
 
 # Create new chat
@@ -544,7 +576,9 @@ def serve_attachment(a, variant):
 # object; the requester must be a current member and the object prefix binds the
 # attachment to that chat.
 def event_attachment_fetch(e):
-	object = e.content("object", "")
+	# content_text, not e.content: a non-string aborts the handler at .split,
+	# and this is a peer-supplied field on an unauthenticated path.
+	object = content_text(e, "object", "")
 	parts = object.split("/")
 	chat_id = parts[1] if len(parts) >= 2 and parts[0] == "chat" else ""
 	prefix = "chat/" + chat_id + "/"
@@ -1417,7 +1451,12 @@ def request_resync(chat_id, peer_member, minimum=_RESYNC_AUTOMATIC):
 		return False
 	name = response.get("name") or ""
 	members = response.get("members") or []
-	if not mochi.text.valid(name, "name"):
+	if type(name) != "string" or not mochi.text.valid(name, "display"):
+		return False
+	# event_new caps its roster; this path answers the same claim from the same
+	# kind of peer, so it carries the same ceiling. Without it one `info`
+	# response inserts as many members rows as it names.
+	if type(members) not in ["list", "tuple"] or len(members) > _MEMBERS_MAXIMUM:
 		return False
 	# Create chat if missing. Re-read existence here (not the throttle read
 	# above): a concurrent event_new may have inserted the chat while we were
@@ -1432,11 +1471,18 @@ def request_resync(chat_id, peer_member, minimum=_RESYNC_AUTOMATIC):
 		mochi.db.execute("update chats set synced=? where id=?", now, chat_id)
 	# Insert or refresh members.
 	for m in members:
-		if not mochi.text.valid(m.get("id", ""), "entity"):
+		if type(m) != "dict":
 			continue
-		if not mochi.text.valid(m.get("name", ""), "name"):
+		id = m.get("id", "")
+		display = m.get("name", "")
+		if type(id) != "string" or not mochi.text.valid(id, "entity"):
 			continue
-		mochi.db.execute("insert into members ( chat, member, name ) values ( ?, ?, ? ) on conflict ( chat, member ) do update set name=excluded.name", chat_id, m["id"], m["name"])
+		# "display", not "name": these are rendered to other participants and
+		# into notification bodies, and "name" admits the Cf bidirectional
+		# overrides that "display" exists to reject.
+		if type(display) != "string" or not mochi.text.valid(display, "display"):
+			continue
+		mochi.db.execute("insert into members ( chat, member, name ) values ( ?, ?, ? ) on conflict ( chat, member ) do update set name=excluded.name", chat_id, id, display)
 	return True
 
 # Answer a member's resync request with the chat's name and roster; non-members
@@ -1575,12 +1621,14 @@ def event_new(e):
 		if (e.user.preference.get("chat_policy") or "friends") != "anyone":
 			return
 
-	chat = e.content("id")
+	chat = content_text(e, "id", "")
 	if not mochi.text.valid(chat, "id"):
 		return
 
-	name = e.content("name")
-	if not mochi.text.valid(name, "name"):
+	# "display" rejects the Cf bidirectional overrides "name" admits, and this
+	# string is rendered to every other participant.
+	name = content_text(e, "name", "")
+	if not mochi.text.valid(name, "display"):
 		return
 
 	# Read rather than insert-or-ignore: an active row is a duplicate event, a
@@ -1605,24 +1653,30 @@ def event_new(e):
 	for member in members:
 		if type(member) != "dict":
 			return
-		if not mochi.text.valid(member.get("id"), "entity"):
+		if type(member.get("id")) != "string" or not mochi.text.valid(member["id"], "entity"):
 			return
-		if not mochi.text.valid(member.get("name"), "name"):
+		if type(member.get("name")) != "string" or not mochi.text.valid(member["name"], "display"):
 			return
 		if member["id"] in seen:
 			continue
 		seen[member["id"]] = True
 		roster.append(member)
 
+	# A chat we are not in is a chat we can never see or delete: action_list
+	# filters on membership and action_delete refuses a chat whose roster does
+	# not name us, so the rows would persist unreachable while later events from
+	# listed members kept landing in them. The sender has to be in it too -
+	# nobody creates a conversation they are not part of.
+	listed = [m["id"] for m in roster]
+	if e.header("to") not in listed or e.header("from") not in listed:
+		return
+
 	if existing:
 		# Reactivating a tombstone needs evidence of a real re-add: the sender must be
-		# a remembered co-member and the roster must list us, or any sender past the
-		# policy gate could force a deliberately-left chat back to active. A deleted
-		# chat has no remembered members, so it can never be reactivated - the sender
-		# must start a fresh chat.
+		# a remembered co-member, or any sender past the policy gate could force a
+		# deliberately-left chat back to active. A deleted chat has no remembered
+		# members, so it can never be reactivated - the sender must start a fresh chat.
 		if not mochi.db.exists("select 1 from members where chat=? and member=?", chat, e.header("from")):
-			return
-		if e.header("to") not in [m["id"] for m in roster]:
 			return
 		mochi.db.execute("update chats set status='active', name=?, updated=? where id=?", name, mochi.time.now(), chat)
 	else:
@@ -1659,8 +1713,8 @@ def event_rename(e):
 	if not mochi.db.exists("select 1 from members where chat=? and member=?", chat["id"], sender):
 		return
 
-	name = e.content("name")
-	if not mochi.text.valid(name, "name"):
+	name = content_text(e, "name", "")
+	if not mochi.text.valid(name, "display"):
 		return
 
 	# LWW gate: if a newer rename has already landed locally (concurrent
@@ -1690,7 +1744,7 @@ def event_leave(e):
 	if not chat_active(chat):
 		return
 
-	member = e.content("member")
+	member = content_text(e, "member", "")
 	if not mochi.text.valid(member, "entity"):
 		return
 
@@ -1717,12 +1771,12 @@ def event_member_add(e):
 	if not mochi.db.exists("select 1 from members where chat=? and member=?", chat["id"], sender):
 		return
 
-	member = e.content("member")
+	member = content_text(e, "member", "")
 	if not mochi.text.valid(member, "entity"):
 		return
 
-	name = e.content("name")
-	if not mochi.text.valid(name, "name"):
+	name = content_text(e, "name", "")
+	if not mochi.text.valid(name, "display"):
 		return
 
 	# The cap holds on the way in too, or a peer could grow a roster past it one
@@ -1753,7 +1807,7 @@ def event_member_remove(e):
 	if not mochi.db.exists("select 1 from members where chat=? and member=?", chat["id"], sender):
 		return
 
-	member = e.content("member")
+	member = content_text(e, "member", "")
 	if not mochi.text.valid(member, "entity"):
 		return
 
@@ -1799,7 +1853,11 @@ def action_members(a):
 		a.error.label(404, "errors.chat_not_found")
 		return
 
-	if not mochi.db.exists("select 1 from members where chat=? and member=?", chat["id"], a.user.identity.id):
+	# Same rule as action_view, action_messages, action_search and
+	# serve_attachment: a member, or a chat we left but can still read back.
+	# Without the second arm the settings page 403s its member list on a chat
+	# whose view call on the same page succeeds.
+	if not mochi.db.exists("select 1 from members where chat=? and member=?", chat["id"], a.user.identity.id) and chat["status"] not in ("left", "removed"):
 		a.error.label(403, "errors.not_a_member_of_this_chat")
 		return
 
@@ -1888,6 +1946,13 @@ def action_delete(a):
 	chat = mochi.db.row("select * from chats where id=?", a.input("chat"))
 	if not chat:
 		a.error.label(404, "errors.chat_not_found")
+		return
+
+	# The roster gate every other chat action applies. Per-user database scoping
+	# already keeps one account out of another's rows, so this is consistency
+	# rather than a second boundary - but it is the only write path without it.
+	if not mochi.db.exists("select 1 from members where chat=? and member=?", chat["id"], a.user.identity.id):
+		a.error.label(403, "errors.not_a_member_of_this_chat")
 		return
 
 	# Only allow deleting a chat we've already left or been removed from.

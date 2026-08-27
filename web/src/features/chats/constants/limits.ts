@@ -21,11 +21,15 @@ export const MENTIONS_MAX = 50
 export const CAPTIONS_MAX = 100
 export const CAPTION_MAX_LENGTH = 200
 
+
 /** messages/delete and messages/forward: `len(message_ids) > 100`. */
 export const BULK_MESSAGES_MAX = 100
 
 /**
- * action_create stops probing non-friends at _PROBES_MAXIMUM; larger groups go
- * in as a create plus member/add batches. Friends are not counted.
+ * action_create stops probing non-friends at _PROBES_MAXIMUM (100), but it also
+ * gives the whole probe run _PROBES_BUDGET seconds - so a first batch of 100
+ * slow strangers fails the entire create with errors.too_many_to_check rather
+ * than the friendly refusal this bound is meant to produce. Held to what the
+ * time budget can actually clear.
  */
-export const CREATE_NON_FRIENDS_MAX = 100
+export const CREATE_NON_FRIENDS_MAX = 25

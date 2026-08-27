@@ -11,7 +11,7 @@ import { useLingui } from '@lingui/react/macro'
 import type { ReactionId, ReactionCounts } from '@/api/types/chats'
 export type { ReactionId, ReactionCounts }
 
-export const reactionOptions: { id: ReactionId; emoji: string }[] = [
+const reactionOptions: { id: ReactionId; emoji: string }[] = [
   { id: 'like', emoji: '👍' },
   { id: 'dislike', emoji: '👎' },
   { id: 'laugh', emoji: '😂' },

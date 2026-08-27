@@ -105,7 +105,7 @@ export function NewChat() {
       .map((f) => ({
         id: f!.id,
         name: f!.name,
-        chatId: f!.chatFingerprint ?? f!.chatId!,
+        chatId: f!.chatId!,
       }))
   }, [selectedFriends, friends])
 
@@ -224,7 +224,7 @@ export function NewChat() {
       if (data.id) {
         void navigate({
           to: '/$chatId',
-          params: { chatId: data.fingerprint ?? data.id },
+          params: { chatId: data.id },
         })
       }
     } catch {

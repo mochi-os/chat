@@ -14,8 +14,6 @@ export const chatActive = (chat: Pick<Chat, 'status'>): boolean =>
 
 export interface Chat {
   id: string
-  fingerprint?: string
-  identity: string
   key: string
   name: string
   updated: number
@@ -75,11 +73,9 @@ export interface ChatMessageAttachment {
 export interface ChatMessage {
   id: string
   chat: string
-  chatFingerprint?: string
   body: string
   member: string
   name: string
-  email?: string
   created: number
   reply_to?: string | null
   attachments: ChatMessageAttachment[]
@@ -130,7 +126,6 @@ export interface CreateChatRequest {
 
 export interface CreateChatResponse {
   id: string
-  fingerprint?: string
   members: ChatMember[]
   name: string
 }
@@ -141,7 +136,6 @@ export interface NewChatFriend {
   identity: string
   name: string
   chatId?: string
-  chatFingerprint?: string
 }
 
 export interface GetNewChatResponse {

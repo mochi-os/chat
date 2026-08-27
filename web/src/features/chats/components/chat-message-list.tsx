@@ -32,8 +32,6 @@ import {
   Skeleton,
   getAppPath,
   authenticatedUrl,
-  isInShell,
-  useAuthStore,
   actionPillExpandMaxWidthMap,
   actionPillExpandOpacityMap,
   MentionTextarea,
@@ -182,15 +180,10 @@ export function ChatMessageList({
 
   // The asset route is member-only, so the <img> carries the app token: cookies
   // are refused, and none are sent inside the shell's sandboxed iframe.
-  // authenticatedUrl() covers the shell; the top window appends the store's
-  // token.
-  const appToken = useAuthStore((state) => state.token)
-  const assetUrl = (path: string) => {
-    if (isInShell()) return authenticatedUrl(path)
-    if (!appToken) return path
-    const raw = appToken.startsWith('Bearer ') ? appToken.slice(7) : appToken
-    return `${path}?token=${encodeURIComponent(raw)}`
-  }
+  // authenticatedUrl() in both windows. Core also accepts ?token=, but that
+  // puts the raw app JWT in access logs, the Referer header and browser
+  // history, and the shell branch was already avoiding it.
+  const assetUrl = (path: string) => authenticatedUrl(path)
 
   const scrollContainerRef = useRef<HTMLDivElement | null>(null)
   const messagesEndRef = useRef<HTMLDivElement | null>(null)

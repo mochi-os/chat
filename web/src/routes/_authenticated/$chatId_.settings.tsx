@@ -35,6 +35,7 @@ import {
   naturalCompare,
 } from '@mochi/web'
 import { nameMatches } from '@/features/chats/utils'
+import { personAssetUrl } from '@/api/person'
 import {
   CHAT_NAME_FORBIDDEN,
   CHAT_NAME_MAX_LENGTH,
@@ -278,8 +279,8 @@ function MembersSection({
               >
                 <div className='flex items-center gap-3'>
                   <EntityAvatar
-                    src={`/people/${member.id}/-/avatar`}
-                    styleUrl={`/people/${member.id}/-/style`}
+                    src={personAssetUrl(member.id, 'avatar')}
+                    styleUrl={personAssetUrl(member.id, 'style')}
                     name={member.name}
                     size="md"
                   />
@@ -488,8 +489,8 @@ function AddMemberDialog({
                     disabled={addMemberMutation.isPending}
                   >
                     <EntityAvatar
-                      src={`/people/${friend.id}/-/avatar`}
-                      styleUrl={`/people/${friend.id}/-/style`}
+                      src={personAssetUrl(friend.id, 'avatar')}
+                      styleUrl={personAssetUrl(friend.id, 'style')}
                       name={friend.name}
                       size='lg'
                     />

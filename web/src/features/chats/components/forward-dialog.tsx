@@ -27,10 +27,11 @@ import { nameMatches } from '../utils'
 import {
   useChatsQuery,
   useForwardMessagesMutation,
+  useForwardToFriendMutation,
   useNewChatFriendsQuery,
-  useCreateChatMutation,
 } from '@/hooks/useChats'
 import { chatActive } from '@/api/types/chats'
+import { personAssetUrl } from '@/api/person'
 
 interface ForwardDialogProps {
   open: boolean
@@ -58,8 +59,8 @@ export function ForwardDialog({
   const chatsQuery = useChatsQuery({ enabled: open })
   const friendsQuery = useNewChatFriendsQuery({ enabled: open })
 
-  const createChatMutation = useCreateChatMutation()
   const forwardMutation = useForwardMessagesMutation()
+  const forwardToFriendMutation = useForwardToFriendMutation()
 
   // Eligible destinations, kept in two groups: existing active chats (excluding
   // the source) and friends without an existing direct chat yet.
@@ -115,13 +116,11 @@ export function ForwardDialog({
       const data = await toastAction(
         selectedDest.kind === 'chat'
           ? forwardToChat(selectedDest.id)
-          : (async () => {
-              const newChat = await createChatMutation.mutateAsync({
-                members: selectedDest.id,
-                name: selectedDest.name,
-              })
-              return forwardToChat(newChat.fingerprint ?? newChat.id)
-            })(),
+          : forwardToFriendMutation.mutateAsync({
+              chatId: sourceChatId,
+              messageIds,
+              member: selectedDest.id,
+            }),
         {
           loading: t`Forwarding...`,
           success: t`Forwarded`,
@@ -137,7 +136,7 @@ export function ForwardDialog({
 
   const isLoading = chatsQuery.isLoading || friendsQuery.isLoading
   const queryError = chatsQuery.error ?? friendsQuery.error
-  const isPending = createChatMutation.isPending || forwardMutation.isPending
+  const isPending = forwardToFriendMutation.isPending || forwardMutation.isPending
 
   const renderDestination = (dest: Destination) => {
     const isSelected =
@@ -156,15 +155,15 @@ export function ForwardDialog({
       >
         {dest.kind === 'friend' ? (
           <EntityAvatar
-            src={`/people/${dest.id}/-/avatar`}
-            styleUrl={`/people/${dest.id}/-/style`}
+            src={personAssetUrl(dest.id, 'avatar')}
+            styleUrl={personAssetUrl(dest.id, 'style')}
             name={dest.name}
             size='lg'
           />
         ) : dest.members === 2 && dest.other ? (
           <EntityAvatar
-            src={`/people/${dest.other}/-/avatar`}
-            styleUrl={`/people/${dest.other}/-/style`}
+            src={personAssetUrl(dest.other, 'avatar')}
+            styleUrl={personAssetUrl(dest.other, 'style')}
             name={dest.name}
             size='lg'
           />

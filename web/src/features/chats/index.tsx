@@ -53,6 +53,7 @@ import {
   useEditMessageMutation,
 } from '@/hooks/useChats'
 import { chatActive, type GetMessagesResponse } from '@/api/types/chats'
+import { personAssetUrl } from '@/api/person'
 import { ChatEmptyState } from './components/chat-empty-state'
 import { ChatSettingsDialog } from './components/chat-settings-dialog'
 import { ChatInput, type ChatInputHandle } from './components/chat-input'
@@ -211,7 +212,7 @@ export function Chats() {
         if (data?.id) {
           void navigate({
             to: '/$chatId',
-            params: { chatId: data.fingerprint ?? data.id },
+            params: { chatId: data.id },
             replace: true,
           })
         }
@@ -233,9 +234,7 @@ export function Chats() {
 
   const selectedChat = useMemo(
     () =>
-      chats.find(
-        (c) => c.id === selectedChatId || c.fingerprint === selectedChatId
-      ) ?? null,
+      chats.find((c) => c.id === selectedChatId) ?? null,
     [chats, selectedChatId]
   )
 
@@ -1130,8 +1129,8 @@ export function Chats() {
           icon={
             selectedChat.members === 2 && selectedChat.other ? (
               <EntityAvatar
-                src={`/people/${selectedChat.other}/-/avatar`}
-                styleUrl={`/people/${selectedChat.other}/-/style`}
+                src={personAssetUrl(selectedChat.other, 'avatar')}
+                styleUrl={personAssetUrl(selectedChat.other, 'style')}
                 name={selectedChat.name}
                 size="xl"
               />

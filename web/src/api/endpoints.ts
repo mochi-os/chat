@@ -15,6 +15,8 @@ const endpoints = {
     messagesEdit: (chatId: string) => `/${chatId}/-/messages/edit`,
     messagesDelete: (chatId: string) => `/${chatId}/-/messages/delete`,
     messagesForward: (chatId: string) => `/${chatId}/-/messages/forward`,
+    messagesForwardFriend: (chatId: string) =>
+      `/${chatId}/-/messages/forward/friend`,
     search: (chatId: string) => `/${chatId}/-/search`,
     read: (chatId: string) => `/${chatId}/-/read`,
     send: (chatId: string) => `/${chatId}/-/send`,

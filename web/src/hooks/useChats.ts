@@ -325,7 +325,10 @@ export const useCreateChatMutation = (
   return useMutation({
     mutationFn: (payload: CreateChatRequest) => chatsApi.create(payload),
     onSuccess: (data, variables, context, mutation) => {
-      queryClient.invalidateQueries({ queryKey: chatKeys.all() })
+      // exact: chatKeys.all() is ['chats'], which prefix-matches every
+      // ['chats', id, 'messages'] key - so a plain invalidate refetches every
+      // loaded page of every open conversation to add one row to the list.
+      queryClient.invalidateQueries({ queryKey: chatKeys.all(), exact: true })
       onSuccess?.(data, variables, context, mutation)
     },
     ...restOptions,
@@ -369,8 +372,10 @@ export const useRenameChatMutation = (
     mutationFn: ({ chatId, ...payload }: RenameChatVariables) =>
       chatsApi.rename(chatId, payload),
     onSuccess: (data, variables, context, mutation) => {
-      queryClient.invalidateQueries({ queryKey: chatKeys.all() })
-      queryClient.invalidateQueries({ queryKey: chatKeys.detail(variables.chatId) })
+      // The list and the one chat's detail; a rename changes neither the
+      // messages nor any other chat. See the note in the create mutation.
+      queryClient.invalidateQueries({ queryKey: chatKeys.all(), exact: true })
+      queryClient.invalidateQueries({ queryKey: chatKeys.detail(variables.chatId), exact: true })
       onSuccess?.(data, variables, context, mutation)
     },
     ...restOptions,
@@ -566,6 +571,30 @@ interface ForwardMessagesVariables {
   toChat: string
 }
 
+interface ForwardToFriendVariables {
+  chatId: string
+  messageIds: string[]
+  member: string
+}
+
+// Bump the destination chat so it sorts to the top of the list; the destination
+// message list itself fills in via its own websocket events.
+const forwardedBump = (
+  queryClient: QueryClient,
+  toChat: string,
+) =>
+  queryClient.setQueryData<GetChatsResponse>(chatKeys.all(), (old) => {
+    if (!old) return old
+    return {
+      ...old,
+      chats: old.chats.map((chat) =>
+        chat.id === toChat
+          ? { ...chat, updated: Math.floor(Date.now() / 1000) }
+          : chat
+      ),
+    }
+  })
+
 export const useForwardMessagesMutation = (
   options?: UseMutationOptions<
     ForwardMessagesResponse,
@@ -580,19 +609,34 @@ export const useForwardMessagesMutation = (
     mutationFn: ({ chatId, messageIds, toChat }: ForwardMessagesVariables) =>
       chatsApi.forwardMessages(chatId, messageIds, toChat),
     onSuccess: (data, variables, context, mutation) => {
-      // Bump the destination chat so it sorts to the top of the list; the
-      // destination message list itself fills in via its own websocket events.
-      queryClient.setQueryData<GetChatsResponse>(chatKeys.all(), (old) => {
-        if (!old) return old
-        return {
-          ...old,
-          chats: old.chats.map((chat) =>
-            chat.id === data.to_chat
-              ? { ...chat, updated: Math.floor(Date.now() / 1000) }
-              : chat
-          ),
-        }
-      })
+      forwardedBump(queryClient, data.to_chat)
+      onSuccess?.(data, variables, context, mutation)
+    },
+    ...restOptions,
+  })
+}
+
+// Forwarding to a friend with no chat yet. One call, not create-then-forward:
+// the server validates the source messages before it creates anything, so a
+// refused forward cannot strand an empty chat.
+export const useForwardToFriendMutation = (
+  options?: UseMutationOptions<
+    ForwardMessagesResponse,
+    Error,
+    ForwardToFriendVariables,
+    unknown
+  >
+) => {
+  const queryClient = useQueryClient()
+  const { onSuccess, ...restOptions } = options ?? {}
+  return useMutation({
+    mutationFn: ({ chatId, messageIds, member }: ForwardToFriendVariables) =>
+      chatsApi.forwardMessagesToFriend(chatId, messageIds, member),
+    onSuccess: (data, variables, context, mutation) => {
+      // A chat may have just been created, so the list needs a real refetch
+      // rather than only the sort bump.
+      forwardedBump(queryClient, data.to_chat)
+      queryClient.invalidateQueries({ queryKey: chatKeys.all(), exact: true })
       onSuccess?.(data, variables, context, mutation)
     },
     ...restOptions,

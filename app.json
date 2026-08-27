@@ -5,7 +5,7 @@
 // Mochi Application Interface Exception - see license.txt and license-exception.md.
 
 {
-	"version": "2.137",
+	"version": "2.138",
 	"label": "app.name",
 	"classes": ["chat"],
 	"paths": ["chat"],
@@ -33,6 +33,7 @@
 		"images": {"files": "web/dist/images"},
 		"-/list": {"function": "action_list"},
 		"-/new": {"function": "action_new"},
+		"-/person/:person/asset/:asset": {"function": "action_person_asset"},
 		"-/person/search": {"function": "action_person_search"},
 		"-/preferences/get": {"function": "action_preferences_get"},
 		"-/preferences/set": {"function": "action_preferences_set"},
@@ -85,7 +86,6 @@
 		"leave": {"function": "event_leave"},
 		"member/add": {"function": "event_member_add"},
 		"member/remove": {"function": "event_member_remove"},
-		"removed": {"function": "event_removed"},
-		"message/timeout": {"function": "error_message_timeout"}
+		"removed": {"function": "event_removed"}
 	}
 }

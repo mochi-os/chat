@@ -235,4 +235,23 @@ export const chatsApi = {
         { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } }
       )
       .then((res) => unwrapData<ForwardMessagesResponse>(res)),
+
+  // Forward to a friend with no chat yet. The server validates the source
+  // messages BEFORE creating anything, so an empty or refused forward cannot
+  // leave an orphaned chat behind - which is what create-then-forward did.
+  forwardMessagesToFriend: (
+    chatId: string,
+    messageIds: string[],
+    member: string
+  ): Promise<ForwardMessagesResponse> =>
+    client
+      .post<ForwardMessagesResponse | { data: ForwardMessagesResponse }>(
+        endpoints.chat.messagesForwardFriend(chatId),
+        new URLSearchParams({
+          message_ids: JSON.stringify(messageIds),
+          member,
+        }),
+        { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } }
+      )
+      .then((res) => unwrapData<ForwardMessagesResponse>(res)),
 }

@@ -23,6 +23,7 @@ import { SidebarProvider, useSidebarContext } from '@/context/sidebar-context'
 import { useChatsQuery, useMarkChatReadMutation } from '@/hooks/useChats'
 import { chatActive } from '@/api/types/chats'
 import { NewChat } from '@/features/chats/components/new-chat'
+import { personAssetUrl } from '@/api/person'
 
 const UNREAD_DOT = '●'
 
@@ -47,31 +48,44 @@ function formatChatSidebarBadge(
   return undefined
 }
 
+// Bounded, because these are keyed by person and by chat and a long-lived tab
+// would otherwise hold an entry for every one it has ever rendered. Oldest-out
+// is enough: the working set is whatever is on screen.
+const ICON_CACHE_MAXIMUM = 200
+
+function cacheRemember<T>(cache: Map<string, T>, key: string, make: () => T): T {
+  const held = cache.get(key)
+  if (held) return held
+  const made = make()
+  if (cache.size >= ICON_CACHE_MAXIMUM) {
+    const oldest = cache.keys().next()
+    if (!oldest.done) cache.delete(oldest.value)
+  }
+  cache.set(key, made)
+  return made
+}
+
 const personIconCache = new Map<string, React.FC>()
 const groupIconCache = new Map<string, React.FC>()
 
 function groupIcon(chatId: string): React.FC {
-  let Icon = groupIconCache.get(chatId)
-  if (!Icon) {
-    Icon = function GroupIcon() {
+  return cacheRemember(groupIconCache, chatId, () => {
+    const Icon = function GroupIcon() {
       return <EntityAvatar size="sm" icon={Users} />
     }
     // eslint-disable-next-line lingui/no-unlocalized-strings -- React displayName is dev-tooling only, not user-facing
     Icon.displayName = `GroupIcon(${chatId})`
-    groupIconCache.set(chatId, Icon)
-  }
-  return Icon
+    return Icon
+  })
 }
 
 function personIcon(personId: string, name?: string): React.FC {
-  const cacheKey = `${personId}|${name ?? ''}`
-  let Icon = personIconCache.get(cacheKey)
-  if (!Icon) {
-    Icon = function PersonIcon() {
+  return cacheRemember(personIconCache, `${personId}|${name ?? ''}`, () => {
+    const Icon = function PersonIcon() {
       return (
         <EntityAvatar
-          src={`/people/${personId}/-/avatar`}
-          styleUrl={`/people/${personId}/-/style`}
+          src={personAssetUrl(personId, 'avatar')}
+          styleUrl={personAssetUrl(personId, 'style')}
           name={name}
           size="sm"
         />
@@ -79,9 +93,8 @@ function personIcon(personId: string, name?: string): React.FC {
     }
     // eslint-disable-next-line lingui/no-unlocalized-strings -- React displayName is dev-tooling only, not user-facing
     Icon.displayName = `PersonIcon(${personId})`
-    personIconCache.set(cacheKey, Icon)
-  }
-  return Icon
+    return Icon
+  })
 }
 
 function WebsocketStatusIndicator() {
@@ -178,9 +191,7 @@ function ChatLayoutInner() {
   // Sync URL chat ID to sidebar context
   useEffect(() => {
     if (urlChatId) {
-      const chat = chats.find(
-        (c) => c.id === urlChatId || c.fingerprint === urlChatId
-      )
+      const chat = chats.find((c) => c.id === urlChatId)
       setChat(urlChatId, chat?.name)
     } else {
       setChat(null)
@@ -200,7 +211,7 @@ function ChatLayoutInner() {
 
     // Resolve the real chat ID for the active URL so we can suppress its badge
     const activeChatId = urlChatId
-      ? (chats.find((c) => c.id === urlChatId || c.fingerprint === urlChatId)?.id ?? urlChatId)
+      ? (chats.find((c) => c.id === urlChatId)?.id ?? urlChatId)
       : null
 
     // Build chat items as top-level links - use fingerprint for shorter URLs
@@ -243,7 +254,7 @@ function ChatLayoutInner() {
       return {
         id: chat.id,
         title: chat.name,
-        url: `/${chat.fingerprint ?? chat.id}`,
+        url: `/${chat.id}`,
         icon:
           chat.members === 2 && chat.other
             ? personIcon(chat.other, chat.name)
