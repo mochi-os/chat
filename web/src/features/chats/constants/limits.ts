@@ -17,9 +17,9 @@ export const CHAT_NAME_FORBIDDEN = /[<>\r\n]/
 /** action_send: the mentions array may not exceed this. */
 export const MENTIONS_MAX = 50
 
-/** action_send: caption entries, and the length of each one. */
+/** action_send: caption entries. Its per-caption 200-character cap is not
+ *  mirrored: captions are generated (`voice:`/`audio:`), never typed. */
 export const CAPTIONS_MAX = 100
-export const CAPTION_MAX_LENGTH = 200
 
 
 /** messages/delete and messages/forward: `len(message_ids) > 100`. */
