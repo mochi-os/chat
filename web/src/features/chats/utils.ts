@@ -37,7 +37,7 @@ const VIDEO_EXTENSIONS = new Set([
   'mpg',
 ])
 
-export const getFileExtension = (value?: string) => {
+const getFileExtension = (value?: string) => {
   if (!value) return undefined
   const withoutQuery = value.split('?')[0]
   const parts = withoutQuery.split('.')
@@ -45,7 +45,7 @@ export const getFileExtension = (value?: string) => {
   return parts.pop()?.toLowerCase()
 }
 
-export const detectAttachmentKind = (
+const detectAttachmentKind = (
   mime?: string,
   fallbackName?: string
 ): AttachmentKind => {

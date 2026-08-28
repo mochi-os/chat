@@ -10,7 +10,7 @@ import type { ChatSearchResult } from '@/api/types/chats'
 
 const DEBOUNCE_MS = 300
 
-export const chatSearchKeys = {
+const chatSearchKeys = {
   search: (chatId: string, query: string) =>
     ['chats', chatId, 'search', query] as const,
 }

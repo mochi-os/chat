@@ -5,7 +5,7 @@
 
 import type { ReactionCounts, ReactionId } from '../constants/reactions'
 
-export const applyReaction = (
+const applyReaction = (
   counts: ReactionCounts,
   currentReaction: ReactionId | null | undefined,
   reaction: ReactionId | ''
