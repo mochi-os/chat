@@ -18,9 +18,8 @@ const buildManager = (): ChatWebsocketManager | null => {
   }
 
   const baseOptions: ChatWebsocketManagerOptions = {
-    baseUrl: import.meta.env.VITE_WEBSOCKET_URL ?? window.location.origin,
-    getToken: () => useAuthStore.getState().token,
-    getChatKey: async (chatId: string) => {
+    token: () => useAuthStore.getState().token,
+    key: async (chatId: string) => {
       try {
         const response = await chatsApi.detail(chatId)
         return response.chat.key

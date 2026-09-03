@@ -409,7 +409,7 @@ export const useChatWebsocket = (
         const normalizedPayload = normalizePayload(event.payload)
         setLastMessage(normalizedPayload)
         appendMessageToCache(
-          event.chatId,
+          event.chat,
           normalizedPayload,
           queryClient,
           unknownSenderLabel,

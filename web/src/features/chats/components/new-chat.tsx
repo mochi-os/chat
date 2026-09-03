@@ -21,6 +21,7 @@ import {
   Skeleton,
   PersonPicker,
   GeneralError,
+  getAppPath,
   shellNavigateExternal,
   type Person, naturalCompare,} from '@mochi/web'
 import { Loader2, MessageCircle, UserPlus } from 'lucide-react'
@@ -282,8 +283,9 @@ export function NewChat() {
                   value={selectedFriends}
                   onChange={handleFriendsChange}
                   local={friendsAsPeople}
-                  directory
+                  localLabel={t`Friends`}
                   directoryFn={searchDirectory}
+                  assetUrl={(person, asset) => `${getAppPath()}/-/person/${person.id}/asset/${asset}`}
                   placeholder={t`Select people...`}
                   emptyMessage={t`No people found`}
                   open={friendsPickerOpen}

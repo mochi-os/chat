@@ -14,20 +14,16 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. js-lingui-explicit-id
-#: ../../../lib/web/src/lib/error-normalizer.ts:215
+#: ../../../lib/web/src/lib/error-normalizer.ts:219
 msgid "Please check your internet connection and try again."
 msgstr "ਕਿਰਪਾ ਕਰਕੇ ਆਪਣਾ ਇੰਟਰਨੈੱਟ ਕਨੈਕਸ਼ਨ ਜਾਂਚੋ ਅਤੇ ਮੁੜ ਕੋਸ਼ਿਸ਼ ਕਰੋ।"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:301
-msgid " or "
-msgstr " ਜਾਂ "
-
-#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:190
+#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:189
 #: src/features/chats/components/chat-message-list.tsx:797
 msgid "(edited)"
 msgstr "(ਸੰਪਾਦਿਤ)"
 
-#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:174
+#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:173
 msgid "(expand)"
 msgstr "(ਫੈਲਾਓ)"
 
@@ -38,6 +34,16 @@ msgstr "(ਤੁਸੀਂ)"
 #: ../../../lib/web/src/components/entity/entity-board-container.tsx:753
 msgid "[not set]"
 msgstr "[ਸੈੱਟ ਨਹੀਂ]"
+
+#. placeholder {0}: displayInfo.count
+#: ../../../lib/web/src/components/person-picker.tsx:257
+msgid "{0, plural, one {# selected} other {# selected}}"
+msgstr "{0, plural, one {# ਚੁਣੇ ਗਏ} other {# ਚੁਣੇ ਗਏ}}"
+
+#. placeholder {0}: countDeepChildren(object.id)
+#: ../../../lib/web/src/components/entity/entity-board-card.tsx:421
+msgid "{0, plural, one {+# nested} other {+# nested}}"
+msgstr "{0, plural, one {+# ਨੈਸਟਡ} other {+# ਨੈਸਟਡ}}"
 
 #. placeholder {0}: deleteTargetIds?.length ?? 0
 #: src/features/chats/index.tsx:1402
@@ -78,13 +84,9 @@ msgstr "{count, plural, one {#ਮਿ} other {#ਮਿ}}"
 msgid "{count, plural, one {#w} other {#w}}"
 msgstr "{count, plural, one {#ਹ} other {#ਹ}}"
 
-#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:174
+#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:176
 msgid "{entityLabel} name"
 msgstr "{entityLabel} ਨਾਮ"
-
-#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:99
-msgid "{entityLabel} name is required"
-msgstr "{entityLabel} ਦਾ ਨਾਮ ਲੋੜੀਂਦਾ ਹੈ"
 
 #: src/features/chats/components/message-attachments.tsx:143
 msgid "{hiddenCount, plural, one {Show 1 more file} other {Show # more files}}"
@@ -108,26 +110,17 @@ msgstr "{totalLabel} ਵਿੱਚੋਂ {sentLabel}"
 msgid "{skippedCount, plural, one {Skipped # file that is not audio} other {Skipped # files that are not audio}}"
 msgstr "{skippedCount, plural, one {# ਫਾਈਲ ਛੱਡੀ ਗਈ ਜੋ ਆਡੀਓ ਨਹੀਂ} other {# ਫਾਈਲਾਂ ਛੱਡੀਆਂ ਗਈਆਂ ਜੋ ਆਡੀਓ ਨਹੀਂ}}"
 
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:530
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:531
 msgid "{totalCount, plural, one {# item} other {# items}}"
 msgstr "{totalCount, plural, one {# ਆਈਟਮ} other {# ਆਈਟਮਾਂ}}"
+
+#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:170
+msgid "{totalDescendants, plural, one {# reply} other {+# more replies}}"
+msgstr "{totalDescendants, plural, one {# ਜਵਾਬ} other {+# ਹੋਰ ਜਵਾਬ}}"
 
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx:158
 msgid "{unreadCount, plural, one {Open menu (# unread notification)} other {Open menu (# unread notifications)}}"
 msgstr "{unreadCount, plural, one {ਮੀਨੂ ਖੋਲ੍ਹੋ (# ਅਣਪੜ੍ਹੀ ਸੂਚਨਾ)} other {ਮੀਨੂ ਖੋਲ੍ਹੋ (# ਅਣਪੜ੍ਹੀਆਂ ਸੂਚਨਾਵਾਂ)}}"
-
-#. placeholder {0}: countDeepChildren(object.id)
-#: ../../../lib/web/src/components/entity/entity-board-card.tsx:418
-msgid "+{0} nested"
-msgstr "+{0} ਨੇਸਟਡ"
-
-#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:171
-msgid "+{totalDescendants} more replies"
-msgstr "+{totalDescendants} ਹੋਰ ਜਵਾਬ"
-
-#: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:170
-msgid "1 reply"
-msgstr "1 ਜਵਾਬ"
 
 #: ../../../lib/web/src/lib/preference-utils.ts:37
 msgid "12 hours"
@@ -149,7 +142,8 @@ msgstr "ਨਿਰਪੇਖ (ਮਿਤੀ ਅਤੇ ਸਮਾਂ)"
 msgid "Accept"
 msgstr "ਸਵੀਕਾਰ ਕਰੋ"
 
-#: ../../../lib/web/src/features/errors/general-error.tsx:60
+#: ../../../lib/web/src/features/errors/access-denied-error.tsx:16
+#: ../../../lib/web/src/features/errors/general-error.tsx:58
 msgid "Access denied"
 msgstr "ਪਹੁੰਚ ਤੋਂ ਇਨਕਾਰ"
 
@@ -161,7 +155,7 @@ msgstr "ਪਹੁੰਚ ਪੱਧਰ"
 msgid "Account type"
 msgstr "ਖਾਤੇ ਦੀ ਕਿਸਮ"
 
-#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:720
+#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:758
 #: ../../../lib/web/src/features/access/access-dialog.tsx:332
 #: ../../../lib/web/src/features/accounts/account-add.tsx:209
 msgid "Add"
@@ -172,7 +166,7 @@ msgstr "ਜੋੜੋ"
 msgid "Add {0} to chat"
 msgstr "{0} ਨੂੰ ਚੈਟ ਵਿੱਚ ਜੋੜੋ"
 
-#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:312
+#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:314
 msgid "Add a comment..."
 msgstr "ਇੱਕ ਟਿੱਪਣੀ ਜੋੜੋ..."
 
@@ -180,7 +174,7 @@ msgstr "ਇੱਕ ਟਿੱਪਣੀ ਜੋੜੋ..."
 msgid "Add a new account"
 msgstr "ਇੱਕ ਨਵਾਂ ਖਾਤਾ ਜੋੜੋ"
 
-#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:106
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:110
 msgid "Add a new field to this class"
 msgstr "ਇਸ ਕਲਾਸ ਵਿੱਚ ਇੱਕ ਨਵਾਂ ਖੇਤਰ ਜੋੜੋ"
 
@@ -201,16 +195,16 @@ msgstr "ਅਟੈਚਮੈਂਟ ਜੋੜੋ"
 msgid "Add caption"
 msgstr "ਕੈਪਸ਼ਨ ਜੋੜੋ"
 
-#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:690
+#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:728
 msgid "Add checklist item"
 msgstr "ਚੈੱਕਲਿਸਟ ਆਈਟਮ ਜੋੜੋ"
 
-#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:105
-#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:233
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:109
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:235
 msgid "Add field"
 msgstr "ਖੇਤਰ ਜੋੜੋ"
 
-#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:708
+#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:746
 msgid "Add item..."
 msgstr "ਆਈਟਮ ਜੋੜੋ..."
 
@@ -223,11 +217,11 @@ msgstr "ਲਿੰਕ ਜੋੜੋ"
 msgid "Add member"
 msgstr "ਮੈਂਬਰ ਜੋੜੋ"
 
-#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:215
-#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:220
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:291
-#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:91
-#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:191
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:217
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:222
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:295
+#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:92
+#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:193
 msgid "Add option"
 msgstr "ਵਿਕਲਪ ਜੋੜੋ"
 
@@ -236,7 +230,7 @@ msgstr "ਵਿਕਲਪ ਜੋੜੋ"
 msgid "Add reaction"
 msgstr "ਰਿਐਕਸ਼ਨ ਜੋੜੋ"
 
-#: ../../../lib/web/src/components/post-tags.tsx:137
+#: ../../../lib/web/src/components/post-tags.tsx:138
 msgid "Add tag..."
 msgstr "ਟੈਗ ਜੋੜੋ..."
 
@@ -244,8 +238,8 @@ msgstr "ਟੈਗ ਜੋੜੋ..."
 msgid "Add to existing notifications"
 msgstr "ਮੌਜੂਦਾ ਨੋਟੀਫਿਕੇਸ਼ਨਾਂ ਵਿੱਚ ਜੋੜੋ"
 
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:258
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:513
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:261
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:518
 #: ../../../lib/web/src/components/view-tabs.tsx:87
 #: ../../../lib/web/src/components/view-tabs.tsx:93
 msgid "Add view"
@@ -253,13 +247,13 @@ msgstr "ਦ੍ਰਿਸ਼ ਜੋੜੋ"
 
 #. placeholder {0}: remainder.length
 #. placeholder {1}: refused.length
-#: src/features/chats/components/new-chat.tsx:218
+#: src/features/chats/components/new-chat.tsx:219
 msgid "Added {added} of {0} remaining people; {1} could not be added"
 msgstr "ਬਾਕੀ {0} ਵਿੱਚੋਂ {added} ਸ਼ਾਮਲ ਕੀਤੇ; {1} ਸ਼ਾਮਲ ਨਹੀਂ ਕੀਤੇ ਜਾ ਸਕੇ"
 
 #. placeholder {0}: addingRemainder.done
 #. placeholder {1}: addingRemainder.total
-#: src/features/chats/components/new-chat.tsx:363
+#: src/features/chats/components/new-chat.tsx:365
 msgid "Adding {0}/{1}..."
 msgstr "{0}/{1} ਸ਼ਾਮਲ ਕੀਤੇ ਜਾ ਰਹੇ ਹਨ..."
 
@@ -283,12 +277,11 @@ msgstr "AI"
 msgid "All your friends are already in this chat"
 msgstr "ਤੁਹਾਡੇ ਸਾਰੇ ਦੋਸਤ ਪਹਿਲਾਂ ਹੀ ਇਸ ਚੈਟ ਵਿੱਚ ਹਨ"
 
-#. placeholder {0}: entityLabel.toLowerCase()
-#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:85
-msgid "Allow anyone to search for {0}"
-msgstr "ਕਿਸੇ ਨੂੰ ਵੀ {0} ਲੱਭਣ ਦਿਓ"
+#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:87
+msgid "Allow anyone to search for {entityLabel}"
+msgstr "ਕਿਸੇ ਨੂੰ ਵੀ {entityLabel} ਖੋਜਣ ਦੀ ਆਗਿਆ ਦਿਓ"
 
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:225
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:229
 msgid "Allow sort by"
 msgstr "ਇਸ ਅਨੁਸਾਰ ਛਾਂਟਣ ਦੀ ਆਗਿਆ ਦਿਓ"
 
@@ -301,6 +294,7 @@ msgid "An error occurred"
 msgstr "ਇੱਕ ਗੜਬੜ ਹੋਈ"
 
 #: ../../../lib/web/src/lib/api-response-interceptors.ts:266
+#: ../../../lib/web/src/lib/error-normalizer.ts:11
 msgid "An unexpected error occurred"
 msgstr "ਇੱਕ ਅਣਕਿਆਸੀ ਗੜਬੜ ਹੋਈ"
 
@@ -331,11 +325,11 @@ msgid "Anything subscribed to this feed will stop receiving it. You can copy a n
 msgstr "ਇਸ ਫੀਡ ਦੀ ਗਾਹਕੀ ਲੈਣ ਵਾਲਾ ਸਭ ਕੁਝ ਇਸਨੂੰ ਪ੍ਰਾਪਤ ਕਰਨਾ ਬੰਦ ਕਰ ਦੇਵੇਗਾ। ਬਾਅਦ ਵਿੱਚ ਤੁਸੀਂ ਨਵਾਂ URL ਕਾਪੀ ਕਰ ਸਕਦੇ ਹੋ।"
 
 #. placeholder {0}: deleteTarget?.name
-#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:313
+#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:316
 msgid "Are you sure you want to delete \"{0}\"?"
 msgstr "ਕੀ ਤੁਸੀਂ ਯਕੀਨੀ ਹੋ ਕਿ ਤੁਸੀਂ \"{0}\" ਮਿਟਾਉਣਾ ਚਾਹੁੰਦੇ ਹੋ?"
 
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:629
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:631
 msgid "Are you sure you want to delete the \"{name}\" column? This cannot be undone."
 msgstr "ਕੀ ਤੁਸੀਂ ਯਕੀਨੀ ਹੋ ਕਿ ਤੁਸੀਂ \"{name}\" ਕਾਲਮ ਮਿਟਾਉਣਾ ਚਾਹੁੰਦੇ ਹੋ? ਇਹ ਵਾਪਸ ਨਹੀਂ ਕੀਤਾ ਜਾ ਸਕਦਾ।"
 
@@ -365,11 +359,11 @@ msgstr "ਕੀ ਤੁਸੀਂ ਪੱਕਾ {0} ਨੂੰ ਇਸ ਚੈਟ ਵ�
 msgid "Ascending"
 msgstr "ਵਧਦੇ ਕ੍ਰਮ ਵਿੱਚ"
 
-#: ../../../lib/web/src/components/comment-composer.tsx:427
+#: ../../../lib/web/src/components/comment-composer.tsx:430
 msgid "Attach comment files"
 msgstr "ਟਿੱਪਣੀ ਫਾਈਲਾਂ ਨੱਥੀ ਕਰੋ"
 
-#: ../../../lib/web/src/components/comment-composer.tsx:426
+#: ../../../lib/web/src/components/comment-composer.tsx:429
 msgid "Attach reply files"
 msgstr "ਜਵਾਬ ਫਾਈਲਾਂ ਨੱਥੀ ਕਰੋ"
 
@@ -391,7 +385,7 @@ msgstr "ਆਡੀਓ"
 msgid "Authenticated users"
 msgstr "ਪ੍ਰਮਾਣਿਤ ਵਰਤੋਂਕਾਰ"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:318
+#: ../../../lib/web/src/components/step-up-dialog.tsx:306
 msgid "Authenticator code"
 msgstr "ਪ੍ਰਮਾਣਕ ਕੋਡ"
 
@@ -399,15 +393,15 @@ msgstr "ਪ੍ਰਮਾਣਕ ਕੋਡ"
 msgid "Available keyboard shortcuts"
 msgstr "ਉਪਲਬਧ ਕੀਬੋਰਡ ਸ਼ਾਰਟਕਟ"
 
-#: ../../../lib/web/src/components/entity-avatar.tsx:99
+#: ../../../lib/web/src/components/entity-avatar.tsx:98
 msgid "Avatar"
 msgstr "ਅਵਤਾਰ"
 
-#: ../../../lib/web/src/components/entity-avatar.tsx:99
+#: ../../../lib/web/src/components/entity-avatar.tsx:98
 msgid "Avatar for {name}"
 msgstr "{name} ਲਈ ਅਵਤਾਰ"
 
-#: ../../../lib/web/src/components/place-picker.tsx:156
+#: ../../../lib/web/src/components/place-picker.tsx:142
 msgid "Back"
 msgstr "ਵਾਪਸ"
 
@@ -417,8 +411,8 @@ msgstr "ਵਾਪਸ"
 msgid "Back to chat"
 msgstr "ਚੈਟ ਵਿੱਚ ਵਾਪਸ"
 
+#: ../../../lib/web/src/features/errors/access-denied-error.tsx:27
 #: ../../../lib/web/src/features/errors/not-found-error.tsx:28
-#: ../../../lib/web/src/features/errors/unauthorized-error.tsx:28
 msgid "Back to home"
 msgstr "ਮੁੱਖ ਪੰਨੇ ਤੇ ਵਾਪਸ"
 
@@ -435,8 +429,8 @@ msgstr "ਸਭ ਤੋਂ ਪਹਿਲਾਂ ਕੁਝ ਕਹੋ!"
 msgid "Blocked by"
 msgstr "ਦੁਆਰਾ ਬਲੌਕ ਕੀਤਾ"
 
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:242
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:252
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:238
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:248
 msgid "Blocked navigation to untrusted link"
 msgstr "ਅਣਭਰੋਸੇਯੋਗ ਲਿੰਕ ਉੱਤੇ ਨੈਵੀਗੇਸ਼ਨ ਬਲਾਕ ਕੀਤੀ ਗਈ"
 
@@ -444,16 +438,16 @@ msgstr "ਅਣਭਰੋਸੇਯੋਗ ਲਿੰਕ ਉੱਤੇ ਨੈਵੀਗ
 msgid "Blocks"
 msgstr "ਬਲੌਕ ਕਰਦਾ ਹੈ"
 
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:312
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:315
 msgid "Board"
 msgstr "ਬੋਰਡ"
 
-#: ../../../lib/web/src/components/post-tags.tsx:180
-#: ../../../lib/web/src/components/post-tags.tsx:192
+#: ../../../lib/web/src/components/post-tags.tsx:194
+#: ../../../lib/web/src/components/post-tags.tsx:206
 msgid "Boost interest"
 msgstr "ਦਿਲਚਸਪੀ ਵਧਾਓ"
 
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:399
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:402
 msgid "Border colour"
 msgstr "ਬਾਰਡਰ ਰੰਗ"
 
@@ -462,15 +456,15 @@ msgid "Browser notifications"
 msgstr "ਬ੍ਰਾਊਜ਼ਰ ਨੋਟੀਫਿਕੇਸ਼ਨਾਂ"
 
 #: ../../../lib/web/src/components/attachment-composer.tsx:426
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:614
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:616
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:211
-#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:166
-#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:183
+#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:168
+#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:185
 #: ../../../lib/web/src/components/responsive-confirm-dialog.tsx:67
-#: ../../../lib/web/src/components/step-up-dialog.tsx:366
-#: ../../../lib/web/src/components/travelling-picker.tsx:308
-#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:249
-#: ../../../lib/web/src/components/ui/editable-field-row.tsx:132
+#: ../../../lib/web/src/components/step-up-dialog.tsx:354
+#: ../../../lib/web/src/components/travelling-picker.tsx:288
+#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:251
+#: ../../../lib/web/src/components/ui/editable-field-row.tsx:136
 #: ../../../lib/web/src/features/access/access-dialog.tsx:328
 #: ../../../lib/web/src/features/access/access-list.tsx:268
 #: ../../../lib/web/src/features/accounts/account-add.tsx:201
@@ -479,16 +473,16 @@ msgstr "ਬ੍ਰਾਊਜ਼ਰ ਨੋਟੀਫਿਕੇਸ਼ਨਾਂ"
 #: src/features/chats/components/chat-message-list.tsx:843
 #: src/features/chats/components/chat-settings-dialog.tsx:116
 #: src/features/chats/components/forward-dialog.tsx:252
-#: src/features/chats/components/new-chat.tsx:354
+#: src/features/chats/components/new-chat.tsx:356
 #: src/features/chats/index.tsx:1303
 msgid "Cancel"
 msgstr "ਰੱਦ ਕਰੋ"
 
-#: ../../../lib/web/src/components/comment-composer.tsx:427
+#: ../../../lib/web/src/components/comment-composer.tsx:430
 msgid "Cancel comment"
 msgstr "ਟਿੱਪਣੀ ਰੱਦ ਕਰੋ"
 
-#: ../../../lib/web/src/components/comment-composer.tsx:426
+#: ../../../lib/web/src/components/comment-composer.tsx:429
 #: src/features/chats/components/chat-input.tsx:590
 #: src/features/chats/components/chat-input.tsx:595
 msgid "Cancel reply"
@@ -508,6 +502,14 @@ msgstr "ਇਹਨਾਂ ਨੋਟੀਫਿਕੇਸ਼ਨਾਂ ਲਈ ਸ਼੍
 msgid "Change notification category"
 msgstr "ਨੋਟੀਫਿਕੇਸ਼ਨ ਸ਼੍ਰੇਣੀ ਬਦਲੋ"
 
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx:62
+msgid "Changed"
+msgstr "ਬਦਲਿਆ ਗਿਆ"
+
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx:62
+msgid "Changed {field}"
+msgstr "{field} ਬਦਲਿਆ ਗਿਆ"
+
 #: src/features/chats/index.tsx:95
 #: src/features/chats/index.tsx:203
 #: src/features/chats/index.tsx:203
@@ -515,7 +517,7 @@ msgstr "ਨੋਟੀਫਿਕੇਸ਼ਨ ਸ਼੍ਰੇਣੀ ਬਦਲੋ"
 msgid "Chat"
 msgstr "ਚੈਟ"
 
-#: src/features/chats/components/new-chat.tsx:195
+#: src/features/chats/components/new-chat.tsx:196
 msgid "Chat created"
 msgstr "ਚੈਟ ਬਣਾਈ ਗਈ"
 
@@ -535,7 +537,7 @@ msgstr "ਚੈਟ ਪੜ੍ਹੀ ਹੋਈ ਮਾਰਕ ਕੀਤੀ ਗਈ"
 msgid "Chat marked as unread"
 msgstr "ਚੈਟ ਅਣਪੜ੍ਹੀ ਮਾਰਕ ਕੀਤੀ ਗਈ"
 
-#: src/features/chats/components/new-chat.tsx:338
+#: src/features/chats/components/new-chat.tsx:340
 #: src/routes/_authenticated/$chatId_.settings.tsx:213
 msgid "Chat name"
 msgstr "ਚੈਟ ਨਾਮ"
@@ -544,7 +546,7 @@ msgstr "ਚੈਟ ਨਾਮ"
 msgid "Chat name is required"
 msgstr "ਚੈਟ ਨਾਮ ਲੋੜੀਂਦਾ ਹੈ"
 
-#: src/features/chats/components/new-chat.tsx:341
+#: src/features/chats/components/new-chat.tsx:343
 msgid "Chat name..."
 msgstr "ਚੈਟ ਨਾਮ..."
 
@@ -560,7 +562,7 @@ msgstr "ਚੈਟ ਪਿੰਨ ਕੀਤੀ ਗਈ"
 msgid "Chat policy updated"
 msgstr "ਚੈਟ ਨੀਤੀ ਅੱਪਡੇਟ ਕੀਤੀ ਗਈ"
 
-#: src/features/chats/components/new-chat.tsx:195
+#: src/features/chats/components/new-chat.tsx:196
 msgid "Chat ready"
 msgstr "ਚੈਟ ਤਿਆਰ"
 
@@ -590,11 +592,11 @@ msgstr "ਚੈਟ ਅਨਪਿੰਨ ਕੀਤੀ ਗਈ"
 msgid "Chats"
 msgstr "ਚੈਟਾਂ"
 
-#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:137
+#: ../../../lib/web/src/hooks/use-field-type-labels.ts:12
 msgid "Checkbox"
 msgstr "ਚੈੱਕਬਾਕਸ"
 
-#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:138
+#: ../../../lib/web/src/hooks/use-field-type-labels.ts:13
 msgid "Checklist"
 msgstr "ਚੈੱਕਲਿਸਟ"
 
@@ -610,17 +612,17 @@ msgstr "ਸਾਈਡਬਾਰ ਤੋਂ ਇੱਕ ਗੱਲਬਾਤ ਚੁਣ�
 msgid "Choose a game from the sidebar or start a new one."
 msgstr "ਸਾਈਡਬਾਰ ਤੋਂ ਇੱਕ ਖੇਡ ਚੁਣੋ ਜਾਂ ਨਵੀਂ ਸ਼ੁਰੂ ਕਰੋ।"
 
-#: ../../../lib/web/src/components/language-picker.tsx:264
-#: ../../../lib/web/src/components/language-picker.tsx:271
+#: ../../../lib/web/src/components/language-picker.tsx:267
+#: ../../../lib/web/src/components/language-picker.tsx:274
 msgid "Choose language"
 msgstr "ਭਾਸ਼ਾ ਚੁਣੋ"
 
 #: ../../../lib/web/src/components/colour-picker.tsx:274
 #: ../../../lib/web/src/components/colour-picker.tsx:355
-#: ../../../lib/web/src/components/travelling-picker.tsx:164
-#: ../../../lib/web/src/components/travelling-picker.tsx:170
-#: ../../../lib/web/src/components/travelling-picker.tsx:231
-#: ../../../lib/web/src/components/travelling-picker.tsx:237
+#: ../../../lib/web/src/components/travelling-picker.tsx:145
+#: ../../../lib/web/src/components/travelling-picker.tsx:151
+#: ../../../lib/web/src/components/travelling-picker.tsx:212
+#: ../../../lib/web/src/components/travelling-picker.tsx:218
 msgid "Clear"
 msgstr "ਸਾਫ਼ ਕਰੋ"
 
@@ -634,19 +636,19 @@ msgstr "ਸਭ ਸਾਫ਼ ਕਰੋ"
 msgid "Clear search"
 msgstr "ਖੋਜ ਸਾਫ਼ ਕਰੋ"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:501
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:506
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:523
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:528
 #: ../../../lib/web/src/components/ui/dialog.tsx:78
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:468
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:471
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:479
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:482
 #: ../../../lib/web/src/components/ui/sheet.tsx:79
 msgid "Close"
 msgstr "ਬੰਦ ਕਰੋ"
 
-#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:109
 #: ../../../lib/web/src/components/entity/add-field-dialog.tsx:113
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:263
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:267
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:117
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:266
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:270
 msgid "Close dialog"
 msgstr "ਡਾਇਲਾਗ ਬੰਦ ਕਰੋ"
 
@@ -680,16 +682,16 @@ msgstr "ਸਮੇਟੋ"
 msgid "Collapse sidebar"
 msgstr "ਸਾਈਡਬਾਰ ਸੰਕੁਚਿਤ ਕਰੋ"
 
-#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:146
+#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:148
 msgid "Colour"
 msgstr "ਰੰਗ"
 
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:539
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:544
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:540
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:545
 msgid "Column actions"
 msgstr "ਕਾਲਮ ਕਾਰਵਾਈਆਂ"
 
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:347
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:350
 msgid "Columns group by"
 msgstr "ਕਾਲਮ ਇਸ ਅਨੁਸਾਰ ਸਮੂਹਬੱਧ"
 
@@ -706,8 +708,8 @@ msgstr "ਕਮਾਂਡ ਪੈਲੇਟ"
 msgid "Comment actions"
 msgstr "ਟਿੱਪਣੀ ਕਾਰਵਾਈਆਂ"
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:431
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:443
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:442
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:454
 msgid "Comments"
 msgstr "ਟਿੱਪਣੀਆਂ"
 
@@ -715,16 +717,16 @@ msgstr "ਟਿੱਪਣੀਆਂ"
 msgid "Compact"
 msgstr "ਸੰਖੇਪ"
 
-#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:94
+#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:95
 msgid "Configure option settings"
 msgstr "ਵਿਕਲਪ ਸੈਟਿੰਗਾਂ ਕੌਨਫਿਗਰ ਕਰੋ"
 
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:259
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:262
 msgid "Configure view settings"
 msgstr "ਦ੍ਰਿਸ਼ ਸੈਟਿੰਗਾਂ ਕੌਨਫਿਗਰ ਕਰੋ"
 
-#: ../../../lib/web/src/components/place-picker.tsx:160
-#: ../../../lib/web/src/components/travelling-picker.tsx:316
+#: ../../../lib/web/src/components/place-picker.tsx:146
+#: ../../../lib/web/src/components/travelling-picker.tsx:296
 msgid "Confirm"
 msgstr "ਪੁਸ਼ਟੀ ਕਰੋ"
 
@@ -740,7 +742,7 @@ msgstr "ਕਨੈਕਟ ਹੋ ਰਿਹਾ ਹੈ..."
 msgid "Content not found."
 msgstr "ਸਮੱਗਰੀ ਨਹੀਂ ਮਿਲੀ।"
 
-#: ../../../lib/web/src/lib/query-client.ts:78
+#: ../../../lib/web/src/lib/query-client.ts:73
 msgid "Content not modified"
 msgstr "ਸਮੱਗਰੀ ਸੋਧੀ ਨਹੀਂ ਗਈ"
 
@@ -752,7 +754,7 @@ msgstr "ਪ੍ਰਸੰਗਿਕ ਜਾਣਕਾਰੀ ਅਤੇ ਵੇਰਵੇ
 msgid "Continue"
 msgstr "ਜਾਰੀ ਰੱਖੋ"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:355
+#: ../../../lib/web/src/components/step-up-dialog.tsx:343
 msgid "Continue with {label}"
 msgstr "{label} ਨਾਲ ਜਾਰੀ ਰੱਖੋ"
 
@@ -781,41 +783,40 @@ msgstr "ਜ਼ਿਕਰ ਜੋੜੇ ਨਹੀਂ ਜਾ ਸਕੇ। ਕਈ ਲ
 msgid "Could not load this document. Please try again later."
 msgstr "ਇਹ ਦਸਤਾਵੇਜ਼ ਲੋਡ ਨਹੀਂ ਕੀਤਾ ਜਾ ਸਕਿਆ। ਕਿਰਪਾ ਕਰਕੇ ਬਾਅਦ ਵਿੱਚ ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ।"
 
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:128
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:124
 msgid "Couldn't load notifications"
 msgstr "ਸੂਚਨਾਵਾਂ ਲੋਡ ਨਹੀਂ ਹੋ ਸਕੀਆਂ"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:182
+#: ../../../lib/web/src/components/step-up-dialog.tsx:170
 msgid "Couldn't send the code. Please try again."
 msgstr "ਕੋਡ ਨਹੀਂ ਭੇਜਿਆ ਜਾ ਸਕਿਆ। ਕਿਰਪਾ ਕਰਕੇ ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ।"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:136
+#: ../../../lib/web/src/components/step-up-dialog.tsx:124
 msgid "Couldn't start re-authentication. Please try again."
 msgstr "ਮੁੜ-ਪ੍ਰਮਾਣੀਕਰਨ ਸ਼ੁਰੂ ਨਹੀਂ ਕੀਤਾ ਜਾ ਸਕਿਆ। ਕਿਰਪਾ ਕਰਕੇ ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ।"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:224
+#: ../../../lib/web/src/components/step-up-dialog.tsx:212
 msgid "Couldn't verify with that account. Please try again."
 msgstr "ਉਸ ਖਾਤੇ ਨਾਲ ਪੁਸ਼ਟੀ ਨਹੀਂ ਕੀਤੀ ਜਾ ਸਕੀ। ਕਿਰਪਾ ਕਰਕੇ ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ।"
 
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:550
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:689
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:491
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:656
-#: ../../../lib/web/src/components/entity/entity-tree-view.tsx:675
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:551
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:691
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:513
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:682
+#: ../../../lib/web/src/components/entity/entity-tree-view.tsx:672
 msgid "Create"
 msgstr "ਬਣਾਓ"
 
-#. placeholder {0}: entityLabel.toLowerCase()
-#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:144
-msgid "Create {0}"
-msgstr "{0} ਬਣਾਓ"
+#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:146
+msgid "Create {entityLabel}"
+msgstr "{entityLabel} ਬਣਾਓ"
 
-#: src/features/chats/components/new-chat.tsx:266
+#: src/features/chats/components/new-chat.tsx:267
 msgid "Create a new chat"
 msgstr "ਇੱਕ ਨਵੀਂ ਚੈਟ ਬਣਾਓ"
 
 #: src/components/layout/chat-layout.tsx:289
-#: src/features/chats/components/new-chat.tsx:366
+#: src/features/chats/components/new-chat.tsx:368
 msgid "Create chat"
 msgstr "ਚੈਟ ਬਣਾਓ"
 
@@ -823,25 +824,31 @@ msgstr "ਚੈਟ ਬਣਾਓ"
 msgid "Create new item"
 msgstr "ਨਵੀਂ ਆਈਟਮ ਬਣਾਓ"
 
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx:54
 #: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx:56
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:492
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:495
 msgid "Created"
 msgstr "ਬਣਾਇਆ ਗਿਆ"
 
-#: src/features/chats/components/new-chat.tsx:194
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx:54
+msgid "Created {field}"
+msgstr "{field} ਬਣਾਇਆ ਗਿਆ"
+
+#: src/features/chats/components/new-chat.tsx:195
 msgid "Creating chat..."
 msgstr "ਚੈਟ ਬਣਾਈ ਜਾ ਰਹੀ ਹੈ..."
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:656
-#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:258
-#: src/features/chats/components/new-chat.tsx:365
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:682
+#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:260
+#: src/features/chats/components/new-chat.tsx:367
 msgid "Creating..."
 msgstr "ਬਣਾ ਰਹੇ ਹਾਂ..."
 
-#: ../../../lib/web/src/components/map-view.tsx:217
+#: ../../../lib/web/src/components/map-view.tsx:249
 msgid "Current location"
 msgstr "ਮੌਜੂਦਾ ਟਿਕਾਣਾ"
 
+#: ../../../lib/web/src/components/ai-prompts-editor.tsx:132
 #: ../../../lib/web/src/components/colour-picker.tsx:265
 msgid "Custom"
 msgstr "ਕਸਟਮ"
@@ -854,7 +861,7 @@ msgstr "ਡਾਰਕ"
 msgid "Data conflict"
 msgstr "ਡਾਟਾ ਟਕਰਾਅ"
 
-#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:139
+#: ../../../lib/web/src/hooks/use-field-type-labels.ts:14
 msgid "Date"
 msgstr "ਮਿਤੀ"
 
@@ -862,30 +869,34 @@ msgstr "ਮਿਤੀ"
 msgid "Decline"
 msgstr "ਅਸਵੀਕਾਰ ਕਰੋ"
 
+#: ../../../lib/web/src/components/ai-prompts-editor.tsx:129
+msgid "Default"
+msgstr "ਡਿਫਾਲਟ"
+
 #: ../../../lib/web/src/features/accounts/account-add.tsx:185
 msgid "Default AI account"
 msgstr "ਡਿਫਾਲਟ AI ਖਾਤਾ"
 
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:479
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:482
 msgid "Default sort"
 msgstr "ਡਿਫਾਲਟ ਛਾਂਟ"
 
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:569
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:630
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:570
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:632
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:280
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:323
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:353
-#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:198
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:203
-#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:252
-#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:314
+#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:208
+#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:255
+#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:317
 #: src/features/chats/components/message-hover-actions.tsx:146
 #: src/features/chats/index.tsx:1296
 #: src/features/chats/index.tsx:1414
 msgid "Delete"
 msgstr "ਮਿਟਾਓ"
 
-#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:312
+#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:315
 msgid "Delete attachment"
 msgstr "ਅਟੈਚਮੈਂਟ ਮਿਟਾਓ"
 
@@ -899,7 +910,7 @@ msgstr "ਚੈਟ ਮਿਟਾਓ"
 msgid "Delete chat history"
 msgstr "ਚੈਟ ਇਤਿਹਾਸ ਮਿਟਾਓ"
 
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:628
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:630
 msgid "Delete column"
 msgstr "ਕਾਲਮ ਮਿਟਾਓ"
 
@@ -907,27 +918,35 @@ msgstr "ਕਾਲਮ ਮਿਟਾਓ"
 msgid "Delete comment"
 msgstr "ਟਿੱਪਣੀ ਮਿਟਾਓ"
 
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:300
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:304
 msgid "Delete field"
 msgstr "ਖੇਤਰ ਮਿਟਾਓ"
 
-#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:116
+#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:117
 msgid "Delete option"
 msgstr "ਵਿਕਲਪ ਮਿਟਾਓ"
 
 #. placeholder {0}: opt.name
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:278
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:283
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:282
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:287
 msgid "Delete option {0}"
 msgstr "ਵਿਕਲਪ {0} ਮਿਟਾਓ"
 
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:284
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:287
 msgid "Delete view"
 msgstr "ਦ੍ਰਿਸ਼ ਮਿਟਾਓ"
 
-#: ../../../lib/web/src/components/restore-banner.tsx:109
+#: ../../../lib/web/src/components/restore-banner.tsx:95
 msgid "Delete your account on the old server"
 msgstr "ਪੁਰਾਣੇ ਸਰਵਰ 'ਤੇ ਆਪਣਾ ਖਾਤਾ ਮਿਟਾਓ"
+
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx:58
+msgid "Deleted"
+msgstr "ਮਿਟਾਇਆ ਗਿਆ"
+
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx:58
+msgid "Deleted {field}"
+msgstr "{field} ਮਿਟਾਇਆ ਗਿਆ"
 
 #: src/features/chats/index.tsx:849
 msgid "Deleting chat..."
@@ -942,7 +961,7 @@ msgstr "ਮਿਟਾ ਰਹੇ ਹਾਂ..."
 msgid "Descending"
 msgstr "ਘਟਦੇ ਕ੍ਰਮ ਵਿੱਚ"
 
-#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:83
+#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:85
 msgid "Description"
 msgstr "ਵੇਰਵਾ"
 
@@ -950,7 +969,7 @@ msgstr "ਵੇਰਵਾ"
 msgid "Details Panel"
 msgstr "ਵੇਰਵੇ ਪੈਨਲ"
 
-#: ../../../lib/web/src/components/language-picker.tsx:240
+#: ../../../lib/web/src/components/language-picker.tsx:243
 #: ../../../lib/web/src/components/timezone-select.tsx:46
 #: ../../../lib/web/src/components/timezone-select.tsx:83
 #: ../../../lib/web/src/lib/preference-utils.ts:23
@@ -961,11 +980,11 @@ msgstr "ਵੇਰਵੇ ਪੈਨਲ"
 msgid "Detect from web browser"
 msgstr "ਵੈੱਬ ਬ੍ਰਾਊਜ਼ਰ ਤੋਂ ਪਛਾਣੋ"
 
-#: ../../../lib/web/src/components/person-picker.tsx:214
+#: ../../../lib/web/src/components/person-picker.tsx:190
 msgid "Directory"
 msgstr "ਡਾਇਰੈਕਟਰੀ"
 
-#: src/features/chats/components/new-chat.tsx:88
+#: src/features/chats/components/new-chat.tsx:89
 msgid "Directory search failed"
 msgstr "ਡਾਇਰੈਕਟਰੀ ਖੋਜ ਅਸਫਲ ਰਹੀ"
 
@@ -995,8 +1014,8 @@ msgstr "ਡਿਸਕਨੈਕਟ ਹੋ ਗਿਆ"
 msgid "Dislike"
 msgstr "ਨਾਪਸੰਦ"
 
-#: ../../../lib/web/src/components/restore-banner.tsx:88
-#: ../../../lib/web/src/components/restore-banner.tsx:94
+#: ../../../lib/web/src/components/restore-banner.tsx:74
+#: ../../../lib/web/src/components/restore-banner.tsx:80
 msgid "Dismiss"
 msgstr "ਖਾਰਜ ਕਰੋ"
 
@@ -1008,18 +1027,23 @@ msgstr "ਮੋਬਾਈਲ ਸਾਈਡਬਾਰ ਡਿਸਪਲੇ ਕਰਦਾ
 msgid "Document"
 msgstr "ਦਸਤਾਵੇਜ਼"
 
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:305
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:518
+#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:111
+msgid "Does not match the required pattern"
+msgstr "ਲੋੜੀਂਦੇ ਪੈਟਰਨ ਨਾਲ ਮੇਲ ਨਹੀਂ ਖਾਂਦਾ"
+
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:309
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:523
 msgid "Done"
 msgstr "ਹੋ ਗਿਆ"
 
-#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:239
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:452
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:462
+#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:243
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:463
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:473
 msgid "Download"
 msgstr "ਡਾਊਨਲੋਡ"
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:98
+#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:149
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:100
 msgid "Download failed"
 msgstr "ਡਾਊਨਲੋਡ ਅਸਫਲ ਰਿਹਾ"
 
@@ -1046,7 +1070,7 @@ msgstr "ਡਿਸਲੈਕਸੀਆ-ਅਨੁਕੂਲ"
 msgid "Edit"
 msgstr "ਸੰਪਾਦਿਤ ਕਰੋ"
 
-#: ../../../lib/web/src/components/ui/editable-field-row.tsx:154
+#: ../../../lib/web/src/components/ui/editable-field-row.tsx:158
 msgid "Edit {label}"
 msgstr "{label} ਸੰਪਾਦਿਤ ਕਰੋ"
 
@@ -1054,21 +1078,21 @@ msgstr "{label} ਸੰਪਾਦਿਤ ਕਰੋ"
 msgid "Edit caption"
 msgstr "ਕੈਪਸ਼ਨ ਸੰਪਾਦਿਤ ਕਰੋ"
 
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:137
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:140
 msgid "Edit field"
 msgstr "ਫੀਲਡ ਸੰਪਾਦਿਤ ਕਰੋ"
 
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:138
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:141
 msgid "Edit field settings"
 msgstr "ਫੀਲਡ ਸੈਟਿੰਗ ਸੰਪਾਦਿਤ ਕਰੋ"
 
-#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:91
+#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:92
 msgid "Edit option"
 msgstr "ਵਿਕਲਪ ਸੋਧੋ"
 
 #. placeholder {0}: opt.name
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:263
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:268
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:267
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:272
 msgid "Edit option {0}"
 msgstr "ਵਿਕਲਪ {0} ਸੰਪਾਦਿਤ ਕਰੋ"
 
@@ -1076,7 +1100,7 @@ msgstr "ਵਿਕਲਪ {0} ਸੰਪਾਦਿਤ ਕਰੋ"
 msgid "Edit selected card"
 msgstr "ਚੁਣੇ ਕਾਰਡ ਨੂੰ ਸੋਧੋ"
 
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:258
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:261
 msgid "Edit view"
 msgstr "ਵਿਊ ਸੰਪਾਦਿਤ ਕਰੋ"
 
@@ -1089,15 +1113,15 @@ msgstr "ਬੀਤਿਆ {0}"
 msgid "Email"
 msgstr "ਈਮੇਲ"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:292
+#: ../../../lib/web/src/components/step-up-dialog.tsx:280
 msgid "Email code"
 msgstr "ਈਮੇਲ ਕੋਡ"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:302
+#: ../../../lib/web/src/components/step-up-dialog.tsx:290
 msgid "Enter the code from your email"
 msgstr "ਆਪਣੀ ਈਮੇਲ ਵਿੱਚੋਂ ਕੋਡ ਦਾਖਲ ਕਰੋ"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:327
+#: ../../../lib/web/src/components/step-up-dialog.tsx:315
 msgid "Enter your authenticator code"
 msgstr "ਆਪਣਾ ਪ੍ਰਮਾਣੀਕਰਤਾ ਕੋਡ ਦਾਖਲ ਕਰੋ"
 
@@ -1124,6 +1148,10 @@ msgstr "ਬਾਹਰੀ URL"
 msgid "Extra large"
 msgstr "ਵਾਧੂ ਵੱਡਾ"
 
+#: ../../../lib/web/src/hooks/use-accounts.ts:213
+msgid "Failed to add account"
+msgstr "ਖਾਤਾ ਜੋੜਨ ਵਿੱਚ ਅਸਫਲ"
+
 #: src/routes/_authenticated/$chatId_.settings.tsx:429
 msgid "Failed to add member"
 msgstr "ਮੈਂਬਰ ਜੋੜਨ ਵਿੱਚ ਅਸਫਲ"
@@ -1138,7 +1166,7 @@ msgstr "ਕਾਪੀ ਕਰਨ ਵਿੱਚ ਅਸਫਲ"
 msgid "Failed to copy message"
 msgstr "ਸੁਨੇਹਾ ਕਾਪੀ ਨਹੀਂ ਹੋ ਸਕਿਆ"
 
-#: src/features/chats/components/new-chat.tsx:196
+#: src/features/chats/components/new-chat.tsx:197
 msgid "Failed to create chat"
 msgstr "ਚੈਟ ਬਣਾਉਣ ਵਿੱਚ ਅਸਫਲ"
 
@@ -1159,7 +1187,7 @@ msgstr "ਅਟੈਚਮੈਂਟ ਮਿਟਾਉਣ ਵਿੱਚ ਅਸਫਲ"
 msgid "Failed to delete chat"
 msgstr "ਚੈਟ ਮਿਟਾਉਣ ਵਿੱਚ ਅਸਫਲ"
 
-#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:191
+#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:192
 msgid "Failed to delete comment"
 msgstr "ਟਿੱਪਣੀ ਮਿਟਾਉਣ ਵਿੱਚ ਅਸਫਲ"
 
@@ -1192,11 +1220,15 @@ msgstr "ਲੋਡ ਕਰਨ ਵਿੱਚ ਅਸਫਲ"
 msgid "Failed to load history"
 msgstr "ਇਤਿਹਾਸ ਲੋਡ ਕਰਨ ਵਿੱਚ ਅਸਫਲ"
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:338
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:349
 msgid "Failed to load image"
 msgstr "ਚਿੱਤਰ ਲੋਡ ਕਰਨ ਵਿੱਚ ਅਸਫਲ"
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:338
+#: ../../../lib/web/src/components/ai-prompts-editor.tsx:213
+msgid "Failed to load prompts"
+msgstr "ਪ੍ਰੋਮਪਟ ਲੋਡ ਕਰਨ ਵਿੱਚ ਅਸਫਲ"
+
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:349
 msgid "Failed to load video"
 msgstr "ਵੀਡੀਓ ਲੋਡ ਕਰਨ ਵਿੱਚ ਅਸਫਲ"
 
@@ -1208,7 +1240,7 @@ msgstr "ਤੁਹਾਡੀ ਚੈਟ ਨੀਤੀ ਲੋਡ ਨਹੀਂ ਹੋ 
 msgid "Failed to mark chat as read"
 msgstr "ਚੈਟ ਪੜ੍ਹੀ ਹੋਈ ਮਾਰਕ ਨਹੀਂ ਹੋ ਸਕੀ"
 
-#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:154
+#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:155
 msgid "Failed to post comment"
 msgstr "ਟਿੱਪਣੀ ਪੋਸਟ ਕਰਨ ਵਿੱਚ ਅਸਫਲ"
 
@@ -1224,6 +1256,10 @@ msgstr "ਮੈਂਬਰ ਹਟਾਉਣ ਵਿੱਚ ਅਸਫਲ"
 msgid "Failed to rename chat"
 msgstr "ਚੈਟ ਦਾ ਨਾਮ ਬਦਲਣ ਵਿੱਚ ਅਸਫਲ"
 
+#: ../../../lib/web/src/components/ai-prompts-editor.tsx:90
+msgid "Failed to reset prompt"
+msgstr "ਪ੍ਰੋਮਪਟ ਰੀਸੈੱਟ ਕਰਨ ਵਿੱਚ ਅਸਫਲ"
+
 #: ../../../lib/web/src/components/options-menu.tsx:133
 msgid "Failed to revoke RSS access"
 msgstr "RSS ਪਹੁੰਚ ਰੱਦ ਕਰਨ ਵਿੱਚ ਅਸਫਲ"
@@ -1231,6 +1267,10 @@ msgstr "RSS ਪਹੁੰਚ ਰੱਦ ਕਰਨ ਵਿੱਚ ਅਸਫਲ"
 #: src/features/chats/components/chat-settings-dialog.tsx:68
 msgid "Failed to save"
 msgstr "ਸੁਰੱਖਿਅਤ ਕਰਨ ਵਿੱਚ ਅਸਫਲ"
+
+#: ../../../lib/web/src/components/ai-prompts-editor.tsx:111
+msgid "Failed to save prompt"
+msgstr "ਪ੍ਰੋਮਪਟ ਸੁਰੱਖਿਅਤ ਕਰਨ ਵਿੱਚ ਅਸਫਲ"
 
 #: src/features/chats/index.tsx:784
 msgid "Failed to send message"
@@ -1240,7 +1280,7 @@ msgstr "ਸੁਨੇਹਾ ਭੇਜਣ ਵਿੱਚ ਅਸਫਲ"
 msgid "Failed to start chat"
 msgstr "ਚੈਟ ਸ਼ੁਰੂ ਕਰਨ ਵਿੱਚ ਅਸਫਲ"
 
-#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:174
+#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:175
 msgid "Failed to update comment"
 msgstr "ਟਿੱਪਣੀ ਅੱਪਡੇਟ ਕਰਨ ਵਿੱਚ ਅਸਫਲ"
 
@@ -1248,17 +1288,17 @@ msgstr "ਟਿੱਪਣੀ ਅੱਪਡੇਟ ਕਰਨ ਵਿੱਚ ਅਸਫ�
 msgid "Failed to upload attachment"
 msgstr "ਅਟੈਚਮੈਂਟ ਅੱਪਲੋਡ ਕਰਨ ਵਿੱਚ ਅਸਫਲ"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:589
-#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:155
-#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:175
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:611
+#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:160
+#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:180
 msgid "Files"
 msgstr "ਫਾਈਲਾਂ"
 
-#: ../../../lib/web/src/components/restore-banner.tsx:97
+#: ../../../lib/web/src/components/restore-banner.tsx:83
 msgid "Finish moving your account"
 msgstr "ਆਪਣਾ ਖਾਤਾ ਬਦਲਣਾ ਪੂਰਾ ਕਰੋ"
 
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:221
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:225
 msgid "Flags"
 msgstr "ਫਲੈਗ"
 
@@ -1288,8 +1328,9 @@ msgstr "ਅੱਗੇ ਭੇਜਿਆ ਜਾ ਰਿਹਾ ਹੈ..."
 msgid "Friday"
 msgstr "ਸ਼ੁੱਕਰਵਾਰ"
 
-#: ../../../lib/web/src/components/person-picker.tsx:207
+#: ../../../lib/web/src/components/person-picker.tsx:183
 #: src/features/chats/components/forward-dialog.tsx:236
+#: src/features/chats/components/new-chat.tsx:286
 #: src/routes/_authenticated/$chatId_.settings.tsx:480
 msgid "Friends"
 msgstr "ਦੋਸਤ"
@@ -1298,7 +1339,7 @@ msgstr "ਦੋਸਤ"
 msgid "Friends only"
 msgstr "ਸਿਰਫ਼ ਦੋਸਤ"
 
-#: ../../../lib/web/src/components/travelling-picker.tsx:153
+#: ../../../lib/web/src/components/travelling-picker.tsx:134
 msgid "From"
 msgstr "ਤੋਂ"
 
@@ -1315,8 +1356,8 @@ msgstr "ਥੀਮ ਤੋਂ"
 msgid "General"
 msgstr "ਆਮ"
 
+#: ../../../lib/web/src/features/errors/access-denied-error.tsx:25
 #: ../../../lib/web/src/features/errors/not-found-error.tsx:26
-#: ../../../lib/web/src/features/errors/unauthorized-error.tsx:26
 msgid "Go back"
 msgstr "ਵਾਪਸ ਜਾਓ"
 
@@ -1324,7 +1365,7 @@ msgstr "ਵਾਪਸ ਜਾਓ"
 msgid "Group"
 msgstr "ਗਰੁੱਪ"
 
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:347
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:350
 msgid "Group by"
 msgstr "ਇਸ ਅਨੁਸਾਰ ਗਰੁੱਪ ਕਰੋ"
 
@@ -1339,8 +1380,8 @@ msgstr "ਇਤਿਹਾਸ"
 
 #: ../../../lib/web/src/components/layout/app-sidebar.tsx:90
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx:185
-#: ../../../lib/web/src/components/layout/top-bar.tsx:71
-#: ../../../lib/web/src/components/layout/top-bar.tsx:100
+#: ../../../lib/web/src/components/layout/top-bar.tsx:86
+#: ../../../lib/web/src/components/layout/top-bar.tsx:115
 msgid "Home"
 msgstr "ਮੁੱਖ"
 
@@ -1348,12 +1389,12 @@ msgstr "ਮੁੱਖ"
 msgid "Hot"
 msgstr "ਪ੍ਰਸਿੱਧ"
 
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:152
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:156
 msgid "ID"
 msgstr "ਆਈਡੀ"
 
 #. placeholder {0}: currentMedia.name
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:316
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:327
 msgid "Image viewer: {0}"
 msgstr "ਚਿੱਤਰ ਦਰਸ਼ਕ: {0}"
 
@@ -1378,11 +1419,15 @@ msgstr "ਅਰੰਭਕ ਅੱਖਰ ਅਵਤਾਰ"
 msgid "Initials avatar for {name}"
 msgstr "{name} ਲਈ ਅਰੰਭਕ ਅੱਖਰ ਅਵਤਾਰ"
 
+#: ../../../lib/web/src/components/post-tags.tsx:168
+msgid "Interest {weight}"
+msgstr "ਦਿਲਚਸਪੀ {weight}"
+
 #: ../../../lib/web/src/components/ui/sort-selector.tsx:42
 msgid "Interests"
 msgstr "ਦਿਲਚਸਪੀਆਂ"
 
-#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:550
+#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:591
 msgid "Invalid date"
 msgstr "ਅਯੋਗ ਮਿਤੀ"
 
@@ -1412,7 +1457,7 @@ msgstr "ਵੱਡਾ"
 msgid "Laugh"
 msgstr "ਹਾਸਾ"
 
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:306
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:309
 msgid "Layout"
 msgstr "ਚੈਟ ਛੱਡ ਦਿੱਤੀ"
 
@@ -1445,9 +1490,9 @@ msgstr "ਲਿਸਟਿੰਗ ਮਨਜ਼ੂਰ ਕੀਤੀ ਗਈ"
 msgid "Left chat"
 msgstr "ਲਿਸਟਿੰਗ ਡਰਾਫਟ ਵਜੋਂ ਕਾਪੀ ਕੀਤੀ ਗਈ"
 
-#: ../../../lib/web/src/components/post-tags.tsx:72
-msgid "Letters, numbers, spaces, and hyphens only"
-msgstr "ਸਿਰਫ਼ ਅੱਖਰ, ਅੰਕ, ਖਾਲੀ ਥਾਂ ਅਤੇ ਹਾਈਫਨ"
+#: ../../../lib/web/src/components/post-tags.tsx:73
+msgid "Letters, numbers, spaces, hyphens, and slashes only"
+msgstr "ਸਿਰਫ਼ ਅੱਖਰ, ਅੰਕ, ਖਾਲੀ ਥਾਂਵਾਂ, ਹਾਈਫਨ ਅਤੇ ਸਲੈਸ਼"
 
 #: ../../../lib/web/src/lib/preference-utils.ts:14
 msgid "Light"
@@ -1465,11 +1510,11 @@ msgstr "ਲਿੰਕ"
 msgid "Links"
 msgstr "ਲਿੰਕ"
 
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:318
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:321
 msgid "List"
 msgstr "ਲਿਸਟਿੰਗ ਪ੍ਰਕਾਸ਼ਿਤ ਕੀਤੀ ਗਈ"
 
-#: ../../../lib/web/src/components/ui/load-more.tsx:35
+#: ../../../lib/web/src/components/ui/load-more.tsx:39
 msgid "Load more"
 msgstr "ਲਾਕ"
 
@@ -1477,7 +1522,7 @@ msgstr "ਲਾਕ"
 msgid "Loading content…"
 msgstr "ਸਮੱਗਰੀ ਲੋਡ ਹੋ ਰਹੀ ਹੈ…"
 
-#: ../../../lib/web/src/components/ui/load-more.tsx:35
+#: ../../../lib/web/src/components/ui/load-more.tsx:39
 #: ../../../lib/web/src/features/document/document-page.tsx:88
 msgid "Loading..."
 msgstr "ਲਾਗਇਨ ਕੀਤਾ"
@@ -1511,8 +1556,8 @@ msgstr "ਸ਼੍ਰੇਣੀਆਂ ਦਾ ਪ੍ਰਬੰਧਨ ਕਰੋ"
 msgid "Manual"
 msgstr "ਮੈਨੁਅਲ"
 
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:207
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:214
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:203
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:210
 msgid "Mark all as read"
 msgstr "ਸਾਰੇ ਪੜ੍ਹੇ ਵਜੋਂ ਮਾਰਕ ਕਰੋ"
 
@@ -1528,7 +1573,7 @@ msgstr "ਅਣਪੜ੍ਹਿਆ ਮਾਰਕ ਕਰੋ"
 msgid "Marking as read..."
 msgstr "ਪੜ੍ਹਿਆ ਵਜੋਂ ਨਿਸ਼ਾਨ ਲਗਾਇਆ ਜਾ ਰਿਹਾ ਹੈ..."
 
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:198
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:202
 msgid "Maximum length"
 msgstr "ਵੱਧੋ-ਵੱਧ ਲੰਬਾਈ"
 
@@ -1548,6 +1593,7 @@ msgstr "ਮੈਂਬਰ ਜੋੜਿਆ ਗਿਆ"
 msgid "Member removed"
 msgstr "ਮੈਂਬਰ ਹਟਾਇਆ ਗਿਆ"
 
+#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:377
 #: src/routes/_authenticated/$chatId_.settings.tsx:259
 msgid "Members"
 msgstr "ਮੈਂਬਰ"
@@ -1629,7 +1675,7 @@ msgstr "ਮਾਈਕ੍ਰੋਫ਼ੋਨ ਪਹਿਲਾਂ ਤੋਂ ਵਰਤ
 msgid "Microphone permission denied"
 msgstr "ਮਾਈਕ੍ਰੋਫ਼ੋਨ ਇਜਾਜ਼ਤ ਤੋਂ ਇਨਕਾਰ"
 
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:187
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:191
 msgid "Minimum length"
 msgstr "ਘੱਟੋ-ਘੱਟ ਲੰਬਾਈ"
 
@@ -1650,44 +1696,56 @@ msgstr "ਸੋਮਵਾਰ"
 msgid "More options"
 msgstr "ਹੋਰ ਵਿਕਲਪ"
 
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx:60
+msgid "Moved"
+msgstr "ਮੂਵ ਕੀਤਾ ਗਿਆ"
+
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx:60
+msgid "Moved {field}"
+msgstr "{field} ਮੂਵ ਕੀਤਾ ਗਿਆ"
+
 #. placeholder {0}: ambiguous.join(', ')
 #: src/features/chats/index.tsx:997
 msgid "Multiple people share these names: {0}. Pick them from the @ list so the right person is notified."
 msgstr "ਕਈ ਲੋਕਾਂ ਦੇ ਇਹ ਨਾਮ ਹਨ: {0}। ਉਨ੍ਹਾਂ ਨੂੰ @ ਸੂਚੀ ਵਿੱਚੋਂ ਚੁਣੋ ਤਾਂ ਜੋ ਸਹੀ ਵਿਅਕਤੀ ਨੂੰ ਸੂਚਨਾ ਮਿਲੇ।"
 
-#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:118
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:600
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:142
-#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:125
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:293
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:122
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:601
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:145
+#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:126
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:296
 msgid "Name"
 msgstr "ਨਾਮ"
 
-#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:102
-msgid "Name cannot contain angle brackets, backslash, semicolon, quotes or backticks"
-msgstr "ਨਾਮ ਵਿੱਚ ਕੋਣ ਬਰੈਕਟ, ਬੈਕਸਲੈਸ਼, ਸੈਮੀਕੋਲਨ, ਹਵਾਲਾ ਚਿੰਨ੍ਹ ਜਾਂ ਬੈਕਟਿਕ ਨਹੀਂ ਹੋ ਸਕਦੇ"
+#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:104
+msgid "Name cannot contain < or > characters"
+msgstr "ਨਾਮ ਵਿੱਚ < ਜਾਂ > ਅੱਖਰ ਨਹੀਂ ਹੋ ਸਕਦੇ"
+
+#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:101
+msgid "Name is required"
+msgstr "ਨਾਮ ਜ਼ਰੂਰੀ ਹੈ"
 
 #: src/routes/_authenticated/$chatId_.settings.tsx:201
 msgid "Name must be {CHAT_NAME_MAX_LENGTH} characters or less"
 msgstr "ਨਾਮ {CHAT_NAME_MAX_LENGTH} ਅੱਖਰਾਂ ਜਾਂ ਘੱਟ ਦਾ ਹੋਣਾ ਚਾਹੀਦਾ ਹੈ"
 
-#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:100
+#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:102
 msgid "Name must be 1000 characters or less"
 msgstr "ਨਾਮ 1000 ਅੱਖਰਾਂ ਜਾਂ ਘੱਟ ਦਾ ਹੋਣਾ ਚਾਹੀਦਾ ਹੈ"
 
-#: ../../../lib/web/src/features/errors/general-error.tsx:53
+#: ../../../lib/web/src/features/errors/general-error.tsx:51
 #: ../../../lib/web/src/lib/api-response-interceptors.ts:313
 msgid "Network error"
 msgstr "ਨੈੱਟਵਰਕ ਗੜਬੜ"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:476
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:498
 #: ../../../lib/web/src/components/ui/sort-selector.tsx:43
 msgid "New"
 msgstr "ਨਵਾਂ"
 
 #: src/features/chats/components/chat-empty-state.tsx:27
 #: src/features/chats/components/chat-empty-state.tsx:43
-#: src/features/chats/components/new-chat.tsx:263
+#: src/features/chats/components/new-chat.tsx:264
 msgid "New chat"
 msgstr "ਨਵੀਂ ਚੈਟ"
 
@@ -1700,12 +1758,12 @@ msgstr "ਨਵੀਂ ਗੇਮ"
 msgid "Newer match"
 msgstr "ਨਵਾਂ ਨਤੀਜਾ"
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:525
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:530
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:536
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:541
 msgid "Next image"
 msgstr "ਅਗਲੀ ਤਸਵੀਰ"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:555
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:577
 msgid "No {parentClassNames} to add to"
 msgstr "ਜੋੜਨ ਲਈ ਕੋਈ {parentClassNames} ਨਹੀਂ"
 
@@ -1713,7 +1771,7 @@ msgstr "ਜੋੜਨ ਲਈ ਕੋਈ {parentClassNames} ਨਹੀਂ"
 msgid "No access rules configured. Add rules to control who can access this resource."
 msgstr "ਕੋਈ ਪਹੁੰਚ ਨਿਯਮ ਕੌਨਫਿਗਰ ਨਹੀਂ ਕੀਤੇ। ਨਿਯਮ ਜੋੜੋ ਇਹ ਕੰਟਰੋਲ ਕਰਨ ਲਈ ਕਿ ਇਸ ਰਿਸੋਰਸ ਤੱਕ ਕੌਣ ਪਹੁੰਚ ਸਕਦਾ ਹੈ।"
 
-#: ../../../lib/web/src/components/entity/entity-activity-list.tsx:65
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx:74
 msgid "No activity yet"
 msgstr "ਅਜੇ ਕੋਈ ਗਤੀਵਿਧੀ ਨਹੀਂ"
 
@@ -1721,7 +1779,7 @@ msgstr "ਅਜੇ ਕੋਈ ਗਤੀਵਿਧੀ ਨਹੀਂ"
 msgid "No chats to forward to"
 msgstr "ਫਾਰਵਰਡ ਕਰਨ ਲਈ ਕੋਈ ਚੈਟ ਨਹੀਂ"
 
-#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:322
+#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:324
 msgid "No comments yet"
 msgstr "ਅਜੇ ਕੋਈ ਟਿੱਪਣੀ ਨਹੀਂ"
 
@@ -1733,7 +1791,7 @@ msgstr "ਕੋਈ ਦੋਸਤ ਉਪਲਬਧ ਨਹੀਂ"
 msgid "No friends found"
 msgstr "ਕੋਈ ਦੋਸਤ ਨਹੀਂ ਮਿਲਿਆ"
 
-#: src/features/chats/components/new-chat.tsx:294
+#: src/features/chats/components/new-chat.tsx:296
 msgid "No friends yet"
 msgstr "ਅਜੇ ਕੋਈ ਦੋਸਤ ਨਹੀਂ"
 
@@ -1745,7 +1803,7 @@ msgstr "ਅਜੇ ਕੋਈ ਗੇਮ ਨਹੀਂ"
 msgid "No groups available"
 msgstr "ਕੋਈ ਗਰੁੱਪ ਉਪਲਬਧ ਨਹੀਂ"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:522
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:544
 msgid "No item types can be created yet. Create the required parent items first."
 msgstr "ਅਜੇ ਕੋਈ ਆਈਟਮ ਕਿਸਮ ਨਹੀਂ ਬਣਾਈ ਜਾ ਸਕਦੀ। ਪਹਿਲਾਂ ਜ਼ਰੂਰੀ ਪੇਰੈਂਟ ਆਈਟਮਾਂ ਬਣਾਓ।"
 
@@ -1761,13 +1819,13 @@ msgstr "ਅਜੇ ਕੋਈ ਸੁਨੇਹੇ ਨਹੀਂ"
 msgid "No microphone found"
 msgstr "ਕੋਈ ਮਾਈਕ੍ਰੋਫ਼ੋਨ ਨਹੀਂ ਮਿਲਿਆ"
 
-#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:341
-#: ../../../lib/web/src/components/person-picker.tsx:84
-#: src/features/chats/components/new-chat.tsx:288
+#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:382
+#: ../../../lib/web/src/components/person-picker.tsx:71
+#: src/features/chats/components/new-chat.tsx:290
 msgid "No people found"
 msgstr "ਕੋਈ ਲੋਕ ਨਹੀਂ ਮਿਲੇ"
 
-#: ../../../lib/web/src/components/place-picker.tsx:133
+#: ../../../lib/web/src/components/place-picker.tsx:120
 msgid "No places found"
 msgstr "ਕੋਈ ਸਥਾਨ ਨਹੀਂ ਮਿਲੇ"
 
@@ -1775,18 +1833,18 @@ msgstr "ਕੋਈ ਸਥਾਨ ਨਹੀਂ ਮਿਲੇ"
 msgid "No results"
 msgstr "ਕੋਈ ਨਤੀਜਾ ਨਹੀਂ"
 
-#: ../../../lib/web/src/components/inline-entity-search.tsx:64
+#: ../../../lib/web/src/components/inline-entity-search.tsx:65
 #: ../../../lib/web/src/components/search-entity-page.tsx:73
 msgid "No results found"
 msgstr "ਕੋਈ ਨਤੀਜਾ ਨਹੀਂ ਮਿਲਿਆ"
 
-#: ../../../lib/web/src/components/command-menu.tsx:55
+#: ../../../lib/web/src/components/command-menu.tsx:57
 msgid "No results found."
 msgstr "ਕੋਈ ਨਤੀਜੇ ਨਹੀਂ ਮਿਲੇ।"
 
 #: ../../../lib/web/src/components/entity/entity-board-container.tsx:824
 #: ../../../lib/web/src/components/entity/entity-board-container.tsx:869
-#: ../../../lib/web/src/components/entity/entity-tree-view.tsx:339
+#: ../../../lib/web/src/components/entity/entity-tree-view.tsx:336
 msgid "No status"
 msgstr "ਕੋਈ ਸਥਿਤੀ ਨਹੀਂ"
 
@@ -1798,7 +1856,7 @@ msgstr "ਕੋਈ ਟਾਈਮ ਜ਼ੋਨ ਨਹੀਂ ਮਿਲਿਆ।"
 msgid "No topic record yet — try again after the next notification."
 msgstr "ਅਜੇ ਕੋਈ ਟੌਪਿਕ ਰਿਕਾਰਡ ਨਹੀਂ — ਅਗਲੇ ਨੋਟੀਫਿਕੇਸ਼ਨ ਤੋਂ ਬਾਅਦ ਫਿਰ ਕੋਸ਼ਿਸ਼ ਕਰੋ।"
 
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:139
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:135
 msgid "No unread notifications"
 msgstr "ਕੋਈ ਨਾ-ਪੜ੍ਹੇ ਨੋਟੀਫਿਕੇਸ਼ਨ ਨਹੀਂ"
 
@@ -1811,17 +1869,17 @@ msgid "No views"
 msgstr "ਕੋਈ ਵਿਊ ਨਹੀਂ"
 
 #: ../../../lib/web/src/components/colour-picker.tsx:349
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:538
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:541
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:545
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:359
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:382
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:560
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:563
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:567
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:362
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:385
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:412
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:388
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:415
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:488
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:418
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:491
-#: ../../../lib/web/src/components/person-picker.tsx:350
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:494
+#: ../../../lib/web/src/components/person-picker.tsx:326
 #: ../../../lib/web/src/lib/preference-utils.ts:100
 msgid "None"
 msgstr "ਕੋਈ ਨਹੀਂ"
@@ -1831,15 +1889,15 @@ msgid "Normal"
 msgstr "ਸਧਾਰਨ"
 
 #: ../../../lib/web/src/components/attachment-image.tsx:50
-#: ../../../lib/web/src/features/errors/general-error.tsx:67
+#: ../../../lib/web/src/features/errors/general-error.tsx:65
 msgid "Not found"
 msgstr "ਨਹੀਂ ਮਿਲਿਆ"
 
-#: ../../../lib/web/src/components/ui/editable-field-row.tsx:146
+#: ../../../lib/web/src/components/ui/editable-field-row.tsx:150
 msgid "Not set"
 msgstr "ਸੈੱਟ ਨਹੀਂ"
 
-#: ../../../lib/web/src/components/entity/entity-tree-view.tsx:671
+#: ../../../lib/web/src/components/entity/entity-tree-view.tsx:668
 msgid "Nothing found"
 msgstr "ਕੁਝ ਨਹੀਂ ਮਿਲਿਆ"
 
@@ -1848,13 +1906,13 @@ msgid "Nothing to copy"
 msgstr "ਕਾਪੀ ਕਰਨ ਲਈ ਕੁਝ ਨਹੀਂ"
 
 #. placeholder {0}: unread.length
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:200
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:196
 msgid "Notifications: {0}"
 msgstr "ਸੂਚਨਾਵਾਂ: {0}"
 
-#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:140
 #: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx:54
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:493
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:497
+#: ../../../lib/web/src/hooks/use-field-type-labels.ts:15
 msgid "Number"
 msgstr "ਨੰਬਰ"
 
@@ -1874,12 +1932,12 @@ msgstr "ਸਿਰਫ਼ ਦੋਸਤ ਹੀ ਤੁਹਾਡੇ ਨਾਲ ਚੈ�
 msgid "Oops! Page Not Found!"
 msgstr "ਓਹੋ! ਪੇਜ ਨਹੀਂ ਮਿਲਿਆ!"
 
-#: src/features/chats/components/new-chat.tsx:328
+#: src/features/chats/components/new-chat.tsx:330
 msgid "Open"
 msgstr "ਖੋਲ੍ਹੋ"
 
-#: ../../../lib/web/src/components/layout/nav-group.tsx:199
-#: ../../../lib/web/src/components/layout/nav-group.tsx:204
+#: ../../../lib/web/src/components/layout/nav-group.tsx:227
+#: ../../../lib/web/src/components/layout/nav-group.tsx:232
 msgid "Open actions"
 msgstr "ਕਾਰਵਾਈਆਂ ਖੋਲ੍ਹੋ"
 
@@ -1891,17 +1949,17 @@ msgstr "ਚੈਟ ਐਕਸ਼ਨ ਖੋਲ੍ਹੋ"
 msgid "Open menu"
 msgstr "ਮੇਨੂ ਖੋਲ੍ਹੋ"
 
-#: ../../../lib/web/src/components/layout/top-bar.tsx:63
-#: ../../../lib/web/src/components/layout/top-bar.tsx:68
+#: ../../../lib/web/src/components/layout/top-bar.tsx:78
+#: ../../../lib/web/src/components/layout/top-bar.tsx:83
 msgid "Open navigation"
 msgstr "ਨੈਵੀਗੇਸ਼ਨ ਖੋਲ੍ਹੋ"
 
-#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:105
-#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:111
+#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:106
+#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:112
 msgid "Open option actions"
 msgstr "ਵਿਕਲਪ ਐਕਸ਼ਨ ਖੋਲ੍ਹੋ"
 
-#: src/features/chats/components/new-chat.tsx:304
+#: src/features/chats/components/new-chat.tsx:306
 msgid "Open people"
 msgstr "ਲੋਕ ਖੋਲ੍ਹੋ"
 
@@ -1909,8 +1967,8 @@ msgstr "ਲੋਕ ਖੋਲ੍ਹੋ"
 msgid "Open selected card"
 msgstr "ਚੁਣੇ ਕਾਰਡ ਨੂੰ ਖੋਲ੍ਹੋ"
 
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:274
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:279
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:277
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:282
 msgid "Open view actions"
 msgstr "ਵਿਊ ਐਕਸ਼ਨ ਖੋਲ੍ਹੋ"
 
@@ -1919,13 +1977,13 @@ msgstr "ਵਿਊ ਐਕਸ਼ਨ ਖੋਲ੍ਹੋ"
 msgid "Open view controls"
 msgstr "ਵਿਊ ਕੰਟਰੋਲ ਖੋਲ੍ਹੋ"
 
-#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:200
-#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:155
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:202
+#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:157
 msgid "Option name"
 msgstr "ਵਿਕਲਪ ਦਾ ਨਾਮ"
 
-#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:168
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:240
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:170
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:244
 msgid "Options"
 msgstr "ਵਿਕਲਪ"
 
@@ -1941,23 +1999,23 @@ msgstr "ਹੋਰ"
 msgid "Owner"
 msgstr "ਮਾਲਕ"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:530
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:552
 msgid "Parent"
 msgstr "ਪੇਰੈਂਟ"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:337
+#: ../../../lib/web/src/components/step-up-dialog.tsx:325
 msgid "Passkey"
 msgstr "ਪਾਸਕੀ"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:207
+#: ../../../lib/web/src/components/step-up-dialog.tsx:195
 msgid "Passkey verification failed. Please try again."
 msgstr "ਪਾਸਕੀ ਤਸਦੀਕ ਅਸਫਲ ਰਹੀ। ਕਿਰਪਾ ਕਰਕੇ ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ।"
 
-#: ../../../lib/web/src/components/restore-banner.tsx:146
+#: ../../../lib/web/src/components/restore-banner.tsx:132
 msgid "Passkeys"
 msgstr "ਪਾਸਕੀਆਂ"
 
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:209
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:213
 msgid "Pattern (regex)"
 msgstr "ਪੈਟਰਨ (regex)"
 
@@ -1969,7 +2027,8 @@ msgstr "ਆਡੀਓ ਰੋਕੋ"
 msgid "Pause voice note"
 msgstr "ਵੌਇਸ ਨੋਟ ਰੋਕੋ"
 
-#: src/features/chats/components/new-chat.tsx:273
+#: ../../../lib/web/src/components/person-picker.tsx:176
+#: src/features/chats/components/new-chat.tsx:274
 msgid "People"
 msgstr "ਲੋਕ"
 
@@ -1990,28 +2049,24 @@ msgid "Play voice note"
 msgstr "ਵੌਇਸ ਨੋਟ ਚਲਾਓ"
 
 #: ../../../lib/web/src/components/comment-composer.tsx:89
-#: ../../../lib/web/src/features/errors/general-error.tsx:54
+#: ../../../lib/web/src/features/errors/general-error.tsx:52
 #: ../../../lib/web/src/lib/api-response-interceptors.ts:314
 msgid "Please check your internet connection and try again."
 msgstr "ਕਿਰਪਾ ਕਰਕੇ ਆਪਣਾ ਇੰਟਰਨੈੱਟ ਕਨੈਕਸ਼ਨ ਜਾਂਚੋ ਅਤੇ ਮੁੜ ਕੋਸ਼ਿਸ਼ ਕਰੋ।"
 
-#: ../../../lib/web/src/features/errors/unauthorized-error.tsx:18
-msgid "Please log in with the appropriate credentials <0/> to access this resource."
-msgstr "ਇਸ ਸਰੋਤ ਤੱਕ ਪਹੁੰਚ ਕਰਨ ਲਈ <0/> ਕਿਰਪਾ ਕਰਕੇ ਢੁਕਵੇਂ ਪ੍ਰਮਾਣ ਪੱਤਰਾਂ ਨਾਲ ਲੌਗ ਇਨ ਕਰੋ।"
-
-#: src/features/chats/components/new-chat.tsx:161
+#: src/features/chats/components/new-chat.tsx:162
 msgid "Please provide a chat name"
 msgstr "ਕਿਰਪਾ ਕਰਕੇ ਚੈਟ ਦਾ ਨਾਮ ਦਿਓ"
 
-#: src/features/chats/components/new-chat.tsx:151
+#: src/features/chats/components/new-chat.tsx:152
 msgid "Please select at least one person"
 msgstr "ਕਿਰਪਾ ਕਰਕੇ ਘੱਟੋ-ਘੱਟ ਇੱਕ ਵਿਅਕਤੀ ਚੁਣੋ"
 
-#: ../../../lib/web/src/features/errors/general-error.tsx:83
+#: ../../../lib/web/src/features/errors/general-error.tsx:81
 msgid "Please try again."
 msgstr "ਕਿਰਪਾ ਕਰਕੇ ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ।"
 
-#: ../../../lib/web/src/features/errors/general-error.tsx:75
+#: ../../../lib/web/src/features/errors/general-error.tsx:73
 msgid "Please wait a moment and try again."
 msgstr "ਕਿਰਪਾ ਕਰਕੇ ਥੋੜ੍ਹੀ ਦੇਰ ਉਡੀਕ ਕਰੋ ਅਤੇ ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ।"
 
@@ -2023,8 +2078,8 @@ msgstr "ਪੋਸਟਾਂ"
 msgid "Posts and comments"
 msgstr "ਪੋਸਟਾਂ ਅਤੇ ਟਿੱਪਣੀਆਂ"
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:509
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:514
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:520
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:525
 msgid "Previous image"
 msgstr "ਪਿਛਲੀ ਤਸਵੀਰ"
 
@@ -2037,9 +2092,9 @@ msgstr "ਪ੍ਰਾਈਵੇਸੀ"
 msgid "Processing…"
 msgstr "ਪ੍ਰਕਿਰਿਆ ਜਾਰੀ ਹੈ…"
 
-#: ../../../lib/web/src/components/person-picker.tsx:200
-msgid "Project members"
-msgstr "ਪ੍ਰੋਜੈਕਟ ਮੈਂਬਰ"
+#: ../../../lib/web/src/components/ai-prompts-editor.tsx:108
+msgid "Prompt saved"
+msgstr "ਪ੍ਰਾਂਪਟ ਸੇਵ ਹੋ ਗਿਆ"
 
 #: ../../../lib/web/src/features/accounts/types.ts:21
 msgid "Push notification"
@@ -2049,11 +2104,11 @@ msgstr "ਪੁਸ਼ ਸੂਚਨਾ"
 msgid "Raised"
 msgstr "ਉੱਚਾ"
 
-#: ../../../lib/web/src/components/restore-banner.tsx:118
+#: ../../../lib/web/src/components/restore-banner.tsx:104
 msgid "Re-link your accounts on this server"
 msgstr "ਇਸ ਸਰਵਰ 'ਤੇ ਆਪਣੇ ਖਾਤੇ ਮੁੜ-ਲਿੰਕ ਕਰੋ"
 
-#: ../../../lib/web/src/components/restore-banner.tsx:140
+#: ../../../lib/web/src/components/restore-banner.tsx:126
 msgid "Re-register your passkeys on this server"
 msgstr "ਇਸ ਸਰਵਰ 'ਤੇ ਆਪਣੀਆਂ ਪਾਸਕੀਆਂ ਮੁੜ-ਰਜਿਸਟਰ ਕਰੋ"
 
@@ -2094,12 +2149,12 @@ msgstr "ਰਿਕਾਰਡਿੰਗ 5 ਮਿੰਟ ਦੀ ਹੱਦ ਉੱਤੇ
 msgid "Recording voice note"
 msgstr "ਵੌਇਸ ਨੋਟ ਰਿਕਾਰਡ ਹੋ ਰਿਹਾ ਹੈ"
 
-#: ../../../lib/web/src/components/layout/authenticated-layout.tsx:136
+#: ../../../lib/web/src/components/layout/authenticated-layout.tsx:135
 msgid "Redirecting to login."
 msgstr "ਲੌਗਇਨ 'ਤੇ ਰੀਡਾਇਰੈਕਟ ਕਰ ਰਿਹਾ ਹੈ।"
 
-#: ../../../lib/web/src/components/post-tags.tsx:200
-#: ../../../lib/web/src/components/post-tags.tsx:212
+#: ../../../lib/web/src/components/post-tags.tsx:214
+#: ../../../lib/web/src/components/post-tags.tsx:226
 msgid "Reduce interest"
 msgstr "ਦਿਲਚਸਪੀ ਘਟਾਓ"
 
@@ -2115,9 +2170,17 @@ msgstr "ਸਾਪੇਖਿਕ (5m, 3h, 2d)"
 msgid "Relative within 24 hours, else absolute"
 msgstr "24 ਘੰਟਿਆਂ ਅੰਦਰ ਸਾਪੇਖਿਕ, ਨਹੀਂ ਤਾਂ ਪੂਰਨ"
 
+#: ../../../lib/web/src/components/post-tags.tsx:166
+msgid "Relevance {relevance}"
+msgstr "ਸੰਬੰਧਿਤਤਾ {relevance}"
+
+#: ../../../lib/web/src/components/post-tags.tsx:164
+msgid "Relevance {relevance}, interest {weight}"
+msgstr "ਸੰਬੰਧਿਤਤਾ {relevance}, ਦਿਲਚਸਪੀ {weight}"
+
 #: ../../../lib/web/src/components/attachment-composer.tsx:285
 #: ../../../lib/web/src/components/attachment-composer.tsx:330
-#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:190
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:192
 #: ../../../lib/web/src/features/access/access-list.tsx:270
 #: src/routes/_authenticated/$chatId_.settings.tsx:557
 msgid "Remove"
@@ -2152,12 +2215,12 @@ msgstr "ਪਹੁੰਚ ਹਟਾਏ?"
 msgid "Remove audio"
 msgstr "ਆਡੀਓ ਹਟਾਓ"
 
-#: ../../../lib/web/src/components/post-tags.tsx:220
-#: ../../../lib/web/src/components/post-tags.tsx:232
+#: ../../../lib/web/src/components/post-tags.tsx:234
+#: ../../../lib/web/src/components/post-tags.tsx:246
 msgid "Remove interest"
 msgstr "ਦਿਲਚਸਪੀ ਹਟਾਓ"
 
-#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:674
+#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:712
 msgid "Remove item"
 msgstr "ਆਈਟਮ ਹਟਾਓ"
 
@@ -2182,16 +2245,16 @@ msgstr "ਮੈਂਬਰ ਹਟਾਇਆ ਜਾ ਰਿਹਾ ਹੈ..."
 msgid "Removing..."
 msgstr "ਹਟਾ ਰਿਹਾ ਹੈ..."
 
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:561
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:618
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:562
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:620
 msgid "Rename"
 msgstr "ਨਾਮ ਬਦਲੋ"
 
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:596
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:597
 msgid "Rename column"
 msgstr "ਕਾਲਮ ਦਾ ਨਾਮ ਬਦਲੋ"
 
-#: ../../../lib/web/src/components/entity/entity-board-column.tsx:597
+#: ../../../lib/web/src/components/entity/entity-board-column.tsx:598
 msgid "Rename this board column"
 msgstr "ਇਸ ਬੋਰਡ ਕਾਲਮ ਦਾ ਨਾਮ ਬਦਲੋ"
 
@@ -2215,11 +2278,11 @@ msgstr "{0} ਨੂੰ ਜਵਾਬ ਦਿਓ..."
 msgid "Replying to {0}"
 msgstr "{0} ਨੂੰ ਜਵਾਬ ਦਿੱਤਾ ਜਾ ਰਿਹਾ ਹੈ"
 
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:224
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:228
 msgid "Required"
 msgstr "ਜ਼ਰੂਰੀ"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:370
+#: ../../../lib/web/src/components/step-up-dialog.tsx:358
 msgid "Resend email"
 msgstr "ਈਮੇਲ ਦੁਬਾਰਾ ਭੇਜੋ"
 
@@ -2239,12 +2302,12 @@ msgstr "ਪਹੁੰਚ ਰੱਦ ਕਰੋ"
 msgid "Revoke RSS access?"
 msgstr "RSS ਪਹੁੰਚ ਰੱਦ ਕਰਨੀ ਹੈ?"
 
-#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:150
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:168
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:152
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:172
 msgid "Rows"
 msgstr "ਕਤਾਰਾਂ"
 
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:373
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:376
 msgid "Rows group by"
 msgstr "ਕਤਾਰਾਂ ਇਸ ਅਨੁਸਾਰ ਸਮੂਹਬੱਧ ਕਰੋ"
 
@@ -2268,16 +2331,18 @@ msgstr "ਉਦਾਸ"
 msgid "Saturday"
 msgstr "ਸ਼ਨੀਵਾਰ"
 
+#: ../../../lib/web/src/components/ai-prompts-editor.tsx:156
 #: ../../../lib/web/src/components/attachment-composer.tsx:430
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:231
-#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:170
-#: ../../../lib/web/src/components/ui/editable-field-row.tsx:122
+#: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:172
+#: ../../../lib/web/src/components/ui/editable-field-row.tsx:126
 #: ../../../lib/web/src/components/ui/secret-field.tsx:79
 #: src/features/chats/components/chat-message-list.tsx:641
 #: src/features/chats/components/chat-settings-dialog.tsx:128
 msgid "Save"
 msgstr "ਸੰਭਾਲੋ"
 
+#: ../../../lib/web/src/components/ai-prompts-editor.tsx:156
 #: src/features/chats/components/chat-settings-dialog.tsx:66
 msgid "Saving..."
 msgstr "ਸੰਭਾਲ ਰਿਹਾ ਹੈ..."
@@ -2285,7 +2350,7 @@ msgstr "ਸੰਭਾਲ ਰਿਹਾ ਹੈ..."
 #: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx:175
 #: ../../../lib/web/src/components/filter-bar.tsx:32
 #: ../../../lib/web/src/components/header-search.tsx:22
-#: ../../../lib/web/src/components/search.tsx:18
+#: ../../../lib/web/src/components/search.tsx:17
 msgid "Search"
 msgstr "ਖੋਜ"
 
@@ -2301,19 +2366,19 @@ msgstr "ਖੋਜ ਅਸਫਲ ਰਹੀ"
 msgid "Search for a command to run..."
 msgstr "ਚਲਾਉਣ ਲਈ ਕਮਾਂਡ ਲੱਭੋ..."
 
-#: ../../../lib/web/src/components/place-picker.tsx:86
+#: ../../../lib/web/src/components/place-picker.tsx:73
 msgid "Search for a place"
 msgstr "ਥਾਂ ਖੋਜੋ"
 
-#: ../../../lib/web/src/components/place-picker.tsx:50
+#: ../../../lib/web/src/components/place-picker.tsx:37
 msgid "Search for a place..."
 msgstr "ਥਾਂ ਲੱਭੋ..."
 
-#: ../../../lib/web/src/components/travelling-picker.tsx:250
+#: ../../../lib/web/src/components/travelling-picker.tsx:231
 msgid "Search for destination..."
 msgstr "ਮੰਜ਼ਿਲ ਖੋਜੋ..."
 
-#: ../../../lib/web/src/components/travelling-picker.tsx:183
+#: ../../../lib/web/src/components/travelling-picker.tsx:164
 msgid "Search for origin..."
 msgstr "ਮੁੱਢ ਖੋਜੋ..."
 
@@ -2347,8 +2412,8 @@ msgstr "ਇਸ ਦ੍ਰਿਸ਼ ਨੂੰ ਖੋਜੋ, ਦੇਖੋ, ਅਤ�
 
 #: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx:179
 #: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx:255
-#: ../../../lib/web/src/components/inline-entity-search.tsx:63
-#: ../../../lib/web/src/components/person-picker.tsx:324
+#: ../../../lib/web/src/components/inline-entity-search.tsx:64
+#: ../../../lib/web/src/components/person-picker.tsx:300
 #: ../../../lib/web/src/components/search-entity-page.tsx:72
 msgid "Search..."
 msgstr "ਖੋਜੋ..."
@@ -2366,7 +2431,7 @@ msgstr "ਆਡੀਓ ਵਿੱਚ ਅੱਗੇ-ਪਿੱਛੇ ਜਾਓ"
 msgid "Seek in voice note"
 msgstr "ਵੌਇਸ ਨੋਟ ਵਿੱਚ ਅੱਗੇ-ਪਿੱਛੇ ਜਾਓ"
 
-#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:141
+#: ../../../lib/web/src/hooks/use-field-type-labels.ts:16
 #: src/features/chats/components/message-hover-actions.tsx:113
 msgid "Select"
 msgstr "ਚੁਣੋ"
@@ -2375,7 +2440,7 @@ msgstr "ਚੁਣੋ"
 msgid "Select a chat"
 msgstr "ਚੈਟ ਚੁਣੋ"
 
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:356
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:359
 msgid "Select a field"
 msgstr "ਫੀਲਡ ਚੁਣੋ"
 
@@ -2407,7 +2472,7 @@ msgstr "ਗਰੁੱਪ ਚੁਣੋ"
 msgid "Select loaded"
 msgstr "ਲੋਡ ਕੀਤੇ ਚੁਣੋ"
 
-#: ../../../lib/web/src/components/place-picker.tsx:49
+#: ../../../lib/web/src/components/place-picker.tsx:36
 msgid "Select location"
 msgstr "ਟਿਕਾਣਾ ਚੁਣੋ"
 
@@ -2419,11 +2484,11 @@ msgstr "ਸੁਨੇਹਾ ਚੁਣੋ"
 msgid "Select next card"
 msgstr "ਅਗਲਾ ਕਾਰਡ ਚੁਣੋ"
 
-#: src/features/chats/components/new-chat.tsx:287
+#: src/features/chats/components/new-chat.tsx:289
 msgid "Select people..."
 msgstr "ਲੋਕ ਚੁਣੋ..."
 
-#: ../../../lib/web/src/components/person-picker.tsx:83
+#: ../../../lib/web/src/components/person-picker.tsx:70
 msgid "Select person..."
 msgstr "ਵਿਅਕਤੀ ਚੁਣੋ..."
 
@@ -2431,8 +2496,8 @@ msgstr "ਵਿਅਕਤੀ ਚੁਣੋ..."
 msgid "Select previous card"
 msgstr "ਪਿਛਲਾ ਕਾਰਡ ਚੁਣੋ"
 
-#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:257
-#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:340
+#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:289
+#: ../../../lib/web/src/components/entity/entity-field-editor.tsx:381
 msgid "Select..."
 msgstr "ਚੁਣੋ..."
 
@@ -2453,7 +2518,7 @@ msgstr "ਹੁਣ ਤੱਕ ਲੋਡ ਹੋਏ ਸੁਨੇਹੇ ਚੁਣਦ�
 msgid "Send again"
 msgstr "ਫਿਰ ਭੇਜੋ"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:310
+#: ../../../lib/web/src/components/step-up-dialog.tsx:298
 msgid "Send email"
 msgstr "ਈਮੇਲ ਭੇਜੋ"
 
@@ -2482,7 +2547,7 @@ msgstr "ਸਰਵਰ ਨਿਯਮ"
 msgid "Session expired. Please log in again."
 msgstr "ਸੈਸ਼ਨ ਦੀ ਮਿਆਦ ਖਤਮ ਹੋ ਗਈ ਹੈ। ਕਿਰਪਾ ਕਰਕੇ ਦੁਬਾਰਾ ਲੌਗਇਨ ਕਰੋ।"
 
-#: ../../../lib/web/src/components/travelling-picker.tsx:147
+#: ../../../lib/web/src/components/travelling-picker.tsx:128
 msgid "Set origin and destination"
 msgstr "ਮੁੱਢ ਅਤੇ ਮੰਜ਼ਿਲ ਸੈੱਟ ਕਰੋ"
 
@@ -2492,11 +2557,11 @@ msgstr "ਮੁੱਢ ਅਤੇ ਮੰਜ਼ਿਲ ਸੈੱਟ ਕਰੋ"
 msgid "Settings"
 msgstr "ਸੈਟਿੰਗਾਂ"
 
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:327
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:330
 msgid "Show classes"
 msgstr "classes ਦਿਖਾਓ"
 
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:428
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:431
 msgid "Show fields"
 msgstr "ਫੀਲਡ ਦਿਖਾਓ"
 
@@ -2509,7 +2574,7 @@ msgstr "ਘੱਟ ਦਿਖਾਓ"
 msgid "Show this help"
 msgstr "ਇਹ ਮਦਦ ਦਿਖਾਓ"
 
-#: ../../../lib/web/src/components/ui/load-more.tsx:39
+#: ../../../lib/web/src/components/ui/load-more.tsx:43
 msgid "Showing {totalShown} of {total}"
 msgstr "{total} ਵਿੱਚੋਂ {totalShown} ਦਿਖਾ ਰਿਹਾ ਹੈ"
 
@@ -2517,17 +2582,21 @@ msgstr "{total} ਵਿੱਚੋਂ {totalShown} ਦਿਖਾ ਰਿਹਾ ਹੈ
 msgid "Sidebar"
 msgstr "ਸਾਈਡਬਾਰ"
 
+#: ../../../lib/web/src/features/errors/access-denied-error.tsx:18
+msgid "Sign in with an account that has access <0/> to this resource."
+msgstr "ਇਸ ਸਰੋਤ ਤੱਕ ਪਹੁੰਚ ਵਾਲੇ ਖਾਤੇ ਨਾਲ <0/> ਸਾਈਨ ਇਨ ਕਰੋ।"
+
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx:131
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx:137
 msgid "Sign out"
 msgstr "ਸਾਈਨ ਆਊਟ ਕਰੋ"
 
-#: ../../../lib/web/src/components/layout/authenticated-layout.tsx:134
+#: ../../../lib/web/src/components/layout/authenticated-layout.tsx:133
 msgid "Signing out..."
 msgstr "ਸਾਈਨ ਆਊਟ ਕਰ ਰਿਹਾ ਹੈ..."
 
-#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:161
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:179
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:163
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:183
 msgid "Single line of text only"
 msgstr "ਸਿਰਫ਼ ਟੈਕਸਟ ਦੀ ਇੱਕ ਲਾਈਨ"
 
@@ -2552,7 +2621,7 @@ msgstr "ਵਿਸ਼ਾਲ"
 msgid "Start a conversation"
 msgstr "ਗੱਲਬਾਤ ਸ਼ੁਰੂ ਕਰੋ"
 
-#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:323
+#: ../../../lib/web/src/components/entity/entity-comment-list.tsx:325
 msgid "Start the discussion by adding the first comment."
 msgstr "ਪਹਿਲੀ ਟਿੱਪਣੀ ਜੋੜ ਕੇ ਚਰਚਾ ਸ਼ੁਰੂ ਕਰੋ।"
 
@@ -2569,16 +2638,16 @@ msgstr "ਰਿਕਾਰਡਿੰਗ ਬੰਦ ਕਰੋ"
 msgid "Subject"
 msgstr "ਵਿਸ਼ਾ"
 
-#: ../../../lib/web/src/components/comment-composer.tsx:427
+#: ../../../lib/web/src/components/comment-composer.tsx:430
 msgid "Submit comment"
 msgstr "ਟਿੱਪਣੀ ਜਮ੍ਹਾਂ ਕਰੋ"
 
-#: ../../../lib/web/src/components/comment-composer.tsx:426
+#: ../../../lib/web/src/components/comment-composer.tsx:429
 msgid "Submit reply"
 msgstr "ਜਵਾਬ ਜਮ੍ਹਾਂ ਕਰੋ"
 
-#: ../../../lib/web/src/components/inline-entity-search.tsx:66
-#: ../../../lib/web/src/components/recommended-entities.tsx:58
+#: ../../../lib/web/src/components/inline-entity-search.tsx:67
+#: ../../../lib/web/src/components/recommended-entities.tsx:59
 #: ../../../lib/web/src/components/search-entity-page.tsx:74
 msgid "Subscribe"
 msgstr "ਗਾਹਕ ਬਣੋ"
@@ -2597,16 +2666,16 @@ msgstr "ਦ੍ਰਿਸ਼ 1-9 'ਤੇ ਜਾਓ"
 msgid "System"
 msgstr "ਸਿਸਟਮ"
 
-#: ../../../lib/web/src/components/post-tags.tsx:76
+#: ../../../lib/web/src/components/post-tags.tsx:77
 msgid "Tag already exists"
 msgstr "ਟੈਗ ਪਹਿਲਾਂ ਹੀ ਮੌਜੂਦ ਹੈ"
 
-#: ../../../lib/web/src/components/post-tags.tsx:68
+#: ../../../lib/web/src/components/post-tags.tsx:69
 msgid "Tag must be 50 characters or less"
 msgstr "ਟੈਗ 50 ਅੱਖਰ ਜਾਂ ਘੱਟ ਹੋਣਾ ਚਾਹੀਦਾ ਹੈ"
 
-#: ../../../lib/web/src/components/post-tags.tsx:101
-#: ../../../lib/web/src/components/post-tags.tsx:115
+#: ../../../lib/web/src/components/post-tags.tsx:102
+#: ../../../lib/web/src/components/post-tags.tsx:116
 msgid "Tags"
 msgstr "ਟੈਗ"
 
@@ -2615,11 +2684,11 @@ msgstr "ਟੈਗ"
 msgid "Terms and conditions"
 msgstr "ਸ਼ਰਤਾਂ ਅਤੇ ਨਿਯਮ"
 
-#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:142
+#: ../../../lib/web/src/hooks/use-field-type-labels.ts:17
 msgid "Text"
 msgstr "ਟੈਕਸਟ"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:193
+#: ../../../lib/web/src/components/step-up-dialog.tsx:181
 msgid "That code is incorrect or has expired."
 msgstr "ਉਹ ਕੋਡ ਗਲਤ ਹੈ ਜਾਂ ਇਸ ਦੀ ਮਿਆਦ ਖਤਮ ਹੋ ਗਈ ਹੈ।"
 
@@ -2632,16 +2701,16 @@ msgstr "ਭੇਜਿਆ ਨਹੀਂ ਜਾ ਸਕਿਆ। ਫਾਈਲਾਂ �
 msgid "That was too large to upload. Remove or shrink files and try again."
 msgstr "ਅੱਪਲੋਡ ਕਰਨ ਲਈ ਬਹੁਤ ਵੱਡਾ ਸੀ। ਫਾਈਲਾਂ ਹਟਾਓ ਜਾਂ ਛੋਟੀਆਂ ਕਰੋ ਅਤੇ ਮੁੜ ਕੋਸ਼ਿਸ਼ ਕਰੋ।"
 
-#: src/features/chats/components/new-chat.tsx:167
+#: src/features/chats/components/new-chat.tsx:168
 msgid "The chat name can be at most {CHAT_NAME_MAX_LENGTH} characters"
 msgstr "ਚੈਟ ਦਾ ਨਾਮ ਵੱਧ ਤੋਂ ਵੱਧ {CHAT_NAME_MAX_LENGTH} ਅੱਖਰਾਂ ਦਾ ਹੋ ਸਕਦਾ ਹੈ"
 
-#: src/features/chats/components/new-chat.tsx:173
+#: src/features/chats/components/new-chat.tsx:174
 #: src/routes/_authenticated/$chatId_.settings.tsx:205
 msgid "The chat name cannot contain < or >"
 msgstr "ਚੈਟ ਦੇ ਨਾਮ ਵਿੱਚ < ਜਾਂ > ਨਹੀਂ ਹੋ ਸਕਦਾ"
 
-#: ../../../lib/web/src/features/errors/general-error.tsx:68
+#: ../../../lib/web/src/features/errors/general-error.tsx:66
 msgid "The requested content could not be found."
 msgstr "ਬੇਨਤੀ ਕੀਤੀ ਸਮੱਗਰੀ ਨਹੀਂ ਮਿਲੀ।"
 
@@ -2675,25 +2744,22 @@ msgstr "ਇਹ ਸੁਨੇਹਾ ਮਿਟਾ ਦਿੱਤਾ ਗਿਆ ਸੀ"
 msgid "Thursday"
 msgstr "ਵੀਰਵਾਰ"
 
-#: ../../../lib/web/src/components/travelling-picker.tsx:220
+#: ../../../lib/web/src/components/travelling-picker.tsx:201
 msgid "To"
 msgstr "ਵੱਲ"
 
-#: ../../../lib/web/src/components/layout/nav-group.tsx:365
-#: ../../../lib/web/src/components/layout/nav-group.tsx:372
-#: ../../../lib/web/src/components/layout/nav-group.tsx:490
-#: ../../../lib/web/src/components/layout/nav-group.tsx:497
+#: ../../../lib/web/src/components/layout/nav-group.tsx:393
+#: ../../../lib/web/src/components/layout/nav-group.tsx:400
+#: ../../../lib/web/src/components/layout/nav-group.tsx:522
+#: ../../../lib/web/src/components/layout/nav-group.tsx:529
 msgid "Toggle section"
 msgstr "ਸੈਕਸ਼ਨ ਟੌਗਲ ਕਰੋ"
 
 #: ../../../lib/web/src/components/ui/sidebar.tsx:337
 #: ../../../lib/web/src/components/ui/sidebar.tsx:340
-msgid "Toggle sidebar"
-msgstr "ਸਾਈਡਬਾਰ ਟੌਗਲ ਕਰੋ"
-
 #: ../../../lib/web/src/components/ui/sidebar.tsx:352
 #: ../../../lib/web/src/components/ui/sidebar.tsx:355
-msgid "Toggle Sidebar"
+msgid "Toggle sidebar"
 msgstr "ਸਾਈਡਬਾਰ ਟੌਗਲ ਕਰੋ"
 
 #: ../../../lib/web/src/components/entity/keyboard-shortcuts-help.tsx:26
@@ -2705,7 +2771,7 @@ msgstr "ਦ੍ਰਿਸ਼ ਵਿਕਲਪ ਟੌਗਲ ਕਰੋ"
 msgid "Toggle watched filter"
 msgstr "watched ਫਿਲਟਰ ਟੌਗਲ ਕਰੋ"
 
-#: ../../../lib/web/src/features/errors/general-error.tsx:74
+#: ../../../lib/web/src/features/errors/general-error.tsx:72
 msgid "Too many requests"
 msgstr "ਬਹੁਤ ਜ਼ਿਆਦਾ ਬੇਨਤੀਆਂ"
 
@@ -2713,7 +2779,7 @@ msgstr "ਬਹੁਤ ਜ਼ਿਆਦਾ ਬੇਨਤੀਆਂ"
 msgid "Top"
 msgstr "ਉੱਪਰ"
 
-#: ../../../lib/web/src/components/travelling-picker.tsx:145
+#: ../../../lib/web/src/components/travelling-picker.tsx:126
 msgid "Travelling"
 msgstr "ਯਾਤਰਾ ਕਰ ਰਿਹਾ ਹੈ"
 
@@ -2725,8 +2791,8 @@ msgstr "ਵੱਖਰੀ ਖੋਜ ਸ਼ਬਦ ਅਜ਼ਮਾਓ"
 msgid "Try adjusting your search terms"
 msgstr "ਆਪਣੇ ਖੋਜ ਸ਼ਬਦ ਠੀਕ ਕਰਨ ਦੀ ਕੋਸ਼ਿਸ਼ ਕਰੋ"
 
-#: ../../../lib/web/src/features/errors/general-error.tsx:140
-#: ../../../lib/web/src/features/errors/general-error.tsx:180
+#: ../../../lib/web/src/features/errors/general-error.tsx:138
+#: ../../../lib/web/src/features/errors/general-error.tsx:178
 msgid "Try again"
 msgstr "ਮੁੜ ਕੋਸ਼ਿਸ਼ ਕਰੋ"
 
@@ -2734,12 +2800,12 @@ msgstr "ਮੁੜ ਕੋਸ਼ਿਸ਼ ਕਰੋ"
 msgid "Tuesday"
 msgstr "ਮੰਗਲਵਾਰ"
 
-#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:130
-#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:162
+#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:134
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:166
 msgid "Type"
 msgstr "ਕਿਸਮ"
 
-#: ../../../lib/web/src/components/command-menu.tsx:52
+#: ../../../lib/web/src/components/command-menu.tsx:54
 msgid "Type a command or search..."
 msgstr "ਕਮਾਂਡ ਟਾਈਪ ਕਰੋ ਜਾਂ ਖੋਜੋ..."
 
@@ -2767,8 +2833,8 @@ msgstr "ਆਪਣਾ ਜਵਾਬ ਲਿਖੋ…"
 msgid "Unable to connect to remote server"
 msgstr "ਰਿਮੋਟ ਸਰਵਰ ਨਾਲ ਕਨੈਕਟ ਨਹੀਂ ਹੋ ਸਕਿਆ"
 
-#: ../../../lib/web/src/lib/auth-manager.ts:92
-#: ../../../lib/web/src/lib/auth-manager.ts:104
+#: ../../../lib/web/src/lib/auth-manager.ts:89
+#: ../../../lib/web/src/lib/auth-manager.ts:101
 msgid "Unable to redirect to login. Please try again."
 msgstr "ਲੌਗਇਨ 'ਤੇ ਰੀਡਾਇਰੈਕਟ ਕਰਨ ਵਿੱਚ ਅਸਮਰੱਥ। ਕਿਰਪਾ ਕਰਕੇ ਮੁੜ ਕੋਸ਼ਿਸ਼ ਕਰੋ।"
 
@@ -2776,16 +2842,12 @@ msgstr "ਲੌਗਇਨ 'ਤੇ ਰੀਡਾਇਰੈਕਟ ਕਰਨ ਵਿੱ�
 msgid "Unassigned"
 msgstr "ਨਾ ਨਿਰਧਾਰਤ"
 
-#: ../../../lib/web/src/features/errors/unauthorized-error.tsx:16
-msgid "Unauthorized Access"
-msgstr "ਅਣਅਧਿਕਾਰਤ ਪਹੁੰਚ"
-
 #: ../../../lib/web/src/components/attachment-image.tsx:50
 msgid "Unavailable"
 msgstr "ਅਣਉਪਲਬਧ"
 
 #: ../../../lib/web/src/lib/request.ts:133
-#: ../../../lib/web/src/lib/request.ts:206
+#: ../../../lib/web/src/lib/request.ts:209
 msgid "Unexpected API error"
 msgstr "ਅਚਾਨਕ API ਗਲਤੀ"
 
@@ -2793,6 +2855,11 @@ msgstr "ਅਚਾਨਕ API ਗਲਤੀ"
 msgid "United States"
 msgstr "ਸੰਯੁਕਤ ਰਾਜ"
 
+#: ../../../lib/web/src/components/audit-timeline.tsx:103
+#: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:167
+#: ../../../lib/web/src/components/tree-row.tsx:219
+#: ../../../lib/web/src/components/tree-row.tsx:373
+#: ../../../lib/web/src/components/tree-table-header.tsx:70
 #: ../../../lib/web/src/features/accounts/types.ts:29
 #: src/hooks/useChatWebsocket.ts:387
 msgid "Unknown"
@@ -2806,19 +2873,24 @@ msgstr "ਚੈਟ ਅਨਪਿੰਨ ਕਰੋ"
 msgid "Unsubscribe"
 msgstr "ਗਾਹਕੀ ਰੱਦ ਕਰੋ"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:285
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:299
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx:103
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx:184
 msgid "Untitled"
 msgstr "ਬਿਨਾਂ ਸਿਰਲੇਖ"
 
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx:56
 #: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx:57
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:494
+#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:499
 msgid "Updated"
 msgstr "ਅੱਪਡੇਟ ਕੀਤਾ ਗਿਆ"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:639
-#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:301
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx:56
+msgid "Updated {field}"
+msgstr "{field} ਅੱਪਡੇਟ ਕੀਤਾ ਗਿਆ"
+
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:661
+#: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:304
 msgid "Upload"
 msgstr "ਅੱਪਲੋਡ ਕਰੋ"
 
@@ -2826,21 +2898,25 @@ msgstr "ਅੱਪਲੋਡ ਕਰੋ"
 msgid "Upload progress"
 msgstr "ਅੱਪਲੋਡ ਪ੍ਰਗਤੀ"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:341
+#: ../../../lib/web/src/components/step-up-dialog.tsx:329
 msgid "Use your passkey"
 msgstr "ਆਪਣੀ ਪਾਸਕੀ ਵਰਤੋ"
 
-#: ../../../lib/web/src/components/entity/add-field-dialog.tsx:143
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx:112
 #: ../../../lib/web/src/features/access/access-dialog.tsx:158
+#: ../../../lib/web/src/hooks/use-field-type-labels.ts:18
 msgid "User"
 msgstr "ਉਪਭੋਗਤਾ"
+
+#: ../../../lib/web/src/components/ai-prompts-editor.tsx:159
+msgid "Variables: {variables}"
+msgstr "ਵੇਰੀਏਬਲ: {variables}"
 
 #: ../../../lib/web/src/features/accounts/account-verify.tsx:73
 msgid "Verification code"
 msgstr "ਪੁਸ਼ਟੀ ਕੋਡ"
 
-#: ../../../lib/web/src/components/step-up-dialog.tsx:391
+#: ../../../lib/web/src/components/step-up-dialog.tsx:379
 #: ../../../lib/web/src/features/accounts/account-verify.tsx:111
 msgid "Verify"
 msgstr "ਪੁਸ਼ਟੀ ਕਰੋ"
@@ -2849,18 +2925,18 @@ msgstr "ਪੁਸ਼ਟੀ ਕਰੋ"
 msgid "Verify email address"
 msgstr "ਈਮੇਲ ਪਤੇ ਦੀ ਪੁਸ਼ਟੀ ਕਰੋ"
 
-#: ../../../lib/web/src/components/attachment-gallery.tsx:95
+#: ../../../lib/web/src/components/attachment-gallery.tsx:96
 #: src/features/chats/components/message-media-grid.tsx:53
 msgid "Video thumbnail"
 msgstr "ਵੀਡੀਓ ਥੰਬਨੇਲ"
 
 #. placeholder {0}: currentMedia.name
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:315
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:326
 msgid "Video viewer: {0}"
 msgstr "ਵੀਡੀਓ ਦਰਸ਼ਕ: {0}"
 
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:220
-#: ../../../lib/web/src/components/layout/notification-menu.tsx:228
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:216
+#: ../../../lib/web/src/components/layout/notification-menu.tsx:224
 msgid "View all notifications"
 msgstr "ਸਾਰੀਆਂ ਸੂਚਨਾਵਾਂ ਦੇਖੋ"
 
@@ -2907,11 +2983,11 @@ msgstr "ਬੁੱਧਵਾਰ"
 msgid "You"
 msgstr "ਤੁਸੀਂ"
 
-#: src/features/chats/components/new-chat.tsx:156
+#: src/features/chats/components/new-chat.tsx:157
 msgid "You already have a chat with this friend"
 msgstr "ਤੁਹਾਡੀ ਇਸ ਦੋਸਤ ਨਾਲ ਪਹਿਲਾਂ ਹੀ ਚੈਟ ਹੈ"
 
-#: src/features/chats/components/new-chat.tsx:316
+#: src/features/chats/components/new-chat.tsx:318
 msgid "You already have chats with:"
 msgstr "ਤੁਹਾਡੀਆਂ ਪਹਿਲਾਂ ਹੀ ਇਹਨਾਂ ਨਾਲ ਚੈਟ ਹਨ:"
 
@@ -2927,7 +3003,7 @@ msgstr "ਤੁਸੀਂ ਇੱਕ ਸੁਨੇਹੇ ਵਿੱਚ ਵੱਧ ਤ�
 msgid "You can only delete your own messages"
 msgstr "ਤੁਸੀਂ ਸਿਰਫ਼ ਆਪਣੇ ਸੁਨੇਹੇ ਹੀ ਮਿਟਾ ਸਕਦੇ ਹੋ"
 
-#: ../../../lib/web/src/features/errors/general-error.tsx:61
+#: ../../../lib/web/src/features/errors/general-error.tsx:59
 msgid "You do not have access to this section."
 msgstr "ਤੁਹਾਡੇ ਕੋਲ ਇਸ ਭਾਗ ਤੱਕ ਪਹੁੰਚ ਨਹੀਂ ਹੈ।"
 
@@ -2939,7 +3015,7 @@ msgstr "ਤੁਸੀਂ ਇਹ ਚੈਟ ਛੱਡ ਦਿੱਤੀ ਹੈ"
 msgid "You were removed from this chat"
 msgstr "ਤੁਹਾਨੂੰ ਇਸ ਚੈਟ ਵਿੱਚੋਂ ਹਟਾ ਦਿੱਤਾ ਗਿਆ ਹੈ"
 
-#: ../../../lib/web/src/components/restore-banner.tsx:100
+#: ../../../lib/web/src/components/restore-banner.tsx:86
 msgid "Your account was moved here from {source}. Until you delete it there, messages and notifications may reach both servers, some of your content keeps being served from the old server, and followers may take a few minutes to find you here."
 msgstr "ਤੁਹਾਡਾ ਖਾਤਾ {source} ਤੋਂ ਇੱਥੇ ਲਿਆਂਦਾ ਗਿਆ। ਜਦੋਂ ਤੱਕ ਤੁਸੀਂ ਉੱਥੇ ਇਸਨੂੰ ਮਿਟਾ ਨਹੀਂ ਲੈਂਦੇ, ਸੁਨੇਹੇ ਅਤੇ ਸੂਚਨਾਵਾਂ ਦੋਵੇਂ ਸਰਵਰਾਂ ਤੱਕ ਪਹੁੰਚ ਸਕਦੀਆਂ ਹਨ, ਕੁਝ ਸਮੱਗਰੀ ਪੁਰਾਣੇ ਸਰਵਰ ਤੋਂ ਪਰੋਸੀ ਜਾਂਦੀ ਰਹੇਗੀ, ਅਤੇ ਫ਼ੋਲੋਅਰਾਂ ਨੂੰ ਤੁਹਾਨੂੰ ਇੱਥੇ ਲੱਭਣ ਵਿੱਚ ਕੁਝ ਮਿੰਟ ਲੱਗ ਸਕਦੇ ਹਨ।"
 
