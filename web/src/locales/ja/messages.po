@@ -156,6 +156,10 @@ msgstr "アクセスレベル"
 msgid "Account type"
 msgstr "アカウントタイプ"
 
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:415
+msgid "Activity"
+msgstr "アクティビティ"
+
 #: ../../../lib/web/src/components/entity/entity-field-editor.tsx:758
 #: ../../../lib/web/src/features/access/access-dialog.tsx:332
 #: ../../../lib/web/src/features/accounts/account-add.tsx:209
@@ -209,7 +213,7 @@ msgstr "フィールドを追加"
 msgid "Add item..."
 msgstr "項目を追加…"
 
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:320
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:314
 msgid "Add link"
 msgstr "リンクを追加"
 
@@ -330,6 +334,10 @@ msgstr "このフィードを購読しているものはすべて受信しなく
 msgid "Are you sure you want to delete \"{0}\"?"
 msgstr "「{0}」を削除しますか？"
 
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:671
+msgid "Are you sure you want to delete \"{title}\"? This action cannot be undone."
+msgstr "「{title}」を削除しますか？この操作は取り消せません。"
+
 #: ../../../lib/web/src/components/entity/entity-board-column.tsx:631
 msgid "Are you sure you want to delete the \"{name}\" column? This cannot be undone."
 msgstr "「{name}」カラムを削除しますか？この操作は取り消せません。"
@@ -355,6 +363,14 @@ msgstr "本当にログアウトしますか？再度アクセスするにはロ
 #: src/routes/_authenticated/$chatId_.settings.tsx:549
 msgid "Are you sure you want to remove {0} from this chat?"
 msgstr "本当に{0}をこのチャットから削除しますか?"
+
+#: ../../../lib/web/src/components/game/game-end-dialogs.tsx:39
+msgid "Are you sure you want to resign?"
+msgstr "本当に投了しますか?"
+
+#: ../../../lib/web/src/components/game/game-end-dialogs.tsx:38
+msgid "Are you sure you want to resign? {opponentName} will win the game."
+msgstr "本当に投了しますか?{opponentName}の勝ちになります。"
 
 #: ../../../lib/web/src/components/ui/sort-direction-button.tsx:27
 msgid "Ascending"
@@ -417,16 +433,25 @@ msgstr "チャットに戻る"
 msgid "Back to home"
 msgstr "ホームに戻る"
 
+#: ../../../lib/web/src/components/banner-section.tsx:80
 #: ../../../lib/web/src/components/entity-banner.tsx:17
 msgid "Banner"
 msgstr "バナー"
+
+#: ../../../lib/web/src/components/banner-section.tsx:69
+msgid "Banner removed"
+msgstr "バナーを削除しました"
+
+#: ../../../lib/web/src/components/banner-section.tsx:69
+msgid "Banner updated"
+msgstr "バナーを更新しました"
 
 #: src/features/chats/components/chat-message-list.tsx:476
 msgid "Be the first to say something!"
 msgstr "最初のメッセージを送ってみましょう！"
 
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:68
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:215
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:72
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:209
 msgid "Blocked by"
 msgstr "ブロック元"
 
@@ -435,7 +460,7 @@ msgstr "ブロック元"
 msgid "Blocked navigation to untrusted link"
 msgstr "信頼できないリンクへの遷移をブロックしました"
 
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:66
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:70
 msgid "Blocks"
 msgstr "ブロック"
 
@@ -632,6 +657,7 @@ msgstr "サイドバーからゲームを選ぶか、新しいゲームを始め
 msgid "Choose language"
 msgstr "言語を選択"
 
+#: ../../../lib/web/src/components/banner-section.tsx:111
 #: ../../../lib/web/src/components/colour-picker.tsx:274
 #: ../../../lib/web/src/components/colour-picker.tsx:355
 #: ../../../lib/web/src/components/travelling-picker.tsx:145
@@ -651,8 +677,8 @@ msgstr "すべてクリア"
 msgid "Clear search"
 msgstr "検索をクリア"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:523
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:528
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:517
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:522
 #: ../../../lib/web/src/components/ui/dialog.tsx:78
 #: ../../../lib/web/src/components/ui/image-lightbox.tsx:480
 #: ../../../lib/web/src/components/ui/image-lightbox.tsx:483
@@ -727,6 +753,11 @@ msgstr "コメントの操作"
 #: ../../../lib/web/src/components/ui/image-lightbox.tsx:455
 msgid "Comments"
 msgstr "コメント"
+
+#. placeholder {0}: data.comment_count || 0
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:411
+msgid "Comments ({0})"
+msgstr "コメント ({0})"
 
 #: ../../../lib/web/src/lib/preference-utils.ts:90
 msgid "Compact"
@@ -816,8 +847,8 @@ msgstr "そのアカウントで確認できませんでした。もう一度お
 
 #: ../../../lib/web/src/components/entity/entity-board-column.tsx:551
 #: ../../../lib/web/src/components/entity/entity-board-column.tsx:691
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:513
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:682
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:507
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:676
 #: ../../../lib/web/src/components/entity/entity-tree-view.tsx:672
 msgid "Create"
 msgstr "作成"
@@ -853,7 +884,7 @@ msgstr "{field}を作成しました"
 msgid "Creating chat..."
 msgstr "チャットを作成しています..."
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:682
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:676
 #: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:260
 #: src/features/chats/components/new-chat.tsx:367
 msgid "Creating..."
@@ -905,6 +936,8 @@ msgstr "デフォルトの並び順"
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:208
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:255
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:317
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:672
+#: ../../../lib/web/src/components/game/game-end-dialogs.tsx:78
 #: src/features/chats/components/message-hover-actions.tsx:146
 #: src/features/chats/index.tsx:1296
 #: src/features/chats/index.tsx:1414
@@ -937,6 +970,16 @@ msgstr "コメントを削除"
 msgid "Delete field"
 msgstr "フィールドを削除"
 
+#: ../../../lib/web/src/components/game/game-end-dialogs.tsx:69
+msgid "Delete game?"
+msgstr "ゲームを削除しますか?"
+
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:486
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:491
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:670
+msgid "Delete item"
+msgstr "項目を削除"
+
 #: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:117
 msgid "Delete option"
 msgstr "オプションを削除"
@@ -967,6 +1010,7 @@ msgstr "{field}を削除しました"
 msgid "Deleting chat..."
 msgstr "チャットを削除しています..."
 
+#: ../../../lib/web/src/components/game/game-end-dialogs.tsx:75
 #: src/features/chats/index.tsx:706
 #: src/features/chats/index.tsx:1411
 msgid "Deleting..."
@@ -1047,6 +1091,7 @@ msgid "Does not match the required pattern"
 msgstr "必要なパターンと一致しません"
 
 #: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:309
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:495
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:523
 msgid "Done"
 msgstr "完了"
@@ -1066,7 +1111,7 @@ msgstr "ダウンロードに失敗しました"
 msgid "Draft"
 msgstr "下書き"
 
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:67
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:71
 msgid "Duplicates"
 msgstr "重複"
 
@@ -1132,6 +1177,10 @@ msgstr "メールアドレス"
 msgid "Email code"
 msgstr "メールコード"
 
+#: ../../../lib/web/src/components/banner-section.tsx:88
+msgid "Enter banner text (markdown supported)..."
+msgstr "バナーテキストを入力（Markdown対応）…"
+
 #: ../../../lib/web/src/components/step-up-dialog.tsx:290
 msgid "Enter the code from your email"
 msgstr "メールに記載されたコードを入力してください"
@@ -1139,6 +1188,10 @@ msgstr "メールに記載されたコードを入力してください"
 #: ../../../lib/web/src/components/step-up-dialog.tsx:315
 msgid "Enter your authenticator code"
 msgstr "認証アプリのコードを入力"
+
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:381
+msgid "Error"
+msgstr "エラー"
 
 #: src/features/chats/components/chat-message-list.tsx:617
 msgid "escape to cancel • enter to save"
@@ -1185,11 +1238,12 @@ msgstr "メッセージをコピーできませんでした"
 msgid "Failed to create chat"
 msgstr "チャットの作成に失敗しました"
 
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:137
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:131
 #: ../../../lib/web/src/components/options-menu.tsx:98
 msgid "Failed to create link"
 msgstr "リンクの作成に失敗しました"
 
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:303
 #: src/features/chats/index.tsx:708
 msgid "Failed to delete"
 msgstr "削除に失敗しました"
@@ -1206,7 +1260,7 @@ msgstr "チャットの削除に失敗しました"
 msgid "Failed to delete comment"
 msgstr "コメントの削除に失敗しました"
 
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:159
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:153
 msgid "Failed to delete link"
 msgstr "リンクの削除に失敗しました"
 
@@ -1239,6 +1293,11 @@ msgstr "履歴の読み込みに失敗しました"
 msgid "Failed to load image"
 msgstr "画像を読み込めませんでした"
 
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:382
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:385
+msgid "Failed to load item"
+msgstr "項目の読み込みに失敗しました"
+
 #: ../../../lib/web/src/components/ai-prompts-editor.tsx:213
 msgid "Failed to load prompts"
 msgstr "プロンプトの読み込みに失敗しました"
@@ -1254,6 +1313,10 @@ msgstr "チャットポリシーを読み込めませんでした"
 #: src/components/layout/chat-layout.tsx:158
 msgid "Failed to mark chat as read"
 msgstr "チャットを既読にできませんでした"
+
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:317
+msgid "Failed to move"
+msgstr "移動に失敗しました"
 
 #: ../../../lib/web/src/components/entity/entity-comment-list.tsx:155
 msgid "Failed to post comment"
@@ -1279,6 +1342,7 @@ msgstr "プロンプトのリセットに失敗しました"
 msgid "Failed to revoke RSS access"
 msgstr "RSSアクセスの取り消しに失敗しました"
 
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:273
 #: src/features/chats/components/chat-settings-dialog.tsx:68
 msgid "Failed to save"
 msgstr "保存に失敗しました"
@@ -1295,15 +1359,23 @@ msgstr "メッセージの送信に失敗しました"
 msgid "Failed to start chat"
 msgstr "チャットの開始に失敗しました"
 
+#: ../../../lib/web/src/components/banner-section.tsx:71
+msgid "Failed to update banner"
+msgstr "バナーの更新に失敗しました"
+
 #: ../../../lib/web/src/components/entity/entity-comment-list.tsx:175
 msgid "Failed to update comment"
 msgstr "コメントの更新に失敗しました"
+
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:288
+msgid "Failed to update watching"
+msgstr "追跡の更新に失敗しました"
 
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:114
 msgid "Failed to upload attachment"
 msgstr "添付ファイルのアップロードに失敗しました"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:611
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:605
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:160
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:180
 msgid "Files"
@@ -1450,6 +1522,10 @@ msgstr "無効な日付"
 msgid "It seems like the page you're looking for <0/>does not exist or might have been removed."
 msgstr "お探しのページは <0/>存在しないか、削除された可能性があります。"
 
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:441
+msgid "Item details"
+msgstr "項目の詳細"
+
 #: src/features/chats/components/chat-message-list.tsx:863
 #: src/features/chats/components/chat-message-list.tsx:880
 msgid "Jump to bottom"
@@ -1521,7 +1597,7 @@ msgstr "いいね"
 msgid "Link"
 msgstr "リンク"
 
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:279
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:273
 msgid "Links"
 msgstr "リンク"
 
@@ -1536,6 +1612,14 @@ msgstr "もっと読み込む"
 #: ../../../lib/web/src/components/ui/loading-content.tsx:26
 msgid "Loading content…"
 msgstr "コンテンツを読み込んでいます…"
+
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:365
+msgid "Loading item"
+msgstr "項目を読み込み中"
+
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:366
+msgid "Loading item details"
+msgstr "項目の詳細を読み込み中"
 
 #: ../../../lib/web/src/components/ui/load-more.tsx:39
 #: ../../../lib/web/src/features/document/document-page.tsx:88
@@ -1754,7 +1838,7 @@ msgstr "名前は1000文字以下にしてください"
 msgid "Network error"
 msgstr "ネットワークエラー"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:498
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:492
 #: ../../../lib/web/src/components/ui/sort-selector.tsx:43
 msgid "New"
 msgstr "新規"
@@ -1779,7 +1863,7 @@ msgstr "新しい結果"
 msgid "Next image"
 msgstr "次の画像"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:577
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:571
 msgid "No {parentClassNames} to add to"
 msgstr "追加先となる {parentClassNames} がありません"
 
@@ -1819,11 +1903,11 @@ msgstr "まだゲームがありません"
 msgid "No groups available"
 msgstr "利用可能なグループがありません"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:544
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:538
 msgid "No item types can be created yet. Create the required parent items first."
 msgstr "まだ作成可能な項目タイプがありません。必要な親項目を先に作成してください。"
 
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:360
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:354
 msgid "No matching objects"
 msgstr "一致するオブジェクトがありません"
 
@@ -1885,9 +1969,13 @@ msgid "No views"
 msgstr "ビューがありません"
 
 #: ../../../lib/web/src/components/colour-picker.tsx:349
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:560
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:563
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:567
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:554
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:557
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:561
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:557
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:570
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:571
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:575
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:362
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:385
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:388
@@ -2015,7 +2103,9 @@ msgstr "その他"
 msgid "Owner"
 msgstr "オーナー"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:552
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:546
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:553
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:569
 msgid "Parent"
 msgstr "親"
 
@@ -2117,6 +2207,10 @@ msgstr "処理中…"
 msgid "Prompt saved"
 msgstr "プロンプトを保存しました"
 
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:408
+msgid "Properties"
+msgstr "プロパティ"
+
 #: ../../../lib/web/src/features/accounts/types.ts:21
 msgid "Push notification"
 msgstr "プッシュ通知"
@@ -2181,7 +2275,7 @@ msgstr "ログイン画面にリダイレクトしています。"
 msgid "Reduce interest"
 msgstr "関心を下げる"
 
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:65
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:69
 msgid "Relates"
 msgstr "関連"
 
@@ -2247,8 +2341,8 @@ msgstr "関心を削除"
 msgid "Remove item"
 msgstr "項目を削除"
 
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:304
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:309
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:298
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:303
 msgid "Remove link"
 msgstr "リンクを削除"
 
@@ -2309,6 +2403,18 @@ msgstr "必須"
 msgid "Resend email"
 msgstr "メールを再送信"
 
+#: ../../../lib/web/src/components/game/game-end-dialogs.tsx:48
+msgid "Resign"
+msgstr "投了"
+
+#: ../../../lib/web/src/components/game/game-end-dialogs.tsx:35
+msgid "Resign game?"
+msgstr "ゲームを投了しますか?"
+
+#: ../../../lib/web/src/components/game/game-end-dialogs.tsx:45
+msgid "Resigning..."
+msgstr "投了中..."
+
 #: ../../../lib/web/src/components/attachment-composer.tsx:348
 msgid "Retry"
 msgstr "再試行"
@@ -2356,6 +2462,7 @@ msgstr "土曜日"
 
 #: ../../../lib/web/src/components/ai-prompts-editor.tsx:156
 #: ../../../lib/web/src/components/attachment-composer.tsx:430
+#: ../../../lib/web/src/components/banner-section.tsx:99
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:231
 #: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:172
 #: ../../../lib/web/src/components/ui/editable-field-row.tsx:126
@@ -2417,7 +2524,7 @@ msgstr "チャット内を検索..."
 msgid "Search messages"
 msgstr "メッセージを検索"
 
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:337
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:331
 msgid "Search objects..."
 msgstr "オブジェクトを検索…"
 
@@ -2657,6 +2764,11 @@ msgstr "チャットを開始しています..."
 msgid "Stop recording"
 msgstr "録音を停止"
 
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:471
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:476
+msgid "Stop watching"
+msgstr "ウォッチを停止"
+
 #: ../../../lib/web/src/features/access/access-list.tsx:196
 msgid "Subject"
 msgstr "件名"
@@ -2782,6 +2894,10 @@ msgstr "メッセージは全員に対して削除され、元に戻せません
 #: src/features/chats/components/message-quote.tsx:50
 msgid "This message was deleted"
 msgstr "このメッセージは削除されました"
+
+#: ../../../lib/web/src/components/game/game-end-dialogs.tsx:70
+msgid "This permanently deletes the game and its chat. This cannot be undone."
+msgstr "この操作でゲームとそのチャットが完全に削除されます。この操作は元に戻せません。"
 
 #: ../../../lib/web/src/lib/preference-utils.ts:57
 msgid "Thursday"
@@ -2916,9 +3032,8 @@ msgstr "チャットのピン留めを解除"
 msgid "Unsubscribe"
 msgstr "購読解除"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:299
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:103
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:184
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:178
+#: ../../../lib/web/src/lib/entity-title.ts:40
 msgid "Untitled"
 msgstr "無題"
 
@@ -2932,7 +3047,7 @@ msgstr "更新日"
 msgid "Updated {field}"
 msgstr "{field}を更新しました"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:661
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:655
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:304
 msgid "Upload"
 msgstr "アップロード"
@@ -2983,6 +3098,10 @@ msgstr "動画ビューアー: {0}"
 msgid "View all notifications"
 msgstr "すべての通知を表示"
 
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:442
+msgid "View and edit item details"
+msgstr "項目の詳細を表示・編集"
+
 #: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx:170
 msgid "View controls"
 msgstr "ビューコントロール"
@@ -3004,6 +3123,11 @@ msgstr "このブラウザでは音声録音がサポートされていません
 #: src/features/chats/components/chat-input.tsx:288
 msgid "Voice recording isn't available in this app version. Please update the app and try again."
 msgstr "このバージョンのアプリでは音声録音は利用できません。アプリを更新してもう一度お試しください。"
+
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:471
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:476
+msgid "Watch"
+msgstr "ウォッチ"
 
 #: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx:269
 #: ../../../lib/web/src/components/filter-bar.tsx:35

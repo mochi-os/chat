@@ -156,6 +156,10 @@ msgstr "Хандалтын түвшин"
 msgid "Account type"
 msgstr "Бүртгэлийн төрөл"
 
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:415
+msgid "Activity"
+msgstr "Үйл ажиллагаа"
+
 #: ../../../lib/web/src/components/entity/entity-field-editor.tsx:758
 #: ../../../lib/web/src/features/access/access-dialog.tsx:332
 #: ../../../lib/web/src/features/accounts/account-add.tsx:209
@@ -209,7 +213,7 @@ msgstr "Талбар нэмэх"
 msgid "Add item..."
 msgstr "Зүйл нэмэх..."
 
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:320
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:314
 msgid "Add link"
 msgstr "Холбоос нэмэх"
 
@@ -330,6 +334,10 @@ msgstr "Энэ хангамжид бүртгүүлсэн бүх зүйл хүл�
 msgid "Are you sure you want to delete \"{0}\"?"
 msgstr "\"{0}\"-г устгахдаа итгэлтэй байна уу?"
 
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:671
+msgid "Are you sure you want to delete \"{title}\"? This action cannot be undone."
+msgstr "\"{title}\"-г устгахдаа итгэлтэй байна уу? Энэ үйлдлийг буцаах боломжгүй."
+
 #: ../../../lib/web/src/components/entity/entity-board-column.tsx:631
 msgid "Are you sure you want to delete the \"{name}\" column? This cannot be undone."
 msgstr "\"{name}\" баганыг устгахдаа итгэлтэй байна уу? Энэ үйлдлийг буцаах боломжгүй."
@@ -355,6 +363,14 @@ msgstr "Гарахдаа итгэлтэй байна уу? Бүртгэлдээ 
 #: src/routes/_authenticated/$chatId_.settings.tsx:549
 msgid "Are you sure you want to remove {0} from this chat?"
 msgstr "{0}-г энэ чатаас хасахдаа итгэлтэй байна уу?"
+
+#: ../../../lib/web/src/components/game/game-end-dialogs.tsx:39
+msgid "Are you sure you want to resign?"
+msgstr "Бууж өгөхдөө итгэлтэй байна уу?"
+
+#: ../../../lib/web/src/components/game/game-end-dialogs.tsx:38
+msgid "Are you sure you want to resign? {opponentName} will win the game."
+msgstr "Бууж өгөхдөө итгэлтэй байна уу? {opponentName} тоглоомд ялна."
 
 #: ../../../lib/web/src/components/ui/sort-direction-button.tsx:27
 msgid "Ascending"
@@ -417,16 +433,25 @@ msgstr "Чат руу буцах"
 msgid "Back to home"
 msgstr "Нүүр хуудас руу буцах"
 
+#: ../../../lib/web/src/components/banner-section.tsx:80
 #: ../../../lib/web/src/components/entity-banner.tsx:17
 msgid "Banner"
 msgstr "Баннер"
+
+#: ../../../lib/web/src/components/banner-section.tsx:69
+msgid "Banner removed"
+msgstr "Баннер хасагдсан"
+
+#: ../../../lib/web/src/components/banner-section.tsx:69
+msgid "Banner updated"
+msgstr "Баннер шинэчлэгдсэн"
 
 #: src/features/chats/components/chat-message-list.tsx:476
 msgid "Be the first to say something!"
 msgstr "Хамгийн түрүүнд ямар нэг зүйл хэлээрэй!"
 
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:68
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:215
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:72
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:209
 msgid "Blocked by"
 msgstr "Блоклосон"
 
@@ -435,7 +460,7 @@ msgstr "Блоклосон"
 msgid "Blocked navigation to untrusted link"
 msgstr "Найдвартай биш холбоос руу шилжихийг блоклосон"
 
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:66
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:70
 msgid "Blocks"
 msgstr "Блокууд"
 
@@ -632,6 +657,7 @@ msgstr "Хажуугийн талбараас тоглоом сонгох эсв
 msgid "Choose language"
 msgstr "Хэл сонгох"
 
+#: ../../../lib/web/src/components/banner-section.tsx:111
 #: ../../../lib/web/src/components/colour-picker.tsx:274
 #: ../../../lib/web/src/components/colour-picker.tsx:355
 #: ../../../lib/web/src/components/travelling-picker.tsx:145
@@ -651,8 +677,8 @@ msgstr "Бүгдийг цэвэрлэх"
 msgid "Clear search"
 msgstr "Хайлтыг цэвэрлэх"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:523
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:528
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:517
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:522
 #: ../../../lib/web/src/components/ui/dialog.tsx:78
 #: ../../../lib/web/src/components/ui/image-lightbox.tsx:480
 #: ../../../lib/web/src/components/ui/image-lightbox.tsx:483
@@ -727,6 +753,11 @@ msgstr "Сэтгэгдлийн үйлдлүүд"
 #: ../../../lib/web/src/components/ui/image-lightbox.tsx:455
 msgid "Comments"
 msgstr "Сэтгэгдэлүүд"
+
+#. placeholder {0}: data.comment_count || 0
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:411
+msgid "Comments ({0})"
+msgstr "Сэтгэгдэлүүд ({0})"
 
 #: ../../../lib/web/src/lib/preference-utils.ts:90
 msgid "Compact"
@@ -816,8 +847,8 @@ msgstr "Тэр бүртгэлээр баталгаажуулж чадсангү�
 
 #: ../../../lib/web/src/components/entity/entity-board-column.tsx:551
 #: ../../../lib/web/src/components/entity/entity-board-column.tsx:691
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:513
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:682
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:507
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:676
 #: ../../../lib/web/src/components/entity/entity-tree-view.tsx:672
 msgid "Create"
 msgstr "Үүсгэх"
@@ -853,7 +884,7 @@ msgstr "{field} үүсгэсэн"
 msgid "Creating chat..."
 msgstr "Чат үүсгэж байна..."
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:682
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:676
 #: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:260
 #: src/features/chats/components/new-chat.tsx:367
 msgid "Creating..."
@@ -905,6 +936,8 @@ msgstr "Үндсэн эрэмбэлэлт"
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:208
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:255
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:317
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:672
+#: ../../../lib/web/src/components/game/game-end-dialogs.tsx:78
 #: src/features/chats/components/message-hover-actions.tsx:146
 #: src/features/chats/index.tsx:1296
 #: src/features/chats/index.tsx:1414
@@ -937,6 +970,16 @@ msgstr "Сэтгэгдэл устгах"
 msgid "Delete field"
 msgstr "Талбар устгах"
 
+#: ../../../lib/web/src/components/game/game-end-dialogs.tsx:69
+msgid "Delete game?"
+msgstr "Тоглоомыг устгах уу?"
+
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:486
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:491
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:670
+msgid "Delete item"
+msgstr "Зүйл устгах"
+
 #: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:117
 msgid "Delete option"
 msgstr "Сонголтыг устгах"
@@ -967,6 +1010,7 @@ msgstr "{field} устгасан"
 msgid "Deleting chat..."
 msgstr "Чатыг устгаж байна..."
 
+#: ../../../lib/web/src/components/game/game-end-dialogs.tsx:75
 #: src/features/chats/index.tsx:706
 #: src/features/chats/index.tsx:1411
 msgid "Deleting..."
@@ -1047,6 +1091,7 @@ msgid "Does not match the required pattern"
 msgstr "Шаардлагатай хэв маягт тохирохгүй байна"
 
 #: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:309
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:495
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:523
 msgid "Done"
 msgstr "Дууссан"
@@ -1066,7 +1111,7 @@ msgstr "Татаж чадсангүй"
 msgid "Draft"
 msgstr "Ноорог"
 
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:67
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:71
 msgid "Duplicates"
 msgstr "Давхардлууд"
 
@@ -1132,6 +1177,10 @@ msgstr "Имэйл"
 msgid "Email code"
 msgstr "Имэйл код"
 
+#: ../../../lib/web/src/components/banner-section.tsx:88
+msgid "Enter banner text (markdown supported)..."
+msgstr "Баннерын текст оруулна уу (markdown дэмждэг)..."
+
 #: ../../../lib/web/src/components/step-up-dialog.tsx:290
 msgid "Enter the code from your email"
 msgstr "Имэйлд ирсэн кодоо оруулна уу"
@@ -1139,6 +1188,10 @@ msgstr "Имэйлд ирсэн кодоо оруулна уу"
 #: ../../../lib/web/src/components/step-up-dialog.tsx:315
 msgid "Enter your authenticator code"
 msgstr "Баталгаажуулагчийн кодоо оруулна уу"
+
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:381
+msgid "Error"
+msgstr "Алдаа"
 
 #: src/features/chats/components/chat-message-list.tsx:617
 msgid "escape to cancel • enter to save"
@@ -1185,11 +1238,12 @@ msgstr "Мессежийг хуулж чадсангүй"
 msgid "Failed to create chat"
 msgstr "Чат үүсгэж чадсангүй"
 
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:137
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:131
 #: ../../../lib/web/src/components/options-menu.tsx:98
 msgid "Failed to create link"
 msgstr "Холбоос үүсгэж чадсангүй"
 
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:303
 #: src/features/chats/index.tsx:708
 msgid "Failed to delete"
 msgstr "Устгаж чадсангүй"
@@ -1206,7 +1260,7 @@ msgstr "Чат устгаж чадсангүй"
 msgid "Failed to delete comment"
 msgstr "Сэтгэгдэл устгаж чадсангүй"
 
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:159
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:153
 msgid "Failed to delete link"
 msgstr "Холбоос устгаж чадсангүй"
 
@@ -1239,6 +1293,11 @@ msgstr "Түүх ачаалж чадсангүй"
 msgid "Failed to load image"
 msgstr "Зургийг ачаалж чадсангүй"
 
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:382
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:385
+msgid "Failed to load item"
+msgstr "Зүйл ачаалж чадсангүй"
+
 #: ../../../lib/web/src/components/ai-prompts-editor.tsx:213
 msgid "Failed to load prompts"
 msgstr "Промптуудыг ачаалж чадсангүй"
@@ -1254,6 +1313,10 @@ msgstr "Таны чатын бодлогыг ачаалж чадсангүй"
 #: src/components/layout/chat-layout.tsx:158
 msgid "Failed to mark chat as read"
 msgstr "Чатыг уншсан гэж тэмдэглэж чадсангүй"
+
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:317
+msgid "Failed to move"
+msgstr "Зөөж чадсангүй"
 
 #: ../../../lib/web/src/components/entity/entity-comment-list.tsx:155
 msgid "Failed to post comment"
@@ -1279,6 +1342,7 @@ msgstr "Промптыг дахин тохируулж чадсангүй"
 msgid "Failed to revoke RSS access"
 msgstr "RSS хандалтыг цуцалж чадсангүй"
 
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:273
 #: src/features/chats/components/chat-settings-dialog.tsx:68
 msgid "Failed to save"
 msgstr "Хадгалж чадсангүй"
@@ -1295,15 +1359,23 @@ msgstr "Мессеж илгээж чадсангүй"
 msgid "Failed to start chat"
 msgstr "Чат эхлүүлж чадсангүй"
 
+#: ../../../lib/web/src/components/banner-section.tsx:71
+msgid "Failed to update banner"
+msgstr "Баннер шинэчилж чадсангүй"
+
 #: ../../../lib/web/src/components/entity/entity-comment-list.tsx:175
 msgid "Failed to update comment"
 msgstr "Сэтгэгдэл шинэчилж чадсангүй"
+
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:288
+msgid "Failed to update watching"
+msgstr "Хяналтыг шинэчилж чадсангүй"
 
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:114
 msgid "Failed to upload attachment"
 msgstr "Хавсралт байршуулж чадсангүй"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:611
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:605
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:160
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:180
 msgid "Files"
@@ -1450,6 +1522,10 @@ msgstr "Огноо хүчингүй"
 msgid "It seems like the page you're looking for <0/>does not exist or might have been removed."
 msgstr "Таны хайж буй хуудас <0/>байхгүй эсвэл устгагдсан бололтой."
 
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:441
+msgid "Item details"
+msgstr "Зүйлийн дэлгэрэнгүй"
+
 #: src/features/chats/components/chat-message-list.tsx:863
 #: src/features/chats/components/chat-message-list.tsx:880
 msgid "Jump to bottom"
@@ -1521,7 +1597,7 @@ msgstr "Таалагдсан"
 msgid "Link"
 msgstr "Холбоос"
 
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:279
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:273
 msgid "Links"
 msgstr "Холбоосууд"
 
@@ -1536,6 +1612,14 @@ msgstr "Илүү ачаалах"
 #: ../../../lib/web/src/components/ui/loading-content.tsx:26
 msgid "Loading content…"
 msgstr "Контент ачааллаж байна…"
+
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:365
+msgid "Loading item"
+msgstr "Зүйл ачаалж байна"
+
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:366
+msgid "Loading item details"
+msgstr "Зүйлийн дэлгэрэнгүй ачаалж байна"
 
 #: ../../../lib/web/src/components/ui/load-more.tsx:39
 #: ../../../lib/web/src/features/document/document-page.tsx:88
@@ -1754,7 +1838,7 @@ msgstr "Нэр 1000 тэмдэгтээс хэтрэхгүй байх ёстой"
 msgid "Network error"
 msgstr "Сүлжээний алдаа"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:498
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:492
 #: ../../../lib/web/src/components/ui/sort-selector.tsx:43
 msgid "New"
 msgstr "Шинэ"
@@ -1779,7 +1863,7 @@ msgstr "Илүү шинэ илэрц"
 msgid "Next image"
 msgstr "Дараагийн зураг"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:577
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:571
 msgid "No {parentClassNames} to add to"
 msgstr "Нэмэх {parentClassNames} алга"
 
@@ -1819,11 +1903,11 @@ msgstr "Тоглоом алга"
 msgid "No groups available"
 msgstr "Боломжит групп байхгүй"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:544
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:538
 msgid "No item types can be created yet. Create the required parent items first."
 msgstr "Одоогоор зүйл үүсгэх боломжгүй. Эхлээд шаардлагатай эх зүйлийг үүсгэнэ үү."
 
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:360
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:354
 msgid "No matching objects"
 msgstr "Тохирох обьект алга"
 
@@ -1885,9 +1969,13 @@ msgid "No views"
 msgstr "Үзэлт алга"
 
 #: ../../../lib/web/src/components/colour-picker.tsx:349
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:560
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:563
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:567
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:554
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:557
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:561
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:557
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:570
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:571
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:575
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:362
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:385
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:388
@@ -2015,7 +2103,9 @@ msgstr "Бусад"
 msgid "Owner"
 msgstr "Эзэмшигч"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:552
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:546
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:553
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:569
 msgid "Parent"
 msgstr "Эх"
 
@@ -2117,6 +2207,10 @@ msgstr "Боловсруулж байна…"
 msgid "Prompt saved"
 msgstr "Prompt хадгалагдсан"
 
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:408
+msgid "Properties"
+msgstr "Шинж чанарууд"
+
 #: ../../../lib/web/src/features/accounts/types.ts:21
 msgid "Push notification"
 msgstr "Push мэдэгдэл"
@@ -2181,7 +2275,7 @@ msgstr "Нэвтрэх рүү дахин чиглүүлж байна."
 msgid "Reduce interest"
 msgstr "Хүүг бууруулах"
 
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:65
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:69
 msgid "Relates"
 msgstr "Холбоотой"
 
@@ -2247,8 +2341,8 @@ msgstr "Сонирхол хасах"
 msgid "Remove item"
 msgstr "Зүйл хасах"
 
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:304
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:309
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:298
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:303
 msgid "Remove link"
 msgstr "Холбоосыг хасах"
 
@@ -2309,6 +2403,18 @@ msgstr "Шаардлагатай"
 msgid "Resend email"
 msgstr "Имэйлийг дахин илгээх"
 
+#: ../../../lib/web/src/components/game/game-end-dialogs.tsx:48
+msgid "Resign"
+msgstr "Тэрсэх"
+
+#: ../../../lib/web/src/components/game/game-end-dialogs.tsx:35
+msgid "Resign game?"
+msgstr "Тоглоомоос тэрсэх үү?"
+
+#: ../../../lib/web/src/components/game/game-end-dialogs.tsx:45
+msgid "Resigning..."
+msgstr "Тэрсэж байна..."
+
 #: ../../../lib/web/src/components/attachment-composer.tsx:348
 msgid "Retry"
 msgstr "Дахин оролдох"
@@ -2356,6 +2462,7 @@ msgstr "Бямба"
 
 #: ../../../lib/web/src/components/ai-prompts-editor.tsx:156
 #: ../../../lib/web/src/components/attachment-composer.tsx:430
+#: ../../../lib/web/src/components/banner-section.tsx:99
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:231
 #: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:172
 #: ../../../lib/web/src/components/ui/editable-field-row.tsx:126
@@ -2417,7 +2524,7 @@ msgstr "Чатаас хайх..."
 msgid "Search messages"
 msgstr "Мессеж хайх"
 
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:337
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:331
 msgid "Search objects..."
 msgstr "Обьект хайх..."
 
@@ -2657,6 +2764,11 @@ msgstr "Чат эхлүүлж байна..."
 msgid "Stop recording"
 msgstr "Бичлэгийг зогсоох"
 
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:471
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:476
+msgid "Stop watching"
+msgstr "Үзэхээ зогсоох"
+
 #: ../../../lib/web/src/features/access/access-list.tsx:196
 msgid "Subject"
 msgstr "Сэдэв"
@@ -2782,6 +2894,10 @@ msgstr "Энэ нь мессежийг бүх хүнээс устгах бөгө
 #: src/features/chats/components/message-quote.tsx:50
 msgid "This message was deleted"
 msgstr "Энэ мессеж устгагдсан"
+
+#: ../../../lib/web/src/components/game/game-end-dialogs.tsx:70
+msgid "This permanently deletes the game and its chat. This cannot be undone."
+msgstr "Энэ нь тоглоом болон түүний чатыг бүрмөсөн устгана. Энэ үйлдлийг буцаах боломжгүй."
 
 #: ../../../lib/web/src/lib/preference-utils.ts:57
 msgid "Thursday"
@@ -2916,9 +3032,8 @@ msgstr "Чатын бэхэлгээг авах"
 msgid "Unsubscribe"
 msgstr "Захиалгаас гарах"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:299
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:103
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:184
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:178
+#: ../../../lib/web/src/lib/entity-title.ts:40
 msgid "Untitled"
 msgstr "Гарчиггүй"
 
@@ -2932,7 +3047,7 @@ msgstr "Шинэчлэгдсэн"
 msgid "Updated {field}"
 msgstr "{field} шинэчилсэн"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:661
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:655
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:304
 msgid "Upload"
 msgstr "Байршуулах"
@@ -2983,6 +3098,10 @@ msgstr "Видео үзэгч: {0}"
 msgid "View all notifications"
 msgstr "Бүх мэдэгдлүүдийг үзэх"
 
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:442
+msgid "View and edit item details"
+msgstr "Зүйлийн дэлгэрэнгүйг үзэх, засварлах"
+
 #: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx:170
 msgid "View controls"
 msgstr "Хяналт үзэх"
@@ -3004,6 +3123,11 @@ msgstr "Энэ хөтөч дуу бичихийг дэмждэггүй"
 #: src/features/chats/components/chat-input.tsx:288
 msgid "Voice recording isn't available in this app version. Please update the app and try again."
 msgstr "Аппын энэ хувилбарт дуу бичих боломжгүй. Аппаа шинэчилж, дахин оролдоно уу."
+
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:471
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:476
+msgid "Watch"
+msgstr "Үзэх"
 
 #: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx:269
 #: ../../../lib/web/src/components/filter-bar.tsx:35

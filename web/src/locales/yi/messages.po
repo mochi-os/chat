@@ -156,6 +156,10 @@ msgstr "צוטריט שטאַפּל"
 msgid "Account type"
 msgstr "קאָנטע סאָרט"
 
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:415
+msgid "Activity"
+msgstr "אַקטיוויטעט"
+
 #: ../../../lib/web/src/components/entity/entity-field-editor.tsx:758
 #: ../../../lib/web/src/features/access/access-dialog.tsx:332
 #: ../../../lib/web/src/features/accounts/account-add.tsx:209
@@ -209,7 +213,7 @@ msgstr "צולייגן פֿעלד"
 msgid "Add item..."
 msgstr "צולייגן פּונקט..."
 
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:320
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:314
 msgid "Add link"
 msgstr "צולייגן לינק"
 
@@ -330,6 +334,10 @@ msgstr "אַלץ וואָס איז אַבאָנירט אויף דעם פֿיד �
 msgid "Are you sure you want to delete \"{0}\"?"
 msgstr "זענט איר זיכער איר ווילט אויסמעקן \"{0}\"?"
 
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:671
+msgid "Are you sure you want to delete \"{title}\"? This action cannot be undone."
+msgstr "זענט איר זיכער איר ווילט אויסמעקן \"{title}\"? די אַקציע קען נישט ווערן אומגעקערט."
+
 #: ../../../lib/web/src/components/entity/entity-board-column.tsx:631
 msgid "Are you sure you want to delete the \"{name}\" column? This cannot be undone."
 msgstr "זענט איר זיכער איר ווילט אויסמעקן די \"{name}\" זײַל? דאָס קען נישט ווערן אומגעקערט."
@@ -355,6 +363,14 @@ msgstr "זענט איר זיכער איר ווילט אַרויסלאָגן? א�
 #: src/routes/_authenticated/$chatId_.settings.tsx:549
 msgid "Are you sure you want to remove {0} from this chat?"
 msgstr "זענט איר זיכער איר ווילט אַרויסנעמען {0} פֿון דעם שמועס?"
+
+#: ../../../lib/web/src/components/game/game-end-dialogs.tsx:39
+msgid "Are you sure you want to resign?"
+msgstr "זענט איר זיכער איר ווילט רעזיגנירן?"
+
+#: ../../../lib/web/src/components/game/game-end-dialogs.tsx:38
+msgid "Are you sure you want to resign? {opponentName} will win the game."
+msgstr "זענט איר זיכער איר ווילט רעזיגנירן? {opponentName} וועט געווינען די שפּיל."
 
 #: ../../../lib/web/src/components/ui/sort-direction-button.tsx:27
 msgid "Ascending"
@@ -417,16 +433,25 @@ msgstr "צוריק צו שמועס"
 msgid "Back to home"
 msgstr "צוריק צום הויז"
 
+#: ../../../lib/web/src/components/banner-section.tsx:80
 #: ../../../lib/web/src/components/entity-banner.tsx:17
 msgid "Banner"
 msgstr "באַנער"
+
+#: ../../../lib/web/src/components/banner-section.tsx:69
+msgid "Banner removed"
+msgstr "באַנער אַראָפּגענומען"
+
+#: ../../../lib/web/src/components/banner-section.tsx:69
+msgid "Banner updated"
+msgstr "באַנער באַנײַט"
 
 #: src/features/chats/components/chat-message-list.tsx:476
 msgid "Be the first to say something!"
 msgstr "זײַט דער ערשטער עפּעס צו זאָגן!"
 
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:68
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:215
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:72
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:209
 msgid "Blocked by"
 msgstr "געבלאָקירט פֿון"
 
@@ -435,7 +460,7 @@ msgstr "געבלאָקירט פֿון"
 msgid "Blocked navigation to untrusted link"
 msgstr "געבלאָקירט נאַוויגאַציע צו אומגעטרויטן לינק"
 
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:66
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:70
 msgid "Blocks"
 msgstr "Blocks"
 
@@ -632,6 +657,7 @@ msgstr "קלײַבט אַ שפּיל פֿון דער סײַדבאַר אָדער
 msgid "Choose language"
 msgstr "קלײַבט שפּראַך"
 
+#: ../../../lib/web/src/components/banner-section.tsx:111
 #: ../../../lib/web/src/components/colour-picker.tsx:274
 #: ../../../lib/web/src/components/colour-picker.tsx:355
 #: ../../../lib/web/src/components/travelling-picker.tsx:145
@@ -651,8 +677,8 @@ msgstr "רייניקן אַלץ"
 msgid "Clear search"
 msgstr "רייניקן זוכן"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:523
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:528
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:517
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:522
 #: ../../../lib/web/src/components/ui/dialog.tsx:78
 #: ../../../lib/web/src/components/ui/image-lightbox.tsx:480
 #: ../../../lib/web/src/components/ui/image-lightbox.tsx:483
@@ -727,6 +753,11 @@ msgstr "קאָמענטאַר אַקציעס"
 #: ../../../lib/web/src/components/ui/image-lightbox.tsx:455
 msgid "Comments"
 msgstr "קאָמענטאַרן"
+
+#. placeholder {0}: data.comment_count || 0
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:411
+msgid "Comments ({0})"
+msgstr "קאָמענטאַרן ({0})"
 
 #: ../../../lib/web/src/lib/preference-utils.ts:90
 msgid "Compact"
@@ -816,8 +847,8 @@ msgstr "מע האָט נישט געקענט באַשטעטיקן מיט יענע
 
 #: ../../../lib/web/src/components/entity/entity-board-column.tsx:551
 #: ../../../lib/web/src/components/entity/entity-board-column.tsx:691
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:513
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:682
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:507
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:676
 #: ../../../lib/web/src/components/entity/entity-tree-view.tsx:672
 msgid "Create"
 msgstr "באַשאַפֿן"
@@ -853,7 +884,7 @@ msgstr "באַשאַפֿן {field}"
 msgid "Creating chat..."
 msgstr "שאַפֿן שמועס..."
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:682
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:676
 #: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:260
 #: src/features/chats/components/new-chat.tsx:367
 msgid "Creating..."
@@ -905,6 +936,8 @@ msgstr "פֿאַרשטאַנדלעך סאָרט"
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:208
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:255
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:317
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:672
+#: ../../../lib/web/src/components/game/game-end-dialogs.tsx:78
 #: src/features/chats/components/message-hover-actions.tsx:146
 #: src/features/chats/index.tsx:1296
 #: src/features/chats/index.tsx:1414
@@ -937,6 +970,16 @@ msgstr "אויסמעקן קאָמענטאַר"
 msgid "Delete field"
 msgstr "אויסמעקן פֿעלד"
 
+#: ../../../lib/web/src/components/game/game-end-dialogs.tsx:69
+msgid "Delete game?"
+msgstr "אויסמעקן דעם שפּיל?"
+
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:486
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:491
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:670
+msgid "Delete item"
+msgstr "אויסמעקן פּונקט"
+
 #: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:117
 msgid "Delete option"
 msgstr "אויסמעקן אָפּציע"
@@ -967,6 +1010,7 @@ msgstr "אויסגעמעקט {field}"
 msgid "Deleting chat..."
 msgstr "אויסמעקן שמועס..."
 
+#: ../../../lib/web/src/components/game/game-end-dialogs.tsx:75
 #: src/features/chats/index.tsx:706
 #: src/features/chats/index.tsx:1411
 msgid "Deleting..."
@@ -1047,6 +1091,7 @@ msgid "Does not match the required pattern"
 msgstr "פּאַסט נישט צום פֿאָדערטן מוסטער"
 
 #: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:309
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:495
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:523
 msgid "Done"
 msgstr "געטאָן"
@@ -1066,7 +1111,7 @@ msgstr "אַראָפּלאָדן דורכגעפֿאַלן"
 msgid "Draft"
 msgstr "אָנטוואָרף"
 
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:67
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:71
 msgid "Duplicates"
 msgstr "טאָפּלען"
 
@@ -1132,6 +1177,10 @@ msgstr "בליצפּאָסט"
 msgid "Email code"
 msgstr "בליצפּאָסט־קאָד"
 
+#: ../../../lib/web/src/components/banner-section.tsx:88
+msgid "Enter banner text (markdown supported)..."
+msgstr "גיט אַרײַן באַנער־טעקסט (markdown געשטיצט)..."
+
 #: ../../../lib/web/src/components/step-up-dialog.tsx:290
 msgid "Enter the code from your email"
 msgstr "גיט אַרײַן דעם קאָד פֿון אײַער בליצפּאָסט"
@@ -1139,6 +1188,10 @@ msgstr "גיט אַרײַן דעם קאָד פֿון אײַער בליצפּאָ
 #: ../../../lib/web/src/components/step-up-dialog.tsx:315
 msgid "Enter your authenticator code"
 msgstr "גיט אַרײַן אײַער אויטענטיפֿיקאַטאָר־קאָד"
+
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:381
+msgid "Error"
+msgstr "טעות"
 
 #: src/features/chats/components/chat-message-list.tsx:617
 msgid "escape to cancel • enter to save"
@@ -1185,11 +1238,12 @@ msgstr "ניט געלונגען צו קאָפּירן דעם מעסעדזש"
 msgid "Failed to create chat"
 msgstr "ניט געלונגען צו שאַפֿן שמועס"
 
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:137
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:131
 #: ../../../lib/web/src/components/options-menu.tsx:98
 msgid "Failed to create link"
 msgstr "ניט געלונגען צו שאַפֿן לינק"
 
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:303
 #: src/features/chats/index.tsx:708
 msgid "Failed to delete"
 msgstr "ניט געלונגען צו מעקן"
@@ -1206,7 +1260,7 @@ msgstr "ניט געלונגען צו מעקן שמועס"
 msgid "Failed to delete comment"
 msgstr "ניט געלונגען צו מעקן קאָמענטאַר"
 
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:159
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:153
 msgid "Failed to delete link"
 msgstr "ניט געלונגען צו מעקן לינק"
 
@@ -1239,6 +1293,11 @@ msgstr "ניט געלונגען צו לאָדן היסטאָריע"
 msgid "Failed to load image"
 msgstr "נישט געקאָנט לאָדן דאָס בילד"
 
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:382
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:385
+msgid "Failed to load item"
+msgstr "ניט געלונגען צו לאָדן פּונקט"
+
 #: ../../../lib/web/src/components/ai-prompts-editor.tsx:213
 msgid "Failed to load prompts"
 msgstr "ניט געלונגען צו לאָדן פּראָמפּטן"
@@ -1254,6 +1313,10 @@ msgstr "מען האָט נישט געקענט לאָדן דײַן שמועס־פ
 #: src/components/layout/chat-layout.tsx:158
 msgid "Failed to mark chat as read"
 msgstr "ניט געלונגען צו באַצייכענען דעם שמועס ווי געלייענט"
+
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:317
+msgid "Failed to move"
+msgstr "דורכפֿאַל צו באַוועגן"
 
 #: ../../../lib/web/src/components/entity/entity-comment-list.tsx:155
 msgid "Failed to post comment"
@@ -1279,6 +1342,7 @@ msgstr "ניט געלונגען צו אָפּשטעלן פּראָמפּט"
 msgid "Failed to revoke RSS access"
 msgstr "דורכפֿאַל צו רופֿן צוריק RSS צוטריט"
 
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:273
 #: src/features/chats/components/chat-settings-dialog.tsx:68
 msgid "Failed to save"
 msgstr "ניט געלונגען אויפֿצוהיטן"
@@ -1295,15 +1359,23 @@ msgstr "ניט געלונגען צו שיקן בריוו"
 msgid "Failed to start chat"
 msgstr "ניט געלונגען אָנצוהייבן שמועס"
 
+#: ../../../lib/web/src/components/banner-section.tsx:71
+msgid "Failed to update banner"
+msgstr "ניט געלונגען צו דערהײַנטיקן באַנער"
+
 #: ../../../lib/web/src/components/entity/entity-comment-list.tsx:175
 msgid "Failed to update comment"
 msgstr "ניט געלונגען צו דערהײַנטיקן קאָמענטאַר"
+
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:288
+msgid "Failed to update watching"
+msgstr "דורכפֿאַל צו דערהײַנטיקן אָבסערוואַציע"
 
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:114
 msgid "Failed to upload attachment"
 msgstr "ניט געלונגען אַרויפֿצולאָדן בײַלאַגע"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:611
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:605
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:160
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:180
 msgid "Files"
@@ -1450,6 +1522,10 @@ msgstr "ניט גילטיקע דאַטע"
 msgid "It seems like the page you're looking for <0/>does not exist or might have been removed."
 msgstr "עס װײַזט אױס אַז די זײַט װאָס איר זוכט <0/>עקזיסטירט נישט אָדער איז אַװעקגענומען געװאָרן."
 
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:441
+msgid "Item details"
+msgstr "פּונקט־דעטאַלן"
+
 #: src/features/chats/components/chat-message-list.tsx:863
 #: src/features/chats/components/chat-message-list.tsx:880
 msgid "Jump to bottom"
@@ -1521,7 +1597,7 @@ msgstr "געפֿעלט"
 msgid "Link"
 msgstr "לינק"
 
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:279
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:273
 msgid "Links"
 msgstr "לינקס"
 
@@ -1536,6 +1612,14 @@ msgstr "לאָדן מער"
 #: ../../../lib/web/src/components/ui/loading-content.tsx:26
 msgid "Loading content…"
 msgstr "לאָדט אינהאַלט…"
+
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:365
+msgid "Loading item"
+msgstr "לאָדט פּונקט"
+
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:366
+msgid "Loading item details"
+msgstr "לאָדט פּונקט־דעטאַלן"
 
 #: ../../../lib/web/src/components/ui/load-more.tsx:39
 #: ../../../lib/web/src/features/document/document-page.tsx:88
@@ -1754,7 +1838,7 @@ msgstr "נאָמען מוז זײַן 1000 כאַראַקטערן אָדער וו
 msgid "Network error"
 msgstr "נעץ פֿעלער"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:498
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:492
 #: ../../../lib/web/src/components/ui/sort-selector.tsx:43
 msgid "New"
 msgstr "נײַ"
@@ -1779,7 +1863,7 @@ msgstr "נײַערער טרעפֿער"
 msgid "Next image"
 msgstr "ווײַטערדיק בילד"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:577
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:571
 msgid "No {parentClassNames} to add to"
 msgstr "קיין {parentClassNames} צוצולייגן"
 
@@ -1819,11 +1903,11 @@ msgstr "נאָך קיין שפּילן"
 msgid "No groups available"
 msgstr "קיין גרופּעס פֿאַראַן"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:544
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:538
 msgid "No item types can be created yet. Create the required parent items first."
 msgstr "קיין עלעמענט טיפּן קענען נאָך ניט זײַן באַשאַפֿן. באַשאַף די נייטיקע עלטערן עלעמענטן ערשט."
 
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:360
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:354
 msgid "No matching objects"
 msgstr "קיין שטימענדיקע אָביעקטן"
 
@@ -1885,9 +1969,13 @@ msgid "No views"
 msgstr "קיין קוקן"
 
 #: ../../../lib/web/src/components/colour-picker.tsx:349
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:560
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:563
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:567
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:554
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:557
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:561
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:557
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:570
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:571
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:575
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:362
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:385
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:388
@@ -2015,7 +2103,9 @@ msgstr "אַנדער"
 msgid "Owner"
 msgstr "אייגנטימער"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:552
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:546
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:553
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:569
 msgid "Parent"
 msgstr "עלטער"
 
@@ -2117,6 +2207,10 @@ msgstr "פּראָצעסירונג…"
 msgid "Prompt saved"
 msgstr "פּראָמפּט אויפֿגעהיט"
 
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:408
+msgid "Properties"
+msgstr "אייגנשאַפֿטן"
+
 #: ../../../lib/web/src/features/accounts/types.ts:21
 msgid "Push notification"
 msgstr "פּוש־מעלדונג"
@@ -2181,7 +2275,7 @@ msgstr "רעדירעקטירן צו לאָגן."
 msgid "Reduce interest"
 msgstr "פֿאַרמינער אינטערעס"
 
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:65
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:69
 msgid "Relates"
 msgstr "פֿאַרבונדן"
 
@@ -2247,8 +2341,8 @@ msgstr "אַראָפּנעמען אינטערעס"
 msgid "Remove item"
 msgstr "אַראָפּנעמען עלעמענט"
 
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:304
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:309
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:298
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:303
 msgid "Remove link"
 msgstr "אַראָפּנעמען לינק"
 
@@ -2309,6 +2403,18 @@ msgstr "נייטיק"
 msgid "Resend email"
 msgstr "שיק די בליצפּאָסט נאָך אַ מאָל"
 
+#: ../../../lib/web/src/components/game/game-end-dialogs.tsx:48
+msgid "Resign"
+msgstr "רעזיגנירן"
+
+#: ../../../lib/web/src/components/game/game-end-dialogs.tsx:35
+msgid "Resign game?"
+msgstr "רעזיגנירן שפּיל?"
+
+#: ../../../lib/web/src/components/game/game-end-dialogs.tsx:45
+msgid "Resigning..."
+msgstr "רעזיגנירן..."
+
 #: ../../../lib/web/src/components/attachment-composer.tsx:348
 msgid "Retry"
 msgstr "פּרוּווט נאָך אַ מאָל"
@@ -2356,6 +2462,7 @@ msgstr "שבת"
 
 #: ../../../lib/web/src/components/ai-prompts-editor.tsx:156
 #: ../../../lib/web/src/components/attachment-composer.tsx:430
+#: ../../../lib/web/src/components/banner-section.tsx:99
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:231
 #: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:172
 #: ../../../lib/web/src/components/ui/editable-field-row.tsx:126
@@ -2417,7 +2524,7 @@ msgstr "זוכן אין שמועס..."
 msgid "Search messages"
 msgstr "זוכן מעסעדזשעס"
 
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:337
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:331
 msgid "Search objects..."
 msgstr "זוך אָביעקטן..."
 
@@ -2657,6 +2764,11 @@ msgstr "אָנהייבן שמועס..."
 msgid "Stop recording"
 msgstr "אָפּשטעלן די רעקאָרדירונג"
 
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:471
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:476
+msgid "Stop watching"
+msgstr "הער אויף נאָכקוקן"
+
 #: ../../../lib/web/src/features/access/access-list.tsx:196
 msgid "Subject"
 msgstr "טעמע"
@@ -2782,6 +2894,10 @@ msgstr "דאָס מעקט אויס דעם מעסעדזש פֿאַר אַלעמע
 #: src/features/chats/components/message-quote.tsx:50
 msgid "This message was deleted"
 msgstr "דער מעסעדזש איז אויסגעמעקט געוואָרן"
+
+#: ../../../lib/web/src/components/game/game-end-dialogs.tsx:70
+msgid "This permanently deletes the game and its chat. This cannot be undone."
+msgstr "דאָס וועט אויף שטענדיק אויסמעקן דעם שפּיל און זײַן טשאַט. מע קען דעם ניט מבֿטל מאַכן."
 
 #: ../../../lib/web/src/lib/preference-utils.ts:57
 msgid "Thursday"
@@ -2916,9 +3032,8 @@ msgstr "אָפּשפּיליען שמועס"
 msgid "Unsubscribe"
 msgstr "אַבאַבאָנירן"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:299
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:103
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:184
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:178
+#: ../../../lib/web/src/lib/entity-title.ts:40
 msgid "Untitled"
 msgstr "אָן קעפּל"
 
@@ -2932,7 +3047,7 @@ msgstr "באַנײַט"
 msgid "Updated {field}"
 msgstr "דערהײַנטיקט {field}"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:661
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:655
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:304
 msgid "Upload"
 msgstr "אַרויפֿלאָדן"
@@ -2983,6 +3098,10 @@ msgstr "ווידעאָ־ווײַזער: {0}"
 msgid "View all notifications"
 msgstr "זע אַלע נאָטיפֿיקאַציעס"
 
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:442
+msgid "View and edit item details"
+msgstr "זע און רעדאַקטיר אַרטיקל־פּרטים"
+
 #: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx:170
 msgid "View controls"
 msgstr "בליק־קאָנטראָלן"
@@ -3004,6 +3123,11 @@ msgstr "קול רעקאָרדירונג ווערט נישט געשטיצט אי�
 #: src/features/chats/components/chat-input.tsx:288
 msgid "Voice recording isn't available in this app version. Please update the app and try again."
 msgstr "קול רעקאָרדירונג איז נישט צוטריטלעך אין דער דאָזיקער ווערסיע פֿון דער אַפּ. ביטע דערהײַנטיקט די אַפּ און פּרוּווט נאָך אַ מאָל."
+
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:471
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:476
+msgid "Watch"
+msgstr "נאָכקוק"
 
 #: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx:269
 #: ../../../lib/web/src/components/filter-bar.tsx:35

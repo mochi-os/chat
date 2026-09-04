@@ -156,6 +156,10 @@ msgstr "ആക്സസ് ലെവൽ"
 msgid "Account type"
 msgstr "അക്കൗണ്ട് തരം"
 
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:415
+msgid "Activity"
+msgstr "പ്രവർത്തനം"
+
 #: ../../../lib/web/src/components/entity/entity-field-editor.tsx:758
 #: ../../../lib/web/src/features/access/access-dialog.tsx:332
 #: ../../../lib/web/src/features/accounts/account-add.tsx:209
@@ -209,7 +213,7 @@ msgstr "ഫീൽഡ് ചേർക്കുക"
 msgid "Add item..."
 msgstr "ഇനം ചേർക്കുക..."
 
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:320
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:314
 msgid "Add link"
 msgstr "ലിങ്ക് ചേർക്കുക"
 
@@ -330,6 +334,10 @@ msgstr "ഈ ഫീഡ് സബ്‌സ്‌ക്രൈബ് ചെയ്ത
 msgid "Are you sure you want to delete \"{0}\"?"
 msgstr "\"{0}\" ഇല്ലാതാക്കണമെന്ന് നിങ്ങൾക്ക് ഉറപ്പാണോ?"
 
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:671
+msgid "Are you sure you want to delete \"{title}\"? This action cannot be undone."
+msgstr "\"{title}\" ഇല്ലാതാക്കണമെന്ന് നിങ്ങൾക്ക് ഉറപ്പാണോ? ഈ പ്രവർത്തനം പഴയപടിയാക്കാൻ കഴിയില്ല."
+
 #: ../../../lib/web/src/components/entity/entity-board-column.tsx:631
 msgid "Are you sure you want to delete the \"{name}\" column? This cannot be undone."
 msgstr "\"{name}\" കോളം ഇല്ലാതാക്കണമെന്ന് നിങ്ങൾക്ക് ഉറപ്പാണോ? ഇത് പഴയപടിയാക്കാൻ കഴിയില്ല."
@@ -355,6 +363,14 @@ msgstr "ലോഗ് ഔട്ട് ചെയ്യണമെന്ന് നി
 #: src/routes/_authenticated/$chatId_.settings.tsx:549
 msgid "Are you sure you want to remove {0} from this chat?"
 msgstr "നിങ്ങൾക്ക് {0}-നെ ഈ ചാറ്റിൽ നിന്ന് നീക്കം ചെയ്യാൻ ഉറപ്പാണോ?"
+
+#: ../../../lib/web/src/components/game/game-end-dialogs.tsx:39
+msgid "Are you sure you want to resign?"
+msgstr "നിങ്ങൾ തീർച്ചയായും രാജി വയ്ക്കാൻ ആഗ്രഹിക്കുന്നുവോ?"
+
+#: ../../../lib/web/src/components/game/game-end-dialogs.tsx:38
+msgid "Are you sure you want to resign? {opponentName} will win the game."
+msgstr "നിങ്ങൾ കീഴടങ്ങാൻ തീർച്ചയാണോ? {opponentName} ഗെയിം ജയിക്കും."
 
 #: ../../../lib/web/src/components/ui/sort-direction-button.tsx:27
 msgid "Ascending"
@@ -417,16 +433,25 @@ msgstr "ചാറ്റിലേക്ക് തിരികെ"
 msgid "Back to home"
 msgstr "ഹോമിലേക്ക് മടങ്ങുക"
 
+#: ../../../lib/web/src/components/banner-section.tsx:80
 #: ../../../lib/web/src/components/entity-banner.tsx:17
 msgid "Banner"
 msgstr "ബാനർ"
+
+#: ../../../lib/web/src/components/banner-section.tsx:69
+msgid "Banner removed"
+msgstr "ബാനർ നീക്കംചെയ്തു"
+
+#: ../../../lib/web/src/components/banner-section.tsx:69
+msgid "Banner updated"
+msgstr "ബാനർ അപ്ഡേറ്റുചെയ്തു"
 
 #: src/features/chats/components/chat-message-list.tsx:476
 msgid "Be the first to say something!"
 msgstr "ആദ്യം എന്തെങ്കിലും പറയുന്നയാളാകൂ!"
 
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:68
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:215
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:72
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:209
 msgid "Blocked by"
 msgstr "തടഞ്ഞത്"
 
@@ -435,7 +460,7 @@ msgstr "തടഞ്ഞത്"
 msgid "Blocked navigation to untrusted link"
 msgstr "വിശ്വസനീയമല്ലാത്ത ലിങ്കിലേക്കുള്ള നാവിഗേഷൻ തടഞ്ഞു"
 
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:66
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:70
 msgid "Blocks"
 msgstr "തടയുന്നു"
 
@@ -632,6 +657,7 @@ msgstr "സൈഡ്ബാറിൽ നിന്ന് ഒരു ഗെയിം
 msgid "Choose language"
 msgstr "ഭാഷ തിരഞ്ഞെടുക്കുക"
 
+#: ../../../lib/web/src/components/banner-section.tsx:111
 #: ../../../lib/web/src/components/colour-picker.tsx:274
 #: ../../../lib/web/src/components/colour-picker.tsx:355
 #: ../../../lib/web/src/components/travelling-picker.tsx:145
@@ -651,8 +677,8 @@ msgstr "എല്ലാം മായ്ക്കുക"
 msgid "Clear search"
 msgstr "തിരയൽ മായ്ക്കുക"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:523
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:528
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:517
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:522
 #: ../../../lib/web/src/components/ui/dialog.tsx:78
 #: ../../../lib/web/src/components/ui/image-lightbox.tsx:480
 #: ../../../lib/web/src/components/ui/image-lightbox.tsx:483
@@ -727,6 +753,11 @@ msgstr "അഭിപ്രായ പ്രവർത്തനങ്ങൾ"
 #: ../../../lib/web/src/components/ui/image-lightbox.tsx:455
 msgid "Comments"
 msgstr "അഭിപ്രായങ്ങൾ"
+
+#. placeholder {0}: data.comment_count || 0
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:411
+msgid "Comments ({0})"
+msgstr "കമന്റുകൾ ({0})"
 
 #: ../../../lib/web/src/lib/preference-utils.ts:90
 msgid "Compact"
@@ -816,8 +847,8 @@ msgstr "ആ അക്കൗണ്ട് ഉപയോഗിച്ച് പരി
 
 #: ../../../lib/web/src/components/entity/entity-board-column.tsx:551
 #: ../../../lib/web/src/components/entity/entity-board-column.tsx:691
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:513
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:682
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:507
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:676
 #: ../../../lib/web/src/components/entity/entity-tree-view.tsx:672
 msgid "Create"
 msgstr "സൃഷ്ടിക്കുക"
@@ -853,7 +884,7 @@ msgstr "{field} സൃഷ്ടിച്ചു"
 msgid "Creating chat..."
 msgstr "ചാറ്റ് സൃഷ്ടിക്കുന്നു..."
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:682
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:676
 #: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:260
 #: src/features/chats/components/new-chat.tsx:367
 msgid "Creating..."
@@ -905,6 +936,8 @@ msgstr "ഡിഫോൾട്ട് സോർട്ട്"
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:208
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:255
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:317
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:672
+#: ../../../lib/web/src/components/game/game-end-dialogs.tsx:78
 #: src/features/chats/components/message-hover-actions.tsx:146
 #: src/features/chats/index.tsx:1296
 #: src/features/chats/index.tsx:1414
@@ -937,6 +970,16 @@ msgstr "അഭിപ്രായം ഇല്ലാതാക്കുക"
 msgid "Delete field"
 msgstr "ഫീൽഡ് ഇല്ലാതാക്കുക"
 
+#: ../../../lib/web/src/components/game/game-end-dialogs.tsx:69
+msgid "Delete game?"
+msgstr "ഗെയിം ഇല്ലാതാക്കണോ?"
+
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:486
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:491
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:670
+msgid "Delete item"
+msgstr "ഇനം ഇല്ലാതാക്കുക"
+
 #: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:117
 msgid "Delete option"
 msgstr "ഓപ്ഷൻ ഇല്ലാതാക്കുക"
@@ -967,6 +1010,7 @@ msgstr "{field} ഇല്ലാതാക്കി"
 msgid "Deleting chat..."
 msgstr "ചാറ്റ് ഇല്ലാതാക്കുന്നു..."
 
+#: ../../../lib/web/src/components/game/game-end-dialogs.tsx:75
 #: src/features/chats/index.tsx:706
 #: src/features/chats/index.tsx:1411
 msgid "Deleting..."
@@ -1047,6 +1091,7 @@ msgid "Does not match the required pattern"
 msgstr "ആവശ്യമായ മാതൃകയുമായി പൊരുത്തപ്പെടുന്നില്ല"
 
 #: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:309
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:495
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:523
 msgid "Done"
 msgstr "പൂർത്തിയായി"
@@ -1066,7 +1111,7 @@ msgstr "ഡൗൺലോഡ് പരാജയപ്പെട്ടു"
 msgid "Draft"
 msgstr "ഡ്രാഫ്റ്റ്"
 
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:67
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:71
 msgid "Duplicates"
 msgstr "ഡ്യൂപ്ലിക്കേറ്റ്"
 
@@ -1132,6 +1177,10 @@ msgstr "ഇമെയിൽ"
 msgid "Email code"
 msgstr "ഇമെയിൽ കോഡ്"
 
+#: ../../../lib/web/src/components/banner-section.tsx:88
+msgid "Enter banner text (markdown supported)..."
+msgstr "ബാനർ ടെക്സ്റ്റ് നൽകുക (മാർക്ക്ഡൗൺ പിന്തുണയ്‌ക്കുന്നു)..."
+
 #: ../../../lib/web/src/components/step-up-dialog.tsx:290
 msgid "Enter the code from your email"
 msgstr "നിങ്ങളുടെ ഇമെയിലിലെ കോഡ് നൽകുക"
@@ -1139,6 +1188,10 @@ msgstr "നിങ്ങളുടെ ഇമെയിലിലെ കോഡ് ന
 #: ../../../lib/web/src/components/step-up-dialog.tsx:315
 msgid "Enter your authenticator code"
 msgstr "നിങ്ങളുടെ ഓതെന്റിക്കേറ്റർ കോഡ് നൽകുക"
+
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:381
+msgid "Error"
+msgstr "പിശക്"
 
 #: src/features/chats/components/chat-message-list.tsx:617
 msgid "escape to cancel • enter to save"
@@ -1185,11 +1238,12 @@ msgstr "സന്ദേശം പകർത്താനായില്ല"
 msgid "Failed to create chat"
 msgstr "ചാറ്റ് സൃഷ്ടിക്കുന്നതിൽ പരാജയപ്പെട്ടു"
 
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:137
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:131
 #: ../../../lib/web/src/components/options-menu.tsx:98
 msgid "Failed to create link"
 msgstr "ലിങ്ക് സൃഷ്ടിക്കുന്നതിൽ പരാജയപ്പെട്ടു"
 
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:303
 #: src/features/chats/index.tsx:708
 msgid "Failed to delete"
 msgstr "ഇല്ലാതാക്കുന്നതിൽ പരാജയപ്പെട്ടു"
@@ -1206,7 +1260,7 @@ msgstr "ചാറ്റ് ഇല്ലാതാക്കുന്നതിൽ �
 msgid "Failed to delete comment"
 msgstr "അഭിപ്രായം ഇല്ലാതാക്കുന്നതിൽ പരാജയപ്പെട്ടു"
 
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:159
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:153
 msgid "Failed to delete link"
 msgstr "ലിങ്ക് ഇല്ലാതാക്കുന്നതിൽ പരാജയപ്പെട്ടു"
 
@@ -1239,6 +1293,11 @@ msgstr "ചരിത്രം ലോഡുചെയ്യുന്നതിൽ �
 msgid "Failed to load image"
 msgstr "ചിത്രം ലോഡ് ചെയ്യാനായില്ല"
 
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:382
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:385
+msgid "Failed to load item"
+msgstr "ഇനം ലോഡുചെയ്യുന്നതിൽ പരാജയപ്പെട്ടു"
+
 #: ../../../lib/web/src/components/ai-prompts-editor.tsx:213
 msgid "Failed to load prompts"
 msgstr "പ്രോംപ്റ്റുകൾ ലോഡുചെയ്യുന്നതിൽ പരാജയപ്പെട്ടു"
@@ -1254,6 +1313,10 @@ msgstr "നിങ്ങളുടെ ചാറ്റ് നയം ലോഡ് �
 #: src/components/layout/chat-layout.tsx:158
 msgid "Failed to mark chat as read"
 msgstr "ചാറ്റ് വായിച്ചതായി അടയാളപ്പെടുത്താനായില്ല"
+
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:317
+msgid "Failed to move"
+msgstr "നീക്കാനായില്ല"
 
 #: ../../../lib/web/src/components/entity/entity-comment-list.tsx:155
 msgid "Failed to post comment"
@@ -1279,6 +1342,7 @@ msgstr "പ്രോംപ്റ്റ് റീസെറ്റ് ചെയ്�
 msgid "Failed to revoke RSS access"
 msgstr "RSS ആക്‌സസ് പിൻവലിക്കുന്നതിൽ പരാജയപ്പെട്ടു"
 
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:273
 #: src/features/chats/components/chat-settings-dialog.tsx:68
 msgid "Failed to save"
 msgstr "സംരക്ഷിക്കുന്നതിൽ പരാജയപ്പെട്ടു"
@@ -1295,15 +1359,23 @@ msgstr "സന്ദേശം അയയ്ക്കുന്നതിൽ പര�
 msgid "Failed to start chat"
 msgstr "ചാറ്റ് ആരംഭിക്കുന്നതിൽ പരാജയപ്പെട്ടു"
 
+#: ../../../lib/web/src/components/banner-section.tsx:71
+msgid "Failed to update banner"
+msgstr "ബാനർ പുതുക്കുന്നതിൽ പരാജയപ്പെട്ടു"
+
 #: ../../../lib/web/src/components/entity/entity-comment-list.tsx:175
 msgid "Failed to update comment"
 msgstr "അഭിപ്രായം പുതുക്കുന്നതിൽ പരാജയപ്പെട്ടു"
+
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:288
+msgid "Failed to update watching"
+msgstr "നിരീക്ഷണം അപ്‌ഡേറ്റ് ചെയ്യാനായില്ല"
 
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:114
 msgid "Failed to upload attachment"
 msgstr "അറ്റാച്ച്മെന്റ് അപ്‌ലോഡ് ചെയ്യുന്നതിൽ പരാജയപ്പെട്ടു"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:611
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:605
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:160
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:180
 msgid "Files"
@@ -1450,6 +1522,10 @@ msgstr "അസാധുവായ തീയതി"
 msgid "It seems like the page you're looking for <0/>does not exist or might have been removed."
 msgstr "നിങ്ങൾ തിരയുന്ന പേജ് <0/>നിലവിലില്ല അല്ലെങ്കിൽ നീക്കംചെയ്തിരിക്കാം."
 
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:441
+msgid "Item details"
+msgstr "ഇനം വിശദാംശങ്ങൾ"
+
 #: src/features/chats/components/chat-message-list.tsx:863
 #: src/features/chats/components/chat-message-list.tsx:880
 msgid "Jump to bottom"
@@ -1521,7 +1597,7 @@ msgstr "ഇഷ്ടം"
 msgid "Link"
 msgstr "ലിങ്ക്"
 
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:279
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:273
 msgid "Links"
 msgstr "ലിങ്കുകൾ"
 
@@ -1536,6 +1612,14 @@ msgstr "കൂടുതൽ ലോഡുചെയ്യുക"
 #: ../../../lib/web/src/components/ui/loading-content.tsx:26
 msgid "Loading content…"
 msgstr "ഉള്ളടക്കം ലോഡ് ചെയ്യുന്നു…"
+
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:365
+msgid "Loading item"
+msgstr "ഇനം ലോഡുചെയ്യുന്നു"
+
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:366
+msgid "Loading item details"
+msgstr "ഇനം വിശദാംശങ്ങൾ ലോഡുചെയ്യുന്നു"
 
 #: ../../../lib/web/src/components/ui/load-more.tsx:39
 #: ../../../lib/web/src/features/document/document-page.tsx:88
@@ -1754,7 +1838,7 @@ msgstr "പേര് 1000 പ്രതീകങ്ങൾ അല്ലെങ്�
 msgid "Network error"
 msgstr "നെറ്റ്‌വർക്ക് പിശക്"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:498
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:492
 #: ../../../lib/web/src/components/ui/sort-selector.tsx:43
 msgid "New"
 msgstr "പുതിയത്"
@@ -1779,7 +1863,7 @@ msgstr "പുതിയ ഫലം"
 msgid "Next image"
 msgstr "അടുത്ത ചിത്രം"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:577
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:571
 msgid "No {parentClassNames} to add to"
 msgstr "ചേർക്കാൻ {parentClassNames} ഇല്ല"
 
@@ -1819,11 +1903,11 @@ msgstr "ഗെയിമുകളൊന്നും ഇതുവരെ ഇല്�
 msgid "No groups available"
 msgstr "ഗ്രൂപ്പുകളൊന്നും ലഭ്യമല്ല"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:544
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:538
 msgid "No item types can be created yet. Create the required parent items first."
 msgstr "ഇതുവരെ ഒരു item type-ഉം സൃഷ്ടിക്കാൻ കഴിയില്ല. ആവശ്യമായ parent items ആദ്യം സൃഷ്ടിക്കുക."
 
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:360
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:354
 msgid "No matching objects"
 msgstr "പൊരുത്തപ്പെടുന്ന ഒബ്ജക്ടുകളൊന്നുമില്ല"
 
@@ -1885,9 +1969,13 @@ msgid "No views"
 msgstr "വ്യൂകളൊന്നുമില്ല"
 
 #: ../../../lib/web/src/components/colour-picker.tsx:349
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:560
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:563
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:567
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:554
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:557
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:561
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:557
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:570
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:571
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:575
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:362
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:385
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:388
@@ -2015,7 +2103,9 @@ msgstr "മറ്റുള്ളവ"
 msgid "Owner"
 msgstr "ഉടമ"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:552
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:546
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:553
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:569
 msgid "Parent"
 msgstr "parent"
 
@@ -2117,6 +2207,10 @@ msgstr "പ്രോസസ്സ് ചെയ്യുന്നു…"
 msgid "Prompt saved"
 msgstr "പ്രോംപ്റ്റ് സേവ് ചെയ്തു"
 
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:408
+msgid "Properties"
+msgstr "സവിശേഷതകൾ"
+
 #: ../../../lib/web/src/features/accounts/types.ts:21
 msgid "Push notification"
 msgstr "പുഷ് അറിയിപ്പ്"
@@ -2181,7 +2275,7 @@ msgstr "ലോഗിനിലേക്ക് തിരിച്ചുവിട�
 msgid "Reduce interest"
 msgstr "പുതുക്കുക"
 
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:65
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:69
 msgid "Relates"
 msgstr "ബന്ധപ്പെട്ടത്"
 
@@ -2247,8 +2341,8 @@ msgstr "item നീക്കം ചെയ്യുക"
 msgid "Remove item"
 msgstr "ലിസ്റ്റിങ് നീക്കം ചെയ്യുക"
 
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:304
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:309
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:298
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:303
 msgid "Remove link"
 msgstr "ലിങ്ക് നീക്കം ചെയ്യുക"
 
@@ -2309,6 +2403,18 @@ msgstr "Reserve പൂർത്തിയായില്ല"
 msgid "Resend email"
 msgstr "ഇമെയിൽ വീണ്ടും അയയ്ക്കുക"
 
+#: ../../../lib/web/src/components/game/game-end-dialogs.tsx:48
+msgid "Resign"
+msgstr "ഗെയിം പിന്മാറണോ?"
+
+#: ../../../lib/web/src/components/game/game-end-dialogs.tsx:35
+msgid "Resign game?"
+msgstr "പിന്മാറുന്നു..."
+
+#: ../../../lib/web/src/components/game/game-end-dialogs.tsx:45
+msgid "Resigning..."
+msgstr "റെസല്യൂഷൻ"
+
 #: ../../../lib/web/src/components/attachment-composer.tsx:348
 msgid "Retry"
 msgstr "വീണ്ടും ശ്രമിക്കുക"
@@ -2356,6 +2462,7 @@ msgstr "ശനിയാഴ്ച"
 
 #: ../../../lib/web/src/components/ai-prompts-editor.tsx:156
 #: ../../../lib/web/src/components/attachment-composer.tsx:430
+#: ../../../lib/web/src/components/banner-section.tsx:99
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:231
 #: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:172
 #: ../../../lib/web/src/components/ui/editable-field-row.tsx:126
@@ -2417,7 +2524,7 @@ msgstr "ചാറ്റിൽ തിരയുക..."
 msgid "Search messages"
 msgstr "സന്ദേശങ്ങൾ തിരയുക"
 
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:337
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:331
 msgid "Search objects..."
 msgstr "ഒബ്ജക്ടുകൾ തിരയുക..."
 
@@ -2657,6 +2764,11 @@ msgstr "ചാറ്റ് ആരംഭിക്കുന്നു..."
 msgid "Stop recording"
 msgstr "റെക്കോർഡിംഗ് നിർത്തുക"
 
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:471
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:476
+msgid "Stop watching"
+msgstr "നിരീക്ഷണം നിർത്തുക"
+
 #: ../../../lib/web/src/features/access/access-list.tsx:196
 msgid "Subject"
 msgstr "വിഷയം"
@@ -2782,6 +2894,10 @@ msgstr "ഇത് എല്ലാവർക്കുമായി സന്ദേ�
 #: src/features/chats/components/message-quote.tsx:50
 msgid "This message was deleted"
 msgstr "ഈ സന്ദേശം ഇല്ലാതാക്കി"
+
+#: ../../../lib/web/src/components/game/game-end-dialogs.tsx:70
+msgid "This permanently deletes the game and its chat. This cannot be undone."
+msgstr "ഇത് ഗെയിമും അതിന്റെ ചാറ്റും ശാശ്വതമായി ഇല്ലാതാക്കും. ഈ പ്രവർത്തി പഴയപടിയാക്കാൻ കഴിയില്ല."
 
 #: ../../../lib/web/src/lib/preference-utils.ts:57
 msgid "Thursday"
@@ -2916,9 +3032,8 @@ msgstr "ചാറ്റ് അൺപിൻ ചെയ്യുക"
 msgid "Unsubscribe"
 msgstr "അൺസബ്സ്ക്രൈബ് ചെയ്യുക"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:299
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:103
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:184
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:178
+#: ../../../lib/web/src/lib/entity-title.ts:40
 msgid "Untitled"
 msgstr "ശീർഷകമില്ലാത്തത്"
 
@@ -2932,7 +3047,7 @@ msgstr "അപ്ഡേറ്റ് ചെയ്തു"
 msgid "Updated {field}"
 msgstr "{field} പുതുക്കി"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:661
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:655
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:304
 msgid "Upload"
 msgstr "അപ്‌ലോഡ് ചെയ്യുക"
@@ -2983,6 +3098,10 @@ msgstr "വീഡിയോ വ്യൂവർ: {0}"
 msgid "View all notifications"
 msgstr "എല്ലാ അറിയിപ്പുകളും കാണുക"
 
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:442
+msgid "View and edit item details"
+msgstr "ഇനത്തിന്റെ വിശദാംശങ്ങൾ കാണുകയും എഡിറ്റ് ചെയ്യുകയും ചെയ്യുക"
+
 #: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx:170
 msgid "View controls"
 msgstr "നിയന്ത്രണങ്ങൾ കാണുക"
@@ -3004,6 +3123,11 @@ msgstr "ഈ ബ്രൗസറിൽ വോയ്സ് റെക്കോർഡ
 #: src/features/chats/components/chat-input.tsx:288
 msgid "Voice recording isn't available in this app version. Please update the app and try again."
 msgstr "ആപ്പിന്റെ ഈ പതിപ്പിൽ വോയ്സ് റെക്കോർഡിംഗ് ലഭ്യമല്ല. ദയവായി ആപ്പ് അപ്ഡേറ്റ് ചെയ്ത് വീണ്ടും ശ്രമിക്കുക."
+
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:471
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:476
+msgid "Watch"
+msgstr "നിരീക്ഷിക്കുക"
 
 #: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx:269
 #: ../../../lib/web/src/components/filter-bar.tsx:35

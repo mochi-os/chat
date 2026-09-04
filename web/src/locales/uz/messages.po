@@ -156,6 +156,10 @@ msgstr "Kirish darajasi"
 msgid "Account type"
 msgstr "Hisob turi"
 
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:415
+msgid "Activity"
+msgstr "Faollik"
+
 #: ../../../lib/web/src/components/entity/entity-field-editor.tsx:758
 #: ../../../lib/web/src/features/access/access-dialog.tsx:332
 #: ../../../lib/web/src/features/accounts/account-add.tsx:209
@@ -209,7 +213,7 @@ msgstr "Maydon qoʻshish"
 msgid "Add item..."
 msgstr "Element qoʻshish..."
 
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:320
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:314
 msgid "Add link"
 msgstr "Havola qoʻshish"
 
@@ -330,6 +334,10 @@ msgstr "Bu tasmaga obuna boʻlgan hamma narsa uni olishni toʻxtatadi. Keyin yan
 msgid "Are you sure you want to delete \"{0}\"?"
 msgstr "\"{0}\" ni oʻchirmoqchimisiz?"
 
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:671
+msgid "Are you sure you want to delete \"{title}\"? This action cannot be undone."
+msgstr "\"{title}\" ni oʻchirmoqchimisiz? Bu amalni qaytarib boʻlmaydi."
+
 #: ../../../lib/web/src/components/entity/entity-board-column.tsx:631
 msgid "Are you sure you want to delete the \"{name}\" column? This cannot be undone."
 msgstr "\"{name}\" ustunini oʻchirmoqchimisiz? Buni qaytarib boʻlmaydi."
@@ -355,6 +363,14 @@ msgstr "Chiqishga ishonchingiz komilmi? Hisobingizga kirish uchun yana kirishing
 #: src/routes/_authenticated/$chatId_.settings.tsx:549
 msgid "Are you sure you want to remove {0} from this chat?"
 msgstr "{0} ni bu suhbatdan olib tashlamoqchimisiz?"
+
+#: ../../../lib/web/src/components/game/game-end-dialogs.tsx:39
+msgid "Are you sure you want to resign?"
+msgstr "Taslim boʻlishga ishonchingiz komilmi?"
+
+#: ../../../lib/web/src/components/game/game-end-dialogs.tsx:38
+msgid "Are you sure you want to resign? {opponentName} will win the game."
+msgstr "Taslim boʻlishga ishonchingiz komilmi? {opponentName} oʻyinda gʻalaba qozonadi."
 
 #: ../../../lib/web/src/components/ui/sort-direction-button.tsx:27
 msgid "Ascending"
@@ -417,16 +433,25 @@ msgstr "Suhbatga qaytish"
 msgid "Back to home"
 msgstr "Bosh sahifaga qaytish"
 
+#: ../../../lib/web/src/components/banner-section.tsx:80
 #: ../../../lib/web/src/components/entity-banner.tsx:17
 msgid "Banner"
 msgstr "Banner"
+
+#: ../../../lib/web/src/components/banner-section.tsx:69
+msgid "Banner removed"
+msgstr "Banner olib tashlandi"
+
+#: ../../../lib/web/src/components/banner-section.tsx:69
+msgid "Banner updated"
+msgstr "Banner yangilandi"
 
 #: src/features/chats/components/chat-message-list.tsx:476
 msgid "Be the first to say something!"
 msgstr "Birinchi boʻlib nimadir yozing!"
 
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:68
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:215
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:72
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:209
 msgid "Blocked by"
 msgstr "Bloklagan"
 
@@ -435,7 +460,7 @@ msgstr "Bloklagan"
 msgid "Blocked navigation to untrusted link"
 msgstr "Ishonchsiz havolaga oʻtish bloklandi"
 
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:66
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:70
 msgid "Blocks"
 msgstr "Bloklar"
 
@@ -632,6 +657,7 @@ msgstr "Yon paneldan oʻyin tanlang yoki yangisini boshlang."
 msgid "Choose language"
 msgstr "Tilni tanlang"
 
+#: ../../../lib/web/src/components/banner-section.tsx:111
 #: ../../../lib/web/src/components/colour-picker.tsx:274
 #: ../../../lib/web/src/components/colour-picker.tsx:355
 #: ../../../lib/web/src/components/travelling-picker.tsx:145
@@ -651,8 +677,8 @@ msgstr "Hammasini tozalash"
 msgid "Clear search"
 msgstr "Qidiruvni tozalash"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:523
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:528
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:517
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:522
 #: ../../../lib/web/src/components/ui/dialog.tsx:78
 #: ../../../lib/web/src/components/ui/image-lightbox.tsx:480
 #: ../../../lib/web/src/components/ui/image-lightbox.tsx:483
@@ -727,6 +753,11 @@ msgstr "Izoh amallari"
 #: ../../../lib/web/src/components/ui/image-lightbox.tsx:455
 msgid "Comments"
 msgstr "Izohlar"
+
+#. placeholder {0}: data.comment_count || 0
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:411
+msgid "Comments ({0})"
+msgstr "Izohlar ({0})"
 
 #: ../../../lib/web/src/lib/preference-utils.ts:90
 msgid "Compact"
@@ -816,8 +847,8 @@ msgstr "Ushbu hisob bilan tasdiqlab bo‘lmadi. Iltimos, qayta urinib ko‘ring.
 
 #: ../../../lib/web/src/components/entity/entity-board-column.tsx:551
 #: ../../../lib/web/src/components/entity/entity-board-column.tsx:691
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:513
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:682
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:507
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:676
 #: ../../../lib/web/src/components/entity/entity-tree-view.tsx:672
 msgid "Create"
 msgstr "Yaratish"
@@ -853,7 +884,7 @@ msgstr "{field} yaratildi"
 msgid "Creating chat..."
 msgstr "Suhbat yaratilmoqda..."
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:682
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:676
 #: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:260
 #: src/features/chats/components/new-chat.tsx:367
 msgid "Creating..."
@@ -905,6 +936,8 @@ msgstr "Standart saralash"
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:208
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:255
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:317
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:672
+#: ../../../lib/web/src/components/game/game-end-dialogs.tsx:78
 #: src/features/chats/components/message-hover-actions.tsx:146
 #: src/features/chats/index.tsx:1296
 #: src/features/chats/index.tsx:1414
@@ -937,6 +970,16 @@ msgstr "Izohni oʻchirish"
 msgid "Delete field"
 msgstr "Maydonni oʻchirish"
 
+#: ../../../lib/web/src/components/game/game-end-dialogs.tsx:69
+msgid "Delete game?"
+msgstr "Oʻyin oʻchirilsinmi?"
+
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:486
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:491
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:670
+msgid "Delete item"
+msgstr "Elementni oʻchirish"
+
 #: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:117
 msgid "Delete option"
 msgstr "Variantni oʻchirish"
@@ -967,6 +1010,7 @@ msgstr "{field} oʻchirildi"
 msgid "Deleting chat..."
 msgstr "Suhbat oʻchirilmoqda..."
 
+#: ../../../lib/web/src/components/game/game-end-dialogs.tsx:75
 #: src/features/chats/index.tsx:706
 #: src/features/chats/index.tsx:1411
 msgid "Deleting..."
@@ -1047,6 +1091,7 @@ msgid "Does not match the required pattern"
 msgstr "Talab qilingan namunaga mos kelmaydi"
 
 #: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:309
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:495
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:523
 msgid "Done"
 msgstr "Bajarildi"
@@ -1066,7 +1111,7 @@ msgstr "Yuklab olib boʻlmadi"
 msgid "Draft"
 msgstr "Qoralama"
 
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:67
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:71
 msgid "Duplicates"
 msgstr "Dublikatlar"
 
@@ -1132,6 +1177,10 @@ msgstr "Email"
 msgid "Email code"
 msgstr "Email kodi"
 
+#: ../../../lib/web/src/components/banner-section.tsx:88
+msgid "Enter banner text (markdown supported)..."
+msgstr "Banner matnini kiriting (markdown qoʻllanadi)..."
+
 #: ../../../lib/web/src/components/step-up-dialog.tsx:290
 msgid "Enter the code from your email"
 msgstr "Elektron pochtangizdagi kodni kiriting"
@@ -1139,6 +1188,10 @@ msgstr "Elektron pochtangizdagi kodni kiriting"
 #: ../../../lib/web/src/components/step-up-dialog.tsx:315
 msgid "Enter your authenticator code"
 msgstr "Autentifikator kodingizni kiriting"
+
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:381
+msgid "Error"
+msgstr "Xato"
 
 #: src/features/chats/components/chat-message-list.tsx:617
 msgid "escape to cancel • enter to save"
@@ -1185,11 +1238,12 @@ msgstr "Xabarni nusxalab boʻlmadi"
 msgid "Failed to create chat"
 msgstr "Suhbat yaratib boʻlmadi"
 
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:137
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:131
 #: ../../../lib/web/src/components/options-menu.tsx:98
 msgid "Failed to create link"
 msgstr "Havola yaratib boʻlmadi"
 
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:303
 #: src/features/chats/index.tsx:708
 msgid "Failed to delete"
 msgstr "Oʻchirib boʻlmadi"
@@ -1206,7 +1260,7 @@ msgstr "Suhbatni oʻchirib boʻlmadi"
 msgid "Failed to delete comment"
 msgstr "Izohni oʻchirib boʻlmadi"
 
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:159
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:153
 msgid "Failed to delete link"
 msgstr "Havolani oʻchirib boʻlmadi"
 
@@ -1239,6 +1293,11 @@ msgstr "Tarixni yuklab boʻlmadi"
 msgid "Failed to load image"
 msgstr "Rasmni yuklab bo'lmadi"
 
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:382
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:385
+msgid "Failed to load item"
+msgstr "Elementni yuklab boʻlmadi"
+
 #: ../../../lib/web/src/components/ai-prompts-editor.tsx:213
 msgid "Failed to load prompts"
 msgstr "Soʻrovlarni yuklab boʻlmadi"
@@ -1254,6 +1313,10 @@ msgstr "Suhbat siyosatingizni yuklab boʻlmadi"
 #: src/components/layout/chat-layout.tsx:158
 msgid "Failed to mark chat as read"
 msgstr "Chatni oʻqilgan deb belgilab boʻlmadi"
+
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:317
+msgid "Failed to move"
+msgstr "Ko'chirib bo'lmadi"
 
 #: ../../../lib/web/src/components/entity/entity-comment-list.tsx:155
 msgid "Failed to post comment"
@@ -1279,6 +1342,7 @@ msgstr "Soʻrovni tiklab boʻlmadi"
 msgid "Failed to revoke RSS access"
 msgstr "RSS kirishini bekor qilib bo'lmadi"
 
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:273
 #: src/features/chats/components/chat-settings-dialog.tsx:68
 msgid "Failed to save"
 msgstr "Saqlab boʻlmadi"
@@ -1295,15 +1359,23 @@ msgstr "Xabar yuborib boʻlmadi"
 msgid "Failed to start chat"
 msgstr "Suhbatni boshlab boʻlmadi"
 
+#: ../../../lib/web/src/components/banner-section.tsx:71
+msgid "Failed to update banner"
+msgstr "Bannerni yangilab boʻlmadi"
+
 #: ../../../lib/web/src/components/entity/entity-comment-list.tsx:175
 msgid "Failed to update comment"
 msgstr "Izohni yangilab boʻlmadi"
+
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:288
+msgid "Failed to update watching"
+msgstr "Kuzatuvni yangilab bo'lmadi"
 
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:114
 msgid "Failed to upload attachment"
 msgstr "Ilovani yuklab boʻlmadi"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:611
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:605
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:160
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:180
 msgid "Files"
@@ -1450,6 +1522,10 @@ msgstr "Notoʻgʻri sana"
 msgid "It seems like the page you're looking for <0/>does not exist or might have been removed."
 msgstr "Siz qidirayotgan sahifa <0/>mavjud emas yoki o'chirilgan ko'rinadi."
 
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:441
+msgid "Item details"
+msgstr "Element tafsilotlari"
+
 #: src/features/chats/components/chat-message-list.tsx:863
 #: src/features/chats/components/chat-message-list.tsx:880
 msgid "Jump to bottom"
@@ -1521,7 +1597,7 @@ msgstr "Yoqdi"
 msgid "Link"
 msgstr "Havola"
 
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:279
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:273
 msgid "Links"
 msgstr "Havolalar"
 
@@ -1536,6 +1612,14 @@ msgstr "Koʻproq yuklash"
 #: ../../../lib/web/src/components/ui/loading-content.tsx:26
 msgid "Loading content…"
 msgstr "Kontent yuklanmoqda…"
+
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:365
+msgid "Loading item"
+msgstr "Element yuklanmoqda"
+
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:366
+msgid "Loading item details"
+msgstr "Element tafsilotlari yuklanmoqda"
 
 #: ../../../lib/web/src/components/ui/load-more.tsx:39
 #: ../../../lib/web/src/features/document/document-page.tsx:88
@@ -1754,7 +1838,7 @@ msgstr "Nom 1000 ta belgidan oshmasligi kerak"
 msgid "Network error"
 msgstr "Tarmoq xatosi"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:498
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:492
 #: ../../../lib/web/src/components/ui/sort-selector.tsx:43
 msgid "New"
 msgstr "Yangi"
@@ -1779,7 +1863,7 @@ msgstr "Yangiroq moslik"
 msgid "Next image"
 msgstr "Keyingi rasm"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:577
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:571
 msgid "No {parentClassNames} to add to"
 msgstr "Qoʻshish uchun {parentClassNames} yoʻq"
 
@@ -1819,11 +1903,11 @@ msgstr "Hozircha oʻyinlar yoʻq"
 msgid "No groups available"
 msgstr "Mavjud guruhlar yoʻq"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:544
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:538
 msgid "No item types can be created yet. Create the required parent items first."
 msgstr "Hozircha hech qanday element turi yaratib boʻlmaydi. Avval kerakli ota elementlarni yarating."
 
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:360
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:354
 msgid "No matching objects"
 msgstr "Mos obyektlar yoʻq"
 
@@ -1885,9 +1969,13 @@ msgid "No views"
 msgstr "Koʻrishlar yoʻq"
 
 #: ../../../lib/web/src/components/colour-picker.tsx:349
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:560
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:563
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:567
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:554
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:557
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:561
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:557
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:570
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:571
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:575
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:362
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:385
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:388
@@ -2015,7 +2103,9 @@ msgstr "Boshqa"
 msgid "Owner"
 msgstr "Egasi"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:552
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:546
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:553
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:569
 msgid "Parent"
 msgstr "Ota"
 
@@ -2117,6 +2207,10 @@ msgstr "Qayta ishlanmoqda…"
 msgid "Prompt saved"
 msgstr "Soʻrov saqlandi"
 
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:408
+msgid "Properties"
+msgstr "Xususiyatlar"
+
 #: ../../../lib/web/src/features/accounts/types.ts:21
 msgid "Push notification"
 msgstr "Push bildirishnoma"
@@ -2181,7 +2275,7 @@ msgstr "Kirish sahifasiga yoʻnaltirilmoqda."
 msgid "Reduce interest"
 msgstr "Qiziqishni kamaytirish"
 
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:65
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:69
 msgid "Relates"
 msgstr "Aloqador"
 
@@ -2247,8 +2341,8 @@ msgstr "Qiziqishni olib tashlash"
 msgid "Remove item"
 msgstr "Elementni olib tashlash"
 
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:304
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:309
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:298
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:303
 msgid "Remove link"
 msgstr "Havolani olib tashlash"
 
@@ -2309,6 +2403,18 @@ msgstr "Talab qilinadi"
 msgid "Resend email"
 msgstr "Xatni qayta yuborish"
 
+#: ../../../lib/web/src/components/game/game-end-dialogs.tsx:48
+msgid "Resign"
+msgstr "Taslim boʻlish"
+
+#: ../../../lib/web/src/components/game/game-end-dialogs.tsx:35
+msgid "Resign game?"
+msgstr "Oʻyindan voz kechilsinmi?"
+
+#: ../../../lib/web/src/components/game/game-end-dialogs.tsx:45
+msgid "Resigning..."
+msgstr "Taslim boʻlinmoqda..."
+
 #: ../../../lib/web/src/components/attachment-composer.tsx:348
 msgid "Retry"
 msgstr "Qayta urinish"
@@ -2356,6 +2462,7 @@ msgstr "Shanba"
 
 #: ../../../lib/web/src/components/ai-prompts-editor.tsx:156
 #: ../../../lib/web/src/components/attachment-composer.tsx:430
+#: ../../../lib/web/src/components/banner-section.tsx:99
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:231
 #: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:172
 #: ../../../lib/web/src/components/ui/editable-field-row.tsx:126
@@ -2417,7 +2524,7 @@ msgstr "Chat ichida qidirish..."
 msgid "Search messages"
 msgstr "Xabarlarni qidirish"
 
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:337
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:331
 msgid "Search objects..."
 msgstr "Obyektlar qidirish..."
 
@@ -2657,6 +2764,11 @@ msgstr "Suhbat boshlanmoqda..."
 msgid "Stop recording"
 msgstr "Yozishni toʻxtatish"
 
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:471
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:476
+msgid "Stop watching"
+msgstr "Kuzatishni toʻxtatish"
+
 #: ../../../lib/web/src/features/access/access-list.tsx:196
 msgid "Subject"
 msgstr "Mavzu"
@@ -2782,6 +2894,10 @@ msgstr "Bu xabarni hamma uchun oʻchiradi va buni bekor qilib boʻlmaydi."
 #: src/features/chats/components/message-quote.tsx:50
 msgid "This message was deleted"
 msgstr "Bu xabar oʻchirilgan"
+
+#: ../../../lib/web/src/components/game/game-end-dialogs.tsx:70
+msgid "This permanently deletes the game and its chat. This cannot be undone."
+msgstr "Bu oʻyin va uning chatini butunlay oʻchirib tashlaydi. Bu amalni bekor qilib boʻlmaydi."
 
 #: ../../../lib/web/src/lib/preference-utils.ts:57
 msgid "Thursday"
@@ -2916,9 +3032,8 @@ msgstr "Chatni qadashdan chiqarish"
 msgid "Unsubscribe"
 msgstr "Obunadan chiqish"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:299
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:103
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:184
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:178
+#: ../../../lib/web/src/lib/entity-title.ts:40
 msgid "Untitled"
 msgstr "Sarlavhasiz"
 
@@ -2932,7 +3047,7 @@ msgstr "Yangilangan"
 msgid "Updated {field}"
 msgstr "{field} yangilandi"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:661
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:655
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:304
 msgid "Upload"
 msgstr "Yuklash"
@@ -2983,6 +3098,10 @@ msgstr "Video ko'ruvchi: {0}"
 msgid "View all notifications"
 msgstr "Barcha bildirishnomalarni koʻrish"
 
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:442
+msgid "View and edit item details"
+msgstr "Element tafsilotlarini koʻrish va tahrirlash"
+
 #: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx:170
 msgid "View controls"
 msgstr "Boshqaruvni koʻrish"
@@ -3004,6 +3123,11 @@ msgstr "Ovoz yozish bu brauzerda qoʻllab-quvvatlanmaydi"
 #: src/features/chats/components/chat-input.tsx:288
 msgid "Voice recording isn't available in this app version. Please update the app and try again."
 msgstr "Ovoz yozish ilovaning bu versiyasida mavjud emas. Ilovani yangilab, qayta urinib koʻring."
+
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:471
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:476
+msgid "Watch"
+msgstr "Kuzatish"
 
 #: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx:269
 #: ../../../lib/web/src/components/filter-bar.tsx:35

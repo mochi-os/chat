@@ -156,6 +156,10 @@ msgstr "पहुंच स्तर"
 msgid "Account type"
 msgstr "खाता प्रकार"
 
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:415
+msgid "Activity"
+msgstr "गतिविधि"
+
 #: ../../../lib/web/src/components/entity/entity-field-editor.tsx:758
 #: ../../../lib/web/src/features/access/access-dialog.tsx:332
 #: ../../../lib/web/src/features/accounts/account-add.tsx:209
@@ -209,7 +213,7 @@ msgstr "फील्ड जोड़ीं"
 msgid "Add item..."
 msgstr "आइटम जोड़ीं..."
 
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:320
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:314
 msgid "Add link"
 msgstr "लिंक जोड़ीं"
 
@@ -330,6 +334,10 @@ msgstr "एह फीड के सब्सक्राइब कइल कव�
 msgid "Are you sure you want to delete \"{0}\"?"
 msgstr "का रउआ \"{0}\" के मेटावे चाहत बानी?"
 
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:671
+msgid "Are you sure you want to delete \"{title}\"? This action cannot be undone."
+msgstr "का रउआ \"{title}\" के मेटावे चाहत बानी? ई क्रिया वापस ना हो सकेला।"
+
 #: ../../../lib/web/src/components/entity/entity-board-column.tsx:631
 msgid "Are you sure you want to delete the \"{name}\" column? This cannot be undone."
 msgstr "का रउआ \"{name}\" कॉलम के मेटावे चाहत बानी? ई वापस ना हो सकेला।"
@@ -355,6 +363,14 @@ msgstr "का रउआ लॉग आउट करे चाहत बानी
 #: src/routes/_authenticated/$chatId_.settings.tsx:549
 msgid "Are you sure you want to remove {0} from this chat?"
 msgstr "का रउआ {0} के एह चैट से हटावे चाहत बानी?"
+
+#: ../../../lib/web/src/components/game/game-end-dialogs.tsx:39
+msgid "Are you sure you want to resign?"
+msgstr "का रउआ इस्तीफा देवे चाहत बानी?"
+
+#: ../../../lib/web/src/components/game/game-end-dialogs.tsx:38
+msgid "Are you sure you want to resign? {opponentName} will win the game."
+msgstr "का रउआ इस्तीफा देवे चाहत बानी? {opponentName} खेल जीत जइहें।"
 
 #: ../../../lib/web/src/components/ui/sort-direction-button.tsx:27
 msgid "Ascending"
@@ -417,16 +433,25 @@ msgstr "चैट पर वापस"
 msgid "Back to home"
 msgstr "घर वापस जाईं"
 
+#: ../../../lib/web/src/components/banner-section.tsx:80
 #: ../../../lib/web/src/components/entity-banner.tsx:17
 msgid "Banner"
 msgstr "बैनर"
+
+#: ../../../lib/web/src/components/banner-section.tsx:69
+msgid "Banner removed"
+msgstr "Banner हटा दिहल गइल"
+
+#: ../../../lib/web/src/components/banner-section.tsx:69
+msgid "Banner updated"
+msgstr "Banner अद्यतन कइल गइल"
 
 #: src/features/chats/components/chat-message-list.tsx:476
 msgid "Be the first to say something!"
 msgstr "सबसे पहिले कुछ कहीं!"
 
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:68
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:215
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:72
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:209
 msgid "Blocked by"
 msgstr "द्वारा अवरुद्ध"
 
@@ -435,7 +460,7 @@ msgstr "द्वारा अवरुद्ध"
 msgid "Blocked navigation to untrusted link"
 msgstr "अविश्वसनीय लिंक प नेविगेशन अवरुद्ध"
 
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:66
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:70
 msgid "Blocks"
 msgstr "ब्लॉक"
 
@@ -632,6 +657,7 @@ msgstr "साइडबार से एगो खेल चुनीं भा 
 msgid "Choose language"
 msgstr "भाषा चुनीं"
 
+#: ../../../lib/web/src/components/banner-section.tsx:111
 #: ../../../lib/web/src/components/colour-picker.tsx:274
 #: ../../../lib/web/src/components/colour-picker.tsx:355
 #: ../../../lib/web/src/components/travelling-picker.tsx:145
@@ -651,8 +677,8 @@ msgstr "सब साफ करीं"
 msgid "Clear search"
 msgstr "खोज साफ करीं"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:523
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:528
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:517
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:522
 #: ../../../lib/web/src/components/ui/dialog.tsx:78
 #: ../../../lib/web/src/components/ui/image-lightbox.tsx:480
 #: ../../../lib/web/src/components/ui/image-lightbox.tsx:483
@@ -727,6 +753,11 @@ msgstr "टिप्पणी के कार्रवाई"
 #: ../../../lib/web/src/components/ui/image-lightbox.tsx:455
 msgid "Comments"
 msgstr "टिप्पणी"
+
+#. placeholder {0}: data.comment_count || 0
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:411
+msgid "Comments ({0})"
+msgstr "टिप्पणी ({0})"
 
 #: ../../../lib/web/src/lib/preference-utils.ts:90
 msgid "Compact"
@@ -816,8 +847,8 @@ msgstr "ओह खाता से सत्यापन ना हो सकल
 
 #: ../../../lib/web/src/components/entity/entity-board-column.tsx:551
 #: ../../../lib/web/src/components/entity/entity-board-column.tsx:691
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:513
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:682
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:507
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:676
 #: ../../../lib/web/src/components/entity/entity-tree-view.tsx:672
 msgid "Create"
 msgstr "बनाईं"
@@ -853,7 +884,7 @@ msgstr "{field} बनावल गइल"
 msgid "Creating chat..."
 msgstr "चैट बनावल जा रहल बा..."
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:682
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:676
 #: ../../../lib/web/src/components/ui/create-entity-dialog.tsx:260
 #: src/features/chats/components/new-chat.tsx:367
 msgid "Creating..."
@@ -905,6 +936,8 @@ msgstr "डिफ़ॉल्ट छंटाई"
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:208
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:255
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:317
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:672
+#: ../../../lib/web/src/components/game/game-end-dialogs.tsx:78
 #: src/features/chats/components/message-hover-actions.tsx:146
 #: src/features/chats/index.tsx:1296
 #: src/features/chats/index.tsx:1414
@@ -937,6 +970,16 @@ msgstr "टिप्पणी मेटाईं"
 msgid "Delete field"
 msgstr "फील्ड मेटाईं"
 
+#: ../../../lib/web/src/components/game/game-end-dialogs.tsx:69
+msgid "Delete game?"
+msgstr "खेल मेटाईं?"
+
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:486
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:491
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:670
+msgid "Delete item"
+msgstr "आइटम मेटाईं"
+
 #: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:117
 msgid "Delete option"
 msgstr "विकल्प मेटाईं"
@@ -967,6 +1010,7 @@ msgstr "{field} मेटावल गइल"
 msgid "Deleting chat..."
 msgstr "चैट मिटावल जा रहल बा..."
 
+#: ../../../lib/web/src/components/game/game-end-dialogs.tsx:75
 #: src/features/chats/index.tsx:706
 #: src/features/chats/index.tsx:1411
 msgid "Deleting..."
@@ -1047,6 +1091,7 @@ msgid "Does not match the required pattern"
 msgstr "जरूरी पैटर्न से मेल ना खात बा"
 
 #: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:309
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:495
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:523
 msgid "Done"
 msgstr "हो गइल"
@@ -1066,7 +1111,7 @@ msgstr "डाउनलोड असफल भइल"
 msgid "Draft"
 msgstr "ड्राफ्ट"
 
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:67
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:71
 msgid "Duplicates"
 msgstr "नकल"
 
@@ -1132,6 +1177,10 @@ msgstr "ईमेल"
 msgid "Email code"
 msgstr "ईमेल कोड"
 
+#: ../../../lib/web/src/components/banner-section.tsx:88
+msgid "Enter banner text (markdown supported)..."
+msgstr "बैनर टेक्स्ट लिखीं (markdown समर्थित)..."
+
 #: ../../../lib/web/src/components/step-up-dialog.tsx:290
 msgid "Enter the code from your email"
 msgstr "आपन ईमेल से आइल कोड डालीं"
@@ -1139,6 +1188,10 @@ msgstr "आपन ईमेल से आइल कोड डालीं"
 #: ../../../lib/web/src/components/step-up-dialog.tsx:315
 msgid "Enter your authenticator code"
 msgstr "आपन प्रमाणक कोड डालीं"
+
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:381
+msgid "Error"
+msgstr "त्रुटि"
 
 #: src/features/chats/components/chat-message-list.tsx:617
 msgid "escape to cancel • enter to save"
@@ -1185,11 +1238,12 @@ msgstr "मैसेज कॉपी ना हो सकल"
 msgid "Failed to create chat"
 msgstr "चैट बनावे में विफल"
 
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:137
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:131
 #: ../../../lib/web/src/components/options-menu.tsx:98
 msgid "Failed to create link"
 msgstr "लिंक बनावे में विफल"
 
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:303
 #: src/features/chats/index.tsx:708
 msgid "Failed to delete"
 msgstr "मेटावे में विफल"
@@ -1206,7 +1260,7 @@ msgstr "चैट मेटावे में विफल"
 msgid "Failed to delete comment"
 msgstr "टिप्पणी मेटावे में विफल"
 
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:159
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:153
 msgid "Failed to delete link"
 msgstr "लिंक मेटावे में विफल"
 
@@ -1239,6 +1293,11 @@ msgstr "इतिहास लोड करे में विफल"
 msgid "Failed to load image"
 msgstr "चित्र लोड ना भइल"
 
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:382
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:385
+msgid "Failed to load item"
+msgstr "आइटम लोड करे में विफल"
+
 #: ../../../lib/web/src/components/ai-prompts-editor.tsx:213
 msgid "Failed to load prompts"
 msgstr "प्रॉम्प्ट लोड करे में विफल"
@@ -1254,6 +1313,10 @@ msgstr "राउर चैट नीति लोड ना भइल"
 #: src/components/layout/chat-layout.tsx:158
 msgid "Failed to mark chat as read"
 msgstr "चैट पढ़ल भइल मार्क ना हो सकल"
+
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:317
+msgid "Failed to move"
+msgstr "हटावे में असफल"
 
 #: ../../../lib/web/src/components/entity/entity-comment-list.tsx:155
 msgid "Failed to post comment"
@@ -1279,6 +1342,7 @@ msgstr "प्रॉम्प्ट रीसेट करे में वि�
 msgid "Failed to revoke RSS access"
 msgstr "RSS पहुँच रद्द करे में विफल"
 
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:273
 #: src/features/chats/components/chat-settings-dialog.tsx:68
 msgid "Failed to save"
 msgstr "सहेजे में विफल"
@@ -1295,15 +1359,23 @@ msgstr "संदेश भेजे में विफल"
 msgid "Failed to start chat"
 msgstr "चैट शुरू करे में विफल"
 
+#: ../../../lib/web/src/components/banner-section.tsx:71
+msgid "Failed to update banner"
+msgstr "बैनर अपडेट करे में विफल"
+
 #: ../../../lib/web/src/components/entity/entity-comment-list.tsx:175
 msgid "Failed to update comment"
 msgstr "टिप्पणी अपडेट करे में विफल"
+
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:288
+msgid "Failed to update watching"
+msgstr "निगरानी अपडेट ना भइल"
 
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:114
 msgid "Failed to upload attachment"
 msgstr "अटैचमेंट अपलोड करे में विफल"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:611
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:605
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:160
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:180
 msgid "Files"
@@ -1450,6 +1522,10 @@ msgstr "अमान्य तिथि"
 msgid "It seems like the page you're looking for <0/>does not exist or might have been removed."
 msgstr "लागत बा कि रउआ जवन पन्ना खोजत बानी <0/>ऊ नइखे भा हटा दिहल गइल बा।"
 
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:441
+msgid "Item details"
+msgstr "आइटम विवरण"
+
 #: src/features/chats/components/chat-message-list.tsx:863
 #: src/features/chats/components/chat-message-list.tsx:880
 msgid "Jump to bottom"
@@ -1521,7 +1597,7 @@ msgstr "पसंद"
 msgid "Link"
 msgstr "लिंक"
 
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:279
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:273
 msgid "Links"
 msgstr "लिंक"
 
@@ -1536,6 +1612,14 @@ msgstr "अउरी लोड करीं"
 #: ../../../lib/web/src/components/ui/loading-content.tsx:26
 msgid "Loading content…"
 msgstr "सामग्री लोड हो रहल बा…"
+
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:365
+msgid "Loading item"
+msgstr "आइटम लोड हो रहल बा"
+
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:366
+msgid "Loading item details"
+msgstr "आइटम विवरण लोड हो रहल बा"
 
 #: ../../../lib/web/src/components/ui/load-more.tsx:39
 #: ../../../lib/web/src/features/document/document-page.tsx:88
@@ -1754,7 +1838,7 @@ msgstr "नाम 1000 अक्षर भा ओकरा से कम हो�
 msgid "Network error"
 msgstr "नेटवर्क त्रुटि"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:498
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:492
 #: ../../../lib/web/src/components/ui/sort-selector.tsx:43
 msgid "New"
 msgstr "नया"
@@ -1779,7 +1863,7 @@ msgstr "नया नतीजा"
 msgid "Next image"
 msgstr "अगिला तस्वीर"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:577
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:571
 msgid "No {parentClassNames} to add to"
 msgstr "जोड़े खातिर कौनो {parentClassNames} नइखे"
 
@@ -1819,11 +1903,11 @@ msgstr "अबहीं तक कौनो खेल नइखे"
 msgid "No groups available"
 msgstr "कौनो ग्रुप उपलब्ध नइखे"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:544
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:538
 msgid "No item types can be created yet. Create the required parent items first."
 msgstr "अबहीं कौनो आइटम प्रकार ना बन सके। पहिले जरूरी मूल आइटम बनाईं।"
 
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:360
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:354
 msgid "No matching objects"
 msgstr "कौनो मेल खाए वाला ऑब्जेक्ट नइखे"
 
@@ -1885,9 +1969,13 @@ msgid "No views"
 msgstr "कौनो दृश्य नइखे"
 
 #: ../../../lib/web/src/components/colour-picker.tsx:349
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:560
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:563
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:567
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:554
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:557
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:561
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:557
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:570
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:571
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:575
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:362
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:385
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:388
@@ -2015,7 +2103,9 @@ msgstr "दोसर"
 msgid "Owner"
 msgstr "मालिक"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:552
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:546
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:553
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:569
 msgid "Parent"
 msgstr "मूल"
 
@@ -2117,6 +2207,10 @@ msgstr "प्रोसेस हो रहल बा…"
 msgid "Prompt saved"
 msgstr "प्रॉम्प्ट सहेजल गइल"
 
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:408
+msgid "Properties"
+msgstr "गुण"
+
 #: ../../../lib/web/src/features/accounts/types.ts:21
 msgid "Push notification"
 msgstr "पुश सूचना"
@@ -2181,7 +2275,7 @@ msgstr "लॉगिन पर रीडायरेक्ट कर रहल �
 msgid "Reduce interest"
 msgstr "रुचि कम करीं"
 
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:65
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:69
 msgid "Relates"
 msgstr "संबंधित बा"
 
@@ -2247,8 +2341,8 @@ msgstr "रुचि हटाईं"
 msgid "Remove item"
 msgstr "आइटम हटाईं"
 
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:304
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:309
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:298
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:303
 msgid "Remove link"
 msgstr "लिंक हटाईं"
 
@@ -2309,6 +2403,18 @@ msgstr "जरूरी"
 msgid "Resend email"
 msgstr "ईमेल फिर से भेजीं"
 
+#: ../../../lib/web/src/components/game/game-end-dialogs.tsx:48
+msgid "Resign"
+msgstr "हार मानीं"
+
+#: ../../../lib/web/src/components/game/game-end-dialogs.tsx:35
+msgid "Resign game?"
+msgstr "खेल में हार मानीं?"
+
+#: ../../../lib/web/src/components/game/game-end-dialogs.tsx:45
+msgid "Resigning..."
+msgstr "हार मान रहल बा..."
+
 #: ../../../lib/web/src/components/attachment-composer.tsx:348
 msgid "Retry"
 msgstr "फेर से कोसिस करीं"
@@ -2356,6 +2462,7 @@ msgstr "शनिवार"
 
 #: ../../../lib/web/src/components/ai-prompts-editor.tsx:156
 #: ../../../lib/web/src/components/attachment-composer.tsx:430
+#: ../../../lib/web/src/components/banner-section.tsx:99
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:231
 #: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:172
 #: ../../../lib/web/src/components/ui/editable-field-row.tsx:126
@@ -2417,7 +2524,7 @@ msgstr "चैट में खोजीं..."
 msgid "Search messages"
 msgstr "मैसेज खोजीं"
 
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:337
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:331
 msgid "Search objects..."
 msgstr "ऑब्जेक्ट खोजीं..."
 
@@ -2657,6 +2764,11 @@ msgstr "चैट शुरू कइल जा रहल बा..."
 msgid "Stop recording"
 msgstr "रिकॉर्डिंग बंद करीं"
 
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:471
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:476
+msgid "Stop watching"
+msgstr "देखल बंद करीं"
+
 #: ../../../lib/web/src/features/access/access-list.tsx:196
 msgid "Subject"
 msgstr "विषय"
@@ -2782,6 +2894,10 @@ msgstr "एहसे मैसेज सभका खातिर डिली�
 #: src/features/chats/components/message-quote.tsx:50
 msgid "This message was deleted"
 msgstr "ई मैसेज डिलीट कर दिहल गइल"
+
+#: ../../../lib/web/src/components/game/game-end-dialogs.tsx:70
+msgid "This permanently deletes the game and its chat. This cannot be undone."
+msgstr "ई खेल आ ओकर चैट के स्थायी रूप से मेटा दी। एकरा वापस नइखे कईल जा सकत।"
 
 #: ../../../lib/web/src/lib/preference-utils.ts:57
 msgid "Thursday"
@@ -2916,9 +3032,8 @@ msgstr "चैट अनपिन करीं"
 msgid "Unsubscribe"
 msgstr "सदस्यता रद्द करीं"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:299
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:103
-#: ../../../lib/web/src/components/entity/entity-object-links.tsx:184
+#: ../../../lib/web/src/components/entity/entity-object-links.tsx:178
+#: ../../../lib/web/src/lib/entity-title.ts:40
 msgid "Untitled"
 msgstr "बेशीर्षक"
 
@@ -2932,7 +3047,7 @@ msgstr "अपडेट भइल"
 msgid "Updated {field}"
 msgstr "{field} अपडेट भइल"
 
-#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:661
+#: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:655
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:304
 msgid "Upload"
 msgstr "अपलोड करीं"
@@ -2983,6 +3098,10 @@ msgstr "वीडियो दर्शक: {0}"
 msgid "View all notifications"
 msgstr "सब सूचना देखीं"
 
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:442
+msgid "View and edit item details"
+msgstr "वस्तु विवरण देखीं आ संपादित करीं"
+
 #: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx:170
 msgid "View controls"
 msgstr "नियंत्रण देखीं"
@@ -3004,6 +3123,11 @@ msgstr "ई ब्राउज़र में वॉयस रिकॉर्�
 #: src/features/chats/components/chat-input.tsx:288
 msgid "Voice recording isn't available in this app version. Please update the app and try again."
 msgstr "ऐप के ई संस्करण में वॉयस रिकॉर्डिंग उपलब्ध नइखे। कृपया ऐप अपडेट करीं आ फेर से कोसिस करीं।"
+
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:471
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:476
+msgid "Watch"
+msgstr "देखीं"
 
 #: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx:269
 #: ../../../lib/web/src/components/filter-bar.tsx:35
