@@ -36,7 +36,7 @@ msgid "[not set]"
 msgstr "[ບໍ່ໄດ້ຕັ້ງຄ່າ]"
 
 #. placeholder {0}: displayInfo.count
-#: ../../../lib/web/src/components/person-picker.tsx:257
+#: ../../../lib/web/src/components/person-picker.tsx:260
 msgid "{0, plural, one {# selected} other {# selected}}"
 msgstr "{0, plural, other {# ເລືອກແລ້ວ}}"
 
@@ -68,19 +68,19 @@ msgstr "ເລືອກແລ້ວ {0}"
 msgid "{0} settings"
 msgstr "ການຕັ້ງຄ່າ {0}"
 
-#: ../../../lib/web/src/lib/locale-format.ts:176
+#: ../../../lib/web/src/lib/locale-format.ts:191
 msgid "{count, plural, one {#d} other {#d}}"
 msgstr "{count, plural, one {#ວ} other {#ວ}}"
 
-#: ../../../lib/web/src/lib/locale-format.ts:172
+#: ../../../lib/web/src/lib/locale-format.ts:187
 msgid "{count, plural, one {#h} other {#h}}"
 msgstr "{count, plural, one {#ຊມ} other {#ຊມ}}"
 
-#: ../../../lib/web/src/lib/locale-format.ts:168
+#: ../../../lib/web/src/lib/locale-format.ts:183
 msgid "{count, plural, one {#m} other {#m}}"
 msgstr "{count, plural, one {#ນທ} other {#ນທ}}"
 
-#: ../../../lib/web/src/lib/locale-format.ts:180
+#: ../../../lib/web/src/lib/locale-format.ts:195
 msgid "{count, plural, one {#w} other {#w}}"
 msgstr "{count, plural, one {#ອທ} other {#ອທ}}"
 
@@ -130,6 +130,7 @@ msgstr "12 ຊົ່ວໂມງ"
 msgid "24 hours"
 msgstr "24 ຊົ່ວໂມງ"
 
+#: ../../../lib/web/src/lib/shell-errors.ts:35
 #: src/features/chats/components/chat-input.tsx:337
 msgid "A recording is already in progress."
 msgstr "ການບັນທຶກກຳລັງດຳເນີນຢູ່ແລ້ວ."
@@ -455,6 +456,14 @@ msgstr "ສີຂອບ"
 msgid "Browser notifications"
 msgstr "ການແຈ້ງເຕືອນຕົວທ່ອງເວັບ"
 
+#: ../../../lib/web/src/lib/shell-errors.ts:48
+msgid "Camera permission denied"
+msgstr "ການອະນຸຍາດກ້ອງຖືກປະຕິເສດ"
+
+#: ../../../lib/web/src/lib/shell-errors.ts:56
+msgid "Camera unavailable"
+msgstr "ບໍ່ມີກ້ອງຖ່າຍຮູບ"
+
 #: ../../../lib/web/src/components/attachment-composer.tsx:426
 #: ../../../lib/web/src/components/entity/entity-board-column.tsx:616
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:211
@@ -487,6 +496,12 @@ msgstr "ຍົກເລີກຄຳເຫັນ"
 #: src/features/chats/components/chat-input.tsx:595
 msgid "Cancel reply"
 msgstr "ຍົກເລີກການຕອບກັບ"
+
+#: ../../../lib/web/src/lib/shell-errors.ts:24
+#: ../../../lib/web/src/lib/shell-errors.ts:37
+#: ../../../lib/web/src/lib/shell-errors.ts:52
+msgid "Cancelled"
+msgstr "ຍົກເລີກແລ້ວ"
 
 #: ../../../lib/web/src/components/attachment-composer.tsx:386
 #: ../../../lib/web/src/components/attachment-composer.tsx:421
@@ -639,8 +654,8 @@ msgstr "ລ້າງການຄົ້ນຫາ"
 #: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:523
 #: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:528
 #: ../../../lib/web/src/components/ui/dialog.tsx:78
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:479
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:482
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:480
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:483
 #: ../../../lib/web/src/components/ui/sheet.tsx:79
 msgid "Close"
 msgstr "ປິດ"
@@ -708,8 +723,8 @@ msgstr "ແຜງຄຳສັ່ງ"
 msgid "Comment actions"
 msgstr "ການກະທຳຄຳເຫັນ"
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:442
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:454
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:443
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:455
 msgid "Comments"
 msgstr "ຄຳເຫັນ"
 
@@ -936,7 +951,7 @@ msgstr "ລົບຕົວເລືອກ {0}"
 msgid "Delete view"
 msgstr "ລົບມຸມມອງ"
 
-#: ../../../lib/web/src/components/restore-banner.tsx:95
+#: ../../../lib/web/src/components/restore-banner.tsx:101
 msgid "Delete your account on the old server"
 msgstr "ລຶບບັນຊີຂອງທ່ານໃນເຊີຟເວີເກົ່າ"
 
@@ -980,7 +995,7 @@ msgstr "ແຜງລາຍລະອຽດ"
 msgid "Detect from web browser"
 msgstr "ກວດຫາຈາກຕົວທ່ອງເວັບ"
 
-#: ../../../lib/web/src/components/person-picker.tsx:190
+#: ../../../lib/web/src/components/person-picker.tsx:193
 msgid "Directory"
 msgstr "ໄດເລກທໍຣີ"
 
@@ -1014,8 +1029,8 @@ msgstr "ຕັດການເຊື່ອມຕໍ່ແລ້ວ"
 msgid "Dislike"
 msgstr "ບໍ່ມັກ"
 
-#: ../../../lib/web/src/components/restore-banner.tsx:74
 #: ../../../lib/web/src/components/restore-banner.tsx:80
+#: ../../../lib/web/src/components/restore-banner.tsx:86
 msgid "Dismiss"
 msgstr "ປິດ"
 
@@ -1037,8 +1052,8 @@ msgid "Done"
 msgstr "ສຳເລັດແລ້ວ"
 
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:243
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:463
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:473
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:464
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:474
 msgid "Download"
 msgstr "ດາວໂຫຼດ"
 
@@ -1220,7 +1235,7 @@ msgstr "ໂຫຼດລົ້ມເຫຼວ"
 msgid "Failed to load history"
 msgstr "ໂຫຼດປະຫວັດລົ້ມເຫຼວ"
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:349
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:350
 msgid "Failed to load image"
 msgstr "ໂຫຼດຮູບພາບບໍ່ສຳເລັດ"
 
@@ -1228,7 +1243,7 @@ msgstr "ໂຫຼດຮູບພາບບໍ່ສຳເລັດ"
 msgid "Failed to load prompts"
 msgstr "ໂຫຼດ prompt ລົ້ມເຫຼວ"
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:349
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:350
 msgid "Failed to load video"
 msgstr "ໂຫຼດວິດີໂອບໍ່ສຳເລັດ"
 
@@ -1294,7 +1309,7 @@ msgstr "ອັບໂຫຼດໄຟລ໌ແນບລົ້ມເຫຼວ"
 msgid "Files"
 msgstr "ໄຟລ໌"
 
-#: ../../../lib/web/src/components/restore-banner.tsx:83
+#: ../../../lib/web/src/components/restore-banner.tsx:89
 msgid "Finish moving your account"
 msgstr "ສຳເລັດການຍ້າຍບັນຊີ"
 
@@ -1328,7 +1343,7 @@ msgstr "ກຳລັງສົ່ງຕໍ່..."
 msgid "Friday"
 msgstr "ວັນສຸກ"
 
-#: ../../../lib/web/src/components/person-picker.tsx:183
+#: ../../../lib/web/src/components/person-picker.tsx:186
 #: src/features/chats/components/forward-dialog.tsx:236
 #: src/features/chats/components/new-chat.tsx:286
 #: src/routes/_authenticated/$chatId_.settings.tsx:480
@@ -1394,7 +1409,7 @@ msgid "ID"
 msgstr "ID"
 
 #. placeholder {0}: currentMedia.name
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:327
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:328
 msgid "Image viewer: {0}"
 msgstr "ຕົວເບິ່ງຮູບພາບ: {0}"
 
@@ -1440,7 +1455,7 @@ msgstr "ເບິ່ງຄືວ່າໜ້າທີ່ທ່ານກຳລັ
 msgid "Jump to bottom"
 msgstr "ໄປຫາລຸ່ມສຸດ"
 
-#: ../../../lib/web/src/lib/locale-format.ts:165
+#: ../../../lib/web/src/lib/locale-format.ts:180
 msgid "Just now"
 msgstr "ຫາກໍ"
 
@@ -1671,6 +1686,7 @@ msgstr "ຂໍ້ຜິດພາດໄມໂຄຣໂຟນ: {message}"
 msgid "Microphone is already in use"
 msgstr "ໄມໂຄຣໂຟນກຳລັງຖືກໃຊ້ຢູ່ແລ້ວ"
 
+#: ../../../lib/web/src/lib/shell-errors.ts:31
 #: src/features/chats/components/chat-input.tsx:293
 msgid "Microphone permission denied"
 msgstr "ສິດໄມໂຄຣໂຟນຖືກປະຕິເສດ"
@@ -1758,8 +1774,8 @@ msgstr "ເກມໃໝ່"
 msgid "Newer match"
 msgstr "ຜົນທີ່ໃໝ່ກວ່າ"
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:536
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:541
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:537
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:542
 msgid "Next image"
 msgstr "ຮູບຕໍ່ໄປ"
 
@@ -1879,7 +1895,7 @@ msgstr "ບໍ່ມີການເບິ່ງ"
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:418
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:491
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:494
-#: ../../../lib/web/src/components/person-picker.tsx:326
+#: ../../../lib/web/src/components/person-picker.tsx:329
 #: ../../../lib/web/src/lib/preference-utils.ts:100
 msgid "None"
 msgstr "ບໍ່ມີ"
@@ -2008,12 +2024,17 @@ msgid "Passkey"
 msgstr "Passkey"
 
 #: ../../../lib/web/src/components/step-up-dialog.tsx:195
+#: ../../../lib/web/src/lib/shell-errors.ts:26
 msgid "Passkey verification failed. Please try again."
 msgstr "ການຢືນຢັນ passkey ລົ້ມເຫລວ. ກະລຸນາລອງອີກຄັ້ງ."
 
-#: ../../../lib/web/src/components/restore-banner.tsx:132
+#: ../../../lib/web/src/components/restore-banner.tsx:138
 msgid "Passkeys"
 msgstr "ກະແຈຜ່ານ"
+
+#: ../../../lib/web/src/lib/shell-errors.ts:19
+msgid "Passkeys are not available in this browser"
+msgstr "Passkeys ບໍ່ສາມາດໃຊ້ໄດ້ໃນບຣາວເຊີນີ້"
 
 #: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:213
 msgid "Pattern (regex)"
@@ -2027,7 +2048,7 @@ msgstr "ຢຸດສຽງຊົ່ວຄາວ"
 msgid "Pause voice note"
 msgstr "ຢຸດຂໍ້ຄວາມສຽງຊົ່ວຄາວ"
 
-#: ../../../lib/web/src/components/person-picker.tsx:176
+#: ../../../lib/web/src/components/person-picker.tsx:179
 #: src/features/chats/components/new-chat.tsx:274
 msgid "People"
 msgstr "ຄົນ"
@@ -2078,8 +2099,8 @@ msgstr "ໂພສ"
 msgid "Posts and comments"
 msgstr "ໂພສແລະຄຳເຫັນ"
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:520
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:525
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:521
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:526
 msgid "Previous image"
 msgstr "ຮູບກ່ອນໜ້າ"
 
@@ -2104,11 +2125,11 @@ msgstr "ການແຈ້ງເຕືອນ push"
 msgid "Raised"
 msgstr "ຍົກສູງ"
 
-#: ../../../lib/web/src/components/restore-banner.tsx:104
+#: ../../../lib/web/src/components/restore-banner.tsx:110
 msgid "Re-link your accounts on this server"
 msgstr "ເຊື່ອມໂຍງບັນຊີຂອງທ່ານຄືນໃໝ່ໃນເຊີຟເວີນີ້"
 
-#: ../../../lib/web/src/components/restore-banner.tsx:126
+#: ../../../lib/web/src/components/restore-banner.tsx:132
 msgid "Re-register your passkeys on this server"
 msgstr "ລົງທະບຽນກະແຈຜ່ານຂອງທ່ານຄືນໃໝ່ໃນເຄື່ອງແມ່ຂ່າຍນີ້"
 
@@ -2129,6 +2150,7 @@ msgstr "ກຳລັງເຊື່ອມຕໍ່ໃໝ່ ({retries})..."
 msgid "Record voice note"
 msgstr "ບັນທຶກຂໍ້ຄວາມສຽງ"
 
+#: ../../../lib/web/src/lib/shell-errors.ts:43
 #: src/features/chats/components/chat-input.tsx:333
 msgid "Recording failed. Please try again."
 msgstr "ການບັນທຶກລົ້ມເຫຼວ. ກະລຸນາລອງໃໝ່."
@@ -2137,6 +2159,7 @@ msgstr "ການບັນທຶກລົ້ມເຫຼວ. ກະລຸນາ�
 msgid "Recording is too large to send"
 msgstr "ການບັນທຶກໃຫຍ່ເກີນໄປທີ່ຈະສົ່ງ"
 
+#: ../../../lib/web/src/lib/shell-errors.ts:39
 #: src/features/chats/components/chat-input.tsx:329
 msgid "Recording produced no audio"
 msgstr "ການບັນທຶກບໍ່ມີສຽງ"
@@ -2413,7 +2436,7 @@ msgstr "ຄົ້ນຫາ, ເບິ່ງ, ແລະຈັດລຽງມຸ�
 #: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx:179
 #: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx:255
 #: ../../../lib/web/src/components/inline-entity-search.tsx:64
-#: ../../../lib/web/src/components/person-picker.tsx:300
+#: ../../../lib/web/src/components/person-picker.tsx:303
 #: ../../../lib/web/src/components/search-entity-page.tsx:72
 msgid "Search..."
 msgstr "ຄົ້ນຫາ..."
@@ -2701,6 +2724,14 @@ msgstr "ສົ່ງບໍ່ໄດ້. ໄຟລ໌ອາດໃຫຍ່ເກ�
 msgid "That was too large to upload. Remove or shrink files and try again."
 msgstr "ໃຫຍ່ເກີນໄປທີ່ຈະອັບໂຫຼດ. ເອົາໄຟລ໌ອອກ ຫຼືຫຍໍ້ໃຫ້ນ້ອຍລົງ ແລ້ວລອງໃໝ່."
 
+#: ../../../lib/web/src/lib/shell-errors.ts:50
+msgid "The camera is already in use"
+msgstr "ກ້ອງກຳລັງຖືກໃຊ້ຢູ່ແລ້ວ"
+
+#: ../../../lib/web/src/lib/shell-errors.ts:54
+msgid "The camera request was not answered"
+msgstr "ຄຳຮ້ອງຂໍກ້ອງບໍ່ໄດ້ຮັບການຕອບ"
+
 #: src/features/chats/components/new-chat.tsx:168
 msgid "The chat name can be at most {CHAT_NAME_MAX_LENGTH} characters"
 msgstr "ຊື່ການສົນທະນາສາມາດມີໄດ້ສູງສຸດ {CHAT_NAME_MAX_LENGTH} ຕົວອັກສອນ"
@@ -2709,6 +2740,14 @@ msgstr "ຊື່ການສົນທະນາສາມາດມີໄດ້ສ
 #: src/routes/_authenticated/$chatId_.settings.tsx:205
 msgid "The chat name cannot contain < or >"
 msgstr "ຊື່ການສົນທະນາບໍ່ສາມາດມີ < ຫຼື > ໄດ້"
+
+#: ../../../lib/web/src/lib/shell-errors.ts:41
+msgid "The microphone request was not answered"
+msgstr "ຄຳຮ້ອງຂໍໄມໂຄຣໂຟນບໍ່ໄດ້ຮັບການຕອບ"
+
+#: ../../../lib/web/src/lib/shell-errors.ts:21
+msgid "The passkey request was not answered"
+msgstr "ຄຳຮ້ອງຂໍ passkey ບໍ່ໄດ້ຮັບການຕອບ"
 
 #: ../../../lib/web/src/features/errors/general-error.tsx:66
 msgid "The requested content could not be found."
@@ -2722,6 +2761,10 @@ msgstr "ເຊີບເວີສົ່ງຄືນໜ້າເວັບແທນ
 #: src/features/chats/index.tsx:1001
 msgid "These names are not in this chat: {0}. Pick from the @ list or remove them."
 msgstr "ຊື່ເຫຼົ່ານີ້ບໍ່ຢູ່ໃນແຊັດນີ້: {0}. ກະລຸນາເລືອກຈາກລາຍການ @ ຫຼືລຶບອອກ."
+
+#: ../../../lib/web/src/lib/shell-errors.ts:17
+msgid "This app is not allowed to use your passkey. Allow it in Settings, under Permissions."
+msgstr "ແອັບນີ້ບໍ່ໄດ້ຮັບອະນຸຍາດໃຫ້ໃຊ້ passkey ຂອງທ່ານ. ອະນຸຍາດໃນການຕັ້ງຄ່າ, ພາຍໃຕ້ການອະນຸຍາດ."
 
 #: src/routes/_authenticated/$chatId_.settings.tsx:166
 msgid "this chat"
@@ -2931,7 +2974,7 @@ msgid "Video thumbnail"
 msgstr "Video thumbnail"
 
 #. placeholder {0}: currentMedia.name
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:326
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:327
 msgid "Video viewer: {0}"
 msgstr "ຕົວເບິ່ງວິດີໂອ: {0}"
 
@@ -2952,6 +2995,7 @@ msgstr "ຮູບຄື້ນຂອງຂໍ້ຄວາມສຽງ"
 msgid "Voice recording is currently unavailable. Please check your setup and try again."
 msgstr "ການບັນທຶກສຽງບໍ່ພ້ອມໃຊ້ໃນຂະນະນີ້. ກະລຸນາກວດສອບການຕັ້ງຄ່າແລ້ວລອງໃໝ່."
 
+#: ../../../lib/web/src/lib/shell-errors.ts:33
 #: src/features/chats/components/chat-input.tsx:313
 #: src/features/chats/components/chat-input.tsx:418
 msgid "Voice recording is not supported in this browser"
@@ -3015,7 +3059,7 @@ msgstr "ທ່ານອອກຈາກການສົນທະນານີ້ແ
 msgid "You were removed from this chat"
 msgstr "ທ່ານຖືກລົບອອກຈາກການສົນທະນານີ້"
 
-#: ../../../lib/web/src/components/restore-banner.tsx:86
+#: ../../../lib/web/src/components/restore-banner.tsx:92
 msgid "Your account was moved here from {source}. Until you delete it there, messages and notifications may reach both servers, some of your content keeps being served from the old server, and followers may take a few minutes to find you here."
 msgstr "ບັນຊີຂອງທ່ານໄດ້ຍ້າຍມາທີ່ນີ້ຈາກ {source}. ຈົນກວ່າທ່ານຈະລຶບມັນທີ່ນັ້ນ, ຂໍ້ຄວາມ ແລະ ການແຈ້ງເຕືອນອາດຈະໄປຮອດທັງສອງເຊີຟເວີ, ບາງເນື້ອຫາຂອງທ່ານຍັງຄົງໃຫ້ບໍລິການຈາກເຊີຟເວີເກົ່າ, ແລະ ຜູ້ຕິດຕາມອາດຈະໃຊ້ເວລາສອງສາມນາທີເພື່ອຊອກຫາທ່ານທີ່ນີ້."
 

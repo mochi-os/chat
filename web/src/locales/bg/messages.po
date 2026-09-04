@@ -36,7 +36,7 @@ msgid "[not set]"
 msgstr "[не е зададено]"
 
 #. placeholder {0}: displayInfo.count
-#: ../../../lib/web/src/components/person-picker.tsx:257
+#: ../../../lib/web/src/components/person-picker.tsx:260
 msgid "{0, plural, one {# selected} other {# selected}}"
 msgstr "{0, plural, one {# избран} other {# избрани}}"
 
@@ -68,19 +68,19 @@ msgstr "{0} избрани"
 msgid "{0} settings"
 msgstr "{0} настройки"
 
-#: ../../../lib/web/src/lib/locale-format.ts:176
+#: ../../../lib/web/src/lib/locale-format.ts:191
 msgid "{count, plural, one {#d} other {#d}}"
 msgstr "{count, plural, one {#д} other {#д}}"
 
-#: ../../../lib/web/src/lib/locale-format.ts:172
+#: ../../../lib/web/src/lib/locale-format.ts:187
 msgid "{count, plural, one {#h} other {#h}}"
 msgstr "{count, plural, one {#ч} other {#ч}}"
 
-#: ../../../lib/web/src/lib/locale-format.ts:168
+#: ../../../lib/web/src/lib/locale-format.ts:183
 msgid "{count, plural, one {#m} other {#m}}"
 msgstr "{count, plural, one {#мин} other {#мин}}"
 
-#: ../../../lib/web/src/lib/locale-format.ts:180
+#: ../../../lib/web/src/lib/locale-format.ts:195
 msgid "{count, plural, one {#w} other {#w}}"
 msgstr "{count, plural, one {#сед} other {#сед}}"
 
@@ -130,6 +130,7 @@ msgstr "12 часа"
 msgid "24 hours"
 msgstr "24 часа"
 
+#: ../../../lib/web/src/lib/shell-errors.ts:35
 #: src/features/chats/components/chat-input.tsx:337
 msgid "A recording is already in progress."
 msgstr "Вече тече запис."
@@ -455,6 +456,14 @@ msgstr "Цвят на рамката"
 msgid "Browser notifications"
 msgstr "Известия в браузъра"
 
+#: ../../../lib/web/src/lib/shell-errors.ts:48
+msgid "Camera permission denied"
+msgstr "Разрешението за камера е отказано"
+
+#: ../../../lib/web/src/lib/shell-errors.ts:56
+msgid "Camera unavailable"
+msgstr "Камерата не е достъпна"
+
 #: ../../../lib/web/src/components/attachment-composer.tsx:426
 #: ../../../lib/web/src/components/entity/entity-board-column.tsx:616
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:211
@@ -487,6 +496,12 @@ msgstr "Отказ от коментара"
 #: src/features/chats/components/chat-input.tsx:595
 msgid "Cancel reply"
 msgstr "Отказ от отговора"
+
+#: ../../../lib/web/src/lib/shell-errors.ts:24
+#: ../../../lib/web/src/lib/shell-errors.ts:37
+#: ../../../lib/web/src/lib/shell-errors.ts:52
+msgid "Cancelled"
+msgstr "Отказано"
 
 #: ../../../lib/web/src/components/attachment-composer.tsx:386
 #: ../../../lib/web/src/components/attachment-composer.tsx:421
@@ -639,8 +654,8 @@ msgstr "Изчисти търсенето"
 #: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:523
 #: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:528
 #: ../../../lib/web/src/components/ui/dialog.tsx:78
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:479
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:482
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:480
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:483
 #: ../../../lib/web/src/components/ui/sheet.tsx:79
 msgid "Close"
 msgstr "Затвори"
@@ -708,8 +723,8 @@ msgstr "Палитра с команди"
 msgid "Comment actions"
 msgstr "Действия за коментара"
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:442
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:454
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:443
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:455
 msgid "Comments"
 msgstr "Коментари"
 
@@ -936,7 +951,7 @@ msgstr "Изтрий опцията {0}"
 msgid "Delete view"
 msgstr "Изтрий изгледа"
 
-#: ../../../lib/web/src/components/restore-banner.tsx:95
+#: ../../../lib/web/src/components/restore-banner.tsx:101
 msgid "Delete your account on the old server"
 msgstr "Изтрийте профила си на стария сървър"
 
@@ -980,7 +995,7 @@ msgstr "Панел с детайли"
 msgid "Detect from web browser"
 msgstr "Засечи от уеб браузъра"
 
-#: ../../../lib/web/src/components/person-picker.tsx:190
+#: ../../../lib/web/src/components/person-picker.tsx:193
 msgid "Directory"
 msgstr "Указател"
 
@@ -1014,8 +1029,8 @@ msgstr "Несвързано"
 msgid "Dislike"
 msgstr "Не харесвам"
 
-#: ../../../lib/web/src/components/restore-banner.tsx:74
 #: ../../../lib/web/src/components/restore-banner.tsx:80
+#: ../../../lib/web/src/components/restore-banner.tsx:86
 msgid "Dismiss"
 msgstr "Отхвърли"
 
@@ -1037,8 +1052,8 @@ msgid "Done"
 msgstr "Готово"
 
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:243
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:463
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:473
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:464
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:474
 msgid "Download"
 msgstr "Изтегляне"
 
@@ -1220,7 +1235,7 @@ msgstr "Неуспешно зареждане"
 msgid "Failed to load history"
 msgstr "Неуспешно зареждане на история"
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:349
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:350
 msgid "Failed to load image"
 msgstr "Изображението не можа да се зареди"
 
@@ -1228,7 +1243,7 @@ msgstr "Изображението не можа да се зареди"
 msgid "Failed to load prompts"
 msgstr "Неуспешно зареждане на подсказките"
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:349
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:350
 msgid "Failed to load video"
 msgstr "Видеото не можа да се зареди"
 
@@ -1294,7 +1309,7 @@ msgstr "Неуспешно качване на прикачен файл"
 msgid "Files"
 msgstr "Файлове"
 
-#: ../../../lib/web/src/components/restore-banner.tsx:83
+#: ../../../lib/web/src/components/restore-banner.tsx:89
 msgid "Finish moving your account"
 msgstr "Завършете преместването на профила"
 
@@ -1328,7 +1343,7 @@ msgstr "Препращане..."
 msgid "Friday"
 msgstr "Петък"
 
-#: ../../../lib/web/src/components/person-picker.tsx:183
+#: ../../../lib/web/src/components/person-picker.tsx:186
 #: src/features/chats/components/forward-dialog.tsx:236
 #: src/features/chats/components/new-chat.tsx:286
 #: src/routes/_authenticated/$chatId_.settings.tsx:480
@@ -1394,7 +1409,7 @@ msgid "ID"
 msgstr "ID"
 
 #. placeholder {0}: currentMedia.name
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:327
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:328
 msgid "Image viewer: {0}"
 msgstr "Преглед на изображения: {0}"
 
@@ -1440,7 +1455,7 @@ msgstr "Изглежда, че страницата, която търсите, 
 msgid "Jump to bottom"
 msgstr "Към края"
 
-#: ../../../lib/web/src/lib/locale-format.ts:165
+#: ../../../lib/web/src/lib/locale-format.ts:180
 msgid "Just now"
 msgstr "Току-що"
 
@@ -1671,6 +1686,7 @@ msgstr "Грешка на микрофона: {message}"
 msgid "Microphone is already in use"
 msgstr "Микрофонът вече се използва"
 
+#: ../../../lib/web/src/lib/shell-errors.ts:31
 #: src/features/chats/components/chat-input.tsx:293
 msgid "Microphone permission denied"
 msgstr "Разрешението за микрофон е отказано"
@@ -1758,8 +1774,8 @@ msgstr "Нова игра"
 msgid "Newer match"
 msgstr "По-ново съвпадение"
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:536
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:541
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:537
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:542
 msgid "Next image"
 msgstr "Следващо изображение"
 
@@ -1879,7 +1895,7 @@ msgstr "Няма прегледи"
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:418
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:491
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:494
-#: ../../../lib/web/src/components/person-picker.tsx:326
+#: ../../../lib/web/src/components/person-picker.tsx:329
 #: ../../../lib/web/src/lib/preference-utils.ts:100
 msgid "None"
 msgstr "Няма"
@@ -2008,12 +2024,17 @@ msgid "Passkey"
 msgstr "Ключ за достъп"
 
 #: ../../../lib/web/src/components/step-up-dialog.tsx:195
+#: ../../../lib/web/src/lib/shell-errors.ts:26
 msgid "Passkey verification failed. Please try again."
 msgstr "Проверката на ключа за достъп беше неуспешна. Моля, опитайте отново."
 
-#: ../../../lib/web/src/components/restore-banner.tsx:132
+#: ../../../lib/web/src/components/restore-banner.tsx:138
 msgid "Passkeys"
 msgstr "Ключове за достъп"
+
+#: ../../../lib/web/src/lib/shell-errors.ts:19
+msgid "Passkeys are not available in this browser"
+msgstr "Passkeys не са налични в този браузър"
 
 #: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:213
 msgid "Pattern (regex)"
@@ -2027,7 +2048,7 @@ msgstr "Пауза на аудиото"
 msgid "Pause voice note"
 msgstr "Пауза на гласовата бележка"
 
-#: ../../../lib/web/src/components/person-picker.tsx:176
+#: ../../../lib/web/src/components/person-picker.tsx:179
 #: src/features/chats/components/new-chat.tsx:274
 msgid "People"
 msgstr "Хора"
@@ -2078,8 +2099,8 @@ msgstr "Публикации"
 msgid "Posts and comments"
 msgstr "Публикации и коментари"
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:520
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:525
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:521
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:526
 msgid "Previous image"
 msgstr "Предишно изображение"
 
@@ -2104,11 +2125,11 @@ msgstr "Push известие"
 msgid "Raised"
 msgstr "Повдигнат"
 
-#: ../../../lib/web/src/components/restore-banner.tsx:104
+#: ../../../lib/web/src/components/restore-banner.tsx:110
 msgid "Re-link your accounts on this server"
 msgstr "Свържете отново профилите си на този сървър"
 
-#: ../../../lib/web/src/components/restore-banner.tsx:126
+#: ../../../lib/web/src/components/restore-banner.tsx:132
 msgid "Re-register your passkeys on this server"
 msgstr "Регистрирайте отново ключовете си за достъп на този сървър"
 
@@ -2129,6 +2150,7 @@ msgstr "Повторно свързване ({retries})..."
 msgid "Record voice note"
 msgstr "Запис на гласова бележка"
 
+#: ../../../lib/web/src/lib/shell-errors.ts:43
 #: src/features/chats/components/chat-input.tsx:333
 msgid "Recording failed. Please try again."
 msgstr "Записът не успя. Опитайте отново."
@@ -2137,6 +2159,7 @@ msgstr "Записът не успя. Опитайте отново."
 msgid "Recording is too large to send"
 msgstr "Записът е твърде голям за изпращане"
 
+#: ../../../lib/web/src/lib/shell-errors.ts:39
 #: src/features/chats/components/chat-input.tsx:329
 msgid "Recording produced no audio"
 msgstr "Записът не съдържа звук"
@@ -2413,7 +2436,7 @@ msgstr "Търсете, гледайте и сортирайте този изг
 #: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx:179
 #: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx:255
 #: ../../../lib/web/src/components/inline-entity-search.tsx:64
-#: ../../../lib/web/src/components/person-picker.tsx:300
+#: ../../../lib/web/src/components/person-picker.tsx:303
 #: ../../../lib/web/src/components/search-entity-page.tsx:72
 msgid "Search..."
 msgstr "Търси..."
@@ -2701,6 +2724,14 @@ msgstr "Изпращането не успя. Файловете може да �
 msgid "That was too large to upload. Remove or shrink files and try again."
 msgstr "Твърде голямо за качване. Премахнете или намалете файлове и опитайте отново."
 
+#: ../../../lib/web/src/lib/shell-errors.ts:50
+msgid "The camera is already in use"
+msgstr "Камерата вече се използва"
+
+#: ../../../lib/web/src/lib/shell-errors.ts:54
+msgid "The camera request was not answered"
+msgstr "Заявката за камера остана без отговор"
+
 #: src/features/chats/components/new-chat.tsx:168
 msgid "The chat name can be at most {CHAT_NAME_MAX_LENGTH} characters"
 msgstr "Името на чата може да е най-много {CHAT_NAME_MAX_LENGTH} знака"
@@ -2709,6 +2740,14 @@ msgstr "Името на чата може да е най-много {CHAT_NAME_M
 #: src/routes/_authenticated/$chatId_.settings.tsx:205
 msgid "The chat name cannot contain < or >"
 msgstr "Името на чата не може да съдържа < или >"
+
+#: ../../../lib/web/src/lib/shell-errors.ts:41
+msgid "The microphone request was not answered"
+msgstr "Заявката за микрофон остана без отговор"
+
+#: ../../../lib/web/src/lib/shell-errors.ts:21
+msgid "The passkey request was not answered"
+msgstr "Заявката за passkey остана без отговор"
 
 #: ../../../lib/web/src/features/errors/general-error.tsx:66
 msgid "The requested content could not be found."
@@ -2722,6 +2761,10 @@ msgstr "Сървърът върна уеб страница вместо дан�
 #: src/features/chats/index.tsx:1001
 msgid "These names are not in this chat: {0}. Pick from the @ list or remove them."
 msgstr "Тези имена не са в този чат: {0}. Изберете от списъка @ или ги премахнете."
+
+#: ../../../lib/web/src/lib/shell-errors.ts:17
+msgid "This app is not allowed to use your passkey. Allow it in Settings, under Permissions."
+msgstr "Това приложение няма разрешение да използва вашия passkey. Разрешете го в Настройки, под Разрешения."
 
 #: src/routes/_authenticated/$chatId_.settings.tsx:166
 msgid "this chat"
@@ -2931,7 +2974,7 @@ msgid "Video thumbnail"
 msgstr "Миниатюра на видео"
 
 #. placeholder {0}: currentMedia.name
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:326
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:327
 msgid "Video viewer: {0}"
 msgstr "Преглед на видео: {0}"
 
@@ -2952,6 +2995,7 @@ msgstr "Вълнова форма на гласовата бележка"
 msgid "Voice recording is currently unavailable. Please check your setup and try again."
 msgstr "Гласовият запис в момента не е достъпен. Проверете настройките си и опитайте отново."
 
+#: ../../../lib/web/src/lib/shell-errors.ts:33
 #: src/features/chats/components/chat-input.tsx:313
 #: src/features/chats/components/chat-input.tsx:418
 msgid "Voice recording is not supported in this browser"
@@ -3015,7 +3059,7 @@ msgstr "Напуснахте този чат"
 msgid "You were removed from this chat"
 msgstr "Бяхте премахнати от този чат"
 
-#: ../../../lib/web/src/components/restore-banner.tsx:86
+#: ../../../lib/web/src/components/restore-banner.tsx:92
 msgid "Your account was moved here from {source}. Until you delete it there, messages and notifications may reach both servers, some of your content keeps being served from the old server, and followers may take a few minutes to find you here."
 msgstr "Профилът ви беше преместен тук от {source}. Докато не го изтриете там, съобщенията и известията може да достигат до двата сървъра, част от съдържанието ви продължава да се обслужва от стария сървър и последователите може да отнеме няколко минути, за да ви намерят тук."
 

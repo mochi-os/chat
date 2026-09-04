@@ -480,7 +480,7 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(
             result.blob,
             result.mimeType,
             result.filename,
-            result.durationSecs || micDurationSecs(elapsedMs)
+            result.duration || micDurationSecs(elapsedMs)
           )
         } catch (err) {
           toastMicError(err)
@@ -510,7 +510,7 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(
               result.blob,
               result.mimeType,
               result.filename,
-              result.durationSecs || micDurationSecs(elapsedMs)
+              result.duration || micDurationSecs(elapsedMs)
             )
           } else if (result.error) {
             toastMicError(result.error)

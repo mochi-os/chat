@@ -36,7 +36,7 @@ msgid "[not set]"
 msgstr "[未設定]"
 
 #. placeholder {0}: displayInfo.count
-#: ../../../lib/web/src/components/person-picker.tsx:257
+#: ../../../lib/web/src/components/person-picker.tsx:260
 msgid "{0, plural, one {# selected} other {# selected}}"
 msgstr "{0, plural, one {已選 #} other {已選 #}}"
 
@@ -68,19 +68,19 @@ msgstr "已選取 {0} 則"
 msgid "{0} settings"
 msgstr "{0} 設定"
 
-#: ../../../lib/web/src/lib/locale-format.ts:176
+#: ../../../lib/web/src/lib/locale-format.ts:191
 msgid "{count, plural, one {#d} other {#d}}"
 msgstr "{count, plural, one {#天} other {#天}}"
 
-#: ../../../lib/web/src/lib/locale-format.ts:172
+#: ../../../lib/web/src/lib/locale-format.ts:187
 msgid "{count, plural, one {#h} other {#h}}"
 msgstr "{count, plural, one {#小時} other {#小時}}"
 
-#: ../../../lib/web/src/lib/locale-format.ts:168
+#: ../../../lib/web/src/lib/locale-format.ts:183
 msgid "{count, plural, one {#m} other {#m}}"
 msgstr "{count, plural, one {#分鐘} other {#分鐘}}"
 
-#: ../../../lib/web/src/lib/locale-format.ts:180
+#: ../../../lib/web/src/lib/locale-format.ts:195
 msgid "{count, plural, one {#w} other {#w}}"
 msgstr "{count, plural, one {#週} other {#週}}"
 
@@ -130,6 +130,7 @@ msgstr "12 小時"
 msgid "24 hours"
 msgstr "24 小時"
 
+#: ../../../lib/web/src/lib/shell-errors.ts:35
 #: src/features/chats/components/chat-input.tsx:337
 msgid "A recording is already in progress."
 msgstr "已有錄音正在進行。"
@@ -455,6 +456,14 @@ msgstr "邊框顏色"
 msgid "Browser notifications"
 msgstr "瀏覽器通知"
 
+#: ../../../lib/web/src/lib/shell-errors.ts:48
+msgid "Camera permission denied"
+msgstr "相機權限遭拒"
+
+#: ../../../lib/web/src/lib/shell-errors.ts:56
+msgid "Camera unavailable"
+msgstr "相機不可用"
+
 #: ../../../lib/web/src/components/attachment-composer.tsx:426
 #: ../../../lib/web/src/components/entity/entity-board-column.tsx:616
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:211
@@ -487,6 +496,12 @@ msgstr "取消留言"
 #: src/features/chats/components/chat-input.tsx:595
 msgid "Cancel reply"
 msgstr "取消回覆"
+
+#: ../../../lib/web/src/lib/shell-errors.ts:24
+#: ../../../lib/web/src/lib/shell-errors.ts:37
+#: ../../../lib/web/src/lib/shell-errors.ts:52
+msgid "Cancelled"
+msgstr "已取消"
 
 #: ../../../lib/web/src/components/attachment-composer.tsx:386
 #: ../../../lib/web/src/components/attachment-composer.tsx:421
@@ -639,8 +654,8 @@ msgstr "清除搜尋"
 #: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:523
 #: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:528
 #: ../../../lib/web/src/components/ui/dialog.tsx:78
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:479
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:482
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:480
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:483
 #: ../../../lib/web/src/components/ui/sheet.tsx:79
 msgid "Close"
 msgstr "關閉"
@@ -708,8 +723,8 @@ msgstr "命令選擇區"
 msgid "Comment actions"
 msgstr "留言操作"
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:442
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:454
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:443
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:455
 msgid "Comments"
 msgstr "留言"
 
@@ -936,7 +951,7 @@ msgstr "刪除選項 {0}"
 msgid "Delete view"
 msgstr "刪除檢視"
 
-#: ../../../lib/web/src/components/restore-banner.tsx:95
+#: ../../../lib/web/src/components/restore-banner.tsx:101
 msgid "Delete your account on the old server"
 msgstr "刪除您在舊伺服器上的帳號"
 
@@ -980,7 +995,7 @@ msgstr "詳細資料面板"
 msgid "Detect from web browser"
 msgstr "從網頁瀏覽器偵測"
 
-#: ../../../lib/web/src/components/person-picker.tsx:190
+#: ../../../lib/web/src/components/person-picker.tsx:193
 msgid "Directory"
 msgstr "目錄"
 
@@ -1014,8 +1029,8 @@ msgstr "已斷線"
 msgid "Dislike"
 msgstr "不喜歡"
 
-#: ../../../lib/web/src/components/restore-banner.tsx:74
 #: ../../../lib/web/src/components/restore-banner.tsx:80
+#: ../../../lib/web/src/components/restore-banner.tsx:86
 msgid "Dismiss"
 msgstr "關閉"
 
@@ -1037,8 +1052,8 @@ msgid "Done"
 msgstr "完成"
 
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:243
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:463
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:473
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:464
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:474
 msgid "Download"
 msgstr "下載"
 
@@ -1220,7 +1235,7 @@ msgstr "載入失敗"
 msgid "Failed to load history"
 msgstr "載入記錄失敗"
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:349
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:350
 msgid "Failed to load image"
 msgstr "無法載入圖片"
 
@@ -1228,7 +1243,7 @@ msgstr "無法載入圖片"
 msgid "Failed to load prompts"
 msgstr "載入提示失敗"
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:349
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:350
 msgid "Failed to load video"
 msgstr "無法載入影片"
 
@@ -1294,7 +1309,7 @@ msgstr "上傳附件失敗"
 msgid "Files"
 msgstr "檔案"
 
-#: ../../../lib/web/src/components/restore-banner.tsx:83
+#: ../../../lib/web/src/components/restore-banner.tsx:89
 msgid "Finish moving your account"
 msgstr "完成帳號遷移"
 
@@ -1328,7 +1343,7 @@ msgstr "正在轉發..."
 msgid "Friday"
 msgstr "星期五"
 
-#: ../../../lib/web/src/components/person-picker.tsx:183
+#: ../../../lib/web/src/components/person-picker.tsx:186
 #: src/features/chats/components/forward-dialog.tsx:236
 #: src/features/chats/components/new-chat.tsx:286
 #: src/routes/_authenticated/$chatId_.settings.tsx:480
@@ -1394,7 +1409,7 @@ msgid "ID"
 msgstr "ID"
 
 #. placeholder {0}: currentMedia.name
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:327
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:328
 msgid "Image viewer: {0}"
 msgstr "圖片檢視器：{0}"
 
@@ -1440,7 +1455,7 @@ msgstr "您尋找的頁面 <0/>不存在或可能已被移除。"
 msgid "Jump to bottom"
 msgstr "跳至底部"
 
-#: ../../../lib/web/src/lib/locale-format.ts:165
+#: ../../../lib/web/src/lib/locale-format.ts:180
 msgid "Just now"
 msgstr "剛剛"
 
@@ -1671,6 +1686,7 @@ msgstr "麥克風錯誤：{message}"
 msgid "Microphone is already in use"
 msgstr "麥克風已在使用中"
 
+#: ../../../lib/web/src/lib/shell-errors.ts:31
 #: src/features/chats/components/chat-input.tsx:293
 msgid "Microphone permission denied"
 msgstr "麥克風權限遭拒"
@@ -1758,8 +1774,8 @@ msgstr "新遊戲"
 msgid "Newer match"
 msgstr "較新的結果"
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:536
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:541
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:537
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:542
 msgid "Next image"
 msgstr "下一張圖片"
 
@@ -1879,7 +1895,7 @@ msgstr "無檢視"
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:418
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:491
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:494
-#: ../../../lib/web/src/components/person-picker.tsx:326
+#: ../../../lib/web/src/components/person-picker.tsx:329
 #: ../../../lib/web/src/lib/preference-utils.ts:100
 msgid "None"
 msgstr "無"
@@ -2008,12 +2024,17 @@ msgid "Passkey"
 msgstr "通行密鑰"
 
 #: ../../../lib/web/src/components/step-up-dialog.tsx:195
+#: ../../../lib/web/src/lib/shell-errors.ts:26
 msgid "Passkey verification failed. Please try again."
 msgstr "通行金鑰驗證失敗。請再試一次。"
 
-#: ../../../lib/web/src/components/restore-banner.tsx:132
+#: ../../../lib/web/src/components/restore-banner.tsx:138
 msgid "Passkeys"
 msgstr "Passkey"
+
+#: ../../../lib/web/src/lib/shell-errors.ts:19
+msgid "Passkeys are not available in this browser"
+msgstr "此瀏覽器不支援 Passkey"
 
 #: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:213
 msgid "Pattern (regex)"
@@ -2027,7 +2048,7 @@ msgstr "暫停音訊"
 msgid "Pause voice note"
 msgstr "暫停語音訊息"
 
-#: ../../../lib/web/src/components/person-picker.tsx:176
+#: ../../../lib/web/src/components/person-picker.tsx:179
 #: src/features/chats/components/new-chat.tsx:274
 msgid "People"
 msgstr "人員"
@@ -2078,8 +2099,8 @@ msgstr "貼文"
 msgid "Posts and comments"
 msgstr "貼文和留言"
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:520
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:525
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:521
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:526
 msgid "Previous image"
 msgstr "上一張圖片"
 
@@ -2104,11 +2125,11 @@ msgstr "推播通知"
 msgid "Raised"
 msgstr "凸起"
 
-#: ../../../lib/web/src/components/restore-banner.tsx:104
+#: ../../../lib/web/src/components/restore-banner.tsx:110
 msgid "Re-link your accounts on this server"
 msgstr "在此伺服器上重新連結您的帳號"
 
-#: ../../../lib/web/src/components/restore-banner.tsx:126
+#: ../../../lib/web/src/components/restore-banner.tsx:132
 msgid "Re-register your passkeys on this server"
 msgstr "在此伺服器上重新註冊您的通行密鑰"
 
@@ -2129,6 +2150,7 @@ msgstr "正在重新連線 ({retries})..."
 msgid "Record voice note"
 msgstr "錄製語音訊息"
 
+#: ../../../lib/web/src/lib/shell-errors.ts:43
 #: src/features/chats/components/chat-input.tsx:333
 msgid "Recording failed. Please try again."
 msgstr "錄音失敗。請再試一次。"
@@ -2137,6 +2159,7 @@ msgstr "錄音失敗。請再試一次。"
 msgid "Recording is too large to send"
 msgstr "錄音太大，無法傳送"
 
+#: ../../../lib/web/src/lib/shell-errors.ts:39
 #: src/features/chats/components/chat-input.tsx:329
 msgid "Recording produced no audio"
 msgstr "錄音沒有聲音"
@@ -2413,7 +2436,7 @@ msgstr "搜尋、關注並排序此檢視。"
 #: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx:179
 #: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx:255
 #: ../../../lib/web/src/components/inline-entity-search.tsx:64
-#: ../../../lib/web/src/components/person-picker.tsx:300
+#: ../../../lib/web/src/components/person-picker.tsx:303
 #: ../../../lib/web/src/components/search-entity-page.tsx:72
 msgid "Search..."
 msgstr "搜尋..."
@@ -2701,6 +2724,14 @@ msgstr "無法傳送。檔案可能太大，或您的連線失敗。請嘗試較
 msgid "That was too large to upload. Remove or shrink files and try again."
 msgstr "檔案太大，無法上傳。請移除或縮小檔案後再試。"
 
+#: ../../../lib/web/src/lib/shell-errors.ts:50
+msgid "The camera is already in use"
+msgstr "相機已在使用中"
+
+#: ../../../lib/web/src/lib/shell-errors.ts:54
+msgid "The camera request was not answered"
+msgstr "相機要求未獲回應"
+
 #: src/features/chats/components/new-chat.tsx:168
 msgid "The chat name can be at most {CHAT_NAME_MAX_LENGTH} characters"
 msgstr "聊天名稱最多 {CHAT_NAME_MAX_LENGTH} 個字元"
@@ -2709,6 +2740,14 @@ msgstr "聊天名稱最多 {CHAT_NAME_MAX_LENGTH} 個字元"
 #: src/routes/_authenticated/$chatId_.settings.tsx:205
 msgid "The chat name cannot contain < or >"
 msgstr "聊天名稱不能包含 < 或 >"
+
+#: ../../../lib/web/src/lib/shell-errors.ts:41
+msgid "The microphone request was not answered"
+msgstr "麥克風要求未獲回應"
+
+#: ../../../lib/web/src/lib/shell-errors.ts:21
+msgid "The passkey request was not answered"
+msgstr "Passkey 要求未獲回應"
 
 #: ../../../lib/web/src/features/errors/general-error.tsx:66
 msgid "The requested content could not be found."
@@ -2722,6 +2761,10 @@ msgstr "伺服器傳回網頁而非資料。"
 #: src/features/chats/index.tsx:1001
 msgid "These names are not in this chat: {0}. Pick from the @ list or remove them."
 msgstr "這些名字不在此聊天中：{0}。請從 @ 清單中選擇或移除。"
+
+#: ../../../lib/web/src/lib/shell-errors.ts:17
+msgid "This app is not allowed to use your passkey. Allow it in Settings, under Permissions."
+msgstr "此應用程式無權使用您的 Passkey。請在「設定」的「權限」中允許。"
 
 #: src/routes/_authenticated/$chatId_.settings.tsx:166
 msgid "this chat"
@@ -2931,7 +2974,7 @@ msgid "Video thumbnail"
 msgstr "影片縮圖"
 
 #. placeholder {0}: currentMedia.name
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:326
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:327
 msgid "Video viewer: {0}"
 msgstr "影片檢視器：{0}"
 
@@ -2952,6 +2995,7 @@ msgstr "語音訊息波形"
 msgid "Voice recording is currently unavailable. Please check your setup and try again."
 msgstr "語音錄製目前無法使用。請檢查您的設定後再試一次。"
 
+#: ../../../lib/web/src/lib/shell-errors.ts:33
 #: src/features/chats/components/chat-input.tsx:313
 #: src/features/chats/components/chat-input.tsx:418
 msgid "Voice recording is not supported in this browser"
@@ -3015,7 +3059,7 @@ msgstr "你已離開此聊天"
 msgid "You were removed from this chat"
 msgstr "你已被移出此聊天"
 
-#: ../../../lib/web/src/components/restore-banner.tsx:86
+#: ../../../lib/web/src/components/restore-banner.tsx:92
 msgid "Your account was moved here from {source}. Until you delete it there, messages and notifications may reach both servers, some of your content keeps being served from the old server, and followers may take a few minutes to find you here."
 msgstr "您的帳號已從 {source} 遷移至此。在您於該處刪除帳號之前，訊息和通知可能會同時到達兩個伺服器，部分內容仍由舊伺服器提供，追蹤者可能需要幾分鐘才能在此找到您。"
 

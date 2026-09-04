@@ -36,7 +36,7 @@ msgid "[not set]"
 msgstr "[ni nastavljeno]"
 
 #. placeholder {0}: displayInfo.count
-#: ../../../lib/web/src/components/person-picker.tsx:257
+#: ../../../lib/web/src/components/person-picker.tsx:260
 msgid "{0, plural, one {# selected} other {# selected}}"
 msgstr "{0, plural, one {# izbran} two {# izbrana} few {# izbrani} other {# izbranih}}"
 
@@ -68,19 +68,19 @@ msgstr "Izbrano: {0}"
 msgid "{0} settings"
 msgstr "Nastavitve {0}"
 
-#: ../../../lib/web/src/lib/locale-format.ts:176
+#: ../../../lib/web/src/lib/locale-format.ts:191
 msgid "{count, plural, one {#d} other {#d}}"
 msgstr "{count, plural, one {#d} other {#d}}"
 
-#: ../../../lib/web/src/lib/locale-format.ts:172
+#: ../../../lib/web/src/lib/locale-format.ts:187
 msgid "{count, plural, one {#h} other {#h}}"
 msgstr "{count, plural, one {#h} other {#h}}"
 
-#: ../../../lib/web/src/lib/locale-format.ts:168
+#: ../../../lib/web/src/lib/locale-format.ts:183
 msgid "{count, plural, one {#m} other {#m}}"
 msgstr "{count, plural, one {#min} other {#min}}"
 
-#: ../../../lib/web/src/lib/locale-format.ts:180
+#: ../../../lib/web/src/lib/locale-format.ts:195
 msgid "{count, plural, one {#w} other {#w}}"
 msgstr "{count, plural, one {#ted} other {#ted}}"
 
@@ -130,6 +130,7 @@ msgstr "12 ur"
 msgid "24 hours"
 msgstr "24 ur"
 
+#: ../../../lib/web/src/lib/shell-errors.ts:35
 #: src/features/chats/components/chat-input.tsx:337
 msgid "A recording is already in progress."
 msgstr "Snemanje že poteka."
@@ -455,6 +456,14 @@ msgstr "Barva obrobe"
 msgid "Browser notifications"
 msgstr "Obvestila brskalnika"
 
+#: ../../../lib/web/src/lib/shell-errors.ts:48
+msgid "Camera permission denied"
+msgstr "Dovoljenje za kamero je zavrnjeno"
+
+#: ../../../lib/web/src/lib/shell-errors.ts:56
+msgid "Camera unavailable"
+msgstr "Kamera ni na voljo"
+
 #: ../../../lib/web/src/components/attachment-composer.tsx:426
 #: ../../../lib/web/src/components/entity/entity-board-column.tsx:616
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:211
@@ -487,6 +496,12 @@ msgstr "Prekliči komentar"
 #: src/features/chats/components/chat-input.tsx:595
 msgid "Cancel reply"
 msgstr "Prekliči odgovor"
+
+#: ../../../lib/web/src/lib/shell-errors.ts:24
+#: ../../../lib/web/src/lib/shell-errors.ts:37
+#: ../../../lib/web/src/lib/shell-errors.ts:52
+msgid "Cancelled"
+msgstr "Preklicano"
 
 #: ../../../lib/web/src/components/attachment-composer.tsx:386
 #: ../../../lib/web/src/components/attachment-composer.tsx:421
@@ -639,8 +654,8 @@ msgstr "Počisti iskanje"
 #: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:523
 #: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:528
 #: ../../../lib/web/src/components/ui/dialog.tsx:78
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:479
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:482
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:480
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:483
 #: ../../../lib/web/src/components/ui/sheet.tsx:79
 msgid "Close"
 msgstr "Zapri"
@@ -708,8 +723,8 @@ msgstr "Paleta ukazov"
 msgid "Comment actions"
 msgstr "Dejanja komentarja"
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:442
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:454
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:443
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:455
 msgid "Comments"
 msgstr "Komentarji"
 
@@ -936,7 +951,7 @@ msgstr "Izbriši možnost {0}"
 msgid "Delete view"
 msgstr "Izbriši pogled"
 
-#: ../../../lib/web/src/components/restore-banner.tsx:95
+#: ../../../lib/web/src/components/restore-banner.tsx:101
 msgid "Delete your account on the old server"
 msgstr "Izbrišite račun na starem strežniku"
 
@@ -980,7 +995,7 @@ msgstr "Plošča s podrobnostmi"
 msgid "Detect from web browser"
 msgstr "Zaznaj iz spletnega brskalnika"
 
-#: ../../../lib/web/src/components/person-picker.tsx:190
+#: ../../../lib/web/src/components/person-picker.tsx:193
 msgid "Directory"
 msgstr "Imenik"
 
@@ -1014,8 +1029,8 @@ msgstr "Prekinjena povezava"
 msgid "Dislike"
 msgstr "Ne maram"
 
-#: ../../../lib/web/src/components/restore-banner.tsx:74
 #: ../../../lib/web/src/components/restore-banner.tsx:80
+#: ../../../lib/web/src/components/restore-banner.tsx:86
 msgid "Dismiss"
 msgstr "Opusti"
 
@@ -1037,8 +1052,8 @@ msgid "Done"
 msgstr "Končano"
 
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:243
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:463
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:473
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:464
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:474
 msgid "Download"
 msgstr "Prenesi"
 
@@ -1220,7 +1235,7 @@ msgstr "Nalaganje ni uspelo"
 msgid "Failed to load history"
 msgstr "Neuspešno nalaganje zgodovine"
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:349
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:350
 msgid "Failed to load image"
 msgstr "Slike ni bilo mogoče naložiti"
 
@@ -1228,7 +1243,7 @@ msgstr "Slike ni bilo mogoče naložiti"
 msgid "Failed to load prompts"
 msgstr "Nalaganje pozivov ni uspelo"
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:349
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:350
 msgid "Failed to load video"
 msgstr "Videa ni bilo mogoče naložiti"
 
@@ -1294,7 +1309,7 @@ msgstr "Neuspešno nalaganje priponke"
 msgid "Files"
 msgstr "Datoteke"
 
-#: ../../../lib/web/src/components/restore-banner.tsx:83
+#: ../../../lib/web/src/components/restore-banner.tsx:89
 msgid "Finish moving your account"
 msgstr "Dokončajte selitev računa"
 
@@ -1328,7 +1343,7 @@ msgstr "Posredovanje..."
 msgid "Friday"
 msgstr "Petek"
 
-#: ../../../lib/web/src/components/person-picker.tsx:183
+#: ../../../lib/web/src/components/person-picker.tsx:186
 #: src/features/chats/components/forward-dialog.tsx:236
 #: src/features/chats/components/new-chat.tsx:286
 #: src/routes/_authenticated/$chatId_.settings.tsx:480
@@ -1394,7 +1409,7 @@ msgid "ID"
 msgstr "ID"
 
 #. placeholder {0}: currentMedia.name
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:327
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:328
 msgid "Image viewer: {0}"
 msgstr "Pregledovalnik slik: {0}"
 
@@ -1440,7 +1455,7 @@ msgstr "Videti je, da stran, ki jo iščete, <0/>ne obstaja ali je bila odstranj
 msgid "Jump to bottom"
 msgstr "Skoči na dno"
 
-#: ../../../lib/web/src/lib/locale-format.ts:165
+#: ../../../lib/web/src/lib/locale-format.ts:180
 msgid "Just now"
 msgstr "Pravkar"
 
@@ -1671,6 +1686,7 @@ msgstr "Napaka mikrofona: {message}"
 msgid "Microphone is already in use"
 msgstr "Mikrofon je že v uporabi"
 
+#: ../../../lib/web/src/lib/shell-errors.ts:31
 #: src/features/chats/components/chat-input.tsx:293
 msgid "Microphone permission denied"
 msgstr "Dovoljenje za mikrofon zavrnjeno"
@@ -1758,8 +1774,8 @@ msgstr "Nova igra"
 msgid "Newer match"
 msgstr "Novejši zadetek"
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:536
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:541
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:537
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:542
 msgid "Next image"
 msgstr "Naslednja slika"
 
@@ -1879,7 +1895,7 @@ msgstr "Brez ogledov"
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:418
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:491
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:494
-#: ../../../lib/web/src/components/person-picker.tsx:326
+#: ../../../lib/web/src/components/person-picker.tsx:329
 #: ../../../lib/web/src/lib/preference-utils.ts:100
 msgid "None"
 msgstr "Brez"
@@ -2008,12 +2024,17 @@ msgid "Passkey"
 msgstr "Geslo-ključ"
 
 #: ../../../lib/web/src/components/step-up-dialog.tsx:195
+#: ../../../lib/web/src/lib/shell-errors.ts:26
 msgid "Passkey verification failed. Please try again."
 msgstr "Preverjanje ključa za dostop ni uspelo. Poskusite znova."
 
-#: ../../../lib/web/src/components/restore-banner.tsx:132
+#: ../../../lib/web/src/components/restore-banner.tsx:138
 msgid "Passkeys"
 msgstr "Geslo-ključi"
+
+#: ../../../lib/web/src/lib/shell-errors.ts:19
+msgid "Passkeys are not available in this browser"
+msgstr "Geslo-ključi v tem brskalniku niso na voljo"
 
 #: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:213
 msgid "Pattern (regex)"
@@ -2027,7 +2048,7 @@ msgstr "Začasno ustavi zvok"
 msgid "Pause voice note"
 msgstr "Začasno ustavi glasovno sporočilo"
 
-#: ../../../lib/web/src/components/person-picker.tsx:176
+#: ../../../lib/web/src/components/person-picker.tsx:179
 #: src/features/chats/components/new-chat.tsx:274
 msgid "People"
 msgstr "Ljudje"
@@ -2078,8 +2099,8 @@ msgstr "Objave"
 msgid "Posts and comments"
 msgstr "Objave in komentarji"
 
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:520
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:525
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:521
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:526
 msgid "Previous image"
 msgstr "Prejšnja slika"
 
@@ -2104,11 +2125,11 @@ msgstr "Push obvestilo"
 msgid "Raised"
 msgstr "Dvignjeno"
 
-#: ../../../lib/web/src/components/restore-banner.tsx:104
+#: ../../../lib/web/src/components/restore-banner.tsx:110
 msgid "Re-link your accounts on this server"
 msgstr "Znova povežite račune na tem strežniku"
 
-#: ../../../lib/web/src/components/restore-banner.tsx:126
+#: ../../../lib/web/src/components/restore-banner.tsx:132
 msgid "Re-register your passkeys on this server"
 msgstr "Znova registrirajte svoje ključe za dostop na tem strežniku"
 
@@ -2129,6 +2150,7 @@ msgstr "Ponovno povezovanje ({retries})..."
 msgid "Record voice note"
 msgstr "Posnemi glasovno sporočilo"
 
+#: ../../../lib/web/src/lib/shell-errors.ts:43
 #: src/features/chats/components/chat-input.tsx:333
 msgid "Recording failed. Please try again."
 msgstr "Snemanje ni uspelo. Poskusite znova."
@@ -2137,6 +2159,7 @@ msgstr "Snemanje ni uspelo. Poskusite znova."
 msgid "Recording is too large to send"
 msgstr "Posnetek je prevelik za pošiljanje"
 
+#: ../../../lib/web/src/lib/shell-errors.ts:39
 #: src/features/chats/components/chat-input.tsx:329
 msgid "Recording produced no audio"
 msgstr "Posnetek ne vsebuje zvoka"
@@ -2413,7 +2436,7 @@ msgstr "Iskanje, opazovanje in razvrščanje tega pogleda."
 #: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx:179
 #: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx:255
 #: ../../../lib/web/src/components/inline-entity-search.tsx:64
-#: ../../../lib/web/src/components/person-picker.tsx:300
+#: ../../../lib/web/src/components/person-picker.tsx:303
 #: ../../../lib/web/src/components/search-entity-page.tsx:72
 msgid "Search..."
 msgstr "Iskanje..."
@@ -2701,6 +2724,14 @@ msgstr "Ni bilo mogoče poslati. Datoteke so morda prevelike ali pa je povezava 
 msgid "That was too large to upload. Remove or shrink files and try again."
 msgstr "Preveliko za prenos. Odstranite ali pomanjšajte datoteke in poskusite znova."
 
+#: ../../../lib/web/src/lib/shell-errors.ts:50
+msgid "The camera is already in use"
+msgstr "Kamera je že v uporabi"
+
+#: ../../../lib/web/src/lib/shell-errors.ts:54
+msgid "The camera request was not answered"
+msgstr "Zahteva za kamero ni dobila odgovora"
+
 #: src/features/chats/components/new-chat.tsx:168
 msgid "The chat name can be at most {CHAT_NAME_MAX_LENGTH} characters"
 msgstr "Ime klepeta ima lahko največ {CHAT_NAME_MAX_LENGTH} znakov"
@@ -2709,6 +2740,14 @@ msgstr "Ime klepeta ima lahko največ {CHAT_NAME_MAX_LENGTH} znakov"
 #: src/routes/_authenticated/$chatId_.settings.tsx:205
 msgid "The chat name cannot contain < or >"
 msgstr "Ime klepeta ne sme vsebovati < ali >"
+
+#: ../../../lib/web/src/lib/shell-errors.ts:41
+msgid "The microphone request was not answered"
+msgstr "Zahteva za mikrofon ni dobila odgovora"
+
+#: ../../../lib/web/src/lib/shell-errors.ts:21
+msgid "The passkey request was not answered"
+msgstr "Zahteva za geslo-ključ ni dobila odgovora"
 
 #: ../../../lib/web/src/features/errors/general-error.tsx:66
 msgid "The requested content could not be found."
@@ -2722,6 +2761,10 @@ msgstr "Strežnik je vrnil spletno stran namesto podatkov."
 #: src/features/chats/index.tsx:1001
 msgid "These names are not in this chat: {0}. Pick from the @ list or remove them."
 msgstr "Teh imen ni v tem klepetu: {0}. Izberite s seznama @ ali jih odstranite."
+
+#: ../../../lib/web/src/lib/shell-errors.ts:17
+msgid "This app is not allowed to use your passkey. Allow it in Settings, under Permissions."
+msgstr "Ta aplikacija ne sme uporabljati vašega geslo-ključa. Dovolite ji to v Nastavitvah, pod Dovoljenja."
 
 #: src/routes/_authenticated/$chatId_.settings.tsx:166
 msgid "this chat"
@@ -2931,7 +2974,7 @@ msgid "Video thumbnail"
 msgstr "Sličica videoposnetka"
 
 #. placeholder {0}: currentMedia.name
-#: ../../../lib/web/src/components/ui/image-lightbox.tsx:326
+#: ../../../lib/web/src/components/ui/image-lightbox.tsx:327
 msgid "Video viewer: {0}"
 msgstr "Pregledovalnik videov: {0}"
 
@@ -2952,6 +2995,7 @@ msgstr "Valovna oblika glasovnega sporočila"
 msgid "Voice recording is currently unavailable. Please check your setup and try again."
 msgstr "Snemanje glasu trenutno ni na voljo. Preverite nastavitve in poskusite znova."
 
+#: ../../../lib/web/src/lib/shell-errors.ts:33
 #: src/features/chats/components/chat-input.tsx:313
 #: src/features/chats/components/chat-input.tsx:418
 msgid "Voice recording is not supported in this browser"
@@ -3015,7 +3059,7 @@ msgstr "Zapustil si ta klepet"
 msgid "You were removed from this chat"
 msgstr "Bil si odstranjen iz tega klepeta"
 
-#: ../../../lib/web/src/components/restore-banner.tsx:86
+#: ../../../lib/web/src/components/restore-banner.tsx:92
 msgid "Your account was moved here from {source}. Until you delete it there, messages and notifications may reach both servers, some of your content keeps being served from the old server, and followers may take a few minutes to find you here."
 msgstr "Vaš račun je bil preseljen sem iz {source}. Dokler ga tam ne izbrišete, sporočila in obvestila morda dosežejo oba strežnika, del vaše vsebine se še naprej streže s starega strežnika in sledilci bodo morda potrebovali nekaj minut, da vas najdejo tukaj."
 
