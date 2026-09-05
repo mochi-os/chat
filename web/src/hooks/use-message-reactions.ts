@@ -67,8 +67,8 @@ export const useReactToMessageMutation = () => {
                 message.id === messageId
                   ? {
                       ...message,
-                      reaction_counts: data.reaction_counts,
-                      my_reaction: data.my_reaction,
+                      reactions: data.reactions,
+                      reaction: data.reaction,
                     }
                   : message
               ),

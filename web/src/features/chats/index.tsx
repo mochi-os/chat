@@ -6,7 +6,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { Trans, useLingui } from '@lingui/react/macro'
 import { plural } from '@lingui/core/macro'
-import { useAuthStore, usePageTitle, PageHeader, Main, GeneralError, Button, Checkbox, ConfirmDialog, EntityAvatar, IconButton, DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger, Label, toast, toastAction, getErrorMessage, shellClipboardWrite, getSendAttachmentErrorMessage, isAttachmentPayloadTooLargeError, resolveMentionsFromBody, classifyUnresolvedMentions, naturalCompare, useUploadProgress } from '@mochi/web'
+import { useAuthStore, usePageTitle, PageHeader, Main, GeneralError, EmptyState, useFormat, Button, Checkbox, ConfirmDialog, EntityAvatar, IconButton, DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger, Label, toast, toastAction, getErrorMessage, shellClipboardWrite, getSendAttachmentErrorMessage, isAttachmentPayloadTooLargeError, resolveMentionsFromBody, classifyUnresolvedMentions, naturalCompare, useUploadProgress } from '@mochi/web'
 import { useMessageSelection } from '@/hooks/use-message-selection'
 import { useNavigate, useParams, useSearch } from '@tanstack/react-router'
 import { useQueryClient, type InfiniteData } from '@tanstack/react-query'
@@ -68,6 +68,8 @@ import {
   createPendingVoiceNote,
   probeAudioDuration,
   revokePendingAttachmentPreview,
+  sendRefusal,
+  resolveChatView,
 } from './utils'
 import {
   canPersistComposerDraft,
@@ -145,14 +147,10 @@ export function Chats() {
   const composerTextRef = useRef('')
   const previousChatIdRef = useRef<string | undefined>(undefined)
 
-  const {
-    identity: currentUserIdentity,
-    initialize: initializeAuth,
-  } = useAuthStore()
-
-  useEffect(() => {
-    initializeAuth()
-  }, [initializeAuth])
+  // The layout route's beforeLoad already awaited the store's initialize;
+  // calling it again here re-ran the shell handshake on every mount.
+  const { identity: currentUserIdentity } = useAuthStore()
+  const { formatNumber } = useFormat()
 
   // URL param
   const params = useParams({ strict: false }) as { chatId?: string }
@@ -161,13 +159,6 @@ export function Chats() {
   composerTextRef.current = newMessage
   // Search params (only present on the index route, never on /$chatId)
   const search = useSearch({ strict: false }) as { with?: string; name?: string }
-
-  // Store last visited chat for restoration on next entry
-  useEffect(() => {
-    if (selectedChatId) {
-      setLastChat(selectedChatId)
-    }
-  }, [selectedChatId])
 
   // Chats list
   const chatsQuery = useChatsQuery()
@@ -238,9 +229,17 @@ export function Chats() {
     [chats, selectedChatId]
   )
 
-  // Canonical id for draft storage (URL may use fingerprint).
-  // Wait until the chat row resolves so we never key drafts by fingerprint.
-  const draftChatKey = selectedChat?.id
+  // Remember only a chat the list resolved, so an id the user does not hold
+  // never comes back as the last-visited chat on the next entry.
+  const resolvedChatId = selectedChat?.id
+  useEffect(() => {
+    if (resolvedChatId) {
+      setLastChat(resolvedChatId)
+    }
+  }, [resolvedChatId])
+
+  // Drafts are keyed by the chat id once the list has resolved it.
+  const draftChatKey = resolvedChatId
 
   // Reset composer/selection/edit and restore draft when selected chat changes.
   // Flush the leaving chat's draft first so a pending debounce cannot drop text.
@@ -289,17 +288,7 @@ export function Chats() {
 
     void (async () => {
       try {
-        let draft = await getDraft(chatId)
-        // Migrate drafts previously keyed by fingerprint URL segment.
-        if (!draft && urlKey && urlKey !== chatId) {
-          const legacy = await getDraft(urlKey)
-          if (legacy) {
-            draft = legacy
-            setDraft(chatId, legacy)
-            clearDraft(urlKey)
-            setChatDraftPresent(chatId, true)
-          }
-        }
+        const draft = await getDraft(chatId)
         if (cancelled || selectedChatIdRef.current !== urlKey) return
 
         setNewMessage((composerText) => {
@@ -958,11 +947,19 @@ export function Chats() {
     if (!selectedChat || sendMessageMutation.isPending) return
 
     const body = newMessage.trim()
-    if (!body && pendingAttachments.length === 0) {
+    // The same rule the send button is disabled on: Enter and the form submit
+    // reach here directly, and the server refuses an over-long body only after
+    // the attachments have finished uploading.
+    const refusal = sendRefusal(newMessage, pendingAttachments.length, MESSAGE_MAX_LENGTH)
+    if (refusal === 'empty') {
       if (import.meta.env.DEV) {
         // eslint-disable-next-line lingui/no-unlocalized-strings -- dev-only diagnostic log, not user-facing
         globalThis.console?.warn?.('[chat] blocked empty message submit')
       }
+      return
+    }
+    if (refusal === 'length') {
+      toast.error(t`Message is ${formatNumber(newMessage.length - MESSAGE_MAX_LENGTH)} characters too long`)
       return
     }
 
@@ -1012,7 +1009,7 @@ export function Chats() {
     const variables = {
       chatId: selectedChat.id,
       body,
-      reply_to: replyTo?.id,
+      reply: replyTo?.id,
       attachments: pendingAttachments.map((a) => a.file),
       mentions,
       captions: pendingAttachments.some((a) => a.playable)
@@ -1048,8 +1045,7 @@ export function Chats() {
   // body only AFTER the attachments have finished uploading.
   const canSendMessage =
     !sendMessageMutation.isPending &&
-    newMessage.length <= MESSAGE_MAX_LENGTH &&
-    (Boolean(newMessage.trim()) || pendingAttachments.length > 0)
+    sendRefusal(newMessage, pendingAttachments.length, MESSAGE_MAX_LENGTH) === null
 
   const isEditSaveDisabled =
     editingMessage !== null &&
@@ -1067,9 +1063,35 @@ export function Chats() {
       )
     : null
 
+  const view = resolveChatView({
+    selectedChatId,
+    found: !!selectedChat,
+    loading: chatsQuery.isLoading,
+    fetching: chatsQuery.isFetching,
+    failed: !!chatsQuery.error,
+  })
+
   // Loading state: show full skeleton (includes its own PageHeader + Main)
-  if (selectedChatId && chatsQuery.isLoading) {
+  if (view === 'skeleton') {
     return <ChatSkeleton />
+  }
+
+  if (view === 'notfound') {
+    return (
+      <div className='flex h-full flex-col overflow-hidden'>
+        <PageHeader
+          title={t`Chat`}
+          icon={<MessageCircle className='size-4 md:size-5' />}
+        />
+        <Main className='flex min-h-0 flex-1 flex-col gap-4 overflow-hidden'>
+          <EmptyState
+            icon={MessageCircle}
+            title={t`Chat not found`}
+            description={t`This chat may have been deleted or you don't have access to it`}
+          />
+        </Main>
+      </div>
+    )
   }
 
   if (!selectedChat) {
@@ -1268,7 +1290,7 @@ export function Chats() {
             <div className='border-t px-4 py-3'>
               <div className='flex items-center justify-between gap-2'>
                 <span className='text-muted-foreground text-sm'>
-                  <Trans>{selectedIds.size} selected</Trans>
+                  {plural(selectedIds.size, { one: '# selected', other: '# selected' })}
                 </span>
                 <div className='flex items-center gap-1'>
                   <Button

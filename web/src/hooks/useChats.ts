@@ -105,9 +105,22 @@ export const useChatsQuery = (
 
 const DEFAULT_PAGE_SIZE = 30
 
-// Keyset cursor carried between pages: the oldest message's timestamp plus its
-// id. `undefined` on the first page loads the newest messages.
-type MessagesPageParam = { before: number; beforeId?: string } | undefined
+// The server's opaque keyset cursor carried between pages; `undefined` on the
+// first page loads the newest messages.
+type MessagesPageParam = string | undefined
+
+// The cursor for the next (older) page: none when the server says the list
+// is exhausted, and none when that cursor was already requested, since a
+// repeated cursor would refetch the same page forever.
+export function nextMessagesPage(
+  lastPage: GetMessagesResponse,
+  requested: readonly MessagesPageParam[]
+): MessagesPageParam {
+  if (!lastPage.more || !lastPage.cursor) {
+    return undefined
+  }
+  return requested.includes(lastPage.cursor) ? undefined : lastPage.cursor
+}
 
 export const useInfiniteMessagesQuery = (
   chatId?: string,
@@ -124,32 +137,12 @@ export const useInfiniteMessagesQuery = (
         return Promise.resolve<GetMessagesResponse>({ messages: [] })
       }
       return chatsApi.messages(chatId, {
-        before: pageParam?.before,
-        beforeId: pageParam?.beforeId,
+        cursor: pageParam,
         limit: DEFAULT_PAGE_SIZE,
       })
     },
-    getNextPageParam: (lastPage, _allPages, _lastPageParam, allPageParams) => {
-      // Keyset pagination: nextCursor is the oldest message's timestamp and
-      // nextCursorId its id. The id is the unique tiebreaker — `created`
-      // alone (whole seconds) repeats within a busy second and would stall
-      // paging, so dedupe on the id, not the timestamp.
-      if (!lastPage.hasMore || lastPage.nextCursor === undefined) {
-        return undefined
-      }
-      const next: MessagesPageParam = {
-        before: lastPage.nextCursor,
-        beforeId: lastPage.nextCursorId,
-      }
-      if (
-        allPageParams.some(
-          (p) => p?.before === next.before && p?.beforeId === next.beforeId
-        )
-      ) {
-        return undefined
-      }
-      return next
-    },
+    getNextPageParam: (lastPage, _allPages, _lastPageParam, allPageParams) =>
+      nextMessagesPage(lastPage, allPageParams),
   })
 
 interface SendMessageVariables extends SendMessageRequest {
@@ -185,12 +178,7 @@ export const useSendMessageMutation = (
         const cached = queryClient.getQueryData<InfiniteData<GetMessagesResponse>>(
           chatKeys.messages(variables.chatId)
         )
-        // sendMessage is the one api method that does not unwrapData, so its
-        // result is still {data: {id}}. Read through both shapes rather than
-        // changing the method's contract, which several callers share.
-        const sent = (data as SendMessageResponse | { data: SendMessageResponse })
-        const sentId =
-          'id' in sent ? sent.id : (sent as { data: SendMessageResponse }).data?.id
+        const sentId = data.id
         const delivered =
           !!sentId &&
           cached?.pages.some((page) =>
@@ -220,7 +208,7 @@ export const useSendMessageMutation = (
   })
 }
 
-export interface EditMessageVariables {
+interface EditMessageVariables {
   chatId: string
   messageId: string
   body: string
@@ -528,8 +516,8 @@ const tombstoneMessagesInCache = (
                   deleted: true,
                   body: '',
                   attachments: [],
-                  reaction_counts: {},
-                  my_reaction: null,
+                  reactions: {},
+                  reaction: null,
                 }
               : message
           ),
@@ -609,7 +597,7 @@ export const useForwardMessagesMutation = (
     mutationFn: ({ chatId, messageIds, toChat }: ForwardMessagesVariables) =>
       chatsApi.forwardMessages(chatId, messageIds, toChat),
     onSuccess: (data, variables, context, mutation) => {
-      forwardedBump(queryClient, data.to_chat)
+      forwardedBump(queryClient, data.destination)
       onSuccess?.(data, variables, context, mutation)
     },
     ...restOptions,
@@ -635,7 +623,7 @@ export const useForwardToFriendMutation = (
     onSuccess: (data, variables, context, mutation) => {
       // A chat may have just been created, so the list needs a real refetch
       // rather than only the sort bump.
-      forwardedBump(queryClient, data.to_chat)
+      forwardedBump(queryClient, data.destination)
       queryClient.invalidateQueries({ queryKey: chatKeys.all(), exact: true })
       onSuccess?.(data, variables, context, mutation)
     },

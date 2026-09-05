@@ -6,7 +6,7 @@
 // 'active' = current member; 'left' = we left voluntarily (kept read-only);
 // 'removed' = removed by another member (kept read-only); 'deleted' = hidden
 // tombstone (never sent in the chat list).
-export type ChatStatus = 'active' | 'left' | 'removed' | 'deleted'
+type ChatStatus = 'active' | 'left' | 'removed' | 'deleted'
 
 // A missing status is treated as active so older cached rows keep working.
 export const chatActive = (chat: Pick<Chat, 'status'>): boolean =>
@@ -31,12 +31,12 @@ export interface MarkReadResponse {
   read: number
 }
 
-export interface ChatMember {
+interface ChatMember {
   id: string
   name: string
 }
 
-export interface ChatDetail extends Omit<Chat, 'members'> {
+interface ChatDetail extends Omit<Chat, 'members'> {
   members: ChatMember[]
 }
 
@@ -77,15 +77,15 @@ export interface ChatMessage {
   member: string
   name: string
   created: number
-  reply_to?: string | null
+  reply?: string | null
   attachments: ChatMessageAttachment[]
-  reaction_counts?: ReactionCounts
-  my_reaction?: ReactionId | null
+  reactions?: ReactionCounts
+  reaction?: ReactionId | null
   deleted?: boolean
   edited?: number
 }
 
-export interface PaginationMeta {
+interface PaginationMeta {
   total?: number
   page?: number
   limit?: number
@@ -98,12 +98,9 @@ export interface GetChatsResponse extends PaginationMeta {
 export interface GetMessagesResponse extends PaginationMeta {
   messages: ChatMessage[]
   chat?: Chat
-  hasMore?: boolean
-  // Keyset cursor for the next (older) page: the oldest message's timestamp
-  // plus its id. The id disambiguates messages sharing one whole-second
-  // `nextCursor`, which a timestamp-only cursor cannot.
-  nextCursor?: number
-  nextCursorId?: string
+  more?: boolean
+  // Opaque keyset cursor for the next (older) page; null on the last one.
+  cursor?: string | null
 }
 
 export interface ChatSearchResult {
@@ -130,12 +127,12 @@ export interface CreateChatResponse {
   name: string
 }
 
-export interface NewChatFriend {
+interface NewChatFriend {
   class: string
   id: string
   identity: string
   name: string
-  chatId?: string
+  chat?: string
 }
 
 export interface GetNewChatResponse {
@@ -143,11 +140,11 @@ export interface GetNewChatResponse {
   name: string
 }
 
-export type SendMessageAttachment = File | Blob
+type SendMessageAttachment = File | Blob
 
 export interface SendMessageRequest {
   body: string
-  reply_to?: string
+  reply?: string
   attachments?: SendMessageAttachment[]
   mentions?: string[]
   captions?: string[]
@@ -204,8 +201,8 @@ export interface MemberRemoveResponse {
 }
 
 export interface ReactToMessageResponse {
-  reaction_counts: ReactionCounts
-  my_reaction: ReactionId | null
+  reactions: ReactionCounts
+  reaction: ReactionId | null
 }
 
 export interface DeleteMessagesResponse {
@@ -214,17 +211,17 @@ export interface DeleteMessagesResponse {
 
 export interface ForwardMessagesResponse {
   forwarded: string[]
-  to_chat: string
+  destination: string
 }
 
-// Whom may start a chat with this user (the chat_policy preference).
+// Whom may start a chat with this user (the policy preference).
 export type ChatPolicy = 'friends' | 'anyone'
 
 export interface ChatPreferences {
-  chat_policy: ChatPolicy
+  policy: ChatPolicy
 }
 
-export interface PersonSearchResult {
+interface PersonSearchResult {
   id: string
   name: string
   fingerprint: string

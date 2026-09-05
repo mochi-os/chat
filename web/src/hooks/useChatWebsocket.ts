@@ -98,8 +98,8 @@ const createMessageFromPayload = (
   const senderId = typeof payload.member === 'string' ? payload.member : ''
 
   const replyTo =
-    typeof payload.reply_to === 'string' && payload.reply_to
-      ? payload.reply_to
+    typeof payload.reply === 'string' && payload.reply
+      ? payload.reply
       : undefined
 
   return {
@@ -111,7 +111,7 @@ const createMessageFromPayload = (
     member: senderId,
     name: senderName,
     created,
-    reply_to: replyTo,
+    reply: replyTo,
     attachments: payload.attachments ?? [],
   }
 }
@@ -132,8 +132,7 @@ const parseReactionCounts = (value: unknown): ReactionCounts => {
 const patchMessageReactionFromWebsocket = (
   chatId: string,
   payload: NormalizedChatWebsocketMessagePayload,
-  queryClient: QueryClient,
-  currentUserId?: string
+  queryClient: QueryClient
 ) => {
   const messageId =
     typeof payload.message === 'string' ? payload.message : undefined
@@ -141,14 +140,10 @@ const patchMessageReactionFromWebsocket = (
     return
   }
 
-  const memberId =
-    typeof payload.member === 'string' ? payload.member : undefined
-  const reactionRaw = payload.reaction
-  const reaction =
-    typeof reactionRaw === 'string' && isReactionId(reactionRaw)
-      ? reactionRaw
-      : null
-  const reactionCounts = parseReactionCounts(payload.reaction_counts)
+  // Counts only. The commit hook that emits this frame knows the message,
+  // not which member changed, and every client keeps its own reaction from
+  // its own mutation's answer - so there is nothing else to patch here.
+  const reactionCounts = parseReactionCounts(payload.reactions)
 
   queryClient.setQueryData<InfiniteData<GetMessagesResponse>>(
     chatKeys.messages(chatId),
@@ -165,14 +160,7 @@ const patchMessageReactionFromWebsocket = (
             return message
           }
           found = true
-          const next: ChatMessage = {
-            ...message,
-            reaction_counts: reactionCounts,
-          }
-          if (currentUserId && memberId === currentUserId) {
-            next.my_reaction = reaction
-          }
-          return next
+          return { ...message, reactions: reactionCounts }
         }),
       }))
 
@@ -212,8 +200,8 @@ const markMessageDeletedFromWebsocket = (
             deleted: true,
             body: '',
             attachments: [],
-            reaction_counts: {},
-            my_reaction: null,
+            reactions: {},
+            reaction: null,
           }
         }),
       }))
@@ -258,7 +246,7 @@ const patchMessageEditFromWebsocket = (
   )
 }
 
-const handleWebsocketEvent = (
+export const handleWebsocketEvent = (
   chatId: string,
   payload: NormalizedChatWebsocketMessagePayload,
   queryClient: QueryClient,
@@ -272,12 +260,7 @@ const handleWebsocketEvent = (
   if (event) {
     switch (event) {
       case 'reaction':
-        patchMessageReactionFromWebsocket(
-          chatId,
-          payload,
-          queryClient,
-          currentUserId
-        )
+        patchMessageReactionFromWebsocket(chatId, payload, queryClient)
         return 'reaction'
       case 'delete':
         markMessageDeletedFromWebsocket(chatId, payload, queryClient)
@@ -303,8 +286,11 @@ const handleWebsocketEvent = (
           void invalidateChatsExceptChat(queryClient, chatId)
           return 'event'
         }
-        void queryClient.invalidateQueries({ queryKey: chatKeys.all() })
-        void queryClient.invalidateQueries({ queryKey: chatKeys.detail(chatId) })
+        // exact: both keys prefix-match ['chats', id, 'messages'], so a plain
+        // invalidate refetched every loaded page of the open conversation to
+        // learn a name or a roster changed. The members key is its own entry.
+        void queryClient.invalidateQueries({ queryKey: chatKeys.all(), exact: true })
+        void queryClient.invalidateQueries({ queryKey: chatKeys.detail(chatId), exact: true })
         void queryClient.invalidateQueries({ queryKey: ['chats', chatId, 'members'] })
         return 'event'
       }

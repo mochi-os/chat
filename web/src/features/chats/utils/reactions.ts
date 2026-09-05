@@ -36,17 +36,17 @@ const applyReaction = (
     nextReaction = reaction
   }
 
-  return { reaction_counts: updated, my_reaction: nextReaction }
+  return { reactions: updated, reaction: nextReaction }
 }
 
 export function patchMessageReaction<
   T extends {
-    reaction_counts?: ReactionCounts
-    my_reaction?: ReactionId | null
+    reactions?: ReactionCounts
+    reaction?: ReactionId | null
   },
 >(message: T, reaction: ReactionId | ''): T {
-  const counts = message.reaction_counts ?? {}
-  const userReaction = message.my_reaction ?? null
+  const counts = message.reactions ?? {}
+  const userReaction = message.reaction ?? null
   return {
     ...message,
     ...applyReaction(counts, userReaction, reaction),

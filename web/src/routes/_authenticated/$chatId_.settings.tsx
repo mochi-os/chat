@@ -23,7 +23,6 @@ import {
   ListSkeleton,
   ResponsiveDialog,
   ResponsiveDialogContent,
-  ResponsiveDialogDescription,
   ResponsiveDialogHeader,
   ResponsiveDialogTitle,
   SearchInput,
@@ -294,8 +293,9 @@ function MembersSection({
                 <Button
                   size='sm'
                   variant='ghost'
+                  aria-label={isCurrentUser ? t`Leave chat` : t`Remove ${member.name}`}
                   onClick={() => onRemoveMember(member, isCurrentUser)}
-                  className='text-muted-foreground h-8 w-8 p-0 opacity-0 group-hover:opacity-100 transition-opacity'
+                  className='text-muted-foreground h-8 w-8 p-0 opacity-0 group-hover:opacity-100 focus-visible:opacity-100 [@media(hover:none)]:opacity-100 transition-opacity'
                 >
                   {isCurrentUser ? (
                     <LogOut className='size-4' />
@@ -444,9 +444,6 @@ function AddMemberDialog({
             <UserPlus className='size-5' />
             <Trans>Add member</Trans>
           </ResponsiveDialogTitle>
-          <ResponsiveDialogDescription>
-            <Trans>Select a friend to add to this chat.</Trans>
-          </ResponsiveDialogDescription>
         </ResponsiveDialogHeader>
 
         <div className='space-y-3'>

@@ -7,7 +7,7 @@ import { useCallback, useRef, type KeyboardEvent, type PointerEvent } from 'reac
 import { useLingui } from '@lingui/react/macro'
 import { cn } from '@mochi/web'
 
-export interface VoiceWaveformProps {
+interface VoiceWaveformProps {
   peaks: number[]
   /** 0..1 playback progress for played/unplayed split */
   progress?: number

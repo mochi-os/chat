@@ -22,7 +22,7 @@ export const MENTIONS_MAX = 50
 export const CAPTIONS_MAX = 100
 
 
-/** messages/delete and messages/forward: `len(message_ids) > 100`. */
+/** messages/delete and messages/forward: `len(messages) > 100`. */
 export const BULK_MESSAGES_MAX = 100
 
 /**

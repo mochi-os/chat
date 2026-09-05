@@ -14,6 +14,7 @@ import {
 } from 'react'
 import { plural } from '@lingui/core/macro'
 import { Trans, useLingui } from '@lingui/react/macro'
+import { formatCountBadge } from '../utils'
 import type {
   UseInfiniteQueryResult,
   InfiniteData,
@@ -612,10 +613,7 @@ export function ChatMessageList({
                             }}
                             className='border-0 bg-transparent min-h-[40px] focus-visible:ring-0 focus-visible:ring-offset-0 px-0 py-1 resize-none w-full max-h-40 overflow-y-auto text-sm leading-5 focus-visible:outline-none shadow-none rounded-none'
                           />
-                          <div className='flex items-center justify-between text-[10px] text-muted-foreground/60 px-0.5 mt-1'>
-                            <span>
-                              <Trans>escape to cancel • enter to save</Trans>
-                            </span>
+                          <div className='flex items-center justify-end text-[10px] text-muted-foreground/60 px-0.5 mt-1'>
                             <div className='flex items-center gap-2 text-xs'>
                               <Button
                                 type='button'
@@ -653,7 +651,7 @@ export function ChatMessageList({
                             isDeleted && 'scale-[0.97] opacity-60',
                             enteringMessageIds.has(message.id) &&
                               'animate-in fade-in-0 slide-in-from-bottom-2 fill-mode-backwards duration-200 ease-out',
-                            (!isSelecting && !isDeleted && message.reaction_counts && Object.keys(message.reaction_counts).length > 0) && 'mb-4'
+                            (!isSelecting && !isDeleted && message.reactions && Object.keys(message.reactions).length > 0) && 'mb-4'
                           )}
                         >
                           {isGroupChat && !isSent && index === 0 && message.name ? (
@@ -683,11 +681,11 @@ export function ChatMessageList({
                             </p>
                           ) : (
                             <>
-                              {message.reply_to && onScrollToMessage ? (
+                              {message.reply && onScrollToMessage ? (
                                 <MessageQuote
-                                  quoted={messagesById.get(message.reply_to)}
+                                  quoted={messagesById.get(message.reply)}
                                   isSent={isSent}
-                                  onClick={() => onScrollToMessage(message.reply_to!)}
+                                  onClick={() => onScrollToMessage(message.reply!)}
                                 />
                               ) : null}
 
@@ -748,28 +746,28 @@ export function ChatMessageList({
                               className={cn(
                                 'rounded-lg',
                                 isSent ? "flex-row-reverse" : "flex-row",
-                                (!message.reaction_counts || Object.keys(message.reaction_counts).length === 0)
+                                (!message.reactions || Object.keys(message.reactions).length === 0)
                                   ? actionPillExpandOpacityMap.bubble
                                   : ""
                               )}
                             >
-                              {(message.reaction_counts && Object.keys(message.reaction_counts).length > 0) && (
+                              {(message.reactions && Object.keys(message.reactions).length > 0) && (
                                 <MessageReactionSummary
-                                  counts={message.reaction_counts ?? {}}
-                                  activeReaction={message.my_reaction}
+                                  counts={message.reactions ?? {}}
+                                  activeReaction={message.reaction}
                                 />
                               )}
                               
                               <div className={cn(
                                 "flex items-center gap-0.5",
                                 isSent ? "flex-row-reverse" : "flex-row",
-                                (message.reaction_counts && Object.keys(message.reaction_counts).length > 0)
+                                (message.reactions && Object.keys(message.reactions).length > 0)
                                   ? actionPillExpandMaxWidthMap.bubble[200]
                                   : ""
                               )}>
                                 {onReact && (
                                   <MessageReactionPicker
-                                    activeReaction={message.my_reaction}
+                                    activeReaction={message.reaction}
                                     onSelect={(reaction) => onReact(message.id, reaction)}
                                     isSent={isSent}
                                     className="!opacity-100"
@@ -821,7 +819,7 @@ export function ChatMessageList({
         <div className='absolute bottom-3 left-1/2 z-10 -translate-x-1/2'>
           <div className='bg-background flex items-center gap-2 rounded-full border px-4 py-2 shadow-md'>
             <span className='text-sm font-medium'>
-              <Trans>{selectedIds?.size ?? 0} selected</Trans>
+              {plural(selectedIds?.size ?? 0, { one: '# selected', other: '# selected' })}
             </span>
             <Button
               type='button'
@@ -829,7 +827,6 @@ export function ChatMessageList({
               size='sm'
               className='h-7 rounded-full px-2 text-xs'
               onClick={() => onSelectAll?.(chatMessages.map((m) => m.id))}
-              title={t`Selects messages loaded so far`}
             >
               <Trans>Select loaded</Trans>
             </Button>
@@ -866,7 +863,7 @@ export function ChatMessageList({
                 <ChevronsDown className='size-5' />
                 {newMessageCount > 0 ? (
                   <span className='bg-primary absolute -start-1 -top-1 flex min-h-5 min-w-5 items-center justify-center rounded-full px-1 text-[10px] font-semibold text-white'>
-                    {newMessageCount > 99 ? '99+' : formatNumber(newMessageCount)}
+                    {formatCountBadge(newMessageCount, formatNumber)}
                   </span>
                 ) : null}
               </Button>

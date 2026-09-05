@@ -64,15 +64,14 @@ export const chatsApi = {
 
   messages: (
     chatId: string,
-    params?: { before?: number; beforeId?: string; limit?: number }
+    params?: { cursor?: string; limit?: number }
   ) =>
     client
       .get<GetMessagesResponse | { data: GetMessagesResponse }>(
         endpoints.chat.messages(chatId),
         {
           params: {
-            before: params?.before,
-            before_id: params?.beforeId,
+            cursor: params?.cursor,
             limit: params?.limit,
           },
         }
@@ -104,8 +103,8 @@ export const chatsApi = {
     if (payload.attachments && payload.attachments.length > 0) {
       const formData = new FormData()
       formData.append('body', payload.body)
-      if (payload.reply_to) {
-        formData.append('reply_to', payload.reply_to)
+      if (payload.reply) {
+        formData.append('reply', payload.reply)
       }
       if (payload.mentions && payload.mentions.length > 0) {
         formData.append('mentions', JSON.stringify(payload.mentions))
@@ -117,14 +116,21 @@ export const chatsApi = {
         formData.append('files', file)
       })
       
-      return client.post<SendMessageResponse, FormData>(
-        endpoints.chat.send(chatId),
-        formData,
-        { timeout: 0, onUploadProgress: onProgress }
-      )
+      return client
+        .post<SendMessageResponse | { data: SendMessageResponse }, FormData>(
+          endpoints.chat.send(chatId),
+          formData,
+          { timeout: 0, onUploadProgress: onProgress }
+        )
+        .then((res) => unwrapData<SendMessageResponse>(res))
     }
-    
-    return client.post<SendMessageResponse>(endpoints.chat.send(chatId), payload)
+
+    return client
+      .post<SendMessageResponse | { data: SendMessageResponse }>(
+        endpoints.chat.send(chatId),
+        payload
+      )
+      .then((res) => unwrapData<SendMessageResponse>(res))
   },
 
   editMessage: (chatId: string, messageId: string, body: string): Promise<EditMessageResponse> =>
@@ -153,7 +159,7 @@ export const chatsApi = {
   setPreferences: (policy: ChatPolicy): Promise<void> =>
     client
       .post<{ data: Record<string, never> }>(endpoints.chat.preferencesSet, {
-        chat_policy: policy,
+        policy,
       })
       .then(() => undefined),
 
@@ -173,19 +179,29 @@ export const chatsApi = {
       .then((res) => unwrapData<GetMembersResponse>(res)),
 
   rename: (chatId: string, payload: RenameRequest) =>
-    client.post<RenameResponse>(endpoints.chat.rename(chatId), payload),
+    client
+      .post<RenameResponse | { data: RenameResponse }>(endpoints.chat.rename(chatId), payload)
+      .then((res) => unwrapData<RenameResponse>(res)),
 
   leave: (chatId: string, payload: LeaveRequest) =>
-    client.post<LeaveResponse>(endpoints.chat.leave(chatId), payload),
+    client
+      .post<LeaveResponse | { data: LeaveResponse }>(endpoints.chat.leave(chatId), payload)
+      .then((res) => unwrapData<LeaveResponse>(res)),
 
   delete: (chatId: string) =>
-    client.post<DeleteResponse>(endpoints.chat.delete(chatId)),
+    client
+      .post<DeleteResponse | { data: DeleteResponse }>(endpoints.chat.delete(chatId))
+      .then((res) => unwrapData<DeleteResponse>(res)),
 
   addMember: (chatId: string, payload: MemberAddRequest) =>
-    client.post<MemberAddResponse>(endpoints.chat.memberAdd(chatId), payload),
+    client
+      .post<MemberAddResponse | { data: MemberAddResponse }>(endpoints.chat.memberAdd(chatId), payload)
+      .then((res) => unwrapData<MemberAddResponse>(res)),
 
   removeMember: (chatId: string, payload: MemberRemoveRequest) =>
-    client.post<MemberRemoveResponse>(endpoints.chat.memberRemove(chatId), payload),
+    client
+      .post<MemberRemoveResponse | { data: MemberRemoveResponse }>(endpoints.chat.memberRemove(chatId), payload)
+      .then((res) => unwrapData<MemberRemoveResponse>(res)),
 
   reactToMessage: (
     chatId: string,
@@ -204,7 +220,7 @@ export const chatsApi = {
       .then((res) => unwrapData<ReactToMessageResponse>(res)),
 
   // Delete messages for everyone. The source chat is the URL entity; the
-  // backend skips ids the caller doesn't own. message_ids is a JSON-encoded
+  // backend skips ids the caller doesn't own. messages is a JSON-encoded
   // array string sent form-encoded (same convention as photo-reorder ids).
   deleteMessages: (
     chatId: string,
@@ -213,7 +229,7 @@ export const chatsApi = {
     client
       .post<DeleteMessagesResponse | { data: DeleteMessagesResponse }>(
         endpoints.chat.messagesDelete(chatId),
-        new URLSearchParams({ message_ids: JSON.stringify(messageIds) }),
+        new URLSearchParams({ messages: JSON.stringify(messageIds) }),
         { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } }
       )
       .then((res) => unwrapData<DeleteMessagesResponse>(res)),
@@ -229,8 +245,8 @@ export const chatsApi = {
       .post<ForwardMessagesResponse | { data: ForwardMessagesResponse }>(
         endpoints.chat.messagesForward(chatId),
         new URLSearchParams({
-          message_ids: JSON.stringify(messageIds),
-          to_chat: toChat,
+          messages: JSON.stringify(messageIds),
+          destination: toChat,
         }),
         { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } }
       )
@@ -248,7 +264,7 @@ export const chatsApi = {
       .post<ForwardMessagesResponse | { data: ForwardMessagesResponse }>(
         endpoints.chat.messagesForwardFriend(chatId),
         new URLSearchParams({
-          message_ids: JSON.stringify(messageIds),
+          messages: JSON.stringify(messageIds),
           member,
         }),
         { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } }

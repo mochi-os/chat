@@ -22,6 +22,7 @@ import { CheckCheck, Mail, Pin, PinOff, Plus, Users } from 'lucide-react'
 import { SidebarProvider, useSidebarContext } from '@/context/sidebar-context'
 import { useChatsQuery, useMarkChatReadMutation } from '@/hooks/useChats'
 import { chatActive } from '@/api/types/chats'
+import { formatCountBadge } from '@/features/chats/utils'
 import { NewChat } from '@/features/chats/components/new-chat'
 import { personAssetUrl } from '@/api/person'
 
@@ -34,7 +35,7 @@ function formatUnreadBadge(
   formatNumber: (value: number) => string
 ): string | undefined {
   if (unread <= 0) return undefined
-  return unread > 99 ? `${formatNumber(99)}+` : formatNumber(unread)
+  return formatCountBadge(unread, formatNumber)
 }
 
 function formatChatSidebarBadge(
@@ -209,12 +210,7 @@ function ChatLayoutInner() {
       return b.updated - a.updated
     })
 
-    // Resolve the real chat ID for the active URL so we can suppress its badge
-    const activeChatId = urlChatId
-      ? (chats.find((c) => c.id === urlChatId)?.id ?? urlChatId)
-      : null
-
-    // Build chat items as top-level links - use fingerprint for shorter URLs
+    // Build chat items as top-level links
     const chatItems = sortedChats.map((chat) => {
       const unread = chat.unread ?? 0
       const markedUnread = isChatMarkedUnread(chat.id)
@@ -262,11 +258,11 @@ function ChatLayoutInner() {
         endIcon: pinned ? Pin : undefined,
         tooltipAlways: true,
         meta:
-          hasChatDraft(chat.id) && chat.id !== activeChatId
+          hasChatDraft(chat.id) && chat.id !== urlChatId
             ? t`Draft`
             : undefined,
         badge:
-          chatActive(chat) && chat.id !== activeChatId
+          chatActive(chat) && chat.id !== urlChatId
             ? formatChatSidebarBadge(unread, markedUnread, formatNumber)
             : undefined,
         menu,

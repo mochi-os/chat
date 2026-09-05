@@ -19,7 +19,7 @@ msgid "Please check your internet connection and try again."
 msgstr "インターネット接続を確認して、もう一度お試しください。"
 
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:189
-#: src/features/chats/components/chat-message-list.tsx:797
+#: src/features/chats/components/chat-message-list.tsx:795
 msgid "(edited)"
 msgstr "(編集済み)"
 
@@ -27,7 +27,7 @@ msgstr "(編集済み)"
 msgid "(expand)"
 msgstr "(展開)"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:290
+#: src/routes/_authenticated/$chatId_.settings.tsx:289
 msgid "(you)"
 msgstr "(あなた)"
 
@@ -36,7 +36,11 @@ msgid "[not set]"
 msgstr "[未設定]"
 
 #. placeholder {0}: displayInfo.count
+#. placeholder {0}: selectedIds.size
+#. placeholder {0}: selectedIds?.size ?? 0
 #: ../../../lib/web/src/components/person-picker.tsx:260
+#: src/features/chats/components/chat-message-list.tsx:822
+#: src/features/chats/index.tsx:1293
 msgid "{0, plural, one {# selected} other {# selected}}"
 msgstr "{0, plural, one {# 件選択中} other {# 件選択中}}"
 
@@ -46,7 +50,7 @@ msgid "{0, plural, one {+# nested} other {+# nested}}"
 msgstr "{0, plural, other {+# ネスト}}"
 
 #. placeholder {0}: deleteTargetIds?.length ?? 0
-#: src/features/chats/index.tsx:1402
+#: src/features/chats/index.tsx:1424
 msgid "{0, plural, one {Delete message?} other {Delete # messages?}}"
 msgstr "{0, plural, other {#件のメッセージを削除しますか？}}"
 
@@ -55,16 +59,9 @@ msgstr "{0, plural, other {#件のメッセージを削除しますか？}}"
 msgid "{0} (includes you)"
 msgstr "{0}（あなたを含む）"
 
-#. placeholder {0}: selectedIds.size
-#. placeholder {0}: selectedIds?.size ?? 0
-#: src/features/chats/components/chat-message-list.tsx:824
-#: src/features/chats/index.tsx:1271
-msgid "{0} selected"
-msgstr "{0}件を選択中"
-
 #. placeholder {0}: chatDetail.chat.name
-#: src/routes/_authenticated/$chatId_.settings.tsx:90
-#: src/routes/_authenticated/$chatId_.settings.tsx:129
+#: src/routes/_authenticated/$chatId_.settings.tsx:89
+#: src/routes/_authenticated/$chatId_.settings.tsx:128
 msgid "{0} settings"
 msgstr "{0} の設定"
 
@@ -92,8 +89,8 @@ msgstr "{entityLabel} の名前"
 msgid "{hiddenCount, plural, one {Show 1 more file} other {Show # more files}}"
 msgstr "{hiddenCount, plural, other {さらに#件のファイルを表示}}"
 
-#: src/features/chats/components/chat-message-list.tsx:859
-#: src/features/chats/components/chat-message-list.tsx:876
+#: src/features/chats/components/chat-message-list.tsx:856
+#: src/features/chats/components/chat-message-list.tsx:873
 msgid "{newMessageCount, plural, one {Jump to 1 new message} other {Jump to # new messages}}"
 msgstr "{newMessageCount, plural, other {#件の新着メッセージへ移動}}"
 
@@ -106,7 +103,7 @@ msgstr "{opponentName}が引き分けを提案しました"
 msgid "{sentLabel} of {totalLabel}"
 msgstr "{sentLabel} / {totalLabel}"
 
-#: src/features/chats/index.tsx:899
+#: src/features/chats/index.tsx:888
 msgid "{skippedCount, plural, one {Skipped # file that is not audio} other {Skipped # files that are not audio}}"
 msgstr "{skippedCount, plural, other {音声ではないファイル # 件をスキップしました}}"
 
@@ -167,7 +164,7 @@ msgid "Add"
 msgstr "追加"
 
 #. placeholder {0}: friend.name
-#: src/routes/_authenticated/$chatId_.settings.tsx:486
+#: src/routes/_authenticated/$chatId_.settings.tsx:483
 msgid "Add {0} to chat"
 msgstr "{0}をチャットに追加"
 
@@ -217,7 +214,7 @@ msgstr "項目を追加…"
 msgid "Add link"
 msgstr "リンクを追加"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:263
+#: src/routes/_authenticated/$chatId_.settings.tsx:262
 #: src/routes/_authenticated/$chatId_.settings.tsx:445
 msgid "Add member"
 msgstr "メンバーを追加"
@@ -278,7 +275,7 @@ msgstr "賛成"
 msgid "AI"
 msgstr "AI"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:474
+#: src/routes/_authenticated/$chatId_.settings.tsx:471
 msgid "All your friends are already in this chat"
 msgstr "すべての友だちはすでにこのチャットに参加しています"
 
@@ -313,13 +310,9 @@ msgstr "怒り"
 
 #: ../../../lib/web/src/features/access/access-list.tsx:45
 #: ../../../lib/web/src/features/access/types.ts:36
-#: src/features/chats/components/chat-settings-dialog.tsx:44
+#: src/features/chats/components/chat-settings-dialog.tsx:38
 msgid "Anyone"
 msgstr "誰でも"
-
-#: src/features/chats/components/chat-settings-dialog.tsx:45
-msgid "Anyone can start a chat with you."
-msgstr "誰でもあなたとのチャットを開始できます。"
 
 #: ../../../lib/web/src/features/access/types.ts:35
 msgid "Anyone who is logged in"
@@ -347,7 +340,7 @@ msgid "Are you sure you want to delete this comment? This will also delete all r
 msgstr "このコメントを削除しますか？すべての返信も削除されます。"
 
 #. placeholder {0}: selectedChat?.name
-#: src/features/chats/index.tsx:1370
+#: src/features/chats/index.tsx:1392
 msgid "Are you sure you want to leave \"{0}\"? You can be added back by other members."
 msgstr "本当に「{0}」を退出しますか？他のメンバーがあなたを再追加できます。"
 
@@ -360,7 +353,7 @@ msgid "Are you sure you want to log out? You will need to log in again to access
 msgstr "本当にログアウトしますか？再度アクセスするにはログインが必要です。"
 
 #. placeholder {0}: member?.name
-#: src/routes/_authenticated/$chatId_.settings.tsx:549
+#: src/routes/_authenticated/$chatId_.settings.tsx:546
 msgid "Are you sure you want to remove {0} from this chat?"
 msgstr "本当に{0}をこのチャットから削除しますか?"
 
@@ -389,7 +382,7 @@ msgstr "返信にファイルを添付"
 msgid "Attachment"
 msgstr "添付ファイル"
 
-#: src/features/chats/index.tsx:785
+#: src/features/chats/index.tsx:774
 msgid "Attachments are too large to upload. Remove or shrink files and try again."
 msgstr "添付ファイルが大きすぎるためアップロードできません。ファイルを削除するか小さくして、もう一度お試しください。"
 
@@ -422,9 +415,9 @@ msgstr "{name} のアバター"
 msgid "Back"
 msgstr "戻る"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:103
-#: src/routes/_authenticated/$chatId_.settings.tsx:114
-#: src/routes/_authenticated/$chatId_.settings.tsx:130
+#: src/routes/_authenticated/$chatId_.settings.tsx:102
+#: src/routes/_authenticated/$chatId_.settings.tsx:113
+#: src/routes/_authenticated/$chatId_.settings.tsx:129
 msgid "Back to chat"
 msgstr "チャットに戻る"
 
@@ -433,20 +426,20 @@ msgstr "チャットに戻る"
 msgid "Back to home"
 msgstr "ホームに戻る"
 
-#: ../../../lib/web/src/components/banner-section.tsx:80
+#: ../../../lib/web/src/components/banner-section.tsx:91
 #: ../../../lib/web/src/components/entity-banner.tsx:17
 msgid "Banner"
 msgstr "バナー"
 
-#: ../../../lib/web/src/components/banner-section.tsx:69
+#: ../../../lib/web/src/components/banner-section.tsx:73
 msgid "Banner removed"
 msgstr "バナーを削除しました"
 
-#: ../../../lib/web/src/components/banner-section.tsx:69
+#: ../../../lib/web/src/components/banner-section.tsx:73
 msgid "Banner updated"
 msgstr "バナーを更新しました"
 
-#: src/features/chats/components/chat-message-list.tsx:476
+#: src/features/chats/components/chat-message-list.tsx:477
 msgid "Be the first to say something!"
 msgstr "最初のメッセージを送ってみましょう！"
 
@@ -503,12 +496,12 @@ msgstr "カメラを利用できません"
 #: ../../../lib/web/src/features/access/access-list.tsx:268
 #: ../../../lib/web/src/features/accounts/account-add.tsx:201
 #: ../../../lib/web/src/features/accounts/account-verify.tsx:91
-#: src/features/chats/components/chat-message-list.tsx:627
-#: src/features/chats/components/chat-message-list.tsx:843
-#: src/features/chats/components/chat-settings-dialog.tsx:116
+#: src/features/chats/components/chat-message-list.tsx:625
+#: src/features/chats/components/chat-message-list.tsx:840
+#: src/features/chats/components/chat-settings-dialog.tsx:105
 #: src/features/chats/components/forward-dialog.tsx:252
 #: src/features/chats/components/new-chat.tsx:356
-#: src/features/chats/index.tsx:1303
+#: src/features/chats/index.tsx:1325
 msgid "Cancel"
 msgstr "キャンセル"
 
@@ -550,10 +543,11 @@ msgstr "変更しました"
 msgid "Changed {field}"
 msgstr "{field}を変更しました"
 
-#: src/features/chats/index.tsx:95
-#: src/features/chats/index.tsx:203
-#: src/features/chats/index.tsx:203
-#: src/features/chats/index.tsx:1079
+#: src/features/chats/index.tsx:97
+#: src/features/chats/index.tsx:194
+#: src/features/chats/index.tsx:194
+#: src/features/chats/index.tsx:1083
+#: src/features/chats/index.tsx:1101
 msgid "Chat"
 msgstr "チャット"
 
@@ -561,28 +555,28 @@ msgstr "チャット"
 msgid "Chat created"
 msgstr "チャットを作成しました"
 
-#: src/features/chats/index.tsx:850
+#: src/features/chats/index.tsx:839
 msgid "Chat deleted"
 msgstr "チャットを削除しました"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:229
+#: src/routes/_authenticated/$chatId_.settings.tsx:228
 msgid "Chat ID"
 msgstr "チャットID"
 
-#: src/components/layout/chat-layout.tsx:156
+#: src/components/layout/chat-layout.tsx:157
 msgid "Chat marked as read"
 msgstr "チャットを既読にしました"
 
-#: src/components/layout/chat-layout.tsx:170
+#: src/components/layout/chat-layout.tsx:171
 msgid "Chat marked as unread"
 msgstr "チャットを未読にしました"
 
 #: src/features/chats/components/new-chat.tsx:340
-#: src/routes/_authenticated/$chatId_.settings.tsx:213
+#: src/routes/_authenticated/$chatId_.settings.tsx:212
 msgid "Chat name"
 msgstr "チャット名"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:199
+#: src/routes/_authenticated/$chatId_.settings.tsx:198
 msgid "Chat name is required"
 msgstr "チャット名は必須です"
 
@@ -590,15 +584,16 @@ msgstr "チャット名は必須です"
 msgid "Chat name..."
 msgstr "チャット名..."
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:118
+#: src/features/chats/index.tsx:1089
+#: src/routes/_authenticated/$chatId_.settings.tsx:117
 msgid "Chat not found"
 msgstr "チャットが見つかりません"
 
-#: src/components/layout/chat-layout.tsx:178
+#: src/components/layout/chat-layout.tsx:179
 msgid "Chat pinned"
 msgstr "チャットをピン留めしました"
 
-#: src/features/chats/components/chat-settings-dialog.tsx:67
+#: src/features/chats/components/chat-settings-dialog.tsx:59
 msgid "Chat policy updated"
 msgstr "チャットポリシーを更新しました"
 
@@ -606,16 +601,16 @@ msgstr "チャットポリシーを更新しました"
 msgid "Chat ready"
 msgstr "チャット準備完了"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:220
+#: src/routes/_authenticated/$chatId_.settings.tsx:219
 msgid "Chat renamed"
 msgstr "チャット名を変更しました"
 
-#: src/features/chats/index.tsx:1084
-#: src/features/chats/index.tsx:1182
-#: src/routes/_authenticated/$chatId_.settings.tsx:90
-#: src/routes/_authenticated/$chatId_.settings.tsx:103
-#: src/routes/_authenticated/$chatId_.settings.tsx:114
-#: src/routes/_authenticated/$chatId_.settings.tsx:129
+#: src/features/chats/index.tsx:1106
+#: src/features/chats/index.tsx:1204
+#: src/routes/_authenticated/$chatId_.settings.tsx:89
+#: src/routes/_authenticated/$chatId_.settings.tsx:102
+#: src/routes/_authenticated/$chatId_.settings.tsx:113
+#: src/routes/_authenticated/$chatId_.settings.tsx:128
 msgid "Chat settings"
 msgstr "チャット設定"
 
@@ -623,11 +618,11 @@ msgstr "チャット設定"
 msgid "Chat text box"
 msgstr "チャットのテキストボックス"
 
-#: src/components/layout/chat-layout.tsx:186
+#: src/components/layout/chat-layout.tsx:187
 msgid "Chat unpinned"
 msgstr "チャットのピン留めを解除しました"
 
-#: src/components/layout/chat-layout.tsx:279
+#: src/components/layout/chat-layout.tsx:275
 #: src/features/chats/components/forward-dialog.tsx:228
 msgid "Chats"
 msgstr "チャット"
@@ -657,7 +652,7 @@ msgstr "サイドバーからゲームを選ぶか、新しいゲームを始め
 msgid "Choose language"
 msgstr "言語を選択"
 
-#: ../../../lib/web/src/components/banner-section.tsx:111
+#: ../../../lib/web/src/components/banner-section.tsx:123
 #: ../../../lib/web/src/components/colour-picker.tsx:274
 #: ../../../lib/web/src/components/colour-picker.tsx:355
 #: ../../../lib/web/src/components/travelling-picker.tsx:145
@@ -673,7 +668,7 @@ msgstr "すべてクリア"
 
 #: ../../../lib/web/src/components/search-input.tsx:26
 #: src/features/chats/components/forward-dialog.tsx:198
-#: src/routes/_authenticated/$chatId_.settings.tsx:457
+#: src/routes/_authenticated/$chatId_.settings.tsx:454
 msgid "Clear search"
 msgstr "検索をクリア"
 
@@ -805,7 +800,7 @@ msgid "Continue with {label}"
 msgstr "{label} で続行"
 
 #: ../../../lib/web/src/lib/toast-utils.ts:42
-#: src/features/chats/index.tsx:676
+#: src/features/chats/index.tsx:665
 msgid "Copied"
 msgstr "コピーしました"
 
@@ -815,13 +810,13 @@ msgstr "クリップボードにコピーしました"
 
 #: ../../../lib/web/src/components/ui/copy-button.tsx:64
 #: src/features/chats/components/message-hover-actions.tsx:107
-#: src/features/chats/index.tsx:1280
+#: src/features/chats/index.tsx:1302
 msgid "Copy"
 msgstr "コピー"
 
 #. placeholder {0}: ambiguous.join(', ')
 #. placeholder {1}: unknown.join(', ')
-#: src/features/chats/index.tsx:1005
+#: src/features/chats/index.tsx:1002
 msgid "Could not link mentions. Multiple people share: {0}. Not in this chat: {1}. Pick from the @ list."
 msgstr "メンションを関連付けられませんでした。同名の人が複数います: {0}。このチャットにいません: {1}。@ リストから選択してください。"
 
@@ -861,7 +856,7 @@ msgstr "{entityLabel}を作成"
 msgid "Create a new chat"
 msgstr "新しいチャットを作成"
 
-#: src/components/layout/chat-layout.tsx:289
+#: src/components/layout/chat-layout.tsx:285
 #: src/features/chats/components/new-chat.tsx:368
 msgid "Create chat"
 msgstr "チャットを作成"
@@ -939,8 +934,8 @@ msgstr "デフォルトの並び順"
 #: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:672
 #: ../../../lib/web/src/components/game/game-end-dialogs.tsx:78
 #: src/features/chats/components/message-hover-actions.tsx:146
-#: src/features/chats/index.tsx:1296
-#: src/features/chats/index.tsx:1414
+#: src/features/chats/index.tsx:1318
+#: src/features/chats/index.tsx:1436
 msgid "Delete"
 msgstr "削除"
 
@@ -948,12 +943,12 @@ msgstr "削除"
 msgid "Delete attachment"
 msgstr "添付を削除"
 
-#: src/features/chats/index.tsx:1165
-#: src/features/chats/index.tsx:1327
+#: src/features/chats/index.tsx:1187
+#: src/features/chats/index.tsx:1349
 msgid "Delete chat"
 msgstr "チャットを削除"
 
-#: src/features/chats/index.tsx:1392
+#: src/features/chats/index.tsx:1414
 #: src/routes/_authenticated/$chatId_.settings.tsx:379
 msgid "Delete chat history"
 msgstr "チャット履歴を削除"
@@ -1006,13 +1001,13 @@ msgstr "削除しました"
 msgid "Deleted {field}"
 msgstr "{field}を削除しました"
 
-#: src/features/chats/index.tsx:849
+#: src/features/chats/index.tsx:838
 msgid "Deleting chat..."
 msgstr "チャットを削除しています..."
 
 #: ../../../lib/web/src/components/game/game-end-dialogs.tsx:75
-#: src/features/chats/index.tsx:706
-#: src/features/chats/index.tsx:1411
+#: src/features/chats/index.tsx:695
+#: src/features/chats/index.tsx:1433
 msgid "Deleting..."
 msgstr "削除中..."
 
@@ -1107,7 +1102,7 @@ msgstr "ダウンロード"
 msgid "Download failed"
 msgstr "ダウンロードに失敗しました"
 
-#: src/components/layout/chat-layout.tsx:266
+#: src/components/layout/chat-layout.tsx:262
 msgid "Draft"
 msgstr "下書き"
 
@@ -1177,7 +1172,7 @@ msgstr "メールアドレス"
 msgid "Email code"
 msgstr "メールコード"
 
-#: ../../../lib/web/src/components/banner-section.tsx:88
+#: ../../../lib/web/src/components/banner-section.tsx:99
 msgid "Enter banner text (markdown supported)..."
 msgstr "バナーテキストを入力（Markdown対応）…"
 
@@ -1192,10 +1187,6 @@ msgstr "認証アプリのコードを入力"
 #: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:381
 msgid "Error"
 msgstr "エラー"
-
-#: src/features/chats/components/chat-message-list.tsx:617
-msgid "escape to cancel • enter to save"
-msgstr "Escape でキャンセル • Enter で保存"
 
 #: ../../../lib/web/src/components/comment-tree-layout.tsx:101
 #: ../../../lib/web/src/components/comment-tree-layout.tsx:110
@@ -1226,7 +1217,7 @@ msgstr "メンバーの追加に失敗しました"
 
 #: ../../../lib/web/src/components/ui/copy-button.tsx:26
 #: ../../../lib/web/src/lib/toast-utils.ts:44
-#: src/features/chats/index.tsx:677
+#: src/features/chats/index.tsx:666
 msgid "Failed to copy"
 msgstr "コピーに失敗しました"
 
@@ -1244,7 +1235,7 @@ msgid "Failed to create link"
 msgstr "リンクの作成に失敗しました"
 
 #: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:303
-#: src/features/chats/index.tsx:708
+#: src/features/chats/index.tsx:697
 msgid "Failed to delete"
 msgstr "削除に失敗しました"
 
@@ -1252,7 +1243,7 @@ msgstr "削除に失敗しました"
 msgid "Failed to delete attachment"
 msgstr "添付ファイルの削除に失敗しました"
 
-#: src/features/chats/index.tsx:851
+#: src/features/chats/index.tsx:840
 msgid "Failed to delete chat"
 msgstr "チャットの削除に失敗しました"
 
@@ -1264,7 +1255,7 @@ msgstr "コメントの削除に失敗しました"
 msgid "Failed to delete link"
 msgstr "リンクの削除に失敗しました"
 
-#: src/features/chats/index.tsx:616
+#: src/features/chats/index.tsx:605
 msgid "Failed to edit message"
 msgstr "メッセージを編集できませんでした"
 
@@ -1276,7 +1267,7 @@ msgstr "転送できませんでした"
 msgid "Failed to get RSS token"
 msgstr "RSS トークンの取得に失敗しました"
 
-#: src/features/chats/index.tsx:832
+#: src/features/chats/index.tsx:821
 #: src/routes/_authenticated/$chatId_.settings.tsx:340
 msgid "Failed to leave chat"
 msgstr "チャットからの退出に失敗しました"
@@ -1284,6 +1275,10 @@ msgstr "チャットからの退出に失敗しました"
 #: ../../../lib/web/src/hooks/use-load-more.ts:78
 msgid "Failed to load"
 msgstr "読み込みに失敗しました"
+
+#: ../../../lib/web/src/components/banner-section.tsx:85
+msgid "Failed to load banner"
+msgstr "バナーを読み込めませんでした"
 
 #: ../../../lib/web/src/components/audit-timeline.tsx:68
 msgid "Failed to load history"
@@ -1306,11 +1301,11 @@ msgstr "プロンプトの読み込みに失敗しました"
 msgid "Failed to load video"
 msgstr "動画を読み込めませんでした"
 
-#: src/features/chats/components/chat-settings-dialog.tsx:89
+#: src/features/chats/components/chat-settings-dialog.tsx:81
 msgid "Failed to load your chat policy"
 msgstr "チャットポリシーを読み込めませんでした"
 
-#: src/components/layout/chat-layout.tsx:158
+#: src/components/layout/chat-layout.tsx:159
 msgid "Failed to mark chat as read"
 msgstr "チャットを既読にできませんでした"
 
@@ -1322,15 +1317,15 @@ msgstr "移動に失敗しました"
 msgid "Failed to post comment"
 msgstr "コメントの投稿に失敗しました"
 
-#: src/features/chats/index.tsx:660
+#: src/features/chats/index.tsx:649
 msgid "Failed to react"
 msgstr "リアクションできませんでした"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:535
+#: src/routes/_authenticated/$chatId_.settings.tsx:532
 msgid "Failed to remove member"
 msgstr "メンバーの削除に失敗しました"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:222
+#: src/routes/_authenticated/$chatId_.settings.tsx:221
 msgid "Failed to rename chat"
 msgstr "チャット名の変更に失敗しました"
 
@@ -1343,7 +1338,7 @@ msgid "Failed to revoke RSS access"
 msgstr "RSSアクセスの取り消しに失敗しました"
 
 #: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:273
-#: src/features/chats/components/chat-settings-dialog.tsx:68
+#: src/features/chats/components/chat-settings-dialog.tsx:60
 msgid "Failed to save"
 msgstr "保存に失敗しました"
 
@@ -1351,15 +1346,15 @@ msgstr "保存に失敗しました"
 msgid "Failed to save prompt"
 msgstr "プロンプトの保存に失敗しました"
 
-#: src/features/chats/index.tsx:784
+#: src/features/chats/index.tsx:773
 msgid "Failed to send message"
 msgstr "メッセージの送信に失敗しました"
 
-#: src/features/chats/index.tsx:209
+#: src/features/chats/index.tsx:200
 msgid "Failed to start chat"
 msgstr "チャットの開始に失敗しました"
 
-#: ../../../lib/web/src/components/banner-section.tsx:71
+#: ../../../lib/web/src/components/banner-section.tsx:75
 msgid "Failed to update banner"
 msgstr "バナーの更新に失敗しました"
 
@@ -1395,7 +1390,7 @@ msgstr "フラット"
 
 #: src/features/chats/components/forward-dialog.tsx:263
 #: src/features/chats/components/message-hover-actions.tsx:138
-#: src/features/chats/index.tsx:1288
+#: src/features/chats/index.tsx:1310
 msgid "Forward"
 msgstr "転送"
 
@@ -1418,11 +1413,11 @@ msgstr "金曜日"
 #: ../../../lib/web/src/components/person-picker.tsx:186
 #: src/features/chats/components/forward-dialog.tsx:236
 #: src/features/chats/components/new-chat.tsx:286
-#: src/routes/_authenticated/$chatId_.settings.tsx:480
+#: src/routes/_authenticated/$chatId_.settings.tsx:477
 msgid "Friends"
 msgstr "友だち"
 
-#: src/features/chats/components/chat-settings-dialog.tsx:39
+#: src/features/chats/components/chat-settings-dialog.tsx:37
 msgid "Friends only"
 msgstr "友達のみ"
 
@@ -1438,8 +1433,8 @@ msgstr "差出元"
 msgid "From theme"
 msgstr "テーマから"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:134
-#: src/routes/_authenticated/$chatId_.settings.tsx:211
+#: src/routes/_authenticated/$chatId_.settings.tsx:133
+#: src/routes/_authenticated/$chatId_.settings.tsx:210
 msgid "General"
 msgstr "一般"
 
@@ -1493,8 +1488,8 @@ msgstr "ヤード・ポンド法"
 msgid "Including anonymous users"
 msgstr "匿名ユーザーを含む"
 
-#: src/features/chats/components/chat-settings-dialog.tsx:80
-#: src/features/chats/index.tsx:1188
+#: src/features/chats/components/chat-settings-dialog.tsx:72
+#: src/features/chats/index.tsx:1210
 msgid "Incoming chats"
 msgstr "受信チャット"
 
@@ -1526,8 +1521,8 @@ msgstr "お探しのページは <0/>存在しないか、削除された可能�
 msgid "Item details"
 msgstr "項目の詳細"
 
-#: src/features/chats/components/chat-message-list.tsx:863
-#: src/features/chats/components/chat-message-list.tsx:880
+#: src/features/chats/components/chat-message-list.tsx:860
+#: src/features/chats/components/chat-message-list.tsx:877
 msgid "Jump to bottom"
 msgstr "一番下へ移動"
 
@@ -1552,31 +1547,32 @@ msgstr "笑い"
 msgid "Layout"
 msgstr "レイアウト"
 
-#: src/features/chats/index.tsx:1378
+#: src/features/chats/index.tsx:1400
 msgid "Leave"
 msgstr "退出"
 
-#: src/features/chats/index.tsx:1172
+#: src/features/chats/index.tsx:1194
+#: src/routes/_authenticated/$chatId_.settings.tsx:296
 #: src/routes/_authenticated/$chatId_.settings.tsx:365
 msgid "Leave chat"
 msgstr "チャットから退出"
 
-#: src/features/chats/index.tsx:1369
+#: src/features/chats/index.tsx:1391
 #: src/routes/_authenticated/$chatId_.settings.tsx:356
 msgid "Leave chat?"
 msgstr "チャットを退出しますか？"
 
-#: src/features/chats/index.tsx:830
+#: src/features/chats/index.tsx:819
 #: src/routes/_authenticated/$chatId_.settings.tsx:338
 msgid "Leaving chat..."
 msgstr "チャットから退出しています..."
 
-#: src/features/chats/index.tsx:1375
+#: src/features/chats/index.tsx:1397
 #: src/routes/_authenticated/$chatId_.settings.tsx:362
 msgid "Leaving..."
 msgstr "退出中..."
 
-#: src/features/chats/index.tsx:831
+#: src/features/chats/index.tsx:820
 #: src/routes/_authenticated/$chatId_.settings.tsx:339
 msgid "Left chat"
 msgstr "チャットから退出しました"
@@ -1660,15 +1656,15 @@ msgstr "手動"
 msgid "Mark all as read"
 msgstr "すべて既読にする"
 
-#: src/components/layout/chat-layout.tsx:241
+#: src/components/layout/chat-layout.tsx:237
 msgid "Mark as read"
 msgstr "既読にする"
 
-#: src/components/layout/chat-layout.tsx:247
+#: src/components/layout/chat-layout.tsx:243
 msgid "Mark as unread"
 msgstr "未読にする"
 
-#: src/components/layout/chat-layout.tsx:155
+#: src/components/layout/chat-layout.tsx:156
 msgid "Marking as read..."
 msgstr "既読にしています..."
 
@@ -1688,12 +1684,12 @@ msgstr "中"
 msgid "Member added"
 msgstr "メンバーを追加しました"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:534
+#: src/routes/_authenticated/$chatId_.settings.tsx:531
 msgid "Member removed"
 msgstr "メンバーを削除しました"
 
 #: ../../../lib/web/src/components/entity/entity-field-editor.tsx:377
-#: src/routes/_authenticated/$chatId_.settings.tsx:259
+#: src/routes/_authenticated/$chatId_.settings.tsx:258
 msgid "Members"
 msgstr "メンバー"
 
@@ -1718,21 +1714,22 @@ msgstr "メッセージ操作"
 msgid "Message copied"
 msgstr "メッセージをコピーしました"
 
-#: src/features/chats/index.tsx:786
+#: src/features/chats/index.tsx:775
 msgid "Message could not be sent. Attachments may be too large, or your connection failed. Try smaller files."
 msgstr "メッセージを送信できませんでした。添付ファイルが大きすぎるか、接続に問題があった可能性があります。より小さいファイルでお試しください。"
 
-#: src/features/chats/index.tsx:707
+#: src/features/chats/index.tsx:696
 msgid "Message deleted"
 msgstr "メッセージを削除しました"
 
 #. placeholder {0}: formatNumber(newMessage.length - MESSAGE_MAX_LENGTH)
 #: src/features/chats/components/chat-input.tsx:861
+#: src/features/chats/index.tsx:962
 msgid "Message is {0} characters too long"
 msgstr "メッセージが {0} 文字超過しています"
 
 #: src/features/chats/components/message-quote.tsx:60
-#: src/features/chats/index.tsx:728
+#: src/features/chats/index.tsx:717
 msgid "Message not available"
 msgstr "メッセージを表示できません"
 
@@ -1805,7 +1802,7 @@ msgid "Moved {field}"
 msgstr "{field}を移動しました"
 
 #. placeholder {0}: ambiguous.join(', ')
-#: src/features/chats/index.tsx:997
+#: src/features/chats/index.tsx:994
 msgid "Multiple people share these names: {0}. Pick them from the @ list so the right person is notified."
 msgstr "同名の人が複数います: {0}。正しい相手に通知が届くように @ リストから選択してください。"
 
@@ -1825,7 +1822,7 @@ msgstr "名前に < または > 文字を含めることはできません"
 msgid "Name is required"
 msgstr "名前が必要です"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:201
+#: src/routes/_authenticated/$chatId_.settings.tsx:200
 msgid "Name must be {CHAT_NAME_MAX_LENGTH} characters or less"
 msgstr "名前は{CHAT_NAME_MAX_LENGTH}文字以下にしてください"
 
@@ -1883,11 +1880,11 @@ msgstr "転送先のチャットがありません"
 msgid "No comments yet"
 msgstr "まだコメントがありません"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:470
+#: src/routes/_authenticated/$chatId_.settings.tsx:467
 msgid "No friends available"
 msgstr "利用可能な友達がいません"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:470
+#: src/routes/_authenticated/$chatId_.settings.tsx:467
 msgid "No friends found"
 msgstr "友だちが見つかりません"
 
@@ -1911,7 +1908,7 @@ msgstr "まだ作成可能な項目タイプがありません。必要な親項
 msgid "No matching objects"
 msgstr "一致するオブジェクトがありません"
 
-#: src/features/chats/components/chat-message-list.tsx:475
+#: src/features/chats/components/chat-message-list.tsx:476
 msgid "No messages yet"
 msgstr "まだメッセージがありません"
 
@@ -2005,7 +2002,7 @@ msgstr "未設定"
 msgid "Nothing found"
 msgstr "何も見つかりませんでした"
 
-#: src/features/chats/index.tsx:672
+#: src/features/chats/index.tsx:661
 msgid "Nothing to copy"
 msgstr "コピーする内容がありません"
 
@@ -2028,10 +2025,6 @@ msgstr "古い結果"
 msgid "On"
 msgstr "オン"
 
-#: src/features/chats/components/chat-settings-dialog.tsx:40
-msgid "Only friends can start a chat with you (default)."
-msgstr "友達のみがあなたとのチャットを開始できます（デフォルト）。"
-
 #: ../../../lib/web/src/features/errors/not-found-error.tsx:16
 msgid "Oops! Page Not Found!"
 msgstr "ページが見つかりません!"
@@ -2045,7 +2038,7 @@ msgstr "開く"
 msgid "Open actions"
 msgstr "操作メニューを開く"
 
-#: src/features/chats/index.tsx:1157
+#: src/features/chats/index.tsx:1179
 msgid "Open chat actions"
 msgstr "チャット操作を開く"
 
@@ -2147,7 +2140,7 @@ msgstr "ピープル"
 msgid "Photo or Video"
 msgstr "写真または動画"
 
-#: src/components/layout/chat-layout.tsx:232
+#: src/components/layout/chat-layout.tsx:228
 msgid "Pin chat"
 msgstr "チャットをピン留め"
 
@@ -2299,12 +2292,14 @@ msgstr "関連度 {relevance}、関心度 {weight}"
 #: ../../../lib/web/src/components/attachment-composer.tsx:330
 #: ../../../lib/web/src/components/entity/add-field-dialog.tsx:192
 #: ../../../lib/web/src/features/access/access-list.tsx:270
-#: src/routes/_authenticated/$chatId_.settings.tsx:557
+#: src/routes/_authenticated/$chatId_.settings.tsx:554
 msgid "Remove"
 msgstr "削除"
 
+#. placeholder {0}: member.name
 #. placeholder {0}: reaction.label
 #: src/features/chats/components/message-reaction-bar.tsx:121
+#: src/routes/_authenticated/$chatId_.settings.tsx:296
 msgid "Remove {0}"
 msgstr "{0}を削除"
 
@@ -2346,7 +2341,7 @@ msgstr "項目を削除"
 msgid "Remove link"
 msgstr "リンクを削除"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:548
+#: src/routes/_authenticated/$chatId_.settings.tsx:545
 msgid "Remove member?"
 msgstr "メンバーを削除しますか？"
 
@@ -2354,11 +2349,11 @@ msgstr "メンバーを削除しますか？"
 msgid "Remove voice note"
 msgstr "ボイスメモを削除"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:533
+#: src/routes/_authenticated/$chatId_.settings.tsx:530
 msgid "Removing member..."
 msgstr "メンバーを削除しています..."
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:554
+#: src/routes/_authenticated/$chatId_.settings.tsx:551
 msgid "Removing..."
 msgstr "削除中..."
 
@@ -2375,7 +2370,7 @@ msgstr "列の名前を変更"
 msgid "Rename this board column"
 msgstr "このボード列の名前を変更"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:219
+#: src/routes/_authenticated/$chatId_.settings.tsx:218
 msgid "Renaming chat..."
 msgstr "チャットの名前を変更しています..."
 
@@ -2462,18 +2457,18 @@ msgstr "土曜日"
 
 #: ../../../lib/web/src/components/ai-prompts-editor.tsx:156
 #: ../../../lib/web/src/components/attachment-composer.tsx:430
-#: ../../../lib/web/src/components/banner-section.tsx:99
+#: ../../../lib/web/src/components/banner-section.tsx:111
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:231
 #: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:172
 #: ../../../lib/web/src/components/ui/editable-field-row.tsx:126
 #: ../../../lib/web/src/components/ui/secret-field.tsx:79
-#: src/features/chats/components/chat-message-list.tsx:641
-#: src/features/chats/components/chat-settings-dialog.tsx:128
+#: src/features/chats/components/chat-message-list.tsx:639
+#: src/features/chats/components/chat-settings-dialog.tsx:117
 msgid "Save"
 msgstr "保存"
 
 #: ../../../lib/web/src/components/ai-prompts-editor.tsx:156
-#: src/features/chats/components/chat-settings-dialog.tsx:66
+#: src/features/chats/components/chat-settings-dialog.tsx:58
 msgid "Saving..."
 msgstr "保存中..."
 
@@ -2512,7 +2507,7 @@ msgstr "目的地を検索…"
 msgid "Search for origin..."
 msgstr "出発地を検索…"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:456
+#: src/routes/_authenticated/$chatId_.settings.tsx:453
 msgid "Search friends…"
 msgstr "友達を検索…"
 
@@ -2520,7 +2515,7 @@ msgstr "友達を検索…"
 msgid "Search in chat..."
 msgstr "チャット内を検索..."
 
-#: src/features/chats/index.tsx:1147
+#: src/features/chats/index.tsx:1169
 msgid "Search messages"
 msgstr "メッセージを検索"
 
@@ -2574,10 +2569,6 @@ msgstr "チャットを選択"
 msgid "Select a field"
 msgstr "フィールドを選択"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:448
-msgid "Select a friend to add to this chat."
-msgstr "このチャットに追加する友だちを選択します。"
-
 #: ../../../lib/web/src/components/game/game-empty-state.tsx:34
 msgid "Select a game"
 msgstr "ゲームを選択"
@@ -2598,7 +2589,7 @@ msgstr "アカウントの種類を選択"
 msgid "Select group"
 msgstr "グループを選択"
 
-#: src/features/chats/components/chat-message-list.tsx:834
+#: src/features/chats/components/chat-message-list.tsx:831
 msgid "Select loaded"
 msgstr "読み込み済みを選択"
 
@@ -2606,7 +2597,7 @@ msgstr "読み込み済みを選択"
 msgid "Select location"
 msgstr "場所を選択"
 
-#: src/features/chats/components/chat-message-list.tsx:549
+#: src/features/chats/components/chat-message-list.tsx:550
 msgid "Select message"
 msgstr "メッセージを選択"
 
@@ -2631,7 +2622,7 @@ msgstr "前のカードを選択"
 msgid "Select..."
 msgstr "選択…"
 
-#: src/features/chats/index.tsx:1251
+#: src/features/chats/index.tsx:1273
 msgid "Selected the newest {BULK_MESSAGES_MAX} messages, the most that can be forwarded or deleted at once"
 msgstr "最新の {BULK_MESSAGES_MAX} 件を選択しました。一度に転送または削除できる上限です"
 
@@ -2639,10 +2630,6 @@ msgstr "最新の {BULK_MESSAGES_MAX} 件を選択しました。一度に転送
 #: ../../../lib/web/src/features/access/access-dialog.tsx:309
 msgid "Selected: <0>{0}</0>"
 msgstr "選択中: <0>{0}</0>"
-
-#: src/features/chats/components/chat-message-list.tsx:832
-msgid "Selects messages loaded so far"
-msgstr "これまでに読み込んだメッセージを選択します"
 
 #: ../../../lib/web/src/features/accounts/account-verify.tsx:100
 msgid "Send again"
@@ -2755,7 +2742,7 @@ msgstr "会話を開始"
 msgid "Start the discussion by adding the first comment."
 msgstr "最初のコメントを追加してディスカッションを始めましょう。"
 
-#: src/features/chats/index.tsx:206
+#: src/features/chats/index.tsx:197
 msgid "Starting chat..."
 msgstr "チャットを開始しています..."
 
@@ -2849,7 +2836,7 @@ msgid "The chat name can be at most {CHAT_NAME_MAX_LENGTH} characters"
 msgstr "チャット名は最大 {CHAT_NAME_MAX_LENGTH} 文字です"
 
 #: src/features/chats/components/new-chat.tsx:174
-#: src/routes/_authenticated/$chatId_.settings.tsx:205
+#: src/routes/_authenticated/$chatId_.settings.tsx:204
 msgid "The chat name cannot contain < or >"
 msgstr "チャット名に < や > は使えません"
 
@@ -2870,7 +2857,7 @@ msgid "The server returned a web page instead of data."
 msgstr "サーバーがデータではなくウェブページを返しました。"
 
 #. placeholder {0}: unknown.join(', ')
-#: src/features/chats/index.tsx:1001
+#: src/features/chats/index.tsx:998
 msgid "These names are not in this chat: {0}. Pick from the @ list or remove them."
 msgstr "これらの名前はこのチャットにいません: {0}。@ リストから選択するか削除してください。"
 
@@ -2878,19 +2865,20 @@ msgstr "これらの名前はこのチャットにいません: {0}。@ リス�
 msgid "This app is not allowed to use your passkey. Allow it in Settings, under Permissions."
 msgstr "このアプリはパスキーの使用を許可されていません。設定の「権限」で許可してください。"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:166
+#: src/routes/_authenticated/$chatId_.settings.tsx:165
 msgid "this chat"
 msgstr "このチャット"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:119
+#: src/features/chats/index.tsx:1090
+#: src/routes/_authenticated/$chatId_.settings.tsx:118
 msgid "This chat may have been deleted or you don't have access to it"
 msgstr "このチャットは削除されたか、アクセス権がない可能性があります"
 
-#: src/features/chats/index.tsx:1406
+#: src/features/chats/index.tsx:1428
 msgid "This deletes the message for everyone and cannot be undone."
 msgstr "メッセージは全員に対して削除され、元に戻せません。"
 
-#: src/features/chats/components/chat-message-list.tsx:682
+#: src/features/chats/components/chat-message-list.tsx:680
 #: src/features/chats/components/message-quote.tsx:50
 msgid "This message was deleted"
 msgstr "このメッセージは削除されました"
@@ -2942,7 +2930,7 @@ msgstr "トップ"
 msgid "Travelling"
 msgstr "移動中"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:473
+#: src/routes/_authenticated/$chatId_.settings.tsx:470
 msgid "Try a different search term"
 msgstr "別の検索語を試してください"
 
@@ -3020,11 +3008,11 @@ msgstr "アメリカ合衆国"
 #: ../../../lib/web/src/components/tree-row.tsx:373
 #: ../../../lib/web/src/components/tree-table-header.tsx:70
 #: ../../../lib/web/src/features/accounts/types.ts:29
-#: src/hooks/useChatWebsocket.ts:387
+#: src/hooks/useChatWebsocket.ts:373
 msgid "Unknown"
 msgstr "不明"
 
-#: src/components/layout/chat-layout.tsx:226
+#: src/components/layout/chat-layout.tsx:222
 msgid "Unpin chat"
 msgstr "チャットのピン留めを解除"
 
@@ -3147,7 +3135,7 @@ msgstr "<0>{0}</0> に確認コードを送信しました。メールアドレ�
 msgid "Wednesday"
 msgstr "水曜日"
 
-#: src/features/chats/index.tsx:481
+#: src/features/chats/index.tsx:470
 msgid "You"
 msgstr "あなた"
 
@@ -3159,15 +3147,15 @@ msgstr "この友だちとはすでにチャットがあります"
 msgid "You already have chats with:"
 msgstr "すでに次の人とチャットがあります:"
 
-#: src/features/chats/index.tsx:984
+#: src/features/chats/index.tsx:981
 msgid "You can attach at most {CAPTIONS_MAX} files to a message"
 msgstr "1 件のメッセージに添付できるのは最大 {CAPTIONS_MAX} 件です"
 
-#: src/features/chats/index.tsx:980
+#: src/features/chats/index.tsx:977
 msgid "You can mention at most {MENTIONS_MAX} people in a message"
 msgstr "1 件のメッセージでメンションできるのは最大 {MENTIONS_MAX} 人です"
 
-#: src/features/chats/index.tsx:689
+#: src/features/chats/index.tsx:678
 msgid "You can only delete your own messages"
 msgstr "削除できるのは自分のメッセージのみです"
 
@@ -3175,11 +3163,11 @@ msgstr "削除できるのは自分のメッセージのみです"
 msgid "You do not have access to this section."
 msgstr "このセクションへのアクセス権がありません。"
 
-#: src/features/chats/index.tsx:1314
+#: src/features/chats/index.tsx:1336
 msgid "You left this chat"
 msgstr "このチャットを退出しました"
 
-#: src/features/chats/index.tsx:1313
+#: src/features/chats/index.tsx:1335
 msgid "You were removed from this chat"
 msgstr "このチャットから削除されました"
 

@@ -19,7 +19,7 @@ msgid "Please check your internet connection and try again."
 msgstr "Gaan asseblief jou internetverbinding na en probeer weer."
 
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:189
-#: src/features/chats/components/chat-message-list.tsx:797
+#: src/features/chats/components/chat-message-list.tsx:795
 msgid "(edited)"
 msgstr "(gewysig)"
 
@@ -27,7 +27,7 @@ msgstr "(gewysig)"
 msgid "(expand)"
 msgstr "(uitbrei)"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:290
+#: src/routes/_authenticated/$chatId_.settings.tsx:289
 msgid "(you)"
 msgstr "(jy)"
 
@@ -36,7 +36,11 @@ msgid "[not set]"
 msgstr "[nie gestel nie]"
 
 #. placeholder {0}: displayInfo.count
+#. placeholder {0}: selectedIds.size
+#. placeholder {0}: selectedIds?.size ?? 0
 #: ../../../lib/web/src/components/person-picker.tsx:260
+#: src/features/chats/components/chat-message-list.tsx:822
+#: src/features/chats/index.tsx:1293
 msgid "{0, plural, one {# selected} other {# selected}}"
 msgstr "{0, plural, one {# gekies} other {# gekies}}"
 
@@ -46,7 +50,7 @@ msgid "{0, plural, one {+# nested} other {+# nested}}"
 msgstr "{0, plural, one {+# geneste} other {+# geneste}}"
 
 #. placeholder {0}: deleteTargetIds?.length ?? 0
-#: src/features/chats/index.tsx:1402
+#: src/features/chats/index.tsx:1424
 msgid "{0, plural, one {Delete message?} other {Delete # messages?}}"
 msgstr "{0, plural, one {Vee boodskap uit?} other {Vee # boodskappe uit?}}"
 
@@ -55,16 +59,9 @@ msgstr "{0, plural, one {Vee boodskap uit?} other {Vee # boodskappe uit?}}"
 msgid "{0} (includes you)"
 msgstr "{0} (sluit jou in)"
 
-#. placeholder {0}: selectedIds.size
-#. placeholder {0}: selectedIds?.size ?? 0
-#: src/features/chats/components/chat-message-list.tsx:824
-#: src/features/chats/index.tsx:1271
-msgid "{0} selected"
-msgstr "{0} gekies"
-
 #. placeholder {0}: chatDetail.chat.name
-#: src/routes/_authenticated/$chatId_.settings.tsx:90
-#: src/routes/_authenticated/$chatId_.settings.tsx:129
+#: src/routes/_authenticated/$chatId_.settings.tsx:89
+#: src/routes/_authenticated/$chatId_.settings.tsx:128
 msgid "{0} settings"
 msgstr "{0} instellings"
 
@@ -92,8 +89,8 @@ msgstr "{entityLabel}-naam"
 msgid "{hiddenCount, plural, one {Show 1 more file} other {Show # more files}}"
 msgstr "{hiddenCount, plural, one {Wys nog 1 lêer} other {Wys nog # lêers}}"
 
-#: src/features/chats/components/chat-message-list.tsx:859
-#: src/features/chats/components/chat-message-list.tsx:876
+#: src/features/chats/components/chat-message-list.tsx:856
+#: src/features/chats/components/chat-message-list.tsx:873
 msgid "{newMessageCount, plural, one {Jump to 1 new message} other {Jump to # new messages}}"
 msgstr "{newMessageCount, plural, one {Spring na 1 nuwe boodskap} other {Spring na # nuwe boodskappe}}"
 
@@ -106,7 +103,7 @@ msgstr "{opponentName} het gelykop aangebied"
 msgid "{sentLabel} of {totalLabel}"
 msgstr "{sentLabel} van {totalLabel}"
 
-#: src/features/chats/index.tsx:899
+#: src/features/chats/index.tsx:888
 msgid "{skippedCount, plural, one {Skipped # file that is not audio} other {Skipped # files that are not audio}}"
 msgstr "{skippedCount, plural, one {# lêer oorgeslaan wat nie oudio is nie} other {# lêers oorgeslaan wat nie oudio is nie}}"
 
@@ -167,7 +164,7 @@ msgid "Add"
 msgstr "Voeg by"
 
 #. placeholder {0}: friend.name
-#: src/routes/_authenticated/$chatId_.settings.tsx:486
+#: src/routes/_authenticated/$chatId_.settings.tsx:483
 msgid "Add {0} to chat"
 msgstr "Voeg {0} by gesprek"
 
@@ -217,7 +214,7 @@ msgstr "Voeg item by..."
 msgid "Add link"
 msgstr "Voeg skakel by"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:263
+#: src/routes/_authenticated/$chatId_.settings.tsx:262
 #: src/routes/_authenticated/$chatId_.settings.tsx:445
 msgid "Add member"
 msgstr "Voeg lid by"
@@ -278,7 +275,7 @@ msgstr "Saamstem"
 msgid "AI"
 msgstr "KI"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:474
+#: src/routes/_authenticated/$chatId_.settings.tsx:471
 msgid "All your friends are already in this chat"
 msgstr "Al jou vriende is reeds in hierdie klets"
 
@@ -313,13 +310,9 @@ msgstr "Kwaad"
 
 #: ../../../lib/web/src/features/access/access-list.tsx:45
 #: ../../../lib/web/src/features/access/types.ts:36
-#: src/features/chats/components/chat-settings-dialog.tsx:44
+#: src/features/chats/components/chat-settings-dialog.tsx:38
 msgid "Anyone"
 msgstr "Enigiemand"
-
-#: src/features/chats/components/chat-settings-dialog.tsx:45
-msgid "Anyone can start a chat with you."
-msgstr "Enigiemand kan 'n klets met jou begin."
 
 #: ../../../lib/web/src/features/access/types.ts:35
 msgid "Anyone who is logged in"
@@ -347,7 +340,7 @@ msgid "Are you sure you want to delete this comment? This will also delete all r
 msgstr "Is jy seker jy wil hierdie kommentaar verwyder? Dit sal ook alle antwoorde verwyder."
 
 #. placeholder {0}: selectedChat?.name
-#: src/features/chats/index.tsx:1370
+#: src/features/chats/index.tsx:1392
 msgid "Are you sure you want to leave \"{0}\"? You can be added back by other members."
 msgstr "Is jy seker jy wil \"{0}\" verlaat? Ander lede kan jou weer byvoeg."
 
@@ -360,7 +353,7 @@ msgid "Are you sure you want to log out? You will need to log in again to access
 msgstr "Is jy seker jy wil afmeld? Jy sal weer moet aanmeld om toegang tot jou rekening te kry."
 
 #. placeholder {0}: member?.name
-#: src/routes/_authenticated/$chatId_.settings.tsx:549
+#: src/routes/_authenticated/$chatId_.settings.tsx:546
 msgid "Are you sure you want to remove {0} from this chat?"
 msgstr "Is jy seker jy wil {0} uit hierdie gesprek verwyder?"
 
@@ -389,7 +382,7 @@ msgstr "Heg antwoordlêers aan"
 msgid "Attachment"
 msgstr "Aanhegsel"
 
-#: src/features/chats/index.tsx:785
+#: src/features/chats/index.tsx:774
 msgid "Attachments are too large to upload. Remove or shrink files and try again."
 msgstr "Aanhangsels is te groot om op te laai. Verwyder of verklein lêers en probeer weer."
 
@@ -422,9 +415,9 @@ msgstr "Avatar vir {name}"
 msgid "Back"
 msgstr "Terug"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:103
-#: src/routes/_authenticated/$chatId_.settings.tsx:114
-#: src/routes/_authenticated/$chatId_.settings.tsx:130
+#: src/routes/_authenticated/$chatId_.settings.tsx:102
+#: src/routes/_authenticated/$chatId_.settings.tsx:113
+#: src/routes/_authenticated/$chatId_.settings.tsx:129
 msgid "Back to chat"
 msgstr "Terug na klets"
 
@@ -433,20 +426,20 @@ msgstr "Terug na klets"
 msgid "Back to home"
 msgstr "Terug na tuis"
 
-#: ../../../lib/web/src/components/banner-section.tsx:80
+#: ../../../lib/web/src/components/banner-section.tsx:91
 #: ../../../lib/web/src/components/entity-banner.tsx:17
 msgid "Banner"
 msgstr "Banier"
 
-#: ../../../lib/web/src/components/banner-section.tsx:69
+#: ../../../lib/web/src/components/banner-section.tsx:73
 msgid "Banner removed"
 msgstr "Banier verwyder"
 
-#: ../../../lib/web/src/components/banner-section.tsx:69
+#: ../../../lib/web/src/components/banner-section.tsx:73
 msgid "Banner updated"
 msgstr "Banier bygewerk"
 
-#: src/features/chats/components/chat-message-list.tsx:476
+#: src/features/chats/components/chat-message-list.tsx:477
 msgid "Be the first to say something!"
 msgstr "Wees die eerste om iets te sê!"
 
@@ -503,12 +496,12 @@ msgstr "Kamera nie beskikbaar nie"
 #: ../../../lib/web/src/features/access/access-list.tsx:268
 #: ../../../lib/web/src/features/accounts/account-add.tsx:201
 #: ../../../lib/web/src/features/accounts/account-verify.tsx:91
-#: src/features/chats/components/chat-message-list.tsx:627
-#: src/features/chats/components/chat-message-list.tsx:843
-#: src/features/chats/components/chat-settings-dialog.tsx:116
+#: src/features/chats/components/chat-message-list.tsx:625
+#: src/features/chats/components/chat-message-list.tsx:840
+#: src/features/chats/components/chat-settings-dialog.tsx:105
 #: src/features/chats/components/forward-dialog.tsx:252
 #: src/features/chats/components/new-chat.tsx:356
-#: src/features/chats/index.tsx:1303
+#: src/features/chats/index.tsx:1325
 msgid "Cancel"
 msgstr "Kanselleer"
 
@@ -550,10 +543,11 @@ msgstr "Verander"
 msgid "Changed {field}"
 msgstr "{field} verander"
 
-#: src/features/chats/index.tsx:95
-#: src/features/chats/index.tsx:203
-#: src/features/chats/index.tsx:203
-#: src/features/chats/index.tsx:1079
+#: src/features/chats/index.tsx:97
+#: src/features/chats/index.tsx:194
+#: src/features/chats/index.tsx:194
+#: src/features/chats/index.tsx:1083
+#: src/features/chats/index.tsx:1101
 msgid "Chat"
 msgstr "Klets"
 
@@ -561,28 +555,28 @@ msgstr "Klets"
 msgid "Chat created"
 msgstr "Klets geskep"
 
-#: src/features/chats/index.tsx:850
+#: src/features/chats/index.tsx:839
 msgid "Chat deleted"
 msgstr "Klets verwyder"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:229
+#: src/routes/_authenticated/$chatId_.settings.tsx:228
 msgid "Chat ID"
 msgstr "Klets-ID"
 
-#: src/components/layout/chat-layout.tsx:156
+#: src/components/layout/chat-layout.tsx:157
 msgid "Chat marked as read"
 msgstr "Gesprek as gelees gemerk"
 
-#: src/components/layout/chat-layout.tsx:170
+#: src/components/layout/chat-layout.tsx:171
 msgid "Chat marked as unread"
 msgstr "Gesprek as ongelees gemerk"
 
 #: src/features/chats/components/new-chat.tsx:340
-#: src/routes/_authenticated/$chatId_.settings.tsx:213
+#: src/routes/_authenticated/$chatId_.settings.tsx:212
 msgid "Chat name"
 msgstr "Kletsnaam"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:199
+#: src/routes/_authenticated/$chatId_.settings.tsx:198
 msgid "Chat name is required"
 msgstr "Gespreknaam word vereis"
 
@@ -590,15 +584,16 @@ msgstr "Gespreknaam word vereis"
 msgid "Chat name..."
 msgstr "Kletsnaam..."
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:118
+#: src/features/chats/index.tsx:1089
+#: src/routes/_authenticated/$chatId_.settings.tsx:117
 msgid "Chat not found"
 msgstr "Klets nie gevind nie"
 
-#: src/components/layout/chat-layout.tsx:178
+#: src/components/layout/chat-layout.tsx:179
 msgid "Chat pinned"
 msgstr "Gesprek vasgespeld"
 
-#: src/features/chats/components/chat-settings-dialog.tsx:67
+#: src/features/chats/components/chat-settings-dialog.tsx:59
 msgid "Chat policy updated"
 msgstr "Kletsbeleid opgedateer"
 
@@ -606,16 +601,16 @@ msgstr "Kletsbeleid opgedateer"
 msgid "Chat ready"
 msgstr "Klets gereed"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:220
+#: src/routes/_authenticated/$chatId_.settings.tsx:219
 msgid "Chat renamed"
 msgstr "Klets hernoem"
 
-#: src/features/chats/index.tsx:1084
-#: src/features/chats/index.tsx:1182
-#: src/routes/_authenticated/$chatId_.settings.tsx:90
-#: src/routes/_authenticated/$chatId_.settings.tsx:103
-#: src/routes/_authenticated/$chatId_.settings.tsx:114
-#: src/routes/_authenticated/$chatId_.settings.tsx:129
+#: src/features/chats/index.tsx:1106
+#: src/features/chats/index.tsx:1204
+#: src/routes/_authenticated/$chatId_.settings.tsx:89
+#: src/routes/_authenticated/$chatId_.settings.tsx:102
+#: src/routes/_authenticated/$chatId_.settings.tsx:113
+#: src/routes/_authenticated/$chatId_.settings.tsx:128
 msgid "Chat settings"
 msgstr "Kletsinstellings"
 
@@ -623,11 +618,11 @@ msgstr "Kletsinstellings"
 msgid "Chat text box"
 msgstr "Klets-teksboks"
 
-#: src/components/layout/chat-layout.tsx:186
+#: src/components/layout/chat-layout.tsx:187
 msgid "Chat unpinned"
 msgstr "Gesprek ontspeld"
 
-#: src/components/layout/chat-layout.tsx:279
+#: src/components/layout/chat-layout.tsx:275
 #: src/features/chats/components/forward-dialog.tsx:228
 msgid "Chats"
 msgstr "Kletse"
@@ -657,7 +652,7 @@ msgstr "Kies 'n speletjie uit die sybalk of begin 'n nuwe een."
 msgid "Choose language"
 msgstr "Kies taal"
 
-#: ../../../lib/web/src/components/banner-section.tsx:111
+#: ../../../lib/web/src/components/banner-section.tsx:123
 #: ../../../lib/web/src/components/colour-picker.tsx:274
 #: ../../../lib/web/src/components/colour-picker.tsx:355
 #: ../../../lib/web/src/components/travelling-picker.tsx:145
@@ -673,7 +668,7 @@ msgstr "Maak alles skoon"
 
 #: ../../../lib/web/src/components/search-input.tsx:26
 #: src/features/chats/components/forward-dialog.tsx:198
-#: src/routes/_authenticated/$chatId_.settings.tsx:457
+#: src/routes/_authenticated/$chatId_.settings.tsx:454
 msgid "Clear search"
 msgstr "Maak soektog skoon"
 
@@ -805,7 +800,7 @@ msgid "Continue with {label}"
 msgstr "Gaan voort met {label}"
 
 #: ../../../lib/web/src/lib/toast-utils.ts:42
-#: src/features/chats/index.tsx:676
+#: src/features/chats/index.tsx:665
 msgid "Copied"
 msgstr "Gekopieer"
 
@@ -815,13 +810,13 @@ msgstr "Gekopieer na knipbord"
 
 #: ../../../lib/web/src/components/ui/copy-button.tsx:64
 #: src/features/chats/components/message-hover-actions.tsx:107
-#: src/features/chats/index.tsx:1280
+#: src/features/chats/index.tsx:1302
 msgid "Copy"
 msgstr "Kopieer"
 
 #. placeholder {0}: ambiguous.join(', ')
 #. placeholder {1}: unknown.join(', ')
-#: src/features/chats/index.tsx:1005
+#: src/features/chats/index.tsx:1002
 msgid "Could not link mentions. Multiple people share: {0}. Not in this chat: {1}. Pick from the @ list."
 msgstr "Kon nie verwysings koppel nie. Verskeie mense deel: {0}. Nie in hierdie klets nie: {1}. Kies uit die @-lys."
 
@@ -861,7 +856,7 @@ msgstr "Skep {entityLabel}"
 msgid "Create a new chat"
 msgstr "Skep 'n nuwe klets"
 
-#: src/components/layout/chat-layout.tsx:289
+#: src/components/layout/chat-layout.tsx:285
 #: src/features/chats/components/new-chat.tsx:368
 msgid "Create chat"
 msgstr "Skep klets"
@@ -939,8 +934,8 @@ msgstr "Verstek sortering"
 #: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:672
 #: ../../../lib/web/src/components/game/game-end-dialogs.tsx:78
 #: src/features/chats/components/message-hover-actions.tsx:146
-#: src/features/chats/index.tsx:1296
-#: src/features/chats/index.tsx:1414
+#: src/features/chats/index.tsx:1318
+#: src/features/chats/index.tsx:1436
 msgid "Delete"
 msgstr "Verwyder"
 
@@ -948,12 +943,12 @@ msgstr "Verwyder"
 msgid "Delete attachment"
 msgstr "Verwyder aanhangsel"
 
-#: src/features/chats/index.tsx:1165
-#: src/features/chats/index.tsx:1327
+#: src/features/chats/index.tsx:1187
+#: src/features/chats/index.tsx:1349
 msgid "Delete chat"
 msgstr "Verwyder klets"
 
-#: src/features/chats/index.tsx:1392
+#: src/features/chats/index.tsx:1414
 #: src/routes/_authenticated/$chatId_.settings.tsx:379
 msgid "Delete chat history"
 msgstr "Verwyder kletsgeskiedenis"
@@ -1006,13 +1001,13 @@ msgstr "Geskrap"
 msgid "Deleted {field}"
 msgstr "{field} geskrap"
 
-#: src/features/chats/index.tsx:849
+#: src/features/chats/index.tsx:838
 msgid "Deleting chat..."
 msgstr "Klets word uitgevee..."
 
 #: ../../../lib/web/src/components/game/game-end-dialogs.tsx:75
-#: src/features/chats/index.tsx:706
-#: src/features/chats/index.tsx:1411
+#: src/features/chats/index.tsx:695
+#: src/features/chats/index.tsx:1433
 msgid "Deleting..."
 msgstr "Verwyder..."
 
@@ -1107,7 +1102,7 @@ msgstr "Laai af"
 msgid "Download failed"
 msgstr "Aflaai het misluk"
 
-#: src/components/layout/chat-layout.tsx:266
+#: src/components/layout/chat-layout.tsx:262
 msgid "Draft"
 msgstr "Konsep"
 
@@ -1177,7 +1172,7 @@ msgstr "E-pos"
 msgid "Email code"
 msgstr "E-poskode"
 
-#: ../../../lib/web/src/components/banner-section.tsx:88
+#: ../../../lib/web/src/components/banner-section.tsx:99
 msgid "Enter banner text (markdown supported)..."
 msgstr "Tik banierteks in (markdown ondersteun)..."
 
@@ -1192,10 +1187,6 @@ msgstr "Voer jou verifikator-kode in"
 #: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:381
 msgid "Error"
 msgstr "Fout"
-
-#: src/features/chats/components/chat-message-list.tsx:617
-msgid "escape to cancel • enter to save"
-msgstr "Escape om te kanselleer • Enter om te stoor"
 
 #: ../../../lib/web/src/components/comment-tree-layout.tsx:101
 #: ../../../lib/web/src/components/comment-tree-layout.tsx:110
@@ -1226,7 +1217,7 @@ msgstr "Kon nie lid byvoeg nie"
 
 #: ../../../lib/web/src/components/ui/copy-button.tsx:26
 #: ../../../lib/web/src/lib/toast-utils.ts:44
-#: src/features/chats/index.tsx:677
+#: src/features/chats/index.tsx:666
 msgid "Failed to copy"
 msgstr "Kon nie kopieer nie"
 
@@ -1244,7 +1235,7 @@ msgid "Failed to create link"
 msgstr "Kon nie skakel skep nie"
 
 #: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:303
-#: src/features/chats/index.tsx:708
+#: src/features/chats/index.tsx:697
 msgid "Failed to delete"
 msgstr "Kon nie verwyder nie"
 
@@ -1252,7 +1243,7 @@ msgstr "Kon nie verwyder nie"
 msgid "Failed to delete attachment"
 msgstr "Kon nie aanhangsel verwyder nie"
 
-#: src/features/chats/index.tsx:851
+#: src/features/chats/index.tsx:840
 msgid "Failed to delete chat"
 msgstr "Kon nie geselsie verwyder nie"
 
@@ -1264,7 +1255,7 @@ msgstr "Kon nie kommentaar verwyder nie"
 msgid "Failed to delete link"
 msgstr "Kon nie skakel verwyder nie"
 
-#: src/features/chats/index.tsx:616
+#: src/features/chats/index.tsx:605
 msgid "Failed to edit message"
 msgstr "Kon nie die boodskap wysig nie"
 
@@ -1276,7 +1267,7 @@ msgstr "Kon nie aanstuur nie"
 msgid "Failed to get RSS token"
 msgstr "Kon nie RSS-token kry nie"
 
-#: src/features/chats/index.tsx:832
+#: src/features/chats/index.tsx:821
 #: src/routes/_authenticated/$chatId_.settings.tsx:340
 msgid "Failed to leave chat"
 msgstr "Kon nie geselsie verlaat nie"
@@ -1284,6 +1275,10 @@ msgstr "Kon nie geselsie verlaat nie"
 #: ../../../lib/web/src/hooks/use-load-more.ts:78
 msgid "Failed to load"
 msgstr "Kon nie laai nie"
+
+#: ../../../lib/web/src/components/banner-section.tsx:85
+msgid "Failed to load banner"
+msgstr "Kon nie banier laai nie"
 
 #: ../../../lib/web/src/components/audit-timeline.tsx:68
 msgid "Failed to load history"
@@ -1306,11 +1301,11 @@ msgstr "Kon nie aanwysings laai nie"
 msgid "Failed to load video"
 msgstr "Kon nie video laai nie"
 
-#: src/features/chats/components/chat-settings-dialog.tsx:89
+#: src/features/chats/components/chat-settings-dialog.tsx:81
 msgid "Failed to load your chat policy"
 msgstr "Kon nie jou kletsbeleid laai nie"
 
-#: src/components/layout/chat-layout.tsx:158
+#: src/components/layout/chat-layout.tsx:159
 msgid "Failed to mark chat as read"
 msgstr "Kon nie gesprek as gelees merk nie"
 
@@ -1322,15 +1317,15 @@ msgstr "Kon nie skuif nie"
 msgid "Failed to post comment"
 msgstr "Kon nie kommentaar plaas nie"
 
-#: src/features/chats/index.tsx:660
+#: src/features/chats/index.tsx:649
 msgid "Failed to react"
 msgstr "Kon nie reageer nie"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:535
+#: src/routes/_authenticated/$chatId_.settings.tsx:532
 msgid "Failed to remove member"
 msgstr "Kon nie lid verwyder nie"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:222
+#: src/routes/_authenticated/$chatId_.settings.tsx:221
 msgid "Failed to rename chat"
 msgstr "Kon nie geselsie hernoem nie"
 
@@ -1343,7 +1338,7 @@ msgid "Failed to revoke RSS access"
 msgstr "Kon nie RSS-toegang herroep nie"
 
 #: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:273
-#: src/features/chats/components/chat-settings-dialog.tsx:68
+#: src/features/chats/components/chat-settings-dialog.tsx:60
 msgid "Failed to save"
 msgstr "Kon nie stoor nie"
 
@@ -1351,15 +1346,15 @@ msgstr "Kon nie stoor nie"
 msgid "Failed to save prompt"
 msgstr "Kon nie aanwysing stoor nie"
 
-#: src/features/chats/index.tsx:784
+#: src/features/chats/index.tsx:773
 msgid "Failed to send message"
 msgstr "Kon nie boodskap stuur nie"
 
-#: src/features/chats/index.tsx:209
+#: src/features/chats/index.tsx:200
 msgid "Failed to start chat"
 msgstr "Kon nie geselsie begin nie"
 
-#: ../../../lib/web/src/components/banner-section.tsx:71
+#: ../../../lib/web/src/components/banner-section.tsx:75
 msgid "Failed to update banner"
 msgstr "Kon nie banier opdateer nie"
 
@@ -1395,7 +1390,7 @@ msgstr "Plat"
 
 #: src/features/chats/components/forward-dialog.tsx:263
 #: src/features/chats/components/message-hover-actions.tsx:138
-#: src/features/chats/index.tsx:1288
+#: src/features/chats/index.tsx:1310
 msgid "Forward"
 msgstr "Stuur aan"
 
@@ -1418,11 +1413,11 @@ msgstr "Vrydag"
 #: ../../../lib/web/src/components/person-picker.tsx:186
 #: src/features/chats/components/forward-dialog.tsx:236
 #: src/features/chats/components/new-chat.tsx:286
-#: src/routes/_authenticated/$chatId_.settings.tsx:480
+#: src/routes/_authenticated/$chatId_.settings.tsx:477
 msgid "Friends"
 msgstr "Vriende"
 
-#: src/features/chats/components/chat-settings-dialog.tsx:39
+#: src/features/chats/components/chat-settings-dialog.tsx:37
 msgid "Friends only"
 msgstr "Slegs vriende"
 
@@ -1438,8 +1433,8 @@ msgstr "Van"
 msgid "From theme"
 msgstr "Vanaf tema"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:134
-#: src/routes/_authenticated/$chatId_.settings.tsx:211
+#: src/routes/_authenticated/$chatId_.settings.tsx:133
+#: src/routes/_authenticated/$chatId_.settings.tsx:210
 msgid "General"
 msgstr "Algemeen"
 
@@ -1493,8 +1488,8 @@ msgstr "Imperiaal"
 msgid "Including anonymous users"
 msgstr "Insluitend anonieme gebruikers"
 
-#: src/features/chats/components/chat-settings-dialog.tsx:80
-#: src/features/chats/index.tsx:1188
+#: src/features/chats/components/chat-settings-dialog.tsx:72
+#: src/features/chats/index.tsx:1210
 msgid "Incoming chats"
 msgstr "Inkomende kletse"
 
@@ -1526,8 +1521,8 @@ msgstr "Dit lyk of die bladsy wat jy soek <0/>nie bestaan nie of verwyder is."
 msgid "Item details"
 msgstr "Itembesonderhede"
 
-#: src/features/chats/components/chat-message-list.tsx:863
-#: src/features/chats/components/chat-message-list.tsx:880
+#: src/features/chats/components/chat-message-list.tsx:860
+#: src/features/chats/components/chat-message-list.tsx:877
 msgid "Jump to bottom"
 msgstr "Spring na onder"
 
@@ -1552,31 +1547,32 @@ msgstr "Lag"
 msgid "Layout"
 msgstr "Uitleg"
 
-#: src/features/chats/index.tsx:1378
+#: src/features/chats/index.tsx:1400
 msgid "Leave"
 msgstr "Verlaat"
 
-#: src/features/chats/index.tsx:1172
+#: src/features/chats/index.tsx:1194
+#: src/routes/_authenticated/$chatId_.settings.tsx:296
 #: src/routes/_authenticated/$chatId_.settings.tsx:365
 msgid "Leave chat"
 msgstr "Verlaat geselsie"
 
-#: src/features/chats/index.tsx:1369
+#: src/features/chats/index.tsx:1391
 #: src/routes/_authenticated/$chatId_.settings.tsx:356
 msgid "Leave chat?"
 msgstr "Verlaat geselsie?"
 
-#: src/features/chats/index.tsx:830
+#: src/features/chats/index.tsx:819
 #: src/routes/_authenticated/$chatId_.settings.tsx:338
 msgid "Leaving chat..."
 msgstr "Klets word verlaat..."
 
-#: src/features/chats/index.tsx:1375
+#: src/features/chats/index.tsx:1397
 #: src/routes/_authenticated/$chatId_.settings.tsx:362
 msgid "Leaving..."
 msgstr "Verlaat..."
 
-#: src/features/chats/index.tsx:831
+#: src/features/chats/index.tsx:820
 #: src/routes/_authenticated/$chatId_.settings.tsx:339
 msgid "Left chat"
 msgstr "Geselsie verlaat"
@@ -1660,15 +1656,15 @@ msgstr "Handmatig"
 msgid "Mark all as read"
 msgstr "Merk alles as gelees"
 
-#: src/components/layout/chat-layout.tsx:241
+#: src/components/layout/chat-layout.tsx:237
 msgid "Mark as read"
 msgstr "Merk as gelees"
 
-#: src/components/layout/chat-layout.tsx:247
+#: src/components/layout/chat-layout.tsx:243
 msgid "Mark as unread"
 msgstr "Merk as ongelees"
 
-#: src/components/layout/chat-layout.tsx:155
+#: src/components/layout/chat-layout.tsx:156
 msgid "Marking as read..."
 msgstr "Word as gelees gemerk..."
 
@@ -1688,12 +1684,12 @@ msgstr "Medium"
 msgid "Member added"
 msgstr "Lid bygevoeg"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:534
+#: src/routes/_authenticated/$chatId_.settings.tsx:531
 msgid "Member removed"
 msgstr "Lid verwyder"
 
 #: ../../../lib/web/src/components/entity/entity-field-editor.tsx:377
-#: src/routes/_authenticated/$chatId_.settings.tsx:259
+#: src/routes/_authenticated/$chatId_.settings.tsx:258
 msgid "Members"
 msgstr "Lede"
 
@@ -1718,21 +1714,22 @@ msgstr "Boodskapaksies"
 msgid "Message copied"
 msgstr "Boodskap gekopieer"
 
-#: src/features/chats/index.tsx:786
+#: src/features/chats/index.tsx:775
 msgid "Message could not be sent. Attachments may be too large, or your connection failed. Try smaller files."
 msgstr "Boodskap kon nie gestuur word nie. Aanhangsels is dalk te groot, of jou verbinding het misluk. Probeer kleiner lêers."
 
-#: src/features/chats/index.tsx:707
+#: src/features/chats/index.tsx:696
 msgid "Message deleted"
 msgstr "Boodskap uitgevee"
 
 #. placeholder {0}: formatNumber(newMessage.length - MESSAGE_MAX_LENGTH)
 #: src/features/chats/components/chat-input.tsx:861
+#: src/features/chats/index.tsx:962
 msgid "Message is {0} characters too long"
 msgstr "Boodskap is {0} karakters te lank"
 
 #: src/features/chats/components/message-quote.tsx:60
-#: src/features/chats/index.tsx:728
+#: src/features/chats/index.tsx:717
 msgid "Message not available"
 msgstr "Boodskap nie beskikbaar nie"
 
@@ -1805,7 +1802,7 @@ msgid "Moved {field}"
 msgstr "{field} geskuif"
 
 #. placeholder {0}: ambiguous.join(', ')
-#: src/features/chats/index.tsx:997
+#: src/features/chats/index.tsx:994
 msgid "Multiple people share these names: {0}. Pick them from the @ list so the right person is notified."
 msgstr "Verskeie mense deel hierdie name: {0}. Kies hulle uit die @-lys sodat die regte persoon in kennis gestel word."
 
@@ -1825,7 +1822,7 @@ msgstr "Naam kan nie < of > karakters bevat nie"
 msgid "Name is required"
 msgstr "Naam word vereis"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:201
+#: src/routes/_authenticated/$chatId_.settings.tsx:200
 msgid "Name must be {CHAT_NAME_MAX_LENGTH} characters or less"
 msgstr "Naam moet {CHAT_NAME_MAX_LENGTH} karakters of minder wees"
 
@@ -1883,11 +1880,11 @@ msgstr "Geen gesprekke om na aan te stuur nie"
 msgid "No comments yet"
 msgstr "Nog geen kommentaar nie"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:470
+#: src/routes/_authenticated/$chatId_.settings.tsx:467
 msgid "No friends available"
 msgstr "Geen vriende beskikbaar nie"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:470
+#: src/routes/_authenticated/$chatId_.settings.tsx:467
 msgid "No friends found"
 msgstr "Geen vriende gevind nie"
 
@@ -1911,7 +1908,7 @@ msgstr "Geen itemtipes kan nog geskep word nie. Skep eers die vereiste ouer-item
 msgid "No matching objects"
 msgstr "Geen passende objekte nie"
 
-#: src/features/chats/components/chat-message-list.tsx:475
+#: src/features/chats/components/chat-message-list.tsx:476
 msgid "No messages yet"
 msgstr "Nog geen boodskappe nie"
 
@@ -2005,7 +2002,7 @@ msgstr "Nie ingestel nie"
 msgid "Nothing found"
 msgstr "Niks gevind nie"
 
-#: src/features/chats/index.tsx:672
+#: src/features/chats/index.tsx:661
 msgid "Nothing to copy"
 msgstr "Niks om te kopieer nie"
 
@@ -2028,10 +2025,6 @@ msgstr "Ouer treffer"
 msgid "On"
 msgstr "Aan"
 
-#: src/features/chats/components/chat-settings-dialog.tsx:40
-msgid "Only friends can start a chat with you (default)."
-msgstr "Slegs vriende kan 'n klets met jou begin (verstek)."
-
 #: ../../../lib/web/src/features/errors/not-found-error.tsx:16
 msgid "Oops! Page Not Found!"
 msgstr "Oeps! Bladsy nie gevind nie!"
@@ -2045,7 +2038,7 @@ msgstr "Oop"
 msgid "Open actions"
 msgstr "Maak aksies oop"
 
-#: src/features/chats/index.tsx:1157
+#: src/features/chats/index.tsx:1179
 msgid "Open chat actions"
 msgstr "Maak geselsie-aksies oop"
 
@@ -2147,7 +2140,7 @@ msgstr "Mense"
 msgid "Photo or Video"
 msgstr "Foto of video"
 
-#: src/components/layout/chat-layout.tsx:232
+#: src/components/layout/chat-layout.tsx:228
 msgid "Pin chat"
 msgstr "Speld gesprek vas"
 
@@ -2299,12 +2292,14 @@ msgstr "Relevansie {relevance}, belangstelling {weight}"
 #: ../../../lib/web/src/components/attachment-composer.tsx:330
 #: ../../../lib/web/src/components/entity/add-field-dialog.tsx:192
 #: ../../../lib/web/src/features/access/access-list.tsx:270
-#: src/routes/_authenticated/$chatId_.settings.tsx:557
+#: src/routes/_authenticated/$chatId_.settings.tsx:554
 msgid "Remove"
 msgstr "Verwyder"
 
+#. placeholder {0}: member.name
 #. placeholder {0}: reaction.label
 #: src/features/chats/components/message-reaction-bar.tsx:121
+#: src/routes/_authenticated/$chatId_.settings.tsx:296
 msgid "Remove {0}"
 msgstr "Verwyder {0}"
 
@@ -2346,7 +2341,7 @@ msgstr "Verwyder item"
 msgid "Remove link"
 msgstr "Verwyder skakel"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:548
+#: src/routes/_authenticated/$chatId_.settings.tsx:545
 msgid "Remove member?"
 msgstr "Verwyder lid?"
 
@@ -2354,11 +2349,11 @@ msgstr "Verwyder lid?"
 msgid "Remove voice note"
 msgstr "Verwyder stemnota"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:533
+#: src/routes/_authenticated/$chatId_.settings.tsx:530
 msgid "Removing member..."
 msgstr "Lid word verwyder..."
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:554
+#: src/routes/_authenticated/$chatId_.settings.tsx:551
 msgid "Removing..."
 msgstr "Besig om te verwyder..."
 
@@ -2375,7 +2370,7 @@ msgstr "Hernoem kolom"
 msgid "Rename this board column"
 msgstr "Hernoem hierdie bordkolom"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:219
+#: src/routes/_authenticated/$chatId_.settings.tsx:218
 msgid "Renaming chat..."
 msgstr "Klets word hernoem..."
 
@@ -2462,18 +2457,18 @@ msgstr "Saterdag"
 
 #: ../../../lib/web/src/components/ai-prompts-editor.tsx:156
 #: ../../../lib/web/src/components/attachment-composer.tsx:430
-#: ../../../lib/web/src/components/banner-section.tsx:99
+#: ../../../lib/web/src/components/banner-section.tsx:111
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:231
 #: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:172
 #: ../../../lib/web/src/components/ui/editable-field-row.tsx:126
 #: ../../../lib/web/src/components/ui/secret-field.tsx:79
-#: src/features/chats/components/chat-message-list.tsx:641
-#: src/features/chats/components/chat-settings-dialog.tsx:128
+#: src/features/chats/components/chat-message-list.tsx:639
+#: src/features/chats/components/chat-settings-dialog.tsx:117
 msgid "Save"
 msgstr "Stoor"
 
 #: ../../../lib/web/src/components/ai-prompts-editor.tsx:156
-#: src/features/chats/components/chat-settings-dialog.tsx:66
+#: src/features/chats/components/chat-settings-dialog.tsx:58
 msgid "Saving..."
 msgstr "Besig om te stoor..."
 
@@ -2512,7 +2507,7 @@ msgstr "Soek vir bestemming..."
 msgid "Search for origin..."
 msgstr "Soek vir oorsprong..."
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:456
+#: src/routes/_authenticated/$chatId_.settings.tsx:453
 msgid "Search friends…"
 msgstr "Soek vriende…"
 
@@ -2520,7 +2515,7 @@ msgstr "Soek vriende…"
 msgid "Search in chat..."
 msgstr "Soek in gesprek..."
 
-#: src/features/chats/index.tsx:1147
+#: src/features/chats/index.tsx:1169
 msgid "Search messages"
 msgstr "Soek boodskappe"
 
@@ -2574,10 +2569,6 @@ msgstr "Kies 'n geselsie"
 msgid "Select a field"
 msgstr "Kies 'n veld"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:448
-msgid "Select a friend to add to this chat."
-msgstr "Kies 'n vriend om by hierdie geselsie te voeg."
-
 #: ../../../lib/web/src/components/game/game-empty-state.tsx:34
 msgid "Select a game"
 msgstr "Kies 'n speletjie"
@@ -2598,7 +2589,7 @@ msgstr "Kies rekeningtipe"
 msgid "Select group"
 msgstr "Kies groep"
 
-#: src/features/chats/components/chat-message-list.tsx:834
+#: src/features/chats/components/chat-message-list.tsx:831
 msgid "Select loaded"
 msgstr "Kies gelaaide"
 
@@ -2606,7 +2597,7 @@ msgstr "Kies gelaaide"
 msgid "Select location"
 msgstr "Kies ligging"
 
-#: src/features/chats/components/chat-message-list.tsx:549
+#: src/features/chats/components/chat-message-list.tsx:550
 msgid "Select message"
 msgstr "Kies boodskap"
 
@@ -2631,7 +2622,7 @@ msgstr "Kies vorige kaart"
 msgid "Select..."
 msgstr "Kies..."
 
-#: src/features/chats/index.tsx:1251
+#: src/features/chats/index.tsx:1273
 msgid "Selected the newest {BULK_MESSAGES_MAX} messages, the most that can be forwarded or deleted at once"
 msgstr "Die nuutste {BULK_MESSAGES_MAX} boodskappe is gekies, die meeste wat gelyk aangestuur of geskrap kan word"
 
@@ -2639,10 +2630,6 @@ msgstr "Die nuutste {BULK_MESSAGES_MAX} boodskappe is gekies, die meeste wat gel
 #: ../../../lib/web/src/features/access/access-dialog.tsx:309
 msgid "Selected: <0>{0}</0>"
 msgstr "Gekies: <0>{0}</0>"
-
-#: src/features/chats/components/chat-message-list.tsx:832
-msgid "Selects messages loaded so far"
-msgstr "Kies boodskappe wat tot dusver gelaai is"
 
 #: ../../../lib/web/src/features/accounts/account-verify.tsx:100
 msgid "Send again"
@@ -2755,7 +2742,7 @@ msgstr "Begin 'n gesprek"
 msgid "Start the discussion by adding the first comment."
 msgstr "Begin die bespreking deur die eerste kommentaar by te voeg."
 
-#: src/features/chats/index.tsx:206
+#: src/features/chats/index.tsx:197
 msgid "Starting chat..."
 msgstr "Klets word begin..."
 
@@ -2849,7 +2836,7 @@ msgid "The chat name can be at most {CHAT_NAME_MAX_LENGTH} characters"
 msgstr "Die kletsnaam kan hoogstens {CHAT_NAME_MAX_LENGTH} karakters wees"
 
 #: src/features/chats/components/new-chat.tsx:174
-#: src/routes/_authenticated/$chatId_.settings.tsx:205
+#: src/routes/_authenticated/$chatId_.settings.tsx:204
 msgid "The chat name cannot contain < or >"
 msgstr "Die kletsnaam mag nie < of > bevat nie"
 
@@ -2870,7 +2857,7 @@ msgid "The server returned a web page instead of data."
 msgstr "Die bediener het 'n webblad in plaas van data teruggestuur."
 
 #. placeholder {0}: unknown.join(', ')
-#: src/features/chats/index.tsx:1001
+#: src/features/chats/index.tsx:998
 msgid "These names are not in this chat: {0}. Pick from the @ list or remove them."
 msgstr "Hierdie name is nie in hierdie klets nie: {0}. Kies uit die @-lys of verwyder hulle."
 
@@ -2878,19 +2865,20 @@ msgstr "Hierdie name is nie in hierdie klets nie: {0}. Kies uit die @-lys of ver
 msgid "This app is not allowed to use your passkey. Allow it in Settings, under Permissions."
 msgstr "Hierdie toepassing mag nie jou passkey gebruik nie. Laat dit toe in Instellings, onder Toestemmings."
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:166
+#: src/routes/_authenticated/$chatId_.settings.tsx:165
 msgid "this chat"
 msgstr "hierdie gesprek"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:119
+#: src/features/chats/index.tsx:1090
+#: src/routes/_authenticated/$chatId_.settings.tsx:118
 msgid "This chat may have been deleted or you don't have access to it"
 msgstr "Hierdie gesprek is moontlik uitgevee of jy het nie toegang nie"
 
-#: src/features/chats/index.tsx:1406
+#: src/features/chats/index.tsx:1428
 msgid "This deletes the message for everyone and cannot be undone."
 msgstr "Dit vee die boodskap vir almal uit en kan nie ongedaan gemaak word nie."
 
-#: src/features/chats/components/chat-message-list.tsx:682
+#: src/features/chats/components/chat-message-list.tsx:680
 #: src/features/chats/components/message-quote.tsx:50
 msgid "This message was deleted"
 msgstr "Hierdie boodskap is uitgevee"
@@ -2942,7 +2930,7 @@ msgstr "Bo"
 msgid "Travelling"
 msgstr "Op reis"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:473
+#: src/routes/_authenticated/$chatId_.settings.tsx:470
 msgid "Try a different search term"
 msgstr "Probeer 'n ander soekterm"
 
@@ -3020,11 +3008,11 @@ msgstr "Verenigde State"
 #: ../../../lib/web/src/components/tree-row.tsx:373
 #: ../../../lib/web/src/components/tree-table-header.tsx:70
 #: ../../../lib/web/src/features/accounts/types.ts:29
-#: src/hooks/useChatWebsocket.ts:387
+#: src/hooks/useChatWebsocket.ts:373
 msgid "Unknown"
 msgstr "Onbekend"
 
-#: src/components/layout/chat-layout.tsx:226
+#: src/components/layout/chat-layout.tsx:222
 msgid "Unpin chat"
 msgstr "Ontspeld gesprek"
 
@@ -3147,7 +3135,7 @@ msgstr "Ons het 'n verifikasiekode na <0>{0}</0> gestuur. Voer die kode hieronde
 msgid "Wednesday"
 msgstr "Woensdag"
 
-#: src/features/chats/index.tsx:481
+#: src/features/chats/index.tsx:470
 msgid "You"
 msgstr "Jy"
 
@@ -3159,15 +3147,15 @@ msgstr "Jy het reeds 'n geselsie met hierdie vriend"
 msgid "You already have chats with:"
 msgstr "Jy het reeds gesprekke met:"
 
-#: src/features/chats/index.tsx:984
+#: src/features/chats/index.tsx:981
 msgid "You can attach at most {CAPTIONS_MAX} files to a message"
 msgstr "Jy kan hoogstens {CAPTIONS_MAX} lêers aan 'n boodskap heg"
 
-#: src/features/chats/index.tsx:980
+#: src/features/chats/index.tsx:977
 msgid "You can mention at most {MENTIONS_MAX} people in a message"
 msgstr "Jy kan hoogstens {MENTIONS_MAX} mense in 'n boodskap noem"
 
-#: src/features/chats/index.tsx:689
+#: src/features/chats/index.tsx:678
 msgid "You can only delete your own messages"
 msgstr "Jy kan net jou eie boodskappe uitvee"
 
@@ -3175,11 +3163,11 @@ msgstr "Jy kan net jou eie boodskappe uitvee"
 msgid "You do not have access to this section."
 msgstr "Jy het nie toegang tot hierdie afdeling nie."
 
-#: src/features/chats/index.tsx:1314
+#: src/features/chats/index.tsx:1336
 msgid "You left this chat"
 msgstr "Jy het hierdie gesprek verlaat"
 
-#: src/features/chats/index.tsx:1313
+#: src/features/chats/index.tsx:1335
 msgid "You were removed from this chat"
 msgstr "Jy is uit hierdie gesprek verwyder"
 

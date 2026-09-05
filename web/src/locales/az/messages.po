@@ -19,7 +19,7 @@ msgid "Please check your internet connection and try again."
 msgstr "İnternet bağlantınızı yoxlayıb yenidən cəhd edin."
 
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:189
-#: src/features/chats/components/chat-message-list.tsx:797
+#: src/features/chats/components/chat-message-list.tsx:795
 msgid "(edited)"
 msgstr "(redaktə edildi)"
 
@@ -27,7 +27,7 @@ msgstr "(redaktə edildi)"
 msgid "(expand)"
 msgstr "(genişləndir)"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:290
+#: src/routes/_authenticated/$chatId_.settings.tsx:289
 msgid "(you)"
 msgstr "(siz)"
 
@@ -36,7 +36,11 @@ msgid "[not set]"
 msgstr "[təyin edilməyib]"
 
 #. placeholder {0}: displayInfo.count
+#. placeholder {0}: selectedIds.size
+#. placeholder {0}: selectedIds?.size ?? 0
 #: ../../../lib/web/src/components/person-picker.tsx:260
+#: src/features/chats/components/chat-message-list.tsx:822
+#: src/features/chats/index.tsx:1293
 msgid "{0, plural, one {# selected} other {# selected}}"
 msgstr "{0, plural, one {# istifadəçi banlandı} other {# istifadəçi banlandı}}"
 
@@ -46,7 +50,7 @@ msgid "{0, plural, one {+# nested} other {+# nested}}"
 msgstr "{0, plural, one {+# daxili} other {+# daxili}}"
 
 #. placeholder {0}: deleteTargetIds?.length ?? 0
-#: src/features/chats/index.tsx:1402
+#: src/features/chats/index.tsx:1424
 msgid "{0, plural, one {Delete message?} other {Delete # messages?}}"
 msgstr "{0, plural, one {Mesaj silinsin?} other {# mesaj silinsin?}}"
 
@@ -55,16 +59,9 @@ msgstr "{0, plural, one {Mesaj silinsin?} other {# mesaj silinsin?}}"
 msgid "{0} (includes you)"
 msgstr "{0} (sizi əhatə edir)"
 
-#. placeholder {0}: selectedIds.size
-#. placeholder {0}: selectedIds?.size ?? 0
-#: src/features/chats/components/chat-message-list.tsx:824
-#: src/features/chats/index.tsx:1271
-msgid "{0} selected"
-msgstr "{0} seçildi"
-
 #. placeholder {0}: chatDetail.chat.name
-#: src/routes/_authenticated/$chatId_.settings.tsx:90
-#: src/routes/_authenticated/$chatId_.settings.tsx:129
+#: src/routes/_authenticated/$chatId_.settings.tsx:89
+#: src/routes/_authenticated/$chatId_.settings.tsx:128
 msgid "{0} settings"
 msgstr "{0} etiket"
 
@@ -92,8 +89,8 @@ msgstr "{entityLabel} adı"
 msgid "{hiddenCount, plural, one {Show 1 more file} other {Show # more files}}"
 msgstr "{hiddenCount, plural, one {Daha 1 faylı göstər} other {Daha # faylı göstər}}"
 
-#: src/features/chats/components/chat-message-list.tsx:859
-#: src/features/chats/components/chat-message-list.tsx:876
+#: src/features/chats/components/chat-message-list.tsx:856
+#: src/features/chats/components/chat-message-list.tsx:873
 msgid "{newMessageCount, plural, one {Jump to 1 new message} other {Jump to # new messages}}"
 msgstr "{newMessageCount, plural, one {1 yeni mesaja keç} other {# yeni mesaja keç}}"
 
@@ -106,7 +103,7 @@ msgstr "{opponentName} qazandı"
 msgid "{sentLabel} of {totalLabel}"
 msgstr "{sentLabel} / {totalLabel}"
 
-#: src/features/chats/index.tsx:899
+#: src/features/chats/index.tsx:888
 msgid "{skippedCount, plural, one {Skipped # file that is not audio} other {Skipped # files that are not audio}}"
 msgstr "{skippedCount, plural, one {Audio olmayan # fayl ötürüldü} other {Audio olmayan # fayl ötürüldü}}"
 
@@ -167,7 +164,7 @@ msgid "Add"
 msgstr "Əlavə et"
 
 #. placeholder {0}: friend.name
-#: src/routes/_authenticated/$chatId_.settings.tsx:486
+#: src/routes/_authenticated/$chatId_.settings.tsx:483
 msgid "Add {0} to chat"
 msgstr "{0} söhbətə əlavə et"
 
@@ -217,7 +214,7 @@ msgstr "Element əlavə et..."
 msgid "Add link"
 msgstr "Link əlavə et"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:263
+#: src/routes/_authenticated/$chatId_.settings.tsx:262
 #: src/routes/_authenticated/$chatId_.settings.tsx:445
 msgid "Add member"
 msgstr "Üzv əlavə et"
@@ -278,7 +275,7 @@ msgstr "Razıyam"
 msgid "AI"
 msgstr "AI"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:474
+#: src/routes/_authenticated/$chatId_.settings.tsx:471
 msgid "All your friends are already in this chat"
 msgstr "Bütün dostlarınız artıq bu söhbətdədir"
 
@@ -313,13 +310,9 @@ msgstr "Hirsli"
 
 #: ../../../lib/web/src/features/access/access-list.tsx:45
 #: ../../../lib/web/src/features/access/types.ts:36
-#: src/features/chats/components/chat-settings-dialog.tsx:44
+#: src/features/chats/components/chat-settings-dialog.tsx:38
 msgid "Anyone"
 msgstr "İstənilən şəxs"
-
-#: src/features/chats/components/chat-settings-dialog.tsx:45
-msgid "Anyone can start a chat with you."
-msgstr "İstənilən şəxs sizinlə söhbətə başlaya bilər."
 
 #: ../../../lib/web/src/features/access/types.ts:35
 msgid "Anyone who is logged in"
@@ -347,7 +340,7 @@ msgid "Are you sure you want to delete this comment? This will also delete all r
 msgstr "Bu şərhi silmək istədiyinizə əminsiniz? Bu, bütün cavabları da siləcək."
 
 #. placeholder {0}: selectedChat?.name
-#: src/features/chats/index.tsx:1370
+#: src/features/chats/index.tsx:1392
 msgid "Are you sure you want to leave \"{0}\"? You can be added back by other members."
 msgstr "\"{0}\"-dan ayrılmaq istədiyinizə əminsiniz? Digər üzvlər tərəfindən geri əlavə edilə bilərsiniz."
 
@@ -360,7 +353,7 @@ msgid "Are you sure you want to log out? You will need to log in again to access
 msgstr "Çıxmaq istədiyinizə əminsiniz? Hesabınıza giriş üçün yenidən daxil olmalı olacaqsınız."
 
 #. placeholder {0}: member?.name
-#: src/routes/_authenticated/$chatId_.settings.tsx:549
+#: src/routes/_authenticated/$chatId_.settings.tsx:546
 msgid "Are you sure you want to remove {0} from this chat?"
 msgstr "{0} bu söhbətdən silmək istədiyinizə əminsiniz?"
 
@@ -389,7 +382,7 @@ msgstr "Cavab fayllarını qoş"
 msgid "Attachment"
 msgstr "Qoşma"
 
-#: src/features/chats/index.tsx:785
+#: src/features/chats/index.tsx:774
 msgid "Attachments are too large to upload. Remove or shrink files and try again."
 msgstr "Qoşmalar yükləmək üçün çox böyükdür. Faylları silin və ya kiçildin, sonra yenidən cəhd edin."
 
@@ -422,9 +415,9 @@ msgstr "{name} üçün avatar"
 msgid "Back"
 msgstr "Geri"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:103
-#: src/routes/_authenticated/$chatId_.settings.tsx:114
-#: src/routes/_authenticated/$chatId_.settings.tsx:130
+#: src/routes/_authenticated/$chatId_.settings.tsx:102
+#: src/routes/_authenticated/$chatId_.settings.tsx:113
+#: src/routes/_authenticated/$chatId_.settings.tsx:129
 msgid "Back to chat"
 msgstr "Söhbətə geri"
 
@@ -433,20 +426,20 @@ msgstr "Söhbətə geri"
 msgid "Back to home"
 msgstr "Ana səhifəyə qayıt"
 
-#: ../../../lib/web/src/components/banner-section.tsx:80
+#: ../../../lib/web/src/components/banner-section.tsx:91
 #: ../../../lib/web/src/components/entity-banner.tsx:17
 msgid "Banner"
 msgstr "Banner"
 
-#: ../../../lib/web/src/components/banner-section.tsx:69
+#: ../../../lib/web/src/components/banner-section.tsx:73
 msgid "Banner removed"
 msgstr "Banner silindi"
 
-#: ../../../lib/web/src/components/banner-section.tsx:69
+#: ../../../lib/web/src/components/banner-section.tsx:73
 msgid "Banner updated"
 msgstr "Banner yeniləndi"
 
-#: src/features/chats/components/chat-message-list.tsx:476
+#: src/features/chats/components/chat-message-list.tsx:477
 msgid "Be the first to say something!"
 msgstr "İlk mesajı siz yazın!"
 
@@ -503,12 +496,12 @@ msgstr "Kamera əlçatan deyil"
 #: ../../../lib/web/src/features/access/access-list.tsx:268
 #: ../../../lib/web/src/features/accounts/account-add.tsx:201
 #: ../../../lib/web/src/features/accounts/account-verify.tsx:91
-#: src/features/chats/components/chat-message-list.tsx:627
-#: src/features/chats/components/chat-message-list.tsx:843
-#: src/features/chats/components/chat-settings-dialog.tsx:116
+#: src/features/chats/components/chat-message-list.tsx:625
+#: src/features/chats/components/chat-message-list.tsx:840
+#: src/features/chats/components/chat-settings-dialog.tsx:105
 #: src/features/chats/components/forward-dialog.tsx:252
 #: src/features/chats/components/new-chat.tsx:356
-#: src/features/chats/index.tsx:1303
+#: src/features/chats/index.tsx:1325
 msgid "Cancel"
 msgstr "Ləğv et"
 
@@ -550,10 +543,11 @@ msgstr "Dəyişdirildi"
 msgid "Changed {field}"
 msgstr "{field} dəyişdirildi"
 
-#: src/features/chats/index.tsx:95
-#: src/features/chats/index.tsx:203
-#: src/features/chats/index.tsx:203
-#: src/features/chats/index.tsx:1079
+#: src/features/chats/index.tsx:97
+#: src/features/chats/index.tsx:194
+#: src/features/chats/index.tsx:194
+#: src/features/chats/index.tsx:1083
+#: src/features/chats/index.tsx:1101
 msgid "Chat"
 msgstr "Söhbət"
 
@@ -561,28 +555,28 @@ msgstr "Söhbət"
 msgid "Chat created"
 msgstr "Söhbət yaradıldı"
 
-#: src/features/chats/index.tsx:850
+#: src/features/chats/index.tsx:839
 msgid "Chat deleted"
 msgstr "Söhbət silindi"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:229
+#: src/routes/_authenticated/$chatId_.settings.tsx:228
 msgid "Chat ID"
 msgstr "Söhbət ID"
 
-#: src/components/layout/chat-layout.tsx:156
+#: src/components/layout/chat-layout.tsx:157
 msgid "Chat marked as read"
 msgstr "Söhbət oxunmuş kimi qeyd edildi"
 
-#: src/components/layout/chat-layout.tsx:170
+#: src/components/layout/chat-layout.tsx:171
 msgid "Chat marked as unread"
 msgstr "Söhbət oxunmamış kimi qeyd edildi"
 
 #: src/features/chats/components/new-chat.tsx:340
-#: src/routes/_authenticated/$chatId_.settings.tsx:213
+#: src/routes/_authenticated/$chatId_.settings.tsx:212
 msgid "Chat name"
 msgstr "Söhbət adı"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:199
+#: src/routes/_authenticated/$chatId_.settings.tsx:198
 msgid "Chat name is required"
 msgstr "Söhbət adı tələb olunur"
 
@@ -590,15 +584,16 @@ msgstr "Söhbət adı tələb olunur"
 msgid "Chat name..."
 msgstr "Söhbət adı..."
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:118
+#: src/features/chats/index.tsx:1089
+#: src/routes/_authenticated/$chatId_.settings.tsx:117
 msgid "Chat not found"
 msgstr "Söhbət tapılmadı"
 
-#: src/components/layout/chat-layout.tsx:178
+#: src/components/layout/chat-layout.tsx:179
 msgid "Chat pinned"
 msgstr "Söhbət sancaqlandı"
 
-#: src/features/chats/components/chat-settings-dialog.tsx:67
+#: src/features/chats/components/chat-settings-dialog.tsx:59
 msgid "Chat policy updated"
 msgstr "Söhbət siyasəti yeniləndi"
 
@@ -606,16 +601,16 @@ msgstr "Söhbət siyasəti yeniləndi"
 msgid "Chat ready"
 msgstr "Söhbət hazırdır"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:220
+#: src/routes/_authenticated/$chatId_.settings.tsx:219
 msgid "Chat renamed"
 msgstr "Söhbət adı dəyişdirildi"
 
-#: src/features/chats/index.tsx:1084
-#: src/features/chats/index.tsx:1182
-#: src/routes/_authenticated/$chatId_.settings.tsx:90
-#: src/routes/_authenticated/$chatId_.settings.tsx:103
-#: src/routes/_authenticated/$chatId_.settings.tsx:114
-#: src/routes/_authenticated/$chatId_.settings.tsx:129
+#: src/features/chats/index.tsx:1106
+#: src/features/chats/index.tsx:1204
+#: src/routes/_authenticated/$chatId_.settings.tsx:89
+#: src/routes/_authenticated/$chatId_.settings.tsx:102
+#: src/routes/_authenticated/$chatId_.settings.tsx:113
+#: src/routes/_authenticated/$chatId_.settings.tsx:128
 msgid "Chat settings"
 msgstr "Söhbət parametrləri"
 
@@ -623,11 +618,11 @@ msgstr "Söhbət parametrləri"
 msgid "Chat text box"
 msgstr "Söhbət mətn qutusu"
 
-#: src/components/layout/chat-layout.tsx:186
+#: src/components/layout/chat-layout.tsx:187
 msgid "Chat unpinned"
 msgstr "Söhbət sancaqdan çıxarıldı"
 
-#: src/components/layout/chat-layout.tsx:279
+#: src/components/layout/chat-layout.tsx:275
 #: src/features/chats/components/forward-dialog.tsx:228
 msgid "Chats"
 msgstr "Söhbətlər"
@@ -657,7 +652,7 @@ msgstr "Yan paneldən oyun seçin və ya yenisini başladın."
 msgid "Choose language"
 msgstr "Dil seçin"
 
-#: ../../../lib/web/src/components/banner-section.tsx:111
+#: ../../../lib/web/src/components/banner-section.tsx:123
 #: ../../../lib/web/src/components/colour-picker.tsx:274
 #: ../../../lib/web/src/components/colour-picker.tsx:355
 #: ../../../lib/web/src/components/travelling-picker.tsx:145
@@ -673,7 +668,7 @@ msgstr "Hamısını təmizlə"
 
 #: ../../../lib/web/src/components/search-input.tsx:26
 #: src/features/chats/components/forward-dialog.tsx:198
-#: src/routes/_authenticated/$chatId_.settings.tsx:457
+#: src/routes/_authenticated/$chatId_.settings.tsx:454
 msgid "Clear search"
 msgstr "Axtarışı təmizlə"
 
@@ -805,7 +800,7 @@ msgid "Continue with {label}"
 msgstr "{label} ilə davam edin"
 
 #: ../../../lib/web/src/lib/toast-utils.ts:42
-#: src/features/chats/index.tsx:676
+#: src/features/chats/index.tsx:665
 msgid "Copied"
 msgstr "Kopyalandı"
 
@@ -815,13 +810,13 @@ msgstr "Mübadilə yaddaşına kopyalandı"
 
 #: ../../../lib/web/src/components/ui/copy-button.tsx:64
 #: src/features/chats/components/message-hover-actions.tsx:107
-#: src/features/chats/index.tsx:1280
+#: src/features/chats/index.tsx:1302
 msgid "Copy"
 msgstr "Kopyala"
 
 #. placeholder {0}: ambiguous.join(', ')
 #. placeholder {1}: unknown.join(', ')
-#: src/features/chats/index.tsx:1005
+#: src/features/chats/index.tsx:1002
 msgid "Could not link mentions. Multiple people share: {0}. Not in this chat: {1}. Pick from the @ list."
 msgstr "Qeydlər əlaqələndirilə bilmədi. Bir neçə nəfər bölüşür: {0}. Bu söhbətdə deyil: {1}. @ siyahısından seçin."
 
@@ -861,7 +856,7 @@ msgstr "{entityLabel} yarat"
 msgid "Create a new chat"
 msgstr "Yeni söhbət yarat"
 
-#: src/components/layout/chat-layout.tsx:289
+#: src/components/layout/chat-layout.tsx:285
 #: src/features/chats/components/new-chat.tsx:368
 msgid "Create chat"
 msgstr "Söhbət yarat"
@@ -939,8 +934,8 @@ msgstr "Default sıralama"
 #: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:672
 #: ../../../lib/web/src/components/game/game-end-dialogs.tsx:78
 #: src/features/chats/components/message-hover-actions.tsx:146
-#: src/features/chats/index.tsx:1296
-#: src/features/chats/index.tsx:1414
+#: src/features/chats/index.tsx:1318
+#: src/features/chats/index.tsx:1436
 msgid "Delete"
 msgstr "Sil"
 
@@ -948,12 +943,12 @@ msgstr "Sil"
 msgid "Delete attachment"
 msgstr "Qoşmanı sil"
 
-#: src/features/chats/index.tsx:1165
-#: src/features/chats/index.tsx:1327
+#: src/features/chats/index.tsx:1187
+#: src/features/chats/index.tsx:1349
 msgid "Delete chat"
 msgstr "Söhbəti sil"
 
-#: src/features/chats/index.tsx:1392
+#: src/features/chats/index.tsx:1414
 #: src/routes/_authenticated/$chatId_.settings.tsx:379
 msgid "Delete chat history"
 msgstr "Söhbət tarixçəsini sil"
@@ -1006,13 +1001,13 @@ msgstr "Silindi"
 msgid "Deleted {field}"
 msgstr "{field} silindi"
 
-#: src/features/chats/index.tsx:849
+#: src/features/chats/index.tsx:838
 msgid "Deleting chat..."
 msgstr "Söhbət silinir..."
 
 #: ../../../lib/web/src/components/game/game-end-dialogs.tsx:75
-#: src/features/chats/index.tsx:706
-#: src/features/chats/index.tsx:1411
+#: src/features/chats/index.tsx:695
+#: src/features/chats/index.tsx:1433
 msgid "Deleting..."
 msgstr "Silinir..."
 
@@ -1107,7 +1102,7 @@ msgstr "Yüklə"
 msgid "Download failed"
 msgstr "Yükləmə alınmadı"
 
-#: src/components/layout/chat-layout.tsx:266
+#: src/components/layout/chat-layout.tsx:262
 msgid "Draft"
 msgstr "Qaralama"
 
@@ -1177,7 +1172,7 @@ msgstr "E-poçt"
 msgid "Email code"
 msgstr "E-poçt kodu"
 
-#: ../../../lib/web/src/components/banner-section.tsx:88
+#: ../../../lib/web/src/components/banner-section.tsx:99
 msgid "Enter banner text (markdown supported)..."
 msgstr "Banner mətnini daxil edin (markdown dəstəklənir)..."
 
@@ -1192,10 +1187,6 @@ msgstr "Autentifikator kodunuzu daxil edin"
 #: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:381
 msgid "Error"
 msgstr "Xəta"
-
-#: src/features/chats/components/chat-message-list.tsx:617
-msgid "escape to cancel • enter to save"
-msgstr "Ləğv etmək üçün Escape • saxlamaq üçün Enter"
 
 #: ../../../lib/web/src/components/comment-tree-layout.tsx:101
 #: ../../../lib/web/src/components/comment-tree-layout.tsx:110
@@ -1226,7 +1217,7 @@ msgstr "Üzv əlavə etmək alınmadı"
 
 #: ../../../lib/web/src/components/ui/copy-button.tsx:26
 #: ../../../lib/web/src/lib/toast-utils.ts:44
-#: src/features/chats/index.tsx:677
+#: src/features/chats/index.tsx:666
 msgid "Failed to copy"
 msgstr "Kopyalamaq alınmadı"
 
@@ -1244,7 +1235,7 @@ msgid "Failed to create link"
 msgstr "Link yaratmaq alınmadı"
 
 #: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:303
-#: src/features/chats/index.tsx:708
+#: src/features/chats/index.tsx:697
 msgid "Failed to delete"
 msgstr "Silmək alınmadı"
 
@@ -1252,7 +1243,7 @@ msgstr "Silmək alınmadı"
 msgid "Failed to delete attachment"
 msgstr "Əlavəni silmək alınmadı"
 
-#: src/features/chats/index.tsx:851
+#: src/features/chats/index.tsx:840
 msgid "Failed to delete chat"
 msgstr "Söhbəti silmək alınmadı"
 
@@ -1264,7 +1255,7 @@ msgstr "Şərhi silmək alınmadı"
 msgid "Failed to delete link"
 msgstr "Linki silmək alınmadı"
 
-#: src/features/chats/index.tsx:616
+#: src/features/chats/index.tsx:605
 msgid "Failed to edit message"
 msgstr "Mesajı redaktə etmək mümkün olmadı"
 
@@ -1276,7 +1267,7 @@ msgstr "Yönləndirmək mümkün olmadı"
 msgid "Failed to get RSS token"
 msgstr "RSS tokenini almaq alınmadı"
 
-#: src/features/chats/index.tsx:832
+#: src/features/chats/index.tsx:821
 #: src/routes/_authenticated/$chatId_.settings.tsx:340
 msgid "Failed to leave chat"
 msgstr "Söhbətdən çıxmaq alınmadı"
@@ -1284,6 +1275,10 @@ msgstr "Söhbətdən çıxmaq alınmadı"
 #: ../../../lib/web/src/hooks/use-load-more.ts:78
 msgid "Failed to load"
 msgstr "Yüklənmədi"
+
+#: ../../../lib/web/src/components/banner-section.tsx:85
+msgid "Failed to load banner"
+msgstr "Banner yüklənmədi"
 
 #: ../../../lib/web/src/components/audit-timeline.tsx:68
 msgid "Failed to load history"
@@ -1306,11 +1301,11 @@ msgstr "Promptlar yüklənmədi"
 msgid "Failed to load video"
 msgstr "Video yüklənmədi"
 
-#: src/features/chats/components/chat-settings-dialog.tsx:89
+#: src/features/chats/components/chat-settings-dialog.tsx:81
 msgid "Failed to load your chat policy"
 msgstr "Söhbət siyasətiniz yüklənmədi"
 
-#: src/components/layout/chat-layout.tsx:158
+#: src/components/layout/chat-layout.tsx:159
 msgid "Failed to mark chat as read"
 msgstr "Söhbəti oxunmuş kimi qeyd etmək mümkün olmadı"
 
@@ -1322,15 +1317,15 @@ msgstr "Köçürmə alınmadı"
 msgid "Failed to post comment"
 msgstr "Şərh göndərmək alınmadı"
 
-#: src/features/chats/index.tsx:660
+#: src/features/chats/index.tsx:649
 msgid "Failed to react"
 msgstr "Reaksiya vermək alınmadı"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:535
+#: src/routes/_authenticated/$chatId_.settings.tsx:532
 msgid "Failed to remove member"
 msgstr "Üzvü silmək alınmadı"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:222
+#: src/routes/_authenticated/$chatId_.settings.tsx:221
 msgid "Failed to rename chat"
 msgstr "Söhbətin adını dəyişmək alınmadı"
 
@@ -1343,7 +1338,7 @@ msgid "Failed to revoke RSS access"
 msgstr "RSS girişini ləğv etmək alınmadı"
 
 #: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:273
-#: src/features/chats/components/chat-settings-dialog.tsx:68
+#: src/features/chats/components/chat-settings-dialog.tsx:60
 msgid "Failed to save"
 msgstr "Saxlamaq alınmadı"
 
@@ -1351,15 +1346,15 @@ msgstr "Saxlamaq alınmadı"
 msgid "Failed to save prompt"
 msgstr "Promptu saxlamaq alınmadı"
 
-#: src/features/chats/index.tsx:784
+#: src/features/chats/index.tsx:773
 msgid "Failed to send message"
 msgstr "Mesaj göndərmək alınmadı"
 
-#: src/features/chats/index.tsx:209
+#: src/features/chats/index.tsx:200
 msgid "Failed to start chat"
 msgstr "Söhbət başlatmaq alınmadı"
 
-#: ../../../lib/web/src/components/banner-section.tsx:71
+#: ../../../lib/web/src/components/banner-section.tsx:75
 msgid "Failed to update banner"
 msgstr "Bannerı yeniləmək alınmadı"
 
@@ -1395,7 +1390,7 @@ msgstr "Düz"
 
 #: src/features/chats/components/forward-dialog.tsx:263
 #: src/features/chats/components/message-hover-actions.tsx:138
-#: src/features/chats/index.tsx:1288
+#: src/features/chats/index.tsx:1310
 msgid "Forward"
 msgstr "Yönləndir"
 
@@ -1418,11 +1413,11 @@ msgstr "Cümə"
 #: ../../../lib/web/src/components/person-picker.tsx:186
 #: src/features/chats/components/forward-dialog.tsx:236
 #: src/features/chats/components/new-chat.tsx:286
-#: src/routes/_authenticated/$chatId_.settings.tsx:480
+#: src/routes/_authenticated/$chatId_.settings.tsx:477
 msgid "Friends"
 msgstr "Dostlar"
 
-#: src/features/chats/components/chat-settings-dialog.tsx:39
+#: src/features/chats/components/chat-settings-dialog.tsx:37
 msgid "Friends only"
 msgstr "Yalnız dostlar"
 
@@ -1438,8 +1433,8 @@ msgstr "Kimdən"
 msgid "From theme"
 msgstr "Mövzudan"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:134
-#: src/routes/_authenticated/$chatId_.settings.tsx:211
+#: src/routes/_authenticated/$chatId_.settings.tsx:133
+#: src/routes/_authenticated/$chatId_.settings.tsx:210
 msgid "General"
 msgstr "Ümumi"
 
@@ -1493,8 +1488,8 @@ msgstr "İmperial"
 msgid "Including anonymous users"
 msgstr "Anonim istifadəçilər daxil"
 
-#: src/features/chats/components/chat-settings-dialog.tsx:80
-#: src/features/chats/index.tsx:1188
+#: src/features/chats/components/chat-settings-dialog.tsx:72
+#: src/features/chats/index.tsx:1210
 msgid "Incoming chats"
 msgstr "Gələn söhbətlər"
 
@@ -1526,8 +1521,8 @@ msgstr "Axtardığınız səhifə <0/>mövcud deyil və ya silinib."
 msgid "Item details"
 msgstr "Element təfərrüatları"
 
-#: src/features/chats/components/chat-message-list.tsx:863
-#: src/features/chats/components/chat-message-list.tsx:880
+#: src/features/chats/components/chat-message-list.tsx:860
+#: src/features/chats/components/chat-message-list.tsx:877
 msgid "Jump to bottom"
 msgstr "Aşağı keç"
 
@@ -1552,31 +1547,32 @@ msgstr "Gül"
 msgid "Layout"
 msgstr "Tərtibat"
 
-#: src/features/chats/index.tsx:1378
+#: src/features/chats/index.tsx:1400
 msgid "Leave"
 msgstr "Tərk et"
 
-#: src/features/chats/index.tsx:1172
+#: src/features/chats/index.tsx:1194
+#: src/routes/_authenticated/$chatId_.settings.tsx:296
 #: src/routes/_authenticated/$chatId_.settings.tsx:365
 msgid "Leave chat"
 msgstr "Söhbətdən çıx"
 
-#: src/features/chats/index.tsx:1369
+#: src/features/chats/index.tsx:1391
 #: src/routes/_authenticated/$chatId_.settings.tsx:356
 msgid "Leave chat?"
 msgstr "Söhbətdən çıxılsın?"
 
-#: src/features/chats/index.tsx:830
+#: src/features/chats/index.tsx:819
 #: src/routes/_authenticated/$chatId_.settings.tsx:338
 msgid "Leaving chat..."
 msgstr "Söhbətdən çıxılır..."
 
-#: src/features/chats/index.tsx:1375
+#: src/features/chats/index.tsx:1397
 #: src/routes/_authenticated/$chatId_.settings.tsx:362
 msgid "Leaving..."
 msgstr "Çıxılır..."
 
-#: src/features/chats/index.tsx:831
+#: src/features/chats/index.tsx:820
 #: src/routes/_authenticated/$chatId_.settings.tsx:339
 msgid "Left chat"
 msgstr "Söhbətdən çıxıldı"
@@ -1660,15 +1656,15 @@ msgstr "Manual"
 msgid "Mark all as read"
 msgstr "Hamısını oxunmuş kimi işarələ"
 
-#: src/components/layout/chat-layout.tsx:241
+#: src/components/layout/chat-layout.tsx:237
 msgid "Mark as read"
 msgstr "Oxunmuş kimi qeyd et"
 
-#: src/components/layout/chat-layout.tsx:247
+#: src/components/layout/chat-layout.tsx:243
 msgid "Mark as unread"
 msgstr "Oxunmamış kimi qeyd et"
 
-#: src/components/layout/chat-layout.tsx:155
+#: src/components/layout/chat-layout.tsx:156
 msgid "Marking as read..."
 msgstr "Oxunmuş kimi işarələnir..."
 
@@ -1688,12 +1684,12 @@ msgstr "Orta"
 msgid "Member added"
 msgstr "Üzv əlavə edildi"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:534
+#: src/routes/_authenticated/$chatId_.settings.tsx:531
 msgid "Member removed"
 msgstr "Üzv silindi"
 
 #: ../../../lib/web/src/components/entity/entity-field-editor.tsx:377
-#: src/routes/_authenticated/$chatId_.settings.tsx:259
+#: src/routes/_authenticated/$chatId_.settings.tsx:258
 msgid "Members"
 msgstr "Üzvlər"
 
@@ -1718,21 +1714,22 @@ msgstr "Mesaj əməliyyatları"
 msgid "Message copied"
 msgstr "Mesaj kopyalandı"
 
-#: src/features/chats/index.tsx:786
+#: src/features/chats/index.tsx:775
 msgid "Message could not be sent. Attachments may be too large, or your connection failed. Try smaller files."
 msgstr "Mesaj göndərilə bilmədi. Qoşmalar çox böyük ola bilər və ya bağlantınız kəsilib. Daha kiçik fayllarla cəhd edin."
 
-#: src/features/chats/index.tsx:707
+#: src/features/chats/index.tsx:696
 msgid "Message deleted"
 msgstr "Mesaj silindi"
 
 #. placeholder {0}: formatNumber(newMessage.length - MESSAGE_MAX_LENGTH)
 #: src/features/chats/components/chat-input.tsx:861
+#: src/features/chats/index.tsx:962
 msgid "Message is {0} characters too long"
 msgstr "Mesaj {0} simvol çox uzundur"
 
 #: src/features/chats/components/message-quote.tsx:60
-#: src/features/chats/index.tsx:728
+#: src/features/chats/index.tsx:717
 msgid "Message not available"
 msgstr "Mesaj əlçatan deyil"
 
@@ -1805,7 +1802,7 @@ msgid "Moved {field}"
 msgstr "{field} köçürüldü"
 
 #. placeholder {0}: ambiguous.join(', ')
-#: src/features/chats/index.tsx:997
+#: src/features/chats/index.tsx:994
 msgid "Multiple people share these names: {0}. Pick them from the @ list so the right person is notified."
 msgstr "Bir neçə nəfər bu adları bölüşür: {0}. Düzgün şəxsin bildiriş alması üçün onları @ siyahısından seçin."
 
@@ -1825,7 +1822,7 @@ msgstr "Ad < və ya > simvolları ehtiva edə bilməz"
 msgid "Name is required"
 msgstr "Ad tələb olunur"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:201
+#: src/routes/_authenticated/$chatId_.settings.tsx:200
 msgid "Name must be {CHAT_NAME_MAX_LENGTH} characters or less"
 msgstr "Ad {CHAT_NAME_MAX_LENGTH} simvol və ya daha az olmalıdır"
 
@@ -1883,11 +1880,11 @@ msgstr "Yönləndirmək üçün söhbət yoxdur"
 msgid "No comments yet"
 msgstr "Hələ şərh yoxdur"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:470
+#: src/routes/_authenticated/$chatId_.settings.tsx:467
 msgid "No friends available"
 msgstr "Mövcud dost yoxdur"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:470
+#: src/routes/_authenticated/$chatId_.settings.tsx:467
 msgid "No friends found"
 msgstr "Dost tapılmadı"
 
@@ -1911,7 +1908,7 @@ msgstr "Hələ heç bir element növü yaradıla bilməz. Əvvəlcə tələb olu
 msgid "No matching objects"
 msgstr "Uyğun obyekt yoxdur"
 
-#: src/features/chats/components/chat-message-list.tsx:475
+#: src/features/chats/components/chat-message-list.tsx:476
 msgid "No messages yet"
 msgstr "Hələ mesaj yoxdur"
 
@@ -2005,7 +2002,7 @@ msgstr "Təyin edilməyib"
 msgid "Nothing found"
 msgstr "Heç nə tapılmadı"
 
-#: src/features/chats/index.tsx:672
+#: src/features/chats/index.tsx:661
 msgid "Nothing to copy"
 msgstr "Kopyalamaq üçün heç nə yoxdur"
 
@@ -2028,10 +2025,6 @@ msgstr "Daha köhnə nəticə"
 msgid "On"
 msgstr "Açıq"
 
-#: src/features/chats/components/chat-settings-dialog.tsx:40
-msgid "Only friends can start a chat with you (default)."
-msgstr "Sizinlə yalnız dostlar söhbətə başlaya bilər (defolt)."
-
 #: ../../../lib/web/src/features/errors/not-found-error.tsx:16
 msgid "Oops! Page Not Found!"
 msgstr "Hopa! Səhifə Tapılmadı!"
@@ -2045,7 +2038,7 @@ msgstr "Aç"
 msgid "Open actions"
 msgstr "Əməliyyatları aç"
 
-#: src/features/chats/index.tsx:1157
+#: src/features/chats/index.tsx:1179
 msgid "Open chat actions"
 msgstr "Söhbət əməliyyatlarını aç"
 
@@ -2147,7 +2140,7 @@ msgstr "İnsanlar"
 msgid "Photo or Video"
 msgstr "Foto və ya video"
 
-#: src/components/layout/chat-layout.tsx:232
+#: src/components/layout/chat-layout.tsx:228
 msgid "Pin chat"
 msgstr "Söhbəti sancaqla"
 
@@ -2299,12 +2292,14 @@ msgstr "Uyğunluq {relevance}, maraq {weight}"
 #: ../../../lib/web/src/components/attachment-composer.tsx:330
 #: ../../../lib/web/src/components/entity/add-field-dialog.tsx:192
 #: ../../../lib/web/src/features/access/access-list.tsx:270
-#: src/routes/_authenticated/$chatId_.settings.tsx:557
+#: src/routes/_authenticated/$chatId_.settings.tsx:554
 msgid "Remove"
 msgstr "Sil"
 
+#. placeholder {0}: member.name
 #. placeholder {0}: reaction.label
 #: src/features/chats/components/message-reaction-bar.tsx:121
+#: src/routes/_authenticated/$chatId_.settings.tsx:296
 msgid "Remove {0}"
 msgstr "{0} sil"
 
@@ -2346,7 +2341,7 @@ msgstr "Elementi sil"
 msgid "Remove link"
 msgstr "Keçidi sil"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:548
+#: src/routes/_authenticated/$chatId_.settings.tsx:545
 msgid "Remove member?"
 msgstr "Üzvü silək?"
 
@@ -2354,11 +2349,11 @@ msgstr "Üzvü silək?"
 msgid "Remove voice note"
 msgstr "Səsli qeydi sil"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:533
+#: src/routes/_authenticated/$chatId_.settings.tsx:530
 msgid "Removing member..."
 msgstr "Üzv silinir..."
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:554
+#: src/routes/_authenticated/$chatId_.settings.tsx:551
 msgid "Removing..."
 msgstr "Silinir..."
 
@@ -2375,7 +2370,7 @@ msgstr "Sütun adını dəyiş"
 msgid "Rename this board column"
 msgstr "Bu lövhə sütununun adını dəyiş"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:219
+#: src/routes/_authenticated/$chatId_.settings.tsx:218
 msgid "Renaming chat..."
 msgstr "Söhbətin adı dəyişdirilir..."
 
@@ -2462,18 +2457,18 @@ msgstr "Şənbə"
 
 #: ../../../lib/web/src/components/ai-prompts-editor.tsx:156
 #: ../../../lib/web/src/components/attachment-composer.tsx:430
-#: ../../../lib/web/src/components/banner-section.tsx:99
+#: ../../../lib/web/src/components/banner-section.tsx:111
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:231
 #: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:172
 #: ../../../lib/web/src/components/ui/editable-field-row.tsx:126
 #: ../../../lib/web/src/components/ui/secret-field.tsx:79
-#: src/features/chats/components/chat-message-list.tsx:641
-#: src/features/chats/components/chat-settings-dialog.tsx:128
+#: src/features/chats/components/chat-message-list.tsx:639
+#: src/features/chats/components/chat-settings-dialog.tsx:117
 msgid "Save"
 msgstr "Saxla"
 
 #: ../../../lib/web/src/components/ai-prompts-editor.tsx:156
-#: src/features/chats/components/chat-settings-dialog.tsx:66
+#: src/features/chats/components/chat-settings-dialog.tsx:58
 msgid "Saving..."
 msgstr "Saxlanılır..."
 
@@ -2512,7 +2507,7 @@ msgstr "Təyinat axtar..."
 msgid "Search for origin..."
 msgstr "Mənşə axtar..."
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:456
+#: src/routes/_authenticated/$chatId_.settings.tsx:453
 msgid "Search friends…"
 msgstr "Dostları axtar…"
 
@@ -2520,7 +2515,7 @@ msgstr "Dostları axtar…"
 msgid "Search in chat..."
 msgstr "Söhbətdə axtar..."
 
-#: src/features/chats/index.tsx:1147
+#: src/features/chats/index.tsx:1169
 msgid "Search messages"
 msgstr "Mesajları axtar"
 
@@ -2574,10 +2569,6 @@ msgstr "Söhbət seç"
 msgid "Select a field"
 msgstr "Sahə seç"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:448
-msgid "Select a friend to add to this chat."
-msgstr "Bu söhbətə əlavə etmək üçün dost seçin."
-
 #: ../../../lib/web/src/components/game/game-empty-state.tsx:34
 msgid "Select a game"
 msgstr "Oyun seç"
@@ -2598,7 +2589,7 @@ msgstr "Hesab növünü seç"
 msgid "Select group"
 msgstr "Qrupu seçin"
 
-#: src/features/chats/components/chat-message-list.tsx:834
+#: src/features/chats/components/chat-message-list.tsx:831
 msgid "Select loaded"
 msgstr "Yüklənənləri seç"
 
@@ -2606,7 +2597,7 @@ msgstr "Yüklənənləri seç"
 msgid "Select location"
 msgstr "Yeri seçin"
 
-#: src/features/chats/components/chat-message-list.tsx:549
+#: src/features/chats/components/chat-message-list.tsx:550
 msgid "Select message"
 msgstr "Mesajı seç"
 
@@ -2631,7 +2622,7 @@ msgstr "Əvvəlki kartı seçin"
 msgid "Select..."
 msgstr "Seçin..."
 
-#: src/features/chats/index.tsx:1251
+#: src/features/chats/index.tsx:1273
 msgid "Selected the newest {BULK_MESSAGES_MAX} messages, the most that can be forwarded or deleted at once"
 msgstr "Ən son {BULK_MESSAGES_MAX} mesaj seçildi, bir dəfəyə göndərilə və ya silinə bilən ən çox say"
 
@@ -2639,10 +2630,6 @@ msgstr "Ən son {BULK_MESSAGES_MAX} mesaj seçildi, bir dəfəyə göndərilə v
 #: ../../../lib/web/src/features/access/access-dialog.tsx:309
 msgid "Selected: <0>{0}</0>"
 msgstr "Seçildi: <0>{0}</0>"
-
-#: src/features/chats/components/chat-message-list.tsx:832
-msgid "Selects messages loaded so far"
-msgstr "İndiyədək yüklənmiş mesajları seçir"
 
 #: ../../../lib/web/src/features/accounts/account-verify.tsx:100
 msgid "Send again"
@@ -2755,7 +2742,7 @@ msgstr "Söhbətə başla"
 msgid "Start the discussion by adding the first comment."
 msgstr "İlk şərhi əlavə edərək müzakirəyə başlayın."
 
-#: src/features/chats/index.tsx:206
+#: src/features/chats/index.tsx:197
 msgid "Starting chat..."
 msgstr "Söhbət başladılır..."
 
@@ -2849,7 +2836,7 @@ msgid "The chat name can be at most {CHAT_NAME_MAX_LENGTH} characters"
 msgstr "Söhbət adı ən çox {CHAT_NAME_MAX_LENGTH} simvol ola bilər"
 
 #: src/features/chats/components/new-chat.tsx:174
-#: src/routes/_authenticated/$chatId_.settings.tsx:205
+#: src/routes/_authenticated/$chatId_.settings.tsx:204
 msgid "The chat name cannot contain < or >"
 msgstr "Söhbət adında < və ya > ola bilməz"
 
@@ -2870,7 +2857,7 @@ msgid "The server returned a web page instead of data."
 msgstr "Server məlumat əvəzinə veb səhifə qaytardı."
 
 #. placeholder {0}: unknown.join(', ')
-#: src/features/chats/index.tsx:1001
+#: src/features/chats/index.tsx:998
 msgid "These names are not in this chat: {0}. Pick from the @ list or remove them."
 msgstr "Bu adlar bu söhbətdə yoxdur: {0}. @ siyahısından seçin və ya onları silin."
 
@@ -2878,19 +2865,20 @@ msgstr "Bu adlar bu söhbətdə yoxdur: {0}. @ siyahısından seçin və ya onla
 msgid "This app is not allowed to use your passkey. Allow it in Settings, under Permissions."
 msgstr "Bu tətbiqin passkey-inizi istifadə etməsinə icazə verilmir. Ayarlarda, İcazələr bölməsində icazə verin."
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:166
+#: src/routes/_authenticated/$chatId_.settings.tsx:165
 msgid "this chat"
 msgstr "bu söhbət"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:119
+#: src/features/chats/index.tsx:1090
+#: src/routes/_authenticated/$chatId_.settings.tsx:118
 msgid "This chat may have been deleted or you don't have access to it"
 msgstr "Bu lent hazırda yüklənə bilmir."
 
-#: src/features/chats/index.tsx:1406
+#: src/features/chats/index.tsx:1428
 msgid "This deletes the message for everyone and cannot be undone."
 msgstr "Bu, mesajı hamı üçün silir və geri qaytarıla bilməz."
 
-#: src/features/chats/components/chat-message-list.tsx:682
+#: src/features/chats/components/chat-message-list.tsx:680
 #: src/features/chats/components/message-quote.tsx:50
 msgid "This message was deleted"
 msgstr "Bu mesaj silindi"
@@ -2942,7 +2930,7 @@ msgstr "Mövzular"
 msgid "Travelling"
 msgstr "Səyahət"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:473
+#: src/routes/_authenticated/$chatId_.settings.tsx:470
 msgid "Try a different search term"
 msgstr "Fərqli etiket sınayın."
 
@@ -3020,11 +3008,11 @@ msgstr "Naməlum"
 #: ../../../lib/web/src/components/tree-row.tsx:373
 #: ../../../lib/web/src/components/tree-table-header.tsx:70
 #: ../../../lib/web/src/features/accounts/types.ts:29
-#: src/hooks/useChatWebsocket.ts:387
+#: src/hooks/useChatWebsocket.ts:373
 msgid "Unknown"
 msgstr "Naməlum cihaz"
 
-#: src/components/layout/chat-layout.tsx:226
+#: src/components/layout/chat-layout.tsx:222
 msgid "Unpin chat"
 msgstr "Söhbəti sancaqdan çıxar"
 
@@ -3147,7 +3135,7 @@ msgstr "<0>{0}</0> ünvanına təsdiq kodu göndərdik. E-poçt ünvanınızı t
 msgid "Wednesday"
 msgstr "Çərşənbə"
 
-#: src/features/chats/index.tsx:481
+#: src/features/chats/index.tsx:470
 msgid "You"
 msgstr "Artıq söhbətiniz olanlar:"
 
@@ -3159,15 +3147,15 @@ msgstr "Bu dostunuzla artıq söhbətiniz var"
 msgid "You already have chats with:"
 msgstr "Sizin artıq bu şəxslərlə söhbətiniz var:"
 
-#: src/features/chats/index.tsx:984
+#: src/features/chats/index.tsx:981
 msgid "You can attach at most {CAPTIONS_MAX} files to a message"
 msgstr "Bir mesaja ən çox {CAPTIONS_MAX} fayl əlavə edə bilərsiniz"
 
-#: src/features/chats/index.tsx:980
+#: src/features/chats/index.tsx:977
 msgid "You can mention at most {MENTIONS_MAX} people in a message"
 msgstr "Bir mesajda ən çox {MENTIONS_MAX} nəfəri qeyd edə bilərsiniz"
 
-#: src/features/chats/index.tsx:689
+#: src/features/chats/index.tsx:678
 msgid "You can only delete your own messages"
 msgstr "Yalnız öz mesajlarınızı silə bilərsiniz"
 
@@ -3175,11 +3163,11 @@ msgstr "Yalnız öz mesajlarınızı silə bilərsiniz"
 msgid "You do not have access to this section."
 msgstr "Bu bölməyə girişiniz yoxdur."
 
-#: src/features/chats/index.tsx:1314
+#: src/features/chats/index.tsx:1336
 msgid "You left this chat"
 msgstr "Bu söhbəti tərk etdiniz"
 
-#: src/features/chats/index.tsx:1313
+#: src/features/chats/index.tsx:1335
 msgid "You were removed from this chat"
 msgstr "Bu hərracı qazandınız"
 

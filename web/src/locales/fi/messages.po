@@ -19,7 +19,7 @@ msgid "Please check your internet connection and try again."
 msgstr "Tarkista internetyhteytesi ja yritä uudelleen."
 
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:189
-#: src/features/chats/components/chat-message-list.tsx:797
+#: src/features/chats/components/chat-message-list.tsx:795
 msgid "(edited)"
 msgstr "(muokattu)"
 
@@ -27,7 +27,7 @@ msgstr "(muokattu)"
 msgid "(expand)"
 msgstr "(laajenna)"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:290
+#: src/routes/_authenticated/$chatId_.settings.tsx:289
 msgid "(you)"
 msgstr "(sinä)"
 
@@ -36,7 +36,11 @@ msgid "[not set]"
 msgstr "[ei asetettu]"
 
 #. placeholder {0}: displayInfo.count
+#. placeholder {0}: selectedIds.size
+#. placeholder {0}: selectedIds?.size ?? 0
 #: ../../../lib/web/src/components/person-picker.tsx:260
+#: src/features/chats/components/chat-message-list.tsx:822
+#: src/features/chats/index.tsx:1293
 msgid "{0, plural, one {# selected} other {# selected}}"
 msgstr "{0, plural, one {# valittu} other {# valittu}}"
 
@@ -46,7 +50,7 @@ msgid "{0, plural, one {+# nested} other {+# nested}}"
 msgstr "{0, plural, one {+# sisäkkäinen} other {+# sisäkkäistä}}"
 
 #. placeholder {0}: deleteTargetIds?.length ?? 0
-#: src/features/chats/index.tsx:1402
+#: src/features/chats/index.tsx:1424
 msgid "{0, plural, one {Delete message?} other {Delete # messages?}}"
 msgstr "{0, plural, one {Poistetaanko viesti?} other {Poistetaanko # viestiä?}}"
 
@@ -55,16 +59,9 @@ msgstr "{0, plural, one {Poistetaanko viesti?} other {Poistetaanko # viestiä?}}
 msgid "{0} (includes you)"
 msgstr "{0} (sisältää sinut)"
 
-#. placeholder {0}: selectedIds.size
-#. placeholder {0}: selectedIds?.size ?? 0
-#: src/features/chats/components/chat-message-list.tsx:824
-#: src/features/chats/index.tsx:1271
-msgid "{0} selected"
-msgstr "{0} valittu"
-
 #. placeholder {0}: chatDetail.chat.name
-#: src/routes/_authenticated/$chatId_.settings.tsx:90
-#: src/routes/_authenticated/$chatId_.settings.tsx:129
+#: src/routes/_authenticated/$chatId_.settings.tsx:89
+#: src/routes/_authenticated/$chatId_.settings.tsx:128
 msgid "{0} settings"
 msgstr "{0}-asetukset"
 
@@ -92,8 +89,8 @@ msgstr "{entityLabel}: nimi"
 msgid "{hiddenCount, plural, one {Show 1 more file} other {Show # more files}}"
 msgstr "{hiddenCount, plural, one {Näytä 1 tiedosto lisää} other {Näytä # tiedostoa lisää}}"
 
-#: src/features/chats/components/chat-message-list.tsx:859
-#: src/features/chats/components/chat-message-list.tsx:876
+#: src/features/chats/components/chat-message-list.tsx:856
+#: src/features/chats/components/chat-message-list.tsx:873
 msgid "{newMessageCount, plural, one {Jump to 1 new message} other {Jump to # new messages}}"
 msgstr "{newMessageCount, plural, one {Siirry 1 uuteen viestiin} other {Siirry # uuteen viestiin}}"
 
@@ -106,7 +103,7 @@ msgstr "{opponentName} tarjosi tasapeliä"
 msgid "{sentLabel} of {totalLabel}"
 msgstr "{sentLabel} / {totalLabel}"
 
-#: src/features/chats/index.tsx:899
+#: src/features/chats/index.tsx:888
 msgid "{skippedCount, plural, one {Skipped # file that is not audio} other {Skipped # files that are not audio}}"
 msgstr "{skippedCount, plural, one {Ohitettiin # tiedosto, joka ei ole ääntä} other {Ohitettiin # tiedostoa, jotka eivät ole ääntä}}"
 
@@ -167,7 +164,7 @@ msgid "Add"
 msgstr "Lisää"
 
 #. placeholder {0}: friend.name
-#: src/routes/_authenticated/$chatId_.settings.tsx:486
+#: src/routes/_authenticated/$chatId_.settings.tsx:483
 msgid "Add {0} to chat"
 msgstr "Lisää {0} keskusteluun"
 
@@ -217,7 +214,7 @@ msgstr "Lisää kohde..."
 msgid "Add link"
 msgstr "Lisää linkki"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:263
+#: src/routes/_authenticated/$chatId_.settings.tsx:262
 #: src/routes/_authenticated/$chatId_.settings.tsx:445
 msgid "Add member"
 msgstr "Lisää jäsen"
@@ -278,7 +275,7 @@ msgstr "Samaa mieltä"
 msgid "AI"
 msgstr "Tekoäly"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:474
+#: src/routes/_authenticated/$chatId_.settings.tsx:471
 msgid "All your friends are already in this chat"
 msgstr "Kaikki kaverisi ovat jo tässä chatissa"
 
@@ -313,13 +310,9 @@ msgstr "Vihainen"
 
 #: ../../../lib/web/src/features/access/access-list.tsx:45
 #: ../../../lib/web/src/features/access/types.ts:36
-#: src/features/chats/components/chat-settings-dialog.tsx:44
+#: src/features/chats/components/chat-settings-dialog.tsx:38
 msgid "Anyone"
 msgstr "Kuka tahansa"
-
-#: src/features/chats/components/chat-settings-dialog.tsx:45
-msgid "Anyone can start a chat with you."
-msgstr "Kuka tahansa voi aloittaa keskustelun kanssasi."
 
 #: ../../../lib/web/src/features/access/types.ts:35
 msgid "Anyone who is logged in"
@@ -347,7 +340,7 @@ msgid "Are you sure you want to delete this comment? This will also delete all r
 msgstr "Haluatko varmasti poistaa tämän kommentin? Tämä poistaa myös kaikki vastaukset."
 
 #. placeholder {0}: selectedChat?.name
-#: src/features/chats/index.tsx:1370
+#: src/features/chats/index.tsx:1392
 msgid "Are you sure you want to leave \"{0}\"? You can be added back by other members."
 msgstr "Haluatko varmasti poistua kohteesta \"{0}\"? Muut jäsenet voivat lisätä sinut takaisin."
 
@@ -360,7 +353,7 @@ msgid "Are you sure you want to log out? You will need to log in again to access
 msgstr "Haluatko varmasti kirjautua ulos? Sinun täytyy kirjautua uudelleen sisään päästäksesi tilillesi."
 
 #. placeholder {0}: member?.name
-#: src/routes/_authenticated/$chatId_.settings.tsx:549
+#: src/routes/_authenticated/$chatId_.settings.tsx:546
 msgid "Are you sure you want to remove {0} from this chat?"
 msgstr "Haluatko varmasti poistaa käyttäjän {0} tästä keskustelusta?"
 
@@ -389,7 +382,7 @@ msgstr "Liitä vastaustiedostoja"
 msgid "Attachment"
 msgstr "Liite"
 
-#: src/features/chats/index.tsx:785
+#: src/features/chats/index.tsx:774
 msgid "Attachments are too large to upload. Remove or shrink files and try again."
 msgstr "Liitteet ovat liian suuria lähetettäviksi. Poista tai pienennä tiedostoja ja yritä uudelleen."
 
@@ -422,9 +415,9 @@ msgstr "Käyttäjän {name} avatar"
 msgid "Back"
 msgstr "Takaisin"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:103
-#: src/routes/_authenticated/$chatId_.settings.tsx:114
-#: src/routes/_authenticated/$chatId_.settings.tsx:130
+#: src/routes/_authenticated/$chatId_.settings.tsx:102
+#: src/routes/_authenticated/$chatId_.settings.tsx:113
+#: src/routes/_authenticated/$chatId_.settings.tsx:129
 msgid "Back to chat"
 msgstr "Takaisin chattiin"
 
@@ -433,20 +426,20 @@ msgstr "Takaisin chattiin"
 msgid "Back to home"
 msgstr "Takaisin etusivulle"
 
-#: ../../../lib/web/src/components/banner-section.tsx:80
+#: ../../../lib/web/src/components/banner-section.tsx:91
 #: ../../../lib/web/src/components/entity-banner.tsx:17
 msgid "Banner"
 msgstr "Banneri"
 
-#: ../../../lib/web/src/components/banner-section.tsx:69
+#: ../../../lib/web/src/components/banner-section.tsx:73
 msgid "Banner removed"
 msgstr "Banneri poistettu"
 
-#: ../../../lib/web/src/components/banner-section.tsx:69
+#: ../../../lib/web/src/components/banner-section.tsx:73
 msgid "Banner updated"
 msgstr "Banneri päivitetty"
 
-#: src/features/chats/components/chat-message-list.tsx:476
+#: src/features/chats/components/chat-message-list.tsx:477
 msgid "Be the first to say something!"
 msgstr "Sano jotain ensimmäisenä!"
 
@@ -503,12 +496,12 @@ msgstr "Kamera ei ole käytettävissä"
 #: ../../../lib/web/src/features/access/access-list.tsx:268
 #: ../../../lib/web/src/features/accounts/account-add.tsx:201
 #: ../../../lib/web/src/features/accounts/account-verify.tsx:91
-#: src/features/chats/components/chat-message-list.tsx:627
-#: src/features/chats/components/chat-message-list.tsx:843
-#: src/features/chats/components/chat-settings-dialog.tsx:116
+#: src/features/chats/components/chat-message-list.tsx:625
+#: src/features/chats/components/chat-message-list.tsx:840
+#: src/features/chats/components/chat-settings-dialog.tsx:105
 #: src/features/chats/components/forward-dialog.tsx:252
 #: src/features/chats/components/new-chat.tsx:356
-#: src/features/chats/index.tsx:1303
+#: src/features/chats/index.tsx:1325
 msgid "Cancel"
 msgstr "Peruuta"
 
@@ -550,10 +543,11 @@ msgstr "Muutettu"
 msgid "Changed {field}"
 msgstr "{field} muutettu"
 
-#: src/features/chats/index.tsx:95
-#: src/features/chats/index.tsx:203
-#: src/features/chats/index.tsx:203
-#: src/features/chats/index.tsx:1079
+#: src/features/chats/index.tsx:97
+#: src/features/chats/index.tsx:194
+#: src/features/chats/index.tsx:194
+#: src/features/chats/index.tsx:1083
+#: src/features/chats/index.tsx:1101
 msgid "Chat"
 msgstr "Chat"
 
@@ -561,28 +555,28 @@ msgstr "Chat"
 msgid "Chat created"
 msgstr "Chat luotu"
 
-#: src/features/chats/index.tsx:850
+#: src/features/chats/index.tsx:839
 msgid "Chat deleted"
 msgstr "Chat poistettu"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:229
+#: src/routes/_authenticated/$chatId_.settings.tsx:228
 msgid "Chat ID"
 msgstr "Chatin tunnus"
 
-#: src/components/layout/chat-layout.tsx:156
+#: src/components/layout/chat-layout.tsx:157
 msgid "Chat marked as read"
 msgstr "Keskustelu merkitty luetuksi"
 
-#: src/components/layout/chat-layout.tsx:170
+#: src/components/layout/chat-layout.tsx:171
 msgid "Chat marked as unread"
 msgstr "Keskustelu merkitty lukemattomaksi"
 
 #: src/features/chats/components/new-chat.tsx:340
-#: src/routes/_authenticated/$chatId_.settings.tsx:213
+#: src/routes/_authenticated/$chatId_.settings.tsx:212
 msgid "Chat name"
 msgstr "Chatin nimi"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:199
+#: src/routes/_authenticated/$chatId_.settings.tsx:198
 msgid "Chat name is required"
 msgstr "Keskustelun nimi vaaditaan"
 
@@ -590,15 +584,16 @@ msgstr "Keskustelun nimi vaaditaan"
 msgid "Chat name..."
 msgstr "Chatin nimi..."
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:118
+#: src/features/chats/index.tsx:1089
+#: src/routes/_authenticated/$chatId_.settings.tsx:117
 msgid "Chat not found"
 msgstr "Chattia ei löydy"
 
-#: src/components/layout/chat-layout.tsx:178
+#: src/components/layout/chat-layout.tsx:179
 msgid "Chat pinned"
 msgstr "Keskustelu kiinnitetty"
 
-#: src/features/chats/components/chat-settings-dialog.tsx:67
+#: src/features/chats/components/chat-settings-dialog.tsx:59
 msgid "Chat policy updated"
 msgstr "Keskustelukäytäntö päivitetty"
 
@@ -606,16 +601,16 @@ msgstr "Keskustelukäytäntö päivitetty"
 msgid "Chat ready"
 msgstr "Chat valmis"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:220
+#: src/routes/_authenticated/$chatId_.settings.tsx:219
 msgid "Chat renamed"
 msgstr "Chat nimetty uudelleen"
 
-#: src/features/chats/index.tsx:1084
-#: src/features/chats/index.tsx:1182
-#: src/routes/_authenticated/$chatId_.settings.tsx:90
-#: src/routes/_authenticated/$chatId_.settings.tsx:103
-#: src/routes/_authenticated/$chatId_.settings.tsx:114
-#: src/routes/_authenticated/$chatId_.settings.tsx:129
+#: src/features/chats/index.tsx:1106
+#: src/features/chats/index.tsx:1204
+#: src/routes/_authenticated/$chatId_.settings.tsx:89
+#: src/routes/_authenticated/$chatId_.settings.tsx:102
+#: src/routes/_authenticated/$chatId_.settings.tsx:113
+#: src/routes/_authenticated/$chatId_.settings.tsx:128
 msgid "Chat settings"
 msgstr "Chatin asetukset"
 
@@ -623,11 +618,11 @@ msgstr "Chatin asetukset"
 msgid "Chat text box"
 msgstr "Chatin tekstikenttä"
 
-#: src/components/layout/chat-layout.tsx:186
+#: src/components/layout/chat-layout.tsx:187
 msgid "Chat unpinned"
 msgstr "Keskustelun kiinnitys poistettu"
 
-#: src/components/layout/chat-layout.tsx:279
+#: src/components/layout/chat-layout.tsx:275
 #: src/features/chats/components/forward-dialog.tsx:228
 msgid "Chats"
 msgstr "Chatit"
@@ -657,7 +652,7 @@ msgstr "Valitse peli sivupalkista tai aloita uusi."
 msgid "Choose language"
 msgstr "Valitse kieli"
 
-#: ../../../lib/web/src/components/banner-section.tsx:111
+#: ../../../lib/web/src/components/banner-section.tsx:123
 #: ../../../lib/web/src/components/colour-picker.tsx:274
 #: ../../../lib/web/src/components/colour-picker.tsx:355
 #: ../../../lib/web/src/components/travelling-picker.tsx:145
@@ -673,7 +668,7 @@ msgstr "Tyhjennä kaikki"
 
 #: ../../../lib/web/src/components/search-input.tsx:26
 #: src/features/chats/components/forward-dialog.tsx:198
-#: src/routes/_authenticated/$chatId_.settings.tsx:457
+#: src/routes/_authenticated/$chatId_.settings.tsx:454
 msgid "Clear search"
 msgstr "Tyhjennä haku"
 
@@ -805,7 +800,7 @@ msgid "Continue with {label}"
 msgstr "Jatka käyttäen palvelua {label}"
 
 #: ../../../lib/web/src/lib/toast-utils.ts:42
-#: src/features/chats/index.tsx:676
+#: src/features/chats/index.tsx:665
 msgid "Copied"
 msgstr "Kopioitu"
 
@@ -815,13 +810,13 @@ msgstr "Kopioitu leikepöydälle"
 
 #: ../../../lib/web/src/components/ui/copy-button.tsx:64
 #: src/features/chats/components/message-hover-actions.tsx:107
-#: src/features/chats/index.tsx:1280
+#: src/features/chats/index.tsx:1302
 msgid "Copy"
 msgstr "Kopioi"
 
 #. placeholder {0}: ambiguous.join(', ')
 #. placeholder {1}: unknown.join(', ')
-#: src/features/chats/index.tsx:1005
+#: src/features/chats/index.tsx:1002
 msgid "Could not link mentions. Multiple people share: {0}. Not in this chat: {1}. Pick from the @ list."
 msgstr "Mainintoja ei voitu yhdistää. Useilla henkilöillä on sama nimi: {0}. Eivät tässä chatissa: {1}. Valitse @-luettelosta."
 
@@ -861,7 +856,7 @@ msgstr "Luo {entityLabel}"
 msgid "Create a new chat"
 msgstr "Luo uusi chat"
 
-#: src/components/layout/chat-layout.tsx:289
+#: src/components/layout/chat-layout.tsx:285
 #: src/features/chats/components/new-chat.tsx:368
 msgid "Create chat"
 msgstr "Luo chat"
@@ -939,8 +934,8 @@ msgstr "Oletuslajittelu"
 #: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:672
 #: ../../../lib/web/src/components/game/game-end-dialogs.tsx:78
 #: src/features/chats/components/message-hover-actions.tsx:146
-#: src/features/chats/index.tsx:1296
-#: src/features/chats/index.tsx:1414
+#: src/features/chats/index.tsx:1318
+#: src/features/chats/index.tsx:1436
 msgid "Delete"
 msgstr "Poista"
 
@@ -948,12 +943,12 @@ msgstr "Poista"
 msgid "Delete attachment"
 msgstr "Poista liite"
 
-#: src/features/chats/index.tsx:1165
-#: src/features/chats/index.tsx:1327
+#: src/features/chats/index.tsx:1187
+#: src/features/chats/index.tsx:1349
 msgid "Delete chat"
 msgstr "Poista chat"
 
-#: src/features/chats/index.tsx:1392
+#: src/features/chats/index.tsx:1414
 #: src/routes/_authenticated/$chatId_.settings.tsx:379
 msgid "Delete chat history"
 msgstr "Poista chat-historia"
@@ -1006,13 +1001,13 @@ msgstr "Poistettu"
 msgid "Deleted {field}"
 msgstr "{field} poistettu"
 
-#: src/features/chats/index.tsx:849
+#: src/features/chats/index.tsx:838
 msgid "Deleting chat..."
 msgstr "Poistetaan keskustelua..."
 
 #: ../../../lib/web/src/components/game/game-end-dialogs.tsx:75
-#: src/features/chats/index.tsx:706
-#: src/features/chats/index.tsx:1411
+#: src/features/chats/index.tsx:695
+#: src/features/chats/index.tsx:1433
 msgid "Deleting..."
 msgstr "Poistetaan..."
 
@@ -1107,7 +1102,7 @@ msgstr "Lataa"
 msgid "Download failed"
 msgstr "Lataus epäonnistui"
 
-#: src/components/layout/chat-layout.tsx:266
+#: src/components/layout/chat-layout.tsx:262
 msgid "Draft"
 msgstr "Luonnos"
 
@@ -1177,7 +1172,7 @@ msgstr "Sähköposti"
 msgid "Email code"
 msgstr "Sähköpostikoodi"
 
-#: ../../../lib/web/src/components/banner-section.tsx:88
+#: ../../../lib/web/src/components/banner-section.tsx:99
 msgid "Enter banner text (markdown supported)..."
 msgstr "Anna bannerin teksti (markdown tuettu)..."
 
@@ -1192,10 +1187,6 @@ msgstr "Anna todennussovelluksen koodi"
 #: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:381
 msgid "Error"
 msgstr "Virhe"
-
-#: src/features/chats/components/chat-message-list.tsx:617
-msgid "escape to cancel • enter to save"
-msgstr "Escape peruuttaa • Enter tallentaa"
 
 #: ../../../lib/web/src/components/comment-tree-layout.tsx:101
 #: ../../../lib/web/src/components/comment-tree-layout.tsx:110
@@ -1226,7 +1217,7 @@ msgstr "Jäsenen lisääminen epäonnistui"
 
 #: ../../../lib/web/src/components/ui/copy-button.tsx:26
 #: ../../../lib/web/src/lib/toast-utils.ts:44
-#: src/features/chats/index.tsx:677
+#: src/features/chats/index.tsx:666
 msgid "Failed to copy"
 msgstr "Kopiointi epäonnistui"
 
@@ -1244,7 +1235,7 @@ msgid "Failed to create link"
 msgstr "Linkin luominen epäonnistui"
 
 #: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:303
-#: src/features/chats/index.tsx:708
+#: src/features/chats/index.tsx:697
 msgid "Failed to delete"
 msgstr "Poistaminen epäonnistui"
 
@@ -1252,7 +1243,7 @@ msgstr "Poistaminen epäonnistui"
 msgid "Failed to delete attachment"
 msgstr "Liitteen poistaminen epäonnistui"
 
-#: src/features/chats/index.tsx:851
+#: src/features/chats/index.tsx:840
 msgid "Failed to delete chat"
 msgstr "Keskustelun poistaminen epäonnistui"
 
@@ -1264,7 +1255,7 @@ msgstr "Kommentin poistaminen epäonnistui"
 msgid "Failed to delete link"
 msgstr "Linkin poistaminen epäonnistui"
 
-#: src/features/chats/index.tsx:616
+#: src/features/chats/index.tsx:605
 msgid "Failed to edit message"
 msgstr "Viestin muokkaus epäonnistui"
 
@@ -1276,7 +1267,7 @@ msgstr "Välitys epäonnistui"
 msgid "Failed to get RSS token"
 msgstr "RSS-tunnisteen hakeminen epäonnistui"
 
-#: src/features/chats/index.tsx:832
+#: src/features/chats/index.tsx:821
 #: src/routes/_authenticated/$chatId_.settings.tsx:340
 msgid "Failed to leave chat"
 msgstr "Keskustelusta poistuminen epäonnistui"
@@ -1284,6 +1275,10 @@ msgstr "Keskustelusta poistuminen epäonnistui"
 #: ../../../lib/web/src/hooks/use-load-more.ts:78
 msgid "Failed to load"
 msgstr "Lataus epäonnistui"
+
+#: ../../../lib/web/src/components/banner-section.tsx:85
+msgid "Failed to load banner"
+msgstr "Bannerin lataus epäonnistui"
 
 #: ../../../lib/web/src/components/audit-timeline.tsx:68
 msgid "Failed to load history"
@@ -1306,11 +1301,11 @@ msgstr "Kehotteiden lataus epäonnistui"
 msgid "Failed to load video"
 msgstr "Videon lataus epäonnistui"
 
-#: src/features/chats/components/chat-settings-dialog.tsx:89
+#: src/features/chats/components/chat-settings-dialog.tsx:81
 msgid "Failed to load your chat policy"
 msgstr "Keskustelukäytäntösi lataaminen epäonnistui"
 
-#: src/components/layout/chat-layout.tsx:158
+#: src/components/layout/chat-layout.tsx:159
 msgid "Failed to mark chat as read"
 msgstr "Keskustelun merkitseminen luetuksi epäonnistui"
 
@@ -1322,15 +1317,15 @@ msgstr "Siirto epäonnistui"
 msgid "Failed to post comment"
 msgstr "Kommentin lähettäminen epäonnistui"
 
-#: src/features/chats/index.tsx:660
+#: src/features/chats/index.tsx:649
 msgid "Failed to react"
 msgstr "Reagointi epäonnistui"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:535
+#: src/routes/_authenticated/$chatId_.settings.tsx:532
 msgid "Failed to remove member"
 msgstr "Jäsenen poisto epäonnistui"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:222
+#: src/routes/_authenticated/$chatId_.settings.tsx:221
 msgid "Failed to rename chat"
 msgstr "Keskustelun uudelleennimeäminen epäonnistui"
 
@@ -1343,7 +1338,7 @@ msgid "Failed to revoke RSS access"
 msgstr "RSS-käyttöoikeuden peruuttaminen epäonnistui"
 
 #: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:273
-#: src/features/chats/components/chat-settings-dialog.tsx:68
+#: src/features/chats/components/chat-settings-dialog.tsx:60
 msgid "Failed to save"
 msgstr "Tallennus epäonnistui"
 
@@ -1351,15 +1346,15 @@ msgstr "Tallennus epäonnistui"
 msgid "Failed to save prompt"
 msgstr "Kehotteen tallennus epäonnistui"
 
-#: src/features/chats/index.tsx:784
+#: src/features/chats/index.tsx:773
 msgid "Failed to send message"
 msgstr "Viestin lähetys epäonnistui"
 
-#: src/features/chats/index.tsx:209
+#: src/features/chats/index.tsx:200
 msgid "Failed to start chat"
 msgstr "Keskustelun aloitus epäonnistui"
 
-#: ../../../lib/web/src/components/banner-section.tsx:71
+#: ../../../lib/web/src/components/banner-section.tsx:75
 msgid "Failed to update banner"
 msgstr "Bannerin päivitys epäonnistui"
 
@@ -1395,7 +1390,7 @@ msgstr "Litteä"
 
 #: src/features/chats/components/forward-dialog.tsx:263
 #: src/features/chats/components/message-hover-actions.tsx:138
-#: src/features/chats/index.tsx:1288
+#: src/features/chats/index.tsx:1310
 msgid "Forward"
 msgstr "Välitä"
 
@@ -1418,11 +1413,11 @@ msgstr "Perjantai"
 #: ../../../lib/web/src/components/person-picker.tsx:186
 #: src/features/chats/components/forward-dialog.tsx:236
 #: src/features/chats/components/new-chat.tsx:286
-#: src/routes/_authenticated/$chatId_.settings.tsx:480
+#: src/routes/_authenticated/$chatId_.settings.tsx:477
 msgid "Friends"
 msgstr "Kaverit"
 
-#: src/features/chats/components/chat-settings-dialog.tsx:39
+#: src/features/chats/components/chat-settings-dialog.tsx:37
 msgid "Friends only"
 msgstr "Vain kaverit"
 
@@ -1438,8 +1433,8 @@ msgstr "Lähettäjä"
 msgid "From theme"
 msgstr "Teemasta"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:134
-#: src/routes/_authenticated/$chatId_.settings.tsx:211
+#: src/routes/_authenticated/$chatId_.settings.tsx:133
+#: src/routes/_authenticated/$chatId_.settings.tsx:210
 msgid "General"
 msgstr "Yleiset"
 
@@ -1493,8 +1488,8 @@ msgstr "Brittiläinen"
 msgid "Including anonymous users"
 msgstr "Mukaan lukien anonyymit käyttäjät"
 
-#: src/features/chats/components/chat-settings-dialog.tsx:80
-#: src/features/chats/index.tsx:1188
+#: src/features/chats/components/chat-settings-dialog.tsx:72
+#: src/features/chats/index.tsx:1210
 msgid "Incoming chats"
 msgstr "Saapuvat keskustelut"
 
@@ -1526,8 +1521,8 @@ msgstr "Näyttää siltä, että etsimääsi sivua <0/>ei ole olemassa tai se on
 msgid "Item details"
 msgstr "Kohteen tiedot"
 
-#: src/features/chats/components/chat-message-list.tsx:863
-#: src/features/chats/components/chat-message-list.tsx:880
+#: src/features/chats/components/chat-message-list.tsx:860
+#: src/features/chats/components/chat-message-list.tsx:877
 msgid "Jump to bottom"
 msgstr "Siirry alas"
 
@@ -1552,31 +1547,32 @@ msgstr "Nauru"
 msgid "Layout"
 msgstr "Asettelu"
 
-#: src/features/chats/index.tsx:1378
+#: src/features/chats/index.tsx:1400
 msgid "Leave"
 msgstr "Poistu"
 
-#: src/features/chats/index.tsx:1172
+#: src/features/chats/index.tsx:1194
+#: src/routes/_authenticated/$chatId_.settings.tsx:296
 #: src/routes/_authenticated/$chatId_.settings.tsx:365
 msgid "Leave chat"
 msgstr "Poistu keskustelusta"
 
-#: src/features/chats/index.tsx:1369
+#: src/features/chats/index.tsx:1391
 #: src/routes/_authenticated/$chatId_.settings.tsx:356
 msgid "Leave chat?"
 msgstr "Poistutaanko keskustelusta?"
 
-#: src/features/chats/index.tsx:830
+#: src/features/chats/index.tsx:819
 #: src/routes/_authenticated/$chatId_.settings.tsx:338
 msgid "Leaving chat..."
 msgstr "Poistutaan keskustelusta..."
 
-#: src/features/chats/index.tsx:1375
+#: src/features/chats/index.tsx:1397
 #: src/routes/_authenticated/$chatId_.settings.tsx:362
 msgid "Leaving..."
 msgstr "Poistutaan..."
 
-#: src/features/chats/index.tsx:831
+#: src/features/chats/index.tsx:820
 #: src/routes/_authenticated/$chatId_.settings.tsx:339
 msgid "Left chat"
 msgstr "Poistuit keskustelusta"
@@ -1660,15 +1656,15 @@ msgstr "Manuaalinen"
 msgid "Mark all as read"
 msgstr "Merkitse kaikki luetuiksi"
 
-#: src/components/layout/chat-layout.tsx:241
+#: src/components/layout/chat-layout.tsx:237
 msgid "Mark as read"
 msgstr "Merkitse luetuksi"
 
-#: src/components/layout/chat-layout.tsx:247
+#: src/components/layout/chat-layout.tsx:243
 msgid "Mark as unread"
 msgstr "Merkitse lukemattomaksi"
 
-#: src/components/layout/chat-layout.tsx:155
+#: src/components/layout/chat-layout.tsx:156
 msgid "Marking as read..."
 msgstr "Merkitään luetuksi..."
 
@@ -1688,12 +1684,12 @@ msgstr "Keskikoko"
 msgid "Member added"
 msgstr "Jäsen lisätty"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:534
+#: src/routes/_authenticated/$chatId_.settings.tsx:531
 msgid "Member removed"
 msgstr "Jäsen poistettu"
 
 #: ../../../lib/web/src/components/entity/entity-field-editor.tsx:377
-#: src/routes/_authenticated/$chatId_.settings.tsx:259
+#: src/routes/_authenticated/$chatId_.settings.tsx:258
 msgid "Members"
 msgstr "Jäsenet"
 
@@ -1718,21 +1714,22 @@ msgstr "Viestin toiminnot"
 msgid "Message copied"
 msgstr "Viesti kopioitu"
 
-#: src/features/chats/index.tsx:786
+#: src/features/chats/index.tsx:775
 msgid "Message could not be sent. Attachments may be too large, or your connection failed. Try smaller files."
 msgstr "Viestiä ei voitu lähettää. Liitteet voivat olla liian suuria tai yhteytesi katkesi. Kokeile pienempiä tiedostoja."
 
-#: src/features/chats/index.tsx:707
+#: src/features/chats/index.tsx:696
 msgid "Message deleted"
 msgstr "Viesti poistettu"
 
 #. placeholder {0}: formatNumber(newMessage.length - MESSAGE_MAX_LENGTH)
 #: src/features/chats/components/chat-input.tsx:861
+#: src/features/chats/index.tsx:962
 msgid "Message is {0} characters too long"
 msgstr "Viesti on {0} merkkiä liian pitkä"
 
 #: src/features/chats/components/message-quote.tsx:60
-#: src/features/chats/index.tsx:728
+#: src/features/chats/index.tsx:717
 msgid "Message not available"
 msgstr "Viesti ei ole saatavilla"
 
@@ -1805,7 +1802,7 @@ msgid "Moved {field}"
 msgstr "{field} siirretty"
 
 #. placeholder {0}: ambiguous.join(', ')
-#: src/features/chats/index.tsx:997
+#: src/features/chats/index.tsx:994
 msgid "Multiple people share these names: {0}. Pick them from the @ list so the right person is notified."
 msgstr "Useilla henkilöillä on nämä nimet: {0}. Valitse heidät @-luettelosta, jotta oikea henkilö saa ilmoituksen."
 
@@ -1825,7 +1822,7 @@ msgstr "Nimi ei voi sisältää merkkejä < tai >"
 msgid "Name is required"
 msgstr "Nimi vaaditaan"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:201
+#: src/routes/_authenticated/$chatId_.settings.tsx:200
 msgid "Name must be {CHAT_NAME_MAX_LENGTH} characters or less"
 msgstr "Nimen on oltava enintään {CHAT_NAME_MAX_LENGTH} merkkiä"
 
@@ -1883,11 +1880,11 @@ msgstr "Ei keskusteluja, joihin välittää"
 msgid "No comments yet"
 msgstr "Ei vielä kommentteja"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:470
+#: src/routes/_authenticated/$chatId_.settings.tsx:467
 msgid "No friends available"
 msgstr "Ei saatavilla olevia ystäviä"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:470
+#: src/routes/_authenticated/$chatId_.settings.tsx:467
 msgid "No friends found"
 msgstr "Ystäviä ei löytynyt"
 
@@ -1911,7 +1908,7 @@ msgstr "Mitään kohdetyyppiä ei voi vielä luoda. Luo ensin vaaditut yläkohte
 msgid "No matching objects"
 msgstr "Ei vastaavia kohteita"
 
-#: src/features/chats/components/chat-message-list.tsx:475
+#: src/features/chats/components/chat-message-list.tsx:476
 msgid "No messages yet"
 msgstr "Ei vielä viestejä"
 
@@ -2005,7 +2002,7 @@ msgstr "Ei asetettu"
 msgid "Nothing found"
 msgstr "Mitään ei löytynyt"
 
-#: src/features/chats/index.tsx:672
+#: src/features/chats/index.tsx:661
 msgid "Nothing to copy"
 msgstr "Ei kopioitavaa"
 
@@ -2028,10 +2025,6 @@ msgstr "Vanhempi osuma"
 msgid "On"
 msgstr "Päällä"
 
-#: src/features/chats/components/chat-settings-dialog.tsx:40
-msgid "Only friends can start a chat with you (default)."
-msgstr "Vain kaverit voivat aloittaa keskustelun kanssasi (oletus)."
-
 #: ../../../lib/web/src/features/errors/not-found-error.tsx:16
 msgid "Oops! Page Not Found!"
 msgstr "Hups! Sivua ei löytynyt!"
@@ -2045,7 +2038,7 @@ msgstr "Avaa"
 msgid "Open actions"
 msgstr "Avaa toiminnot"
 
-#: src/features/chats/index.tsx:1157
+#: src/features/chats/index.tsx:1179
 msgid "Open chat actions"
 msgstr "Avaa keskustelun toiminnot"
 
@@ -2147,7 +2140,7 @@ msgstr "Henkilöt"
 msgid "Photo or Video"
 msgstr "Kuva tai video"
 
-#: src/components/layout/chat-layout.tsx:232
+#: src/components/layout/chat-layout.tsx:228
 msgid "Pin chat"
 msgstr "Kiinnitä keskustelu"
 
@@ -2299,12 +2292,14 @@ msgstr "Osuvuus {relevance}, kiinnostus {weight}"
 #: ../../../lib/web/src/components/attachment-composer.tsx:330
 #: ../../../lib/web/src/components/entity/add-field-dialog.tsx:192
 #: ../../../lib/web/src/features/access/access-list.tsx:270
-#: src/routes/_authenticated/$chatId_.settings.tsx:557
+#: src/routes/_authenticated/$chatId_.settings.tsx:554
 msgid "Remove"
 msgstr "Poista"
 
+#. placeholder {0}: member.name
 #. placeholder {0}: reaction.label
 #: src/features/chats/components/message-reaction-bar.tsx:121
+#: src/routes/_authenticated/$chatId_.settings.tsx:296
 msgid "Remove {0}"
 msgstr "Poista {0}"
 
@@ -2346,7 +2341,7 @@ msgstr "Poista kohde"
 msgid "Remove link"
 msgstr "Poista linkki"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:548
+#: src/routes/_authenticated/$chatId_.settings.tsx:545
 msgid "Remove member?"
 msgstr "Poistetaanko jäsen?"
 
@@ -2354,11 +2349,11 @@ msgstr "Poistetaanko jäsen?"
 msgid "Remove voice note"
 msgstr "Poista ääniviesti"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:533
+#: src/routes/_authenticated/$chatId_.settings.tsx:530
 msgid "Removing member..."
 msgstr "Poistetaan jäsentä..."
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:554
+#: src/routes/_authenticated/$chatId_.settings.tsx:551
 msgid "Removing..."
 msgstr "Poistetaan..."
 
@@ -2375,7 +2370,7 @@ msgstr "Nimeä sarake uudelleen"
 msgid "Rename this board column"
 msgstr "Nimeä tämä taulun sarake uudelleen"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:219
+#: src/routes/_authenticated/$chatId_.settings.tsx:218
 msgid "Renaming chat..."
 msgstr "Nimetään keskustelua uudelleen..."
 
@@ -2462,18 +2457,18 @@ msgstr "Lauantai"
 
 #: ../../../lib/web/src/components/ai-prompts-editor.tsx:156
 #: ../../../lib/web/src/components/attachment-composer.tsx:430
-#: ../../../lib/web/src/components/banner-section.tsx:99
+#: ../../../lib/web/src/components/banner-section.tsx:111
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:231
 #: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:172
 #: ../../../lib/web/src/components/ui/editable-field-row.tsx:126
 #: ../../../lib/web/src/components/ui/secret-field.tsx:79
-#: src/features/chats/components/chat-message-list.tsx:641
-#: src/features/chats/components/chat-settings-dialog.tsx:128
+#: src/features/chats/components/chat-message-list.tsx:639
+#: src/features/chats/components/chat-settings-dialog.tsx:117
 msgid "Save"
 msgstr "Tallenna"
 
 #: ../../../lib/web/src/components/ai-prompts-editor.tsx:156
-#: src/features/chats/components/chat-settings-dialog.tsx:66
+#: src/features/chats/components/chat-settings-dialog.tsx:58
 msgid "Saving..."
 msgstr "Tallennetaan..."
 
@@ -2512,7 +2507,7 @@ msgstr "Hae määränpäätä..."
 msgid "Search for origin..."
 msgstr "Hae lähtöpaikkaa..."
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:456
+#: src/routes/_authenticated/$chatId_.settings.tsx:453
 msgid "Search friends…"
 msgstr "Hae kavereita…"
 
@@ -2520,7 +2515,7 @@ msgstr "Hae kavereita…"
 msgid "Search in chat..."
 msgstr "Hae keskustelusta..."
 
-#: src/features/chats/index.tsx:1147
+#: src/features/chats/index.tsx:1169
 msgid "Search messages"
 msgstr "Hae viestejä"
 
@@ -2574,10 +2569,6 @@ msgstr "Valitse keskustelu"
 msgid "Select a field"
 msgstr "Valitse kenttä"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:448
-msgid "Select a friend to add to this chat."
-msgstr "Valitse kaveri lisättäväksi tähän keskusteluun."
-
 #: ../../../lib/web/src/components/game/game-empty-state.tsx:34
 msgid "Select a game"
 msgstr "Valitse peli"
@@ -2598,7 +2589,7 @@ msgstr "Valitse tilityyppi"
 msgid "Select group"
 msgstr "Valitse ryhmä"
 
-#: src/features/chats/components/chat-message-list.tsx:834
+#: src/features/chats/components/chat-message-list.tsx:831
 msgid "Select loaded"
 msgstr "Valitse ladatut"
 
@@ -2606,7 +2597,7 @@ msgstr "Valitse ladatut"
 msgid "Select location"
 msgstr "Valitse sijainti"
 
-#: src/features/chats/components/chat-message-list.tsx:549
+#: src/features/chats/components/chat-message-list.tsx:550
 msgid "Select message"
 msgstr "Valitse viesti"
 
@@ -2631,7 +2622,7 @@ msgstr "Valitse edellinen kortti"
 msgid "Select..."
 msgstr "Valitse..."
 
-#: src/features/chats/index.tsx:1251
+#: src/features/chats/index.tsx:1273
 msgid "Selected the newest {BULK_MESSAGES_MAX} messages, the most that can be forwarded or deleted at once"
 msgstr "Valittiin {BULK_MESSAGES_MAX} uusinta viestiä – enempää ei voi välittää tai poistaa kerralla"
 
@@ -2639,10 +2630,6 @@ msgstr "Valittiin {BULK_MESSAGES_MAX} uusinta viestiä – enempää ei voi väl
 #: ../../../lib/web/src/features/access/access-dialog.tsx:309
 msgid "Selected: <0>{0}</0>"
 msgstr "Valittu: <0>{0}</0>"
-
-#: src/features/chats/components/chat-message-list.tsx:832
-msgid "Selects messages loaded so far"
-msgstr "Valitsee tähän mennessä ladatut viestit"
 
 #: ../../../lib/web/src/features/accounts/account-verify.tsx:100
 msgid "Send again"
@@ -2755,7 +2742,7 @@ msgstr "Aloita keskustelu"
 msgid "Start the discussion by adding the first comment."
 msgstr "Aloita keskustelu lisäämällä ensimmäinen kommentti."
 
-#: src/features/chats/index.tsx:206
+#: src/features/chats/index.tsx:197
 msgid "Starting chat..."
 msgstr "Aloitetaan keskustelua..."
 
@@ -2849,7 +2836,7 @@ msgid "The chat name can be at most {CHAT_NAME_MAX_LENGTH} characters"
 msgstr "Keskustelun nimi voi olla enintään {CHAT_NAME_MAX_LENGTH} merkkiä"
 
 #: src/features/chats/components/new-chat.tsx:174
-#: src/routes/_authenticated/$chatId_.settings.tsx:205
+#: src/routes/_authenticated/$chatId_.settings.tsx:204
 msgid "The chat name cannot contain < or >"
 msgstr "Keskustelun nimessä ei voi olla merkkejä < tai >"
 
@@ -2870,7 +2857,7 @@ msgid "The server returned a web page instead of data."
 msgstr "Palvelin palautti verkkosivun tietojen sijaan."
 
 #. placeholder {0}: unknown.join(', ')
-#: src/features/chats/index.tsx:1001
+#: src/features/chats/index.tsx:998
 msgid "These names are not in this chat: {0}. Pick from the @ list or remove them."
 msgstr "Nämä nimet eivät ole tässä chatissa: {0}. Valitse @-luettelosta tai poista ne."
 
@@ -2878,19 +2865,20 @@ msgstr "Nämä nimet eivät ole tässä chatissa: {0}. Valitse @-luettelosta tai
 msgid "This app is not allowed to use your passkey. Allow it in Settings, under Permissions."
 msgstr "Tämä sovellus ei saa käyttää avainkoodiasi. Salli se Asetuksissa kohdassa Käyttöoikeudet."
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:166
+#: src/routes/_authenticated/$chatId_.settings.tsx:165
 msgid "this chat"
 msgstr "tämä keskustelu"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:119
+#: src/features/chats/index.tsx:1090
+#: src/routes/_authenticated/$chatId_.settings.tsx:118
 msgid "This chat may have been deleted or you don't have access to it"
 msgstr "Tämä keskustelu on saatettu poistaa, tai sinulla ei ole siihen pääsyä"
 
-#: src/features/chats/index.tsx:1406
+#: src/features/chats/index.tsx:1428
 msgid "This deletes the message for everyone and cannot be undone."
 msgstr "Tämä poistaa viestin kaikilta, eikä sitä voi kumota."
 
-#: src/features/chats/components/chat-message-list.tsx:682
+#: src/features/chats/components/chat-message-list.tsx:680
 #: src/features/chats/components/message-quote.tsx:50
 msgid "This message was deleted"
 msgstr "Tämä viesti poistettiin"
@@ -2942,7 +2930,7 @@ msgstr "Ylin"
 msgid "Travelling"
 msgstr "Matkustetaan"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:473
+#: src/routes/_authenticated/$chatId_.settings.tsx:470
 msgid "Try a different search term"
 msgstr "Kokeile toista hakusanaa"
 
@@ -3020,11 +3008,11 @@ msgstr "Yhdysvallat"
 #: ../../../lib/web/src/components/tree-row.tsx:373
 #: ../../../lib/web/src/components/tree-table-header.tsx:70
 #: ../../../lib/web/src/features/accounts/types.ts:29
-#: src/hooks/useChatWebsocket.ts:387
+#: src/hooks/useChatWebsocket.ts:373
 msgid "Unknown"
 msgstr "Tuntematon"
 
-#: src/components/layout/chat-layout.tsx:226
+#: src/components/layout/chat-layout.tsx:222
 msgid "Unpin chat"
 msgstr "Poista keskustelun kiinnitys"
 
@@ -3147,7 +3135,7 @@ msgstr "Lähetimme vahvistuskoodin osoitteeseen <0>{0}</0>. Syötä koodi alle v
 msgid "Wednesday"
 msgstr "Keskiviikko"
 
-#: src/features/chats/index.tsx:481
+#: src/features/chats/index.tsx:470
 msgid "You"
 msgstr "Sinä"
 
@@ -3159,15 +3147,15 @@ msgstr "Sinulla on jo keskustelu tämän kaverin kanssa"
 msgid "You already have chats with:"
 msgstr "Sinulla on jo keskustelut näiden kanssa:"
 
-#: src/features/chats/index.tsx:984
+#: src/features/chats/index.tsx:981
 msgid "You can attach at most {CAPTIONS_MAX} files to a message"
 msgstr "Voit liittää viestiin enintään {CAPTIONS_MAX} tiedostoa"
 
-#: src/features/chats/index.tsx:980
+#: src/features/chats/index.tsx:977
 msgid "You can mention at most {MENTIONS_MAX} people in a message"
 msgstr "Voit mainita viestissä enintään {MENTIONS_MAX} henkilöä"
 
-#: src/features/chats/index.tsx:689
+#: src/features/chats/index.tsx:678
 msgid "You can only delete your own messages"
 msgstr "Voit poistaa vain omia viestejäsi"
 
@@ -3175,11 +3163,11 @@ msgstr "Voit poistaa vain omia viestejäsi"
 msgid "You do not have access to this section."
 msgstr "Sinulla ei ole pääsyä tähän osioon."
 
-#: src/features/chats/index.tsx:1314
+#: src/features/chats/index.tsx:1336
 msgid "You left this chat"
 msgstr "Poistuit tästä keskustelusta"
 
-#: src/features/chats/index.tsx:1313
+#: src/features/chats/index.tsx:1335
 msgid "You were removed from this chat"
 msgstr "Sinut poistettiin tästä keskustelusta"
 

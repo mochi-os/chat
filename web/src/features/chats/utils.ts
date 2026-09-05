@@ -3,7 +3,7 @@
 // This file is part of Mochi, licensed under the GNU AGPL v3 with the
 // Mochi Application Interface Exception - see license.txt and license-exception.md.
 
-export type AttachmentKind = 'image' | 'video' | 'file'
+type AttachmentKind = 'image' | 'video' | 'file'
 
 export interface PendingAttachment {
   id: string
@@ -171,4 +171,52 @@ function fold(value: string): string {
     .normalize('NFD')
     .replace(/\p{Diacritic}/gu, '')
     .toLocaleLowerCase()
+}
+
+/**
+ * Why a message cannot be sent as it stands, or null when it can. One rule
+ * for the send button and the composer's Enter and submit paths: the length
+ * check lived only on the button, so Enter sent a body the server then refused
+ * after the attachments had already gone up.
+ */
+export type SendRefusal = 'empty' | 'length'
+
+export function sendRefusal(
+  text: string,
+  attachments: number,
+  maximum: number
+): SendRefusal | null {
+  if (text.length > maximum) return 'length'
+  if (!text.trim() && attachments === 0) return 'empty'
+  return null
+}
+
+/**
+ * What the chat page renders for the URL it was given. A chat id the list has
+ * settled on and does not hold is "notfound", not the picker, and never while
+ * the list is still (re)fetching: the new-chat dialog navigates to a freshly
+ * created id before the invalidated list has landed.
+ */
+export type ChatView = 'skeleton' | 'notfound' | 'picker' | 'chat'
+
+export function resolveChatView(input: {
+  selectedChatId: string | undefined
+  found: boolean
+  loading: boolean
+  fetching: boolean
+  failed: boolean
+}): ChatView {
+  if (!input.selectedChatId) return 'picker'
+  if (input.found) return 'chat'
+  if (input.loading || input.fetching) return 'skeleton'
+  if (input.failed) return 'picker'
+  return 'notfound'
+}
+
+/** A count badge capped at 99, every digit in the reader's locale. */
+export function formatCountBadge(
+  count: number,
+  formatNumber: (value: number) => string
+): string {
+  return count > 99 ? `${formatNumber(99)}+` : formatNumber(count)
 }

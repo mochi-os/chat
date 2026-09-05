@@ -33,6 +33,9 @@ def error_message_timeout(e):
 	affected = mochi.db.rows("select distinct chat from members where member=?", member)
 	for row in affected:
 		mochi.db.execute("delete from members where chat=? and member=?", row["chat"], member)
+		# As in event_leave: dropping them from the roster stops deliveries, not
+		# replay of this host's stream.
+		mochi.broadcast.subscriber.remove(row["chat"], member)
 	for r in affected:
 		row = mochi.db.row("select key from chats where id=?", r["chat"])
 		if row:
@@ -76,7 +79,7 @@ def chat_commit_hook(table, kind, row_uid):
 		return
 	# A reactions row commit recomputes that message's authoritative counts
 	# and pushes them to every member's tabs. row_uid is the message id
-	# (passed by message_reaction_apply); clients keep their own my_reaction
+	# (passed by message_reaction_apply); clients keep their own reaction
 	# and reconcile counts from this payload.
 	if table == "reactions":
 		message = mochi.db.row("select chat from messages where id=?", row_uid)
@@ -85,7 +88,7 @@ def chat_commit_hook(table, kind, row_uid):
 		chat = mochi.db.row("select key from chats where id=?", message["chat"])
 		if not chat:
 			return
-		chat_websocket(chat["key"], {"event": "reaction", "message": row_uid, "reaction_counts": message_reaction_counts(message["chat"], row_uid)})
+		chat_websocket(chat["key"], {"event": "reaction", "message": row_uid, "reactions": message_reaction_counts(message["chat"], row_uid)})
 		return
 	if table != "messages":
 		return
@@ -102,7 +105,7 @@ def chat_commit_hook(table, kind, row_uid):
 		"member": message["member"],
 		"name": message["name"],
 		"body": message["body"],
-		"reply_to": message.get("reply_to"),
+		"reply": message.get("reply"),
 		"edited": message.get("edited", 0),
 		"attachments": attachments,
 	})
@@ -122,7 +125,7 @@ def database_create():
 	mochi.db.execute("create table if not exists members ( chat references chats( id ), member text not null, name text not null default '', primary key ( chat, member ) )")
 	mochi.db.execute("create index if not exists members_member on members( member )")
 
-	mochi.db.execute("create table if not exists messages ( id text not null primary key, chat references chats( id ), member text not null, name text not null, body text not null, created integer not null, reply_to text references messages( id ), edited integer not null default 0 )")
+	mochi.db.execute("create table if not exists messages ( id text not null primary key, chat references chats( id ), member text not null, name text not null, body text not null, created integer not null, reply text references messages( id ), edited integer not null default 0 )")
 	mochi.db.execute("create index if not exists messages_chat_created on messages( chat, created )")
 
 	# Per-chat read watermark for the local account (read tracking / unread
@@ -133,7 +136,6 @@ def database_create():
 	# (count(*) group by reaction), never stored, so they converge under
 	# multi-host without counter arithmetic.
 	mochi.db.execute("create table if not exists reactions ( chat text not null, message text not null, member text not null, name text not null, reaction text not null, primary key ( chat, message, member ) )")
-	mochi.db.execute("create index if not exists reactions_message on reactions ( chat, message )")
 
 	# Append-only tombstones for "delete for everyone": a message is deleted iff a
 	# row exists here. The body is blanked too, but the row is what survives an
@@ -162,20 +164,15 @@ def database_upgrade(version):
 		# and 7 re-issue the step; idempotent.
 		attachment_schema_create()
 		attachment_migrate()
-
-# Read a whole-number field from an event, or None. Live delivery carries CBOR
-# integers but a broadcast-log replay carries JSON doubles, and a peer may send
-# text - so coerce by type, never validate str(value) ("1.7534e+09" fails the
-# integer pattern).
-def event_integer(value):
-	kind = type(value)
-	if kind == "int":
-		return value
-	if kind == "float":
-		return int(value)
-	if kind == "string" and mochi.text.valid(value, "integer"):
-		return int(value)
-	return None
+	if version == 8:
+		# (chat, message) is a prefix of the reactions primary key, so the index
+		# served no query and cost a second write per reaction.
+		mochi.db.execute("drop index if exists reactions_message")
+	if version == 9:
+		# The quoted message is the wire key `reply`; the rows go out as read,
+		# so the column carries that name. Idempotent via the column check.
+		if "reply_to" in [c["name"] for c in mochi.db.table("messages")]:
+			mochi.db.execute("alter table messages rename column reply_to to reply")
 
 # Writes need membership plus an active chat; reads of a left/removed chat's
 # history check membership OR status instead. The status test is what stops a
@@ -339,10 +336,10 @@ _FORWARD_ATTACHMENTS_MAXIMUM = 100
 
 # Preferences: incoming chat policy
 def action_preferences_get(a):
-	return {"data": {"chat_policy": a.user.preference.get("chat_policy") or "friends"}}
+	return {"data": {"policy": a.user.preference.get("chat_policy") or "friends"}}
 
 def action_preferences_set(a):
-	policy = a.input("chat_policy", "").strip()
+	policy = a.input("policy", "").strip()
 	if policy not in _VALID_CHAT_POLICIES:
 		a.error.label(400, "errors.invalid_chat_policy")
 		return
@@ -510,31 +507,28 @@ def action_list(a):
 def action_new(a):
 	friends = mochi.service.call("friends", "list", a.user.identity.id) or []
 
-	# Find existing 1-on-1 chats
-	rows = mochi.db.rows("select chat, member from members where chat in (select chat from members where member=?)", a.user.identity.id)
-
-	chat_members = {}
-	for row in rows:
-		chat_id = row["chat"]
-		if chat_id not in chat_members:
-			chat_members[chat_id] = []
-		chat_members[chat_id].append(row["member"])
+	# The live one-on-one chat per counterpart, the same rule as chat_direct: a
+	# chat we were removed from keeps both roster rows, so without the status
+	# filter the picker offered a tombstone that refuses every write. Newest
+	# first, so the first row per counterpart wins.
+	rows = mochi.db.rows("""
+		select c.id, m.member as other
+		from chats c
+		join members m on m.chat = c.id
+		where c.status = 'active' and m.member <> ?
+		and c.id in (select chat from members where member = ?)
+		and (select count(*) from members where chat = c.id) = 2
+		order by c.updated desc
+	""", a.user.identity.id, a.user.identity.id)
 
 	existing_chats = {}
-	for chat_id, members in chat_members.items():
-		if len(members) == 2:
-			other = None
-			if members[0] == a.user.identity.id:
-				other = members[1]
-			elif members[1] == a.user.identity.id:
-				other = members[0]
-			
-			if other:
-				existing_chats[other] = chat_id
+	for row in rows:
+		if row["other"] not in existing_chats:
+			existing_chats[row["other"]] = row["id"]
 
 	for friend in friends:
 		if friend["id"] in existing_chats:
-			friend["chatId"] = existing_chats[friend["id"]]
+			friend["chat"] = existing_chats[friend["id"]]
 
 	return {
 		"data": {"name": a.user.identity.name, "friends": friends}
@@ -608,27 +602,26 @@ def action_messages(a):
 	if limit_str and mochi.text.valid(limit_str, "natural"):
 		limit = min(int(limit_str), 100)
 
-	# Keyset cursor on (created desc, id desc): `created` is whole seconds, so the
-	# id (UUIDv7, time-ordered) breaks ties that would otherwise duplicate or stall
-	# pages. `before_id` is optional for older clients.
+	# Keyset cursor on (created desc, id desc), carried as one opaque
+	# "<created>:<id>" string: `created` is whole seconds, so the id (UUIDv7,
+	# time-ordered) breaks ties that would otherwise duplicate or stall pages.
+	# A cursor that does not parse serves the first page.
 	before = None
-	before_str = a.input("before")
-	# "integer" (<=12 digits), NOT "natural": the natural pattern caps at 9
-	# digits, and unix timestamps have been 10 since 2001 — so a timestamp
-	# cursor never validated and pagination silently served the first page
-	# again.
-	if before_str and mochi.text.valid(before_str, "integer"):
-		before = int(before_str)
-
-	before_id = a.input("before_id")
-	if before_id and not mochi.text.valid(before_id, "id"):
-		before_id = None
+	before_id = None
+	cursor = a.input("cursor", "")
+	if cursor and ":" in cursor:
+		stamp, _, boundary = cursor.partition(":")
+		# "integer" (<=12 digits), NOT "natural": the natural pattern caps at 9
+		# digits, and unix timestamps have been 10 since 2001 - so a timestamp
+		# cursor never validated and pagination silently served the first page
+		# again.
+		if mochi.text.valid(stamp, "integer") and mochi.text.valid(boundary, "id"):
+			before = int(stamp)
+			before_id = boundary
 
 	# Fetch one extra (limit + 1) to detect whether older messages remain.
-	if before and before_id:
+	if before:
 		messages = mochi.db.rows("select * from messages where chat=? and ( created<? or ( created=? and id<? ) ) order by created desc, id desc limit ?", chat["id"], before, before, before_id, limit + 1)
-	elif before:
-		messages = mochi.db.rows("select * from messages where chat=? and created<? order by created desc, id desc limit ?", chat["id"], before, limit + 1)
 	else:
 		messages = mochi.db.rows("select * from messages where chat=? order by created desc, id desc limit ?", chat["id"], limit + 1)
 
@@ -640,38 +633,36 @@ def action_messages(a):
 	# Reverse to chronological order (oldest first) for display
 	messages = list(reversed(messages))
 
-	# Cursor for the next (older) page is the oldest message we kept: both its
+	# Cursor for the next (older) page is the oldest message we kept: its
 	# timestamp and id, so the next request resumes inside a same-second run.
-	next_cursor = None
-	next_cursor_id = None
+	cursor = None
 	if has_more and len(messages) > 0:
-		next_cursor = messages[0]["created"]
-		next_cursor_id = messages[0]["id"]
+		cursor = str(messages[0]["created"]) + ":" + messages[0]["id"]
 
 	deleted_ids = messages_deleted_set(chat["id"], [m["id"] for m in messages])
+	attachments = attachment_list_many(["chat/" + chat["id"] + "/" + m["id"] for m in messages if m["id"] not in deleted_ids], chat["id"])
 	for m in messages:
 		if m["id"] in deleted_ids:
 			m["deleted"] = True
 			m["body"] = ""
-			m["reply_to"] = None
+			m["reply"] = None
 			m["attachments"] = []
 		else:
 			m["deleted"] = False
-			m["attachments"] = attachment_list("chat/" + chat["id"] + "/" + m["id"], chat["id"])
+			m["attachments"] = attachments.get("chat/" + chat["id"] + "/" + m["id"], [])
 
 	# Reaction counts + the viewer's own reaction, for non-deleted messages.
 	messages_attach_reactions(chat["id"], [m for m in messages if not m["deleted"]], a.user.identity.id)
 	for m in messages:
 		if m["deleted"]:
-			m["reaction_counts"] = {}
-			m["my_reaction"] = None
+			m["reactions"] = {}
+			m["reaction"] = None
 
 	return {
 		"data": {
 			"messages": messages,
-			"hasMore": has_more,
-			"nextCursor": next_cursor,
-			"nextCursorId": next_cursor_id
+			"more": has_more,
+			"cursor": cursor
 		}
 	}
 
@@ -703,16 +694,16 @@ def action_send(a):
 		return
 
 	# Optional structured reply: the quoted message must exist in this chat.
-	reply_to = a.input("reply_to", "")
-	if reply_to:
-		if not mochi.text.valid(str(reply_to), "id"):
+	reply = a.input("reply", "")
+	if reply:
+		if not mochi.text.valid(str(reply), "id"):
 			a.error.label(400, "errors.invalid_message")
 			return
-		if not mochi.db.exists("select 1 from messages where id=? and chat=?", reply_to, chat["id"]):
+		if not mochi.db.exists("select 1 from messages where id=? and chat=?", reply, chat["id"]):
 			a.error.label(404, "errors.message_not_found")
 			return
 	else:
-		reply_to = None
+		reply = None
 
 	# Optional @mentions: a JSON array of member identity ids. The body
 	# carries the @[Name] display markup; the ids here are what recipients
@@ -757,7 +748,16 @@ def action_send(a):
 	chat_ensure_commit_hook()
 	id = mochi.uid()
 	now_send = mochi.time.now()
-	mochi.db.execute("replace into messages ( id, chat, member, name, body, created, reply_to ) values ( ?, ?, ?, ?, ?, ?, ? )", id, chat["id"], a.user.identity.id, a.user.identity.name, body, now_send, reply_to)
+
+	# Every file before the row: an upload the builtin refuses (oversize, over
+	# quota) ends the handler, and statements run per call, so a row written
+	# first was durable before the refusal - a message the sender saw on reload
+	# that no recipient was ever sent.
+	attachments = []
+	if has_files:
+		attachments = attachment_save(a, "chat/" + chat["id"] + "/" + id, captions=captions)
+
+	mochi.db.execute("replace into messages ( id, chat, member, name, body, created, reply ) values ( ?, ?, ?, ?, ?, ?, ? )", id, chat["id"], a.user.identity.id, a.user.identity.name, body, now_send, reply)
 	# Bump the chat's updated timestamp so the chat list sorts by last
 	# message activity, not by member-event history.
 	mochi.db.execute("update chats set updated=? where id=?", now_send, chat["id"])
@@ -765,11 +765,6 @@ def action_send(a):
 	# Get other chat members for notification
 	members = mochi.db.rows("select member from members where chat=? and member!=?", chat["id"], a.user.identity.id)
 	member_ids = [m["member"] for m in members]
-
-	# Save any uploaded attachments locally
-	attachments = []
-	if has_files:
-		attachments = attachment_save(a, "chat/" + chat["id"] + "/" + id, captions=captions)
 
 	# Live-update websocket: fired from chat_commit_hook on every host
 	# that sees this messages row (local + paired replicas via the
@@ -780,8 +775,8 @@ def action_send(a):
 	# Broadcast with attachment metadata piggybacked; `created` is now_send so
 	# every host stores the same timestamp.
 	msg_data = {"chat": chat["id"], "message": id, "created": now_send, "body": body, "name": a.user.identity.name}
-	if reply_to:
-		msg_data["reply_to"] = reply_to
+	if reply:
+		msg_data["reply"] = reply
 	if mentions:
 		msg_data["mentions"] = mentions
 	if attachments:
@@ -821,12 +816,14 @@ def action_mark_read(a):
 	read_str = a.input("read", "")
 	if read_str and mochi.text.valid(read_str, "integer"):
 		read_ts = int(read_str)
+	last = mochi.db.row("select max(created) as ts from messages where chat=?", chat["id"])
+	latest = last["ts"] if last and last.get("ts") else chat["updated"]
 	if read_ts == None:
-		last = mochi.db.row("select max(created) as ts from messages where chat=?", chat["id"])
-		if last and last.get("ts"):
-			read_ts = last["ts"]
-		else:
-			read_ts = chat["updated"]
+		read_ts = latest
+	# The watermark only moves forward, so a client sending a far-future stamp
+	# would zero this chat's unread count for good: clamp to the newest thing
+	# a message could carry.
+	read_ts = min(read_ts, max(latest, mochi.time.now()))
 
 	if read_ts < chat_last_read(chat["id"]):
 		read_ts = chat_last_read(chat["id"])
@@ -868,9 +865,9 @@ def message_reaction_set(chat_id, message_id, member_id, name, reaction):
 	if not mochi.db.exists("select 1 from members where chat=? and member=?", chat_id, member_id):
 		return None
 	message_reaction_apply(chat_id, message_id, member_id, name, reaction)
-	return {"reaction_counts": message_reaction_counts(chat_id, message_id), "my_reaction": reaction if reaction else None}
+	return {"reactions": message_reaction_counts(chat_id, message_id), "reaction": reaction if reaction else None}
 
-# Attach reaction_counts + the viewer's own my_reaction to a list of messages.
+# Attach the reaction counts + the viewer's own reaction to a list of messages.
 def messages_attach_reactions(chat_id, messages, viewer_id):
 	if not messages:
 		return
@@ -889,9 +886,9 @@ def messages_attach_reactions(chat_id, messages, viewer_id):
 	for r in my_rows:
 		my_by_message[r["message"]] = r["reaction"]
 	for m in messages:
-		m["reaction_counts"] = counts_by_message.get(m["id"], {})
+		m["reactions"] = counts_by_message.get(m["id"], {})
 		mine = my_by_message.get(m["id"])
-		m["my_reaction"] = mine if mine else None
+		m["reaction"] = mine if mine else None
 
 # Add / update / clear the caller's reaction on a message.
 def action_react(a):
@@ -939,7 +936,12 @@ def event_message_react(e):
 		return
 	if e.header("from") != member_id:
 		return
-	result = is_reaction_valid(e.content("reaction"))
+	# None clears (action_react sends it that way); anything else must be a
+	# string, because mochi.text.valid errors on any other type.
+	reaction_raw = e.content("reaction")
+	if reaction_raw != None and type(reaction_raw) != "string":
+		return
+	result = is_reaction_valid(reaction_raw)
 	if not result["valid"]:
 		return
 	reaction = result["reaction"]
@@ -1023,7 +1025,7 @@ def message_delete_apply(chat_id, message_id, member_id, ts):
 	mochi.db.commit.fire("deletions", "insert", message_id)
 
 # Delete one or more of the caller's own messages for everyone. Input
-# `message_ids` is a JSON-encoded array string (decoded like market's `ids`).
+# `messages` is a JSON-encoded array string of ids (decoded like market's `ids`).
 def action_messages_delete(a):
 	if not mochi.text.valid(a.input("chat"), "id"):
 		a.error.label(400, "errors.invalid_chat_id")
@@ -1035,7 +1037,7 @@ def action_messages_delete(a):
 	if not chat_write_allowed(a, chat):
 		return
 
-	raw_ids = a.input("message_ids")
+	raw_ids = a.input("messages")
 	if not raw_ids:
 		a.error.label(400, "errors.invalid_message")
 		return
@@ -1078,7 +1080,10 @@ def action_messages_delete(a):
 # sender — broadcast ordering guarantees a member's message arrives before
 # its own delete, so this also blocks a member suppressing others' messages.
 def event_message_delete(e):
-	chat = mochi.db.row("select * from chats where id=?", e.content("chat"))
+	chat_id = content_text(e, "chat", "")
+	if not mochi.text.valid(chat_id, "id"):
+		return
+	chat = mochi.db.row("select * from chats where id=?", chat_id)
 	if not chat:
 		return
 	if chat["status"] != "active":
@@ -1159,7 +1164,10 @@ def action_message_edit(a):
 # Broadcast ordering guarantees the original message arrives before its own
 # edit, so a missing row means we were never sent the message — ignore.
 def event_message_edit(e):
-	chat = mochi.db.row("select * from chats where id=?", e.content("chat"))
+	chat_id = content_text(e, "chat", "")
+	if not mochi.text.valid(chat_id, "id"):
+		return
+	chat = mochi.db.row("select * from chats where id=?", chat_id)
 	if not chat or chat["status"] != "active":
 		return
 	sender = e.header("from")
@@ -1169,16 +1177,16 @@ def event_message_edit(e):
 	message_id = str(e.content("message"))
 	if not mochi.text.valid(message_id, "id"):
 		return
-	edited = event_integer(e.content("edited"))
+	edited = content_number(e, "edited", None)
 	if edited == None:
 		return
 	now = mochi.time.now()
 	if edited > now + 86400 or edited < now - 31536000:
 		return
-	body = e.content("body")
-	if not mochi.text.valid(str(body), "text"):
+	body = content_text(e, "body", None)
+	if body == None or not mochi.text.valid(body, "text"):
 		return
-	if len(str(body)) > 10000 or not str(body).strip():
+	if len(body) > 10000 or not body.strip():
 		return
 
 	row = mochi.db.row("select member, edited from messages where id=? and chat=?", message_id, chat["id"])
@@ -1193,7 +1201,7 @@ def event_message_edit(e):
 	chat_ensure_commit_hook()
 	mochi.db.commit.fire("messages", "update", message_id)
 
-# Collect the forwardable source messages named by a JSON-array `message_ids`
+# Collect the forwardable source messages named by a JSON-array `messages`
 # string: rows that exist in the source chat and are not tombstoned. None when
 # the payload is malformed, empty or oversized (caller maps to
 # errors.invalid_message); [] when none of the named messages qualify.
@@ -1253,15 +1261,18 @@ def chat_forward_into(a, source_id, target_id, source_messages, listed=None):
 		# remaining quota, and reading one into memory to write it back would
 		# charge that to a process every user on this host shares.
 		source_attachments = listed.get(source_message["id"]) if listed != None else attachment_list("chat/" + source_id + "/" + source_message["id"], source_id)
+		# Caption and description ride along: a voice note carries its duration
+		# in the caption, and a copy without it renders with no player.
 		for att in source_attachments or []:
-			attachment_copy(att["id"], "chat/" + target_id + "/" + new_id, a.user.identity.id)
+			attachment_copy(att["id"], "chat/" + target_id + "/" + new_id, a.user.identity.id,
+				caption=att.get("caption", ""), description=att.get("description", ""))
 		new_attachments = attachment_list("chat/" + target_id + "/" + new_id, target_id)
 
 		mochi.db.commit.fire("messages", "insert", new_id)
 
 		msg_data = {"chat": target_id, "message": new_id, "created": now_forward, "body": source_message["body"], "name": a.user.identity.name}
 		if new_attachments:
-			msg_data["attachments"] = [{"id": at["id"], "name": at["name"], "size": at["size"], "content_type": at.get("type", ""), "rank": at.get("rank", 0), "created": at.get("created", now_forward)} for at in new_attachments]
+			msg_data["attachments"] = [{"id": at["id"], "name": at["name"], "size": at["size"], "content_type": at.get("type", ""), "rank": at.get("rank", 0), "created": at.get("created", now_forward), "caption": at.get("caption", ""), "description": at.get("description", "")} for at in new_attachments]
 		broadcast_chat(target_id, a.user.identity.id, member_ids, "message", msg_data)
 		forwarded.append(new_id)
 
@@ -1278,18 +1289,18 @@ def action_messages_forward(a):
 	if not chat_write_allowed(a, source):
 		return
 
-	to_chat = a.input("to_chat")
-	if not mochi.text.valid(str(to_chat), "id"):
+	destination = a.input("destination")
+	if not mochi.text.valid(str(destination), "id"):
 		a.error.label(400, "errors.invalid_chat_id")
 		return
-	target = mochi.db.row("select * from chats where id=?", to_chat)
+	target = mochi.db.row("select * from chats where id=?", destination)
 	if not target:
 		a.error.label(404, "errors.chat_not_found")
 		return
 	if not chat_write_allowed(a, target):
 		return
 
-	source_messages = chat_collect_forwardable(source["id"], a.input("message_ids"))
+	source_messages = chat_collect_forwardable(source["id"], a.input("messages"))
 	if source_messages == None:
 		a.error.label(400, "errors.invalid_message")
 		return
@@ -1303,7 +1314,7 @@ def action_messages_forward(a):
 		a.error.label(404, "errors.message_not_found")
 		return
 
-	return {"data": {"forwarded": forwarded, "to_chat": target["id"]}}
+	return {"data": {"forwarded": forwarded, "destination": target["id"]}}
 
 # Forward messages to a friend, creating or reusing the one-on-one chat. Source
 # messages are validated before any chat is created, so an empty forward never
@@ -1326,7 +1337,7 @@ def action_messages_forward_friend(a):
 
 	# Validate the messages first — nothing below creates a chat until we know
 	# there is at least one real message to forward.
-	source_messages = chat_collect_forwardable(source["id"], a.input("message_ids"))
+	source_messages = chat_collect_forwardable(source["id"], a.input("messages"))
 	if source_messages == None:
 		a.error.label(400, "errors.invalid_message")
 		return
@@ -1368,7 +1379,7 @@ def action_messages_forward_friend(a):
 		a.error.label(404, "errors.message_not_found")
 		return
 
-	return {"data": {"forwarded": forwarded, "to_chat": target_id}}
+	return {"data": {"forwarded": forwarded, "destination": target_id}}
 
 # View a chat
 def action_view(a):
@@ -1436,7 +1447,9 @@ def action_resync(a):
 # cannot spam.
 def request_resync(chat_id, peer_member, minimum=_RESYNC_AUTOMATIC):
 	"""True only when data was fetched and applied; throttled, invalid and failed calls return False. `minimum` is the seconds since the last attempt."""
-	if not chat_id or not peer_member:
+	# Validated here as well as by the callers: the id is inserted verbatim
+	# below and then appears in URLs and websocket payloads.
+	if not chat_id or not peer_member or not mochi.text.valid(chat_id, "id"):
 		return False
 	row = mochi.db.row("select synced from chats where id=?", chat_id)
 	now = mochi.time.now()
@@ -1458,18 +1471,9 @@ def request_resync(chat_id, peer_member, minimum=_RESYNC_AUTOMATIC):
 	# response inserts as many members rows as it names.
 	if type(members) not in ["list", "tuple"] or len(members) > _MEMBERS_MAXIMUM:
 		return False
-	# Create chat if missing. Re-read existence here (not the throttle read
-	# above): a concurrent event_new may have inserted the chat while we were
-	# awaiting the blocking remote request, and the insert below is not
-	# insert-or-ignore.
-	existing = mochi.db.row("select id from chats where id=?", chat_id)
-	if not existing:
-		mochi.db.execute(
-			"insert into chats ( id, name, key, updated, synced ) values ( ?, ?, ?, ?, ? )",
-			chat_id, name, mochi.random.alphanumeric(16), now, now)
-	else:
-		mochi.db.execute("update chats set synced=? where id=?", now, chat_id)
-	# Insert or refresh members.
+	# Validate the roster before writing anything: it decides the chat's title
+	# below, and the peer's answer is untrusted.
+	roster = []
 	for m in members:
 		if type(m) != "dict":
 			continue
@@ -1482,15 +1486,38 @@ def request_resync(chat_id, peer_member, minimum=_RESYNC_AUTOMATIC):
 		# overrides that "display" exists to reject.
 		if type(display) != "string" or not mochi.text.valid(display, "display"):
 			continue
-		mochi.db.execute("insert into members ( chat, member, name ) values ( ?, ?, ? ) on conflict ( chat, member ) do update set name=excluded.name", chat_id, id, display)
+		roster.append({"id": id, "name": display})
+	# Create chat if missing. Re-read existence here (not the throttle read
+	# above): a concurrent event_new may have inserted the chat while we were
+	# awaiting the blocking remote request, and the insert below is not
+	# insert-or-ignore.
+	existing = mochi.db.row("select id from chats where id=?", chat_id)
+	if not existing:
+		# Each side of a two-member chat is titled after the other party
+		# (action_create), so the answering peer's title is the requester's own
+		# name; their roster entry is the title the requester should hold.
+		if len(roster) == 2:
+			for m in roster:
+				if m["id"] == peer_member:
+					name = m["name"]
+		mochi.db.execute(
+			"insert into chats ( id, name, key, updated, synced ) values ( ?, ?, ?, ?, ? )",
+			chat_id, name, mochi.random.alphanumeric(16), now, now)
+	else:
+		mochi.db.execute("update chats set synced=? where id=?", now, chat_id)
+	# Insert members we do not hold. Never a rename: the answering peer is a
+	# member like any other, and the roster name is what every later message
+	# and notification from that member is labelled with.
+	for m in roster:
+		mochi.db.execute("insert or ignore into members ( chat, member, name ) values ( ?, ?, ? )", chat_id, m["id"], m["name"])
 	return True
 
 # Answer a member's resync request with the chat's name and roster; non-members
 # are refused since membership is private. Errors are label keys so the
 # requesting server can localise them.
 def event_info(e):
-	chat_id = e.content("chat")
-	if not chat_id:
+	chat_id = content_text(e, "chat", "")
+	if not mochi.text.valid(chat_id, "id"):
 		e.stream.write({"error": "errors.invalid_chat_id"})
 		return
 	chat = mochi.db.row("select id, name from chats where id=?", chat_id)
@@ -1506,7 +1533,11 @@ def event_info(e):
 
 # Recieve a chat message from another member
 def event_message(e):
-	chat_id = e.content("chat")
+	# A list or dict here fails to bind and aborts the handler before any gate;
+	# the id is also what request_resync inserts verbatim on the bootstrap path.
+	chat_id = content_text(e, "chat", "")
+	if not mochi.text.valid(chat_id, "id"):
+		return
 	chat = mochi.db.row("select * from chats where id=?", chat_id)
 	if not chat:
 		# No row means we were never a member (departures keep a tombstone), so treat
@@ -1540,7 +1571,7 @@ def event_message(e):
 	if prior and (prior["chat"] != chat["id"] or prior["member"] != e.header("from")):
 		return
 
-	created = event_integer(e.content("created"))
+	created = content_number(e, "created", None)
 	if created == None:
 		return
 
@@ -1549,10 +1580,10 @@ def event_message(e):
 	if created > now + 86400 or created < now - 31536000:
 		return
 
-	body = e.content("body")
-	if not mochi.text.valid(str(body), "text"):
+	body = content_text(e, "body", None)
+	if body == None or not mochi.text.valid(body, "text"):
 		return
-	if len(str(body)) > 10000:
+	if len(body) > 10000:
 		return
 
 	# Name from the local members row, never the payload: a sender could otherwise
@@ -1574,14 +1605,14 @@ def event_message(e):
 
 	# Structured reply: keep only if the quoted message is one we hold in
 	# this chat (out-of-order delivery may not have it yet — drop silently).
-	reply_to = e.content("reply_to") or None
-	if reply_to:
-		if not mochi.text.valid(str(reply_to), "id"):
-			reply_to = None
-		elif not mochi.db.exists("select 1 from messages where id=? and chat=?", reply_to, chat["id"]):
-			reply_to = None
+	reply = e.content("reply") or None
+	if reply:
+		if not mochi.text.valid(str(reply), "id"):
+			reply = None
+		elif not mochi.db.exists("select 1 from messages where id=? and chat=?", reply, chat["id"]):
+			reply = None
 
-	mochi.db.execute("replace into messages ( id, chat, member, name, body, created, reply_to, edited ) values ( ?, ?, ?, ?, ?, ?, ?, ? )", id, chat["id"], member["member"], name, body, created, reply_to, edited)
+	mochi.db.execute("replace into messages ( id, chat, member, name, body, created, reply, edited ) values ( ?, ?, ?, ?, ?, ?, ?, ? )", id, chat["id"], member["member"], name, body, created, reply, edited)
 	# Bump the chat's updated timestamp so the chat list sorts by last
 	# message activity. Use the message's own `created` (not now()) so
 	# replayed history doesn't drag the chat forward in time.
@@ -1601,7 +1632,7 @@ def event_message(e):
 	# An @mention of this user notifies on the separate "mention" topic so it cuts
 	# through a muted Messages topic.
 	mentions = e.content("mentions")
-	excerpt = str(body).strip()[:80]
+	excerpt = body.strip()[:80]
 	if type(mentions) in ("list", "tuple") and e.header("to") in [str(m) for m in mentions]:
 		notify("mention", chat["id"], mochi.app.label("notifications.title.mention"), mochi.app.label("notifications.body.mentioned_you", author=name, excerpt=excerpt), "/chat/" + chat["id"], chat["name"], event_id="mention:" + str(id))
 	else:
@@ -1639,8 +1670,12 @@ def event_new(e):
 		return
 
 	# e.read() answers None at EOF, so an event sent with no stream body would
-	# raise here rather than being dropped.
+	# raise here rather than being dropped. The body is whatever the sender put
+	# in the segment: an integer fails len() and a string fails iteration, both
+	# of which abort the handler.
 	members = e.read() or []
+	if type(members) not in ("list", "tuple"):
+		return
 	if len(members) > _MEMBERS_MAXIMUM:
 		return
 
@@ -1663,9 +1698,9 @@ def event_new(e):
 		roster.append(member)
 
 	# A chat we are not in is a chat we can never see or delete: action_list
-	# filters on membership and action_delete refuses a chat whose roster does
-	# not name us, so the rows would persist unreachable while later events from
-	# listed members kept landing in them. The sender has to be in it too -
+	# filters on membership and action_delete refuses an active chat, so the
+	# rows would persist unreachable while later events from listed members
+	# kept landing in them. The sender has to be in it too -
 	# nobody creates a conversation they are not part of.
 	listed = [m["id"] for m in roster]
 	if e.header("to") not in listed or e.header("from") not in listed:
@@ -1682,8 +1717,11 @@ def event_new(e):
 	else:
 		mochi.db.execute("insert or ignore into chats ( id, name, key, updated ) values ( ?, ?, ?, ? )", chat, name, mochi.random.alphanumeric(16), mochi.time.now())
 
+	# Insert, never rename: on reactivation the remembered roster keeps its
+	# names, or the re-adding member could relabel everyone (its own row
+	# included) and every later message would carry the label.
 	for member in roster:
-		mochi.db.execute("insert into members ( chat, member, name ) values ( ?, ?, ? ) on conflict ( chat, member ) do update set name=excluded.name", chat, member["id"], member["name"])
+		mochi.db.execute("insert or ignore into members ( chat, member, name ) values ( ?, ?, ? )", chat, member["id"], member["name"])
 
 # Would-you-accept probe: answers from the same rule as event_new (friendship or
 # chat_policy "anyone") and carries the display name so the sender needs no
@@ -1703,7 +1741,10 @@ def event_accept_query(e):
 
 # Received a rename event
 def event_rename(e):
-	chat = mochi.db.row("select * from chats where id=?", e.content("id"))
+	chat_id = content_text(e, "id", "")
+	if not mochi.text.valid(chat_id, "id"):
+		return
+	chat = mochi.db.row("select * from chats where id=?", chat_id)
 	if not chat_active(chat):
 		return
 
@@ -1722,9 +1763,7 @@ def event_rename(e):
 	# events without `updated` (pre-conversion senders) fall back to
 	# applying with local now, preserving prior behaviour.
 	now = mochi.time.now()
-	incoming = event_integer(e.content("updated", "0"))
-	if incoming == None:
-		incoming = 0
+	incoming = content_number(e, "updated", 0)
 	# Same window as created/edited. A far-future stamp would pin the chat to the
 	# top of the list and make every later rename lose to the gate below, freezing
 	# the name. Fall back to our clock; the name itself is legitimate.
@@ -1740,7 +1779,10 @@ def event_rename(e):
 
 # Received a leave event - a member left the chat
 def event_leave(e):
-	chat = mochi.db.row("select * from chats where id=?", e.content("id"))
+	chat_id = content_text(e, "id", "")
+	if not mochi.text.valid(chat_id, "id"):
+		return
+	chat = mochi.db.row("select * from chats where id=?", chat_id)
 	if not chat_active(chat):
 		return
 
@@ -1761,7 +1803,10 @@ def event_leave(e):
 
 # Received a member/add event - someone added a new member
 def event_member_add(e):
-	chat = mochi.db.row("select * from chats where id=?", e.content("id"))
+	chat_id = content_text(e, "id", "")
+	if not mochi.text.valid(chat_id, "id"):
+		return
+	chat = mochi.db.row("select * from chats where id=?", chat_id)
 	if not chat_active(chat):
 		return
 
@@ -1779,15 +1824,21 @@ def event_member_add(e):
 	if not mochi.text.valid(name, "display"):
 		return
 
-	# The cap holds on the way in too, or a peer could grow a roster past it one
-	# add at a time. Only a genuinely new member is refused; a refusal leaves our
-	# roster short, repairable by resync.
-	if not mochi.db.exists("select 1 from members where chat=? and member=?", chat["id"], member):
-		count = mochi.db.row("select count(*) as members from members where chat=?", chat["id"])
-		if count and count["members"] >= _MEMBERS_MAXIMUM:
-			return
+	# A member we already hold is a replayed or duplicate add - nothing to do.
+	# It is also the only way the sender's name could reach an existing row:
+	# the roster name is what every message and notification from that member
+	# is labelled with, and action_member_add refuses to re-add a member, so no
+	# honest sender produces an add for one.
+	if mochi.db.exists("select 1 from members where chat=? and member=?", chat["id"], member):
+		return
 
-	mochi.db.execute("insert into members ( chat, member, name ) values ( ?, ?, ? ) on conflict ( chat, member ) do update set name=excluded.name", chat["id"], member, name)
+	# The cap holds on the way in too, or a peer could grow a roster past it one
+	# add at a time. A refusal leaves our roster short, repairable by resync.
+	count = mochi.db.row("select count(*) as members from members where chat=?", chat["id"])
+	if count and count["members"] >= _MEMBERS_MAXIMUM:
+		return
+
+	mochi.db.execute("insert or ignore into members ( chat, member, name ) values ( ?, ?, ? )", chat["id"], member, name)
 	# The member/add broadcast goes to the EXISTING members, so the joiner is
 	# absent from the very event that admits them and core would refuse them a
 	# resync of this host's stream until some later message included them.
@@ -1797,7 +1848,10 @@ def event_member_add(e):
 
 # Received a member/remove event - someone removed a member
 def event_member_remove(e):
-	chat = mochi.db.row("select * from chats where id=?", e.content("id"))
+	chat_id = content_text(e, "id", "")
+	if not mochi.text.valid(chat_id, "id"):
+		return
+	chat = mochi.db.row("select * from chats where id=?", chat_id)
 	if not chat_active(chat):
 		return
 
@@ -1827,7 +1881,10 @@ def event_member_remove(e):
 
 # Received a removed event - current user was removed from chat
 def event_removed(e):
-	chat = mochi.db.row("select * from chats where id=?", e.content("id"))
+	chat_id = content_text(e, "id", "")
+	if not mochi.text.valid(chat_id, "id"):
+		return
+	chat = mochi.db.row("select * from chats where id=?", chat_id)
 	if not chat_active(chat):
 		return
 
@@ -1948,10 +2005,11 @@ def action_delete(a):
 		a.error.label(404, "errors.chat_not_found")
 		return
 
-	# The roster gate every other chat action applies. Per-user database scoping
-	# already keeps one account out of another's rows, so this is consistency
-	# rather than a second boundary - but it is the only write path without it.
-	if not mochi.db.exists("select 1 from members where chat=? and member=?", chat["id"], a.user.identity.id):
+	# The rule every read applies: a member, or a chat we left or were removed
+	# from. action_leave deletes the caller's own roster row before stamping
+	# the chat left, so a roster-only gate refused every left chat, which then
+	# stayed in the list with no way to remove it.
+	if not mochi.db.exists("select 1 from members where chat=? and member=?", chat["id"], a.user.identity.id) and chat["status"] not in ("left", "removed"):
 		a.error.label(403, "errors.not_a_member_of_this_chat")
 		return
 

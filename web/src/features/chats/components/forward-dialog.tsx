@@ -82,7 +82,7 @@ export function ForwardDialog({
       .sort((a, b) => naturalCompare(a.name, b.name))
 
     const friendDests: Destination[] = friends
-      .filter((f) => !f.chatId)
+      .filter((f) => !f.chat)
       .filter((f) => nameMatches(f.name, query))
       .map((f) => ({ kind: 'friend' as const, id: f.id, name: f.name }))
       .sort((a, b) => naturalCompare(a.name, b.name))
@@ -127,7 +127,7 @@ export function ForwardDialog({
           error: (error) => getErrorMessage(error, t`Failed to forward`),
         }
       )
-      onForwarded?.(data.to_chat)
+      onForwarded?.(data.destination)
       onOpenChange(false)
     } catch {
       // toastAction already showed error

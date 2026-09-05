@@ -19,7 +19,7 @@ msgid "Please check your internet connection and try again."
 msgstr "Kontrolloni lidhjen tuaj me internetin dhe provoni përsëri."
 
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:189
-#: src/features/chats/components/chat-message-list.tsx:797
+#: src/features/chats/components/chat-message-list.tsx:795
 msgid "(edited)"
 msgstr "(redaktuar)"
 
@@ -27,7 +27,7 @@ msgstr "(redaktuar)"
 msgid "(expand)"
 msgstr "(zgjero)"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:290
+#: src/routes/_authenticated/$chatId_.settings.tsx:289
 msgid "(you)"
 msgstr "(ju)"
 
@@ -36,7 +36,11 @@ msgid "[not set]"
 msgstr "[i pavendosur]"
 
 #. placeholder {0}: displayInfo.count
+#. placeholder {0}: selectedIds.size
+#. placeholder {0}: selectedIds?.size ?? 0
 #: ../../../lib/web/src/components/person-picker.tsx:260
+#: src/features/chats/components/chat-message-list.tsx:822
+#: src/features/chats/index.tsx:1293
 msgid "{0, plural, one {# selected} other {# selected}}"
 msgstr "{0, plural, one {# zgjedhur} other {# zgjedhur}}"
 
@@ -46,7 +50,7 @@ msgid "{0, plural, one {+# nested} other {+# nested}}"
 msgstr "{0, plural, one {+# i ndërfutur} other {+# të ndërfutur}}"
 
 #. placeholder {0}: deleteTargetIds?.length ?? 0
-#: src/features/chats/index.tsx:1402
+#: src/features/chats/index.tsx:1424
 msgid "{0, plural, one {Delete message?} other {Delete # messages?}}"
 msgstr "{0, plural, one {Të fshihet mesazhi?} other {Të fshihen # mesazhe?}}"
 
@@ -55,16 +59,9 @@ msgstr "{0, plural, one {Të fshihet mesazhi?} other {Të fshihen # mesazhe?}}"
 msgid "{0} (includes you)"
 msgstr "{0} (ju përfshirë)"
 
-#. placeholder {0}: selectedIds.size
-#. placeholder {0}: selectedIds?.size ?? 0
-#: src/features/chats/components/chat-message-list.tsx:824
-#: src/features/chats/index.tsx:1271
-msgid "{0} selected"
-msgstr "{0} të zgjedhura"
-
 #. placeholder {0}: chatDetail.chat.name
-#: src/routes/_authenticated/$chatId_.settings.tsx:90
-#: src/routes/_authenticated/$chatId_.settings.tsx:129
+#: src/routes/_authenticated/$chatId_.settings.tsx:89
+#: src/routes/_authenticated/$chatId_.settings.tsx:128
 msgid "{0} settings"
 msgstr "Cilësimet e {0}"
 
@@ -92,8 +89,8 @@ msgstr "Emri i {entityLabel}"
 msgid "{hiddenCount, plural, one {Show 1 more file} other {Show # more files}}"
 msgstr "{hiddenCount, plural, one {Shfaq 1 skedar tjetër} other {Shfaq # skedarë të tjerë}}"
 
-#: src/features/chats/components/chat-message-list.tsx:859
-#: src/features/chats/components/chat-message-list.tsx:876
+#: src/features/chats/components/chat-message-list.tsx:856
+#: src/features/chats/components/chat-message-list.tsx:873
 msgid "{newMessageCount, plural, one {Jump to 1 new message} other {Jump to # new messages}}"
 msgstr "{newMessageCount, plural, one {Shko te 1 mesazh i ri} other {Shko te # mesazhe të reja}}"
 
@@ -106,7 +103,7 @@ msgstr "{opponentName} ofroi një barazim"
 msgid "{sentLabel} of {totalLabel}"
 msgstr "{sentLabel} nga {totalLabel}"
 
-#: src/features/chats/index.tsx:899
+#: src/features/chats/index.tsx:888
 msgid "{skippedCount, plural, one {Skipped # file that is not audio} other {Skipped # files that are not audio}}"
 msgstr "{skippedCount, plural, one {U anashkalua # skedar që nuk është audio} other {U anashkaluan # skedarë që nuk janë audio}}"
 
@@ -167,7 +164,7 @@ msgid "Add"
 msgstr "Shto"
 
 #. placeholder {0}: friend.name
-#: src/routes/_authenticated/$chatId_.settings.tsx:486
+#: src/routes/_authenticated/$chatId_.settings.tsx:483
 msgid "Add {0} to chat"
 msgstr "Shto {0} në bisedë"
 
@@ -217,7 +214,7 @@ msgstr "Shto element..."
 msgid "Add link"
 msgstr "Shto lidhje"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:263
+#: src/routes/_authenticated/$chatId_.settings.tsx:262
 #: src/routes/_authenticated/$chatId_.settings.tsx:445
 msgid "Add member"
 msgstr "Shto anëtar"
@@ -278,7 +275,7 @@ msgstr "Pajtohem"
 msgid "AI"
 msgstr "AI"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:474
+#: src/routes/_authenticated/$chatId_.settings.tsx:471
 msgid "All your friends are already in this chat"
 msgstr "Të gjithë miqtë e tu janë tashmë në këtë bisedë"
 
@@ -313,13 +310,9 @@ msgstr "I zemëruar"
 
 #: ../../../lib/web/src/features/access/access-list.tsx:45
 #: ../../../lib/web/src/features/access/types.ts:36
-#: src/features/chats/components/chat-settings-dialog.tsx:44
+#: src/features/chats/components/chat-settings-dialog.tsx:38
 msgid "Anyone"
 msgstr "Kushdo"
-
-#: src/features/chats/components/chat-settings-dialog.tsx:45
-msgid "Anyone can start a chat with you."
-msgstr "Kushdo mund të nisë një bisedë me ju."
 
 #: ../../../lib/web/src/features/access/types.ts:35
 msgid "Anyone who is logged in"
@@ -347,7 +340,7 @@ msgid "Are you sure you want to delete this comment? This will also delete all r
 msgstr "Je i sigurt që do të fshish këtë koment? Kjo do të fshijë gjithashtu të gjitha përgjigjet."
 
 #. placeholder {0}: selectedChat?.name
-#: src/features/chats/index.tsx:1370
+#: src/features/chats/index.tsx:1392
 msgid "Are you sure you want to leave \"{0}\"? You can be added back by other members."
 msgstr "Je i sigurt që do të largohesh nga \"{0}\"? Mund të rishtohesh nga anëtarë të tjerë."
 
@@ -360,7 +353,7 @@ msgid "Are you sure you want to log out? You will need to log in again to access
 msgstr "Je i sigurt që do të dalësh? Do të të duhet të rihysh për të hyrë në llogarinë tënde."
 
 #. placeholder {0}: member?.name
-#: src/routes/_authenticated/$chatId_.settings.tsx:549
+#: src/routes/_authenticated/$chatId_.settings.tsx:546
 msgid "Are you sure you want to remove {0} from this chat?"
 msgstr "Je i sigurt që do të heqësh {0} nga kjo bisedë?"
 
@@ -389,7 +382,7 @@ msgstr "Bashkëngjit skedarë përgjigjeje"
 msgid "Attachment"
 msgstr "Bashkëngjitje"
 
-#: src/features/chats/index.tsx:785
+#: src/features/chats/index.tsx:774
 msgid "Attachments are too large to upload. Remove or shrink files and try again."
 msgstr "Bashkëngjitjet janë shumë të mëdha për t'u ngarkuar. Hiqni ose zvogëloni skedarët dhe provoni përsëri."
 
@@ -422,9 +415,9 @@ msgstr "Avatar për {name}"
 msgid "Back"
 msgstr "Mbrapa"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:103
-#: src/routes/_authenticated/$chatId_.settings.tsx:114
-#: src/routes/_authenticated/$chatId_.settings.tsx:130
+#: src/routes/_authenticated/$chatId_.settings.tsx:102
+#: src/routes/_authenticated/$chatId_.settings.tsx:113
+#: src/routes/_authenticated/$chatId_.settings.tsx:129
 msgid "Back to chat"
 msgstr "Mbrapa te biseda"
 
@@ -433,20 +426,20 @@ msgstr "Mbrapa te biseda"
 msgid "Back to home"
 msgstr "Kthehu në fillim"
 
-#: ../../../lib/web/src/components/banner-section.tsx:80
+#: ../../../lib/web/src/components/banner-section.tsx:91
 #: ../../../lib/web/src/components/entity-banner.tsx:17
 msgid "Banner"
 msgstr "Banner-i"
 
-#: ../../../lib/web/src/components/banner-section.tsx:69
+#: ../../../lib/web/src/components/banner-section.tsx:73
 msgid "Banner removed"
 msgstr "Banner-i u hoq"
 
-#: ../../../lib/web/src/components/banner-section.tsx:69
+#: ../../../lib/web/src/components/banner-section.tsx:73
 msgid "Banner updated"
 msgstr "Banner-i u përditësua"
 
-#: src/features/chats/components/chat-message-list.tsx:476
+#: src/features/chats/components/chat-message-list.tsx:477
 msgid "Be the first to say something!"
 msgstr "Bëhu i pari që thotë diçka!"
 
@@ -503,12 +496,12 @@ msgstr "Kamera nuk është e disponueshme"
 #: ../../../lib/web/src/features/access/access-list.tsx:268
 #: ../../../lib/web/src/features/accounts/account-add.tsx:201
 #: ../../../lib/web/src/features/accounts/account-verify.tsx:91
-#: src/features/chats/components/chat-message-list.tsx:627
-#: src/features/chats/components/chat-message-list.tsx:843
-#: src/features/chats/components/chat-settings-dialog.tsx:116
+#: src/features/chats/components/chat-message-list.tsx:625
+#: src/features/chats/components/chat-message-list.tsx:840
+#: src/features/chats/components/chat-settings-dialog.tsx:105
 #: src/features/chats/components/forward-dialog.tsx:252
 #: src/features/chats/components/new-chat.tsx:356
-#: src/features/chats/index.tsx:1303
+#: src/features/chats/index.tsx:1325
 msgid "Cancel"
 msgstr "Anulo"
 
@@ -550,10 +543,11 @@ msgstr "U ndryshua"
 msgid "Changed {field}"
 msgstr "U ndryshua {field}"
 
-#: src/features/chats/index.tsx:95
-#: src/features/chats/index.tsx:203
-#: src/features/chats/index.tsx:203
-#: src/features/chats/index.tsx:1079
+#: src/features/chats/index.tsx:97
+#: src/features/chats/index.tsx:194
+#: src/features/chats/index.tsx:194
+#: src/features/chats/index.tsx:1083
+#: src/features/chats/index.tsx:1101
 msgid "Chat"
 msgstr "Bisedë"
 
@@ -561,28 +555,28 @@ msgstr "Bisedë"
 msgid "Chat created"
 msgstr "Biseda u krijua"
 
-#: src/features/chats/index.tsx:850
+#: src/features/chats/index.tsx:839
 msgid "Chat deleted"
 msgstr "Biseda u fshi"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:229
+#: src/routes/_authenticated/$chatId_.settings.tsx:228
 msgid "Chat ID"
 msgstr "ID e bisedës"
 
-#: src/components/layout/chat-layout.tsx:156
+#: src/components/layout/chat-layout.tsx:157
 msgid "Chat marked as read"
 msgstr "Biseda u shënua si e lexuar"
 
-#: src/components/layout/chat-layout.tsx:170
+#: src/components/layout/chat-layout.tsx:171
 msgid "Chat marked as unread"
 msgstr "Biseda u shënua si e palexuar"
 
 #: src/features/chats/components/new-chat.tsx:340
-#: src/routes/_authenticated/$chatId_.settings.tsx:213
+#: src/routes/_authenticated/$chatId_.settings.tsx:212
 msgid "Chat name"
 msgstr "Emri i bisedës"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:199
+#: src/routes/_authenticated/$chatId_.settings.tsx:198
 msgid "Chat name is required"
 msgstr "Emri i bisedës është i nevojshëm"
 
@@ -590,15 +584,16 @@ msgstr "Emri i bisedës është i nevojshëm"
 msgid "Chat name..."
 msgstr "Emri i bisedës..."
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:118
+#: src/features/chats/index.tsx:1089
+#: src/routes/_authenticated/$chatId_.settings.tsx:117
 msgid "Chat not found"
 msgstr "Biseda nuk u gjet"
 
-#: src/components/layout/chat-layout.tsx:178
+#: src/components/layout/chat-layout.tsx:179
 msgid "Chat pinned"
 msgstr "Biseda u fiksua"
 
-#: src/features/chats/components/chat-settings-dialog.tsx:67
+#: src/features/chats/components/chat-settings-dialog.tsx:59
 msgid "Chat policy updated"
 msgstr "Politika e bisedës u përditësua"
 
@@ -606,16 +601,16 @@ msgstr "Politika e bisedës u përditësua"
 msgid "Chat ready"
 msgstr "Biseda gati"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:220
+#: src/routes/_authenticated/$chatId_.settings.tsx:219
 msgid "Chat renamed"
 msgstr "Biseda u riemërua"
 
-#: src/features/chats/index.tsx:1084
-#: src/features/chats/index.tsx:1182
-#: src/routes/_authenticated/$chatId_.settings.tsx:90
-#: src/routes/_authenticated/$chatId_.settings.tsx:103
-#: src/routes/_authenticated/$chatId_.settings.tsx:114
-#: src/routes/_authenticated/$chatId_.settings.tsx:129
+#: src/features/chats/index.tsx:1106
+#: src/features/chats/index.tsx:1204
+#: src/routes/_authenticated/$chatId_.settings.tsx:89
+#: src/routes/_authenticated/$chatId_.settings.tsx:102
+#: src/routes/_authenticated/$chatId_.settings.tsx:113
+#: src/routes/_authenticated/$chatId_.settings.tsx:128
 msgid "Chat settings"
 msgstr "Cilësimet e bisedës"
 
@@ -623,11 +618,11 @@ msgstr "Cilësimet e bisedës"
 msgid "Chat text box"
 msgstr "Fusha e tekstit të bisedës"
 
-#: src/components/layout/chat-layout.tsx:186
+#: src/components/layout/chat-layout.tsx:187
 msgid "Chat unpinned"
 msgstr "Fiksimi i bisedës u hoq"
 
-#: src/components/layout/chat-layout.tsx:279
+#: src/components/layout/chat-layout.tsx:275
 #: src/features/chats/components/forward-dialog.tsx:228
 msgid "Chats"
 msgstr "Bisedat"
@@ -657,7 +652,7 @@ msgstr "Zgjidh një lojë nga ana ose nis një të re."
 msgid "Choose language"
 msgstr "Zgjidh gjuhën"
 
-#: ../../../lib/web/src/components/banner-section.tsx:111
+#: ../../../lib/web/src/components/banner-section.tsx:123
 #: ../../../lib/web/src/components/colour-picker.tsx:274
 #: ../../../lib/web/src/components/colour-picker.tsx:355
 #: ../../../lib/web/src/components/travelling-picker.tsx:145
@@ -673,7 +668,7 @@ msgstr "Pastro të gjitha"
 
 #: ../../../lib/web/src/components/search-input.tsx:26
 #: src/features/chats/components/forward-dialog.tsx:198
-#: src/routes/_authenticated/$chatId_.settings.tsx:457
+#: src/routes/_authenticated/$chatId_.settings.tsx:454
 msgid "Clear search"
 msgstr "Pastro kërkimin"
 
@@ -805,7 +800,7 @@ msgid "Continue with {label}"
 msgstr "Vazhdo me {label}"
 
 #: ../../../lib/web/src/lib/toast-utils.ts:42
-#: src/features/chats/index.tsx:676
+#: src/features/chats/index.tsx:665
 msgid "Copied"
 msgstr "U kopjua"
 
@@ -815,13 +810,13 @@ msgstr "U kopjua në kujtesën e fragmenteve"
 
 #: ../../../lib/web/src/components/ui/copy-button.tsx:64
 #: src/features/chats/components/message-hover-actions.tsx:107
-#: src/features/chats/index.tsx:1280
+#: src/features/chats/index.tsx:1302
 msgid "Copy"
 msgstr "Kopjo"
 
 #. placeholder {0}: ambiguous.join(', ')
 #. placeholder {1}: unknown.join(', ')
-#: src/features/chats/index.tsx:1005
+#: src/features/chats/index.tsx:1002
 msgid "Could not link mentions. Multiple people share: {0}. Not in this chat: {1}. Pick from the @ list."
 msgstr "Përmendjet nuk u lidhën dot. Disa persona ndajnë: {0}. Nuk janë në këtë bisedë: {1}. Zgjidhni nga lista @."
 
@@ -861,7 +856,7 @@ msgstr "Krijo {entityLabel}"
 msgid "Create a new chat"
 msgstr "Krijo një bisedë të re"
 
-#: src/components/layout/chat-layout.tsx:289
+#: src/components/layout/chat-layout.tsx:285
 #: src/features/chats/components/new-chat.tsx:368
 msgid "Create chat"
 msgstr "Krijo bisedë"
@@ -939,8 +934,8 @@ msgstr "Renditja e parazgjedhur"
 #: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:672
 #: ../../../lib/web/src/components/game/game-end-dialogs.tsx:78
 #: src/features/chats/components/message-hover-actions.tsx:146
-#: src/features/chats/index.tsx:1296
-#: src/features/chats/index.tsx:1414
+#: src/features/chats/index.tsx:1318
+#: src/features/chats/index.tsx:1436
 msgid "Delete"
 msgstr "Fshi"
 
@@ -948,12 +943,12 @@ msgstr "Fshi"
 msgid "Delete attachment"
 msgstr "Fshi bashkëngjitjen"
 
-#: src/features/chats/index.tsx:1165
-#: src/features/chats/index.tsx:1327
+#: src/features/chats/index.tsx:1187
+#: src/features/chats/index.tsx:1349
 msgid "Delete chat"
 msgstr "Fshi bisedën"
 
-#: src/features/chats/index.tsx:1392
+#: src/features/chats/index.tsx:1414
 #: src/routes/_authenticated/$chatId_.settings.tsx:379
 msgid "Delete chat history"
 msgstr "Fshi historinë e bisedës"
@@ -1006,13 +1001,13 @@ msgstr "U fshi"
 msgid "Deleted {field}"
 msgstr "U fshi {field}"
 
-#: src/features/chats/index.tsx:849
+#: src/features/chats/index.tsx:838
 msgid "Deleting chat..."
 msgstr "Po fshihet biseda..."
 
 #: ../../../lib/web/src/components/game/game-end-dialogs.tsx:75
-#: src/features/chats/index.tsx:706
-#: src/features/chats/index.tsx:1411
+#: src/features/chats/index.tsx:695
+#: src/features/chats/index.tsx:1433
 msgid "Deleting..."
 msgstr "Po fshin..."
 
@@ -1107,7 +1102,7 @@ msgstr "Shkarko"
 msgid "Download failed"
 msgstr "Shkarkimi dështoi"
 
-#: src/components/layout/chat-layout.tsx:266
+#: src/components/layout/chat-layout.tsx:262
 msgid "Draft"
 msgstr "Skicë"
 
@@ -1177,7 +1172,7 @@ msgstr "Email"
 msgid "Email code"
 msgstr "Kodi me email"
 
-#: ../../../lib/web/src/components/banner-section.tsx:88
+#: ../../../lib/web/src/components/banner-section.tsx:99
 msgid "Enter banner text (markdown supported)..."
 msgstr "Shkruani tekstin e banderolës (markdown i mbështetur)..."
 
@@ -1192,10 +1187,6 @@ msgstr "Vendosni kodin e aplikacionit të vërtetimit"
 #: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:381
 msgid "Error"
 msgstr "Gabim"
-
-#: src/features/chats/components/chat-message-list.tsx:617
-msgid "escape to cancel • enter to save"
-msgstr "Escape për të anuluar • Enter për të ruajtur"
 
 #: ../../../lib/web/src/components/comment-tree-layout.tsx:101
 #: ../../../lib/web/src/components/comment-tree-layout.tsx:110
@@ -1226,7 +1217,7 @@ msgstr "Shtimi i anëtarit dështoi"
 
 #: ../../../lib/web/src/components/ui/copy-button.tsx:26
 #: ../../../lib/web/src/lib/toast-utils.ts:44
-#: src/features/chats/index.tsx:677
+#: src/features/chats/index.tsx:666
 msgid "Failed to copy"
 msgstr "Kopjimi dështoi"
 
@@ -1244,7 +1235,7 @@ msgid "Failed to create link"
 msgstr "Krijimi i lidhjes dështoi"
 
 #: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:303
-#: src/features/chats/index.tsx:708
+#: src/features/chats/index.tsx:697
 msgid "Failed to delete"
 msgstr "Fshirja dështoi"
 
@@ -1252,7 +1243,7 @@ msgstr "Fshirja dështoi"
 msgid "Failed to delete attachment"
 msgstr "Fshirja e bashkëngjitjes dështoi"
 
-#: src/features/chats/index.tsx:851
+#: src/features/chats/index.tsx:840
 msgid "Failed to delete chat"
 msgstr "Fshirja e bisedës dështoi"
 
@@ -1264,7 +1255,7 @@ msgstr "Fshirja e komentit dështoi"
 msgid "Failed to delete link"
 msgstr "Fshirja e lidhjes dështoi"
 
-#: src/features/chats/index.tsx:616
+#: src/features/chats/index.tsx:605
 msgid "Failed to edit message"
 msgstr "Mesazhi nuk u ndryshua dot"
 
@@ -1276,7 +1267,7 @@ msgstr "Përcjellja dështoi"
 msgid "Failed to get RSS token"
 msgstr "Marrja e token RSS dështoi"
 
-#: src/features/chats/index.tsx:832
+#: src/features/chats/index.tsx:821
 #: src/routes/_authenticated/$chatId_.settings.tsx:340
 msgid "Failed to leave chat"
 msgstr "Largimi nga biseda dështoi"
@@ -1284,6 +1275,10 @@ msgstr "Largimi nga biseda dështoi"
 #: ../../../lib/web/src/hooks/use-load-more.ts:78
 msgid "Failed to load"
 msgstr "Ngarkimi dështoi"
+
+#: ../../../lib/web/src/components/banner-section.tsx:85
+msgid "Failed to load banner"
+msgstr "Ngarkimi i banderolës dështoi"
 
 #: ../../../lib/web/src/components/audit-timeline.tsx:68
 msgid "Failed to load history"
@@ -1306,11 +1301,11 @@ msgstr "Ngarkimi i udhëzimeve dështoi"
 msgid "Failed to load video"
 msgstr "Ngarkimi i videos dështoi"
 
-#: src/features/chats/components/chat-settings-dialog.tsx:89
+#: src/features/chats/components/chat-settings-dialog.tsx:81
 msgid "Failed to load your chat policy"
 msgstr "Ngarkimi i politikës suaj të bisedës dështoi"
 
-#: src/components/layout/chat-layout.tsx:158
+#: src/components/layout/chat-layout.tsx:159
 msgid "Failed to mark chat as read"
 msgstr "Shënimi i bisedës si e lexuar dështoi"
 
@@ -1322,15 +1317,15 @@ msgstr "Zhvendosja dështoi"
 msgid "Failed to post comment"
 msgstr "Postimi i komentit dështoi"
 
-#: src/features/chats/index.tsx:660
+#: src/features/chats/index.tsx:649
 msgid "Failed to react"
 msgstr "Reagimi dështoi"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:535
+#: src/routes/_authenticated/$chatId_.settings.tsx:532
 msgid "Failed to remove member"
 msgstr "Heqja e anëtarit dështoi"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:222
+#: src/routes/_authenticated/$chatId_.settings.tsx:221
 msgid "Failed to rename chat"
 msgstr "Riemërimi i bisedës dështoi"
 
@@ -1343,7 +1338,7 @@ msgid "Failed to revoke RSS access"
 msgstr "Anulimi i aksesit RSS dështoi"
 
 #: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:273
-#: src/features/chats/components/chat-settings-dialog.tsx:68
+#: src/features/chats/components/chat-settings-dialog.tsx:60
 msgid "Failed to save"
 msgstr "Ruajtja dështoi"
 
@@ -1351,15 +1346,15 @@ msgstr "Ruajtja dështoi"
 msgid "Failed to save prompt"
 msgstr "Ruajtja e udhëzimit dështoi"
 
-#: src/features/chats/index.tsx:784
+#: src/features/chats/index.tsx:773
 msgid "Failed to send message"
 msgstr "Dërgimi i mesazhit dështoi"
 
-#: src/features/chats/index.tsx:209
+#: src/features/chats/index.tsx:200
 msgid "Failed to start chat"
 msgstr "Nisja e bisedës dështoi"
 
-#: ../../../lib/web/src/components/banner-section.tsx:71
+#: ../../../lib/web/src/components/banner-section.tsx:75
 msgid "Failed to update banner"
 msgstr "Përditësimi i banderolës dështoi"
 
@@ -1395,7 +1390,7 @@ msgstr "I sheshtë"
 
 #: src/features/chats/components/forward-dialog.tsx:263
 #: src/features/chats/components/message-hover-actions.tsx:138
-#: src/features/chats/index.tsx:1288
+#: src/features/chats/index.tsx:1310
 msgid "Forward"
 msgstr "Përcill"
 
@@ -1418,11 +1413,11 @@ msgstr "E premte"
 #: ../../../lib/web/src/components/person-picker.tsx:186
 #: src/features/chats/components/forward-dialog.tsx:236
 #: src/features/chats/components/new-chat.tsx:286
-#: src/routes/_authenticated/$chatId_.settings.tsx:480
+#: src/routes/_authenticated/$chatId_.settings.tsx:477
 msgid "Friends"
 msgstr "Miqtë"
 
-#: src/features/chats/components/chat-settings-dialog.tsx:39
+#: src/features/chats/components/chat-settings-dialog.tsx:37
 msgid "Friends only"
 msgstr "Vetëm miqtë"
 
@@ -1438,8 +1433,8 @@ msgstr "Nga"
 msgid "From theme"
 msgstr "Nga tema"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:134
-#: src/routes/_authenticated/$chatId_.settings.tsx:211
+#: src/routes/_authenticated/$chatId_.settings.tsx:133
+#: src/routes/_authenticated/$chatId_.settings.tsx:210
 msgid "General"
 msgstr "Të përgjithshme"
 
@@ -1493,8 +1488,8 @@ msgstr "Imperial"
 msgid "Including anonymous users"
 msgstr "Përfshirë përdoruesit anonimë"
 
-#: src/features/chats/components/chat-settings-dialog.tsx:80
-#: src/features/chats/index.tsx:1188
+#: src/features/chats/components/chat-settings-dialog.tsx:72
+#: src/features/chats/index.tsx:1210
 msgid "Incoming chats"
 msgstr "Bisedat hyrëse"
 
@@ -1526,8 +1521,8 @@ msgstr "Duket se faqja që po kërkoni <0/>nuk ekziston ose është hequr."
 msgid "Item details"
 msgstr "Detajet e artikullit"
 
-#: src/features/chats/components/chat-message-list.tsx:863
-#: src/features/chats/components/chat-message-list.tsx:880
+#: src/features/chats/components/chat-message-list.tsx:860
+#: src/features/chats/components/chat-message-list.tsx:877
 msgid "Jump to bottom"
 msgstr "Shko në fund"
 
@@ -1552,31 +1547,32 @@ msgstr "Qesh"
 msgid "Layout"
 msgstr "Paraqitja"
 
-#: src/features/chats/index.tsx:1378
+#: src/features/chats/index.tsx:1400
 msgid "Leave"
 msgstr "Largohu"
 
-#: src/features/chats/index.tsx:1172
+#: src/features/chats/index.tsx:1194
+#: src/routes/_authenticated/$chatId_.settings.tsx:296
 #: src/routes/_authenticated/$chatId_.settings.tsx:365
 msgid "Leave chat"
 msgstr "Largohu nga biseda"
 
-#: src/features/chats/index.tsx:1369
+#: src/features/chats/index.tsx:1391
 #: src/routes/_authenticated/$chatId_.settings.tsx:356
 msgid "Leave chat?"
 msgstr "Të largohem nga biseda?"
 
-#: src/features/chats/index.tsx:830
+#: src/features/chats/index.tsx:819
 #: src/routes/_authenticated/$chatId_.settings.tsx:338
 msgid "Leaving chat..."
 msgstr "Po dilet nga biseda..."
 
-#: src/features/chats/index.tsx:1375
+#: src/features/chats/index.tsx:1397
 #: src/routes/_authenticated/$chatId_.settings.tsx:362
 msgid "Leaving..."
 msgstr "Duke u larguar..."
 
-#: src/features/chats/index.tsx:831
+#: src/features/chats/index.tsx:820
 #: src/routes/_authenticated/$chatId_.settings.tsx:339
 msgid "Left chat"
 msgstr "U largua nga biseda"
@@ -1660,15 +1656,15 @@ msgstr "Manual"
 msgid "Mark all as read"
 msgstr "Shëno të gjitha si të lexuara"
 
-#: src/components/layout/chat-layout.tsx:241
+#: src/components/layout/chat-layout.tsx:237
 msgid "Mark as read"
 msgstr "Shëno si të lexuar"
 
-#: src/components/layout/chat-layout.tsx:247
+#: src/components/layout/chat-layout.tsx:243
 msgid "Mark as unread"
 msgstr "Shëno si të palexuar"
 
-#: src/components/layout/chat-layout.tsx:155
+#: src/components/layout/chat-layout.tsx:156
 msgid "Marking as read..."
 msgstr "Po shënohet si e lexuar..."
 
@@ -1688,12 +1684,12 @@ msgstr "I mesëm"
 msgid "Member added"
 msgstr "Anëtari u shtua"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:534
+#: src/routes/_authenticated/$chatId_.settings.tsx:531
 msgid "Member removed"
 msgstr "Anëtari u hoq"
 
 #: ../../../lib/web/src/components/entity/entity-field-editor.tsx:377
-#: src/routes/_authenticated/$chatId_.settings.tsx:259
+#: src/routes/_authenticated/$chatId_.settings.tsx:258
 msgid "Members"
 msgstr "Anëtarët"
 
@@ -1718,21 +1714,22 @@ msgstr "Veprime për mesazhin"
 msgid "Message copied"
 msgstr "Mesazhi u kopjua"
 
-#: src/features/chats/index.tsx:786
+#: src/features/chats/index.tsx:775
 msgid "Message could not be sent. Attachments may be too large, or your connection failed. Try smaller files."
 msgstr "Mesazhi nuk mund të dërgohej. Bashkëngjitjet mund të jenë shumë të mëdha, ose lidhja juaj dështoi. Provoni skedarë më të vegjël."
 
-#: src/features/chats/index.tsx:707
+#: src/features/chats/index.tsx:696
 msgid "Message deleted"
 msgstr "Mesazhi u fshi"
 
 #. placeholder {0}: formatNumber(newMessage.length - MESSAGE_MAX_LENGTH)
 #: src/features/chats/components/chat-input.tsx:861
+#: src/features/chats/index.tsx:962
 msgid "Message is {0} characters too long"
 msgstr "Mesazhi është {0} karaktere shumë i gjatë"
 
 #: src/features/chats/components/message-quote.tsx:60
-#: src/features/chats/index.tsx:728
+#: src/features/chats/index.tsx:717
 msgid "Message not available"
 msgstr "Mesazhi nuk është i disponueshëm"
 
@@ -1805,7 +1802,7 @@ msgid "Moved {field}"
 msgstr "U zhvendos {field}"
 
 #. placeholder {0}: ambiguous.join(', ')
-#: src/features/chats/index.tsx:997
+#: src/features/chats/index.tsx:994
 msgid "Multiple people share these names: {0}. Pick them from the @ list so the right person is notified."
 msgstr "Disa persona ndajnë këta emra: {0}. Zgjidhini nga lista @ që të njoftohet personi i duhur."
 
@@ -1825,7 +1822,7 @@ msgstr "Emri nuk mund të përmbajë karaktere < ose >"
 msgid "Name is required"
 msgstr "Emri është i detyrueshëm"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:201
+#: src/routes/_authenticated/$chatId_.settings.tsx:200
 msgid "Name must be {CHAT_NAME_MAX_LENGTH} characters or less"
 msgstr "Emri duhet të jetë {CHAT_NAME_MAX_LENGTH} karaktere ose më pak"
 
@@ -1883,11 +1880,11 @@ msgstr "S'ka biseda ku të përcillet"
 msgid "No comments yet"
 msgstr "Ende pa komente"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:470
+#: src/routes/_authenticated/$chatId_.settings.tsx:467
 msgid "No friends available"
 msgstr "Asnjë mik i disponueshëm"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:470
+#: src/routes/_authenticated/$chatId_.settings.tsx:467
 msgid "No friends found"
 msgstr "S'u gjet asnjë mik"
 
@@ -1911,7 +1908,7 @@ msgstr "Asnjë lloj artikulli nuk mund të krijohet ende. Krijoni fillimisht art
 msgid "No matching objects"
 msgstr "Asnjë objekt përputhës"
 
-#: src/features/chats/components/chat-message-list.tsx:475
+#: src/features/chats/components/chat-message-list.tsx:476
 msgid "No messages yet"
 msgstr "Ende pa mesazhe"
 
@@ -2005,7 +2002,7 @@ msgstr "I pacaktuar"
 msgid "Nothing found"
 msgstr "S'u gjet asgjë"
 
-#: src/features/chats/index.tsx:672
+#: src/features/chats/index.tsx:661
 msgid "Nothing to copy"
 msgstr "S'ka asgjë për të kopjuar"
 
@@ -2028,10 +2025,6 @@ msgstr "Përputhja më e vjetër"
 msgid "On"
 msgstr "Aktiv"
 
-#: src/features/chats/components/chat-settings-dialog.tsx:40
-msgid "Only friends can start a chat with you (default)."
-msgstr "Vetëm miqtë mund të nisin një bisedë me ju (parazgjedhje)."
-
 #: ../../../lib/web/src/features/errors/not-found-error.tsx:16
 msgid "Oops! Page Not Found!"
 msgstr "Ups! Faqja s'u gjet!"
@@ -2045,7 +2038,7 @@ msgstr "Hap"
 msgid "Open actions"
 msgstr "Hap veprimet"
 
-#: src/features/chats/index.tsx:1157
+#: src/features/chats/index.tsx:1179
 msgid "Open chat actions"
 msgstr "Hap veprimet e bisedës"
 
@@ -2147,7 +2140,7 @@ msgstr "Persona"
 msgid "Photo or Video"
 msgstr "Foto ose video"
 
-#: src/components/layout/chat-layout.tsx:232
+#: src/components/layout/chat-layout.tsx:228
 msgid "Pin chat"
 msgstr "Fikso bisedën"
 
@@ -2299,12 +2292,14 @@ msgstr "Përkatësia {relevance}, interesi {weight}"
 #: ../../../lib/web/src/components/attachment-composer.tsx:330
 #: ../../../lib/web/src/components/entity/add-field-dialog.tsx:192
 #: ../../../lib/web/src/features/access/access-list.tsx:270
-#: src/routes/_authenticated/$chatId_.settings.tsx:557
+#: src/routes/_authenticated/$chatId_.settings.tsx:554
 msgid "Remove"
 msgstr "Hiq"
 
+#. placeholder {0}: member.name
 #. placeholder {0}: reaction.label
 #: src/features/chats/components/message-reaction-bar.tsx:121
+#: src/routes/_authenticated/$chatId_.settings.tsx:296
 msgid "Remove {0}"
 msgstr "Hiq {0}"
 
@@ -2346,7 +2341,7 @@ msgstr "Hiq artikullin"
 msgid "Remove link"
 msgstr "Hiq lidhjen"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:548
+#: src/routes/_authenticated/$chatId_.settings.tsx:545
 msgid "Remove member?"
 msgstr "Të hiqet anëtari?"
 
@@ -2354,11 +2349,11 @@ msgstr "Të hiqet anëtari?"
 msgid "Remove voice note"
 msgstr "Hiq shënimin zanor"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:533
+#: src/routes/_authenticated/$chatId_.settings.tsx:530
 msgid "Removing member..."
 msgstr "Po hiqet anëtari..."
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:554
+#: src/routes/_authenticated/$chatId_.settings.tsx:551
 msgid "Removing..."
 msgstr "Duke hequr..."
 
@@ -2375,7 +2370,7 @@ msgstr "Riemërto kolonën"
 msgid "Rename this board column"
 msgstr "Riemërto këtë kolonë të tabelës"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:219
+#: src/routes/_authenticated/$chatId_.settings.tsx:218
 msgid "Renaming chat..."
 msgstr "Po riemërtohet biseda..."
 
@@ -2462,18 +2457,18 @@ msgstr "E shtunë"
 
 #: ../../../lib/web/src/components/ai-prompts-editor.tsx:156
 #: ../../../lib/web/src/components/attachment-composer.tsx:430
-#: ../../../lib/web/src/components/banner-section.tsx:99
+#: ../../../lib/web/src/components/banner-section.tsx:111
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:231
 #: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:172
 #: ../../../lib/web/src/components/ui/editable-field-row.tsx:126
 #: ../../../lib/web/src/components/ui/secret-field.tsx:79
-#: src/features/chats/components/chat-message-list.tsx:641
-#: src/features/chats/components/chat-settings-dialog.tsx:128
+#: src/features/chats/components/chat-message-list.tsx:639
+#: src/features/chats/components/chat-settings-dialog.tsx:117
 msgid "Save"
 msgstr "Ruaj"
 
 #: ../../../lib/web/src/components/ai-prompts-editor.tsx:156
-#: src/features/chats/components/chat-settings-dialog.tsx:66
+#: src/features/chats/components/chat-settings-dialog.tsx:58
 msgid "Saving..."
 msgstr "Duke ruajtur..."
 
@@ -2512,7 +2507,7 @@ msgstr "Kërko destinacionin..."
 msgid "Search for origin..."
 msgstr "Kërko origjinën..."
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:456
+#: src/routes/_authenticated/$chatId_.settings.tsx:453
 msgid "Search friends…"
 msgstr "Kërko miq…"
 
@@ -2520,7 +2515,7 @@ msgstr "Kërko miq…"
 msgid "Search in chat..."
 msgstr "Kërko në bisedë..."
 
-#: src/features/chats/index.tsx:1147
+#: src/features/chats/index.tsx:1169
 msgid "Search messages"
 msgstr "Kërko mesazhe"
 
@@ -2574,10 +2569,6 @@ msgstr "Zgjidh një bisedë"
 msgid "Select a field"
 msgstr "Zgjidh një fushë"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:448
-msgid "Select a friend to add to this chat."
-msgstr "Zgjidh një mik për të shtuar në këtë bisedë."
-
 #: ../../../lib/web/src/components/game/game-empty-state.tsx:34
 msgid "Select a game"
 msgstr "Zgjidh një lojë"
@@ -2598,7 +2589,7 @@ msgstr "Zgjidh llojin e llogarisë"
 msgid "Select group"
 msgstr "Zgjidh grupin"
 
-#: src/features/chats/components/chat-message-list.tsx:834
+#: src/features/chats/components/chat-message-list.tsx:831
 msgid "Select loaded"
 msgstr "Zgjidh të ngarkuarat"
 
@@ -2606,7 +2597,7 @@ msgstr "Zgjidh të ngarkuarat"
 msgid "Select location"
 msgstr "Zgjidh vendndodhjen"
 
-#: src/features/chats/components/chat-message-list.tsx:549
+#: src/features/chats/components/chat-message-list.tsx:550
 msgid "Select message"
 msgstr "Zgjidh mesazhin"
 
@@ -2631,7 +2622,7 @@ msgstr "Zgjidh kartën e mëparshme"
 msgid "Select..."
 msgstr "Zgjidh..."
 
-#: src/features/chats/index.tsx:1251
+#: src/features/chats/index.tsx:1273
 msgid "Selected the newest {BULK_MESSAGES_MAX} messages, the most that can be forwarded or deleted at once"
 msgstr "U zgjodhën {BULK_MESSAGES_MAX} mesazhet më të reja, maksimumi që mund të përcillet ose fshihet njëherësh"
 
@@ -2639,10 +2630,6 @@ msgstr "U zgjodhën {BULK_MESSAGES_MAX} mesazhet më të reja, maksimumi që mun
 #: ../../../lib/web/src/features/access/access-dialog.tsx:309
 msgid "Selected: <0>{0}</0>"
 msgstr "Zgjedhur: <0>{0}</0>"
-
-#: src/features/chats/components/chat-message-list.tsx:832
-msgid "Selects messages loaded so far"
-msgstr "Zgjedh mesazhet e ngarkuara deri tani"
 
 #: ../../../lib/web/src/features/accounts/account-verify.tsx:100
 msgid "Send again"
@@ -2755,7 +2742,7 @@ msgstr "Fillo një bisedë"
 msgid "Start the discussion by adding the first comment."
 msgstr "Fillo diskutimin duke shtuar komentin e parë."
 
-#: src/features/chats/index.tsx:206
+#: src/features/chats/index.tsx:197
 msgid "Starting chat..."
 msgstr "Po fillohet biseda..."
 
@@ -2849,7 +2836,7 @@ msgid "The chat name can be at most {CHAT_NAME_MAX_LENGTH} characters"
 msgstr "Emri i bisedës mund të ketë maksimumi {CHAT_NAME_MAX_LENGTH} karaktere"
 
 #: src/features/chats/components/new-chat.tsx:174
-#: src/routes/_authenticated/$chatId_.settings.tsx:205
+#: src/routes/_authenticated/$chatId_.settings.tsx:204
 msgid "The chat name cannot contain < or >"
 msgstr "Emri i bisedës nuk mund të përmbajë < ose >"
 
@@ -2870,7 +2857,7 @@ msgid "The server returned a web page instead of data."
 msgstr "Serveri ktheu një faqe interneti në vend të të dhënave."
 
 #. placeholder {0}: unknown.join(', ')
-#: src/features/chats/index.tsx:1001
+#: src/features/chats/index.tsx:998
 msgid "These names are not in this chat: {0}. Pick from the @ list or remove them."
 msgstr "Këta emra nuk janë në këtë bisedë: {0}. Zgjidhni nga lista @ ose hiqini."
 
@@ -2878,19 +2865,20 @@ msgstr "Këta emra nuk janë në këtë bisedë: {0}. Zgjidhni nga lista @ ose h
 msgid "This app is not allowed to use your passkey. Allow it in Settings, under Permissions."
 msgstr "Ky aplikacion nuk lejohet të përdorë kyçin tuaj. Lejojeni te Cilësimet, nën Lejet."
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:166
+#: src/routes/_authenticated/$chatId_.settings.tsx:165
 msgid "this chat"
 msgstr "kjo bisedë"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:119
+#: src/features/chats/index.tsx:1090
+#: src/routes/_authenticated/$chatId_.settings.tsx:118
 msgid "This chat may have been deleted or you don't have access to it"
 msgstr "Kjo bisedë mund të jetë fshirë ose nuk ke akses në të"
 
-#: src/features/chats/index.tsx:1406
+#: src/features/chats/index.tsx:1428
 msgid "This deletes the message for everyone and cannot be undone."
 msgstr "Kjo e fshin mesazhin për të gjithë dhe nuk mund të zhbëhet."
 
-#: src/features/chats/components/chat-message-list.tsx:682
+#: src/features/chats/components/chat-message-list.tsx:680
 #: src/features/chats/components/message-quote.tsx:50
 msgid "This message was deleted"
 msgstr "Ky mesazh u fshi"
@@ -2942,7 +2930,7 @@ msgstr "Lart"
 msgid "Travelling"
 msgstr "Duke udhëtuar"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx:473
+#: src/routes/_authenticated/$chatId_.settings.tsx:470
 msgid "Try a different search term"
 msgstr "Provo një term tjetër kërkimi"
 
@@ -3020,11 +3008,11 @@ msgstr "Shtetet e Bashkuara"
 #: ../../../lib/web/src/components/tree-row.tsx:373
 #: ../../../lib/web/src/components/tree-table-header.tsx:70
 #: ../../../lib/web/src/features/accounts/types.ts:29
-#: src/hooks/useChatWebsocket.ts:387
+#: src/hooks/useChatWebsocket.ts:373
 msgid "Unknown"
 msgstr "I panjohur"
 
-#: src/components/layout/chat-layout.tsx:226
+#: src/components/layout/chat-layout.tsx:222
 msgid "Unpin chat"
 msgstr "Hiq fiksimin e bisedës"
 
@@ -3147,7 +3135,7 @@ msgstr "Dërguam një kod verifikimi te <0>{0}</0>. Shkruani kodin më poshtë p
 msgid "Wednesday"
 msgstr "E mërkurë"
 
-#: src/features/chats/index.tsx:481
+#: src/features/chats/index.tsx:470
 msgid "You"
 msgstr "Ti"
 
@@ -3159,15 +3147,15 @@ msgstr "Ke tashmë një bisedë me këtë mik"
 msgid "You already have chats with:"
 msgstr "Ke tashmë biseda me:"
 
-#: src/features/chats/index.tsx:984
+#: src/features/chats/index.tsx:981
 msgid "You can attach at most {CAPTIONS_MAX} files to a message"
 msgstr "Mund të bashkëngjitni maksimumi {CAPTIONS_MAX} skedarë në një mesazh"
 
-#: src/features/chats/index.tsx:980
+#: src/features/chats/index.tsx:977
 msgid "You can mention at most {MENTIONS_MAX} people in a message"
 msgstr "Mund të përmendni maksimumi {MENTIONS_MAX} persona në një mesazh"
 
-#: src/features/chats/index.tsx:689
+#: src/features/chats/index.tsx:678
 msgid "You can only delete your own messages"
 msgstr "Mund të fshish vetëm mesazhet e tua"
 
@@ -3175,11 +3163,11 @@ msgstr "Mund të fshish vetëm mesazhet e tua"
 msgid "You do not have access to this section."
 msgstr "Nuk keni qasje në këtë seksion."
 
-#: src/features/chats/index.tsx:1314
+#: src/features/chats/index.tsx:1336
 msgid "You left this chat"
 msgstr "U largove nga kjo bisedë"
 
-#: src/features/chats/index.tsx:1313
+#: src/features/chats/index.tsx:1335
 msgid "You were removed from this chat"
 msgstr "U hoqe nga kjo bisedë"
 

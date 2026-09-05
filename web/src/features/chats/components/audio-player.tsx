@@ -28,9 +28,9 @@ import {
 } from '../utils/audio-peaks'
 import { claimActiveAudio, releaseActiveAudio } from '../utils/active-audio'
 
-export type PlayableAudioKind = 'voice' | 'audio'
+type PlayableAudioKind = 'voice' | 'audio'
 
-export interface VoiceNotePlayerProps {
+interface VoiceNotePlayerProps {
   src: string
   durationSecs: number
   /** Mic voice note (waveform) vs attached audio file (headphones + bar). */

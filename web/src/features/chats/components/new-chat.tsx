@@ -72,7 +72,7 @@ export function NewChat() {
   )
 
   // Directory search for the picker: non-friends may be addressed too - the
-  // sender-side probe at create refuses anyone whose chat_policy does not
+  // sender-side probe at create refuses anyone whose policy does not
   // allow it. Names of picked directory people are kept for the chat-name
   // autofill (the picker resolves its own display names internally).
   const directoryNames = useRef(new Map<string, string>())
@@ -102,11 +102,11 @@ export function NewChat() {
   const existingChats = useMemo(() => {
     return selectedFriends
       .map((id) => friends.find((f) => f.id === id))
-      .filter((f) => f?.chatId)
+      .filter((f) => f?.chat)
       .map((f) => ({
         id: f!.id,
         name: f!.name,
-        chatId: f!.chatId!,
+        chat: f!.chat!,
       }))
   }, [selectedFriends, friends])
 
@@ -324,7 +324,7 @@ export function NewChat() {
                     <Button
                       variant='ghost'
                       size='xs'
-                      onClick={() => handleOpenChat(chat.chatId)}
+                      onClick={() => handleOpenChat(chat.chat)}
                     >
                       <MessageCircle className='me-1.5 h-3 w-3' />
                       <Trans>Open</Trans>
