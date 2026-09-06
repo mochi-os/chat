@@ -494,6 +494,7 @@ export function ChatMessageList({
           hasMore={messagesQuery.hasNextPage ?? false}
           isLoading={messagesQuery.isFetchingNextPage}
           rootMargin='100px'
+          root={scrollContainerRef}
         />
 
         <div className='flex flex-col gap-4'>
