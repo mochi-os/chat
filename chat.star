@@ -421,8 +421,8 @@ def action_create(a):
 		return
 
 	# Bound probing by count AND elapsed time: an unreachable stranger blocks up to
-	# remote_address_wait (5s in core), so eighteen of them would exhaust the 90s
-	# request budget mid-loop. Friends resolve locally and cost nothing.
+	# remote_address_wait (5s in core), so a run of them would exhaust the
+	# request's compute limit mid-loop. Friends resolve locally and cost nothing.
 	probes = 0
 	started = mochi.time.now()
 	for member_id in member_ids:
