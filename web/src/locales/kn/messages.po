@@ -19,7 +19,7 @@ msgid "Please check your internet connection and try again."
 msgstr "ನಿಮ್ಮ ಇಂಟರ್ನೆಟ್ ಸಂಪರ್ಕವನ್ನು ಪರಿಶೀಲಿಸಿ ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ."
 
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx:189
-#: src/features/chats/components/chat-message-list.tsx:795
+#: src/features/chats/components/chat-message-list.tsx:796
 msgid "(edited)"
 msgstr "(ಸಂಪಾದಿಸಲಾಗಿದೆ)"
 
@@ -35,11 +35,16 @@ msgstr "(ನೀವು)"
 msgid "[not set]"
 msgstr "[ಸಜ್ಜುಗೊಳಿಸಿಲ್ಲ]"
 
+#. placeholder {0}: visible.length
+#: ../../../lib/web/src/components/inline-entity-search.tsx:179
+msgid "{0, plural, one {# result} other {# results}}"
+msgstr "{0, plural, one {# ಫಲಿತಾಂಶ} other {# ಫಲಿತಾಂಶಗಳು}}"
+
 #. placeholder {0}: displayInfo.count
 #. placeholder {0}: selectedIds.size
 #. placeholder {0}: selectedIds?.size ?? 0
 #: ../../../lib/web/src/components/person-picker.tsx:260
-#: src/features/chats/components/chat-message-list.tsx:822
+#: src/features/chats/components/chat-message-list.tsx:823
 #: src/features/chats/index.tsx:1293
 msgid "{0, plural, one {# selected} other {# selected}}"
 msgstr "{0, plural, one {# ಆಯ್ಕೆ ಮಾಡಲಾಗಿದೆ} other {# ಆಯ್ಕೆ ಮಾಡಲಾಗಿದೆ}}"
@@ -89,8 +94,8 @@ msgstr "{entityLabel} ಹೆಸರು"
 msgid "{hiddenCount, plural, one {Show 1 more file} other {Show # more files}}"
 msgstr "{hiddenCount, plural, one {ಇನ್ನೂ 1 ಫೈಲ್ ತೋರಿಸಿ} other {ಇನ್ನೂ # ಫೈಲ್‌ಗಳನ್ನು ತೋರಿಸಿ}}"
 
-#: src/features/chats/components/chat-message-list.tsx:856
-#: src/features/chats/components/chat-message-list.tsx:873
+#: src/features/chats/components/chat-message-list.tsx:857
+#: src/features/chats/components/chat-message-list.tsx:874
 msgid "{newMessageCount, plural, one {Jump to 1 new message} other {Jump to # new messages}}"
 msgstr "{newMessageCount, plural, one {1 ಹೊಸ ಸಂದೇಶಕ್ಕೆ ಹೋಗಿ} other {# ಹೊಸ ಸಂದೇಶಗಳಿಗೆ ಹೋಗಿ}}"
 
@@ -153,7 +158,7 @@ msgstr "ಪ್ರವೇಶ ಮಟ್ಟ"
 msgid "Account type"
 msgstr "ಖಾತೆಯ ಪ್ರಕಾರ"
 
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:415
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:423
 msgid "Activity"
 msgstr "ಚಟುವಟಿಕೆ"
 
@@ -327,7 +332,7 @@ msgstr "ಈ ಫೀಡ್‌ಗೆ ಚಂದಾದಾರರಾದ ಎಲ್ಲವ
 msgid "Are you sure you want to delete \"{0}\"?"
 msgstr "\"{0}\" ಅನ್ನು ಅಳಿಸಲು ನೀವು ಖಚಿತವಾಗಿದ್ದೀರಾ?"
 
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:671
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:679
 msgid "Are you sure you want to delete \"{title}\"? This action cannot be undone."
 msgstr "\"{title}\" ಅನ್ನು ಅಳಿಸಲು ನೀವು ಖಚಿತವಾಗಿದ್ದೀರಾ? ಈ ಕ್ರಿಯೆಯನ್ನು ರದ್ದು ಮಾಡಲು ಸಾಧ್ಯವಿಲ್ಲ."
 
@@ -369,11 +374,11 @@ msgstr "ನೀವು ಶರಣಾಗಲು ಖಚಿತವಾಗಿದ್ದೀ�
 msgid "Ascending"
 msgstr "ಆರೋಹಣ"
 
-#: ../../../lib/web/src/components/comment-composer.tsx:430
+#: ../../../lib/web/src/components/comment-composer.tsx:438
 msgid "Attach comment files"
 msgstr "ಕಾಮೆಂಟ್ ಫೈಲ್‌ಗಳನ್ನು ಲಗತ್ತಿಸಿ"
 
-#: ../../../lib/web/src/components/comment-composer.tsx:429
+#: ../../../lib/web/src/components/comment-composer.tsx:437
 msgid "Attach reply files"
 msgstr "ಪ್ರತ್ಯುತ್ತರ ಫೈಲ್‌ಗಳನ್ನು ಲಗತ್ತಿಸಿ"
 
@@ -496,8 +501,8 @@ msgstr "ಕ್ಯಾಮೆರಾ ಲಭ್ಯವಿಲ್ಲ"
 #: ../../../lib/web/src/features/access/access-list.tsx:268
 #: ../../../lib/web/src/features/accounts/account-add.tsx:201
 #: ../../../lib/web/src/features/accounts/account-verify.tsx:91
-#: src/features/chats/components/chat-message-list.tsx:625
-#: src/features/chats/components/chat-message-list.tsx:840
+#: src/features/chats/components/chat-message-list.tsx:626
+#: src/features/chats/components/chat-message-list.tsx:841
 #: src/features/chats/components/chat-settings-dialog.tsx:105
 #: src/features/chats/components/forward-dialog.tsx:252
 #: src/features/chats/components/new-chat.tsx:356
@@ -505,11 +510,11 @@ msgstr "ಕ್ಯಾಮೆರಾ ಲಭ್ಯವಿಲ್ಲ"
 msgid "Cancel"
 msgstr "ರದ್ದುಮಾಡಿ"
 
-#: ../../../lib/web/src/components/comment-composer.tsx:430
+#: ../../../lib/web/src/components/comment-composer.tsx:438
 msgid "Cancel comment"
 msgstr "ಕಾಮೆಂಟ್ ರದ್ದುಮಾಡಿ"
 
-#: ../../../lib/web/src/components/comment-composer.tsx:429
+#: ../../../lib/web/src/components/comment-composer.tsx:437
 #: src/features/chats/components/chat-input.tsx:590
 #: src/features/chats/components/chat-input.tsx:595
 msgid "Cancel reply"
@@ -749,8 +754,8 @@ msgstr "ಕಾಮೆಂಟ್ ಕ್ರಿಯೆಗಳು"
 msgid "Comments"
 msgstr "ಕಾಮೆಂಟ್‌ಗಳು"
 
-#. placeholder {0}: data.comment_count || 0
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:411
+#. placeholder {0}: data.comments.count || 0
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:419
 msgid "Comments ({0})"
 msgstr "ಕಾಮೆಂಟ್‌ಗಳು ({0})"
 
@@ -931,7 +936,7 @@ msgstr "ಡೀಫಾಲ್ಟ್ ವಿಂಗಡಣೆ"
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:208
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:255
 #: ../../../lib/web/src/components/entity/entity-object-attachments.tsx:317
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:672
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:680
 #: ../../../lib/web/src/components/game/game-end-dialogs.tsx:78
 #: src/features/chats/components/message-hover-actions.tsx:146
 #: src/features/chats/index.tsx:1318
@@ -969,9 +974,9 @@ msgstr "ಫೀಲ್ಡ್ ಅಳಿಸಿ"
 msgid "Delete game?"
 msgstr "ಆಟವನ್ನು ಅಳಿಸಬೇಕೆ?"
 
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:486
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:491
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:670
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:494
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:499
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:678
 msgid "Delete item"
 msgstr "ಐಟಂ ಅಳಿಸಿ"
 
@@ -1046,11 +1051,11 @@ msgstr "ಡೈರೆಕ್ಟರಿ ಹುಡುಕಾಟ ವಿಫಲವಾಗ�
 msgid "Disagree"
 msgstr "ಒಪ್ಪುವುದಿಲ್ಲ"
 
-#: ../../../lib/web/src/components/comment-composer.tsx:311
+#: ../../../lib/web/src/components/comment-composer.tsx:319
 msgid "Discard"
 msgstr "ತಿರಸ್ಕರಿಸಿ"
 
-#: ../../../lib/web/src/components/comment-composer.tsx:309
+#: ../../../lib/web/src/components/comment-composer.tsx:317
 msgid "Discard draft?"
 msgstr "ಕರಡನ್ನು ತಿರಸ್ಕರಿಸಬೇಕೇ?"
 
@@ -1086,7 +1091,7 @@ msgid "Does not match the required pattern"
 msgstr "ಅಗತ್ಯವಿರುವ ಮಾದರಿಗೆ ಹೊಂದಿಕೆಯಾಗುತ್ತಿಲ್ಲ"
 
 #: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:309
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:495
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:503
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:523
 msgid "Done"
 msgstr "ಮುಗಿಯಿತು"
@@ -1184,7 +1189,7 @@ msgstr "ನಿಮ್ಮ ಇಮೇಲ್‌ನಿಂದ ಕೋಡ್ ನಮೂದ
 msgid "Enter your authenticator code"
 msgstr "ನಿಮ್ಮ authenticator ಕೋಡ್ ನಮೂದಿಸಿ"
 
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:381
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:389
 msgid "Error"
 msgstr "ದೋಷ"
 
@@ -1280,7 +1285,7 @@ msgstr "ಲೋಡ್ ಮಾಡಲು ವಿಫಲವಾಗಿದೆ"
 msgid "Failed to load banner"
 msgstr "ಬ್ಯಾನರ್ ಲೋಡ್ ಮಾಡಲು ವಿಫಲವಾಗಿದೆ"
 
-#: ../../../lib/web/src/components/audit-timeline.tsx:68
+#: ../../../lib/web/src/components/audit-timeline.tsx:70
 msgid "Failed to load history"
 msgstr "ಇತಿಹಾಸ ಲೋಡ್ ಮಾಡಲು ವಿಫಲವಾಗಿದೆ"
 
@@ -1288,8 +1293,8 @@ msgstr "ಇತಿಹಾಸ ಲೋಡ್ ಮಾಡಲು ವಿಫಲವಾಗಿ
 msgid "Failed to load image"
 msgstr "ಚಿತ್ರವನ್ನು ಲೋಡ್ ಮಾಡಲು ವಿಫಲವಾಗಿದೆ"
 
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:382
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:385
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:390
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:393
 msgid "Failed to load item"
 msgstr "ಐಟಂ ಲೋಡ್ ಮಾಡಲು ವಿಫಲವಾಗಿದೆ"
 
@@ -1456,7 +1461,7 @@ msgstr "ಇದರ ಪ್ರಕಾರ ಗುಂಪಿಸಿ"
 msgid "Group: {0}"
 msgstr "ಗುಂಪು: {0}"
 
-#: ../../../lib/web/src/components/audit-timeline.tsx:61
+#: ../../../lib/web/src/components/audit-timeline.tsx:63
 msgid "History"
 msgstr "ಇತಿಹಾಸ"
 
@@ -1517,12 +1522,12 @@ msgstr "ಅಮಾನ್ಯ ದಿನಾಂಕ"
 msgid "It seems like the page you're looking for <0/>does not exist or might have been removed."
 msgstr "ನೀವು ಹುಡುಕುತ್ತಿರುವ ಪುಟ <0/>ಅಸ್ತಿತ್ವದಲ್ಲಿಲ್ಲ ಅಥವಾ ತೆಗೆದುಹಾಕಲಾಗಿದೆ ಎಂದು ತೋರುತ್ತದೆ."
 
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:441
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:449
 msgid "Item details"
 msgstr "ಐಟಂ ವಿವರಗಳು"
 
-#: src/features/chats/components/chat-message-list.tsx:860
-#: src/features/chats/components/chat-message-list.tsx:877
+#: src/features/chats/components/chat-message-list.tsx:861
+#: src/features/chats/components/chat-message-list.tsx:878
 msgid "Jump to bottom"
 msgstr "ಕೆಳಕ್ಕೆ ಹೋಗಿ"
 
@@ -1609,11 +1614,11 @@ msgstr "ಇನ್ನಷ್ಟು ಲೋಡ್ ಮಾಡಿ"
 msgid "Loading content…"
 msgstr "ವಿಷಯ ಲೋಡ್ ಆಗುತ್ತಿದೆ…"
 
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:365
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:373
 msgid "Loading item"
 msgstr "ಐಟಂ ಲೋಡ್ ಆಗುತ್ತಿದೆ"
 
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:366
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:374
 msgid "Loading item details"
 msgstr "ಐಟಂ ವಿವರಗಳು ಲೋಡ್ ಆಗುತ್ತಿವೆ"
 
@@ -1969,10 +1974,10 @@ msgstr "ಯಾವುದೇ ವೀಕ್ಷಣೆಗಳಿಲ್ಲ"
 #: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:554
 #: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:557
 #: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:561
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:557
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:570
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:571
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:575
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:565
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:578
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:579
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:583
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:362
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:385
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx:388
@@ -2097,8 +2102,8 @@ msgid "Owner"
 msgstr "ಮಾಲೀಕ"
 
 #: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx:546
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:553
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:569
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:561
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:577
 msgid "Parent"
 msgstr "ಪೋಷಕ"
 
@@ -2200,7 +2205,7 @@ msgstr "ಪ್ರಕ್ರಿಯೆಗೊಳಿಸಲಾಗುತ್ತಿದೆ
 msgid "Prompt saved"
 msgstr "ಪ್ರಾಂಪ್ಟ್ ಉಳಿಸಲಾಗಿದೆ"
 
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:408
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:416
 msgid "Properties"
 msgstr "ಗುಣಲಕ್ಷಣಗಳು"
 
@@ -2462,7 +2467,7 @@ msgstr "ಶನಿವಾರ"
 #: ../../../lib/web/src/components/entity/entity-option-dialog.tsx:172
 #: ../../../lib/web/src/components/ui/editable-field-row.tsx:126
 #: ../../../lib/web/src/components/ui/secret-field.tsx:79
-#: src/features/chats/components/chat-message-list.tsx:639
+#: src/features/chats/components/chat-message-list.tsx:640
 #: src/features/chats/components/chat-settings-dialog.tsx:117
 msgid "Save"
 msgstr "ಉಳಿಸಿ"
@@ -2589,7 +2594,7 @@ msgstr "ಖಾತೆಯ ಪ್ರಕಾರವನ್ನು ಆಯ್ಕೆಮಾ�
 msgid "Select group"
 msgstr "ಗುಂಪು ಆಯ್ಕೆಮಾಡಿ"
 
-#: src/features/chats/components/chat-message-list.tsx:831
+#: src/features/chats/components/chat-message-list.tsx:832
 msgid "Select loaded"
 msgstr "ಲೋಡ್ ಆದವುಗಳನ್ನು ಆಯ್ಕೆಮಾಡಿ"
 
@@ -2597,7 +2602,7 @@ msgstr "ಲೋಡ್ ಆದವುಗಳನ್ನು ಆಯ್ಕೆಮಾಡಿ"
 msgid "Select location"
 msgstr "ಸ್ಥಳವನ್ನು ಆಯ್ಕೆಮಾಡಿ"
 
-#: src/features/chats/components/chat-message-list.tsx:550
+#: src/features/chats/components/chat-message-list.tsx:551
 msgid "Select message"
 msgstr "ಸಂದೇಶ ಆಯ್ಕೆಮಾಡಿ"
 
@@ -2751,8 +2756,8 @@ msgstr "ಚಾಟ್ ಪ್ರಾರಂಭಿಸಲಾಗುತ್ತಿದೆ..
 msgid "Stop recording"
 msgstr "ರೆಕಾರ್ಡಿಂಗ್ ನಿಲ್ಲಿಸಿ"
 
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:471
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:476
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:479
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:484
 msgid "Stop watching"
 msgstr "ವೀಕ್ಷಿಸುವುದನ್ನು ನಿಲ್ಲಿಸಿ"
 
@@ -2760,11 +2765,11 @@ msgstr "ವೀಕ್ಷಿಸುವುದನ್ನು ನಿಲ್ಲಿಸಿ"
 msgid "Subject"
 msgstr "ವಿಷಯ"
 
-#: ../../../lib/web/src/components/comment-composer.tsx:430
+#: ../../../lib/web/src/components/comment-composer.tsx:438
 msgid "Submit comment"
 msgstr "ಕಾಮೆಂಟ್ ಸಲ್ಲಿಸಿ"
 
-#: ../../../lib/web/src/components/comment-composer.tsx:429
+#: ../../../lib/web/src/components/comment-composer.tsx:437
 msgid "Submit reply"
 msgstr "ಉತ್ತರ ಸಲ್ಲಿಸಿ"
 
@@ -2782,7 +2787,7 @@ msgstr "ಭಾನುವಾರ"
 msgid "Switch to view 1-9"
 msgstr "ವೀಕ್ಷಣೆ 1-9 ಗೆ ಬದಲಾಯಿಸಿ"
 
-#: ../../../lib/web/src/components/audit-timeline.tsx:107
+#: ../../../lib/web/src/components/audit-timeline.tsx:109
 #: ../../../lib/web/src/lib/preference-utils.ts:16
 #: ../../../lib/web/src/lib/preference-utils.ts:132
 msgid "System"
@@ -2878,7 +2883,7 @@ msgstr "ಈ ಚಾಟ್ ಅನ್ನು ಅಳಿಸಲಾಗಿರಬಹುದ
 msgid "This deletes the message for everyone and cannot be undone."
 msgstr "ಇದು ಸಂದೇಶವನ್ನು ಎಲ್ಲರಿಗೂ ಅಳಿಸುತ್ತದೆ ಮತ್ತು ಇದನ್ನು ರದ್ದುಗೊಳಿಸಲಾಗದು."
 
-#: src/features/chats/components/chat-message-list.tsx:680
+#: src/features/chats/components/chat-message-list.tsx:681
 #: src/features/chats/components/message-quote.tsx:50
 msgid "This message was deleted"
 msgstr "ಈ ಸಂದೇಶವನ್ನು ಅಳಿಸಲಾಗಿದೆ"
@@ -3002,7 +3007,7 @@ msgstr "ಅನಿರೀಕ್ಷಿತ API ದೋಷ"
 msgid "United States"
 msgstr "ಯುನೈಟೆಡ್ ಸ್ಟೇಟ್ಸ್"
 
-#: ../../../lib/web/src/components/audit-timeline.tsx:103
+#: ../../../lib/web/src/components/audit-timeline.tsx:105
 #: ../../../lib/web/src/components/entity/entity-field-dialog.tsx:167
 #: ../../../lib/web/src/components/tree-row.tsx:219
 #: ../../../lib/web/src/components/tree-row.tsx:373
@@ -3086,7 +3091,7 @@ msgstr "ವೀಡಿಯೊ ವೀಕ್ಷಕ: {0}"
 msgid "View all notifications"
 msgstr "ಎಲ್ಲಾ ನೋಟಿಫಿಕೇಶನ್‌ಗಳನ್ನು ವೀಕ್ಷಿಸಿ"
 
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:442
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:450
 msgid "View and edit item details"
 msgstr "ಐಟಂ ವಿವರಗಳನ್ನು ವೀಕ್ಷಿಸಿ ಮತ್ತು ಸಂಪಾದಿಸಿ"
 
@@ -3112,8 +3117,8 @@ msgstr "ಈ ಬ್ರೌಸರ್‌ನಲ್ಲಿ ಧ್ವನಿ ರೆಕಾ
 msgid "Voice recording isn't available in this app version. Please update the app and try again."
 msgstr "ಆ್ಯಪ್‌ನ ಈ ಆವೃತ್ತಿಯಲ್ಲಿ ಧ್ವನಿ ರೆಕಾರ್ಡಿಂಗ್ ಲಭ್ಯವಿಲ್ಲ. ದಯವಿಟ್ಟು ಆ್ಯಪ್ ನವೀಕರಿಸಿ ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ."
 
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:471
-#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:476
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:479
+#: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx:484
 msgid "Watch"
 msgstr "ವೀಕ್ಷಿಸಿ"
 
@@ -3175,14 +3180,14 @@ msgstr "ನಿಮ್ಮನ್ನು ಈ ಚಾಟ್‌ನಿಂದ ತೆಗೆ
 msgid "Your account was moved here from {source}. Until you delete it there, messages and notifications may reach both servers, some of your content keeps being served from the old server, and followers may take a few minutes to find you here."
 msgstr "ನಿಮ್ಮ ಖಾತೆಯನ್ನು {source} ನಿಂದ ಇಲ್ಲಿಗೆ ವರ್ಗಾಯಿಸಲಾಗಿದೆ. ಅಲ್ಲಿ ಅದನ್ನು ಅಳಿಸುವವರೆಗೆ, ಸಂದೇಶಗಳು ಮತ್ತು ಅಧಿಸೂಚನೆಗಳು ಎರಡೂ ಸರ್ವರ್‌ಗಳಿಗೆ ತಲುಪಬಹುದು, ನಿಮ್ಮ ಕೆಲವು ವಿಷಯಗಳು ಹಳೆಯ ಸರ್ವರ್‌ನಿಂದ ಮಾತ್ರ ಒದಗಿಸಲ್ಪಡುತ್ತಿರಬಹುದು, ಮತ್ತು ಅನುಯಾಯಿಗಳು ನಿಮ್ಮನ್ನು ಇಲ್ಲಿ ಹುಡುಕಲು ಕೆಲವು ನಿಮಿಷಗಳು ಬೇಕಾಗಬಹುದು."
 
-#: ../../../lib/web/src/components/comment-composer.tsx:302
+#: ../../../lib/web/src/components/comment-composer.tsx:310
 msgid "Your attachments will be lost."
 msgstr "ನಿಮ್ಮ ಲಗತ್ತುಗಳು ಕಳೆದುಹೋಗುತ್ತವೆ."
 
-#: ../../../lib/web/src/components/comment-composer.tsx:300
+#: ../../../lib/web/src/components/comment-composer.tsx:308
 msgid "Your text and attachments will be lost."
 msgstr "ನಿಮ್ಮ ಪಠ್ಯ ಮತ್ತು ಲಗತ್ತುಗಳು ಕಳೆದುಹೋಗುತ್ತವೆ."
 
-#: ../../../lib/web/src/components/comment-composer.tsx:303
+#: ../../../lib/web/src/components/comment-composer.tsx:311
 msgid "Your text will be lost."
 msgstr "ನಿಮ್ಮ ಪಠ್ಯ ಕಳೆದುಹೋಗುತ್ತದೆ."
