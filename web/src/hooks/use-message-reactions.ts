@@ -2,12 +2,15 @@
 // SPDX-License-Identifier: AGPL-3.0-only
 // This file is part of Mochi, licensed under the GNU AGPL v3 with the
 // Mochi Application Interface Exception - see license.txt and license-exception.md.
-
-import { useMutation, useQueryClient, type InfiniteData } from '@tanstack/react-query'
+import {
+  useMutation,
+  useQueryClient,
+  type InfiniteData,
+} from '@tanstack/react-query'
 import { chatsApi, type GetMessagesResponse } from '@/api/chats'
+import { chatKeys } from '@/hooks/useChats'
 import type { ReactionId } from '@/features/chats/constants/reactions'
 import { patchMessageReaction } from '@/features/chats/utils/reactions'
-import { chatKeys } from '@/hooks/useChats'
 
 interface ReactToMessageVariables {
   chatId: string
@@ -23,9 +26,9 @@ export const useReactToMessageMutation = () => {
       chatsApi.reactToMessage(chatId, messageId, reaction),
     onMutate: async ({ chatId, messageId, reaction }) => {
       await queryClient.cancelQueries({ queryKey: chatKeys.messages(chatId) })
-      const previous = queryClient.getQueryData<InfiniteData<GetMessagesResponse>>(
-        chatKeys.messages(chatId)
-      )
+      const previous = queryClient.getQueryData<
+        InfiniteData<GetMessagesResponse>
+      >(chatKeys.messages(chatId))
 
       queryClient.setQueryData<InfiniteData<GetMessagesResponse>>(
         chatKeys.messages(chatId),

@@ -2,8 +2,12 @@
 // SPDX-License-Identifier: AGPL-3.0-only
 // This file is part of Mochi, licensed under the GNU AGPL v3 with the
 // Mochi Application Interface Exception - see license.txt and license-exception.md.
-
-import { useCallback, useRef, type KeyboardEvent, type PointerEvent } from 'react'
+import {
+  useCallback,
+  useRef,
+  type KeyboardEvent,
+  type PointerEvent,
+} from 'react'
 import { useLingui } from '@lingui/react/macro'
 import { cn } from '@mochi/web'
 
@@ -79,16 +83,14 @@ export function VoiceWaveform({
     peaks.length > 0
       ? peaks
       : tone === 'recording'
-      ? []
-      : Array.from({ length: 32 }, () => 0.35)
+        ? []
+        : Array.from({ length: 32 }, () => 0.35)
 
   return (
     <div
       ref={trackRef}
       role={interactive ? 'slider' : 'img'}
-      aria-label={
-        interactive ? t`Seek in voice note` : t`Voice note waveform`
-      }
+      aria-label={interactive ? t`Seek in voice note` : t`Voice note waveform`}
       aria-valuemin={interactive ? 0 : undefined}
       aria-valuemax={interactive ? 100 : undefined}
       aria-valuenow={interactive ? Math.round(progress * 100) : undefined}
@@ -98,9 +100,9 @@ export function VoiceWaveform({
       onKeyDown={handleKeyDown}
       className={cn(
         // Explicit height — percentage bar heights fail inside flex and collapse to 0.
-        'flex h-9 min-h-9 min-w-0 w-full flex-1 items-center',
+        'flex h-9 min-h-9 w-full min-w-0 flex-1 items-center',
         tone === 'recording'
-          ? 'max-w-[160px] sm:max-w-[240px] justify-end overflow-hidden gap-[2px]'
+          ? 'max-w-[160px] justify-end gap-[2px] overflow-hidden sm:max-w-[240px]'
           : 'gap-[3px]',
         interactive && 'cursor-pointer touch-none',
         className
@@ -126,9 +128,7 @@ export function VoiceWaveform({
                 : 'transition-[height,background-color] duration-100 ease-out',
               // Sent sits on primary bubble: white played, translucent unplayed.
               tone === 'sent' &&
-                (played
-                  ? 'bg-primary-foreground'
-                  : 'bg-primary-foreground/35'),
+                (played ? 'bg-primary-foreground' : 'bg-primary-foreground/35'),
               // Received / composer: primary blue played, muted unplayed.
               tone === 'received' &&
                 (played ? 'bg-primary' : 'bg-muted-foreground/40'),

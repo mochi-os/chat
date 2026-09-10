@@ -2,10 +2,8 @@
 // SPDX-License-Identifier: AGPL-3.0-only
 // This file is part of Mochi, licensed under the GNU AGPL v3 with the
 // Mochi Application Interface Exception - see license.txt and license-exception.md.
-
 import { useEffect, useState } from 'react'
 import { Trans, useLingui } from '@lingui/react/macro'
-import { Check } from 'lucide-react'
 import {
   Button,
   Label,
@@ -20,11 +18,12 @@ import {
   getErrorMessage,
   toastAction,
 } from '@mochi/web'
+import { Check } from 'lucide-react'
+import type { ChatPolicy } from '@/api/chats'
 import {
   useChatPreferencesQuery,
   useSetChatPreferencesMutation,
 } from '@/hooks/useChats'
-import type { ChatPolicy } from '@/api/chats'
 
 interface Props {
   open: boolean
@@ -69,7 +68,9 @@ export function ChatSettingsDialog({ open, onOpenChange }: Props) {
     <ResponsiveDialog open={open} onOpenChange={onOpenChange}>
       <ResponsiveDialogContent className='sm:max-w-md'>
         <ResponsiveDialogHeader>
-          <ResponsiveDialogTitle><Trans>Incoming chats</Trans></ResponsiveDialogTitle>
+          <ResponsiveDialogTitle>
+            <Trans>Incoming chats</Trans>
+          </ResponsiveDialogTitle>
         </ResponsiveDialogHeader>
         {isLoading ? (
           <div className='space-y-3 py-2'>
@@ -90,10 +91,16 @@ export function ChatSettingsDialog({ open, onOpenChange }: Props) {
               <label
                 key={opt.value}
                 htmlFor={`chat-policy-${opt.value}`}
-                className='flex items-center gap-3 rounded-md border p-3 cursor-pointer hover:bg-hover'
+                className='hover:bg-hover flex cursor-pointer items-center gap-3 rounded-md border p-3'
               >
-                <RadioGroupItem value={opt.value} id={`chat-policy-${opt.value}`} />
-                <Label htmlFor={`chat-policy-${opt.value}`} className='font-medium cursor-pointer'>
+                <RadioGroupItem
+                  value={opt.value}
+                  id={`chat-policy-${opt.value}`}
+                />
+                <Label
+                  htmlFor={`chat-policy-${opt.value}`}
+                  className='cursor-pointer font-medium'
+                >
                   {opt.label}
                 </Label>
               </label>
@@ -101,7 +108,11 @@ export function ChatSettingsDialog({ open, onOpenChange }: Props) {
           </RadioGroup>
         )}
         <ResponsiveDialogFooter>
-          <Button variant='outline' onClick={() => onOpenChange(false)} disabled={setPolicy.isPending}>
+          <Button
+            variant='outline'
+            onClick={() => onOpenChange(false)}
+            disabled={setPolicy.isPending}
+          >
             <Trans>Cancel</Trans>
           </Button>
           <Button

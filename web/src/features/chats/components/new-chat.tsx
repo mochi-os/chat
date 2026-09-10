@@ -2,10 +2,9 @@
 // SPDX-License-Identifier: AGPL-3.0-only
 // This file is part of Mochi, licensed under the GNU AGPL v3 with the
 // Mochi Application Interface Exception - see license.txt and license-exception.md.
-
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
-import { Trans, useLingui } from '@lingui/react/macro'
 import { useNavigate } from '@tanstack/react-router'
+import { Trans, useLingui } from '@lingui/react/macro'
 import {
   Button,
   Input,
@@ -23,11 +22,13 @@ import {
   GeneralError,
   getAppPath,
   shellNavigateExternal,
-  type Person, naturalCompare,} from '@mochi/web'
+  type Person,
+  naturalCompare,
+} from '@mochi/web'
 import { Loader2, MessageCircle, UserPlus } from 'lucide-react'
+import { chatsApi } from '@/api/chats'
 import { useSidebarContext } from '@/context/sidebar-context'
 import { useNewChatFriendsQuery, useCreateChatMutation } from '@/hooks/useChats'
-import { chatsApi } from '@/api/chats'
 import {
   CHAT_NAME_FORBIDDEN,
   CHAT_NAME_MAX_LENGTH,
@@ -81,7 +82,8 @@ export function NewChat() {
       try {
         const response = await chatsApi.personSearch(query)
         const results = response.results ?? []
-        for (const person of results) directoryNames.current.set(person.id, person.name)
+        for (const person of results)
+          directoryNames.current.set(person.id, person.name)
         return results.map((person) => ({ id: person.id, name: person.name }))
       } catch (error) {
         // Returning an empty list on failure is indistinguishable from "nobody
@@ -94,7 +96,8 @@ export function NewChat() {
   )
 
   const memberName = useCallback(
-    (id: string) => friends.find((f) => f.id === id)?.name ?? directoryNames.current.get(id),
+    (id: string) =>
+      friends.find((f) => f.id === id)?.name ?? directoryNames.current.get(id),
     [friends]
   )
 
@@ -211,7 +214,10 @@ export function NewChat() {
             // whose server is unreachable should not stop the rest.
             refused.push(memberId)
           }
-          setAddingRemainder({ done: added + refused.length, total: remainder.length })
+          setAddingRemainder({
+            done: added + refused.length,
+            total: remainder.length,
+          })
         }
         setAddingRemainder(null)
         if (refused.length > 0) {
@@ -271,11 +277,18 @@ export function NewChat() {
         <div className='space-y-4'>
           {/* Friend Picker */}
           <div className='space-y-2'>
-            <label className='text-sm font-medium'><Trans>People</Trans></label>
+            <label className='text-sm font-medium'>
+              <Trans>People</Trans>
+            </label>
             {isLoading ? (
               <Skeleton className='h-9 w-full' />
             ) : error ? (
-              <GeneralError error={error} minimal mode='inline' reset={refetch} />
+              <GeneralError
+                error={error}
+                minimal
+                mode='inline'
+                reset={refetch}
+              />
             ) : (
               <>
                 <PersonPicker
@@ -285,7 +298,9 @@ export function NewChat() {
                   local={friendsAsPeople}
                   localLabel={t`Friends`}
                   directoryFn={searchDirectory}
-                  assetUrl={(person, asset) => `${getAppPath()}/-/person/${person.id}/asset/${asset}`}
+                  assetUrl={(person, asset) =>
+                    `${getAppPath()}/-/person/${person.id}/asset/${asset}`
+                  }
                   placeholder={t`Select people...`}
                   emptyMessage={t`No people found`}
                   open={friendsPickerOpen}
@@ -293,7 +308,9 @@ export function NewChat() {
                 />
                 {friends.length === 0 && (
                   <div className='flex items-center justify-between rounded-lg border px-3 py-2'>
-                    <p className='text-muted-foreground text-xs'><Trans>No friends yet</Trans></p>
+                    <p className='text-muted-foreground text-xs'>
+                      <Trans>No friends yet</Trans>
+                    </p>
                     <Button
                       variant='outline'
                       size='xs'
@@ -313,13 +330,16 @@ export function NewChat() {
 
           {/* Existing conversations notice */}
           {existingChats.length > 0 && (
-            <div className='rounded-lg border bg-muted/50 p-3'>
+            <div className='bg-muted/50 rounded-lg border p-3'>
               <p className='text-muted-foreground mb-2 text-xs font-medium'>
                 <Trans>You already have chats with:</Trans>
               </p>
               <div className='space-y-1'>
                 {existingChats.map((chat) => (
-                  <div key={chat.id} className='flex items-center justify-between'>
+                  <div
+                    key={chat.id}
+                    className='flex items-center justify-between'
+                  >
                     <span className='text-sm'>{chat.name}</span>
                     <Button
                       variant='ghost'
@@ -337,7 +357,9 @@ export function NewChat() {
 
           {/* Chat Name */}
           <div className='space-y-2'>
-            <label className='text-sm font-medium'><Trans>Chat name</Trans></label>
+            <label className='text-sm font-medium'>
+              <Trans>Chat name</Trans>
+            </label>
             <Input
               id='chat-name'
               placeholder={t`Chat name...`}

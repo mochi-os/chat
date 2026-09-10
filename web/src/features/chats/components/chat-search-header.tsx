@@ -2,11 +2,10 @@
 // SPDX-License-Identifier: AGPL-3.0-only
 // This file is part of Mochi, licensed under the GNU AGPL v3 with the
 // Mochi Application Interface Exception - see license.txt and license-exception.md.
-
 import { useRef, useEffect } from 'react'
 import { useLingui } from '@lingui/react/macro'
-import { ChevronDown, ChevronUp, Search, X } from 'lucide-react'
 import { IconButton, Input, cn, getErrorMessage, useFormat } from '@mochi/web'
+import { ChevronDown, ChevronUp, Search, X } from 'lucide-react'
 
 interface ChatSearchHeaderProps {
   query: string
@@ -96,9 +95,7 @@ export function ChatSearchHeader({
           variant='ghost'
           label={t`Older match`}
           onClick={onOlder}
-          disabled={
-            totalMatches === 0 || activeIndex >= totalMatches - 1
-          }
+          disabled={totalMatches === 0 || activeIndex >= totalMatches - 1}
         >
           <ChevronUp className='size-5' />
         </IconButton>
@@ -112,11 +109,7 @@ export function ChatSearchHeader({
           <ChevronDown className='size-5' />
         </IconButton>
 
-        <IconButton
-          variant='ghost'
-          label={t`Close search`}
-          onClick={onClose}
-        >
+        <IconButton variant='ghost' label={t`Close search`} onClick={onClose}>
           <X className='size-5' />
         </IconButton>
       </div>

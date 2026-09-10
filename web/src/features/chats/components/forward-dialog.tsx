@@ -2,7 +2,6 @@
 // SPDX-License-Identifier: AGPL-3.0-only
 // This file is part of Mochi, licensed under the GNU AGPL v3 with the
 // Mochi Application Interface Exception - see license.txt and license-exception.md.
-
 import { useEffect, useMemo, useState } from 'react'
 import { Trans, useLingui } from '@lingui/react/macro'
 import {
@@ -23,15 +22,15 @@ import {
   toastAction,
 } from '@mochi/web'
 import { Forward, Loader2, MessageCircle, Users } from 'lucide-react'
-import { nameMatches } from '../utils'
+import { personAssetUrl } from '@/api/person'
+import { chatActive } from '@/api/types/chats'
 import {
   useChatsQuery,
   useForwardMessagesMutation,
   useForwardToFriendMutation,
   useNewChatFriendsQuery,
 } from '@/hooks/useChats'
-import { chatActive } from '@/api/types/chats'
-import { personAssetUrl } from '@/api/person'
+import { nameMatches } from '../utils'
 
 interface ForwardDialogProps {
   open: boolean
@@ -136,7 +135,8 @@ export function ForwardDialog({
 
   const isLoading = chatsQuery.isLoading || friendsQuery.isLoading
   const queryError = chatsQuery.error ?? friendsQuery.error
-  const isPending = forwardToFriendMutation.isPending || forwardMutation.isPending
+  const isPending =
+    forwardToFriendMutation.isPending || forwardMutation.isPending
 
   const renderDestination = (dest: Destination) => {
     const isSelected =
@@ -148,9 +148,7 @@ export function ForwardDialog({
         onClick={() => setSelectedDest(dest)}
         className={cn(
           'flex w-full items-center gap-3 rounded-lg px-2 py-2 text-start transition-colors',
-          isSelected
-            ? 'bg-primary/10 ring-primary/40 ring-1'
-            : 'hover:bg-hover'
+          isSelected ? 'bg-primary/10 ring-primary/40 ring-1' : 'hover:bg-hover'
         )}
       >
         {dest.kind === 'friend' ? (
@@ -186,7 +184,9 @@ export function ForwardDialog({
             <Trans>Forward to…</Trans>
           </ResponsiveDialogTitle>
           <ResponsiveDialogDescription className='sr-only'>
-            <Trans>Choose a chat or friend to forward the selected messages to</Trans>
+            <Trans>
+              Choose a chat or friend to forward the selected messages to
+            </Trans>
           </ResponsiveDialogDescription>
         </ResponsiveDialogHeader>
 
@@ -224,7 +224,7 @@ export function ForwardDialog({
               <>
                 {chatDests.length > 0 && (
                   <div className='space-y-1'>
-                    <p className='text-muted-foreground px-2 pt-1 pb-0.5 text-xs font-medium uppercase tracking-wide'>
+                    <p className='text-muted-foreground px-2 pt-1 pb-0.5 text-xs font-medium tracking-wide uppercase'>
                       <Trans>Chats</Trans>
                     </p>
                     {chatDests.map(renderDestination)}
@@ -232,7 +232,7 @@ export function ForwardDialog({
                 )}
                 {friendDests.length > 0 && (
                   <div className='space-y-1'>
-                    <p className='text-muted-foreground px-2 pt-2 pb-0.5 text-xs font-medium uppercase tracking-wide'>
+                    <p className='text-muted-foreground px-2 pt-2 pb-0.5 text-xs font-medium tracking-wide uppercase'>
                       <Trans>Friends</Trans>
                     </p>
                     {friendDests.map(renderDestination)}
@@ -251,10 +251,7 @@ export function ForwardDialog({
           >
             <Trans>Cancel</Trans>
           </Button>
-          <Button
-            onClick={handleForward}
-            disabled={!selectedDest || isPending}
-          >
+          <Button onClick={handleForward} disabled={!selectedDest || isPending}>
             {isPending ? (
               <Loader2 className='size-4 animate-spin' />
             ) : (

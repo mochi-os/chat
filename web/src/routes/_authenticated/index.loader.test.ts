@@ -2,9 +2,9 @@
 // SPDX-License-Identifier: AGPL-3.0-only
 // This file is part of Mochi, licensed under the GNU AGPL v3 with the
 // Mochi Application Interface Exception - see license.txt and license-exception.md.
-
-import { describe, it, expect, vi, beforeEach } from 'vitest'
 import type { QueryClient } from '@tanstack/react-query'
+import { describe, it, expect, vi, beforeEach } from 'vitest'
+import { loadIndex } from './index'
 
 const { list, getLastChat, clearLastChat } = vi.hoisted(() => ({
   list: vi.fn(),
@@ -18,14 +18,17 @@ vi.mock('@/hooks/useChatStorage', () => ({ getLastChat, clearLastChat }))
 // needs none of it.
 vi.mock('@/features/chats', () => ({ Chats: () => null }))
 
-import { loadIndex } from './index'
-
 const fakeClient = (chats: { id: string }[]) => {
-  const ensureQueryData = vi.fn(async (options: { queryFn: () => Promise<unknown> }) => {
-    await options.queryFn()
-    return { chats }
-  })
-  return { client: { ensureQueryData } as unknown as QueryClient, ensureQueryData }
+  const ensureQueryData = vi.fn(
+    async (options: { queryFn: () => Promise<unknown> }) => {
+      await options.queryFn()
+      return { chats }
+    }
+  )
+  return {
+    client: { ensureQueryData } as unknown as QueryClient,
+    ensureQueryData,
+  }
 }
 
 describe('index loader', () => {
@@ -39,14 +42,18 @@ describe('index loader', () => {
     getLastChat.mockResolvedValueOnce(null)
     await loadIndex({ queryClient: client, deps: {} })
     expect(ensureQueryData).toHaveBeenCalledTimes(1)
-    expect(ensureQueryData.mock.calls[0][0]).toMatchObject({ queryKey: ['chats'] })
+    expect(ensureQueryData.mock.calls[0][0]).toMatchObject({
+      queryKey: ['chats'],
+    })
     expect(list).toHaveBeenCalledTimes(1)
   })
 
   it('redirects to the last chat when the list still holds it', async () => {
     const { client } = fakeClient([{ id: 'c1' }])
     getLastChat.mockResolvedValueOnce('c1')
-    await expect(loadIndex({ queryClient: client, deps: {} })).rejects.toMatchObject({
+    await expect(
+      loadIndex({ queryClient: client, deps: {} })
+    ).rejects.toMatchObject({
       options: { to: '/$chatId', params: { chatId: 'c1' } },
     })
   })
@@ -61,6 +68,8 @@ describe('index loader', () => {
   it('skips the redirect for a deep link, which the page resolves itself', async () => {
     const { client } = fakeClient([{ id: 'c1' }])
     getLastChat.mockResolvedValueOnce('c1')
-    await expect(loadIndex({ queryClient: client, deps: { with: 'friend' } })).resolves.toBeUndefined()
+    await expect(
+      loadIndex({ queryClient: client, deps: { with: 'friend' } })
+    ).resolves.toBeUndefined()
   })
 })

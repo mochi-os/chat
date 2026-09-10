@@ -2,8 +2,6 @@
 // SPDX-License-Identifier: AGPL-3.0-only
 // This file is part of Mochi, licensed under the GNU AGPL v3 with the
 // Mochi Application Interface Exception - see license.txt and license-exception.md.
-
-import { Loader2, Play } from 'lucide-react'
 import { useLingui } from '@lingui/react/macro'
 import {
   AttachmentImage,
@@ -16,6 +14,7 @@ import {
   useVideoThumbnailCached,
   type GalleryAttachment,
 } from '@mochi/web'
+import { Loader2, Play } from 'lucide-react'
 
 /** Visible slots in the bubble media grid; the 4th tile shows +N when exceeded. */
 const GRID_SLOT_COUNT = 4
@@ -28,7 +27,12 @@ interface MessageMediaGridProps {
 
 function VideoTile({ url }: { url: string }) {
   const { t } = useLingui()
-  const { url: thumbnailUrl, loading, error, duration } = useVideoThumbnailCached(url)
+  const {
+    url: thumbnailUrl,
+    loading,
+    error,
+    duration,
+  } = useVideoThumbnailCached(url)
 
   if (loading) {
     return (
@@ -105,9 +109,12 @@ export function MessageMediaGrid({
 
   return (
     <>
-      <div className={cn('grid w-full min-w-0 gap-1', gridClassName(slotCount))}>
+      <div
+        className={cn('grid w-full min-w-0 gap-1', gridClassName(slotCount))}
+      >
         {visibleMedia.map((attachment, index) => {
-          const isOverflowTile = extraCount > 0 && index === visibleMedia.length - 1
+          const isOverflowTile =
+            extraCount > 0 && index === visibleMedia.length - 1
 
           return (
             <button
@@ -133,7 +140,9 @@ export function MessageMediaGrid({
               )}
               {isOverflowTile ? (
                 <div className='absolute inset-0 flex items-center justify-center bg-black/55'>
-                  <span className='text-2xl font-semibold text-white'>+{extraCount}</span>
+                  <span className='text-2xl font-semibold text-white'>
+                    +{extraCount}
+                  </span>
                 </div>
               ) : null}
             </button>

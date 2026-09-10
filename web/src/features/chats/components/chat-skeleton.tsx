@@ -2,7 +2,6 @@
 // SPDX-License-Identifier: AGPL-3.0-only
 // This file is part of Mochi, licensed under the GNU AGPL v3 with the
 // Mochi Application Interface Exception - see license.txt and license-exception.md.
-
 import { Skeleton, PageHeader, Main } from '@mochi/web'
 
 export function ChatSkeleton() {
@@ -13,7 +12,7 @@ export function ChatSkeleton() {
         icon={<Skeleton className='size-5 rounded-md' />}
       />
       <Main className='flex min-h-0 flex-1 flex-col overflow-hidden'>
-        <div className='flex w-full flex-col justify-end gap-3 p-4 flex-1'>
+        <div className='flex w-full flex-1 flex-col justify-end gap-3 p-4'>
           {Array.from({ length: 4 }).map((_, i) => (
             <div
               key={i}

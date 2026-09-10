@@ -2,9 +2,9 @@
 // SPDX-License-Identifier: AGPL-3.0-only
 // This file is part of Mochi, licensed under the GNU AGPL v3 with the
 // Mochi Application Interface Exception - see license.txt and license-exception.md.
-
-import { createAppClient } from '@mochi/web'
 import type { AxiosProgressEvent } from 'axios'
+import { createAppClient } from '@mochi/web'
+import endpoints from './endpoints'
 import type {
   Chat,
   GetChatsResponse,
@@ -36,7 +36,6 @@ import type {
   ChatPreferences,
   PersonSearchResponse,
 } from './types/chats'
-import endpoints from './endpoints'
 
 // Re-export types for convenience
 export * from './types/chats'
@@ -51,8 +50,9 @@ const unwrapData = <T>(raw: unknown): T => {
 }
 
 export const chatsApi = {
-  list: (): Promise<GetChatsResponse> => 
-    client.get<{ data: Chat[] }>(endpoints.chat.list)
+  list: (): Promise<GetChatsResponse> =>
+    client
+      .get<{ data: Chat[] }>(endpoints.chat.list)
       .then((res) => ({ chats: res.data })),
 
   detail: (chatId: string) =>
@@ -62,10 +62,7 @@ export const chatsApi = {
       )
       .then((res) => unwrapData<ChatViewResponse>(res)),
 
-  messages: (
-    chatId: string,
-    params?: { cursor?: string; limit?: number }
-  ) =>
+  messages: (chatId: string, params?: { cursor?: string; limit?: number }) =>
     client
       .get<GetMessagesResponse | { data: GetMessagesResponse }>(
         endpoints.chat.messages(chatId),
@@ -115,7 +112,7 @@ export const chatsApi = {
       payload.attachments.forEach((file) => {
         formData.append('files', file)
       })
-      
+
       return client
         .post<SendMessageResponse | { data: SendMessageResponse }, FormData>(
           endpoints.chat.send(chatId),
@@ -133,20 +130,32 @@ export const chatsApi = {
       .then((res) => unwrapData<SendMessageResponse>(res))
   },
 
-  editMessage: (chatId: string, messageId: string, body: string): Promise<EditMessageResponse> =>
-    client.post<EditMessageResponse | { data: EditMessageResponse }>(endpoints.chat.messagesEdit(chatId), {
-      chat: chatId,
-      message: messageId,
-      body,
-    }).then((res) => unwrapData<EditMessageResponse>(res)),
+  editMessage: (
+    chatId: string,
+    messageId: string,
+    body: string
+  ): Promise<EditMessageResponse> =>
+    client
+      .post<EditMessageResponse | { data: EditMessageResponse }>(
+        endpoints.chat.messagesEdit(chatId),
+        {
+          chat: chatId,
+          message: messageId,
+          body,
+        }
+      )
+      .then((res) => unwrapData<EditMessageResponse>(res)),
 
   getFriendsForNewChat: () =>
-  client.get<{ data: GetNewChatResponse }>(endpoints.chat.new)
-    .then((res) => res.data),
+    client
+      .get<{ data: GetNewChatResponse }>(endpoints.chat.new)
+      .then((res) => res.data),
 
   personSearch: (search: string) =>
     client
-      .post<{ data: PersonSearchResponse }>(endpoints.chat.personSearch, { search })
+      .post<{ data: PersonSearchResponse }>(endpoints.chat.personSearch, {
+        search,
+      })
       .then((res) => res.data),
 
   getPreferences: () =>
@@ -180,27 +189,41 @@ export const chatsApi = {
 
   rename: (chatId: string, payload: RenameRequest) =>
     client
-      .post<RenameResponse | { data: RenameResponse }>(endpoints.chat.rename(chatId), payload)
+      .post<RenameResponse | { data: RenameResponse }>(
+        endpoints.chat.rename(chatId),
+        payload
+      )
       .then((res) => unwrapData<RenameResponse>(res)),
 
   leave: (chatId: string, payload: LeaveRequest) =>
     client
-      .post<LeaveResponse | { data: LeaveResponse }>(endpoints.chat.leave(chatId), payload)
+      .post<LeaveResponse | { data: LeaveResponse }>(
+        endpoints.chat.leave(chatId),
+        payload
+      )
       .then((res) => unwrapData<LeaveResponse>(res)),
 
   delete: (chatId: string) =>
     client
-      .post<DeleteResponse | { data: DeleteResponse }>(endpoints.chat.delete(chatId))
+      .post<DeleteResponse | { data: DeleteResponse }>(
+        endpoints.chat.delete(chatId)
+      )
       .then((res) => unwrapData<DeleteResponse>(res)),
 
   addMember: (chatId: string, payload: MemberAddRequest) =>
     client
-      .post<MemberAddResponse | { data: MemberAddResponse }>(endpoints.chat.memberAdd(chatId), payload)
+      .post<MemberAddResponse | { data: MemberAddResponse }>(
+        endpoints.chat.memberAdd(chatId),
+        payload
+      )
       .then((res) => unwrapData<MemberAddResponse>(res)),
 
   removeMember: (chatId: string, payload: MemberRemoveRequest) =>
     client
-      .post<MemberRemoveResponse | { data: MemberRemoveResponse }>(endpoints.chat.memberRemove(chatId), payload)
+      .post<MemberRemoveResponse | { data: MemberRemoveResponse }>(
+        endpoints.chat.memberRemove(chatId),
+        payload
+      )
       .then((res) => unwrapData<MemberRemoveResponse>(res)),
 
   reactToMessage: (

@@ -2,7 +2,6 @@
 // SPDX-License-Identifier: AGPL-3.0-only
 // This file is part of Mochi, licensed under the GNU AGPL v3 with the
 // Mochi Application Interface Exception - see license.txt and license-exception.md.
-
 import { describe, it, expect } from 'vitest'
 import { formatCountBadge, resolveChatView, sendRefusal } from './utils'
 
@@ -23,7 +22,13 @@ describe('sendRefusal', () => {
 })
 
 describe('resolveChatView', () => {
-  const base = { selectedChatId: 'c1', found: false, loading: false, fetching: false, failed: false }
+  const base = {
+    selectedChatId: 'c1',
+    found: false,
+    loading: false,
+    fetching: false,
+    failed: false,
+  }
 
   it('shows the not-found state for an id the settled list does not hold', () => {
     expect(resolveChatView(base)).toBe('notfound')
@@ -41,7 +46,9 @@ describe('resolveChatView', () => {
 
   it('renders the chat once found and the picker with no id', () => {
     expect(resolveChatView({ ...base, found: true })).toBe('chat')
-    expect(resolveChatView({ ...base, selectedChatId: undefined })).toBe('picker')
+    expect(resolveChatView({ ...base, selectedChatId: undefined })).toBe(
+      'picker'
+    )
   })
 })
 

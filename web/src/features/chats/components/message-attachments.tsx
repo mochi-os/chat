@@ -2,7 +2,6 @@
 // SPDX-License-Identifier: AGPL-3.0-only
 // This file is part of Mochi, licensed under the GNU AGPL v3 with the
 // Mochi Application Interface Exception - see license.txt and license-exception.md.
-
 import { useMemo, useState } from 'react'
 import { Plural, Trans } from '@lingui/react/macro'
 import {
@@ -23,8 +22,8 @@ import {
   type GalleryAttachment,
 } from '@mochi/web'
 import type { ChatMessageAttachment } from '@/api/chats'
-import { MessageMediaGrid } from './message-media-grid'
 import { VoiceNotePlayer } from './audio-player'
+import { MessageMediaGrid } from './message-media-grid'
 
 interface MessageAttachmentsProps {
   attachments: ChatMessageAttachment[]
@@ -49,7 +48,9 @@ function useAttachmentUrls(chatId: string) {
 
   const resolve = (own: string | undefined, fallback: string) => {
     const path =
-      own && (isAbsoluteUrl(own) || isAttachmentPathCompatible(own)) ? own : fallback
+      own && (isAbsoluteUrl(own) || isAttachmentPathCompatible(own))
+        ? own
+        : fallback
     return authenticatedUrl(normalizeEntityUrl(path))
   }
 
@@ -101,7 +102,7 @@ function MessageFileList({
           <Attachment
             key={attachment.id}
             size='sm'
-            className='w-full min-w-0 max-w-full'
+            className='w-full max-w-full min-w-0'
           >
             <AttachmentTrigger asChild>
               <a
@@ -184,7 +185,8 @@ export function MessageAttachments({
     () =>
       normalizedAttachments.filter(
         (att) =>
-          (isImage(att.type) || isVideo(att.type)) && !isPlayableCaption(att.caption)
+          (isImage(att.type) || isVideo(att.type)) &&
+          !isPlayableCaption(att.caption)
       ),
     [normalizedAttachments]
   )

@@ -2,15 +2,41 @@
 // SPDX-License-Identifier: AGPL-3.0-only
 // This file is part of Mochi, licensed under the GNU AGPL v3 with the
 // Mochi Application Interface Exception - see license.txt and license-exception.md.
-
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
-import { Trans, useLingui } from '@lingui/react/macro'
-import { plural } from '@lingui/core/macro'
-import { useAuthStore, usePageTitle, PageHeader, Main, GeneralError, EmptyState, useFormat, Button, Checkbox, ConfirmDialog, EntityAvatar, IconButton, DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger, Label, toast, toastAction, getErrorMessage, shellClipboardWrite, getSendAttachmentErrorMessage, isAttachmentPayloadTooLargeError, resolveMentionsFromBody, classifyUnresolvedMentions, naturalCompare, useUploadProgress } from '@mochi/web'
-import { useMessageSelection } from '@/hooks/use-message-selection'
-import { useNavigate, useParams, useSearch } from '@tanstack/react-router'
 import { useQueryClient, type InfiniteData } from '@tanstack/react-query'
-import { ChatSkeleton } from './components/chat-skeleton'
+import { useNavigate, useParams, useSearch } from '@tanstack/react-router'
+import { plural } from '@lingui/core/macro'
+import { Trans, useLingui } from '@lingui/react/macro'
+import {
+  useAuthStore,
+  usePageTitle,
+  PageHeader,
+  Main,
+  GeneralError,
+  EmptyState,
+  useFormat,
+  Button,
+  Checkbox,
+  ConfirmDialog,
+  EntityAvatar,
+  IconButton,
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+  Label,
+  toast,
+  toastAction,
+  getErrorMessage,
+  shellClipboardWrite,
+  getSendAttachmentErrorMessage,
+  isAttachmentPayloadTooLargeError,
+  resolveMentionsFromBody,
+  classifyUnresolvedMentions,
+  naturalCompare,
+  useUploadProgress,
+} from '@mochi/web'
 import {
   Copy,
   Forward,
@@ -24,7 +50,12 @@ import {
   Search,
   Users,
 } from 'lucide-react'
+import { chatsApi, type ChatMessage } from '@/api/chats'
+import { personAssetUrl } from '@/api/person'
+import { chatActive, type GetMessagesResponse } from '@/api/types/chats'
 import { useSidebarContext } from '@/context/sidebar-context'
+import { useReactToMessageMutation } from '@/hooks/use-message-reactions'
+import { useMessageSelection } from '@/hooks/use-message-selection'
 import {
   setLastChat,
   setDraft,
@@ -34,10 +65,7 @@ import {
   getLegacyReadTimestamps,
   markReadTimestampsMigrated,
 } from '@/hooks/useChatStorage'
-import { chatsApi, type ChatMessage } from '@/api/chats'
 import { useChatWebsocket } from '@/hooks/useChatWebsocket'
-import { useReactToMessageMutation } from '@/hooks/use-message-reactions'
-import type { ReactionId } from '@/features/chats/constants/reactions'
 import {
   chatKeys,
   useInfiniteMessagesQuery,
@@ -52,14 +80,20 @@ import {
   useDeleteMessagesMutation,
   useEditMessageMutation,
 } from '@/hooks/useChats'
-import { chatActive, type GetMessagesResponse } from '@/api/types/chats'
-import { personAssetUrl } from '@/api/person'
+import type { ReactionId } from '@/features/chats/constants/reactions'
 import { ChatEmptyState } from './components/chat-empty-state'
-import { ChatSettingsDialog } from './components/chat-settings-dialog'
 import { ChatInput, type ChatInputHandle } from './components/chat-input'
 import { ChatMessageList } from './components/chat-message-list'
 import { ChatSearchHeader } from './components/chat-search-header'
+import { ChatSettingsDialog } from './components/chat-settings-dialog'
+import { ChatSkeleton } from './components/chat-skeleton'
 import { ForwardDialog } from './components/forward-dialog'
+import {
+  BULK_MESSAGES_MAX,
+  CAPTIONS_MAX,
+  MENTIONS_MAX,
+  MESSAGE_MAX_LENGTH,
+} from './constants/limits'
 import { useChatMessageSearch } from './hooks/use-chat-message-search'
 import {
   type PendingAttachment,
@@ -76,16 +110,7 @@ import {
   resolveComposerDraftRestore,
 } from './utils/composer-draft'
 import { shouldDiscardMessageEdit } from './utils/message-edit-session'
-import {
-  type ReplyTarget,
-  messageToReplyTarget,
-} from './utils/reply'
-import {
-  BULK_MESSAGES_MAX,
-  CAPTIONS_MAX,
-  MENTIONS_MAX,
-  MESSAGE_MAX_LENGTH,
-} from './constants/limits'
+import { type ReplyTarget, messageToReplyTarget } from './utils/reply'
 
 // How long a chat must sit in front of the reader, pinned to the newest
 // message, before the arriving message counts as read. Long enough that a
@@ -120,13 +145,17 @@ export function Chats() {
 
   // Delete confirm + forward dialog targets (ids the action will operate on)
   const [deleteTargetIds, setDeleteTargetIds] = useState<string[] | null>(null)
-  const [forwardTargetIds, setForwardTargetIds] = useState<string[] | null>(null)
+  const [forwardTargetIds, setForwardTargetIds] = useState<string[] | null>(
+    null
+  )
 
   const [pendingAttachments, setPendingAttachments] = useState<
     PendingAttachment[]
   >([])
   const [replyTo, setReplyTo] = useState<ReplyTarget | null>(null)
-  const [selectedMentions, setSelectedMentions] = useState<{ id: string, name: string }[]>([])
+  const [selectedMentions, setSelectedMentions] = useState<
+    { id: string; name: string }[]
+  >([])
   const editMessageMutation = useEditMessageMutation()
   const [editingMessage, setEditingMessage] = useState<ChatMessage | null>(null)
   const [editingBody, setEditingBody] = useState('')
@@ -158,7 +187,10 @@ export function Chats() {
   selectedChatIdRef.current = selectedChatId
   composerTextRef.current = newMessage
   // Search params (only present on the index route, never on /$chatId)
-  const search = useSearch({ strict: false }) as { with?: string; name?: string }
+  const search = useSearch({ strict: false }) as {
+    with?: string
+    name?: string
+  }
 
   // Chats list
   const chatsQuery = useChatsQuery()
@@ -182,7 +214,11 @@ export function Chats() {
       (c) => c.members === 2 && c.other === memberId && chatActive(c)
     )
     if (existing) {
-      void navigate({ to: '/$chatId', params: { chatId: existing.id }, replace: true })
+      void navigate({
+        to: '/$chatId',
+        params: { chatId: existing.id },
+        replace: true,
+      })
       return
     }
 
@@ -196,8 +232,7 @@ export function Chats() {
           {
             loading: t`Starting chat...`,
             success: false,
-            error: (error) =>
-              getErrorMessage(error, t`Failed to start chat`),
+            error: (error) => getErrorMessage(error, t`Failed to start chat`),
           }
         )
         if (data?.id) {
@@ -224,8 +259,7 @@ export function Chats() {
   ])
 
   const selectedChat = useMemo(
-    () =>
-      chats.find((c) => c.id === selectedChatId) ?? null,
+    () => chats.find((c) => c.id === selectedChatId) ?? null,
     [chats, selectedChatId]
   )
 
@@ -387,7 +421,8 @@ export function Chats() {
   const { data: chatDetail } = useChatDetailQuery(selectedChat?.id)
   const detailMembers = chatDetail?.chat.members
   const { data: membersResponse } = useChatMembersQuery(selectedChat?.id, {
-    enabled: Boolean(selectedChat?.id) && !(detailMembers && detailMembers.length > 0),
+    enabled:
+      Boolean(selectedChat?.id) && !(detailMembers && detailMembers.length > 0),
   })
 
   const chatMemberRoster = useMemo(
@@ -400,7 +435,7 @@ export function Chats() {
 
   // 1:1 chats: no @mention dropdown (WhatsApp-style). Groups only.
   const isDirectChat =
-    (selectedChat?.members === 2) ||
+    selectedChat?.members === 2 ||
     (chatMemberRoster.length > 0 && chatMemberRoster.length <= 2)
 
   const mentionPeople = useMemo(() => {
@@ -415,8 +450,7 @@ export function Chats() {
         if ((nameCounts.get(member.name) ?? 0) <= 1) {
           return { id: member.id, name: member.name }
         }
-        const detail =
-          member.id.length > 8 ? member.id.slice(-8) : member.id
+        const detail = member.id.length > 8 ? member.id.slice(-8) : member.id
         return { id: member.id, name: member.name, detail }
       })
       .sort((a, b) => naturalCompare(a.name, b.name))
@@ -455,7 +489,8 @@ export function Chats() {
   ])
 
   const subtitle = useMemo(() => {
-    if (!chatDetail?.chat.members || chatDetail.chat.members.length <= 2) return null
+    if (!chatDetail?.chat.members || chatDetail.chat.members.length <= 2)
+      return null
 
     const members = chatDetail.chat.members
     const myIndex = members.findIndex((m) => m.id === currentUserIdentity)
@@ -519,9 +554,8 @@ export function Chats() {
       let hasMore = messagesQuery.hasNextPage ?? false
 
       for (let i = 0; i < 20 && hasMore; i++) {
-        const data = queryClient.getQueryData<InfiniteData<GetMessagesResponse>>(
-          key
-        )
+        const data =
+          queryClient.getQueryData<InfiniteData<GetMessagesResponse>>(key)
         const loaded = data?.pages
           ? [...data.pages].reverse().flatMap((p) => p.messages)
           : []
@@ -531,9 +565,8 @@ export function Chats() {
         hasMore = result.hasNextPage ?? false
       }
 
-      const data = queryClient.getQueryData<InfiniteData<GetMessagesResponse>>(
-        key
-      )
+      const data =
+        queryClient.getQueryData<InfiniteData<GetMessagesResponse>>(key)
       const loaded = data?.pages
         ? [...data.pages].reverse().flatMap((p) => p.messages)
         : []
@@ -561,15 +594,18 @@ export function Chats() {
     chatInputRef.current?.focusInput()
   }, [])
 
-  const handleStartEdit = useCallback((message: ChatMessage) => {
-    setEditingMessage(message)
-    setEditingBody(message.body ?? '')
-    setReplyTo(null)
-    
-    // Scroll and highlight
-    setScrollToMessageId(message.id)
-    flashHighlight(message.id)
-  }, [flashHighlight])
+  const handleStartEdit = useCallback(
+    (message: ChatMessage) => {
+      setEditingMessage(message)
+      setEditingBody(message.body ?? '')
+      setReplyTo(null)
+
+      // Scroll and highlight
+      setScrollToMessageId(message.id)
+      flashHighlight(message.id)
+    },
+    [flashHighlight]
+  )
 
   const handleCancelEdit = useCallback(() => {
     setEditingMessage(null)
@@ -580,7 +616,7 @@ export function Chats() {
   const handleSaveEdit = async (e?: React.FormEvent) => {
     e?.preventDefault()
     if (!editingMessage || isEditingSaving || !selectedChat) return
-    
+
     const body = editingBody.trim()
     if (!body) return
     if (body.length > MESSAGE_MAX_LENGTH) return
@@ -588,7 +624,7 @@ export function Chats() {
       handleCancelEdit()
       return
     }
-    
+
     setIsEditingSaving(true)
     try {
       await editMessageMutation.mutateAsync({
@@ -599,12 +635,7 @@ export function Chats() {
       setEditingMessage(null)
       setEditingBody('')
     } catch (error) {
-      toast.error(
-        getErrorMessage(
-          error,
-          t`Failed to edit message`
-        )
-      )
+      toast.error(getErrorMessage(error, t`Failed to edit message`))
     } finally {
       setIsEditingSaving(false)
     }
@@ -624,12 +655,7 @@ export function Chats() {
     setEditingMessage(null)
     setEditingBody('')
     setIsEditingSaving(false)
-  }, [
-    editingMessage,
-    chatMessages,
-    isEditingSaving,
-    messagesQuery.isFetched,
-  ])
+  }, [editingMessage, chatMessages, isEditingSaving, messagesQuery.isFetched])
 
   const reactToMessageMutation = useReactToMessageMutation()
 
@@ -738,7 +764,7 @@ export function Chats() {
 
   const scrollToMessageEnabled = Boolean(
     (messageSearch.isSearchOpen && messageSearch.activeMatchId) ||
-      scrollToMessageId
+    scrollToMessageId
   )
 
   useEffect(() => {
@@ -950,7 +976,11 @@ export function Chats() {
     // The same rule the send button is disabled on: Enter and the form submit
     // reach here directly, and the server refuses an over-long body only after
     // the attachments have finished uploading.
-    const refusal = sendRefusal(newMessage, pendingAttachments.length, MESSAGE_MAX_LENGTH)
+    const refusal = sendRefusal(
+      newMessage,
+      pendingAttachments.length,
+      MESSAGE_MAX_LENGTH
+    )
     if (refusal === 'empty') {
       if (import.meta.env.DEV) {
         // eslint-disable-next-line lingui/no-unlocalized-strings -- dev-only diagnostic log, not user-facing
@@ -959,7 +989,9 @@ export function Chats() {
       return
     }
     if (refusal === 'length') {
-      toast.error(t`Message is ${formatNumber(newMessage.length - MESSAGE_MAX_LENGTH)} characters too long`)
+      toast.error(
+        t`Message is ${formatNumber(newMessage.length - MESSAGE_MAX_LENGTH)} characters too long`
+      )
       return
     }
 
@@ -974,7 +1006,9 @@ export function Chats() {
     // The server refuses the whole message past these, so say so before the
     // attachments go up rather than after.
     if (mentions.length > MENTIONS_MAX) {
-      toast.error(t`You can mention at most ${MENTIONS_MAX} people in a message`)
+      toast.error(
+        t`You can mention at most ${MENTIONS_MAX} people in a message`
+      )
       return
     }
     if (pendingAttachments.length > CAPTIONS_MAX) {
@@ -1045,7 +1079,8 @@ export function Chats() {
   // body only AFTER the attachments have finished uploading.
   const canSendMessage =
     !sendMessageMutation.isPending &&
-    sendRefusal(newMessage, pendingAttachments.length, MESSAGE_MAX_LENGTH) === null
+    sendRefusal(newMessage, pendingAttachments.length, MESSAGE_MAX_LENGTH) ===
+      null
 
   const isEditSaveDisabled =
     editingMessage !== null &&
@@ -1110,7 +1145,10 @@ export function Chats() {
             </IconButton>
           }
         />
-        <ChatSettingsDialog open={chatSettingsOpen} onOpenChange={setChatSettingsOpen} />
+        <ChatSettingsDialog
+          open={chatSettingsOpen}
+          onOpenChange={setChatSettingsOpen}
+        />
         <Main className='flex min-h-0 flex-1 flex-col gap-4 overflow-hidden'>
           {chatsQuery.error ? (
             <GeneralError
@@ -1146,74 +1184,75 @@ export function Chats() {
             onClose={messageSearch.closeSearch}
           />
         ) : (
-        <PageHeader
-          title={selectedChat.name}
-          icon={
-            selectedChat.members === 2 && selectedChat.other ? (
-              <EntityAvatar
-                src={personAssetUrl(selectedChat.other, 'avatar')}
-                styleUrl={personAssetUrl(selectedChat.other, 'style')}
-                name={selectedChat.name}
-                size="xl"
-              />
-            ) : (
-              <EntityAvatar size="xl" icon={Users} />
-            )
-          }
-          description={subtitle || undefined}
-          menuAction={
-            <div className='flex items-center gap-1'>
-              {chatActive(selectedChat) ? (
-                <IconButton
-                  variant='ghost'
-                  label={t`Search messages`}
-                  onClick={messageSearch.openSearch}
-                >
-                  <Search className='size-5' />
-                </IconButton>
-              ) : null}
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
+          <PageHeader
+            title={selectedChat.name}
+            icon={
+              selectedChat.members === 2 && selectedChat.other ? (
+                <EntityAvatar
+                  src={personAssetUrl(selectedChat.other, 'avatar')}
+                  styleUrl={personAssetUrl(selectedChat.other, 'style')}
+                  name={selectedChat.name}
+                  size='xl'
+                />
+              ) : (
+                <EntityAvatar size='xl' icon={Users} />
+              )
+            }
+            description={subtitle || undefined}
+            menuAction={
+              <div className='flex items-center gap-1'>
+                {chatActive(selectedChat) ? (
                   <IconButton
                     variant='ghost'
-                    label={t`Open chat actions`}
+                    label={t`Search messages`}
+                    onClick={messageSearch.openSearch}
                   >
-                    <MoreHorizontal className='size-5' />
+                    <Search className='size-5' />
                   </IconButton>
-                </DropdownMenuTrigger>
-              <DropdownMenuContent align='end' className='w-56'>
-                {!chatActive(selectedChat) ? (
-                  <DropdownMenuItem onClick={handleDeleteChat}>
-                    <Trash2 className='me-2 size-4' /> <Trans>Delete chat</Trans>
-                  </DropdownMenuItem>
-                ) : (
-                  <>
-                    <DropdownMenuItem
-                      onClick={() => setShowLeaveDialog(true)}
-                    >
-                      <LogOut className='me-2 size-4' /> <Trans>Leave chat</Trans>
+                ) : null}
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <IconButton variant='ghost' label={t`Open chat actions`}>
+                      <MoreHorizontal className='size-5' />
+                    </IconButton>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent align='end' className='w-56'>
+                    {!chatActive(selectedChat) ? (
+                      <DropdownMenuItem onClick={handleDeleteChat}>
+                        <Trash2 className='me-2 size-4' />{' '}
+                        <Trans>Delete chat</Trans>
+                      </DropdownMenuItem>
+                    ) : (
+                      <>
+                        <DropdownMenuItem
+                          onClick={() => setShowLeaveDialog(true)}
+                        >
+                          <LogOut className='me-2 size-4' />{' '}
+                          <Trans>Leave chat</Trans>
+                        </DropdownMenuItem>
+                        <DropdownMenuItem
+                          onClick={() =>
+                            void navigate({
+                              to: '/$chatId/settings',
+                              params: { chatId: selectedChat.id },
+                            })
+                          }
+                        >
+                          <Settings className='me-2 size-4' />{' '}
+                          <Trans>Chat settings</Trans>
+                        </DropdownMenuItem>
+                      </>
+                    )}
+                    <DropdownMenuSeparator />
+                    <DropdownMenuItem onClick={() => setChatSettingsOpen(true)}>
+                      <Inbox className='me-2 size-4' />{' '}
+                      <Trans>Incoming chats</Trans>
                     </DropdownMenuItem>
-                    <DropdownMenuItem
-                      onClick={() =>
-                        void navigate({
-                          to: '/$chatId/settings',
-                          params: { chatId: selectedChat.id },
-                        })
-                      }
-                    >
-                      <Settings className='me-2 size-4' /> <Trans>Chat settings</Trans>
-                    </DropdownMenuItem>
-                  </>
-                )}
-                <DropdownMenuSeparator />
-                <DropdownMenuItem onClick={() => setChatSettingsOpen(true)}>
-                  <Inbox className='me-2 size-4' /> <Trans>Incoming chats</Trans>
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
-            </div>
-          }
-        />
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              </div>
+            }
+          />
         )}
 
         <Main className='flex min-h-0 flex-1 flex-col overflow-hidden'>
@@ -1259,8 +1298,16 @@ export function Chats() {
             onReply={chatActive(selectedChat) ? handleReply : undefined}
             onReact={chatActive(selectedChat) ? handleReact : undefined}
             onScrollToMessage={handleScrollToMessage}
-            onForward={chatActive(selectedChat) ? (m) => requestForward([m.id]) : undefined}
-            onDelete={chatActive(selectedChat) ? (m) => requestDelete([m.id]) : undefined}
+            onForward={
+              chatActive(selectedChat)
+                ? (m) => requestForward([m.id])
+                : undefined
+            }
+            onDelete={
+              chatActive(selectedChat)
+                ? (m) => requestDelete([m.id])
+                : undefined
+            }
             isSelecting={isSelecting}
             selectedIds={selectedIds}
             onToggleSelect={toggleMessageSelection}
@@ -1290,7 +1337,10 @@ export function Chats() {
             <div className='border-t px-4 py-3'>
               <div className='flex items-center justify-between gap-2'>
                 <span className='text-muted-foreground text-sm'>
-                  {plural(selectedIds.size, { one: '# selected', other: '# selected' })}
+                  {plural(selectedIds.size, {
+                    one: '# selected',
+                    other: '# selected',
+                  })}
                 </span>
                 <div className='flex items-center gap-1'>
                   <Button
@@ -1317,11 +1367,7 @@ export function Chats() {
                     <Trash2 className='me-1.5 size-4' />
                     <Trans>Delete</Trans>
                   </Button>
-                  <Button
-                    variant='outline'
-                    size='sm'
-                    onClick={clearSelection}
-                  >
+                  <Button variant='outline' size='sm' onClick={clearSelection}>
                     <Trans>Cancel</Trans>
                   </Button>
                 </div>
@@ -1331,9 +1377,11 @@ export function Chats() {
             <div className='bg-muted/50 border-t p-4'>
               <div className='flex items-center justify-between'>
                 <p className='text-muted-foreground text-sm'>
-                  {selectedChat.status === 'removed'
-                    ? <Trans>You were removed from this chat</Trans>
-                    : <Trans>You left this chat</Trans>}
+                  {selectedChat.status === 'removed' ? (
+                    <Trans>You were removed from this chat</Trans>
+                  ) : (
+                    <Trans>You left this chat</Trans>
+                  )}
                 </p>
                 <Button
                   variant='outline'
@@ -1455,7 +1503,10 @@ export function Chats() {
           }}
         />
       ) : null}
-      <ChatSettingsDialog open={chatSettingsOpen} onOpenChange={setChatSettingsOpen} />
+      <ChatSettingsDialog
+        open={chatSettingsOpen}
+        onOpenChange={setChatSettingsOpen}
+      />
     </>
   )
 }

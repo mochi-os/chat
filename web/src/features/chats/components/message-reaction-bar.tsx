@@ -2,9 +2,8 @@
 // SPDX-License-Identifier: AGPL-3.0-only
 // This file is part of Mochi, licensed under the GNU AGPL v3 with the
 // Mochi Application Interface Exception - see license.txt and license-exception.md.
-
 import { useState } from 'react'
-import { createPortal } from 'react-dom'
+import { Trans, useLingui } from '@lingui/react/macro'
 import {
   Button,
   Popover,
@@ -17,7 +16,7 @@ import {
   useFormat,
 } from '@mochi/web'
 import { SmilePlus } from 'lucide-react'
-import { Trans, useLingui } from '@lingui/react/macro'
+import { createPortal } from 'react-dom'
 import {
   type ReactionCounts,
   type ReactionId,
@@ -105,9 +104,9 @@ export function MessageReactionPicker({
                 <TooltipTrigger asChild>
                   <button
                     type='button'
-                    className={`rounded p-1.5 text-lg transition-colors hover:bg-hover active:bg-interactive-active ${
+                    className={`hover:bg-hover active:bg-interactive-active rounded p-1.5 text-lg transition-colors ${
                       activeReaction === reaction.id
-                        ? 'bg-foreground/10 ring-1 ring-foreground/20'
+                        ? 'bg-foreground/10 ring-foreground/20 ring-1'
                         : ''
                     }`}
                     onPointerDown={(e) => e.preventDefault()}
@@ -156,10 +155,7 @@ export function MessageReactionSummary({
 
   return (
     <div
-      className={cn(
-        'flex shrink-0 flex-wrap items-center gap-0.5',
-        className
-      )}
+      className={cn('flex shrink-0 flex-wrap items-center gap-0.5', className)}
     >
       {visibleReactions.map((r) => {
         const count = counts[r.id] ?? 0
@@ -169,11 +165,13 @@ export function MessageReactionSummary({
             <TooltipTrigger asChild>
               <span
                 className={cn(
-                  "inline-flex items-center gap-1 text-[11px] leading-none transition-colors animate-in zoom-in-50 duration-300 ease-out",
-                  isYours ? "text-foreground font-semibold" : "text-muted-foreground"
+                  'animate-in zoom-in-50 inline-flex items-center gap-1 text-[11px] leading-none transition-colors duration-300 ease-out',
+                  isYours
+                    ? 'text-foreground font-semibold'
+                    : 'text-muted-foreground'
                 )}
               >
-                <span className="text-[13px]">{r.emoji}</span>
+                <span className='text-[13px]'>{r.emoji}</span>
                 {count > 1 ? <span>{formatNumber(count)}</span> : null}
               </span>
             </TooltipTrigger>

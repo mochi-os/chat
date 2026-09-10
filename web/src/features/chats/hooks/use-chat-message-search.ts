@@ -2,7 +2,6 @@
 // SPDX-License-Identifier: AGPL-3.0-only
 // This file is part of Mochi, licensed under the GNU AGPL v3 with the
 // Mochi Application Interface Exception - see license.txt and license-exception.md.
-
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { useQueryWithError } from '@mochi/web'
 import { chatsApi } from '@/api/chats'
@@ -36,10 +35,7 @@ export function useChatMessageSearch(chatId?: string, enabled = true) {
   const searchQuery = useQueryWithError({
     queryKey: chatSearchKeys.search(chatId ?? 'unknown', debouncedQuery),
     enabled:
-      enabled &&
-      Boolean(chatId) &&
-      isSearchOpen &&
-      debouncedQuery.length >= 2,
+      enabled && Boolean(chatId) && isSearchOpen && debouncedQuery.length >= 2,
     queryFn: () => {
       if (!chatId) throw new Error('Chat ID is required')
       return chatsApi.search(chatId, { q: debouncedQuery })

@@ -2,10 +2,9 @@
 // SPDX-License-Identifier: AGPL-3.0-only
 // This file is part of Mochi, licensed under the GNU AGPL v3 with the
 // Mochi Application Interface Exception - see license.txt and license-exception.md.
-
 import { useEffect, useMemo, useState } from 'react'
-import { Trans, useLingui } from '@lingui/react/macro'
 import { createFileRoute, useNavigate } from '@tanstack/react-router'
+import { Trans, useLingui } from '@lingui/react/macro'
 import {
   Button,
   Checkbox,
@@ -33,12 +32,6 @@ import {
   DetailSkeleton,
   naturalCompare,
 } from '@mochi/web'
-import { nameMatches } from '@/features/chats/utils'
-import { personAssetUrl } from '@/api/person'
-import {
-  CHAT_NAME_FORBIDDEN,
-  CHAT_NAME_MAX_LENGTH,
-} from '@/features/chats/constants/limits'
 import {
   Loader2,
   MessageCircle,
@@ -46,6 +39,7 @@ import {
   UserPlus,
   LogOut,
 } from 'lucide-react'
+import { personAssetUrl } from '@/api/person'
 import {
   useChatDetailQuery,
   useChatMembersQuery,
@@ -55,6 +49,11 @@ import {
   useRemoveMemberMutation,
   useNewChatFriendsQuery,
 } from '@/hooks/useChats'
+import {
+  CHAT_NAME_FORBIDDEN,
+  CHAT_NAME_MAX_LENGTH,
+} from '@/features/chats/constants/limits'
+import { nameMatches } from '@/features/chats/utils'
 
 export const Route = createFileRoute('/_authenticated/$chatId_/settings')({
   component: ChatSettingsPage,
@@ -81,12 +80,17 @@ function ChatSettingsPage() {
   } = useChatMembersQuery(chatId)
 
   const members = useMemo(
-    () => [...(membersData?.members ?? [])].sort((a, b) => naturalCompare(a.name, b.name)),
+    () =>
+      [...(membersData?.members ?? [])].sort((a, b) =>
+        naturalCompare(a.name, b.name)
+      ),
     [membersData]
   )
 
   usePageTitle(
-    chatDetail?.chat.name ? t`${chatDetail.chat.name} settings` : t`Chat settings`
+    chatDetail?.chat.name
+      ? t`${chatDetail.chat.name} settings`
+      : t`Chat settings`
   )
 
   const [showLeaveDialog, setShowLeaveDialog] = useState(false)
@@ -98,8 +102,11 @@ function ChatSettingsPage() {
 
   if (isLoadingChat && !chatDetail) {
     return (
-      <div className="h-full flex flex-col">
-        <PageHeader title={t`Chat settings`} back={{ label: t`Back to chat`, onFallback: goBackToChat }} />
+      <div className='flex h-full flex-col'>
+        <PageHeader
+          title={t`Chat settings`}
+          back={{ label: t`Back to chat`, onFallback: goBackToChat }}
+        />
         <Main>
           <DetailSkeleton />
         </Main>
@@ -110,7 +117,10 @@ function ChatSettingsPage() {
   if (!chatDetail && !chatDetailError) {
     return (
       <>
-        <PageHeader title={t`Chat settings`} back={{ label: t`Back to chat`, onFallback: goBackToChat }} />
+        <PageHeader
+          title={t`Chat settings`}
+          back={{ label: t`Back to chat`, onFallback: goBackToChat }}
+        />
         <Main>
           <EmptyState
             icon={MessageCircle}
@@ -125,7 +135,11 @@ function ChatSettingsPage() {
   return (
     <>
       <PageHeader
-        title={chatDetail?.chat.name ? t`${chatDetail.chat.name} settings` : t`Chat settings`}
+        title={
+          chatDetail?.chat.name
+            ? t`${chatDetail.chat.name} settings`
+            : t`Chat settings`
+        }
         back={{ label: t`Back to chat`, onFallback: goBackToChat }}
       />
       <Main className='space-y-8'>
@@ -189,7 +203,7 @@ function ChatSettingsPage() {
   )
 }
 
-function ChatNameSection({ chatId, name }: { chatId: string, name: string }) {
+function ChatNameSection({ chatId, name }: { chatId: string; name: string }) {
   const { t } = useLingui()
 
   const renameMutation = useRenameChatMutation()
@@ -256,12 +270,14 @@ function MembersSection({
   return (
     <Section
       title={t`Members`}
-      action={!error && !isLoading ? (
-        <Button size='sm' onClick={onAddMember} variant="outline">
-          <UserPlus className='me-2 size-4' />
-          <Trans>Add member</Trans>
-        </Button>
-      ) : undefined}
+      action={
+        !error && !isLoading ? (
+          <Button size='sm' onClick={onAddMember} variant='outline'>
+            <UserPlus className='me-2 size-4' />
+            <Trans>Add member</Trans>
+          </Button>
+        ) : undefined
+      }
     >
       {error ? (
         <GeneralError error={error} minimal mode='inline' reset={onRetry} />
@@ -274,16 +290,16 @@ function MembersSection({
             return (
               <div
                 key={member.id}
-                className='flex items-center justify-between group rounded-lg hover:bg-hover px-3 py-2 transition-colors'
+                className='group hover:bg-hover flex items-center justify-between rounded-lg px-3 py-2 transition-colors'
               >
                 <div className='flex items-center gap-3'>
                   <EntityAvatar
                     src={personAssetUrl(member.id, 'avatar')}
                     styleUrl={personAssetUrl(member.id, 'style')}
                     name={member.name}
-                    size="md"
+                    size='md'
                   />
-                  <span className="font-medium">{member.name}</span>
+                  <span className='font-medium'>{member.name}</span>
                   {isCurrentUser && (
                     <span className='text-muted-foreground text-xs'>
                       <Trans>(you)</Trans>
@@ -293,9 +309,11 @@ function MembersSection({
                 <Button
                   size='sm'
                   variant='ghost'
-                  aria-label={isCurrentUser ? t`Leave chat` : t`Remove ${member.name}`}
+                  aria-label={
+                    isCurrentUser ? t`Leave chat` : t`Remove ${member.name}`
+                  }
                   onClick={() => onRemoveMember(member, isCurrentUser)}
-                  className='text-muted-foreground h-8 w-8 p-0 opacity-0 group-hover:opacity-100 focus-visible:opacity-100 [@media(hover:none)]:opacity-100 transition-opacity'
+                  className='text-muted-foreground h-8 w-8 p-0 opacity-0 transition-opacity group-hover:opacity-100 focus-visible:opacity-100 [@media(hover:none)]:opacity-100'
                 >
                   {isCurrentUser ? (
                     <LogOut className='size-4' />
@@ -375,7 +393,10 @@ function LeaveDialog({
           checked={deleteOnLeave}
           onCheckedChange={(checked) => setDeleteOnLeave(checked === true)}
         />
-        <Label htmlFor='delete-on-leave-settings' className='text-sm font-medium'>
+        <Label
+          htmlFor='delete-on-leave-settings'
+          className='text-sm font-medium'
+        >
           <Trans>Delete chat history</Trans>
         </Label>
       </div>
@@ -398,10 +419,14 @@ function AddMemberDialog({
 }) {
   const { t } = useLingui()
   const [filter, setFilter] = useState('')
-  const { data: friendsData, isLoading: isLoadingFriends, error, refetch } =
-    useNewChatFriendsQuery({
-      enabled: open,
-    })
+  const {
+    data: friendsData,
+    isLoading: isLoadingFriends,
+    error,
+    refetch,
+  } = useNewChatFriendsQuery({
+    enabled: open,
+  })
 
   const addMemberMutation = useAddMemberMutation()
 
@@ -460,11 +485,18 @@ function AddMemberDialog({
                 <Loader2 className='text-muted-foreground size-6 animate-spin' />
               </div>
             ) : error ? (
-              <GeneralError error={error} minimal mode='inline' reset={refetch} />
+              <GeneralError
+                error={error}
+                minimal
+                mode='inline'
+                reset={refetch}
+              />
             ) : availableFriends.length === 0 ? (
               <EmptyState
                 icon={UserPlus}
-                title={filter.trim() ? t`No friends found` : t`No friends available`}
+                title={
+                  filter.trim() ? t`No friends found` : t`No friends available`
+                }
                 description={
                   filter.trim()
                     ? t`Try a different search term`
@@ -473,7 +505,7 @@ function AddMemberDialog({
               />
             ) : (
               <div className='space-y-1'>
-                <p className='text-muted-foreground px-2 pt-1 pb-0.5 text-xs font-medium uppercase tracking-wide'>
+                <p className='text-muted-foreground px-2 pt-1 pb-0.5 text-xs font-medium tracking-wide uppercase'>
                   <Trans>Friends</Trans>
                 </p>
                 {availableFriends.map((friend) => (
@@ -558,8 +590,8 @@ function RemoveMemberDialog({
       handleConfirm={handleRemove}
       isLoading={removeMemberMutation.isPending}
     >
-      <div className="mt-2 mb-4 flex gap-2 rounded-lg bg-muted/50 p-3">
-        <span className="font-semibold">{member?.name}</span>
+      <div className='bg-muted/50 mt-2 mb-4 flex gap-2 rounded-lg p-3'>
+        <span className='font-semibold'>{member?.name}</span>
       </div>
     </ConfirmDialog>
   )

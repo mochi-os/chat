@@ -2,7 +2,6 @@
 // SPDX-License-Identifier: AGPL-3.0-only
 // This file is part of Mochi, licensed under the GNU AGPL v3 with the
 // Mochi Application Interface Exception - see license.txt and license-exception.md.
-
 import { Trans } from '@lingui/react/macro'
 import { cn } from '@mochi/web'
 import type { ChatMessage } from '@/api/chats'
@@ -31,7 +30,7 @@ export function MessageQuote({ quoted, isSent, onClick }: MessageQuoteProps) {
         onClick()
       }}
       className={cn(
-        'mb-2.5 flex min-w-0 max-w-full w-full flex-col gap-1 overflow-hidden rounded-lg border-s-2 px-2.5 py-2 text-start',
+        'mb-2.5 flex w-full max-w-full min-w-0 flex-col gap-1 overflow-hidden rounded-lg border-s-2 px-2.5 py-2 text-start',
         isSent
           ? 'border-primary-foreground/50 bg-black/15 hover:bg-black/20'
           : 'border-primary/40 bg-background/60 hover:bg-background/80'

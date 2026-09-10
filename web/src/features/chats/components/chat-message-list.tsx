@@ -2,7 +2,6 @@
 // SPDX-License-Identifier: AGPL-3.0-only
 // This file is part of Mochi, licensed under the GNU AGPL v3 with the
 // Mochi Application Interface Exception - see license.txt and license-exception.md.
-
 import {
   Fragment,
   useCallback,
@@ -12,13 +11,12 @@ import {
   useRef,
   useState,
 } from 'react'
-import { plural } from '@lingui/core/macro'
-import { Trans, useLingui } from '@lingui/react/macro'
-import { formatCountBadge } from '../utils'
 import type {
   UseInfiniteQueryResult,
   InfiniteData,
 } from '@tanstack/react-query'
+import { plural } from '@lingui/core/macro'
+import { Trans, useLingui } from '@lingui/react/macro'
 import {
   Button,
   Checkbox,
@@ -45,12 +43,15 @@ import {
 import { Check, ChevronsDown, Loader2, MessageCircle } from 'lucide-react'
 import type { ChatMessage } from '@/api/chats'
 import type { GetMessagesResponse } from '@/api/types/chats'
-import { MessageAttachments } from './message-attachments'
+import type { ReactionId } from '../constants/reactions'
+import { formatCountBadge } from '../utils'
 import {
   CHAT_MEDIA_BUBBLE_CLASS,
   CHAT_MEDIA_GRID_BUBBLE_CLASS,
   attachmentsNeedFixedMediaWidth,
 } from '../utils/chat-media-size'
+import { highlightSearchText } from '../utils/highlight-search-text'
+import { MessageAttachments } from './message-attachments'
 import { MessageBody } from './message-body'
 import { MessageHoverActions } from './message-hover-actions'
 import { MessageQuote } from './message-quote'
@@ -58,8 +59,6 @@ import {
   MessageReactionPicker,
   MessageReactionSummary,
 } from './message-reaction-bar'
-import type { ReactionId } from '../constants/reactions'
-import { highlightSearchText } from '../utils/highlight-search-text'
 
 const BOTTOM_THRESHOLD_PX = 80
 const MESSAGE_ENTER_MS = 200
@@ -207,14 +206,14 @@ export function ChatMessageList({
     }
   }, [editingMessageId])
 
-
   const prevScrollHeightRef = useRef<number>(0)
   const isLoadingMoreRef = useRef(false)
   const skipNextAutoScrollRef = useRef(false)
   const isInitialLoadRef = useRef(true)
   const prevMessageCountRef = useRef<number>(0)
   const isAtBottomRef = useRef(true)
-  const [isScrolledAwayFromBottom, setIsScrolledAwayFromBottom] = useState(false)
+  const [isScrolledAwayFromBottom, setIsScrolledAwayFromBottom] =
+    useState(false)
 
   // Report the state this component already keeps for its own scroll-to-bottom
   // button, rather than at each of the ten places the ref is touched: this is
@@ -432,7 +431,7 @@ export function ChatMessageList({
 
   if (isLoadingMessages || messagesQuery.isPending) {
     return (
-      <div className='flex flex-1 w-full flex-col justify-end gap-3 p-4'>
+      <div className='flex w-full flex-1 flex-col justify-end gap-3 p-4'>
         {Array.from({ length: 4 }).map((_, i) => (
           <div
             key={i}
@@ -498,319 +497,422 @@ export function ChatMessageList({
         />
 
         <div className='flex flex-col gap-4'>
-        {Object.keys(groupedMessages).map((key) => (
-          <Fragment key={key}>
-            {/* Date separator */}
-            <div className='my-4 flex items-center justify-center'>
-              <div className='text-muted-foreground text-xs'>{formatDate(new Date(key + 'T00:00:00'))}</div>
-            </div>
+          {Object.keys(groupedMessages).map((key) => (
+            <Fragment key={key}>
+              {/* Date separator */}
+              <div className='my-4 flex items-center justify-center'>
+                <div className='text-muted-foreground text-xs'>
+                  {formatDate(new Date(key + 'T00:00:00'))}
+                </div>
+              </div>
 
-            {groupMessagesBySender(groupedMessages[key]).map((messageGroup) => {
-              const isSentGroup = isCurrentUserMessage(messageGroup[0])
-              return (
-                <BubbleGroup key={messageGroup[0].id} className={cn("w-full mb-4 gap-1", isSentGroup ? 'items-end' : 'items-start')}>
-                  {messageGroup.map((message, index) => {
-              const isSent = isCurrentUserMessage(message)
-              const isSelected = selectedIds?.has(message.id) ?? false
-              const isDeleted = message.deleted === true
-              return (
-                <div
-                  key={message.id}
-                  className={cn(
-                    'flex w-full items-start gap-2 rounded-lg transition-colors',
-                    isSelecting && 'cursor-pointer select-none',
-                    isSelecting && isSelected && 'bg-primary/8',
-                    editingMessageId === message.id && 'bg-primary/8',
-                    // Dim siblings without transition — animating opacity on every
-                    // row at once is expensive on long threads.
-                    editingMessageId &&
-                      editingMessageId !== message.id &&
-                      'opacity-40'
-                  )}
-                  onClick={(e) => {
-                    if (isSelecting) {
-                      onToggleSelect?.(message.id)
-                    } else {
-                      e.stopPropagation()
-                      setActiveMessageId((prev) => (prev === message.id ? null : message.id))
-                    }
-                  }}
-                >
-                  {/* Checkbox column — slides in when selection mode is active */}
-                  <div
-                    className={cn(
-                      'flex shrink-0 items-center pt-3 transition-all duration-150',
-                      isSelecting ? 'w-5 opacity-100' : 'w-0 overflow-hidden opacity-0'
-                    )}
-                  >
-                    <Checkbox
-                      checked={isSelected}
-                      onClick={(e) => e.stopPropagation()}
-                      onCheckedChange={() => onToggleSelect?.(message.id)}
-                      aria-label={t`Select message`}
-                    />
-                  </div>
-
-                  {/* Message content */}
-                  <div
-                    id={`chat-message-${message.id}`}
-                    className={cn(
-                      'group flex flex-1 flex-col gap-1 rounded-lg transition-shadow',
-                      isSent ? 'items-end' : 'items-start',
-                      highlightMessageId === message.id &&
-                      'ring-primary/60 bg-primary/5 ring-2',
-                      isSelecting && 'pointer-events-none'
-                    )}
-                  >
-                    {/* Message bubble + avatar (left, group incoming) + hover actions */}
-                    <div
+              {groupMessagesBySender(groupedMessages[key]).map(
+                (messageGroup) => {
+                  const isSentGroup = isCurrentUserMessage(messageGroup[0])
+                  return (
+                    <BubbleGroup
+                      key={messageGroup[0].id}
                       className={cn(
-                        'flex w-full min-w-0 gap-1.5',
-                        isGroupChat && !isSent ? 'items-start' : 'items-end',
-                        isSent ? 'justify-end' : 'justify-start'
+                        'mb-4 w-full gap-1',
+                        isSentGroup ? 'items-end' : 'items-start'
                       )}
                     >
-                      {isGroupChat && !isSent && (
-                        index === 0 ? (
-                          <EntityAvatar
-                            src={assetUrl(
-                              `${getAppPath()}/${message.chat}/-/${message.id}/asset/avatar`
+                      {messageGroup.map((message, index) => {
+                        const isSent = isCurrentUserMessage(message)
+                        const isSelected = selectedIds?.has(message.id) ?? false
+                        const isDeleted = message.deleted === true
+                        return (
+                          <div
+                            key={message.id}
+                            className={cn(
+                              'flex w-full items-start gap-2 rounded-lg transition-colors',
+                              isSelecting && 'cursor-pointer select-none',
+                              isSelecting && isSelected && 'bg-primary/8',
+                              editingMessageId === message.id && 'bg-primary/8',
+                              // Dim siblings without transition — animating opacity on every
+                              // row at once is expensive on long threads.
+                              editingMessageId &&
+                                editingMessageId !== message.id &&
+                                'opacity-40'
                             )}
-                            styleUrl={assetUrl(
-                              `${getAppPath()}/${message.chat}/-/${message.id}/asset/style`
-                            )}
-                            seed={message.member}
-                            name={message.name}
-                            size="xs"
-                            className="mt-0.5 shrink-0"
-                          />
-                        ) : (
-                          <div className="w-5 shrink-0" />
-                        )
-                      )}
-
-                      {editingMessageId === message.id ? (
-                        <div
-                          className={cn(
-                            'w-full max-w-[500px] border border-border bg-card rounded-xl p-3 flex flex-col gap-2 shadow-sm',
-                            isSent ? 'ml-auto' : 'mr-auto'
-                          )}
-                        >
-                          <MentionTextarea
-                            ref={inlineTextareaRef}
-                            value={editingBody ?? ''}
-                            // No @ autocomplete on edit until backend accepts mention ids.
-                            people={[]}
-                            onValueChange={(val) => setEditingBody?.(val)}
-                            onKeyDown={(e) => {
-                              if (e.key === 'Enter' && !e.shiftKey) {
-                                e.preventDefault()
-                                onSaveEdit?.(e)
-                              } else if (e.key === 'Escape') {
-                                e.preventDefault()
-                                onCancelEdit?.()
+                            onClick={(e) => {
+                              if (isSelecting) {
+                                onToggleSelect?.(message.id)
+                              } else {
+                                e.stopPropagation()
+                                setActiveMessageId((prev) =>
+                                  prev === message.id ? null : message.id
+                                )
                               }
                             }}
-                            className='border-0 bg-transparent min-h-[40px] focus-visible:ring-0 focus-visible:ring-offset-0 px-0 py-1 resize-none w-full max-h-40 overflow-y-auto text-sm leading-5 focus-visible:outline-none shadow-none rounded-none'
-                          />
-                          <div className='flex items-center justify-end text-[10px] text-muted-foreground/60 px-0.5 mt-1'>
-                            <div className='flex items-center gap-2 text-xs'>
-                              <Button
-                                type='button'
-                                variant='ghost'
-                                size='sm'
-                                onClick={onCancelEdit}
-                                className='h-7 px-2.5 text-muted-foreground hover:text-foreground'
-                              >
-                                <Trans>Cancel</Trans>
-                              </Button>
-                              <Button
-                                type='button'
-                                size='sm'
-                                disabled={isEditSaveDisabled || isEditingSaving}
-                                onClick={onSaveEdit}
-                                className='h-7 px-2.5 bg-primary hover:bg-primary/80 text-primary-foreground font-medium transition-colors'
-                              >
-                                {isEditingSaving ? (
-                                  <Loader2 className='size-3 animate-spin' />
-                                ) : (
-                                  <Check className='size-3' />
-                                )}
-                                <Trans>Save</Trans>
-                              </Button>
-                            </div>
-                          </div>
-                        </div>
-                      ) : (
-                        <Bubble
-                          variant={isSent ? 'default' : 'muted'}
-                          align={isSent ? 'end' : 'start'}
-                          data-active={activeMessageId === message.id}
-                          className={cn(
-                            'transition-[opacity,transform,max-height] duration-300 ease-out',
-                            isDeleted && 'scale-[0.97] opacity-60',
-                            enteringMessageIds.has(message.id) &&
-                              'animate-in fade-in-0 slide-in-from-bottom-2 fill-mode-backwards duration-200 ease-out',
-                            (!isSelecting && !isDeleted && message.reactions && Object.keys(message.reactions).length > 0) && 'mb-4'
-                          )}
-                        >
-                          {isGroupChat && !isSent && index === 0 && message.name ? (
-                            <span className="text-xs font-semibold text-muted-foreground ml-1.5 -mb-0.5">
-                              {message.name}
-                            </span>
-                          ) : null}
-                          <BubbleContent
-                            className={cn(
-                              isDeleted &&
-                                'bg-transparent text-muted-foreground italic border-dashed',
-                              attachmentsNeedFixedMediaWidth(message.attachments) &&
-                                (message.body
-                                  ? 'min-w-[17.5rem] w-fit max-w-[calc(100vw-4.5rem)]'
-                                  : CHAT_MEDIA_BUBBLE_CLASS),
-                              message.attachments?.length &&
-                                !attachmentsNeedFixedMediaWidth(message.attachments) &&
-                                CHAT_MEDIA_GRID_BUBBLE_CLASS,
-                              message.attachments?.length &&
-                                !message.body &&
-                                'px-1.5 py-1.5'
-                            )}
                           >
-                          {isDeleted ? (
-                            <p className='text-muted-foreground text-sm italic'>
-                              <Trans>This message was deleted</Trans>
-                            </p>
-                          ) : (
-                            <>
-                              {message.reply && onScrollToMessage ? (
-                                <MessageQuote
-                                  quoted={messagesById.get(message.reply)}
-                                  isSent={isSent}
-                                  onClick={() => onScrollToMessage(message.reply!)}
-                                />
-                              ) : null}
-
-                              {message.attachments?.length ? (
-                                <MessageAttachments
-                                  attachments={message.attachments}
-                                  chatId={message.chat}
-                                  isSent={isSent}
-                                />
-                              ) : null}
-
-                              {message.body ? (
-                                <MessageBody
-                                  isSent={isSent}
-                                  className={
-                                    message.attachments?.length ? 'mt-2' : undefined
-                                  }
-                                >
-                                  {(() => {
-                                    // 1. Parse mentions first
-                                    const mentionParts = message.body.split(/(@\[[^\]]+\])/g)
-                                    return mentionParts.map((part, i) => {
-                                      if (part.startsWith('@[')) {
-                                        return (
-                                          <span
-                                            key={i}
-                                            className={cn(
-                                              'rounded-sm px-1 py-0.5 font-medium',
-                                              isSent
-                                                ? 'bg-primary-foreground/20 text-primary-foreground'
-                                                : 'bg-primary/15 text-primary'
-                                            )}
-                                          >
-                                            @{part.slice(2, -1)}
-                                          </span>
-                                        )
-                                      }
-                                      // 2. Apply search highlight to the plain text parts
-                                      if (searchActive && searchQuery.length >= 2 && matchedMessageIds?.has(message.id)) {
-                                        return (
-                                          <Fragment key={i}>
-                                            {highlightSearchText(part, searchQuery, activeMatchId === message.id)}
-                                          </Fragment>
-                                        )
-                                      }
-                                      return <Fragment key={i}>{part}</Fragment>
-                                    })
-                                  })()}
-                                </MessageBody>
-                              ) : null}
-                            </>
-                          )}
-                          </BubbleContent>
-                          
-                          {!isSelecting && !isDeleted ? (
-                            <BubbleReactions
-                              align={isSent ? 'end' : 'start'}
+                            {/* Checkbox column — slides in when selection mode is active */}
+                            <div
                               className={cn(
-                                'rounded-lg',
-                                isSent ? "flex-row-reverse" : "flex-row",
-                                (!message.reactions || Object.keys(message.reactions).length === 0)
-                                  ? actionPillExpandOpacityMap.bubble
-                                  : ""
+                                'flex shrink-0 items-center pt-3 transition-all duration-150',
+                                isSelecting
+                                  ? 'w-5 opacity-100'
+                                  : 'w-0 overflow-hidden opacity-0'
                               )}
                             >
-                              {(message.reactions && Object.keys(message.reactions).length > 0) && (
-                                <MessageReactionSummary
-                                  counts={message.reactions ?? {}}
-                                  activeReaction={message.reaction}
-                                />
-                              )}
-                              
-                              <div className={cn(
-                                "flex items-center gap-0.5",
-                                isSent ? "flex-row-reverse" : "flex-row",
-                                (message.reactions && Object.keys(message.reactions).length > 0)
-                                  ? actionPillExpandMaxWidthMap.bubble[200]
-                                  : ""
-                              )}>
-                                {onReact && (
-                                  <MessageReactionPicker
-                                    activeReaction={message.reaction}
-                                    onSelect={(reaction) => onReact(message.id, reaction)}
-                                    isSent={isSent}
-                                    className="!opacity-100"
-                                  />
-                                )}
-                                {onReply && (
-                                  <MessageHoverActions
-                                    message={message}
-                                    onReply={onReply}
-                                    onSelect={onSelectMessage ? () => onSelectMessage(message) : undefined}
-                                    onForward={onForward ? () => onForward(message) : undefined}
-                                    onDelete={onDelete ? () => onDelete(message) : undefined}
-                                    onEdit={
-                                      canEditMessage(message, isSent)
-                                        ? () => onStartEdit?.(message)
-                                        : undefined
-                                    }
-                                    canDelete={isSent}
-                                    canEdit={canEditMessage(message, isSent)}
-                                    className="!opacity-100"
-                                  />
-                                )}
-                                <span className="text-muted-foreground/70 text-[10px] whitespace-nowrap px-1">
-                                  {formatTime(new Date(message.created * 1000))}
-                                  {message.edited ? <span className="ml-1 italic"><Trans>(edited)</Trans></span> : null}
-                                </span>
-                              </div>
-                            </BubbleReactions>
-                          ) : null}
-                        </Bubble>
-                      )}
+                              <Checkbox
+                                checked={isSelected}
+                                onClick={(e) => e.stopPropagation()}
+                                onCheckedChange={() =>
+                                  onToggleSelect?.(message.id)
+                                }
+                                aria-label={t`Select message`}
+                              />
+                            </div>
 
-                      {/* Hover actions moved to BubbleReactions */}
-                    </div>
-                  </div>
-                </div>
-              )
-            })}
-                </BubbleGroup>
-              )
-            })}
-          </Fragment>
-        ))}
+                            {/* Message content */}
+                            <div
+                              id={`chat-message-${message.id}`}
+                              className={cn(
+                                'group flex flex-1 flex-col gap-1 rounded-lg transition-shadow',
+                                isSent ? 'items-end' : 'items-start',
+                                highlightMessageId === message.id &&
+                                  'ring-primary/60 bg-primary/5 ring-2',
+                                isSelecting && 'pointer-events-none'
+                              )}
+                            >
+                              {/* Message bubble + avatar (left, group incoming) + hover actions */}
+                              <div
+                                className={cn(
+                                  'flex w-full min-w-0 gap-1.5',
+                                  isGroupChat && !isSent
+                                    ? 'items-start'
+                                    : 'items-end',
+                                  isSent ? 'justify-end' : 'justify-start'
+                                )}
+                              >
+                                {isGroupChat &&
+                                  !isSent &&
+                                  (index === 0 ? (
+                                    <EntityAvatar
+                                      src={assetUrl(
+                                        `${getAppPath()}/${message.chat}/-/${message.id}/asset/avatar`
+                                      )}
+                                      styleUrl={assetUrl(
+                                        `${getAppPath()}/${message.chat}/-/${message.id}/asset/style`
+                                      )}
+                                      seed={message.member}
+                                      name={message.name}
+                                      size='xs'
+                                      className='mt-0.5 shrink-0'
+                                    />
+                                  ) : (
+                                    <div className='w-5 shrink-0' />
+                                  ))}
+
+                                {editingMessageId === message.id ? (
+                                  <div
+                                    className={cn(
+                                      'border-border bg-card flex w-full max-w-[500px] flex-col gap-2 rounded-xl border p-3 shadow-sm',
+                                      isSent ? 'ml-auto' : 'mr-auto'
+                                    )}
+                                  >
+                                    <MentionTextarea
+                                      ref={inlineTextareaRef}
+                                      value={editingBody ?? ''}
+                                      // No @ autocomplete on edit until backend accepts mention ids.
+                                      people={[]}
+                                      onValueChange={(val) =>
+                                        setEditingBody?.(val)
+                                      }
+                                      onKeyDown={(e) => {
+                                        if (e.key === 'Enter' && !e.shiftKey) {
+                                          e.preventDefault()
+                                          onSaveEdit?.(e)
+                                        } else if (e.key === 'Escape') {
+                                          e.preventDefault()
+                                          onCancelEdit?.()
+                                        }
+                                      }}
+                                      className='max-h-40 min-h-[40px] w-full resize-none overflow-y-auto rounded-none border-0 bg-transparent px-0 py-1 text-sm leading-5 shadow-none focus-visible:ring-0 focus-visible:ring-offset-0 focus-visible:outline-none'
+                                    />
+                                    <div className='text-muted-foreground/60 mt-1 flex items-center justify-end px-0.5 text-[10px]'>
+                                      <div className='flex items-center gap-2 text-xs'>
+                                        <Button
+                                          type='button'
+                                          variant='ghost'
+                                          size='sm'
+                                          onClick={onCancelEdit}
+                                          className='text-muted-foreground hover:text-foreground h-7 px-2.5'
+                                        >
+                                          <Trans>Cancel</Trans>
+                                        </Button>
+                                        <Button
+                                          type='button'
+                                          size='sm'
+                                          disabled={
+                                            isEditSaveDisabled ||
+                                            isEditingSaving
+                                          }
+                                          onClick={onSaveEdit}
+                                          className='bg-primary hover:bg-primary/80 text-primary-foreground h-7 px-2.5 font-medium transition-colors'
+                                        >
+                                          {isEditingSaving ? (
+                                            <Loader2 className='size-3 animate-spin' />
+                                          ) : (
+                                            <Check className='size-3' />
+                                          )}
+                                          <Trans>Save</Trans>
+                                        </Button>
+                                      </div>
+                                    </div>
+                                  </div>
+                                ) : (
+                                  <Bubble
+                                    variant={isSent ? 'default' : 'muted'}
+                                    align={isSent ? 'end' : 'start'}
+                                    data-active={activeMessageId === message.id}
+                                    className={cn(
+                                      'transition-[opacity,transform,max-height] duration-300 ease-out',
+                                      isDeleted && 'scale-[0.97] opacity-60',
+                                      enteringMessageIds.has(message.id) &&
+                                        'animate-in fade-in-0 slide-in-from-bottom-2 fill-mode-backwards duration-200 ease-out',
+                                      !isSelecting &&
+                                        !isDeleted &&
+                                        message.reactions &&
+                                        Object.keys(message.reactions).length >
+                                          0 &&
+                                        'mb-4'
+                                    )}
+                                  >
+                                    {isGroupChat &&
+                                    !isSent &&
+                                    index === 0 &&
+                                    message.name ? (
+                                      <span className='text-muted-foreground -mb-0.5 ml-1.5 text-xs font-semibold'>
+                                        {message.name}
+                                      </span>
+                                    ) : null}
+                                    <BubbleContent
+                                      className={cn(
+                                        isDeleted &&
+                                          'text-muted-foreground border-dashed bg-transparent italic',
+                                        attachmentsNeedFixedMediaWidth(
+                                          message.attachments
+                                        ) &&
+                                          (message.body
+                                            ? 'w-fit max-w-[calc(100vw-4.5rem)] min-w-[17.5rem]'
+                                            : CHAT_MEDIA_BUBBLE_CLASS),
+                                        message.attachments?.length &&
+                                          !attachmentsNeedFixedMediaWidth(
+                                            message.attachments
+                                          ) &&
+                                          CHAT_MEDIA_GRID_BUBBLE_CLASS,
+                                        message.attachments?.length &&
+                                          !message.body &&
+                                          'px-1.5 py-1.5'
+                                      )}
+                                    >
+                                      {isDeleted ? (
+                                        <p className='text-muted-foreground text-sm italic'>
+                                          <Trans>
+                                            This message was deleted
+                                          </Trans>
+                                        </p>
+                                      ) : (
+                                        <>
+                                          {message.reply &&
+                                          onScrollToMessage ? (
+                                            <MessageQuote
+                                              quoted={messagesById.get(
+                                                message.reply
+                                              )}
+                                              isSent={isSent}
+                                              onClick={() =>
+                                                onScrollToMessage(
+                                                  message.reply!
+                                                )
+                                              }
+                                            />
+                                          ) : null}
+
+                                          {message.attachments?.length ? (
+                                            <MessageAttachments
+                                              attachments={message.attachments}
+                                              chatId={message.chat}
+                                              isSent={isSent}
+                                            />
+                                          ) : null}
+
+                                          {message.body ? (
+                                            <MessageBody
+                                              isSent={isSent}
+                                              className={
+                                                message.attachments?.length
+                                                  ? 'mt-2'
+                                                  : undefined
+                                              }
+                                            >
+                                              {(() => {
+                                                // 1. Parse mentions first
+                                                const mentionParts =
+                                                  message.body.split(
+                                                    /(@\[[^\]]+\])/g
+                                                  )
+                                                return mentionParts.map(
+                                                  (part, i) => {
+                                                    if (part.startsWith('@[')) {
+                                                      return (
+                                                        <span
+                                                          key={i}
+                                                          className={cn(
+                                                            'rounded-sm px-1 py-0.5 font-medium',
+                                                            isSent
+                                                              ? 'bg-primary-foreground/20 text-primary-foreground'
+                                                              : 'bg-primary/15 text-primary'
+                                                          )}
+                                                        >
+                                                          @{part.slice(2, -1)}
+                                                        </span>
+                                                      )
+                                                    }
+                                                    // 2. Apply search highlight to the plain text parts
+                                                    if (
+                                                      searchActive &&
+                                                      searchQuery.length >= 2 &&
+                                                      matchedMessageIds?.has(
+                                                        message.id
+                                                      )
+                                                    ) {
+                                                      return (
+                                                        <Fragment key={i}>
+                                                          {highlightSearchText(
+                                                            part,
+                                                            searchQuery,
+                                                            activeMatchId ===
+                                                              message.id
+                                                          )}
+                                                        </Fragment>
+                                                      )
+                                                    }
+                                                    return (
+                                                      <Fragment key={i}>
+                                                        {part}
+                                                      </Fragment>
+                                                    )
+                                                  }
+                                                )
+                                              })()}
+                                            </MessageBody>
+                                          ) : null}
+                                        </>
+                                      )}
+                                    </BubbleContent>
+
+                                    {!isSelecting && !isDeleted ? (
+                                      <BubbleReactions
+                                        align={isSent ? 'end' : 'start'}
+                                        className={cn(
+                                          'rounded-lg',
+                                          isSent
+                                            ? 'flex-row-reverse'
+                                            : 'flex-row',
+                                          !message.reactions ||
+                                            Object.keys(message.reactions)
+                                              .length === 0
+                                            ? actionPillExpandOpacityMap.bubble
+                                            : ''
+                                        )}
+                                      >
+                                        {message.reactions &&
+                                          Object.keys(message.reactions)
+                                            .length > 0 && (
+                                            <MessageReactionSummary
+                                              counts={message.reactions ?? {}}
+                                              activeReaction={message.reaction}
+                                            />
+                                          )}
+
+                                        <div
+                                          className={cn(
+                                            'flex items-center gap-0.5',
+                                            isSent
+                                              ? 'flex-row-reverse'
+                                              : 'flex-row',
+                                            message.reactions &&
+                                              Object.keys(message.reactions)
+                                                .length > 0
+                                              ? actionPillExpandMaxWidthMap
+                                                  .bubble[200]
+                                              : ''
+                                          )}
+                                        >
+                                          {onReact && (
+                                            <MessageReactionPicker
+                                              activeReaction={message.reaction}
+                                              onSelect={(reaction) =>
+                                                onReact(message.id, reaction)
+                                              }
+                                              isSent={isSent}
+                                              className='!opacity-100'
+                                            />
+                                          )}
+                                          {onReply && (
+                                            <MessageHoverActions
+                                              message={message}
+                                              onReply={onReply}
+                                              onSelect={
+                                                onSelectMessage
+                                                  ? () =>
+                                                      onSelectMessage(message)
+                                                  : undefined
+                                              }
+                                              onForward={
+                                                onForward
+                                                  ? () => onForward(message)
+                                                  : undefined
+                                              }
+                                              onDelete={
+                                                onDelete
+                                                  ? () => onDelete(message)
+                                                  : undefined
+                                              }
+                                              onEdit={
+                                                canEditMessage(message, isSent)
+                                                  ? () => onStartEdit?.(message)
+                                                  : undefined
+                                              }
+                                              canDelete={isSent}
+                                              canEdit={canEditMessage(
+                                                message,
+                                                isSent
+                                              )}
+                                              className='!opacity-100'
+                                            />
+                                          )}
+                                          <span className='text-muted-foreground/70 px-1 text-[10px] whitespace-nowrap'>
+                                            {formatTime(
+                                              new Date(message.created * 1000)
+                                            )}
+                                            {message.edited ? (
+                                              <span className='ml-1 italic'>
+                                                <Trans>(edited)</Trans>
+                                              </span>
+                                            ) : null}
+                                          </span>
+                                        </div>
+                                      </BubbleReactions>
+                                    ) : null}
+                                  </Bubble>
+                                )}
+
+                                {/* Hover actions moved to BubbleReactions */}
+                              </div>
+                            </div>
+                          </div>
+                        )
+                      })}
+                    </BubbleGroup>
+                  )
+                }
+              )}
+            </Fragment>
+          ))}
         </div>
         <div ref={messagesEndRef} />
       </div>
@@ -819,7 +921,10 @@ export function ChatMessageList({
         <div className='absolute bottom-3 left-1/2 z-10 -translate-x-1/2'>
           <div className='bg-background flex items-center gap-2 rounded-full border px-4 py-2 shadow-md'>
             <span className='text-sm font-medium'>
-              {plural(selectedIds?.size ?? 0, { one: '# selected', other: '# selected' })}
+              {plural(selectedIds?.size ?? 0, {
+                one: '# selected',
+                other: '# selected',
+              })}
             </span>
             <Button
               type='button'
@@ -842,7 +947,7 @@ export function ChatMessageList({
           </div>
         </div>
       ) : isScrolledAwayFromBottom && !searchActive ? (
-        <div className='absolute left-1/2 bottom-3 z-10'>
+        <div className='absolute bottom-3 left-1/2 z-10'>
           <Tooltip>
             <TooltipTrigger asChild>
               <Button
@@ -854,9 +959,9 @@ export function ChatMessageList({
                 aria-label={
                   newMessageCount > 0
                     ? plural(newMessageCount, {
-                      one: 'Jump to 1 new message',
-                      other: 'Jump to # new messages',
-                    })
+                        one: 'Jump to 1 new message',
+                        other: 'Jump to # new messages',
+                      })
                     : t`Jump to bottom`
                 }
               >
@@ -871,9 +976,9 @@ export function ChatMessageList({
             <TooltipContent>
               {newMessageCount > 0
                 ? plural(newMessageCount, {
-                  one: 'Jump to 1 new message',
-                  other: 'Jump to # new messages',
-                })
+                    one: 'Jump to 1 new message',
+                    other: 'Jump to # new messages',
+                  })
                 : t`Jump to bottom`}
             </TooltipContent>
           </Tooltip>
@@ -882,4 +987,3 @@ export function ChatMessageList({
     </div>
   )
 }
-

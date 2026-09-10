@@ -2,7 +2,6 @@
 // SPDX-License-Identifier: AGPL-3.0-only
 // This file is part of Mochi, licensed under the GNU AGPL v3 with the
 // Mochi Application Interface Exception - see license.txt and license-exception.md.
-
 import { isImage, isVideo } from '@mochi/web'
 
 /**
@@ -17,8 +16,7 @@ export const CHAT_MEDIA_BUBBLE_CLASS =
  * Column for image / video bubbles, capped so one photo does not fill a wide
  * viewport.
  */
-export const CHAT_MEDIA_GRID_BUBBLE_CLASS =
-  'w-full max-w-[20rem] min-w-0'
+export const CHAT_MEDIA_GRID_BUBBLE_CLASS = 'w-full max-w-[20rem] min-w-0'
 
 type MediaWidthAttachment = {
   type?: string
@@ -33,7 +31,10 @@ export function attachmentsNeedFixedMediaWidth(
   if (!attachments?.length) return false
 
   const hasVisualMedia = attachments.some((att) => {
-    if (att.caption?.startsWith('voice:') || att.caption?.startsWith('audio:')) {
+    if (
+      att.caption?.startsWith('voice:') ||
+      att.caption?.startsWith('audio:')
+    ) {
       return false
     }
     const type = att.type || att.content_type || ''
@@ -42,7 +43,10 @@ export function attachmentsNeedFixedMediaWidth(
   if (hasVisualMedia) return false
 
   return attachments.some((att) => {
-    if (att.caption?.startsWith('voice:') || att.caption?.startsWith('audio:')) {
+    if (
+      att.caption?.startsWith('voice:') ||
+      att.caption?.startsWith('audio:')
+    ) {
       return true
     }
     const type = att.type || att.content_type || ''

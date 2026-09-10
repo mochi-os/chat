@@ -2,7 +2,6 @@
 // SPDX-License-Identifier: AGPL-3.0-only
 // This file is part of Mochi, licensed under the GNU AGPL v3 with the
 // Mochi Application Interface Exception - see license.txt and license-exception.md.
-
 import {
   useCallback,
   useEffect,
@@ -12,7 +11,6 @@ import {
   type PointerEvent,
 } from 'react'
 import { useLingui } from '@lingui/react/macro'
-import { Headphones, Pause, Play, X } from 'lucide-react'
 import {
   Button,
   Tooltip,
@@ -21,12 +19,10 @@ import {
   cn,
   formatVideoDuration,
 } from '@mochi/web'
-import { VoiceWaveform } from './voice-waveform'
-import {
-  extractAudioPeaks,
-  placeholderPeaks,
-} from '../utils/audio-peaks'
+import { Headphones, Pause, Play, X } from 'lucide-react'
 import { claimActiveAudio, releaseActiveAudio } from '../utils/active-audio'
+import { extractAudioPeaks, placeholderPeaks } from '../utils/audio-peaks'
+import { VoiceWaveform } from './voice-waveform'
 
 type PlayableAudioKind = 'voice' | 'audio'
 
@@ -260,7 +256,7 @@ export function VoiceNotePlayer({
   const durationEl = (
     <span
       className={cn(
-        'shrink-0 tabular-nums text-[11px] font-medium tracking-wide',
+        'shrink-0 text-[11px] font-medium tracking-wide tabular-nums',
         controlVariant === 'sent' && 'text-primary-foreground/85',
         controlVariant === 'received' && 'text-muted-foreground',
         controlVariant === 'composer' && 'text-muted-foreground'
@@ -310,8 +306,10 @@ export function VoiceNotePlayer({
         <div
           className={cn(
             'flex size-10 shrink-0 items-center justify-center rounded-full',
-            controlVariant === 'sent' && 'bg-primary-foreground/20 text-primary-foreground',
-            (controlVariant === 'received' || controlVariant === 'composer') && 'bg-primary text-primary-foreground'
+            controlVariant === 'sent' &&
+              'bg-primary-foreground/20 text-primary-foreground',
+            (controlVariant === 'received' || controlVariant === 'composer') &&
+              'bg-primary text-primary-foreground'
           )}
           aria-hidden
         >
@@ -322,9 +320,10 @@ export function VoiceNotePlayer({
           {title ? (
             <span
               className={cn(
-                'truncate text-xs font-medium leading-tight',
+                'truncate text-xs leading-tight font-medium',
                 controlVariant === 'sent' && 'text-primary-foreground/90',
-                (controlVariant === 'received' || controlVariant === 'composer') &&
+                (controlVariant === 'received' ||
+                  controlVariant === 'composer') &&
                   'text-foreground'
               )}
             >
@@ -349,7 +348,8 @@ export function VoiceNotePlayer({
                 className={cn(
                   'relative h-1 w-full rounded-full',
                   controlVariant === 'sent' && 'bg-primary-foreground/30',
-                  (controlVariant === 'received' || controlVariant === 'composer') &&
+                  (controlVariant === 'received' ||
+                    controlVariant === 'composer') &&
                     'bg-muted-foreground/30'
                 )}
               >
@@ -357,7 +357,8 @@ export function VoiceNotePlayer({
                   className={cn(
                     'absolute inset-y-0 start-0 rounded-full',
                     controlVariant === 'sent' && 'bg-primary-foreground',
-                    (controlVariant === 'received' || controlVariant === 'composer') &&
+                    (controlVariant === 'received' ||
+                      controlVariant === 'composer') &&
                       'bg-primary'
                   )}
                   style={{ width: `${progressRatio * 100}%` }}
@@ -366,7 +367,8 @@ export function VoiceNotePlayer({
                   className={cn(
                     'absolute top-1/2 size-2.5 -translate-y-1/2 rounded-full',
                     controlVariant === 'sent' && 'bg-primary-foreground',
-                    (controlVariant === 'received' || controlVariant === 'composer') &&
+                    (controlVariant === 'received' ||
+                      controlVariant === 'composer') &&
                       'bg-primary'
                   )}
                   style={{

@@ -2,12 +2,11 @@
 // SPDX-License-Identifier: AGPL-3.0-only
 // This file is part of Mochi, licensed under the GNU AGPL v3 with the
 // Mochi Application Interface Exception - see license.txt and license-exception.md.
-
-import { describe, it, expect, vi } from 'vitest'
 import { QueryClient } from '@tanstack/react-query'
+import { describe, it, expect, vi } from 'vitest'
+import type { ChatMessage, GetMessagesResponse } from '@/api/chats'
 import { handleWebsocketEvent } from './useChatWebsocket'
 import { chatKeys } from './useChats'
-import type { ChatMessage, GetMessagesResponse } from '@/api/chats'
 
 const message = (id: string): ChatMessage =>
   ({
@@ -28,15 +27,25 @@ const seeded = () => {
     more: false,
     cursor: null,
   } as unknown as GetMessagesResponse
-  client.setQueryData(chatKeys.messages('c1'), { pages: [page], pageParams: [undefined] })
+  client.setQueryData(chatKeys.messages('c1'), {
+    pages: [page],
+    pageParams: [undefined],
+  })
   return client
 }
 
 describe('handleWebsocketEvent', () => {
   it('replaces the counts from a reaction frame and leaves reaction alone', () => {
     const client = seeded()
-    handleWebsocketEvent('c1', { event: 'reaction', message: 'm1', reactions: { love: 2 } }, client, 'me')
-    const cached = client.getQueryData<{ pages: GetMessagesResponse[] }>(chatKeys.messages('c1'))
+    handleWebsocketEvent(
+      'c1',
+      { event: 'reaction', message: 'm1', reactions: { love: 2 } },
+      client,
+      'me'
+    )
+    const cached = client.getQueryData<{ pages: GetMessagesResponse[] }>(
+      chatKeys.messages('c1')
+    )
     const patched = cached?.pages[0].messages[0]
     expect(patched?.reactions).toEqual({ love: 2 })
     // The frame carries no member or reaction, so nothing else can be patched.
@@ -46,9 +55,20 @@ describe('handleWebsocketEvent', () => {
   it('invalidates the list and detail keys exactly on a rename, not every loaded page', () => {
     const client = seeded()
     const invalidate = vi.spyOn(client, 'invalidateQueries')
-    handleWebsocketEvent('c1', { event: 'rename', name: 'New name' }, client, 'me')
-    expect(invalidate).toHaveBeenCalledWith({ queryKey: chatKeys.all(), exact: true })
-    expect(invalidate).toHaveBeenCalledWith({ queryKey: chatKeys.detail('c1'), exact: true })
+    handleWebsocketEvent(
+      'c1',
+      { event: 'rename', name: 'New name' },
+      client,
+      'me'
+    )
+    expect(invalidate).toHaveBeenCalledWith({
+      queryKey: chatKeys.all(),
+      exact: true,
+    })
+    expect(invalidate).toHaveBeenCalledWith({
+      queryKey: chatKeys.detail('c1'),
+      exact: true,
+    })
     // The messages key must not be a prefix match of either call.
     for (const call of invalidate.mock.calls) {
       const filter = call[0] as { queryKey?: unknown[]; exact?: boolean }

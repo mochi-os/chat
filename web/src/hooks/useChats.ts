@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: AGPL-3.0-only
 // This file is part of Mochi, licensed under the GNU AGPL v3 with the
 // Mochi Application Interface Exception - see license.txt and license-exception.md.
-
+import type { AxiosProgressEvent } from 'axios'
 import {
   useMutation,
   useQueryClient,
@@ -11,12 +11,9 @@ import {
   type UseQueryOptions,
   type InfiniteData,
 } from '@tanstack/react-query'
-import type { AxiosProgressEvent } from 'axios'
+import { useQueryWithError, useInfiniteQueryWithError } from '@mochi/web'
 import {
-  useQueryWithError,
-  useInfiniteQueryWithError,
-} from '@mochi/web'
-import { chatsApi,
+  chatsApi,
   type ChatPolicy,
   type GetChatsResponse,
   type GetMembersResponse,
@@ -55,7 +52,7 @@ export const chatKeys = {
 
 export const invalidateChatsExceptChat = (
   queryClient: QueryClient,
-  chatId: string,
+  chatId: string
 ) =>
   queryClient.invalidateQueries({
     predicate: (query) =>
@@ -79,7 +76,7 @@ export const useChatDetailQuery = (
     enabled: Boolean(chatId) && (options?.enabled ?? true),
     queryFn: () => {
       if (!chatId) {
-        throw new Error("Chat ID is required")
+        throw new Error('Chat ID is required')
       }
       return chatsApi.detail(chatId)
     },
@@ -128,7 +125,13 @@ export const useInfiniteMessagesQuery = (
     enabled?: boolean
   }
 ) =>
-  useInfiniteQueryWithError<GetMessagesResponse, Error, InfiniteData<GetMessagesResponse>, ReturnType<typeof chatKeys.messages>, MessagesPageParam>({
+  useInfiniteQueryWithError<
+    GetMessagesResponse,
+    Error,
+    InfiniteData<GetMessagesResponse>,
+    ReturnType<typeof chatKeys.messages>,
+    MessagesPageParam
+  >({
     queryKey: chatKeys.messages(chatId ?? 'unknown'),
     enabled: Boolean(chatId) && (options?.enabled ?? true),
     initialPageParam: undefined,
@@ -175,9 +178,9 @@ export const useSendMessageMutation = (
       // query refetches every loaded page. Refetch only as a fallback when the
       // socket has not delivered within the grace period.
       window.setTimeout(() => {
-        const cached = queryClient.getQueryData<InfiniteData<GetMessagesResponse>>(
-          chatKeys.messages(variables.chatId)
-        )
+        const cached = queryClient.getQueryData<
+          InfiniteData<GetMessagesResponse>
+        >(chatKeys.messages(variables.chatId))
         const sentId = data.id
         const delivered =
           !!sentId &&
@@ -191,17 +194,20 @@ export const useSendMessageMutation = (
         }
       }, SOCKET_DELIVERY_GRACE)
       // Update the specific chat's timestamp so it sorts to top of list
-      queryClient.setQueryData<GetChatsResponse>(chatKeys.all(), (old: GetChatsResponse | undefined) => {
-        if (!old) return old
-        return {
-          ...old,
-          chats: old.chats.map((chat) =>
-            chat.id === variables.chatId
-              ? { ...chat, updated: Math.floor(Date.now() / 1000) }
-              : chat
-          ),
+      queryClient.setQueryData<GetChatsResponse>(
+        chatKeys.all(),
+        (old: GetChatsResponse | undefined) => {
+          if (!old) return old
+          return {
+            ...old,
+            chats: old.chats.map((chat) =>
+              chat.id === variables.chatId
+                ? { ...chat, updated: Math.floor(Date.now() / 1000) }
+                : chat
+            ),
+          }
         }
-      })
+      )
       onSuccess?.(data, variables, context, mutation)
     },
     ...restOptions,
@@ -340,7 +346,7 @@ export const useChatMembersQuery = (
     enabled: Boolean(chatId) && (options?.enabled ?? true),
     queryFn: () => {
       if (!chatId) {
-        throw new Error("Chat ID is required")
+        throw new Error('Chat ID is required')
       }
       return chatsApi.getMembers(chatId)
     },
@@ -352,7 +358,12 @@ interface RenameChatVariables extends RenameRequest {
 }
 
 export const useRenameChatMutation = (
-  options?: UseMutationOptions<RenameResponse, Error, RenameChatVariables, unknown>
+  options?: UseMutationOptions<
+    RenameResponse,
+    Error,
+    RenameChatVariables,
+    unknown
+  >
 ) => {
   const queryClient = useQueryClient()
   const { onSuccess, ...restOptions } = options ?? {}
@@ -363,7 +374,10 @@ export const useRenameChatMutation = (
       // The list and the one chat's detail; a rename changes neither the
       // messages nor any other chat. See the note in the create mutation.
       queryClient.invalidateQueries({ queryKey: chatKeys.all(), exact: true })
-      queryClient.invalidateQueries({ queryKey: chatKeys.detail(variables.chatId), exact: true })
+      queryClient.invalidateQueries({
+        queryKey: chatKeys.detail(variables.chatId),
+        exact: true,
+      })
       onSuccess?.(data, variables, context, mutation)
     },
     ...restOptions,
@@ -375,7 +389,12 @@ interface LeaveChatVariables extends LeaveRequest {
 }
 
 export const useLeaveChatMutation = (
-  options?: UseMutationOptions<LeaveResponse, Error, LeaveChatVariables, unknown>
+  options?: UseMutationOptions<
+    LeaveResponse,
+    Error,
+    LeaveChatVariables,
+    unknown
+  >
 ) => {
   const queryClient = useQueryClient()
   const { onSuccess, ...restOptions } = options ?? {}
@@ -395,7 +414,12 @@ interface DeleteChatVariables {
 }
 
 export const useDeleteChatMutation = (
-  options?: UseMutationOptions<DeleteResponse, Error, DeleteChatVariables, unknown>
+  options?: UseMutationOptions<
+    DeleteResponse,
+    Error,
+    DeleteChatVariables,
+    unknown
+  >
 ) => {
   const queryClient = useQueryClient()
   const { onSuccess, ...restOptions } = options ?? {}
@@ -414,7 +438,12 @@ interface AddMemberVariables extends MemberAddRequest {
 }
 
 export const useAddMemberMutation = (
-  options?: UseMutationOptions<MemberAddResponse, Error, AddMemberVariables, unknown>
+  options?: UseMutationOptions<
+    MemberAddResponse,
+    Error,
+    AddMemberVariables,
+    unknown
+  >
 ) => {
   const queryClient = useQueryClient()
   const { onSuccess, ...restOptions } = options ?? {}
@@ -425,7 +454,9 @@ export const useAddMemberMutation = (
       queryClient.invalidateQueries({
         queryKey: ['chats', variables.chatId, 'members'],
       })
-      queryClient.invalidateQueries({ queryKey: chatKeys.detail(variables.chatId) })
+      queryClient.invalidateQueries({
+        queryKey: chatKeys.detail(variables.chatId),
+      })
       onSuccess?.(data, variables, context, mutation)
     },
     ...restOptions,
@@ -453,7 +484,9 @@ export const useRemoveMemberMutation = (
       queryClient.invalidateQueries({
         queryKey: ['chats', variables.chatId, 'members'],
       })
-      queryClient.invalidateQueries({ queryKey: chatKeys.detail(variables.chatId) })
+      queryClient.invalidateQueries({
+        queryKey: chatKeys.detail(variables.chatId),
+      })
       onSuccess?.(data, variables, context, mutation)
     },
     ...restOptions,
@@ -567,10 +600,7 @@ interface ForwardToFriendVariables {
 
 // Bump the destination chat so it sorts to the top of the list; the destination
 // message list itself fills in via its own websocket events.
-const forwardedBump = (
-  queryClient: QueryClient,
-  toChat: string,
-) =>
+const forwardedBump = (queryClient: QueryClient, toChat: string) =>
   queryClient.setQueryData<GetChatsResponse>(chatKeys.all(), (old) => {
     if (!old) return old
     return {

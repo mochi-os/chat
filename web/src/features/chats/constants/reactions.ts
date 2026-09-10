@@ -2,13 +2,12 @@
 // SPDX-License-Identifier: AGPL-3.0-only
 // This file is part of Mochi, licensed under the GNU AGPL v3 with the
 // Mochi Application Interface Exception - see license.txt and license-exception.md.
-
 import { useLingui } from '@lingui/react/macro'
-
 // Re-exported, not redefined: the reaction set is a wire contract the server
 // validates, so api/types owns it and this module supplies the presentation
 // (emoji, labels) and the runtime guard. Two copies could drift apart silently.
 import type { ReactionId, ReactionCounts } from '@/api/types/chats'
+
 export type { ReactionId, ReactionCounts }
 
 const reactionOptions: { id: ReactionId; emoji: string }[] = [

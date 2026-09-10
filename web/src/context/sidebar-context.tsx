@@ -2,7 +2,6 @@
 // SPDX-License-Identifier: AGPL-3.0-only
 // This file is part of Mochi, licensed under the GNU AGPL v3 with the
 // Mochi Application Interface Exception - see license.txt and license-exception.md.
-
 import {
   createContext,
   useContext,
@@ -11,6 +10,8 @@ import {
   useEffect,
   type ReactNode,
 } from 'react'
+import { getWebsocketStatusMeta, type WebsocketStatusMeta } from '@mochi/web'
+import type { WebsocketConnectionStatus } from '@/lib/websocket-manager'
 import {
   getDraftChatIds,
   getMarkedUnreadChats,
@@ -19,11 +20,6 @@ import {
   setMarkedUnreadChats,
   setPinnedChats,
 } from '@/hooks/useChatStorage'
-import {
-  getWebsocketStatusMeta,
-  type WebsocketStatusMeta,
-} from '@mochi/web'
-import type { WebsocketConnectionStatus } from '@/lib/websocket-manager'
 
 type SidebarContextValue = {
   chatId: string | null
@@ -131,17 +127,20 @@ export function SidebarProvider({ children }: { children: ReactNode }) {
     [draftChatIds]
   )
 
-  const setChatDraftPresent = useCallback((chatId: string, present: boolean) => {
-    setDraftChatIdsState((prev) => {
-      const has = prev.has(chatId)
-      if (present === has) return prev
-      const next = new Set(prev)
-      if (present) next.add(chatId)
-      else next.delete(chatId)
-      setDraftChatIds(next)
-      return next
-    })
-  }, [])
+  const setChatDraftPresent = useCallback(
+    (chatId: string, present: boolean) => {
+      setDraftChatIdsState((prev) => {
+        const has = prev.has(chatId)
+        if (present === has) return prev
+        const next = new Set(prev)
+        if (present) next.add(chatId)
+        else next.delete(chatId)
+        setDraftChatIds(next)
+        return next
+      })
+    },
+    []
+  )
 
   const setChat = useCallback((id: string | null, name?: string) => {
     setChatId(id)

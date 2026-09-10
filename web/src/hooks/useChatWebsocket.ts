@@ -2,27 +2,26 @@
 // SPDX-License-Identifier: AGPL-3.0-only
 // This file is part of Mochi, licensed under the GNU AGPL v3 with the
 // Mochi Application Interface Exception - see license.txt and license-exception.md.
-
 import { useCallback, useEffect, useState } from 'react'
-import { useLingui } from '@lingui/react/macro'
 import {
   useQueryClient,
   type QueryClient,
   type InfiniteData,
 } from '@tanstack/react-query'
+import { useLingui } from '@lingui/react/macro'
 import type {
   ChatMessage,
   ChatMessageAttachment,
   GetMessagesResponse,
   ReactionCounts,
 } from '@/api/chats'
-import { isReactionId } from '@/features/chats/constants/reactions'
 import {
   type ChatWebsocketMessagePayload,
   type WebsocketConnectionStatus,
 } from '@/lib/websocket-manager'
 import { chatKeys, invalidateChatsExceptChat } from '@/hooks/useChats'
 import { useWebsocketManager } from '@/hooks/useWebsocketManager'
+import { isReactionId } from '@/features/chats/constants/reactions'
 import { applyMessageEditLWW } from '@/features/chats/utils/message-edit-lww'
 
 type NormalizedChatWebsocketMessagePayload = Omit<
@@ -40,7 +39,10 @@ interface UseChatWebsocketResult {
   forceReconnect: () => void
 }
 
-const isSameMessage = (incoming: ChatMessage, existing: ChatMessage): boolean => {
+const isSameMessage = (
+  incoming: ChatMessage,
+  existing: ChatMessage
+): boolean => {
   const incomingHasRealId = incoming.id && !incoming.id.startsWith('ws-')
   const existingHasRealId = existing.id && !existing.id.startsWith('ws-')
   if (incomingHasRealId && existingHasRealId) {
@@ -86,7 +88,7 @@ const normalizePayload = (
 const createMessageFromPayload = (
   chatId: string,
   payload: NormalizedChatWebsocketMessagePayload,
-  unknownSenderLabel: string,
+  unknownSenderLabel: string
 ): ChatMessage => {
   const created =
     typeof payload.created === 'number'
@@ -94,7 +96,8 @@ const createMessageFromPayload = (
       : Math.floor(Date.now() / 1000)
   const messageBody =
     typeof payload.body === 'string' ? payload.body : String(payload.body ?? '')
-  const senderName = typeof payload.name === 'string' ? payload.name : unknownSenderLabel
+  const senderName =
+    typeof payload.name === 'string' ? payload.name : unknownSenderLabel
   const senderId = typeof payload.member === 'string' ? payload.member : ''
 
   const replyTo =
@@ -103,9 +106,10 @@ const createMessageFromPayload = (
       : undefined
 
   return {
-    id: typeof payload.id === 'string' && payload.id
-      ? payload.id
-      : `ws-${chatId}-${created}-${Math.random().toString(36).slice(2)}`,
+    id:
+      typeof payload.id === 'string' && payload.id
+        ? payload.id
+        : `ws-${chatId}-${created}-${Math.random().toString(36).slice(2)}`,
     chat: chatId,
     body: messageBody,
     member: senderId,
@@ -216,7 +220,8 @@ const patchMessageEditFromWebsocket = (
   payload: NormalizedChatWebsocketMessagePayload,
   queryClient: QueryClient
 ) => {
-  const messageId = typeof payload.message === 'string' ? payload.message : undefined
+  const messageId =
+    typeof payload.message === 'string' ? payload.message : undefined
   const body = typeof payload.body === 'string' ? payload.body : undefined
   const edited = typeof payload.edited === 'number' ? payload.edited : undefined
 
@@ -289,9 +294,17 @@ export const handleWebsocketEvent = (
         // exact: both keys prefix-match ['chats', id, 'messages'], so a plain
         // invalidate refetched every loaded page of the open conversation to
         // learn a name or a roster changed. The members key is its own entry.
-        void queryClient.invalidateQueries({ queryKey: chatKeys.all(), exact: true })
-        void queryClient.invalidateQueries({ queryKey: chatKeys.detail(chatId), exact: true })
-        void queryClient.invalidateQueries({ queryKey: ['chats', chatId, 'members'] })
+        void queryClient.invalidateQueries({
+          queryKey: chatKeys.all(),
+          exact: true,
+        })
+        void queryClient.invalidateQueries({
+          queryKey: chatKeys.detail(chatId),
+          exact: true,
+        })
+        void queryClient.invalidateQueries({
+          queryKey: ['chats', chatId, 'members'],
+        })
         return 'event'
       }
     }
@@ -305,7 +318,7 @@ const appendMessageToCache = (
   payload: NormalizedChatWebsocketMessagePayload,
   queryClient: QueryClient,
   unknownSenderLabel: string,
-  currentUserId?: string,
+  currentUserId?: string
 ) => {
   if (!chatId) {
     return
@@ -325,7 +338,11 @@ const appendMessageToCache = (
   queryClient.setQueryData<InfiniteData<GetMessagesResponse>>(
     chatKeys.messages(chatId),
     (current) => {
-      const incomingMessage = createMessageFromPayload(chatId, payload, unknownSenderLabel)
+      const incomingMessage = createMessageFromPayload(
+        chatId,
+        payload,
+        unknownSenderLabel
+      )
 
       if (!current || !current.pages || current.pages.length === 0) {
         // Initialize with a single page containing the message

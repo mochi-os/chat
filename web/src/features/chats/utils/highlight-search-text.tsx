@@ -2,7 +2,6 @@
 // SPDX-License-Identifier: AGPL-3.0-only
 // This file is part of Mochi, licensed under the GNU AGPL v3 with the
 // Mochi Application Interface Exception - see license.txt and license-exception.md.
-
 import type { ReactNode } from 'react'
 
 export function highlightSearchText(
@@ -36,8 +35,8 @@ export function highlightSearchText(
         key={key++}
         className={
           isActive
-            ? 'rounded bg-warning/70 px-0.5 text-warning-foreground'
-            : 'rounded bg-warning/30 px-0.5'
+            ? 'bg-warning/70 text-warning-foreground rounded px-0.5'
+            : 'bg-warning/30 rounded px-0.5'
         }
       >
         {text.slice(index, index + query.length)}

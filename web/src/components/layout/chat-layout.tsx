@@ -2,10 +2,9 @@
 // SPDX-License-Identifier: AGPL-3.0-only
 // This file is part of Mochi, licensed under the GNU AGPL v3 with the
 // Mochi Application Interface Exception - see license.txt and license-exception.md.
-
 import { useCallback, useEffect, useMemo } from 'react'
-import { useLingui } from '@lingui/react/macro'
 import { Outlet, useParams } from '@tanstack/react-router'
+import { useLingui } from '@lingui/react/macro'
 import {
   cn,
   useSidebar,
@@ -19,12 +18,12 @@ import {
   type SidebarData,
 } from '@mochi/web'
 import { CheckCheck, Mail, Pin, PinOff, Plus, Users } from 'lucide-react'
+import { personAssetUrl } from '@/api/person'
+import { chatActive } from '@/api/types/chats'
 import { SidebarProvider, useSidebarContext } from '@/context/sidebar-context'
 import { useChatsQuery, useMarkChatReadMutation } from '@/hooks/useChats'
-import { chatActive } from '@/api/types/chats'
-import { formatCountBadge } from '@/features/chats/utils'
 import { NewChat } from '@/features/chats/components/new-chat'
-import { personAssetUrl } from '@/api/person'
+import { formatCountBadge } from '@/features/chats/utils'
 
 const UNREAD_DOT = '●'
 
@@ -54,7 +53,11 @@ function formatChatSidebarBadge(
 // is enough: the working set is whatever is on screen.
 const ICON_CACHE_MAXIMUM = 200
 
-function cacheRemember<T>(cache: Map<string, T>, key: string, make: () => T): T {
+function cacheRemember<T>(
+  cache: Map<string, T>,
+  key: string,
+  make: () => T
+): T {
   const held = cache.get(key)
   if (held) return held
   const made = make()
@@ -72,7 +75,7 @@ const groupIconCache = new Map<string, React.FC>()
 function groupIcon(chatId: string): React.FC {
   return cacheRemember(groupIconCache, chatId, () => {
     const Icon = function GroupIcon() {
-      return <EntityAvatar size="sm" icon={Users} />
+      return <EntityAvatar size='sm' icon={Users} />
     }
     // eslint-disable-next-line lingui/no-unlocalized-strings -- React displayName is dev-tooling only, not user-facing
     Icon.displayName = `GroupIcon(${chatId})`
@@ -88,7 +91,7 @@ function personIcon(personId: string, name?: string): React.FC {
           src={personAssetUrl(personId, 'avatar')}
           styleUrl={personAssetUrl(personId, 'style')}
           name={name}
-          size="sm"
+          size='sm'
         />
       )
     }
@@ -258,9 +261,7 @@ function ChatLayoutInner() {
         endIcon: pinned ? Pin : undefined,
         tooltipAlways: true,
         meta:
-          hasChatDraft(chat.id) && chat.id !== urlChatId
-            ? t`Draft`
-            : undefined,
+          hasChatDraft(chat.id) && chat.id !== urlChatId ? t`Draft` : undefined,
         badge:
           chatActive(chat) && chat.id !== urlChatId
             ? formatChatSidebarBadge(unread, markedUnread, formatNumber)

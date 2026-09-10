@@ -18,7 +18,7 @@ export interface Chat {
   name: string
   updated: number
   members: number
-  other?: string  // For 2-member chats: the other member's entity ID
+  other?: string // For 2-member chats: the other member's entity ID
   status?: ChatStatus
   unread?: number
 }

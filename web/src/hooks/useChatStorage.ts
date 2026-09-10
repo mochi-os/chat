@@ -2,9 +2,7 @@
 // SPDX-License-Identifier: AGPL-3.0-only
 // This file is part of Mochi, licensed under the GNU AGPL v3 with the
 // Mochi Application Interface Exception - see license.txt and license-exception.md.
-
 // Shell storage utilities for chat app - stores last visited chat and per-chat drafts
-
 import { shellStorage } from '@mochi/web'
 
 const STORAGE_KEY = 'mochi-chat-last'
@@ -96,7 +94,9 @@ export async function isReadTimestampsMigrated(): Promise<boolean> {
   return flag === '1'
 }
 
-export async function getLegacyReadTimestamps(): Promise<Record<string, number>> {
+export async function getLegacyReadTimestamps(): Promise<
+  Record<string, number>
+> {
   const raw = await shellStorage.getItem(LEGACY_READ_KEY)
   if (!raw) return {}
   try {

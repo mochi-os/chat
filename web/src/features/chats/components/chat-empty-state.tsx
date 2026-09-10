@@ -2,18 +2,20 @@
 // SPDX-License-Identifier: AGPL-3.0-only
 // This file is part of Mochi, licensed under the GNU AGPL v3 with the
 // Mochi Application Interface Exception - see license.txt and license-exception.md.
-
-import { Button, EmptyState } from '@mochi/web'
-import { Trans } from '@lingui/react/macro'
-import { MessageCircle, Plus } from 'lucide-react'
 import { t } from '@lingui/core/macro'
+import { Trans } from '@lingui/react/macro'
+import { Button, EmptyState } from '@mochi/web'
+import { MessageCircle, Plus } from 'lucide-react'
 
 interface ChatEmptyStateProps {
   onNewChat: () => void
   hasExistingChats: boolean
 }
 
-export function ChatEmptyState({ onNewChat, hasExistingChats }: ChatEmptyStateProps) {
+export function ChatEmptyState({
+  onNewChat,
+  hasExistingChats,
+}: ChatEmptyStateProps) {
   if (hasExistingChats) {
     return (
       <div className='flex h-full w-full flex-1 flex-col items-center justify-center'>
@@ -22,7 +24,7 @@ export function ChatEmptyState({ onNewChat, hasExistingChats }: ChatEmptyStatePr
           title={t`Select a chat`}
           description={t`Choose a conversation from the sidebar or start a new one.`}
         >
-          <Button onClick={onNewChat} variant="outline">
+          <Button onClick={onNewChat} variant='outline'>
             <Plus className='size-4' />
             <Trans>New chat</Trans>
           </Button>
