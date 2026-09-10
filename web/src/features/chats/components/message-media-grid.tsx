@@ -73,7 +73,6 @@ function gridClassName(count: number) {
 }
 
 function tileClassName(count: number, index: number) {
-  // eslint-disable-next-line lingui/no-unlocalized-strings -- Tailwind class names
   if (count === 1) return 'aspect-[4/3] max-h-56'
   // eslint-disable-next-line lingui/no-unlocalized-strings -- Tailwind class names
   if (count === 3 && index === 2) return 'col-span-2 aspect-[2/1]'
