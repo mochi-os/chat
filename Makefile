@@ -56,10 +56,11 @@ dev:
 i18n-extract:
 	bash -c 'cd web && $(SAFE_PNPM) i18n:extract --clean'
 
-# Run this app's P2P event-handler flows against the local dev instance. These
-# are integration tests: they need mochi1 running (they drive real HTTP and the
-# event pipeline), and the harness prints a clear message if it is not up.
+# Run this app's P2P event-handler flows and its test/ scripts against the local
+# dev instances. These are integration tests: they need mochi1 and mochi2 running
+# (they drive real HTTP and the event pipeline).
 # .PHONY because a test/ directory may exist and would otherwise shadow the target.
 .PHONY: test
 test:
 	python3 ../../claude/scripts/p2p-test.py --app $(APP)
+	python3 test/test_chat_status.py
