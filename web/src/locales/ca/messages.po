@@ -27,7 +27,7 @@ msgstr "(editat)"
 msgid "(expand)"
 msgstr "(expandeix)"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx
+#: ../../../lib/web/src/components/member-list.tsx
 msgid "(you)"
 msgstr "(tu)"
 
@@ -356,11 +356,6 @@ msgstr "Segur que vols sortir de «{chatName}»? Altres membres et poden tornar 
 #: ../../../lib/web/src/components/sign-out-dialog.tsx
 msgid "Are you sure you want to log out? You will need to log in again to access your account."
 msgstr "Segur que vols tancar la sessió? Hauràs de tornar a iniciar sessió per accedir al teu compte."
-
-#. placeholder {0}: member?.name
-#: src/routes/_authenticated/$chatId_.settings.tsx
-msgid "Are you sure you want to remove {0} from this chat?"
-msgstr "Segur que vols eliminar {0} d'aquest xat?"
 
 #: ../../../lib/web/src/components/game/game-end-dialogs.tsx
 msgid "Are you sure you want to resign?"
@@ -2097,6 +2092,7 @@ msgstr "Missatge original"
 msgid "Other"
 msgstr "Altres"
 
+#: ../../../lib/web/src/components/member-list.tsx
 #: ../../../lib/web/src/features/access/access-list.tsx
 msgid "Owner"
 msgstr "Propietari"
@@ -2301,10 +2297,8 @@ msgstr "Rellevància {relevance}, interès {weight}"
 msgid "Remove"
 msgstr "Elimina"
 
-#. placeholder {0}: member.name
 #. placeholder {0}: reaction.label
 #: src/features/chats/components/message-reaction-bar.tsx
-#: src/routes/_authenticated/$chatId_.settings.tsx
 msgid "Remove {0}"
 msgstr "Elimina {0}"
 
@@ -2313,6 +2307,14 @@ msgstr "Elimina {0}"
 #: ../../../lib/web/src/components/filter-bar.tsx
 msgid "Remove {0} filter"
 msgstr "Elimina el filtre {0}"
+
+#: ../../../lib/web/src/components/member-list.tsx
+msgid "Remove {name}"
+msgstr ""
+
+#: src/routes/_authenticated/$chatId_.settings.tsx
+msgid "Remove {name}?"
+msgstr ""
 
 #: ../../../lib/web/src/features/access/access-list.tsx
 #: ../../../lib/web/src/features/access/access-list.tsx
@@ -2345,10 +2347,6 @@ msgstr "Elimina l'element"
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx
 msgid "Remove link"
 msgstr "Elimina l'enllaç"
-
-#: src/routes/_authenticated/$chatId_.settings.tsx
-msgid "Remove member?"
-msgstr "Vols eliminar el membre?"
 
 #: src/features/chats/components/audio-player.tsx
 msgid "Remove voice note"
@@ -2865,6 +2863,10 @@ msgstr "El servidor ha retornat una pàgina web en lloc de dades."
 #: src/features/chats/index.tsx
 msgid "These names are not in this chat: {0}. Pick from the @ list or remove them."
 msgstr "Aquests noms no són en aquest xat: {0}. Trieu de la llista @ o elimineu-los."
+
+#: src/routes/_authenticated/$chatId_.settings.tsx
+msgid "They stop receiving new messages in this chat."
+msgstr ""
 
 #: ../../../lib/web/src/lib/shell-errors.ts
 msgid "This app is not allowed to use your passkey. Allow it in Settings, under Permissions."

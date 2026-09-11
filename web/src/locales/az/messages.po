@@ -27,7 +27,7 @@ msgstr "(redaktə edildi)"
 msgid "(expand)"
 msgstr "(genişləndir)"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx
+#: ../../../lib/web/src/components/member-list.tsx
 msgid "(you)"
 msgstr "(siz)"
 
@@ -356,11 +356,6 @@ msgstr "\"{chatName}\"-dan ayrılmaq istədiyinizə əminsiniz? Digər üzvlər 
 #: ../../../lib/web/src/components/sign-out-dialog.tsx
 msgid "Are you sure you want to log out? You will need to log in again to access your account."
 msgstr "Çıxmaq istədiyinizə əminsiniz? Hesabınıza giriş üçün yenidən daxil olmalı olacaqsınız."
-
-#. placeholder {0}: member?.name
-#: src/routes/_authenticated/$chatId_.settings.tsx
-msgid "Are you sure you want to remove {0} from this chat?"
-msgstr "{0} bu söhbətdən silmək istədiyinizə əminsiniz?"
 
 #: ../../../lib/web/src/components/game/game-end-dialogs.tsx
 msgid "Are you sure you want to resign?"
@@ -2097,6 +2092,7 @@ msgstr "Orijinal mesaj"
 msgid "Other"
 msgstr "Digər"
 
+#: ../../../lib/web/src/components/member-list.tsx
 #: ../../../lib/web/src/features/access/access-list.tsx
 msgid "Owner"
 msgstr "Sahibi"
@@ -2301,10 +2297,8 @@ msgstr "Uyğunluq {relevance}, maraq {weight}"
 msgid "Remove"
 msgstr "Sil"
 
-#. placeholder {0}: member.name
 #. placeholder {0}: reaction.label
 #: src/features/chats/components/message-reaction-bar.tsx
-#: src/routes/_authenticated/$chatId_.settings.tsx
 msgid "Remove {0}"
 msgstr "{0} sil"
 
@@ -2313,6 +2307,14 @@ msgstr "{0} sil"
 #: ../../../lib/web/src/components/filter-bar.tsx
 msgid "Remove {0} filter"
 msgstr "{0} filtrini sil"
+
+#: ../../../lib/web/src/components/member-list.tsx
+msgid "Remove {name}"
+msgstr ""
+
+#: src/routes/_authenticated/$chatId_.settings.tsx
+msgid "Remove {name}?"
+msgstr ""
 
 #: ../../../lib/web/src/features/access/access-list.tsx
 #: ../../../lib/web/src/features/access/access-list.tsx
@@ -2345,10 +2347,6 @@ msgstr "Elementi sil"
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx
 msgid "Remove link"
 msgstr "Keçidi sil"
-
-#: src/routes/_authenticated/$chatId_.settings.tsx
-msgid "Remove member?"
-msgstr "Üzvü silək?"
 
 #: src/features/chats/components/audio-player.tsx
 msgid "Remove voice note"
@@ -2865,6 +2863,10 @@ msgstr "Server məlumat əvəzinə veb səhifə qaytardı."
 #: src/features/chats/index.tsx
 msgid "These names are not in this chat: {0}. Pick from the @ list or remove them."
 msgstr "Bu adlar bu söhbətdə yoxdur: {0}. @ siyahısından seçin və ya onları silin."
+
+#: src/routes/_authenticated/$chatId_.settings.tsx
+msgid "They stop receiving new messages in this chat."
+msgstr ""
 
 #: ../../../lib/web/src/lib/shell-errors.ts
 msgid "This app is not allowed to use your passkey. Allow it in Settings, under Permissions."

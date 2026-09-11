@@ -27,7 +27,7 @@ msgstr "(bearbeitet)"
 msgid "(expand)"
 msgstr "(erweitern)"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx
+#: ../../../lib/web/src/components/member-list.tsx
 msgid "(you)"
 msgstr "(du)"
 
@@ -356,11 +356,6 @@ msgstr "Möchtest du \"{chatName}\" wirklich verlassen? Andere Mitglieder könne
 #: ../../../lib/web/src/components/sign-out-dialog.tsx
 msgid "Are you sure you want to log out? You will need to log in again to access your account."
 msgstr "Möchten Sie sich wirklich abmelden? Sie müssen sich erneut anmelden, um auf Ihr Konto zuzugreifen."
-
-#. placeholder {0}: member?.name
-#: src/routes/_authenticated/$chatId_.settings.tsx
-msgid "Are you sure you want to remove {0} from this chat?"
-msgstr "Möchtest du {0} wirklich aus diesem Chat entfernen?"
 
 #: ../../../lib/web/src/components/game/game-end-dialogs.tsx
 msgid "Are you sure you want to resign?"
@@ -2097,6 +2092,7 @@ msgstr "Originalnachricht"
 msgid "Other"
 msgstr "Sonstige"
 
+#: ../../../lib/web/src/components/member-list.tsx
 #: ../../../lib/web/src/features/access/access-list.tsx
 msgid "Owner"
 msgstr "Eigentümer"
@@ -2301,10 +2297,8 @@ msgstr "Relevanz {relevance}, Interesse {weight}"
 msgid "Remove"
 msgstr "Entfernen"
 
-#. placeholder {0}: member.name
 #. placeholder {0}: reaction.label
 #: src/features/chats/components/message-reaction-bar.tsx
-#: src/routes/_authenticated/$chatId_.settings.tsx
 msgid "Remove {0}"
 msgstr "{0} entfernen"
 
@@ -2313,6 +2307,14 @@ msgstr "{0} entfernen"
 #: ../../../lib/web/src/components/filter-bar.tsx
 msgid "Remove {0} filter"
 msgstr "Filter {0} entfernen"
+
+#: ../../../lib/web/src/components/member-list.tsx
+msgid "Remove {name}"
+msgstr ""
+
+#: src/routes/_authenticated/$chatId_.settings.tsx
+msgid "Remove {name}?"
+msgstr ""
 
 #: ../../../lib/web/src/features/access/access-list.tsx
 #: ../../../lib/web/src/features/access/access-list.tsx
@@ -2345,10 +2347,6 @@ msgstr "Element entfernen"
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx
 msgid "Remove link"
 msgstr "Link entfernen"
-
-#: src/routes/_authenticated/$chatId_.settings.tsx
-msgid "Remove member?"
-msgstr "Mitglied entfernen?"
 
 #: src/features/chats/components/audio-player.tsx
 msgid "Remove voice note"
@@ -2865,6 +2863,10 @@ msgstr "Der Server hat eine Webseite statt Daten zurückgegeben."
 #: src/features/chats/index.tsx
 msgid "These names are not in this chat: {0}. Pick from the @ list or remove them."
 msgstr "Diese Namen sind nicht in diesem Chat: {0}. Wähle aus der @-Liste oder entferne sie."
+
+#: src/routes/_authenticated/$chatId_.settings.tsx
+msgid "They stop receiving new messages in this chat."
+msgstr ""
 
 #: ../../../lib/web/src/lib/shell-errors.ts
 msgid "This app is not allowed to use your passkey. Allow it in Settings, under Permissions."

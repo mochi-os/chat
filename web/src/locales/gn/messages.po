@@ -27,7 +27,7 @@ msgstr "(oñembojeguáva)"
 msgid "(expand)"
 msgstr "(emyenyhẽ)"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx
+#: ../../../lib/web/src/components/member-list.tsx
 msgid "(you)"
 msgstr "(nde)"
 
@@ -356,11 +356,6 @@ msgstr "Añetehápe esẽse \"{chatName}\"-gui? Ambue membro ikatu nembojuajujey
 #: ../../../lib/web/src/components/sign-out-dialog.tsx
 msgid "Are you sure you want to log out? You will need to log in again to access your account."
 msgstr "Añetehápe esẽse? Eñepyrũjeýta hag̃ua eike ne tetãyguápe."
-
-#. placeholder {0}: member?.name
-#: src/routes/_authenticated/$chatId_.settings.tsx
-msgid "Are you sure you want to remove {0} from this chat?"
-msgstr "Añetehápe eipe'ase {0} ko chat-gui?"
 
 #: ../../../lib/web/src/components/game/game-end-dialogs.tsx
 msgid "Are you sure you want to resign?"
@@ -2097,6 +2092,7 @@ msgstr "Ñe'ẽmondo ypykue"
 msgid "Other"
 msgstr "Ambue"
 
+#: ../../../lib/web/src/components/member-list.tsx
 #: ../../../lib/web/src/features/access/access-list.tsx
 msgid "Owner"
 msgstr "Mburuvicha"
@@ -2301,10 +2297,8 @@ msgstr "Relevancia {relevance}, temimbota {weight}"
 msgid "Remove"
 msgstr "Embogue"
 
-#. placeholder {0}: member.name
 #. placeholder {0}: reaction.label
 #: src/features/chats/components/message-reaction-bar.tsx
-#: src/routes/_authenticated/$chatId_.settings.tsx
 msgid "Remove {0}"
 msgstr "Embogue {0}"
 
@@ -2313,6 +2307,14 @@ msgstr "Embogue {0}"
 #: ../../../lib/web/src/components/filter-bar.tsx
 msgid "Remove {0} filter"
 msgstr "Embogue {0} filter"
+
+#: ../../../lib/web/src/components/member-list.tsx
+msgid "Remove {name}"
+msgstr ""
+
+#: src/routes/_authenticated/$chatId_.settings.tsx
+msgid "Remove {name}?"
+msgstr ""
 
 #: ../../../lib/web/src/features/access/access-list.tsx
 #: ../../../lib/web/src/features/access/access-list.tsx
@@ -2345,10 +2347,6 @@ msgstr "Embogue mba'e"
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx
 msgid "Remove link"
 msgstr "Emboguepa juajuha"
-
-#: src/routes/_authenticated/$chatId_.settings.tsx
-msgid "Remove member?"
-msgstr "Embogue miembro?"
 
 #: src/features/chats/components/audio-player.tsx
 msgid "Remove voice note"
@@ -2865,6 +2863,10 @@ msgstr "Servidor ombohovái peteĩ web rogue, datos rangue."
 #: src/features/chats/index.tsx
 msgid "These names are not in this chat: {0}. Pick from the @ list or remove them."
 msgstr "Ko'ã téra ndaipóri ko chat-pe: {0}. Eiporavo @ lista-gui térã eipe'a."
+
+#: src/routes/_authenticated/$chatId_.settings.tsx
+msgid "They stop receiving new messages in this chat."
+msgstr ""
 
 #: ../../../lib/web/src/lib/shell-errors.ts
 msgid "This app is not allowed to use your passkey. Allow it in Settings, under Permissions."

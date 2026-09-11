@@ -27,7 +27,7 @@ msgstr "(ترمیم شدہ)"
 msgid "(expand)"
 msgstr "(پھیلائیں)"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx
+#: ../../../lib/web/src/components/member-list.tsx
 msgid "(you)"
 msgstr "(آپ)"
 
@@ -356,11 +356,6 @@ msgstr "کیا آپ واقعی \"{chatName}\" چھوڑنا چاہتے ہیں؟ �
 #: ../../../lib/web/src/components/sign-out-dialog.tsx
 msgid "Are you sure you want to log out? You will need to log in again to access your account."
 msgstr "کیا آپ واقعی لاگ آؤٹ کرنا چاہتے ہیں؟ آپ کو اپنے اکاؤنٹ تک رسائی کے لیے دوبارہ لاگ ان کرنا ہوگا۔"
-
-#. placeholder {0}: member?.name
-#: src/routes/_authenticated/$chatId_.settings.tsx
-msgid "Are you sure you want to remove {0} from this chat?"
-msgstr "کیا آپ واقعی {0} کو اس چیٹ سے ہٹانا چاہتے ہیں؟"
 
 #: ../../../lib/web/src/components/game/game-end-dialogs.tsx
 msgid "Are you sure you want to resign?"
@@ -2097,6 +2092,7 @@ msgstr "اصل پیغام"
 msgid "Other"
 msgstr "دیگر"
 
+#: ../../../lib/web/src/components/member-list.tsx
 #: ../../../lib/web/src/features/access/access-list.tsx
 msgid "Owner"
 msgstr "مالک"
@@ -2301,10 +2297,8 @@ msgstr "مطابقت {relevance}، دلچسپی {weight}"
 msgid "Remove"
 msgstr "ہٹائیں"
 
-#. placeholder {0}: member.name
 #. placeholder {0}: reaction.label
 #: src/features/chats/components/message-reaction-bar.tsx
-#: src/routes/_authenticated/$chatId_.settings.tsx
 msgid "Remove {0}"
 msgstr "{0} ہٹائیں"
 
@@ -2313,6 +2307,14 @@ msgstr "{0} ہٹائیں"
 #: ../../../lib/web/src/components/filter-bar.tsx
 msgid "Remove {0} filter"
 msgstr "{0} فلٹر ہٹائیں"
+
+#: ../../../lib/web/src/components/member-list.tsx
+msgid "Remove {name}"
+msgstr ""
+
+#: src/routes/_authenticated/$chatId_.settings.tsx
+msgid "Remove {name}?"
+msgstr ""
 
 #: ../../../lib/web/src/features/access/access-list.tsx
 #: ../../../lib/web/src/features/access/access-list.tsx
@@ -2345,10 +2347,6 @@ msgstr "item ہٹائیں"
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx
 msgid "Remove link"
 msgstr "لنک ہٹائیں"
-
-#: src/routes/_authenticated/$chatId_.settings.tsx
-msgid "Remove member?"
-msgstr "ممبر ہٹائیں؟"
 
 #: src/features/chats/components/audio-player.tsx
 msgid "Remove voice note"
@@ -2865,6 +2863,10 @@ msgstr "سرور نے ڈیٹا کے بجائے ایک ویب صفحہ واپس �
 #: src/features/chats/index.tsx
 msgid "These names are not in this chat: {0}. Pick from the @ list or remove them."
 msgstr "یہ نام اس چیٹ میں نہیں ہیں: {0}۔ @ فہرست سے منتخب کریں یا انہیں ہٹا دیں۔"
+
+#: src/routes/_authenticated/$chatId_.settings.tsx
+msgid "They stop receiving new messages in this chat."
+msgstr ""
 
 #: ../../../lib/web/src/lib/shell-errors.ts
 msgid "This app is not allowed to use your passkey. Allow it in Settings, under Permissions."

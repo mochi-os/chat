@@ -27,7 +27,7 @@ msgstr "(திருத்தப்பட்டது)"
 msgid "(expand)"
 msgstr "(விரிவாக்கு)"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx
+#: ../../../lib/web/src/components/member-list.tsx
 msgid "(you)"
 msgstr "(நீங்கள்)"
 
@@ -356,11 +356,6 @@ msgstr "\"{chatName}\" ஐ விட்டு வெளியேற விரு
 #: ../../../lib/web/src/components/sign-out-dialog.tsx
 msgid "Are you sure you want to log out? You will need to log in again to access your account."
 msgstr "வெளியேற விரும்புகிறீர்களா? உங்கள் கணக்கை அணுக மீண்டும் உள்நுழைய வேண்டும்."
-
-#. placeholder {0}: member?.name
-#: src/routes/_authenticated/$chatId_.settings.tsx
-msgid "Are you sure you want to remove {0} from this chat?"
-msgstr "நிச்சயமாக {0} ஐ இந்த அரட்டையிலிருந்து அகற்ற விரும்புகிறீர்களா?"
 
 #: ../../../lib/web/src/components/game/game-end-dialogs.tsx
 msgid "Are you sure you want to resign?"
@@ -2097,6 +2092,7 @@ msgstr "அசல் செய்தி"
 msgid "Other"
 msgstr "மற்றவை"
 
+#: ../../../lib/web/src/components/member-list.tsx
 #: ../../../lib/web/src/features/access/access-list.tsx
 msgid "Owner"
 msgstr "உரிமையாளர்"
@@ -2301,10 +2297,8 @@ msgstr "தொடர்புடைமை {relevance}, ஆர்வம் {weigh
 msgid "Remove"
 msgstr "அகற்று"
 
-#. placeholder {0}: member.name
 #. placeholder {0}: reaction.label
 #: src/features/chats/components/message-reaction-bar.tsx
-#: src/routes/_authenticated/$chatId_.settings.tsx
 msgid "Remove {0}"
 msgstr "{0}-ஐ அகற்று"
 
@@ -2313,6 +2307,14 @@ msgstr "{0}-ஐ அகற்று"
 #: ../../../lib/web/src/components/filter-bar.tsx
 msgid "Remove {0} filter"
 msgstr "{0} filter-ஐ அகற்று"
+
+#: ../../../lib/web/src/components/member-list.tsx
+msgid "Remove {name}"
+msgstr ""
+
+#: src/routes/_authenticated/$chatId_.settings.tsx
+msgid "Remove {name}?"
+msgstr ""
 
 #: ../../../lib/web/src/features/access/access-list.tsx
 #: ../../../lib/web/src/features/access/access-list.tsx
@@ -2345,10 +2347,6 @@ msgstr "உருப்படியை அகற்று"
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx
 msgid "Remove link"
 msgstr "இணைப்பை அகற்று"
-
-#: src/routes/_authenticated/$chatId_.settings.tsx
-msgid "Remove member?"
-msgstr "உறுப்பினரை அகற்றவா?"
 
 #: src/features/chats/components/audio-player.tsx
 msgid "Remove voice note"
@@ -2865,6 +2863,10 @@ msgstr "சேவையகம் தரவுக்குப் பதிலா�
 #: src/features/chats/index.tsx
 msgid "These names are not in this chat: {0}. Pick from the @ list or remove them."
 msgstr "இந்தப் பெயர்கள் இந்த அரட்டையில் இல்லை: {0}. @ பட்டியலிலிருந்து தேர்ந்தெடுக்கவும் அல்லது அவற்றை அகற்றவும்."
+
+#: src/routes/_authenticated/$chatId_.settings.tsx
+msgid "They stop receiving new messages in this chat."
+msgstr ""
 
 #: ../../../lib/web/src/lib/shell-errors.ts
 msgid "This app is not allowed to use your passkey. Allow it in Settings, under Permissions."

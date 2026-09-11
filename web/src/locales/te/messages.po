@@ -27,7 +27,7 @@ msgstr "(సవరించబడింది)"
 msgid "(expand)"
 msgstr "(విస్తరించు)"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx
+#: ../../../lib/web/src/components/member-list.tsx
 msgid "(you)"
 msgstr "(మీరు)"
 
@@ -356,11 +356,6 @@ msgstr "మీరు ఖచ్చితంగా \"{chatName}\" నుండి 
 #: ../../../lib/web/src/components/sign-out-dialog.tsx
 msgid "Are you sure you want to log out? You will need to log in again to access your account."
 msgstr "మీరు లాగ్ అవుట్ చేయాలనుకుంటున్నారా? మీ ఖాతాను యాక్సెస్ చేయడానికి మీరు మళ్లీ లాగిన్ చేయవలసి ఉంటుంది."
-
-#. placeholder {0}: member?.name
-#: src/routes/_authenticated/$chatId_.settings.tsx
-msgid "Are you sure you want to remove {0} from this chat?"
-msgstr "మీరు ఖచ్చితంగా {0} ను ఈ చాట్ నుండి తీసివేయాలనుకుంటున్నారా?"
 
 #: ../../../lib/web/src/components/game/game-end-dialogs.tsx
 msgid "Are you sure you want to resign?"
@@ -2097,6 +2092,7 @@ msgstr "అసలు సందేశం"
 msgid "Other"
 msgstr "ఇతర"
 
+#: ../../../lib/web/src/components/member-list.tsx
 #: ../../../lib/web/src/features/access/access-list.tsx
 msgid "Owner"
 msgstr "ఓనర్"
@@ -2301,10 +2297,8 @@ msgstr "ఔచిత్యం {relevance}, ఆసక్తి {weight}"
 msgid "Remove"
 msgstr "తొలగించండి"
 
-#. placeholder {0}: member.name
 #. placeholder {0}: reaction.label
 #: src/features/chats/components/message-reaction-bar.tsx
-#: src/routes/_authenticated/$chatId_.settings.tsx
 msgid "Remove {0}"
 msgstr "{0}ని తొలగించండి"
 
@@ -2313,6 +2307,14 @@ msgstr "{0}ని తొలగించండి"
 #: ../../../lib/web/src/components/filter-bar.tsx
 msgid "Remove {0} filter"
 msgstr "{0} ఫిల్టర్‌ను తొలగించండి"
+
+#: ../../../lib/web/src/components/member-list.tsx
+msgid "Remove {name}"
+msgstr ""
+
+#: src/routes/_authenticated/$chatId_.settings.tsx
+msgid "Remove {name}?"
+msgstr ""
 
 #: ../../../lib/web/src/features/access/access-list.tsx
 #: ../../../lib/web/src/features/access/access-list.tsx
@@ -2345,10 +2347,6 @@ msgstr "ఐటెంను తొలగించండి"
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx
 msgid "Remove link"
 msgstr "లింక్‌ను తీసివేయి"
-
-#: src/routes/_authenticated/$chatId_.settings.tsx
-msgid "Remove member?"
-msgstr "సభ్యుడిని తొలగించాలా?"
 
 #: src/features/chats/components/audio-player.tsx
 msgid "Remove voice note"
@@ -2865,6 +2863,10 @@ msgstr "సర్వర్ డేటాకు బదులుగా వెబ్
 #: src/features/chats/index.tsx
 msgid "These names are not in this chat: {0}. Pick from the @ list or remove them."
 msgstr "ఈ పేర్లు ఈ చాట్‌లో లేవు: {0}. @ జాబితా నుండి ఎంచుకోండి లేదా వాటిని తీసివేయండి."
+
+#: src/routes/_authenticated/$chatId_.settings.tsx
+msgid "They stop receiving new messages in this chat."
+msgstr ""
 
 #: ../../../lib/web/src/lib/shell-errors.ts
 msgid "This app is not allowed to use your passkey. Allow it in Settings, under Permissions."

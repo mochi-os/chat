@@ -27,7 +27,7 @@ msgstr "(എഡിറ്റ് ചെയ്തു)"
 msgid "(expand)"
 msgstr "(വിപുലീകരിക്കുക)"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx
+#: ../../../lib/web/src/components/member-list.tsx
 msgid "(you)"
 msgstr "(നിങ്ങൾ)"
 
@@ -356,11 +356,6 @@ msgstr "നിങ്ങൾക്ക് \"{chatName}\" വിടാൻ ഉറപ�
 #: ../../../lib/web/src/components/sign-out-dialog.tsx
 msgid "Are you sure you want to log out? You will need to log in again to access your account."
 msgstr "ലോഗ് ഔട്ട് ചെയ്യണമെന്ന് നിങ്ങൾക്ക് ഉറപ്പാണോ? നിങ്ങളുടെ അക്കൗണ്ട് ആക്സസ് ചെയ്യാൻ വീണ്ടും ലോഗിൻ ചെയ്യേണ്ടിവരും."
-
-#. placeholder {0}: member?.name
-#: src/routes/_authenticated/$chatId_.settings.tsx
-msgid "Are you sure you want to remove {0} from this chat?"
-msgstr "നിങ്ങൾക്ക് {0}-നെ ഈ ചാറ്റിൽ നിന്ന് നീക്കം ചെയ്യാൻ ഉറപ്പാണോ?"
 
 #: ../../../lib/web/src/components/game/game-end-dialogs.tsx
 msgid "Are you sure you want to resign?"
@@ -2097,6 +2092,7 @@ msgstr "യഥാർത്ഥ സന്ദേശം"
 msgid "Other"
 msgstr "മറ്റുള്ളവ"
 
+#: ../../../lib/web/src/components/member-list.tsx
 #: ../../../lib/web/src/features/access/access-list.tsx
 msgid "Owner"
 msgstr "ഉടമ"
@@ -2301,10 +2297,8 @@ msgstr "പ്രസക്തി {relevance}, താൽപ്പര്യം {we
 msgid "Remove"
 msgstr "നീക്കം ചെയ്യുക"
 
-#. placeholder {0}: member.name
 #. placeholder {0}: reaction.label
 #: src/features/chats/components/message-reaction-bar.tsx
-#: src/routes/_authenticated/$chatId_.settings.tsx
 msgid "Remove {0}"
 msgstr "{0} ഫിൽട്ടർ നീക്കം ചെയ്യുക"
 
@@ -2313,6 +2307,14 @@ msgstr "{0} ഫിൽട്ടർ നീക്കം ചെയ്യുക"
 #: ../../../lib/web/src/components/filter-bar.tsx
 msgid "Remove {0} filter"
 msgstr "{0} ഫിൽട്ടർ നീക്കംചെയ്യുക"
+
+#: ../../../lib/web/src/components/member-list.tsx
+msgid "Remove {name}"
+msgstr ""
+
+#: src/routes/_authenticated/$chatId_.settings.tsx
+msgid "Remove {name}?"
+msgstr ""
 
 #: ../../../lib/web/src/features/access/access-list.tsx
 #: ../../../lib/web/src/features/access/access-list.tsx
@@ -2345,10 +2347,6 @@ msgstr "ലിസ്റ്റിങ് നീക്കം ചെയ്യുക"
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx
 msgid "Remove link"
 msgstr "ലിങ്ക് നീക്കം ചെയ്യുക"
-
-#: src/routes/_authenticated/$chatId_.settings.tsx
-msgid "Remove member?"
-msgstr "പോസ്റ്റ് നീക്കം ചെയ്യുക"
 
 #: src/features/chats/components/audio-player.tsx
 msgid "Remove voice note"
@@ -2865,6 +2863,10 @@ msgstr "സെർവർ ഡാറ്റയ്ക്ക് പകരം ഒരു
 #: src/features/chats/index.tsx
 msgid "These names are not in this chat: {0}. Pick from the @ list or remove them."
 msgstr "ഈ പേരുകൾ ഈ ചാറ്റിൽ ഇല്ല: {0}. @ ലിസ്റ്റിൽ നിന്ന് തിരഞ്ഞെടുക്കുക അല്ലെങ്കിൽ അവ നീക്കം ചെയ്യുക."
+
+#: src/routes/_authenticated/$chatId_.settings.tsx
+msgid "They stop receiving new messages in this chat."
+msgstr ""
 
 #: ../../../lib/web/src/lib/shell-errors.ts
 msgid "This app is not allowed to use your passkey. Allow it in Settings, under Permissions."
