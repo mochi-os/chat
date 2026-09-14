@@ -11,9 +11,6 @@ import {
   DropdownMenuItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
   cn,
   shellClipboardWrite,
   toast,
@@ -75,23 +72,18 @@ export function MessageHoverActions({
       )}
     >
       <DropdownMenu>
-        <Tooltip>
-          <TooltipTrigger asChild>
-            <DropdownMenuTrigger asChild>
-              <Button
-                type='button'
-                variant='ghost'
-                size='icon'
-                className='size-6'
-                aria-label={t`Message actions`}
-                onClick={(e) => e.stopPropagation()}
-              >
-                <MoreHorizontal className='size-3.5' />
-              </Button>
-            </DropdownMenuTrigger>
-          </TooltipTrigger>
-          <TooltipContent>{t`Message actions`}</TooltipContent>
-        </Tooltip>
+        <DropdownMenuTrigger asChild>
+          <Button
+            type='button'
+            variant='ghost'
+            size='icon'
+            className='size-6'
+            aria-label={t`Message actions`}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <MoreHorizontal className='size-3.5' />
+          </Button>
+        </DropdownMenuTrigger>
         <DropdownMenuContent
           side='top'
           align='end'
