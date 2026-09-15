@@ -27,7 +27,7 @@ msgstr "(đã chỉnh sửa)"
 msgid "(expand)"
 msgstr "(mở rộng)"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx
+#: ../../../lib/web/src/components/member-list.tsx
 msgid "(you)"
 msgstr "(bạn)"
 
@@ -356,11 +356,6 @@ msgstr "Bạn có chắc chắn muốn rời khỏi \"{chatName}\"? Các thành 
 #: ../../../lib/web/src/components/sign-out-dialog.tsx
 msgid "Are you sure you want to log out? You will need to log in again to access your account."
 msgstr "Bạn có chắc muốn đăng xuất? Bạn sẽ cần đăng nhập lại để truy cập tài khoản."
-
-#. placeholder {0}: member?.name
-#: src/routes/_authenticated/$chatId_.settings.tsx
-msgid "Are you sure you want to remove {0} from this chat?"
-msgstr "Bạn có chắc muốn xóa {0} khỏi cuộc trò chuyện này không?"
 
 #: ../../../lib/web/src/components/game/game-end-dialogs.tsx
 msgid "Are you sure you want to resign?"
@@ -2090,6 +2085,7 @@ msgstr "Tin nhắn gốc"
 msgid "Other"
 msgstr "Khác"
 
+#: ../../../lib/web/src/components/member-list.tsx
 #: ../../../lib/web/src/features/access/access-list.tsx
 msgid "Owner"
 msgstr "Chủ sở hữu"
@@ -2294,10 +2290,8 @@ msgstr "Mức liên quan {relevance}, mức quan tâm {weight}"
 msgid "Remove"
 msgstr "Xoá"
 
-#. placeholder {0}: member.name
 #. placeholder {0}: reaction.label
 #: src/features/chats/components/message-reaction-bar.tsx
-#: src/routes/_authenticated/$chatId_.settings.tsx
 msgid "Remove {0}"
 msgstr "Xoá {0}"
 
@@ -2306,6 +2300,15 @@ msgstr "Xoá {0}"
 #: ../../../lib/web/src/components/filter-bar.tsx
 msgid "Remove {0} filter"
 msgstr "Xóa bộ lọc {0}"
+
+#: ../../../lib/web/src/components/member-list.tsx
+#: ../../../lib/web/src/components/member-list.tsx
+msgid "Remove {name}"
+msgstr ""
+
+#: src/routes/_authenticated/$chatId_.settings.tsx
+msgid "Remove {name}?"
+msgstr ""
 
 #: ../../../lib/web/src/features/access/access-list.tsx
 #: ../../../lib/web/src/features/access/access-list.tsx
@@ -2338,10 +2341,6 @@ msgstr "Xoá mục"
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx
 msgid "Remove link"
 msgstr "Xóa liên kết"
-
-#: src/routes/_authenticated/$chatId_.settings.tsx
-msgid "Remove member?"
-msgstr "Xoá thành viên?"
 
 #: src/features/chats/components/audio-player.tsx
 msgid "Remove voice note"
@@ -2858,6 +2857,10 @@ msgstr "Máy chủ đã trả về một trang web thay vì dữ liệu."
 #: src/features/chats/index.tsx
 msgid "These names are not in this chat: {0}. Pick from the @ list or remove them."
 msgstr "Những tên này không có trong cuộc trò chuyện: {0}. Hãy chọn từ danh sách @ hoặc xóa họ."
+
+#: src/routes/_authenticated/$chatId_.settings.tsx
+msgid "They stop receiving new messages in this chat."
+msgstr ""
 
 #: ../../../lib/web/src/lib/shell-errors.ts
 msgid "This app is not allowed to use your passkey. Allow it in Settings, under Permissions."

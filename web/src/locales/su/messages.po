@@ -27,7 +27,7 @@ msgstr "(diédit)"
 msgid "(expand)"
 msgstr "(buka)"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx
+#: ../../../lib/web/src/components/member-list.tsx
 msgid "(you)"
 msgstr "(anjeun)"
 
@@ -356,11 +356,6 @@ msgstr "Anjeun yakin hayang kaluar ti \"{chatName}\"? Anjeun bisa ditambahkeun d
 #: ../../../lib/web/src/components/sign-out-dialog.tsx
 msgid "Are you sure you want to log out? You will need to log in again to access your account."
 msgstr "Anjeun yakin hayang log out? Anjeun kudu log in deui pikeun ngaksés akun anjeun."
-
-#. placeholder {0}: member?.name
-#: src/routes/_authenticated/$chatId_.settings.tsx
-msgid "Are you sure you want to remove {0} from this chat?"
-msgstr "Anjeun yakin hayang miceun {0} ti chat ieu?"
 
 #: ../../../lib/web/src/components/game/game-end-dialogs.tsx
 msgid "Are you sure you want to resign?"
@@ -2090,6 +2085,7 @@ msgstr "Pesen asli"
 msgid "Other"
 msgstr "Séjén"
 
+#: ../../../lib/web/src/components/member-list.tsx
 #: ../../../lib/web/src/features/access/access-list.tsx
 msgid "Owner"
 msgstr "Nu boga"
@@ -2294,10 +2290,8 @@ msgstr "Relevansi {relevance}, minat {weight}"
 msgid "Remove"
 msgstr "Pupus"
 
-#. placeholder {0}: member.name
 #. placeholder {0}: reaction.label
 #: src/features/chats/components/message-reaction-bar.tsx
-#: src/routes/_authenticated/$chatId_.settings.tsx
 msgid "Remove {0}"
 msgstr "Cabut {0}"
 
@@ -2306,6 +2300,15 @@ msgstr "Cabut {0}"
 #: ../../../lib/web/src/components/filter-bar.tsx
 msgid "Remove {0} filter"
 msgstr "Cabut filter {0}"
+
+#: ../../../lib/web/src/components/member-list.tsx
+#: ../../../lib/web/src/components/member-list.tsx
+msgid "Remove {name}"
+msgstr ""
+
+#: src/routes/_authenticated/$chatId_.settings.tsx
+msgid "Remove {name}?"
+msgstr ""
 
 #: ../../../lib/web/src/features/access/access-list.tsx
 #: ../../../lib/web/src/features/access/access-list.tsx
@@ -2338,10 +2341,6 @@ msgstr "Cabut item"
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx
 msgid "Remove link"
 msgstr "Hapus tautan"
-
-#: src/routes/_authenticated/$chatId_.settings.tsx
-msgid "Remove member?"
-msgstr "Cabut anggota?"
 
 #: src/features/chats/components/audio-player.tsx
 msgid "Remove voice note"
@@ -2858,6 +2857,10 @@ msgstr "Server malikeun kaca wéb lain data."
 #: src/features/chats/index.tsx
 msgid "These names are not in this chat: {0}. Pick from the @ list or remove them."
 msgstr "Ngaran-ngaran ieu teu aya dina obrolan ieu: {0}. Pilih tina daptar @ atawa piceun."
+
+#: src/routes/_authenticated/$chatId_.settings.tsx
+msgid "They stop receiving new messages in this chat."
+msgstr ""
 
 #: ../../../lib/web/src/lib/shell-errors.ts
 msgid "This app is not allowed to use your passkey. Allow it in Settings, under Permissions."

@@ -19,7 +19,7 @@ import {
   toastAction,
   useAuthStore,
   GeneralError,
-  ListSkeleton,
+  MemberList,
   ResponsiveDialog,
   ResponsiveDialogContent,
   ResponsiveDialogHeader,
@@ -32,13 +32,7 @@ import {
   DetailSkeleton,
   naturalCompare,
 } from '@mochi/web'
-import {
-  Loader2,
-  MessageCircle,
-  UserMinus,
-  UserPlus,
-  LogOut,
-} from 'lucide-react'
+import { Loader2, MessageCircle, UserPlus } from 'lucide-react'
 import { personAssetUrl } from '@/api/person'
 import {
   useChatDetailQuery,
@@ -79,13 +73,8 @@ function ChatSettingsPage() {
     refetch: refetchMembers,
   } = useChatMembersQuery(chatId)
 
-  const members = useMemo(
-    () =>
-      [...(membersData?.members ?? [])].sort((a, b) =>
-        naturalCompare(a.name, b.name)
-      ),
-    [membersData]
-  )
+  // MemberList sorts the rows itself.
+  const members = membersData?.members ?? []
 
   usePageTitle(
     chatDetail?.chat.name
@@ -163,13 +152,8 @@ function ChatSettingsPage() {
           error={membersError}
           onRetry={refetchMembers}
           onAddMember={() => setShowAddMemberDialog(true)}
-          onRemoveMember={(member, isCurrentUser) => {
-            if (isCurrentUser) {
-              setShowLeaveDialog(true)
-            } else {
-              setMemberToRemove(member)
-            }
-          }}
+          onRemoveMember={setMemberToRemove}
+          onLeave={() => setShowLeaveDialog(true)}
         />
 
         <LeaveDialog
@@ -254,6 +238,7 @@ function MembersSection({
   onRetry,
   onAddMember,
   onRemoveMember,
+  onLeave,
 }: {
   members: Array<{ id: string; name: string }>
   currentUserIdentity: string
@@ -261,10 +246,8 @@ function MembersSection({
   error: unknown
   onRetry: () => void
   onAddMember: () => void
-  onRemoveMember: (
-    member: { id: string; name: string },
-    isCurrentUser: boolean
-  ) => void
+  onRemoveMember: (member: { id: string; name: string }) => void
+  onLeave: () => void
 }) {
   const { t } = useLingui()
   return (
@@ -279,53 +262,19 @@ function MembersSection({
         ) : undefined
       }
     >
-      {error ? (
-        <GeneralError error={error} minimal mode='inline' reset={onRetry} />
-      ) : isLoading ? (
-        <ListSkeleton variant='simple' height='h-10' count={4} />
-      ) : (
-        <div className='space-y-1 py-1'>
-          {members.map((member) => {
-            const isCurrentUser = member.id === currentUserIdentity
-            return (
-              <div
-                key={member.id}
-                className='group hover:bg-hover flex items-center justify-between rounded-lg px-3 py-2 transition-colors'
-              >
-                <div className='flex items-center gap-3'>
-                  <EntityAvatar
-                    src={personAssetUrl(member.id, 'avatar')}
-                    styleUrl={personAssetUrl(member.id, 'style')}
-                    name={member.name}
-                    size='md'
-                  />
-                  <span className='font-medium'>{member.name}</span>
-                  {isCurrentUser && (
-                    <span className='text-muted-foreground text-xs'>
-                      <Trans>(you)</Trans>
-                    </span>
-                  )}
-                </div>
-                <Button
-                  size='sm'
-                  variant='ghost'
-                  aria-label={
-                    isCurrentUser ? t`Leave chat` : t`Remove ${member.name}`
-                  }
-                  onClick={() => onRemoveMember(member, isCurrentUser)}
-                  className='text-muted-foreground h-8 w-8 p-0 opacity-0 transition-opacity group-hover:opacity-100 focus-visible:opacity-100 [@media(hover:none)]:opacity-100'
-                >
-                  {isCurrentUser ? (
-                    <LogOut className='size-4' />
-                  ) : (
-                    <UserMinus className='size-4' />
-                  )}
-                </Button>
-              </div>
-            )
-          })}
-        </div>
-      )}
+      <MemberList
+        members={members}
+        currentUserId={currentUserIdentity}
+        avatarUrls={(id) => ({
+          src: personAssetUrl(id, 'avatar'),
+          styleUrl: personAssetUrl(id, 'style'),
+        })}
+        onRemove={onRemoveMember}
+        leave={{ label: t`Leave chat`, onClick: onLeave }}
+        isLoading={isLoading}
+        error={error}
+        onRetry={onRetry}
+      />
     </Section>
   )
 }
@@ -570,12 +519,16 @@ function RemoveMemberDialog({
     }
   }
 
+  // Same shape as the feeds and forums removal: the title names the person and
+  // the one sentence says what changes for them. Nothing they wrote is deleted
+  // (action_member_remove drops the member row and stops replay).
+  const name = member?.name ?? ''
   return (
     <ConfirmDialog
       open={open}
       onOpenChange={onOpenChange}
-      title={t`Remove member?`}
-      desc={t`Are you sure you want to remove ${member?.name} from this chat?`}
+      title={t`Remove ${name}?`}
+      desc={t`They stop receiving new messages in this chat.`}
       confirmText={
         removeMemberMutation.isPending ? (
           <>
@@ -589,10 +542,6 @@ function RemoveMemberDialog({
       destructive
       handleConfirm={handleRemove}
       isLoading={removeMemberMutation.isPending}
-    >
-      <div className='bg-muted/50 mt-2 mb-4 flex gap-2 rounded-lg p-3'>
-        <span className='font-semibold'>{member?.name}</span>
-      </div>
-    </ConfirmDialog>
+    />
   )
 }

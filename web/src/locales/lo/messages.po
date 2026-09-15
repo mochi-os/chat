@@ -27,7 +27,7 @@ msgstr "(ແກ້ໄຂແລ້ວ)"
 msgid "(expand)"
 msgstr "(ຂະຫຍາຍ)"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx
+#: ../../../lib/web/src/components/member-list.tsx
 msgid "(you)"
 msgstr "(ທ່ານ)"
 
@@ -356,11 +356,6 @@ msgstr "ທ່ານແນ່ໃຈບໍວ່າຕ້ອງການອອກ
 #: ../../../lib/web/src/components/sign-out-dialog.tsx
 msgid "Are you sure you want to log out? You will need to log in again to access your account."
 msgstr "ທ່ານແນ່ໃຈບໍວ່າຕ້ອງການອອກຈາກລະບົບ? ທ່ານຈະຕ້ອງເຂົ້າສູ່ລະບົບອີກຄັ້ງເພື່ອເຂົ້າເຖິງບັນຊີຂອງທ່ານ."
-
-#. placeholder {0}: member?.name
-#: src/routes/_authenticated/$chatId_.settings.tsx
-msgid "Are you sure you want to remove {0} from this chat?"
-msgstr "ທ່ານແນ່ໃຈບໍວ່າຕ້ອງການລົບ {0} ອອກຈາກແຊັດນີ້?"
 
 #: ../../../lib/web/src/components/game/game-end-dialogs.tsx
 msgid "Are you sure you want to resign?"
@@ -2090,6 +2085,7 @@ msgstr "ຂໍ້ຄວາມຕົ້ນສະບັບ"
 msgid "Other"
 msgstr "ອື່ນໆ"
 
+#: ../../../lib/web/src/components/member-list.tsx
 #: ../../../lib/web/src/features/access/access-list.tsx
 msgid "Owner"
 msgstr "ເຈົ້າຂອງ"
@@ -2294,10 +2290,8 @@ msgstr "ຄວາມກ່ຽວຂ້ອງ {relevance}, ຄວາມສົນ�
 msgid "Remove"
 msgstr "ລຶບອອກ"
 
-#. placeholder {0}: member.name
 #. placeholder {0}: reaction.label
 #: src/features/chats/components/message-reaction-bar.tsx
-#: src/routes/_authenticated/$chatId_.settings.tsx
 msgid "Remove {0}"
 msgstr "ລຶບ {0}"
 
@@ -2306,6 +2300,15 @@ msgstr "ລຶບ {0}"
 #: ../../../lib/web/src/components/filter-bar.tsx
 msgid "Remove {0} filter"
 msgstr "ລຶບຕົວກອງ {0}"
+
+#: ../../../lib/web/src/components/member-list.tsx
+#: ../../../lib/web/src/components/member-list.tsx
+msgid "Remove {name}"
+msgstr ""
+
+#: src/routes/_authenticated/$chatId_.settings.tsx
+msgid "Remove {name}?"
+msgstr ""
 
 #: ../../../lib/web/src/features/access/access-list.tsx
 #: ../../../lib/web/src/features/access/access-list.tsx
@@ -2338,10 +2341,6 @@ msgstr "ລຶບລາຍການ"
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx
 msgid "Remove link"
 msgstr "ລຶບລິ້ງ"
-
-#: src/routes/_authenticated/$chatId_.settings.tsx
-msgid "Remove member?"
-msgstr "ລຶບສະມາຊິກ?"
 
 #: src/features/chats/components/audio-player.tsx
 msgid "Remove voice note"
@@ -2858,6 +2857,10 @@ msgstr "ເຊີບເວີສົ່ງຄືນໜ້າເວັບແທນ
 #: src/features/chats/index.tsx
 msgid "These names are not in this chat: {0}. Pick from the @ list or remove them."
 msgstr "ຊື່ເຫຼົ່ານີ້ບໍ່ຢູ່ໃນແຊັດນີ້: {0}. ກະລຸນາເລືອກຈາກລາຍການ @ ຫຼືລຶບອອກ."
+
+#: src/routes/_authenticated/$chatId_.settings.tsx
+msgid "They stop receiving new messages in this chat."
+msgstr ""
 
 #: ../../../lib/web/src/lib/shell-errors.ts
 msgid "This app is not allowed to use your passkey. Allow it in Settings, under Permissions."

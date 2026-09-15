@@ -27,7 +27,7 @@ msgstr "(breytt)"
 msgid "(expand)"
 msgstr "(útvíkka)"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx
+#: ../../../lib/web/src/components/member-list.tsx
 msgid "(you)"
 msgstr "(þú)"
 
@@ -356,11 +356,6 @@ msgstr "Ertu viss um að þú viljir yfirgefa \"{chatName}\"? Aðrir meðlimir g
 #: ../../../lib/web/src/components/sign-out-dialog.tsx
 msgid "Are you sure you want to log out? You will need to log in again to access your account."
 msgstr "Ertu viss um að þú viljir skrá þig út? Þú þarft að skrá þig inn aftur til að komast að reikningnum þínum."
-
-#. placeholder {0}: member?.name
-#: src/routes/_authenticated/$chatId_.settings.tsx
-msgid "Are you sure you want to remove {0} from this chat?"
-msgstr "Ertu viss um að þú viljir fjarlægja {0} úr þessu spjalli?"
 
 #: ../../../lib/web/src/components/game/game-end-dialogs.tsx
 msgid "Are you sure you want to resign?"
@@ -2090,6 +2085,7 @@ msgstr "Upprunaleg skilaboð"
 msgid "Other"
 msgstr "Annað"
 
+#: ../../../lib/web/src/components/member-list.tsx
 #: ../../../lib/web/src/features/access/access-list.tsx
 msgid "Owner"
 msgstr "Eigandi"
@@ -2294,10 +2290,8 @@ msgstr "Mikilvægi {relevance}, áhugi {weight}"
 msgid "Remove"
 msgstr "Fjarlægja"
 
-#. placeholder {0}: member.name
 #. placeholder {0}: reaction.label
 #: src/features/chats/components/message-reaction-bar.tsx
-#: src/routes/_authenticated/$chatId_.settings.tsx
 msgid "Remove {0}"
 msgstr "Fjarlægja {0}"
 
@@ -2306,6 +2300,15 @@ msgstr "Fjarlægja {0}"
 #: ../../../lib/web/src/components/filter-bar.tsx
 msgid "Remove {0} filter"
 msgstr "Fjarlægja síu {0}"
+
+#: ../../../lib/web/src/components/member-list.tsx
+#: ../../../lib/web/src/components/member-list.tsx
+msgid "Remove {name}"
+msgstr ""
+
+#: src/routes/_authenticated/$chatId_.settings.tsx
+msgid "Remove {name}?"
+msgstr ""
 
 #: ../../../lib/web/src/features/access/access-list.tsx
 #: ../../../lib/web/src/features/access/access-list.tsx
@@ -2338,10 +2341,6 @@ msgstr "Fjarlægja atriði"
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx
 msgid "Remove link"
 msgstr "Fjarlægja tengil"
-
-#: src/routes/_authenticated/$chatId_.settings.tsx
-msgid "Remove member?"
-msgstr "Fjarlægja meðlim?"
 
 #: src/features/chats/components/audio-player.tsx
 msgid "Remove voice note"
@@ -2858,6 +2857,10 @@ msgstr "Þjónninn skilaði vefsíðu í stað gagna."
 #: src/features/chats/index.tsx
 msgid "These names are not in this chat: {0}. Pick from the @ list or remove them."
 msgstr "Þessi nöfn eru ekki í þessu spjalli: {0}. Veldu af @-listanum eða fjarlægðu þau."
+
+#: src/routes/_authenticated/$chatId_.settings.tsx
+msgid "They stop receiving new messages in this chat."
+msgstr ""
 
 #: ../../../lib/web/src/lib/shell-errors.ts
 msgid "This app is not allowed to use your passkey. Allow it in Settings, under Permissions."

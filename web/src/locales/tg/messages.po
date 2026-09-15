@@ -27,7 +27,7 @@ msgstr "(таҳриршуда)"
 msgid "(expand)"
 msgstr "(васеъ кардан)"
 
-#: src/routes/_authenticated/$chatId_.settings.tsx
+#: ../../../lib/web/src/components/member-list.tsx
 msgid "(you)"
 msgstr "(шумо)"
 
@@ -356,11 +356,6 @@ msgstr "Шумо мутмаин ҳастед, ки мехоҳед \"{chatName}\"
 #: ../../../lib/web/src/components/sign-out-dialog.tsx
 msgid "Are you sure you want to log out? You will need to log in again to access your account."
 msgstr "Шумо мутмаин ҳастед, ки мехоҳед хориҷ шавед? Барои дастрасӣ ба ҳисоб бояд аз нав ворид шавед."
-
-#. placeholder {0}: member?.name
-#: src/routes/_authenticated/$chatId_.settings.tsx
-msgid "Are you sure you want to remove {0} from this chat?"
-msgstr "Шумо мутмаин ҳастед, ки мехоҳед {0}-ро аз ин чат хориҷ кунед?"
 
 #: ../../../lib/web/src/components/game/game-end-dialogs.tsx
 msgid "Are you sure you want to resign?"
@@ -2090,6 +2085,7 @@ msgstr "Паёми аслӣ"
 msgid "Other"
 msgstr "Дигар"
 
+#: ../../../lib/web/src/components/member-list.tsx
 #: ../../../lib/web/src/features/access/access-list.tsx
 msgid "Owner"
 msgstr "Соҳиб"
@@ -2294,10 +2290,8 @@ msgstr "Мувофиқат {relevance}, таваҷҷуҳ {weight}"
 msgid "Remove"
 msgstr "Хориҷ кардан"
 
-#. placeholder {0}: member.name
 #. placeholder {0}: reaction.label
 #: src/features/chats/components/message-reaction-bar.tsx
-#: src/routes/_authenticated/$chatId_.settings.tsx
 msgid "Remove {0}"
 msgstr "Хориҷ кардани {0}"
 
@@ -2306,6 +2300,15 @@ msgstr "Хориҷ кардани {0}"
 #: ../../../lib/web/src/components/filter-bar.tsx
 msgid "Remove {0} filter"
 msgstr "Хориҷ кардани филтри {0}"
+
+#: ../../../lib/web/src/components/member-list.tsx
+#: ../../../lib/web/src/components/member-list.tsx
+msgid "Remove {name}"
+msgstr ""
+
+#: src/routes/_authenticated/$chatId_.settings.tsx
+msgid "Remove {name}?"
+msgstr ""
 
 #: ../../../lib/web/src/features/access/access-list.tsx
 #: ../../../lib/web/src/features/access/access-list.tsx
@@ -2338,10 +2341,6 @@ msgstr "Хориҷ кардани ашё"
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx
 msgid "Remove link"
 msgstr "Истинодро тоза кунед"
-
-#: src/routes/_authenticated/$chatId_.settings.tsx
-msgid "Remove member?"
-msgstr "Аъзоро хориҷ кардан?"
 
 #: src/features/chats/components/audio-player.tsx
 msgid "Remove voice note"
@@ -2858,6 +2857,10 @@ msgstr "Сервер ба ҷои маълумот саҳифаи вебро ба
 #: src/features/chats/index.tsx
 msgid "These names are not in this chat: {0}. Pick from the @ list or remove them."
 msgstr "Ин номҳо дар ин чат нестанд: {0}. Аз рӯйхати @ интихоб кунед ё онҳоро тоза кунед."
+
+#: src/routes/_authenticated/$chatId_.settings.tsx
+msgid "They stop receiving new messages in this chat."
+msgstr ""
 
 #: ../../../lib/web/src/lib/shell-errors.ts
 msgid "This app is not allowed to use your passkey. Allow it in Settings, under Permissions."
