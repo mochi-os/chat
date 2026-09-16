@@ -40,7 +40,7 @@ import {
   BubbleGroup,
   useFormat,
 } from '@mochi/web'
-import { Check, ChevronsDown, Loader2, MessageCircle } from 'lucide-react'
+import { Check, ChevronsDown, MessageCircle } from 'lucide-react'
 import type { ChatMessage } from '@/api/chats'
 import type { GetMessagesResponse } from '@/api/types/chats'
 import type { ReactionId } from '../constants/reactions'
@@ -645,18 +645,12 @@ export function ChatMessageList({
                                         <Button
                                           type='button'
                                           size='sm'
-                                          disabled={
-                                            isEditSaveDisabled ||
-                                            isEditingSaving
-                                          }
+                                          disabled={isEditSaveDisabled}
+                                          loading={isEditingSaving}
+                                          icon={<Check className='size-3' />}
                                           onClick={onSaveEdit}
                                           className='bg-primary hover:bg-primary/80 text-primary-foreground h-7 px-2.5 font-medium transition-colors'
                                         >
-                                          {isEditingSaving ? (
-                                            <Loader2 className='size-3 animate-spin' />
-                                          ) : (
-                                            <Check className='size-3' />
-                                          )}
                                           <Trans>Save</Trans>
                                         </Button>
                                       </div>

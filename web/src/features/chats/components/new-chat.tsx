@@ -25,7 +25,7 @@ import {
   type Person,
   naturalCompare,
 } from '@mochi/web'
-import { Loader2, MessageCircle, UserPlus } from 'lucide-react'
+import { MessageCircle, UserPlus } from 'lucide-react'
 import { chatsApi } from '@/api/chats'
 import { useSidebarContext } from '@/context/sidebar-context'
 import { useNewChatFriendsQuery, useCreateChatMutation } from '@/hooks/useChats'
@@ -144,11 +144,7 @@ export function NewChat() {
   const hasExistingDirectChat =
     selectedFriends.length === 1 && existingChats.length === 1
   const canSubmit =
-    selectedFriends.length > 0 &&
-    isChatNameValid &&
-    !hasExistingDirectChat &&
-    !createChatMutation.isPending &&
-    addingRemainder === null
+    selectedFriends.length > 0 && isChatNameValid && !hasExistingDirectChat
 
   const handleCreateChat = async () => {
     if (selectedFriends.length === 0) {
@@ -369,6 +365,15 @@ export function NewChat() {
           </div>
         </div>
 
+        {addingRemainder ? (
+          <p
+            role='status'
+            aria-live='polite'
+            className='text-muted-foreground text-end text-xs'
+          >
+            {t`Adding ${addingRemainder.done}/${addingRemainder.total}...`}
+          </p>
+        ) : null}
         <ResponsiveDialogFooter className='gap-2'>
           <Button
             variant='outline'
@@ -377,17 +382,13 @@ export function NewChat() {
           >
             <Trans>Cancel</Trans>
           </Button>
-          <Button onClick={handleCreateChat} disabled={!canSubmit}>
-            {createChatMutation.isPending || addingRemainder ? (
-              <Loader2 className='size-4 animate-spin' />
-            ) : (
-              <MessageCircle className='size-4' />
-            )}
-            {addingRemainder
-              ? t`Adding ${addingRemainder.done}/${addingRemainder.total}...`
-              : createChatMutation.isPending
-                ? t`Creating...`
-                : t`Create chat`}
+          <Button
+            onClick={handleCreateChat}
+            disabled={!canSubmit}
+            loading={createChatMutation.isPending || Boolean(addingRemainder)}
+            icon={<MessageCircle className='size-4' />}
+          >
+            <Trans>Create chat</Trans>
           </Button>
         </ResponsiveDialogFooter>
       </ResponsiveDialogContent>

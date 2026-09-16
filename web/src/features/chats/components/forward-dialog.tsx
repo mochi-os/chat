@@ -21,7 +21,7 @@ import {
   naturalCompare,
   toastAction,
 } from '@mochi/web'
-import { Forward, Loader2, MessageCircle, Users } from 'lucide-react'
+import { Forward, MessageCircle, Users } from 'lucide-react'
 import { personAssetUrl } from '@/api/person'
 import { chatActive } from '@/api/types/chats'
 import {
@@ -251,12 +251,12 @@ export function ForwardDialog({
           >
             <Trans>Cancel</Trans>
           </Button>
-          <Button onClick={handleForward} disabled={!selectedDest || isPending}>
-            {isPending ? (
-              <Loader2 className='size-4 animate-spin' />
-            ) : (
-              <Forward className='size-4' />
-            )}
+          <Button
+            onClick={handleForward}
+            disabled={!selectedDest}
+            loading={isPending}
+            icon={<Forward className='size-4' />}
+          >
             <Trans>Forward</Trans>
           </Button>
         </ResponsiveDialogFooter>

@@ -322,16 +322,7 @@ function LeaveDialog({
       }}
       title={t`Leave chat?`}
       desc={t`Are you sure you want to leave "${chatName}"? You can be added back by other members.`}
-      confirmText={
-        leaveMutation.isPending ? (
-          <>
-            <Loader2 className='me-2 size-4 animate-spin' />
-            <Trans>Leaving...</Trans>
-          </>
-        ) : (
-          t`Leave chat`
-        )
-      }
+      confirmText={t`Leave chat`}
       destructive
       handleConfirm={handleLeave}
       isLoading={leaveMutation.isPending}
@@ -529,16 +520,7 @@ function RemoveMemberDialog({
       onOpenChange={onOpenChange}
       title={t`Remove ${name}?`}
       desc={t`They stop receiving new messages in this chat.`}
-      confirmText={
-        removeMemberMutation.isPending ? (
-          <>
-            <Loader2 className='me-2 size-4 animate-spin' />
-            <Trans>Removing...</Trans>
-          </>
-        ) : (
-          t`Remove`
-        )
-      }
+      confirmText={t`Remove`}
       destructive
       handleConfirm={handleRemove}
       isLoading={removeMemberMutation.isPending}
