@@ -1846,6 +1846,13 @@ def event_member_add(e):
 	mochi.db.execute("update chats set updated=? where id=?", mochi.time.now(), chat["id"])
 	chat_websocket(chat["key"], {"event": "member/add", "member": member, "name": name})
 
+# removed_mark records that another member removed us: the chat stays, read
+# only, the open page learns at once, and the user is told.
+def removed_mark(chat):
+	mochi.db.execute("update chats set status='removed', updated=? where id=?", mochi.time.now(), chat["id"])
+	chat_websocket(chat["key"], {"event": "removed"})
+	notify("member/removed", chat["id"], mochi.app.label("notifications.title.removed"), mochi.app.label("notifications.body.removed"), "/chat/" + chat["id"], chat["name"], event_id="removed:" + chat["id"])
+
 # Received a member/remove event - someone removed a member
 def event_member_remove(e):
 	chat_id = content_text(e, "id", "")
@@ -1870,8 +1877,7 @@ def event_member_remove(e):
 	# list, 403 on every read, and refused by delete, with no resync able to
 	# repair it.
 	if member == e.header("to"):
-		mochi.db.execute("update chats set status='removed', updated=? where id=?", mochi.time.now(), chat["id"])
-		chat_websocket(chat["key"], {"event": "removed"})
+		removed_mark(chat)
 		return
 
 	mochi.db.execute("delete from members where chat=? and member=?", chat["id"], member)
@@ -1894,11 +1900,7 @@ def event_removed(e):
 	if not mochi.db.exists("select 1 from members where chat=? and member=?", chat["id"], e.header("from")):
 		return
 
-	# Mark chat as removed (kicked by another member); kept read-only.
-	mochi.db.execute("update chats set status='removed', updated=? where id=?", mochi.time.now(), chat["id"])
-
-	# Notify frontend via websocket
-	chat_websocket(chat["key"], {"event": "removed"})
+	removed_mark(chat)
 
 # List members of a chat
 def action_members(a):
