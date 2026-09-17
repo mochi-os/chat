@@ -118,13 +118,13 @@ export function ChatSettingsDialog({ open, onOpenChange }: Props) {
           <Button
             onClick={handleSave}
             disabled={
-              setPolicy.isPending ||
               isLoading ||
               isError ||
               (!!data?.policy && value === data.policy)
             }
+            loading={setPolicy.isPending}
+            icon={<Check className='size-4' />}
           >
-            <Check className='size-4' />
             <Trans>Save</Trans>
           </Button>
         </ResponsiveDialogFooter>

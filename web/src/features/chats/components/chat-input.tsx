@@ -46,7 +46,6 @@ import {
 } from '@mochi/web'
 // Image is aliased: the bare name shadows the DOM Image constructor.
 import {
-  Loader2,
   Paperclip,
   Send,
   X,
@@ -827,14 +826,10 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(
                           size='icon'
                           className='bg-primary hover:bg-primary/80 transition-colors'
                           disabled={isSendDisabled}
+                          loading={isSending}
+                          icon={<Send size={16} />}
                           aria-label={t`Send message`}
-                        >
-                          {isSending ? (
-                            <Loader2 size={16} className='animate-spin' />
-                          ) : (
-                            <Send size={16} />
-                          )}
-                        </Button>
+                        />
                       </TooltipTrigger>
                       <TooltipContent>{t`Send message`}</TooltipContent>
                     </Tooltip>

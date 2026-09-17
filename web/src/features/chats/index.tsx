@@ -44,7 +44,6 @@ import {
   Settings,
   Inbox,
   LogOut,
-  Loader2,
   Trash2,
   MessageCircle,
   Search,
@@ -1387,13 +1386,9 @@ export function Chats() {
                   variant='outline'
                   size='sm'
                   onClick={handleDeleteChat}
-                  disabled={deleteChatMutation.isPending}
+                  loading={deleteChatMutation.isPending}
+                  icon={<Trash2 className='me-2 size-4' />}
                 >
-                  {deleteChatMutation.isPending ? (
-                    <Loader2 className='me-2 size-4 animate-spin' />
-                  ) : (
-                    <Trash2 className='me-2 size-4' />
-                  )}
                   <Trans>Delete chat</Trans>
                 </Button>
               </div>
@@ -1438,16 +1433,7 @@ export function Chats() {
         }}
         title={t`Leave chat?`}
         desc={t`Are you sure you want to leave "${selectedChat?.name}"? You can be added back by other members.`}
-        confirmText={
-          leaveChatMutation.isPending ? (
-            <>
-              <Loader2 className='me-2 size-4 animate-spin' />
-              <Trans>Leaving...</Trans>
-            </>
-          ) : (
-            t`Leave`
-          )
-        }
+        confirmText={t`Leave`}
         destructive
         handleConfirm={handleLeaveChat}
         isLoading={leaveChatMutation.isPending}
@@ -1474,16 +1460,7 @@ export function Chats() {
           other: 'Delete # messages?',
         })}
         desc={t`This deletes the message for everyone and cannot be undone.`}
-        confirmText={
-          deleteMessagesMutation.isPending ? (
-            <>
-              <Loader2 className='me-2 size-4 animate-spin' />
-              <Trans>Deleting...</Trans>
-            </>
-          ) : (
-            t`Delete`
-          )
-        }
+        confirmText={t`Delete`}
         destructive
         handleConfirm={confirmDelete}
         isLoading={deleteMessagesMutation.isPending}
