@@ -118,9 +118,7 @@ export function ChatSettingsDialog({ open, onOpenChange }: Props) {
           <Button
             onClick={handleSave}
             disabled={
-              isLoading ||
-              isError ||
-              (!!data?.policy && value === data.policy)
+              isLoading || isError || (!!data?.policy && value === data.policy)
             }
             loading={setPolicy.isPending}
             icon={<Check className='size-4' />}
