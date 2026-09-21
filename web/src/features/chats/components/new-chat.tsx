@@ -288,6 +288,7 @@ export function NewChat() {
             ) : (
               <>
                 <PersonPicker
+                  presentation='combobox'
                   mode='multiple'
                   value={selectedFriends}
                   onChange={handleFriendsChange}
