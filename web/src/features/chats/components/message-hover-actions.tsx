@@ -109,7 +109,7 @@ export function MessageHoverActions({
           {onSelect ? (
             <DropdownMenuItem onSelect={onSelect}>
               <CheckSquare className='me-2 size-3.5' />
-              {t`Select`}
+              {t({ message: 'Select', context: 'verb' })}
             </DropdownMenuItem>
           ) : null}
           {canEdit && onEdit ? (
