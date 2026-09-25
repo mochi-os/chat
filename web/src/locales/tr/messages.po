@@ -86,9 +86,23 @@ msgstr "{count, plural, one {#dk} other {#dk}}"
 msgid "{count, plural, one {#w} other {#w}}"
 msgstr "{count, plural, one {#hf} other {#hf}}"
 
+#: ../../../lib/web/src/components/calendar/time-grid.tsx
+#: ../../../lib/web/src/components/calendar/tooltip.ts
+msgid "{day}, {from} to {to}"
+msgstr "{day}, {from} - {to}"
+
 #: ../../../lib/web/src/components/ui/create-entity-dialog.tsx
 msgid "{entityLabel} name"
 msgstr "{entityLabel} adı"
+
+#: ../../../lib/web/src/components/calendar/time-grid.tsx
+#: ../../../lib/web/src/components/calendar/tooltip.ts
+msgid "{from} to {to}"
+msgstr "{from} - {to}"
+
+#: ../../../lib/web/src/components/calendar/month-grid.tsx
+msgid "{hidden, plural, one {+# more} other {+# more}}"
+msgstr "{hidden, plural, one {+# daha} other {+# daha}}"
 
 #: src/features/chats/components/message-attachments.tsx
 msgid "{hiddenCount, plural, one {Show 1 more file} other {Show # more files}}"
@@ -276,6 +290,11 @@ msgstr "Katılıyorum"
 msgid "AI"
 msgstr "AI"
 
+#: ../../../lib/web/src/components/calendar/time-grid.tsx
+#: ../../../lib/web/src/components/calendar/time-grid.tsx
+msgid "All day"
+msgstr "Tüm gün"
+
 #: src/routes/_authenticated/$chatId_.settings.tsx
 msgid "All your friends are already in this chat"
 msgstr "Tüm arkadaşlarınız zaten bu sohbette"
@@ -364,6 +383,10 @@ msgstr "Çekilmek istediğinizden emin misiniz? {opponentName} oyunu kazanacak."
 #: ../../../lib/web/src/components/ui/sort-direction-button.tsx
 msgid "Ascending"
 msgstr "Artan"
+
+#: ../../../lib/web/src/components/timezone-select.tsx
+msgid "At sea"
+msgstr "Denizde"
 
 #: ../../../lib/web/src/components/comment-composer.tsx
 msgid "Attach comment files"
@@ -475,6 +498,10 @@ msgstr "Kenarlık rengi"
 msgid "Browser notifications"
 msgstr "Tarayıcı bildirimleri"
 
+#: ../../../lib/web/src/features/accounts/types.ts
+msgid "Calendar server"
+msgstr "Takvim sunucusu"
+
 #: ../../../lib/web/src/lib/shell-errors.ts
 msgid "Camera permission denied"
 msgstr "Kamera izni reddedildi"
@@ -543,6 +570,11 @@ msgstr "Değiştirildi"
 #: ../../../lib/web/src/components/entity/entity-activity-list.tsx
 msgid "Changed {field}"
 msgstr "{field} değiştirildi"
+
+#: ../../../lib/web/src/components/calendar/month-grid.tsx
+#: ../../../lib/web/src/components/calendar/time-grid.tsx
+msgid "Changed occurrence"
+msgstr "Değiştirilmiş yineleme"
 
 #: src/features/chats/index.tsx
 #: src/features/chats/index.tsx
@@ -644,6 +676,10 @@ msgstr "Seçili mesajları iletmek için bir sohbet veya arkadaş seçin"
 msgid "Choose a conversation from the sidebar or start a new one."
 msgstr "Kenar çubuğundan bir konuşma seçin veya yenisini başlatın."
 
+#: ../../../lib/web/src/components/ui/date-picker.tsx
+msgid "Choose a date"
+msgstr "Tarih seçin"
+
 #: ../../../lib/web/src/components/game/game-empty-state.tsx
 msgid "Choose a game from the sidebar or start a new one."
 msgstr "Kenar çubuğundan bir oyun seçin veya yenisini başlatın."
@@ -713,6 +749,7 @@ msgid "Collapse sidebar"
 msgstr "Kenar çubuğunu daralt"
 
 #: ../../../lib/web/src/components/entity/entity-option-dialog.tsx
+#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx
 msgid "Colour"
 msgstr "Renk"
 
@@ -791,6 +828,10 @@ msgstr "Devam et"
 msgid "Continue with {label}"
 msgstr "{label} ile devam et"
 
+#: ../../../lib/web/src/features/accounts/account-add.tsx
+msgid "Continue with {providerLabel}"
+msgstr "{providerLabel} ile devam et"
+
 #: ../../../lib/web/src/lib/toast-utils.ts
 #: src/features/chats/index.tsx
 msgid "Copied"
@@ -800,6 +841,10 @@ msgstr "Kopyalandı"
 msgid "Copied to clipboard"
 msgstr "Panoya kopyalandı"
 
+#: ../../../lib/web/src/components/calendar/month-grid.tsx
+#: ../../../lib/web/src/components/calendar/month-grid.tsx
+#: ../../../lib/web/src/components/calendar/time-grid.tsx
+#: ../../../lib/web/src/components/calendar/time-grid.tsx
 #: ../../../lib/web/src/components/ui/copy-button.tsx
 #: src/features/chats/components/message-hover-actions.tsx
 #: src/features/chats/index.tsx
@@ -1154,6 +1199,10 @@ msgstr "E-posta"
 #: ../../../lib/web/src/components/step-up-dialog.tsx
 msgid "Email code"
 msgstr "E-posta kodu"
+
+#: ../../../lib/web/src/components/calendar/time-grid.tsx
+msgid "Ends before it starts"
+msgstr "Başlamadan önce bitiyor"
 
 #: ../../../lib/web/src/components/banner-section.tsx
 msgid "Enter banner text (markdown supported)..."
@@ -1764,6 +1813,10 @@ msgstr "Denetim"
 msgid "Monday"
 msgstr "Pazartesi"
 
+#: ../../../lib/web/src/components/calendar/date-header.tsx
+msgid "Month"
+msgstr "Ay"
+
 #: ../../../lib/web/src/components/options-menu.tsx
 msgid "More options"
 msgstr "Diğer seçenekler"
@@ -1775,6 +1828,13 @@ msgstr "Taşındı"
 #: ../../../lib/web/src/components/entity/entity-activity-list.tsx
 msgid "Moved {field}"
 msgstr "{field} taşındı"
+
+#. placeholder {0}: dayName(current.day)
+#. placeholder {0}: dayName(dragging.day)
+#: ../../../lib/web/src/components/calendar/month-grid.tsx
+#: ../../../lib/web/src/components/calendar/time-grid.tsx
+msgid "Moving to {0}"
+msgstr "{0} tarihine taşınıyor"
 
 #. placeholder {0}: ambiguous.join(', ')
 #: src/features/chats/index.tsx
@@ -1834,6 +1894,14 @@ msgstr "Daha yeni eşleşme"
 #: ../../../lib/web/src/components/ui/image-lightbox.tsx
 msgid "Next image"
 msgstr "Sonraki görsel"
+
+#: ../../../lib/web/src/components/calendar/date-header.tsx
+msgid "Next month"
+msgstr "Sonraki ay"
+
+#: ../../../lib/web/src/components/calendar/date-header.tsx
+msgid "Next year"
+msgstr "Sonraki yıl"
 
 #: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx
 msgid "No {parentClassNames} to add to"
@@ -2160,6 +2228,14 @@ msgstr "Gönderiler ve yorumlar"
 msgid "Previous image"
 msgstr "Önceki görsel"
 
+#: ../../../lib/web/src/components/calendar/date-header.tsx
+msgid "Previous month"
+msgstr "Önceki ay"
+
+#: ../../../lib/web/src/components/calendar/date-header.tsx
+msgid "Previous year"
+msgstr "Önceki yıl"
+
 #: ../../../lib/web/src/components/server-documents-footer.tsx
 #: ../../../lib/web/src/features/document/document-page.tsx
 msgid "Privacy"
@@ -2346,6 +2422,11 @@ msgstr "Bu pano sütununu yeniden adlandır"
 #: src/routes/_authenticated/$chatId_.settings.tsx
 msgid "Renaming chat..."
 msgstr "Sohbet yeniden adlandırılıyor..."
+
+#: ../../../lib/web/src/components/calendar/month-grid.tsx
+#: ../../../lib/web/src/components/calendar/time-grid.tsx
+msgid "Repeats"
+msgstr "Yinelenir"
 
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx
@@ -3106,6 +3187,10 @@ msgstr "<0>{0}</0> adresine bir doğrulama kodu gönderdik. E-posta adresinizi d
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Wednesday"
 msgstr "Çarşamba"
+
+#: ../../../lib/web/src/components/calendar/date-header.tsx
+msgid "Year"
+msgstr "Yıl"
 
 #: src/features/chats/index.tsx
 msgid "You"

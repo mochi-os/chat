@@ -86,9 +86,23 @@ msgstr "{count, plural, one {#น} other {#น}}"
 msgid "{count, plural, one {#w} other {#w}}"
 msgstr "{count, plural, one {#สัป} other {#สัป}}"
 
+#: ../../../lib/web/src/components/calendar/time-grid.tsx
+#: ../../../lib/web/src/components/calendar/tooltip.ts
+msgid "{day}, {from} to {to}"
+msgstr "{day} {from} ถึง {to}"
+
 #: ../../../lib/web/src/components/ui/create-entity-dialog.tsx
 msgid "{entityLabel} name"
 msgstr "ชื่อ {entityLabel}"
+
+#: ../../../lib/web/src/components/calendar/time-grid.tsx
+#: ../../../lib/web/src/components/calendar/tooltip.ts
+msgid "{from} to {to}"
+msgstr "{from} ถึง {to}"
+
+#: ../../../lib/web/src/components/calendar/month-grid.tsx
+msgid "{hidden, plural, one {+# more} other {+# more}}"
+msgstr "{hidden, plural, other {+# รายการ}}"
 
 #: src/features/chats/components/message-attachments.tsx
 msgid "{hiddenCount, plural, one {Show 1 more file} other {Show # more files}}"
@@ -276,6 +290,11 @@ msgstr "เห็นด้วย"
 msgid "AI"
 msgstr "AI"
 
+#: ../../../lib/web/src/components/calendar/time-grid.tsx
+#: ../../../lib/web/src/components/calendar/time-grid.tsx
+msgid "All day"
+msgstr "ตลอดวัน"
+
 #: src/routes/_authenticated/$chatId_.settings.tsx
 msgid "All your friends are already in this chat"
 msgstr "เพื่อนของคุณทุกคนอยู่ในแชทนี้แล้ว"
@@ -364,6 +383,10 @@ msgstr "คุณแน่ใจหรือไม่ว่าต้องกา
 #: ../../../lib/web/src/components/ui/sort-direction-button.tsx
 msgid "Ascending"
 msgstr "จากน้อยไปมาก"
+
+#: ../../../lib/web/src/components/timezone-select.tsx
+msgid "At sea"
+msgstr "ในทะเล"
 
 #: ../../../lib/web/src/components/comment-composer.tsx
 msgid "Attach comment files"
@@ -475,6 +498,10 @@ msgstr "สีขอบ"
 msgid "Browser notifications"
 msgstr "การแจ้งเตือนของเบราว์เซอร์"
 
+#: ../../../lib/web/src/features/accounts/types.ts
+msgid "Calendar server"
+msgstr "เซิร์ฟเวอร์ปฏิทิน"
+
 #: ../../../lib/web/src/lib/shell-errors.ts
 msgid "Camera permission denied"
 msgstr "สิทธิ์กล้องถูกปฏิเสธ"
@@ -543,6 +570,11 @@ msgstr "เปลี่ยนแล้ว"
 #: ../../../lib/web/src/components/entity/entity-activity-list.tsx
 msgid "Changed {field}"
 msgstr "เปลี่ยน {field}"
+
+#: ../../../lib/web/src/components/calendar/month-grid.tsx
+#: ../../../lib/web/src/components/calendar/time-grid.tsx
+msgid "Changed occurrence"
+msgstr "ครั้งที่ถูกเปลี่ยนแปลง"
 
 #: src/features/chats/index.tsx
 #: src/features/chats/index.tsx
@@ -644,6 +676,10 @@ msgstr "เลือกแชทหรือเพื่อนเพื่อส
 msgid "Choose a conversation from the sidebar or start a new one."
 msgstr "เลือกบทสนทนาจากแถบด้านข้างหรือเริ่มบทสนทนาใหม่"
 
+#: ../../../lib/web/src/components/ui/date-picker.tsx
+msgid "Choose a date"
+msgstr "เลือกวันที่"
+
 #: ../../../lib/web/src/components/game/game-empty-state.tsx
 msgid "Choose a game from the sidebar or start a new one."
 msgstr "เลือกเกมจากแถบด้านข้างหรือเริ่มเกมใหม่"
@@ -713,6 +749,7 @@ msgid "Collapse sidebar"
 msgstr "ย่อแถบด้านข้าง"
 
 #: ../../../lib/web/src/components/entity/entity-option-dialog.tsx
+#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx
 msgid "Colour"
 msgstr "สี"
 
@@ -791,6 +828,10 @@ msgstr "ดำเนินการต่อ"
 msgid "Continue with {label}"
 msgstr "ดำเนินการต่อด้วย {label}"
 
+#: ../../../lib/web/src/features/accounts/account-add.tsx
+msgid "Continue with {providerLabel}"
+msgstr "ดำเนินการต่อด้วย {providerLabel}"
+
 #: ../../../lib/web/src/lib/toast-utils.ts
 #: src/features/chats/index.tsx
 msgid "Copied"
@@ -800,6 +841,10 @@ msgstr "คัดลอกแล้ว"
 msgid "Copied to clipboard"
 msgstr "คัดลอกไปยังคลิปบอร์ดแล้ว"
 
+#: ../../../lib/web/src/components/calendar/month-grid.tsx
+#: ../../../lib/web/src/components/calendar/month-grid.tsx
+#: ../../../lib/web/src/components/calendar/time-grid.tsx
+#: ../../../lib/web/src/components/calendar/time-grid.tsx
 #: ../../../lib/web/src/components/ui/copy-button.tsx
 #: src/features/chats/components/message-hover-actions.tsx
 #: src/features/chats/index.tsx
@@ -1154,6 +1199,10 @@ msgstr "อีเมล"
 #: ../../../lib/web/src/components/step-up-dialog.tsx
 msgid "Email code"
 msgstr "รหัสอีเมล"
+
+#: ../../../lib/web/src/components/calendar/time-grid.tsx
+msgid "Ends before it starts"
+msgstr "สิ้นสุดก่อนเริ่มต้น"
 
 #: ../../../lib/web/src/components/banner-section.tsx
 msgid "Enter banner text (markdown supported)..."
@@ -1626,7 +1675,7 @@ msgstr "จัดการหมวดหมู่"
 
 #: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx
 msgid "Manual"
-msgstr "คู่มือ"
+msgstr "ด้วยตนเอง"
 
 #: ../../../lib/web/src/components/layout/notification-menu.tsx
 #: ../../../lib/web/src/components/layout/notification-menu.tsx
@@ -1764,6 +1813,10 @@ msgstr "การกลั่นกรอง"
 msgid "Monday"
 msgstr "วันจันทร์"
 
+#: ../../../lib/web/src/components/calendar/date-header.tsx
+msgid "Month"
+msgstr "เดือน"
+
 #: ../../../lib/web/src/components/options-menu.tsx
 msgid "More options"
 msgstr "ตัวเลือกเพิ่มเติม"
@@ -1775,6 +1828,13 @@ msgstr "ย้ายแล้ว"
 #: ../../../lib/web/src/components/entity/entity-activity-list.tsx
 msgid "Moved {field}"
 msgstr "ย้าย {field}"
+
+#. placeholder {0}: dayName(current.day)
+#. placeholder {0}: dayName(dragging.day)
+#: ../../../lib/web/src/components/calendar/month-grid.tsx
+#: ../../../lib/web/src/components/calendar/time-grid.tsx
+msgid "Moving to {0}"
+msgstr "กำลังย้ายไปยัง {0}"
 
 #. placeholder {0}: ambiguous.join(', ')
 #: src/features/chats/index.tsx
@@ -1834,6 +1894,14 @@ msgstr "ผลที่ใหม่กว่า"
 #: ../../../lib/web/src/components/ui/image-lightbox.tsx
 msgid "Next image"
 msgstr "รูปถัดไป"
+
+#: ../../../lib/web/src/components/calendar/date-header.tsx
+msgid "Next month"
+msgstr "เดือนถัดไป"
+
+#: ../../../lib/web/src/components/calendar/date-header.tsx
+msgid "Next year"
+msgstr "ปีถัดไป"
 
 #: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx
 msgid "No {parentClassNames} to add to"
@@ -2160,6 +2228,14 @@ msgstr "โพสต์และความคิดเห็น"
 msgid "Previous image"
 msgstr "รูปก่อนหน้า"
 
+#: ../../../lib/web/src/components/calendar/date-header.tsx
+msgid "Previous month"
+msgstr "เดือนก่อนหน้า"
+
+#: ../../../lib/web/src/components/calendar/date-header.tsx
+msgid "Previous year"
+msgstr "ปีก่อนหน้า"
+
 #: ../../../lib/web/src/components/server-documents-footer.tsx
 #: ../../../lib/web/src/features/document/document-page.tsx
 msgid "Privacy"
@@ -2346,6 +2422,11 @@ msgstr "เปลี่ยนชื่อคอลัมน์ของบอร
 #: src/routes/_authenticated/$chatId_.settings.tsx
 msgid "Renaming chat..."
 msgstr "กำลังเปลี่ยนชื่อแชท..."
+
+#: ../../../lib/web/src/components/calendar/month-grid.tsx
+#: ../../../lib/web/src/components/calendar/time-grid.tsx
+msgid "Repeats"
+msgstr "ทำซ้ำ"
 
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx
@@ -3106,6 +3187,10 @@ msgstr "เราส่งรหัสยืนยันไปที่ <0>{0}</
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Wednesday"
 msgstr "วันพุธ"
+
+#: ../../../lib/web/src/components/calendar/date-header.tsx
+msgid "Year"
+msgstr "ปี"
 
 #: src/features/chats/index.tsx
 msgid "You"

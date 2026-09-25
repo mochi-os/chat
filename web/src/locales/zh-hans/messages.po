@@ -86,9 +86,23 @@ msgstr "{count, plural, one {#分钟} other {#分钟}}"
 msgid "{count, plural, one {#w} other {#w}}"
 msgstr "{count, plural, one {#周} other {#周}}"
 
+#: ../../../lib/web/src/components/calendar/time-grid.tsx
+#: ../../../lib/web/src/components/calendar/tooltip.ts
+msgid "{day}, {from} to {to}"
+msgstr "{day} {from} 至 {to}"
+
 #: ../../../lib/web/src/components/ui/create-entity-dialog.tsx
 msgid "{entityLabel} name"
 msgstr "{entityLabel}名称"
+
+#: ../../../lib/web/src/components/calendar/time-grid.tsx
+#: ../../../lib/web/src/components/calendar/tooltip.ts
+msgid "{from} to {to}"
+msgstr "{from} 至 {to}"
+
+#: ../../../lib/web/src/components/calendar/month-grid.tsx
+msgid "{hidden, plural, one {+# more} other {+# more}}"
+msgstr "{hidden, plural, other {+# 个}}"
 
 #: src/features/chats/components/message-attachments.tsx
 msgid "{hiddenCount, plural, one {Show 1 more file} other {Show # more files}}"
@@ -276,6 +290,11 @@ msgstr "同意"
 msgid "AI"
 msgstr "AI"
 
+#: ../../../lib/web/src/components/calendar/time-grid.tsx
+#: ../../../lib/web/src/components/calendar/time-grid.tsx
+msgid "All day"
+msgstr "全天"
+
 #: src/routes/_authenticated/$chatId_.settings.tsx
 msgid "All your friends are already in this chat"
 msgstr "你的好友都已在此聊天中"
@@ -364,6 +383,10 @@ msgstr "确定要认输吗?{opponentName} 将赢得比赛。"
 #: ../../../lib/web/src/components/ui/sort-direction-button.tsx
 msgid "Ascending"
 msgstr "升序"
+
+#: ../../../lib/web/src/components/timezone-select.tsx
+msgid "At sea"
+msgstr "海上"
 
 #: ../../../lib/web/src/components/comment-composer.tsx
 msgid "Attach comment files"
@@ -475,6 +498,10 @@ msgstr "边框颜色"
 msgid "Browser notifications"
 msgstr "浏览器通知"
 
+#: ../../../lib/web/src/features/accounts/types.ts
+msgid "Calendar server"
+msgstr "日历服务器"
+
 #: ../../../lib/web/src/lib/shell-errors.ts
 msgid "Camera permission denied"
 msgstr "相机权限被拒绝"
@@ -543,6 +570,11 @@ msgstr "已更改"
 #: ../../../lib/web/src/components/entity/entity-activity-list.tsx
 msgid "Changed {field}"
 msgstr "已更改{field}"
+
+#: ../../../lib/web/src/components/calendar/month-grid.tsx
+#: ../../../lib/web/src/components/calendar/time-grid.tsx
+msgid "Changed occurrence"
+msgstr "已修改的重复项"
 
 #: src/features/chats/index.tsx
 #: src/features/chats/index.tsx
@@ -644,6 +676,10 @@ msgstr "选择一个聊天或好友以转发所选消息"
 msgid "Choose a conversation from the sidebar or start a new one."
 msgstr "从侧边栏选择一个会话或开始新的会话。"
 
+#: ../../../lib/web/src/components/ui/date-picker.tsx
+msgid "Choose a date"
+msgstr "选择日期"
+
 #: ../../../lib/web/src/components/game/game-empty-state.tsx
 msgid "Choose a game from the sidebar or start a new one."
 msgstr "从侧边栏选择一个游戏或开始新游戏。"
@@ -713,6 +749,7 @@ msgid "Collapse sidebar"
 msgstr "折叠侧边栏"
 
 #: ../../../lib/web/src/components/entity/entity-option-dialog.tsx
+#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx
 msgid "Colour"
 msgstr "颜色"
 
@@ -791,6 +828,10 @@ msgstr "继续"
 msgid "Continue with {label}"
 msgstr "使用 {label} 继续"
 
+#: ../../../lib/web/src/features/accounts/account-add.tsx
+msgid "Continue with {providerLabel}"
+msgstr "使用 {providerLabel} 继续"
+
 #: ../../../lib/web/src/lib/toast-utils.ts
 #: src/features/chats/index.tsx
 msgid "Copied"
@@ -800,6 +841,10 @@ msgstr "已复制"
 msgid "Copied to clipboard"
 msgstr "已复制到剪贴板"
 
+#: ../../../lib/web/src/components/calendar/month-grid.tsx
+#: ../../../lib/web/src/components/calendar/month-grid.tsx
+#: ../../../lib/web/src/components/calendar/time-grid.tsx
+#: ../../../lib/web/src/components/calendar/time-grid.tsx
 #: ../../../lib/web/src/components/ui/copy-button.tsx
 #: src/features/chats/components/message-hover-actions.tsx
 #: src/features/chats/index.tsx
@@ -1154,6 +1199,10 @@ msgstr "邮箱"
 #: ../../../lib/web/src/components/step-up-dialog.tsx
 msgid "Email code"
 msgstr "邮箱验证码"
+
+#: ../../../lib/web/src/components/calendar/time-grid.tsx
+msgid "Ends before it starts"
+msgstr "结束早于开始"
 
 #: ../../../lib/web/src/components/banner-section.tsx
 msgid "Enter banner text (markdown supported)..."
@@ -1764,6 +1813,10 @@ msgstr "审核"
 msgid "Monday"
 msgstr "星期一"
 
+#: ../../../lib/web/src/components/calendar/date-header.tsx
+msgid "Month"
+msgstr "月"
+
 #: ../../../lib/web/src/components/options-menu.tsx
 msgid "More options"
 msgstr "更多选项"
@@ -1775,6 +1828,13 @@ msgstr "已移动"
 #: ../../../lib/web/src/components/entity/entity-activity-list.tsx
 msgid "Moved {field}"
 msgstr "已移动{field}"
+
+#. placeholder {0}: dayName(current.day)
+#. placeholder {0}: dayName(dragging.day)
+#: ../../../lib/web/src/components/calendar/month-grid.tsx
+#: ../../../lib/web/src/components/calendar/time-grid.tsx
+msgid "Moving to {0}"
+msgstr "正在移动到 {0}"
 
 #. placeholder {0}: ambiguous.join(', ')
 #: src/features/chats/index.tsx
@@ -1834,6 +1894,14 @@ msgstr "较新的匹配"
 #: ../../../lib/web/src/components/ui/image-lightbox.tsx
 msgid "Next image"
 msgstr "下一张图片"
+
+#: ../../../lib/web/src/components/calendar/date-header.tsx
+msgid "Next month"
+msgstr "下个月"
+
+#: ../../../lib/web/src/components/calendar/date-header.tsx
+msgid "Next year"
+msgstr "下一年"
 
 #: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx
 msgid "No {parentClassNames} to add to"
@@ -2160,6 +2228,14 @@ msgstr "帖子和评论"
 msgid "Previous image"
 msgstr "上一张图片"
 
+#: ../../../lib/web/src/components/calendar/date-header.tsx
+msgid "Previous month"
+msgstr "上个月"
+
+#: ../../../lib/web/src/components/calendar/date-header.tsx
+msgid "Previous year"
+msgstr "上一年"
+
 #: ../../../lib/web/src/components/server-documents-footer.tsx
 #: ../../../lib/web/src/features/document/document-page.tsx
 msgid "Privacy"
@@ -2346,6 +2422,11 @@ msgstr "重命名此看板列"
 #: src/routes/_authenticated/$chatId_.settings.tsx
 msgid "Renaming chat..."
 msgstr "正在重命名聊天..."
+
+#: ../../../lib/web/src/components/calendar/month-grid.tsx
+#: ../../../lib/web/src/components/calendar/time-grid.tsx
+msgid "Repeats"
+msgstr "重复进行"
 
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx
@@ -3106,6 +3187,10 @@ msgstr "我们已将验证码发送至 <0>{0}</0>。请在下方输入验证码�
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Wednesday"
 msgstr "星期三"
+
+#: ../../../lib/web/src/components/calendar/date-header.tsx
+msgid "Year"
+msgstr "年"
 
 #: src/features/chats/index.tsx
 msgid "You"

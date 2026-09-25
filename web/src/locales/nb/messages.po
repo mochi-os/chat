@@ -86,9 +86,23 @@ msgstr "{count, plural, one {#min} other {#min}}"
 msgid "{count, plural, one {#w} other {#w}}"
 msgstr "{count, plural, one {#u} other {#u}}"
 
+#: ../../../lib/web/src/components/calendar/time-grid.tsx
+#: ../../../lib/web/src/components/calendar/tooltip.ts
+msgid "{day}, {from} to {to}"
+msgstr "{day}, {from} til {to}"
+
 #: ../../../lib/web/src/components/ui/create-entity-dialog.tsx
 msgid "{entityLabel} name"
 msgstr "{entityLabel}-navn"
+
+#: ../../../lib/web/src/components/calendar/time-grid.tsx
+#: ../../../lib/web/src/components/calendar/tooltip.ts
+msgid "{from} to {to}"
+msgstr "{from} til {to}"
+
+#: ../../../lib/web/src/components/calendar/month-grid.tsx
+msgid "{hidden, plural, one {+# more} other {+# more}}"
+msgstr "{hidden, plural, one {+# til} other {+# til}}"
 
 #: src/features/chats/components/message-attachments.tsx
 msgid "{hiddenCount, plural, one {Show 1 more file} other {Show # more files}}"
@@ -276,6 +290,11 @@ msgstr "Enig"
 msgid "AI"
 msgstr "KI"
 
+#: ../../../lib/web/src/components/calendar/time-grid.tsx
+#: ../../../lib/web/src/components/calendar/time-grid.tsx
+msgid "All day"
+msgstr "Hele dagen"
+
 #: src/routes/_authenticated/$chatId_.settings.tsx
 msgid "All your friends are already in this chat"
 msgstr "Alle vennene dine er allerede i denne chatten"
@@ -364,6 +383,10 @@ msgstr "Er du sikker på at du vil gi opp? {opponentName} vinner spillet."
 #: ../../../lib/web/src/components/ui/sort-direction-button.tsx
 msgid "Ascending"
 msgstr "Stigende"
+
+#: ../../../lib/web/src/components/timezone-select.tsx
+msgid "At sea"
+msgstr "Til sjøs"
 
 #: ../../../lib/web/src/components/comment-composer.tsx
 msgid "Attach comment files"
@@ -475,6 +498,10 @@ msgstr "Kantfarge"
 msgid "Browser notifications"
 msgstr "Nettleservarsler"
 
+#: ../../../lib/web/src/features/accounts/types.ts
+msgid "Calendar server"
+msgstr "Kalenderserver"
+
 #: ../../../lib/web/src/lib/shell-errors.ts
 msgid "Camera permission denied"
 msgstr "Kameratillatelse avvist"
@@ -543,6 +570,11 @@ msgstr "Endret"
 #: ../../../lib/web/src/components/entity/entity-activity-list.tsx
 msgid "Changed {field}"
 msgstr "Endret {field}"
+
+#: ../../../lib/web/src/components/calendar/month-grid.tsx
+#: ../../../lib/web/src/components/calendar/time-grid.tsx
+msgid "Changed occurrence"
+msgstr "Endret forekomst"
 
 #: src/features/chats/index.tsx
 #: src/features/chats/index.tsx
@@ -644,6 +676,10 @@ msgstr "Velg en chat eller venn å videresende de valgte meldingene til"
 msgid "Choose a conversation from the sidebar or start a new one."
 msgstr "Velg en samtale fra sidefeltet eller start en ny."
 
+#: ../../../lib/web/src/components/ui/date-picker.tsx
+msgid "Choose a date"
+msgstr "Velg en dato"
+
 #: ../../../lib/web/src/components/game/game-empty-state.tsx
 msgid "Choose a game from the sidebar or start a new one."
 msgstr "Velg et spill fra sidefeltet eller start et nytt."
@@ -713,6 +749,7 @@ msgid "Collapse sidebar"
 msgstr "Skjul sidefelt"
 
 #: ../../../lib/web/src/components/entity/entity-option-dialog.tsx
+#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx
 msgid "Colour"
 msgstr "Farge"
 
@@ -791,6 +828,10 @@ msgstr "Fortsett"
 msgid "Continue with {label}"
 msgstr "Fortsett med {label}"
 
+#: ../../../lib/web/src/features/accounts/account-add.tsx
+msgid "Continue with {providerLabel}"
+msgstr "Fortsett med {providerLabel}"
+
 #: ../../../lib/web/src/lib/toast-utils.ts
 #: src/features/chats/index.tsx
 msgid "Copied"
@@ -800,6 +841,10 @@ msgstr "Kopiert"
 msgid "Copied to clipboard"
 msgstr "Kopiert til utklippstavlen"
 
+#: ../../../lib/web/src/components/calendar/month-grid.tsx
+#: ../../../lib/web/src/components/calendar/month-grid.tsx
+#: ../../../lib/web/src/components/calendar/time-grid.tsx
+#: ../../../lib/web/src/components/calendar/time-grid.tsx
 #: ../../../lib/web/src/components/ui/copy-button.tsx
 #: src/features/chats/components/message-hover-actions.tsx
 #: src/features/chats/index.tsx
@@ -1154,6 +1199,10 @@ msgstr "E-post"
 #: ../../../lib/web/src/components/step-up-dialog.tsx
 msgid "Email code"
 msgstr "E-postkode"
+
+#: ../../../lib/web/src/components/calendar/time-grid.tsx
+msgid "Ends before it starts"
+msgstr "Slutter før den begynner"
 
 #: ../../../lib/web/src/components/banner-section.tsx
 msgid "Enter banner text (markdown supported)..."
@@ -1764,6 +1813,10 @@ msgstr "Moderering"
 msgid "Monday"
 msgstr "Mandag"
 
+#: ../../../lib/web/src/components/calendar/date-header.tsx
+msgid "Month"
+msgstr "Måned"
+
 #: ../../../lib/web/src/components/options-menu.tsx
 msgid "More options"
 msgstr "Flere alternativer"
@@ -1775,6 +1828,13 @@ msgstr "Flyttet"
 #: ../../../lib/web/src/components/entity/entity-activity-list.tsx
 msgid "Moved {field}"
 msgstr "Flyttet {field}"
+
+#. placeholder {0}: dayName(current.day)
+#. placeholder {0}: dayName(dragging.day)
+#: ../../../lib/web/src/components/calendar/month-grid.tsx
+#: ../../../lib/web/src/components/calendar/time-grid.tsx
+msgid "Moving to {0}"
+msgstr "Flytter til {0}"
 
 #. placeholder {0}: ambiguous.join(', ')
 #: src/features/chats/index.tsx
@@ -1834,6 +1894,14 @@ msgstr "Nyere treff"
 #: ../../../lib/web/src/components/ui/image-lightbox.tsx
 msgid "Next image"
 msgstr "Neste bilde"
+
+#: ../../../lib/web/src/components/calendar/date-header.tsx
+msgid "Next month"
+msgstr "Neste måned"
+
+#: ../../../lib/web/src/components/calendar/date-header.tsx
+msgid "Next year"
+msgstr "Neste år"
 
 #: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx
 msgid "No {parentClassNames} to add to"
@@ -2160,6 +2228,14 @@ msgstr "Innlegg og kommentarer"
 msgid "Previous image"
 msgstr "Forrige bilde"
 
+#: ../../../lib/web/src/components/calendar/date-header.tsx
+msgid "Previous month"
+msgstr "Forrige måned"
+
+#: ../../../lib/web/src/components/calendar/date-header.tsx
+msgid "Previous year"
+msgstr "Forrige år"
+
 #: ../../../lib/web/src/components/server-documents-footer.tsx
 #: ../../../lib/web/src/features/document/document-page.tsx
 msgid "Privacy"
@@ -2346,6 +2422,11 @@ msgstr "Gi denne tavlekolonnen nytt navn"
 #: src/routes/_authenticated/$chatId_.settings.tsx
 msgid "Renaming chat..."
 msgstr "Gir nytt navn til chat..."
+
+#: ../../../lib/web/src/components/calendar/month-grid.tsx
+#: ../../../lib/web/src/components/calendar/time-grid.tsx
+msgid "Repeats"
+msgstr "Gjentas"
 
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx
@@ -3106,6 +3187,10 @@ msgstr "Vi sendte en bekreftelseskode til <0>{0}</0>. Skriv inn koden nedenfor f
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Wednesday"
 msgstr "Onsdag"
+
+#: ../../../lib/web/src/components/calendar/date-header.tsx
+msgid "Year"
+msgstr "År"
 
 #: src/features/chats/index.tsx
 msgid "You"

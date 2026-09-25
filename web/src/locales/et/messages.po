@@ -86,9 +86,23 @@ msgstr "{count, plural, one {#min} other {#min}}"
 msgid "{count, plural, one {#w} other {#w}}"
 msgstr "{count, plural, one {#näd} other {#näd}}"
 
+#: ../../../lib/web/src/components/calendar/time-grid.tsx
+#: ../../../lib/web/src/components/calendar/tooltip.ts
+msgid "{day}, {from} to {to}"
+msgstr "{day}, {from} kuni {to}"
+
 #: ../../../lib/web/src/components/ui/create-entity-dialog.tsx
 msgid "{entityLabel} name"
 msgstr "{entityLabel} nimi"
+
+#: ../../../lib/web/src/components/calendar/time-grid.tsx
+#: ../../../lib/web/src/components/calendar/tooltip.ts
+msgid "{from} to {to}"
+msgstr "{from} kuni {to}"
+
+#: ../../../lib/web/src/components/calendar/month-grid.tsx
+msgid "{hidden, plural, one {+# more} other {+# more}}"
+msgstr "{hidden, plural, one {+# veel} other {+# veel}}"
 
 #: src/features/chats/components/message-attachments.tsx
 msgid "{hiddenCount, plural, one {Show 1 more file} other {Show # more files}}"
@@ -276,6 +290,11 @@ msgstr "Nõustu"
 msgid "AI"
 msgstr "AI"
 
+#: ../../../lib/web/src/components/calendar/time-grid.tsx
+#: ../../../lib/web/src/components/calendar/time-grid.tsx
+msgid "All day"
+msgstr "Kogu päev"
+
 #: src/routes/_authenticated/$chatId_.settings.tsx
 msgid "All your friends are already in this chat"
 msgstr "Kõik sinu sõbrad on juba selles vestluses"
@@ -364,6 +383,10 @@ msgstr "Kas oled kindel, et soovid alla anda? {opponentName} võidab mängu."
 #: ../../../lib/web/src/components/ui/sort-direction-button.tsx
 msgid "Ascending"
 msgstr "Kasvav"
+
+#: ../../../lib/web/src/components/timezone-select.tsx
+msgid "At sea"
+msgstr "Merel"
 
 #: ../../../lib/web/src/components/comment-composer.tsx
 msgid "Attach comment files"
@@ -475,6 +498,10 @@ msgstr "Äärise värv"
 msgid "Browser notifications"
 msgstr "Brauseri teavitused"
 
+#: ../../../lib/web/src/features/accounts/types.ts
+msgid "Calendar server"
+msgstr "Kalendriserver"
+
 #: ../../../lib/web/src/lib/shell-errors.ts
 msgid "Camera permission denied"
 msgstr "Kaamera luba keelati"
@@ -543,6 +570,11 @@ msgstr "Muudetud"
 #: ../../../lib/web/src/components/entity/entity-activity-list.tsx
 msgid "Changed {field}"
 msgstr "{field} muudetud"
+
+#: ../../../lib/web/src/components/calendar/month-grid.tsx
+#: ../../../lib/web/src/components/calendar/time-grid.tsx
+msgid "Changed occurrence"
+msgstr "Muudetud kordus"
 
 #: src/features/chats/index.tsx
 #: src/features/chats/index.tsx
@@ -644,6 +676,10 @@ msgstr "Vali vestlus või sõber, kellele valitud sõnumid edasi saata"
 msgid "Choose a conversation from the sidebar or start a new one."
 msgstr "Vali külgribalt vestlus või alusta uut."
 
+#: ../../../lib/web/src/components/ui/date-picker.tsx
+msgid "Choose a date"
+msgstr "Vali kuupäev"
+
 #: ../../../lib/web/src/components/game/game-empty-state.tsx
 msgid "Choose a game from the sidebar or start a new one."
 msgstr "Vali külgribalt mäng või alusta uut."
@@ -713,6 +749,7 @@ msgid "Collapse sidebar"
 msgstr "Sulge külgriba"
 
 #: ../../../lib/web/src/components/entity/entity-option-dialog.tsx
+#: ../../../lib/web/src/components/ui/create-entity-dialog.tsx
 msgid "Colour"
 msgstr "Värv"
 
@@ -791,6 +828,10 @@ msgstr "Jätka"
 msgid "Continue with {label}"
 msgstr "Jätka teenusega {label}"
 
+#: ../../../lib/web/src/features/accounts/account-add.tsx
+msgid "Continue with {providerLabel}"
+msgstr "Jätka teenusega {providerLabel}"
+
 #: ../../../lib/web/src/lib/toast-utils.ts
 #: src/features/chats/index.tsx
 msgid "Copied"
@@ -800,6 +841,10 @@ msgstr "Kopeeritud"
 msgid "Copied to clipboard"
 msgstr "Kopeeritud lõikelauale"
 
+#: ../../../lib/web/src/components/calendar/month-grid.tsx
+#: ../../../lib/web/src/components/calendar/month-grid.tsx
+#: ../../../lib/web/src/components/calendar/time-grid.tsx
+#: ../../../lib/web/src/components/calendar/time-grid.tsx
 #: ../../../lib/web/src/components/ui/copy-button.tsx
 #: src/features/chats/components/message-hover-actions.tsx
 #: src/features/chats/index.tsx
@@ -1154,6 +1199,10 @@ msgstr "E-post"
 #: ../../../lib/web/src/components/step-up-dialog.tsx
 msgid "Email code"
 msgstr "E-posti kood"
+
+#: ../../../lib/web/src/components/calendar/time-grid.tsx
+msgid "Ends before it starts"
+msgstr "Lõpeb enne algust"
 
 #: ../../../lib/web/src/components/banner-section.tsx
 msgid "Enter banner text (markdown supported)..."
@@ -1764,6 +1813,10 @@ msgstr "Modereerimine"
 msgid "Monday"
 msgstr "Esmaspäev"
 
+#: ../../../lib/web/src/components/calendar/date-header.tsx
+msgid "Month"
+msgstr "Kuu"
+
 #: ../../../lib/web/src/components/options-menu.tsx
 msgid "More options"
 msgstr "Rohkem valikuid"
@@ -1775,6 +1828,13 @@ msgstr "Teisaldatud"
 #: ../../../lib/web/src/components/entity/entity-activity-list.tsx
 msgid "Moved {field}"
 msgstr "{field} teisaldatud"
+
+#. placeholder {0}: dayName(current.day)
+#. placeholder {0}: dayName(dragging.day)
+#: ../../../lib/web/src/components/calendar/month-grid.tsx
+#: ../../../lib/web/src/components/calendar/time-grid.tsx
+msgid "Moving to {0}"
+msgstr "Teisaldamine kuupäevale {0}"
 
 #. placeholder {0}: ambiguous.join(', ')
 #: src/features/chats/index.tsx
@@ -1834,6 +1894,14 @@ msgstr "Uuem vaste"
 #: ../../../lib/web/src/components/ui/image-lightbox.tsx
 msgid "Next image"
 msgstr "Järgmine pilt"
+
+#: ../../../lib/web/src/components/calendar/date-header.tsx
+msgid "Next month"
+msgstr "Järgmine kuu"
+
+#: ../../../lib/web/src/components/calendar/date-header.tsx
+msgid "Next year"
+msgstr "Järgmine aasta"
 
 #: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx
 msgid "No {parentClassNames} to add to"
@@ -2160,6 +2228,14 @@ msgstr "Postitused ja kommentaarid"
 msgid "Previous image"
 msgstr "Eelmine pilt"
 
+#: ../../../lib/web/src/components/calendar/date-header.tsx
+msgid "Previous month"
+msgstr "Eelmine kuu"
+
+#: ../../../lib/web/src/components/calendar/date-header.tsx
+msgid "Previous year"
+msgstr "Eelmine aasta"
+
 #: ../../../lib/web/src/components/server-documents-footer.tsx
 #: ../../../lib/web/src/features/document/document-page.tsx
 msgid "Privacy"
@@ -2346,6 +2422,11 @@ msgstr "Nimeta see tahvli veerg ümber"
 #: src/routes/_authenticated/$chatId_.settings.tsx
 msgid "Renaming chat..."
 msgstr "Vestluse ümbernimetamine..."
+
+#: ../../../lib/web/src/components/calendar/month-grid.tsx
+#: ../../../lib/web/src/components/calendar/time-grid.tsx
+msgid "Repeats"
+msgstr "Kordub"
 
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx
@@ -3106,6 +3187,10 @@ msgstr "Saatsime kinnituskoodi aadressile <0>{0}</0>. Sisestage kood allpool, et
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Wednesday"
 msgstr "Kolmapäev"
+
+#: ../../../lib/web/src/components/calendar/date-header.tsx
+msgid "Year"
+msgstr "Aasta"
 
 #: src/features/chats/index.tsx
 msgid "You"

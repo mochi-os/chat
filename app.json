@@ -5,7 +5,7 @@
 // Mochi Application Interface Exception - see license.txt and license-exception.md.
 
 {
-	"version": "2.148",
+	"version": "2.149",
 	"label": "app.name",
 	"classes": ["chat"],
 	"paths": ["chat"],
@@ -33,7 +33,7 @@
 		"images": {"files": "web/dist/images"},
 		"-/list": {"function": "action_list"},
 		"-/new": {"function": "action_new"},
-		"-/person/:person/asset/:asset": {"function": "action_person_asset"},
+		"-/person/:person/asset/:asset": {"function": "action_person_asset", "asset": true},
 		"-/person/search": {"function": "action_person_search"},
 		"-/preferences/get": {"function": "action_preferences_get"},
 		"-/preferences/set": {"function": "action_preferences_set"},
@@ -56,10 +56,10 @@
 		":chat/-/delete": {"function": "action_delete"},
 		":chat/-/member/add": {"function": "action_member_add"},
 		":chat/-/member/remove": {"function": "action_member_remove"},
-		":chat/-/attachments/:id": {"function": "action_attachment"},
-		":chat/-/attachments/:id/thumbnail": {"function": "action_attachment_thumbnail"},
-		":chat/-/attachments/:id/preview": {"function": "action_attachment_preview"},
-		":chat/-/:message/asset/:asset": {"function": "action_message_asset"},
+		":chat/-/attachments/:id": {"function": "action_attachment", "asset": true},
+		":chat/-/attachments/:id/thumbnail": {"function": "action_attachment_thumbnail", "asset": true},
+		":chat/-/attachments/:id/preview": {"function": "action_attachment_preview", "asset": true},
+		":chat/-/:message/asset/:asset": {"function": "action_message_asset", "asset": true},
 		":chat/settings": {"file": "web/dist/index.html"},
 		":chat/settings/assets": {"files": "web/dist/assets"},
 		":chat/settings/images": {"files": "web/dist/images"},
