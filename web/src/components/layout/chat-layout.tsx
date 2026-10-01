@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: AGPL-3.0-only
 // This file is part of Mochi, licensed under the GNU AGPL v3 with the
 // Mochi Application Interface Exception - see license.txt and license-exception.md.
-import { useCallback, useEffect, useMemo } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import { Outlet, useParams } from '@tanstack/react-router'
 import { useLingui } from '@lingui/react/macro'
 import {
@@ -24,6 +24,14 @@ import { SidebarProvider, useSidebarContext } from '@/context/sidebar-context'
 import { useChatsQuery, useMarkChatReadMutation } from '@/hooks/useChats'
 import { NewChat } from '@/features/chats/components/new-chat'
 import { formatCountBadge } from '@/features/chats/utils'
+import {
+  chatIsDirect,
+  chatIsUnread,
+  chatMatchesFilter,
+  chatMatchesSearch,
+  type ChatFilter,
+} from '@/features/chats/utils/chat-filter'
+import { ChatListFilters } from './chat-list-filters'
 
 const UNREAD_DOT = '●'
 
@@ -151,6 +159,25 @@ function ChatLayoutInner() {
 
   const { mutateAsync: markChatReadAsync } = useMarkChatReadMutation()
 
+  const [search, setSearch] = useState('')
+  const [filter, setFilter] = useState<ChatFilter>('all')
+
+  const unreadCount = useMemo(
+    () => chats.filter((chat) => chatIsUnread(chat, isChatMarkedUnread)).length,
+    [chats, isChatMarkedUnread]
+  )
+
+  const visibleChats = useMemo(() => {
+    return chats.filter(
+      (chat) =>
+        chatMatchesSearch(chat, search) &&
+        chatMatchesFilter(chat, filter, {
+          isChatMarkedUnread,
+          openChatId: urlChatId,
+        })
+    )
+  }, [chats, filter, isChatMarkedUnread, search, urlChatId])
+
   const handleMarkChatRead = useCallback(
     async (chatId: string) => {
       clearMarkedUnread(chatId)
@@ -204,7 +231,7 @@ function ChatLayoutInner() {
 
   const sidebarData: SidebarData = useMemo(() => {
     // Pinned chats first, then by most recently updated within each group
-    const sortedChats = [...chats].sort((a, b) => {
+    const sortedChats = [...visibleChats].sort((a, b) => {
       const aPinned = isChatPinned(a.id)
       const bPinned = isChatPinned(b.id)
       if (aPinned !== bPinned) {
@@ -255,7 +282,7 @@ function ChatLayoutInner() {
         title: chat.name,
         url: `/${chat.id}`,
         icon:
-          chat.members === 2 && chat.other
+          chatIsDirect(chat) && chat.other
             ? personIcon(chat.other, chat.name)
             : groupIcon(chat.id),
         endIcon: pinned ? Pin : undefined,
@@ -292,7 +319,7 @@ function ChatLayoutInner() {
       ],
     }
   }, [
-    chats,
+    visibleChats,
     formatNumber,
     handleMarkChatRead,
     handleMarkChatUnread,
@@ -309,6 +336,18 @@ function ChatLayoutInner() {
   return (
     <AuthenticatedLayout
       sidebarData={sidebarData}
+      sidebarHeader={
+        chats.length > 0 ? (
+          <ChatListFilters
+            search={search}
+            onSearchChange={setSearch}
+            filter={filter}
+            onFilterChange={setFilter}
+            unreadCount={unreadCount}
+            empty={visibleChats.length === 0}
+          />
+        ) : undefined
+      }
       sidebarFooter={<WebsocketStatusIndicator />}
     >
       <Outlet />
