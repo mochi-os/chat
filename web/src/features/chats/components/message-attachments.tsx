@@ -143,7 +143,7 @@ function MessageFileList({
           ) : (
             <Plural
               value={hiddenCount}
-              one='Show 1 more file'
+              one='Show # more file'
               other='Show # more files'
             />
           )}

@@ -1457,7 +1457,7 @@ export function Chats() {
           if (!open) setDeleteTargetIds(null)
         }}
         title={plural(deleteTargetIds?.length ?? 0, {
-          one: 'Delete message?',
+          1: 'Delete message?',
           other: 'Delete # messages?',
         })}
         desc={t`This deletes the message for everyone and cannot be undone.`}

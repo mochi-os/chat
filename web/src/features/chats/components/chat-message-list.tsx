@@ -953,7 +953,7 @@ export function ChatMessageList({
                 aria-label={
                   newMessageCount > 0
                     ? plural(newMessageCount, {
-                        one: 'Jump to 1 new message',
+                        one: 'Jump to # new message',
                         other: 'Jump to # new messages',
                       })
                     : t`Jump to bottom`
@@ -970,7 +970,7 @@ export function ChatMessageList({
             <TooltipContent>
               {newMessageCount > 0
                 ? plural(newMessageCount, {
-                    one: 'Jump to 1 new message',
+                    one: 'Jump to # new message',
                     other: 'Jump to # new messages',
                   })
                 : t`Jump to bottom`}
