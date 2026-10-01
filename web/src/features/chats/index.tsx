@@ -1434,6 +1434,7 @@ export function Chats() {
         title={t`Leave chat?`}
         desc={t`Are you sure you want to leave "${selectedChat?.name}"? You can be added back by other members.`}
         confirmText={t`Leave`}
+        icon={<LogOut className='size-4' />}
         destructive
         handleConfirm={handleLeaveChat}
         isLoading={leaveChatMutation.isPending}
@@ -1461,6 +1462,7 @@ export function Chats() {
         })}
         desc={t`This deletes the message for everyone and cannot be undone.`}
         confirmText={t`Delete`}
+        icon={<Trash2 className='size-4' />}
         destructive
         handleConfirm={confirmDelete}
         isLoading={deleteMessagesMutation.isPending}

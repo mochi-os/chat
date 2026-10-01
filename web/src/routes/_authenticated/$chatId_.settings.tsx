@@ -32,7 +32,13 @@ import {
   DetailSkeleton,
   naturalCompare,
 } from '@mochi/web'
-import { Loader2, MessageCircle, UserPlus } from 'lucide-react'
+import {
+  Loader2,
+  LogOut,
+  MessageCircle,
+  UserMinus,
+  UserPlus,
+} from 'lucide-react'
 import { personAssetUrl } from '@/api/person'
 import {
   useChatDetailQuery,
@@ -323,6 +329,7 @@ function LeaveDialog({
       title={t`Leave chat?`}
       desc={t`Are you sure you want to leave "${chatName}"? You can be added back by other members.`}
       confirmText={t`Leave chat`}
+      icon={<LogOut className='size-4' />}
       destructive
       handleConfirm={handleLeave}
       isLoading={leaveMutation.isPending}
@@ -521,6 +528,7 @@ function RemoveMemberDialog({
       title={t`Remove ${name}?`}
       desc={t`They stop receiving new messages in this chat.`}
       confirmText={t`Remove`}
+      icon={<UserMinus className='size-4' />}
       destructive
       handleConfirm={handleRemove}
       isLoading={removeMemberMutation.isPending}
