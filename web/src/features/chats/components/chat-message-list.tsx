@@ -690,7 +690,7 @@ export function ChatMessageList({
                                           message.attachments
                                         ) &&
                                           (message.body
-                                            ? 'w-fit max-w-[calc(100vw-4.5rem)] min-w-[17.5rem]'
+                                            ? 'w-fit max-w-[calc(100vw-4.5rem)] min-w-[min(17.5rem,calc(100vw-4.5rem))]'
                                             : CHAT_MEDIA_BUBBLE_CLASS),
                                         message.attachments?.length &&
                                           !attachmentsNeedFixedMediaWidth(
