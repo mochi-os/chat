@@ -108,7 +108,76 @@ def chat_commit_hook(table, kind, row_uid):
 		"reply": message.get("reply"),
 		"edited": message.get("edited", 0),
 		"attachments": attachments,
+		"quote": message_quote_of(message),
 	})
+
+# --- Quotes -----------------------------------------------------------------
+#
+# A message's first link to a post on another network is quoted (the
+# federation plan, phase 13): the server reads the post when the message is
+# sent and keeps what the card shows with the message, as JSON in its quote
+# column, so every member and every host sees the same quote.
+
+# What a quote keeps of a post's text.
+QUOTE_TEXT = 2000
+
+def quote_link(body):
+	"""The first web link in a message, which may be a post on another network."""
+	for token in body.split():
+		for prefix in ("https://", "http://"):
+			at = token.find(prefix)
+			if at >= 0:
+				link = token[at:].rstrip(".,;:!?)]}>'\"")
+				if "." in link[len(prefix):]:
+					return link
+	return None
+
+def message_quote(body):
+	"""The post on another network a message's first link names, or None."""
+	link = quote_link(body)
+	if not link:
+		return None
+	return quote_clean(mochi.url.quote(link))
+
+def quote_web_link(value):
+	"""A link kept only as a web one: a quote arrives from another server."""
+	link = str(value or "")
+	return link[:2048] if link.startswith("https://") or link.startswith("http://") else ""
+
+def quote_clean(quote):
+	"""A quote as it is kept and sent: known fields only, links web ones, the
+	text cut; None where it is not a quote of a post."""
+	if type(quote) != "dict":
+		return None
+	url = quote_web_link(quote.get("url"))
+	text = str(quote.get("text", "") or "")[:QUOTE_TEXT]
+	image = quote_web_link(quote.get("image"))
+	if not url or not text and not image:
+		return None
+	created = quote.get("created", 0)
+	clean = {
+		"network": str(quote.get("network", "") or "")[:50],
+		"url": url,
+		"id": str(quote.get("id", "") or "")[:2048],
+		"text": text,
+		"image": image,
+		"created": created if type(created) == "int" else 0,
+	}
+	author = quote.get("author")
+	if type(author) == "dict":
+		clean["author"] = {
+			"id": str(author.get("id", "") or "")[:2048],
+			"name": str(author.get("name", "") or "")[:200],
+			"address": str(author.get("address", "") or "")[:300],
+			"avatar": quote_web_link(author.get("avatar")),
+			"url": quote_web_link(author.get("url")),
+		}
+	return clean
+
+def message_quote_of(message):
+	"""A stored message's quote, decoded for the client, or None."""
+	raw = message.get("quote", "") if message else ""
+	return json.decode(raw, None) if raw else None
 
 # Lazy hook registration; the call to mochi.db.commit.hook needs a
 # user/app context that's only present during a real request, not at
@@ -125,7 +194,7 @@ def database_create():
 	mochi.db.execute("create table if not exists members ( chat references chats( id ), member text not null, name text not null default '', primary key ( chat, member ) )")
 	mochi.db.execute("create index if not exists members_member on members( member )")
 
-	mochi.db.execute("create table if not exists messages ( id text not null primary key, chat references chats( id ), member text not null, name text not null, body text not null, created integer not null, reply text references messages( id ), edited integer not null default 0 )")
+	mochi.db.execute("create table if not exists messages ( id text not null primary key, chat references chats( id ), member text not null, name text not null, body text not null, created integer not null, reply text references messages( id ), edited integer not null default 0, quote text not null default '' )")
 	mochi.db.execute("create index if not exists messages_chat_created on messages( chat, created )")
 
 	# Per-chat read watermark for the local account (read tracking / unread
@@ -158,6 +227,11 @@ def database_upgrade(version):
 		# per-app system DB. Version 4 re-issues version 3; idempotent.
 		for table in ["sequence", "log", "acknowledged", "received"]:
 			mochi.db.execute("drop table if exists " + table)
+	if version == 10:
+		# The post on another network a message's first link quotes, kept as
+		# JSON with the message (the federation plan, phase 13).
+		if not any([c["name"] == "quote" for c in mochi.db.table("messages")]):
+			mochi.db.execute("alter table messages add column quote text not null default ''")
 	if version == 5 or version == 6 or version == 7:
 		# Attachments move into this database, owned by the shared library: create the
 		# table and copy rows out of core's store (bridge or export file). Versions 6
@@ -647,9 +721,11 @@ def action_messages(a):
 			m["body"] = ""
 			m["reply"] = None
 			m["attachments"] = []
+			m["quote"] = None
 		else:
 			m["deleted"] = False
 			m["attachments"] = attachments.get("chat/" + chat["id"] + "/" + m["id"], [])
+			m["quote"] = message_quote_of(m)
 
 	# Reaction counts + the viewer's own reaction, for non-deleted messages.
 	messages_attach_reactions(chat["id"], [m for m in messages if not m["deleted"]], a.user.identity.id)
@@ -745,6 +821,11 @@ def action_send(a):
 				return
 			captions.append(caption)
 
+	# A link to a post on another network is quoted: its text, image and author
+	# are kept with the message and sent with it, so every member sees the
+	# quote as the sender did.
+	quote = message_quote(body)
+
 	chat_ensure_commit_hook()
 	id = mochi.uid()
 	now_send = mochi.time.now()
@@ -757,7 +838,7 @@ def action_send(a):
 	if has_files:
 		attachments = attachment_save(a, "chat/" + chat["id"] + "/" + id, captions=captions)
 
-	mochi.db.execute("replace into messages ( id, chat, member, name, body, created, reply ) values ( ?, ?, ?, ?, ?, ?, ? )", id, chat["id"], a.user.identity.id, a.user.identity.name, body, now_send, reply)
+	mochi.db.execute("replace into messages ( id, chat, member, name, body, created, reply, quote ) values ( ?, ?, ?, ?, ?, ?, ?, ? )", id, chat["id"], a.user.identity.id, a.user.identity.name, body, now_send, reply, json.encode(quote) if quote else "")
 	# Bump the chat's updated timestamp so the chat list sorts by last
 	# message activity, not by member-event history.
 	mochi.db.execute("update chats set updated=? where id=?", now_send, chat["id"])
@@ -777,6 +858,8 @@ def action_send(a):
 	msg_data = {"chat": chat["id"], "message": id, "created": now_send, "body": body, "name": a.user.identity.name}
 	if reply:
 		msg_data["reply"] = reply
+	if quote:
+		msg_data["quote"] = quote
 	if mentions:
 		msg_data["mentions"] = mentions
 	if attachments:
@@ -1612,7 +1695,11 @@ def event_message(e):
 		elif not mochi.db.exists("select 1 from messages where id=? and chat=?", reply, chat["id"]):
 			reply = None
 
-	mochi.db.execute("replace into messages ( id, chat, member, name, body, created, reply, edited ) values ( ?, ?, ?, ?, ?, ?, ?, ? )", id, chat["id"], member["member"], name, body, created, reply, edited)
+	# The quote travels with the message; a sender's copy is taken as it is
+	# shaped here, links checked, the rest cut to size.
+	quote = quote_clean(e.content("quote"))
+
+	mochi.db.execute("replace into messages ( id, chat, member, name, body, created, reply, edited, quote ) values ( ?, ?, ?, ?, ?, ?, ?, ?, ? )", id, chat["id"], member["member"], name, body, created, reply, edited, json.encode(quote) if quote else "")
 	# Bump the chat's updated timestamp so the chat list sorts by last
 	# message activity. Use the message's own `created` (not now()) so
 	# replayed history doesn't drag the chat forward in time.

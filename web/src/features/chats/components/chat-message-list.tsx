@@ -39,6 +39,7 @@ import {
   BubbleReactions,
   BubbleGroup,
   useFormat,
+  QuoteCard,
 } from '@mochi/web'
 import { Check, ChevronsDown, MessageCircle } from 'lucide-react'
 import type { ChatMessage } from '@/api/chats'
@@ -793,6 +794,17 @@ export function ChatMessageList({
                                                 )
                                               })()}
                                             </MessageBody>
+                                          ) : null}
+
+                                          {message.quote ? (
+                                            <QuoteCard
+                                              quote={message.quote}
+                                              className={cn(
+                                                'mt-2',
+                                                isSent &&
+                                                  'border-primary-foreground/20 bg-primary-foreground/10 text-primary-foreground'
+                                              )}
+                                            />
                                           ) : null}
                                         </>
                                       )}

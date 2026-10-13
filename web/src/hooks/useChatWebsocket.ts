@@ -9,6 +9,7 @@ import {
   type InfiniteData,
 } from '@tanstack/react-query'
 import { useLingui } from '@lingui/react/macro'
+import type { Quote } from '@mochi/web'
 import type {
   ChatMessage,
   ChatMessageAttachment,
@@ -117,8 +118,16 @@ const createMessageFromPayload = (
     created,
     reply: replyTo,
     attachments: payload.attachments ?? [],
+    quote: isQuote(payload.quote) ? payload.quote : null,
   }
 }
+
+// A quote arrives as the server stored it; anything else is no quote.
+const isQuote = (value: unknown): value is Quote =>
+  !!value &&
+  typeof value === 'object' &&
+  typeof (value as Quote).url === 'string' &&
+  typeof (value as Quote).network === 'string'
 
 const parseReactionCounts = (value: unknown): ReactionCounts => {
   if (!value || typeof value !== 'object') {

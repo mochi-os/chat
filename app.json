@@ -13,10 +13,10 @@
 
 	"architecture": {"engine": "starlark", "version": 4},
 	"execute": ["lib/attachments.star", "lib/content.star", "chat.star"],
-	"require": {"version": {"minimum": "0.4.230"}},
+	"require": {"version": {"minimum": "2.0.12"}},
 
 	"database": {
-		"schema": 9,
+		"schema": 10,
 		"file": "chat.db",
 		"create": {"function": "database_create"},
 		"upgrade": {"function": "database_upgrade"},
