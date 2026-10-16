@@ -48,6 +48,13 @@ msgstr "(εσείς)"
 msgid "[not set]"
 msgstr "[χωρίς ορισμό]"
 
+#. placeholder {0}: typingNames.length
+#. placeholder {1}: typingNames[0]
+#. placeholder {2}: formatList(typingNames)
+#: src/features/chats/index.tsx
+msgid "{0, plural, =1 {{1} is typing...} other {{2} are typing...}}"
+msgstr "{0, plural, =1 {{1} πληκτρολογεί...} other {{2} πληκτρολογούν...}}"
+
 #. placeholder {0}: deleteTargetIds?.length ?? 0
 #: src/features/chats/index.tsx
 msgid "{0, plural, =1 {Delete message?} other {Delete # messages?}}"
@@ -57,6 +64,11 @@ msgstr "{0, plural, =1 {Διαγραφή μηνύματος;} other {Διαγρ�
 #: ../../../lib/web/src/components/diff-viewer.tsx
 msgid "{0, plural, one {# file changed} other {# files changed}}"
 msgstr "{0, plural, one {# αρχείο άλλαξε} other {# αρχεία άλλαξαν}}"
+
+#. placeholder {0}: message.replies
+#: src/features/chats/components/chat-message-list.tsx
+msgid "{0, plural, one {# reply} other {# replies}}"
+msgstr "{0, plural, one {# απάντηση} other {# απαντήσεις}}"
 
 #. placeholder {0}: visible.length
 #: ../../../lib/web/src/components/inline-entity-search.tsx
@@ -307,6 +319,10 @@ msgstr "Προσθήκη {0}/{1}..."
 msgid "Adding member..."
 msgstr "Προσθήκη μέλους..."
 
+#: src/features/chats/components/new-chat.tsx
+msgid "Addresses"
+msgstr "Διευθύνσεις"
+
 #: src/features/chats/constants/reactions.ts
 msgid "Agree"
 msgstr "Συμφωνώ"
@@ -409,6 +425,11 @@ msgstr "Είστε σίγουροι ότι θέλετε να εγκαταλεί�
 msgid "Are you sure you want to resign? {opponentName} will win the game."
 msgstr "Είστε σίγουροι ότι θέλετε να παραιτηθείτε; Ο/Η {opponentName} θα κερδίσει την παρτίδα."
 
+#. placeholder {0}: selectedChat.address
+#: src/features/chats/index.tsx
+msgid "As {0}"
+msgstr "Ως {0}"
+
 #: ../../../lib/web/src/components/ui/sort-direction-button.tsx
 msgid "Ascending"
 msgstr "Αύξουσα"
@@ -458,6 +479,11 @@ msgstr "Άβαταρ"
 #: ../../../lib/web/src/components/entity-avatar.tsx
 msgid "Avatar for {name}"
 msgstr "Άβαταρ για {name}"
+
+#: src/features/chats/index.tsx
+msgctxt "presence"
+msgid "Away"
+msgstr "Απών"
 
 #: ../../../lib/web/src/components/place-picker.tsx
 msgid "Back"
@@ -530,6 +556,11 @@ msgstr "Χρώμα περιγράμματος"
 #: ../../../lib/web/src/features/accounts/types.ts
 msgid "Browser notifications"
 msgstr "Ειδοποιήσεις προγράμματος περιήγησης"
+
+#: src/features/chats/index.tsx
+msgctxt "presence"
+msgid "Busy"
+msgstr "Απασχολημένος"
 
 #: ../../../lib/web/src/features/accounts/types.ts
 msgid "Calendar server"
@@ -667,10 +698,7 @@ msgstr "Η συνομιλία δεν βρέθηκε"
 msgid "Chat pinned"
 msgstr "Η συνομιλία καρφιτσώθηκε"
 
-#: src/features/chats/components/chat-settings-dialog.tsx
-msgid "Chat policy updated"
-msgstr "Η πολιτική συνομιλίας ενημερώθηκε"
-
+#: src/features/chats/components/new-chat.tsx
 #: src/features/chats/components/new-chat.tsx
 msgid "Chat ready"
 msgstr "Η συνομιλία είναι έτοιμη"
@@ -679,7 +707,6 @@ msgstr "Η συνομιλία είναι έτοιμη"
 msgid "Chat renamed"
 msgstr "Η συνομιλία μετονομάστηκε"
 
-#: src/features/chats/index.tsx
 #: src/features/chats/index.tsx
 #: src/routes/_authenticated/$chatId_.settings.tsx
 #: src/routes/_authenticated/$chatId_.settings.tsx
@@ -963,6 +990,7 @@ msgid "Created {field}"
 msgstr "Δημιουργήθηκε {field}"
 
 #: src/features/chats/components/new-chat.tsx
+#: src/features/chats/components/new-chat.tsx
 msgid "Creating chat..."
 msgstr "Δημιουργία συνομιλίας..."
 
@@ -1089,6 +1117,11 @@ msgstr "Διαγραφή συνομιλίας..."
 #: src/features/chats/index.tsx
 msgid "Deleting..."
 msgstr "Διαγραφή..."
+
+#: src/features/chats/components/chat-message-list.tsx
+msgctxt "receipt"
+msgid "Delivered"
+msgstr "Παραδόθηκε"
 
 #: ../../../lib/web/src/components/ui/sort-direction-button.tsx
 msgid "Descending"
@@ -1312,6 +1345,7 @@ msgid "Failed to copy message"
 msgstr "Αποτυχία αντιγραφής μηνύματος"
 
 #: src/features/chats/components/new-chat.tsx
+#: src/features/chats/components/new-chat.tsx
 msgid "Failed to create chat"
 msgstr "Αποτυχία δημιουργίας συνομιλίας"
 
@@ -1393,8 +1427,8 @@ msgid "Failed to load video"
 msgstr "Αποτυχία φόρτωσης βίντεο"
 
 #: src/features/chats/components/chat-settings-dialog.tsx
-msgid "Failed to load your chat policy"
-msgstr "Δεν ήταν δυνατή η φόρτωση της πολιτικής συνομιλίας σας"
+msgid "Failed to load your settings"
+msgstr "Αποτυχία φόρτωσης των ρυθμίσεών σας"
 
 #: src/components/layout/chat-layout.tsx
 msgid "Failed to mark chat as read"
@@ -1437,10 +1471,12 @@ msgstr "Αποτυχία αποθήκευσης"
 msgid "Failed to save prompt"
 msgstr "Αποτυχία αποθήκευσης προτροπής"
 
+#: src/features/chats/components/thread-panel.tsx
 #: src/features/chats/index.tsx
 msgid "Failed to send message"
 msgstr "Αποτυχία αποστολής μηνύματος"
 
+#: src/features/chats/index.tsx
 #: src/features/chats/index.tsx
 msgid "Failed to start chat"
 msgstr "Αποτυχία έναρξης συνομιλίας"
@@ -1592,7 +1628,6 @@ msgid "Including anonymous users"
 msgstr "Συμπεριλαμβανομένων ανώνυμων χρηστών"
 
 #: src/features/chats/components/chat-settings-dialog.tsx
-#: src/features/chats/index.tsx
 msgid "Incoming chats"
 msgstr "Εισερχόμενες συνομιλίες"
 
@@ -1641,6 +1676,11 @@ msgstr "Συντομεύσεις πληκτρολογίου"
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Large"
 msgstr "Μεγάλο"
+
+#. placeholder {0}: formatTimestamp(presence.seen)
+#: src/features/chats/index.tsx
+msgid "Last seen {0}"
+msgstr "Τελευταία εμφάνιση {0}"
 
 #: src/features/chats/constants/reactions.ts
 msgid "Laugh"
@@ -1936,6 +1976,10 @@ msgstr "Το όνομα πρέπει να είναι {CHAT_NAME_MAX_LENGTH} χα
 msgid "Name must be 1000 characters or less"
 msgstr "Το όνομα πρέπει να είναι 1000 χαρακτήρες ή λιγότεροι"
 
+#: src/features/chats/components/new-chat.tsx
+msgid "Network"
+msgstr "Δίκτυο"
+
 #: ../../../lib/web/src/features/errors/general-error.tsx
 #: ../../../lib/web/src/lib/api-response-interceptors.ts
 msgid "Network error"
@@ -2158,6 +2202,11 @@ msgstr "Παλαιότερη αντιστοιχία"
 msgid "On"
 msgstr "Ενεργό"
 
+#: src/features/chats/index.tsx
+msgctxt "presence"
+msgid "Online"
+msgstr "Σε σύνδεση"
+
 #: ../../../lib/web/src/features/errors/not-found-error.tsx
 msgid "Oops! Page Not Found!"
 msgstr "Ωχ! Η σελίδα δεν βρέθηκε!"
@@ -2328,6 +2377,9 @@ msgstr "Προηγούμενο έτος"
 
 #: ../../../lib/web/src/components/server-documents-footer.tsx
 #: ../../../lib/web/src/features/document/document-page.tsx
+#: src/features/chats/components/chat-settings-dialog.tsx
+#: src/features/chats/index.tsx
+#: src/features/chats/index.tsx
 msgid "Privacy"
 msgstr "Ιδιωτικότητα"
 
@@ -2358,6 +2410,11 @@ msgstr "Επανασυνδέστε τους λογαριασμούς σας σε
 #: ../../../lib/web/src/components/restore-banner.tsx
 msgid "Re-register your passkeys on this server"
 msgstr "Καταχωρίστε ξανά τα κλειδιά πρόσβασής σας σε αυτόν τον διακομιστή"
+
+#: src/features/chats/components/chat-message-list.tsx
+msgctxt "receipt"
+msgid "Read"
+msgstr "Διαβάστηκε"
 
 #: src/features/chats/components/message-body.tsx
 msgid "Read more"
@@ -2530,6 +2587,11 @@ msgstr "Επαναλαμβάνεται"
 #: src/features/chats/components/message-hover-actions.tsx
 msgid "Reply"
 msgstr "Απάντηση"
+
+#: src/features/chats/components/message-hover-actions.tsx
+#: src/features/chats/components/thread-panel.tsx
+msgid "Reply in thread"
+msgstr "Απάντηση στο νήμα"
 
 #. placeholder {0}: comment.name || comment.author
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx
@@ -2707,6 +2769,11 @@ msgstr "Μετακίνηση στον ήχο"
 msgid "Seek in voice note"
 msgstr "Μετακίνηση στο φωνητικό μήνυμα"
 
+#. placeholder {0}: formatList(seen.names)
+#: src/features/chats/components/chat-message-list.tsx
+msgid "Seen by {0}"
+msgstr "Το είδαν: {0}"
+
 #: ../../../lib/web/src/hooks/use-field-type-labels.ts
 msgid "Select"
 msgstr "Επιλογή"
@@ -2786,6 +2853,10 @@ msgstr "Επιλέχθηκαν τα {BULK_MESSAGES_MAX} νεότερα μηνύ�
 msgid "Selected: <0>{0}</0>"
 msgstr "Επιλέχθηκε: <0>{0}</0>"
 
+#: src/features/chats/components/thread-panel.tsx
+msgid "Send"
+msgstr "Αποστολή"
+
 #: ../../../lib/web/src/features/accounts/account-verify.tsx
 msgid "Send again"
 msgstr "Αποστολή ξανά"
@@ -2800,6 +2871,15 @@ msgstr "Αποστολή email"
 #: src/features/chats/components/chat-input.tsx
 msgid "Send message"
 msgstr "Αποστολή μηνύματος"
+
+#: src/features/chats/components/chat-settings-dialog.tsx
+msgid "Send read receipts"
+msgstr "Αποστολή επιβεβαιώσεων ανάγνωσης"
+
+#: src/features/chats/components/chat-message-list.tsx
+msgctxt "receipt"
+msgid "Sent"
+msgstr "Στάλθηκε"
 
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Serif"
@@ -2829,9 +2909,17 @@ msgstr "Ορίστε αφετηρία και προορισμό"
 msgid "Settings"
 msgstr "Ρυθμίσεις"
 
+#: src/features/chats/components/chat-settings-dialog.tsx
+msgid "Settings saved"
+msgstr "Οι ρυθμίσεις αποθηκεύτηκαν"
+
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx
 msgid "Show classes"
 msgstr "Εμφάνιση κλάσεων"
+
+#: src/features/chats/components/thread-panel.tsx
+msgid "Show earlier replies"
+msgstr "Εμφάνιση προηγούμενων απαντήσεων"
 
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx
 msgid "Show fields"
@@ -2845,6 +2933,14 @@ msgstr "Εμφάνιση λιγότερων"
 #: ../../../lib/web/src/components/entity/keyboard-shortcuts-help.tsx
 msgid "Show this help"
 msgstr "Εμφάνιση βοήθειας"
+
+#: src/features/chats/components/chat-settings-dialog.tsx
+msgid "Show when I'm online"
+msgstr "Εμφάνιση όταν είμαι σε σύνδεση"
+
+#: src/features/chats/components/chat-settings-dialog.tsx
+msgid "Show when I'm typing"
+msgstr "Εμφάνιση όταν πληκτρολογώ"
 
 #: ../../../lib/web/src/components/ui/load-more.tsx
 msgid "Showing {totalShown} of {total}"
@@ -2901,6 +2997,7 @@ msgstr "Ξεκινήστε μια συνομιλία"
 msgid "Start the discussion by adding the first comment."
 msgstr "Ξεκινήστε τη συζήτηση προσθέτοντας το πρώτο σχόλιο."
 
+#: src/features/chats/index.tsx
 #: src/features/chats/index.tsx
 msgid "Starting chat..."
 msgstr "Έναρξη συνομιλίας..."
@@ -3052,12 +3149,17 @@ msgstr "Αυτό διαγράφει το μήνυμα για όλους και �
 
 #: src/features/chats/components/chat-message-list.tsx
 #: src/features/chats/components/message-quote.tsx
+#: src/features/chats/components/thread-panel.tsx
 msgid "This message was deleted"
 msgstr "Αυτό το μήνυμα διαγράφηκε"
 
 #: ../../../lib/web/src/components/game/game-end-dialogs.tsx
 msgid "This permanently deletes the game and its chat. This cannot be undone."
 msgstr "Αυτό θα διαγράψει οριστικά το παιχνίδι και τη συνομιλία του. Αυτή η ενέργεια δεν μπορεί να αναιρεθεί."
+
+#: src/features/chats/components/thread-panel.tsx
+msgid "Thread"
+msgstr "Νήμα"
 
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Thursday"

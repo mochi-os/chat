@@ -48,6 +48,13 @@ msgstr "(вы)"
 msgid "[not set]"
 msgstr "[не задано]"
 
+#. placeholder {0}: typingNames.length
+#. placeholder {1}: typingNames[0]
+#. placeholder {2}: formatList(typingNames)
+#: src/features/chats/index.tsx
+msgid "{0, plural, =1 {{1} is typing...} other {{2} are typing...}}"
+msgstr "{0, plural, =1 {{1} печатает...} few {{2} печатают...} many {{2} печатают...} other {{2} печатают...}}"
+
 #. placeholder {0}: deleteTargetIds?.length ?? 0
 #: src/features/chats/index.tsx
 msgid "{0, plural, =1 {Delete message?} other {Delete # messages?}}"
@@ -57,6 +64,11 @@ msgstr "{0, plural, =1 {Удалить сообщение?} one {Удалить 
 #: ../../../lib/web/src/components/diff-viewer.tsx
 msgid "{0, plural, one {# file changed} other {# files changed}}"
 msgstr "{0, plural, one {# файл изменён} few {# файла изменено} many {# файлов изменено} other {# файла изменено}}"
+
+#. placeholder {0}: message.replies
+#: src/features/chats/components/chat-message-list.tsx
+msgid "{0, plural, one {# reply} other {# replies}}"
+msgstr "{0, plural, one {# ответ} few {# ответа} many {# ответов} other {# ответа}}"
 
 #. placeholder {0}: visible.length
 #: ../../../lib/web/src/components/inline-entity-search.tsx
@@ -307,6 +319,10 @@ msgstr "Добавление {0}/{1}..."
 msgid "Adding member..."
 msgstr "Добавление участника..."
 
+#: src/features/chats/components/new-chat.tsx
+msgid "Addresses"
+msgstr "Адреса"
+
 #: src/features/chats/constants/reactions.ts
 msgid "Agree"
 msgstr "Согласен"
@@ -409,6 +425,11 @@ msgstr "Вы уверены, что хотите сдаться?"
 msgid "Are you sure you want to resign? {opponentName} will win the game."
 msgstr "Вы уверены, что хотите сдаться? {opponentName} выиграет партию."
 
+#. placeholder {0}: selectedChat.address
+#: src/features/chats/index.tsx
+msgid "As {0}"
+msgstr "От имени {0}"
+
 #: ../../../lib/web/src/components/ui/sort-direction-button.tsx
 msgid "Ascending"
 msgstr "По возрастанию"
@@ -458,6 +479,11 @@ msgstr "Аватар"
 #: ../../../lib/web/src/components/entity-avatar.tsx
 msgid "Avatar for {name}"
 msgstr "Аватар для {name}"
+
+#: src/features/chats/index.tsx
+msgctxt "presence"
+msgid "Away"
+msgstr "Нет на месте"
 
 #: ../../../lib/web/src/components/place-picker.tsx
 msgid "Back"
@@ -530,6 +556,11 @@ msgstr "Цвет границы"
 #: ../../../lib/web/src/features/accounts/types.ts
 msgid "Browser notifications"
 msgstr "Уведомления браузера"
+
+#: src/features/chats/index.tsx
+msgctxt "presence"
+msgid "Busy"
+msgstr "Занят"
 
 #: ../../../lib/web/src/features/accounts/types.ts
 msgid "Calendar server"
@@ -667,10 +698,7 @@ msgstr "Чат не найден"
 msgid "Chat pinned"
 msgstr "Чат закреплён"
 
-#: src/features/chats/components/chat-settings-dialog.tsx
-msgid "Chat policy updated"
-msgstr "Политика чата обновлена"
-
+#: src/features/chats/components/new-chat.tsx
 #: src/features/chats/components/new-chat.tsx
 msgid "Chat ready"
 msgstr "Чат готов"
@@ -679,7 +707,6 @@ msgstr "Чат готов"
 msgid "Chat renamed"
 msgstr "Чат переименован"
 
-#: src/features/chats/index.tsx
 #: src/features/chats/index.tsx
 #: src/routes/_authenticated/$chatId_.settings.tsx
 #: src/routes/_authenticated/$chatId_.settings.tsx
@@ -963,6 +990,7 @@ msgid "Created {field}"
 msgstr "Создано {field}"
 
 #: src/features/chats/components/new-chat.tsx
+#: src/features/chats/components/new-chat.tsx
 msgid "Creating chat..."
 msgstr "Создание чата..."
 
@@ -1089,6 +1117,11 @@ msgstr "Удаление чата..."
 #: src/features/chats/index.tsx
 msgid "Deleting..."
 msgstr "Удаление..."
+
+#: src/features/chats/components/chat-message-list.tsx
+msgctxt "receipt"
+msgid "Delivered"
+msgstr "Доставлено"
 
 #: ../../../lib/web/src/components/ui/sort-direction-button.tsx
 msgid "Descending"
@@ -1312,6 +1345,7 @@ msgid "Failed to copy message"
 msgstr "Не удалось скопировать сообщение"
 
 #: src/features/chats/components/new-chat.tsx
+#: src/features/chats/components/new-chat.tsx
 msgid "Failed to create chat"
 msgstr "Не удалось создать чат"
 
@@ -1393,8 +1427,8 @@ msgid "Failed to load video"
 msgstr "Не удалось загрузить видео"
 
 #: src/features/chats/components/chat-settings-dialog.tsx
-msgid "Failed to load your chat policy"
-msgstr "Не удалось загрузить вашу политику чата"
+msgid "Failed to load your settings"
+msgstr "Не удалось загрузить ваши настройки"
 
 #: src/components/layout/chat-layout.tsx
 msgid "Failed to mark chat as read"
@@ -1437,10 +1471,12 @@ msgstr "Не удалось сохранить"
 msgid "Failed to save prompt"
 msgstr "Не удалось сохранить запрос"
 
+#: src/features/chats/components/thread-panel.tsx
 #: src/features/chats/index.tsx
 msgid "Failed to send message"
 msgstr "Не удалось отправить сообщение"
 
+#: src/features/chats/index.tsx
 #: src/features/chats/index.tsx
 msgid "Failed to start chat"
 msgstr "Не удалось начать чат"
@@ -1592,7 +1628,6 @@ msgid "Including anonymous users"
 msgstr "Включая анонимных пользователей"
 
 #: src/features/chats/components/chat-settings-dialog.tsx
-#: src/features/chats/index.tsx
 msgid "Incoming chats"
 msgstr "Входящие чаты"
 
@@ -1641,6 +1676,11 @@ msgstr "Сочетания клавиш"
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Large"
 msgstr "Крупный"
+
+#. placeholder {0}: formatTimestamp(presence.seen)
+#: src/features/chats/index.tsx
+msgid "Last seen {0}"
+msgstr "Последний раз в сети {0}"
 
 #: src/features/chats/constants/reactions.ts
 msgid "Laugh"
@@ -1936,6 +1976,10 @@ msgstr "Название должно быть не длиннее {CHAT_NAME_MA
 msgid "Name must be 1000 characters or less"
 msgstr "Название должно быть не длиннее 1000 символов"
 
+#: src/features/chats/components/new-chat.tsx
+msgid "Network"
+msgstr "Сеть"
+
 #: ../../../lib/web/src/features/errors/general-error.tsx
 #: ../../../lib/web/src/lib/api-response-interceptors.ts
 msgid "Network error"
@@ -2158,6 +2202,11 @@ msgstr "Более старое совпадение"
 msgid "On"
 msgstr "Вкл."
 
+#: src/features/chats/index.tsx
+msgctxt "presence"
+msgid "Online"
+msgstr "В сети"
+
 #: ../../../lib/web/src/features/errors/not-found-error.tsx
 msgid "Oops! Page Not Found!"
 msgstr "Упс! Страница не найдена!"
@@ -2328,6 +2377,9 @@ msgstr "Предыдущий год"
 
 #: ../../../lib/web/src/components/server-documents-footer.tsx
 #: ../../../lib/web/src/features/document/document-page.tsx
+#: src/features/chats/components/chat-settings-dialog.tsx
+#: src/features/chats/index.tsx
+#: src/features/chats/index.tsx
 msgid "Privacy"
 msgstr "Конфиденциальность"
 
@@ -2358,6 +2410,11 @@ msgstr "Повторно привяжите свои аккаунты на эт�
 #: ../../../lib/web/src/components/restore-banner.tsx
 msgid "Re-register your passkeys on this server"
 msgstr "Зарегистрируйте ключи доступа на этом сервере заново"
+
+#: src/features/chats/components/chat-message-list.tsx
+msgctxt "receipt"
+msgid "Read"
+msgstr "Прочитано"
 
 #: src/features/chats/components/message-body.tsx
 msgid "Read more"
@@ -2530,6 +2587,11 @@ msgstr "Повторяется"
 #: src/features/chats/components/message-hover-actions.tsx
 msgid "Reply"
 msgstr "Ответить"
+
+#: src/features/chats/components/message-hover-actions.tsx
+#: src/features/chats/components/thread-panel.tsx
+msgid "Reply in thread"
+msgstr "Ответить в теме"
 
 #. placeholder {0}: comment.name || comment.author
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx
@@ -2707,6 +2769,11 @@ msgstr "Перемотка аудио"
 msgid "Seek in voice note"
 msgstr "Перемотка голосового сообщения"
 
+#. placeholder {0}: formatList(seen.names)
+#: src/features/chats/components/chat-message-list.tsx
+msgid "Seen by {0}"
+msgstr "Просмотрено: {0}"
+
 #: ../../../lib/web/src/hooks/use-field-type-labels.ts
 msgid "Select"
 msgstr "Выбрать"
@@ -2786,6 +2853,10 @@ msgstr "Выбрано {BULK_MESSAGES_MAX} последних сообщений
 msgid "Selected: <0>{0}</0>"
 msgstr "Выбрано: <0>{0}</0>"
 
+#: src/features/chats/components/thread-panel.tsx
+msgid "Send"
+msgstr "Отправить"
+
 #: ../../../lib/web/src/features/accounts/account-verify.tsx
 msgid "Send again"
 msgstr "Отправить ещё раз"
@@ -2800,6 +2871,15 @@ msgstr "Отправить письмо"
 #: src/features/chats/components/chat-input.tsx
 msgid "Send message"
 msgstr "Отправить сообщение"
+
+#: src/features/chats/components/chat-settings-dialog.tsx
+msgid "Send read receipts"
+msgstr "Отправлять уведомления о прочтении"
+
+#: src/features/chats/components/chat-message-list.tsx
+msgctxt "receipt"
+msgid "Sent"
+msgstr "Отправлено"
 
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Serif"
@@ -2829,9 +2909,17 @@ msgstr "Укажите пункты отправления и назначени
 msgid "Settings"
 msgstr "Настройки"
 
+#: src/features/chats/components/chat-settings-dialog.tsx
+msgid "Settings saved"
+msgstr "Настройки сохранены"
+
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx
 msgid "Show classes"
 msgstr "Показать классы"
+
+#: src/features/chats/components/thread-panel.tsx
+msgid "Show earlier replies"
+msgstr "Показать более ранние ответы"
 
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx
 msgid "Show fields"
@@ -2845,6 +2933,14 @@ msgstr "Свернуть"
 #: ../../../lib/web/src/components/entity/keyboard-shortcuts-help.tsx
 msgid "Show this help"
 msgstr "Показать эту справку"
+
+#: src/features/chats/components/chat-settings-dialog.tsx
+msgid "Show when I'm online"
+msgstr "Показывать, когда я в сети"
+
+#: src/features/chats/components/chat-settings-dialog.tsx
+msgid "Show when I'm typing"
+msgstr "Показывать, когда я печатаю"
 
 #: ../../../lib/web/src/components/ui/load-more.tsx
 msgid "Showing {totalShown} of {total}"
@@ -2901,6 +2997,7 @@ msgstr "Начать разговор"
 msgid "Start the discussion by adding the first comment."
 msgstr "Начните обсуждение, добавив первый комментарий."
 
+#: src/features/chats/index.tsx
 #: src/features/chats/index.tsx
 msgid "Starting chat..."
 msgstr "Начало чата..."
@@ -3052,12 +3149,17 @@ msgstr "Сообщение будет удалено у всех. Это дей�
 
 #: src/features/chats/components/chat-message-list.tsx
 #: src/features/chats/components/message-quote.tsx
+#: src/features/chats/components/thread-panel.tsx
 msgid "This message was deleted"
 msgstr "Это сообщение было удалено"
 
 #: ../../../lib/web/src/components/game/game-end-dialogs.tsx
 msgid "This permanently deletes the game and its chat. This cannot be undone."
 msgstr "Это навсегда удалит игру и её чат. Это действие нельзя отменить."
+
+#: src/features/chats/components/thread-panel.tsx
+msgid "Thread"
+msgstr "Тема"
 
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Thursday"

@@ -48,6 +48,13 @@ msgstr "(ທ່ານ)"
 msgid "[not set]"
 msgstr "[ບໍ່ໄດ້ຕັ້ງຄ່າ]"
 
+#. placeholder {0}: typingNames.length
+#. placeholder {1}: typingNames[0]
+#. placeholder {2}: formatList(typingNames)
+#: src/features/chats/index.tsx
+msgid "{0, plural, =1 {{1} is typing...} other {{2} are typing...}}"
+msgstr "{0, plural, =1 {{1} ກຳລັງພິມ...} other {{2} ກຳລັງພິມ...}}"
+
 #. placeholder {0}: deleteTargetIds?.length ?? 0
 #: src/features/chats/index.tsx
 msgid "{0, plural, =1 {Delete message?} other {Delete # messages?}}"
@@ -57,6 +64,11 @@ msgstr "{0, plural, other {ລຶບ # ຂໍ້ຄວາມບໍ?}}"
 #: ../../../lib/web/src/components/diff-viewer.tsx
 msgid "{0, plural, one {# file changed} other {# files changed}}"
 msgstr "{0, plural, one {ປ່ຽນແປງ # ໄຟລ໌} other {ປ່ຽນແປງ # ໄຟລ໌}}"
+
+#. placeholder {0}: message.replies
+#: src/features/chats/components/chat-message-list.tsx
+msgid "{0, plural, one {# reply} other {# replies}}"
+msgstr "{0, plural, other {# ການຕອບກັບ}}"
 
 #. placeholder {0}: visible.length
 #: ../../../lib/web/src/components/inline-entity-search.tsx
@@ -307,6 +319,10 @@ msgstr "ກຳລັງເພີ່ມ {0}/{1}..."
 msgid "Adding member..."
 msgstr "ກຳລັງເພີ່ມສະມາຊິກ..."
 
+#: src/features/chats/components/new-chat.tsx
+msgid "Addresses"
+msgstr "ທີ່ຢູ່"
+
 #: src/features/chats/constants/reactions.ts
 msgid "Agree"
 msgstr "ເຫັນດີ"
@@ -409,6 +425,11 @@ msgstr "ທ່ານແນ່ໃຈບໍວ່າຕ້ອງການຍອມ
 msgid "Are you sure you want to resign? {opponentName} will win the game."
 msgstr "ທ່ານແນ່ໃຈບໍວ່າຕ້ອງການຍອມແພ້? {opponentName} ຈະຊະນະເກມ."
 
+#. placeholder {0}: selectedChat.address
+#: src/features/chats/index.tsx
+msgid "As {0}"
+msgstr "ໃນນາມ {0}"
+
 #: ../../../lib/web/src/components/ui/sort-direction-button.tsx
 msgid "Ascending"
 msgstr "ຈາກໜ້ອຍຫາຫຼາຍ"
@@ -458,6 +479,11 @@ msgstr "ອະວາຕາ"
 #: ../../../lib/web/src/components/entity-avatar.tsx
 msgid "Avatar for {name}"
 msgstr "ອະວາຕາສຳລັບ {name}"
+
+#: src/features/chats/index.tsx
+msgctxt "presence"
+msgid "Away"
+msgstr "ບໍ່ຢູ່"
 
 #: ../../../lib/web/src/components/place-picker.tsx
 msgid "Back"
@@ -530,6 +556,11 @@ msgstr "ສີຂອບ"
 #: ../../../lib/web/src/features/accounts/types.ts
 msgid "Browser notifications"
 msgstr "ການແຈ້ງເຕືອນຕົວທ່ອງເວັບ"
+
+#: src/features/chats/index.tsx
+msgctxt "presence"
+msgid "Busy"
+msgstr "ບໍ່ຫວ່າງ"
 
 #: ../../../lib/web/src/features/accounts/types.ts
 msgid "Calendar server"
@@ -667,10 +698,7 @@ msgstr "ບໍ່ພົບແຊັດ"
 msgid "Chat pinned"
 msgstr "ປັກໝຸດແຊັດແລ້ວ"
 
-#: src/features/chats/components/chat-settings-dialog.tsx
-msgid "Chat policy updated"
-msgstr "ອັບເດດນະໂຍບາຍແຊັດແລ້ວ"
-
+#: src/features/chats/components/new-chat.tsx
 #: src/features/chats/components/new-chat.tsx
 msgid "Chat ready"
 msgstr "ແຊັດພ້ອມແລ້ວ"
@@ -679,7 +707,6 @@ msgstr "ແຊັດພ້ອມແລ້ວ"
 msgid "Chat renamed"
 msgstr "ປ່ຽນຊື່ແຊັດແລ້ວ"
 
-#: src/features/chats/index.tsx
 #: src/features/chats/index.tsx
 #: src/routes/_authenticated/$chatId_.settings.tsx
 #: src/routes/_authenticated/$chatId_.settings.tsx
@@ -963,6 +990,7 @@ msgid "Created {field}"
 msgstr "ສ້າງ {field} ແລ້ວ"
 
 #: src/features/chats/components/new-chat.tsx
+#: src/features/chats/components/new-chat.tsx
 msgid "Creating chat..."
 msgstr "ກຳລັງສ້າງການສົນທະນາ..."
 
@@ -1089,6 +1117,11 @@ msgstr "ກຳລັງລຶບການສົນທະນາ..."
 #: src/features/chats/index.tsx
 msgid "Deleting..."
 msgstr "ກຳລັງລົບ..."
+
+#: src/features/chats/components/chat-message-list.tsx
+msgctxt "receipt"
+msgid "Delivered"
+msgstr "ສົ່ງເຖິງແລ້ວ"
 
 #: ../../../lib/web/src/components/ui/sort-direction-button.tsx
 msgid "Descending"
@@ -1312,6 +1345,7 @@ msgid "Failed to copy message"
 msgstr "ສຳເນົາຂໍ້ຄວາມບໍ່ສຳເລັດ"
 
 #: src/features/chats/components/new-chat.tsx
+#: src/features/chats/components/new-chat.tsx
 msgid "Failed to create chat"
 msgstr "ສ້າງການສົນທະນາລົ້ມເຫຼວ"
 
@@ -1393,8 +1427,8 @@ msgid "Failed to load video"
 msgstr "ໂຫຼດວິດີໂອບໍ່ສຳເລັດ"
 
 #: src/features/chats/components/chat-settings-dialog.tsx
-msgid "Failed to load your chat policy"
-msgstr "ບໍ່ສາມາດໂຫລດນະໂຍບາຍການສົນທະນາຂອງທ່ານໄດ້"
+msgid "Failed to load your settings"
+msgstr "ໂຫຼດການຕັ້ງຄ່າຂອງທ່ານລົ້ມເຫຼວ"
 
 #: src/components/layout/chat-layout.tsx
 msgid "Failed to mark chat as read"
@@ -1437,10 +1471,12 @@ msgstr "ບັນທຶກລົ້ມເຫຼວ"
 msgid "Failed to save prompt"
 msgstr "ບັນທຶກພຣອມທ໌ລົ້ມເຫຼວ"
 
+#: src/features/chats/components/thread-panel.tsx
 #: src/features/chats/index.tsx
 msgid "Failed to send message"
 msgstr "ສົ່ງຂໍ້ຄວາມລົ້ມເຫຼວ"
 
+#: src/features/chats/index.tsx
 #: src/features/chats/index.tsx
 msgid "Failed to start chat"
 msgstr "ເລີ່ມການສົນທະນາລົ້ມເຫຼວ"
@@ -1592,7 +1628,6 @@ msgid "Including anonymous users"
 msgstr "ລວມທັງຜູ້ໃຊ້ນິລະນາມ"
 
 #: src/features/chats/components/chat-settings-dialog.tsx
-#: src/features/chats/index.tsx
 msgid "Incoming chats"
 msgstr "ແຊັດຂາເຂົ້າ"
 
@@ -1641,6 +1676,11 @@ msgstr "ປຸ່ມລັດແປ້ນພິມ"
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Large"
 msgstr "ໃຫຍ່"
+
+#. placeholder {0}: formatTimestamp(presence.seen)
+#: src/features/chats/index.tsx
+msgid "Last seen {0}"
+msgstr "ອອນລາຍລ່າສຸດ {0}"
 
 #: src/features/chats/constants/reactions.ts
 msgid "Laugh"
@@ -1936,6 +1976,10 @@ msgstr "ຊື່ຕ້ອງມີ {CHAT_NAME_MAX_LENGTH} ຕົວອັກສ
 msgid "Name must be 1000 characters or less"
 msgstr "ຊື່ຕ້ອງມີ 1000 ຕົວອັກສອນຫຼືໜ້ອຍກວ່າ"
 
+#: src/features/chats/components/new-chat.tsx
+msgid "Network"
+msgstr "ເຄືອຂ່າຍ"
+
 #: ../../../lib/web/src/features/errors/general-error.tsx
 #: ../../../lib/web/src/lib/api-response-interceptors.ts
 msgid "Network error"
@@ -2158,6 +2202,11 @@ msgstr "ຜົນທີ່ເກົ່າກວ່າ"
 msgid "On"
 msgstr "ເປີດ"
 
+#: src/features/chats/index.tsx
+msgctxt "presence"
+msgid "Online"
+msgstr "ອອນລາຍ"
+
 #: ../../../lib/web/src/features/errors/not-found-error.tsx
 msgid "Oops! Page Not Found!"
 msgstr "ອຸບຍ! ບໍ່ພົບໜ້າ!"
@@ -2328,6 +2377,9 @@ msgstr "ປີກ່ອນໜ້າ"
 
 #: ../../../lib/web/src/components/server-documents-footer.tsx
 #: ../../../lib/web/src/features/document/document-page.tsx
+#: src/features/chats/components/chat-settings-dialog.tsx
+#: src/features/chats/index.tsx
+#: src/features/chats/index.tsx
 msgid "Privacy"
 msgstr "ຄວາມເປັນສ່ວນຕົວ"
 
@@ -2358,6 +2410,11 @@ msgstr "ເຊື່ອມໂຍງບັນຊີຂອງທ່ານຄືນ
 #: ../../../lib/web/src/components/restore-banner.tsx
 msgid "Re-register your passkeys on this server"
 msgstr "ລົງທະບຽນກະແຈຜ່ານຂອງທ່ານຄືນໃໝ່ໃນເຄື່ອງແມ່ຂ່າຍນີ້"
+
+#: src/features/chats/components/chat-message-list.tsx
+msgctxt "receipt"
+msgid "Read"
+msgstr "ອ່ານແລ້ວ"
 
 #: src/features/chats/components/message-body.tsx
 msgid "Read more"
@@ -2530,6 +2587,11 @@ msgstr "ເຮັດຊ້ຳ"
 #: src/features/chats/components/message-hover-actions.tsx
 msgid "Reply"
 msgstr "ຕອບ"
+
+#: src/features/chats/components/message-hover-actions.tsx
+#: src/features/chats/components/thread-panel.tsx
+msgid "Reply in thread"
+msgstr "ຕອບໃນກະທູ້"
 
 #. placeholder {0}: comment.name || comment.author
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx
@@ -2707,6 +2769,11 @@ msgstr "ເລື່ອນຕຳແໜ່ງໃນສຽງ"
 msgid "Seek in voice note"
 msgstr "ເລື່ອນຕຳແໜ່ງໃນຂໍ້ຄວາມສຽງ"
 
+#. placeholder {0}: formatList(seen.names)
+#: src/features/chats/components/chat-message-list.tsx
+msgid "Seen by {0}"
+msgstr "ເຫັນໂດຍ {0}"
+
 #: ../../../lib/web/src/hooks/use-field-type-labels.ts
 msgid "Select"
 msgstr "ເລືອກ"
@@ -2786,6 +2853,10 @@ msgstr "ເລືອກ {BULK_MESSAGES_MAX} ຂໍ້ຄວາມຫຼ້າສ
 msgid "Selected: <0>{0}</0>"
 msgstr "ເລືອກແລ້ວ: <0>{0}</0>"
 
+#: src/features/chats/components/thread-panel.tsx
+msgid "Send"
+msgstr "ສົ່ງ"
+
 #: ../../../lib/web/src/features/accounts/account-verify.tsx
 msgid "Send again"
 msgstr "ສົ່ງອີກຄັ້ງ"
@@ -2800,6 +2871,15 @@ msgstr "ສົ່ງອີເມວ"
 #: src/features/chats/components/chat-input.tsx
 msgid "Send message"
 msgstr "ສົ່ງຂໍ້ຄວາມ"
+
+#: src/features/chats/components/chat-settings-dialog.tsx
+msgid "Send read receipts"
+msgstr "ສົ່ງການແຈ້ງວ່າອ່ານແລ້ວ"
+
+#: src/features/chats/components/chat-message-list.tsx
+msgctxt "receipt"
+msgid "Sent"
+msgstr "ສົ່ງແລ້ວ"
 
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Serif"
@@ -2829,9 +2909,17 @@ msgstr "ຕັ້ງຕົ້ນທາງແລະປາຍທາງ"
 msgid "Settings"
 msgstr "ການຕັ້ງຄ່າ"
 
+#: src/features/chats/components/chat-settings-dialog.tsx
+msgid "Settings saved"
+msgstr "ການຕັ້ງຄ່າຖືກບັນທຶກແລ້ວ"
+
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx
 msgid "Show classes"
 msgstr "ສະແດງຄລາສ"
+
+#: src/features/chats/components/thread-panel.tsx
+msgid "Show earlier replies"
+msgstr "ສະແດງການຕອບກັບກ່ອນໜ້າ"
 
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx
 msgid "Show fields"
@@ -2845,6 +2933,14 @@ msgstr "ສະແດງໜ້ອຍລົງ"
 #: ../../../lib/web/src/components/entity/keyboard-shortcuts-help.tsx
 msgid "Show this help"
 msgstr "ສະແດງວິທີໃຊ້ນີ້"
+
+#: src/features/chats/components/chat-settings-dialog.tsx
+msgid "Show when I'm online"
+msgstr "ສະແດງເມື່ອຂ້ອຍອອນລາຍ"
+
+#: src/features/chats/components/chat-settings-dialog.tsx
+msgid "Show when I'm typing"
+msgstr "ສະແດງເມື່ອຂ້ອຍກຳລັງພິມ"
 
 #: ../../../lib/web/src/components/ui/load-more.tsx
 msgid "Showing {totalShown} of {total}"
@@ -2901,6 +2997,7 @@ msgstr "ເລີ່ມການສົນທະນາ"
 msgid "Start the discussion by adding the first comment."
 msgstr "ເລີ່ມການສົນທະນາໂດຍການເພີ່ມຄຳເຫັນທຳອິດ."
 
+#: src/features/chats/index.tsx
 #: src/features/chats/index.tsx
 msgid "Starting chat..."
 msgstr "ກຳລັງເລີ່ມການສົນທະນາ..."
@@ -3052,12 +3149,17 @@ msgstr "ນີ້ຈະລຶບຂໍ້ຄວາມສຳລັບທຸກຄ
 
 #: src/features/chats/components/chat-message-list.tsx
 #: src/features/chats/components/message-quote.tsx
+#: src/features/chats/components/thread-panel.tsx
 msgid "This message was deleted"
 msgstr "ຂໍ້ຄວາມນີ້ຖືກລຶບແລ້ວ"
 
 #: ../../../lib/web/src/components/game/game-end-dialogs.tsx
 msgid "This permanently deletes the game and its chat. This cannot be undone."
 msgstr "ການດຳເນີນການນີ້ຈະລົບເກມ ແລະ ການສົນທະນາຂອງມັນຖາວອນ. ບໍ່ສາມາດຍົກເລີກການດຳເນີນການນີ້ໄດ້."
+
+#: src/features/chats/components/thread-panel.tsx
+msgid "Thread"
+msgstr "ກະທູ້"
 
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Thursday"

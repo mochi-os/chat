@@ -48,6 +48,13 @@ msgstr "(siz)"
 msgid "[not set]"
 msgstr "[oʻrnatilmagan]"
 
+#. placeholder {0}: typingNames.length
+#. placeholder {1}: typingNames[0]
+#. placeholder {2}: formatList(typingNames)
+#: src/features/chats/index.tsx
+msgid "{0, plural, =1 {{1} is typing...} other {{2} are typing...}}"
+msgstr "{0, plural, =1 {{1} yozmoqda...} other {{2} yozmoqda...}}"
+
 #. placeholder {0}: deleteTargetIds?.length ?? 0
 #: src/features/chats/index.tsx
 msgid "{0, plural, =1 {Delete message?} other {Delete # messages?}}"
@@ -57,6 +64,11 @@ msgstr "{0, plural, =1 {Xabar oʻchirilsinmi?} other {# ta xabar oʻchirilsinmi?
 #: ../../../lib/web/src/components/diff-viewer.tsx
 msgid "{0, plural, one {# file changed} other {# files changed}}"
 msgstr "{0, plural, one {# fayl o'zgartirildi} other {# fayl o'zgartirildi}}"
+
+#. placeholder {0}: message.replies
+#: src/features/chats/components/chat-message-list.tsx
+msgid "{0, plural, one {# reply} other {# replies}}"
+msgstr "{0, plural, one {# javob} other {# javob}}"
 
 #. placeholder {0}: visible.length
 #: ../../../lib/web/src/components/inline-entity-search.tsx
@@ -307,6 +319,10 @@ msgstr "{0}/{1} qoʻshilmoqda..."
 msgid "Adding member..."
 msgstr "Aʼzo qoʻshilmoqda..."
 
+#: src/features/chats/components/new-chat.tsx
+msgid "Addresses"
+msgstr "Manzillar"
+
 #: src/features/chats/constants/reactions.ts
 msgid "Agree"
 msgstr "Roziman"
@@ -409,6 +425,11 @@ msgstr "Taslim boʻlishga ishonchingiz komilmi?"
 msgid "Are you sure you want to resign? {opponentName} will win the game."
 msgstr "Taslim boʻlishga ishonchingiz komilmi? {opponentName} oʻyinda gʻalaba qozonadi."
 
+#. placeholder {0}: selectedChat.address
+#: src/features/chats/index.tsx
+msgid "As {0}"
+msgstr "{0} sifatida"
+
 #: ../../../lib/web/src/components/ui/sort-direction-button.tsx
 msgid "Ascending"
 msgstr "Oʻsish boʻyicha"
@@ -458,6 +479,11 @@ msgstr "Avatar"
 #: ../../../lib/web/src/components/entity-avatar.tsx
 msgid "Avatar for {name}"
 msgstr "{name} uchun avatar"
+
+#: src/features/chats/index.tsx
+msgctxt "presence"
+msgid "Away"
+msgstr "Joyida yoʻq"
 
 #: ../../../lib/web/src/components/place-picker.tsx
 msgid "Back"
@@ -530,6 +556,11 @@ msgstr "Hoshiya rangi"
 #: ../../../lib/web/src/features/accounts/types.ts
 msgid "Browser notifications"
 msgstr "Brauzer bildirishnomalari"
+
+#: src/features/chats/index.tsx
+msgctxt "presence"
+msgid "Busy"
+msgstr "Band"
 
 #: ../../../lib/web/src/features/accounts/types.ts
 msgid "Calendar server"
@@ -667,10 +698,7 @@ msgstr "Suhbat topilmadi"
 msgid "Chat pinned"
 msgstr "Chat qadab qoʻyildi"
 
-#: src/features/chats/components/chat-settings-dialog.tsx
-msgid "Chat policy updated"
-msgstr "Suhbat siyosati yangilandi"
-
+#: src/features/chats/components/new-chat.tsx
 #: src/features/chats/components/new-chat.tsx
 msgid "Chat ready"
 msgstr "Suhbat tayyor"
@@ -679,7 +707,6 @@ msgstr "Suhbat tayyor"
 msgid "Chat renamed"
 msgstr "Suhbat nomi oʻzgartirildi"
 
-#: src/features/chats/index.tsx
 #: src/features/chats/index.tsx
 #: src/routes/_authenticated/$chatId_.settings.tsx
 #: src/routes/_authenticated/$chatId_.settings.tsx
@@ -963,6 +990,7 @@ msgid "Created {field}"
 msgstr "{field} yaratildi"
 
 #: src/features/chats/components/new-chat.tsx
+#: src/features/chats/components/new-chat.tsx
 msgid "Creating chat..."
 msgstr "Suhbat yaratilmoqda..."
 
@@ -1089,6 +1117,11 @@ msgstr "Suhbat oʻchirilmoqda..."
 #: src/features/chats/index.tsx
 msgid "Deleting..."
 msgstr "Oʻchirilmoqda..."
+
+#: src/features/chats/components/chat-message-list.tsx
+msgctxt "receipt"
+msgid "Delivered"
+msgstr "Yetkazildi"
 
 #: ../../../lib/web/src/components/ui/sort-direction-button.tsx
 msgid "Descending"
@@ -1312,6 +1345,7 @@ msgid "Failed to copy message"
 msgstr "Xabarni nusxalab boʻlmadi"
 
 #: src/features/chats/components/new-chat.tsx
+#: src/features/chats/components/new-chat.tsx
 msgid "Failed to create chat"
 msgstr "Suhbat yaratib boʻlmadi"
 
@@ -1393,8 +1427,8 @@ msgid "Failed to load video"
 msgstr "Videoni yuklab bo'lmadi"
 
 #: src/features/chats/components/chat-settings-dialog.tsx
-msgid "Failed to load your chat policy"
-msgstr "Suhbat siyosatingizni yuklab boʻlmadi"
+msgid "Failed to load your settings"
+msgstr "Sozlamalaringizni yuklab boʻlmadi"
 
 #: src/components/layout/chat-layout.tsx
 msgid "Failed to mark chat as read"
@@ -1437,10 +1471,12 @@ msgstr "Saqlab boʻlmadi"
 msgid "Failed to save prompt"
 msgstr "Soʻrovni saqlab boʻlmadi"
 
+#: src/features/chats/components/thread-panel.tsx
 #: src/features/chats/index.tsx
 msgid "Failed to send message"
 msgstr "Xabar yuborib boʻlmadi"
 
+#: src/features/chats/index.tsx
 #: src/features/chats/index.tsx
 msgid "Failed to start chat"
 msgstr "Suhbatni boshlab boʻlmadi"
@@ -1592,7 +1628,6 @@ msgid "Including anonymous users"
 msgstr "Anonim foydalanuvchilar bilan birga"
 
 #: src/features/chats/components/chat-settings-dialog.tsx
-#: src/features/chats/index.tsx
 msgid "Incoming chats"
 msgstr "Kiruvchi suhbatlar"
 
@@ -1641,6 +1676,11 @@ msgstr "Klaviatura yorliqlari"
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Large"
 msgstr "Katta"
+
+#. placeholder {0}: formatTimestamp(presence.seen)
+#: src/features/chats/index.tsx
+msgid "Last seen {0}"
+msgstr "Oxirgi marta onlayn: {0}"
 
 #: src/features/chats/constants/reactions.ts
 msgid "Laugh"
@@ -1936,6 +1976,10 @@ msgstr "Nom {CHAT_NAME_MAX_LENGTH} ta belgidan oshmasligi kerak"
 msgid "Name must be 1000 characters or less"
 msgstr "Nom 1000 ta belgidan oshmasligi kerak"
 
+#: src/features/chats/components/new-chat.tsx
+msgid "Network"
+msgstr "Tarmoq"
+
 #: ../../../lib/web/src/features/errors/general-error.tsx
 #: ../../../lib/web/src/lib/api-response-interceptors.ts
 msgid "Network error"
@@ -2158,6 +2202,11 @@ msgstr "Eskiroq moslik"
 msgid "On"
 msgstr "Yoniq"
 
+#: src/features/chats/index.tsx
+msgctxt "presence"
+msgid "Online"
+msgstr "Onlayn"
+
 #: ../../../lib/web/src/features/errors/not-found-error.tsx
 msgid "Oops! Page Not Found!"
 msgstr "Voy! Sahifa topilmadi!"
@@ -2328,6 +2377,9 @@ msgstr "Oldingi yil"
 
 #: ../../../lib/web/src/components/server-documents-footer.tsx
 #: ../../../lib/web/src/features/document/document-page.tsx
+#: src/features/chats/components/chat-settings-dialog.tsx
+#: src/features/chats/index.tsx
+#: src/features/chats/index.tsx
 msgid "Privacy"
 msgstr "Maxfiylik"
 
@@ -2358,6 +2410,11 @@ msgstr "Bu serverdagi hisoblaringizni qayta ulang"
 #: ../../../lib/web/src/components/restore-banner.tsx
 msgid "Re-register your passkeys on this server"
 msgstr "Ushbu serverda kirish kalitlaringizni qayta roʻyxatdan oʻtkazing"
+
+#: src/features/chats/components/chat-message-list.tsx
+msgctxt "receipt"
+msgid "Read"
+msgstr "Oʻqildi"
 
 #: src/features/chats/components/message-body.tsx
 msgid "Read more"
@@ -2530,6 +2587,11 @@ msgstr "Takrorlanadi"
 #: src/features/chats/components/message-hover-actions.tsx
 msgid "Reply"
 msgstr "Javob"
+
+#: src/features/chats/components/message-hover-actions.tsx
+#: src/features/chats/components/thread-panel.tsx
+msgid "Reply in thread"
+msgstr "Mavzuda javob berish"
 
 #. placeholder {0}: comment.name || comment.author
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx
@@ -2707,6 +2769,11 @@ msgstr "Audio boʻylab oʻtish"
 msgid "Seek in voice note"
 msgstr "Ovozli xabar boʻylab oʻtish"
 
+#. placeholder {0}: formatList(seen.names)
+#: src/features/chats/components/chat-message-list.tsx
+msgid "Seen by {0}"
+msgstr "Koʻrganlar: {0}"
+
 #: ../../../lib/web/src/hooks/use-field-type-labels.ts
 msgid "Select"
 msgstr "Tanlash"
@@ -2786,6 +2853,10 @@ msgstr "Eng yangi {BULK_MESSAGES_MAX} xabar tanlandi — bir vaqtda yuborish yok
 msgid "Selected: <0>{0}</0>"
 msgstr "Tanlangan: <0>{0}</0>"
 
+#: src/features/chats/components/thread-panel.tsx
+msgid "Send"
+msgstr "Yuborish"
+
 #: ../../../lib/web/src/features/accounts/account-verify.tsx
 msgid "Send again"
 msgstr "Qayta yuborish"
@@ -2800,6 +2871,15 @@ msgstr "Email yuborish"
 #: src/features/chats/components/chat-input.tsx
 msgid "Send message"
 msgstr "Xabar yuborish"
+
+#: src/features/chats/components/chat-settings-dialog.tsx
+msgid "Send read receipts"
+msgstr "Oʻqilganlik haqida xabar yuborish"
+
+#: src/features/chats/components/chat-message-list.tsx
+msgctxt "receipt"
+msgid "Sent"
+msgstr "Yuborildi"
 
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Serif"
@@ -2829,9 +2909,17 @@ msgstr "Boshlang‘ich va manzilni belgilash"
 msgid "Settings"
 msgstr "Sozlamalar"
 
+#: src/features/chats/components/chat-settings-dialog.tsx
+msgid "Settings saved"
+msgstr "Sozlamalar saqlandi"
+
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx
 msgid "Show classes"
 msgstr "Sinflarni koʻrsatish"
+
+#: src/features/chats/components/thread-panel.tsx
+msgid "Show earlier replies"
+msgstr "Avvalgi javoblarni koʻrsatish"
 
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx
 msgid "Show fields"
@@ -2845,6 +2933,14 @@ msgstr "Kamroq koʻrsatish"
 #: ../../../lib/web/src/components/entity/keyboard-shortcuts-help.tsx
 msgid "Show this help"
 msgstr "Ushbu yordamni koʻrsatish"
+
+#: src/features/chats/components/chat-settings-dialog.tsx
+msgid "Show when I'm online"
+msgstr "Onlayn ekanligimni koʻrsatish"
+
+#: src/features/chats/components/chat-settings-dialog.tsx
+msgid "Show when I'm typing"
+msgstr "Yozayotganimni koʻrsatish"
 
 #: ../../../lib/web/src/components/ui/load-more.tsx
 msgid "Showing {totalShown} of {total}"
@@ -2901,6 +2997,7 @@ msgstr "Suhbatni boshlash"
 msgid "Start the discussion by adding the first comment."
 msgstr "Birinchi izohni qoʻshib muhokamani boshlang."
 
+#: src/features/chats/index.tsx
 #: src/features/chats/index.tsx
 msgid "Starting chat..."
 msgstr "Suhbat boshlanmoqda..."
@@ -3052,12 +3149,17 @@ msgstr "Bu xabarni hamma uchun oʻchiradi va buni bekor qilib boʻlmaydi."
 
 #: src/features/chats/components/chat-message-list.tsx
 #: src/features/chats/components/message-quote.tsx
+#: src/features/chats/components/thread-panel.tsx
 msgid "This message was deleted"
 msgstr "Bu xabar oʻchirilgan"
 
 #: ../../../lib/web/src/components/game/game-end-dialogs.tsx
 msgid "This permanently deletes the game and its chat. This cannot be undone."
 msgstr "Bu oʻyin va uning chatini butunlay oʻchirib tashlaydi. Bu amalni bekor qilib boʻlmaydi."
+
+#: src/features/chats/components/thread-panel.tsx
+msgid "Thread"
+msgstr "Mavzu"
 
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Thursday"

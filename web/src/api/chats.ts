@@ -32,8 +32,8 @@ import type {
   ReactToMessageResponse,
   DeleteMessagesResponse,
   ForwardMessagesResponse,
-  ChatPolicy,
   ChatPreferences,
+  ChatPresence,
   PersonSearchResponse,
 } from './types/chats'
 
@@ -62,7 +62,10 @@ export const chatsApi = {
       )
       .then((res) => unwrapData<ChatViewResponse>(res)),
 
-  messages: (chatId: string, params?: { cursor?: string; limit?: number }) =>
+  messages: (
+    chatId: string,
+    params?: { cursor?: string; limit?: number; thread?: string }
+  ) =>
     client
       .get<GetMessagesResponse | { data: GetMessagesResponse }>(
         endpoints.chat.messages(chatId),
@@ -70,6 +73,7 @@ export const chatsApi = {
           params: {
             cursor: params?.cursor,
             limit: params?.limit,
+            thread: params?.thread,
           },
         }
       )
@@ -108,6 +112,9 @@ export const chatsApi = {
       }
       if (payload.captions && payload.captions.length > 0) {
         formData.append('captions', JSON.stringify(payload.captions))
+      }
+      if (payload.thread) {
+        formData.append('thread', payload.thread)
       }
       payload.attachments.forEach((file) => {
         formData.append('files', file)
@@ -165,12 +172,32 @@ export const chatsApi = {
 
   // The action answers {"data": {}} - there is nothing to read back, so the
   // call resolves to void rather than unknown.
-  setPreferences: (policy: ChatPolicy): Promise<void> =>
+  setPreferences: (changes: Partial<ChatPreferences>): Promise<void> =>
     client
-      .post<{ data: Record<string, never> }>(endpoints.chat.preferencesSet, {
-        policy,
-      })
+      .post<{ data: Record<string, never> }>(
+        endpoints.chat.preferencesSet,
+        Object.fromEntries(
+          Object.entries(changes).map(([key, value]) => [
+            key,
+            typeof value === 'boolean' ? String(value) : value,
+          ])
+        )
+      )
       .then(() => undefined),
+
+  // Tell the other members the user is typing; the server sends nothing where
+  // the user has turned typing off.
+  typing: (chatId: string): Promise<void> =>
+    client
+      .post<{ data: { sent: boolean } }>(endpoints.chat.typing(chatId), {})
+      .then(() => undefined),
+
+  presence: (chatId: string, member?: string) =>
+    client
+      .get<{ data: ChatPresence }>(endpoints.chat.presence(chatId), {
+        params: { member },
+      })
+      .then((res) => res.data),
 
   create: (payload: CreateChatRequest) =>
     client

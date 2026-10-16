@@ -48,6 +48,13 @@ msgstr "(int)"
 msgid "[not set]"
 msgstr "[mhux issettjat]"
 
+#. placeholder {0}: typingNames.length
+#. placeholder {1}: typingNames[0]
+#. placeholder {2}: formatList(typingNames)
+#: src/features/chats/index.tsx
+msgid "{0, plural, =1 {{1} is typing...} other {{2} are typing...}}"
+msgstr "{0, plural, =1 {{1} qed jikteb...} two {{2} qed jiktbu...} few {{2} qed jiktbu...} many {{2} qed jiktbu...} other {{2} qed jiktbu...}}"
+
 #. placeholder {0}: deleteTargetIds?.length ?? 0
 #: src/features/chats/index.tsx
 msgid "{0, plural, =1 {Delete message?} other {Delete # messages?}}"
@@ -57,6 +64,11 @@ msgstr "{0, plural, =1 {Tħassar il-messaġġ?} two {Tħassar # messaġġi?} few
 #: ../../../lib/web/src/components/diff-viewer.tsx
 msgid "{0, plural, one {# file changed} other {# files changed}}"
 msgstr "{0, plural, one {# fajl mibdul} two {# fajls mibdula} few {# fajls mibdula} many {# fajl mibdula} other {# fajl mibdula}}"
+
+#. placeholder {0}: message.replies
+#: src/features/chats/components/chat-message-list.tsx
+msgid "{0, plural, one {# reply} other {# replies}}"
+msgstr "{0, plural, one {# tweġiba} two {# tweġibiet} few {# tweġibiet} many {# tweġiba} other {# tweġiba}}"
 
 #. placeholder {0}: visible.length
 #: ../../../lib/web/src/components/inline-entity-search.tsx
@@ -307,6 +319,10 @@ msgstr "Qed jiżdiedu {0}/{1}..."
 msgid "Adding member..."
 msgstr "Qed inżid membru..."
 
+#: src/features/chats/components/new-chat.tsx
+msgid "Addresses"
+msgstr "Indirizzi"
+
 #: src/features/chats/constants/reactions.ts
 msgid "Agree"
 msgstr "Naqbel"
@@ -409,6 +425,11 @@ msgstr "Żgur trid tirriżenja?"
 msgid "Are you sure you want to resign? {opponentName} will win the game."
 msgstr "Żgur trid tirriżenja? {opponentName} tirbaħ il-logħba."
 
+#. placeholder {0}: selectedChat.address
+#: src/features/chats/index.tsx
+msgid "As {0}"
+msgstr "Bħala {0}"
+
 #: ../../../lib/web/src/components/ui/sort-direction-button.tsx
 msgid "Ascending"
 msgstr "Axxendenti"
@@ -458,6 +479,11 @@ msgstr "Avatar"
 #: ../../../lib/web/src/components/entity-avatar.tsx
 msgid "Avatar for {name}"
 msgstr "Avatar għal {name}"
+
+#: src/features/chats/index.tsx
+msgctxt "presence"
+msgid "Away"
+msgstr "Mhux preżenti"
 
 #: ../../../lib/web/src/components/place-picker.tsx
 msgid "Back"
@@ -530,6 +556,11 @@ msgstr "Kulur tal-bord"
 #: ../../../lib/web/src/features/accounts/types.ts
 msgid "Browser notifications"
 msgstr "Notifiki tal-browser"
+
+#: src/features/chats/index.tsx
+msgctxt "presence"
+msgid "Busy"
+msgstr "Okkupat"
 
 #: ../../../lib/web/src/features/accounts/types.ts
 msgid "Calendar server"
@@ -667,10 +698,7 @@ msgstr "Chat ma nstabitx"
 msgid "Chat pinned"
 msgstr "Chat ippinnjata"
 
-#: src/features/chats/components/chat-settings-dialog.tsx
-msgid "Chat policy updated"
-msgstr "Il-politika taċ-chat ġiet aġġornata"
-
+#: src/features/chats/components/new-chat.tsx
 #: src/features/chats/components/new-chat.tsx
 msgid "Chat ready"
 msgstr "Chat lesta"
@@ -679,7 +707,6 @@ msgstr "Chat lesta"
 msgid "Chat renamed"
 msgstr "Chat issemmiet mill-ġdid"
 
-#: src/features/chats/index.tsx
 #: src/features/chats/index.tsx
 #: src/routes/_authenticated/$chatId_.settings.tsx
 #: src/routes/_authenticated/$chatId_.settings.tsx
@@ -963,6 +990,7 @@ msgid "Created {field}"
 msgstr "Inħoloq {field}"
 
 #: src/features/chats/components/new-chat.tsx
+#: src/features/chats/components/new-chat.tsx
 msgid "Creating chat..."
 msgstr "Qed noħloq chat..."
 
@@ -1089,6 +1117,11 @@ msgstr "Qed inħassar il-chat..."
 #: src/features/chats/index.tsx
 msgid "Deleting..."
 msgstr "Qed iħassar..."
+
+#: src/features/chats/components/chat-message-list.tsx
+msgctxt "receipt"
+msgid "Delivered"
+msgstr "Mwassal"
 
 #: ../../../lib/web/src/components/ui/sort-direction-button.tsx
 msgid "Descending"
@@ -1312,6 +1345,7 @@ msgid "Failed to copy message"
 msgstr "Il-messaġġ ma setax jiġi kkupjat"
 
 #: src/features/chats/components/new-chat.tsx
+#: src/features/chats/components/new-chat.tsx
 msgid "Failed to create chat"
 msgstr "Ma rnexxiex jinħoloq iċ-chat"
 
@@ -1393,8 +1427,8 @@ msgid "Failed to load video"
 msgstr "Ma rnexxielux jitgħabba l-vidjo"
 
 #: src/features/chats/components/chat-settings-dialog.tsx
-msgid "Failed to load your chat policy"
-msgstr "Ma rnexxielekx tgħabbi l-politika tal-chat tiegħek"
+msgid "Failed to load your settings"
+msgstr "Ma rnexxiex jitgħabba l-issettjar tiegħek"
 
 #: src/components/layout/chat-layout.tsx
 msgid "Failed to mark chat as read"
@@ -1437,10 +1471,12 @@ msgstr "Ma rnexxiex jiġi ssejvjat"
 msgid "Failed to save prompt"
 msgstr "Ma rnexxiex jiġi ssejvjat il-prompt"
 
+#: src/features/chats/components/thread-panel.tsx
 #: src/features/chats/index.tsx
 msgid "Failed to send message"
 msgstr "Ma rnexxiex jintbagħat il-messaġġ"
 
+#: src/features/chats/index.tsx
 #: src/features/chats/index.tsx
 msgid "Failed to start chat"
 msgstr "Ma rnexxiex jinbeda ċ-chat"
@@ -1592,7 +1628,6 @@ msgid "Including anonymous users"
 msgstr "Inklużi utenti anonimi"
 
 #: src/features/chats/components/chat-settings-dialog.tsx
-#: src/features/chats/index.tsx
 msgid "Incoming chats"
 msgstr "Chats deħlin"
 
@@ -1641,6 +1676,11 @@ msgstr "Shortcuts tat-tastiera"
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Large"
 msgstr "Kbir"
+
+#. placeholder {0}: formatTimestamp(presence.seen)
+#: src/features/chats/index.tsx
+msgid "Last seen {0}"
+msgstr "L-aħħar li deher {0}"
 
 #: src/features/chats/constants/reactions.ts
 msgid "Laugh"
@@ -1936,6 +1976,10 @@ msgstr "L-isem irid ikun ta' {CHAT_NAME_MAX_LENGTH} karattru jew inqas"
 msgid "Name must be 1000 characters or less"
 msgstr "L-isem irid ikun ta' 1000 karattru jew inqas"
 
+#: src/features/chats/components/new-chat.tsx
+msgid "Network"
+msgstr "Netwerk"
+
 #: ../../../lib/web/src/features/errors/general-error.tsx
 #: ../../../lib/web/src/lib/api-response-interceptors.ts
 msgid "Network error"
@@ -2158,6 +2202,11 @@ msgstr "Riżultat eqdem"
 msgid "On"
 msgstr "Mixgħul"
 
+#: src/features/chats/index.tsx
+msgctxt "presence"
+msgid "Online"
+msgstr "Konness"
+
 #: ../../../lib/web/src/features/errors/not-found-error.tsx
 msgid "Oops! Page Not Found!"
 msgstr "Oops! Paġna Mhux Misjuba!"
@@ -2328,6 +2377,9 @@ msgstr "Is-sena preċedenti"
 
 #: ../../../lib/web/src/components/server-documents-footer.tsx
 #: ../../../lib/web/src/features/document/document-page.tsx
+#: src/features/chats/components/chat-settings-dialog.tsx
+#: src/features/chats/index.tsx
+#: src/features/chats/index.tsx
 msgid "Privacy"
 msgstr "Privatezza"
 
@@ -2358,6 +2410,11 @@ msgstr "Erġa' għaqqad il-kontijiet tiegħek fuq dan is-server"
 #: ../../../lib/web/src/components/restore-banner.tsx
 msgid "Re-register your passkeys on this server"
 msgstr "Erġa' rreġistra ċ-ċwievet tal-aċċess tiegħek fuq dan is-server"
+
+#: src/features/chats/components/chat-message-list.tsx
+msgctxt "receipt"
+msgid "Read"
+msgstr "Moqri"
 
 #: src/features/chats/components/message-body.tsx
 msgid "Read more"
@@ -2530,6 +2587,11 @@ msgstr "Jirrepeti"
 #: src/features/chats/components/message-hover-actions.tsx
 msgid "Reply"
 msgstr "Wieġeb"
+
+#: src/features/chats/components/message-hover-actions.tsx
+#: src/features/chats/components/thread-panel.tsx
+msgid "Reply in thread"
+msgstr "Wieġeb fid-diskussjoni"
 
 #. placeholder {0}: comment.name || comment.author
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx
@@ -2707,6 +2769,11 @@ msgstr "Imxi fl-awdjo"
 msgid "Seek in voice note"
 msgstr "Imxi fin-nota tal-vuċi"
 
+#. placeholder {0}: formatList(seen.names)
+#: src/features/chats/components/chat-message-list.tsx
+msgid "Seen by {0}"
+msgstr "Rawh: {0}"
+
 #: ../../../lib/web/src/hooks/use-field-type-labels.ts
 msgid "Select"
 msgstr "Agħżel"
@@ -2786,6 +2853,10 @@ msgstr "Intgħażlu l-aħħar {BULK_MESSAGES_MAX} messaġġi, l-akbar numru li j
 msgid "Selected: <0>{0}</0>"
 msgstr "Magħżul: <0>{0}</0>"
 
+#: src/features/chats/components/thread-panel.tsx
+msgid "Send"
+msgstr "Ibgħat"
+
 #: ../../../lib/web/src/features/accounts/account-verify.tsx
 msgid "Send again"
 msgstr "Ibgħat mill-ġdid"
@@ -2800,6 +2871,15 @@ msgstr "Ibgħat email"
 #: src/features/chats/components/chat-input.tsx
 msgid "Send message"
 msgstr "Ibgħat messaġġ"
+
+#: src/features/chats/components/chat-settings-dialog.tsx
+msgid "Send read receipts"
+msgstr "Ibgħat konfermi tal-qari"
+
+#: src/features/chats/components/chat-message-list.tsx
+msgctxt "receipt"
+msgid "Sent"
+msgstr "Mibgħut"
 
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Serif"
@@ -2829,9 +2909,17 @@ msgstr "Issettja oriġini u destinazzjoni"
 msgid "Settings"
 msgstr "Issettjar"
 
+#: src/features/chats/components/chat-settings-dialog.tsx
+msgid "Settings saved"
+msgstr "Settings issejvjati"
+
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx
 msgid "Show classes"
 msgstr "Uri klassijiet"
+
+#: src/features/chats/components/thread-panel.tsx
+msgid "Show earlier replies"
+msgstr "Uri tweġibiet preċedenti"
 
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx
 msgid "Show fields"
@@ -2845,6 +2933,14 @@ msgstr "Uri inqas"
 #: ../../../lib/web/src/components/entity/keyboard-shortcuts-help.tsx
 msgid "Show this help"
 msgstr "Uri din l-għajnuna"
+
+#: src/features/chats/components/chat-settings-dialog.tsx
+msgid "Show when I'm online"
+msgstr "Uri meta nkun konness"
+
+#: src/features/chats/components/chat-settings-dialog.tsx
+msgid "Show when I'm typing"
+msgstr "Uri meta nkun qed nikteb"
 
 #: ../../../lib/web/src/components/ui/load-more.tsx
 msgid "Showing {totalShown} of {total}"
@@ -2901,6 +2997,7 @@ msgstr "Ibda konversazzjoni"
 msgid "Start the discussion by adding the first comment."
 msgstr "Ibda d-diskussjoni billi żżid l-ewwel kumment."
 
+#: src/features/chats/index.tsx
 #: src/features/chats/index.tsx
 msgid "Starting chat..."
 msgstr "Qed nibda chat..."
@@ -3052,12 +3149,17 @@ msgstr "Dan iħassar il-messaġġ għal kulħadd u ma jistax jitreġġa' lura."
 
 #: src/features/chats/components/chat-message-list.tsx
 #: src/features/chats/components/message-quote.tsx
+#: src/features/chats/components/thread-panel.tsx
 msgid "This message was deleted"
 msgstr "Dan il-messaġġ tħassar"
 
 #: ../../../lib/web/src/components/game/game-end-dialogs.tsx
 msgid "This permanently deletes the game and its chat. This cannot be undone."
 msgstr "Dan għad iħassar il-logħba u ċ-chat tagħha b'mod permanenti. Din l-azzjoni ma tistax titħassar."
+
+#: src/features/chats/components/thread-panel.tsx
+msgid "Thread"
+msgstr "Diskussjoni"
 
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Thursday"

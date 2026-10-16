@@ -42,7 +42,7 @@ import {
   Forward,
   MoreHorizontal,
   Settings,
-  Inbox,
+  Shield,
   LogOut,
   Trash2,
   MessageCircle,
@@ -78,6 +78,7 @@ import {
   useMarkChatReadMutation,
   useDeleteMessagesMutation,
   useEditMessageMutation,
+  useChatPresenceQuery,
 } from '@/hooks/useChats'
 import type { ReactionId } from '@/features/chats/constants/reactions'
 import { ChatEmptyState } from './components/chat-empty-state'
@@ -87,6 +88,7 @@ import { ChatSearchHeader } from './components/chat-search-header'
 import { ChatSettingsDialog } from './components/chat-settings-dialog'
 import { ChatSkeleton } from './components/chat-skeleton'
 import { ForwardDialog } from './components/forward-dialog'
+import { ThreadPanel } from './components/thread-panel'
 import {
   BULK_MESSAGES_MAX,
   CAPTIONS_MAX,
@@ -110,11 +112,16 @@ import {
 } from './utils/composer-draft'
 import { shouldDiscardMessageEdit } from './utils/message-edit-session'
 import { type ReplyTarget, messageToReplyTarget } from './utils/reply'
+import { useTyping } from './utils/typing'
 
 // How long a chat must sit in front of the reader, pinned to the newest
 // message, before the arriving message counts as read. Long enough that a
 // burst of messages produces one call rather than one each.
 const READ_SETTLE = 1000
+
+// How often typing is told while the user writes; the server's window is
+// twice it, so the indicator holds between ticks.
+const TYPING_INTERVAL = 4000
 
 export function Chats() {
   const { t } = useLingui()
@@ -178,7 +185,7 @@ export function Chats() {
   // The layout route's beforeLoad already awaited the store's initialize;
   // calling it again here re-ran the shell handshake on every mount.
   const { identity: currentUserIdentity } = useAuthStore()
-  const { formatNumber } = useFormat()
+  const { formatNumber, formatTimestamp, formatList } = useFormat()
 
   // URL param
   const params = useParams({ strict: false }) as { chatId?: string }
@@ -189,6 +196,8 @@ export function Chats() {
   const search = useSearch({ strict: false }) as {
     with?: string
     name?: string
+    account?: string
+    address?: string
   }
 
   // Chats list
@@ -252,6 +261,53 @@ export function Chats() {
     selectedChatId,
     chats,
     chatsQuery.isLoading,
+    createChatMutation,
+    navigate,
+    t,
+  ])
+
+  // Deep-link from people: ?account=<id>&address=<address>, a contact's
+  // messaging address on another network. The server answers with the
+  // conversation there already is, or makes one.
+  const addressLinkHandled = useRef(false)
+  useEffect(() => {
+    if (selectedChatId) return
+    if (!search.account || !search.address || addressLinkHandled.current)
+      return
+    addressLinkHandled.current = true
+    const account = search.account
+    const address = search.address
+    void (async () => {
+      try {
+        const data = await toastAction(
+          createChatMutation.mutateAsync({
+            account,
+            members: address,
+            name: (search.name || '').trim(),
+          }),
+          {
+            loading: t`Starting chat...`,
+            success: false,
+            error: (error) => getErrorMessage(error, t`Failed to start chat`),
+          }
+        )
+        if (data?.id) {
+          void navigate({
+            to: '/$chatId',
+            params: { chatId: data.id },
+            replace: true,
+          })
+        }
+      } catch {
+        addressLinkHandled.current = false
+        // toastAction already showed error
+      }
+    })()
+  }, [
+    search.account,
+    search.address,
+    search.name,
+    selectedChatId,
     createChatMutation,
     navigate,
     t,
@@ -506,6 +562,58 @@ export function Chats() {
 
     return display.join(', ')
   }, [chatDetail, currentUserIdentity, t])
+
+  // A one-to-one Mochi conversation shows whether the other member is online,
+  // as they share it; one on another network shows the account it is had
+  // through.
+  const directMochi = Boolean(
+    selectedChat &&
+      !selectedChat.account &&
+      chatActive(selectedChat) &&
+      isDirectChat
+  )
+  const presenceQuery = useChatPresenceQuery(selectedChat?.id, directMochi)
+  const presence = presenceQuery.data
+  const standing = useMemo(() => {
+    if (selectedChat?.address) return t`As ${selectedChat.address}`
+    if (!directMochi || !presence) return null
+    const label =
+      presence.status === 'online'
+        ? t({ message: 'Online', context: 'presence' })
+        : presence.status === 'away'
+          ? t({ message: 'Away', context: 'presence' })
+          : presence.status === 'busy'
+            ? t({ message: 'Busy', context: 'presence' })
+            : null
+    if (label) return presence.message ? `${label} · ${presence.message}` : label
+    return presence.seen
+      ? t`Last seen ${formatTimestamp(presence.seen)}`
+      : null
+  }, [selectedChat?.address, directMochi, presence, formatTimestamp, t])
+
+  // Typing goes to the other members while the user writes, at most once an
+  // interval; a conversation on another network takes none.
+  const typingSent = useRef(0)
+  const typingText = useRef('')
+  useEffect(() => {
+    const previous = typingText.current
+    typingText.current = newMessage
+    if (!selectedChat || selectedChat.account || !chatActive(selectedChat))
+      return
+    if (!newMessage.trim() || newMessage.length <= previous.length) return
+    if (draftHydratedChatId !== draftChatKey) return
+    const now = Date.now()
+    if (now - typingSent.current < TYPING_INTERVAL) return
+    typingSent.current = now
+    void chatsApi.typing(selectedChat.id).catch(() => undefined)
+  }, [newMessage, selectedChat, draftHydratedChatId, draftChatKey])
+  const typingNames = useTyping(selectedChat?.id)
+
+  // The message whose thread is open.
+  const [threadRoot, setThreadRoot] = useState<ChatMessage | null>(null)
+  useEffect(() => {
+    setThreadRoot(null)
+  }, [selectedChat?.id])
 
   // Messages
   const messagesQuery = useInfiniteMessagesQuery(selectedChat?.id)
@@ -1137,10 +1245,10 @@ export function Chats() {
           menuAction={
             <IconButton
               variant='ghost'
-              label={t`Chat settings`}
+              label={t`Privacy`}
               onClick={() => setChatSettingsOpen(true)}
             >
-              <Settings className='size-5' />
+              <Shield className='size-5' />
             </IconButton>
           }
         />
@@ -1186,7 +1294,9 @@ export function Chats() {
           <PageHeader
             title={selectedChat.name}
             icon={
-              selectedChat.members === 2 && selectedChat.other ? (
+              selectedChat.members === 2 &&
+              selectedChat.other &&
+              !selectedChat.account ? (
                 <EntityAvatar
                   src={personAssetUrl(selectedChat.other, 'avatar')}
                   styleUrl={personAssetUrl(selectedChat.other, 'style')}
@@ -1197,7 +1307,7 @@ export function Chats() {
                 <EntityAvatar size='xl' icon={Users} />
               )
             }
-            description={subtitle || undefined}
+            description={subtitle || standing || undefined}
             menuAction={
               <div className='flex items-center gap-1'>
                 {chatActive(selectedChat) ? (
@@ -1244,8 +1354,8 @@ export function Chats() {
                     )}
                     <DropdownMenuSeparator />
                     <DropdownMenuItem onClick={() => setChatSettingsOpen(true)}>
-                      <Inbox className='me-2 size-4' />{' '}
-                      <Trans>Incoming chats</Trans>
+                      <Shield className='me-2 size-4' />{' '}
+                      <Trans>Privacy</Trans>
                     </DropdownMenuItem>
                   </DropdownMenuContent>
                 </DropdownMenu>
@@ -1295,6 +1405,16 @@ export function Chats() {
               }
             }}
             onReply={chatActive(selectedChat) ? handleReply : undefined}
+            onThread={
+              chatActive(selectedChat) && !selectedChat.account
+                ? setThreadRoot
+                : undefined
+            }
+            receipts={
+              selectedChat.account
+                ? undefined
+                : (messagesQuery.data?.pages[0]?.receipts ?? [])
+            }
             onReact={chatActive(selectedChat) ? handleReact : undefined}
             onScrollToMessage={handleScrollToMessage}
             onForward={
@@ -1394,6 +1514,18 @@ export function Chats() {
               </div>
             </div>
           ) : (
+            <>
+            {typingNames.length > 0 ? (
+              <p
+                className='text-muted-foreground px-4 pb-1 text-xs'
+                aria-live='polite'
+              >
+                {plural(typingNames.length, {
+                  1: `${typingNames[0]} is typing...`,
+                  other: `${formatList(typingNames)} are typing...`,
+                })}
+              </p>
+            ) : null}
             <ChatInput
               key={selectedChat.id}
               ref={chatInputRef}
@@ -1421,9 +1553,20 @@ export function Chats() {
               onClearReply={() => setReplyTo(null)}
               sendMessageErrorMessage={sendAttachmentErrorMessage}
             />
+            </>
           )}
         </Main>
       </div>
+
+      {selectedChat ? (
+        <ThreadPanel
+          chatId={selectedChat.id}
+          root={threadRoot}
+          currentUserIdentity={currentUserIdentity}
+          canWrite={chatActive(selectedChat)}
+          onClose={() => setThreadRoot(null)}
+        />
+      ) : null}
 
       <ConfirmDialog
         open={showLeaveDialog}

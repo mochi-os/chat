@@ -69,7 +69,8 @@ export function ForwardDialog({
     const query = filter.trim().toLowerCase()
 
     const chatDests: Destination[] = chats
-      .filter((c) => c.id !== sourceChatId && chatActive(c))
+      // A conversation on another network takes only what is written there.
+      .filter((c) => c.id !== sourceChatId && chatActive(c) && !c.account)
       .filter((c) => nameMatches(c.name, query))
       .map((c) => ({
         kind: 'chat' as const,

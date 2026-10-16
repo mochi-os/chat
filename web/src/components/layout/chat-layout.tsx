@@ -17,7 +17,7 @@ import {
   type NavMenuItem,
   type SidebarData,
 } from '@mochi/web'
-import { CheckCheck, Mail, Pin, PinOff, Plus, Users } from 'lucide-react'
+import { CheckCheck, Globe, Mail, Pin, PinOff, Plus, Users } from 'lucide-react'
 import { personAssetUrl } from '@/api/person'
 import { chatActive } from '@/api/types/chats'
 import { SidebarProvider, useSidebarContext } from '@/context/sidebar-context'
@@ -87,6 +87,20 @@ function groupIcon(chatId: string): React.FC {
     }
     // eslint-disable-next-line lingui/no-unlocalized-strings -- React displayName is dev-tooling only, not user-facing
     Icon.displayName = `GroupIcon(${chatId})`
+    return Icon
+  })
+}
+
+// A conversation on another network: its people have no Mochi avatar, so it
+// shows the network's globe.
+const networkIconCache = new Map<string, React.FC>()
+function networkIcon(chatId: string): React.FC {
+  return cacheRemember(networkIconCache, chatId, () => {
+    const Icon = function NetworkIcon() {
+      return <EntityAvatar size='sm' icon={Globe} />
+    }
+    // eslint-disable-next-line lingui/no-unlocalized-strings -- React displayName is dev-tooling only, not user-facing
+    Icon.displayName = `NetworkIcon(${chatId})`
     return Icon
   })
 }
@@ -281,8 +295,9 @@ function ChatLayoutInner() {
         id: chat.id,
         title: chat.name,
         url: `/${chat.id}`,
-        icon:
-          chatIsDirect(chat) && chat.other
+        icon: chat.account
+          ? networkIcon(chat.id)
+          : chatIsDirect(chat) && chat.other
             ? personIcon(chat.other, chat.name)
             : groupIcon(chat.id),
         endIcon: pinned ? Pin : undefined,

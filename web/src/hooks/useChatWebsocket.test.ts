@@ -5,7 +5,8 @@
 import { QueryClient } from '@tanstack/react-query'
 import { describe, it, expect, vi } from 'vitest'
 import type { ChatMessage, GetMessagesResponse } from '@/api/chats'
-import { handleWebsocketEvent } from './useChatWebsocket'
+import { typingNames } from '@/features/chats/utils/typing'
+import { appendMessageToCache, handleWebsocketEvent } from './useChatWebsocket'
 import { chatKeys } from './useChats'
 
 const message = (id: string): ChatMessage =>
@@ -76,5 +77,76 @@ describe('handleWebsocketEvent', () => {
         expect(filter.exact).toBe(true)
       }
     }
+  })
+})
+
+describe('signals and threads (phase 22)', () => {
+  const pages = (client: QueryClient, key: readonly unknown[]) =>
+    client.getQueryData<{ pages: GetMessagesResponse[] }>(key)?.pages ?? []
+
+  it('moves a member\'s receipt forward and never back', () => {
+    const client = seeded()
+    handleWebsocketEvent(
+      'c1',
+      { event: 'receipt', member: 'bob', delivered: 5, displayed: 3 },
+      client,
+      'me'
+    )
+    handleWebsocketEvent(
+      'c1',
+      { event: 'receipt', member: 'bob', delivered: 4, displayed: 2 },
+      client,
+      'me'
+    )
+    expect(pages(client, chatKeys.messages('c1'))[0].receipts).toEqual([
+      { member: 'bob', name: '', delivered: 5, displayed: 3 },
+    ])
+  })
+
+  it('shows who is typing until their message comes, never the user', () => {
+    const client = seeded()
+    handleWebsocketEvent(
+      'c1',
+      { event: 'typing', member: 'bob', name: 'Bob' },
+      client,
+      'me'
+    )
+    handleWebsocketEvent(
+      'c1',
+      { event: 'typing', member: 'me', name: 'Me' },
+      client,
+      'me'
+    )
+    expect(typingNames('c1')).toEqual(['Bob'])
+    appendMessageToCache(
+      'c1',
+      { id: 'm2', member: 'bob', name: 'Bob', body: 'hi', created: 2 },
+      client,
+      'Unknown',
+      'me'
+    )
+    expect(typingNames('c1')).toEqual([])
+  })
+
+  it('counts a thread reply on its root and keeps it off the main timeline', () => {
+    const client = seeded()
+    client.setQueryData(chatKeys.thread('c1', 'm1'), {
+      pages: [{ messages: [] }],
+      pageParams: [undefined],
+    })
+    appendMessageToCache(
+      'c1',
+      { id: 'r1', member: 'bob', name: 'Bob', body: 'in thread', created: 3, thread: 'm1' },
+      client,
+      'Unknown',
+      'me'
+    )
+    const main = pages(client, chatKeys.messages('c1'))[0].messages
+    expect(main.map((m) => m.id)).toEqual(['m1'])
+    expect(main[0].replies).toBe(1)
+    expect(main[0].latest).toBe(3)
+    expect(
+      pages(client, chatKeys.thread('c1', 'm1'))[0].messages.map((m) => m.id)
+    ).toEqual(['r1'])
   })
 })

@@ -48,6 +48,13 @@ msgstr "(تاسو)"
 msgid "[not set]"
 msgstr "[نه دی ټاکل شوی]"
 
+#. placeholder {0}: typingNames.length
+#. placeholder {1}: typingNames[0]
+#. placeholder {2}: formatList(typingNames)
+#: src/features/chats/index.tsx
+msgid "{0, plural, =1 {{1} is typing...} other {{2} are typing...}}"
+msgstr "{0, plural, =1 {{1} لیکي...} other {{2} لیکي...}}"
+
 #. placeholder {0}: deleteTargetIds?.length ?? 0
 #: src/features/chats/index.tsx
 msgid "{0, plural, =1 {Delete message?} other {Delete # messages?}}"
@@ -57,6 +64,11 @@ msgstr "{0, plural, =1 {پیغام ړنګ شي؟} other {# پیغامونه ړن
 #: ../../../lib/web/src/components/diff-viewer.tsx
 msgid "{0, plural, one {# file changed} other {# files changed}}"
 msgstr "{0, plural, one {# فایل بدل شو} other {# فایلونه بدل شول}}"
+
+#. placeholder {0}: message.replies
+#: src/features/chats/components/chat-message-list.tsx
+msgid "{0, plural, one {# reply} other {# replies}}"
+msgstr "{0, plural, one {# ځواب} other {# ځوابونه}}"
 
 #. placeholder {0}: visible.length
 #: ../../../lib/web/src/components/inline-entity-search.tsx
@@ -307,6 +319,10 @@ msgstr "{0}/{1} اضافه کیږي..."
 msgid "Adding member..."
 msgstr "غړی ورزیاتیږي..."
 
+#: src/features/chats/components/new-chat.tsx
+msgid "Addresses"
+msgstr "پتې"
+
 #: src/features/chats/constants/reactions.ts
 msgid "Agree"
 msgstr "موافق یم"
@@ -409,6 +425,11 @@ msgstr "ایا تاسو ډاډه یاست چې غواړئ استعفا ورکړ�
 msgid "Are you sure you want to resign? {opponentName} will win the game."
 msgstr "ایا تاسو ډاډه یاست چې غواړئ استعفا ورکړئ؟ {opponentName} به لوبه وګټي."
 
+#. placeholder {0}: selectedChat.address
+#: src/features/chats/index.tsx
+msgid "As {0}"
+msgstr "د {0} په توګه"
+
 #: ../../../lib/web/src/components/ui/sort-direction-button.tsx
 msgid "Ascending"
 msgstr "د کم څخه ډېر"
@@ -458,6 +479,11 @@ msgstr "اوتار"
 #: ../../../lib/web/src/components/entity-avatar.tsx
 msgid "Avatar for {name}"
 msgstr "د {name} لپاره اوتار"
+
+#: src/features/chats/index.tsx
+msgctxt "presence"
+msgid "Away"
+msgstr "غیر حاضر"
 
 #: ../../../lib/web/src/components/place-picker.tsx
 msgid "Back"
@@ -530,6 +556,11 @@ msgstr "د څنډې رنګ"
 #: ../../../lib/web/src/features/accounts/types.ts
 msgid "Browser notifications"
 msgstr "د براوزر خبرتیاوې"
+
+#: src/features/chats/index.tsx
+msgctxt "presence"
+msgid "Busy"
+msgstr "بوخت"
 
 #: ../../../lib/web/src/features/accounts/types.ts
 msgid "Calendar server"
@@ -667,10 +698,7 @@ msgstr "چټ ونه موندل شو"
 msgid "Chat pinned"
 msgstr "چټ وټومبل شو"
 
-#: src/features/chats/components/chat-settings-dialog.tsx
-msgid "Chat policy updated"
-msgstr "د چیټ تګلاره تازه شوه"
-
+#: src/features/chats/components/new-chat.tsx
 #: src/features/chats/components/new-chat.tsx
 msgid "Chat ready"
 msgstr "چټ چمتو دی"
@@ -679,7 +707,6 @@ msgstr "چټ چمتو دی"
 msgid "Chat renamed"
 msgstr "د چټ نوم بدل شو"
 
-#: src/features/chats/index.tsx
 #: src/features/chats/index.tsx
 #: src/routes/_authenticated/$chatId_.settings.tsx
 #: src/routes/_authenticated/$chatId_.settings.tsx
@@ -963,6 +990,7 @@ msgid "Created {field}"
 msgstr "{field} جوړ شو"
 
 #: src/features/chats/components/new-chat.tsx
+#: src/features/chats/components/new-chat.tsx
 msgid "Creating chat..."
 msgstr "چټ جوړیږي..."
 
@@ -1089,6 +1117,11 @@ msgstr "چټ ړنګیږي..."
 #: src/features/chats/index.tsx
 msgid "Deleting..."
 msgstr "ړنګیږي..."
+
+#: src/features/chats/components/chat-message-list.tsx
+msgctxt "receipt"
+msgid "Delivered"
+msgstr "ورسېد"
 
 #: ../../../lib/web/src/components/ui/sort-direction-button.tsx
 msgid "Descending"
@@ -1312,6 +1345,7 @@ msgid "Failed to copy message"
 msgstr "د پیغام کاپي کول ونه شول"
 
 #: src/features/chats/components/new-chat.tsx
+#: src/features/chats/components/new-chat.tsx
 msgid "Failed to create chat"
 msgstr "د چیټ جوړولو پاتې راغلل"
 
@@ -1393,8 +1427,8 @@ msgid "Failed to load video"
 msgstr "ویډیو بار نه شو"
 
 #: src/features/chats/components/chat-settings-dialog.tsx
-msgid "Failed to load your chat policy"
-msgstr "ستاسو د چیټ تګلاره بار نه شوه"
+msgid "Failed to load your settings"
+msgstr "ستاسو د ترتیباتو د بار کولو پاتې راغلل"
 
 #: src/components/layout/chat-layout.tsx
 msgid "Failed to mark chat as read"
@@ -1437,10 +1471,12 @@ msgstr "د خوندي کولو پاتې راغلل"
 msgid "Failed to save prompt"
 msgstr "د پرامپټ د خوندي کولو پاتې راغلل"
 
+#: src/features/chats/components/thread-panel.tsx
 #: src/features/chats/index.tsx
 msgid "Failed to send message"
 msgstr "د پیغام لیږلو پاتې راغلل"
 
+#: src/features/chats/index.tsx
 #: src/features/chats/index.tsx
 msgid "Failed to start chat"
 msgstr "د چیټ پیل کولو پاتې راغلل"
@@ -1592,7 +1628,6 @@ msgid "Including anonymous users"
 msgstr "د ناڅرګندو کارنانو په ګډون"
 
 #: src/features/chats/components/chat-settings-dialog.tsx
-#: src/features/chats/index.tsx
 msgid "Incoming chats"
 msgstr "راتلونکي چیټونه"
 
@@ -1641,6 +1676,11 @@ msgstr "د کیبورډ شارټ کټونه"
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Large"
 msgstr "لوی"
+
+#. placeholder {0}: formatTimestamp(presence.seen)
+#: src/features/chats/index.tsx
+msgid "Last seen {0}"
+msgstr "وروستی ځل آنلاین {0}"
 
 #: src/features/chats/constants/reactions.ts
 msgid "Laugh"
@@ -1936,6 +1976,10 @@ msgstr "نوم باید {CHAT_NAME_MAX_LENGTH} توري یا لږ وي"
 msgid "Name must be 1000 characters or less"
 msgstr "نوم باید 1000 توري یا لږ وي"
 
+#: src/features/chats/components/new-chat.tsx
+msgid "Network"
+msgstr "شبکه"
+
 #: ../../../lib/web/src/features/errors/general-error.tsx
 #: ../../../lib/web/src/lib/api-response-interceptors.ts
 msgid "Network error"
@@ -2158,6 +2202,11 @@ msgstr "زوړ سمون"
 msgid "On"
 msgstr "فعال"
 
+#: src/features/chats/index.tsx
+msgctxt "presence"
+msgid "Online"
+msgstr "آنلاین"
+
 #: ../../../lib/web/src/features/errors/not-found-error.tsx
 msgid "Oops! Page Not Found!"
 msgstr "اوه! پاڼه ونه موندل شوه!"
@@ -2328,6 +2377,9 @@ msgstr "تېر کال"
 
 #: ../../../lib/web/src/components/server-documents-footer.tsx
 #: ../../../lib/web/src/features/document/document-page.tsx
+#: src/features/chats/components/chat-settings-dialog.tsx
+#: src/features/chats/index.tsx
+#: src/features/chats/index.tsx
 msgid "Privacy"
 msgstr "محرمیت"
 
@@ -2358,6 +2410,11 @@ msgstr "پر دې سرور خپل حسابونه بیا وصل کړئ"
 #: ../../../lib/web/src/components/restore-banner.tsx
 msgid "Re-register your passkeys on this server"
 msgstr "خپل پاسکي ګانې پدې سرور کې بیا ثبت کړئ"
+
+#: src/features/chats/components/chat-message-list.tsx
+msgctxt "receipt"
+msgid "Read"
+msgstr "ولوستل شو"
 
 #: src/features/chats/components/message-body.tsx
 msgid "Read more"
@@ -2530,6 +2587,11 @@ msgstr "تکراریږي"
 #: src/features/chats/components/message-hover-actions.tsx
 msgid "Reply"
 msgstr "ځواب"
+
+#: src/features/chats/components/message-hover-actions.tsx
+#: src/features/chats/components/thread-panel.tsx
+msgid "Reply in thread"
+msgstr "په موضوع کې ځواب ورکړئ"
 
 #. placeholder {0}: comment.name || comment.author
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx
@@ -2707,6 +2769,11 @@ msgstr "په غږ کې حرکت وکړئ"
 msgid "Seek in voice note"
 msgstr "په غږیز پیغام کې حرکت وکړئ"
 
+#. placeholder {0}: formatList(seen.names)
+#: src/features/chats/components/chat-message-list.tsx
+msgid "Seen by {0}"
+msgstr "لیدونکي: {0}"
+
 #: ../../../lib/web/src/hooks/use-field-type-labels.ts
 msgid "Select"
 msgstr "وټاکئ"
@@ -2786,6 +2853,10 @@ msgstr "تر ټولو نوي {BULK_MESSAGES_MAX} پیغامونه وټاکل ش�
 msgid "Selected: <0>{0}</0>"
 msgstr "ټاکل شوی: <0>{0}</0>"
 
+#: src/features/chats/components/thread-panel.tsx
+msgid "Send"
+msgstr "لیږل"
+
 #: ../../../lib/web/src/features/accounts/account-verify.tsx
 msgid "Send again"
 msgstr "بیا ولیږئ"
@@ -2800,6 +2871,15 @@ msgstr "بریښنالیک ولېږئ"
 #: src/features/chats/components/chat-input.tsx
 msgid "Send message"
 msgstr "پیغام ولېږئ"
+
+#: src/features/chats/components/chat-settings-dialog.tsx
+msgid "Send read receipts"
+msgstr "د لوستلو رسیدونه ولېږئ"
+
+#: src/features/chats/components/chat-message-list.tsx
+msgctxt "receipt"
+msgid "Sent"
+msgstr "ولېږل شو"
 
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Serif"
@@ -2829,9 +2909,17 @@ msgstr "سرچینه او منزل وټاکئ"
 msgid "Settings"
 msgstr "تنظیمات"
 
+#: src/features/chats/components/chat-settings-dialog.tsx
+msgid "Settings saved"
+msgstr "ترتیبات خوندي شول"
+
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx
 msgid "Show classes"
 msgstr "صنفونه وښیه"
+
+#: src/features/chats/components/thread-panel.tsx
+msgid "Show earlier replies"
+msgstr "پخواني ځوابونه وښایاست"
 
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx
 msgid "Show fields"
@@ -2845,6 +2933,14 @@ msgstr "لږ وښایاست"
 #: ../../../lib/web/src/components/entity/keyboard-shortcuts-help.tsx
 msgid "Show this help"
 msgstr "دا مرسته وښیه"
+
+#: src/features/chats/components/chat-settings-dialog.tsx
+msgid "Show when I'm online"
+msgstr "وښایاست کله چې زه آنلاین یم"
+
+#: src/features/chats/components/chat-settings-dialog.tsx
+msgid "Show when I'm typing"
+msgstr "وښایاست کله چې زه لیکم"
 
 #: ../../../lib/web/src/components/ui/load-more.tsx
 msgid "Showing {totalShown} of {total}"
@@ -2901,6 +2997,7 @@ msgstr "خبرې اترې پیل کړئ"
 msgid "Start the discussion by adding the first comment."
 msgstr "د لومړۍ تبصرې اضافه کولو سره بحث پیل کړئ."
 
+#: src/features/chats/index.tsx
 #: src/features/chats/index.tsx
 msgid "Starting chat..."
 msgstr "چټ پیلیږي..."
@@ -3052,12 +3149,17 @@ msgstr "دا پیغام د ټولو لپاره ړنګوي او بېرته نه �
 
 #: src/features/chats/components/chat-message-list.tsx
 #: src/features/chats/components/message-quote.tsx
+#: src/features/chats/components/thread-panel.tsx
 msgid "This message was deleted"
 msgstr "دا پیغام ړنګ شوی دی"
 
 #: ../../../lib/web/src/components/game/game-end-dialogs.tsx
 msgid "This permanently deletes the game and its chat. This cannot be undone."
 msgstr "دا به لوبه او د هغې چیټ د تل لپاره ړنګ کړي. دا کړنه بیرته نشي کیدی."
+
+#: src/features/chats/components/thread-panel.tsx
+msgid "Thread"
+msgstr "موضوع"
 
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Thursday"

@@ -48,6 +48,13 @@ msgstr "(þú)"
 msgid "[not set]"
 msgstr "[ekki stillt]"
 
+#. placeholder {0}: typingNames.length
+#. placeholder {1}: typingNames[0]
+#. placeholder {2}: formatList(typingNames)
+#: src/features/chats/index.tsx
+msgid "{0, plural, =1 {{1} is typing...} other {{2} are typing...}}"
+msgstr "{0, plural, =1 {{1} er að skrifa...} other {{2} eru að skrifa...}}"
+
 #. placeholder {0}: deleteTargetIds?.length ?? 0
 #: src/features/chats/index.tsx
 msgid "{0, plural, =1 {Delete message?} other {Delete # messages?}}"
@@ -57,6 +64,11 @@ msgstr "{0, plural, =1 {Eyða skilaboðum?} one {Eyða # skilaboðum?} other {Ey
 #: ../../../lib/web/src/components/diff-viewer.tsx
 msgid "{0, plural, one {# file changed} other {# files changed}}"
 msgstr "{0, plural, one {# skrá breytt} other {# skrám breytt}}"
+
+#. placeholder {0}: message.replies
+#: src/features/chats/components/chat-message-list.tsx
+msgid "{0, plural, one {# reply} other {# replies}}"
+msgstr "{0, plural, one {# svar} other {# svör}}"
 
 #. placeholder {0}: visible.length
 #: ../../../lib/web/src/components/inline-entity-search.tsx
@@ -307,6 +319,10 @@ msgstr "Bæti við {0}/{1}..."
 msgid "Adding member..."
 msgstr "Bæti við meðlim..."
 
+#: src/features/chats/components/new-chat.tsx
+msgid "Addresses"
+msgstr "Vistföng"
+
 #: src/features/chats/constants/reactions.ts
 msgid "Agree"
 msgstr "Sammála"
@@ -409,6 +425,11 @@ msgstr "Ertu viss um að þú viljir gefast upp?"
 msgid "Are you sure you want to resign? {opponentName} will win the game."
 msgstr "Ertu viss um að þú viljir gefast upp? {opponentName} mun vinna leikinn."
 
+#. placeholder {0}: selectedChat.address
+#: src/features/chats/index.tsx
+msgid "As {0}"
+msgstr "Sem {0}"
+
 #: ../../../lib/web/src/components/ui/sort-direction-button.tsx
 msgid "Ascending"
 msgstr "Hækkandi"
@@ -458,6 +479,11 @@ msgstr "Auðkennismynd"
 #: ../../../lib/web/src/components/entity-avatar.tsx
 msgid "Avatar for {name}"
 msgstr "Auðkennismynd fyrir {name}"
+
+#: src/features/chats/index.tsx
+msgctxt "presence"
+msgid "Away"
+msgstr "Fjarverandi"
 
 #: ../../../lib/web/src/components/place-picker.tsx
 msgid "Back"
@@ -530,6 +556,11 @@ msgstr "Litur ramma"
 #: ../../../lib/web/src/features/accounts/types.ts
 msgid "Browser notifications"
 msgstr "Tilkynningar vafra"
+
+#: src/features/chats/index.tsx
+msgctxt "presence"
+msgid "Busy"
+msgstr "Upptekinn"
 
 #: ../../../lib/web/src/features/accounts/types.ts
 msgid "Calendar server"
@@ -667,10 +698,7 @@ msgstr "Spjall fannst ekki"
 msgid "Chat pinned"
 msgstr "Spjall fest"
 
-#: src/features/chats/components/chat-settings-dialog.tsx
-msgid "Chat policy updated"
-msgstr "Spjallstefna uppfærð"
-
+#: src/features/chats/components/new-chat.tsx
 #: src/features/chats/components/new-chat.tsx
 msgid "Chat ready"
 msgstr "Spjall tilbúið"
@@ -679,7 +707,6 @@ msgstr "Spjall tilbúið"
 msgid "Chat renamed"
 msgstr "Spjall endurnefnt"
 
-#: src/features/chats/index.tsx
 #: src/features/chats/index.tsx
 #: src/routes/_authenticated/$chatId_.settings.tsx
 #: src/routes/_authenticated/$chatId_.settings.tsx
@@ -963,6 +990,7 @@ msgid "Created {field}"
 msgstr "Bjó til {field}"
 
 #: src/features/chats/components/new-chat.tsx
+#: src/features/chats/components/new-chat.tsx
 msgid "Creating chat..."
 msgstr "Bý til spjall..."
 
@@ -1089,6 +1117,11 @@ msgstr "Eyði spjalli..."
 #: src/features/chats/index.tsx
 msgid "Deleting..."
 msgstr "Eyði..."
+
+#: src/features/chats/components/chat-message-list.tsx
+msgctxt "receipt"
+msgid "Delivered"
+msgstr "Afhent"
 
 #: ../../../lib/web/src/components/ui/sort-direction-button.tsx
 msgid "Descending"
@@ -1312,6 +1345,7 @@ msgid "Failed to copy message"
 msgstr "Ekki tókst að afrita skilaboðin"
 
 #: src/features/chats/components/new-chat.tsx
+#: src/features/chats/components/new-chat.tsx
 msgid "Failed to create chat"
 msgstr "Tókst ekki að búa til spjall"
 
@@ -1393,8 +1427,8 @@ msgid "Failed to load video"
 msgstr "Ekki tókst að hlaða myndskeið"
 
 #: src/features/chats/components/chat-settings-dialog.tsx
-msgid "Failed to load your chat policy"
-msgstr "Ekki tókst að hlaða spjallstefnu þinni"
+msgid "Failed to load your settings"
+msgstr "Tókst ekki að hlaða stillingunum þínum"
 
 #: src/components/layout/chat-layout.tsx
 msgid "Failed to mark chat as read"
@@ -1437,10 +1471,12 @@ msgstr "Tókst ekki að vista"
 msgid "Failed to save prompt"
 msgstr "Tókst ekki að vista kvaðningu"
 
+#: src/features/chats/components/thread-panel.tsx
 #: src/features/chats/index.tsx
 msgid "Failed to send message"
 msgstr "Tókst ekki að senda skilaboð"
 
+#: src/features/chats/index.tsx
 #: src/features/chats/index.tsx
 msgid "Failed to start chat"
 msgstr "Tókst ekki að hefja spjall"
@@ -1592,7 +1628,6 @@ msgid "Including anonymous users"
 msgstr "Þar á meðal nafnlausir notendur"
 
 #: src/features/chats/components/chat-settings-dialog.tsx
-#: src/features/chats/index.tsx
 msgid "Incoming chats"
 msgstr "Móttekið spjall"
 
@@ -1641,6 +1676,11 @@ msgstr "Flýtilyklar"
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Large"
 msgstr "Stórt"
+
+#. placeholder {0}: formatTimestamp(presence.seen)
+#: src/features/chats/index.tsx
+msgid "Last seen {0}"
+msgstr "Sást síðast {0}"
 
 #: src/features/chats/constants/reactions.ts
 msgid "Laugh"
@@ -1936,6 +1976,10 @@ msgstr "Nafn má ekki vera lengra en {CHAT_NAME_MAX_LENGTH} stafir"
 msgid "Name must be 1000 characters or less"
 msgstr "Nafn má ekki vera lengra en 1000 stafir"
 
+#: src/features/chats/components/new-chat.tsx
+msgid "Network"
+msgstr "Net"
+
 #: ../../../lib/web/src/features/errors/general-error.tsx
 #: ../../../lib/web/src/lib/api-response-interceptors.ts
 msgid "Network error"
@@ -2158,6 +2202,11 @@ msgstr "Eldri niðurstaða"
 msgid "On"
 msgstr "Kveikt"
 
+#: src/features/chats/index.tsx
+msgctxt "presence"
+msgid "Online"
+msgstr "Á netinu"
+
 #: ../../../lib/web/src/features/errors/not-found-error.tsx
 msgid "Oops! Page Not Found!"
 msgstr "Úps! Síða fannst ekki!"
@@ -2328,6 +2377,9 @@ msgstr "Fyrra ár"
 
 #: ../../../lib/web/src/components/server-documents-footer.tsx
 #: ../../../lib/web/src/features/document/document-page.tsx
+#: src/features/chats/components/chat-settings-dialog.tsx
+#: src/features/chats/index.tsx
+#: src/features/chats/index.tsx
 msgid "Privacy"
 msgstr "Friðhelgi"
 
@@ -2358,6 +2410,11 @@ msgstr "Tengdu reikninga þína aftur á þessum þjóni"
 #: ../../../lib/web/src/components/restore-banner.tsx
 msgid "Re-register your passkeys on this server"
 msgstr "Skráðu aðgangslyklana þína aftur á þessum netþjóni"
+
+#: src/features/chats/components/chat-message-list.tsx
+msgctxt "receipt"
+msgid "Read"
+msgstr "Lesið"
 
 #: src/features/chats/components/message-body.tsx
 msgid "Read more"
@@ -2530,6 +2587,11 @@ msgstr "Endurtekur sig"
 #: src/features/chats/components/message-hover-actions.tsx
 msgid "Reply"
 msgstr "Svara"
+
+#: src/features/chats/components/message-hover-actions.tsx
+#: src/features/chats/components/thread-panel.tsx
+msgid "Reply in thread"
+msgstr "Svara í þræði"
 
 #. placeholder {0}: comment.name || comment.author
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx
@@ -2707,6 +2769,11 @@ msgstr "Leita í hljóðinu"
 msgid "Seek in voice note"
 msgstr "Leita í talskilaboðunum"
 
+#. placeholder {0}: formatList(seen.names)
+#: src/features/chats/components/chat-message-list.tsx
+msgid "Seen by {0}"
+msgstr "Séð af {0}"
+
 #: ../../../lib/web/src/hooks/use-field-type-labels.ts
 msgid "Select"
 msgstr "Velja"
@@ -2786,6 +2853,10 @@ msgstr "Valdi nýjustu {BULK_MESSAGES_MAX} skilaboðin, það mesta sem hægt er
 msgid "Selected: <0>{0}</0>"
 msgstr "Valið: <0>{0}</0>"
 
+#: src/features/chats/components/thread-panel.tsx
+msgid "Send"
+msgstr "Senda"
+
 #: ../../../lib/web/src/features/accounts/account-verify.tsx
 msgid "Send again"
 msgstr "Senda aftur"
@@ -2800,6 +2871,15 @@ msgstr "Senda tölvupóst"
 #: src/features/chats/components/chat-input.tsx
 msgid "Send message"
 msgstr "Senda skilaboð"
+
+#: src/features/chats/components/chat-settings-dialog.tsx
+msgid "Send read receipts"
+msgstr "Senda lestrarkvittanir"
+
+#: src/features/chats/components/chat-message-list.tsx
+msgctxt "receipt"
+msgid "Sent"
+msgstr "Sent"
 
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Serif"
@@ -2829,9 +2909,17 @@ msgstr "Stilltu upphafsstað og áfangastað"
 msgid "Settings"
 msgstr "Stillingar"
 
+#: src/features/chats/components/chat-settings-dialog.tsx
+msgid "Settings saved"
+msgstr "Stillingar vistaðar"
+
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx
 msgid "Show classes"
 msgstr "Sýna flokka"
+
+#: src/features/chats/components/thread-panel.tsx
+msgid "Show earlier replies"
+msgstr "Sýna eldri svör"
 
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx
 msgid "Show fields"
@@ -2845,6 +2933,14 @@ msgstr "Sýna minna"
 #: ../../../lib/web/src/components/entity/keyboard-shortcuts-help.tsx
 msgid "Show this help"
 msgstr "Sýna þessa hjálp"
+
+#: src/features/chats/components/chat-settings-dialog.tsx
+msgid "Show when I'm online"
+msgstr "Sýna þegar ég er á netinu"
+
+#: src/features/chats/components/chat-settings-dialog.tsx
+msgid "Show when I'm typing"
+msgstr "Sýna þegar ég er að skrifa"
 
 #: ../../../lib/web/src/components/ui/load-more.tsx
 msgid "Showing {totalShown} of {total}"
@@ -2901,6 +2997,7 @@ msgstr "Hefja samtal"
 msgid "Start the discussion by adding the first comment."
 msgstr "Hefjaðu umræðuna með því að bæta við fyrstu athugasemdinni."
 
+#: src/features/chats/index.tsx
 #: src/features/chats/index.tsx
 msgid "Starting chat..."
 msgstr "Hef spjall..."
@@ -3052,12 +3149,17 @@ msgstr "Þetta eyðir skilaboðunum fyrir alla og er ekki hægt að afturkalla."
 
 #: src/features/chats/components/chat-message-list.tsx
 #: src/features/chats/components/message-quote.tsx
+#: src/features/chats/components/thread-panel.tsx
 msgid "This message was deleted"
 msgstr "Þessum skilaboðum var eytt"
 
 #: ../../../lib/web/src/components/game/game-end-dialogs.tsx
 msgid "This permanently deletes the game and its chat. This cannot be undone."
 msgstr "Þetta eyðir leiknum og spjallinu varanlega. Ekki er hægt að afturkalla þessa aðgerð."
+
+#: src/features/chats/components/thread-panel.tsx
+msgid "Thread"
+msgstr "Þráður"
 
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Thursday"

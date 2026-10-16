@@ -48,6 +48,13 @@ msgstr "(ati)"
 msgid "[not set]"
 msgstr "[hin qindoofne]"
 
+#. placeholder {0}: typingNames.length
+#. placeholder {1}: typingNames[0]
+#. placeholder {2}: formatList(typingNames)
+#: src/features/chats/index.tsx
+msgid "{0, plural, =1 {{1} is typing...} other {{2} are typing...}}"
+msgstr "{0, plural, =1 {{1} barreessaa jira...} other {{2} barreessaa jiru...}}"
+
 #. placeholder {0}: deleteTargetIds?.length ?? 0
 #: src/features/chats/index.tsx
 msgid "{0, plural, =1 {Delete message?} other {Delete # messages?}}"
@@ -57,6 +64,11 @@ msgstr "{0, plural, =1 {Ergaa haquu?} other {Ergaawwan # haquu?}}"
 #: ../../../lib/web/src/components/diff-viewer.tsx
 msgid "{0, plural, one {# file changed} other {# files changed}}"
 msgstr "{0, plural, one {faayilii # jijjiirame} other {faayilii # jijjiiraman}}"
+
+#. placeholder {0}: message.replies
+#: src/features/chats/components/chat-message-list.tsx
+msgid "{0, plural, one {# reply} other {# replies}}"
+msgstr "{0, plural, one {deebii #} other {deebiiwwan #}}"
 
 #. placeholder {0}: visible.length
 #: ../../../lib/web/src/components/inline-entity-search.tsx
@@ -307,6 +319,10 @@ msgstr "{0}/{1} dabalaa jira..."
 msgid "Adding member..."
 msgstr "Miseensa dabalaa jira..."
 
+#: src/features/chats/components/new-chat.tsx
+msgid "Addresses"
+msgstr "Teessoowwan"
+
 #: src/features/chats/constants/reactions.ts
 msgid "Agree"
 msgstr "Ittan walii gala"
@@ -409,6 +425,11 @@ msgstr "Of harkatti kennuu mirkanaa'oo dha?"
 msgid "Are you sure you want to resign? {opponentName} will win the game."
 msgstr "Of harkatti kennuu mirkanaa'oo dha? {opponentName} taphicha mo'ata."
 
+#. placeholder {0}: selectedChat.address
+#: src/features/chats/index.tsx
+msgid "As {0}"
+msgstr "Akka {0}"
+
 #: ../../../lib/web/src/components/ui/sort-direction-button.tsx
 msgid "Ascending"
 msgstr "Ol kaʼaa"
@@ -458,6 +479,11 @@ msgstr "Fakkii"
 #: ../../../lib/web/src/components/entity-avatar.tsx
 msgid "Avatar for {name}"
 msgstr "Fakkii {name}"
+
+#: src/features/chats/index.tsx
+msgctxt "presence"
+msgid "Away"
+msgstr "Bakka hin jiru"
 
 #: ../../../lib/web/src/components/place-picker.tsx
 msgid "Back"
@@ -530,6 +556,11 @@ msgstr "Halluu marsaa"
 #: ../../../lib/web/src/features/accounts/types.ts
 msgid "Browser notifications"
 msgstr "Beeksisa barreessaa"
+
+#: src/features/chats/index.tsx
+msgctxt "presence"
+msgid "Busy"
+msgstr "Qabamaa"
 
 #: ../../../lib/web/src/features/accounts/types.ts
 msgid "Calendar server"
@@ -667,10 +698,7 @@ msgstr "Chaattiin hin argamne"
 msgid "Chat pinned"
 msgstr "Chaattiin maxxanfame"
 
-#: src/features/chats/components/chat-settings-dialog.tsx
-msgid "Chat policy updated"
-msgstr "Imaammanni chaatii haaromfameera"
-
+#: src/features/chats/components/new-chat.tsx
 #: src/features/chats/components/new-chat.tsx
 msgid "Chat ready"
 msgstr "Chaattiin qophii dha"
@@ -679,7 +707,6 @@ msgstr "Chaattiin qophii dha"
 msgid "Chat renamed"
 msgstr "Chaattiin maqaan jijjiirame"
 
-#: src/features/chats/index.tsx
 #: src/features/chats/index.tsx
 #: src/routes/_authenticated/$chatId_.settings.tsx
 #: src/routes/_authenticated/$chatId_.settings.tsx
@@ -963,6 +990,7 @@ msgid "Created {field}"
 msgstr "{field} uumameera"
 
 #: src/features/chats/components/new-chat.tsx
+#: src/features/chats/components/new-chat.tsx
 msgid "Creating chat..."
 msgstr "Haasawa uumaa jira..."
 
@@ -1089,6 +1117,11 @@ msgstr "Haasawa balleessaa jira..."
 #: src/features/chats/index.tsx
 msgid "Deleting..."
 msgstr "Haqaa jira..."
+
+#: src/features/chats/components/chat-message-list.tsx
+msgctxt "receipt"
+msgid "Delivered"
+msgstr "Ga'eera"
 
 #: ../../../lib/web/src/components/ui/sort-direction-button.tsx
 msgid "Descending"
@@ -1312,6 +1345,7 @@ msgid "Failed to copy message"
 msgstr "Ergaa garagalchuun hin milkoofne"
 
 #: src/features/chats/components/new-chat.tsx
+#: src/features/chats/components/new-chat.tsx
 msgid "Failed to create chat"
 msgstr "Haasawa uumuu hin dandeenye"
 
@@ -1393,8 +1427,8 @@ msgid "Failed to load video"
 msgstr "Viidiyoo fe'uu hin dandeenye"
 
 #: src/features/chats/components/chat-settings-dialog.tsx
-msgid "Failed to load your chat policy"
-msgstr "Imaammata haasaa kee fe'uun hin danda'amne"
+msgid "Failed to load your settings"
+msgstr "Qindaa'inoota kee fe'achuu hin dandeenye"
 
 #: src/components/layout/chat-layout.tsx
 msgid "Failed to mark chat as read"
@@ -1437,10 +1471,12 @@ msgstr "Olkaa'uu hin dandeenye"
 msgid "Failed to save prompt"
 msgstr "Boorsa olkaa'uu hin dandeenye"
 
+#: src/features/chats/components/thread-panel.tsx
 #: src/features/chats/index.tsx
 msgid "Failed to send message"
 msgstr "Ergaa ergamuu hin dandeenye"
 
+#: src/features/chats/index.tsx
 #: src/features/chats/index.tsx
 msgid "Failed to start chat"
 msgstr "Haasawa jalqabuu hin dandeenye"
@@ -1592,7 +1628,6 @@ msgid "Including anonymous users"
 msgstr "Fayyadamtoota maqaa hin qabne dabalatee"
 
 #: src/features/chats/components/chat-settings-dialog.tsx
-#: src/features/chats/index.tsx
 msgid "Incoming chats"
 msgstr "Chaatii dhufan"
 
@@ -1641,6 +1676,11 @@ msgstr "Karoora keyboardii"
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Large"
 msgstr "Guddaa"
+
+#. placeholder {0}: formatTimestamp(presence.seen)
+#: src/features/chats/index.tsx
+msgid "Last seen {0}"
+msgstr "Yeroo dhumaa toora irra {0}"
 
 #: src/features/chats/constants/reactions.ts
 msgid "Laugh"
@@ -1936,6 +1976,10 @@ msgstr "Maqaan arfiilee {CHAT_NAME_MAX_LENGTH} ykn isaa gadi ta'uu qaba"
 msgid "Name must be 1000 characters or less"
 msgstr "Maqaan arfiilee 1000 ykn isaa gadi ta'uu qaba"
 
+#: src/features/chats/components/new-chat.tsx
+msgid "Network"
+msgstr "Networkii"
+
 #: ../../../lib/web/src/features/errors/general-error.tsx
 #: ../../../lib/web/src/lib/api-response-interceptors.ts
 msgid "Network error"
@@ -2158,6 +2202,11 @@ msgstr "Walsimii duraanii"
 msgid "On"
 msgstr "Banaa"
 
+#: src/features/chats/index.tsx
+msgctxt "presence"
+msgid "Online"
+msgstr "Toora irra"
+
 #: ../../../lib/web/src/features/errors/not-found-error.tsx
 msgid "Oops! Page Not Found!"
 msgstr "Hoo! Fuulli hin argamne!"
@@ -2328,6 +2377,9 @@ msgstr "Waggaa darbe"
 
 #: ../../../lib/web/src/components/server-documents-footer.tsx
 #: ../../../lib/web/src/features/document/document-page.tsx
+#: src/features/chats/components/chat-settings-dialog.tsx
+#: src/features/chats/index.tsx
+#: src/features/chats/index.tsx
 msgid "Privacy"
 msgstr "Iccitii"
 
@@ -2358,6 +2410,11 @@ msgstr "Akkaawuntiiwan kee sarvarri kana irratti irra deebi'ii walitti hidhi"
 #: ../../../lib/web/src/components/restore-banner.tsx
 msgid "Re-register your passkeys on this server"
 msgstr "Passkey-wwan kee sajoo kana irratti irra deebi'ii galmeessi"
+
+#: src/features/chats/components/chat-message-list.tsx
+msgctxt "receipt"
+msgid "Read"
+msgstr "Dubbifameera"
 
 #: src/features/chats/components/message-body.tsx
 msgid "Read more"
@@ -2530,6 +2587,11 @@ msgstr "Ni irra deebi'a"
 #: src/features/chats/components/message-hover-actions.tsx
 msgid "Reply"
 msgstr "Deebii"
+
+#: src/features/chats/components/message-hover-actions.tsx
+#: src/features/chats/components/thread-panel.tsx
+msgid "Reply in thread"
+msgstr "Sarara keessatti deebisi"
 
 #. placeholder {0}: comment.name || comment.author
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx
@@ -2707,6 +2769,11 @@ msgstr "Sagalee keessa deemi"
 msgid "Seek in voice note"
 msgstr "Yaadannoo sagalee keessa deemi"
 
+#. placeholder {0}: formatList(seen.names)
+#: src/features/chats/components/chat-message-list.tsx
+msgid "Seen by {0}"
+msgstr "Kan arge: {0}"
+
 #: ../../../lib/web/src/hooks/use-field-type-labels.ts
 msgid "Select"
 msgstr "Fili"
@@ -2786,6 +2853,10 @@ msgstr "Ergaawwan haaraa {BULK_MESSAGES_MAX} filataman, yeroo tokkotti dabarsuu 
 msgid "Selected: <0>{0}</0>"
 msgstr "Kan filatame: <0>{0}</0>"
 
+#: src/features/chats/components/thread-panel.tsx
+msgid "Send"
+msgstr "Ergi"
+
 #: ../../../lib/web/src/features/accounts/account-verify.tsx
 msgid "Send again"
 msgstr "Ammas erguu"
@@ -2800,6 +2871,15 @@ msgstr "Imeelii ergi"
 #: src/features/chats/components/chat-input.tsx
 msgid "Send message"
 msgstr "Ergaa ergi"
+
+#: src/features/chats/components/chat-settings-dialog.tsx
+msgid "Send read receipts"
+msgstr "Mirkaneessa dubbifamuu ergi"
+
+#: src/features/chats/components/chat-message-list.tsx
+msgctxt "receipt"
+msgid "Sent"
+msgstr "Ergameera"
 
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Serif"
@@ -2829,9 +2909,17 @@ msgstr "Madda fi galma qindeessi"
 msgid "Settings"
 msgstr "Qindaa'inoota"
 
+#: src/features/chats/components/chat-settings-dialog.tsx
+msgid "Settings saved"
+msgstr "Qindaa'inoonni olkaa'amaniiru"
+
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx
 msgid "Show classes"
 msgstr "Kilaasota agarsiisi"
+
+#: src/features/chats/components/thread-panel.tsx
+msgid "Show earlier replies"
+msgstr "Deebii duraanii agarsiisi"
 
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx
 msgid "Show fields"
@@ -2845,6 +2933,14 @@ msgstr "Xiqqaa agarsiisi"
 #: ../../../lib/web/src/components/entity/keyboard-shortcuts-help.tsx
 msgid "Show this help"
 msgstr "Gargaarsa kana agarsiisi"
+
+#: src/features/chats/components/chat-settings-dialog.tsx
+msgid "Show when I'm online"
+msgstr "Yeroo ani toora irra jiru agarsiisi"
+
+#: src/features/chats/components/chat-settings-dialog.tsx
+msgid "Show when I'm typing"
+msgstr "Yeroo ani barreessaa jiru agarsiisi"
 
 #: ../../../lib/web/src/components/ui/load-more.tsx
 msgid "Showing {totalShown} of {total}"
@@ -2901,6 +2997,7 @@ msgstr "Marii jalqabi"
 msgid "Start the discussion by adding the first comment."
 msgstr "Yaada jalqabaa dabaluudhaan marii jalqabi."
 
+#: src/features/chats/index.tsx
 #: src/features/chats/index.tsx
 msgid "Starting chat..."
 msgstr "Haasawa jalqabaa jira..."
@@ -3052,12 +3149,17 @@ msgstr "Kun ergaa nama hundaaf ni haqa; deebifamuus hin danda'u."
 
 #: src/features/chats/components/chat-message-list.tsx
 #: src/features/chats/components/message-quote.tsx
+#: src/features/chats/components/thread-panel.tsx
 msgid "This message was deleted"
 msgstr "Ergaan kun haqameera"
 
 #: ../../../lib/web/src/components/game/game-end-dialogs.tsx
 msgid "This permanently deletes the game and its chat. This cannot be undone."
 msgstr "Kun taphicha fi haasawa isaa bara baraan ni haqa. Wanti kun deebi'ee hin dandeenyu."
+
+#: src/features/chats/components/thread-panel.tsx
+msgid "Thread"
+msgstr "Sarara"
 
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Thursday"

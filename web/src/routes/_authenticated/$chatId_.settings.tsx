@@ -157,6 +157,9 @@ function ChatSettingsPage() {
           isLoading={isLoadingMembers}
           error={membersError}
           onRetry={refetchMembers}
+          // A conversation on another network keeps the people it began
+          // with, who have no Mochi avatar.
+          remote={Boolean(chatDetail?.chat.account)}
           onAddMember={() => setShowAddMemberDialog(true)}
           onRemoveMember={setMemberToRemove}
           onLeave={() => setShowLeaveDialog(true)}
@@ -242,6 +245,7 @@ function MembersSection({
   isLoading,
   error,
   onRetry,
+  remote,
   onAddMember,
   onRemoveMember,
   onLeave,
@@ -251,6 +255,7 @@ function MembersSection({
   isLoading: boolean
   error: unknown
   onRetry: () => void
+  remote: boolean
   onAddMember: () => void
   onRemoveMember: (member: { id: string; name: string }) => void
   onLeave: () => void
@@ -260,7 +265,7 @@ function MembersSection({
     <Section
       title={t`Members`}
       action={
-        !error && !isLoading ? (
+        !error && !isLoading && !remote ? (
           <Button size='sm' onClick={onAddMember} variant='outline'>
             <UserPlus className='me-2 size-4' />
             <Trans>Add member</Trans>
@@ -271,11 +276,15 @@ function MembersSection({
       <MemberList
         members={members}
         currentUserId={currentUserIdentity}
-        avatarUrls={(id) => ({
-          src: personAssetUrl(id, 'avatar'),
-          styleUrl: personAssetUrl(id, 'style'),
-        })}
-        onRemove={onRemoveMember}
+        avatarUrls={(id) =>
+          remote && id !== currentUserIdentity
+            ? { src: '' }
+            : {
+                src: personAssetUrl(id, 'avatar'),
+                styleUrl: personAssetUrl(id, 'style'),
+              }
+        }
+        onRemove={remote ? undefined : onRemoveMember}
         leave={{ label: t`Leave chat`, onClick: onLeave }}
         isLoading={isLoading}
         error={error}

@@ -41,9 +41,9 @@ import {
   useFormat,
   QuoteCard,
 } from '@mochi/web'
-import { Check, ChevronsDown, MessageCircle } from 'lucide-react'
+import { Check, CheckCheck, ChevronsDown, MessageCircle } from 'lucide-react'
 import type { ChatMessage } from '@/api/chats'
-import type { GetMessagesResponse } from '@/api/types/chats'
+import type { ChatReceipt, GetMessagesResponse } from '@/api/types/chats'
 import type { ReactionId } from '../constants/reactions'
 import { formatCountBadge } from '../utils'
 import {
@@ -52,6 +52,7 @@ import {
   attachmentsNeedFixedMediaWidth,
 } from '../utils/chat-media-size'
 import { highlightSearchText } from '../utils/highlight-search-text'
+import { receiptState, seenBy } from '../utils/receipts'
 import { MessageAttachments } from './message-attachments'
 import { MessageBody } from './message-body'
 import { MessageHoverActions } from './message-hover-actions'
@@ -115,6 +116,11 @@ interface ChatMessageListProps {
   onEnsureMatchVisible?: (messageId: string) => void | Promise<void>
   onScrollToMessageComplete?: (messageId: string) => void
   onReply?: (message: ChatMessage) => void
+  // Opens a message's thread; absent where threads are not offered.
+  onThread?: (message: ChatMessage) => void
+  // Each other member's watermarks, for the ticks on the user's own
+  // messages; absent where the conversation has none to show.
+  receipts?: ChatReceipt[]
   onReact?: (messageId: string, reaction: ReactionId | '') => void
   onScrollToMessage?: (messageId: string) => void
   onForward?: (message: ChatMessage) => void
@@ -156,6 +162,8 @@ export function ChatMessageList({
   onEnsureMatchVisible,
   onScrollToMessageComplete,
   onReply,
+  onThread,
+  receipts,
   onReact,
   onScrollToMessage,
   onForward,
@@ -177,7 +185,7 @@ export function ChatMessageList({
   onAtBottomChange,
 }: ChatMessageListProps) {
   const { t } = useLingui()
-  const { formatDate, formatTime, formatNumber } = useFormat()
+  const { formatDate, formatTime, formatNumber, formatList } = useFormat()
 
   // The asset route is member-only, so the <img> carries the app token: cookies
   // are refused, and none are sent inside the shell's sandboxed iframe.
@@ -325,6 +333,14 @@ export function ChatMessageList({
   const messagesById = useMemo(
     () => new Map(chatMessages.map((m) => [m.id, m])),
     [chatMessages]
+  )
+
+  const seen = useMemo(
+    () =>
+      isGroupChat
+        ? seenBy(chatMessages, receipts ?? [], currentUserIdentity)
+        : null,
+    [isGroupChat, receipts, chatMessages, currentUserIdentity]
   )
 
   // Handle loading more (older) messages
@@ -862,6 +878,11 @@ export function ChatMessageList({
                                             <MessageHoverActions
                                               message={message}
                                               onReply={onReply}
+                                              onThread={
+                                                onThread && !message.deleted
+                                                  ? () => onThread(message)
+                                                  : undefined
+                                              }
                                               onSelect={
                                                 onSelectMessage
                                                   ? () =>
@@ -900,7 +921,28 @@ export function ChatMessageList({
                                                 <Trans>(edited)</Trans>
                                               </span>
                                             ) : null}
+                                            {isSent && receipts && !message.deleted ? (
+                                              <ReceiptTick
+                                                state={receiptState(
+                                                  message,
+                                                  receipts,
+                                                  currentUserIdentity
+                                                )}
+                                              />
+                                            ) : null}
                                           </span>
+                                          {onThread && message.replies ? (
+                                            <button
+                                              type='button'
+                                              className='text-primary px-1 text-[11px] font-medium whitespace-nowrap hover:underline'
+                                              onClick={() => onThread(message)}
+                                            >
+                                              {plural(message.replies, {
+                                                one: '# reply',
+                                                other: '# replies',
+                                              })}
+                                            </button>
+                                          ) : null}
                                         </div>
                                       </BubbleReactions>
                                     ) : null}
@@ -908,6 +950,11 @@ export function ChatMessageList({
                                 )}
 
                                 {/* Hover actions moved to BubbleReactions */}
+                                {seen && seen.id === message.id ? (
+                                  <p className='text-muted-foreground px-1 text-end text-[11px]'>
+                                    {t`Seen by ${formatList(seen.names)}`}
+                                  </p>
+                                ) : null}
                               </div>
                             </div>
                           </div>
@@ -991,5 +1038,28 @@ export function ChatMessageList({
         </div>
       ) : null}
     </div>
+  )
+}
+
+/** The tick on the user's own message: one when sent, two when delivered,
+ * two in the primary colour when read. */
+function ReceiptTick({ state }: { state: 'sent' | 'delivered' | 'read' }) {
+  const { t } = useLingui()
+  const label =
+    state === 'read'
+      ? t({ message: 'Read', context: 'receipt' })
+      : state === 'delivered'
+        ? t({ message: 'Delivered', context: 'receipt' })
+        : t({ message: 'Sent', context: 'receipt' })
+  const Icon = state === 'sent' ? Check : CheckCheck
+  return (
+    <Icon
+      role='img'
+      aria-label={label}
+      className={cn(
+        'ml-1 inline size-3 align-[-2px]',
+        state === 'read' && 'text-primary'
+      )}
+    />
   )
 }

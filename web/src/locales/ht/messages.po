@@ -48,6 +48,13 @@ msgstr "(ou)"
 msgid "[not set]"
 msgstr "[pa mete]"
 
+#. placeholder {0}: typingNames.length
+#. placeholder {1}: typingNames[0]
+#. placeholder {2}: formatList(typingNames)
+#: src/features/chats/index.tsx
+msgid "{0, plural, =1 {{1} is typing...} other {{2} are typing...}}"
+msgstr "{0, plural, =1 {{1} ap tape...} other {{2} ap tape...}}"
+
 #. placeholder {0}: deleteTargetIds?.length ?? 0
 #: src/features/chats/index.tsx
 msgid "{0, plural, =1 {Delete message?} other {Delete # messages?}}"
@@ -57,6 +64,11 @@ msgstr "{0, plural, =1 {Efase mesaj la?} other {Efase # mesaj?}}"
 #: ../../../lib/web/src/components/diff-viewer.tsx
 msgid "{0, plural, one {# file changed} other {# files changed}}"
 msgstr "{0, plural, one {# fichye chanje} other {# fichye chanje}}"
+
+#. placeholder {0}: message.replies
+#: src/features/chats/components/chat-message-list.tsx
+msgid "{0, plural, one {# reply} other {# replies}}"
+msgstr "{0, plural, other {# repons}}"
 
 #. placeholder {0}: visible.length
 #: ../../../lib/web/src/components/inline-entity-search.tsx
@@ -307,6 +319,10 @@ msgstr "Ap ajoute {0}/{1}..."
 msgid "Adding member..."
 msgstr "Ap ajoute manm..."
 
+#: src/features/chats/components/new-chat.tsx
+msgid "Addresses"
+msgstr "Adrès yo"
+
 #: src/features/chats/constants/reactions.ts
 msgid "Agree"
 msgstr "Dakò"
@@ -409,6 +425,11 @@ msgstr "Èske ou sèten ou vle bay vag?"
 msgid "Are you sure you want to resign? {opponentName} will win the game."
 msgstr "Èske ou sèten ou vle bay vag? {opponentName} pral genyen jwèt la."
 
+#. placeholder {0}: selectedChat.address
+#: src/features/chats/index.tsx
+msgid "As {0}"
+msgstr "Kòm {0}"
+
 #: ../../../lib/web/src/components/ui/sort-direction-button.tsx
 msgid "Ascending"
 msgstr "Monte"
@@ -458,6 +479,11 @@ msgstr "Avata"
 #: ../../../lib/web/src/components/entity-avatar.tsx
 msgid "Avatar for {name}"
 msgstr "Avata pou {name}"
+
+#: src/features/chats/index.tsx
+msgctxt "presence"
+msgid "Away"
+msgstr "Absan"
 
 #: ../../../lib/web/src/components/place-picker.tsx
 msgid "Back"
@@ -530,6 +556,11 @@ msgstr "Koulè bòdi"
 #: ../../../lib/web/src/features/accounts/types.ts
 msgid "Browser notifications"
 msgstr "Notifikasyon navigatè"
+
+#: src/features/chats/index.tsx
+msgctxt "presence"
+msgid "Busy"
+msgstr "Okipe"
 
 #: ../../../lib/web/src/features/accounts/types.ts
 msgid "Calendar server"
@@ -667,10 +698,7 @@ msgstr "Chat pa jwenn"
 msgid "Chat pinned"
 msgstr "Chat la epengle"
 
-#: src/features/chats/components/chat-settings-dialog.tsx
-msgid "Chat policy updated"
-msgstr "Règleman chat mete ajou"
-
+#: src/features/chats/components/new-chat.tsx
 #: src/features/chats/components/new-chat.tsx
 msgid "Chat ready"
 msgstr "Chat pare"
@@ -679,7 +707,6 @@ msgstr "Chat pare"
 msgid "Chat renamed"
 msgstr "Chat chanje non"
 
-#: src/features/chats/index.tsx
 #: src/features/chats/index.tsx
 #: src/routes/_authenticated/$chatId_.settings.tsx
 #: src/routes/_authenticated/$chatId_.settings.tsx
@@ -963,6 +990,7 @@ msgid "Created {field}"
 msgstr "{field} kreye"
 
 #: src/features/chats/components/new-chat.tsx
+#: src/features/chats/components/new-chat.tsx
 msgid "Creating chat..."
 msgstr "Ap kreye chat..."
 
@@ -1089,6 +1117,11 @@ msgstr "Ap efase chat..."
 #: src/features/chats/index.tsx
 msgid "Deleting..."
 msgstr "Ap efase..."
+
+#: src/features/chats/components/chat-message-list.tsx
+msgctxt "receipt"
+msgid "Delivered"
+msgstr "Livre"
 
 #: ../../../lib/web/src/components/ui/sort-direction-button.tsx
 msgid "Descending"
@@ -1312,6 +1345,7 @@ msgid "Failed to copy message"
 msgstr "Nou pa t ka kopye mesaj la"
 
 #: src/features/chats/components/new-chat.tsx
+#: src/features/chats/components/new-chat.tsx
 msgid "Failed to create chat"
 msgstr "Echwe pou kreye chat"
 
@@ -1393,8 +1427,8 @@ msgid "Failed to load video"
 msgstr "Echèk chajman videyo a"
 
 #: src/features/chats/components/chat-settings-dialog.tsx
-msgid "Failed to load your chat policy"
-msgstr "Nou pa t kapab chaje règleman chat ou a"
+msgid "Failed to load your settings"
+msgstr "Echwe pou chaje paramèt ou yo"
 
 #: src/components/layout/chat-layout.tsx
 msgid "Failed to mark chat as read"
@@ -1437,10 +1471,12 @@ msgstr "Echwe pou sove"
 msgid "Failed to save prompt"
 msgstr "Echwe pou sove prompt"
 
+#: src/features/chats/components/thread-panel.tsx
 #: src/features/chats/index.tsx
 msgid "Failed to send message"
 msgstr "Echwe pou voye mesaj"
 
+#: src/features/chats/index.tsx
 #: src/features/chats/index.tsx
 msgid "Failed to start chat"
 msgstr "Echwe pou kòmanse chat"
@@ -1592,7 +1628,6 @@ msgid "Including anonymous users"
 msgstr "Ansanm ak itilizatè anonim"
 
 #: src/features/chats/components/chat-settings-dialog.tsx
-#: src/features/chats/index.tsx
 msgid "Incoming chats"
 msgstr "Chat k ap antre"
 
@@ -1641,6 +1676,11 @@ msgstr "Rakousi klavye"
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Large"
 msgstr "Gwo"
+
+#. placeholder {0}: formatTimestamp(presence.seen)
+#: src/features/chats/index.tsx
+msgid "Last seen {0}"
+msgstr "Dènye fwa anliy {0}"
 
 #: src/features/chats/constants/reactions.ts
 msgid "Laugh"
@@ -1936,6 +1976,10 @@ msgstr "Non dwe gen {CHAT_NAME_MAX_LENGTH} karaktè oswa mwens"
 msgid "Name must be 1000 characters or less"
 msgstr "Non dwe gen 1000 karaktè oswa mwens"
 
+#: src/features/chats/components/new-chat.tsx
+msgid "Network"
+msgstr "Rezo"
+
 #: ../../../lib/web/src/features/errors/general-error.tsx
 #: ../../../lib/web/src/lib/api-response-interceptors.ts
 msgid "Network error"
@@ -2158,6 +2202,11 @@ msgstr "Rezilta ki pi ansyen"
 msgid "On"
 msgstr "Aktive"
 
+#: src/features/chats/index.tsx
+msgctxt "presence"
+msgid "Online"
+msgstr "Anliy"
+
 #: ../../../lib/web/src/features/errors/not-found-error.tsx
 msgid "Oops! Page Not Found!"
 msgstr "Oops! Paj Pa Jwenn!"
@@ -2328,6 +2377,9 @@ msgstr "Ane anvan"
 
 #: ../../../lib/web/src/components/server-documents-footer.tsx
 #: ../../../lib/web/src/features/document/document-page.tsx
+#: src/features/chats/components/chat-settings-dialog.tsx
+#: src/features/chats/index.tsx
+#: src/features/chats/index.tsx
 msgid "Privacy"
 msgstr "Konfidansyalite"
 
@@ -2358,6 +2410,11 @@ msgstr "Konekte kont ou yo ankò sou sèvè sa a"
 #: ../../../lib/web/src/components/restore-banner.tsx
 msgid "Re-register your passkeys on this server"
 msgstr "Re-anrejistre kle aksè ou yo sou sèvè sa a"
+
+#: src/features/chats/components/chat-message-list.tsx
+msgctxt "receipt"
+msgid "Read"
+msgstr "Li"
 
 #: src/features/chats/components/message-body.tsx
 msgid "Read more"
@@ -2530,6 +2587,11 @@ msgstr "Li repete"
 #: src/features/chats/components/message-hover-actions.tsx
 msgid "Reply"
 msgstr "Reponn"
+
+#: src/features/chats/components/message-hover-actions.tsx
+#: src/features/chats/components/thread-panel.tsx
+msgid "Reply in thread"
+msgstr "Reponn nan konvèsasyon an"
 
 #. placeholder {0}: comment.name || comment.author
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx
@@ -2707,6 +2769,11 @@ msgstr "Deplase nan odyo a"
 msgid "Seek in voice note"
 msgstr "Deplase nan nòt vokal la"
 
+#. placeholder {0}: formatList(seen.names)
+#: src/features/chats/components/chat-message-list.tsx
+msgid "Seen by {0}"
+msgstr "Wè pa {0}"
+
 #: ../../../lib/web/src/hooks/use-field-type-labels.ts
 msgid "Select"
 msgstr "Chwazi"
@@ -2786,6 +2853,10 @@ msgstr "Nou chwazi {BULK_MESSAGES_MAX} mesaj ki pi resan yo, sa se maksimòm ou 
 msgid "Selected: <0>{0}</0>"
 msgstr "Chwazi: <0>{0}</0>"
 
+#: src/features/chats/components/thread-panel.tsx
+msgid "Send"
+msgstr "Voye"
+
 #: ../../../lib/web/src/features/accounts/account-verify.tsx
 msgid "Send again"
 msgstr "Voye ankò"
@@ -2800,6 +2871,15 @@ msgstr "Voye imèl"
 #: src/features/chats/components/chat-input.tsx
 msgid "Send message"
 msgstr "Voye mesaj"
+
+#: src/features/chats/components/chat-settings-dialog.tsx
+msgid "Send read receipts"
+msgstr "Voye konfimasyon lekti"
+
+#: src/features/chats/components/chat-message-list.tsx
+msgctxt "receipt"
+msgid "Sent"
+msgstr "Te voye"
 
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Serif"
@@ -2829,9 +2909,17 @@ msgstr "Mete orijin ak destinasyon"
 msgid "Settings"
 msgstr "Paramèt"
 
+#: src/features/chats/components/chat-settings-dialog.tsx
+msgid "Settings saved"
+msgstr "Paramèt sove"
+
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx
 msgid "Show classes"
 msgstr "Montre klas yo"
+
+#: src/features/chats/components/thread-panel.tsx
+msgid "Show earlier replies"
+msgstr "Montre repons ki pi ansyen yo"
 
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx
 msgid "Show fields"
@@ -2845,6 +2933,14 @@ msgstr "Montre mwens"
 #: ../../../lib/web/src/components/entity/keyboard-shortcuts-help.tsx
 msgid "Show this help"
 msgstr "Montre èd sa"
+
+#: src/features/chats/components/chat-settings-dialog.tsx
+msgid "Show when I'm online"
+msgstr "Montre lè mwen anliy"
+
+#: src/features/chats/components/chat-settings-dialog.tsx
+msgid "Show when I'm typing"
+msgstr "Montre lè m ap tape"
 
 #: ../../../lib/web/src/components/ui/load-more.tsx
 msgid "Showing {totalShown} of {total}"
@@ -2901,6 +2997,7 @@ msgstr "Kòmanse yon konvèsasyon"
 msgid "Start the discussion by adding the first comment."
 msgstr "Kòmanse diskisyon an pa ajoute premye kòmantè a."
 
+#: src/features/chats/index.tsx
 #: src/features/chats/index.tsx
 msgid "Starting chat..."
 msgstr "Ap kòmanse chat..."
@@ -3052,12 +3149,17 @@ msgstr "Sa ap efase mesaj la pou tout moun e li pa ka defèt."
 
 #: src/features/chats/components/chat-message-list.tsx
 #: src/features/chats/components/message-quote.tsx
+#: src/features/chats/components/thread-panel.tsx
 msgid "This message was deleted"
 msgstr "Mesaj sa a te efase"
 
 #: ../../../lib/web/src/components/game/game-end-dialogs.tsx
 msgid "This permanently deletes the game and its chat. This cannot be undone."
 msgstr "Sa a ap efase jwèt la ak chat li pou tout tan. Aksyon sa a pa ka anile."
+
+#: src/features/chats/components/thread-panel.tsx
+msgid "Thread"
+msgstr "Konvèsasyon"
 
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Thursday"

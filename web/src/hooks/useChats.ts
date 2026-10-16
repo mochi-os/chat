@@ -14,7 +14,7 @@ import {
 import { useQueryWithError, useInfiniteQueryWithError } from '@mochi/web'
 import {
   chatsApi,
-  type ChatPolicy,
+  type ChatPreferences,
   type GetChatsResponse,
   type GetMembersResponse,
   type GetMessagesResponse,
@@ -46,6 +46,9 @@ export const chatKeys = {
   all: () => ['chats'] as const,
   detail: (chatId: string) => ['chats', chatId] as const,
   messages: (chatId: string) => ['chats', chatId, 'messages'] as const,
+  thread: (chatId: string, root: string) =>
+    ['chats', chatId, 'thread', root] as const,
+  presence: (chatId: string) => ['chats', chatId, 'presence'] as const,
   newChat: () => ['chats', 'new'] as const,
   preferences: () => ['chats', 'preferences'] as const,
 }
@@ -146,6 +149,43 @@ export const useInfiniteMessagesQuery = (
     },
     getNextPageParam: (lastPage, _allPages, _lastPageParam, allPageParams) =>
       nextMessagesPage(lastPage, allPageParams),
+  })
+
+// A thread's replies, the newest page first as the main timeline's are.
+export const useThreadMessagesQuery = (chatId?: string, root?: string) =>
+  useInfiniteQueryWithError<
+    GetMessagesResponse,
+    Error,
+    InfiniteData<GetMessagesResponse>,
+    ReturnType<typeof chatKeys.thread>,
+    MessagesPageParam
+  >({
+    queryKey: chatKeys.thread(chatId ?? 'unknown', root ?? 'unknown'),
+    enabled: Boolean(chatId && root),
+    initialPageParam: undefined,
+    queryFn: ({ pageParam }) =>
+      chatsApi.messages(chatId!, {
+        cursor: pageParam,
+        limit: DEFAULT_PAGE_SIZE,
+        thread: root,
+      }),
+    getNextPageParam: (lastPage, _allPages, _lastPageParam, allPageParams) =>
+      nextMessagesPage(lastPage, allPageParams),
+  })
+
+// How often the other member's presence is asked again while a conversation
+// is open.
+const PRESENCE_INTERVAL = 60000
+
+// Whether the other member of a one-to-one Mochi conversation is online, as
+// they share it.
+export const useChatPresenceQuery = (chatId?: string, enabled = true) =>
+  useQueryWithError({
+    queryKey: chatKeys.presence(chatId ?? 'unknown'),
+    queryFn: () => chatsApi.presence(chatId!),
+    enabled: Boolean(chatId) && enabled,
+    refetchInterval: PRESENCE_INTERVAL,
+    retry: false,
   })
 
 interface SendMessageVariables extends SendMessageRequest {
@@ -299,7 +339,8 @@ export const useChatPreferencesQuery = () =>
 export const useSetChatPreferencesMutation = () => {
   const queryClient = useQueryClient()
   return useMutation({
-    mutationFn: (policy: ChatPolicy) => chatsApi.setPreferences(policy),
+    mutationFn: (changes: Partial<ChatPreferences>) =>
+      chatsApi.setPreferences(changes),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: chatKeys.preferences() })
     },

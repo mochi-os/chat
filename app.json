@@ -16,10 +16,18 @@
 	"require": {"version": {"minimum": "2.0.12"}},
 
 	"database": {
-		"schema": 10,
+		"schema": 11,
 		"file": "chat.db",
 		"create": {"function": "database_create"},
 		"upgrade": {"function": "database_upgrade"},
+	},
+
+	"functions": {
+		// Direct messages to the user's hosted fediverse accounts, and the
+		// accounts a contact's messaging address can be reached through
+		// (the federation plan, phase 22).
+		"activitypub/receive": {"function": "function_activitypub_receive"},
+		"reachable": {"function": "function_reachable"}
 	},
 
 	"icons": [
@@ -50,6 +58,8 @@
 		":chat/-/read": {"function": "action_mark_read"},
 		":chat/-/react": {"function": "action_react"},
 		":chat/-/send": {"function": "action_send"},
+		":chat/-/typing": {"function": "action_typing"},
+		":chat/-/presence": {"function": "action_presence"},
 		":chat/-/members": {"function": "action_members"},
 		":chat/-/rename": {"function": "action_rename"},
 		":chat/-/leave": {"function": "action_leave"},
@@ -80,6 +90,9 @@
 		"message/delete": {"function": "event_message_delete"},
 		"message/edit": {"function": "event_message_edit"},
 		"message/react": {"function": "event_message_react"},
+		"presence": {"function": "event_presence"},
+		"receipt": {"function": "event_receipt"},
+		"typing": {"function": "event_typing"},
 		"new": {"function": "event_new"},
 		"info": {"function": "event_info"},
 		"rename": {"function": "event_rename"},

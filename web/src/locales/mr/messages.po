@@ -48,6 +48,13 @@ msgstr "(तुम्ही)"
 msgid "[not set]"
 msgstr "[सेट नाही]"
 
+#. placeholder {0}: typingNames.length
+#. placeholder {1}: typingNames[0]
+#. placeholder {2}: formatList(typingNames)
+#: src/features/chats/index.tsx
+msgid "{0, plural, =1 {{1} is typing...} other {{2} are typing...}}"
+msgstr "{0, plural, =1 {{1} टाइप करत आहे...} other {{2} टाइप करत आहेत...}}"
+
 #. placeholder {0}: deleteTargetIds?.length ?? 0
 #: src/features/chats/index.tsx
 msgid "{0, plural, =1 {Delete message?} other {Delete # messages?}}"
@@ -57,6 +64,11 @@ msgstr "{0, plural, =1 {संदेश हटवायचा?} other {# सं�
 #: ../../../lib/web/src/components/diff-viewer.tsx
 msgid "{0, plural, one {# file changed} other {# files changed}}"
 msgstr "{0, plural, one {# फाइल बदलली} other {# फाइल्स बदलल्या}}"
+
+#. placeholder {0}: message.replies
+#: src/features/chats/components/chat-message-list.tsx
+msgid "{0, plural, one {# reply} other {# replies}}"
+msgstr "{0, plural, one {# उत्तर} other {# उत्तरे}}"
 
 #. placeholder {0}: visible.length
 #: ../../../lib/web/src/components/inline-entity-search.tsx
@@ -307,6 +319,10 @@ msgstr "{0}/{1} जोडत आहे..."
 msgid "Adding member..."
 msgstr "सदस्य जोडत आहे..."
 
+#: src/features/chats/components/new-chat.tsx
+msgid "Addresses"
+msgstr "पत्ते"
+
 #: src/features/chats/constants/reactions.ts
 msgid "Agree"
 msgstr "सहमत"
@@ -409,6 +425,11 @@ msgstr "तुम्ही नक्की हार मानायला त�
 msgid "Are you sure you want to resign? {opponentName} will win the game."
 msgstr "तुम्हाला खरंच राजीनामा द्यायचा आहे का? {opponentName} खेळ जिंकेल."
 
+#. placeholder {0}: selectedChat.address
+#: src/features/chats/index.tsx
+msgid "As {0}"
+msgstr "{0} म्हणून"
+
 #: ../../../lib/web/src/components/ui/sort-direction-button.tsx
 msgid "Ascending"
 msgstr "चढत्या क्रमाने"
@@ -458,6 +479,11 @@ msgstr "अवतार"
 #: ../../../lib/web/src/components/entity-avatar.tsx
 msgid "Avatar for {name}"
 msgstr "{name} साठी अवतार"
+
+#: src/features/chats/index.tsx
+msgctxt "presence"
+msgid "Away"
+msgstr "दूर"
 
 #: ../../../lib/web/src/components/place-picker.tsx
 msgid "Back"
@@ -530,6 +556,11 @@ msgstr "सीमा रंग"
 #: ../../../lib/web/src/features/accounts/types.ts
 msgid "Browser notifications"
 msgstr "ब्राउझर सूचना"
+
+#: src/features/chats/index.tsx
+msgctxt "presence"
+msgid "Busy"
+msgstr "व्यस्त"
 
 #: ../../../lib/web/src/features/accounts/types.ts
 msgid "Calendar server"
@@ -667,10 +698,7 @@ msgstr "चॅट सापडला नाही"
 msgid "Chat pinned"
 msgstr "चॅट पिन केले"
 
-#: src/features/chats/components/chat-settings-dialog.tsx
-msgid "Chat policy updated"
-msgstr "चॅट धोरण अद्यतनित केले"
-
+#: src/features/chats/components/new-chat.tsx
 #: src/features/chats/components/new-chat.tsx
 msgid "Chat ready"
 msgstr "चॅट तयार"
@@ -679,7 +707,6 @@ msgstr "चॅट तयार"
 msgid "Chat renamed"
 msgstr "चॅटचे नाव बदलले"
 
-#: src/features/chats/index.tsx
 #: src/features/chats/index.tsx
 #: src/routes/_authenticated/$chatId_.settings.tsx
 #: src/routes/_authenticated/$chatId_.settings.tsx
@@ -963,6 +990,7 @@ msgid "Created {field}"
 msgstr "{field} तयार केले"
 
 #: src/features/chats/components/new-chat.tsx
+#: src/features/chats/components/new-chat.tsx
 msgid "Creating chat..."
 msgstr "चॅट तयार करत आहे..."
 
@@ -1089,6 +1117,11 @@ msgstr "चॅट हटवत आहे..."
 #: src/features/chats/index.tsx
 msgid "Deleting..."
 msgstr "हटवत आहे..."
+
+#: src/features/chats/components/chat-message-list.tsx
+msgctxt "receipt"
+msgid "Delivered"
+msgstr "वितरित"
 
 #: ../../../lib/web/src/components/ui/sort-direction-button.tsx
 msgid "Descending"
@@ -1312,6 +1345,7 @@ msgid "Failed to copy message"
 msgstr "संदेश कॉपी करता आला नाही"
 
 #: src/features/chats/components/new-chat.tsx
+#: src/features/chats/components/new-chat.tsx
 msgid "Failed to create chat"
 msgstr "चॅट तयार करण्यात अयशस्वी"
 
@@ -1393,8 +1427,8 @@ msgid "Failed to load video"
 msgstr "व्हिडिओ लोड करण्यात अयशस्वी"
 
 #: src/features/chats/components/chat-settings-dialog.tsx
-msgid "Failed to load your chat policy"
-msgstr "तुमचे चॅट धोरण लोड करता आले नाही"
+msgid "Failed to load your settings"
+msgstr "तुमच्या सेटिंग्ज लोड करण्यात अयशस्वी"
 
 #: src/components/layout/chat-layout.tsx
 msgid "Failed to mark chat as read"
@@ -1437,10 +1471,12 @@ msgstr "सेव्ह करण्यात अयशस्वी"
 msgid "Failed to save prompt"
 msgstr "प्रॉम्प्ट सेव्ह करण्यात अयशस्वी"
 
+#: src/features/chats/components/thread-panel.tsx
 #: src/features/chats/index.tsx
 msgid "Failed to send message"
 msgstr "संदेश पाठवण्यात अयशस्वी"
 
+#: src/features/chats/index.tsx
 #: src/features/chats/index.tsx
 msgid "Failed to start chat"
 msgstr "चॅट सुरू करण्यात अयशस्वी"
@@ -1592,7 +1628,6 @@ msgid "Including anonymous users"
 msgstr "निनावी वापरकर्त्यांसह"
 
 #: src/features/chats/components/chat-settings-dialog.tsx
-#: src/features/chats/index.tsx
 msgid "Incoming chats"
 msgstr "येणाऱ्या चॅट"
 
@@ -1641,6 +1676,11 @@ msgstr "कीबोर्ड शॉर्टकट"
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Large"
 msgstr "मोठे"
+
+#. placeholder {0}: formatTimestamp(presence.seen)
+#: src/features/chats/index.tsx
+msgid "Last seen {0}"
+msgstr "शेवटचे ऑनलाइन {0}"
 
 #: src/features/chats/constants/reactions.ts
 msgid "Laugh"
@@ -1936,6 +1976,10 @@ msgstr "नाव {CHAT_NAME_MAX_LENGTH} अक्षरे किंवा क�
 msgid "Name must be 1000 characters or less"
 msgstr "नाव 1000 अक्षरे किंवा कमी असावे"
 
+#: src/features/chats/components/new-chat.tsx
+msgid "Network"
+msgstr "नेटवर्क"
+
 #: ../../../lib/web/src/features/errors/general-error.tsx
 #: ../../../lib/web/src/lib/api-response-interceptors.ts
 msgid "Network error"
@@ -2158,6 +2202,11 @@ msgstr "जुनी जुळणी"
 msgid "On"
 msgstr "चालू"
 
+#: src/features/chats/index.tsx
+msgctxt "presence"
+msgid "Online"
+msgstr "ऑनलाइन"
+
 #: ../../../lib/web/src/features/errors/not-found-error.tsx
 msgid "Oops! Page Not Found!"
 msgstr "अरेरे! पेज सापडले नाही!"
@@ -2328,6 +2377,9 @@ msgstr "मागील वर्ष"
 
 #: ../../../lib/web/src/components/server-documents-footer.tsx
 #: ../../../lib/web/src/features/document/document-page.tsx
+#: src/features/chats/components/chat-settings-dialog.tsx
+#: src/features/chats/index.tsx
+#: src/features/chats/index.tsx
 msgid "Privacy"
 msgstr "गोपनीयता"
 
@@ -2358,6 +2410,11 @@ msgstr "या सर्व्हरवर तुमची खाती पु�
 #: ../../../lib/web/src/components/restore-banner.tsx
 msgid "Re-register your passkeys on this server"
 msgstr "या सर्व्हरवर तुमच्या पासकी पुन्हा नोंदवा"
+
+#: src/features/chats/components/chat-message-list.tsx
+msgctxt "receipt"
+msgid "Read"
+msgstr "वाचले"
 
 #: src/features/chats/components/message-body.tsx
 msgid "Read more"
@@ -2530,6 +2587,11 @@ msgstr "पुनरावृत्ती होते"
 #: src/features/chats/components/message-hover-actions.tsx
 msgid "Reply"
 msgstr "प्रत्युत्तर द्या"
+
+#: src/features/chats/components/message-hover-actions.tsx
+#: src/features/chats/components/thread-panel.tsx
+msgid "Reply in thread"
+msgstr "थ्रेडमध्ये उत्तर द्या"
 
 #. placeholder {0}: comment.name || comment.author
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx
@@ -2707,6 +2769,11 @@ msgstr "ऑडिओमध्ये पुढे-मागे जा"
 msgid "Seek in voice note"
 msgstr "व्हॉइस नोटमध्ये पुढे-मागे जा"
 
+#. placeholder {0}: formatList(seen.names)
+#: src/features/chats/components/chat-message-list.tsx
+msgid "Seen by {0}"
+msgstr "{0} यांनी पाहिले"
+
 #: ../../../lib/web/src/hooks/use-field-type-labels.ts
 msgid "Select"
 msgstr "निवडा"
@@ -2786,6 +2853,10 @@ msgstr "सर्वात नवीन {BULK_MESSAGES_MAX} संदेश न�
 msgid "Selected: <0>{0}</0>"
 msgstr "निवडलेले: <0>{0}</0>"
 
+#: src/features/chats/components/thread-panel.tsx
+msgid "Send"
+msgstr "पाठवा"
+
 #: ../../../lib/web/src/features/accounts/account-verify.tsx
 msgid "Send again"
 msgstr "पुन्हा पाठवा"
@@ -2800,6 +2871,15 @@ msgstr "ईमेल पाठवा"
 #: src/features/chats/components/chat-input.tsx
 msgid "Send message"
 msgstr "संदेश पाठवा"
+
+#: src/features/chats/components/chat-settings-dialog.tsx
+msgid "Send read receipts"
+msgstr "वाचल्याची पावती पाठवा"
+
+#: src/features/chats/components/chat-message-list.tsx
+msgctxt "receipt"
+msgid "Sent"
+msgstr "पाठवले"
 
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Serif"
@@ -2829,9 +2909,17 @@ msgstr "मूळ आणि गंतव्य सेट करा"
 msgid "Settings"
 msgstr "सेटिंग्ज"
 
+#: src/features/chats/components/chat-settings-dialog.tsx
+msgid "Settings saved"
+msgstr "सेटिंग्ज जतन केल्या"
+
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx
 msgid "Show classes"
 msgstr "वर्ग दर्शवा"
+
+#: src/features/chats/components/thread-panel.tsx
+msgid "Show earlier replies"
+msgstr "आधीची उत्तरे दाखवा"
 
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx
 msgid "Show fields"
@@ -2845,6 +2933,14 @@ msgstr "कमी दाखवा"
 #: ../../../lib/web/src/components/entity/keyboard-shortcuts-help.tsx
 msgid "Show this help"
 msgstr "ही मदत दाखवा"
+
+#: src/features/chats/components/chat-settings-dialog.tsx
+msgid "Show when I'm online"
+msgstr "मी ऑनलाइन असताना दाखवा"
+
+#: src/features/chats/components/chat-settings-dialog.tsx
+msgid "Show when I'm typing"
+msgstr "मी टाइप करत असताना दाखवा"
 
 #: ../../../lib/web/src/components/ui/load-more.tsx
 msgid "Showing {totalShown} of {total}"
@@ -2901,6 +2997,7 @@ msgstr "संभाषण सुरू करा"
 msgid "Start the discussion by adding the first comment."
 msgstr "पहिली टिप्पणी जोडून चर्चा सुरू करा."
 
+#: src/features/chats/index.tsx
 #: src/features/chats/index.tsx
 msgid "Starting chat..."
 msgstr "चॅट सुरू करत आहे..."
@@ -3052,12 +3149,17 @@ msgstr "हे सर्वांसाठी संदेश हटवते �
 
 #: src/features/chats/components/chat-message-list.tsx
 #: src/features/chats/components/message-quote.tsx
+#: src/features/chats/components/thread-panel.tsx
 msgid "This message was deleted"
 msgstr "हा संदेश हटवला गेला"
 
 #: ../../../lib/web/src/components/game/game-end-dialogs.tsx
 msgid "This permanently deletes the game and its chat. This cannot be undone."
 msgstr "यामुळे गेम आणि त्याचे चॅट कायमचे हटवले जाईल. ही क्रिया पूर्ववत केली जाऊ शकत नाही."
+
+#: src/features/chats/components/thread-panel.tsx
+msgid "Thread"
+msgstr "थ्रेड"
 
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Thursday"

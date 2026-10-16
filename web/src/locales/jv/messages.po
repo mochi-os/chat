@@ -48,6 +48,13 @@ msgstr "(sampeyan)"
 msgid "[not set]"
 msgstr "[ora disetel]"
 
+#. placeholder {0}: typingNames.length
+#. placeholder {1}: typingNames[0]
+#. placeholder {2}: formatList(typingNames)
+#: src/features/chats/index.tsx
+msgid "{0, plural, =1 {{1} is typing...} other {{2} are typing...}}"
+msgstr "{0, plural, =1 {{1} lagi ngetik...} other {{2} lagi ngetik...}}"
+
 #. placeholder {0}: deleteTargetIds?.length ?? 0
 #: src/features/chats/index.tsx
 msgid "{0, plural, =1 {Delete message?} other {Delete # messages?}}"
@@ -57,6 +64,11 @@ msgstr "{0, plural, other {Busak # pesen?}}"
 #: ../../../lib/web/src/components/diff-viewer.tsx
 msgid "{0, plural, one {# file changed} other {# files changed}}"
 msgstr "{0, plural, one {# file diowahi} other {# file diowahi}}"
+
+#. placeholder {0}: message.replies
+#: src/features/chats/components/chat-message-list.tsx
+msgid "{0, plural, one {# reply} other {# replies}}"
+msgstr "{0, plural, other {# balesan}}"
 
 #. placeholder {0}: visible.length
 #: ../../../lib/web/src/components/inline-entity-search.tsx
@@ -307,6 +319,10 @@ msgstr "Nambahake {0}/{1}..."
 msgid "Adding member..."
 msgstr "Nambahake anggota..."
 
+#: src/features/chats/components/new-chat.tsx
+msgid "Addresses"
+msgstr "Alamat"
+
 #: src/features/chats/constants/reactions.ts
 msgid "Agree"
 msgstr "Setuju"
@@ -409,6 +425,11 @@ msgstr "Sampéyan yakin arep nyerah?"
 msgid "Are you sure you want to resign? {opponentName} will win the game."
 msgstr "Sampéyan yakin arep nyerah? {opponentName} bakal menang ing game iki."
 
+#. placeholder {0}: selectedChat.address
+#: src/features/chats/index.tsx
+msgid "As {0}"
+msgstr "Minangka {0}"
+
 #: ../../../lib/web/src/components/ui/sort-direction-button.tsx
 msgid "Ascending"
 msgstr "Munggah"
@@ -458,6 +479,11 @@ msgstr "Avatar"
 #: ../../../lib/web/src/components/entity-avatar.tsx
 msgid "Avatar for {name}"
 msgstr "Avatar kanggo {name}"
+
+#: src/features/chats/index.tsx
+msgctxt "presence"
+msgid "Away"
+msgstr "Lagi ora ana"
 
 #: ../../../lib/web/src/components/place-picker.tsx
 msgid "Back"
@@ -530,6 +556,11 @@ msgstr "Warna pinggir"
 #: ../../../lib/web/src/features/accounts/types.ts
 msgid "Browser notifications"
 msgstr "Pemberitahuan browser"
+
+#: src/features/chats/index.tsx
+msgctxt "presence"
+msgid "Busy"
+msgstr "Sibuk"
 
 #: ../../../lib/web/src/features/accounts/types.ts
 msgid "Calendar server"
@@ -667,10 +698,7 @@ msgstr "Chat ora ketemu"
 msgid "Chat pinned"
 msgstr "Chat wis disemat"
 
-#: src/features/chats/components/chat-settings-dialog.tsx
-msgid "Chat policy updated"
-msgstr "Kabijakan chat dianyari"
-
+#: src/features/chats/components/new-chat.tsx
 #: src/features/chats/components/new-chat.tsx
 msgid "Chat ready"
 msgstr "Chat siap"
@@ -679,7 +707,6 @@ msgstr "Chat siap"
 msgid "Chat renamed"
 msgstr "Chat diganti jeneng"
 
-#: src/features/chats/index.tsx
 #: src/features/chats/index.tsx
 #: src/routes/_authenticated/$chatId_.settings.tsx
 #: src/routes/_authenticated/$chatId_.settings.tsx
@@ -963,6 +990,7 @@ msgid "Created {field}"
 msgstr "{field} digawé"
 
 #: src/features/chats/components/new-chat.tsx
+#: src/features/chats/components/new-chat.tsx
 msgid "Creating chat..."
 msgstr "Nggawe obrolan..."
 
@@ -1089,6 +1117,11 @@ msgstr "Mbusak obrolan..."
 #: src/features/chats/index.tsx
 msgid "Deleting..."
 msgstr "Mbusak..."
+
+#: src/features/chats/components/chat-message-list.tsx
+msgctxt "receipt"
+msgid "Delivered"
+msgstr "Wis tekan"
 
 #: ../../../lib/web/src/components/ui/sort-direction-button.tsx
 msgid "Descending"
@@ -1312,6 +1345,7 @@ msgid "Failed to copy message"
 msgstr "Gagal nyalin pesen"
 
 #: src/features/chats/components/new-chat.tsx
+#: src/features/chats/components/new-chat.tsx
 msgid "Failed to create chat"
 msgstr "Gagal nggawé chat"
 
@@ -1393,8 +1427,8 @@ msgid "Failed to load video"
 msgstr "Gagal mbukak video"
 
 #: src/features/chats/components/chat-settings-dialog.tsx
-msgid "Failed to load your chat policy"
-msgstr "Gagal ngemot kabijakan obrolan sampeyan"
+msgid "Failed to load your settings"
+msgstr "Gagal mbukak setelan sampeyan"
 
 #: src/components/layout/chat-layout.tsx
 msgid "Failed to mark chat as read"
@@ -1437,10 +1471,12 @@ msgstr "Gagal nyimpen"
 msgid "Failed to save prompt"
 msgstr "Gagal nyimpen prompt"
 
+#: src/features/chats/components/thread-panel.tsx
 #: src/features/chats/index.tsx
 msgid "Failed to send message"
 msgstr "Gagal ngirim pesen"
 
+#: src/features/chats/index.tsx
 #: src/features/chats/index.tsx
 msgid "Failed to start chat"
 msgstr "Gagal miwiti chat"
@@ -1592,7 +1628,6 @@ msgid "Including anonymous users"
 msgstr "Kalebu panganggo anonim"
 
 #: src/features/chats/components/chat-settings-dialog.tsx
-#: src/features/chats/index.tsx
 msgid "Incoming chats"
 msgstr "Obrolan mlebu"
 
@@ -1641,6 +1676,11 @@ msgstr "Pintasan keyboard"
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Large"
 msgstr "Gedhe"
+
+#. placeholder {0}: formatTimestamp(presence.seen)
+#: src/features/chats/index.tsx
+msgid "Last seen {0}"
+msgstr "Pungkasan katon {0}"
 
 #: src/features/chats/constants/reactions.ts
 msgid "Laugh"
@@ -1936,6 +1976,10 @@ msgstr "Jeneng kudu {CHAT_NAME_MAX_LENGTH} karakter utawa kurang"
 msgid "Name must be 1000 characters or less"
 msgstr "Jeneng kudu 1000 karakter utawa kurang"
 
+#: src/features/chats/components/new-chat.tsx
+msgid "Network"
+msgstr "Jaringan"
+
 #: ../../../lib/web/src/features/errors/general-error.tsx
 #: ../../../lib/web/src/lib/api-response-interceptors.ts
 msgid "Network error"
@@ -2158,6 +2202,11 @@ msgstr "Asil luwih lawas"
 msgid "On"
 msgstr "Urip"
 
+#: src/features/chats/index.tsx
+msgctxt "presence"
+msgid "Online"
+msgstr "Daring"
+
 #: ../../../lib/web/src/features/errors/not-found-error.tsx
 msgid "Oops! Page Not Found!"
 msgstr "Adhuh! Kaca Ora Ditemokaké!"
@@ -2328,6 +2377,9 @@ msgstr "Taun kepungkur"
 
 #: ../../../lib/web/src/components/server-documents-footer.tsx
 #: ../../../lib/web/src/features/document/document-page.tsx
+#: src/features/chats/components/chat-settings-dialog.tsx
+#: src/features/chats/index.tsx
+#: src/features/chats/index.tsx
 msgid "Privacy"
 msgstr "Privasi"
 
@@ -2358,6 +2410,11 @@ msgstr "Sambungke maneh akun sampeyan ing server iki"
 #: ../../../lib/web/src/components/restore-banner.tsx
 msgid "Re-register your passkeys on this server"
 msgstr "Daftarake maneh passkey sampeyan ing server iki"
+
+#: src/features/chats/components/chat-message-list.tsx
+msgctxt "receipt"
+msgid "Read"
+msgstr "Wis diwaca"
 
 #: src/features/chats/components/message-body.tsx
 msgid "Read more"
@@ -2530,6 +2587,11 @@ msgstr "Dibaleni"
 #: src/features/chats/components/message-hover-actions.tsx
 msgid "Reply"
 msgstr "Bales"
+
+#: src/features/chats/components/message-hover-actions.tsx
+#: src/features/chats/components/thread-panel.tsx
+msgid "Reply in thread"
+msgstr "Bales ing utas"
 
 #. placeholder {0}: comment.name || comment.author
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx
@@ -2707,6 +2769,11 @@ msgstr "Pindhah posisi ing audio"
 msgid "Seek in voice note"
 msgstr "Pindhah posisi ing cathetan swara"
 
+#. placeholder {0}: formatList(seen.names)
+#: src/features/chats/components/chat-message-list.tsx
+msgid "Seen by {0}"
+msgstr "Dideleng dening {0}"
+
 #: ../../../lib/web/src/hooks/use-field-type-labels.ts
 msgid "Select"
 msgstr "Pilih"
@@ -2786,6 +2853,10 @@ msgstr "Milih {BULK_MESSAGES_MAX} pesen paling anyar, paling akeh sing bisa dite
 msgid "Selected: <0>{0}</0>"
 msgstr "Dipilih: <0>{0}</0>"
 
+#: src/features/chats/components/thread-panel.tsx
+msgid "Send"
+msgstr "Kirim"
+
 #: ../../../lib/web/src/features/accounts/account-verify.tsx
 msgid "Send again"
 msgstr "Kirim maneh"
@@ -2800,6 +2871,15 @@ msgstr "Kirim email"
 #: src/features/chats/components/chat-input.tsx
 msgid "Send message"
 msgstr "Kirim pesen"
+
+#: src/features/chats/components/chat-settings-dialog.tsx
+msgid "Send read receipts"
+msgstr "Kirim tandha wis diwaca"
+
+#: src/features/chats/components/chat-message-list.tsx
+msgctxt "receipt"
+msgid "Sent"
+msgstr "Wis dikirim"
 
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Serif"
@@ -2829,9 +2909,17 @@ msgstr "Atur asal lan tujuan"
 msgid "Settings"
 msgstr "Setelan"
 
+#: src/features/chats/components/chat-settings-dialog.tsx
+msgid "Settings saved"
+msgstr "Setelan disimpen"
+
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx
 msgid "Show classes"
 msgstr "Tampilake kelas"
+
+#: src/features/chats/components/thread-panel.tsx
+msgid "Show earlier replies"
+msgstr "Tampilake balesan sadurungé"
 
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx
 msgid "Show fields"
@@ -2845,6 +2933,14 @@ msgstr "Tampilake luwih sithik"
 #: ../../../lib/web/src/components/entity/keyboard-shortcuts-help.tsx
 msgid "Show this help"
 msgstr "Tampilake bantuan iki"
+
+#: src/features/chats/components/chat-settings-dialog.tsx
+msgid "Show when I'm online"
+msgstr "Tampilake nalika aku daring"
+
+#: src/features/chats/components/chat-settings-dialog.tsx
+msgid "Show when I'm typing"
+msgstr "Tampilake nalika aku lagi ngetik"
 
 #: ../../../lib/web/src/components/ui/load-more.tsx
 msgid "Showing {totalShown} of {total}"
@@ -2901,6 +2997,7 @@ msgstr "Miwiti omong-omongan"
 msgid "Start the discussion by adding the first comment."
 msgstr "Miwiti diskusi kanthi nambah komentar pisanan."
 
+#: src/features/chats/index.tsx
 #: src/features/chats/index.tsx
 msgid "Starting chat..."
 msgstr "Miwiti obrolan..."
@@ -3052,12 +3149,17 @@ msgstr "Iki mbusak pesen kanggo kabeh wong lan ora bisa dibatalake."
 
 #: src/features/chats/components/chat-message-list.tsx
 #: src/features/chats/components/message-quote.tsx
+#: src/features/chats/components/thread-panel.tsx
 msgid "This message was deleted"
 msgstr "Pesen iki wis dibusak"
 
 #: ../../../lib/web/src/components/game/game-end-dialogs.tsx
 msgid "This permanently deletes the game and its chat. This cannot be undone."
 msgstr "Iki bakal mbusak game lan obrolane kanthi permanen. Tindakan iki ora bisa dibatalake."
+
+#: src/features/chats/components/thread-panel.tsx
+msgid "Thread"
+msgstr "Utas"
 
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Thursday"

@@ -48,6 +48,13 @@ msgstr "(ti)"
 msgid "[not set]"
 msgstr "[non establecido]"
 
+#. placeholder {0}: typingNames.length
+#. placeholder {1}: typingNames[0]
+#. placeholder {2}: formatList(typingNames)
+#: src/features/chats/index.tsx
+msgid "{0, plural, =1 {{1} is typing...} other {{2} are typing...}}"
+msgstr "{0, plural, =1 {{1} está escribindo...} other {{2} están escribindo...}}"
+
 #. placeholder {0}: deleteTargetIds?.length ?? 0
 #: src/features/chats/index.tsx
 msgid "{0, plural, =1 {Delete message?} other {Delete # messages?}}"
@@ -57,6 +64,11 @@ msgstr "{0, plural, =1 {Eliminar a mensaxe?} other {Eliminar # mensaxes?}}"
 #: ../../../lib/web/src/components/diff-viewer.tsx
 msgid "{0, plural, one {# file changed} other {# files changed}}"
 msgstr "{0, plural, one {# ficheiro cambiado} other {# ficheiros cambiados}}"
+
+#. placeholder {0}: message.replies
+#: src/features/chats/components/chat-message-list.tsx
+msgid "{0, plural, one {# reply} other {# replies}}"
+msgstr "{0, plural, one {# resposta} other {# respostas}}"
 
 #. placeholder {0}: visible.length
 #: ../../../lib/web/src/components/inline-entity-search.tsx
@@ -307,6 +319,10 @@ msgstr "Engadindo {0}/{1}..."
 msgid "Adding member..."
 msgstr "Engadindo membro..."
 
+#: src/features/chats/components/new-chat.tsx
+msgid "Addresses"
+msgstr "Enderezos"
+
 #: src/features/chats/constants/reactions.ts
 msgid "Agree"
 msgstr "De acordo"
@@ -409,6 +425,11 @@ msgstr "Seguro que queres renderte?"
 msgid "Are you sure you want to resign? {opponentName} will win the game."
 msgstr "Seguro que queres renderte? {opponentName} gañará a partida."
 
+#. placeholder {0}: selectedChat.address
+#: src/features/chats/index.tsx
+msgid "As {0}"
+msgstr "Como {0}"
+
 #: ../../../lib/web/src/components/ui/sort-direction-button.tsx
 msgid "Ascending"
 msgstr "Ascendente"
@@ -458,6 +479,11 @@ msgstr "Avatar"
 #: ../../../lib/web/src/components/entity-avatar.tsx
 msgid "Avatar for {name}"
 msgstr "Avatar de {name}"
+
+#: src/features/chats/index.tsx
+msgctxt "presence"
+msgid "Away"
+msgstr "Ausente"
 
 #: ../../../lib/web/src/components/place-picker.tsx
 msgid "Back"
@@ -530,6 +556,11 @@ msgstr "Cor do bordo"
 #: ../../../lib/web/src/features/accounts/types.ts
 msgid "Browser notifications"
 msgstr "Notificacións do navegador"
+
+#: src/features/chats/index.tsx
+msgctxt "presence"
+msgid "Busy"
+msgstr "Ocupado"
 
 #: ../../../lib/web/src/features/accounts/types.ts
 msgid "Calendar server"
@@ -667,10 +698,7 @@ msgstr "Chat non atopado"
 msgid "Chat pinned"
 msgstr "Chat fixado"
 
-#: src/features/chats/components/chat-settings-dialog.tsx
-msgid "Chat policy updated"
-msgstr "Política de chat actualizada"
-
+#: src/features/chats/components/new-chat.tsx
 #: src/features/chats/components/new-chat.tsx
 msgid "Chat ready"
 msgstr "Chat listo"
@@ -679,7 +707,6 @@ msgstr "Chat listo"
 msgid "Chat renamed"
 msgstr "Chat renomeado"
 
-#: src/features/chats/index.tsx
 #: src/features/chats/index.tsx
 #: src/routes/_authenticated/$chatId_.settings.tsx
 #: src/routes/_authenticated/$chatId_.settings.tsx
@@ -963,6 +990,7 @@ msgid "Created {field}"
 msgstr "{field} creado"
 
 #: src/features/chats/components/new-chat.tsx
+#: src/features/chats/components/new-chat.tsx
 msgid "Creating chat..."
 msgstr "Creando conversa..."
 
@@ -1089,6 +1117,11 @@ msgstr "Eliminando conversa..."
 #: src/features/chats/index.tsx
 msgid "Deleting..."
 msgstr "Eliminando..."
+
+#: src/features/chats/components/chat-message-list.tsx
+msgctxt "receipt"
+msgid "Delivered"
+msgstr "Entregada"
 
 #: ../../../lib/web/src/components/ui/sort-direction-button.tsx
 msgid "Descending"
@@ -1312,6 +1345,7 @@ msgid "Failed to copy message"
 msgstr "Non se puido copiar a mensaxe"
 
 #: src/features/chats/components/new-chat.tsx
+#: src/features/chats/components/new-chat.tsx
 msgid "Failed to create chat"
 msgstr "Non se puido crear a conversa"
 
@@ -1393,8 +1427,8 @@ msgid "Failed to load video"
 msgstr "Non se puido cargar o vídeo"
 
 #: src/features/chats/components/chat-settings-dialog.tsx
-msgid "Failed to load your chat policy"
-msgstr "Non se puido cargar a túa política de chat"
+msgid "Failed to load your settings"
+msgstr "Non se puido cargar a túa configuración"
 
 #: src/components/layout/chat-layout.tsx
 msgid "Failed to mark chat as read"
@@ -1437,10 +1471,12 @@ msgstr "Non se puido gardar"
 msgid "Failed to save prompt"
 msgstr "Non se puido gardar o aviso"
 
+#: src/features/chats/components/thread-panel.tsx
 #: src/features/chats/index.tsx
 msgid "Failed to send message"
 msgstr "Non se puido enviar a mensaxe"
 
+#: src/features/chats/index.tsx
 #: src/features/chats/index.tsx
 msgid "Failed to start chat"
 msgstr "Non se puido iniciar a conversa"
@@ -1592,7 +1628,6 @@ msgid "Including anonymous users"
 msgstr "Incluíndo usuarios anónimos"
 
 #: src/features/chats/components/chat-settings-dialog.tsx
-#: src/features/chats/index.tsx
 msgid "Incoming chats"
 msgstr "Chats entrantes"
 
@@ -1641,6 +1676,11 @@ msgstr "Atallos de teclado"
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Large"
 msgstr "Grande"
+
+#. placeholder {0}: formatTimestamp(presence.seen)
+#: src/features/chats/index.tsx
+msgid "Last seen {0}"
+msgstr "Visto por última vez {0}"
 
 #: src/features/chats/constants/reactions.ts
 msgid "Laugh"
@@ -1936,6 +1976,10 @@ msgstr "O nome debe ter {CHAT_NAME_MAX_LENGTH} caracteres ou menos"
 msgid "Name must be 1000 characters or less"
 msgstr "O nome debe ter 1000 caracteres ou menos"
 
+#: src/features/chats/components/new-chat.tsx
+msgid "Network"
+msgstr "Rede"
+
 #: ../../../lib/web/src/features/errors/general-error.tsx
 #: ../../../lib/web/src/lib/api-response-interceptors.ts
 msgid "Network error"
@@ -2158,6 +2202,11 @@ msgstr "Coincidencia máis antiga"
 msgid "On"
 msgstr "Activado"
 
+#: src/features/chats/index.tsx
+msgctxt "presence"
+msgid "Online"
+msgstr "En liña"
+
 #: ../../../lib/web/src/features/errors/not-found-error.tsx
 msgid "Oops! Page Not Found!"
 msgstr "Vaites! Páxina non atopada!"
@@ -2328,6 +2377,9 @@ msgstr "Ano anterior"
 
 #: ../../../lib/web/src/components/server-documents-footer.tsx
 #: ../../../lib/web/src/features/document/document-page.tsx
+#: src/features/chats/components/chat-settings-dialog.tsx
+#: src/features/chats/index.tsx
+#: src/features/chats/index.tsx
 msgid "Privacy"
 msgstr "Privacidade"
 
@@ -2358,6 +2410,11 @@ msgstr "Volve a vincular as túas contas neste servidor"
 #: ../../../lib/web/src/components/restore-banner.tsx
 msgid "Re-register your passkeys on this server"
 msgstr "Volve rexistrar as túas chaves de acceso neste servidor"
+
+#: src/features/chats/components/chat-message-list.tsx
+msgctxt "receipt"
+msgid "Read"
+msgstr "Lida"
 
 #: src/features/chats/components/message-body.tsx
 msgid "Read more"
@@ -2530,6 +2587,11 @@ msgstr "Repítese"
 #: src/features/chats/components/message-hover-actions.tsx
 msgid "Reply"
 msgstr "Responder"
+
+#: src/features/chats/components/message-hover-actions.tsx
+#: src/features/chats/components/thread-panel.tsx
+msgid "Reply in thread"
+msgstr "Responder no fío"
 
 #. placeholder {0}: comment.name || comment.author
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx
@@ -2707,6 +2769,11 @@ msgstr "Desprazarse polo audio"
 msgid "Seek in voice note"
 msgstr "Desprazarse pola nota de voz"
 
+#. placeholder {0}: formatList(seen.names)
+#: src/features/chats/components/chat-message-list.tsx
+msgid "Seen by {0}"
+msgstr "Vista por {0}"
+
 #: ../../../lib/web/src/hooks/use-field-type-labels.ts
 msgid "Select"
 msgstr "Seleccionar"
@@ -2786,6 +2853,10 @@ msgstr "Seleccionáronse as {BULK_MESSAGES_MAX} mensaxes máis recentes, o máxi
 msgid "Selected: <0>{0}</0>"
 msgstr "Seleccionado: <0>{0}</0>"
 
+#: src/features/chats/components/thread-panel.tsx
+msgid "Send"
+msgstr "Enviar"
+
 #: ../../../lib/web/src/features/accounts/account-verify.tsx
 msgid "Send again"
 msgstr "Enviar de novo"
@@ -2800,6 +2871,15 @@ msgstr "Enviar correo"
 #: src/features/chats/components/chat-input.tsx
 msgid "Send message"
 msgstr "Enviar mensaxe"
+
+#: src/features/chats/components/chat-settings-dialog.tsx
+msgid "Send read receipts"
+msgstr "Enviar confirmacións de lectura"
+
+#: src/features/chats/components/chat-message-list.tsx
+msgctxt "receipt"
+msgid "Sent"
+msgstr "Enviada"
 
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Serif"
@@ -2829,9 +2909,17 @@ msgstr "Establecer orixe e destino"
 msgid "Settings"
 msgstr "Configuración"
 
+#: src/features/chats/components/chat-settings-dialog.tsx
+msgid "Settings saved"
+msgstr "Axustes gardados"
+
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx
 msgid "Show classes"
 msgstr "Mostrar clases"
+
+#: src/features/chats/components/thread-panel.tsx
+msgid "Show earlier replies"
+msgstr "Mostrar respostas anteriores"
 
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx
 msgid "Show fields"
@@ -2845,6 +2933,14 @@ msgstr "Mostrar menos"
 #: ../../../lib/web/src/components/entity/keyboard-shortcuts-help.tsx
 msgid "Show this help"
 msgstr "Mostrar esta axuda"
+
+#: src/features/chats/components/chat-settings-dialog.tsx
+msgid "Show when I'm online"
+msgstr "Mostrar cando estou en liña"
+
+#: src/features/chats/components/chat-settings-dialog.tsx
+msgid "Show when I'm typing"
+msgstr "Mostrar cando estou escribindo"
 
 #: ../../../lib/web/src/components/ui/load-more.tsx
 msgid "Showing {totalShown} of {total}"
@@ -2901,6 +2997,7 @@ msgstr "Iniciar conversa"
 msgid "Start the discussion by adding the first comment."
 msgstr "Inicia a discusión engadindo o primeiro comentario."
 
+#: src/features/chats/index.tsx
 #: src/features/chats/index.tsx
 msgid "Starting chat..."
 msgstr "Iniciando conversa..."
@@ -3052,12 +3149,17 @@ msgstr "Isto elimina a mensaxe para todos e non se pode desfacer."
 
 #: src/features/chats/components/chat-message-list.tsx
 #: src/features/chats/components/message-quote.tsx
+#: src/features/chats/components/thread-panel.tsx
 msgid "This message was deleted"
 msgstr "Esta mensaxe foi eliminada"
 
 #: ../../../lib/web/src/components/game/game-end-dialogs.tsx
 msgid "This permanently deletes the game and its chat. This cannot be undone."
 msgstr "Isto eliminará permanentemente a partida e a súa conversa. Esta acción non se pode desfacer."
+
+#: src/features/chats/components/thread-panel.tsx
+msgid "Thread"
+msgstr "Fío"
 
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Thursday"

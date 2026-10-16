@@ -15,11 +15,13 @@ import {
   ResponsiveDialogHeader,
   ResponsiveDialogTitle,
   Skeleton,
+  Switch,
+  SwitchLabel,
   getErrorMessage,
   toastAction,
 } from '@mochi/web'
 import { Check } from 'lucide-react'
-import type { ChatPolicy } from '@/api/chats'
+import type { ChatPolicy, ChatPreferences } from '@/api/chats'
 import {
   useChatPreferencesQuery,
   useSetChatPreferencesMutation,
@@ -30,32 +32,57 @@ interface Props {
   onOpenChange: (open: boolean) => void
 }
 
+const DEFAULTS: ChatPreferences = {
+  policy: 'friends',
+  presence: true,
+  receipts: true,
+  typing: true,
+}
+
+// Who may start a chat with the user, and what the user shares with the
+// people they chat with.
 export function ChatSettingsDialog({ open, onOpenChange }: Props) {
   const { t } = useLingui()
   const options: { value: ChatPolicy; label: string }[] = [
     { value: 'friends', label: t`Friends only` },
     { value: 'anyone', label: t`Anyone` },
   ]
+  const switches: { key: 'presence' | 'receipts' | 'typing'; label: string }[] =
+    [
+      { key: 'presence', label: t`Show when I'm online` },
+      { key: 'receipts', label: t`Send read receipts` },
+      { key: 'typing', label: t`Show when I'm typing` },
+    ]
   // The load error matters more than most: without it a failed load left the
-  // radio on its 'friends' default, which looks like the user's real setting,
-  // and saving then overwrote whatever they actually had.
+  // controls on their defaults, which look like the user's real settings, and
+  // saving then overwrote whatever they actually had.
   const { data, isLoading, isError, error } = useChatPreferencesQuery()
-  const setPolicy = useSetChatPreferencesMutation()
-  const [value, setValue] = useState<ChatPolicy>('friends')
+  const save = useSetChatPreferencesMutation()
+  const [value, setValue] = useState<ChatPreferences>(DEFAULTS)
 
   useEffect(() => {
-    if (data?.policy) setValue(data.policy)
-  }, [data?.policy])
+    if (data) setValue({ ...DEFAULTS, ...data })
+  }, [data])
+
+  const changes: Partial<ChatPreferences> = {}
+  if (data) {
+    for (const key of ['policy', 'presence', 'receipts', 'typing'] as const) {
+      if (value[key] !== { ...DEFAULTS, ...data }[key]) {
+        Object.assign(changes, { [key]: value[key] })
+      }
+    }
+  }
+  const changed = Object.keys(changes).length > 0
 
   const handleSave = async () => {
-    if (data?.policy && value === data.policy) {
+    if (!changed) {
       onOpenChange(false)
       return
     }
     try {
-      await toastAction(setPolicy.mutateAsync(value), {
+      await toastAction(save.mutateAsync(changes), {
         loading: t`Saving...`,
-        success: t`Chat policy updated`,
+        success: t`Settings saved`,
         error: (error) => getErrorMessage(error, t`Failed to save`),
       })
       onOpenChange(false)
@@ -69,7 +96,7 @@ export function ChatSettingsDialog({ open, onOpenChange }: Props) {
       <ResponsiveDialogContent className='sm:max-w-md'>
         <ResponsiveDialogHeader>
           <ResponsiveDialogTitle>
-            <Trans>Incoming chats</Trans>
+            <Trans>Privacy</Trans>
           </ResponsiveDialogTitle>
         </ResponsiveDialogHeader>
         {isLoading ? (
@@ -79,48 +106,66 @@ export function ChatSettingsDialog({ open, onOpenChange }: Props) {
           </div>
         ) : isError ? (
           <p className='text-destructive py-2 text-sm'>
-            {getErrorMessage(error, t`Failed to load your chat policy`)}
+            {getErrorMessage(error, t`Failed to load your settings`)}
           </p>
         ) : (
-          <RadioGroup
-            value={value}
-            onValueChange={(v) => setValue(v as ChatPolicy)}
-            className='py-2'
-          >
-            {options.map((opt) => (
-              <label
-                key={opt.value}
-                htmlFor={`chat-policy-${opt.value}`}
-                className='hover:bg-hover flex cursor-pointer items-center gap-3 rounded-md border p-3'
+          <div className='space-y-4 py-2'>
+            <div className='space-y-2'>
+              <h3 className='text-sm font-semibold'>
+                <Trans>Incoming chats</Trans>
+              </h3>
+              <RadioGroup
+                value={value.policy}
+                onValueChange={(v) =>
+                  setValue((current) => ({ ...current, policy: v as ChatPolicy }))
+                }
               >
-                <RadioGroupItem
-                  value={opt.value}
-                  id={`chat-policy-${opt.value}`}
-                />
-                <Label
-                  htmlFor={`chat-policy-${opt.value}`}
-                  className='cursor-pointer font-medium'
-                >
-                  {opt.label}
-                </Label>
-              </label>
-            ))}
-          </RadioGroup>
+                {options.map((opt) => (
+                  <label
+                    key={opt.value}
+                    htmlFor={`chat-policy-${opt.value}`}
+                    className='hover:bg-hover flex cursor-pointer items-center gap-3 rounded-md border p-3'
+                  >
+                    <RadioGroupItem
+                      value={opt.value}
+                      id={`chat-policy-${opt.value}`}
+                    />
+                    <Label
+                      htmlFor={`chat-policy-${opt.value}`}
+                      className='cursor-pointer font-medium'
+                    >
+                      {opt.label}
+                    </Label>
+                  </label>
+                ))}
+              </RadioGroup>
+            </div>
+            <div className='space-y-3'>
+              {switches.map((option) => (
+                <SwitchLabel key={option.key} label={option.label}>
+                  <Switch
+                    checked={value[option.key]}
+                    onCheckedChange={(on) =>
+                      setValue((current) => ({ ...current, [option.key]: on }))
+                    }
+                  />
+                </SwitchLabel>
+              ))}
+            </div>
+          </div>
         )}
         <ResponsiveDialogFooter>
           <Button
             variant='outline'
             onClick={() => onOpenChange(false)}
-            disabled={setPolicy.isPending}
+            disabled={save.isPending}
           >
             <Trans>Cancel</Trans>
           </Button>
           <Button
             onClick={handleSave}
-            disabled={
-              isLoading || isError || (!!data?.policy && value === data.policy)
-            }
-            loading={setPolicy.isPending}
+            disabled={isLoading || isError || !changed}
+            loading={save.isPending}
             icon={<Check className='size-4' />}
           >
             <Trans>Save</Trans>

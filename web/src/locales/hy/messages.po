@@ -48,6 +48,13 @@ msgstr "(դուք)"
 msgid "[not set]"
 msgstr "[չի սահմանվել]"
 
+#. placeholder {0}: typingNames.length
+#. placeholder {1}: typingNames[0]
+#. placeholder {2}: formatList(typingNames)
+#: src/features/chats/index.tsx
+msgid "{0, plural, =1 {{1} is typing...} other {{2} are typing...}}"
+msgstr "{0, plural, =1 {{1} գրում է...} other {{2} գրում են...}}"
+
 #. placeholder {0}: deleteTargetIds?.length ?? 0
 #: src/features/chats/index.tsx
 msgid "{0, plural, =1 {Delete message?} other {Delete # messages?}}"
@@ -57,6 +64,11 @@ msgstr "{0, plural, =1 {Ջնջե՞լ հաղորդագրությունը} other {
 #: ../../../lib/web/src/components/diff-viewer.tsx
 msgid "{0, plural, one {# file changed} other {# files changed}}"
 msgstr "{0, plural, one {# ֆայլ փոխվել է} other {# ֆայլ փոխվել է}}"
+
+#. placeholder {0}: message.replies
+#: src/features/chats/components/chat-message-list.tsx
+msgid "{0, plural, one {# reply} other {# replies}}"
+msgstr "{0, plural, one {# պատասխան} other {# պատասխան}}"
 
 #. placeholder {0}: visible.length
 #: ../../../lib/web/src/components/inline-entity-search.tsx
@@ -307,6 +319,10 @@ msgstr "Ավելացվում է {0}/{1}..."
 msgid "Adding member..."
 msgstr "Անդամ է ավելացվում..."
 
+#: src/features/chats/components/new-chat.tsx
+msgid "Addresses"
+msgstr "Հասցեներ"
+
 #: src/features/chats/constants/reactions.ts
 msgid "Agree"
 msgstr "Համաձայն"
@@ -409,6 +425,11 @@ msgstr "Վստա՞հ եք, որ ուզում եք հանձնվել։"
 msgid "Are you sure you want to resign? {opponentName} will win the game."
 msgstr "Վստա՞հ եք, որ ուզում եք հանձնվել։ {opponentName}-ը կհաղթի խաղում։"
 
+#. placeholder {0}: selectedChat.address
+#: src/features/chats/index.tsx
+msgid "As {0}"
+msgstr "Որպես {0}"
+
 #: ../../../lib/web/src/components/ui/sort-direction-button.tsx
 msgid "Ascending"
 msgstr "Աճման կարգով"
@@ -458,6 +479,11 @@ msgstr "Ավատար"
 #: ../../../lib/web/src/components/entity-avatar.tsx
 msgid "Avatar for {name}"
 msgstr "{name}-ի ավատար"
+
+#: src/features/chats/index.tsx
+msgctxt "presence"
+msgid "Away"
+msgstr "Բացակա է"
 
 #: ../../../lib/web/src/components/place-picker.tsx
 msgid "Back"
@@ -530,6 +556,11 @@ msgstr "Եզրագծի գույն"
 #: ../../../lib/web/src/features/accounts/types.ts
 msgid "Browser notifications"
 msgstr "Բրաուզերի ծանուցումներ"
+
+#: src/features/chats/index.tsx
+msgctxt "presence"
+msgid "Busy"
+msgstr "Զբաղված է"
 
 #: ../../../lib/web/src/features/accounts/types.ts
 msgid "Calendar server"
@@ -667,10 +698,7 @@ msgstr "Զրույցը չի գտնվել"
 msgid "Chat pinned"
 msgstr "Զրույցն ամրացվեց"
 
-#: src/features/chats/components/chat-settings-dialog.tsx
-msgid "Chat policy updated"
-msgstr "Զրույցի քաղաքականությունը թարմացվեց"
-
+#: src/features/chats/components/new-chat.tsx
 #: src/features/chats/components/new-chat.tsx
 msgid "Chat ready"
 msgstr "Զրույցը պատրաստ է"
@@ -679,7 +707,6 @@ msgstr "Զրույցը պատրաստ է"
 msgid "Chat renamed"
 msgstr "Զրույցը վերանվանվեց"
 
-#: src/features/chats/index.tsx
 #: src/features/chats/index.tsx
 #: src/routes/_authenticated/$chatId_.settings.tsx
 #: src/routes/_authenticated/$chatId_.settings.tsx
@@ -963,6 +990,7 @@ msgid "Created {field}"
 msgstr "Ստեղծվել է {field}"
 
 #: src/features/chats/components/new-chat.tsx
+#: src/features/chats/components/new-chat.tsx
 msgid "Creating chat..."
 msgstr "Զրույց է ստեղծվում..."
 
@@ -1089,6 +1117,11 @@ msgstr "Զրույցը ջնջվում է..."
 #: src/features/chats/index.tsx
 msgid "Deleting..."
 msgstr "Ջնջվում է..."
+
+#: src/features/chats/components/chat-message-list.tsx
+msgctxt "receipt"
+msgid "Delivered"
+msgstr "Առաքված է"
 
 #: ../../../lib/web/src/components/ui/sort-direction-button.tsx
 msgid "Descending"
@@ -1312,6 +1345,7 @@ msgid "Failed to copy message"
 msgstr "Չհաջողվեց պատճենել հաղորդագրությունը"
 
 #: src/features/chats/components/new-chat.tsx
+#: src/features/chats/components/new-chat.tsx
 msgid "Failed to create chat"
 msgstr "Չհաջողվեց ստեղծել զրույցը"
 
@@ -1393,8 +1427,8 @@ msgid "Failed to load video"
 msgstr "Չհաջողվեց բեռնել տեսանյութը"
 
 #: src/features/chats/components/chat-settings-dialog.tsx
-msgid "Failed to load your chat policy"
-msgstr "Չհաջողվեց բեռնել ձեր զրույցի քաղաքականությունը"
+msgid "Failed to load your settings"
+msgstr "Չհաջողվեց բեռնել ձեր կարգավորումները"
 
 #: src/components/layout/chat-layout.tsx
 msgid "Failed to mark chat as read"
@@ -1437,10 +1471,12 @@ msgstr "Չհաջողվեց պահպանել"
 msgid "Failed to save prompt"
 msgstr "Չհաջողվեց պահպանել հուշումը"
 
+#: src/features/chats/components/thread-panel.tsx
 #: src/features/chats/index.tsx
 msgid "Failed to send message"
 msgstr "Չհաջողվեց ուղարկել հաղորդագրությունը"
 
+#: src/features/chats/index.tsx
 #: src/features/chats/index.tsx
 msgid "Failed to start chat"
 msgstr "Չհաջողվեց սկսել զրույցը"
@@ -1592,7 +1628,6 @@ msgid "Including anonymous users"
 msgstr "Ներառյալ անանուն օգտատերերը"
 
 #: src/features/chats/components/chat-settings-dialog.tsx
-#: src/features/chats/index.tsx
 msgid "Incoming chats"
 msgstr "Մուտքային զրույցներ"
 
@@ -1641,6 +1676,11 @@ msgstr "Ստեղնաշարի դյուրանցումներ"
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Large"
 msgstr "Մեծ"
+
+#. placeholder {0}: formatTimestamp(presence.seen)
+#: src/features/chats/index.tsx
+msgid "Last seen {0}"
+msgstr "Վերջին անգամ առցանց՝ {0}"
 
 #: src/features/chats/constants/reactions.ts
 msgid "Laugh"
@@ -1936,6 +1976,10 @@ msgstr "Անունը պետք է լինի {CHAT_NAME_MAX_LENGTH} նիշից ոչ
 msgid "Name must be 1000 characters or less"
 msgstr "Անունը պետք է լինի 1000 նիշից ոչ ավելի"
 
+#: src/features/chats/components/new-chat.tsx
+msgid "Network"
+msgstr "Ցանց"
+
 #: ../../../lib/web/src/features/errors/general-error.tsx
 #: ../../../lib/web/src/lib/api-response-interceptors.ts
 msgid "Network error"
@@ -2158,6 +2202,11 @@ msgstr "Ավելի հին համընկնում"
 msgid "On"
 msgstr "Միացված"
 
+#: src/features/chats/index.tsx
+msgctxt "presence"
+msgid "Online"
+msgstr "Առցանց"
+
 #: ../../../lib/web/src/features/errors/not-found-error.tsx
 msgid "Oops! Page Not Found!"
 msgstr "Ուփ։ Էջը չի գտնվել։"
@@ -2328,6 +2377,9 @@ msgstr "Նախորդ տարի"
 
 #: ../../../lib/web/src/components/server-documents-footer.tsx
 #: ../../../lib/web/src/features/document/document-page.tsx
+#: src/features/chats/components/chat-settings-dialog.tsx
+#: src/features/chats/index.tsx
+#: src/features/chats/index.tsx
 msgid "Privacy"
 msgstr "Գաղտնիություն"
 
@@ -2358,6 +2410,11 @@ msgstr "Նորից կապեք ձեր հաշիվները այս սերվերու�
 #: ../../../lib/web/src/components/restore-banner.tsx
 msgid "Re-register your passkeys on this server"
 msgstr "Կրկին գրանցեք ձեր անցաբանալիները այս սերվերում"
+
+#: src/features/chats/components/chat-message-list.tsx
+msgctxt "receipt"
+msgid "Read"
+msgstr "Կարդացված է"
 
 #: src/features/chats/components/message-body.tsx
 msgid "Read more"
@@ -2530,6 +2587,11 @@ msgstr "Կրկնվում է"
 #: src/features/chats/components/message-hover-actions.tsx
 msgid "Reply"
 msgstr "Պատասխանել"
+
+#: src/features/chats/components/message-hover-actions.tsx
+#: src/features/chats/components/thread-panel.tsx
+msgid "Reply in thread"
+msgstr "Պատասխանել թեմայում"
 
 #. placeholder {0}: comment.name || comment.author
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx
@@ -2707,6 +2769,11 @@ msgstr "Տեղաշարժվել աուդիոյում"
 msgid "Seek in voice note"
 msgstr "Տեղաշարժվել ձայնային գրառման մեջ"
 
+#. placeholder {0}: formatList(seen.names)
+#: src/features/chats/components/chat-message-list.tsx
+msgid "Seen by {0}"
+msgstr "Տեսել են՝ {0}"
+
 #: ../../../lib/web/src/hooks/use-field-type-labels.ts
 msgid "Select"
 msgstr "Ընտրել"
@@ -2786,6 +2853,10 @@ msgstr "Ընտրվել են վերջին {BULK_MESSAGES_MAX} հաղորդագր�
 msgid "Selected: <0>{0}</0>"
 msgstr "Ընտրված է՝ <0>{0}</0>"
 
+#: src/features/chats/components/thread-panel.tsx
+msgid "Send"
+msgstr "Ուղարկել"
+
 #: ../../../lib/web/src/features/accounts/account-verify.tsx
 msgid "Send again"
 msgstr "Ուղարկել կրկին"
@@ -2800,6 +2871,15 @@ msgstr "Ուղարկել էլ. փոստ"
 #: src/features/chats/components/chat-input.tsx
 msgid "Send message"
 msgstr "Ուղարկել հաղորդագրությունը"
+
+#: src/features/chats/components/chat-settings-dialog.tsx
+msgid "Send read receipts"
+msgstr "Ուղարկել կարդալու հաստատումներ"
+
+#: src/features/chats/components/chat-message-list.tsx
+msgctxt "receipt"
+msgid "Sent"
+msgstr "Ուղարկված է"
 
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Serif"
@@ -2829,9 +2909,17 @@ msgstr "Սահմանել ծագումը և նպատակակետը"
 msgid "Settings"
 msgstr "Կարգավորումներ"
 
+#: src/features/chats/components/chat-settings-dialog.tsx
+msgid "Settings saved"
+msgstr "Կարգավորումները պահպանվեցին"
+
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx
 msgid "Show classes"
 msgstr "Ցույց տալ դասերը"
+
+#: src/features/chats/components/thread-panel.tsx
+msgid "Show earlier replies"
+msgstr "Ցույց տալ ավելի վաղ պատասխանները"
 
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx
 msgid "Show fields"
@@ -2845,6 +2933,14 @@ msgstr "Ցույց տալ ավելի քիչ"
 #: ../../../lib/web/src/components/entity/keyboard-shortcuts-help.tsx
 msgid "Show this help"
 msgstr "Ցույց տալ այս օգնությունը"
+
+#: src/features/chats/components/chat-settings-dialog.tsx
+msgid "Show when I'm online"
+msgstr "Ցույց տալ, երբ առցանց եմ"
+
+#: src/features/chats/components/chat-settings-dialog.tsx
+msgid "Show when I'm typing"
+msgstr "Ցույց տալ, երբ գրում եմ"
 
 #: ../../../lib/web/src/components/ui/load-more.tsx
 msgid "Showing {totalShown} of {total}"
@@ -2901,6 +2997,7 @@ msgstr "Սկսել զրույց"
 msgid "Start the discussion by adding the first comment."
 msgstr "Սկսեք քննարկումը՝ ավելացնելով առաջին մեկնաբանությունը:"
 
+#: src/features/chats/index.tsx
 #: src/features/chats/index.tsx
 msgid "Starting chat..."
 msgstr "Զրույց է սկսվում..."
@@ -3052,12 +3149,17 @@ msgstr "Սա ջնջում է հաղորդագրությունը բոլորի հ�
 
 #: src/features/chats/components/chat-message-list.tsx
 #: src/features/chats/components/message-quote.tsx
+#: src/features/chats/components/thread-panel.tsx
 msgid "This message was deleted"
 msgstr "Այս հաղորդագրությունը ջնջվել է"
 
 #: ../../../lib/web/src/components/game/game-end-dialogs.tsx
 msgid "This permanently deletes the game and its chat. This cannot be undone."
 msgstr "Սա ընդմիշտ կջնջի խաղը և դրա չաթը։ Այս գործողությունը հնարավոր չէ հետարկել։"
+
+#: src/features/chats/components/thread-panel.tsx
+msgid "Thread"
+msgstr "Թեմա"
 
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Thursday"

@@ -14,6 +14,11 @@ import {
   ResponsiveDialogFooter,
   ResponsiveDialogHeader,
   ResponsiveDialogTitle,
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
   getErrorMessage,
   toast,
   toastAction,
@@ -50,6 +55,10 @@ export function NewChat() {
     total: number
   } | null>(null)
   const [friendsPickerOpen, setFriendsPickerOpen] = useState(false)
+  // A conversation on one of the user's accounts on another network, with
+  // people there by their addresses; '' for Mochi.
+  const [account, setAccount] = useState('')
+  const [addresses, setAddresses] = useState('')
 
   const handleOpenChat = (chatId: string) => {
     onOpenChange(false)
@@ -61,6 +70,35 @@ export function NewChat() {
   })
 
   const createChatMutation = useCreateChatMutation()
+
+  const accounts = data?.accounts ?? []
+  const addressList = addresses
+    .split(/[\s,]+/)
+    .map((address) => address.trim())
+    .filter(Boolean)
+
+  const handleCreateRemote = async () => {
+    try {
+      const result = await toastAction(
+        createChatMutation.mutateAsync({
+          account,
+          members: addressList.join(','),
+          name: chatName.trim(),
+        }),
+        {
+          loading: t`Creating chat...`,
+          success: t`Chat ready`,
+          error: (error) => getErrorMessage(error, t`Failed to create chat`),
+        }
+      )
+      onOpenChange(false)
+      if (result.id) {
+        void navigate({ to: '/$chatId', params: { chatId: result.id } })
+      }
+    } catch {
+      // toastAction already showed error
+    }
+  }
 
   const friends = useMemo(() => data?.friends ?? [], [data?.friends])
 
@@ -143,8 +181,10 @@ export function NewChat() {
   const isChatNameValid = Boolean(trimmedChatName)
   const hasExistingDirectChat =
     selectedFriends.length === 1 && existingChats.length === 1
-  const canSubmit =
-    selectedFriends.length > 0 && isChatNameValid && !hasExistingDirectChat
+  const canSubmit = account
+    ? addressList.length > 0 &&
+      (addressList.length === 1 || isChatNameValid)
+    : selectedFriends.length > 0 && isChatNameValid && !hasExistingDirectChat
 
   const handleCreateChat = async () => {
     if (selectedFriends.length === 0) {
@@ -241,6 +281,8 @@ export function NewChat() {
       setSelectedFriends([])
       setChatName('')
       setFriendsPickerOpen(false)
+      setAccount('')
+      setAddresses('')
     }
   }, [open])
 
@@ -271,12 +313,46 @@ export function NewChat() {
         </ResponsiveDialogHeader>
 
         <div className='space-y-4'>
+          {accounts.length > 0 ? (
+            <div className='space-y-2'>
+              <label htmlFor='chat-network' className='text-sm font-medium'>
+                <Trans>Network</Trans>
+              </label>
+              <Select
+                value={account || 'mochi'}
+                onValueChange={(value) => {
+                  setAccount(value === 'mochi' ? '' : value)
+                  setSelectedFriends([])
+                }}
+              >
+                <SelectTrigger id='chat-network' className='w-full'>
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value='mochi'>Mochi</SelectItem>
+                  {accounts.map((option) => (
+                    <SelectItem key={option.id} value={option.id}>
+                      {option.identifier}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+          ) : null}
+
           {/* Friend Picker */}
           <div className='space-y-2'>
             <label className='text-sm font-medium'>
               <Trans>People</Trans>
             </label>
-            {isLoading ? (
+            {account ? (
+              <Input
+                aria-label={t`Addresses`}
+                placeholder='@name@server.example'
+                value={addresses}
+                onChange={(event) => setAddresses(event.target.value)}
+              />
+            ) : isLoading ? (
               <Skeleton className='h-9 w-full' />
             ) : error ? (
               <GeneralError
@@ -384,7 +460,7 @@ export function NewChat() {
             <Trans>Cancel</Trans>
           </Button>
           <Button
-            onClick={handleCreateChat}
+            onClick={account ? handleCreateRemote : handleCreateChat}
             disabled={!canSubmit}
             loading={createChatMutation.isPending || Boolean(addingRemainder)}
             icon={<MessageCircle className='size-4' />}

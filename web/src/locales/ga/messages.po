@@ -48,6 +48,13 @@ msgstr "(tusa)"
 msgid "[not set]"
 msgstr "[gan socrú]"
 
+#. placeholder {0}: typingNames.length
+#. placeholder {1}: typingNames[0]
+#. placeholder {2}: formatList(typingNames)
+#: src/features/chats/index.tsx
+msgid "{0, plural, =1 {{1} is typing...} other {{2} are typing...}}"
+msgstr "{0, plural, =1 {Tá {1} ag clóscríobh...} two {Tá {2} ag clóscríobh...} few {Tá {2} ag clóscríobh...} many {Tá {2} ag clóscríobh...} other {Tá {2} ag clóscríobh...}}"
+
 #. placeholder {0}: deleteTargetIds?.length ?? 0
 #: src/features/chats/index.tsx
 msgid "{0, plural, =1 {Delete message?} other {Delete # messages?}}"
@@ -57,6 +64,11 @@ msgstr "{0, plural, =1 {Scrios an teachtaireacht?} two {Scrios # theachtaireacht
 #: ../../../lib/web/src/components/diff-viewer.tsx
 msgid "{0, plural, one {# file changed} other {# files changed}}"
 msgstr "{0, plural, one {# chomhad athraithe} two {# chomhad athraithe} few {# chomhad athraithe} many {# gcomhad athraithe} other {# comhad athraithe}}"
+
+#. placeholder {0}: message.replies
+#: src/features/chats/components/chat-message-list.tsx
+msgid "{0, plural, one {# reply} other {# replies}}"
+msgstr "{0, plural, one {# fhreagra} two {# fhreagra} few {# fhreagra} many {# bhfreagra} other {# freagra}}"
 
 #. placeholder {0}: visible.length
 #: ../../../lib/web/src/components/inline-entity-search.tsx
@@ -307,6 +319,10 @@ msgstr "{0}/{1} á gcur leis..."
 msgid "Adding member..."
 msgstr "Ball á chur leis..."
 
+#: src/features/chats/components/new-chat.tsx
+msgid "Addresses"
+msgstr "Seoltaí"
+
 #: src/features/chats/constants/reactions.ts
 msgid "Agree"
 msgstr "Aontaigh"
@@ -409,6 +425,11 @@ msgstr "An bhfuil tú cinnte gur mian leat éirí as?"
 msgid "Are you sure you want to resign? {opponentName} will win the game."
 msgstr "An bhfuil tú cinnte gur mian leat éirí as? Buaillfidh {opponentName} an cluiche."
 
+#. placeholder {0}: selectedChat.address
+#: src/features/chats/index.tsx
+msgid "As {0}"
+msgstr "Mar {0}"
+
 #: ../../../lib/web/src/components/ui/sort-direction-button.tsx
 msgid "Ascending"
 msgstr "Ardaitheach"
@@ -458,6 +479,11 @@ msgstr "Abhatár"
 #: ../../../lib/web/src/components/entity-avatar.tsx
 msgid "Avatar for {name}"
 msgstr "Abhatár do {name}"
+
+#: src/features/chats/index.tsx
+msgctxt "presence"
+msgid "Away"
+msgstr "As láthair"
 
 #: ../../../lib/web/src/components/place-picker.tsx
 msgid "Back"
@@ -530,6 +556,11 @@ msgstr "Dath na himlíne"
 #: ../../../lib/web/src/features/accounts/types.ts
 msgid "Browser notifications"
 msgstr "Fógraí brabhsálaí"
+
+#: src/features/chats/index.tsx
+msgctxt "presence"
+msgid "Busy"
+msgstr "Gnóthach"
 
 #: ../../../lib/web/src/features/accounts/types.ts
 msgid "Calendar server"
@@ -667,10 +698,7 @@ msgstr "Comhrá gan aimsiú"
 msgid "Chat pinned"
 msgstr "Comhrá pionnáilte"
 
-#: src/features/chats/components/chat-settings-dialog.tsx
-msgid "Chat policy updated"
-msgstr "Nuashonraíodh polasaí comhrá"
-
+#: src/features/chats/components/new-chat.tsx
 #: src/features/chats/components/new-chat.tsx
 msgid "Chat ready"
 msgstr "Comhrá réidh"
@@ -679,7 +707,6 @@ msgstr "Comhrá réidh"
 msgid "Chat renamed"
 msgstr "Comhrá athainmnithe"
 
-#: src/features/chats/index.tsx
 #: src/features/chats/index.tsx
 #: src/routes/_authenticated/$chatId_.settings.tsx
 #: src/routes/_authenticated/$chatId_.settings.tsx
@@ -963,6 +990,7 @@ msgid "Created {field}"
 msgstr "Cruthaíodh {field}"
 
 #: src/features/chats/components/new-chat.tsx
+#: src/features/chats/components/new-chat.tsx
 msgid "Creating chat..."
 msgstr "Comhrá á chruthú..."
 
@@ -1089,6 +1117,11 @@ msgstr "Comhrá á scriosadh..."
 #: src/features/chats/index.tsx
 msgid "Deleting..."
 msgstr "Á scriosadh..."
+
+#: src/features/chats/components/chat-message-list.tsx
+msgctxt "receipt"
+msgid "Delivered"
+msgstr "Seachadta"
 
 #: ../../../lib/web/src/components/ui/sort-direction-button.tsx
 msgid "Descending"
@@ -1312,6 +1345,7 @@ msgid "Failed to copy message"
 msgstr "Theip ar chóipeáil na teachtaireachta"
 
 #: src/features/chats/components/new-chat.tsx
+#: src/features/chats/components/new-chat.tsx
 msgid "Failed to create chat"
 msgstr "Theip ar chomhrá a chruthú"
 
@@ -1393,8 +1427,8 @@ msgid "Failed to load video"
 msgstr "Theip ar an bhfíseán a lódáil"
 
 #: src/features/chats/components/chat-settings-dialog.tsx
-msgid "Failed to load your chat policy"
-msgstr "Theip ar do pholasaí comhrá a lódáil"
+msgid "Failed to load your settings"
+msgstr "Theip ar luchtú do shocruithe"
 
 #: src/components/layout/chat-layout.tsx
 msgid "Failed to mark chat as read"
@@ -1437,10 +1471,12 @@ msgstr "Theip ar shábháil"
 msgid "Failed to save prompt"
 msgstr "Theip ar shábháil leide"
 
+#: src/features/chats/components/thread-panel.tsx
 #: src/features/chats/index.tsx
 msgid "Failed to send message"
 msgstr "Theip ar sheoladh teachtaireachta"
 
+#: src/features/chats/index.tsx
 #: src/features/chats/index.tsx
 msgid "Failed to start chat"
 msgstr "Theip ar chomhrá a thosú"
@@ -1592,7 +1628,6 @@ msgid "Including anonymous users"
 msgstr "Úsáideoirí gan ainm san áireamh"
 
 #: src/features/chats/components/chat-settings-dialog.tsx
-#: src/features/chats/index.tsx
 msgid "Incoming chats"
 msgstr "Comhráite isteach"
 
@@ -1641,6 +1676,11 @@ msgstr "Aicearraí méarchláir"
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Large"
 msgstr "Mór"
+
+#. placeholder {0}: formatTimestamp(presence.seen)
+#: src/features/chats/index.tsx
+msgid "Last seen {0}"
+msgstr "Ar líne go deireanach {0}"
 
 #: src/features/chats/constants/reactions.ts
 msgid "Laugh"
@@ -1936,6 +1976,10 @@ msgstr "Caithfidh an t-ainm a bheith {CHAT_NAME_MAX_LENGTH} carachtar nó níos 
 msgid "Name must be 1000 characters or less"
 msgstr "Caithfidh an t-ainm a bheith 1000 carachtar nó níos lú"
 
+#: src/features/chats/components/new-chat.tsx
+msgid "Network"
+msgstr "Líonra"
+
 #: ../../../lib/web/src/features/errors/general-error.tsx
 #: ../../../lib/web/src/lib/api-response-interceptors.ts
 msgid "Network error"
@@ -2158,6 +2202,11 @@ msgstr "Toradh níos sine"
 msgid "On"
 msgstr "Ann"
 
+#: src/features/chats/index.tsx
+msgctxt "presence"
+msgid "Online"
+msgstr "Ar líne"
+
 #: ../../../lib/web/src/features/errors/not-found-error.tsx
 msgid "Oops! Page Not Found!"
 msgstr "Úps! Níor aimsíodh an leathanach!"
@@ -2328,6 +2377,9 @@ msgstr "An bhliain roimhe seo"
 
 #: ../../../lib/web/src/components/server-documents-footer.tsx
 #: ../../../lib/web/src/features/document/document-page.tsx
+#: src/features/chats/components/chat-settings-dialog.tsx
+#: src/features/chats/index.tsx
+#: src/features/chats/index.tsx
 msgid "Privacy"
 msgstr "Príobháideacht"
 
@@ -2358,6 +2410,11 @@ msgstr "Athnasc do chuntais ar an bhfreastalaí seo"
 #: ../../../lib/web/src/components/restore-banner.tsx
 msgid "Re-register your passkeys on this server"
 msgstr "Athchláraigh do phasluichí ar an bhfreastalaí seo"
+
+#: src/features/chats/components/chat-message-list.tsx
+msgctxt "receipt"
+msgid "Read"
+msgstr "Léite"
 
 #: src/features/chats/components/message-body.tsx
 msgid "Read more"
@@ -2530,6 +2587,11 @@ msgstr "Athdhéantar é"
 #: src/features/chats/components/message-hover-actions.tsx
 msgid "Reply"
 msgstr "Freagair"
+
+#: src/features/chats/components/message-hover-actions.tsx
+#: src/features/chats/components/thread-panel.tsx
+msgid "Reply in thread"
+msgstr "Freagair sa snáithe"
 
 #. placeholder {0}: comment.name || comment.author
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx
@@ -2707,6 +2769,11 @@ msgstr "Bog tríd an bhfuaim"
 msgid "Seek in voice note"
 msgstr "Bog tríd an nóta gutha"
 
+#. placeholder {0}: formatList(seen.names)
+#: src/features/chats/components/chat-message-list.tsx
+msgid "Seen by {0}"
+msgstr "Feicthe ag {0}"
+
 #: ../../../lib/web/src/hooks/use-field-type-labels.ts
 msgid "Select"
 msgstr "Roghnaigh"
@@ -2786,6 +2853,10 @@ msgstr "Roghnaíodh na {BULK_MESSAGES_MAX} teachtaireacht is nuaí, an méid is 
 msgid "Selected: <0>{0}</0>"
 msgstr "Roghnaithe: <0>{0}</0>"
 
+#: src/features/chats/components/thread-panel.tsx
+msgid "Send"
+msgstr "Seol"
+
 #: ../../../lib/web/src/features/accounts/account-verify.tsx
 msgid "Send again"
 msgstr "Seol arís"
@@ -2800,6 +2871,15 @@ msgstr "Seol ríomhphost"
 #: src/features/chats/components/chat-input.tsx
 msgid "Send message"
 msgstr "Seol teachtaireacht"
+
+#: src/features/chats/components/chat-settings-dialog.tsx
+msgid "Send read receipts"
+msgstr "Seol admhálacha léite"
+
+#: src/features/chats/components/chat-message-list.tsx
+msgctxt "receipt"
+msgid "Sent"
+msgstr "Seolta"
 
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Serif"
@@ -2829,9 +2909,17 @@ msgstr "Socraigh an bunús agus an ceann scríbe"
 msgid "Settings"
 msgstr "Socruithe"
 
+#: src/features/chats/components/chat-settings-dialog.tsx
+msgid "Settings saved"
+msgstr "Socruithe sábháilte"
+
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx
 msgid "Show classes"
 msgstr "Taispeáin ranganna"
+
+#: src/features/chats/components/thread-panel.tsx
+msgid "Show earlier replies"
+msgstr "Taispeáin freagraí níos luaithe"
 
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx
 msgid "Show fields"
@@ -2845,6 +2933,14 @@ msgstr "Taispeáin níos lú"
 #: ../../../lib/web/src/components/entity/keyboard-shortcuts-help.tsx
 msgid "Show this help"
 msgstr "Taispeáin an chabhair seo"
+
+#: src/features/chats/components/chat-settings-dialog.tsx
+msgid "Show when I'm online"
+msgstr "Taispeáin nuair atá mé ar líne"
+
+#: src/features/chats/components/chat-settings-dialog.tsx
+msgid "Show when I'm typing"
+msgstr "Taispeáin nuair atá mé ag clóscríobh"
 
 #: ../../../lib/web/src/components/ui/load-more.tsx
 msgid "Showing {totalShown} of {total}"
@@ -2901,6 +2997,7 @@ msgstr "Tosaigh comhrá"
 msgid "Start the discussion by adding the first comment."
 msgstr "Tosaigh an plé tríd an gcéad nóta tráchta a chur leis."
 
+#: src/features/chats/index.tsx
 #: src/features/chats/index.tsx
 msgid "Starting chat..."
 msgstr "Comhrá á thosú..."
@@ -3052,12 +3149,17 @@ msgstr "Scriosann sé seo an teachtaireacht do gach duine agus ní féidir é a 
 
 #: src/features/chats/components/chat-message-list.tsx
 #: src/features/chats/components/message-quote.tsx
+#: src/features/chats/components/thread-panel.tsx
 msgid "This message was deleted"
 msgstr "Scriosadh an teachtaireacht seo"
 
 #: ../../../lib/web/src/components/game/game-end-dialogs.tsx
 msgid "This permanently deletes the game and its chat. This cannot be undone."
 msgstr "Scriosfaidh sé seo an cluiche agus a chomhrá go buan. Ní féidir é seo a chur ar ceal."
+
+#: src/features/chats/components/thread-panel.tsx
+msgid "Thread"
+msgstr "Snáithe"
 
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Thursday"

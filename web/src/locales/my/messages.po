@@ -48,6 +48,13 @@ msgstr "(သင်)"
 msgid "[not set]"
 msgstr "[မသတ်မှတ်ရသေး]"
 
+#. placeholder {0}: typingNames.length
+#. placeholder {1}: typingNames[0]
+#. placeholder {2}: formatList(typingNames)
+#: src/features/chats/index.tsx
+msgid "{0, plural, =1 {{1} is typing...} other {{2} are typing...}}"
+msgstr "{0, plural, =1 {{1} စာရိုက်နေသည်...} other {{2} စာရိုက်နေကြသည်...}}"
+
 #. placeholder {0}: deleteTargetIds?.length ?? 0
 #: src/features/chats/index.tsx
 msgid "{0, plural, =1 {Delete message?} other {Delete # messages?}}"
@@ -57,6 +64,11 @@ msgstr "{0, plural, other {မက်ဆေ့ဂျ် # ခု ဖျက်မ�
 #: ../../../lib/web/src/components/diff-viewer.tsx
 msgid "{0, plural, one {# file changed} other {# files changed}}"
 msgstr "{0, plural, one {ဖိုင် # ခု ပြောင်းလဲခဲ့သည်} other {ဖိုင် # ခု ပြောင်းလဲခဲ့သည်}}"
+
+#. placeholder {0}: message.replies
+#: src/features/chats/components/chat-message-list.tsx
+msgid "{0, plural, one {# reply} other {# replies}}"
+msgstr "{0, plural, other {ပြန်ဖြေချက် # ခု}}"
 
 #. placeholder {0}: visible.length
 #: ../../../lib/web/src/components/inline-entity-search.tsx
@@ -307,6 +319,10 @@ msgstr "{0}/{1} ထည့်နေသည်..."
 msgid "Adding member..."
 msgstr "အဖွဲ့ဝင် ထည့်နေသည်..."
 
+#: src/features/chats/components/new-chat.tsx
+msgid "Addresses"
+msgstr "လိပ်စာများ"
+
 #: src/features/chats/constants/reactions.ts
 msgid "Agree"
 msgstr "သဘောတူသည်"
@@ -409,6 +425,11 @@ msgstr "လက်လျှော့မှာသေချာပါသလား?"
 msgid "Are you sure you want to resign? {opponentName} will win the game."
 msgstr "လက်လျှော့မှာသေချာပါသလား? {opponentName} က ပွဲကို နိုင်မည်ဖြစ်သည်။"
 
+#. placeholder {0}: selectedChat.address
+#: src/features/chats/index.tsx
+msgid "As {0}"
+msgstr "{0} အဖြစ်"
+
 #: ../../../lib/web/src/components/ui/sort-direction-button.tsx
 msgid "Ascending"
 msgstr "ငယ်စဉ်ကြီးလိုက်"
@@ -458,6 +479,11 @@ msgstr "အသွင်ပုံ"
 #: ../../../lib/web/src/components/entity-avatar.tsx
 msgid "Avatar for {name}"
 msgstr "{name} အတွက် အသွင်ပုံ"
+
+#: src/features/chats/index.tsx
+msgctxt "presence"
+msgid "Away"
+msgstr "အဝေးရောက်နေသည်"
 
 #: ../../../lib/web/src/components/place-picker.tsx
 msgid "Back"
@@ -530,6 +556,11 @@ msgstr "ဘောင်အရောင်"
 #: ../../../lib/web/src/features/accounts/types.ts
 msgid "Browser notifications"
 msgstr "ဘရောက်ဇာ အကြောင်းကြားချက်များ"
+
+#: src/features/chats/index.tsx
+msgctxt "presence"
+msgid "Busy"
+msgstr "အလုပ်များနေသည်"
 
 #: ../../../lib/web/src/features/accounts/types.ts
 msgid "Calendar server"
@@ -667,10 +698,7 @@ msgstr "စကားပြောခန်း မတွေ့ရှိပါ"
 msgid "Chat pinned"
 msgstr "ချတ်ကို ပင်ထိုးပြီးပါပြီ"
 
-#: src/features/chats/components/chat-settings-dialog.tsx
-msgid "Chat policy updated"
-msgstr "ချတ်မူဝါဒ အပ်ဒိတ်လုပ်ပြီးပါပြီ"
-
+#: src/features/chats/components/new-chat.tsx
 #: src/features/chats/components/new-chat.tsx
 msgid "Chat ready"
 msgstr "စကားပြောခန်း အသင့်ဖြစ်ပြီ"
@@ -679,7 +707,6 @@ msgstr "စကားပြောခန်း အသင့်ဖြစ်ပြ�
 msgid "Chat renamed"
 msgstr "စကားပြောခန်း အမည်ပြောင်းပြီး"
 
-#: src/features/chats/index.tsx
 #: src/features/chats/index.tsx
 #: src/routes/_authenticated/$chatId_.settings.tsx
 #: src/routes/_authenticated/$chatId_.settings.tsx
@@ -963,6 +990,7 @@ msgid "Created {field}"
 msgstr "{field} ကို ဖန်တီးခဲ့သည်"
 
 #: src/features/chats/components/new-chat.tsx
+#: src/features/chats/components/new-chat.tsx
 msgid "Creating chat..."
 msgstr "ချတ် ဖန်တီးနေသည်..."
 
@@ -1089,6 +1117,11 @@ msgstr "ချတ်ကို ဖျက်နေသည်..."
 #: src/features/chats/index.tsx
 msgid "Deleting..."
 msgstr "ဖျက်နေသည်..."
+
+#: src/features/chats/components/chat-message-list.tsx
+msgctxt "receipt"
+msgid "Delivered"
+msgstr "ရောက်ရှိပြီး"
 
 #: ../../../lib/web/src/components/ui/sort-direction-button.tsx
 msgid "Descending"
@@ -1312,6 +1345,7 @@ msgid "Failed to copy message"
 msgstr "မက်ဆေ့ဂျ်ကို ကူးယူ၍ မရပါ"
 
 #: src/features/chats/components/new-chat.tsx
+#: src/features/chats/components/new-chat.tsx
 msgid "Failed to create chat"
 msgstr "စကားပြော ဖန်တီး၍ မရပါ"
 
@@ -1393,8 +1427,8 @@ msgid "Failed to load video"
 msgstr "ဗီဒီယိုကို ဖွင့်၍မရပါ"
 
 #: src/features/chats/components/chat-settings-dialog.tsx
-msgid "Failed to load your chat policy"
-msgstr "သင့်စကားပြောမူဝါဒကို ဖွင့်၍မရပါ"
+msgid "Failed to load your settings"
+msgstr "သင့်ဆက်တင်များကို တင်၍ မရပါ"
 
 #: src/components/layout/chat-layout.tsx
 msgid "Failed to mark chat as read"
@@ -1437,10 +1471,12 @@ msgstr "သိမ်း၍ မရပါ"
 msgid "Failed to save prompt"
 msgstr "လမ်းညွှန် သိမ်း၍ မရပါ"
 
+#: src/features/chats/components/thread-panel.tsx
 #: src/features/chats/index.tsx
 msgid "Failed to send message"
 msgstr "မက်ဆေ့ဂျ် ပို့၍ မရပါ"
 
+#: src/features/chats/index.tsx
 #: src/features/chats/index.tsx
 msgid "Failed to start chat"
 msgstr "စကားပြော စတင်၍ မရပါ"
@@ -1592,7 +1628,6 @@ msgid "Including anonymous users"
 msgstr "အမည်မသိအသုံးပြုသူများအပါအဝင်"
 
 #: src/features/chats/components/chat-settings-dialog.tsx
-#: src/features/chats/index.tsx
 msgid "Incoming chats"
 msgstr "အဝင်ချတ်များ"
 
@@ -1641,6 +1676,11 @@ msgstr "ကီးဘုတ် ဖြတ်လမ်းများ"
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Large"
 msgstr "ကြီး"
+
+#. placeholder {0}: formatTimestamp(presence.seen)
+#: src/features/chats/index.tsx
+msgid "Last seen {0}"
+msgstr "နောက်ဆုံး အွန်လိုင်း {0}"
 
 #: src/features/chats/constants/reactions.ts
 msgid "Laugh"
@@ -1936,6 +1976,10 @@ msgstr "အမည်သည် စာလုံး {CHAT_NAME_MAX_LENGTH} လု�
 msgid "Name must be 1000 characters or less"
 msgstr "အမည်သည် စာလုံး ၁၀၀၀ သို့မဟုတ် ထိုထက်နည်းရမည်"
 
+#: src/features/chats/components/new-chat.tsx
+msgid "Network"
+msgstr "ကွန်ရက်"
+
 #: ../../../lib/web/src/features/errors/general-error.tsx
 #: ../../../lib/web/src/lib/api-response-interceptors.ts
 msgid "Network error"
@@ -2158,6 +2202,11 @@ msgstr "ပိုဟောင်းသော ရလဒ်"
 msgid "On"
 msgstr "ဖွင့်"
 
+#: src/features/chats/index.tsx
+msgctxt "presence"
+msgid "Online"
+msgstr "အွန်လိုင်း"
+
 #: ../../../lib/web/src/features/errors/not-found-error.tsx
 msgid "Oops! Page Not Found!"
 msgstr "အိုး! စာမျက်နှာ မတွေ့ပါ!"
@@ -2328,6 +2377,9 @@ msgstr "ယခင်နှစ်"
 
 #: ../../../lib/web/src/components/server-documents-footer.tsx
 #: ../../../lib/web/src/features/document/document-page.tsx
+#: src/features/chats/components/chat-settings-dialog.tsx
+#: src/features/chats/index.tsx
+#: src/features/chats/index.tsx
 msgid "Privacy"
 msgstr "ကိုယ်ရေးကိုယ်တာ"
 
@@ -2358,6 +2410,11 @@ msgstr "ဤဆာဗာပေါ်တွင် သင်၏အကောင့�
 #: ../../../lib/web/src/components/restore-banner.tsx
 msgid "Re-register your passkeys on this server"
 msgstr "ဤဆာဗာတွင် သင်၏ ဝင်ရောက်ခွင့်သော့များကို ပြန်လည်မှတ်ပုံတင်ပါ"
+
+#: src/features/chats/components/chat-message-list.tsx
+msgctxt "receipt"
+msgid "Read"
+msgstr "ဖတ်ပြီး"
 
 #: src/features/chats/components/message-body.tsx
 msgid "Read more"
@@ -2530,6 +2587,11 @@ msgstr "ထပ်ခါထပ်ခါ ဖြစ်သည်"
 #: src/features/chats/components/message-hover-actions.tsx
 msgid "Reply"
 msgstr "ပြန်ကြား"
+
+#: src/features/chats/components/message-hover-actions.tsx
+#: src/features/chats/components/thread-panel.tsx
+msgid "Reply in thread"
+msgstr "စကားဝိုင်းတွင် ပြန်ကြားရန်"
 
 #. placeholder {0}: comment.name || comment.author
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx
@@ -2707,6 +2769,11 @@ msgstr "အသံထဲတွင် ရွှေ့ရန်"
 msgid "Seek in voice note"
 msgstr "အသံမှတ်စုထဲတွင် ရွှေ့ရန်"
 
+#. placeholder {0}: formatList(seen.names)
+#: src/features/chats/components/chat-message-list.tsx
+msgid "Seen by {0}"
+msgstr "{0} မြင်ပြီး"
+
 #: ../../../lib/web/src/hooks/use-field-type-labels.ts
 msgid "Select"
 msgstr "ရွေးချယ်"
@@ -2786,6 +2853,10 @@ msgstr "နောက်ဆုံး မက်ဆေ့ဂျ် {BULK_MESSAGES_M
 msgid "Selected: <0>{0}</0>"
 msgstr "ရွေးထား: <0>{0}</0>"
 
+#: src/features/chats/components/thread-panel.tsx
+msgid "Send"
+msgstr "ပို့"
+
 #: ../../../lib/web/src/features/accounts/account-verify.tsx
 msgid "Send again"
 msgstr "ထပ်ပို့ပါ"
@@ -2800,6 +2871,15 @@ msgstr "အီးမေးလ်ပို့ရန်"
 #: src/features/chats/components/chat-input.tsx
 msgid "Send message"
 msgstr "မက်ဆေ့ပို့မည်"
+
+#: src/features/chats/components/chat-settings-dialog.tsx
+msgid "Send read receipts"
+msgstr "ဖတ်ပြီးကြောင်း အသိပေးချက် ပို့ရန်"
+
+#: src/features/chats/components/chat-message-list.tsx
+msgctxt "receipt"
+msgid "Sent"
+msgstr "ပို့ပြီး"
 
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Serif"
@@ -2829,9 +2909,17 @@ msgstr "မူရင်းနှင့် ဦးတည်ရာ သတ်မှ�
 msgid "Settings"
 msgstr "ဆက်တင်များ"
 
+#: src/features/chats/components/chat-settings-dialog.tsx
+msgid "Settings saved"
+msgstr "ဆက်တင်များ သိမ်းပြီး"
+
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx
 msgid "Show classes"
 msgstr "Class များ ပြမည်"
+
+#: src/features/chats/components/thread-panel.tsx
+msgid "Show earlier replies"
+msgstr "အရင်က ပြန်ဖြေချက်များ ပြရန်"
 
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx
 msgid "Show fields"
@@ -2845,6 +2933,14 @@ msgstr "လျှော့ပြရန်"
 #: ../../../lib/web/src/components/entity/keyboard-shortcuts-help.tsx
 msgid "Show this help"
 msgstr "ဤ အကူအညီကို ပြမည်"
+
+#: src/features/chats/components/chat-settings-dialog.tsx
+msgid "Show when I'm online"
+msgstr "ကျွန်ုပ် အွန်လိုင်းဖြစ်နေချိန်ကို ပြရန်"
+
+#: src/features/chats/components/chat-settings-dialog.tsx
+msgid "Show when I'm typing"
+msgstr "ကျွန်ုပ် စာရိုက်နေချိန်ကို ပြရန်"
 
 #: ../../../lib/web/src/components/ui/load-more.tsx
 msgid "Showing {totalShown} of {total}"
@@ -2901,6 +2997,7 @@ msgstr "စကားပြောစတင်ပါ"
 msgid "Start the discussion by adding the first comment."
 msgstr "ပထမမှတ်ချက် ထည့်၍ ဆွေးနွေးချက် စတင်ပါ။"
 
+#: src/features/chats/index.tsx
 #: src/features/chats/index.tsx
 msgid "Starting chat..."
 msgstr "ချတ် စတင်နေသည်..."
@@ -3052,12 +3149,17 @@ msgstr "၎င်းသည် မက်ဆေ့ဂျ်ကို လူတိ�
 
 #: src/features/chats/components/chat-message-list.tsx
 #: src/features/chats/components/message-quote.tsx
+#: src/features/chats/components/thread-panel.tsx
 msgid "This message was deleted"
 msgstr "ဤမက်ဆေ့ဂျ်ကို ဖျက်လိုက်ပါပြီ"
 
 #: ../../../lib/web/src/components/game/game-end-dialogs.tsx
 msgid "This permanently deletes the game and its chat. This cannot be undone."
 msgstr "ဤလုပ်ဆောင်ချက်သည် ဂိမ်းနှင့် ၎င်း၏ ချတ်ကို အပြီးအပိုင် ဖျက်ပစ်မည်ဖြစ်သည်။ ဤလုပ်ဆောင်ချက်ကို ပြန်ပြောင်း၍မရပါ။"
+
+#: src/features/chats/components/thread-panel.tsx
+msgid "Thread"
+msgstr "စကားဝိုင်း"
 
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Thursday"

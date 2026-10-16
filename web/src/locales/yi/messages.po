@@ -48,6 +48,13 @@ msgstr "(דו)"
 msgid "[not set]"
 msgstr "[נישט געשטעלט]"
 
+#. placeholder {0}: typingNames.length
+#. placeholder {1}: typingNames[0]
+#. placeholder {2}: formatList(typingNames)
+#: src/features/chats/index.tsx
+msgid "{0, plural, =1 {{1} is typing...} other {{2} are typing...}}"
+msgstr "{0, plural, =1 {{1} טיפּט...} other {{2} טיפּן...}}"
+
 #. placeholder {0}: deleteTargetIds?.length ?? 0
 #: src/features/chats/index.tsx
 msgid "{0, plural, =1 {Delete message?} other {Delete # messages?}}"
@@ -57,6 +64,11 @@ msgstr "{0, plural, =1 {אויסמעקן דעם מעסעדזש?} other {אויס
 #: ../../../lib/web/src/components/diff-viewer.tsx
 msgid "{0, plural, one {# file changed} other {# files changed}}"
 msgstr "{0, plural, one {# טעקע געענדערט} other {# טעקעס געענדערט}}"
+
+#. placeholder {0}: message.replies
+#: src/features/chats/components/chat-message-list.tsx
+msgid "{0, plural, one {# reply} other {# replies}}"
+msgstr "{0, plural, one {# ענטפֿער} other {# ענטפֿערס}}"
 
 #. placeholder {0}: visible.length
 #: ../../../lib/web/src/components/inline-entity-search.tsx
@@ -307,6 +319,10 @@ msgstr "לייגט צו {0}/{1}..."
 msgid "Adding member..."
 msgstr "צוגעבן מיטגליד..."
 
+#: src/features/chats/components/new-chat.tsx
+msgid "Addresses"
+msgstr "אַדרעסן"
+
 #: src/features/chats/constants/reactions.ts
 msgid "Agree"
 msgstr "מסכּים זײַן"
@@ -409,6 +425,11 @@ msgstr "זענט איר זיכער איר ווילט רעזיגנירן?"
 msgid "Are you sure you want to resign? {opponentName} will win the game."
 msgstr "זענט איר זיכער איר ווילט רעזיגנירן? {opponentName} וועט געווינען די שפּיל."
 
+#. placeholder {0}: selectedChat.address
+#: src/features/chats/index.tsx
+msgid "As {0}"
+msgstr "אַלס {0}"
+
 #: ../../../lib/web/src/components/ui/sort-direction-button.tsx
 msgid "Ascending"
 msgstr "אַרויפֿגייענדיק"
@@ -458,6 +479,11 @@ msgstr "אַװאַטאַר"
 #: ../../../lib/web/src/components/entity-avatar.tsx
 msgid "Avatar for {name}"
 msgstr "אַװאַטאַר פֿאַר {name}"
+
+#: src/features/chats/index.tsx
+msgctxt "presence"
+msgid "Away"
+msgstr "אַוועק"
 
 #: ../../../lib/web/src/components/place-picker.tsx
 msgid "Back"
@@ -530,6 +556,11 @@ msgstr "ראַנד פֿאַרב"
 #: ../../../lib/web/src/features/accounts/types.ts
 msgid "Browser notifications"
 msgstr "בראָוזער נאָטיפֿיקאַציעס"
+
+#: src/features/chats/index.tsx
+msgctxt "presence"
+msgid "Busy"
+msgstr "פֿאַרנומען"
 
 #: ../../../lib/web/src/features/accounts/types.ts
 msgid "Calendar server"
@@ -667,10 +698,7 @@ msgstr "שמועס נישט געפֿונען"
 msgid "Chat pinned"
 msgstr "שמועס צוגעשפּיליעט"
 
-#: src/features/chats/components/chat-settings-dialog.tsx
-msgid "Chat policy updated"
-msgstr "שמועס-פּאָליסי דערהײַנטיקט"
-
+#: src/features/chats/components/new-chat.tsx
 #: src/features/chats/components/new-chat.tsx
 msgid "Chat ready"
 msgstr "שמועס גרייט"
@@ -679,7 +707,6 @@ msgstr "שמועס גרייט"
 msgid "Chat renamed"
 msgstr "שמועס איבערגעטויפֿט"
 
-#: src/features/chats/index.tsx
 #: src/features/chats/index.tsx
 #: src/routes/_authenticated/$chatId_.settings.tsx
 #: src/routes/_authenticated/$chatId_.settings.tsx
@@ -963,6 +990,7 @@ msgid "Created {field}"
 msgstr "באַשאַפֿן {field}"
 
 #: src/features/chats/components/new-chat.tsx
+#: src/features/chats/components/new-chat.tsx
 msgid "Creating chat..."
 msgstr "שאַפֿן שמועס..."
 
@@ -1089,6 +1117,11 @@ msgstr "אויסמעקן שמועס..."
 #: src/features/chats/index.tsx
 msgid "Deleting..."
 msgstr "אויסמעקן..."
+
+#: src/features/chats/components/chat-message-list.tsx
+msgctxt "receipt"
+msgid "Delivered"
+msgstr "צוגעשטעלט"
 
 #: ../../../lib/web/src/components/ui/sort-direction-button.tsx
 msgid "Descending"
@@ -1312,6 +1345,7 @@ msgid "Failed to copy message"
 msgstr "ניט געלונגען צו קאָפּירן דעם מעסעדזש"
 
 #: src/features/chats/components/new-chat.tsx
+#: src/features/chats/components/new-chat.tsx
 msgid "Failed to create chat"
 msgstr "ניט געלונגען צו שאַפֿן שמועס"
 
@@ -1393,8 +1427,8 @@ msgid "Failed to load video"
 msgstr "נישט געקאָנט לאָדן דעם ווידעאָ"
 
 #: src/features/chats/components/chat-settings-dialog.tsx
-msgid "Failed to load your chat policy"
-msgstr "מען האָט נישט געקענט לאָדן דײַן שמועס־פּאָליטיק"
+msgid "Failed to load your settings"
+msgstr "ניט געלונגען צו לאָדן אײַערע אײַנשטעלונגען"
 
 #: src/components/layout/chat-layout.tsx
 msgid "Failed to mark chat as read"
@@ -1437,10 +1471,12 @@ msgstr "ניט געלונגען אויפֿצוהיטן"
 msgid "Failed to save prompt"
 msgstr "ניט געלונגען אויפֿצוהיטן פּראָמפּט"
 
+#: src/features/chats/components/thread-panel.tsx
 #: src/features/chats/index.tsx
 msgid "Failed to send message"
 msgstr "ניט געלונגען צו שיקן בריוו"
 
+#: src/features/chats/index.tsx
 #: src/features/chats/index.tsx
 msgid "Failed to start chat"
 msgstr "ניט געלונגען אָנצוהייבן שמועס"
@@ -1592,7 +1628,6 @@ msgid "Including anonymous users"
 msgstr "אַרײַנגערעכנט אַנאָנימע באַניצער"
 
 #: src/features/chats/components/chat-settings-dialog.tsx
-#: src/features/chats/index.tsx
 msgid "Incoming chats"
 msgstr "אַרײַנקומענדיקע שמועסן"
 
@@ -1641,6 +1676,11 @@ msgstr "קלאַוויאַטור־קורצוועגן"
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Large"
 msgstr "גרויס"
+
+#. placeholder {0}: formatTimestamp(presence.seen)
+#: src/features/chats/index.tsx
+msgid "Last seen {0}"
+msgstr "לעצט אָנליין {0}"
 
 #: src/features/chats/constants/reactions.ts
 msgid "Laugh"
@@ -1936,6 +1976,10 @@ msgstr "נאָמען מוז זײַן {CHAT_NAME_MAX_LENGTH} כאַראַקטער
 msgid "Name must be 1000 characters or less"
 msgstr "נאָמען מוז זײַן 1000 כאַראַקטערן אָדער ווייניקער"
 
+#: src/features/chats/components/new-chat.tsx
+msgid "Network"
+msgstr "נעץ"
+
 #: ../../../lib/web/src/features/errors/general-error.tsx
 #: ../../../lib/web/src/lib/api-response-interceptors.ts
 msgid "Network error"
@@ -2158,6 +2202,11 @@ msgstr "עלטערער טרעפֿער"
 msgid "On"
 msgstr "אָן"
 
+#: src/features/chats/index.tsx
+msgctxt "presence"
+msgid "Online"
+msgstr "אָנליין"
+
 #: ../../../lib/web/src/features/errors/not-found-error.tsx
 msgid "Oops! Page Not Found!"
 msgstr "אױ! זײַטל ניט געפֿונען!"
@@ -2328,6 +2377,9 @@ msgstr "פֿריִערדיקער יאָר"
 
 #: ../../../lib/web/src/components/server-documents-footer.tsx
 #: ../../../lib/web/src/features/document/document-page.tsx
+#: src/features/chats/components/chat-settings-dialog.tsx
+#: src/features/chats/index.tsx
+#: src/features/chats/index.tsx
 msgid "Privacy"
 msgstr "פּריוואַטקײַט"
 
@@ -2358,6 +2410,11 @@ msgstr "פארבינד ווידער דיינע קאנטעס אויף דעם סע
 #: ../../../lib/web/src/components/restore-banner.tsx
 msgid "Re-register your passkeys on this server"
 msgstr "רעגיסטרירט איבער אײַערע פּאַסקייס אויף דעם סערווער"
+
+#: src/features/chats/components/chat-message-list.tsx
+msgctxt "receipt"
+msgid "Read"
+msgstr "געלייענט"
 
 #: src/features/chats/components/message-body.tsx
 msgid "Read more"
@@ -2530,6 +2587,11 @@ msgstr "חזרט זיך"
 #: src/features/chats/components/message-hover-actions.tsx
 msgid "Reply"
 msgstr "ענטפֿער"
+
+#: src/features/chats/components/message-hover-actions.tsx
+#: src/features/chats/components/thread-panel.tsx
+msgid "Reply in thread"
+msgstr "ענטפֿערן אינעם פֿאָדעם"
 
 #. placeholder {0}: comment.name || comment.author
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx
@@ -2707,6 +2769,11 @@ msgstr "זוכן אין אַודיאָ"
 msgid "Seek in voice note"
 msgstr "זוכן אין דער קול־מעלדונג"
 
+#. placeholder {0}: formatList(seen.names)
+#: src/features/chats/components/chat-message-list.tsx
+msgid "Seen by {0}"
+msgstr "געזען פֿון {0}"
+
 #: ../../../lib/web/src/hooks/use-field-type-labels.ts
 msgid "Select"
 msgstr "קלײַב"
@@ -2786,6 +2853,10 @@ msgstr "אויסגעקליבן די נײַסטע {BULK_MESSAGES_MAX} מעלדו�
 msgid "Selected: <0>{0}</0>"
 msgstr "אויסגעקליבן: <0>{0}</0>"
 
+#: src/features/chats/components/thread-panel.tsx
+msgid "Send"
+msgstr "שיקן"
+
 #: ../../../lib/web/src/features/accounts/account-verify.tsx
 msgid "Send again"
 msgstr "שיקן ווידער"
@@ -2800,6 +2871,15 @@ msgstr "שיק בליצפּאָסט"
 #: src/features/chats/components/chat-input.tsx
 msgid "Send message"
 msgstr "שיק אַ מעלדונג"
+
+#: src/features/chats/components/chat-settings-dialog.tsx
+msgid "Send read receipts"
+msgstr "שיקן לייען־באַשטעטיקונגען"
+
+#: src/features/chats/components/chat-message-list.tsx
+msgctxt "receipt"
+msgid "Sent"
+msgstr "געשיקט"
 
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Serif"
@@ -2829,9 +2909,17 @@ msgstr "שטעל אָנהייב און ציל"
 msgid "Settings"
 msgstr "אײַנשטעלונגען"
 
+#: src/features/chats/components/chat-settings-dialog.tsx
+msgid "Settings saved"
+msgstr "אײַנשטעלונגען אויפֿגעהיט"
+
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx
 msgid "Show classes"
 msgstr "ווײַז קלאַסן"
+
+#: src/features/chats/components/thread-panel.tsx
+msgid "Show earlier replies"
+msgstr "ווײַזן פֿריִערדיקע ענטפֿערס"
 
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx
 msgid "Show fields"
@@ -2845,6 +2933,14 @@ msgstr "ווײַזן ווייניקער"
 #: ../../../lib/web/src/components/entity/keyboard-shortcuts-help.tsx
 msgid "Show this help"
 msgstr "ווײַז דעם הילף"
+
+#: src/features/chats/components/chat-settings-dialog.tsx
+msgid "Show when I'm online"
+msgstr "ווײַזן ווען איך בין אָנליין"
+
+#: src/features/chats/components/chat-settings-dialog.tsx
+msgid "Show when I'm typing"
+msgstr "ווײַזן ווען איך טיפּ"
 
 #: ../../../lib/web/src/components/ui/load-more.tsx
 msgid "Showing {totalShown} of {total}"
@@ -2901,6 +2997,7 @@ msgstr "הייב אָן אַ שמועס"
 msgid "Start the discussion by adding the first comment."
 msgstr "הייב אָן די דיסקוסיע מיטן צולייגן דעם ערשטן קאָמענטאַר."
 
+#: src/features/chats/index.tsx
 #: src/features/chats/index.tsx
 msgid "Starting chat..."
 msgstr "אָנהייבן שמועס..."
@@ -3052,12 +3149,17 @@ msgstr "דאָס מעקט אויס דעם מעסעדזש פֿאַר אַלעמע
 
 #: src/features/chats/components/chat-message-list.tsx
 #: src/features/chats/components/message-quote.tsx
+#: src/features/chats/components/thread-panel.tsx
 msgid "This message was deleted"
 msgstr "דער מעסעדזש איז אויסגעמעקט געוואָרן"
 
 #: ../../../lib/web/src/components/game/game-end-dialogs.tsx
 msgid "This permanently deletes the game and its chat. This cannot be undone."
 msgstr "דאָס וועט אויף שטענדיק אויסמעקן דעם שפּיל און זײַן טשאַט. מע קען דעם ניט מבֿטל מאַכן."
+
+#: src/features/chats/components/thread-panel.tsx
+msgid "Thread"
+msgstr "פֿאָדעם"
 
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Thursday"

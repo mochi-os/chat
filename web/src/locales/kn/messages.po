@@ -48,6 +48,13 @@ msgstr "(ನೀವು)"
 msgid "[not set]"
 msgstr "[ಸಜ್ಜುಗೊಳಿಸಿಲ್ಲ]"
 
+#. placeholder {0}: typingNames.length
+#. placeholder {1}: typingNames[0]
+#. placeholder {2}: formatList(typingNames)
+#: src/features/chats/index.tsx
+msgid "{0, plural, =1 {{1} is typing...} other {{2} are typing...}}"
+msgstr "{0, plural, =1 {{1} ಟೈಪ್ ಮಾಡುತ್ತಿದ್ದಾರೆ...} other {{2} ಟೈಪ್ ಮಾಡುತ್ತಿದ್ದಾರೆ...}}"
+
 #. placeholder {0}: deleteTargetIds?.length ?? 0
 #: src/features/chats/index.tsx
 msgid "{0, plural, =1 {Delete message?} other {Delete # messages?}}"
@@ -57,6 +64,11 @@ msgstr "{0, plural, =1 {ಸಂದೇಶ ಅಳಿಸುವುದೇ?} other {# �
 #: ../../../lib/web/src/components/diff-viewer.tsx
 msgid "{0, plural, one {# file changed} other {# files changed}}"
 msgstr "{0, plural, one {# ಫೈಲ್ ಬದಲಾಗಿದೆ} other {# ಫೈಲ್‌ಗಳು ಬದಲಾಗಿವೆ}}"
+
+#. placeholder {0}: message.replies
+#: src/features/chats/components/chat-message-list.tsx
+msgid "{0, plural, one {# reply} other {# replies}}"
+msgstr "{0, plural, one {# ಪ್ರತ್ಯುತ್ತರ} other {# ಪ್ರತ್ಯುತ್ತರಗಳು}}"
 
 #. placeholder {0}: visible.length
 #: ../../../lib/web/src/components/inline-entity-search.tsx
@@ -307,6 +319,10 @@ msgstr "{0}/{1} ಸೇರಿಸಲಾಗುತ್ತಿದೆ..."
 msgid "Adding member..."
 msgstr "ಸದಸ್ಯರನ್ನು ಸೇರಿಸಲಾಗುತ್ತಿದೆ..."
 
+#: src/features/chats/components/new-chat.tsx
+msgid "Addresses"
+msgstr "ವಿಳಾಸಗಳು"
+
 #: src/features/chats/constants/reactions.ts
 msgid "Agree"
 msgstr "ಒಪ್ಪು"
@@ -409,6 +425,11 @@ msgstr "ನೀವು ಖಚಿತವಾಗಿ ರಾಜೀನಾಮೆ ನೀಡ
 msgid "Are you sure you want to resign? {opponentName} will win the game."
 msgstr "ನೀವು ಶರಣಾಗಲು ಖಚಿತವಾಗಿದ್ದೀರಾ? {opponentName} ಆಟವನ್ನು ಗೆಲ್ಲುತ್ತಾರೆ."
 
+#. placeholder {0}: selectedChat.address
+#: src/features/chats/index.tsx
+msgid "As {0}"
+msgstr "{0} ಆಗಿ"
+
 #: ../../../lib/web/src/components/ui/sort-direction-button.tsx
 msgid "Ascending"
 msgstr "ಆರೋಹಣ"
@@ -458,6 +479,11 @@ msgstr "ಅವತಾರ್"
 #: ../../../lib/web/src/components/entity-avatar.tsx
 msgid "Avatar for {name}"
 msgstr "{name} ಗಾಗಿ ಅವತಾರ್"
+
+#: src/features/chats/index.tsx
+msgctxt "presence"
+msgid "Away"
+msgstr "ದೂರದಲ್ಲಿ"
 
 #: ../../../lib/web/src/components/place-picker.tsx
 msgid "Back"
@@ -530,6 +556,11 @@ msgstr "ಗಡಿ ಬಣ್ಣ"
 #: ../../../lib/web/src/features/accounts/types.ts
 msgid "Browser notifications"
 msgstr "ಬ್ರೌಸರ್ ಅಧಿಸೂಚನೆಗಳು"
+
+#: src/features/chats/index.tsx
+msgctxt "presence"
+msgid "Busy"
+msgstr "ಕಾರ್ಯನಿರತ"
 
 #: ../../../lib/web/src/features/accounts/types.ts
 msgid "Calendar server"
@@ -667,10 +698,7 @@ msgstr "ಚಾಟ್ ಸಿಗಲಿಲ್ಲ"
 msgid "Chat pinned"
 msgstr "ಚಾಟ್ ಪಿನ್ ಮಾಡಲಾಗಿದೆ"
 
-#: src/features/chats/components/chat-settings-dialog.tsx
-msgid "Chat policy updated"
-msgstr "ಚಾಟ್ ನೀತಿ ನವೀಕರಿಸಲಾಗಿದೆ"
-
+#: src/features/chats/components/new-chat.tsx
 #: src/features/chats/components/new-chat.tsx
 msgid "Chat ready"
 msgstr "ಚಾಟ್ ಸಿದ್ಧವಾಗಿದೆ"
@@ -679,7 +707,6 @@ msgstr "ಚಾಟ್ ಸಿದ್ಧವಾಗಿದೆ"
 msgid "Chat renamed"
 msgstr "ಚಾಟ್ ಮರುಹೆಸರಿಸಲಾಗಿದೆ"
 
-#: src/features/chats/index.tsx
 #: src/features/chats/index.tsx
 #: src/routes/_authenticated/$chatId_.settings.tsx
 #: src/routes/_authenticated/$chatId_.settings.tsx
@@ -963,6 +990,7 @@ msgid "Created {field}"
 msgstr "{field} ರಚಿಸಲಾಗಿದೆ"
 
 #: src/features/chats/components/new-chat.tsx
+#: src/features/chats/components/new-chat.tsx
 msgid "Creating chat..."
 msgstr "ಚಾಟ್ ರಚಿಸಲಾಗುತ್ತಿದೆ..."
 
@@ -1089,6 +1117,11 @@ msgstr "ಚಾಟ್ ಅನ್ನು ಅಳಿಸಲಾಗುತ್ತಿದೆ.
 #: src/features/chats/index.tsx
 msgid "Deleting..."
 msgstr "ಅಳಿಸಲಾಗುತ್ತಿದೆ..."
+
+#: src/features/chats/components/chat-message-list.tsx
+msgctxt "receipt"
+msgid "Delivered"
+msgstr "ತಲುಪಿಸಲಾಗಿದೆ"
 
 #: ../../../lib/web/src/components/ui/sort-direction-button.tsx
 msgid "Descending"
@@ -1312,6 +1345,7 @@ msgid "Failed to copy message"
 msgstr "ಸಂದೇಶ ನಕಲಿಸಲು ವಿಫಲವಾಗಿದೆ"
 
 #: src/features/chats/components/new-chat.tsx
+#: src/features/chats/components/new-chat.tsx
 msgid "Failed to create chat"
 msgstr "ಚಾಟ್ ರಚಿಸಲು ವಿಫಲವಾಗಿದೆ"
 
@@ -1393,8 +1427,8 @@ msgid "Failed to load video"
 msgstr "ವೀಡಿಯೊ ಲೋಡ್ ಮಾಡಲು ವಿಫಲವಾಗಿದೆ"
 
 #: src/features/chats/components/chat-settings-dialog.tsx
-msgid "Failed to load your chat policy"
-msgstr "ನಿಮ್ಮ ಚಾಟ್ ನೀತಿಯನ್ನು ಲೋಡ್ ಮಾಡಲು ವಿಫಲವಾಗಿದೆ"
+msgid "Failed to load your settings"
+msgstr "ನಿಮ್ಮ ಸೆಟ್ಟಿಂಗ್‌ಗಳನ್ನು ಲೋಡ್ ಮಾಡಲು ವಿಫಲವಾಗಿದೆ"
 
 #: src/components/layout/chat-layout.tsx
 msgid "Failed to mark chat as read"
@@ -1437,10 +1471,12 @@ msgstr "ಉಳಿಸಲು ವಿಫಲವಾಗಿದೆ"
 msgid "Failed to save prompt"
 msgstr "ಪ್ರಾಂಪ್ಟ್ ಉಳಿಸಲು ವಿಫಲವಾಗಿದೆ"
 
+#: src/features/chats/components/thread-panel.tsx
 #: src/features/chats/index.tsx
 msgid "Failed to send message"
 msgstr "ಸಂದೇಶ ಕಳುಹಿಸಲು ವಿಫಲವಾಗಿದೆ"
 
+#: src/features/chats/index.tsx
 #: src/features/chats/index.tsx
 msgid "Failed to start chat"
 msgstr "ಚಾಟ್ ಆರಂಭಿಸಲು ವಿಫಲವಾಗಿದೆ"
@@ -1592,7 +1628,6 @@ msgid "Including anonymous users"
 msgstr "ಅನಾಮಧೇಯ ಬಳಕೆದಾರರು ಸೇರಿದಂತೆ"
 
 #: src/features/chats/components/chat-settings-dialog.tsx
-#: src/features/chats/index.tsx
 msgid "Incoming chats"
 msgstr "ಒಳಬರುವ ಚಾಟ್‌ಗಳು"
 
@@ -1641,6 +1676,11 @@ msgstr "ಕೀಬೋರ್ಡ್ ಶಾರ್ಟ್‌ಕಟ್‌ಗಳು"
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Large"
 msgstr "ದೊಡ್ಡದು"
+
+#. placeholder {0}: formatTimestamp(presence.seen)
+#: src/features/chats/index.tsx
+msgid "Last seen {0}"
+msgstr "ಕೊನೆಯದಾಗಿ ಕಂಡದ್ದು {0}"
 
 #: src/features/chats/constants/reactions.ts
 msgid "Laugh"
@@ -1936,6 +1976,10 @@ msgstr "ಹೆಸರು {CHAT_NAME_MAX_LENGTH} ಅಕ್ಷರಗಳು ಅಥ�
 msgid "Name must be 1000 characters or less"
 msgstr "ಹೆಸರು 1000 ಅಕ್ಷರಗಳು ಅಥವಾ ಕಡಿಮೆ ಇರಬೇಕು"
 
+#: src/features/chats/components/new-chat.tsx
+msgid "Network"
+msgstr "ನೆಟ್‌ವರ್ಕ್"
+
 #: ../../../lib/web/src/features/errors/general-error.tsx
 #: ../../../lib/web/src/lib/api-response-interceptors.ts
 msgid "Network error"
@@ -2158,6 +2202,11 @@ msgstr "ಹಳೆಯ ಫಲಿತಾಂಶ"
 msgid "On"
 msgstr "ಆನ್"
 
+#: src/features/chats/index.tsx
+msgctxt "presence"
+msgid "Online"
+msgstr "ಆನ್‌ಲೈನ್"
+
 #: ../../../lib/web/src/features/errors/not-found-error.tsx
 msgid "Oops! Page Not Found!"
 msgstr "ಓ! ಪುಟ ಸಿಗಲಿಲ್ಲ!"
@@ -2328,6 +2377,9 @@ msgstr "ಹಿಂದಿನ ವರ್ಷ"
 
 #: ../../../lib/web/src/components/server-documents-footer.tsx
 #: ../../../lib/web/src/features/document/document-page.tsx
+#: src/features/chats/components/chat-settings-dialog.tsx
+#: src/features/chats/index.tsx
+#: src/features/chats/index.tsx
 msgid "Privacy"
 msgstr "ಗೌಪ್ಯತೆ"
 
@@ -2358,6 +2410,11 @@ msgstr "ಈ ಸರ್ವರ್‌ನಲ್ಲಿ ನಿಮ್ಮ ಖಾತೆಗ
 #: ../../../lib/web/src/components/restore-banner.tsx
 msgid "Re-register your passkeys on this server"
 msgstr "ಈ ಸರ್ವರ್‌ನಲ್ಲಿ ನಿಮ್ಮ ಪಾಸ್‌ಕೀಗಳನ್ನು ಮರು-ನೋಂದಣಿ ಮಾಡಿ"
+
+#: src/features/chats/components/chat-message-list.tsx
+msgctxt "receipt"
+msgid "Read"
+msgstr "ಓದಲಾಗಿದೆ"
 
 #: src/features/chats/components/message-body.tsx
 msgid "Read more"
@@ -2530,6 +2587,11 @@ msgstr "ಪುನರಾವರ್ತಿಸುತ್ತದೆ"
 #: src/features/chats/components/message-hover-actions.tsx
 msgid "Reply"
 msgstr "ರಿಪ್ಲೈ"
+
+#: src/features/chats/components/message-hover-actions.tsx
+#: src/features/chats/components/thread-panel.tsx
+msgid "Reply in thread"
+msgstr "ಥ್ರೆಡ್‌ನಲ್ಲಿ ಪ್ರತ್ಯುತ್ತರಿಸಿ"
 
 #. placeholder {0}: comment.name || comment.author
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx
@@ -2707,6 +2769,11 @@ msgstr "ಆಡಿಯೊದಲ್ಲಿ ಮುಂದೆ-ಹಿಂದೆ ಹೋಗ
 msgid "Seek in voice note"
 msgstr "ಧ್ವನಿ ಟಿಪ್ಪಣಿಯಲ್ಲಿ ಮುಂದೆ-ಹಿಂದೆ ಹೋಗಿ"
 
+#. placeholder {0}: formatList(seen.names)
+#: src/features/chats/components/chat-message-list.tsx
+msgid "Seen by {0}"
+msgstr "{0} ನೋಡಿದ್ದಾರೆ"
+
 #: ../../../lib/web/src/hooks/use-field-type-labels.ts
 msgid "Select"
 msgstr "ಆಯ್ಕೆಮಾಡಿ"
@@ -2786,6 +2853,10 @@ msgstr "ಇತ್ತೀಚಿನ {BULK_MESSAGES_MAX} ಸಂದೇಶಗಳನ್
 msgid "Selected: <0>{0}</0>"
 msgstr "ಆಯ್ಕೆ ಮಾಡಲಾಗಿದೆ: <0>{0}</0>"
 
+#: src/features/chats/components/thread-panel.tsx
+msgid "Send"
+msgstr "ಕಳುಹಿಸಿ"
+
 #: ../../../lib/web/src/features/accounts/account-verify.tsx
 msgid "Send again"
 msgstr "ಮತ್ತೆ ಕಳುಹಿಸಿ"
@@ -2800,6 +2871,15 @@ msgstr "ಇಮೇಲ್ ಕಳುಹಿಸಿ"
 #: src/features/chats/components/chat-input.tsx
 msgid "Send message"
 msgstr "ಸಂದೇಶ ಕಳುಹಿಸಿ"
+
+#: src/features/chats/components/chat-settings-dialog.tsx
+msgid "Send read receipts"
+msgstr "ಓದಿದ ರಸೀದಿಗಳನ್ನು ಕಳುಹಿಸಿ"
+
+#: src/features/chats/components/chat-message-list.tsx
+msgctxt "receipt"
+msgid "Sent"
+msgstr "ಕಳುಹಿಸಲಾಗಿದೆ"
 
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Serif"
@@ -2829,9 +2909,17 @@ msgstr "ಮೂಲ ಮತ್ತು ಗಮ್ಯಸ್ಥಾನವನ್ನು ಹ
 msgid "Settings"
 msgstr "ಸೆಟ್ಟಿಂಗ್‌ಗಳು"
 
+#: src/features/chats/components/chat-settings-dialog.tsx
+msgid "Settings saved"
+msgstr "ಸೆಟ್ಟಿಂಗ್‌ಗಳನ್ನು ಉಳಿಸಲಾಗಿದೆ"
+
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx
 msgid "Show classes"
 msgstr "ತರಗತಿಗಳನ್ನು ತೋರಿಸಿ"
+
+#: src/features/chats/components/thread-panel.tsx
+msgid "Show earlier replies"
+msgstr "ಹಿಂದಿನ ಪ್ರತ್ಯುತ್ತರಗಳನ್ನು ತೋರಿಸಿ"
 
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx
 msgid "Show fields"
@@ -2845,6 +2933,14 @@ msgstr "ಕಡಿಮೆ ತೋರಿಸಿ"
 #: ../../../lib/web/src/components/entity/keyboard-shortcuts-help.tsx
 msgid "Show this help"
 msgstr "ಈ ಸಹಾಯ ತೋರಿಸಿ"
+
+#: src/features/chats/components/chat-settings-dialog.tsx
+msgid "Show when I'm online"
+msgstr "ನಾನು ಆನ್‌ಲೈನ್‌ನಲ್ಲಿರುವಾಗ ತೋರಿಸಿ"
+
+#: src/features/chats/components/chat-settings-dialog.tsx
+msgid "Show when I'm typing"
+msgstr "ನಾನು ಟೈಪ್ ಮಾಡುತ್ತಿರುವಾಗ ತೋರಿಸಿ"
 
 #: ../../../lib/web/src/components/ui/load-more.tsx
 msgid "Showing {totalShown} of {total}"
@@ -2901,6 +2997,7 @@ msgstr "ಸಂಭಾಷಣೆಯನ್ನು ಪ್ರಾರಂಭಿಸಿ"
 msgid "Start the discussion by adding the first comment."
 msgstr "ಮೊದಲ ಕಾಮೆಂಟ್ ಸೇರಿಸುವ ಮೂಲಕ ಚರ್ಚೆಯನ್ನು ಪ್ರಾರಂಭಿಸಿ."
 
+#: src/features/chats/index.tsx
 #: src/features/chats/index.tsx
 msgid "Starting chat..."
 msgstr "ಚಾಟ್ ಪ್ರಾರಂಭಿಸಲಾಗುತ್ತಿದೆ..."
@@ -3052,12 +3149,17 @@ msgstr "ಇದು ಸಂದೇಶವನ್ನು ಎಲ್ಲರಿಗೂ ಅಳ
 
 #: src/features/chats/components/chat-message-list.tsx
 #: src/features/chats/components/message-quote.tsx
+#: src/features/chats/components/thread-panel.tsx
 msgid "This message was deleted"
 msgstr "ಈ ಸಂದೇಶವನ್ನು ಅಳಿಸಲಾಗಿದೆ"
 
 #: ../../../lib/web/src/components/game/game-end-dialogs.tsx
 msgid "This permanently deletes the game and its chat. This cannot be undone."
 msgstr "ಇದು ಆಟ ಮತ್ತು ಅದರ ಚಾಟ್ ಅನ್ನು ಶಾಶ್ವತವಾಗಿ ಅಳಿಸುತ್ತದೆ. ಈ ಕ್ರಿಯೆಯನ್ನು ರದ್ದುಗೊಳಿಸಲಾಗುವುದಿಲ್ಲ."
+
+#: src/features/chats/components/thread-panel.tsx
+msgid "Thread"
+msgstr "ಥ್ರೆಡ್"
 
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Thursday"

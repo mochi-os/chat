@@ -23,6 +23,10 @@ export interface Chat {
   other?: string // For 2-member chats: the other member's entity ID
   status?: ChatStatus
   unread?: number
+  // A conversation on another network: the user's account it is had through,
+  // and that account's address.
+  account?: string
+  address?: string
 }
 
 export interface MarkReadRequest {
@@ -87,6 +91,21 @@ export interface ChatMessage {
   edited?: number
   // The post on another network the message's first link quotes.
   quote?: Quote | null
+  // The message a reply in a thread is under; empty on the main timeline.
+  thread?: string
+  // On the main timeline: how many replies the message's thread has, and
+  // when the latest came.
+  replies?: number
+  latest?: number
+}
+
+// How far a member has received and read the conversation: every message up
+// to each time.
+export interface ChatReceipt {
+  member: string
+  name: string
+  delivered: number
+  displayed: number
 }
 
 interface PaginationMeta {
@@ -105,6 +124,7 @@ export interface GetMessagesResponse extends PaginationMeta {
   more?: boolean
   // Opaque keyset cursor for the next (older) page; null on the last one.
   cursor?: string | null
+  receipts?: ChatReceipt[]
 }
 
 export interface ChatSearchResult {
@@ -123,6 +143,9 @@ export interface SearchMessagesResponse {
 export interface CreateChatRequest {
   name: string
   members: string
+  // A conversation on one of the user's accounts on another network, with
+  // members by their addresses there.
+  account?: string
 }
 
 export interface CreateChatResponse {
@@ -139,9 +162,17 @@ interface NewChatFriend {
   chat?: string
 }
 
+// One of the user's accounts on another network a conversation can be had
+// through.
+export interface ChatAccount {
+  id: string
+  identifier: string
+}
+
 export interface GetNewChatResponse {
   friends: NewChatFriend[]
   name: string
+  accounts?: ChatAccount[]
 }
 
 type SendMessageAttachment = File | Blob
@@ -152,6 +183,7 @@ export interface SendMessageRequest {
   attachments?: SendMessageAttachment[]
   mentions?: string[]
   captions?: string[]
+  thread?: string
 }
 
 export interface SendMessageResponse {
@@ -223,6 +255,19 @@ export type ChatPolicy = 'friends' | 'anyone'
 
 export interface ChatPreferences {
   policy: ChatPolicy
+  // What the user shares, each on until turned off.
+  presence: boolean
+  receipts: boolean
+  typing: boolean
+}
+
+export type PresenceStatus = 'online' | 'away' | 'busy' | 'offline' | ''
+
+export interface ChatPresence {
+  member: string
+  status: PresenceStatus
+  message: string
+  seen: number
 }
 
 interface PersonSearchResult {

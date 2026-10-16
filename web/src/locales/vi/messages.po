@@ -48,6 +48,13 @@ msgstr "(bạn)"
 msgid "[not set]"
 msgstr "[chưa đặt]"
 
+#. placeholder {0}: typingNames.length
+#. placeholder {1}: typingNames[0]
+#. placeholder {2}: formatList(typingNames)
+#: src/features/chats/index.tsx
+msgid "{0, plural, =1 {{1} is typing...} other {{2} are typing...}}"
+msgstr "{0, plural, =1 {{1} đang nhập...} other {{2} đang nhập...}}"
+
 #. placeholder {0}: deleteTargetIds?.length ?? 0
 #: src/features/chats/index.tsx
 msgid "{0, plural, =1 {Delete message?} other {Delete # messages?}}"
@@ -57,6 +64,11 @@ msgstr "{0, plural, other {Xóa # tin nhắn?}}"
 #: ../../../lib/web/src/components/diff-viewer.tsx
 msgid "{0, plural, one {# file changed} other {# files changed}}"
 msgstr "{0, plural, one {# tệp đã thay đổi} other {# tệp đã thay đổi}}"
+
+#. placeholder {0}: message.replies
+#: src/features/chats/components/chat-message-list.tsx
+msgid "{0, plural, one {# reply} other {# replies}}"
+msgstr "{0, plural, one {# phản hồi} other {# phản hồi}}"
 
 #. placeholder {0}: visible.length
 #: ../../../lib/web/src/components/inline-entity-search.tsx
@@ -307,6 +319,10 @@ msgstr "Đang thêm {0}/{1}..."
 msgid "Adding member..."
 msgstr "Đang thêm thành viên..."
 
+#: src/features/chats/components/new-chat.tsx
+msgid "Addresses"
+msgstr "Địa chỉ"
+
 #: src/features/chats/constants/reactions.ts
 msgid "Agree"
 msgstr "Đồng ý"
@@ -409,6 +425,11 @@ msgstr "Bạn có chắc chắn muốn đầu hàng?"
 msgid "Are you sure you want to resign? {opponentName} will win the game."
 msgstr "Bạn có chắc muốn xin thua không? {opponentName} sẽ thắng ván cờ."
 
+#. placeholder {0}: selectedChat.address
+#: src/features/chats/index.tsx
+msgid "As {0}"
+msgstr "Với tư cách {0}"
+
 #: ../../../lib/web/src/components/ui/sort-direction-button.tsx
 msgid "Ascending"
 msgstr "Tăng dần"
@@ -458,6 +479,11 @@ msgstr "Ảnh đại diện"
 #: ../../../lib/web/src/components/entity-avatar.tsx
 msgid "Avatar for {name}"
 msgstr "Ảnh đại diện của {name}"
+
+#: src/features/chats/index.tsx
+msgctxt "presence"
+msgid "Away"
+msgstr "Vắng mặt"
 
 #: ../../../lib/web/src/components/place-picker.tsx
 msgid "Back"
@@ -530,6 +556,11 @@ msgstr "Màu viền"
 #: ../../../lib/web/src/features/accounts/types.ts
 msgid "Browser notifications"
 msgstr "Thông báo trình duyệt"
+
+#: src/features/chats/index.tsx
+msgctxt "presence"
+msgid "Busy"
+msgstr "Bận"
 
 #: ../../../lib/web/src/features/accounts/types.ts
 msgid "Calendar server"
@@ -667,10 +698,7 @@ msgstr "Không tìm thấy cuộc trò chuyện"
 msgid "Chat pinned"
 msgstr "Đã ghim cuộc trò chuyện"
 
-#: src/features/chats/components/chat-settings-dialog.tsx
-msgid "Chat policy updated"
-msgstr "Đã cập nhật chính sách chat"
-
+#: src/features/chats/components/new-chat.tsx
 #: src/features/chats/components/new-chat.tsx
 msgid "Chat ready"
 msgstr "Cuộc trò chuyện đã sẵn sàng"
@@ -679,7 +707,6 @@ msgstr "Cuộc trò chuyện đã sẵn sàng"
 msgid "Chat renamed"
 msgstr "Đã đổi tên cuộc trò chuyện"
 
-#: src/features/chats/index.tsx
 #: src/features/chats/index.tsx
 #: src/routes/_authenticated/$chatId_.settings.tsx
 #: src/routes/_authenticated/$chatId_.settings.tsx
@@ -963,6 +990,7 @@ msgid "Created {field}"
 msgstr "Đã tạo {field}"
 
 #: src/features/chats/components/new-chat.tsx
+#: src/features/chats/components/new-chat.tsx
 msgid "Creating chat..."
 msgstr "Đang tạo cuộc trò chuyện..."
 
@@ -1089,6 +1117,11 @@ msgstr "Đang xóa cuộc trò chuyện..."
 #: src/features/chats/index.tsx
 msgid "Deleting..."
 msgstr "Đang xóa..."
+
+#: src/features/chats/components/chat-message-list.tsx
+msgctxt "receipt"
+msgid "Delivered"
+msgstr "Đã nhận"
 
 #: ../../../lib/web/src/components/ui/sort-direction-button.tsx
 msgid "Descending"
@@ -1312,6 +1345,7 @@ msgid "Failed to copy message"
 msgstr "Không thể sao chép tin nhắn"
 
 #: src/features/chats/components/new-chat.tsx
+#: src/features/chats/components/new-chat.tsx
 msgid "Failed to create chat"
 msgstr "Không tạo cuộc trò chuyện được"
 
@@ -1393,8 +1427,8 @@ msgid "Failed to load video"
 msgstr "Không tải được video"
 
 #: src/features/chats/components/chat-settings-dialog.tsx
-msgid "Failed to load your chat policy"
-msgstr "Không thể tải chính sách trò chuyện của bạn"
+msgid "Failed to load your settings"
+msgstr "Không tải được cài đặt của bạn"
 
 #: src/components/layout/chat-layout.tsx
 msgid "Failed to mark chat as read"
@@ -1437,10 +1471,12 @@ msgstr "Không lưu được"
 msgid "Failed to save prompt"
 msgstr "Không lưu lời nhắc được"
 
+#: src/features/chats/components/thread-panel.tsx
 #: src/features/chats/index.tsx
 msgid "Failed to send message"
 msgstr "Không gửi tin nhắn được"
 
+#: src/features/chats/index.tsx
 #: src/features/chats/index.tsx
 msgid "Failed to start chat"
 msgstr "Không bắt đầu cuộc trò chuyện được"
@@ -1592,7 +1628,6 @@ msgid "Including anonymous users"
 msgstr "Bao gồm người dùng ẩn danh"
 
 #: src/features/chats/components/chat-settings-dialog.tsx
-#: src/features/chats/index.tsx
 msgid "Incoming chats"
 msgstr "Chat đến"
 
@@ -1641,6 +1676,11 @@ msgstr "Phím tắt"
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Large"
 msgstr "Lớn"
+
+#. placeholder {0}: formatTimestamp(presence.seen)
+#: src/features/chats/index.tsx
+msgid "Last seen {0}"
+msgstr "Truy cập lần cuối {0}"
 
 #: src/features/chats/constants/reactions.ts
 msgid "Laugh"
@@ -1936,6 +1976,10 @@ msgstr "Tên phải có {CHAT_NAME_MAX_LENGTH} ký tự trở xuống"
 msgid "Name must be 1000 characters or less"
 msgstr "Tên phải có 1000 ký tự trở xuống"
 
+#: src/features/chats/components/new-chat.tsx
+msgid "Network"
+msgstr "Mạng"
+
 #: ../../../lib/web/src/features/errors/general-error.tsx
 #: ../../../lib/web/src/lib/api-response-interceptors.ts
 msgid "Network error"
@@ -2158,6 +2202,11 @@ msgstr "Kết quả cũ hơn"
 msgid "On"
 msgstr "Bật"
 
+#: src/features/chats/index.tsx
+msgctxt "presence"
+msgid "Online"
+msgstr "Trực tuyến"
+
 #: ../../../lib/web/src/features/errors/not-found-error.tsx
 msgid "Oops! Page Not Found!"
 msgstr "Rất tiếc! Không tìm thấy trang!"
@@ -2328,6 +2377,9 @@ msgstr "Năm trước"
 
 #: ../../../lib/web/src/components/server-documents-footer.tsx
 #: ../../../lib/web/src/features/document/document-page.tsx
+#: src/features/chats/components/chat-settings-dialog.tsx
+#: src/features/chats/index.tsx
+#: src/features/chats/index.tsx
 msgid "Privacy"
 msgstr "Quyền riêng tư"
 
@@ -2358,6 +2410,11 @@ msgstr "Liên kết lại các tài khoản của bạn trên máy chủ này"
 #: ../../../lib/web/src/components/restore-banner.tsx
 msgid "Re-register your passkeys on this server"
 msgstr "Đăng ký lại mã khóa của bạn trên máy chủ này"
+
+#: src/features/chats/components/chat-message-list.tsx
+msgctxt "receipt"
+msgid "Read"
+msgstr "Đã đọc"
 
 #: src/features/chats/components/message-body.tsx
 msgid "Read more"
@@ -2530,6 +2587,11 @@ msgstr "Được lặp lại"
 #: src/features/chats/components/message-hover-actions.tsx
 msgid "Reply"
 msgstr "Trả lời"
+
+#: src/features/chats/components/message-hover-actions.tsx
+#: src/features/chats/components/thread-panel.tsx
+msgid "Reply in thread"
+msgstr "Trả lời trong chủ đề"
 
 #. placeholder {0}: comment.name || comment.author
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx
@@ -2707,6 +2769,11 @@ msgstr "Tua trong âm thanh"
 msgid "Seek in voice note"
 msgstr "Tua trong tin nhắn thoại"
 
+#. placeholder {0}: formatList(seen.names)
+#: src/features/chats/components/chat-message-list.tsx
+msgid "Seen by {0}"
+msgstr "{0} đã xem"
+
 #: ../../../lib/web/src/hooks/use-field-type-labels.ts
 msgid "Select"
 msgstr "Chọn"
@@ -2786,6 +2853,10 @@ msgstr "Đã chọn {BULK_MESSAGES_MAX} tin nhắn mới nhất, số lượng t
 msgid "Selected: <0>{0}</0>"
 msgstr "Đã chọn: <0>{0}</0>"
 
+#: src/features/chats/components/thread-panel.tsx
+msgid "Send"
+msgstr "Gửi"
+
 #: ../../../lib/web/src/features/accounts/account-verify.tsx
 msgid "Send again"
 msgstr "Gửi lại"
@@ -2800,6 +2871,15 @@ msgstr "Gửi email"
 #: src/features/chats/components/chat-input.tsx
 msgid "Send message"
 msgstr "Gửi tin nhắn"
+
+#: src/features/chats/components/chat-settings-dialog.tsx
+msgid "Send read receipts"
+msgstr "Gửi thông báo đã đọc"
+
+#: src/features/chats/components/chat-message-list.tsx
+msgctxt "receipt"
+msgid "Sent"
+msgstr "Đã gửi"
 
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Serif"
@@ -2829,9 +2909,17 @@ msgstr "Đặt điểm xuất phát và điểm đến"
 msgid "Settings"
 msgstr "Cài đặt"
 
+#: src/features/chats/components/chat-settings-dialog.tsx
+msgid "Settings saved"
+msgstr "Đã lưu cài đặt"
+
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx
 msgid "Show classes"
 msgstr "Hiển thị lớp"
+
+#: src/features/chats/components/thread-panel.tsx
+msgid "Show earlier replies"
+msgstr "Hiển thị phản hồi trước đó"
 
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx
 msgid "Show fields"
@@ -2845,6 +2933,14 @@ msgstr "Thu gọn"
 #: ../../../lib/web/src/components/entity/keyboard-shortcuts-help.tsx
 msgid "Show this help"
 msgstr "Hiển thị trợ giúp này"
+
+#: src/features/chats/components/chat-settings-dialog.tsx
+msgid "Show when I'm online"
+msgstr "Hiển thị khi tôi trực tuyến"
+
+#: src/features/chats/components/chat-settings-dialog.tsx
+msgid "Show when I'm typing"
+msgstr "Hiển thị khi tôi đang nhập"
 
 #: ../../../lib/web/src/components/ui/load-more.tsx
 msgid "Showing {totalShown} of {total}"
@@ -2901,6 +2997,7 @@ msgstr "Bắt đầu một cuộc trò chuyện"
 msgid "Start the discussion by adding the first comment."
 msgstr "Bắt đầu thảo luận bằng cách thêm bình luận đầu tiên."
 
+#: src/features/chats/index.tsx
 #: src/features/chats/index.tsx
 msgid "Starting chat..."
 msgstr "Đang bắt đầu cuộc trò chuyện..."
@@ -3052,12 +3149,17 @@ msgstr "Thao tác này sẽ xóa tin nhắn đối với mọi người và khô
 
 #: src/features/chats/components/chat-message-list.tsx
 #: src/features/chats/components/message-quote.tsx
+#: src/features/chats/components/thread-panel.tsx
 msgid "This message was deleted"
 msgstr "Tin nhắn này đã bị xóa"
 
 #: ../../../lib/web/src/components/game/game-end-dialogs.tsx
 msgid "This permanently deletes the game and its chat. This cannot be undone."
 msgstr "Thao tác này sẽ xóa vĩnh viễn trận đấu và cuộc trò chuyện của nó. Không thể hoàn tác thao tác này."
+
+#: src/features/chats/components/thread-panel.tsx
+msgid "Thread"
+msgstr "Chủ đề"
 
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Thursday"

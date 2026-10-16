@@ -24,6 +24,7 @@ import { chatKeys, invalidateChatsExceptChat } from '@/hooks/useChats'
 import { useWebsocketManager } from '@/hooks/useWebsocketManager'
 import { isReactionId } from '@/features/chats/constants/reactions'
 import { applyMessageEditLWW } from '@/features/chats/utils/message-edit-lww'
+import { typingAdd, typingClear } from '@/features/chats/utils/typing'
 
 type NormalizedChatWebsocketMessagePayload = Omit<
   ChatWebsocketMessagePayload,
@@ -106,7 +107,13 @@ const createMessageFromPayload = (
       ? payload.reply
       : undefined
 
+  const thread =
+    typeof payload.thread === 'string' && payload.thread
+      ? payload.thread
+      : undefined
+
   return {
+    thread,
     id:
       typeof payload.id === 'string' && payload.id
         ? payload.id
@@ -260,6 +267,87 @@ const patchMessageEditFromWebsocket = (
   )
 }
 
+// A member's delivered and displayed watermarks, onto the newest page whose
+// receipts the conversation reads.
+const patchReceiptFromWebsocket = (
+  chatId: string,
+  payload: NormalizedChatWebsocketMessagePayload,
+  queryClient: QueryClient
+) => {
+  const member = typeof payload.member === 'string' ? payload.member : ''
+  const delivered =
+    typeof payload.delivered === 'number' ? payload.delivered : 0
+  const displayed =
+    typeof payload.displayed === 'number' ? payload.displayed : 0
+  if (!member) return
+  queryClient.setQueryData<InfiniteData<GetMessagesResponse>>(
+    chatKeys.messages(chatId),
+    (current) => {
+      if (!current?.pages?.length) return current
+      const [newest, ...rest] = current.pages
+      const receipts = newest.receipts ?? []
+      const existing = receipts.find((receipt) => receipt.member === member)
+      const next = existing
+        ? receipts.map((receipt) =>
+            receipt.member === member
+              ? {
+                  ...receipt,
+                  delivered: Math.max(receipt.delivered, delivered),
+                  displayed: Math.max(receipt.displayed, displayed),
+                }
+              : receipt
+          )
+        : [...receipts, { member, name: '', delivered, displayed }]
+      return { ...current, pages: [{ ...newest, receipts: next }, ...rest] }
+    }
+  )
+}
+
+// A reply in a thread: counted on its root in the main timeline and added to
+// the thread where it is open, never put on the main timeline itself.
+const addThreadReply = (
+  chatId: string,
+  message: ChatMessage,
+  queryClient: QueryClient
+) => {
+  const root = message.thread!
+  queryClient.setQueryData<InfiniteData<GetMessagesResponse>>(
+    chatKeys.thread(chatId, root),
+    (current) => {
+      if (!current?.pages?.length) return current
+      const present = current.pages.some((page) =>
+        page.messages.some((existing) => isSameMessage(message, existing))
+      )
+      if (present) return current
+      const [newest, ...rest] = current.pages
+      return {
+        ...current,
+        pages: [{ ...newest, messages: [...newest.messages, message] }, ...rest],
+      }
+    }
+  )
+  queryClient.setQueryData<InfiniteData<GetMessagesResponse>>(
+    chatKeys.messages(chatId),
+    (current) => {
+      if (!current?.pages) return current
+      let found = false
+      const pages = current.pages.map((page) => ({
+        ...page,
+        messages: page.messages.map((existing) => {
+          if (existing.id !== root) return existing
+          found = true
+          return {
+            ...existing,
+            replies: (existing.replies ?? 0) + 1,
+            latest: Math.max(existing.latest ?? 0, message.created),
+          }
+        }),
+      }))
+      return found ? { ...current, pages } : current
+    }
+  )
+}
+
 export const handleWebsocketEvent = (
   chatId: string,
   payload: NormalizedChatWebsocketMessagePayload,
@@ -281,6 +369,21 @@ export const handleWebsocketEvent = (
         return 'event'
       case 'edit':
         patchMessageEditFromWebsocket(chatId, payload, queryClient)
+        return 'event'
+      case 'typing':
+        if (
+          typeof payload.member === 'string' &&
+          payload.member !== currentUserId
+        ) {
+          typingAdd(
+            chatId,
+            payload.member,
+            typeof payload.name === 'string' ? payload.name : ''
+          )
+        }
+        return 'event'
+      case 'receipt':
+        patchReceiptFromWebsocket(chatId, payload, queryClient)
         return 'event'
       case 'removed':
       case 'rename':
@@ -322,7 +425,7 @@ export const handleWebsocketEvent = (
   return 'message'
 }
 
-const appendMessageToCache = (
+export const appendMessageToCache = (
   chatId: string,
   payload: NormalizedChatWebsocketMessagePayload,
   queryClient: QueryClient,
@@ -340,6 +443,18 @@ const appendMessageToCache = (
     currentUserId
   )
   if (eventKind === 'event' || eventKind === 'reaction') {
+    return
+  }
+
+  if (typeof payload.member === 'string') typingClear(chatId, payload.member)
+
+  const incoming = createMessageFromPayload(
+    chatId,
+    payload,
+    unknownSenderLabel
+  )
+  if (incoming.thread) {
+    addThreadReply(chatId, incoming, queryClient)
     return
   }
 

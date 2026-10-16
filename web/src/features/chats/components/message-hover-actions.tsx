@@ -19,6 +19,7 @@ import {
   CheckSquare,
   Copy,
   Forward,
+  MessagesSquare,
   MoreHorizontal,
   Reply,
   Trash2,
@@ -29,6 +30,7 @@ import type { ChatMessage } from '@/api/chats'
 interface MessageHoverActionsProps {
   message: ChatMessage
   onReply: (message: ChatMessage) => void
+  onThread?: () => void
   onSelect?: () => void
   onForward?: () => void
   onDelete?: () => void
@@ -41,6 +43,7 @@ interface MessageHoverActionsProps {
 export function MessageHoverActions({
   message,
   onReply,
+  onThread,
   onSelect,
   onForward,
   onDelete,
@@ -131,6 +134,12 @@ export function MessageHoverActions({
             <Reply className='me-2 size-3.5' />
             {t`Reply`}
           </DropdownMenuItem>
+          {onThread ? (
+            <DropdownMenuItem onSelect={onThread}>
+              <MessagesSquare className='me-2 size-3.5' />
+              {t`Reply in thread`}
+            </DropdownMenuItem>
+          ) : null}
           {onForward ? (
             <DropdownMenuItem onSelect={onForward}>
               <Forward className='me-2 size-3.5' />

@@ -12,6 +12,10 @@ import { Chats } from '@/features/chats'
 interface IndexSearch {
   with?: string
   name?: string
+  // A contact's messaging address on another network, and the user's account
+  // that reaches it.
+  account?: string
+  address?: string
 }
 
 /**
@@ -21,7 +25,7 @@ interface IndexSearch {
  */
 export async function loadIndex(input: {
   queryClient: QueryClient
-  deps: { with?: string }
+  deps: { with?: string; address?: string }
 }): Promise<void> {
   let chats: Awaited<ReturnType<typeof chatsApi.list>>['chats'] = []
   try {
@@ -36,7 +40,7 @@ export async function loadIndex(input: {
 
   // When deep-linking from another app (?with=<friend>), the page itself
   // resolves the chat — skip the last-visited redirect.
-  if (input.deps.with) {
+  if (input.deps.with || input.deps.address) {
     return
   }
 
@@ -57,8 +61,10 @@ export const Route = createFileRoute('/_authenticated/')({
   validateSearch: (search: Record<string, unknown>): IndexSearch => ({
     with: typeof search.with === 'string' ? search.with : undefined,
     name: typeof search.name === 'string' ? search.name : undefined,
+    account: typeof search.account === 'string' ? search.account : undefined,
+    address: typeof search.address === 'string' ? search.address : undefined,
   }),
-  loaderDeps: ({ search }) => ({ with: search.with }),
+  loaderDeps: ({ search }) => ({ with: search.with, address: search.address }),
   loader: ({ context, deps }) =>
     loadIndex({ queryClient: context.queryClient, deps }),
   component: Chats,

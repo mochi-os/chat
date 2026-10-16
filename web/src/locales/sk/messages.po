@@ -48,6 +48,13 @@ msgstr "(vy)"
 msgid "[not set]"
 msgstr "[nenastavené]"
 
+#. placeholder {0}: typingNames.length
+#. placeholder {1}: typingNames[0]
+#. placeholder {2}: formatList(typingNames)
+#: src/features/chats/index.tsx
+msgid "{0, plural, =1 {{1} is typing...} other {{2} are typing...}}"
+msgstr "{0, plural, =1 {{1} píše...} few {{2} píšu...} many {{2} píšu...} other {{2} píšu...}}"
+
 #. placeholder {0}: deleteTargetIds?.length ?? 0
 #: src/features/chats/index.tsx
 msgid "{0, plural, =1 {Delete message?} other {Delete # messages?}}"
@@ -57,6 +64,11 @@ msgstr "{0, plural, =1 {Odstrániť správu?} few {Odstrániť # správy?} many 
 #: ../../../lib/web/src/components/diff-viewer.tsx
 msgid "{0, plural, one {# file changed} other {# files changed}}"
 msgstr "{0, plural, one {# súbor zmenený} few {# súbory zmenené} many {# súboru zmeneného} other {# súborov zmenených}}"
+
+#. placeholder {0}: message.replies
+#: src/features/chats/components/chat-message-list.tsx
+msgid "{0, plural, one {# reply} other {# replies}}"
+msgstr "{0, plural, one {# odpoveď} few {# odpovede} many {# odpovedí} other {# odpovedí}}"
 
 #. placeholder {0}: visible.length
 #: ../../../lib/web/src/components/inline-entity-search.tsx
@@ -307,6 +319,10 @@ msgstr "Pridáva sa {0}/{1}..."
 msgid "Adding member..."
 msgstr "Pridáva sa člen..."
 
+#: src/features/chats/components/new-chat.tsx
+msgid "Addresses"
+msgstr "Adresy"
+
 #: src/features/chats/constants/reactions.ts
 msgid "Agree"
 msgstr "Súhlasím"
@@ -409,6 +425,11 @@ msgstr "Naozaj sa chcete vzdať?"
 msgid "Are you sure you want to resign? {opponentName} will win the game."
 msgstr "Naozaj sa chcete vzdať? Hru vyhrá {opponentName}."
 
+#. placeholder {0}: selectedChat.address
+#: src/features/chats/index.tsx
+msgid "As {0}"
+msgstr "Ako {0}"
+
 #: ../../../lib/web/src/components/ui/sort-direction-button.tsx
 msgid "Ascending"
 msgstr "Vzostupne"
@@ -458,6 +479,11 @@ msgstr "Avatar"
 #: ../../../lib/web/src/components/entity-avatar.tsx
 msgid "Avatar for {name}"
 msgstr "Avatar používateľa {name}"
+
+#: src/features/chats/index.tsx
+msgctxt "presence"
+msgid "Away"
+msgstr "Preč"
 
 #: ../../../lib/web/src/components/place-picker.tsx
 msgid "Back"
@@ -530,6 +556,11 @@ msgstr "Farba okraja"
 #: ../../../lib/web/src/features/accounts/types.ts
 msgid "Browser notifications"
 msgstr "Notifikácie prehliadača"
+
+#: src/features/chats/index.tsx
+msgctxt "presence"
+msgid "Busy"
+msgstr "Zaneprázdnený"
 
 #: ../../../lib/web/src/features/accounts/types.ts
 msgid "Calendar server"
@@ -667,10 +698,7 @@ msgstr "Chat sa nenašiel"
 msgid "Chat pinned"
 msgstr "Chat pripnutý"
 
-#: src/features/chats/components/chat-settings-dialog.tsx
-msgid "Chat policy updated"
-msgstr "Zásady chatu aktualizované"
-
+#: src/features/chats/components/new-chat.tsx
 #: src/features/chats/components/new-chat.tsx
 msgid "Chat ready"
 msgstr "Chat pripravený"
@@ -679,7 +707,6 @@ msgstr "Chat pripravený"
 msgid "Chat renamed"
 msgstr "Chat premenovaný"
 
-#: src/features/chats/index.tsx
 #: src/features/chats/index.tsx
 #: src/routes/_authenticated/$chatId_.settings.tsx
 #: src/routes/_authenticated/$chatId_.settings.tsx
@@ -963,6 +990,7 @@ msgid "Created {field}"
 msgstr "Vytvorené {field}"
 
 #: src/features/chats/components/new-chat.tsx
+#: src/features/chats/components/new-chat.tsx
 msgid "Creating chat..."
 msgstr "Vytvára sa konverzácia..."
 
@@ -1089,6 +1117,11 @@ msgstr "Odstraňuje sa konverzácia..."
 #: src/features/chats/index.tsx
 msgid "Deleting..."
 msgstr "Odstraňuje sa..."
+
+#: src/features/chats/components/chat-message-list.tsx
+msgctxt "receipt"
+msgid "Delivered"
+msgstr "Doručené"
 
 #: ../../../lib/web/src/components/ui/sort-direction-button.tsx
 msgid "Descending"
@@ -1312,6 +1345,7 @@ msgid "Failed to copy message"
 msgstr "Nepodarilo sa skopírovať správu"
 
 #: src/features/chats/components/new-chat.tsx
+#: src/features/chats/components/new-chat.tsx
 msgid "Failed to create chat"
 msgstr "Nepodarilo sa vytvoriť chat"
 
@@ -1393,8 +1427,8 @@ msgid "Failed to load video"
 msgstr "Video sa nepodarilo načítať"
 
 #: src/features/chats/components/chat-settings-dialog.tsx
-msgid "Failed to load your chat policy"
-msgstr "Nepodarilo sa načítať vaše pravidlá chatu"
+msgid "Failed to load your settings"
+msgstr "Nepodarilo sa načítať vaše nastavenia"
 
 #: src/components/layout/chat-layout.tsx
 msgid "Failed to mark chat as read"
@@ -1437,10 +1471,12 @@ msgstr "Nepodarilo sa uložiť"
 msgid "Failed to save prompt"
 msgstr "Nepodarilo sa uložiť výzvu"
 
+#: src/features/chats/components/thread-panel.tsx
 #: src/features/chats/index.tsx
 msgid "Failed to send message"
 msgstr "Nepodarilo sa odoslať správu"
 
+#: src/features/chats/index.tsx
 #: src/features/chats/index.tsx
 msgid "Failed to start chat"
 msgstr "Nepodarilo sa spustiť chat"
@@ -1592,7 +1628,6 @@ msgid "Including anonymous users"
 msgstr "Vrátane anonymných používateľov"
 
 #: src/features/chats/components/chat-settings-dialog.tsx
-#: src/features/chats/index.tsx
 msgid "Incoming chats"
 msgstr "Prichádzajúce chaty"
 
@@ -1641,6 +1676,11 @@ msgstr "Klávesové skratky"
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Large"
 msgstr "Veľké"
+
+#. placeholder {0}: formatTimestamp(presence.seen)
+#: src/features/chats/index.tsx
+msgid "Last seen {0}"
+msgstr "Naposledy videný {0}"
 
 #: src/features/chats/constants/reactions.ts
 msgid "Laugh"
@@ -1936,6 +1976,10 @@ msgstr "Názov musí mať {CHAT_NAME_MAX_LENGTH} znakov alebo menej"
 msgid "Name must be 1000 characters or less"
 msgstr "Názov musí mať 1000 znakov alebo menej"
 
+#: src/features/chats/components/new-chat.tsx
+msgid "Network"
+msgstr "Sieť"
+
 #: ../../../lib/web/src/features/errors/general-error.tsx
 #: ../../../lib/web/src/lib/api-response-interceptors.ts
 msgid "Network error"
@@ -2158,6 +2202,11 @@ msgstr "Staršia zhoda"
 msgid "On"
 msgstr "Zapnuté"
 
+#: src/features/chats/index.tsx
+msgctxt "presence"
+msgid "Online"
+msgstr "Pripojený"
+
 #: ../../../lib/web/src/features/errors/not-found-error.tsx
 msgid "Oops! Page Not Found!"
 msgstr "Ups! Stránka sa nenašla!"
@@ -2328,6 +2377,9 @@ msgstr "Predchádzajúci rok"
 
 #: ../../../lib/web/src/components/server-documents-footer.tsx
 #: ../../../lib/web/src/features/document/document-page.tsx
+#: src/features/chats/components/chat-settings-dialog.tsx
+#: src/features/chats/index.tsx
+#: src/features/chats/index.tsx
 msgid "Privacy"
 msgstr "Súkromie"
 
@@ -2358,6 +2410,11 @@ msgstr "Znovu prepojte svoje účty na tomto serveri"
 #: ../../../lib/web/src/components/restore-banner.tsx
 msgid "Re-register your passkeys on this server"
 msgstr "Znova zaregistrujte svoje prístupové kľúče na tomto serveri"
+
+#: src/features/chats/components/chat-message-list.tsx
+msgctxt "receipt"
+msgid "Read"
+msgstr "Prečítané"
 
 #: src/features/chats/components/message-body.tsx
 msgid "Read more"
@@ -2530,6 +2587,11 @@ msgstr "Opakuje sa"
 #: src/features/chats/components/message-hover-actions.tsx
 msgid "Reply"
 msgstr "Odpovedať"
+
+#: src/features/chats/components/message-hover-actions.tsx
+#: src/features/chats/components/thread-panel.tsx
+msgid "Reply in thread"
+msgstr "Odpovedať vo vlákne"
 
 #. placeholder {0}: comment.name || comment.author
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx
@@ -2707,6 +2769,11 @@ msgstr "Posun vo zvuku"
 msgid "Seek in voice note"
 msgstr "Posun v hlasovej správe"
 
+#. placeholder {0}: formatList(seen.names)
+#: src/features/chats/components/chat-message-list.tsx
+msgid "Seen by {0}"
+msgstr "Videli: {0}"
+
 #: ../../../lib/web/src/hooks/use-field-type-labels.ts
 msgid "Select"
 msgstr "Vybrať"
@@ -2786,6 +2853,10 @@ msgstr "Vybraných najnovších {BULK_MESSAGES_MAX} správ, čo je maximum na je
 msgid "Selected: <0>{0}</0>"
 msgstr "Vybraté: <0>{0}</0>"
 
+#: src/features/chats/components/thread-panel.tsx
+msgid "Send"
+msgstr "Odoslať"
+
 #: ../../../lib/web/src/features/accounts/account-verify.tsx
 msgid "Send again"
 msgstr "Odoslať znova"
@@ -2800,6 +2871,15 @@ msgstr "Odoslať e-mail"
 #: src/features/chats/components/chat-input.tsx
 msgid "Send message"
 msgstr "Odoslať správu"
+
+#: src/features/chats/components/chat-settings-dialog.tsx
+msgid "Send read receipts"
+msgstr "Odosielať potvrdenia o prečítaní"
+
+#: src/features/chats/components/chat-message-list.tsx
+msgctxt "receipt"
+msgid "Sent"
+msgstr "Odoslané"
 
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Serif"
@@ -2829,9 +2909,17 @@ msgstr "Nastaviť pôvod a cieľ"
 msgid "Settings"
 msgstr "Nastavenia"
 
+#: src/features/chats/components/chat-settings-dialog.tsx
+msgid "Settings saved"
+msgstr "Nastavenia uložené"
+
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx
 msgid "Show classes"
 msgstr "Zobraziť triedy"
+
+#: src/features/chats/components/thread-panel.tsx
+msgid "Show earlier replies"
+msgstr "Zobraziť staršie odpovede"
 
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx
 msgid "Show fields"
@@ -2845,6 +2933,14 @@ msgstr "Zobraziť menej"
 #: ../../../lib/web/src/components/entity/keyboard-shortcuts-help.tsx
 msgid "Show this help"
 msgstr "Zobraziť tohto pomocníka"
+
+#: src/features/chats/components/chat-settings-dialog.tsx
+msgid "Show when I'm online"
+msgstr "Zobrazovať, keď som pripojený"
+
+#: src/features/chats/components/chat-settings-dialog.tsx
+msgid "Show when I'm typing"
+msgstr "Zobrazovať, keď píšem"
 
 #: ../../../lib/web/src/components/ui/load-more.tsx
 msgid "Showing {totalShown} of {total}"
@@ -2901,6 +2997,7 @@ msgstr "Začať konverzáciu"
 msgid "Start the discussion by adding the first comment."
 msgstr "Začnite diskusiu pridaním prvého komentára."
 
+#: src/features/chats/index.tsx
 #: src/features/chats/index.tsx
 msgid "Starting chat..."
 msgstr "Spúšťa sa konverzácia..."
@@ -3052,12 +3149,17 @@ msgstr "Týmto sa správa odstráni pre všetkých a nedá sa to vrátiť späť
 
 #: src/features/chats/components/chat-message-list.tsx
 #: src/features/chats/components/message-quote.tsx
+#: src/features/chats/components/thread-panel.tsx
 msgid "This message was deleted"
 msgstr "Táto správa bola odstránená"
 
 #: ../../../lib/web/src/components/game/game-end-dialogs.tsx
 msgid "This permanently deletes the game and its chat. This cannot be undone."
 msgstr "Týmto trvalo odstránite hru a jej chat. Túto akciu nemožno vrátiť späť."
+
+#: src/features/chats/components/thread-panel.tsx
+msgid "Thread"
+msgstr "Vlákno"
 
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Thursday"

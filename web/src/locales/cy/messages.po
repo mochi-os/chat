@@ -48,6 +48,13 @@ msgstr "(chi)"
 msgid "[not set]"
 msgstr "[heb ei osod]"
 
+#. placeholder {0}: typingNames.length
+#. placeholder {1}: typingNames[0]
+#. placeholder {2}: formatList(typingNames)
+#: src/features/chats/index.tsx
+msgid "{0, plural, =1 {{1} is typing...} other {{2} are typing...}}"
+msgstr "{0, plural, zero {Mae {2} yn teipio...} =1 {Mae {1} yn teipio...} two {Mae {2} yn teipio...} few {Mae {2} yn teipio...} many {Mae {2} yn teipio...} other {Mae {2} yn teipio...}}"
+
 #. placeholder {0}: deleteTargetIds?.length ?? 0
 #: src/features/chats/index.tsx
 msgid "{0, plural, =1 {Delete message?} other {Delete # messages?}}"
@@ -57,6 +64,11 @@ msgstr "{0, plural, =1 {Dileu'r neges?} zero {Dileu # negeseuon?} two {Dileu # n
 #: ../../../lib/web/src/components/diff-viewer.tsx
 msgid "{0, plural, one {# file changed} other {# files changed}}"
 msgstr "{0, plural, zero {# ffeil wedi newid} one {# ffeil wedi newid} two {# ffeil wedi newid} few {# ffeil wedi newid} many {# ffeil wedi newid} other {# ffeil wedi newid}}"
+
+#. placeholder {0}: message.replies
+#: src/features/chats/components/chat-message-list.tsx
+msgid "{0, plural, one {# reply} other {# replies}}"
+msgstr "{0, plural, zero {# ateb} one {# ateb} two {# ateb} few {# ateb} many {# ateb} other {# ateb}}"
 
 #. placeholder {0}: visible.length
 #: ../../../lib/web/src/components/inline-entity-search.tsx
@@ -307,6 +319,10 @@ msgstr "Yn ychwanegu {0}/{1}..."
 msgid "Adding member..."
 msgstr "Yn ychwanegu aelod..."
 
+#: src/features/chats/components/new-chat.tsx
+msgid "Addresses"
+msgstr "Cyfeiriadau"
+
 #: src/features/chats/constants/reactions.ts
 msgid "Agree"
 msgstr "Cytuno"
@@ -409,6 +425,11 @@ msgstr "Ydych chi'n siŵr eich bod am ymddiswyddo?"
 msgid "Are you sure you want to resign? {opponentName} will win the game."
 msgstr "Ydych chi'n siŵr eich bod am ymddiswyddo? Bydd {opponentName} yn ennill y gêm."
 
+#. placeholder {0}: selectedChat.address
+#: src/features/chats/index.tsx
+msgid "As {0}"
+msgstr "Fel {0}"
+
 #: ../../../lib/web/src/components/ui/sort-direction-button.tsx
 msgid "Ascending"
 msgstr "Esgynnol"
@@ -458,6 +479,11 @@ msgstr "Afatar"
 #: ../../../lib/web/src/components/entity-avatar.tsx
 msgid "Avatar for {name}"
 msgstr "Afatar ar gyfer {name}"
+
+#: src/features/chats/index.tsx
+msgctxt "presence"
+msgid "Away"
+msgstr "I ffwrdd"
 
 #: ../../../lib/web/src/components/place-picker.tsx
 msgid "Back"
@@ -530,6 +556,11 @@ msgstr "Lliw ymyl"
 #: ../../../lib/web/src/features/accounts/types.ts
 msgid "Browser notifications"
 msgstr "Hysbysiadau porwr"
+
+#: src/features/chats/index.tsx
+msgctxt "presence"
+msgid "Busy"
+msgstr "Prysur"
 
 #: ../../../lib/web/src/features/accounts/types.ts
 msgid "Calendar server"
@@ -667,10 +698,7 @@ msgstr "Sgwrs heb ei chanfod"
 msgid "Chat pinned"
 msgstr "Sgwrs wedi'i phinio"
 
-#: src/features/chats/components/chat-settings-dialog.tsx
-msgid "Chat policy updated"
-msgstr "Diweddarwyd polisi sgwrsio"
-
+#: src/features/chats/components/new-chat.tsx
 #: src/features/chats/components/new-chat.tsx
 msgid "Chat ready"
 msgstr "Sgwrs yn barod"
@@ -679,7 +707,6 @@ msgstr "Sgwrs yn barod"
 msgid "Chat renamed"
 msgstr "Sgwrs wedi'i hailenwi"
 
-#: src/features/chats/index.tsx
 #: src/features/chats/index.tsx
 #: src/routes/_authenticated/$chatId_.settings.tsx
 #: src/routes/_authenticated/$chatId_.settings.tsx
@@ -963,6 +990,7 @@ msgid "Created {field}"
 msgstr "Crëwyd {field}"
 
 #: src/features/chats/components/new-chat.tsx
+#: src/features/chats/components/new-chat.tsx
 msgid "Creating chat..."
 msgstr "Yn creu sgwrs..."
 
@@ -1089,6 +1117,11 @@ msgstr "Yn dileu sgwrs..."
 #: src/features/chats/index.tsx
 msgid "Deleting..."
 msgstr "Yn dileu..."
+
+#: src/features/chats/components/chat-message-list.tsx
+msgctxt "receipt"
+msgid "Delivered"
+msgstr "Wedi'i danfon"
 
 #: ../../../lib/web/src/components/ui/sort-direction-button.tsx
 msgid "Descending"
@@ -1312,6 +1345,7 @@ msgid "Failed to copy message"
 msgstr "Methwyd copïo'r neges"
 
 #: src/features/chats/components/new-chat.tsx
+#: src/features/chats/components/new-chat.tsx
 msgid "Failed to create chat"
 msgstr "Methwyd creu sgwrs"
 
@@ -1393,8 +1427,8 @@ msgid "Failed to load video"
 msgstr "Methwyd llwytho'r fideo"
 
 #: src/features/chats/components/chat-settings-dialog.tsx
-msgid "Failed to load your chat policy"
-msgstr "Methwyd llwytho eich polisi sgwrsio"
+msgid "Failed to load your settings"
+msgstr "Methwyd llwytho eich gosodiadau"
 
 #: src/components/layout/chat-layout.tsx
 msgid "Failed to mark chat as read"
@@ -1437,10 +1471,12 @@ msgstr "Methwyd cadw"
 msgid "Failed to save prompt"
 msgstr "Methwyd cadw'r anogiad"
 
+#: src/features/chats/components/thread-panel.tsx
 #: src/features/chats/index.tsx
 msgid "Failed to send message"
 msgstr "Methwyd anfon y neges"
 
+#: src/features/chats/index.tsx
 #: src/features/chats/index.tsx
 msgid "Failed to start chat"
 msgstr "Methwyd cychwyn sgwrs"
@@ -1592,7 +1628,6 @@ msgid "Including anonymous users"
 msgstr "Gan gynnwys defnyddwyr dienw"
 
 #: src/features/chats/components/chat-settings-dialog.tsx
-#: src/features/chats/index.tsx
 msgid "Incoming chats"
 msgstr "Sgyrsiau sy'n dod i mewn"
 
@@ -1641,6 +1676,11 @@ msgstr "Llwybrau byr bysellfwrdd"
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Large"
 msgstr "Mawr"
+
+#. placeholder {0}: formatTimestamp(presence.seen)
+#: src/features/chats/index.tsx
+msgid "Last seen {0}"
+msgstr "Gwelwyd ddiwethaf {0}"
 
 #: src/features/chats/constants/reactions.ts
 msgid "Laugh"
@@ -1936,6 +1976,10 @@ msgstr "Rhaid i'r enw fod yn {CHAT_NAME_MAX_LENGTH} o nodau neu lai"
 msgid "Name must be 1000 characters or less"
 msgstr "Rhaid i'r enw fod yn 1000 o nodau neu lai"
 
+#: src/features/chats/components/new-chat.tsx
+msgid "Network"
+msgstr "Rhwydwaith"
+
 #: ../../../lib/web/src/features/errors/general-error.tsx
 #: ../../../lib/web/src/lib/api-response-interceptors.ts
 msgid "Network error"
@@ -2158,6 +2202,11 @@ msgstr "Canlyniad hŷn"
 msgid "On"
 msgstr "Ymlaen"
 
+#: src/features/chats/index.tsx
+msgctxt "presence"
+msgid "Online"
+msgstr "Ar-lein"
+
 #: ../../../lib/web/src/features/errors/not-found-error.tsx
 msgid "Oops! Page Not Found!"
 msgstr "Wps! Heb Ddod o Hyd i'r Dudalen!"
@@ -2328,6 +2377,9 @@ msgstr "Blwyddyn flaenorol"
 
 #: ../../../lib/web/src/components/server-documents-footer.tsx
 #: ../../../lib/web/src/features/document/document-page.tsx
+#: src/features/chats/components/chat-settings-dialog.tsx
+#: src/features/chats/index.tsx
+#: src/features/chats/index.tsx
 msgid "Privacy"
 msgstr "Preifatrwydd"
 
@@ -2358,6 +2410,11 @@ msgstr "Ail-gysylltwch eich cyfrifon ar y gweinydd hwn"
 #: ../../../lib/web/src/components/restore-banner.tsx
 msgid "Re-register your passkeys on this server"
 msgstr "Ailgofrestrwch eich pasallweddi ar y gweinydd hwn"
+
+#: src/features/chats/components/chat-message-list.tsx
+msgctxt "receipt"
+msgid "Read"
+msgstr "Wedi'i darllen"
 
 #: src/features/chats/components/message-body.tsx
 msgid "Read more"
@@ -2530,6 +2587,11 @@ msgstr "Yn ailadrodd"
 #: src/features/chats/components/message-hover-actions.tsx
 msgid "Reply"
 msgstr "Ymateb"
+
+#: src/features/chats/components/message-hover-actions.tsx
+#: src/features/chats/components/thread-panel.tsx
+msgid "Reply in thread"
+msgstr "Ymateb yn yr edau"
 
 #. placeholder {0}: comment.name || comment.author
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx
@@ -2707,6 +2769,11 @@ msgstr "Symud drwy'r sain"
 msgid "Seek in voice note"
 msgstr "Symud drwy'r nodyn llais"
 
+#. placeholder {0}: formatList(seen.names)
+#: src/features/chats/components/chat-message-list.tsx
+msgid "Seen by {0}"
+msgstr "Gwelwyd gan {0}"
+
 #: ../../../lib/web/src/hooks/use-field-type-labels.ts
 msgid "Select"
 msgstr "Dewis"
@@ -2786,6 +2853,10 @@ msgstr "Dewiswyd y {BULK_MESSAGES_MAX} neges ddiweddaraf, y mwyaf y gellir eu ha
 msgid "Selected: <0>{0}</0>"
 msgstr "Dewiswyd: <0>{0}</0>"
 
+#: src/features/chats/components/thread-panel.tsx
+msgid "Send"
+msgstr "Anfon"
+
 #: ../../../lib/web/src/features/accounts/account-verify.tsx
 msgid "Send again"
 msgstr "Anfon eto"
@@ -2800,6 +2871,15 @@ msgstr "Anfon e-bost"
 #: src/features/chats/components/chat-input.tsx
 msgid "Send message"
 msgstr "Anfon neges"
+
+#: src/features/chats/components/chat-settings-dialog.tsx
+msgid "Send read receipts"
+msgstr "Anfon derbynebau darllen"
+
+#: src/features/chats/components/chat-message-list.tsx
+msgctxt "receipt"
+msgid "Sent"
+msgstr "Wedi'i hanfon"
 
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Serif"
@@ -2829,9 +2909,17 @@ msgstr "Gosod tarddiad a chyrchfan"
 msgid "Settings"
 msgstr "Gosodiadau"
 
+#: src/features/chats/components/chat-settings-dialog.tsx
+msgid "Settings saved"
+msgstr "Gosodiadau wedi'u cadw"
+
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx
 msgid "Show classes"
 msgstr "Dangos dosbarthiadau"
+
+#: src/features/chats/components/thread-panel.tsx
+msgid "Show earlier replies"
+msgstr "Dangos atebion cynharach"
 
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx
 msgid "Show fields"
@@ -2845,6 +2933,14 @@ msgstr "Dangos llai"
 #: ../../../lib/web/src/components/entity/keyboard-shortcuts-help.tsx
 msgid "Show this help"
 msgstr "Dangos y cymorth hwn"
+
+#: src/features/chats/components/chat-settings-dialog.tsx
+msgid "Show when I'm online"
+msgstr "Dangos pan fydda i ar-lein"
+
+#: src/features/chats/components/chat-settings-dialog.tsx
+msgid "Show when I'm typing"
+msgstr "Dangos pan fydda i'n teipio"
 
 #: ../../../lib/web/src/components/ui/load-more.tsx
 msgid "Showing {totalShown} of {total}"
@@ -2901,6 +2997,7 @@ msgstr "Cychwyn sgwrs"
 msgid "Start the discussion by adding the first comment."
 msgstr "Cychwynnwch y drafodaeth drwy ychwanegu'r sylw cyntaf."
 
+#: src/features/chats/index.tsx
 #: src/features/chats/index.tsx
 msgid "Starting chat..."
 msgstr "Yn dechrau sgwrs..."
@@ -3052,12 +3149,17 @@ msgstr "Mae hyn yn dileu'r neges i bawb ac ni ellir ei ddadwneud."
 
 #: src/features/chats/components/chat-message-list.tsx
 #: src/features/chats/components/message-quote.tsx
+#: src/features/chats/components/thread-panel.tsx
 msgid "This message was deleted"
 msgstr "Cafodd y neges hon ei dileu"
 
 #: ../../../lib/web/src/components/game/game-end-dialogs.tsx
 msgid "This permanently deletes the game and its chat. This cannot be undone."
 msgstr "Bydd hyn yn dileu'r gêm a'i sgwrs yn barhaol. Ni ellir dadwneud hyn."
+
+#: src/features/chats/components/thread-panel.tsx
+msgid "Thread"
+msgstr "Edau"
 
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Thursday"

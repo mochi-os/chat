@@ -48,6 +48,13 @@ msgstr "(أنت)"
 msgid "[not set]"
 msgstr "[غير محدد]"
 
+#. placeholder {0}: typingNames.length
+#. placeholder {1}: typingNames[0]
+#. placeholder {2}: formatList(typingNames)
+#: src/features/chats/index.tsx
+msgid "{0, plural, =1 {{1} is typing...} other {{2} are typing...}}"
+msgstr "{0, plural, zero {{2} يكتبون...} =1 {{1} يكتب...} two {{2} يكتبان...} few {{2} يكتبون...} many {{2} يكتبون...} other {{2} يكتبون...}}"
+
 #. placeholder {0}: deleteTargetIds?.length ?? 0
 #: src/features/chats/index.tsx
 msgid "{0, plural, =1 {Delete message?} other {Delete # messages?}}"
@@ -57,6 +64,11 @@ msgstr "{0, plural, =1 {حذف الرسالة؟} zero {حذف # رسالة؟} tw
 #: ../../../lib/web/src/components/diff-viewer.tsx
 msgid "{0, plural, one {# file changed} other {# files changed}}"
 msgstr "{0, plural, zero {لم يتغير أي ملف} one {تغير ملف واحد} two {تغير ملفان} few {تغيرت # ملفات} many {تغير # ملفًا} other {تغير # ملف}}"
+
+#. placeholder {0}: message.replies
+#: src/features/chats/components/chat-message-list.tsx
+msgid "{0, plural, one {# reply} other {# replies}}"
+msgstr "{0, plural, zero {# رد} one {# رد} two {# ردان} few {# ردود} many {# ردًا} other {# رد}}"
 
 #. placeholder {0}: visible.length
 #: ../../../lib/web/src/components/inline-entity-search.tsx
@@ -307,6 +319,10 @@ msgstr "جارٍ إضافة {0}/{1}..."
 msgid "Adding member..."
 msgstr "جارٍ إضافة عضو..."
 
+#: src/features/chats/components/new-chat.tsx
+msgid "Addresses"
+msgstr "العناوين"
+
 #: src/features/chats/constants/reactions.ts
 msgid "Agree"
 msgstr "موافق"
@@ -409,6 +425,11 @@ msgstr "هل أنت متأكد من رغبتك في الانسحاب؟"
 msgid "Are you sure you want to resign? {opponentName} will win the game."
 msgstr "هل أنت متأكد أنك تريد الاستسلام؟ سيفوز {opponentName} باللعبة."
 
+#. placeholder {0}: selectedChat.address
+#: src/features/chats/index.tsx
+msgid "As {0}"
+msgstr "باسم {0}"
+
 #: ../../../lib/web/src/components/ui/sort-direction-button.tsx
 msgid "Ascending"
 msgstr "تصاعدي"
@@ -458,6 +479,11 @@ msgstr "الصورة الرمزية"
 #: ../../../lib/web/src/components/entity-avatar.tsx
 msgid "Avatar for {name}"
 msgstr "صورة {name} الرمزية"
+
+#: src/features/chats/index.tsx
+msgctxt "presence"
+msgid "Away"
+msgstr "غائب"
 
 #: ../../../lib/web/src/components/place-picker.tsx
 msgid "Back"
@@ -530,6 +556,11 @@ msgstr "لون الحدود"
 #: ../../../lib/web/src/features/accounts/types.ts
 msgid "Browser notifications"
 msgstr "إشعارات المتصفح"
+
+#: src/features/chats/index.tsx
+msgctxt "presence"
+msgid "Busy"
+msgstr "مشغول"
 
 #: ../../../lib/web/src/features/accounts/types.ts
 msgid "Calendar server"
@@ -667,10 +698,7 @@ msgstr "الدردشة غير موجودة"
 msgid "Chat pinned"
 msgstr "تم تثبيت الدردشة"
 
-#: src/features/chats/components/chat-settings-dialog.tsx
-msgid "Chat policy updated"
-msgstr "تم تحديث سياسة المحادثة"
-
+#: src/features/chats/components/new-chat.tsx
 #: src/features/chats/components/new-chat.tsx
 msgid "Chat ready"
 msgstr "الدردشة جاهزة"
@@ -679,7 +707,6 @@ msgstr "الدردشة جاهزة"
 msgid "Chat renamed"
 msgstr "تمت إعادة تسمية الدردشة"
 
-#: src/features/chats/index.tsx
 #: src/features/chats/index.tsx
 #: src/routes/_authenticated/$chatId_.settings.tsx
 #: src/routes/_authenticated/$chatId_.settings.tsx
@@ -963,6 +990,7 @@ msgid "Created {field}"
 msgstr "تم إنشاء {field}"
 
 #: src/features/chats/components/new-chat.tsx
+#: src/features/chats/components/new-chat.tsx
 msgid "Creating chat..."
 msgstr "جارٍ إنشاء محادثة..."
 
@@ -1089,6 +1117,11 @@ msgstr "جارٍ حذف المحادثة..."
 #: src/features/chats/index.tsx
 msgid "Deleting..."
 msgstr "جارٍ الحذف..."
+
+#: src/features/chats/components/chat-message-list.tsx
+msgctxt "receipt"
+msgid "Delivered"
+msgstr "تم التسليم"
 
 #: ../../../lib/web/src/components/ui/sort-direction-button.tsx
 msgid "Descending"
@@ -1312,6 +1345,7 @@ msgid "Failed to copy message"
 msgstr "تعذر نسخ الرسالة"
 
 #: src/features/chats/components/new-chat.tsx
+#: src/features/chats/components/new-chat.tsx
 msgid "Failed to create chat"
 msgstr "فشل إنشاء المحادثة"
 
@@ -1393,8 +1427,8 @@ msgid "Failed to load video"
 msgstr "تعذّر تحميل الفيديو"
 
 #: src/features/chats/components/chat-settings-dialog.tsx
-msgid "Failed to load your chat policy"
-msgstr "تعذر تحميل سياسة المحادثة الخاصة بك"
+msgid "Failed to load your settings"
+msgstr "فشل تحميل إعداداتك"
 
 #: src/components/layout/chat-layout.tsx
 msgid "Failed to mark chat as read"
@@ -1437,10 +1471,12 @@ msgstr "فشل الحفظ"
 msgid "Failed to save prompt"
 msgstr "فشل حفظ المطالبة"
 
+#: src/features/chats/components/thread-panel.tsx
 #: src/features/chats/index.tsx
 msgid "Failed to send message"
 msgstr "فشل إرسال الرسالة"
 
+#: src/features/chats/index.tsx
 #: src/features/chats/index.tsx
 msgid "Failed to start chat"
 msgstr "فشل بدء المحادثة"
@@ -1592,7 +1628,6 @@ msgid "Including anonymous users"
 msgstr "بما في ذلك المستخدمون المجهولون"
 
 #: src/features/chats/components/chat-settings-dialog.tsx
-#: src/features/chats/index.tsx
 msgid "Incoming chats"
 msgstr "المحادثات الواردة"
 
@@ -1641,6 +1676,11 @@ msgstr "اختصارات لوحة المفاتيح"
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Large"
 msgstr "كبير"
+
+#. placeholder {0}: formatTimestamp(presence.seen)
+#: src/features/chats/index.tsx
+msgid "Last seen {0}"
+msgstr "آخر ظهور {0}"
 
 #: src/features/chats/constants/reactions.ts
 msgid "Laugh"
@@ -1936,6 +1976,10 @@ msgstr "يجب ألا يتجاوز الاسم {CHAT_NAME_MAX_LENGTH} حرف"
 msgid "Name must be 1000 characters or less"
 msgstr "يجب ألا يتجاوز الاسم 1000 حرف"
 
+#: src/features/chats/components/new-chat.tsx
+msgid "Network"
+msgstr "الشبكة"
+
 #: ../../../lib/web/src/features/errors/general-error.tsx
 #: ../../../lib/web/src/lib/api-response-interceptors.ts
 msgid "Network error"
@@ -2158,6 +2202,11 @@ msgstr "نتيجة أقدم"
 msgid "On"
 msgstr "مفعّل"
 
+#: src/features/chats/index.tsx
+msgctxt "presence"
+msgid "Online"
+msgstr "متصل"
+
 #: ../../../lib/web/src/features/errors/not-found-error.tsx
 msgid "Oops! Page Not Found!"
 msgstr "عذراً! الصفحة غير موجودة!"
@@ -2328,6 +2377,9 @@ msgstr "السنة السابقة"
 
 #: ../../../lib/web/src/components/server-documents-footer.tsx
 #: ../../../lib/web/src/features/document/document-page.tsx
+#: src/features/chats/components/chat-settings-dialog.tsx
+#: src/features/chats/index.tsx
+#: src/features/chats/index.tsx
 msgid "Privacy"
 msgstr "الخصوصية"
 
@@ -2358,6 +2410,11 @@ msgstr "أعد ربط حساباتك بهذا الخادم"
 #: ../../../lib/web/src/components/restore-banner.tsx
 msgid "Re-register your passkeys on this server"
 msgstr "أعد تسجيل مفاتيح المرور على هذا الخادم"
+
+#: src/features/chats/components/chat-message-list.tsx
+msgctxt "receipt"
+msgid "Read"
+msgstr "تمت القراءة"
 
 #: src/features/chats/components/message-body.tsx
 msgid "Read more"
@@ -2530,6 +2587,11 @@ msgstr "يتكرر"
 #: src/features/chats/components/message-hover-actions.tsx
 msgid "Reply"
 msgstr "رد"
+
+#: src/features/chats/components/message-hover-actions.tsx
+#: src/features/chats/components/thread-panel.tsx
+msgid "Reply in thread"
+msgstr "الرد في الموضوع"
 
 #. placeholder {0}: comment.name || comment.author
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx
@@ -2707,6 +2769,11 @@ msgstr "التنقل في الصوت"
 msgid "Seek in voice note"
 msgstr "التنقل في الرسالة الصوتية"
 
+#. placeholder {0}: formatList(seen.names)
+#: src/features/chats/components/chat-message-list.tsx
+msgid "Seen by {0}"
+msgstr "شوهدت من قِبل {0}"
+
 #: ../../../lib/web/src/hooks/use-field-type-labels.ts
 msgid "Select"
 msgstr "تحديد"
@@ -2786,6 +2853,10 @@ msgstr "تم تحديد أحدث {BULK_MESSAGES_MAX} رسالة، وهو أقص�
 msgid "Selected: <0>{0}</0>"
 msgstr "المحدد: <0>{0}</0>"
 
+#: src/features/chats/components/thread-panel.tsx
+msgid "Send"
+msgstr "إرسال"
+
 #: ../../../lib/web/src/features/accounts/account-verify.tsx
 msgid "Send again"
 msgstr "إرسال مرة أخرى"
@@ -2800,6 +2871,15 @@ msgstr "إرسال بريد إلكتروني"
 #: src/features/chats/components/chat-input.tsx
 msgid "Send message"
 msgstr "إرسال رسالة"
+
+#: src/features/chats/components/chat-settings-dialog.tsx
+msgid "Send read receipts"
+msgstr "إرسال إيصالات القراءة"
+
+#: src/features/chats/components/chat-message-list.tsx
+msgctxt "receipt"
+msgid "Sent"
+msgstr "تم الإرسال"
 
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Serif"
@@ -2829,9 +2909,17 @@ msgstr "تعيين المنشأ والوجهة"
 msgid "Settings"
 msgstr "الإعدادات"
 
+#: src/features/chats/components/chat-settings-dialog.tsx
+msgid "Settings saved"
+msgstr "تم حفظ الإعدادات"
+
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx
 msgid "Show classes"
 msgstr "عرض الفئات"
+
+#: src/features/chats/components/thread-panel.tsx
+msgid "Show earlier replies"
+msgstr "عرض الردود السابقة"
 
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx
 msgid "Show fields"
@@ -2845,6 +2933,14 @@ msgstr "عرض أقل"
 #: ../../../lib/web/src/components/entity/keyboard-shortcuts-help.tsx
 msgid "Show this help"
 msgstr "عرض هذه المساعدة"
+
+#: src/features/chats/components/chat-settings-dialog.tsx
+msgid "Show when I'm online"
+msgstr "إظهار عندما أكون متصلاً"
+
+#: src/features/chats/components/chat-settings-dialog.tsx
+msgid "Show when I'm typing"
+msgstr "إظهار عندما أكتب"
 
 #: ../../../lib/web/src/components/ui/load-more.tsx
 msgid "Showing {totalShown} of {total}"
@@ -2901,6 +2997,7 @@ msgstr "بدء محادثة"
 msgid "Start the discussion by adding the first comment."
 msgstr "ابدأ النقاش بإضافة التعليق الأول."
 
+#: src/features/chats/index.tsx
 #: src/features/chats/index.tsx
 msgid "Starting chat..."
 msgstr "جارٍ بدء المحادثة..."
@@ -3052,12 +3149,17 @@ msgstr "سيؤدي هذا إلى حذف الرسالة لدى الجميع ول�
 
 #: src/features/chats/components/chat-message-list.tsx
 #: src/features/chats/components/message-quote.tsx
+#: src/features/chats/components/thread-panel.tsx
 msgid "This message was deleted"
 msgstr "تم حذف هذه الرسالة"
 
 #: ../../../lib/web/src/components/game/game-end-dialogs.tsx
 msgid "This permanently deletes the game and its chat. This cannot be undone."
 msgstr "سيؤدي هذا إلى حذف اللعبة ومحادثتها نهائيًا. لا يمكن التراجع عن هذا الإجراء."
+
+#: src/features/chats/components/thread-panel.tsx
+msgid "Thread"
+msgstr "موضوع"
 
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Thursday"

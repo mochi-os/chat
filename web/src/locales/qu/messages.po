@@ -48,6 +48,13 @@ msgstr "(qam)"
 msgid "[not set]"
 msgstr "[mana churasqa]"
 
+#. placeholder {0}: typingNames.length
+#. placeholder {1}: typingNames[0]
+#. placeholder {2}: formatList(typingNames)
+#: src/features/chats/index.tsx
+msgid "{0, plural, =1 {{1} is typing...} other {{2} are typing...}}"
+msgstr "{0, plural, =1 {{1} qillqachkan...} other {{2} qillqachkanku...}}"
+
 #. placeholder {0}: deleteTargetIds?.length ?? 0
 #: src/features/chats/index.tsx
 msgid "{0, plural, =1 {Delete message?} other {Delete # messages?}}"
@@ -57,6 +64,11 @@ msgstr "{0, plural, =1 {¿Willakuyta wischunki?} other {¿# willakuykunata wisch
 #: ../../../lib/web/src/components/diff-viewer.tsx
 msgid "{0, plural, one {# file changed} other {# files changed}}"
 msgstr "{0, plural, one {# archivo tikrasqa} other {# archivokuna tikrasqa}}"
+
+#. placeholder {0}: message.replies
+#: src/features/chats/components/chat-message-list.tsx
+msgid "{0, plural, one {# reply} other {# replies}}"
+msgstr "{0, plural, one {# kutichiy} other {# kutichiykuna}}"
 
 #. placeholder {0}: visible.length
 #: ../../../lib/web/src/components/inline-entity-search.tsx
@@ -307,6 +319,10 @@ msgstr "{0}/{1} yapachkan..."
 msgid "Adding member..."
 msgstr "Miembrota yapachkan..."
 
+#: src/features/chats/components/new-chat.tsx
+msgid "Addresses"
+msgstr "Direccionkuna"
+
 #: src/features/chats/constants/reactions.ts
 msgid "Agree"
 msgstr "Arí niy"
@@ -409,6 +425,11 @@ msgstr "¿Saqirakapuyta munankichu?"
 msgid "Are you sure you want to resign? {opponentName} will win the game."
 msgstr "¿Saqirakapuyta munankichu? {opponentName} pukllayta atipanqa."
 
+#. placeholder {0}: selectedChat.address
+#: src/features/chats/index.tsx
+msgid "As {0}"
+msgstr "{0} hina"
+
 #: ../../../lib/web/src/components/ui/sort-direction-button.tsx
 msgid "Ascending"
 msgstr "Wicharispa"
@@ -458,6 +479,11 @@ msgstr "Avatar"
 #: ../../../lib/web/src/components/entity-avatar.tsx
 msgid "Avatar for {name}"
 msgstr "{name} avatar"
+
+#: src/features/chats/index.tsx
+msgctxt "presence"
+msgid "Away"
+msgstr "Mana kaypichu"
 
 #: ../../../lib/web/src/components/place-picker.tsx
 msgid "Back"
@@ -530,6 +556,11 @@ msgstr "Pata llimp'i"
 #: ../../../lib/web/src/features/accounts/types.ts
 msgid "Browser notifications"
 msgstr "Navegador willaykuna"
+
+#: src/features/chats/index.tsx
+msgctxt "presence"
+msgid "Busy"
+msgstr "Ruraykunawan"
 
 #: ../../../lib/web/src/features/accounts/types.ts
 msgid "Calendar server"
@@ -667,10 +698,7 @@ msgstr "Rimanakuy mana tarisqachu"
 msgid "Chat pinned"
 msgstr "Rimanakuy fijasqa"
 
-#: src/features/chats/components/chat-settings-dialog.tsx
-msgid "Chat policy updated"
-msgstr "Rimanakuy kamachiy musuqchasqa"
-
+#: src/features/chats/components/new-chat.tsx
 #: src/features/chats/components/new-chat.tsx
 msgid "Chat ready"
 msgstr "Rimanakuy wakichisqa"
@@ -679,7 +707,6 @@ msgstr "Rimanakuy wakichisqa"
 msgid "Chat renamed"
 msgstr "Rimanakuypa sutin hukchasqa"
 
-#: src/features/chats/index.tsx
 #: src/features/chats/index.tsx
 #: src/routes/_authenticated/$chatId_.settings.tsx
 #: src/routes/_authenticated/$chatId_.settings.tsx
@@ -963,6 +990,7 @@ msgid "Created {field}"
 msgstr "{field} kamarisqa"
 
 #: src/features/chats/components/new-chat.tsx
+#: src/features/chats/components/new-chat.tsx
 msgid "Creating chat..."
 msgstr "Rimanakuyta kamarichkan..."
 
@@ -1089,6 +1117,11 @@ msgstr "Rimanakuyta wischuchkan..."
 #: src/features/chats/index.tsx
 msgid "Deleting..."
 msgstr "Wischuchkan..."
+
+#: src/features/chats/components/chat-message-list.tsx
+msgctxt "receipt"
+msgid "Delivered"
+msgstr "Chayasqa"
 
 #: ../../../lib/web/src/components/ui/sort-direction-button.tsx
 msgid "Descending"
@@ -1312,6 +1345,7 @@ msgid "Failed to copy message"
 msgstr "Willakuyta mana copiayta atikurqanchu"
 
 #: src/features/chats/components/new-chat.tsx
+#: src/features/chats/components/new-chat.tsx
 msgid "Failed to create chat"
 msgstr "Mana rimanakuyta kamariyta atinchu"
 
@@ -1393,8 +1427,8 @@ msgid "Failed to load video"
 msgstr "Manam videota cargayta atikunchu"
 
 #: src/features/chats/components/chat-settings-dialog.tsx
-msgid "Failed to load your chat policy"
-msgstr "Rimanakuy políticaykita mana cargayta atikurqanchu"
+msgid "Failed to load your settings"
+msgstr "Mana wakichiyniykikunata cargayta atinchu"
 
 #: src/components/layout/chat-layout.tsx
 msgid "Failed to mark chat as read"
@@ -1437,10 +1471,12 @@ msgstr "Mana waqaychayta atinchu"
 msgid "Failed to save prompt"
 msgstr "Mana promptta waqaychayta atinchu"
 
+#: src/features/chats/components/thread-panel.tsx
 #: src/features/chats/index.tsx
 msgid "Failed to send message"
 msgstr "Mana willakuyta apachiyta atinchu"
 
+#: src/features/chats/index.tsx
 #: src/features/chats/index.tsx
 msgid "Failed to start chat"
 msgstr "Mana rimanakuyta qallariyta atinchu"
@@ -1592,7 +1628,6 @@ msgid "Including anonymous users"
 msgstr "Mana sutiyuq apaykachaqkunapas"
 
 #: src/features/chats/components/chat-settings-dialog.tsx
-#: src/features/chats/index.tsx
 msgid "Incoming chats"
 msgstr "Chayamuq rimanakuykuna"
 
@@ -1641,6 +1676,11 @@ msgstr "Teclado pisi ñankuna"
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Large"
 msgstr "Hatun"
+
+#. placeholder {0}: formatTimestamp(presence.seen)
+#: src/features/chats/index.tsx
+msgid "Last seen {0}"
+msgstr "Qhipa kutipi llikapi {0}"
 
 #: src/features/chats/constants/reactions.ts
 msgid "Laugh"
@@ -1936,6 +1976,10 @@ msgstr "Sutiqa {CHAT_NAME_MAX_LENGTH} sananchakuna utaq pisilla kanan"
 msgid "Name must be 1000 characters or less"
 msgstr "Sutiqa 1000 sananchakuna utaq pisilla kanan"
 
+#: src/features/chats/components/new-chat.tsx
+msgid "Network"
+msgstr "Red"
+
 #: ../../../lib/web/src/features/errors/general-error.tsx
 #: ../../../lib/web/src/lib/api-response-interceptors.ts
 msgid "Network error"
@@ -2158,6 +2202,11 @@ msgstr "Aswan ñawpaq tupay"
 msgid "On"
 msgstr "Activasqa"
 
+#: src/features/chats/index.tsx
+msgctxt "presence"
+msgid "Online"
+msgstr "Llikapi"
+
 #: ../../../lib/web/src/features/errors/not-found-error.tsx
 msgid "Oops! Page Not Found!"
 msgstr "¡Ay! ¡Página mana tarisqachu!"
@@ -2328,6 +2377,9 @@ msgstr "Ñawpaq wata"
 
 #: ../../../lib/web/src/components/server-documents-footer.tsx
 #: ../../../lib/web/src/features/document/document-page.tsx
+#: src/features/chats/components/chat-settings-dialog.tsx
+#: src/features/chats/index.tsx
+#: src/features/chats/index.tsx
 msgid "Privacy"
 msgstr "Privacidad"
 
@@ -2358,6 +2410,11 @@ msgstr "Kay servidorpi cuentaykikunata yapamanta t'inkiy"
 #: ../../../lib/web/src/components/restore-banner.tsx
 msgid "Re-register your passkeys on this server"
 msgstr "Kay servidorpi yaykuna llaveykikunata yapamanta registray"
+
+#: src/features/chats/components/chat-message-list.tsx
+msgctxt "receipt"
+msgid "Read"
+msgstr "Ñawinchasqa"
 
 #: src/features/chats/components/message-body.tsx
 msgid "Read more"
@@ -2530,6 +2587,11 @@ msgstr "Kutipakun"
 #: src/features/chats/components/message-hover-actions.tsx
 msgid "Reply"
 msgstr "Kutichiy"
+
+#: src/features/chats/components/message-hover-actions.tsx
+#: src/features/chats/components/thread-panel.tsx
+msgid "Reply in thread"
+msgstr "Hilopi kutichiy"
 
 #. placeholder {0}: comment.name || comment.author
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx
@@ -2707,6 +2769,11 @@ msgstr "Uyarinapi puriy"
 msgid "Seek in voice note"
 msgstr "Kunka notapi puriy"
 
+#. placeholder {0}: formatList(seen.names)
+#: src/features/chats/components/chat-message-list.tsx
+msgid "Seen by {0}"
+msgstr "Rikuqkuna: {0}"
+
 #: ../../../lib/web/src/hooks/use-field-type-labels.ts
 msgid "Select"
 msgstr "Akllay"
@@ -2786,6 +2853,10 @@ msgstr "Aswan musuq {BULK_MESSAGES_MAX} willakuykuna akllasqa, chaymi huk kutill
 msgid "Selected: <0>{0}</0>"
 msgstr "Akllasqa: <0>{0}</0>"
 
+#: src/features/chats/components/thread-panel.tsx
+msgid "Send"
+msgstr "Apachiy"
+
 #: ../../../lib/web/src/features/accounts/account-verify.tsx
 msgid "Send again"
 msgstr "Watiqmanta apachiy"
@@ -2800,6 +2871,15 @@ msgstr "Email apachiy"
 #: src/features/chats/components/chat-input.tsx
 msgid "Send message"
 msgstr "Willakuyta apachiy"
+
+#: src/features/chats/components/chat-settings-dialog.tsx
+msgid "Send read receipts"
+msgstr "Ñawinchasqa willakuykunata apachiy"
+
+#: src/features/chats/components/chat-message-list.tsx
+msgctxt "receipt"
+msgid "Sent"
+msgstr "Apachisqa"
 
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Serif"
@@ -2829,9 +2909,17 @@ msgstr "Origenta destinotawan churay"
 msgid "Settings"
 msgstr "Wakichiykuna"
 
+#: src/features/chats/components/chat-settings-dialog.tsx
+msgid "Settings saved"
+msgstr "Wakichiykuna waqaychasqa"
+
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx
 msgid "Show classes"
 msgstr "Clasekunata rikuchiy"
+
+#: src/features/chats/components/thread-panel.tsx
+msgid "Show earlier replies"
+msgstr "Ñawpaq kutichiykunata rikuchiy"
 
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx
 msgid "Show fields"
@@ -2845,6 +2933,14 @@ msgstr "Pisita rikuchiy"
 #: ../../../lib/web/src/components/entity/keyboard-shortcuts-help.tsx
 msgid "Show this help"
 msgstr "Kay yanapayta rikuchiy"
+
+#: src/features/chats/components/chat-settings-dialog.tsx
+msgid "Show when I'm online"
+msgstr "Llikapi kaspa rikuchiy"
+
+#: src/features/chats/components/chat-settings-dialog.tsx
+msgid "Show when I'm typing"
+msgstr "Qillqachkaspa rikuchiy"
 
 #: ../../../lib/web/src/components/ui/load-more.tsx
 msgid "Showing {totalShown} of {total}"
@@ -2901,6 +2997,7 @@ msgstr "Rimanakuyta qallariy"
 msgid "Start the discussion by adding the first comment."
 msgstr "Ñawpaq comentariota churaspa rimanakuyta qallariy."
 
+#: src/features/chats/index.tsx
 #: src/features/chats/index.tsx
 msgid "Starting chat..."
 msgstr "Rimanakuyta qallarichkan..."
@@ -3052,12 +3149,17 @@ msgstr "Kayqa willakuyta llapanpaq wischun, manataq kutichiy atikunchu."
 
 #: src/features/chats/components/chat-message-list.tsx
 #: src/features/chats/components/message-quote.tsx
+#: src/features/chats/components/thread-panel.tsx
 msgid "This message was deleted"
 msgstr "Kay willakuy wischusqam"
 
 #: ../../../lib/web/src/components/game/game-end-dialogs.tsx
 msgid "This permanently deletes the game and its chat. This cannot be undone."
 msgstr "Kayqa pukllayta rimanakuywantin wiñaypaq wischun. Kayqa mana kutichiy atikunchu."
+
+#: src/features/chats/components/thread-panel.tsx
+msgid "Thread"
+msgstr "Hilo"
 
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Thursday"

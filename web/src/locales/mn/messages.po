@@ -48,6 +48,13 @@ msgstr "(та)"
 msgid "[not set]"
 msgstr "[тогтоогоогүй]"
 
+#. placeholder {0}: typingNames.length
+#. placeholder {1}: typingNames[0]
+#. placeholder {2}: formatList(typingNames)
+#: src/features/chats/index.tsx
+msgid "{0, plural, =1 {{1} is typing...} other {{2} are typing...}}"
+msgstr "{0, plural, =1 {{1} бичиж байна...} other {{2} бичиж байна...}}"
+
 #. placeholder {0}: deleteTargetIds?.length ?? 0
 #: src/features/chats/index.tsx
 msgid "{0, plural, =1 {Delete message?} other {Delete # messages?}}"
@@ -57,6 +64,11 @@ msgstr "{0, plural, =1 {Мессежийг устгах уу?} other {# месс
 #: ../../../lib/web/src/components/diff-viewer.tsx
 msgid "{0, plural, one {# file changed} other {# files changed}}"
 msgstr "{0, plural, one {# файл өөрчлөгдсөн} other {# файл өөрчлөгдсөн}}"
+
+#. placeholder {0}: message.replies
+#: src/features/chats/components/chat-message-list.tsx
+msgid "{0, plural, one {# reply} other {# replies}}"
+msgstr "{0, plural, one {# хариу} other {# хариу}}"
 
 #. placeholder {0}: visible.length
 #: ../../../lib/web/src/components/inline-entity-search.tsx
@@ -307,6 +319,10 @@ msgstr "{0}/{1} нэмж байна..."
 msgid "Adding member..."
 msgstr "Гишүүн нэмж байна..."
 
+#: src/features/chats/components/new-chat.tsx
+msgid "Addresses"
+msgstr "Хаягууд"
+
 #: src/features/chats/constants/reactions.ts
 msgid "Agree"
 msgstr "Зөвшөөрөх"
@@ -409,6 +425,11 @@ msgstr "Бууж өгөхдөө итгэлтэй байна уу?"
 msgid "Are you sure you want to resign? {opponentName} will win the game."
 msgstr "Бууж өгөхдөө итгэлтэй байна уу? {opponentName} тоглоомд ялна."
 
+#. placeholder {0}: selectedChat.address
+#: src/features/chats/index.tsx
+msgid "As {0}"
+msgstr "{0} нэрээр"
+
 #: ../../../lib/web/src/components/ui/sort-direction-button.tsx
 msgid "Ascending"
 msgstr "Өсөхөөр"
@@ -458,6 +479,11 @@ msgstr "Аватар"
 #: ../../../lib/web/src/components/entity-avatar.tsx
 msgid "Avatar for {name}"
 msgstr "{name}-ийн аватар"
+
+#: src/features/chats/index.tsx
+msgctxt "presence"
+msgid "Away"
+msgstr "Холдсон"
 
 #: ../../../lib/web/src/components/place-picker.tsx
 msgid "Back"
@@ -530,6 +556,11 @@ msgstr "Хүрээний өнгө"
 #: ../../../lib/web/src/features/accounts/types.ts
 msgid "Browser notifications"
 msgstr "Хөтчийн мэдэгдэл"
+
+#: src/features/chats/index.tsx
+msgctxt "presence"
+msgid "Busy"
+msgstr "Завгүй"
 
 #: ../../../lib/web/src/features/accounts/types.ts
 msgid "Calendar server"
@@ -667,10 +698,7 @@ msgstr "Чат олдсонгүй"
 msgid "Chat pinned"
 msgstr "Чатыг бэхэллээ"
 
-#: src/features/chats/components/chat-settings-dialog.tsx
-msgid "Chat policy updated"
-msgstr "Чатын бодлого шинэчлэгдлээ"
-
+#: src/features/chats/components/new-chat.tsx
 #: src/features/chats/components/new-chat.tsx
 msgid "Chat ready"
 msgstr "Чат бэлэн боллоо"
@@ -679,7 +707,6 @@ msgstr "Чат бэлэн боллоо"
 msgid "Chat renamed"
 msgstr "Чатын нэр өөрчлөгдсөн"
 
-#: src/features/chats/index.tsx
 #: src/features/chats/index.tsx
 #: src/routes/_authenticated/$chatId_.settings.tsx
 #: src/routes/_authenticated/$chatId_.settings.tsx
@@ -963,6 +990,7 @@ msgid "Created {field}"
 msgstr "{field} үүсгэсэн"
 
 #: src/features/chats/components/new-chat.tsx
+#: src/features/chats/components/new-chat.tsx
 msgid "Creating chat..."
 msgstr "Чат үүсгэж байна..."
 
@@ -1089,6 +1117,11 @@ msgstr "Чатыг устгаж байна..."
 #: src/features/chats/index.tsx
 msgid "Deleting..."
 msgstr "Устгаж байна..."
+
+#: src/features/chats/components/chat-message-list.tsx
+msgctxt "receipt"
+msgid "Delivered"
+msgstr "Хүргэгдсэн"
 
 #: ../../../lib/web/src/components/ui/sort-direction-button.tsx
 msgid "Descending"
@@ -1312,6 +1345,7 @@ msgid "Failed to copy message"
 msgstr "Мессежийг хуулж чадсангүй"
 
 #: src/features/chats/components/new-chat.tsx
+#: src/features/chats/components/new-chat.tsx
 msgid "Failed to create chat"
 msgstr "Чат үүсгэж чадсангүй"
 
@@ -1393,8 +1427,8 @@ msgid "Failed to load video"
 msgstr "Видеог ачаалж чадсангүй"
 
 #: src/features/chats/components/chat-settings-dialog.tsx
-msgid "Failed to load your chat policy"
-msgstr "Таны чатын бодлогыг ачаалж чадсангүй"
+msgid "Failed to load your settings"
+msgstr "Таны тохиргоог ачаалж чадсангүй"
 
 #: src/components/layout/chat-layout.tsx
 msgid "Failed to mark chat as read"
@@ -1437,10 +1471,12 @@ msgstr "Хадгалж чадсангүй"
 msgid "Failed to save prompt"
 msgstr "Промпт хадгалж чадсангүй"
 
+#: src/features/chats/components/thread-panel.tsx
 #: src/features/chats/index.tsx
 msgid "Failed to send message"
 msgstr "Мессеж илгээж чадсангүй"
 
+#: src/features/chats/index.tsx
 #: src/features/chats/index.tsx
 msgid "Failed to start chat"
 msgstr "Чат эхлүүлж чадсангүй"
@@ -1592,7 +1628,6 @@ msgid "Including anonymous users"
 msgstr "Нэргүй хэрэглэгчид оролцуулан"
 
 #: src/features/chats/components/chat-settings-dialog.tsx
-#: src/features/chats/index.tsx
 msgid "Incoming chats"
 msgstr "Ирж буй чатууд"
 
@@ -1641,6 +1676,11 @@ msgstr "Гарын товчлолууд"
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Large"
 msgstr "Том"
+
+#. placeholder {0}: formatTimestamp(presence.seen)
+#: src/features/chats/index.tsx
+msgid "Last seen {0}"
+msgstr "Сүүлд харагдсан {0}"
 
 #: src/features/chats/constants/reactions.ts
 msgid "Laugh"
@@ -1936,6 +1976,10 @@ msgstr "Нэр {CHAT_NAME_MAX_LENGTH} тэмдэгтээс хэтрэхгүй б
 msgid "Name must be 1000 characters or less"
 msgstr "Нэр 1000 тэмдэгтээс хэтрэхгүй байх ёстой"
 
+#: src/features/chats/components/new-chat.tsx
+msgid "Network"
+msgstr "Сүлжээ"
+
 #: ../../../lib/web/src/features/errors/general-error.tsx
 #: ../../../lib/web/src/lib/api-response-interceptors.ts
 msgid "Network error"
@@ -2158,6 +2202,11 @@ msgstr "Илүү хуучин илэрц"
 msgid "On"
 msgstr "Асаалттай"
 
+#: src/features/chats/index.tsx
+msgctxt "presence"
+msgid "Online"
+msgstr "Онлайн"
+
 #: ../../../lib/web/src/features/errors/not-found-error.tsx
 msgid "Oops! Page Not Found!"
 msgstr "Уучлаарай! Хуудас олдсонгүй!"
@@ -2328,6 +2377,9 @@ msgstr "Өмнөх жил"
 
 #: ../../../lib/web/src/components/server-documents-footer.tsx
 #: ../../../lib/web/src/features/document/document-page.tsx
+#: src/features/chats/components/chat-settings-dialog.tsx
+#: src/features/chats/index.tsx
+#: src/features/chats/index.tsx
 msgid "Privacy"
 msgstr "Нууцлал"
 
@@ -2358,6 +2410,11 @@ msgstr "Энэ серверт бүртгэлүүдээ дахин холбоно
 #: ../../../lib/web/src/components/restore-banner.tsx
 msgid "Re-register your passkeys on this server"
 msgstr "Энэ серверт нэвтрэх түлхүүрээ дахин бүртгүүлнэ үү"
+
+#: src/features/chats/components/chat-message-list.tsx
+msgctxt "receipt"
+msgid "Read"
+msgstr "Уншсан"
 
 #: src/features/chats/components/message-body.tsx
 msgid "Read more"
@@ -2530,6 +2587,11 @@ msgstr "Давтагдана"
 #: src/features/chats/components/message-hover-actions.tsx
 msgid "Reply"
 msgstr "Хариулах"
+
+#: src/features/chats/components/message-hover-actions.tsx
+#: src/features/chats/components/thread-panel.tsx
+msgid "Reply in thread"
+msgstr "Хэлхээнд хариулах"
 
 #. placeholder {0}: comment.name || comment.author
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx
@@ -2707,6 +2769,11 @@ msgstr "Аудио дотор шилжих"
 msgid "Seek in voice note"
 msgstr "Дуут тэмдэглэл дотор шилжих"
 
+#. placeholder {0}: formatList(seen.names)
+#: src/features/chats/components/chat-message-list.tsx
+msgid "Seen by {0}"
+msgstr "Үзсэн: {0}"
+
 #: ../../../lib/web/src/hooks/use-field-type-labels.ts
 msgid "Select"
 msgstr "Сонгох"
@@ -2786,6 +2853,10 @@ msgstr "Хамгийн сүүлийн {BULK_MESSAGES_MAX} мессежийг с�
 msgid "Selected: <0>{0}</0>"
 msgstr "Сонгогдсон: <0>{0}</0>"
 
+#: src/features/chats/components/thread-panel.tsx
+msgid "Send"
+msgstr "Илгээх"
+
 #: ../../../lib/web/src/features/accounts/account-verify.tsx
 msgid "Send again"
 msgstr "Дахин илгээх"
@@ -2800,6 +2871,15 @@ msgstr "Имэйл илгээх"
 #: src/features/chats/components/chat-input.tsx
 msgid "Send message"
 msgstr "Зурвас илгээх"
+
+#: src/features/chats/components/chat-settings-dialog.tsx
+msgid "Send read receipts"
+msgstr "Уншсан тухай мэдэгдэл илгээх"
+
+#: src/features/chats/components/chat-message-list.tsx
+msgctxt "receipt"
+msgid "Sent"
+msgstr "Илгээсэн"
 
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Serif"
@@ -2829,9 +2909,17 @@ msgstr "Эхлэл, очих газрыг тогтоох"
 msgid "Settings"
 msgstr "Тохиргоо"
 
+#: src/features/chats/components/chat-settings-dialog.tsx
+msgid "Settings saved"
+msgstr "Тохиргоо хадгалагдсан"
+
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx
 msgid "Show classes"
 msgstr "Ангиллуудыг харуулах"
+
+#: src/features/chats/components/thread-panel.tsx
+msgid "Show earlier replies"
+msgstr "Өмнөх хариултуудыг харуулах"
 
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx
 msgid "Show fields"
@@ -2845,6 +2933,14 @@ msgstr "Хураах"
 #: ../../../lib/web/src/components/entity/keyboard-shortcuts-help.tsx
 msgid "Show this help"
 msgstr "Энэ тусламжийг харуулах"
+
+#: src/features/chats/components/chat-settings-dialog.tsx
+msgid "Show when I'm online"
+msgstr "Онлайн байгаагаа харуулах"
+
+#: src/features/chats/components/chat-settings-dialog.tsx
+msgid "Show when I'm typing"
+msgstr "Бичиж байгаагаа харуулах"
 
 #: ../../../lib/web/src/components/ui/load-more.tsx
 msgid "Showing {totalShown} of {total}"
@@ -2901,6 +2997,7 @@ msgstr "Яриа эхлүүлэх"
 msgid "Start the discussion by adding the first comment."
 msgstr "Эхний сэтгэгдэл нэмж хэлэлцүүлэг эхлүүл."
 
+#: src/features/chats/index.tsx
 #: src/features/chats/index.tsx
 msgid "Starting chat..."
 msgstr "Чат эхлүүлж байна..."
@@ -3052,12 +3149,17 @@ msgstr "Энэ нь мессежийг бүх хүнээс устгах бөгө
 
 #: src/features/chats/components/chat-message-list.tsx
 #: src/features/chats/components/message-quote.tsx
+#: src/features/chats/components/thread-panel.tsx
 msgid "This message was deleted"
 msgstr "Энэ мессеж устгагдсан"
 
 #: ../../../lib/web/src/components/game/game-end-dialogs.tsx
 msgid "This permanently deletes the game and its chat. This cannot be undone."
 msgstr "Энэ нь тоглоом болон түүний чатыг бүрмөсөн устгана. Энэ үйлдлийг буцаах боломжгүй."
+
+#: src/features/chats/components/thread-panel.tsx
+msgid "Thread"
+msgstr "Хэлхээ"
 
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Thursday"

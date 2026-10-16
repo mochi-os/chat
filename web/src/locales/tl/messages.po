@@ -48,6 +48,13 @@ msgstr "(ikaw)"
 msgid "[not set]"
 msgstr "[hindi naitakda]"
 
+#. placeholder {0}: typingNames.length
+#. placeholder {1}: typingNames[0]
+#. placeholder {2}: formatList(typingNames)
+#: src/features/chats/index.tsx
+msgid "{0, plural, =1 {{1} is typing...} other {{2} are typing...}}"
+msgstr "{0, plural, =1 {Nagta-type si {1}...} other {Nagta-type sina {2}...}}"
+
 #. placeholder {0}: deleteTargetIds?.length ?? 0
 #: src/features/chats/index.tsx
 msgid "{0, plural, =1 {Delete message?} other {Delete # messages?}}"
@@ -57,6 +64,11 @@ msgstr "{0, plural, =1 {I-delete ang mensahe?} one {I-delete ang # na mensahe?} 
 #: ../../../lib/web/src/components/diff-viewer.tsx
 msgid "{0, plural, one {# file changed} other {# files changed}}"
 msgstr "{0, plural, one {# file ang binago} other {# file ang binago}}"
+
+#. placeholder {0}: message.replies
+#: src/features/chats/components/chat-message-list.tsx
+msgid "{0, plural, one {# reply} other {# replies}}"
+msgstr "{0, plural, one {# tugon} other {# tugon}}"
 
 #. placeholder {0}: visible.length
 #: ../../../lib/web/src/components/inline-entity-search.tsx
@@ -307,6 +319,10 @@ msgstr "Idinadagdag ang {0}/{1}..."
 msgid "Adding member..."
 msgstr "Nagdaragdag ng miyembro..."
 
+#: src/features/chats/components/new-chat.tsx
+msgid "Addresses"
+msgstr "Mga address"
+
 #: src/features/chats/constants/reactions.ts
 msgid "Agree"
 msgstr "Sang-ayon"
@@ -409,6 +425,11 @@ msgstr "Sigurado kang gusto mong sumuko?"
 msgid "Are you sure you want to resign? {opponentName} will win the game."
 msgstr "Sigurado ka bang gusto mong sumuko? Mananalo si {opponentName} sa laro."
 
+#. placeholder {0}: selectedChat.address
+#: src/features/chats/index.tsx
+msgid "As {0}"
+msgstr "Bilang {0}"
+
 #: ../../../lib/web/src/components/ui/sort-direction-button.tsx
 msgid "Ascending"
 msgstr "Pataas"
@@ -458,6 +479,11 @@ msgstr "Avatar"
 #: ../../../lib/web/src/components/entity-avatar.tsx
 msgid "Avatar for {name}"
 msgstr "Avatar para kay {name}"
+
+#: src/features/chats/index.tsx
+msgctxt "presence"
+msgid "Away"
+msgstr "Wala"
 
 #: ../../../lib/web/src/components/place-picker.tsx
 msgid "Back"
@@ -530,6 +556,11 @@ msgstr "Kulay ng border"
 #: ../../../lib/web/src/features/accounts/types.ts
 msgid "Browser notifications"
 msgstr "Mga notification ng browser"
+
+#: src/features/chats/index.tsx
+msgctxt "presence"
+msgid "Busy"
+msgstr "Abala"
 
 #: ../../../lib/web/src/features/accounts/types.ts
 msgid "Calendar server"
@@ -667,10 +698,7 @@ msgstr "Hindi nahanap ang chat"
 msgid "Chat pinned"
 msgstr "Na-pin ang chat"
 
-#: src/features/chats/components/chat-settings-dialog.tsx
-msgid "Chat policy updated"
-msgstr "Na-update ang patakaran sa chat"
-
+#: src/features/chats/components/new-chat.tsx
 #: src/features/chats/components/new-chat.tsx
 msgid "Chat ready"
 msgstr "Handa na ang chat"
@@ -679,7 +707,6 @@ msgstr "Handa na ang chat"
 msgid "Chat renamed"
 msgstr "Pinalitan ng pangalan ang chat"
 
-#: src/features/chats/index.tsx
 #: src/features/chats/index.tsx
 #: src/routes/_authenticated/$chatId_.settings.tsx
 #: src/routes/_authenticated/$chatId_.settings.tsx
@@ -963,6 +990,7 @@ msgid "Created {field}"
 msgstr "Ginawa ang {field}"
 
 #: src/features/chats/components/new-chat.tsx
+#: src/features/chats/components/new-chat.tsx
 msgid "Creating chat..."
 msgstr "Gumagawa ng chat..."
 
@@ -1089,6 +1117,11 @@ msgstr "Binubura ang chat..."
 #: src/features/chats/index.tsx
 msgid "Deleting..."
 msgstr "Dini-delete..."
+
+#: src/features/chats/components/chat-message-list.tsx
+msgctxt "receipt"
+msgid "Delivered"
+msgstr "Naihatid"
 
 #: ../../../lib/web/src/components/ui/sort-direction-button.tsx
 msgid "Descending"
@@ -1312,6 +1345,7 @@ msgid "Failed to copy message"
 msgstr "Hindi nakopya ang mensahe"
 
 #: src/features/chats/components/new-chat.tsx
+#: src/features/chats/components/new-chat.tsx
 msgid "Failed to create chat"
 msgstr "Nabigong gumawa ng chat"
 
@@ -1393,8 +1427,8 @@ msgid "Failed to load video"
 msgstr "Nabigong i-load ang video"
 
 #: src/features/chats/components/chat-settings-dialog.tsx
-msgid "Failed to load your chat policy"
-msgstr "Hindi ma-load ang iyong patakaran sa chat"
+msgid "Failed to load your settings"
+msgstr "Nabigong i-load ang iyong mga setting"
 
 #: src/components/layout/chat-layout.tsx
 msgid "Failed to mark chat as read"
@@ -1437,10 +1471,12 @@ msgstr "Nabigong i-save"
 msgid "Failed to save prompt"
 msgstr "Nabigong i-save ang prompt"
 
+#: src/features/chats/components/thread-panel.tsx
 #: src/features/chats/index.tsx
 msgid "Failed to send message"
 msgstr "Nabigong magpadala ng message"
 
+#: src/features/chats/index.tsx
 #: src/features/chats/index.tsx
 msgid "Failed to start chat"
 msgstr "Nabigong simulan ang chat"
@@ -1592,7 +1628,6 @@ msgid "Including anonymous users"
 msgstr "Kasama ang mga anonymous na user"
 
 #: src/features/chats/components/chat-settings-dialog.tsx
-#: src/features/chats/index.tsx
 msgid "Incoming chats"
 msgstr "Mga papasok na chat"
 
@@ -1641,6 +1676,11 @@ msgstr "Mga keyboard shortcut"
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Large"
 msgstr "Malaki"
+
+#. placeholder {0}: formatTimestamp(presence.seen)
+#: src/features/chats/index.tsx
+msgid "Last seen {0}"
+msgstr "Huling nakita {0}"
 
 #: src/features/chats/constants/reactions.ts
 msgid "Laugh"
@@ -1936,6 +1976,10 @@ msgstr "Ang pangalan ay dapat {CHAT_NAME_MAX_LENGTH} karakter o mas mababa"
 msgid "Name must be 1000 characters or less"
 msgstr "Ang pangalan ay dapat 1000 karakter o mas mababa"
 
+#: src/features/chats/components/new-chat.tsx
+msgid "Network"
+msgstr "Network"
+
 #: ../../../lib/web/src/features/errors/general-error.tsx
 #: ../../../lib/web/src/lib/api-response-interceptors.ts
 msgid "Network error"
@@ -2158,6 +2202,11 @@ msgstr "Mas lumang resulta"
 msgid "On"
 msgstr "Naka-on"
 
+#: src/features/chats/index.tsx
+msgctxt "presence"
+msgid "Online"
+msgstr "Aktibo"
+
 #: ../../../lib/web/src/features/errors/not-found-error.tsx
 msgid "Oops! Page Not Found!"
 msgstr "Ay! Hindi Nahanap ang Pahina!"
@@ -2328,6 +2377,9 @@ msgstr "Nakaraang taon"
 
 #: ../../../lib/web/src/components/server-documents-footer.tsx
 #: ../../../lib/web/src/features/document/document-page.tsx
+#: src/features/chats/components/chat-settings-dialog.tsx
+#: src/features/chats/index.tsx
+#: src/features/chats/index.tsx
 msgid "Privacy"
 msgstr "Pagkapribado"
 
@@ -2358,6 +2410,11 @@ msgstr "I-relink ang iyong mga account sa server na ito"
 #: ../../../lib/web/src/components/restore-banner.tsx
 msgid "Re-register your passkeys on this server"
 msgstr "Muling irehistro ang iyong mga passkey sa server na ito"
+
+#: src/features/chats/components/chat-message-list.tsx
+msgctxt "receipt"
+msgid "Read"
+msgstr "Nabasa na"
 
 #: src/features/chats/components/message-body.tsx
 msgid "Read more"
@@ -2530,6 +2587,11 @@ msgstr "Paulit-ulit"
 #: src/features/chats/components/message-hover-actions.tsx
 msgid "Reply"
 msgstr "Tumugon"
+
+#: src/features/chats/components/message-hover-actions.tsx
+#: src/features/chats/components/thread-panel.tsx
+msgid "Reply in thread"
+msgstr "Tumugon sa thread"
 
 #. placeholder {0}: comment.name || comment.author
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx
@@ -2707,6 +2769,11 @@ msgstr "Mag-seek sa audio"
 msgid "Seek in voice note"
 msgstr "Mag-seek sa voice note"
 
+#. placeholder {0}: formatList(seen.names)
+#: src/features/chats/components/chat-message-list.tsx
+msgid "Seen by {0}"
+msgstr "Nakita: {0}"
+
 #: ../../../lib/web/src/hooks/use-field-type-labels.ts
 msgid "Select"
 msgstr "Pumili"
@@ -2786,6 +2853,10 @@ msgstr "Pinili ang pinakabagong {BULK_MESSAGES_MAX} mensahe, ang pinakamarami na
 msgid "Selected: <0>{0}</0>"
 msgstr "Napili: <0>{0}</0>"
 
+#: src/features/chats/components/thread-panel.tsx
+msgid "Send"
+msgstr "Ipadala"
+
 #: ../../../lib/web/src/features/accounts/account-verify.tsx
 msgid "Send again"
 msgstr "Ipadala muli"
@@ -2800,6 +2871,15 @@ msgstr "Magpadala ng email"
 #: src/features/chats/components/chat-input.tsx
 msgid "Send message"
 msgstr "Ipadala ang mensahe"
+
+#: src/features/chats/components/chat-settings-dialog.tsx
+msgid "Send read receipts"
+msgstr "Magpadala ng kumpirmasyon ng pagbasa"
+
+#: src/features/chats/components/chat-message-list.tsx
+msgctxt "receipt"
+msgid "Sent"
+msgstr "Naipadala"
 
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Serif"
@@ -2829,9 +2909,17 @@ msgstr "Itakda ang origin at destination"
 msgid "Settings"
 msgstr "Mga setting"
 
+#: src/features/chats/components/chat-settings-dialog.tsx
+msgid "Settings saved"
+msgstr "Na-save ang mga setting"
+
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx
 msgid "Show classes"
 msgstr "Ipakita ang mga klase"
+
+#: src/features/chats/components/thread-panel.tsx
+msgid "Show earlier replies"
+msgstr "Ipakita ang mga naunang tugon"
 
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx
 msgid "Show fields"
@@ -2845,6 +2933,14 @@ msgstr "Magpakita ng mas kaunti"
 #: ../../../lib/web/src/components/entity/keyboard-shortcuts-help.tsx
 msgid "Show this help"
 msgstr "Ipakita ang tulong na ito"
+
+#: src/features/chats/components/chat-settings-dialog.tsx
+msgid "Show when I'm online"
+msgstr "Ipakita kapag online ako"
+
+#: src/features/chats/components/chat-settings-dialog.tsx
+msgid "Show when I'm typing"
+msgstr "Ipakita kapag nagta-type ako"
 
 #: ../../../lib/web/src/components/ui/load-more.tsx
 msgid "Showing {totalShown} of {total}"
@@ -2901,6 +2997,7 @@ msgstr "Magsimula ng usapan"
 msgid "Start the discussion by adding the first comment."
 msgstr "Simulan ang diskusyon sa pamamagitan ng pagdagdag ng unang komento."
 
+#: src/features/chats/index.tsx
 #: src/features/chats/index.tsx
 msgid "Starting chat..."
 msgstr "Sinisimulan ang chat..."
@@ -3052,12 +3149,17 @@ msgstr "Made-delete ang mensahe para sa lahat at hindi na ito maibabalik."
 
 #: src/features/chats/components/chat-message-list.tsx
 #: src/features/chats/components/message-quote.tsx
+#: src/features/chats/components/thread-panel.tsx
 msgid "This message was deleted"
 msgstr "Na-delete ang mensaheng ito"
 
 #: ../../../lib/web/src/components/game/game-end-dialogs.tsx
 msgid "This permanently deletes the game and its chat. This cannot be undone."
 msgstr "Permanenteng buburahin nito ang laro at ang chat nito. Hindi na maaaring bawiin ang aksyong ito."
+
+#: src/features/chats/components/thread-panel.tsx
+msgid "Thread"
+msgstr "Thread"
 
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Thursday"

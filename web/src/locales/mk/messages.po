@@ -48,6 +48,13 @@ msgstr "(вие)"
 msgid "[not set]"
 msgstr "[не е поставено]"
 
+#. placeholder {0}: typingNames.length
+#. placeholder {1}: typingNames[0]
+#. placeholder {2}: formatList(typingNames)
+#: src/features/chats/index.tsx
+msgid "{0, plural, =1 {{1} is typing...} other {{2} are typing...}}"
+msgstr "{0, plural, =1 {{1} пишува...} other {{2} пишуваат...}}"
+
 #. placeholder {0}: deleteTargetIds?.length ?? 0
 #: src/features/chats/index.tsx
 msgid "{0, plural, =1 {Delete message?} other {Delete # messages?}}"
@@ -57,6 +64,11 @@ msgstr "{0, plural, one {Да се избрише # порака?} other {Да �
 #: ../../../lib/web/src/components/diff-viewer.tsx
 msgid "{0, plural, one {# file changed} other {# files changed}}"
 msgstr "{0, plural, one {# датотека променета} other {# датотеки променети}}"
+
+#. placeholder {0}: message.replies
+#: src/features/chats/components/chat-message-list.tsx
+msgid "{0, plural, one {# reply} other {# replies}}"
+msgstr "{0, plural, one {# одговор} other {# одговори}}"
 
 #. placeholder {0}: visible.length
 #: ../../../lib/web/src/components/inline-entity-search.tsx
@@ -307,6 +319,10 @@ msgstr "Се додава {0}/{1}..."
 msgid "Adding member..."
 msgstr "Се додава член..."
 
+#: src/features/chats/components/new-chat.tsx
+msgid "Addresses"
+msgstr "Адреси"
+
 #: src/features/chats/constants/reactions.ts
 msgid "Agree"
 msgstr "Се согласувам"
@@ -409,6 +425,11 @@ msgstr "Сигурен ли си дека сакаш да се повлечеш?
 msgid "Are you sure you want to resign? {opponentName} will win the game."
 msgstr "Сигурен ли си дека сакаш да се повлечеш? {opponentName} ќе ја добие играта."
 
+#. placeholder {0}: selectedChat.address
+#: src/features/chats/index.tsx
+msgid "As {0}"
+msgstr "Како {0}"
+
 #: ../../../lib/web/src/components/ui/sort-direction-button.tsx
 msgid "Ascending"
 msgstr "Растечки"
@@ -458,6 +479,11 @@ msgstr "Аватар"
 #: ../../../lib/web/src/components/entity-avatar.tsx
 msgid "Avatar for {name}"
 msgstr "Аватар за {name}"
+
+#: src/features/chats/index.tsx
+msgctxt "presence"
+msgid "Away"
+msgstr "Отсутен"
 
 #: ../../../lib/web/src/components/place-picker.tsx
 msgid "Back"
@@ -530,6 +556,11 @@ msgstr "Боја на раб"
 #: ../../../lib/web/src/features/accounts/types.ts
 msgid "Browser notifications"
 msgstr "Известувања во прелистувач"
+
+#: src/features/chats/index.tsx
+msgctxt "presence"
+msgid "Busy"
+msgstr "Зафатен"
 
 #: ../../../lib/web/src/features/accounts/types.ts
 msgid "Calendar server"
@@ -667,10 +698,7 @@ msgstr "Разговорот не е пронајден"
 msgid "Chat pinned"
 msgstr "Разговорот е закачен"
 
-#: src/features/chats/components/chat-settings-dialog.tsx
-msgid "Chat policy updated"
-msgstr "Политиката за разговори е ажурирана"
-
+#: src/features/chats/components/new-chat.tsx
 #: src/features/chats/components/new-chat.tsx
 msgid "Chat ready"
 msgstr "Разговорот е спремен"
@@ -679,7 +707,6 @@ msgstr "Разговорот е спремен"
 msgid "Chat renamed"
 msgstr "Разговорот е преименуван"
 
-#: src/features/chats/index.tsx
 #: src/features/chats/index.tsx
 #: src/routes/_authenticated/$chatId_.settings.tsx
 #: src/routes/_authenticated/$chatId_.settings.tsx
@@ -963,6 +990,7 @@ msgid "Created {field}"
 msgstr "Создадено {field}"
 
 #: src/features/chats/components/new-chat.tsx
+#: src/features/chats/components/new-chat.tsx
 msgid "Creating chat..."
 msgstr "Се создава разговор..."
 
@@ -1089,6 +1117,11 @@ msgstr "Се брише разговорот..."
 #: src/features/chats/index.tsx
 msgid "Deleting..."
 msgstr "Бришење..."
+
+#: src/features/chats/components/chat-message-list.tsx
+msgctxt "receipt"
+msgid "Delivered"
+msgstr "Доставено"
 
 #: ../../../lib/web/src/components/ui/sort-direction-button.tsx
 msgid "Descending"
@@ -1312,6 +1345,7 @@ msgid "Failed to copy message"
 msgstr "Копирањето на пораката не успеа"
 
 #: src/features/chats/components/new-chat.tsx
+#: src/features/chats/components/new-chat.tsx
 msgid "Failed to create chat"
 msgstr "Неуспешно креирање на разговор"
 
@@ -1393,8 +1427,8 @@ msgid "Failed to load video"
 msgstr "Не успеа вчитувањето на видеото"
 
 #: src/features/chats/components/chat-settings-dialog.tsx
-msgid "Failed to load your chat policy"
-msgstr "Не успеа вчитувањето на вашата политика за разговор"
+msgid "Failed to load your settings"
+msgstr "Неуспешно вчитување на вашите поставки"
 
 #: src/components/layout/chat-layout.tsx
 msgid "Failed to mark chat as read"
@@ -1437,10 +1471,12 @@ msgstr "Неуспешно зачувување"
 msgid "Failed to save prompt"
 msgstr "Неуспешно зачувување на промпт"
 
+#: src/features/chats/components/thread-panel.tsx
 #: src/features/chats/index.tsx
 msgid "Failed to send message"
 msgstr "Неуспешно испраќање на порака"
 
+#: src/features/chats/index.tsx
 #: src/features/chats/index.tsx
 msgid "Failed to start chat"
 msgstr "Неуспешно започнување на разговор"
@@ -1592,7 +1628,6 @@ msgid "Including anonymous users"
 msgstr "Вклучувајќи анонимни корисници"
 
 #: src/features/chats/components/chat-settings-dialog.tsx
-#: src/features/chats/index.tsx
 msgid "Incoming chats"
 msgstr "Дојдовни разговори"
 
@@ -1641,6 +1676,11 @@ msgstr "Кратенки на тастатура"
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Large"
 msgstr "Големо"
+
+#. placeholder {0}: formatTimestamp(presence.seen)
+#: src/features/chats/index.tsx
+msgid "Last seen {0}"
+msgstr "Последно на линија {0}"
 
 #: src/features/chats/constants/reactions.ts
 msgid "Laugh"
@@ -1936,6 +1976,10 @@ msgstr "Името мора да биде до {CHAT_NAME_MAX_LENGTH} знаци
 msgid "Name must be 1000 characters or less"
 msgstr "Името мора да биде до 1000 знаци"
 
+#: src/features/chats/components/new-chat.tsx
+msgid "Network"
+msgstr "Мрежа"
+
 #: ../../../lib/web/src/features/errors/general-error.tsx
 #: ../../../lib/web/src/lib/api-response-interceptors.ts
 msgid "Network error"
@@ -2158,6 +2202,11 @@ msgstr "Постар резултат"
 msgid "On"
 msgstr "Вклучено"
 
+#: src/features/chats/index.tsx
+msgctxt "presence"
+msgid "Online"
+msgstr "На линија"
+
 #: ../../../lib/web/src/features/errors/not-found-error.tsx
 msgid "Oops! Page Not Found!"
 msgstr "Упс! Страницата не е пронајдена!"
@@ -2328,6 +2377,9 @@ msgstr "Претходна година"
 
 #: ../../../lib/web/src/components/server-documents-footer.tsx
 #: ../../../lib/web/src/features/document/document-page.tsx
+#: src/features/chats/components/chat-settings-dialog.tsx
+#: src/features/chats/index.tsx
+#: src/features/chats/index.tsx
 msgid "Privacy"
 msgstr "Приватност"
 
@@ -2358,6 +2410,11 @@ msgstr "Повторно поврзете ги профилите на овој 
 #: ../../../lib/web/src/components/restore-banner.tsx
 msgid "Re-register your passkeys on this server"
 msgstr "Повторно регистрирајте ги вашите клучеви за пристап на овој сервер"
+
+#: src/features/chats/components/chat-message-list.tsx
+msgctxt "receipt"
+msgid "Read"
+msgstr "Прочитано"
 
 #: src/features/chats/components/message-body.tsx
 msgid "Read more"
@@ -2530,6 +2587,11 @@ msgstr "Се повторува"
 #: src/features/chats/components/message-hover-actions.tsx
 msgid "Reply"
 msgstr "Одговори"
+
+#: src/features/chats/components/message-hover-actions.tsx
+#: src/features/chats/components/thread-panel.tsx
+msgid "Reply in thread"
+msgstr "Одговори во темата"
 
 #. placeholder {0}: comment.name || comment.author
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx
@@ -2707,6 +2769,11 @@ msgstr "Премотај во аудиото"
 msgid "Seek in voice note"
 msgstr "Премотај во гласовната порака"
 
+#. placeholder {0}: formatList(seen.names)
+#: src/features/chats/components/chat-message-list.tsx
+msgid "Seen by {0}"
+msgstr "Видено од {0}"
+
 #: ../../../lib/web/src/hooks/use-field-type-labels.ts
 msgid "Select"
 msgstr "Избери"
@@ -2786,6 +2853,10 @@ msgstr "Избрани се најновите {BULK_MESSAGES_MAX} пораки 
 msgid "Selected: <0>{0}</0>"
 msgstr "Избрано: <0>{0}</0>"
 
+#: src/features/chats/components/thread-panel.tsx
+msgid "Send"
+msgstr "Испрати"
+
 #: ../../../lib/web/src/features/accounts/account-verify.tsx
 msgid "Send again"
 msgstr "Испрати повторно"
@@ -2800,6 +2871,15 @@ msgstr "Испрати е-пошта"
 #: src/features/chats/components/chat-input.tsx
 msgid "Send message"
 msgstr "Испрати порака"
+
+#: src/features/chats/components/chat-settings-dialog.tsx
+msgid "Send read receipts"
+msgstr "Испраќај потврди за читање"
+
+#: src/features/chats/components/chat-message-list.tsx
+msgctxt "receipt"
+msgid "Sent"
+msgstr "Испратено"
 
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Serif"
@@ -2829,9 +2909,17 @@ msgstr "Постави потекло и одредиште"
 msgid "Settings"
 msgstr "Поставки"
 
+#: src/features/chats/components/chat-settings-dialog.tsx
+msgid "Settings saved"
+msgstr "Поставките се зачувани"
+
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx
 msgid "Show classes"
 msgstr "Прикажи класи"
+
+#: src/features/chats/components/thread-panel.tsx
+msgid "Show earlier replies"
+msgstr "Прикажи претходни одговори"
 
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx
 msgid "Show fields"
@@ -2845,6 +2933,14 @@ msgstr "Прикажи помалку"
 #: ../../../lib/web/src/components/entity/keyboard-shortcuts-help.tsx
 msgid "Show this help"
 msgstr "Прикажи ја оваа помош"
+
+#: src/features/chats/components/chat-settings-dialog.tsx
+msgid "Show when I'm online"
+msgstr "Прикажи кога сум на линија"
+
+#: src/features/chats/components/chat-settings-dialog.tsx
+msgid "Show when I'm typing"
+msgstr "Прикажи кога пишувам"
 
 #: ../../../lib/web/src/components/ui/load-more.tsx
 msgid "Showing {totalShown} of {total}"
@@ -2901,6 +2997,7 @@ msgstr "Започнете разговор"
 msgid "Start the discussion by adding the first comment."
 msgstr "Започнете ја дискусијата со додавање на првиот коментар."
 
+#: src/features/chats/index.tsx
 #: src/features/chats/index.tsx
 msgid "Starting chat..."
 msgstr "Се започнува разговор..."
@@ -3052,12 +3149,17 @@ msgstr "Ова ја брише пораката за сите и не може �
 
 #: src/features/chats/components/chat-message-list.tsx
 #: src/features/chats/components/message-quote.tsx
+#: src/features/chats/components/thread-panel.tsx
 msgid "This message was deleted"
 msgstr "Оваа порака е избришана"
 
 #: ../../../lib/web/src/components/game/game-end-dialogs.tsx
 msgid "This permanently deletes the game and its chat. This cannot be undone."
 msgstr "Ова трајно ќе ја избрише играта и нејзиниот разговор. Ова дејство не може да се врати."
+
+#: src/features/chats/components/thread-panel.tsx
+msgid "Thread"
+msgstr "Тема"
 
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Thursday"

@@ -48,6 +48,13 @@ msgstr "(మీరు)"
 msgid "[not set]"
 msgstr "[సెట్ చేయలేదు]"
 
+#. placeholder {0}: typingNames.length
+#. placeholder {1}: typingNames[0]
+#. placeholder {2}: formatList(typingNames)
+#: src/features/chats/index.tsx
+msgid "{0, plural, =1 {{1} is typing...} other {{2} are typing...}}"
+msgstr "{0, plural, =1 {{1} టైప్ చేస్తున్నారు...} other {{2} టైప్ చేస్తున్నారు...}}"
+
 #. placeholder {0}: deleteTargetIds?.length ?? 0
 #: src/features/chats/index.tsx
 msgid "{0, plural, =1 {Delete message?} other {Delete # messages?}}"
@@ -57,6 +64,11 @@ msgstr "{0, plural, =1 {సందేశాన్ని తొలగించా�
 #: ../../../lib/web/src/components/diff-viewer.tsx
 msgid "{0, plural, one {# file changed} other {# files changed}}"
 msgstr "{0, plural, one {# ఫైల్ మార్చబడింది} other {# ఫైల్‌లు మార్చబడ్డాయి}}"
+
+#. placeholder {0}: message.replies
+#: src/features/chats/components/chat-message-list.tsx
+msgid "{0, plural, one {# reply} other {# replies}}"
+msgstr "{0, plural, one {# జవాబు} other {# జవాబులు}}"
 
 #. placeholder {0}: visible.length
 #: ../../../lib/web/src/components/inline-entity-search.tsx
@@ -307,6 +319,10 @@ msgstr "{0}/{1} జోడిస్తోంది..."
 msgid "Adding member..."
 msgstr "సభ్యుడిని జోడిస్తోంది..."
 
+#: src/features/chats/components/new-chat.tsx
+msgid "Addresses"
+msgstr "చిరునామాలు"
+
 #: src/features/chats/constants/reactions.ts
 msgid "Agree"
 msgstr "ఏకీభవిస్తాను"
@@ -409,6 +425,11 @@ msgstr "మీరు నిజంగా రాజీనామా చేయాల
 msgid "Are you sure you want to resign? {opponentName} will win the game."
 msgstr "మీరు నిజంగా రాజీనామా చేయాలనుకుంటున్నారా? {opponentName} ఆటను గెలుస్తాడు."
 
+#. placeholder {0}: selectedChat.address
+#: src/features/chats/index.tsx
+msgid "As {0}"
+msgstr "{0} గా"
+
 #: ../../../lib/web/src/components/ui/sort-direction-button.tsx
 msgid "Ascending"
 msgstr "ఆరోహణ"
@@ -458,6 +479,11 @@ msgstr "అవతార్"
 #: ../../../lib/web/src/components/entity-avatar.tsx
 msgid "Avatar for {name}"
 msgstr "{name} కోసం అవతార్"
+
+#: src/features/chats/index.tsx
+msgctxt "presence"
+msgid "Away"
+msgstr "దూరంగా ఉన్నారు"
 
 #: ../../../lib/web/src/components/place-picker.tsx
 msgid "Back"
@@ -530,6 +556,11 @@ msgstr "అంచు రంగు"
 #: ../../../lib/web/src/features/accounts/types.ts
 msgid "Browser notifications"
 msgstr "బ్రౌజర్ నోటిఫికేషన్‌లు"
+
+#: src/features/chats/index.tsx
+msgctxt "presence"
+msgid "Busy"
+msgstr "బిజీగా ఉన్నారు"
 
 #: ../../../lib/web/src/features/accounts/types.ts
 msgid "Calendar server"
@@ -667,10 +698,7 @@ msgstr "చాట్ కనుగొనబడలేదు"
 msgid "Chat pinned"
 msgstr "చాట్ పిన్ చేయబడింది"
 
-#: src/features/chats/components/chat-settings-dialog.tsx
-msgid "Chat policy updated"
-msgstr "చాట్ విధానం నవీకరించబడింది"
-
+#: src/features/chats/components/new-chat.tsx
 #: src/features/chats/components/new-chat.tsx
 msgid "Chat ready"
 msgstr "చాట్ సిద్ధంగా ఉంది"
@@ -679,7 +707,6 @@ msgstr "చాట్ సిద్ధంగా ఉంది"
 msgid "Chat renamed"
 msgstr "చాట్ పేరు మార్చబడింది"
 
-#: src/features/chats/index.tsx
 #: src/features/chats/index.tsx
 #: src/routes/_authenticated/$chatId_.settings.tsx
 #: src/routes/_authenticated/$chatId_.settings.tsx
@@ -963,6 +990,7 @@ msgid "Created {field}"
 msgstr "{field} సృష్టించబడింది"
 
 #: src/features/chats/components/new-chat.tsx
+#: src/features/chats/components/new-chat.tsx
 msgid "Creating chat..."
 msgstr "చాట్‌ను సృష్టిస్తోంది..."
 
@@ -1089,6 +1117,11 @@ msgstr "చాట్‌ను తొలగిస్తోంది..."
 #: src/features/chats/index.tsx
 msgid "Deleting..."
 msgstr "తొలగిస్తోంది..."
+
+#: src/features/chats/components/chat-message-list.tsx
+msgctxt "receipt"
+msgid "Delivered"
+msgstr "డెలివరీ అయింది"
 
 #: ../../../lib/web/src/components/ui/sort-direction-button.tsx
 msgid "Descending"
@@ -1312,6 +1345,7 @@ msgid "Failed to copy message"
 msgstr "సందేశాన్ని కాపీ చేయడం విఫలమైంది"
 
 #: src/features/chats/components/new-chat.tsx
+#: src/features/chats/components/new-chat.tsx
 msgid "Failed to create chat"
 msgstr "చాట్‌ను సృష్టించడంలో విఫలమైంది"
 
@@ -1393,8 +1427,8 @@ msgid "Failed to load video"
 msgstr "వీడియోను లోడ్ చేయడంలో విఫలమైంది"
 
 #: src/features/chats/components/chat-settings-dialog.tsx
-msgid "Failed to load your chat policy"
-msgstr "మీ చాట్ విధానాన్ని లోడ్ చేయడంలో విఫలమైంది"
+msgid "Failed to load your settings"
+msgstr "మీ సెట్టింగ్‌లను లోడ్ చేయడంలో విఫలమైంది"
 
 #: src/components/layout/chat-layout.tsx
 msgid "Failed to mark chat as read"
@@ -1437,10 +1471,12 @@ msgstr "సేవ్ చేయడంలో విఫలమైంది"
 msgid "Failed to save prompt"
 msgstr "ప్రాంప్ట్‌ను సేవ్ చేయడంలో విఫలమైంది"
 
+#: src/features/chats/components/thread-panel.tsx
 #: src/features/chats/index.tsx
 msgid "Failed to send message"
 msgstr "సందేశాన్ని పంపడంలో విఫలమైంది"
 
+#: src/features/chats/index.tsx
 #: src/features/chats/index.tsx
 msgid "Failed to start chat"
 msgstr "చాట్‌ను ప్రారంభించడంలో విఫలమైంది"
@@ -1592,7 +1628,6 @@ msgid "Including anonymous users"
 msgstr "అనామక వినియోగదారులతో సహా"
 
 #: src/features/chats/components/chat-settings-dialog.tsx
-#: src/features/chats/index.tsx
 msgid "Incoming chats"
 msgstr "ఇన్‌కమింగ్ చాట్‌లు"
 
@@ -1641,6 +1676,11 @@ msgstr "కీబోర్డ్ షార్ట్‌కట్‌లు"
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Large"
 msgstr "పెద్దది"
+
+#. placeholder {0}: formatTimestamp(presence.seen)
+#: src/features/chats/index.tsx
+msgid "Last seen {0}"
+msgstr "చివరిగా చూసింది {0}"
 
 #: src/features/chats/constants/reactions.ts
 msgid "Laugh"
@@ -1936,6 +1976,10 @@ msgstr "పేరు {CHAT_NAME_MAX_LENGTH} క్యారెక్టర్‌
 msgid "Name must be 1000 characters or less"
 msgstr "పేరు 1000 క్యారెక్టర్‌లు లేదా అంతకంటే తక్కువ ఉండాలి"
 
+#: src/features/chats/components/new-chat.tsx
+msgid "Network"
+msgstr "నెట్‌వర్క్"
+
 #: ../../../lib/web/src/features/errors/general-error.tsx
 #: ../../../lib/web/src/lib/api-response-interceptors.ts
 msgid "Network error"
@@ -2158,6 +2202,11 @@ msgstr "పాత సరిపోలిక"
 msgid "On"
 msgstr "ఆన్"
 
+#: src/features/chats/index.tsx
+msgctxt "presence"
+msgid "Online"
+msgstr "ఆన్‌లైన్"
+
 #: ../../../lib/web/src/features/errors/not-found-error.tsx
 msgid "Oops! Page Not Found!"
 msgstr "అయ్యో! పేజీ కనుగొనబడలేదు!"
@@ -2328,6 +2377,9 @@ msgstr "మునుపటి సంవత్సరం"
 
 #: ../../../lib/web/src/components/server-documents-footer.tsx
 #: ../../../lib/web/src/features/document/document-page.tsx
+#: src/features/chats/components/chat-settings-dialog.tsx
+#: src/features/chats/index.tsx
+#: src/features/chats/index.tsx
 msgid "Privacy"
 msgstr "గోప్యత"
 
@@ -2358,6 +2410,11 @@ msgstr "ఈ సర్వర్‌లో మీ ఖాతాలను మళ్�
 #: ../../../lib/web/src/components/restore-banner.tsx
 msgid "Re-register your passkeys on this server"
 msgstr "ఈ సర్వర్‌లో మీ పాస్‌కీలను మళ్లీ నమోదు చేయండి"
+
+#: src/features/chats/components/chat-message-list.tsx
+msgctxt "receipt"
+msgid "Read"
+msgstr "చదివారు"
 
 #: src/features/chats/components/message-body.tsx
 msgid "Read more"
@@ -2530,6 +2587,11 @@ msgstr "పునరావృతమవుతుంది"
 #: src/features/chats/components/message-hover-actions.tsx
 msgid "Reply"
 msgstr "రిప్లై"
+
+#: src/features/chats/components/message-hover-actions.tsx
+#: src/features/chats/components/thread-panel.tsx
+msgid "Reply in thread"
+msgstr "థ్రెడ్‌లో ప్రత్యుత్తరం ఇవ్వండి"
 
 #. placeholder {0}: comment.name || comment.author
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx
@@ -2707,6 +2769,11 @@ msgstr "ఆడియోలో ముందుకు వెనుకకు వె
 msgid "Seek in voice note"
 msgstr "వాయిస్ నోట్‌లో ముందుకు వెనుకకు వెళ్లండి"
 
+#. placeholder {0}: formatList(seen.names)
+#: src/features/chats/components/chat-message-list.tsx
+msgid "Seen by {0}"
+msgstr "{0} చూశారు"
+
 #: ../../../lib/web/src/hooks/use-field-type-labels.ts
 msgid "Select"
 msgstr "ఎంచుకోండి"
@@ -2786,6 +2853,10 @@ msgstr "సరికొత్త {BULK_MESSAGES_MAX} సందేశాలు �
 msgid "Selected: <0>{0}</0>"
 msgstr "ఎంచుకోబడింది: <0>{0}</0>"
 
+#: src/features/chats/components/thread-panel.tsx
+msgid "Send"
+msgstr "పంపండి"
+
 #: ../../../lib/web/src/features/accounts/account-verify.tsx
 msgid "Send again"
 msgstr "మళ్ళీ పంపండి"
@@ -2800,6 +2871,15 @@ msgstr "ఇమెయిల్ పంపండి"
 #: src/features/chats/components/chat-input.tsx
 msgid "Send message"
 msgstr "సందేశాన్ని పంపండి"
+
+#: src/features/chats/components/chat-settings-dialog.tsx
+msgid "Send read receipts"
+msgstr "చదివిన రసీదులను పంపండి"
+
+#: src/features/chats/components/chat-message-list.tsx
+msgctxt "receipt"
+msgid "Sent"
+msgstr "పంపబడింది"
 
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Serif"
@@ -2829,9 +2909,17 @@ msgstr "మూలం మరియు గమ్యస్థానాన్ని 
 msgid "Settings"
 msgstr "సెట్టింగ్‌లు"
 
+#: src/features/chats/components/chat-settings-dialog.tsx
+msgid "Settings saved"
+msgstr "సెట్టింగ్‌లు సేవ్ చేయబడ్డాయి"
+
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx
 msgid "Show classes"
 msgstr "క్లాస్‌లను చూపించు"
+
+#: src/features/chats/components/thread-panel.tsx
+msgid "Show earlier replies"
+msgstr "మునుపటి జవాబులను చూపించండి"
 
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx
 msgid "Show fields"
@@ -2845,6 +2933,14 @@ msgstr "తక్కువ చూపించండి"
 #: ../../../lib/web/src/components/entity/keyboard-shortcuts-help.tsx
 msgid "Show this help"
 msgstr "ఈ సహాయాన్ని చూపించు"
+
+#: src/features/chats/components/chat-settings-dialog.tsx
+msgid "Show when I'm online"
+msgstr "నేను ఆన్‌లైన్‌లో ఉన్నప్పుడు చూపించండి"
+
+#: src/features/chats/components/chat-settings-dialog.tsx
+msgid "Show when I'm typing"
+msgstr "నేను టైప్ చేస్తున్నప్పుడు చూపించండి"
 
 #: ../../../lib/web/src/components/ui/load-more.tsx
 msgid "Showing {totalShown} of {total}"
@@ -2901,6 +2997,7 @@ msgstr "సంభాషణ ప్రారంభించండి"
 msgid "Start the discussion by adding the first comment."
 msgstr "మొదటి వ్యాఖ్యను జోడించడం ద్వారా చర్చను ప్రారంభించండి."
 
+#: src/features/chats/index.tsx
 #: src/features/chats/index.tsx
 msgid "Starting chat..."
 msgstr "చాట్‌ను ప్రారంభిస్తోంది..."
@@ -3052,12 +3149,17 @@ msgstr "ఇది సందేశాన్ని అందరికీ తొల
 
 #: src/features/chats/components/chat-message-list.tsx
 #: src/features/chats/components/message-quote.tsx
+#: src/features/chats/components/thread-panel.tsx
 msgid "This message was deleted"
 msgstr "ఈ సందేశం తొలగించబడింది"
 
 #: ../../../lib/web/src/components/game/game-end-dialogs.tsx
 msgid "This permanently deletes the game and its chat. This cannot be undone."
 msgstr "ఇది గేమ్‌ను మరియు దాని చాట్‌ను శాశ్వతంగా తొలగిస్తుంది. ఈ చర్యను తిరిగి మార్చలేరు."
+
+#: src/features/chats/components/thread-panel.tsx
+msgid "Thread"
+msgstr "థ్రెడ్"
 
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Thursday"

@@ -48,6 +48,13 @@ msgstr "(wewe)"
 msgid "[not set]"
 msgstr "[haijawekwa]"
 
+#. placeholder {0}: typingNames.length
+#. placeholder {1}: typingNames[0]
+#. placeholder {2}: formatList(typingNames)
+#: src/features/chats/index.tsx
+msgid "{0, plural, =1 {{1} is typing...} other {{2} are typing...}}"
+msgstr "{0, plural, =1 {{1} anaandika...} other {{2} wanaandika...}}"
+
 #. placeholder {0}: deleteTargetIds?.length ?? 0
 #: src/features/chats/index.tsx
 msgid "{0, plural, =1 {Delete message?} other {Delete # messages?}}"
@@ -57,6 +64,11 @@ msgstr "{0, plural, =1 {Futa ujumbe?} other {Futa jumbe #?}}"
 #: ../../../lib/web/src/components/diff-viewer.tsx
 msgid "{0, plural, one {# file changed} other {# files changed}}"
 msgstr "{0, plural, one {faili # limebadilishwa} other {faili # yamebadilishwa}}"
+
+#. placeholder {0}: message.replies
+#: src/features/chats/components/chat-message-list.tsx
+msgid "{0, plural, one {# reply} other {# replies}}"
+msgstr "{0, plural, one {Jibu #} other {Majibu #}}"
 
 #. placeholder {0}: visible.length
 #: ../../../lib/web/src/components/inline-entity-search.tsx
@@ -307,6 +319,10 @@ msgstr "Inaongeza {0}/{1}..."
 msgid "Adding member..."
 msgstr "Inaongeza mwanachama..."
 
+#: src/features/chats/components/new-chat.tsx
+msgid "Addresses"
+msgstr "Anwani"
+
 #: src/features/chats/constants/reactions.ts
 msgid "Agree"
 msgstr "Kubali"
@@ -409,6 +425,11 @@ msgstr "Una uhakika unataka kuachia?"
 msgid "Are you sure you want to resign? {opponentName} will win the game."
 msgstr "Una uhakika unataka kujisalimisha? {opponentName} atashinda mchezo."
 
+#. placeholder {0}: selectedChat.address
+#: src/features/chats/index.tsx
+msgid "As {0}"
+msgstr "Kama {0}"
+
 #: ../../../lib/web/src/components/ui/sort-direction-button.tsx
 msgid "Ascending"
 msgstr "Kupanda"
@@ -458,6 +479,11 @@ msgstr "Picha ya wasifu"
 #: ../../../lib/web/src/components/entity-avatar.tsx
 msgid "Avatar for {name}"
 msgstr "Avatar ya {name}"
+
+#: src/features/chats/index.tsx
+msgctxt "presence"
+msgid "Away"
+msgstr "Hayupo"
 
 #: ../../../lib/web/src/components/place-picker.tsx
 msgid "Back"
@@ -530,6 +556,11 @@ msgstr "Rangi ya mpaka"
 #: ../../../lib/web/src/features/accounts/types.ts
 msgid "Browser notifications"
 msgstr "Arifa za kivinjari"
+
+#: src/features/chats/index.tsx
+msgctxt "presence"
+msgid "Busy"
+msgstr "Ana shughuli"
 
 #: ../../../lib/web/src/features/accounts/types.ts
 msgid "Calendar server"
@@ -667,10 +698,7 @@ msgstr "Gumzo halijapatikana"
 msgid "Chat pinned"
 msgstr "Gumzo limebandikwa"
 
-#: src/features/chats/components/chat-settings-dialog.tsx
-msgid "Chat policy updated"
-msgstr "Sera ya gumzo imesasishwa"
-
+#: src/features/chats/components/new-chat.tsx
 #: src/features/chats/components/new-chat.tsx
 msgid "Chat ready"
 msgstr "Gumzo liko tayari"
@@ -679,7 +707,6 @@ msgstr "Gumzo liko tayari"
 msgid "Chat renamed"
 msgstr "Gumzo limepewa jina jipya"
 
-#: src/features/chats/index.tsx
 #: src/features/chats/index.tsx
 #: src/routes/_authenticated/$chatId_.settings.tsx
 #: src/routes/_authenticated/$chatId_.settings.tsx
@@ -963,6 +990,7 @@ msgid "Created {field}"
 msgstr "Imeunda {field}"
 
 #: src/features/chats/components/new-chat.tsx
+#: src/features/chats/components/new-chat.tsx
 msgid "Creating chat..."
 msgstr "Inaunda gumzo..."
 
@@ -1089,6 +1117,11 @@ msgstr "Inafuta gumzo..."
 #: src/features/chats/index.tsx
 msgid "Deleting..."
 msgstr "Inafuta..."
+
+#: src/features/chats/components/chat-message-list.tsx
+msgctxt "receipt"
+msgid "Delivered"
+msgstr "Imewasilishwa"
 
 #: ../../../lib/web/src/components/ui/sort-direction-button.tsx
 msgid "Descending"
@@ -1312,6 +1345,7 @@ msgid "Failed to copy message"
 msgstr "Imeshindwa kunakili ujumbe"
 
 #: src/features/chats/components/new-chat.tsx
+#: src/features/chats/components/new-chat.tsx
 msgid "Failed to create chat"
 msgstr "Imeshindwa kuunda gumzo"
 
@@ -1393,8 +1427,8 @@ msgid "Failed to load video"
 msgstr "Imeshindwa kupakia video"
 
 #: src/features/chats/components/chat-settings-dialog.tsx
-msgid "Failed to load your chat policy"
-msgstr "Imeshindwa kupakia sera yako ya gumzo"
+msgid "Failed to load your settings"
+msgstr "Imeshindwa kupakia mipangilio yako"
 
 #: src/components/layout/chat-layout.tsx
 msgid "Failed to mark chat as read"
@@ -1437,10 +1471,12 @@ msgstr "Imeshindwa kuhifadhi"
 msgid "Failed to save prompt"
 msgstr "Imeshindwa kuhifadhi kichocheo"
 
+#: src/features/chats/components/thread-panel.tsx
 #: src/features/chats/index.tsx
 msgid "Failed to send message"
 msgstr "Imeshindwa kutuma ujumbe"
 
+#: src/features/chats/index.tsx
 #: src/features/chats/index.tsx
 msgid "Failed to start chat"
 msgstr "Imeshindwa kuanzisha gumzo"
@@ -1592,7 +1628,6 @@ msgid "Including anonymous users"
 msgstr "Ikijumuisha watumiaji wasiojulikana"
 
 #: src/features/chats/components/chat-settings-dialog.tsx
-#: src/features/chats/index.tsx
 msgid "Incoming chats"
 msgstr "Gumzo zinazoingia"
 
@@ -1641,6 +1676,11 @@ msgstr "Njia za mkato za kibodi"
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Large"
 msgstr "Kubwa"
+
+#. placeholder {0}: formatTimestamp(presence.seen)
+#: src/features/chats/index.tsx
+msgid "Last seen {0}"
+msgstr "Alionekana mara ya mwisho {0}"
 
 #: src/features/chats/constants/reactions.ts
 msgid "Laugh"
@@ -1936,6 +1976,10 @@ msgstr "Jina lazima liwe na herufi {CHAT_NAME_MAX_LENGTH} au chini"
 msgid "Name must be 1000 characters or less"
 msgstr "Jina lazima liwe na herufi 1000 au chini"
 
+#: src/features/chats/components/new-chat.tsx
+msgid "Network"
+msgstr "Mtandao"
+
 #: ../../../lib/web/src/features/errors/general-error.tsx
 #: ../../../lib/web/src/lib/api-response-interceptors.ts
 msgid "Network error"
@@ -2158,6 +2202,11 @@ msgstr "Tokeo la zamani zaidi"
 msgid "On"
 msgstr "Imewashwa"
 
+#: src/features/chats/index.tsx
+msgctxt "presence"
+msgid "Online"
+msgstr "Mtandaoni"
+
 #: ../../../lib/web/src/features/errors/not-found-error.tsx
 msgid "Oops! Page Not Found!"
 msgstr "Lo! Ukurasa Haukupatikana!"
@@ -2328,6 +2377,9 @@ msgstr "Mwaka uliopita"
 
 #: ../../../lib/web/src/components/server-documents-footer.tsx
 #: ../../../lib/web/src/features/document/document-page.tsx
+#: src/features/chats/components/chat-settings-dialog.tsx
+#: src/features/chats/index.tsx
+#: src/features/chats/index.tsx
 msgid "Privacy"
 msgstr "Faragha"
 
@@ -2358,6 +2410,11 @@ msgstr "Unganisha tena akaunti zako kwenye seva hii"
 #: ../../../lib/web/src/components/restore-banner.tsx
 msgid "Re-register your passkeys on this server"
 msgstr "Sajili upya pasiki zako kwenye seva hii"
+
+#: src/features/chats/components/chat-message-list.tsx
+msgctxt "receipt"
+msgid "Read"
+msgstr "Imesomwa"
 
 #: src/features/chats/components/message-body.tsx
 msgid "Read more"
@@ -2530,6 +2587,11 @@ msgstr "Hurudiwa"
 #: src/features/chats/components/message-hover-actions.tsx
 msgid "Reply"
 msgstr "Jibu"
+
+#: src/features/chats/components/message-hover-actions.tsx
+#: src/features/chats/components/thread-panel.tsx
+msgid "Reply in thread"
+msgstr "Jibu kwenye mfululizo"
 
 #. placeholder {0}: comment.name || comment.author
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx
@@ -2707,6 +2769,11 @@ msgstr "Sogeza kwenye sauti"
 msgid "Seek in voice note"
 msgstr "Sogeza kwenye ujumbe wa sauti"
 
+#. placeholder {0}: formatList(seen.names)
+#: src/features/chats/components/chat-message-list.tsx
+msgid "Seen by {0}"
+msgstr "Imeonwa na {0}"
+
 #: ../../../lib/web/src/hooks/use-field-type-labels.ts
 msgid "Select"
 msgstr "Chagua"
@@ -2786,6 +2853,10 @@ msgstr "Imechagua ujumbe {BULK_MESSAGES_MAX} mpya zaidi, idadi kubwa zaidi inayo
 msgid "Selected: <0>{0}</0>"
 msgstr "Imechaguliwa: <0>{0}</0>"
 
+#: src/features/chats/components/thread-panel.tsx
+msgid "Send"
+msgstr "Tuma"
+
 #: ../../../lib/web/src/features/accounts/account-verify.tsx
 msgid "Send again"
 msgstr "Tuma tena"
@@ -2800,6 +2871,15 @@ msgstr "Tuma barua pepe"
 #: src/features/chats/components/chat-input.tsx
 msgid "Send message"
 msgstr "Tuma ujumbe"
+
+#: src/features/chats/components/chat-settings-dialog.tsx
+msgid "Send read receipts"
+msgstr "Tuma arifa za kusomwa"
+
+#: src/features/chats/components/chat-message-list.tsx
+msgctxt "receipt"
+msgid "Sent"
+msgstr "Imetumwa"
 
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Serif"
@@ -2829,9 +2909,17 @@ msgstr "Weka chanzo na marudio"
 msgid "Settings"
 msgstr "Mipangilio"
 
+#: src/features/chats/components/chat-settings-dialog.tsx
+msgid "Settings saved"
+msgstr "Mipangilio imehifadhiwa"
+
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx
 msgid "Show classes"
 msgstr "Onyesha madarasa"
+
+#: src/features/chats/components/thread-panel.tsx
+msgid "Show earlier replies"
+msgstr "Onyesha majibu ya awali"
 
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx
 msgid "Show fields"
@@ -2845,6 +2933,14 @@ msgstr "Onyesha kidogo"
 #: ../../../lib/web/src/components/entity/keyboard-shortcuts-help.tsx
 msgid "Show this help"
 msgstr "Onyesha msaada huu"
+
+#: src/features/chats/components/chat-settings-dialog.tsx
+msgid "Show when I'm online"
+msgstr "Onyesha ninapokuwa mtandaoni"
+
+#: src/features/chats/components/chat-settings-dialog.tsx
+msgid "Show when I'm typing"
+msgstr "Onyesha ninapoandika"
 
 #: ../../../lib/web/src/components/ui/load-more.tsx
 msgid "Showing {totalShown} of {total}"
@@ -2901,6 +2997,7 @@ msgstr "Anza mazungumzo"
 msgid "Start the discussion by adding the first comment."
 msgstr "Anza majadiliano kwa kuongeza maoni ya kwanza."
 
+#: src/features/chats/index.tsx
 #: src/features/chats/index.tsx
 msgid "Starting chat..."
 msgstr "Inaanzisha gumzo..."
@@ -3052,12 +3149,17 @@ msgstr "Hii itafuta ujumbe kwa kila mtu na haiwezi kutenduliwa."
 
 #: src/features/chats/components/chat-message-list.tsx
 #: src/features/chats/components/message-quote.tsx
+#: src/features/chats/components/thread-panel.tsx
 msgid "This message was deleted"
 msgstr "Ujumbe huu ulifutwa"
 
 #: ../../../lib/web/src/components/game/game-end-dialogs.tsx
 msgid "This permanently deletes the game and its chat. This cannot be undone."
 msgstr "Hatua hii itafuta mchezo na mazungumzo yake kabisa. Hatua hii haiwezi kutenduliwa."
+
+#: src/features/chats/components/thread-panel.tsx
+msgid "Thread"
+msgstr "Mfululizo"
 
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Thursday"
