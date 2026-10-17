@@ -2657,9 +2657,12 @@ def chat_create_remote(a, account, name, addresses):
 	return {"data": {"id": chat, "name": name, "members": [{"id": p[0], "name": p[1]} for p in people]}}
 
 def remote_conversation(account, people):
-	"""The active conversation on an account with exactly these people, or None."""
+	"""The active conversation on an account with exactly these people, or
+	None. A room counts only where it is marked one-to-one: a group room whose
+	other members happen to be the same people is not the conversation with
+	them."""
 	wanted = sorted(people)
-	candidates = mochi.db.rows("select c.id, c.name from chats c join members m on m.chat=c.id where c.account=? and c.status='active' and m.member=? order by c.updated desc", account, wanted[0]) or []
+	candidates = mochi.db.rows("select c.id, c.name from chats c join members m on m.chat=c.id where c.account=? and c.status='active' and m.member=? and (c.room='' or c.kind='direct') order by c.updated desc", account, wanted[0]) or []
 	for chat in candidates:
 		others = sorted([m["member"] for m in mochi.db.rows("select member from members where chat=?", chat["id"]) or [] if not mochi.text.valid(m["member"], "entity")])
 		if others == wanted:
@@ -2924,7 +2927,9 @@ def direct_deleted(actor, remote):
 #
 # A conversation may belong to one of the user's linked accounts on another
 # network: an XMPP or Matrix account's one-to-one conversations and rooms, and
-# a Mastodon account's direct messages. The account's session in core hands
+# a Mastodon account's direct messages. A hosted Matrix account's rooms come
+# from core's own Matrix engine in the same events (phase 24), so they are
+# held the same way. The account's session in core hands
 # what it hears to function_linked_receive as conversation events, and what
 # the user does goes out through the account. A room keeps its id on its
 # network in the room column; a one-to-one XMPP or Mastodon conversation is
@@ -2975,17 +2980,20 @@ def account_network(acc):
 	if not acc:
 		return ""
 	if acc.get("hosted"):
+		if acc.get("type") == "matrix":
+			return "matrix"
 		return "fediverse" if acc.get("type") in CHAT_NETWORKS and acc.get("url") and acc.get("kind") != "group" else ""
 	return acc.get("type", "") if acc.get("type") in LINKED_NETWORKS else ""
 
 def chat_accounts():
 	"""The accounts conversations are had through, each with its network: the
-	user's hosted fediverse accounts and their linked XMPP, Matrix and
-	Mastodon accounts, as enabled."""
+	user's hosted fediverse and Matrix accounts and their linked XMPP, Matrix
+	and Mastodon accounts, as enabled."""
 	out = []
 	seen = {}
 	social = [acc for acc in (mochi.account.list("social") or []) if acc.get("type") == "mastodon"]
-	for acc in hosted_accounts() + list(mochi.account.list("chat") or []) + social:
+	matrix = [acc for acc in (mochi.account.list("network") or []) if acc.get("hosted") and acc.get("type") == "matrix"]
+	for acc in hosted_accounts() + matrix + list(mochi.account.list("chat") or []) + social:
 		network = account_network(acc)
 		if network and acc["id"] not in seen and acc.get("enabled", 1) != 0:
 			seen[acc["id"]] = True
@@ -3141,6 +3149,9 @@ def chat_create_linked(a, acc, name, addresses):
 			mochi.db.execute("insert or ignore into members ( chat, member, name ) values ( ?, ?, ? )", chat["id"], person[0], person[1][:200])
 	else:
 		chat = linked_chat_make(acc, label, room, me, a.user.identity.name, named)
+	# A room made for one person is the one-to-one conversation with them.
+	if room and len(named) == 1:
+		mochi.db.execute("update chats set kind='direct' where id=?", chat["id"])
 	return {"data": {"id": chat["id"], "name": label[:200], "members": [{"id": p[0], "name": p[1]} for p in named]}}
 
 def linked_rejoin(chat, me, my_name):
@@ -3199,7 +3210,7 @@ def function_linked_receive(context, account, network, events):
 	withdrawals, typing, receipts, presence, rooms and their members, and
 	invitations, each in its conversation."""
 	acc = mochi.account.get(account)
-	if not acc or acc.get("hosted") or acc.get("type") != network or network not in LINKED_NETWORKS:
+	if not acc or acc.get("type") != network or network not in LINKED_NETWORKS or account_network(acc) != network:
 		return None
 	acc["network"] = network
 	identity = chat_identity()
@@ -3457,6 +3468,9 @@ def linked_room(acc, identity, event):
 		chat_websocket(chat["key"], {"event": "rename", "name": name[:200]})
 	if event.get("encrypted") == True and not chat.get("encrypted"):
 		mochi.db.execute("update chats set encrypted=1 where id=?", chat["id"])
+	# A room its network marks one-to-one is the conversation with its person.
+	if event.get("direct") == True and chat.get("kind") != "direct":
+		mochi.db.execute("update chats set kind='direct' where id=?", chat["id"])
 
 def linked_member(acc, event):
 	"""Someone joining or leaving a room."""
