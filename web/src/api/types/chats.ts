@@ -7,8 +7,18 @@ import type { Quote } from '@mochi/web'
 
 // 'active' = current member; 'left' = we left voluntarily (kept read-only);
 // 'removed' = removed by another member (kept read-only); 'deleted' = hidden
-// tombstone (never sent in the chat list).
-type ChatStatus = 'active' | 'left' | 'removed' | 'deleted'
+// tombstone (never sent in the chat list); 'invited' = a room on a linked
+// account the user is invited to and has not accepted.
+type ChatStatus = 'active' | 'left' | 'removed' | 'deleted' | 'invited'
+
+// The networks a conversation may be on besides Mochi: a hosted fediverse
+// account's, and a linked XMPP, Matrix or Mastodon account's.
+export type ChatNetwork = 'fediverse' | 'xmpp' | 'matrix' | 'mastodon'
+
+// Whether a conversation is on a linked XMPP or Matrix account, which carry
+// typing, read markers and presence.
+export const chatLinked = (chat: Pick<Chat, 'network'>): boolean =>
+  chat.network === 'xmpp' || chat.network === 'matrix'
 
 // A missing status is treated as active so older cached rows keep working.
 export const chatActive = (chat: Pick<Chat, 'status'>): boolean =>
@@ -24,9 +34,14 @@ export interface Chat {
   status?: ChatStatus
   unread?: number
   // A conversation on another network: the user's account it is had through,
-  // and that account's address.
+  // that account's address and its network.
   account?: string
   address?: string
+  network?: ChatNetwork
+  // A room's id on its network.
+  room?: string
+  // Whether its network encrypts it: no message is sent to it from here.
+  encrypted?: number
 }
 
 export interface MarkReadRequest {
@@ -97,6 +112,8 @@ export interface ChatMessage {
   // when the latest came.
   replies?: number
   latest?: number
+  // Whether it came encrypted, with nothing shown until Mochi holds the keys.
+  encrypted?: number
 }
 
 // How far a member has received and read the conversation: every message up
@@ -167,6 +184,7 @@ interface NewChatFriend {
 export interface ChatAccount {
   id: string
   identifier: string
+  network?: ChatNetwork
 }
 
 export interface GetNewChatResponse {
@@ -217,6 +235,14 @@ export interface LeaveResponse {
 
 export interface DeleteResponse {
   success: boolean
+}
+
+export interface AcceptResponse {
+  id: string
+}
+
+export interface DeclineResponse {
+  declined: boolean
 }
 
 export interface MemberAddRequest {

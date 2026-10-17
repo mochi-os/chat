@@ -193,6 +193,7 @@ msgid "Absolute (date and time)"
 msgstr "സമ്പൂർണ്ണം (തീയതിയും സമയവും)"
 
 #: ../../../lib/web/src/components/game/game-draw-offer-banner.tsx
+#: src/features/chats/index.tsx
 msgid "Accept"
 msgstr "സ്വീകരിക്കുക"
 
@@ -1016,8 +1017,17 @@ msgid "Date"
 msgstr "തീയതി"
 
 #: ../../../lib/web/src/components/game/game-draw-offer-banner.tsx
+#: src/features/chats/index.tsx
 msgid "Decline"
 msgstr "നിരസിക്കുക"
+
+#: src/features/chats/index.tsx
+msgid "Decline invitation"
+msgstr "ക്ഷണം നിരസിക്കുക"
+
+#: src/features/chats/index.tsx
+msgid "Declining..."
+msgstr "നിരസിക്കുന്നു..."
 
 #: ../../../lib/web/src/components/ai-prompts-editor.tsx
 msgid "Default"
@@ -1283,6 +1293,10 @@ msgstr "ഇമെയിൽ"
 msgid "Email code"
 msgstr "ഇമെയിൽ കോഡ്"
 
+#: src/features/chats/components/chat-message-list.tsx
+msgid "Encrypted message"
+msgstr "എൻക്രിപ്റ്റ് ചെയ്ത സന്ദേശം"
+
 #: ../../../lib/web/src/components/calendar/time-grid.tsx
 msgid "Ends before it starts"
 msgstr "തുടങ്ങുന്നതിനു മുമ്പ് അവസാനിക്കുന്നു"
@@ -1354,6 +1368,10 @@ msgstr "ചാറ്റ് സൃഷ്ടിക്കുന്നതിൽ പ�
 msgid "Failed to create link"
 msgstr "ലിങ്ക് സൃഷ്ടിക്കുന്നതിൽ പരാജയപ്പെട്ടു"
 
+#: src/features/chats/index.tsx
+msgid "Failed to decline"
+msgstr "നിരസിക്കുന്നതിൽ പരാജയപ്പെട്ടു"
+
 #: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx
 #: src/features/chats/index.tsx
 msgid "Failed to delete"
@@ -1386,6 +1404,10 @@ msgstr "ഫോർവേഡ് ചെയ്യാനായില്ല"
 #: ../../../lib/web/src/components/options-menu.tsx
 msgid "Failed to get RSS token"
 msgstr "RSS ടോക്കൺ നേടുന്നതിൽ പരാജയപ്പെട്ടു"
+
+#: src/features/chats/index.tsx
+msgid "Failed to join"
+msgstr "ചേരുന്നതിൽ പരാജയപ്പെട്ടു"
 
 #: src/features/chats/index.tsx
 #: src/routes/_authenticated/$chatId_.settings.tsx
@@ -1651,6 +1673,14 @@ msgstr "താൽപ്പര്യങ്ങൾ"
 msgid "Invalid date"
 msgstr "അസാധുവായ തീയതി"
 
+#: src/components/layout/chat-layout.tsx
+msgid "Invitation"
+msgstr "ക്ഷണം"
+
+#: src/features/chats/index.tsx
+msgid "Invitation declined"
+msgstr "ക്ഷണം നിരസിച്ചു"
+
 #: ../../../lib/web/src/features/errors/not-found-error.tsx
 msgid "It seems like the page you're looking for <0/>does not exist or might have been removed."
 msgstr "നിങ്ങൾ തിരയുന്ന പേജ് <0/>നിലവിലില്ല അല്ലെങ്കിൽ നീക്കംചെയ്തിരിക്കാം."
@@ -1658,6 +1688,14 @@ msgstr "നിങ്ങൾ തിരയുന്ന പേജ് <0/>നില�
 #: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx
 msgid "Item details"
 msgstr "ഇനം വിശദാംശങ്ങൾ"
+
+#: src/features/chats/index.tsx
+msgid "Joined"
+msgstr "ചേർന്നു"
+
+#: src/features/chats/index.tsx
+msgid "Joining..."
+msgstr "ചേരുന്നു..."
 
 #: src/features/chats/components/chat-message-list.tsx
 #: src/features/chats/components/chat-message-list.tsx
@@ -3144,6 +3182,10 @@ msgid "This chat may have been deleted or you don't have access to it"
 msgstr "ഈ ചാറ്റ് ഇല്ലാതാക്കിയിരിക്കാം അല്ലെങ്കിൽ നിങ്ങൾക്ക് ആക്സസ് ഇല്ല"
 
 #: src/features/chats/index.tsx
+msgid "This conversation is encrypted. Messages cannot be sent to it from here yet."
+msgstr "ഈ സംഭാഷണം എൻക്രിപ്റ്റ് ചെയ്തതാണ്. ഇവിടെ നിന്ന് ഇതിലേക്ക് ഇതുവരെ സന്ദേശങ്ങൾ അയയ്ക്കാൻ കഴിയില്ല."
+
+#: src/features/chats/index.tsx
 msgid "This deletes the message for everyone and cannot be undone."
 msgstr "ഇത് എല്ലാവർക്കുമായി സന്ദേശം ഇല്ലാതാക്കും; പഴയപടിയാക്കാനാവില്ല."
 
@@ -3431,6 +3473,10 @@ msgstr "ഈ സുഹൃത്തുമായി നിങ്ങൾക്ക് 
 #: src/features/chats/components/new-chat.tsx
 msgid "You already have chats with:"
 msgstr "നിങ്ങൾക്ക് ഇപ്പോൾതന്നെ ഇവരുമായി ചാറ്റുകൾ ഉണ്ട്:"
+
+#: src/features/chats/index.tsx
+msgid "You are invited to this conversation"
+msgstr "നിങ്ങളെ ഈ സംഭാഷണത്തിലേക്ക് ക്ഷണിച്ചിരിക്കുന്നു"
 
 #: src/features/chats/index.tsx
 msgid "You can attach at most {CAPTIONS_MAX} files to a message"

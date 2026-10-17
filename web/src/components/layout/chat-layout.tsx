@@ -303,7 +303,11 @@ function ChatLayoutInner() {
         endIcon: pinned ? Pin : undefined,
         tooltipAlways: true,
         meta:
-          hasChatDraft(chat.id) && chat.id !== urlChatId ? t`Draft` : undefined,
+          chat.status === 'invited'
+            ? t`Invitation`
+            : hasChatDraft(chat.id) && chat.id !== urlChatId
+              ? t`Draft`
+              : undefined,
         badge:
           chatActive(chat) && chat.id !== urlChatId
             ? formatChatSidebarBadge(unread, markedUnread, formatNumber)

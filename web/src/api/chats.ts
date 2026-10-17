@@ -23,6 +23,8 @@ import type {
   LeaveRequest,
   LeaveResponse,
   DeleteResponse,
+  AcceptResponse,
+  DeclineResponse,
   MemberAddRequest,
   MemberAddResponse,
   MemberRemoveRequest,
@@ -236,6 +238,20 @@ export const chatsApi = {
         endpoints.chat.delete(chatId)
       )
       .then((res) => unwrapData<DeleteResponse>(res)),
+
+  accept: (chatId: string) =>
+    client
+      .post<AcceptResponse | { data: AcceptResponse }>(
+        endpoints.chat.accept(chatId)
+      )
+      .then((res) => unwrapData<AcceptResponse>(res)),
+
+  decline: (chatId: string) =>
+    client
+      .post<DeclineResponse | { data: DeclineResponse }>(
+        endpoints.chat.decline(chatId)
+      )
+      .then((res) => unwrapData<DeclineResponse>(res)),
 
   addMember: (chatId: string, payload: MemberAddRequest) =>
     client

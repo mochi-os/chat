@@ -219,6 +219,7 @@ def database_create():
 	# Attachments now live in this database, owned by the shared library.
 	attachment_schema_create()
 	chat_schema_federation()
+	chat_schema_linked()
 
 def database_upgrade(version):
 	if version == 2:
@@ -241,6 +242,11 @@ def database_upgrade(version):
 		# Threads, receipts and conversations on another network's account
 		# (the federation plan, phase 22).
 		chat_schema_federation()
+	if version == 12:
+		# Conversations on linked accounts: rooms, encryption, a message's
+		# further ids and other networks' presence (the federation plan,
+		# phase 23).
+		chat_schema_linked()
 	if version == 5 or version == 6 or version == 7:
 		# Attachments move into this database, owned by the shared library: create the
 		# table and copy rows out of core's store (bridge or export file). Versions 6
@@ -444,8 +450,12 @@ def action_preferences_set(a):
 		switches[name] = "1" if value in ("true", "1") else "0"
 	if policy != None:
 		a.user.preference.set("chat_policy", policy)
+	shared = chat_switch(a.user.preference, "presence")
 	for name in switches:
 		a.user.preference.set("chat_" + name, switches[name])
+	# The linked accounts show the user's presence as the switch now says.
+	if "presence" in switches and (switches["presence"] != "0") != shared:
+		linked_presence_share(a.user, switches["presence"] != "0")
 	return {"data": {}}
 
 # Search the directory for person entities, for the new-chat picker: with
@@ -500,7 +510,11 @@ def action_create(a):
 	# people there by their addresses (phase 22).
 	account = a.input("account", "") or ""
 	if account:
-		return chat_create_remote(a, account, name or "", [x.strip() for x in (a.input("members") or "").split(",") if x.strip()])
+		addresses = [x.strip() for x in (a.input("members") or "").split(",") if x.strip()]
+		acc = [x for x in chat_accounts() if x["id"] == account]
+		if acc and acc[0]["network"] != "fediverse":
+			return chat_create_linked(a, acc[0], name or "", addresses)
+		return chat_create_remote(a, account, name or "", addresses)
 	if not mochi.text.valid(name, "name"):
 		a.error.label(400, "errors.invalid_chat_name")
 		return
@@ -603,16 +617,18 @@ def action_list(a):
 		) or []:
 			others[row["chat"]] = row["member"]
 
-	addresses = {}
+	accounts = {}
 	if any([chat.get("account") for chat in chats]):
-		addresses = {acc["id"]: acc.get("identifier", "") for acc in hosted_accounts()}
+		accounts = {acc["id"]: acc for acc in chat_accounts()}
 	for chat in chats:
 		if chat.get("status") != "active":
 			chat["unread"] = 0
 		if chat.get("members") == 2 and chat["id"] in others:
 			chat["other"] = others[chat["id"]]
 		if chat.get("account"):
-			chat["address"] = addresses.get(chat["account"], "")
+			acc = accounts.get(chat["account"], {})
+			chat["address"] = acc.get("identifier", "")
+			chat["network"] = acc.get("network", "")
 	return {"data": chats}
 
 # Enter details of new chat
@@ -643,7 +659,7 @@ def action_new(a):
 			friend["chat"] = existing_chats[friend["id"]]
 
 	return {
-		"data": {"name": a.user.identity.name, "friends": friends, "accounts": [{"id": acc["id"], "identifier": acc.get("identifier", "")} for acc in hosted_accounts()]}
+		"data": {"name": a.user.identity.name, "friends": friends, "accounts": [account_entry(acc) for acc in chat_accounts()]}
 	}
 
 # Attachment routes (bytes, thumbnail, preview). attachment_serve performs no
@@ -805,6 +821,11 @@ def action_send(a):
 		return
 
 	if not chat_write_allowed(a, chat):
+		return
+	# A conversation its network encrypts takes nothing from here until
+	# Mochi's clients hold the keys (phase 27).
+	if chat.get("encrypted"):
+		a.error.label(403, "errors.encrypted_conversation")
 		return
 
 	body = a.input("body", "")
@@ -987,6 +1008,10 @@ def action_mark_read(a):
 	if read_ts > prior and chat_active(chat) and not chat.get("account") and chat_switch(a.user.preference, "receipts"):
 		for peer in chat_peers(chat["id"], a.user.identity.id):
 			receipt_send(a.user.identity.id, peer, chat["id"], displayed=read_ts)
+	# A linked conversation is told too, or its server alone where the switch
+	# is off (phase 23).
+	if read_ts > prior and chat_active(chat) and chat.get("account"):
+		linked_read(chat, a.user, read_ts)
 	return {"data": {"read": read_ts}}
 
 # --- Reactions -------------------------------------------------------------
@@ -1222,7 +1247,7 @@ def action_messages_delete(a):
 			continue
 		message_delete_apply(chat["id"], message_id, a.user.identity.id, now_delete)
 		if chat.get("account"):
-			remote_delete(chat, owner.get("remote", ""))
+			remote_delete(chat, message_id, owner.get("remote", ""))
 		deleted.append(message_id)
 
 	if not deleted:
@@ -1570,6 +1595,7 @@ def action_view(a):
 	acc = chat_account(chat)
 	if acc:
 		chat["address"] = acc.get("identifier", "")
+		chat["network"] = acc["network"]
 
 	mochi.service.call("notifications", "clear/object", chat["id"])
 	return {
@@ -2158,6 +2184,12 @@ def action_leave(a):
 
 	delete_local = a.input("delete") == "true"
 
+	# A room on a linked account is left there too (phase 23).
+	if chat.get("account") and chat.get("room"):
+		acc = chat_account(chat)
+		if acc and acc["network"] in LINKED_CHAT:
+			mochi.account.room.leave(acc["id"], chat["room"])
+
 	# Remove self from members
 	mochi.db.execute("delete from members where chat=? and member=?", chat["id"], a.user.identity.id)
 
@@ -2360,13 +2392,10 @@ def chat_schema_federation():
 	alike: the account a conversation is on and the kind of object its
 	network takes; a message's thread and its id on another network; and each
 	member's delivered and displayed watermarks."""
-	def add(table, column, ddl):
-		if not any([c["name"] == column for c in mochi.db.table(table)]):
-			mochi.db.execute("alter table " + table + " add column " + column + " " + ddl)
-	add("chats", "account", "text not null default ''")
-	add("chats", "kind", "text not null default ''")
-	add("messages", "thread", "text not null default ''")
-	add("messages", "remote", "text not null default ''")
+	column_add("chats", "account", "text not null default ''")
+	column_add("chats", "kind", "text not null default ''")
+	column_add("messages", "thread", "text not null default ''")
+	column_add("messages", "remote", "text not null default ''")
 	mochi.db.execute("create index if not exists messages_thread on messages( chat, thread )")
 	mochi.db.execute("create index if not exists messages_remote on messages( remote )")
 	mochi.db.execute("create table if not exists receipts ( chat text not null, member text not null, delivered integer not null default 0, displayed integer not null default 0, primary key ( chat, member ) )")
@@ -2408,8 +2437,16 @@ def action_typing(a):
 	chat = chat_member_of(a, a.input("chat"))
 	if not chat or not chat_write_allowed(a, chat):
 		return
-	if chat.get("account") or not chat_switch(a.user.preference, "typing"):
+	if not chat_switch(a.user.preference, "typing"):
 		return {"data": {"sent": False}}
+	# A linked XMPP or Matrix conversation is told through its account; other
+	# networks have no typing.
+	if chat.get("account"):
+		acc = chat_account(chat)
+		target = linked_target(chat) if acc and acc["network"] in LINKED_CHAT else ""
+		if target:
+			mochi.account.typing(acc["id"], target)
+		return {"data": {"sent": bool(target)}}
 	now = mochi.time.now()
 	for peer in chat_peers(chat["id"], a.user.identity.id):
 		mochi.message.send({"from": a.user.identity.id, "to": peer, "service": "chat", "event": "typing"}, {"chat": chat["id"], "at": now}, expires=TYPING_WINDOW)
@@ -2481,7 +2518,17 @@ def action_presence(a):
 	if not chat:
 		return
 	if chat.get("account"):
-		return {"data": {"member": "", "status": "", "message": "", "seen": 0}}
+		# A linked XMPP or Matrix conversation's other member shows what
+		# their network last said of them.
+		acc = chat_account(chat)
+		other = linked_target(chat) if acc and acc["network"] in LINKED_CHAT and not chat.get("room") else ""
+		if acc and acc["network"] == "matrix" and chat.get("room"):
+			people = [m["member"] for m in mochi.db.rows("select member from members where chat=?", chat["id"]) or [] if not mochi.text.valid(m["member"], "entity")]
+			other = people[0] if len(people) == 1 else ""
+		row = mochi.db.row("select status, message, seen from presence where account=? and member=?", acc["id"], other) if other else None
+		if not row:
+			return {"data": {"member": other, "status": "", "message": "", "seen": 0}}
+		return {"data": {"member": other, "status": row["status"], "message": row["message"], "seen": row["seen"]}}
 	member = a.input("member", "") or ""
 	if not member:
 		peers = chat_peers(chat["id"], a.user.identity.id)
@@ -2534,12 +2581,16 @@ def hosted_accounts():
 	return [acc for acc in (mochi.account.list("network") or []) if acc.get("hosted") and acc.get("type") in CHAT_NETWORKS and acc.get("url")]
 
 def chat_account(chat):
-	"""The account a conversation is on, or None for a Mochi one or where the
-	account is gone."""
+	"""The account a conversation is on, with its network, or None for a Mochi
+	one or where the account is gone."""
 	if not chat or not chat.get("account"):
 		return None
 	acc = mochi.account.get(chat["account"])
-	return acc if acc and acc.get("hosted") and acc.get("url") else None
+	network = account_network(acc)
+	if not network:
+		return None
+	acc["network"] = network
+	return acc
 
 def address_network(address):
 	"""The network a messaging address (vCard IMPP) names a person on, by its
@@ -2549,11 +2600,12 @@ def address_network(address):
 
 def function_reachable(context, address):
 	"""The user's accounts chat can message a messaging address through, as
-	{id, identifier}, for a contact's message action: none where chat holds no
-	conversations on its network, since hosted_accounts lists only those
-	networks, or the user has no account there."""
-	network = address_network(address)
-	return [{"id": acc["id"], "identifier": acc.get("identifier", "")} for acc in hosted_accounts() if network and acc.get("type") == network]
+	{id, identifier}, for a contact's message action: a fediverse address
+	through a hosted fediverse or linked Mastodon account, an XMPP or Matrix
+	one through a linked account there; none where the user has no such
+	account."""
+	reaches = REACHES.get(address_network(address), ())
+	return [{"id": acc["id"], "identifier": acc.get("identifier", "")} for acc in chat_accounts() if acc["network"] in reaches]
 
 def remote_resolve(address):
 	"""A person on another network by their address or id, as a member row:
@@ -2663,6 +2715,11 @@ def remote_send(chat, message_id, body, attachments):
 	acc = chat_account(chat)
 	if not acc:
 		return False
+	if acc["network"] != "fediverse":
+		message = mochi.db.row("select * from messages where id=?", message_id)
+		if acc["network"] == "mastodon":
+			return mastodon_send(chat, acc, message, attachments)
+		return linked_send(chat, acc, message, attachments)
 	note = remote_note(chat, acc, {"id": message_id, "body": body, "created": mochi.time.now()})
 	if not note:
 		return False
@@ -2677,13 +2734,19 @@ def remote_send(chat, message_id, body, attachments):
 
 def remote_edit(chat, message):
 	acc = chat_account(chat)
+	if acc and acc["network"] != "fediverse":
+		if message.get("remote"):
+			linked_edit(chat, acc, message)
+		return
 	note = remote_note(chat, acc, message) if acc and message.get("remote") else None
 	if note:
 		mochi.account.object.update(acc["id"], message["remote"], note)
 
-def remote_delete(chat, remote):
+def remote_delete(chat, message_id, remote):
 	acc = chat_account(chat)
-	if acc and remote:
+	if acc and acc["network"] != "fediverse":
+		linked_delete(chat, acc, message_id, remote)
+	elif acc and remote:
 		mochi.account.object.delete(acc["id"], remote)
 
 # --- Direct messages arriving ---
@@ -2856,3 +2919,714 @@ def direct_deleted(actor, remote):
 	message = mochi.db.row("select * from messages where remote=? and member=?", remote, actor) if remote_ok(remote) else None
 	if message:
 		message_delete_apply(message["chat"], message["id"], actor, mochi.time.now())
+
+# === Conversations on linked accounts (the federation plan, phase 23) ===
+#
+# A conversation may belong to one of the user's linked accounts on another
+# network: an XMPP or Matrix account's one-to-one conversations and rooms, and
+# a Mastodon account's direct messages. The account's session in core hands
+# what it hears to function_linked_receive as conversation events, and what
+# the user does goes out through the account. A room keeps its id on its
+# network in the room column; a one-to-one XMPP or Mastodon conversation is
+# known by its people. Typing, receipts and presence follow the user's
+# switches as on Mochi. A conversation its network encrypts shows its messages
+# as encrypted and takes none until Mochi's clients hold the keys (phase 27).
+# Who may write is the account's server's to decide, so chat's policy does
+# not apply; an invitation to a room waits for the user to accept or decline.
+
+# The networks a linked account holds conversations on, and those of them with
+# typing, read markers and presence.
+LINKED_NETWORKS = ("xmpp", "matrix", "mastodon")
+LINKED_CHAT = ("xmpp", "matrix")
+
+# The accounts that reach a person on each network an address names.
+REACHES = {"fediverse": ("fediverse", "mastodon"), "xmpp": ("xmpp",), "matrix": ("matrix",)}
+
+# How long another network's typing stands with no word that it stopped.
+TYPING_HELD = 30
+
+# The longest id a network gives a message or a conversation, and the most
+# files a message brings.
+REMOTE_MAXIMUM = 2000
+FILES_MAXIMUM = 10
+
+def column_add(table, column, ddl):
+	if not any([c["name"] == column for c in mochi.db.table(table)]):
+		mochi.db.execute("alter table " + table + " add column " + column + " " + ddl)
+
+def chat_schema_linked():
+	"""The columns and tables of phase 23, at creation and by the migration
+	alike: a conversation's id on its network where it is a room, and whether
+	the network encrypts it; whether a message came encrypted; a message's
+	further ids on its network (its files, and the id a room gave it); and the
+	presence each person on another network last showed."""
+	column_add("chats", "room", "text not null default ''")
+	column_add("chats", "encrypted", "integer not null default 0")
+	column_add("messages", "encrypted", "integer not null default 0")
+	mochi.db.execute("create index if not exists chats_room on chats( account, room )")
+	mochi.db.execute("create table if not exists parts ( message text not null, remote text not null, kind text not null default 'file', primary key ( message, remote ) )")
+	mochi.db.execute("create index if not exists parts_remote on parts( remote )")
+	mochi.db.execute("create table if not exists presence ( account text not null, member text not null, status text not null default 'offline', message text not null default '', seen integer not null default 0, primary key ( account, member ) )")
+
+# --- Accounts ---
+
+def account_network(acc):
+	"""The network an account holds conversations on, or ''."""
+	if not acc:
+		return ""
+	if acc.get("hosted"):
+		return "fediverse" if acc.get("type") in CHAT_NETWORKS and acc.get("url") and acc.get("kind") != "group" else ""
+	return acc.get("type", "") if acc.get("type") in LINKED_NETWORKS else ""
+
+def chat_accounts():
+	"""The accounts conversations are had through, each with its network: the
+	user's hosted fediverse accounts and their linked XMPP, Matrix and
+	Mastodon accounts, as enabled."""
+	out = []
+	seen = {}
+	social = [acc for acc in (mochi.account.list("social") or []) if acc.get("type") == "mastodon"]
+	for acc in hosted_accounts() + list(mochi.account.list("chat") or []) + social:
+		network = account_network(acc)
+		if network and acc["id"] not in seen and acc.get("enabled", 1) != 0:
+			seen[acc["id"]] = True
+			acc["network"] = network
+			out.append(acc)
+	return out
+
+def account_entry(acc):
+	"""An account as the client lists it."""
+	return {"id": acc["id"], "identifier": acc.get("identifier", ""), "network": acc["network"]}
+
+def chat_identity():
+	"""The user's own identity, for a function core calls with no action."""
+	for e in mochi.entity.owned() or []:
+		if e.get("class") == "person":
+			return e
+	return None
+
+def linked_person(network, address):
+	"""A person on a linked account's network by an address as typed or as a
+	messaging address gives it - xmpp:name@host, @name:host or
+	matrix:u/name:host, acct:name@host - in the form chat keeps; None where it
+	is not one."""
+	value = str(address or "").strip().split("?")[0]
+	lower = value.lower()
+	if network == "xmpp":
+		if lower.startswith("xmpp:"):
+			value = value[5:]
+		if value.count("@") != 1 or "/" in value or " " in value or len(value) > 500 or value.startswith("@") or value.endswith("@"):
+			return None
+		return "xmpp:" + value.lower()
+	if network == "matrix":
+		if lower.startswith("matrix:u/"):
+			value = "@" + value[9:]
+		if not value.startswith("@") or value.count(":") < 1 or " " in value or len(value) > 255:
+			return None
+		return value
+	if network == "mastodon":
+		if lower.startswith("acct:"):
+			value = value[5:]
+		value = value.lstrip("@")
+		if value.count("@") != 1 or " " in value or len(value) > 300 or value.endswith("@"):
+			return None
+		return "acct:" + value.lower()
+	return None
+
+def linked_room_address(network, address):
+	"""A Matrix room's address (#alias:host, !id:host, or a matrix: address of
+	either), or None. An XMPP room's address looks like a person's, so it is
+	told apart by asking."""
+	if network != "matrix":
+		return None
+	value = str(address or "").strip().split("?")[0]
+	lower = value.lower()
+	if lower.startswith("matrix:r/"):
+		value = "#" + value[9:]
+	elif lower.startswith("matrix:roomid/"):
+		value = "!" + value[14:]
+	if (value.startswith("#") or value.startswith("!")) and ":" in value and " " not in value and len(value) <= 255:
+		return value
+	return None
+
+def linked_self(acc):
+	"""The account as chat knows its people."""
+	identifier = str(acc.get("identifier", "") or "")
+	if acc.get("network") == "xmpp":
+		return "xmpp:" + identifier.lower()
+	if acc.get("network") == "mastodon":
+		return "acct:" + identifier.lstrip("@").lower()
+	return identifier
+
+def linked_chat_make(acc, name, room, me, my_name, people, status="active"):
+	"""Make a conversation on a linked account: the user and the people its
+	members, a room keeping its id."""
+	chat = mochi.uid()
+	mochi.db.execute("insert into chats ( id, name, key, updated, account, kind, room, status ) values ( ?, ?, ?, ?, ?, '', ?, ? )", chat, name[:200], mochi.random.alphanumeric(16), mochi.time.now(), acc["id"], room, status)
+	mochi.db.execute("insert or ignore into members ( chat, member, name ) values ( ?, ?, ? )", chat, me, my_name)
+	for person in people:
+		mochi.db.execute("insert or ignore into members ( chat, member, name ) values ( ?, ?, ? )", chat, person[0], person[1][:200])
+	return mochi.db.row("select * from chats where id=?", chat)
+
+def chat_create_linked(a, acc, name, addresses):
+	"""A conversation on a linked account: a room joined by its address, a
+	one-to-one conversation with one person (the one there is, where there is
+	one), or a new room with several."""
+	network = acc["network"]
+	me = a.user.identity.id
+	if not addresses:
+		a.error.label(400, "errors.too_many_members", maximum=DIRECT_MAXIMUM)
+		return
+	# A room, joined by its address.
+	if len(addresses) == 1 and network in LINKED_CHAT:
+		address = linked_room_address(network, addresses[0])
+		if not address and network == "xmpp":
+			address = linked_person(network, addresses[0])
+		joined = mochi.account.room.join(acc["id"], address) if address else None
+		if joined and joined.get("conversation"):
+			conversation = str(joined["conversation"])
+			chat = linked_find(acc, conversation)
+			if not chat:
+				chat = linked_chat_make(acc, str(joined.get("name", "") or "") or address, conversation, me, a.user.identity.name, [])
+			elif chat["status"] != "active":
+				linked_rejoin(chat, me, a.user.identity.name)
+			return {"data": {"id": chat["id"], "name": chat["name"], "members": []}}
+		if linked_room_address(network, addresses[0]):
+			a.error.label(404, "errors.person_not_found_on_network")
+			return
+	people = []
+	for address in addresses:
+		person = linked_person(network, address)
+		if not person:
+			a.error.label(404, "errors.person_not_found_on_network")
+			return
+		if person != linked_self(acc) and person not in people:
+			people.append(person)
+	if not people or len(people) > DIRECT_MAXIMUM:
+		a.error.label(400, "errors.too_many_members", maximum=DIRECT_MAXIMUM)
+		return
+	if len(people) == 1:
+		existing = remote_conversation(acc["id"], people)
+		if existing:
+			return {"data": {"id": existing["id"], "name": existing["name"], "members": []}}
+	elif not mochi.text.valid(name, "name"):
+		a.error.label(400, "errors.invalid_chat_name")
+		return
+	if network == "mastodon":
+		named = []
+		for person in people:
+			found = mochi.account.resolve(person[5:])
+			if not found or found.get("network") != "fediverse":
+				a.error.label(404, "errors.person_not_found_on_network")
+				return
+			label = str(found.get("name", "") or "").strip()
+			named.append((person, label if mochi.text.valid(label, "display") else person[5:]))
+		chat = linked_chat_make(acc, named[0][1] if len(named) == 1 else name, "", me, a.user.identity.name, named)
+		return {"data": {"id": chat["id"], "name": chat["name"], "members": [{"id": p[0], "name": p[1]} for p in named]}}
+	made = mochi.account.room.create(acc["id"], [p[len("xmpp:"):] if network == "xmpp" else p for p in people], name=name if len(people) > 1 else "")
+	if not made or not made.get("conversation"):
+		a.error.label(404, "errors.person_not_found_on_network")
+		return
+	named = []
+	for p in listed(made.get("people")):
+		label = str(p.get("name", "") or "")
+		named.append((str(p["id"]), label if mochi.text.valid(label, "display") else str(p["id"])))
+	room = str(made["conversation"]) if network == "matrix" or made.get("room") else ""
+	label = named[0][1] if len(named) == 1 else name
+	# The account's sync may bring the new room before its answer does, and
+	# make the conversation for it first.
+	chat = mochi.db.row("select * from chats where account=? and room=?", acc["id"], room) if room else None
+	if chat:
+		mochi.db.execute("update chats set name=? where id=?", label[:200], chat["id"])
+		for person in named:
+			mochi.db.execute("insert or ignore into members ( chat, member, name ) values ( ?, ?, ? )", chat["id"], person[0], person[1][:200])
+	else:
+		chat = linked_chat_make(acc, label, room, me, a.user.identity.name, named)
+	return {"data": {"id": chat["id"], "name": label[:200], "members": [{"id": p[0], "name": p[1]} for p in named]}}
+
+def linked_rejoin(chat, me, my_name):
+	"""A conversation the user left that its network still carries is theirs
+	again."""
+	mochi.db.execute("update chats set status='active' where id=?", chat["id"])
+	mochi.db.execute("insert or ignore into members ( chat, member, name ) values ( ?, ?, ? )", chat["id"], me, my_name)
+
+def linked_find(acc, conversation):
+	"""The conversation on an account an id names: a room by its id, else a
+	one-to-one conversation by its person."""
+	conversation = str(conversation or "")
+	if not conversation:
+		return None
+	room = mochi.db.row("select * from chats where account=? and room=? order by status='active' desc, updated desc limit 1", acc["id"], conversation)
+	if room:
+		return room
+	found = remote_conversation(acc["id"], [conversation])
+	return mochi.db.row("select * from chats where id=?", found["id"]) if found else None
+
+def linked_target(chat):
+	"""A conversation's id on its network: a room's, else its one person's."""
+	if chat.get("room"):
+		return chat["room"]
+	people = [m["member"] for m in mochi.db.rows("select member from members where chat=?", chat["id"]) or [] if not mochi.text.valid(m["member"], "entity")]
+	return people[0] if len(people) == 1 else ""
+
+def linked_message_of(acc, remote):
+	"""A message of a conversation on an account by its id on the network, or
+	by one of its further ids."""
+	remote = str(remote or "")
+	if not remote:
+		return None
+	found = mochi.db.row("select m.* from messages m join chats c on c.id=m.chat where c.account=? and m.remote=?", acc["id"], remote)
+	if found:
+		return found
+	return mochi.db.row("select m.* from parts p join messages m on m.id=p.message join chats c on c.id=m.chat where c.account=? and p.remote=?", acc["id"], remote)
+
+def linked_remote(chat_id, message_id):
+	"""The id on the network of a message of a conversation, or ''."""
+	if not message_id:
+		return ""
+	row = mochi.db.row("select remote from messages where id=? and chat=?", message_id, chat_id)
+	return row["remote"] if row else ""
+
+def linked_local(chat_id, remote):
+	"""The message of a conversation a network id names, or None."""
+	if not remote:
+		return None
+	return mochi.db.row("select id, thread from messages where chat=? and remote=?", chat_id, remote)
+
+# --- What arrives ---
+
+def function_linked_receive(context, account, network, events):
+	"""The events a linked account's session heard: messages, their edits and
+	withdrawals, typing, receipts, presence, rooms and their members, and
+	invitations, each in its conversation."""
+	acc = mochi.account.get(account)
+	if not acc or acc.get("hosted") or acc.get("type") != network or network not in LINKED_NETWORKS:
+		return None
+	acc["network"] = network
+	identity = chat_identity()
+	if not identity:
+		return None
+	for event in events or []:
+		if type(event) != "dict":
+			continue
+		kind = str(event.get("kind", "") or "")
+		if kind == "session":
+			if network in LINKED_CHAT:
+				mochi.account.presence(acc["id"], chat_switch(mochi.user.preference, "presence"))
+		elif kind == "message":
+			linked_received(acc, identity, event)
+		elif kind == "edit":
+			linked_edited(acc, identity, event)
+		elif kind == "delete":
+			linked_withdrawn(acc, identity, event)
+		elif kind == "sent":
+			linked_sent(acc, event)
+		elif kind == "typing":
+			linked_typing(acc, event)
+		elif kind == "receipt":
+			linked_receipt(acc, event)
+		elif kind == "presence":
+			linked_presence(acc, event)
+		elif kind == "room":
+			linked_room(acc, identity, event)
+		elif kind == "member":
+			linked_member(acc, event)
+		elif kind == "invite":
+			linked_invite(acc, identity, event)
+	return None
+
+def linked_name(value, fallback):
+	"""A name an event gives, where it is one to show."""
+	name = str(value or "").strip()[:200]
+	return name if name and mochi.text.valid(name, "display") else str(fallback)[:200]
+
+def linked_body(acc, chat, event):
+	"""A message's text: a Mastodon status's HTML as text, without the
+	mentions of the conversation's people it begins with."""
+	if acc["network"] != "mastodon":
+		return str(event.get("body", "") or "")
+	text = html_text(event.get("html", ""))
+	people = ["@" + m["member"][len("acct:"):] for m in mochi.db.rows("select member from members where chat=?", chat["id"]) or [] if m["member"].startswith("acct:")] + ["@" + linked_self(acc)[len("acct:"):]]
+	short = [p.split("@")[1] for p in people if p.count("@") == 2]
+	for _ in range(DIRECT_MAXIMUM + 1):
+		words = text.split(" ", 1)
+		head = words[0].lower()
+		if head in [p.lower() for p in people] or head.lstrip("@") in short:
+			text = words[1].strip() if len(words) > 1 else ""
+		else:
+			break
+	return text
+
+def linked_received(acc, identity, event):
+	"""A message: kept in its conversation, which is made where it is new, and
+	the user told; one the user sent from elsewhere is theirs."""
+	network = acc["network"]
+	remote = str(event.get("id", "") or "")[:REMOTE_MAXIMUM]
+	if not remote or linked_message_of(acc, remote):
+		return
+	own = event.get("own") == True
+	sender = str(event.get("from", "") or "")[:REMOTE_MAXIMUM]
+	me = identity["id"]
+	if network == "mastodon":
+		people = []
+		for p in listed(event.get("people")):
+			person = linked_person("mastodon", str(p))
+			if person and person != linked_self(acc) and person not in people:
+				people.append(person)
+		people = people[:DIRECT_MAXIMUM]
+		if not people:
+			return
+		found = remote_conversation(acc["id"], people)
+		chat = mochi.db.row("select * from chats where id=?", found["id"]) if found else None
+		if not chat:
+			named = [(p, linked_name(event.get("name"), p[5:]) if p == sender else p[5:]) for p in people]
+			chat = linked_chat_make(acc, named[0][1] if len(named) == 1 else ", ".join([n[1] for n in named]), "", me, identity.get("name", ""), named)
+	else:
+		conversation = str(event.get("conversation", "") or "")[:REMOTE_MAXIMUM]
+		if not conversation:
+			return
+		chat = linked_find(acc, conversation)
+		if not chat:
+			if network == "matrix" or event.get("room") == True:
+				chat = linked_chat_make(acc, linked_name(event.get("name"), conversation), conversation, me, identity.get("name", ""), [])
+			else:
+				chat = linked_chat_make(acc, linked_name(event.get("name"), conversation[len("xmpp:"):]), "", me, identity.get("name", ""), [(conversation, linked_name(event.get("name"), conversation[len("xmpp:"):]))])
+	if chat["status"] == "invited":
+		return
+	if chat["status"] != "active":
+		linked_rejoin(chat, me, identity.get("name", ""))
+	member = me if own else sender
+	if not own:
+		if not sender:
+			return
+		mochi.db.execute("insert or ignore into members ( chat, member, name ) values ( ?, ?, ? )", chat["id"], sender, linked_name(event.get("name"), sender))
+	name = mochi.db.row("select name from members where chat=? and member=?", chat["id"], member)
+	name = name["name"] if name else ""
+	encrypted = event.get("encrypted") == True
+	body = "" if encrypted else linked_body(acc, chat, event)[:10000]
+	if body and not mochi.text.valid(body, "text"):
+		return
+	created = event.get("created", 0)
+	now = mochi.time.now()
+	if type(created) != "int" or created > now + 86400 or created < now - 31536000 * 20:
+		created = now
+	# What this account sent from here, coming back before its id was kept.
+	if own and body:
+		echo = mochi.db.row("select id from messages where chat=? and member=? and remote='' and body=? and created>=? order by created desc limit 1", chat["id"], me, body, now - 600)
+		if echo:
+			mochi.db.execute("update messages set remote=? where id=?", remote, echo["id"])
+			return
+	id = mochi.uid()
+	object = "chat/" + chat["id"] + "/" + id
+	files = [f for f in listed(event.get("files")) if type(f) == "dict"][:FILES_MAXIMUM]
+	for f in files:
+		link = str(f.get("url", "") or "")
+		if not remote_ok(link):
+			continue
+		fetched = mochi.account.media(acc["id"], link)
+		kept = None
+		if fetched and fetched.get("status") == 200 and fetched.get("data"):
+			kept = attachment_create(object, str(f.get("name", "") or "file")[:200], fetched["data"], content_type=str(fetched.get("type", "") or f.get("type", "") or "").split(";")[0], description=str(f.get("description", "") or "")[:1000])
+		if not kept:
+			body = (body + "\n" + link).strip()[:10000]
+	if not body and not files and not encrypted:
+		return
+	thread = ""
+	root = linked_local(chat["id"], str(event.get("thread", "") or ""))
+	if root and not root["thread"]:
+		thread = root["id"]
+	reply = linked_local(chat["id"], str(event.get("reply", "") or ""))
+	mochi.db.execute("insert into messages ( id, chat, member, name, body, created, reply, remote, encrypted, thread ) values ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )", id, chat["id"], member, name, body, created, reply["id"] if reply else None, remote, 1 if encrypted else 0, thread)
+	archive = str(event.get("archive", "") or "")[:REMOTE_MAXIMUM]
+	if archive and archive != remote:
+		mochi.db.execute("insert or ignore into parts ( message, remote, kind ) values ( ?, ?, 'archive' )", id, archive)
+	if created > (chat.get("updated") or 0):
+		mochi.db.execute("update chats set updated=? where id=?", created, chat["id"])
+	# An XMPP person encrypts conversation by conversation, so a one-to-one
+	# conversation is encrypted while their latest message is.
+	if network == "xmpp" and not chat.get("room") and not own and bool(chat.get("encrypted")) != encrypted:
+		mochi.db.execute("update chats set encrypted=? where id=?", 1 if encrypted else 0, chat["id"])
+	chat_ensure_commit_hook()
+	mochi.db.commit.fire("messages", "insert", id)
+	if not own:
+		excerpt = mochi.app.label("messages.encrypted") if encrypted else body.strip()[:80]
+		notify("message", chat["id"], mochi.app.label("notifications.title.message"), mochi.app.label("notifications.body.message", author=name, excerpt=excerpt), "/chat/" + chat["id"], chat["name"], event_id="message:" + id)
+
+def linked_sender(identity, event):
+	"""Who an event says acted: the user where it was them."""
+	return identity["id"] if event.get("own") == True else str(event.get("from", "") or "")
+
+def linked_edited(acc, identity, event):
+	"""A new version of a message, from whoever sent it."""
+	message = linked_message_of(acc, event.get("id"))
+	if not message or mochi.db.exists("select 1 from deletions where message=?", message["id"]):
+		return
+	sender = linked_sender(identity, event)
+	if sender and message["member"] != sender:
+		return
+	chat = mochi.db.row("select * from chats where id=?", message["chat"])
+	body = linked_body(acc, chat, event)[:10000]
+	if not body or not mochi.text.valid(body, "text") or body == message["body"]:
+		return
+	mochi.db.execute("update messages set body=?, edited=? where id=?", body, mochi.time.now(), message["id"])
+	chat_ensure_commit_hook()
+	mochi.db.commit.fire("messages", "update", message["id"])
+
+def linked_withdrawn(acc, identity, event):
+	"""A message withdrawn: by whoever sent it, or in a room by whoever the
+	room lets."""
+	message = linked_message_of(acc, event.get("id"))
+	if not message:
+		return
+	chat = mochi.db.row("select * from chats where id=?", message["chat"])
+	sender = linked_sender(identity, event)
+	if sender and message["member"] != sender and not chat.get("room"):
+		return
+	message_delete_apply(message["chat"], message["id"], sender or message["member"], mochi.time.now())
+
+def linked_sent(acc, event):
+	"""The id a room gave a message the user sent, by which the room knows it."""
+	chat = linked_find(acc, event.get("conversation"))
+	archive = str(event.get("archive", "") or "")[:REMOTE_MAXIMUM]
+	if not chat or not archive:
+		return
+	message = linked_local(chat["id"], str(event.get("id", "") or ""))
+	if message:
+		mochi.db.execute("insert or ignore into parts ( message, remote, kind ) values ( ?, ?, 'archive' )", message["id"], archive)
+
+def linked_typing(acc, event):
+	"""Someone typing in a conversation, or stopped: shown on its open tabs."""
+	chat = linked_find(acc, event.get("conversation"))
+	member = str(event.get("from", "") or "")
+	if not chat_active(chat) or not member:
+		return
+	row = mochi.db.row("select name from members where chat=? and member=?", chat["id"], member)
+	chat_websocket(chat["key"], {"event": "typing", "member": member, "name": row["name"] if row else member, "at": mochi.time.now(), "typing": event.get("typing") != False, "held": TYPING_HELD})
+
+def linked_receipt(acc, event):
+	"""How far a member has received or read a conversation, by the message
+	they name."""
+	chat = linked_find(acc, event.get("conversation"))
+	member = str(event.get("from", "") or "")
+	if not chat_active(chat) or not member:
+		return
+	message = linked_message_of(acc, event.get("id"))
+	if not message or message["chat"] != chat["id"]:
+		return
+	at = message["created"]
+	displayed = at if event.get("displayed") == True else 0
+	mochi.db.execute("insert into receipts ( chat, member, delivered, displayed ) values ( ?, ?, ?, ? ) on conflict ( chat, member ) do update set delivered=max(delivered, excluded.delivered), displayed=max(displayed, excluded.displayed)", chat["id"], member, at, displayed)
+	row = mochi.db.row("select delivered, displayed from receipts where chat=? and member=?", chat["id"], member)
+	chat_websocket(chat["key"], {"event": "receipt", "member": member, "delivered": row["delivered"], "displayed": row["displayed"]})
+
+def linked_presence(acc, event):
+	"""The presence someone on the account's network shows, kept for the
+	conversations with them."""
+	member = str(event.get("from", "") or "")[:REMOTE_MAXIMUM]
+	status = str(event.get("status", "") or "")
+	if not member or status not in ("online", "away", "busy", "offline"):
+		return
+	message = str(event.get("message", "") or "")[:200]
+	mochi.db.execute("insert into presence ( account, member, status, message, seen ) values ( ?, ?, ?, ?, ? ) on conflict ( account, member ) do update set status=excluded.status, message=excluded.message, seen=excluded.seen", acc["id"], member, status, message, mochi.time.now())
+
+def linked_room(acc, identity, event):
+	"""What a sync says of a room: made where it is new and named as other
+	clients name it, renamed, marked encrypted, joined, or left."""
+	conversation = str(event.get("conversation", "") or "")[:REMOTE_MAXIMUM]
+	if not conversation:
+		return
+	chat = mochi.db.row("select * from chats where account=? and room=? order by status='active' desc, updated desc limit 1", acc["id"], conversation)
+	me = identity["id"]
+	if event.get("left") == True:
+		if chat and chat["status"] == "invited":
+			chat_delete_local(chat["id"])
+		elif chat and chat["status"] == "active":
+			mochi.db.execute("delete from members where chat=? and member=?", chat["id"], me)
+			mochi.db.execute("update chats set status='left', updated=? where id=?", mochi.time.now(), chat["id"])
+			chat_websocket(chat["key"], {"event": "leave", "member": me})
+		return
+	heroes = [h for h in listed(event.get("heroes")) if type(h) == "dict" and h.get("id")]
+	name = str(event.get("name", "") or "").strip()
+	if not name and heroes:
+		name = ", ".join([linked_name(h.get("name"), h["id"]) for h in heroes])
+	if not chat:
+		chat = linked_chat_make(acc, linked_name(name, conversation), conversation, me, identity.get("name", ""), [(str(h["id"]), linked_name(h.get("name"), h["id"])) for h in heroes])
+	elif chat["status"] != "active":
+		linked_rejoin(chat, me, identity.get("name", ""))
+	if name and event.get("name") and name[:200] != chat["name"]:
+		mochi.db.execute("update chats set name=? where id=?", name[:200], chat["id"])
+		chat_websocket(chat["key"], {"event": "rename", "name": name[:200]})
+	if event.get("encrypted") == True and not chat.get("encrypted"):
+		mochi.db.execute("update chats set encrypted=1 where id=?", chat["id"])
+
+def linked_member(acc, event):
+	"""Someone joining or leaving a room."""
+	chat = mochi.db.row("select * from chats where account=? and room=? and status='active'", acc["id"], str(event.get("conversation", "") or ""))
+	member = str(event.get("id", "") or "")[:REMOTE_MAXIMUM]
+	if not chat or not member or mochi.text.valid(member, "entity"):
+		return
+	if event.get("left") == True:
+		mochi.db.execute("delete from members where chat=? and member=?", chat["id"], member)
+		return
+	name = linked_name(event.get("name"), member)
+	mochi.db.execute("insert into members ( chat, member, name ) values ( ?, ?, ? ) on conflict ( chat, member ) do update set name=excluded.name", chat["id"], member, name)
+
+def linked_invite(acc, identity, event):
+	"""An invitation to a room: a conversation waiting for the user, who is
+	told."""
+	conversation = str(event.get("conversation", "") or "")[:REMOTE_MAXIMUM]
+	inviter = str(event.get("from", "") or "")[:REMOTE_MAXIMUM]
+	if not conversation or not inviter:
+		return
+	if mochi.db.exists("select 1 from chats where account=? and room=? and status in ('active', 'invited')", acc["id"], conversation):
+		return
+	name = linked_name(event.get("name"), conversation)
+	chat = linked_chat_make(acc, name, conversation, identity["id"], identity.get("name", ""), [(inviter, inviter)], status="invited")
+	# An invitation to a one-to-one room, which accepting marks as one.
+	if event.get("direct") == True:
+		mochi.db.execute("update chats set kind='direct' where id=?", chat["id"])
+	notify("invite", chat["id"], mochi.app.label("notifications.title.invite"), mochi.app.label("notifications.body.invite", name=name), "/chat/" + chat["id"], name, event_id="invite:" + acc["id"] + ":" + conversation)
+
+# --- What goes out ---
+
+def linked_mentions(chat):
+	"""A Mastodon conversation's people as a status names them."""
+	return " ".join(["@" + m["member"][len("acct:"):] for m in mochi.db.rows("select member from members where chat=?", chat["id"]) or [] if m["member"].startswith("acct:")])
+
+def mastodon_send(chat, acc, message, attachments):
+	"""A message of a Mastodon conversation, as a direct status naming its
+	people, in reply to the conversation's latest."""
+	mentions = linked_mentions(chat)
+	if not mentions:
+		return False
+	media = []
+	for att in attachments or []:
+		data = mochi.file.read(attachment_filename(att["id"], att["name"]), mochi.file.maximum())
+		uploaded = mochi.account.upload(acc["id"], data, str(att.get("type", "") or att.get("content_type", "") or ""), name=att["name"], description=att.get("caption", "")) if data != None else None
+		if uploaded and uploaded.get("id"):
+			media.append(str(uploaded["id"]))
+	status = {"status": (mentions + " " + message["body"]).strip(), "visibility": "direct"}
+	before = mochi.db.row("select remote from messages where chat=? and remote!='' and id!=? and created<=? order by created desc limit 1", chat["id"], message["id"], message["created"])
+	if before:
+		status["in_reply_to_id"] = before["remote"]
+	if media:
+		status["media_ids"] = media
+	result = mochi.account.object.create(acc["id"], status, key="chat|" + message["id"])
+	if not result or not result.get("id"):
+		return False
+	mochi.db.execute("update messages set remote=? where id=?", str(result["id"]), message["id"])
+	return True
+
+def linked_send(chat, acc, message, attachments):
+	"""A message of an XMPP or Matrix conversation: its text, then each file
+	as one more message, the first kept as the message's id there and the
+	rest as its further ids."""
+	target = linked_target(chat)
+	if not target or chat.get("encrypted"):
+		return False
+	sent = ""
+	if message["body"]:
+		object = {"conversation": target, "content": message["body"]}
+		reply = linked_remote(chat["id"], message.get("reply"))
+		if reply:
+			object["reply"] = reply
+		thread = linked_remote(chat["id"], message.get("thread"))
+		if thread:
+			object["thread"] = thread
+		result = mochi.account.object.create(acc["id"], object, key="chat|" + message["id"])
+		if not result or not result.get("id"):
+			return False
+		sent = str(result["id"])
+	for att in attachments or []:
+		data = mochi.file.read(attachment_filename(att["id"], att["name"]), mochi.file.maximum())
+		uploaded = mochi.account.upload(acc["id"], data, str(att.get("type", "") or att.get("content_type", "") or ""), name=att["name"]) if data != None else None
+		result = mochi.account.object.create(acc["id"], {"conversation": target, "file": uploaded}, key="chat|" + message["id"] + "|" + att["id"]) if uploaded else None
+		if not result or not result.get("id"):
+			if not sent:
+				return False
+			continue
+		if sent:
+			mochi.db.execute("insert or ignore into parts ( message, remote, kind ) values ( ?, ?, 'file' )", message["id"], str(result["id"]))
+		else:
+			sent = str(result["id"])
+	if not sent:
+		return False
+	mochi.db.execute("update messages set remote=? where id=?", sent, message["id"])
+	return True
+
+def linked_edit(chat, acc, message):
+	"""A new version of a message the user sent, on its network."""
+	if acc["network"] == "mastodon":
+		mochi.account.object.update(acc["id"], message["remote"], {"status": (linked_mentions(chat) + " " + message["body"]).strip()})
+		return
+	target = linked_target(chat)
+	if target:
+		mochi.account.object.update(acc["id"], message["remote"], {"conversation": target, "content": message["body"]})
+
+def linked_delete(chat, acc, message_id, remote):
+	"""A message the user sent withdrawn from its network, with its files: in
+	an XMPP room by the ids the room gave them."""
+	if acc["network"] == "mastodon":
+		mochi.account.object.delete(acc["id"], remote)
+		return
+	target = linked_target(chat)
+	if not target:
+		return
+	ids = [remote] + [p["remote"] for p in mochi.db.rows("select remote from parts where message=? and kind='file'", message_id) or []]
+	if acc["network"] == "xmpp" and chat.get("room"):
+		ids = [p["remote"] for p in mochi.db.rows("select remote from parts where message=? and kind='archive'", message_id) or []]
+	for id in ids:
+		if id:
+			mochi.account.object.delete(acc["id"], id, conversation=target)
+
+def linked_read(chat, user, read):
+	"""Tell a linked conversation how far the user has read it, up to the
+	latest message from someone else: its members where the user's switch
+	allows, else the server alone where the network has that."""
+	acc = chat_account(chat)
+	if not acc or acc["network"] not in LINKED_CHAT:
+		return
+	target = linked_target(chat)
+	latest = mochi.db.row("select remote from messages where chat=? and member!=? and remote!='' and created<=? order by created desc limit 1", chat["id"], user.identity.id, read)
+	if target and latest:
+		mochi.account.read(acc["id"], target, latest["remote"], shared=chat_switch(user.preference, "receipts"))
+
+def linked_presence_share(user, shared):
+	"""Tell each linked chat account whether the user's presence is shared."""
+	for acc in chat_accounts():
+		if acc["network"] in LINKED_CHAT:
+			mochi.account.presence(acc["id"], shared)
+
+# --- Invitations ---
+
+def action_accept(a):
+	"""Accept an invitation to a room: the account joins it."""
+	chat = chat_member_of(a, a.input("chat"))
+	if not chat:
+		return
+	if chat["status"] != "invited":
+		a.error.label(400, "errors.not_invited")
+		return
+	acc = chat_account(chat)
+	person = ""
+	if chat.get("kind") == "direct":
+		people = [m["member"] for m in mochi.db.rows("select member from members where chat=?", chat["id"]) or [] if not mochi.text.valid(m["member"], "entity")]
+		person = people[0] if len(people) == 1 else ""
+	if not acc or not mochi.account.room.join(acc["id"], chat["room"], person=person):
+		a.error.label(502, "errors.join_failed")
+		return
+	mochi.db.execute("update chats set status='active', updated=? where id=?", mochi.time.now(), chat["id"])
+	return {"data": {"id": chat["id"]}}
+
+def action_decline(a):
+	"""Decline an invitation to a room."""
+	chat = chat_member_of(a, a.input("chat"))
+	if not chat:
+		return
+	if chat["status"] != "invited":
+		a.error.label(400, "errors.not_invited")
+		return
+	acc = chat_account(chat)
+	if acc:
+		mochi.account.room.leave(acc["id"], chat["room"])
+	chat_delete_local(chat["id"])
+	return {"data": {"declined": True}}

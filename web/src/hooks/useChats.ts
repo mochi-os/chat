@@ -474,6 +474,29 @@ export const useDeleteChatMutation = (
   })
 }
 
+// An invitation to a room on a linked account, accepted: the conversation
+// becomes the user's, so everything about it is read again.
+export const useAcceptInvitationMutation = () => {
+  const queryClient = useQueryClient()
+  return useMutation({
+    mutationFn: (chatId: string) => chatsApi.accept(chatId),
+    onSuccess: () => {
+      void queryClient.invalidateQueries({ queryKey: chatKeys.all() })
+    },
+  })
+}
+
+// An invitation declined: the conversation is gone.
+export const useDeclineInvitationMutation = () => {
+  const queryClient = useQueryClient()
+  return useMutation({
+    mutationFn: (chatId: string) => chatsApi.decline(chatId),
+    onSuccess: (_data, chatId) => {
+      invalidateChatsExceptChat(queryClient, chatId)
+    },
+  })
+}
+
 interface AddMemberVariables extends MemberAddRequest {
   chatId: string
 }

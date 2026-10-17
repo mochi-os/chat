@@ -38,8 +38,10 @@ import {
   useUploadProgress,
 } from '@mochi/web'
 import {
+  Check,
   Copy,
   Forward,
+  Lock,
   MoreHorizontal,
   Settings,
   Shield,
@@ -48,10 +50,15 @@ import {
   MessageCircle,
   Search,
   Users,
+  X,
 } from 'lucide-react'
 import { chatsApi, type ChatMessage } from '@/api/chats'
 import { personAssetUrl } from '@/api/person'
-import { chatActive, type GetMessagesResponse } from '@/api/types/chats'
+import {
+  chatActive,
+  chatLinked,
+  type GetMessagesResponse,
+} from '@/api/types/chats'
 import { useSidebarContext } from '@/context/sidebar-context'
 import { useReactToMessageMutation } from '@/hooks/use-message-reactions'
 import { useMessageSelection } from '@/hooks/use-message-selection'
@@ -79,6 +86,8 @@ import {
   useDeleteMessagesMutation,
   useEditMessageMutation,
   useChatPresenceQuery,
+  useAcceptInvitationMutation,
+  useDeclineInvitationMutation,
 } from '@/hooks/useChats'
 import type { ReactionId } from '@/features/chats/constants/reactions'
 import { ChatEmptyState } from './components/chat-empty-state'
@@ -563,20 +572,22 @@ export function Chats() {
     return display.join(', ')
   }, [chatDetail, currentUserIdentity, t])
 
-  // A one-to-one Mochi conversation shows whether the other member is online,
-  // as they share it; one on another network shows the account it is had
-  // through.
-  const directMochi = Boolean(
+  // A one-to-one conversation on Mochi, or on a linked XMPP or Matrix
+  // account, shows whether the other member is online as they share it; one
+  // on another network otherwise shows the account it is had through.
+  const directPresence = Boolean(
     selectedChat &&
-      !selectedChat.account &&
+      (!selectedChat.account || chatLinked(selectedChat)) &&
       chatActive(selectedChat) &&
       isDirectChat
   )
-  const presenceQuery = useChatPresenceQuery(selectedChat?.id, directMochi)
+  const presenceQuery = useChatPresenceQuery(selectedChat?.id, directPresence)
   const presence = presenceQuery.data
   const standing = useMemo(() => {
-    if (selectedChat?.address) return t`As ${selectedChat.address}`
-    if (!directMochi || !presence) return null
+    const address = selectedChat?.address
+      ? t`As ${selectedChat.address}`
+      : null
+    if (!directPresence || !presence?.status) return address
     const label =
       presence.status === 'online'
         ? t({ message: 'Online', context: 'presence' })
@@ -586,19 +597,32 @@ export function Chats() {
             ? t({ message: 'Busy', context: 'presence' })
             : null
     if (label) return presence.message ? `${label} · ${presence.message}` : label
+    if (selectedChat?.account) return address
     return presence.seen
       ? t`Last seen ${formatTimestamp(presence.seen)}`
       : null
-  }, [selectedChat?.address, directMochi, presence, formatTimestamp, t])
+  }, [
+    selectedChat?.address,
+    selectedChat?.account,
+    directPresence,
+    presence,
+    formatTimestamp,
+    t,
+  ])
 
   // Typing goes to the other members while the user writes, at most once an
-  // interval; a conversation on another network takes none.
+  // interval; of the conversations on other networks, only a linked XMPP or
+  // Matrix one takes it.
   const typingSent = useRef(0)
   const typingText = useRef('')
   useEffect(() => {
     const previous = typingText.current
     typingText.current = newMessage
-    if (!selectedChat || selectedChat.account || !chatActive(selectedChat))
+    if (
+      !selectedChat ||
+      (selectedChat.account && !chatLinked(selectedChat)) ||
+      !chatActive(selectedChat)
+    )
       return
     if (!newMessage.trim() || newMessage.length <= previous.length) return
     if (draftHydratedChatId !== draftChatKey) return
@@ -954,6 +978,36 @@ export function Chats() {
           error: (error) => getErrorMessage(error, t`Failed to leave chat`),
         }
       )
+    } catch {
+      // toastAction already showed error
+    }
+  }
+
+  // An invitation to a room on a linked account: accepted, the account joins
+  // it; declined, it goes.
+  const acceptMutation = useAcceptInvitationMutation()
+  const declineMutation = useDeclineInvitationMutation()
+  const handleAccept = async () => {
+    if (!selectedChat) return
+    try {
+      await toastAction(acceptMutation.mutateAsync(selectedChat.id), {
+        loading: t`Joining...`,
+        success: t`Joined`,
+        error: (error) => getErrorMessage(error, t`Failed to join`),
+      })
+    } catch {
+      // toastAction already showed error
+    }
+  }
+  const handleDecline = async () => {
+    if (!selectedChat) return
+    try {
+      await toastAction(declineMutation.mutateAsync(selectedChat.id), {
+        loading: t`Declining...`,
+        success: t`Invitation declined`,
+        error: (error) => getErrorMessage(error, t`Failed to decline`),
+      })
+      void navigate({ to: '/' })
     } catch {
       // toastAction already showed error
     }
@@ -1326,7 +1380,12 @@ export function Chats() {
                     </IconButton>
                   </DropdownMenuTrigger>
                   <DropdownMenuContent align='end' className='w-56'>
-                    {!chatActive(selectedChat) ? (
+                    {selectedChat.status === 'invited' ? (
+                      <DropdownMenuItem onClick={handleDecline}>
+                        <X className='me-2 size-4' />{' '}
+                        <Trans>Decline invitation</Trans>
+                      </DropdownMenuItem>
+                    ) : !chatActive(selectedChat) ? (
                       <DropdownMenuItem onClick={handleDeleteChat}>
                         <Trash2 className='me-2 size-4' />{' '}
                         <Trans>Delete chat</Trans>
@@ -1406,12 +1465,13 @@ export function Chats() {
             }}
             onReply={chatActive(selectedChat) ? handleReply : undefined}
             onThread={
-              chatActive(selectedChat) && !selectedChat.account
+              chatActive(selectedChat) &&
+              (!selectedChat.account || selectedChat.network === 'matrix')
                 ? setThreadRoot
                 : undefined
             }
             receipts={
-              selectedChat.account
+              selectedChat.account && !chatLinked(selectedChat)
                 ? undefined
                 : (messagesQuery.data?.pages[0]?.receipts ?? [])
             }
@@ -1492,6 +1552,33 @@ export function Chats() {
                 </div>
               </div>
             </div>
+          ) : selectedChat.status === 'invited' ? (
+            <div className='bg-muted/50 border-t p-4'>
+              <div className='flex flex-wrap items-center justify-between gap-2'>
+                <p className='text-muted-foreground text-sm'>
+                  <Trans>You are invited to this conversation</Trans>
+                </p>
+                <div className='flex items-center gap-2'>
+                  <Button
+                    variant='outline'
+                    size='sm'
+                    onClick={() => void handleDecline()}
+                    loading={declineMutation.isPending}
+                    icon={<X className='me-2 size-4' />}
+                  >
+                    <Trans>Decline</Trans>
+                  </Button>
+                  <Button
+                    size='sm'
+                    onClick={() => void handleAccept()}
+                    loading={acceptMutation.isPending}
+                    icon={<Check className='me-2 size-4' />}
+                  >
+                    <Trans>Accept</Trans>
+                  </Button>
+                </div>
+              </div>
+            </div>
           ) : !chatActive(selectedChat) ? (
             <div className='bg-muted/50 border-t p-4'>
               <div className='flex items-center justify-between'>
@@ -1512,6 +1599,16 @@ export function Chats() {
                   <Trans>Delete chat</Trans>
                 </Button>
               </div>
+            </div>
+          ) : selectedChat.encrypted ? (
+            <div className='bg-muted/50 border-t p-4'>
+              <p className='text-muted-foreground flex items-center gap-2 text-sm'>
+                <Lock className='size-4 shrink-0' />
+                <Trans>
+                  This conversation is encrypted. Messages cannot be sent to
+                  it from here yet.
+                </Trans>
+              </p>
             </div>
           ) : (
             <>

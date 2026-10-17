@@ -128,6 +128,34 @@ describe('signals and threads (phase 22)', () => {
     expect(typingNames('c1')).toEqual([])
   })
 
+  it('holds typing another network says when it stops, and clears it when it does', () => {
+    const client = seeded()
+    const start = Date.now()
+    handleWebsocketEvent(
+      'c2',
+      { event: 'typing', member: '@dave:example.org', name: 'Dave', typing: true, held: 30 },
+      client,
+      'me'
+    )
+    expect(typingNames('c2', start + 20000)).toEqual(['Dave'])
+    expect(typingNames('c2', start + 31000)).toEqual([])
+    handleWebsocketEvent(
+      'c2',
+      { event: 'typing', member: '@dave:example.org', name: 'Dave', typing: false },
+      client,
+      'me'
+    )
+    expect(typingNames('c2')).toEqual([])
+  })
+
+  it('lets a Mochi typing event lapse with the server window', () => {
+    const client = seeded()
+    const start = Date.now()
+    handleWebsocketEvent('c3', { event: 'typing', member: 'bob', name: 'Bob' }, client, 'me')
+    expect(typingNames('c3', start + 5000)).toEqual(['Bob'])
+    expect(typingNames('c3', start + 9000)).toEqual([])
+  })
+
   it('counts a thread reply on its root and keeps it off the main timeline', () => {
     const client = seeded()
     client.setQueryData(chatKeys.thread('c1', 'm1'), {

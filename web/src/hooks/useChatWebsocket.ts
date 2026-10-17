@@ -375,11 +375,16 @@ export const handleWebsocketEvent = (
           typeof payload.member === 'string' &&
           payload.member !== currentUserId
         ) {
-          typingAdd(
-            chatId,
-            payload.member,
-            typeof payload.name === 'string' ? payload.name : ''
-          )
+          if (payload.typing === false) {
+            typingClear(chatId, payload.member)
+          } else {
+            typingAdd(
+              chatId,
+              payload.member,
+              typeof payload.name === 'string' ? payload.name : '',
+              typeof payload.held === 'number' ? payload.held : undefined
+            )
+          }
         }
         return 'event'
       case 'receipt':

@@ -32,6 +32,7 @@ import {
 } from '@mochi/web'
 import { MessageCircle, UserPlus } from 'lucide-react'
 import { chatsApi } from '@/api/chats'
+import type { ChatNetwork } from '@/api/types/chats'
 import { useSidebarContext } from '@/context/sidebar-context'
 import { useNewChatFriendsQuery, useCreateChatMutation } from '@/hooks/useChats'
 import {
@@ -39,6 +40,25 @@ import {
   CHAT_NAME_MAX_LENGTH,
   CREATE_NON_FRIENDS_MAX,
 } from '../constants/limits'
+
+
+// The networks a linked account is on, by the names they go by: brand and
+// protocol names, the same in every language.
+const NETWORK_NAMES: Partial<Record<ChatNetwork, string>> = {
+  xmpp: 'XMPP',
+  // eslint-disable-next-line lingui/no-unlocalized-strings -- a network's name
+  matrix: 'Matrix',
+  // eslint-disable-next-line lingui/no-unlocalized-strings -- a network's name
+  mastodon: 'Mastodon',
+}
+
+// The form of an address on each network.
+const ADDRESS_FORMS: Record<ChatNetwork, string> = {
+  fediverse: '@name@server.example',
+  mastodon: '@name@server.example',
+  xmpp: 'name@server.example',
+  matrix: '@name:server.example',
+}
 
 export function NewChat() {
   const { t } = useLingui()
@@ -72,6 +92,7 @@ export function NewChat() {
   const createChatMutation = useCreateChatMutation()
 
   const accounts = data?.accounts ?? []
+  const network = accounts.find((option) => option.id === account)?.network
   const addressList = addresses
     .split(/[\s,]+/)
     .map((address) => address.trim())
@@ -332,7 +353,9 @@ export function NewChat() {
                   <SelectItem value='mochi'>Mochi</SelectItem>
                   {accounts.map((option) => (
                     <SelectItem key={option.id} value={option.id}>
-                      {option.identifier}
+                      {option.network && NETWORK_NAMES[option.network]
+                        ? `${NETWORK_NAMES[option.network]} · ${option.identifier}`
+                        : option.identifier}
                     </SelectItem>
                   ))}
                 </SelectContent>
@@ -348,7 +371,7 @@ export function NewChat() {
             {account ? (
               <Input
                 aria-label={t`Addresses`}
-                placeholder='@name@server.example'
+                placeholder={ADDRESS_FORMS[network ?? 'fediverse']}
                 value={addresses}
                 onChange={(event) => setAddresses(event.target.value)}
               />

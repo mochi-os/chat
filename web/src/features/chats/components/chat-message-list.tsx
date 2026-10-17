@@ -538,6 +538,9 @@ export function ChatMessageList({
                         const isSent = isCurrentUserMessage(message)
                         const isSelected = selectedIds?.has(message.id) ?? false
                         const isDeleted = message.deleted === true
+                        // A message its network encrypted shows no content
+                        // until Mochi's clients hold the keys.
+                        const isEncrypted = Boolean(message.encrypted)
                         return (
                           <div
                             key={message.id}
@@ -701,7 +704,7 @@ export function ChatMessageList({
                                     ) : null}
                                     <BubbleContent
                                       className={cn(
-                                        isDeleted &&
+                                        (isDeleted || isEncrypted) &&
                                           'text-muted-foreground border-dashed bg-transparent italic',
                                         attachmentsNeedFixedMediaWidth(
                                           message.attachments
@@ -724,6 +727,10 @@ export function ChatMessageList({
                                           <Trans>
                                             This message was deleted
                                           </Trans>
+                                        </p>
+                                      ) : isEncrypted ? (
+                                        <p className='text-muted-foreground text-sm italic'>
+                                          <Trans>Encrypted message</Trans>
                                         </p>
                                       ) : (
                                         <>

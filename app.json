@@ -16,7 +16,7 @@
 	"require": {"version": {"minimum": "2.0.12"}},
 
 	"database": {
-		"schema": 11,
+		"schema": 12,
 		"file": "chat.db",
 		"create": {"function": "database_create"},
 		"upgrade": {"function": "database_upgrade"},
@@ -25,8 +25,10 @@
 	"functions": {
 		// Direct messages to the user's hosted fediverse accounts, and the
 		// accounts a contact's messaging address can be reached through
-		// (the federation plan, phase 22).
+		// (the federation plan, phase 22); what the sessions of the user's
+		// linked XMPP, Matrix and Mastodon accounts hear (phase 23).
 		"activitypub/receive": {"function": "function_activitypub_receive"},
+		"linked/receive": {"function": "function_linked_receive"},
 		"reachable": {"function": "function_reachable"}
 	},
 
@@ -63,6 +65,8 @@
 		":chat/-/members": {"function": "action_members"},
 		":chat/-/rename": {"function": "action_rename"},
 		":chat/-/leave": {"function": "action_leave"},
+		":chat/-/accept": {"function": "action_accept"},
+		":chat/-/decline": {"function": "action_decline"},
 		":chat/-/delete": {"function": "action_delete"},
 		":chat/-/member/add": {"function": "action_member_add"},
 		":chat/-/member/remove": {"function": "action_member_remove"},

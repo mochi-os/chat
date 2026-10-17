@@ -5,8 +5,9 @@
 import { useEffect, useState } from 'react'
 
 // Who is typing in each conversation, from the typing events the websocket
-// brings. Each stands for the server's typing window from when it came, and
-// goes at once when that member's message arrives.
+// brings. Each stands for the server's typing window from when it came, or
+// for as long as the event holds it where another network says when typing
+// stops, and goes at once when that member's message arrives or they stop.
 const WINDOW = 8000
 
 interface Typist {
@@ -21,13 +22,21 @@ function changed() {
   for (const listener of listeners) listener()
 }
 
-export function typingAdd(chat: string, member: string, name: string) {
+export function typingAdd(
+  chat: string,
+  member: string,
+  name: string,
+  held?: number
+) {
   let members = typists.get(chat)
   if (!members) {
     members = new Map()
     typists.set(chat, members)
   }
-  members.set(member, { name, until: Date.now() + WINDOW })
+  members.set(member, {
+    name,
+    until: Date.now() + (held && held > 0 ? held * 1000 : WINDOW),
+  })
   changed()
 }
 
