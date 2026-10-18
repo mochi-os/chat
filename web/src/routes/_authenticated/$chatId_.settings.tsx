@@ -53,7 +53,7 @@ import {
   CHAT_NAME_FORBIDDEN,
   CHAT_NAME_MAX_LENGTH,
 } from '@/features/chats/constants/limits'
-import { nameMatches } from '@/features/chats/utils'
+import { matrixAddress, nameMatches } from '@/features/chats/utils'
 
 export const Route = createFileRoute('/_authenticated/$chatId_/settings')({
   component: ChatSettingsPage,
@@ -395,6 +395,15 @@ function AddMemberDialog({
       .sort((a, b) => naturalCompare(a.name, b.name))
   }, [friendsData?.friends, existingMemberIds, filter])
 
+  // Someone on Matrix, by their address, joins a group through this member's
+  // server, which relays them.
+  const outside = useMemo(() => {
+    const address = matrixAddress(filter)
+    return address && !existingMemberIds.includes(address)
+      ? { name: address }
+      : null
+  }, [filter, existingMemberIds])
+
   // Reset the search field whenever the dialog closes.
   useEffect(() => {
     if (!open) setFilter('')
@@ -436,7 +445,20 @@ function AddMemberDialog({
           />
 
           <div className='max-h-72 space-y-1 overflow-y-auto px-1'>
-            {isLoadingFriends ? (
+            {outside ? (
+              <button
+                type='button'
+                aria-label={t`Add ${outside.name} to chat`}
+                className='hover:bg-hover flex w-full items-center gap-3 rounded-lg px-2 py-2 text-start transition-colors disabled:opacity-50'
+                onClick={() => handleAddMember(outside.name)}
+                disabled={addMemberMutation.isPending}
+              >
+                <EntityAvatar name={outside.name} size='lg' />
+                <span className='min-w-0 flex-1 truncate text-sm font-medium'>
+                  {outside.name}
+                </span>
+              </button>
+            ) : isLoadingFriends ? (
               <div className='flex items-center justify-center py-8'>
                 <Loader2 className='text-muted-foreground size-6 animate-spin' />
               </div>

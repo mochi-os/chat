@@ -16,7 +16,7 @@
 	"require": {"version": {"minimum": "2.0.12"}},
 
 	"database": {
-		"schema": 12,
+		"schema": 13,
 		"file": "chat.db",
 		"create": {"function": "database_create"},
 		"upgrade": {"function": "database_upgrade"},
@@ -29,7 +29,11 @@
 		// linked XMPP, Matrix and Mastodon accounts hear (phase 23).
 		"activitypub/receive": {"function": "function_activitypub_receive"},
 		"linked/receive": {"function": "function_linked_receive"},
-		"reachable": {"function": "function_reachable"}
+		"reachable": {"function": "function_reachable"},
+		// What the people from Matrix do in a room this server relays for a
+		// group, and the people on Matrix a search finds, for people (phase 24).
+		"bridge/receive": {"function": "function_bridge_receive"},
+		"directory": {"function": "function_directory"}
 	},
 
 	"icons": [
@@ -103,6 +107,12 @@
 		"leave": {"function": "event_leave"},
 		"member/add": {"function": "event_member_add"},
 		"member/remove": {"function": "event_member_remove"},
-		"removed": {"function": "event_removed"}
+		"removed": {"function": "event_removed"},
+		"bridge/message": {"function": "event_bridge_message"},
+		"bridge/edit": {"function": "event_bridge_edit"},
+		"bridge/delete": {"function": "event_bridge_delete"},
+		"bridge/react": {"function": "event_bridge_react"},
+		"bridge/new": {"function": "event_bridge_new"},
+		"bridge/accept": {"function": "event_bridge_accept"}
 	}
 }

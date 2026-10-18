@@ -55,6 +55,8 @@ export interface MarkReadResponse {
 interface ChatMember {
   id: string
   name: string
+  /** For someone from Matrix, the member whose server relays them. */
+  relay?: string
 }
 
 interface ChatDetail extends Omit<Chat, 'members'> {

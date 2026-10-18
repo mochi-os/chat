@@ -157,6 +157,22 @@ export const revokePendingAttachmentPreview = (
   }
 }
 
+// A Matrix address, @name:server.
+const MATRIX_ADDRESS = /^@[^\s@:/]{1,255}:[A-Za-z0-9.-]+(:[0-9]+)?$/
+
+/**
+ * The Matrix address a search names, @name:server, as typed or as a contact
+ * card's messaging address gives it (matrix:u/name:server); null for anything
+ * else.
+ */
+export function matrixAddress(value: string): string | null {
+  const text = value.trim()
+  const address = text.toLowerCase().startsWith('matrix:u/')
+    ? '@' + text.slice('matrix:u/'.length)
+    : text
+  return MATRIX_ADDRESS.test(address) ? address : null
+}
+
 /**
  * Accent- and case-insensitive substring match ("cafe" finds "Café");
  * naturalCompare orders but cannot answer "contains".

@@ -42,6 +42,7 @@ import {
   Copy,
   Forward,
   Lock,
+  LockOpen,
   MoreHorizontal,
   Settings,
   Shield,
@@ -496,6 +497,9 @@ export function Chats() {
         : (membersResponse?.members ?? []),
     [detailMembers, membersResponse?.members]
   )
+
+  // People from Matrix in a group are relayed to its room unencrypted.
+  const relayed = chatMemberRoster.some((member) => Boolean(member.relay))
 
   // 1:1 chats: no @mention dropdown (WhatsApp-style). Groups only.
   const isDirectChat =
@@ -1612,6 +1616,12 @@ export function Chats() {
             </div>
           ) : (
             <>
+            {relayed ? (
+              <p className='text-muted-foreground flex items-center gap-2 px-4 pb-1 text-xs'>
+                <LockOpen className='size-3.5 shrink-0' />
+                <Trans>Messages in this chat reach Matrix unencrypted.</Trans>
+              </p>
+            ) : null}
             {typingNames.length > 0 ? (
               <p
                 className='text-muted-foreground px-4 pb-1 text-xs'

@@ -3,7 +3,12 @@
 // This file is part of Mochi, licensed under the GNU AGPL v3 with the
 // Mochi Application Interface Exception - see license.txt and license-exception.md.
 import { describe, it, expect } from 'vitest'
-import { formatCountBadge, resolveChatView, sendRefusal } from './utils'
+import {
+  formatCountBadge,
+  matrixAddress,
+  resolveChatView,
+  sendRefusal,
+} from './utils'
 
 describe('sendRefusal', () => {
   it('refuses a body over the maximum, which the Enter path used to skip', () => {
@@ -62,5 +67,36 @@ describe('formatCountBadge', () => {
   it('formats an uncapped value directly', () => {
     expect(formatCountBadge(7, digits)).toBe('«7»')
     expect(formatCountBadge(99, digits)).toBe('«99»')
+  })
+})
+
+describe('matrixAddress', () => {
+  it('takes an address as typed', () => {
+    expect(matrixAddress(' @dave:matrix.example ')).toBe('@dave:matrix.example')
+    expect(matrixAddress('@dave:matrix.example:8448')).toBe(
+      '@dave:matrix.example:8448'
+    )
+  })
+
+  it("takes a contact card's messaging address", () => {
+    expect(matrixAddress('matrix:u/dave:matrix.example')).toBe(
+      '@dave:matrix.example'
+    )
+    expect(matrixAddress('MATRIX:u/dave:matrix.example')).toBe(
+      '@dave:matrix.example'
+    )
+  })
+
+  it('takes nothing that is not an address', () => {
+    for (const value of [
+      'dave',
+      '@dave',
+      'dave:matrix.example',
+      '@da ve:matrix.example',
+      '@dave:matrix example',
+      '#room:matrix.example',
+      '',
+    ])
+      expect(matrixAddress(value)).toBeNull()
   })
 })

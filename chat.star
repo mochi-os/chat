@@ -14,11 +14,23 @@ def notify(topic, object="", title="", body="", url="", name="", event_id=""):
 # sequence against.
 def broadcast_chat(chat_id, from_id, subscribers, event, data, exclude=None):
 	# A member on another network is reached through the conversation's
-	# account, never over P2P.
-	subscribers = [s for s in subscribers or [] if mochi.text.valid(s, "entity")]
+	# account, never over P2P, or through the member whose server relays them
+	# (phase 24).
+	reached = []
+	for s in subscribers or []:
+		if mochi.text.valid(s, "entity"):
+			reached.append(s)
+			continue
+		row = mochi.db.row("select relay from members where chat=? and member=?", chat_id, s)
+		if row and row["relay"] and row["relay"] != from_id:
+			reached.append(row["relay"])
+	subscribers = []
+	for s in reached:
+		if s not in subscribers:
+			subscribers.append(s)
 	if not subscribers:
-		return
-	mochi.broadcast.send(from_id, chat_id, subscribers, "chat", event, data, exclude or "")
+		return 0
+	return mochi.broadcast.send(from_id, chat_id, subscribers, "chat", event, data, exclude or "")
 
 # Tell a peer whose roster still lists us to drop us: the same `leave` a
 # departing member sends, so the receiver deletes only (chat, us) and can never
@@ -220,6 +232,7 @@ def database_create():
 	attachment_schema_create()
 	chat_schema_federation()
 	chat_schema_linked()
+	chat_schema_matrix()
 
 def database_upgrade(version):
 	if version == 2:
@@ -247,6 +260,10 @@ def database_upgrade(version):
 		# further ids and other networks' presence (the federation plan,
 		# phase 23).
 		chat_schema_linked()
+	if version == 13:
+		# A reaction's id on Matrix, and the members a group's relaying
+		# member carries from Matrix (the federation plan, phase 24).
+		chat_schema_matrix()
 	if version == 5 or version == 6 or version == 7:
 		# Attachments move into this database, owned by the shared library: create the
 		# table and copy rows out of core's store (bridge or export file). Versions 6
@@ -601,7 +618,7 @@ def action_list(a):
 			   AND msg.id NOT IN (SELECT message FROM deletions WHERE chat = c.id)) as unread
 		FROM chats c
 		LEFT JOIN members m ON m.chat = c.id AND m.member = ?
-		WHERE m.member IS NOT NULL OR c.status IN ('left', 'removed')
+		WHERE (m.member IS NOT NULL OR c.status IN ('left', 'removed'))
 		ORDER BY c.updated DESC
 	""", identity, identity)
 	# One query per batch of two-member chats rather than one per chat; batched so
@@ -957,6 +974,10 @@ def action_send(a):
 		msg_data["attachments"] = [{"id": att["id"], "name": att["name"], "size": att["size"], "content_type": att.get("type", ""), "rank": att.get("rank", 0), "created": att.get("created", now_send), "caption": att.get("caption", ""), "description": att.get("description", "")} for att in attachments]
 	broadcast_chat(chat["id"], a.user.identity.id, member_ids, "message", msg_data)
 
+	# A group with people from Matrix whose room this member relays.
+	if chat.get("relay"):
+		bridge_forward(chat, id, a.user.identity.id, body, reply, thread, attachments)
+
 	return {
 		"data": {"id": id}
 	}
@@ -1097,10 +1118,20 @@ def action_react(a):
 		return
 	reaction = result["reaction"]
 
+	prior = mochi.db.row("select remote from reactions where chat=? and message=? and member=?", chat["id"], message_id, a.user.identity.id)
 	outcome = message_reaction_set(chat["id"], message_id, a.user.identity.id, a.user.identity.name, reaction)
 	if not outcome:
 		a.error.label(404, "errors.message_not_found")
 		return
+
+	# A Matrix conversation has the reaction too (phase 24), as does the room
+	# of a group this member relays.
+	if chat.get("account"):
+		acc = chat_account(chat)
+		if acc and acc["network"] == "matrix":
+			linked_react(chat, acc, a.user.identity.id, message_id, reaction, prior["remote"] if prior else "")
+	if chat.get("relay"):
+		bridge_react(chat, a.user.identity.id, message_id, reaction, prior["remote"] if prior else "")
 
 	# Propagate to other members; their event_message_react applies it and
 	# fires their own commit hook to update their tabs.
@@ -1143,7 +1174,10 @@ def event_message_react(e):
 		return
 	# Roster name only - payload names are untrusted (see event_message).
 	name = member["name"]
+	prior = mochi.db.row("select remote from reactions where chat=? and message=? and member=?", chat["id"], message_id, member_id)
 	message_reaction_apply(chat["id"], message_id, member_id, name, reaction)
+	if chat.get("relay"):
+		bridge_react(chat, member_id, message_id, reaction, prior["remote"] if prior else "")
 
 # --- Search ----------------------------------------------------------------
 
@@ -1248,6 +1282,8 @@ def action_messages_delete(a):
 		message_delete_apply(chat["id"], message_id, a.user.identity.id, now_delete)
 		if chat.get("account"):
 			remote_delete(chat, message_id, owner.get("remote", ""))
+		if chat.get("relay"):
+			bridge_delete(chat, message_id, a.user.identity.id, owner.get("remote", ""))
 		deleted.append(message_id)
 
 	if not deleted:
@@ -1289,10 +1325,12 @@ def event_message_delete(e):
 		message_id = str(raw_id)
 		if not mochi.text.valid(message_id, "id"):
 			continue
-		owner = mochi.db.row("select member from messages where id=? and chat=?", message_id, chat["id"])
+		owner = mochi.db.row("select member, remote from messages where id=? and chat=?", message_id, chat["id"])
 		if not owner or owner["member"] != sender:
 			continue
 		message_delete_apply(chat["id"], message_id, sender, now_delete)
+		if chat.get("relay"):
+			bridge_delete(chat, message_id, sender, owner["remote"])
 
 # Edit one of the caller's own messages for everyone. Same body rules as
 # send; editing to empty is a delete and is refused. Deleted messages stay
@@ -1344,6 +1382,8 @@ def action_message_edit(a):
 	members = mochi.db.rows("select member from members where chat=? and member!=?", chat["id"], a.user.identity.id)
 	member_ids = [m["member"] for m in members]
 	broadcast_chat(chat["id"], a.user.identity.id, member_ids, "message/edit", {"chat": chat["id"], "message": message_id, "body": body, "edited": now_edit})
+	if chat.get("relay"):
+		bridge_edit(chat, message_id, a.user.identity.id, body)
 
 	return {"data": {"id": message_id, "edited": now_edit}}
 
@@ -1388,6 +1428,8 @@ def event_message_edit(e):
 	mochi.db.execute("update messages set body=?, edited=? where id=? and chat=?", body, edited, message_id, chat["id"])
 	chat_ensure_commit_hook()
 	mochi.db.commit.fire("messages", "update", message_id)
+	if chat.get("relay"):
+		bridge_edit(chat, message_id, sender, body)
 
 # Collect the forwardable source messages named by a JSON-array `messages`
 # string: rows that exist in the source chat and are not tombstoned. None when
@@ -1590,7 +1632,7 @@ def action_view(a):
 		a.error.label(403, "errors.not_a_member_of_this_chat")
 		return
 
-	members = mochi.db.rows("select member as id, name from members where chat=?", chat["id"])
+	members = mochi.db.rows("select member as id, name, relay from members where chat=?", chat["id"])
 	chat["members"] = members
 	acc = chat_account(chat)
 	if acc:
@@ -1676,14 +1718,20 @@ def request_resync(chat_id, peer_member, minimum=_RESYNC_AUTOMATIC):
 			continue
 		id = m.get("id", "")
 		display = m.get("name", "")
-		if type(id) != "string" or not mochi.text.valid(id, "entity"):
+		relay = m.get("relay") or ""
+		if type(id) != "string" or type(relay) != "string":
+			continue
+		# A person from Matrix comes with the member who relays them.
+		if relay and not (bridge_person(id) and mochi.text.valid(relay, "entity")):
+			continue
+		if not relay and not mochi.text.valid(id, "entity"):
 			continue
 		# "display", not "name": these are rendered to other participants and
 		# into notification bodies, and "name" admits the Cf bidirectional
 		# overrides that "display" exists to reject.
 		if type(display) != "string" or not mochi.text.valid(display, "display"):
 			continue
-		roster.append({"id": id, "name": display})
+		roster.append({"id": id, "name": display, "relay": relay})
 	# Create chat if missing. Re-read existence here (not the throttle read
 	# above): a concurrent event_new may have inserted the chat while we were
 	# awaiting the blocking remote request, and the insert below is not
@@ -1705,8 +1753,11 @@ def request_resync(chat_id, peer_member, minimum=_RESYNC_AUTOMATIC):
 	# Insert members we do not hold. Never a rename: the answering peer is a
 	# member like any other, and the roster name is what every later message
 	# and notification from that member is labelled with.
+	listed_ids = [m["id"] for m in roster]
 	for m in roster:
-		mochi.db.execute("insert or ignore into members ( chat, member, name ) values ( ?, ?, ? )", chat_id, m["id"], m["name"])
+		if m["relay"] and m["relay"] not in listed_ids:
+			continue
+		mochi.db.execute("insert or ignore into members ( chat, member, name, relay ) values ( ?, ?, ?, ? )", chat_id, m["id"], m["name"], m["relay"])
 	return True
 
 # Answer a member's resync request with the chat's name and roster; non-members
@@ -1725,7 +1776,7 @@ def event_info(e):
 	if not mochi.db.exists("select 1 from members where chat=? and member=?", chat_id, requester):
 		e.stream.write({"error": "errors.not_a_member_of_this_chat"})
 		return
-	members = mochi.db.rows("select member as id, name from members where chat=?", chat_id) or []
+	members = mochi.db.rows("select member as id, name, relay from members where chat=?", chat_id) or []
 	e.stream.write({"name": chat["name"], "members": members})
 
 # Recieve a chat message from another member
@@ -1836,9 +1887,18 @@ def event_message(e):
 	chat_ensure_commit_hook()
 	mochi.db.commit.fire("messages", "insert", id)
 
+	# A group with people from Matrix whose room this member relays.
+	if chat.get("relay") and not existing:
+		bridge_forward(chat, id, member["member"], body, reply, thread, attachments)
+
 	# The sender learns the message arrived. Not under the receipts switch:
 	# it says the message is here, not that it was read.
 	receipt_send(e.header("to"), e.header("from"), chat["id"], delivered=created)
+
+	# A conversation this member only carries for another (phase 24) is not
+	# theirs to be told of.
+	if chat.get("kind") == "bridge":
+		return
 
 	# An @mention of this user notifies on the separate "mention" topic so it cuts
 	# through a muted Messages topic.
@@ -1899,7 +1959,14 @@ def event_new(e):
 	for member in members:
 		if type(member) != "dict":
 			return
-		if type(member.get("id")) != "string" or not mochi.text.valid(member["id"], "entity"):
+		relay = member.get("relay") or ""
+		if type(member.get("id")) != "string" or type(relay) != "string":
+			return
+		# A person from Matrix comes with the member who relays them.
+		if relay:
+			if not bridge_person(member["id"]) or not mochi.text.valid(relay, "entity"):
+				return
+		elif not mochi.text.valid(member["id"], "entity"):
 			return
 		if type(member.get("name")) != "string" or not mochi.text.valid(member["name"], "display"):
 			return
@@ -1907,6 +1974,9 @@ def event_new(e):
 			continue
 		seen[member["id"]] = True
 		roster.append(member)
+	for member in roster:
+		if member.get("relay") and member["relay"] not in seen:
+			return
 
 	# A chat we are not in is a chat we can never see or delete: action_list
 	# filters on membership and action_delete refuses an active chat, so the
@@ -1925,6 +1995,11 @@ def event_new(e):
 		if not mochi.db.exists("select 1 from members where chat=? and member=?", chat, e.header("from")):
 			return
 		mochi.db.execute("update chats set status='active', name=?, updated=? where id=?", name, mochi.time.now(), chat)
+		# The adder's stream resumes at the addition, not where it stood when
+		# this member went.
+		since = content_number(e, "since", 0)
+		if since > 0 and e.header("peer"):
+			mochi.broadcast.advance(e.header("peer"), chat, since)
 	else:
 		mochi.db.execute("insert or ignore into chats ( id, name, key, updated ) values ( ?, ?, ?, ? )", chat, name, mochi.random.alphanumeric(16), mochi.time.now())
 
@@ -1932,7 +2007,7 @@ def event_new(e):
 	# names, or the re-adding member could relabel everyone (its own row
 	# included) and every later message would carry the label.
 	for member in roster:
-		mochi.db.execute("insert or ignore into members ( chat, member, name ) values ( ?, ?, ? )", chat, member["id"], member["name"])
+		mochi.db.execute("insert or ignore into members ( chat, member, name, relay ) values ( ?, ?, ?, ? )", chat, member["id"], member["name"], member.get("relay") or "")
 
 # Would-you-accept probe: answers from the same rule as event_new (friendship or
 # chat_policy "anyone") and carries the display name so the sender needs no
@@ -1987,6 +2062,8 @@ def event_rename(e):
 
 	mochi.db.execute("update chats set name=?, updated=? where id=?", name, incoming, chat["id"])
 	chat_websocket(chat["key"], {"event": "rename", "name": name})
+	if chat.get("relay"):
+		mochi.bridge.rename(chat["relay"], name)
 
 # Received a leave event - a member left the chat
 def event_leave(e):
@@ -2006,6 +2083,14 @@ def event_leave(e):
 		return
 
 	mochi.db.execute("delete from members where chat=? and member=?", chat["id"], member)
+	if chat.get("relay"):
+		mochi.bridge.leave(chat["relay"], member)
+	bridge_depart(chat, member)
+	# A conversation carried for a member who has gone from it is closed.
+	if chat.get("kind") == "bridge" and chat.get("relay") and not chat_peers(chat["id"], e.header("to")):
+		mochi.bridge.close(chat["relay"])
+		chat_delete_local(chat["id"])
+		return
 	# Every member originates their own stream, so each remaining host has to
 	# revoke the leaver from ITS OWN broadcast log. Doing this only where the
 	# removal is initiated would leave every other member's history replayable.
@@ -2028,7 +2113,12 @@ def event_member_add(e):
 		return
 
 	member = content_text(e, "member", "")
-	if not mochi.text.valid(member, "entity"):
+	# A person from Matrix is added by the member who relays them, and named
+	# with them (phase 24).
+	relay = content_text(e, "relay", "")
+	if relay and (relay != sender or not bridge_person(member)):
+		return
+	if not relay and not mochi.text.valid(member, "entity"):
 		return
 
 	name = content_text(e, "name", "")
@@ -2049,7 +2139,12 @@ def event_member_add(e):
 	if count and count["members"] >= _MEMBERS_MAXIMUM:
 		return
 
-	mochi.db.execute("insert or ignore into members ( chat, member, name ) values ( ?, ?, ? )", chat["id"], member, name)
+	mochi.db.execute("insert or ignore into members ( chat, member, name, relay ) values ( ?, ?, ?, ? )", chat["id"], member, name, relay)
+	if relay:
+		mochi.db.execute("update chats set updated=? where id=?", mochi.time.now(), chat["id"])
+		chat_websocket(chat["key"], {"event": "member/add", "member": member, "name": name})
+		return
+	bridge_seat(chat, member, name)
 	# The member/add broadcast goes to the EXISTING members, so the joiner is
 	# absent from the very event that admits them and core would refuse them a
 	# resync of this host's stream until some later message included them.
@@ -2061,6 +2156,12 @@ def event_member_add(e):
 # only, the open page learns at once, and the user is told.
 def removed_mark(chat):
 	mochi.db.execute("update chats set status='removed', updated=? where id=?", mochi.time.now(), chat["id"])
+	# A member put out of a group whose room they relay closes it, and the
+	# people from Matrix they relayed go from their copy.
+	if chat.get("relay"):
+		mochi.bridge.close(chat["relay"])
+		mochi.db.execute("delete from members where chat=? and relay!=''", chat["id"])
+		mochi.db.execute("update chats set relay='' where id=?", chat["id"])
 	chat_websocket(chat["key"], {"event": "removed"})
 	notify("member/removed", chat["id"], mochi.app.label("notifications.title.removed"), mochi.app.label("notifications.body.removed"), "/chat/" + chat["id"], chat["name"], event_id="removed:" + chat["id"])
 
@@ -2080,7 +2181,7 @@ def event_member_remove(e):
 		return
 
 	member = content_text(e, "member", "")
-	if not mochi.text.valid(member, "entity"):
+	if not mochi.text.valid(member, "entity") and not mochi.db.exists("select 1 from members where chat=? and member=? and relay!=''", chat["id"], member):
 		return
 
 	# Our own removal must arrive as `removed`; converge on that handler's state
@@ -2091,9 +2192,19 @@ def event_member_remove(e):
 		removed_mark(chat)
 		return
 
+	relayed = mochi.db.row("select relay from members where chat=? and member=?", chat["id"], member)
 	mochi.db.execute("delete from members where chat=? and member=?", chat["id"], member)
+	# The room of a group this member relays loses them too: a person from
+	# Matrix is put out of it, a Mochi member's stand-in leaves.
+	if chat.get("relay"):
+		if relayed and relayed["relay"] == e.header("to"):
+			mochi.bridge.remove(chat["relay"], member)
+		elif mochi.text.valid(member, "entity"):
+			mochi.bridge.leave(chat["relay"], member)
+	bridge_depart(chat, member)
 	# As in event_leave: this host's own stream must stop serving them.
-	mochi.broadcast.subscriber.remove(chat["id"], member)
+	if mochi.text.valid(member, "entity"):
+		mochi.broadcast.subscriber.remove(chat["id"], member)
 	chat_websocket(chat["key"], {"event": "member/remove", "member": member})
 
 # Received a removed event - current user was removed from chat
@@ -2131,7 +2242,7 @@ def action_members(a):
 		a.error.label(403, "errors.not_a_member_of_this_chat")
 		return
 
-	members = mochi.db.rows("select member as id, name from members where chat=?", chat["id"])
+	members = mochi.db.rows("select member as id, name, relay from members where chat=?", chat["id"])
 	return {"data": {"members": members}}
 
 # Rename a chat
@@ -2160,6 +2271,8 @@ def action_rename(a):
 	members = mochi.db.rows("select member from members where chat=?", chat["id"])
 	member_ids = [m["member"] for m in members]
 	broadcast_chat(chat["id"], a.user.identity.id, member_ids, "rename", {"id": chat["id"], "name": name, "updated": now}, exclude=a.user.identity.id)
+	if chat.get("relay"):
+		mochi.bridge.rename(chat["relay"], name)
 
 	chat_websocket(chat["key"], {"event": "rename", "name": name})
 	return {"data": {"success": True}}
@@ -2189,6 +2302,10 @@ def action_leave(a):
 		acc = chat_account(chat)
 		if acc and acc["network"] in LINKED_CHAT:
 			mochi.account.room.leave(acc["id"], chat["room"])
+	# The member relaying a group's people from Matrix takes them along, and
+	# the room is closed (phase 24).
+	if chat.get("relay"):
+		bridge_close(chat, a.user.identity.id)
 
 	# Remove self from members
 	mochi.db.execute("delete from members where chat=? and member=?", chat["id"], a.user.identity.id)
@@ -2259,6 +2376,10 @@ def action_member_add(a):
 		return
 
 	member_id = a.input("member")
+	# A person from Matrix, by their address (phase 24).
+	person = bridge_person(member_id)
+	if person and chat.get("kind") != "bridge":
+		return bridge_add(a, chat, person)
 	if not mochi.text.valid(member_id, "entity"):
 		a.error.label(400, "errors.invalid_member_id")
 		return
@@ -2291,19 +2412,24 @@ def action_member_add(a):
 	mochi.broadcast.subscriber.add(chat["id"], member_id)
 	mochi.db.execute("update chats set updated=? where id=?", mochi.time.now(), chat["id"])
 
-	# Get all current members for the new event
-	all_members = mochi.db.rows("select member as id, name from members where chat=?", chat["id"])
+	bridge_seat(chat, member_id, member_name)
+
+	# Get all current members for the new event, a person from Matrix with
+	# the member who relays them.
+	all_members = mochi.db.rows("select member as id, name, relay from members where chat=?", chat["id"])
 
 	# Notify existing members about the addition. The new member's id is
 	# excluded by the SQL filter; the sender's id is excluded via the
 	# broadcast helper's `exclude` arg.
 	existing_members = mochi.db.rows("select member from members where chat=? and member!=?", chat["id"], member_id)
 	existing_member_ids = [m["member"] for m in existing_members]
-	broadcast_chat(chat["id"], a.user.identity.id, existing_member_ids, "member/add", {"id": chat["id"], "member": member_id, "name": member_name}, exclude=a.user.identity.id)
+	since = broadcast_chat(chat["id"], a.user.identity.id, existing_member_ids, "member/add", {"id": chat["id"], "member": member_id, "name": member_name}, exclude=a.user.identity.id)
 
 	# Single-recipient bootstrap with the roster as stream body: broadcast.send
-	# carries no body and the receiver has no stream state yet.
-	mochi.message.send({"from": a.user.identity.id, "to": member_id, "service": "chat", "event": "new"}, {"id": chat["id"], "name": chat["name"]}, all_members)
+	# carries no body and the receiver has no stream state yet. A member added
+	# back picks up this host's stream from the addition: what was sent while
+	# they were away, their own removal among it, is not theirs to replay.
+	mochi.message.send({"from": a.user.identity.id, "to": member_id, "service": "chat", "event": "new"}, {"id": chat["id"], "name": chat["name"], "since": since or 0}, all_members)
 
 	chat_websocket(chat["key"], {"event": "member/add", "member": member_id, "name": member_name})
 	return {"data": {"success": True, "member": {"id": member_id, "name": member_name}}}
@@ -2325,7 +2451,8 @@ def action_member_remove(a):
 		return
 
 	member_id = a.input("member")
-	if not mochi.text.valid(member_id, "entity"):
+	relayed = mochi.db.row("select relay from members where chat=? and member=? and relay!=''", chat["id"], member_id) if member_id else None
+	if not mochi.text.valid(member_id, "entity") and not relayed:
 		a.error.label(400, "errors.invalid_member_id")
 		return
 
@@ -2352,6 +2479,19 @@ def action_member_remove(a):
 	remaining = mochi.db.rows("select member from members where chat=?", chat["id"])
 	remaining_ids = [m["member"] for m in remaining]
 	broadcast_chat(chat["id"], a.user.identity.id, remaining_ids, "member/remove", {"id": chat["id"], "member": member_id}, exclude=a.user.identity.id)
+
+	# A person from Matrix is put out of the room by the member who relays
+	# them, here or on hearing of it; a Mochi member's stand-in leaves it.
+	if relayed:
+		if relayed["relay"] == a.user.identity.id and chat.get("relay"):
+			mochi.bridge.remove(chat["relay"], member_id)
+		elif relayed["relay"] not in remaining_ids:
+			broadcast_chat(chat["id"], a.user.identity.id, [relayed["relay"]], "member/remove", {"id": chat["id"], "member": member_id})
+		chat_websocket(chat["key"], {"event": "member/remove", "member": member_id})
+		return {"data": {"success": True}}
+	if chat.get("relay"):
+		mochi.bridge.leave(chat["relay"], member_id)
+	bridge_depart(chat, member_id)
 
 	# Send removed event to the removed member. Single recipient with no
 	# stream to sequence against — stays on raw mochi.message.send.
@@ -2973,6 +3113,26 @@ def chat_schema_linked():
 	mochi.db.execute("create index if not exists parts_remote on parts( remote )")
 	mochi.db.execute("create table if not exists presence ( account text not null, member text not null, status text not null default 'offline', message text not null default '', seen integer not null default 0, primary key ( account, member ) )")
 
+def chat_schema_matrix():
+	"""The columns of phase 24, at creation and by the migration alike: a
+	reaction's id on Matrix, so withdrawing it there withdraws it here; and
+	for a group with people from Matrix, the member whose server relays each
+	of them and, on that member's own copy, the room it relays through."""
+	column_add("reactions", "remote", "text not null default ''")
+	column_add("members", "relay", "text not null default ''")
+	column_add("chats", "relay", "text not null default ''")
+	mochi.db.execute("create index if not exists reactions_remote on reactions( remote )")
+	mochi.db.execute("create index if not exists chats_relay on chats( relay )")
+
+# A reaction's emoji on Matrix, as chat's web client shows each, and the
+# reactions read back by their emoji.
+REACTION_EMOJI = {"like": "👍", "dislike": "👎", "laugh": "😂", "amazed": "😮", "love": "😍", "sad": "😢", "angry": "😡", "agree": "🤝", "disagree": "🙅"}
+REACTION_NAMES = dict([(emoji, name) for name, emoji in REACTION_EMOJI.items()] + [("❤", "love"), ("😆", "laugh"), ("😮", "amazed"), ("😲", "amazed"), ("😠", "angry")])
+
+def reaction_name(emoji):
+	"""The reaction an emoji on Matrix is, or '' for one chat has none for."""
+	return REACTION_NAMES.get(str(emoji or "").replace("\ufe0f", "").strip(), "")
+
 # --- Accounts ---
 
 def account_network(acc):
@@ -3229,6 +3389,8 @@ def function_linked_receive(context, account, network, events):
 			linked_edited(acc, identity, event)
 		elif kind == "delete":
 			linked_withdrawn(acc, identity, event)
+		elif kind == "reaction":
+			linked_reacted(acc, identity, event)
 		elif kind == "sent":
 			linked_sent(acc, event)
 		elif kind == "typing":
@@ -3384,7 +3546,12 @@ def linked_edited(acc, identity, event):
 
 def linked_withdrawn(acc, identity, event):
 	"""A message withdrawn: by whoever sent it, or in a room by whoever the
-	room lets."""
+	room lets; or a reaction withdrawn, by the id it has on Matrix."""
+	remote = str(event.get("id", "") or "")
+	reacted = mochi.db.row("select r.chat, r.message, r.member from reactions r join chats c on c.id=r.chat where c.account=? and r.remote=?", acc["id"], remote) if remote else None
+	if reacted:
+		message_reaction_set(reacted["chat"], reacted["message"], reacted["member"], "", None)
+		return
 	message = linked_message_of(acc, event.get("id"))
 	if not message:
 		return
@@ -3393,6 +3560,20 @@ def linked_withdrawn(acc, identity, event):
 	if sender and message["member"] != sender and not chat.get("room"):
 		return
 	message_delete_apply(message["chat"], message["id"], sender or message["member"], mochi.time.now())
+
+def linked_reacted(acc, identity, event):
+	"""A reaction on Matrix to a message: kept as one of chat's with the id it
+	has there. A reaction chat has no name for is passed over."""
+	message = linked_message_of(acc, event.get("id"))
+	reaction = reaction_name(event.get("reaction"))
+	if not message or not reaction:
+		return
+	member = linked_sender(identity, event)
+	row = mochi.db.row("select name from members where chat=? and member=?", message["chat"], member)
+	if not row:
+		return
+	if message_reaction_set(message["chat"], message["id"], member, row["name"], reaction):
+		mochi.db.execute("update reactions set remote=? where chat=? and message=? and member=?", str(event.get("event", "") or "")[:REMOTE_MAXIMUM], message["chat"], message["id"], member)
 
 def linked_sent(acc, event):
 	"""The id a room gave a message the user sent, by which the room knows it."""
@@ -3493,6 +3674,11 @@ def linked_invite(acc, identity, event):
 		return
 	if mochi.db.exists("select 1 from chats where account=? and room=? and status in ('active', 'invited')", acc["id"], conversation):
 		return
+	# A hosted account's invitations are Mochi's to police: chat's policy
+	# applies, and one from someone the user does not know is passed over
+	# unseen (phase 24). A linked account's server polices its own.
+	if acc.get("hosted") and not invite_accepted(mochi.user.preference, identity["id"], inviter):
+		return
 	name = linked_name(event.get("name"), conversation)
 	chat = linked_chat_make(acc, name, conversation, identity["id"], identity.get("name", ""), [(inviter, inviter)], status="invited")
 	# An invitation to a one-to-one room, which accepting marks as one.
@@ -3592,6 +3778,22 @@ def linked_delete(chat, acc, message_id, remote):
 		if id:
 			mochi.account.object.delete(acc["id"], id, conversation=target)
 
+def linked_react(chat, acc, me, message_id, reaction, previous):
+	"""The user's reaction to a message of a Matrix conversation, there too:
+	the one before withdrawn, the new one sent and its id kept."""
+	target = linked_target(chat)
+	remote = linked_remote(chat["id"], message_id)
+	if not target or not remote:
+		return
+	if previous:
+		mochi.account.object.delete(acc["id"], previous, conversation=target)
+	emoji = REACTION_EMOJI.get(reaction, "")
+	if not emoji:
+		return
+	result = mochi.account.object.create(acc["id"], {"conversation": target, "reaction": emoji, "message": remote}, key="chat|react|" + message_id + "|" + mochi.uid())
+	if result and result.get("id"):
+		mochi.db.execute("update reactions set remote=? where chat=? and message=? and member=?", str(result["id"]), chat["id"], message_id, me)
+
 def linked_read(chat, user, read):
 	"""Tell a linked conversation how far the user has read it, up to the
 	latest message from someone else: its members where the user's switch
@@ -3644,3 +3846,480 @@ def action_decline(a):
 		mochi.account.room.leave(acc["id"], chat["room"])
 	chat_delete_local(chat["id"])
 	return {"data": {"declined": True}}
+
+# === Groups with people from Matrix (the federation plan, phase 24) ===
+#
+# A Mochi group chat takes people from Matrix by their addresses (decision
+# 39). It stays a Mochi chat among its Mochi members, and the server of the
+# member who brought the first of them in relays between it and a Matrix room
+# made for them, every Mochi member seated there as a stand-in under their
+# own name. That member's copy keeps the room in chats.relay; every copy keeps,
+# for each person from Matrix, the member who relays them in members.relay,
+# and takes what that person says only from that member. The relaying member
+# passes on what the Mochi members do there and what the people from Matrix
+# do here. The room is not end-to-end encrypted, which the chat shows.
+#
+# A person from Matrix who starts a conversation with a member's stand-in
+# reaches that member as a chat request, under the member's own policy, and
+# the relaying member carries the conversation in a copy of their own that
+# their chat list does not show (kind 'bridge').
+
+def bridge_relayer(chat_id):
+	"""The member who relays a chat's people from Matrix, or ''."""
+	row = mochi.db.row("select relay from members where chat=? and relay!='' limit 1", chat_id)
+	return row["relay"] if row else ""
+
+def bridge_person(value):
+	"""A Matrix address as a member is known by, @name:host, or None."""
+	if mochi.text.valid(str(value or ""), "entity"):
+		return None
+	return linked_person("matrix", value)
+
+def bridge_member_ok(chat_id, member, relay):
+	"""Whether a member from Matrix is one the relaying member named relays."""
+	return relay and mochi.db.exists("select 1 from members where chat=? and member=? and relay=?", chat_id, member, relay)
+
+def bridge_add(a, chat, person):
+	"""Add a person from Matrix to a group: the room made the first time, with
+	every member seated, else the person invited to it; the other members
+	learn of them as relayed by this member."""
+	me = a.user.identity.id
+	if mochi.db.exists("select 1 from members where chat=? and member=?", chat["id"], person):
+		a.error.label(400, "errors.already_member")
+		return
+	count = mochi.db.row("select count(*) as members from members where chat=?", chat["id"])
+	if count and count["members"] >= _MEMBERS_MAXIMUM:
+		a.error.label(400, "errors.too_many_members", maximum=_MEMBERS_MAXIMUM)
+		return
+	relayer = bridge_relayer(chat["id"])
+	if relayer and relayer != me:
+		row = mochi.db.row("select name from members where chat=? and member=?", chat["id"], relayer)
+		a.error.label(400, "errors.bridge_other_member", name=row["name"] if row else relayer)
+		return
+	if not mochi.bridge.available():
+		a.error.label(400, "errors.bridge_unavailable")
+		return
+	if chat.get("relay"):
+		found = mochi.bridge.invite(chat["relay"], person)
+	else:
+		seated = [{"entity": m["member"], "name": m["name"]} for m in mochi.db.rows("select member, name from members where chat=? and member!=?", chat["id"], me) or [] if mochi.text.valid(m["member"], "entity")]
+		made = mochi.bridge.create(chat["id"], chat["name"], [person], members=seated)
+		found = None
+		if made and made.get("room"):
+			mochi.db.execute("update chats set relay=? where id=?", str(made["room"]), chat["id"])
+			people = listed(made.get("people"))
+			found = people[0] if people else None
+	if not found:
+		a.error.label(404, "errors.person_not_found_on_network")
+		return
+	name = linked_name(found.get("name"), person)
+	mochi.db.execute("insert into members ( chat, member, name, relay ) values ( ?, ?, ?, ? )", chat["id"], person, name, me)
+	mochi.db.execute("update chats set updated=? where id=?", mochi.time.now(), chat["id"])
+	others = [m["member"] for m in mochi.db.rows("select member from members where chat=? and member!=?", chat["id"], person) or []]
+	broadcast_chat(chat["id"], me, others, "member/add", {"id": chat["id"], "member": person, "name": name, "relay": me}, exclude=me)
+	chat_websocket(chat["key"], {"event": "member/add", "member": person, "name": name})
+	return {"data": {"success": True, "member": {"id": person, "name": name}}}
+
+def bridge_remote(chat_id, message_id):
+	"""A message's id in the relayed room, or ''."""
+	return linked_remote(chat_id, message_id) if message_id else ""
+
+def bridge_bytes(att):
+	"""An attachment's bytes, fetched from its member's server, as the user,
+	where this one holds only its description."""
+	row = attachment_row(att["id"])
+	if not row:
+		return None
+	if not row.get("entity"):
+		return mochi.file.read(attachment_filename(att["id"], row["name"]), mochi.file.maximum())
+	me = chat_identity()
+	if not me or not attachment_fetch(att["id"], me["id"]):
+		return None
+	return mochi.cache.read(attachment_cache_name(att["id"]))
+
+def bridge_forward(chat, message_id, member, body, reply, thread, attachments):
+	"""A Mochi member's message, passed to the relayed room as their stand-in:
+	its text, then each file, the first kept as its id there and the rest as
+	its further ids."""
+	room = chat["relay"]
+	sent = ""
+	if body:
+		object = {"content": body}
+		if bridge_remote(chat["id"], reply):
+			object["reply"] = bridge_remote(chat["id"], reply)
+		if bridge_remote(chat["id"], thread):
+			object["thread"] = bridge_remote(chat["id"], thread)
+		result = mochi.bridge.send(room, member, object, key=message_id)
+		sent = str(result["id"]) if result and result.get("id") else ""
+	for att in attachments or []:
+		data = bridge_bytes(att)
+		uploaded = mochi.bridge.upload(room, data, str(att.get("type", "") or att.get("content_type", "") or ""), name=att.get("name", "")) if data != None else None
+		result = mochi.bridge.send(room, member, {"file": uploaded}, key=message_id + "|" + att["id"]) if uploaded else None
+		if not result or not result.get("id"):
+			continue
+		if sent:
+			mochi.db.execute("insert or ignore into parts ( message, remote, kind ) values ( ?, ?, 'file' )", message_id, str(result["id"]))
+		else:
+			sent = str(result["id"])
+	if sent:
+		mochi.db.execute("update messages set remote=? where id=?", sent, message_id)
+
+def bridge_edit(chat, message_id, member, body):
+	"""A Mochi member's edit, passed to the relayed room."""
+	remote = bridge_remote(chat["id"], message_id)
+	if remote:
+		mochi.bridge.update(chat["relay"], member, remote, {"content": body})
+
+def bridge_delete(chat, message_id, member, remote):
+	"""A Mochi member's withdrawn message, withdrawn in the relayed room with
+	its files."""
+	ids = [remote] + [p["remote"] for p in mochi.db.rows("select remote from parts where message=? and kind='file'", message_id) or []]
+	for id in ids:
+		if id:
+			mochi.bridge.delete(chat["relay"], member, id)
+
+def bridge_react(chat, member, message_id, reaction, previous):
+	"""A Mochi member's reaction, passed to the relayed room: the one before
+	withdrawn, the new one sent and its id kept."""
+	remote = bridge_remote(chat["id"], message_id)
+	if not remote:
+		return
+	if previous:
+		mochi.bridge.delete(chat["relay"], member, previous)
+	emoji = REACTION_EMOJI.get(reaction or "", "")
+	if not emoji:
+		return
+	result = mochi.bridge.send(chat["relay"], member, {"reaction": emoji, "message": remote}, key=message_id + "|react|" + mochi.uid())
+	if result and result.get("id"):
+		mochi.db.execute("update reactions set remote=? where chat=? and message=? and member=?", str(result["id"]), chat["id"], message_id, member)
+
+def bridge_seat(chat, member, name):
+	"""A Mochi member joining a relayed group is seated in its room."""
+	if chat.get("relay") and mochi.text.valid(member, "entity"):
+		mochi.bridge.member(chat["relay"], member, name)
+
+def bridge_close(chat, me):
+	"""The relaying member leaving: the people from Matrix leave the group with
+	them, the other members dropping them on hearing the leave, and the room
+	is closed."""
+	mochi.db.execute("delete from members where chat=? and relay=?", chat["id"], me)
+	mochi.bridge.close(chat["relay"])
+	mochi.db.execute("update chats set relay='' where id=?", chat["id"])
+
+def bridge_depart(chat, member):
+	"""A member gone from a group, by leaving or being put out: the people
+	from Matrix they relayed go with them."""
+	for row in mochi.db.rows("select member from members where chat=? and relay=?", chat["id"], member) or []:
+		mochi.db.execute("delete from members where chat=? and member=?", chat["id"], row["member"])
+		chat_websocket(chat["key"], {"event": "member/remove", "member": row["member"]})
+
+# --- What arrives from the room ---
+
+def function_bridge_receive(context, room, events):
+	"""What the people from Matrix did in a room this server relays: each
+	passed to the group's Mochi members, or an invitation to a member's
+	stand-in passed on as a chat request."""
+	identity = chat_identity()
+	if not identity:
+		return None
+	room = str(room or "")
+	chat = mochi.db.row("select * from chats where relay=? and status='active'", room) if room else None
+	for event in events or []:
+		if type(event) != "dict":
+			continue
+		kind = str(event.get("kind", "") or "")
+		if kind == "invite":
+			bridge_invited(identity, room, event)
+		elif not chat:
+			continue
+		elif kind == "message":
+			bridge_received(chat, identity, event)
+		elif kind == "edit":
+			bridge_edited(chat, identity, event)
+		elif kind == "delete":
+			bridge_withdrawn(chat, identity, event)
+		elif kind == "reaction":
+			bridge_reacted(chat, identity, event)
+		elif kind == "member" and event.get("left") == True:
+			bridge_departed(chat, identity, str(event.get("id", "") or ""))
+	return None
+
+def bridge_peers(chat, me):
+	"""The Mochi members a relayed member's doing is passed to."""
+	return chat_peers(chat["id"], me)
+
+def bridge_received(chat, identity, event):
+	"""A message from a person from Matrix: kept as theirs and passed to the
+	Mochi members, its files fetched through the relaying server."""
+	me = identity["id"]
+	sender = str(event.get("from", "") or "")
+	remote = str(event.get("id", "") or "")[:REMOTE_MAXIMUM]
+	if not remote or not bridge_member_ok(chat["id"], sender, me):
+		return
+	if mochi.db.exists("select 1 from messages where chat=? and remote=?", chat["id"], remote):
+		return
+	name = mochi.db.row("select name from members where chat=? and member=?", chat["id"], sender)["name"]
+	body = str(event.get("body", "") or "")[:10000]
+	if body and not mochi.text.valid(body, "text"):
+		return
+	created = event.get("created", 0)
+	now = mochi.time.now()
+	if type(created) != "int" or created > now + 86400 or created < now - 31536000 * 20:
+		created = now
+	id = mochi.uid()
+	object = "chat/" + chat["id"] + "/" + id
+	for f in [f for f in listed(event.get("files")) if type(f) == "dict"][:FILES_MAXIMUM]:
+		fetched = mochi.bridge.media(chat["relay"], str(f.get("url", "") or ""))
+		if fetched and fetched.get("status") == 200 and fetched.get("data"):
+			attachment_create(object, str(f.get("name", "") or "file")[:200], fetched["data"], content_type=str(fetched.get("type", "") or f.get("type", "") or "").split(";")[0])
+	if not body and not attachment_list(object, chat["id"]):
+		return
+	reply = linked_local(chat["id"], str(event.get("reply", "") or ""))
+	root = linked_local(chat["id"], str(event.get("thread", "") or ""))
+	thread = root["id"] if root and not root["thread"] else ""
+	mochi.db.execute("insert into messages ( id, chat, member, name, body, created, reply, remote, thread ) values ( ?, ?, ?, ?, ?, ?, ?, ?, ? )", id, chat["id"], sender, name, body, created, reply["id"] if reply else None, remote, thread)
+	if created > (chat.get("updated") or 0):
+		mochi.db.execute("update chats set updated=? where id=?", created, chat["id"])
+	chat_ensure_commit_hook()
+	mochi.db.commit.fire("messages", "insert", id)
+	attachments = attachment_list(object, chat["id"])
+	data = {"chat": chat["id"], "message": id, "member": sender, "created": created, "body": body}
+	if reply:
+		data["reply"] = reply["id"]
+	if thread:
+		data["thread"] = thread
+	if attachments:
+		data["attachments"] = [{"id": att["id"], "name": att["name"], "size": att["size"], "content_type": att.get("type", ""), "rank": att.get("rank", 0), "created": att.get("created", created), "caption": att.get("caption", ""), "description": att.get("description", "")} for att in attachments]
+	broadcast_chat(chat["id"], me, bridge_peers(chat, me), "bridge/message", data)
+	if chat.get("kind") != "bridge":
+		notify("message", chat["id"], mochi.app.label("notifications.title.message"), mochi.app.label("notifications.body.message", author=name, excerpt=body.strip()[:80]), "/chat/" + chat["id"], chat["name"], event_id="message:" + id)
+
+def bridge_edited(chat, identity, event):
+	"""A person from Matrix's edit of their message, passed on."""
+	sender = str(event.get("from", "") or "")
+	message = mochi.db.row("select * from messages where chat=? and remote=?", chat["id"], str(event.get("id", "") or ""))
+	body = str(event.get("body", "") or "")[:10000]
+	if not message or message["member"] != sender or not body or not mochi.text.valid(body, "text") or body == message["body"]:
+		return
+	if mochi.db.exists("select 1 from deletions where message=?", message["id"]):
+		return
+	now = mochi.time.now()
+	mochi.db.execute("update messages set body=?, edited=? where id=?", body, now, message["id"])
+	chat_ensure_commit_hook()
+	mochi.db.commit.fire("messages", "update", message["id"])
+	broadcast_chat(chat["id"], identity["id"], bridge_peers(chat, identity["id"]), "bridge/edit", {"chat": chat["id"], "message": message["id"], "member": sender, "body": body, "edited": now})
+
+def bridge_withdrawn(chat, identity, event):
+	"""A person from Matrix withdrawing a message or a reaction, passed on."""
+	me = identity["id"]
+	remote = str(event.get("id", "") or "")
+	if not remote:
+		return
+	reacted = mochi.db.row("select message, member from reactions where chat=? and remote=?", chat["id"], remote)
+	if reacted:
+		message_reaction_set(chat["id"], reacted["message"], reacted["member"], "", None)
+		if not mochi.text.valid(reacted["member"], "entity"):
+			broadcast_chat(chat["id"], me, bridge_peers(chat, me), "bridge/react", {"message": reacted["message"], "member": reacted["member"], "reaction": None})
+		return
+	message = mochi.db.row("select * from messages where chat=? and remote=?", chat["id"], remote)
+	if not message or mochi.text.valid(message["member"], "entity"):
+		return
+	message_delete_apply(chat["id"], message["id"], message["member"], mochi.time.now())
+	broadcast_chat(chat["id"], me, bridge_peers(chat, me), "bridge/delete", {"chat": chat["id"], "message": message["id"], "member": message["member"]})
+
+def bridge_reacted(chat, identity, event):
+	"""A person from Matrix's reaction, kept with its id there and passed on."""
+	me = identity["id"]
+	sender = str(event.get("from", "") or "")
+	reaction = reaction_name(event.get("reaction"))
+	message = mochi.db.row("select * from messages where chat=? and remote=?", chat["id"], str(event.get("id", "") or ""))
+	if not message or not reaction or not bridge_member_ok(chat["id"], sender, me):
+		return
+	name = mochi.db.row("select name from members where chat=? and member=?", chat["id"], sender)["name"]
+	if message_reaction_set(chat["id"], message["id"], sender, name, reaction):
+		mochi.db.execute("update reactions set remote=? where chat=? and message=? and member=?", str(event.get("event", "") or "")[:REMOTE_MAXIMUM], chat["id"], message["id"], sender)
+		broadcast_chat(chat["id"], me, bridge_peers(chat, me), "bridge/react", {"message": message["id"], "member": sender, "reaction": reaction})
+
+def bridge_departed(chat, identity, person):
+	"""A person from Matrix leaving the room leaves the group."""
+	me = identity["id"]
+	if not bridge_member_ok(chat["id"], person, me):
+		return
+	mochi.db.execute("delete from members where chat=? and member=?", chat["id"], person)
+	others = [m["member"] for m in mochi.db.rows("select member from members where chat=? and member!=?", chat["id"], me) or []]
+	broadcast_chat(chat["id"], me, others, "member/remove", {"id": chat["id"], "member": person}, exclude=me)
+	chat_websocket(chat["key"], {"event": "member/remove", "member": person})
+
+def bridge_invited(identity, room, event):
+	"""A person from Matrix starting a conversation with a member's stand-in:
+	a chat request to that member, carried by a copy of this member's that
+	their list does not show; the user's own stand-in's conversation is the
+	user's, under their own policy."""
+	me = identity["id"]
+	member = str(event.get("to", "") or "")
+	person = bridge_person(event.get("from"))
+	if not person or not mochi.text.valid(member, "entity") or mochi.db.exists("select 1 from chats where relay=?", room):
+		return
+	found = mochi.account.resolve(person)
+	name = linked_name((found or {}).get("name") if found else event.get("name"), person)
+	chat = mochi.uid()
+	if member == me:
+		if not invite_accepted(mochi.user.preference, me, person):
+			return
+		mochi.db.execute("insert into chats ( id, name, key, updated, relay ) values ( ?, ?, ?, ?, ? )", chat, name, mochi.random.alphanumeric(16), mochi.time.now(), room)
+		mochi.db.execute("insert into members ( chat, member, name ) values ( ?, ?, ? )", chat, me, identity.get("name", ""))
+		mochi.db.execute("insert into members ( chat, member, name, relay ) values ( ?, ?, ?, ? )", chat, person, name, me)
+		mochi.bridge.join(room, me, chat=chat)
+		notify("message", chat, mochi.app.label("notifications.title.message"), mochi.app.label("notifications.body.message", author=name, excerpt=""), "/chat/" + chat, name, event_id="bridge:" + room)
+		return
+	known = mochi.db.row("select name from members where member=? and chat in (select chat from members where relay=?) limit 1", member, me)
+	if not known:
+		return
+	mochi.db.execute("insert into chats ( id, name, key, updated, kind, relay ) values ( ?, ?, ?, ?, 'bridge', ? )", chat, name, mochi.random.alphanumeric(16), mochi.time.now(), room)
+	mochi.db.execute("insert into members ( chat, member, name ) values ( ?, ?, ? )", chat, member, known["name"])
+	mochi.db.execute("insert into members ( chat, member, name, relay ) values ( ?, ?, ?, ? )", chat, person, name, me)
+	mochi.message.send({"from": me, "to": member, "service": "chat", "event": "bridge/new"}, {"id": chat, "name": name, "person": person})
+
+def event_bridge_new(e):
+	"""A person from Matrix starting a conversation with the user through the
+	member whose server relays them: taken under the user's policy, the
+	relaying member then told to join."""
+	me = e.header("to")
+	relay = e.header("from")
+	chat = content_text(e, "id", "")
+	name = content_text(e, "name", "")
+	person = bridge_person(content_text(e, "person", ""))
+	if not mochi.text.valid(chat, "id") or not mochi.text.valid(name, "display") or not person:
+		return
+	if mochi.db.exists("select 1 from chats where id=?", chat):
+		return
+	# The member relays the person into a group with the user, and the user's
+	# policy takes them.
+	if not mochi.db.exists("select 1 from members where member=? and relay=?", person, relay) or not invite_accepted(e.user.preference, me, person):
+		return
+	mine = mochi.db.row("select name from members where member=? limit 1", me)
+	mochi.db.execute("insert into chats ( id, name, key, updated ) values ( ?, ?, ?, ? )", chat, name, mochi.random.alphanumeric(16), mochi.time.now())
+	mochi.db.execute("insert into members ( chat, member, name ) values ( ?, ?, ? )", chat, me, mine["name"] if mine else "")
+	mochi.db.execute("insert into members ( chat, member, name, relay ) values ( ?, ?, ?, ? )", chat, person, name, relay)
+	mochi.message.send({"from": me, "to": relay, "service": "chat", "event": "bridge/accept"}, {"id": chat})
+	notify("message", chat, mochi.app.label("notifications.title.message"), mochi.app.label("notifications.body.message", author=name, excerpt=""), "/chat/" + chat, name, event_id="bridge:" + chat)
+
+def event_bridge_accept(e):
+	"""The member a person from Matrix wrote to took the conversation: their
+	stand-in joins the room."""
+	chat = mochi.db.row("select * from chats where id=? and kind='bridge'", content_text(e, "id", ""))
+	if not chat or not chat.get("relay") or not mochi.db.exists("select 1 from members where chat=? and member=?", chat["id"], e.header("from")):
+		return
+	mochi.bridge.join(chat["relay"], e.header("from"), chat=chat["id"])
+
+def bridge_event_chat(e):
+	"""The active chat a relayed event names, or None."""
+	chat_id = content_text(e, "chat", "")
+	if not mochi.text.valid(chat_id, "id"):
+		return None
+	chat = mochi.db.row("select * from chats where id=?", chat_id)
+	return chat if chat_active(chat) else None
+
+def event_bridge_message(e):
+	"""A message from a person from Matrix, from the member who relays them."""
+	chat = bridge_event_chat(e)
+	member = content_text(e, "member", "")
+	if not chat or not bridge_member_ok(chat["id"], member, e.header("from")):
+		return
+	id = content_text(e, "message", "")
+	if not mochi.text.valid(id, "id") or mochi.db.exists("select 1 from messages where id=?", id):
+		return
+	created = content_number(e, "created", None)
+	now = mochi.time.now()
+	if created == None or created > now + 86400 or created < now - 31536000 * 20:
+		return
+	body = content_text(e, "body", "")
+	if not mochi.text.valid(body, "text") or len(body) > 10000:
+		return
+	reply = content_text(e, "reply", "")
+	if reply and not mochi.db.exists("select 1 from messages where id=? and chat=?", reply, chat["id"]):
+		reply = ""
+	thread = content_text(e, "thread", "")
+	if thread and not mochi.text.valid(thread, "id"):
+		thread = ""
+	name = mochi.db.row("select name from members where chat=? and member=?", chat["id"], member)["name"]
+	mochi.db.execute("insert into messages ( id, chat, member, name, body, created, reply, thread ) values ( ?, ?, ?, ?, ?, ?, ?, ? )", id, chat["id"], member, name, body, created, reply or None, thread)
+	if created > (chat.get("updated") or 0):
+		mochi.db.execute("update chats set updated=? where id=?", created, chat["id"])
+	attachments = e.content("attachments") or []
+	if attachments:
+		attachment_store(attachments, e.header("from"), "chat/" + chat["id"] + "/" + id)
+	chat_ensure_commit_hook()
+	mochi.db.commit.fire("messages", "insert", id)
+	notify("message", chat["id"], mochi.app.label("notifications.title.message"), mochi.app.label("notifications.body.message", author=name, excerpt=body.strip()[:80]), "/chat/" + chat["id"], chat["name"], event_id="message:" + id)
+
+def event_bridge_edit(e):
+	"""A person from Matrix's edit, from the member who relays them."""
+	chat = bridge_event_chat(e)
+	member = content_text(e, "member", "")
+	if not chat or not bridge_member_ok(chat["id"], member, e.header("from")):
+		return
+	message = mochi.db.row("select * from messages where id=? and chat=?", content_text(e, "message", ""), chat["id"])
+	body = content_text(e, "body", "")
+	edited = content_number(e, "edited", 0)
+	if not message or message["member"] != member or not body or not mochi.text.valid(body, "text") or len(body) > 10000 or edited <= (message["edited"] or 0):
+		return
+	if mochi.db.exists("select 1 from deletions where message=?", message["id"]):
+		return
+	mochi.db.execute("update messages set body=?, edited=? where id=?", body, edited, message["id"])
+	chat_ensure_commit_hook()
+	mochi.db.commit.fire("messages", "update", message["id"])
+
+def event_bridge_delete(e):
+	"""A person from Matrix's withdrawn message, from the member who relays
+	them."""
+	chat = bridge_event_chat(e)
+	member = content_text(e, "member", "")
+	if not chat or not bridge_member_ok(chat["id"], member, e.header("from")):
+		return
+	message = mochi.db.row("select * from messages where id=? and chat=?", content_text(e, "message", ""), chat["id"])
+	if message and message["member"] == member:
+		message_delete_apply(chat["id"], message["id"], member, mochi.time.now())
+
+def event_bridge_react(e):
+	"""A person from Matrix's reaction, from the member who relays them."""
+	message = mochi.db.row("select chat from messages where id=?", content_text(e, "message", ""))
+	chat = mochi.db.row("select * from chats where id=?", message["chat"]) if message else None
+	member = content_text(e, "member", "")
+	if not chat_active(chat) or not bridge_member_ok(chat["id"], member, e.header("from")):
+		return
+	raw = e.content("reaction")
+	if raw != None and type(raw) != "string":
+		return
+	result = is_reaction_valid(raw)
+	if not result["valid"]:
+		return
+	name = mochi.db.row("select name from members where chat=? and member=?", chat["id"], member)["name"]
+	message_reaction_set(chat["id"], content_text(e, "message", ""), member, name, result["reaction"])
+
+def invite_accepted(preference, me, person):
+	"""Whether someone on another network may start a conversation with the
+	user: anyone where the user's policy is anyone, else someone among their
+	contacts or already in a conversation with them."""
+	if (preference.get("chat_policy") or "friends") == "anyone":
+		return True
+	if chat_shared(me, person):
+		return True
+	return bool(mochi.service.call("people", "contacts/known", me, person))
+
+def function_directory(context, query):
+	"""People on Matrix whose name or address holds a query, through the
+	user's Matrix accounts, for people's search: each as {id, name, address,
+	network}."""
+	out = []
+	seen = {}
+	for acc in chat_accounts():
+		if acc["network"] != "matrix":
+			continue
+		for p in listed(mochi.account.directory(acc["id"], str(query or ""))):
+			id = str(p.get("id", "") or "")
+			if not id or id in seen or not id.startswith("@"):
+				continue
+			seen[id] = True
+			out.append({"id": id, "name": linked_name(p.get("name"), id), "address": "matrix:u/" + id[1:], "network": "matrix"})
+	return out[:20]
