@@ -2742,8 +2742,8 @@ def function_reachable(context, address):
 	"""The user's accounts chat can message a messaging address through, as
 	{id, identifier}, for a contact's message action: a fediverse address
 	through a hosted fediverse or linked Mastodon account, an XMPP or Matrix
-	one through a linked account there; none where the user has no such
-	account."""
+	one through a hosted or linked account there; none where the user has no
+	such account."""
 	reaches = REACHES.get(address_network(address), ())
 	return [{"id": acc["id"], "identifier": acc.get("identifier", "")} for acc in chat_accounts() if acc["network"] in reaches]
 
@@ -3067,9 +3067,9 @@ def direct_deleted(actor, remote):
 #
 # A conversation may belong to one of the user's linked accounts on another
 # network: an XMPP or Matrix account's one-to-one conversations and rooms, and
-# a Mastodon account's direct messages. A hosted Matrix account's rooms come
-# from core's own Matrix engine in the same events (phase 24), so they are
-# held the same way. The account's session in core hands
+# a Mastodon account's direct messages. A hosted Matrix account's rooms and a
+# hosted XMPP account's conversations come from core's own engines in the same
+# events (phases 24 and 25), so they are held the same way. The account's session in core hands
 # what it hears to function_linked_receive as conversation events, and what
 # the user does goes out through the account. A room keeps its id on its
 # network in the room column; a one-to-one XMPP or Mastodon conversation is
@@ -3078,6 +3078,8 @@ def direct_deleted(actor, remote):
 # as encrypted and takes none until Mochi's clients hold the keys (phase 27).
 # Who may write is the account's server's to decide, so chat's policy does
 # not apply; an invitation to a room waits for the user to accept or decline.
+# A hosted account's server is this one, so the policy applies there: core's
+# XMPP engine asks function_linked_accept before taking a stranger's message.
 
 # The networks a linked account holds conversations on, and those of them with
 # typing, read markers and presence.
@@ -3140,20 +3142,20 @@ def account_network(acc):
 	if not acc:
 		return ""
 	if acc.get("hosted"):
-		if acc.get("type") == "matrix":
-			return "matrix"
+		if acc.get("type") in ("matrix", "xmpp"):
+			return acc["type"]
 		return "fediverse" if acc.get("type") in CHAT_NETWORKS and acc.get("url") and acc.get("kind") != "group" else ""
 	return acc.get("type", "") if acc.get("type") in LINKED_NETWORKS else ""
 
 def chat_accounts():
 	"""The accounts conversations are had through, each with its network: the
-	user's hosted fediverse and Matrix accounts and their linked XMPP, Matrix
-	and Mastodon accounts, as enabled."""
+	user's hosted fediverse, Matrix and XMPP accounts and their linked XMPP,
+	Matrix and Mastodon accounts, as enabled."""
 	out = []
 	seen = {}
 	social = [acc for acc in (mochi.account.list("social") or []) if acc.get("type") == "mastodon"]
-	matrix = [acc for acc in (mochi.account.list("network") or []) if acc.get("hosted") and acc.get("type") == "matrix"]
-	for acc in hosted_accounts() + matrix + list(mochi.account.list("chat") or []) + social:
+	engines = [acc for acc in (mochi.account.list("network") or []) if acc.get("hosted") and acc.get("type") in ("matrix", "xmpp")]
+	for acc in hosted_accounts() + engines + list(mochi.account.list("chat") or []) + social:
 		network = account_network(acc)
 		if network and acc["id"] not in seen and acc.get("enabled", 1) != 0:
 			seen[acc["id"]] = True
@@ -3406,6 +3408,16 @@ def function_linked_receive(context, account, network, events):
 		elif kind == "invite":
 			linked_invite(acc, identity, event)
 	return None
+
+def function_linked_accept(context, account, network, person):
+	"""Whether someone on another network may write to one of the user's
+	hosted accounts, which core's engine asks before taking a message from
+	someone not among the account's contacts: chat's acceptance rule."""
+	acc = mochi.account.get(account)
+	identity = chat_identity()
+	if not acc or not acc.get("hosted") or account_network(acc) != network or not identity:
+		return False
+	return invite_accepted(mochi.user.preference, identity["id"], str(person or ""))
 
 def linked_name(value, fallback):
 	"""A name an event gives, where it is one to show."""

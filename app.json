@@ -29,6 +29,9 @@
 		// linked XMPP, Matrix and Mastodon accounts hear (phase 23).
 		"activitypub/receive": {"function": "function_activitypub_receive"},
 		"linked/receive": {"function": "function_linked_receive"},
+		// Whether a stranger may write to a hosted account, asked by core's
+		// XMPP engine under the acceptance rule (phase 25).
+		"linked/accept": {"function": "function_linked_accept", "permission": "friends/read"},
 		"reachable": {"function": "function_reachable"},
 		// What the people from Matrix do in a room this server relays for a
 		// group, and the people on Matrix a search finds, for people (phase 24).
