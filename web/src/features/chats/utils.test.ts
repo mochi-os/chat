@@ -8,6 +8,7 @@ import {
   matrixAddress,
   resolveChatView,
   sendRefusal,
+  xmppAddress,
 } from './utils'
 
 describe('sendRefusal', () => {
@@ -98,5 +99,26 @@ describe('matrixAddress', () => {
       '',
     ])
       expect(matrixAddress(value)).toBeNull()
+  })
+})
+
+describe('xmppAddress', () => {
+  it('takes an address as typed or as a contact card gives it, lowercased', () => {
+    expect(xmppAddress(' Dave@XMPP.example ')).toBe('dave@xmpp.example')
+    expect(xmppAddress('xmpp:dave@xmpp.example')).toBe('dave@xmpp.example')
+  })
+
+  it('takes nothing that is not an address', () => {
+    for (const value of [
+      'dave',
+      '@dave:matrix.example',
+      'dave@',
+      '@xmpp.example',
+      'da ve@xmpp.example',
+      'dave@xmpp.example/phone',
+      'a@b@xmpp.example',
+      '',
+    ])
+      expect(xmppAddress(value)).toBeNull()
   })
 })

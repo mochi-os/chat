@@ -55,8 +55,10 @@ export interface MarkReadResponse {
 interface ChatMember {
   id: string
   name: string
-  /** For someone from Matrix, the member whose server relays them. */
+  /** For someone from Matrix or XMPP, the member whose server relays them. */
   relay?: string
+  /** In a room on another network: owner, admin, moderator or visitor. */
+  role?: string
 }
 
 interface ChatDetail extends Omit<Chat, 'members'> {

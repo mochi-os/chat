@@ -16,7 +16,7 @@
 	"require": {"version": {"minimum": "2.0.12"}},
 
 	"database": {
-		"schema": 13,
+		"schema": 14,
 		"file": "chat.db",
 		"create": {"function": "database_create"},
 		"upgrade": {"function": "database_upgrade"},
@@ -32,6 +32,9 @@
 		// Whether a stranger may write to a hosted account, asked by core's
 		// XMPP engine under the acceptance rule (phase 25).
 		"linked/accept": {"function": "function_linked_accept", "permission": "friends/read"},
+		// A page of a hosted XMPP account's archive, which core's engine
+		// answers its clients' archive queries from (phase 26).
+		"linked/archive": {"function": "function_linked_archive"},
 		"reachable": {"function": "function_reachable"},
 		// What the people from Matrix do in a room this server relays for a
 		// group, and the people on Matrix a search finds, for people (phase 24).
