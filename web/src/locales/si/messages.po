@@ -65,6 +65,11 @@ msgstr "{0, plural, =1 {පණිවිඩය මකන්නද?} other {පණ
 msgid "{0, plural, one {# file changed} other {# files changed}}"
 msgstr "{0, plural, one {ගොනු #ක් වෙනස් විය} other {ගොනු #ක් වෙනස් විය}}"
 
+#. placeholder {0}: result.restored
+#: src/features/chats/components/encryption-section.tsx
+msgid "{0, plural, one {# message key restored} other {# message keys restored}}"
+msgstr "{0, plural, one {# පණිවිඩ යතුර ප්‍රතිසාධනය කෙරිණි} other {# පණිවිඩ යතුරු ප්‍රතිසාධනය කෙරිණි}}"
+
 #. placeholder {0}: message.replies
 #: src/features/chats/components/chat-message-list.tsx
 msgid "{0, plural, one {# reply} other {# replies}}"
@@ -175,6 +180,10 @@ msgstr "{truncated, plural, one {තවත් ගොනු # ක් නොපෙ
 msgid "{unreadCount, plural, one {Open menu (# unread notification)} other {Open menu (# unread notifications)}}"
 msgstr "{unreadCount, plural, one {මෙනුව විවෘත කරන්න (කියවා නැති දැනුම්දීම් #)} other {මෙනුව විවෘත කරන්න (කියවා නැති දැනුම්දීම් #)}}"
 
+#: src/features/chats/components/verification-watcher.tsx
+msgid "{who} wants to verify you."
+msgstr "{who} ඔබව සත්‍යාපනය කිරීමට කැමතියි."
+
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "12 hours"
 msgstr "පැය 12"
@@ -193,6 +202,7 @@ msgid "Absolute (date and time)"
 msgstr "නිරපේක්ෂ (දිනය සහ වේලාව)"
 
 #: ../../../lib/web/src/components/game/game-draw-offer-banner.tsx
+#: src/features/chats/components/verification-watcher.tsx
 #: src/features/chats/index.tsx
 msgid "Accept"
 msgstr "පිළිගන්න"
@@ -380,6 +390,10 @@ msgstr "Android තල්ලුව"
 msgid "Angry"
 msgstr "කෝපයි"
 
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Another of your devices wants to verify this one."
+msgstr "ඔබගේ වෙනත් උපාංගයක් මෙය සත්‍යාපනය කිරීමට කැමතියි."
+
 #: ../../../lib/web/src/features/access/access-list.tsx
 #: ../../../lib/web/src/features/access/types.ts
 #: src/features/chats/components/chat-settings-dialog.tsx
@@ -440,6 +454,10 @@ msgstr "{0} ලෙස"
 #: ../../../lib/web/src/components/ui/sort-direction-button.tsx
 msgid "Ascending"
 msgstr "ආරෝහණ"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Asking to compare emoji..."
+msgstr "ඉමොජි සැසඳීමට ඉල්ලමින්..."
 
 #: ../../../lib/web/src/components/timezone-select.tsx
 msgid "At sea"
@@ -599,6 +617,8 @@ msgstr "කැමරාව නොමැත"
 #: src/features/chats/components/chat-settings-dialog.tsx
 #: src/features/chats/components/forward-dialog.tsx
 #: src/features/chats/components/new-chat.tsx
+#: src/features/chats/components/verification-watcher.tsx
+#: src/features/chats/components/verification-watcher.tsx
 #: src/features/chats/index.tsx
 msgid "Cancel"
 msgstr "අවලංගු කරන්න"
@@ -735,6 +755,10 @@ msgstr "කතාබස් ගලවන ලදී"
 msgid "Chats"
 msgstr "චැට්"
 
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Check that the same emoji appear on the other screen."
+msgstr "අනෙක් තිරයේද එම ඉමොජි දිස්වන්නේදැයි පරීක්ෂා කරන්න."
+
 #: ../../../lib/web/src/hooks/use-field-type-labels.ts
 msgid "Checkbox"
 msgstr "පරීක්ෂා පෙට්ටිය"
@@ -867,6 +891,11 @@ msgstr "අදහස් ({0})"
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Compact"
 msgstr "සංයුක්ත"
+
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Compare emoji"
+msgstr "ඉමොජි සසඳන්න"
 
 #: ../../../lib/web/src/components/entity/entity-option-dialog.tsx
 msgid "Configure option settings"
@@ -1023,6 +1052,7 @@ msgid "Date"
 msgstr "දිනය"
 
 #: ../../../lib/web/src/components/game/game-draw-offer-banner.tsx
+#: src/features/chats/components/verification-watcher.tsx
 #: src/features/chats/index.tsx
 msgid "Decline"
 msgstr "ප්‍රතික්ෂේප කරන්න"
@@ -1162,6 +1192,10 @@ msgstr "විස්තර පුවරුව"
 msgid "Detect from web browser"
 msgstr "වෙබ් බ්‍රවුසරයෙන් හඳුනාගන්න"
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "Device options"
+msgstr "උපාංග විකල්ප"
+
 #: ../../../lib/web/src/components/person-picker.tsx
 msgid "Directory"
 msgstr "නාමාවලිය"
@@ -1205,6 +1239,14 @@ msgstr "ඉවත ලන්න"
 msgid "Displays the mobile sidebar."
 msgstr "ජංගම පැති තීරුව සංදර්ශනය කරයි."
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "Distrust"
+msgstr "විශ්වාස නොකරන්න"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Distrusted"
+msgstr "විශ්වාස නොකළ"
+
 #: src/features/chats/components/chat-input.tsx
 msgid "Document"
 msgstr "ලේඛනය"
@@ -1215,6 +1257,7 @@ msgstr "අවශ්‍ය රටාවට නොගැළපේ"
 
 #: ../../../lib/web/src/components/entity/entity-field-dialog.tsx
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx
+#: src/features/chats/components/encryption-section.tsx
 msgid "Done"
 msgstr "නිමයි"
 
@@ -1303,6 +1346,12 @@ msgstr "ඊමේල් කේතය"
 msgid "Encrypted message"
 msgstr "සංකේතනය කළ පණිවිඩය"
 
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+msgid "Encryption"
+msgstr "සංකේතනය"
+
 #: ../../../lib/web/src/components/calendar/time-grid.tsx
 msgid "Ends before it starts"
 msgstr "ආරම්භ වීමට පෙර අවසන් වේ"
@@ -1310,6 +1359,11 @@ msgstr "ආරම්භ වීමට පෙර අවසන් වේ"
 #: ../../../lib/web/src/components/banner-section.tsx
 msgid "Enter banner text (markdown supported)..."
 msgstr "බැනර් පෙළ ඇතුළු කරන්න (markdown සහාය දක්වයි)..."
+
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+msgid "Enter recovery key"
+msgstr "ප්‍රතිසාධන යතුර ඇතුළත් කරන්න"
 
 #: ../../../lib/web/src/components/step-up-dialog.tsx
 msgid "Enter the code from your email"
@@ -1492,6 +1546,7 @@ msgstr "RSS ප්‍රවේශය අහෝසි කිරීමට අස�
 
 #: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx
 #: src/features/chats/components/chat-settings-dialog.tsx
+#: src/features/chats/components/encryption-section.tsx
 msgid "Failed to save"
 msgstr "සුරැකීමට අසමත් විය"
 
@@ -1550,6 +1605,10 @@ msgstr "කොඩි"
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Flat"
 msgstr "පැතලි"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Forget my decision"
+msgstr "මගේ තීරණය අමතක කරන්න"
 
 #: src/features/chats/components/forward-dialog.tsx
 #: src/features/chats/components/message-hover-actions.tsx
@@ -1711,6 +1770,10 @@ msgstr "පහළටම යන්න"
 #: ../../../lib/web/src/lib/locale-format.ts
 msgid "Just now"
 msgstr "මේ දැන්"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Keep this key safe. It is shown once, and your other Matrix clients ask for it to read your encrypted messages."
+msgstr "මෙම යතුර ආරක්ෂිතව තබා ගන්න. එය පෙන්වනු ලබන්නේ එක් වරක් පමණි, සහ ඔබගේ සංකේතනය කළ පණිවිඩ කියවීමට ඔබගේ අනෙකුත් Matrix සේවාලාභීන් එය ඉල්ලා සිටී."
 
 #: ../../../lib/web/src/components/entity/keyboard-shortcuts-help.tsx
 msgid "Keyboard shortcuts"
@@ -2102,6 +2165,10 @@ msgstr "ඉදිරියට යැවීමට කතාබස් නැත"
 msgid "No comments yet"
 msgstr "තවම අදහස් නැත"
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "No devices"
+msgstr "උපාංග නැත"
+
 #: src/routes/_authenticated/$chatId_.settings.tsx
 msgid "No friends available"
 msgstr "මිතුරන් ලබා ගත නොහැක"
@@ -2137,6 +2204,10 @@ msgstr "තවම පණිවිඩ නැත"
 #: src/features/chats/components/chat-input.tsx
 msgid "No microphone found"
 msgstr "මයික්‍රෆෝනයක් හමු නොවීය"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "No other devices"
+msgstr "වෙනත් උපාංග නැත"
 
 #: ../../../lib/web/src/components/entity/entity-field-editor.tsx
 #: ../../../lib/web/src/components/person-picker.tsx
@@ -2222,6 +2293,11 @@ msgstr "හමු නොවීය"
 #: ../../../lib/web/src/components/ui/editable-field-row.tsx
 msgid "Not set"
 msgstr "සකසා නැත"
+
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+msgid "Not verified"
+msgstr "සත්‍යාපනය කර නැත"
 
 #: ../../../lib/web/src/components/entity/entity-tree-view.tsx
 msgid "Nothing found"
@@ -2351,6 +2427,10 @@ msgstr "මුරයතුරු"
 #: ../../../lib/web/src/lib/shell-errors.ts
 msgid "Passkeys are not available in this browser"
 msgstr "මෙම බ්‍රව්සරයේ මුරයතුරු නොමැත"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Password"
+msgstr "මුරපදය"
 
 #: ../../../lib/web/src/components/entity/entity-field-dialog.tsx
 msgid "Pattern (regex)"
@@ -2507,6 +2587,14 @@ msgstr "පටිගත කිරීම විනාඩි 5 සීමාවේ�
 #: src/features/chats/components/chat-input.tsx
 msgid "Recording voice note"
 msgstr "හඬ සටහන පටිගත වෙමින්"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Recovery could not be set up"
+msgstr "ප්‍රතිසාධනය සැකසිය නොහැකි විය"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Recovery key"
+msgstr "ප්‍රතිසාධන යතුර"
 
 #: ../../../lib/web/src/components/layout/authenticated-layout.tsx
 msgid "Redirecting to login."
@@ -2672,6 +2760,10 @@ msgstr "ඉල්ලා අස්වන්න"
 msgid "Resign game?"
 msgstr "ක්‍රීඩාවෙන් ඉල්ලා අස්වන්නද?"
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "Restore"
+msgstr "ප්‍රතිසාධනය කරන්න"
+
 #: ../../../lib/web/src/components/attachment-composer.tsx
 msgid "Retry"
 msgstr "නැවත උත්සාහ කරන්න"
@@ -2729,7 +2821,12 @@ msgstr "සෙනසුරාදා"
 msgid "Save"
 msgstr "සුරකින්න"
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "Saved"
+msgstr "සුරකින ලදී"
+
 #: src/features/chats/components/chat-settings-dialog.tsx
+#: src/features/chats/components/encryption-section.tsx
 msgid "Saving..."
 msgstr "සුරකිමින්..."
 
@@ -2956,6 +3053,12 @@ msgstr "සැසිය කල් ඉකුත් වී ඇත. කරුණා
 msgid "Set origin and destination"
 msgstr "මූලාරම්භය සහ ගමනාන්තය සකසන්න"
 
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+msgid "Set up recovery"
+msgstr "ප්‍රතිසාධනය සකසන්න"
+
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx
 #: ../../../lib/web/src/components/options-menu.tsx
@@ -3136,6 +3239,10 @@ msgstr "එම කේතය වැරදියි හෝ කල් ඉකුත�
 msgid "That could not be sent. The files may be too large, or your connection failed. Try smaller files."
 msgstr "යැවීමට නොහැකි විය. ගොනු ඉතා විශාල විය හැක, නැතහොත් ඔබේ සම්බන්ධතාවය අසාර්ථක විය. කුඩා ගොනු උත්සාහ කරන්න."
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "That is not your recovery key"
+msgstr "මෙය ඔබගේ ප්‍රතිසාධන යතුර නොවේ"
+
 #: ../../../lib/web/src/hooks/use-attachment-error.ts
 #: ../../../lib/web/src/lib/handle-server-error.ts
 msgid "That was too large to upload. Remove or shrink files and try again."
@@ -3158,6 +3265,14 @@ msgstr "කතාබහේ නම උපරිම අකුරු {CHAT_NAME_MAX
 msgid "The chat name cannot contain < or >"
 msgstr "කතාබහේ නමෙහි < හෝ > තිබිය නොහැක"
 
+#: src/features/chats/components/verification-watcher.tsx
+msgid "The emoji did not match, so the verification was cancelled"
+msgstr "ඉමොජි නොගැළපුණු බැවින් සත්‍යාපනය අවලංගු කෙරිණි"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "The fingerprint matches"
+msgstr "ඇඟිලි සලකුණ ගැළපේ"
+
 #: ../../../lib/web/src/lib/shell-errors.ts
 msgid "The microphone request was not answered"
 msgstr "මයික්‍රොෆෝන ඉල්ලීමට පිළිතුරු ලැබුණේ නැත"
@@ -3165,6 +3280,10 @@ msgstr "මයික්‍රොෆෝන ඉල්ලීමට පිළිත�
 #: ../../../lib/web/src/lib/shell-errors.ts
 msgid "The passkey request was not answered"
 msgstr "මුරයතුරු ඉල්ලීමට පිළිතුරු ලැබුණේ නැත"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "The password was not accepted"
+msgstr "මුරපදය පිළිගනු නොලැබීය"
 
 #: ../../../lib/web/src/features/errors/general-error.tsx
 msgid "The requested content could not be found."
@@ -3174,10 +3293,30 @@ msgstr "ඉල්ලූ අන්තර්ගතය සොයාගත නොහ
 msgid "The server returned a web page instead of data."
 msgstr "සේවාදායකය දත්ත වෙනුවට වෙබ් පිටුවක් ලබා දුන්නේය."
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "The verification could not be started"
+msgstr "සත්‍යාපනය ආරම්භ කළ නොහැකි විය"
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "The verification could not go on"
+msgstr "සත්‍යාපනය දිගටම කරගෙන යා නොහැකි විය"
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "The verification was cancelled"
+msgstr "සත්‍යාපනය අවලංගු කෙරිණි"
+
 #. placeholder {0}: unknown.join(', ')
 #: src/features/chats/index.tsx
 msgid "These names are not in this chat: {0}. Pick from the @ list or remove them."
 msgstr "මෙම නම් මෙම කතාබහේ නැත: {0}. @ ලැයිස්තුවෙන් තෝරන්න හෝ ඒවා ඉවත් කරන්න."
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "They don't match"
+msgstr "ඒවා නොගැළපේ"
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "They match"
+msgstr "ඒවා ගැළපේ"
 
 #: src/routes/_authenticated/$chatId_.settings.tsx
 msgid "They stop receiving new messages in this chat."
@@ -3197,12 +3336,20 @@ msgid "This chat may have been deleted or you don't have access to it"
 msgstr "මෙම කතාබහ මකා තිබෙන්නට පුළුවන් හෝ ඔබට එයට ප්‍රවේශය නොමැත"
 
 #: src/features/chats/index.tsx
-msgid "This conversation is encrypted. Messages cannot be sent to it from here yet."
-msgstr "මෙම සංවාදය සංකේතනය කර ඇත. මෙතැනින් එයට තවමත් පණිවිඩ යැවිය නොහැක."
-
-#: src/features/chats/index.tsx
 msgid "This deletes the message for everyone and cannot be undone."
 msgstr "මෙය සැමට පණිවිඩය මකන අතර අහෝසි කළ නොහැක."
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "This device"
+msgstr "මෙම උපාංගය"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "This device (OMEMO 2)"
+msgstr "මෙම උපාංගය (OMEMO 2)"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "This device (OMEMO)"
+msgstr "මෙම උපාංගය (OMEMO)"
 
 #: src/features/chats/components/chat-message-list.tsx
 #: src/features/chats/components/message-quote.tsx
@@ -3400,14 +3547,28 @@ msgstr "විචල්‍ය: {variables}"
 msgid "Verification code"
 msgstr "සත්‍යාපන කේතය"
 
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Verified"
+msgstr "සත්‍යාපිතයි"
+
 #: ../../../lib/web/src/components/step-up-dialog.tsx
 #: ../../../lib/web/src/features/accounts/account-verify.tsx
 msgid "Verify"
 msgstr "සත්‍යාපනය කරන්න"
 
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Verify {who}"
+msgstr "{who} සත්‍යාපනය කරන්න"
+
 #: ../../../lib/web/src/features/accounts/account-verify.tsx
 msgid "Verify email address"
 msgstr "ඊමේල් ලිපිනය සත්‍යාපනය කරන්න"
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Verify your device"
+msgstr "ඔබගේ උපාංගය සත්‍යාපනය කරන්න"
 
 #: ../../../lib/web/src/components/attachment-gallery.tsx
 #: src/features/chats/components/message-media-grid.tsx
@@ -3453,6 +3614,14 @@ msgstr "මෙම බ්‍රව්සරයේ හඬ පටිගත කි�
 #: src/features/chats/components/chat-input.tsx
 msgid "Voice recording isn't available in this app version. Please update the app and try again."
 msgstr "යෙදුමේ මෙම අනුවාදයේ හඬ පටිගත කිරීම නොමැත. කරුණාකර යෙදුම යාවත්කාලීන කර නැවත උත්සාහ කරන්න."
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Waiting for the other device..."
+msgstr "අනෙක් උපාංගය එනතුරු රැඳී සිටිමින්..."
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Waiting for them to accept"
+msgstr "ඔවුන් පිළිගන්නා තෙක් රැඳී සිටිමින්"
 
 #: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx
 #: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx
@@ -3528,6 +3697,18 @@ msgstr "ඔබේ ගිණුම {source} සිට මෙහි ගෙන ආ�
 #: ../../../lib/web/src/components/comment-composer.tsx
 msgid "Your attachments will be lost."
 msgstr "ඔබගේ ඇමුණුම් නැති වනු ඇත."
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Your Matrix server asks for your account's password."
+msgstr "ඔබගේ Matrix සේවාදායකය ඔබගේ ගිණුමේ මුරපදය ඉල්ලා සිටී."
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Your other devices"
+msgstr "ඔබගේ අනෙකුත් උපාංග"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Your recovery key"
+msgstr "ඔබගේ ප්‍රතිසාධන යතුර"
 
 #: ../../../lib/web/src/components/comment-composer.tsx
 msgid "Your text and attachments will be lost."

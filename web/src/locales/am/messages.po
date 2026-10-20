@@ -65,6 +65,11 @@ msgstr "{0, plural, =1 {መልዕክቱ ይሰረዝ?} other {# መልዕክቶ�
 msgid "{0, plural, one {# file changed} other {# files changed}}"
 msgstr "{0, plural, one {# ፋይል ተቀይሯል} other {# ፋይሎች ተቀይረዋል}}"
 
+#. placeholder {0}: result.restored
+#: src/features/chats/components/encryption-section.tsx
+msgid "{0, plural, one {# message key restored} other {# message keys restored}}"
+msgstr "{0, plural, one {# የመልዕክት ቁልፍ ተመልሷል} other {# የመልዕክት ቁልፎች ተመልሰዋል}}"
+
 #. placeholder {0}: message.replies
 #: src/features/chats/components/chat-message-list.tsx
 msgid "{0, plural, one {# reply} other {# replies}}"
@@ -175,6 +180,10 @@ msgstr "{truncated, plural, one {# ተጨማሪ ፋይል አልታየም} other
 msgid "{unreadCount, plural, one {Open menu (# unread notification)} other {Open menu (# unread notifications)}}"
 msgstr "{unreadCount, plural, one {ምናሌን ክፈት (# ያልተነበበ ማሳወቂያ)} other {ምናሌን ክፈት (# ያልተነበቡ ማሳወቂያዎች)}}"
 
+#: src/features/chats/components/verification-watcher.tsx
+msgid "{who} wants to verify you."
+msgstr "{who} እርስዎን ማረጋገጥ ይፈልጋል።"
+
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "12 hours"
 msgstr "12 ሰዓት"
@@ -193,6 +202,7 @@ msgid "Absolute (date and time)"
 msgstr "ፍጹም (ቀንና ሰዓት)"
 
 #: ../../../lib/web/src/components/game/game-draw-offer-banner.tsx
+#: src/features/chats/components/verification-watcher.tsx
 #: src/features/chats/index.tsx
 msgid "Accept"
 msgstr "ተቀበል"
@@ -380,6 +390,10 @@ msgstr "የAndroid ግፋ"
 msgid "Angry"
 msgstr "ተናድጃለሁ"
 
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Another of your devices wants to verify this one."
+msgstr "ከሌሎች መሳሪያዎችዎ አንዱ ይህንን ማረጋገጥ ይፈልጋል።"
+
 #: ../../../lib/web/src/features/access/access-list.tsx
 #: ../../../lib/web/src/features/access/types.ts
 #: src/features/chats/components/chat-settings-dialog.tsx
@@ -440,6 +454,10 @@ msgstr "እንደ {0}"
 #: ../../../lib/web/src/components/ui/sort-direction-button.tsx
 msgid "Ascending"
 msgstr "ከታች ወደ ላይ"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Asking to compare emoji..."
+msgstr "ኢሞጂዎችን ለማነጻጸር በመጠየቅ ላይ..."
 
 #: ../../../lib/web/src/components/timezone-select.tsx
 msgid "At sea"
@@ -599,6 +617,8 @@ msgstr "ካሜራ አይገኝም"
 #: src/features/chats/components/chat-settings-dialog.tsx
 #: src/features/chats/components/forward-dialog.tsx
 #: src/features/chats/components/new-chat.tsx
+#: src/features/chats/components/verification-watcher.tsx
+#: src/features/chats/components/verification-watcher.tsx
 #: src/features/chats/index.tsx
 msgid "Cancel"
 msgstr "ይቅር"
@@ -735,6 +755,10 @@ msgstr "ውይይቱ ተነቅሏል"
 msgid "Chats"
 msgstr "ውይይቶች"
 
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Check that the same emoji appear on the other screen."
+msgstr "በሌላኛው ማያ ገጽ ላይ ተመሳሳይ ኢሞጂዎች መታየታቸውን ያረጋግጡ።"
+
 #: ../../../lib/web/src/hooks/use-field-type-labels.ts
 msgid "Checkbox"
 msgstr "ቼክቦክስ"
@@ -867,6 +891,11 @@ msgstr "አስተያየቶች ({0})"
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Compact"
 msgstr "የታመቀ"
+
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Compare emoji"
+msgstr "ኢሞጂዎችን ያነጻጽሩ"
 
 #: ../../../lib/web/src/components/entity/entity-option-dialog.tsx
 msgid "Configure option settings"
@@ -1023,6 +1052,7 @@ msgid "Date"
 msgstr "ቀን"
 
 #: ../../../lib/web/src/components/game/game-draw-offer-banner.tsx
+#: src/features/chats/components/verification-watcher.tsx
 #: src/features/chats/index.tsx
 msgid "Decline"
 msgstr "አትቀበል"
@@ -1162,6 +1192,10 @@ msgstr "የዝርዝሮች ፓነል"
 msgid "Detect from web browser"
 msgstr "ከድር አሳሽ አውቅ"
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "Device options"
+msgstr "የመሳሪያ አማራጮች"
+
 #: ../../../lib/web/src/components/person-picker.tsx
 msgid "Directory"
 msgstr "ማውጫ"
@@ -1205,6 +1239,14 @@ msgstr "ዝጋ"
 msgid "Displays the mobile sidebar."
 msgstr "የሞባይል ጎንደርን ያሳያል።"
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "Distrust"
+msgstr "አይመኑ"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Distrusted"
+msgstr "የማይታመን"
+
 #: src/features/chats/components/chat-input.tsx
 msgid "Document"
 msgstr "ሰነድ"
@@ -1215,6 +1257,7 @@ msgstr "ከሚያስፈልገው ስርዓተ ጥለት ጋር አይዛመድ�
 
 #: ../../../lib/web/src/components/entity/entity-field-dialog.tsx
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx
+#: src/features/chats/components/encryption-section.tsx
 msgid "Done"
 msgstr "ተጠናቅቋል"
 
@@ -1303,6 +1346,12 @@ msgstr "የኢሜይል ኮድ"
 msgid "Encrypted message"
 msgstr "የተመሰጠረ መልዕክት"
 
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+msgid "Encryption"
+msgstr "ምስጠራ"
+
 #: ../../../lib/web/src/components/calendar/time-grid.tsx
 msgid "Ends before it starts"
 msgstr "ከመጀመሩ በፊት ያበቃል"
@@ -1310,6 +1359,11 @@ msgstr "ከመጀመሩ በፊት ያበቃል"
 #: ../../../lib/web/src/components/banner-section.tsx
 msgid "Enter banner text (markdown supported)..."
 msgstr "የባነር ጽሑፍ አስገባ (ማርክዳውን ይደገፋል)..."
+
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+msgid "Enter recovery key"
+msgstr "የመልሶ ማግኛ ቁልፍ ያስገቡ"
 
 #: ../../../lib/web/src/components/step-up-dialog.tsx
 msgid "Enter the code from your email"
@@ -1492,6 +1546,7 @@ msgstr "የRSS መዳረሻን መሻር አልተቻለም"
 
 #: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx
 #: src/features/chats/components/chat-settings-dialog.tsx
+#: src/features/chats/components/encryption-section.tsx
 msgid "Failed to save"
 msgstr "ማስቀመጥ አልተሳካም"
 
@@ -1550,6 +1605,10 @@ msgstr "ባንዲራዎች"
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Flat"
 msgstr "ጠፍጣፋ"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Forget my decision"
+msgstr "ውሳኔዬን ይርሱ"
 
 #: src/features/chats/components/forward-dialog.tsx
 #: src/features/chats/components/message-hover-actions.tsx
@@ -1711,6 +1770,10 @@ msgstr "ወደ ታች ዝለል"
 #: ../../../lib/web/src/lib/locale-format.ts
 msgid "Just now"
 msgstr "አሁን"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Keep this key safe. It is shown once, and your other Matrix clients ask for it to read your encrypted messages."
+msgstr "ይህን ቁልፍ በጥንቃቄ ያስቀምጡ። አንድ ጊዜ ብቻ ነው የሚታየው፣ እና ሌሎች Matrix መተግበሪያዎችዎ የተመሰጠሩ መልዕክቶችዎን ለማንበብ ይጠይቁታል።"
 
 #: ../../../lib/web/src/components/entity/keyboard-shortcuts-help.tsx
 msgid "Keyboard shortcuts"
@@ -2102,6 +2165,10 @@ msgstr "የሚተላለፍበት ውይይት የለም"
 msgid "No comments yet"
 msgstr "እስካሁን አስተያየቶች የሉም"
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "No devices"
+msgstr "ምንም መሳሪያ የለም"
+
 #: src/routes/_authenticated/$chatId_.settings.tsx
 msgid "No friends available"
 msgstr "ምንም ጓደኞች የሉም"
@@ -2137,6 +2204,10 @@ msgstr "እስካሁን መልዕክቶች የሉም"
 #: src/features/chats/components/chat-input.tsx
 msgid "No microphone found"
 msgstr "ማይክሮፎን አልተገኘም"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "No other devices"
+msgstr "ሌላ መሳሪያ የለም"
 
 #: ../../../lib/web/src/components/entity/entity-field-editor.tsx
 #: ../../../lib/web/src/components/person-picker.tsx
@@ -2222,6 +2293,11 @@ msgstr "አልተገኘም"
 #: ../../../lib/web/src/components/ui/editable-field-row.tsx
 msgid "Not set"
 msgstr "አልተዋቀረም"
+
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+msgid "Not verified"
+msgstr "አልተረጋገጠም"
 
 #: ../../../lib/web/src/components/entity/entity-tree-view.tsx
 msgid "Nothing found"
@@ -2351,6 +2427,10 @@ msgstr "ፓስኪዎች"
 #: ../../../lib/web/src/lib/shell-errors.ts
 msgid "Passkeys are not available in this browser"
 msgstr "ፓስኪዎች በዚህ አሳሽ ውስጥ አይገኙም"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Password"
+msgstr "የይለፍ ቃል"
 
 #: ../../../lib/web/src/components/entity/entity-field-dialog.tsx
 msgid "Pattern (regex)"
@@ -2507,6 +2587,14 @@ msgstr "ቀረጻው በ5 ደቂቃ ገደብ ላይ ቆሟል"
 #: src/features/chats/components/chat-input.tsx
 msgid "Recording voice note"
 msgstr "የድምፅ ማስታወሻ በመቅረጽ ላይ"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Recovery could not be set up"
+msgstr "መልሶ ማግኛ ሊዋቀር አልቻለም"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Recovery key"
+msgstr "የመልሶ ማግኛ ቁልፍ"
 
 #: ../../../lib/web/src/components/layout/authenticated-layout.tsx
 msgid "Redirecting to login."
@@ -2672,6 +2760,10 @@ msgstr "ለቀቅ"
 msgid "Resign game?"
 msgstr "ጨዋታ ይለቀቅ?"
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "Restore"
+msgstr "ይመልሱ"
+
 #: ../../../lib/web/src/components/attachment-composer.tsx
 msgid "Retry"
 msgstr "እንደገና ሞክር"
@@ -2729,7 +2821,12 @@ msgstr "ቅዳሜ"
 msgid "Save"
 msgstr "ያስቀምጡ"
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "Saved"
+msgstr "ተቀምጧል"
+
 #: src/features/chats/components/chat-settings-dialog.tsx
+#: src/features/chats/components/encryption-section.tsx
 msgid "Saving..."
 msgstr "በማስቀመጥ ላይ..."
 
@@ -2956,6 +3053,12 @@ msgstr "ክፍለ-ጊዜው አብቅቷል። እባክዎ እንደገና ይ�
 msgid "Set origin and destination"
 msgstr "መነሻ እና መድረሻ ያዘጋጁ"
 
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+msgid "Set up recovery"
+msgstr "መልሶ ማግኛን ያዋቅሩ"
+
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx
 #: ../../../lib/web/src/components/options-menu.tsx
@@ -3136,6 +3239,10 @@ msgstr "ያ ኮድ የተሳሳተ ነው ወይም ጊዜው አልፎበታል
 msgid "That could not be sent. The files may be too large, or your connection failed. Try smaller files."
 msgstr "መላክ አልተቻለም። ፋይሎቹ በጣም ትልቅ ሊሆኑ ይችላሉ፣ ወይም ግንኙነትዎ ተቋርጧል። ትናንሽ ፋይሎችን ይሞክሩ።"
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "That is not your recovery key"
+msgstr "ይህ የእርስዎ የመልሶ ማግኛ ቁልፍ አይደለም"
+
 #: ../../../lib/web/src/hooks/use-attachment-error.ts
 #: ../../../lib/web/src/lib/handle-server-error.ts
 msgid "That was too large to upload. Remove or shrink files and try again."
@@ -3158,6 +3265,14 @@ msgstr "የውይይቱ ስም ቢበዛ {CHAT_NAME_MAX_LENGTH} ቁምፊዎች 
 msgid "The chat name cannot contain < or >"
 msgstr "የውይይቱ ስም < ወይም > ሊይዝ አይችልም"
 
+#: src/features/chats/components/verification-watcher.tsx
+msgid "The emoji did not match, so the verification was cancelled"
+msgstr "ኢሞጂዎቹ አልተዛመዱም፣ ስለዚህ ማረጋገጫው ተሰርዟል"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "The fingerprint matches"
+msgstr "የጣት አሻራው ይዛመዳል"
+
 #: ../../../lib/web/src/lib/shell-errors.ts
 msgid "The microphone request was not answered"
 msgstr "የማይክሮፎን ጥያቄው መልስ አላገኘም"
@@ -3165,6 +3280,10 @@ msgstr "የማይክሮፎን ጥያቄው መልስ አላገኘም"
 #: ../../../lib/web/src/lib/shell-errors.ts
 msgid "The passkey request was not answered"
 msgstr "የፓስኪ ጥያቄው መልስ አላገኘም"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "The password was not accepted"
+msgstr "የይለፍ ቃሉ ተቀባይነት አላገኘም"
 
 #: ../../../lib/web/src/features/errors/general-error.tsx
 msgid "The requested content could not be found."
@@ -3174,10 +3293,30 @@ msgstr "የተጠየቀው ይዘት ሊገኝ አልቻለም።"
 msgid "The server returned a web page instead of data."
 msgstr "አገልጋዩ ከመረጃ ይልቅ የድር ገጽ መልሷል።"
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "The verification could not be started"
+msgstr "ማረጋገጫው ሊጀመር አልቻለም"
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "The verification could not go on"
+msgstr "ማረጋገጫው መቀጠል አልቻለም"
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "The verification was cancelled"
+msgstr "ማረጋገጫው ተሰርዟል"
+
 #. placeholder {0}: unknown.join(', ')
 #: src/features/chats/index.tsx
 msgid "These names are not in this chat: {0}. Pick from the @ list or remove them."
 msgstr "እነዚህ ስሞች በዚህ ውይይት ውስጥ የሉም፦ {0}። ከ@ ዝርዝር ይምረጡ ወይም ያስወግዷቸው።"
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "They don't match"
+msgstr "አይዛመዱም"
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "They match"
+msgstr "ይዛመዳሉ"
 
 #: src/routes/_authenticated/$chatId_.settings.tsx
 msgid "They stop receiving new messages in this chat."
@@ -3197,12 +3336,20 @@ msgid "This chat may have been deleted or you don't have access to it"
 msgstr "ይህ ውይይት ተሰርዞ ሊሆን ይችላል ወይም መዳረሻ የለዎትም"
 
 #: src/features/chats/index.tsx
-msgid "This conversation is encrypted. Messages cannot be sent to it from here yet."
-msgstr "ይህ ውይይት የተመሰጠረ ነው። ከዚህ ወደ እሱ መልዕክቶችን መላክ ገና አይቻልም።"
-
-#: src/features/chats/index.tsx
 msgid "This deletes the message for everyone and cannot be undone."
 msgstr "ይህ መልዕክቱን ለሁሉም ይሰርዛል እና መመለስ አይቻልም።"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "This device"
+msgstr "ይህ መሳሪያ"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "This device (OMEMO 2)"
+msgstr "ይህ መሳሪያ (OMEMO 2)"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "This device (OMEMO)"
+msgstr "ይህ መሳሪያ (OMEMO)"
 
 #: src/features/chats/components/chat-message-list.tsx
 #: src/features/chats/components/message-quote.tsx
@@ -3400,14 +3547,28 @@ msgstr "ተለዋዋጮች: {variables}"
 msgid "Verification code"
 msgstr "የማረጋገጫ ኮድ"
 
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Verified"
+msgstr "ተረጋግጧል"
+
 #: ../../../lib/web/src/components/step-up-dialog.tsx
 #: ../../../lib/web/src/features/accounts/account-verify.tsx
 msgid "Verify"
 msgstr "ያረጋግጡ"
 
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Verify {who}"
+msgstr "{who}ን ያረጋግጡ"
+
 #: ../../../lib/web/src/features/accounts/account-verify.tsx
 msgid "Verify email address"
 msgstr "የኢሜይል አድራሻ ያረጋግጡ"
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Verify your device"
+msgstr "መሳሪያዎን ያረጋግጡ"
 
 #: ../../../lib/web/src/components/attachment-gallery.tsx
 #: src/features/chats/components/message-media-grid.tsx
@@ -3453,6 +3614,14 @@ msgstr "በዚህ አሳሽ ውስጥ የድምፅ ቀረጻ አይደገፍም"
 #: src/features/chats/components/chat-input.tsx
 msgid "Voice recording isn't available in this app version. Please update the app and try again."
 msgstr "በዚህ የመተግበሪያ ስሪት የድምፅ ቀረጻ አይገኝም። እባክዎ መተግበሪያውን አዘምነው እንደገና ይሞክሩ።"
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Waiting for the other device..."
+msgstr "ሌላኛውን መሳሪያ በመጠበቅ ላይ..."
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Waiting for them to accept"
+msgstr "እንዲቀበሉ በመጠበቅ ላይ"
 
 #: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx
 #: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx
@@ -3528,6 +3697,18 @@ msgstr "መለያህ ከ{source} ወደዚህ ተዛውሯል። እዚያ እ�
 #: ../../../lib/web/src/components/comment-composer.tsx
 msgid "Your attachments will be lost."
 msgstr "አባሪዎችህ ይጠፋሉ።"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Your Matrix server asks for your account's password."
+msgstr "የእርስዎ Matrix አገልጋይ የመለያዎን የይለፍ ቃል ይጠይቃል።"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Your other devices"
+msgstr "ሌሎች መሳሪያዎችዎ"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Your recovery key"
+msgstr "የመልሶ ማግኛ ቁልፍዎ"
 
 #: ../../../lib/web/src/components/comment-composer.tsx
 msgid "Your text and attachments will be lost."

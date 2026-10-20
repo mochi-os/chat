@@ -538,9 +538,12 @@ export function ChatMessageList({
                         const isSent = isCurrentUserMessage(message)
                         const isSelected = selectedIds?.has(message.id) ?? false
                         const isDeleted = message.deleted === true
-                        // A message its network encrypted shows no content
-                        // until Mochi's clients hold the keys.
-                        const isEncrypted = Boolean(message.encrypted)
+                        // An encrypted message whose keys have not come shows
+                        // no content until they do.
+                        const isEncrypted =
+                          Boolean(message.encrypted) &&
+                          !message.body &&
+                          !message.attachments?.length
                         return (
                           <div
                             key={message.id}

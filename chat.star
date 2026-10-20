@@ -69,13 +69,19 @@ def chat_commit_hook(table, kind, row_uid):
 	if not row_uid:
 		return
 	# A messages row update is an own-message edit (local action or
-	# received event): push the new body so open tabs replace it in place.
+	# received event), or an encrypted message whose keys came: push the new
+	# body so open tabs replace it in place.
 	if table == "messages" and kind == "update":
 		message = mochi.db.row("select * from messages where id=?", row_uid)
 		if not message:
 			return
 		chat = mochi.db.row("select key from chats where id=?", message["chat"])
 		if not chat:
+			return
+		# An encrypted message never edited is one whose keys came, with its
+		# files perhaps: open tabs read it again.
+		if message.get("encrypted") and not message.get("edited"):
+			chat_websocket(chat["key"], {"event": "decrypted", "message": row_uid})
 			return
 		chat_websocket(chat["key"], {"event": "edit", "message": row_uid, "body": message["body"], "edited": message.get("edited", 0)})
 		return
@@ -234,6 +240,7 @@ def database_create():
 	chat_schema_linked()
 	chat_schema_matrix()
 	chat_schema_xmpp()
+	chat_schema_encryption()
 
 def database_upgrade(version):
 	if version == 2:
@@ -269,6 +276,10 @@ def database_upgrade(version):
 		# A hosted XMPP account's archive and rooms (the federation plan,
 		# phase 26).
 		chat_schema_xmpp()
+	if version == 15:
+		# What a file sent to an encrypted XMPP conversation went as (the
+		# federation plan, phase 27).
+		chat_schema_encryption()
 	if version == 5 or version == 6 or version == 7:
 		# Attachments move into this database, owned by the shared library: create the
 		# table and copy rows out of core's store (bridge or export file). Versions 6
@@ -843,11 +854,6 @@ def action_send(a):
 		return
 
 	if not chat_write_allowed(a, chat):
-		return
-	# A conversation its network encrypts takes nothing from here until
-	# Mochi's clients hold the keys (phase 27).
-	if chat.get("encrypted"):
-		a.error.label(403, "errors.encrypted_conversation")
 		return
 
 	body = a.input("body", "")
@@ -3079,8 +3085,10 @@ def direct_deleted(actor, remote):
 # the user does goes out through the account. A room keeps its id on its
 # network in the room column; a one-to-one XMPP or Mastodon conversation is
 # known by its people. Typing, receipts and presence follow the user's
-# switches as on Mochi. A conversation its network encrypts shows its messages
-# as encrypted and takes none until Mochi's clients hold the keys (phase 27).
+# switches as on Mochi. A conversation its network encrypts is decrypted and
+# encrypted by core, which holds the account's device (phase 27): its messages
+# come here readable, those whose keys have not yet come as encrypted with no
+# text, filled in once the keys come (decrypted).
 # Who may write is the account's server's to decide, so chat's policy does
 # not apply; an invitation to a room waits for the user to accept or decline.
 # A hosted account's server is this one, so the policy applies there: core's
@@ -3140,6 +3148,12 @@ def chat_schema_xmpp():
 	column_add("messages", "payload", "text not null default ''")
 	column_add("members", "role", "text not null default ''")
 	mochi.db.execute("create table if not exists links ( message text not null, remote text not null default '', url text not null, primary key ( message, url ) )")
+
+def chat_schema_encryption():
+	"""The column of phase 27, at creation and by the migration alike: the
+	encrypted content a file went as to an XMPP conversation, which a hosted
+	account's archive gives its other devices."""
+	column_add("links", "payload", "text not null default ''")
 
 # The largest encrypted content kept with a message.
 PAYLOAD_MAXIMUM = 65536
@@ -3418,6 +3432,8 @@ def function_linked_receive(context, account, network, events):
 				mochi.account.presence(acc["id"], chat_switch(mochi.user.preference, "presence"))
 		elif kind == "message":
 			linked_received(acc, identity, event)
+		elif kind == "decrypted":
+			linked_decrypted(acc, identity, event)
 		elif kind == "edit":
 			linked_edited(acc, identity, event)
 		elif kind == "delete":
@@ -3510,7 +3526,7 @@ def linked_archive_entry(person, me, message):
 	"""A message as a hosted XMPP account's archive gives it."""
 	archive = mochi.db.row("select remote from parts where message=? and kind='archive'", message["id"])
 	reply = linked_remote(message["chat"], message["reply"]) if message.get("reply") else ""
-	files = [{"id": link["remote"], "url": link["url"]} for link in mochi.db.rows("select remote, url from links where message=? order by rowid", message["id"]) or []]
+	files = [{"id": link["remote"], "url": link["url"], "payload": link["payload"]} for link in mochi.db.rows("select remote, url, payload from links where message=? order by rowid", message["id"]) or []]
 	return {"archive": archive["remote"] if archive else message["id"], "id": message["remote"], "person": person, "own": message["member"] == me, "body": message["body"], "created": message["created"], "reply": reply, "payload": message.get("payload", "") or "", "files": files}
 
 def linked_name(value, fallback):
@@ -3581,7 +3597,7 @@ def linked_received(acc, identity, event):
 	name = mochi.db.row("select name from members where chat=? and member=?", chat["id"], member)
 	name = name["name"] if name else ""
 	encrypted = event.get("encrypted") == True
-	body = "" if encrypted else linked_body(acc, chat, event)[:10000]
+	body = linked_body(acc, chat, event)[:10000]
 	if body and not mochi.text.valid(body, "text"):
 		return
 	created = event.get("created", 0)
@@ -3595,18 +3611,8 @@ def linked_received(acc, identity, event):
 			mochi.db.execute("update messages set remote=? where id=?", remote, echo["id"])
 			return
 	id = mochi.uid()
-	object = "chat/" + chat["id"] + "/" + id
 	files = [f for f in listed(event.get("files")) if type(f) == "dict"][:FILES_MAXIMUM]
-	for f in files:
-		link = str(f.get("url", "") or "")
-		if not remote_ok(link):
-			continue
-		fetched = mochi.account.media(acc["id"], link)
-		kept = None
-		if fetched and fetched.get("status") == 200 and fetched.get("data"):
-			kept = attachment_create(object, str(f.get("name", "") or "file")[:200], fetched["data"], content_type=str(fetched.get("type", "") or f.get("type", "") or "").split(";")[0], description=str(f.get("description", "") or "")[:1000])
-		if not kept:
-			body = (body + "\n" + link).strip()[:10000]
+	body = linked_fetched(acc, chat, id, files, body)
 	if not body and not files and not encrypted:
 		return
 	thread = ""
@@ -3637,8 +3643,48 @@ def linked_received(acc, identity, event):
 	chat_ensure_commit_hook()
 	mochi.db.commit.fire("messages", "insert", id)
 	if not own:
-		excerpt = mochi.app.label("messages.encrypted") if encrypted else body.strip()[:80]
+		# A message whose keys have not yet come has no text to show.
+		excerpt = body.strip()[:80] if body or files else mochi.app.label("messages.encrypted")
 		notify("message", chat["id"], mochi.app.label("notifications.title.message"), mochi.app.label("notifications.body.message", author=name, excerpt=excerpt), "/chat/" + chat["id"], chat["name"], event_id="message:" + id)
+
+def linked_fetched(acc, chat, id, files, body):
+	"""The files a message came with, fetched through the account and kept as
+	the message's attachments; the address of one that could not be is added
+	to its text, which is answered."""
+	object = "chat/" + chat["id"] + "/" + id
+	for f in files:
+		link = str(f.get("url", "") or "")
+		if not remote_ok(link):
+			continue
+		fetched = mochi.account.media(acc["id"], link)
+		kept = None
+		if fetched and fetched.get("status") == 200 and fetched.get("data"):
+			kept = attachment_create(object, str(f.get("name", "") or "file")[:200], fetched["data"], content_type=str(fetched.get("type", "") or f.get("type", "") or "").split(";")[0], description=str(f.get("description", "") or "")[:1000])
+		if not kept:
+			body = (body + "\n" + link).strip()[:10000]
+	return body
+
+def linked_decrypted(acc, identity, event):
+	"""A message that came encrypted before its keys did, now that they have
+	come: its text and its files, where it is still waiting for them."""
+	message = linked_message_of(acc, event.get("id"))
+	if not message or not message.get("encrypted") or message["body"] or mochi.db.exists("select 1 from deletions where message=?", message["id"]):
+		return
+	if mochi.db.exists("select 1 from attachments where object=?", "chat/" + message["chat"] + "/" + message["id"]):
+		return
+	chat = mochi.db.row("select * from chats where id=?", message["chat"])
+	if not chat:
+		return
+	body = linked_body(acc, chat, event)[:10000]
+	if body and not mochi.text.valid(body, "text"):
+		return
+	files = [f for f in listed(event.get("files")) if type(f) == "dict"][:FILES_MAXIMUM]
+	body = linked_fetched(acc, chat, message["id"], files, body)
+	if not body and not files:
+		return
+	mochi.db.execute("update messages set body=? where id=?", body, message["id"])
+	chat_ensure_commit_hook()
+	mochi.db.commit.fire("messages", "update", message["id"])
 
 def linked_sender(identity, event):
 	"""Who an event says acted: the user where it was them."""
@@ -3856,7 +3902,7 @@ def linked_send(chat, acc, message, attachments):
 	as one more message, the first kept as the message's id there and the
 	rest as its further ids."""
 	target = linked_target(chat)
-	if not target or chat.get("encrypted"):
+	if not target:
 		return False
 	sent = ""
 	if message["body"]:
@@ -3872,9 +3918,13 @@ def linked_send(chat, acc, message, attachments):
 			return False
 		sent = str(result["id"])
 		linked_archived(message["id"], result, sent)
+		# What it went encrypted as, for a hosted XMPP account's archive.
+		if result.get("payload"):
+			mochi.db.execute("update messages set encrypted=1, payload=? where id=?", str(result["payload"])[:PAYLOAD_MAXIMUM], message["id"])
 	for att in attachments or []:
 		data = mochi.file.read(attachment_filename(att["id"], att["name"]), mochi.file.maximum())
-		uploaded = mochi.account.upload(acc["id"], data, str(att.get("type", "") or att.get("content_type", "") or ""), name=att["name"]) if data != None else None
+		# A file for an encrypted conversation is uploaded encrypted.
+		uploaded = mochi.account.upload(acc["id"], data, str(att.get("type", "") or att.get("content_type", "") or ""), name=att["name"], conversation=target) if data != None else None
 		result = mochi.account.object.create(acc["id"], {"conversation": target, "file": uploaded}, key="chat|" + message["id"] + "|" + att["id"]) if uploaded else None
 		if not result or not result.get("id"):
 			if not sent:
@@ -3885,13 +3935,173 @@ def linked_send(chat, acc, message, attachments):
 		else:
 			sent = str(result["id"])
 			linked_archived(message["id"], result, sent)
-		# The file's address, for a hosted XMPP account's archive (phase 26).
+		# The file's address, and what it went encrypted as, for a hosted
+		# XMPP account's archive (phases 26 and 27).
 		if acc["network"] == "xmpp" and uploaded.get("url"):
-			mochi.db.execute("insert or ignore into links ( message, remote, url ) values ( ?, ?, ? )", message["id"], str(result["id"]), str(uploaded["url"])[:REMOTE_MAXIMUM])
+			mochi.db.execute("insert or ignore into links ( message, remote, url, payload ) values ( ?, ?, ?, ? )", message["id"], str(result["id"]), str(uploaded["url"])[:REMOTE_MAXIMUM], str(result.get("payload", "") or "")[:PAYLOAD_MAXIMUM])
 	if not sent:
 		return False
 	mochi.db.execute("update messages set remote=? where id=?", sent, message["id"])
 	return True
+
+# --- Encryption ---
+#
+# Core holds the encryption device of each of the user's Matrix and XMPP
+# accounts and decrypts their conversations before chat hears them (phase
+# 27). Chat shows the device and the people's devices, takes the user's word
+# on them, runs Matrix's emoji verification, and sets up and enters the
+# account's recovery key.
+
+def encryption_chat(a):
+	"""A conversation on a Matrix or XMPP account the user may write to, with
+	its account; None where it is not one, the refusal given."""
+	chat_id = a.input("chat")
+	if not mochi.text.valid(chat_id, "id"):
+		a.error.label(400, "errors.invalid_chat_id")
+		return None, None
+	chat = mochi.db.row("select * from chats where id=?", chat_id)
+	if not chat:
+		a.error.label(404, "errors.chat_not_found")
+		return None, None
+	if not chat_write_allowed(a, chat):
+		return None, None
+	acc = mochi.account.get(chat["account"]) if chat.get("account") else None
+	network = account_network(acc)
+	if network not in ("matrix", "xmpp"):
+		a.error.label(400, "errors.encryption_unavailable")
+		return None, None
+	acc["network"] = network
+	return chat, acc
+
+def encryption_person(chat, person):
+	"""Whether someone is one of a conversation's people on its network."""
+	return person and mochi.db.exists("select 1 from members where chat=? and member=?", chat["id"], person)
+
+def action_encryption(a):
+	"""The account's device and the conversation's people on its network."""
+	chat, acc = encryption_chat(a)
+	if not chat:
+		return
+	status = mochi.account.encryption.status(acc["id"])
+	people = [{"id": m["member"], "name": m["name"]} for m in mochi.db.rows("select member, name from members where chat=?", chat["id"]) or [] if not mochi.text.valid(m["member"], "entity")]
+	return {"data": {"account": acc["id"], "status": status, "people": people}}
+
+def action_encryption_devices(a):
+	"""A person's devices: one of the conversation's, or the user's own."""
+	chat, acc = encryption_chat(a)
+	if not chat:
+		return
+	person = a.input("person", "")
+	status = mochi.account.encryption.status(acc["id"])
+	own = person == status.get("address") or person == "xmpp:" + str(status.get("address", ""))
+	if not own and not encryption_person(chat, person):
+		a.error.label(404, "errors.member_not_found_in_this_chat")
+		return
+	return {"data": {"devices": mochi.account.encryption.devices(acc["id"], person) or []}}
+
+def action_encryption_trust(a):
+	"""The user's word on a device of someone's."""
+	chat, acc = encryption_chat(a)
+	if not chat:
+		return
+	person = a.input("person", "")
+	status = mochi.account.encryption.status(acc["id"])
+	own = person == status.get("address") or person == "xmpp:" + str(status.get("address", ""))
+	if not own and not encryption_person(chat, person):
+		a.error.label(404, "errors.member_not_found_in_this_chat")
+		return
+	trust = a.input("trust", "")
+	if trust not in ("verified", "distrusted", "undecided"):
+		a.error.label(400, "errors.invalid_preference")
+		return
+	mochi.account.encryption.trust(acc["id"], person, a.input("device", ""), trust)
+	return {"data": {}}
+
+def action_encryption_verify(a):
+	"""Ask to verify someone in a Matrix conversation by comparing emoji, or
+	the user's own other devices."""
+	chat, acc = encryption_chat(a)
+	if not chat:
+		return
+	if acc["network"] != "matrix":
+		a.error.label(400, "errors.encryption_unavailable")
+		return
+	person = a.input("person", "")
+	status = mochi.account.encryption.status(acc["id"])
+	if person == status.get("address"):
+		asked = mochi.account.encryption.verify(acc["id"], person)
+	elif not encryption_person(chat, person) or not chat.get("room"):
+		a.error.label(404, "errors.member_not_found_in_this_chat")
+		return
+	else:
+		asked = mochi.account.encryption.verify(acc["id"], person, room=chat["room"])
+	# Core's device verifies once it holds the account's cross-signing keys.
+	if asked.get("recovery"):
+		a.error.label(409, "errors.recovery_needed")
+		return
+	return {"data": asked}
+
+def action_encryption_setup(a):
+	"""Set up a Matrix account's cross-signing and key backup: the recovery
+	key, shown once, or that the account's password is wanted."""
+	chat, acc = encryption_chat(a)
+	if not chat:
+		return
+	if acc["network"] != "matrix":
+		a.error.label(400, "errors.encryption_unavailable")
+		return
+	return {"data": mochi.account.encryption.setup(acc["id"], password=a.input("password", ""))}
+
+def action_encryption_recover(a):
+	"""Take a Matrix account's recovery key set up on another client."""
+	chat, acc = encryption_chat(a)
+	if not chat:
+		return
+	if acc["network"] != "matrix":
+		a.error.label(400, "errors.encryption_unavailable")
+		return
+	key = a.input("key", "")
+	if not key or len(key) > 200:
+		a.error.label(400, "errors.recovery_refused")
+		return
+	result = mochi.account.encryption.recover(acc["id"], key)
+	if result.get("refused"):
+		a.error.label(400, "errors.recovery_refused")
+		return
+	return {"data": result}
+
+def action_encryption_verifications(a):
+	"""The verifications under way on the user's Matrix accounts, each with
+	its account and the name of the person it is with."""
+	out = []
+	for acc in chat_accounts():
+		if acc.get("network") != "matrix":
+			continue
+		for v in mochi.account.encryption.verifications(acc["id"]) or []:
+			v["account"] = acc["id"]
+			member = mochi.db.row("select name from members where member=? and name!='' limit 1", v.get("person", ""))
+			v["name"] = member["name"] if member else ""
+			out.append(v)
+	return {"data": {"verifications": out}}
+
+def action_encryption_act(a):
+	"""A step of a verification on one of the user's Matrix accounts."""
+	account = a.input("account", "")
+	acc = None
+	for candidate in chat_accounts():
+		if candidate["id"] == account and candidate.get("network") == "matrix":
+			acc = candidate
+	if not acc:
+		a.error.label(400, "errors.invalid_account")
+		return
+	action = a.input("action", "")
+	if action not in ("accept", "start", "confirm", "mismatch", "cancel"):
+		a.error.label(400, "errors.invalid_preference")
+		return
+	if mochi.account.encryption.act(acc["id"], a.input("flow", ""), action).get("recovery"):
+		a.error.label(409, "errors.recovery_needed")
+		return
+	return {"data": {}}
 
 def linked_archived(message_id, result, remote):
 	"""The id a hosted XMPP account's archive gave a message chat sent, kept

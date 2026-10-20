@@ -65,6 +65,11 @@ msgstr "{0, plural, =1 {Odstrániť správu?} few {Odstrániť # správy?} many 
 msgid "{0, plural, one {# file changed} other {# files changed}}"
 msgstr "{0, plural, one {# súbor zmenený} few {# súbory zmenené} many {# súboru zmeneného} other {# súborov zmenených}}"
 
+#. placeholder {0}: result.restored
+#: src/features/chats/components/encryption-section.tsx
+msgid "{0, plural, one {# message key restored} other {# message keys restored}}"
+msgstr "{0, plural, one {Obnovený # kľúč správ} few {Obnovené # kľúče správ} many {Obnovených # kľúča správ} other {Obnovených # kľúčov správ}}"
+
 #. placeholder {0}: message.replies
 #: src/features/chats/components/chat-message-list.tsx
 msgid "{0, plural, one {# reply} other {# replies}}"
@@ -175,6 +180,10 @@ msgstr "{truncated, plural, one {# ďalší súbor nie je zobrazený} few {# ďa
 msgid "{unreadCount, plural, one {Open menu (# unread notification)} other {Open menu (# unread notifications)}}"
 msgstr "{unreadCount, plural, one {Otvoriť ponuku (# neprečítané oznámenie)} few {Otvoriť ponuku (# neprečítané oznámenia)} many {Otvoriť ponuku (# neprečítaného oznámenia)} other {Otvoriť ponuku (# neprečítaných oznámení)}}"
 
+#: src/features/chats/components/verification-watcher.tsx
+msgid "{who} wants to verify you."
+msgstr "{who} vás chce overiť."
+
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "12 hours"
 msgstr "12 hodín"
@@ -193,6 +202,7 @@ msgid "Absolute (date and time)"
 msgstr "Absolútny (dátum a čas)"
 
 #: ../../../lib/web/src/components/game/game-draw-offer-banner.tsx
+#: src/features/chats/components/verification-watcher.tsx
 #: src/features/chats/index.tsx
 msgid "Accept"
 msgstr "Prijať"
@@ -380,6 +390,10 @@ msgstr "Push oznámenia pre Android"
 msgid "Angry"
 msgstr "Nahnevané"
 
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Another of your devices wants to verify this one."
+msgstr "Iné z vašich zariadení chce overiť toto zariadenie."
+
 #: ../../../lib/web/src/features/access/access-list.tsx
 #: ../../../lib/web/src/features/access/types.ts
 #: src/features/chats/components/chat-settings-dialog.tsx
@@ -440,6 +454,10 @@ msgstr "Ako {0}"
 #: ../../../lib/web/src/components/ui/sort-direction-button.tsx
 msgid "Ascending"
 msgstr "Vzostupne"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Asking to compare emoji..."
+msgstr "Žiadosť o porovnanie emoji..."
 
 #: ../../../lib/web/src/components/timezone-select.tsx
 msgid "At sea"
@@ -599,6 +617,8 @@ msgstr "Kamera nie je k dispozícii"
 #: src/features/chats/components/chat-settings-dialog.tsx
 #: src/features/chats/components/forward-dialog.tsx
 #: src/features/chats/components/new-chat.tsx
+#: src/features/chats/components/verification-watcher.tsx
+#: src/features/chats/components/verification-watcher.tsx
 #: src/features/chats/index.tsx
 msgid "Cancel"
 msgstr "Zrušiť"
@@ -735,6 +755,10 @@ msgstr "Chat odopnutý"
 msgid "Chats"
 msgstr "Chaty"
 
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Check that the same emoji appear on the other screen."
+msgstr "Skontrolujte, či sa na druhej obrazovke zobrazujú rovnaké emoji."
+
 #: ../../../lib/web/src/hooks/use-field-type-labels.ts
 msgid "Checkbox"
 msgstr "Zaškrtávacie pole"
@@ -867,6 +891,11 @@ msgstr "Komentáre ({0})"
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Compact"
 msgstr "Kompaktné"
+
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Compare emoji"
+msgstr "Porovnať emoji"
 
 #: ../../../lib/web/src/components/entity/entity-option-dialog.tsx
 msgid "Configure option settings"
@@ -1023,6 +1052,7 @@ msgid "Date"
 msgstr "Dátum"
 
 #: ../../../lib/web/src/components/game/game-draw-offer-banner.tsx
+#: src/features/chats/components/verification-watcher.tsx
 #: src/features/chats/index.tsx
 msgid "Decline"
 msgstr "Odmietnuť"
@@ -1162,6 +1192,10 @@ msgstr "Panel podrobností"
 msgid "Detect from web browser"
 msgstr "Zistiť z webového prehliadača"
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "Device options"
+msgstr "Možnosti zariadenia"
+
 #: ../../../lib/web/src/components/person-picker.tsx
 msgid "Directory"
 msgstr "Adresár"
@@ -1205,6 +1239,14 @@ msgstr "Zatvoriť"
 msgid "Displays the mobile sidebar."
 msgstr "Zobrazí mobilný bočný panel."
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "Distrust"
+msgstr "Nedôverovať"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Distrusted"
+msgstr "Nedôveryhodné"
+
 #: src/features/chats/components/chat-input.tsx
 msgid "Document"
 msgstr "Dokument"
@@ -1215,6 +1257,7 @@ msgstr "Nezodpovedá požadovanému vzoru"
 
 #: ../../../lib/web/src/components/entity/entity-field-dialog.tsx
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx
+#: src/features/chats/components/encryption-section.tsx
 msgid "Done"
 msgstr "Hotovo"
 
@@ -1303,6 +1346,12 @@ msgstr "E-mailový kód"
 msgid "Encrypted message"
 msgstr "Šifrovaná správa"
 
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+msgid "Encryption"
+msgstr "Šifrovanie"
+
 #: ../../../lib/web/src/components/calendar/time-grid.tsx
 msgid "Ends before it starts"
 msgstr "Končí skôr, ako začne"
@@ -1310,6 +1359,11 @@ msgstr "Končí skôr, ako začne"
 #: ../../../lib/web/src/components/banner-section.tsx
 msgid "Enter banner text (markdown supported)..."
 msgstr "Zadajte text bannera (podporuje sa Markdown)…"
+
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+msgid "Enter recovery key"
+msgstr "Zadať kľúč na obnovenie"
 
 #: ../../../lib/web/src/components/step-up-dialog.tsx
 msgid "Enter the code from your email"
@@ -1492,6 +1546,7 @@ msgstr "Odvolanie prístupu RSS zlyhalo"
 
 #: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx
 #: src/features/chats/components/chat-settings-dialog.tsx
+#: src/features/chats/components/encryption-section.tsx
 msgid "Failed to save"
 msgstr "Nepodarilo sa uložiť"
 
@@ -1550,6 +1605,10 @@ msgstr "Príznaky"
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Flat"
 msgstr "Plochý"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Forget my decision"
+msgstr "Zabudnúť moje rozhodnutie"
 
 #: src/features/chats/components/forward-dialog.tsx
 #: src/features/chats/components/message-hover-actions.tsx
@@ -1711,6 +1770,10 @@ msgstr "Prejsť na koniec"
 #: ../../../lib/web/src/lib/locale-format.ts
 msgid "Just now"
 msgstr "Práve teraz"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Keep this key safe. It is shown once, and your other Matrix clients ask for it to read your encrypted messages."
+msgstr "Uschovajte tento kľúč na bezpečnom mieste. Zobrazí sa iba raz a vaši ďalší klienti Matrix si ho vyžiadajú na čítanie vašich šifrovaných správ."
 
 #: ../../../lib/web/src/components/entity/keyboard-shortcuts-help.tsx
 msgid "Keyboard shortcuts"
@@ -2102,6 +2165,10 @@ msgstr "Žiadne chaty na preposlanie"
 msgid "No comments yet"
 msgstr "Zatiaľ žiadne komentáre"
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "No devices"
+msgstr "Žiadne zariadenia"
+
 #: src/routes/_authenticated/$chatId_.settings.tsx
 msgid "No friends available"
 msgstr "Nie sú dostupní žiadni priatelia"
@@ -2137,6 +2204,10 @@ msgstr "Zatiaľ žiadne správy"
 #: src/features/chats/components/chat-input.tsx
 msgid "No microphone found"
 msgstr "Nenašiel sa žiadny mikrofón"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "No other devices"
+msgstr "Žiadne ďalšie zariadenia"
 
 #: ../../../lib/web/src/components/entity/entity-field-editor.tsx
 #: ../../../lib/web/src/components/person-picker.tsx
@@ -2222,6 +2293,11 @@ msgstr "Nenájdené"
 #: ../../../lib/web/src/components/ui/editable-field-row.tsx
 msgid "Not set"
 msgstr "Nenastavené"
+
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+msgid "Not verified"
+msgstr "Neoverené"
 
 #: ../../../lib/web/src/components/entity/entity-tree-view.tsx
 msgid "Nothing found"
@@ -2351,6 +2427,10 @@ msgstr "Prístupové kľúče"
 #: ../../../lib/web/src/lib/shell-errors.ts
 msgid "Passkeys are not available in this browser"
 msgstr "Prístupové kľúče nie sú v tomto prehliadači k dispozícii"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Password"
+msgstr "Heslo"
 
 #: ../../../lib/web/src/components/entity/entity-field-dialog.tsx
 msgid "Pattern (regex)"
@@ -2507,6 +2587,14 @@ msgstr "Nahrávanie sa zastavilo na 5-minútovom limite"
 #: src/features/chats/components/chat-input.tsx
 msgid "Recording voice note"
 msgstr "Nahráva sa hlasová správa"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Recovery could not be set up"
+msgstr "Obnovenie sa nepodarilo nastaviť"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Recovery key"
+msgstr "Kľúč na obnovenie"
 
 #: ../../../lib/web/src/components/layout/authenticated-layout.tsx
 msgid "Redirecting to login."
@@ -2672,6 +2760,10 @@ msgstr "Vzdať"
 msgid "Resign game?"
 msgstr "Vzdať hru?"
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "Restore"
+msgstr "Obnoviť"
+
 #: ../../../lib/web/src/components/attachment-composer.tsx
 msgid "Retry"
 msgstr "Skúsiť znova"
@@ -2729,7 +2821,12 @@ msgstr "Sobota"
 msgid "Save"
 msgstr "Uložiť"
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "Saved"
+msgstr "Uložené"
+
 #: src/features/chats/components/chat-settings-dialog.tsx
+#: src/features/chats/components/encryption-section.tsx
 msgid "Saving..."
 msgstr "Ukladám..."
 
@@ -2956,6 +3053,12 @@ msgstr "Platnosť relácie vypršala. Prihláste sa znova."
 msgid "Set origin and destination"
 msgstr "Nastaviť pôvod a cieľ"
 
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+msgid "Set up recovery"
+msgstr "Nastaviť obnovenie"
+
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx
 #: ../../../lib/web/src/components/options-menu.tsx
@@ -3136,6 +3239,10 @@ msgstr "Tento kód je nesprávny alebo vypršal."
 msgid "That could not be sent. The files may be too large, or your connection failed. Try smaller files."
 msgstr "Nepodarilo sa odoslať. Súbory môžu byť príliš veľké, alebo zlyhalo pripojenie. Skúste menšie súbory."
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "That is not your recovery key"
+msgstr "Toto nie je váš kľúč na obnovenie"
+
 #: ../../../lib/web/src/hooks/use-attachment-error.ts
 #: ../../../lib/web/src/lib/handle-server-error.ts
 msgid "That was too large to upload. Remove or shrink files and try again."
@@ -3158,6 +3265,14 @@ msgstr "Názov chatu môže mať najviac {CHAT_NAME_MAX_LENGTH} znakov"
 msgid "The chat name cannot contain < or >"
 msgstr "Názov chatu nemôže obsahovať < ani >"
 
+#: src/features/chats/components/verification-watcher.tsx
+msgid "The emoji did not match, so the verification was cancelled"
+msgstr "Emoji sa nezhodovali, preto bolo overenie zrušené"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "The fingerprint matches"
+msgstr "Odtlačok sa zhoduje"
+
 #: ../../../lib/web/src/lib/shell-errors.ts
 msgid "The microphone request was not answered"
 msgstr "Žiadosť o mikrofón zostala bez odpovede"
@@ -3165,6 +3280,10 @@ msgstr "Žiadosť o mikrofón zostala bez odpovede"
 #: ../../../lib/web/src/lib/shell-errors.ts
 msgid "The passkey request was not answered"
 msgstr "Žiadosť o prístupový kľúč zostala bez odpovede"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "The password was not accepted"
+msgstr "Heslo nebolo prijaté"
 
 #: ../../../lib/web/src/features/errors/general-error.tsx
 msgid "The requested content could not be found."
@@ -3174,10 +3293,30 @@ msgstr "Požadovaný obsah sa nepodarilo nájsť."
 msgid "The server returned a web page instead of data."
 msgstr "Server vrátil webovú stránku namiesto údajov."
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "The verification could not be started"
+msgstr "Overenie sa nepodarilo spustiť"
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "The verification could not go on"
+msgstr "V overovaní sa nepodarilo pokračovať"
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "The verification was cancelled"
+msgstr "Overenie bolo zrušené"
+
 #. placeholder {0}: unknown.join(', ')
 #: src/features/chats/index.tsx
 msgid "These names are not in this chat: {0}. Pick from the @ list or remove them."
 msgstr "Tieto mená nie sú v tomto čete: {0}. Vyberte zo zoznamu @ alebo ich odstráňte."
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "They don't match"
+msgstr "Nie, nezhodujú sa"
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "They match"
+msgstr "Áno, zhodujú sa"
 
 #: src/routes/_authenticated/$chatId_.settings.tsx
 msgid "They stop receiving new messages in this chat."
@@ -3197,12 +3336,20 @@ msgid "This chat may have been deleted or you don't have access to it"
 msgstr "Tento chat mohol byť odstránený alebo k nemu nemáte prístup"
 
 #: src/features/chats/index.tsx
-msgid "This conversation is encrypted. Messages cannot be sent to it from here yet."
-msgstr "Táto konverzácia je šifrovaná. Odtiaľto do nej zatiaľ nemožno posielať správy."
-
-#: src/features/chats/index.tsx
 msgid "This deletes the message for everyone and cannot be undone."
 msgstr "Týmto sa správa odstráni pre všetkých a nedá sa to vrátiť späť."
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "This device"
+msgstr "Toto zariadenie"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "This device (OMEMO 2)"
+msgstr "Toto zariadenie (OMEMO 2)"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "This device (OMEMO)"
+msgstr "Toto zariadenie (OMEMO)"
 
 #: src/features/chats/components/chat-message-list.tsx
 #: src/features/chats/components/message-quote.tsx
@@ -3400,14 +3547,28 @@ msgstr "Premenné: {variables}"
 msgid "Verification code"
 msgstr "Overovací kód"
 
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Verified"
+msgstr "Overené"
+
 #: ../../../lib/web/src/components/step-up-dialog.tsx
 #: ../../../lib/web/src/features/accounts/account-verify.tsx
 msgid "Verify"
 msgstr "Overiť"
 
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Verify {who}"
+msgstr "Overiť používateľa {who}"
+
 #: ../../../lib/web/src/features/accounts/account-verify.tsx
 msgid "Verify email address"
 msgstr "Overiť e-mailovú adresu"
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Verify your device"
+msgstr "Overiť vaše zariadenie"
 
 #: ../../../lib/web/src/components/attachment-gallery.tsx
 #: src/features/chats/components/message-media-grid.tsx
@@ -3453,6 +3614,14 @@ msgstr "Nahrávanie hlasu nie je v tomto prehliadači podporované"
 #: src/features/chats/components/chat-input.tsx
 msgid "Voice recording isn't available in this app version. Please update the app and try again."
 msgstr "Nahrávanie hlasu nie je v tejto verzii aplikácie dostupné. Aktualizujte aplikáciu a skúste to znova."
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Waiting for the other device..."
+msgstr "Čaká sa na druhé zariadenie..."
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Waiting for them to accept"
+msgstr "Čaká sa na prijatie"
 
 #: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx
 #: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx
@@ -3528,6 +3697,18 @@ msgstr "Váš účet bol presunutý sem z {source}. Kým ho tam neodstránite, s
 #: ../../../lib/web/src/components/comment-composer.tsx
 msgid "Your attachments will be lost."
 msgstr "Vaše prílohy sa stratia."
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Your Matrix server asks for your account's password."
+msgstr "Váš server Matrix žiada heslo k vášmu účtu."
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Your other devices"
+msgstr "Vaše ďalšie zariadenia"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Your recovery key"
+msgstr "Váš kľúč na obnovenie"
 
 #: ../../../lib/web/src/components/comment-composer.tsx
 msgid "Your text and attachments will be lost."

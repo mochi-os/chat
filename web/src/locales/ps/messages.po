@@ -65,6 +65,11 @@ msgstr "{0, plural, =1 {پیغام ړنګ شي؟} other {# پیغامونه ړن
 msgid "{0, plural, one {# file changed} other {# files changed}}"
 msgstr "{0, plural, one {# فایل بدل شو} other {# فایلونه بدل شول}}"
 
+#. placeholder {0}: result.restored
+#: src/features/chats/components/encryption-section.tsx
+msgid "{0, plural, one {# message key restored} other {# message keys restored}}"
+msgstr "{0, plural, one {# د پیغام کیلي بیرته راګرځول شوه} other {# د پیغام کیلي ګانې بیرته راګرځول شوې}}"
+
 #. placeholder {0}: message.replies
 #: src/features/chats/components/chat-message-list.tsx
 msgid "{0, plural, one {# reply} other {# replies}}"
@@ -175,6 +180,10 @@ msgstr "{truncated, plural, one {# بله دوتنه نه ده ښودل شوې} 
 msgid "{unreadCount, plural, one {Open menu (# unread notification)} other {Open menu (# unread notifications)}}"
 msgstr "{unreadCount, plural, one {مینو خلاص کړئ (# نالوستې خبرتیا)} other {مینو خلاص کړئ (# نالوستې خبرتیاوې)}}"
 
+#: src/features/chats/components/verification-watcher.tsx
+msgid "{who} wants to verify you."
+msgstr "{who} غواړي تاسو تصدیق کړي."
+
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "12 hours"
 msgstr "12 ساعته"
@@ -193,6 +202,7 @@ msgid "Absolute (date and time)"
 msgstr "مطلق (نېټه او وخت)"
 
 #: ../../../lib/web/src/components/game/game-draw-offer-banner.tsx
+#: src/features/chats/components/verification-watcher.tsx
 #: src/features/chats/index.tsx
 msgid "Accept"
 msgstr "ومنه"
@@ -380,6 +390,10 @@ msgstr "د Android پوش"
 msgid "Angry"
 msgstr "غصه"
 
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Another of your devices wants to verify this one."
+msgstr "ستاسو یوه بله وسیله غواړي دا تصدیق کړي."
+
 #: ../../../lib/web/src/features/access/access-list.tsx
 #: ../../../lib/web/src/features/access/types.ts
 #: src/features/chats/components/chat-settings-dialog.tsx
@@ -440,6 +454,10 @@ msgstr "د {0} په توګه"
 #: ../../../lib/web/src/components/ui/sort-direction-button.tsx
 msgid "Ascending"
 msgstr "د کم څخه ډېر"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Asking to compare emoji..."
+msgstr "د ایموجي پرتله کولو غوښتنه کېږي..."
 
 #: ../../../lib/web/src/components/timezone-select.tsx
 msgid "At sea"
@@ -599,6 +617,8 @@ msgstr "کامره شتون نلري"
 #: src/features/chats/components/chat-settings-dialog.tsx
 #: src/features/chats/components/forward-dialog.tsx
 #: src/features/chats/components/new-chat.tsx
+#: src/features/chats/components/verification-watcher.tsx
+#: src/features/chats/components/verification-watcher.tsx
 #: src/features/chats/index.tsx
 msgid "Cancel"
 msgstr "لغوه کول"
@@ -735,6 +755,10 @@ msgstr "د چټ ټومبنه لرې شوه"
 msgid "Chats"
 msgstr "چټونه"
 
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Check that the same emoji appear on the other screen."
+msgstr "وګورئ چې په بله پرده هماغه ایموجي ښکاري."
+
 #: ../../../lib/web/src/hooks/use-field-type-labels.ts
 msgid "Checkbox"
 msgstr "چک بکس"
@@ -867,6 +891,11 @@ msgstr "تبصرې ({0})"
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Compact"
 msgstr "فشرده"
+
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Compare emoji"
+msgstr "ایموجي پرتله کړئ"
 
 #: ../../../lib/web/src/components/entity/entity-option-dialog.tsx
 msgid "Configure option settings"
@@ -1023,6 +1052,7 @@ msgid "Date"
 msgstr "نېټه"
 
 #: ../../../lib/web/src/components/game/game-draw-offer-banner.tsx
+#: src/features/chats/components/verification-watcher.tsx
 #: src/features/chats/index.tsx
 msgid "Decline"
 msgstr "رد کړئ"
@@ -1162,6 +1192,10 @@ msgstr "د تفصیلاتو پینل"
 msgid "Detect from web browser"
 msgstr "د ویب براوزر څخه ومومئ"
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "Device options"
+msgstr "د وسیلې انتخابونه"
+
 #: ../../../lib/web/src/components/person-picker.tsx
 msgid "Directory"
 msgstr "لارښود"
@@ -1205,6 +1239,14 @@ msgstr "وتړئ"
 msgid "Displays the mobile sidebar."
 msgstr "موبایل څنګې پټۍ ښیي."
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "Distrust"
+msgstr "باور مه کوئ"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Distrusted"
+msgstr "بې باوره"
+
 #: src/features/chats/components/chat-input.tsx
 msgid "Document"
 msgstr "سند"
@@ -1215,6 +1257,7 @@ msgstr "د اړین نمونې سره سمون نه خوري"
 
 #: ../../../lib/web/src/components/entity/entity-field-dialog.tsx
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx
+#: src/features/chats/components/encryption-section.tsx
 msgid "Done"
 msgstr "ترسره شو"
 
@@ -1303,6 +1346,12 @@ msgstr "د بریښنالیک کوډ"
 msgid "Encrypted message"
 msgstr "کوډ شوی پیغام"
 
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+msgid "Encryption"
+msgstr "کوډ کول"
+
 #: ../../../lib/web/src/components/calendar/time-grid.tsx
 msgid "Ends before it starts"
 msgstr "له پیل مخکې پای ته رسېږي"
@@ -1310,6 +1359,11 @@ msgstr "له پیل مخکې پای ته رسېږي"
 #: ../../../lib/web/src/components/banner-section.tsx
 msgid "Enter banner text (markdown supported)..."
 msgstr "د بینر متن دننه کړئ (markdown ملاتړ کیږي)..."
+
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+msgid "Enter recovery key"
+msgstr "د بیا رغونې کیلي دننه کړئ"
 
 #: ../../../lib/web/src/components/step-up-dialog.tsx
 msgid "Enter the code from your email"
@@ -1492,6 +1546,7 @@ msgstr "د RSS لاسرسي بیرته اخیستل ناکام شول"
 
 #: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx
 #: src/features/chats/components/chat-settings-dialog.tsx
+#: src/features/chats/components/encryption-section.tsx
 msgid "Failed to save"
 msgstr "د خوندي کولو پاتې راغلل"
 
@@ -1550,6 +1605,10 @@ msgstr "بیرغونه"
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Flat"
 msgstr "هوار"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Forget my decision"
+msgstr "زما پرېکړه هېره کړئ"
 
 #: src/features/chats/components/forward-dialog.tsx
 #: src/features/chats/components/message-hover-actions.tsx
@@ -1711,6 +1770,10 @@ msgstr "پای ته لاړ شئ"
 #: ../../../lib/web/src/lib/locale-format.ts
 msgid "Just now"
 msgstr "همدا اوس"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Keep this key safe. It is shown once, and your other Matrix clients ask for it to read your encrypted messages."
+msgstr "دا کیلي خوندي وساتئ. دا یوازې یو ځل ښودل کېږي، او ستاسو نور Matrix کلاینټونه یې ستاسو د کوډ شویو پیغامونو لوستلو لپاره غواړي."
 
 #: ../../../lib/web/src/components/entity/keyboard-shortcuts-help.tsx
 msgid "Keyboard shortcuts"
@@ -2102,6 +2165,10 @@ msgstr "د لېږلو لپاره کوم چټ نشته"
 msgid "No comments yet"
 msgstr "تر اوسه هیڅ تبصرې نشته"
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "No devices"
+msgstr "هیڅ وسیله نشته"
+
 #: src/routes/_authenticated/$chatId_.settings.tsx
 msgid "No friends available"
 msgstr "هیڅ ملګري شتون نلري"
@@ -2137,6 +2204,10 @@ msgstr "تر اوسه هیڅ پیغامونه نشته"
 #: src/features/chats/components/chat-input.tsx
 msgid "No microphone found"
 msgstr "مایکروفون ونه موندل شو"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "No other devices"
+msgstr "بله هیڅ وسیله نشته"
 
 #: ../../../lib/web/src/components/entity/entity-field-editor.tsx
 #: ../../../lib/web/src/components/person-picker.tsx
@@ -2222,6 +2293,11 @@ msgstr "ونه موندل شو"
 #: ../../../lib/web/src/components/ui/editable-field-row.tsx
 msgid "Not set"
 msgstr "نه دی ټاکل شوی"
+
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+msgid "Not verified"
+msgstr "تصدیق شوې نه ده"
 
 #: ../../../lib/web/src/components/entity/entity-tree-view.tsx
 msgid "Nothing found"
@@ -2351,6 +2427,10 @@ msgstr "پاسکي ګانې"
 #: ../../../lib/web/src/lib/shell-errors.ts
 msgid "Passkeys are not available in this browser"
 msgstr "پاسکي په دې براوزر کې شتون نلري"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Password"
+msgstr "پټنوم"
 
 #: ../../../lib/web/src/components/entity/entity-field-dialog.tsx
 msgid "Pattern (regex)"
@@ -2507,6 +2587,14 @@ msgstr "ثبت د ۵ دقیقو په حد کې ودرېد"
 #: src/features/chats/components/chat-input.tsx
 msgid "Recording voice note"
 msgstr "غږیز پیغام ثبتېږي"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Recovery could not be set up"
+msgstr "بیا رغونه تنظیم نه شوه"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Recovery key"
+msgstr "د بیا رغونې کیلي"
 
 #: ../../../lib/web/src/components/layout/authenticated-layout.tsx
 msgid "Redirecting to login."
@@ -2672,6 +2760,10 @@ msgstr "تسلیمیدل"
 msgid "Resign game?"
 msgstr "لوبه تسلیم کړو؟"
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "Restore"
+msgstr "بیرته راګرځول"
+
 #: ../../../lib/web/src/components/attachment-composer.tsx
 msgid "Retry"
 msgstr "بیا هڅه وکړئ"
@@ -2729,7 +2821,12 @@ msgstr "شنبه"
 msgid "Save"
 msgstr "خوندي کول"
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "Saved"
+msgstr "خوندي شو"
+
 #: src/features/chats/components/chat-settings-dialog.tsx
+#: src/features/chats/components/encryption-section.tsx
 msgid "Saving..."
 msgstr "د خوندي کولو په حال کې..."
 
@@ -2956,6 +3053,12 @@ msgstr "سیشن پای ته ورسېد. مهرباني وکړئ بیا ننوځ
 msgid "Set origin and destination"
 msgstr "سرچینه او منزل وټاکئ"
 
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+msgid "Set up recovery"
+msgstr "بیا رغونه تنظیم کړئ"
+
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx
 #: ../../../lib/web/src/components/options-menu.tsx
@@ -3136,6 +3239,10 @@ msgstr "هغه کوډ غلط دی یا یې موده تېره ده."
 msgid "That could not be sent. The files may be too large, or your connection failed. Try smaller files."
 msgstr "لېږل ونه شول. کېدای شي دوتنې ډېرې لویې وي، یا ستاسو اړیکه پرې شوې وي. کوچنۍ دوتنې وازموئ."
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "That is not your recovery key"
+msgstr "دا ستاسو د بیا رغونې کیلي نه ده"
+
 #: ../../../lib/web/src/hooks/use-attachment-error.ts
 #: ../../../lib/web/src/lib/handle-server-error.ts
 msgid "That was too large to upload. Remove or shrink files and try again."
@@ -3158,6 +3265,14 @@ msgstr "د چیټ نوم کولی شي تر ټولو ډیر {CHAT_NAME_MAX_LENGT
 msgid "The chat name cannot contain < or >"
 msgstr "د چیټ نوم نشي کولی < یا > ولري"
 
+#: src/features/chats/components/verification-watcher.tsx
+msgid "The emoji did not match, so the verification was cancelled"
+msgstr "ایموجي سره سمون نه درلود، نو تصدیق لغوه شو"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "The fingerprint matches"
+msgstr "د ګوتو نښه سمون لري"
+
 #: ../../../lib/web/src/lib/shell-errors.ts
 msgid "The microphone request was not answered"
 msgstr "د مایکروفون غوښتنې ته ځواب ورنکړل شو"
@@ -3165,6 +3280,10 @@ msgstr "د مایکروفون غوښتنې ته ځواب ورنکړل شو"
 #: ../../../lib/web/src/lib/shell-errors.ts
 msgid "The passkey request was not answered"
 msgstr "د پاسکي غوښتنې ته ځواب ورنکړل شو"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "The password was not accepted"
+msgstr "پټنوم ونه منل شو"
 
 #: ../../../lib/web/src/features/errors/general-error.tsx
 msgid "The requested content could not be found."
@@ -3174,10 +3293,30 @@ msgstr "غوښتل شوې منځپانګه ونه موندل شوه."
 msgid "The server returned a web page instead of data."
 msgstr "سرور د معلوماتو پر ځای یوه ویب پاڼه راستنه کړه."
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "The verification could not be started"
+msgstr "تصدیق پیل نه شو"
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "The verification could not go on"
+msgstr "تصدیق دوام ونه موند"
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "The verification was cancelled"
+msgstr "تصدیق لغوه شو"
+
 #. placeholder {0}: unknown.join(', ')
 #: src/features/chats/index.tsx
 msgid "These names are not in this chat: {0}. Pick from the @ list or remove them."
 msgstr "دا نومونه په دې چیٹ کې نشته: {0}. د @ له لیسته وټاکئ یا یې لرې کړئ."
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "They don't match"
+msgstr "سره سمون نه لري"
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "They match"
+msgstr "سره سمون لري"
 
 #: src/routes/_authenticated/$chatId_.settings.tsx
 msgid "They stop receiving new messages in this chat."
@@ -3197,12 +3336,20 @@ msgid "This chat may have been deleted or you don't have access to it"
 msgstr "ښایي دا چټ حذف شوی وي یا تاسو ورته لاسرسی نه لرئ"
 
 #: src/features/chats/index.tsx
-msgid "This conversation is encrypted. Messages cannot be sent to it from here yet."
-msgstr "دا خبرې اترې کوډ شوې دي. له دې ځایه تر اوسه دې ته پیغامونه نشي لېږل کېدای."
-
-#: src/features/chats/index.tsx
 msgid "This deletes the message for everyone and cannot be undone."
 msgstr "دا پیغام د ټولو لپاره ړنګوي او بېرته نه شي کېدای."
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "This device"
+msgstr "دا وسیله"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "This device (OMEMO 2)"
+msgstr "دا وسیله (OMEMO 2)"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "This device (OMEMO)"
+msgstr "دا وسیله (OMEMO)"
 
 #: src/features/chats/components/chat-message-list.tsx
 #: src/features/chats/components/message-quote.tsx
@@ -3400,14 +3547,28 @@ msgstr "متغیرات: {variables}"
 msgid "Verification code"
 msgstr "د تصدیق کوډ"
 
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Verified"
+msgstr "تصدیق شو"
+
 #: ../../../lib/web/src/components/step-up-dialog.tsx
 #: ../../../lib/web/src/features/accounts/account-verify.tsx
 msgid "Verify"
 msgstr "تصدیق"
 
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Verify {who}"
+msgstr "{who} تصدیق کړئ"
+
 #: ../../../lib/web/src/features/accounts/account-verify.tsx
 msgid "Verify email address"
 msgstr "د ایمیل پته تصدیق کړئ"
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Verify your device"
+msgstr "خپله وسیله تصدیق کړئ"
 
 #: ../../../lib/web/src/components/attachment-gallery.tsx
 #: src/features/chats/components/message-media-grid.tsx
@@ -3453,6 +3614,14 @@ msgstr "په دې براوزر کې غږ ثبتول ملاتړ نه لري"
 #: src/features/chats/components/chat-input.tsx
 msgid "Voice recording isn't available in this app version. Please update the app and try again."
 msgstr "د اپلیکیشن په دې نسخه کې غږ ثبتول شتون نه لري. مهرباني وکړئ اپلیکیشن تازه کړئ او بیا هڅه وکړئ."
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Waiting for the other device..."
+msgstr "د بلې وسیلې په تمه..."
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Waiting for them to accept"
+msgstr "د دوی د منلو په تمه"
 
 #: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx
 #: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx
@@ -3528,6 +3697,18 @@ msgstr "ستاسو حساب له {source} دلته لیږدول شوی. تر ه�
 #: ../../../lib/web/src/components/comment-composer.tsx
 msgid "Your attachments will be lost."
 msgstr "ستاسو ضمیمې به له لاسه ولاړې شي."
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Your Matrix server asks for your account's password."
+msgstr "ستاسو Matrix سرور ستاسو د حساب پټنوم غواړي."
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Your other devices"
+msgstr "ستاسو نورې وسیلې"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Your recovery key"
+msgstr "ستاسو د بیا رغونې کیلي"
 
 #: ../../../lib/web/src/components/comment-composer.tsx
 msgid "Your text and attachments will be lost."

@@ -41,7 +41,6 @@ import {
   Check,
   Copy,
   Forward,
-  Lock,
   LockOpen,
   MoreHorizontal,
   Settings,
@@ -1603,16 +1602,6 @@ export function Chats() {
                   <Trans>Delete chat</Trans>
                 </Button>
               </div>
-            </div>
-          ) : selectedChat.encrypted ? (
-            <div className='bg-muted/50 border-t p-4'>
-              <p className='text-muted-foreground flex items-center gap-2 text-sm'>
-                <Lock className='size-4 shrink-0' />
-                <Trans>
-                  This conversation is encrypted. Messages cannot be sent to
-                  it from here yet.
-                </Trans>
-              </p>
             </div>
           ) : (
             <>

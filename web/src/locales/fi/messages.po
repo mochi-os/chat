@@ -65,6 +65,11 @@ msgstr "{0, plural, =1 {Poistetaanko viesti?} other {Poistetaanko # viestiä?}}"
 msgid "{0, plural, one {# file changed} other {# files changed}}"
 msgstr "{0, plural, one {# tiedosto muutettu} other {# tiedostoa muutettu}}"
 
+#. placeholder {0}: result.restored
+#: src/features/chats/components/encryption-section.tsx
+msgid "{0, plural, one {# message key restored} other {# message keys restored}}"
+msgstr "{0, plural, one {# viestiavain palautettu} other {# viestiavainta palautettu}}"
+
 #. placeholder {0}: message.replies
 #: src/features/chats/components/chat-message-list.tsx
 msgid "{0, plural, one {# reply} other {# replies}}"
@@ -175,6 +180,10 @@ msgstr "{truncated, plural, one {Vielä # tiedosto jää näyttämättä} other 
 msgid "{unreadCount, plural, one {Open menu (# unread notification)} other {Open menu (# unread notifications)}}"
 msgstr "{unreadCount, plural, one {Avaa valikko (# lukematon ilmoitus)} other {Avaa valikko (# lukematonta ilmoitusta)}}"
 
+#: src/features/chats/components/verification-watcher.tsx
+msgid "{who} wants to verify you."
+msgstr "{who} haluaa vahvistaa sinut."
+
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "12 hours"
 msgstr "12 tuntia"
@@ -193,6 +202,7 @@ msgid "Absolute (date and time)"
 msgstr "Absoluuttinen (päivämäärä ja kellonaika)"
 
 #: ../../../lib/web/src/components/game/game-draw-offer-banner.tsx
+#: src/features/chats/components/verification-watcher.tsx
 #: src/features/chats/index.tsx
 msgid "Accept"
 msgstr "Hyväksy"
@@ -380,6 +390,10 @@ msgstr "Android-push"
 msgid "Angry"
 msgstr "Vihainen"
 
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Another of your devices wants to verify this one."
+msgstr "Toinen laitteesi haluaa vahvistaa tämän laitteen."
+
 #: ../../../lib/web/src/features/access/access-list.tsx
 #: ../../../lib/web/src/features/access/types.ts
 #: src/features/chats/components/chat-settings-dialog.tsx
@@ -440,6 +454,10 @@ msgstr "Tilinä {0}"
 #: ../../../lib/web/src/components/ui/sort-direction-button.tsx
 msgid "Ascending"
 msgstr "Nouseva"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Asking to compare emoji..."
+msgstr "Pyydetään emojien vertailua..."
 
 #: ../../../lib/web/src/components/timezone-select.tsx
 msgid "At sea"
@@ -599,6 +617,8 @@ msgstr "Kamera ei ole käytettävissä"
 #: src/features/chats/components/chat-settings-dialog.tsx
 #: src/features/chats/components/forward-dialog.tsx
 #: src/features/chats/components/new-chat.tsx
+#: src/features/chats/components/verification-watcher.tsx
+#: src/features/chats/components/verification-watcher.tsx
 #: src/features/chats/index.tsx
 msgid "Cancel"
 msgstr "Peruuta"
@@ -735,6 +755,10 @@ msgstr "Keskustelun kiinnitys poistettu"
 msgid "Chats"
 msgstr "Chatit"
 
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Check that the same emoji appear on the other screen."
+msgstr "Tarkista, että toisella näytöllä näkyvät samat emojit."
+
 #: ../../../lib/web/src/hooks/use-field-type-labels.ts
 msgid "Checkbox"
 msgstr "Valintaruutu"
@@ -867,6 +891,11 @@ msgstr "Kommentit ({0})"
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Compact"
 msgstr "Tiivis"
+
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Compare emoji"
+msgstr "Vertaa emojeja"
 
 #: ../../../lib/web/src/components/entity/entity-option-dialog.tsx
 msgid "Configure option settings"
@@ -1023,6 +1052,7 @@ msgid "Date"
 msgstr "Päivämäärä"
 
 #: ../../../lib/web/src/components/game/game-draw-offer-banner.tsx
+#: src/features/chats/components/verification-watcher.tsx
 #: src/features/chats/index.tsx
 msgid "Decline"
 msgstr "Hylkää"
@@ -1162,6 +1192,10 @@ msgstr "Tietopaneeli"
 msgid "Detect from web browser"
 msgstr "Tunnista selaimesta"
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "Device options"
+msgstr "Laitteen asetukset"
+
 #: ../../../lib/web/src/components/person-picker.tsx
 msgid "Directory"
 msgstr "Hakemisto"
@@ -1205,6 +1239,14 @@ msgstr "Hylkää"
 msgid "Displays the mobile sidebar."
 msgstr "Näyttää mobiilisivupalkin."
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "Distrust"
+msgstr "Älä luota"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Distrusted"
+msgstr "Ei luotettu"
+
 #: src/features/chats/components/chat-input.tsx
 msgid "Document"
 msgstr "Asiakirja"
@@ -1215,6 +1257,7 @@ msgstr "Ei vastaa vaadittua kaavaa"
 
 #: ../../../lib/web/src/components/entity/entity-field-dialog.tsx
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx
+#: src/features/chats/components/encryption-section.tsx
 msgid "Done"
 msgstr "Valmis"
 
@@ -1303,6 +1346,12 @@ msgstr "Sähköpostikoodi"
 msgid "Encrypted message"
 msgstr "Salattu viesti"
 
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+msgid "Encryption"
+msgstr "Salaus"
+
 #: ../../../lib/web/src/components/calendar/time-grid.tsx
 msgid "Ends before it starts"
 msgstr "Päättyy ennen alkamistaan"
@@ -1310,6 +1359,11 @@ msgstr "Päättyy ennen alkamistaan"
 #: ../../../lib/web/src/components/banner-section.tsx
 msgid "Enter banner text (markdown supported)..."
 msgstr "Anna bannerin teksti (markdown tuettu)..."
+
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+msgid "Enter recovery key"
+msgstr "Syötä palautusavain"
 
 #: ../../../lib/web/src/components/step-up-dialog.tsx
 msgid "Enter the code from your email"
@@ -1492,6 +1546,7 @@ msgstr "RSS-käyttöoikeuden mitätöinti epäonnistui"
 
 #: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx
 #: src/features/chats/components/chat-settings-dialog.tsx
+#: src/features/chats/components/encryption-section.tsx
 msgid "Failed to save"
 msgstr "Tallennus epäonnistui"
 
@@ -1550,6 +1605,10 @@ msgstr "Liput"
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Flat"
 msgstr "Litteä"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Forget my decision"
+msgstr "Unohda päätökseni"
 
 #: src/features/chats/components/forward-dialog.tsx
 #: src/features/chats/components/message-hover-actions.tsx
@@ -1711,6 +1770,10 @@ msgstr "Siirry alas"
 #: ../../../lib/web/src/lib/locale-format.ts
 msgid "Just now"
 msgstr "Juuri nyt"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Keep this key safe. It is shown once, and your other Matrix clients ask for it to read your encrypted messages."
+msgstr "Säilytä tämä avain turvallisessa paikassa. Se näytetään vain kerran, ja muut Matrix-sovelluksesi pyytävät sitä salattujen viestiesi lukemiseen."
 
 #: ../../../lib/web/src/components/entity/keyboard-shortcuts-help.tsx
 msgid "Keyboard shortcuts"
@@ -2102,6 +2165,10 @@ msgstr "Ei keskusteluja, joihin välittää"
 msgid "No comments yet"
 msgstr "Ei vielä kommentteja"
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "No devices"
+msgstr "Ei laitteita"
+
 #: src/routes/_authenticated/$chatId_.settings.tsx
 msgid "No friends available"
 msgstr "Ei saatavilla olevia ystäviä"
@@ -2137,6 +2204,10 @@ msgstr "Ei vielä viestejä"
 #: src/features/chats/components/chat-input.tsx
 msgid "No microphone found"
 msgstr "Mikrofonia ei löytynyt"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "No other devices"
+msgstr "Ei muita laitteita"
 
 #: ../../../lib/web/src/components/entity/entity-field-editor.tsx
 #: ../../../lib/web/src/components/person-picker.tsx
@@ -2222,6 +2293,11 @@ msgstr "Ei löytynyt"
 #: ../../../lib/web/src/components/ui/editable-field-row.tsx
 msgid "Not set"
 msgstr "Ei asetettu"
+
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+msgid "Not verified"
+msgstr "Ei vahvistettu"
 
 #: ../../../lib/web/src/components/entity/entity-tree-view.tsx
 msgid "Nothing found"
@@ -2351,6 +2427,10 @@ msgstr "Avainkoodit"
 #: ../../../lib/web/src/lib/shell-errors.ts
 msgid "Passkeys are not available in this browser"
 msgstr "Avainkoodit eivät ole käytettävissä tässä selaimessa"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Password"
+msgstr "Salasana"
 
 #: ../../../lib/web/src/components/entity/entity-field-dialog.tsx
 msgid "Pattern (regex)"
@@ -2507,6 +2587,14 @@ msgstr "Tallennus pysähtyi 5 minuutin rajaan"
 #: src/features/chats/components/chat-input.tsx
 msgid "Recording voice note"
 msgstr "Nauhoitetaan ääniviestiä"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Recovery could not be set up"
+msgstr "Palautusta ei voitu ottaa käyttöön"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Recovery key"
+msgstr "Palautusavain"
 
 #: ../../../lib/web/src/components/layout/authenticated-layout.tsx
 msgid "Redirecting to login."
@@ -2672,6 +2760,10 @@ msgstr "Luovuta"
 msgid "Resign game?"
 msgstr "Luovutatko pelin?"
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "Restore"
+msgstr "Palauta"
+
 #: ../../../lib/web/src/components/attachment-composer.tsx
 msgid "Retry"
 msgstr "Yritä uudelleen"
@@ -2729,7 +2821,12 @@ msgstr "Lauantai"
 msgid "Save"
 msgstr "Tallenna"
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "Saved"
+msgstr "Tallennettu"
+
 #: src/features/chats/components/chat-settings-dialog.tsx
+#: src/features/chats/components/encryption-section.tsx
 msgid "Saving..."
 msgstr "Tallennetaan..."
 
@@ -2956,6 +3053,12 @@ msgstr "Istunto on vanhentunut. Kirjaudu sisään uudelleen."
 msgid "Set origin and destination"
 msgstr "Aseta lähtöpaikka ja määränpää"
 
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+msgid "Set up recovery"
+msgstr "Ota palautus käyttöön"
+
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx
 #: ../../../lib/web/src/components/options-menu.tsx
@@ -3136,6 +3239,10 @@ msgstr "Koodi on virheellinen tai vanhentunut."
 msgid "That could not be sent. The files may be too large, or your connection failed. Try smaller files."
 msgstr "Lähetys epäonnistui. Tiedostot voivat olla liian suuria tai yhteys katkesi. Kokeile pienempiä tiedostoja."
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "That is not your recovery key"
+msgstr "Tämä ei ole palautusavaimesi"
+
 #: ../../../lib/web/src/hooks/use-attachment-error.ts
 #: ../../../lib/web/src/lib/handle-server-error.ts
 msgid "That was too large to upload. Remove or shrink files and try again."
@@ -3158,6 +3265,14 @@ msgstr "Keskustelun nimi voi olla enintään {CHAT_NAME_MAX_LENGTH} merkkiä"
 msgid "The chat name cannot contain < or >"
 msgstr "Keskustelun nimessä ei voi olla merkkejä < tai >"
 
+#: src/features/chats/components/verification-watcher.tsx
+msgid "The emoji did not match, so the verification was cancelled"
+msgstr "Emojit eivät täsmänneet, joten vahvistus peruttiin"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "The fingerprint matches"
+msgstr "Sormenjälki täsmää"
+
 #: ../../../lib/web/src/lib/shell-errors.ts
 msgid "The microphone request was not answered"
 msgstr "Mikrofonipyyntöön ei vastattu"
@@ -3165,6 +3280,10 @@ msgstr "Mikrofonipyyntöön ei vastattu"
 #: ../../../lib/web/src/lib/shell-errors.ts
 msgid "The passkey request was not answered"
 msgstr "Avainkoodipyyntöön ei vastattu"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "The password was not accepted"
+msgstr "Salasanaa ei hyväksytty"
 
 #: ../../../lib/web/src/features/errors/general-error.tsx
 msgid "The requested content could not be found."
@@ -3174,10 +3293,30 @@ msgstr "Pyydettyä sisältöä ei löytynyt."
 msgid "The server returned a web page instead of data."
 msgstr "Palvelin palautti verkkosivun tietojen sijaan."
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "The verification could not be started"
+msgstr "Vahvistusta ei voitu aloittaa"
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "The verification could not go on"
+msgstr "Vahvistusta ei voitu jatkaa"
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "The verification was cancelled"
+msgstr "Vahvistus peruttiin"
+
 #. placeholder {0}: unknown.join(', ')
 #: src/features/chats/index.tsx
 msgid "These names are not in this chat: {0}. Pick from the @ list or remove them."
 msgstr "Nämä nimet eivät ole tässä chatissa: {0}. Valitse @-luettelosta tai poista ne."
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "They don't match"
+msgstr "Eivät täsmää"
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "They match"
+msgstr "Täsmäävät"
 
 #: src/routes/_authenticated/$chatId_.settings.tsx
 msgid "They stop receiving new messages in this chat."
@@ -3197,12 +3336,20 @@ msgid "This chat may have been deleted or you don't have access to it"
 msgstr "Tämä keskustelu on saatettu poistaa, tai sinulla ei ole siihen pääsyä"
 
 #: src/features/chats/index.tsx
-msgid "This conversation is encrypted. Messages cannot be sent to it from here yet."
-msgstr "Tämä keskustelu on salattu. Siihen ei voi vielä lähettää viestejä täältä."
-
-#: src/features/chats/index.tsx
 msgid "This deletes the message for everyone and cannot be undone."
 msgstr "Tämä poistaa viestin kaikilta, eikä sitä voi kumota."
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "This device"
+msgstr "Tämä laite"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "This device (OMEMO 2)"
+msgstr "Tämä laite (OMEMO 2)"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "This device (OMEMO)"
+msgstr "Tämä laite (OMEMO)"
 
 #: src/features/chats/components/chat-message-list.tsx
 #: src/features/chats/components/message-quote.tsx
@@ -3400,14 +3547,28 @@ msgstr "Muuttujat: {variables}"
 msgid "Verification code"
 msgstr "Vahvistuskoodi"
 
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Verified"
+msgstr "Vahvistettu"
+
 #: ../../../lib/web/src/components/step-up-dialog.tsx
 #: ../../../lib/web/src/features/accounts/account-verify.tsx
 msgid "Verify"
 msgstr "Vahvista"
 
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Verify {who}"
+msgstr "Vahvista {who}"
+
 #: ../../../lib/web/src/features/accounts/account-verify.tsx
 msgid "Verify email address"
 msgstr "Vahvista sähköpostiosoite"
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Verify your device"
+msgstr "Vahvista laitteesi"
 
 #: ../../../lib/web/src/components/attachment-gallery.tsx
 #: src/features/chats/components/message-media-grid.tsx
@@ -3453,6 +3614,14 @@ msgstr "Äänitallennusta ei tueta tässä selaimessa"
 #: src/features/chats/components/chat-input.tsx
 msgid "Voice recording isn't available in this app version. Please update the app and try again."
 msgstr "Äänitallennus ei ole käytettävissä tässä sovellusversiossa. Päivitä sovellus ja yritä uudelleen."
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Waiting for the other device..."
+msgstr "Odotetaan toista laitetta..."
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Waiting for them to accept"
+msgstr "Odotetaan hyväksyntää"
 
 #: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx
 #: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx
@@ -3528,6 +3697,18 @@ msgstr "Tilisi siirrettiin tänne kohteesta {source}. Kunnes poistat sen sieltä
 #: ../../../lib/web/src/components/comment-composer.tsx
 msgid "Your attachments will be lost."
 msgstr "Liitteesi menetetään."
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Your Matrix server asks for your account's password."
+msgstr "Matrix-palvelimesi pyytää tilisi salasanaa."
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Your other devices"
+msgstr "Muut laitteesi"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Your recovery key"
+msgstr "Palautusavaimesi"
 
 #: ../../../lib/web/src/components/comment-composer.tsx
 msgid "Your text and attachments will be lost."

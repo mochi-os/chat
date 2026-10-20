@@ -65,6 +65,11 @@ msgstr "{0, plural, other {ລຶບ # ຂໍ້ຄວາມບໍ?}}"
 msgid "{0, plural, one {# file changed} other {# files changed}}"
 msgstr "{0, plural, one {ປ່ຽນແປງ # ໄຟລ໌} other {ປ່ຽນແປງ # ໄຟລ໌}}"
 
+#. placeholder {0}: result.restored
+#: src/features/chats/components/encryption-section.tsx
+msgid "{0, plural, one {# message key restored} other {# message keys restored}}"
+msgstr "{0, plural, other {ກູ້ຄືນກະແຈຂໍ້ຄວາມແລ້ວ # ລາຍການ}}"
+
 #. placeholder {0}: message.replies
 #: src/features/chats/components/chat-message-list.tsx
 msgid "{0, plural, one {# reply} other {# replies}}"
@@ -175,6 +180,10 @@ msgstr "{truncated, plural, other {ອີກ # ໄຟລ໌ບໍ່ໄດ້ສ
 msgid "{unreadCount, plural, one {Open menu (# unread notification)} other {Open menu (# unread notifications)}}"
 msgstr "{unreadCount, plural, other {ເປີດເມນູ (ການແຈ້ງເຕືອນທີ່ຍັງບໍ່ໄດ້ອ່ານ # ລາຍການ)}}"
 
+#: src/features/chats/components/verification-watcher.tsx
+msgid "{who} wants to verify you."
+msgstr "{who} ຕ້ອງການຢືນຢັນທ່ານ."
+
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "12 hours"
 msgstr "12 ຊົ່ວໂມງ"
@@ -193,6 +202,7 @@ msgid "Absolute (date and time)"
 msgstr "ສົມບູນ (ວັນທີ ແລະ ເວລາ)"
 
 #: ../../../lib/web/src/components/game/game-draw-offer-banner.tsx
+#: src/features/chats/components/verification-watcher.tsx
 #: src/features/chats/index.tsx
 msgid "Accept"
 msgstr "ຍອມຮັບ"
@@ -380,6 +390,10 @@ msgstr "ການແຈ້ງເຕືອນແບບພຸຊ Android"
 msgid "Angry"
 msgstr "ໂກດ"
 
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Another of your devices wants to verify this one."
+msgstr "ອຸປະກອນອື່ນຂອງທ່ານຕ້ອງການຢືນຢັນອຸປະກອນນີ້."
+
 #: ../../../lib/web/src/features/access/access-list.tsx
 #: ../../../lib/web/src/features/access/types.ts
 #: src/features/chats/components/chat-settings-dialog.tsx
@@ -440,6 +454,10 @@ msgstr "ໃນນາມ {0}"
 #: ../../../lib/web/src/components/ui/sort-direction-button.tsx
 msgid "Ascending"
 msgstr "ຈາກໜ້ອຍຫາຫຼາຍ"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Asking to compare emoji..."
+msgstr "ກຳລັງຂໍປຽບທຽບອີໂມຈິ..."
 
 #: ../../../lib/web/src/components/timezone-select.tsx
 msgid "At sea"
@@ -599,6 +617,8 @@ msgstr "ບໍ່ມີກ້ອງຖ່າຍຮູບ"
 #: src/features/chats/components/chat-settings-dialog.tsx
 #: src/features/chats/components/forward-dialog.tsx
 #: src/features/chats/components/new-chat.tsx
+#: src/features/chats/components/verification-watcher.tsx
+#: src/features/chats/components/verification-watcher.tsx
 #: src/features/chats/index.tsx
 msgid "Cancel"
 msgstr "ຍົກເລີກ"
@@ -735,6 +755,10 @@ msgstr "ຖອນປັກໝຸດແຊັດແລ້ວ"
 msgid "Chats"
 msgstr "ແຊັດ"
 
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Check that the same emoji appear on the other screen."
+msgstr "ກວດເບິ່ງວ່າອີໂມຈິດຽວກັນປາກົດຢູ່ໜ້າຈໍອີກເຄື່ອງ."
+
 #: ../../../lib/web/src/hooks/use-field-type-labels.ts
 msgid "Checkbox"
 msgstr "ກ່ອງໝາຍ"
@@ -867,6 +891,11 @@ msgstr "ຄຳເຫັນ ({0})"
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Compact"
 msgstr "ຫຍໍ້"
+
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Compare emoji"
+msgstr "ປຽບທຽບອີໂມຈິ"
 
 #: ../../../lib/web/src/components/entity/entity-option-dialog.tsx
 msgid "Configure option settings"
@@ -1023,6 +1052,7 @@ msgid "Date"
 msgstr "ວັນທີ"
 
 #: ../../../lib/web/src/components/game/game-draw-offer-banner.tsx
+#: src/features/chats/components/verification-watcher.tsx
 #: src/features/chats/index.tsx
 msgid "Decline"
 msgstr "ປະຕິເສດ"
@@ -1162,6 +1192,10 @@ msgstr "ແຜງລາຍລະອຽດ"
 msgid "Detect from web browser"
 msgstr "ກວດຫາຈາກຕົວທ່ອງເວັບ"
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "Device options"
+msgstr "ຕົວເລືອກອຸປະກອນ"
+
 #: ../../../lib/web/src/components/person-picker.tsx
 msgid "Directory"
 msgstr "ໄດເລກທໍຣີ"
@@ -1205,6 +1239,14 @@ msgstr "ປິດ"
 msgid "Displays the mobile sidebar."
 msgstr "ສະແດງແຖບຂ້າງມືຖື."
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "Distrust"
+msgstr "ໝາຍວ່າບໍ່ເຊື່ອຖື"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Distrusted"
+msgstr "ບໍ່ເຊື່ອຖື"
+
 #: src/features/chats/components/chat-input.tsx
 msgid "Document"
 msgstr "ເອກະສານ"
@@ -1215,6 +1257,7 @@ msgstr "ບໍ່ກົງກັບຮູບແບບທີ່ຕ້ອງກາ
 
 #: ../../../lib/web/src/components/entity/entity-field-dialog.tsx
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx
+#: src/features/chats/components/encryption-section.tsx
 msgid "Done"
 msgstr "ສຳເລັດແລ້ວ"
 
@@ -1303,6 +1346,12 @@ msgstr "ລະຫັດອີເມວ"
 msgid "Encrypted message"
 msgstr "ຂໍ້ຄວາມທີ່ເຂົ້າລະຫັດ"
 
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+msgid "Encryption"
+msgstr "ການເຂົ້າລະຫັດ"
+
 #: ../../../lib/web/src/components/calendar/time-grid.tsx
 msgid "Ends before it starts"
 msgstr "ສິ້ນສຸດກ່ອນເລີ່ມຕົ້ນ"
@@ -1310,6 +1359,11 @@ msgstr "ສິ້ນສຸດກ່ອນເລີ່ມຕົ້ນ"
 #: ../../../lib/web/src/components/banner-section.tsx
 msgid "Enter banner text (markdown supported)..."
 msgstr "ປ້ອນຂໍ້ຄວາມແບນເນີ (ຮອງຮັບ markdown)..."
+
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+msgid "Enter recovery key"
+msgstr "ປ້ອນກະແຈກູ້ຄືນ"
 
 #: ../../../lib/web/src/components/step-up-dialog.tsx
 msgid "Enter the code from your email"
@@ -1492,6 +1546,7 @@ msgstr "ຖອນການເຂົ້າເຖິງ RSS ບໍ່ສຳເລ�
 
 #: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx
 #: src/features/chats/components/chat-settings-dialog.tsx
+#: src/features/chats/components/encryption-section.tsx
 msgid "Failed to save"
 msgstr "ບັນທຶກລົ້ມເຫຼວ"
 
@@ -1550,6 +1605,10 @@ msgstr "ທຸງ"
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Flat"
 msgstr "ຮາບພຽງ"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Forget my decision"
+msgstr "ລຶບການຕັດສິນໃຈຂອງຂ້ອຍ"
 
 #: src/features/chats/components/forward-dialog.tsx
 #: src/features/chats/components/message-hover-actions.tsx
@@ -1711,6 +1770,10 @@ msgstr "ໄປຫາລຸ່ມສຸດ"
 #: ../../../lib/web/src/lib/locale-format.ts
 msgid "Just now"
 msgstr "ຫາກໍ່ດຽວນີ້"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Keep this key safe. It is shown once, and your other Matrix clients ask for it to read your encrypted messages."
+msgstr "ເກັບກະແຈນີ້ໄວ້ໃຫ້ປອດໄພ. ມັນຈະສະແດງພຽງຄັ້ງດຽວ, ແລະ ໄຄລເອັນ Matrix ອື່ນຂອງທ່ານຈະຂໍມັນເພື່ອອ່ານຂໍ້ຄວາມທີ່ເຂົ້າລະຫັດຂອງທ່ານ."
 
 #: ../../../lib/web/src/components/entity/keyboard-shortcuts-help.tsx
 msgid "Keyboard shortcuts"
@@ -2102,6 +2165,10 @@ msgstr "ບໍ່ມີແຊັດໃຫ້ສົ່ງຕໍ່"
 msgid "No comments yet"
 msgstr "ຍັງບໍ່ມີຄຳເຫັນ"
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "No devices"
+msgstr "ບໍ່ມີອຸປະກອນ"
+
 #: src/routes/_authenticated/$chatId_.settings.tsx
 msgid "No friends available"
 msgstr "ບໍ່ມີໝູ່ທີ່ມີຢູ່"
@@ -2137,6 +2204,10 @@ msgstr "ຍັງບໍ່ມີຂໍ້ຄວາມ"
 #: src/features/chats/components/chat-input.tsx
 msgid "No microphone found"
 msgstr "ບໍ່ພົບໄມໂຄຣໂຟນ"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "No other devices"
+msgstr "ບໍ່ມີອຸປະກອນອື່ນ"
 
 #: ../../../lib/web/src/components/entity/entity-field-editor.tsx
 #: ../../../lib/web/src/components/person-picker.tsx
@@ -2222,6 +2293,11 @@ msgstr "ບໍ່ພົບ"
 #: ../../../lib/web/src/components/ui/editable-field-row.tsx
 msgid "Not set"
 msgstr "ບໍ່ໄດ້ຕັ້ງຄ່າ"
+
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+msgid "Not verified"
+msgstr "ຍັງບໍ່ໄດ້ຢືນຢັນ"
 
 #: ../../../lib/web/src/components/entity/entity-tree-view.tsx
 msgid "Nothing found"
@@ -2351,6 +2427,10 @@ msgstr "ກະແຈຜ່ານ"
 #: ../../../lib/web/src/lib/shell-errors.ts
 msgid "Passkeys are not available in this browser"
 msgstr "ກະແຈຜ່ານບໍ່ສາມາດໃຊ້ໄດ້ໃນຕົວທ່ອງເວັບນີ້"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Password"
+msgstr "ລະຫັດຜ່ານ"
 
 #: ../../../lib/web/src/components/entity/entity-field-dialog.tsx
 msgid "Pattern (regex)"
@@ -2507,6 +2587,14 @@ msgstr "ການບັນທຶກຢຸດຢູ່ຂີດຈຳກັດ 5 
 #: src/features/chats/components/chat-input.tsx
 msgid "Recording voice note"
 msgstr "ກຳລັງບັນທຶກຂໍ້ຄວາມສຽງ"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Recovery could not be set up"
+msgstr "ບໍ່ສາມາດຕັ້ງຄ່າການກູ້ຄືນໄດ້"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Recovery key"
+msgstr "ກະແຈກູ້ຄືນ"
 
 #: ../../../lib/web/src/components/layout/authenticated-layout.tsx
 msgid "Redirecting to login."
@@ -2672,6 +2760,10 @@ msgstr "ຍອມແພ້"
 msgid "Resign game?"
 msgstr "ຍອມແພ້ເກມ?"
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "Restore"
+msgstr "ກູ້ຄືນ"
+
 #: ../../../lib/web/src/components/attachment-composer.tsx
 msgid "Retry"
 msgstr "ລອງໃໝ່"
@@ -2729,7 +2821,12 @@ msgstr "ວັນເສົາ"
 msgid "Save"
 msgstr "ບັນທຶກ"
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "Saved"
+msgstr "ບັນທຶກແລ້ວ"
+
 #: src/features/chats/components/chat-settings-dialog.tsx
+#: src/features/chats/components/encryption-section.tsx
 msgid "Saving..."
 msgstr "ກຳລັງບັນທຶກ..."
 
@@ -2956,6 +3053,12 @@ msgstr "ເຊສຊັນໝົດອາຍຸແລ້ວ. ກະລຸນາ�
 msgid "Set origin and destination"
 msgstr "ຕັ້ງຕົ້ນທາງແລະປາຍທາງ"
 
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+msgid "Set up recovery"
+msgstr "ຕັ້ງຄ່າການກູ້ຄືນ"
+
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx
 #: ../../../lib/web/src/components/options-menu.tsx
@@ -3136,6 +3239,10 @@ msgstr "ລະຫັດນັ້ນບໍ່ຖືກຕ້ອງ ຫຼື ໝ�
 msgid "That could not be sent. The files may be too large, or your connection failed. Try smaller files."
 msgstr "ສົ່ງບໍ່ໄດ້. ໄຟລ໌ອາດໃຫຍ່ເກີນໄປ ຫຼືການເຊື່ອມຕໍ່ຂອງທ່ານລົ້ມເຫຼວ. ລອງໄຟລ໌ນ້ອຍກວ່າ."
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "That is not your recovery key"
+msgstr "ນີ້ບໍ່ແມ່ນກະແຈກູ້ຄືນຂອງທ່ານ"
+
 #: ../../../lib/web/src/hooks/use-attachment-error.ts
 #: ../../../lib/web/src/lib/handle-server-error.ts
 msgid "That was too large to upload. Remove or shrink files and try again."
@@ -3158,6 +3265,14 @@ msgstr "ຊື່ການສົນທະນາສາມາດມີໄດ້ສ
 msgid "The chat name cannot contain < or >"
 msgstr "ຊື່ການສົນທະນາບໍ່ສາມາດມີ < ຫຼື > ໄດ້"
 
+#: src/features/chats/components/verification-watcher.tsx
+msgid "The emoji did not match, so the verification was cancelled"
+msgstr "ອີໂມຈິບໍ່ກົງກັນ, ສະນັ້ນການຢືນຢັນຈຶ່ງຖືກຍົກເລີກ"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "The fingerprint matches"
+msgstr "ລາຍນິ້ວມືກົງກັນ"
+
 #: ../../../lib/web/src/lib/shell-errors.ts
 msgid "The microphone request was not answered"
 msgstr "ຄຳຮ້ອງຂໍໄມໂຄຣໂຟນບໍ່ໄດ້ຮັບການຕອບ"
@@ -3165,6 +3280,10 @@ msgstr "ຄຳຮ້ອງຂໍໄມໂຄຣໂຟນບໍ່ໄດ້ຮັ
 #: ../../../lib/web/src/lib/shell-errors.ts
 msgid "The passkey request was not answered"
 msgstr "ຄຳຮ້ອງຂໍກະແຈຜ່ານບໍ່ໄດ້ຮັບການຕອບ"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "The password was not accepted"
+msgstr "ລະຫັດຜ່ານບໍ່ໄດ້ຮັບການຍອມຮັບ"
 
 #: ../../../lib/web/src/features/errors/general-error.tsx
 msgid "The requested content could not be found."
@@ -3174,10 +3293,30 @@ msgstr "ບໍ່ພົບເນື້ອຫາທີ່ຮ້ອງຂໍ."
 msgid "The server returned a web page instead of data."
 msgstr "ເຊີບເວີສົ່ງຄືນໜ້າເວັບແທນຂໍ້ມູນ."
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "The verification could not be started"
+msgstr "ບໍ່ສາມາດເລີ່ມການຢືນຢັນໄດ້"
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "The verification could not go on"
+msgstr "ບໍ່ສາມາດສືບຕໍ່ການຢືນຢັນໄດ້"
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "The verification was cancelled"
+msgstr "ການຢືນຢັນຖືກຍົກເລີກແລ້ວ"
+
 #. placeholder {0}: unknown.join(', ')
 #: src/features/chats/index.tsx
 msgid "These names are not in this chat: {0}. Pick from the @ list or remove them."
 msgstr "ຊື່ເຫຼົ່ານີ້ບໍ່ຢູ່ໃນແຊັດນີ້: {0}. ກະລຸນາເລືອກຈາກລາຍການ @ ຫຼືລຶບອອກ."
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "They don't match"
+msgstr "ບໍ່ກົງກັນ"
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "They match"
+msgstr "ແມ່ນ, ກົງກັນ"
 
 #: src/routes/_authenticated/$chatId_.settings.tsx
 msgid "They stop receiving new messages in this chat."
@@ -3197,12 +3336,20 @@ msgid "This chat may have been deleted or you don't have access to it"
 msgstr "ການສົນທະນານີ້ອາດຖືກລົບແລ້ວຫຼືທ່ານບໍ່ມີສິດການເຂົ້າເຖິງ"
 
 #: src/features/chats/index.tsx
-msgid "This conversation is encrypted. Messages cannot be sent to it from here yet."
-msgstr "ການສົນທະນານີ້ຖືກເຂົ້າລະຫັດ. ຍັງບໍ່ສາມາດສົ່ງຂໍ້ຄວາມໄປຫາມັນຈາກບ່ອນນີ້ໄດ້."
-
-#: src/features/chats/index.tsx
 msgid "This deletes the message for everyone and cannot be undone."
 msgstr "ນີ້ຈະລຶບຂໍ້ຄວາມສຳລັບທຸກຄົນ ແລະ ບໍ່ສາມາດກູ້ຄືນໄດ້."
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "This device"
+msgstr "ອຸປະກອນນີ້"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "This device (OMEMO 2)"
+msgstr "ອຸປະກອນນີ້ (OMEMO 2)"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "This device (OMEMO)"
+msgstr "ອຸປະກອນນີ້ (OMEMO)"
 
 #: src/features/chats/components/chat-message-list.tsx
 #: src/features/chats/components/message-quote.tsx
@@ -3400,14 +3547,28 @@ msgstr "ຕົວແປ: {variables}"
 msgid "Verification code"
 msgstr "ລະຫັດການຢືນຢັນ"
 
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Verified"
+msgstr "ຢືນຢັນແລ້ວ"
+
 #: ../../../lib/web/src/components/step-up-dialog.tsx
 #: ../../../lib/web/src/features/accounts/account-verify.tsx
 msgid "Verify"
 msgstr "ຢືນຢັນ"
 
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Verify {who}"
+msgstr "ຢືນຢັນ {who}"
+
 #: ../../../lib/web/src/features/accounts/account-verify.tsx
 msgid "Verify email address"
 msgstr "ຢືນຢັນທີ່ຢູ່ອີເມວ"
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Verify your device"
+msgstr "ຢືນຢັນອຸປະກອນຂອງທ່ານ"
 
 #: ../../../lib/web/src/components/attachment-gallery.tsx
 #: src/features/chats/components/message-media-grid.tsx
@@ -3453,6 +3614,14 @@ msgstr "ຕົວທ່ອງເວັບນີ້ບໍ່ຮອງຮັບກ
 #: src/features/chats/components/chat-input.tsx
 msgid "Voice recording isn't available in this app version. Please update the app and try again."
 msgstr "ແອັບເວີຊັນນີ້ບໍ່ຮອງຮັບການບັນທຶກສຽງ. ກະລຸນາອັບເດດແອັບແລ້ວລອງໃໝ່."
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Waiting for the other device..."
+msgstr "ກຳລັງລໍຖ້າອຸປະກອນອີກເຄື່ອງ..."
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Waiting for them to accept"
+msgstr "ກຳລັງລໍຖ້າອີກຝ່າຍຍອມຮັບ"
 
 #: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx
 #: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx
@@ -3528,6 +3697,18 @@ msgstr "ບັນຊີຂອງທ່ານໄດ້ຍ້າຍມາທີ່
 #: ../../../lib/web/src/components/comment-composer.tsx
 msgid "Your attachments will be lost."
 msgstr "ໄຟລ໌ແນບຂອງທ່ານຈະສູນຫາຍ."
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Your Matrix server asks for your account's password."
+msgstr "ເຊີບເວີ Matrix ຂອງທ່ານຂໍລະຫັດຜ່ານຂອງບັນຊີທ່ານ."
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Your other devices"
+msgstr "ອຸປະກອນອື່ນຂອງທ່ານ"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Your recovery key"
+msgstr "ກະແຈກູ້ຄືນຂອງທ່ານ"
 
 #: ../../../lib/web/src/components/comment-composer.tsx
 msgid "Your text and attachments will be lost."

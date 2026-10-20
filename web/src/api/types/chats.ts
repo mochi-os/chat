@@ -40,7 +40,7 @@ export interface Chat {
   network?: ChatNetwork
   // A room's id on its network.
   room?: string
-  // Whether its network encrypts it: no message is sent to it from here.
+  // Whether its network encrypts it, which the server does for it.
   encrypted?: number
 }
 
@@ -116,7 +116,8 @@ export interface ChatMessage {
   // when the latest came.
   replies?: number
   latest?: number
-  // Whether it came encrypted, with nothing shown until Mochi holds the keys.
+  // Whether it came encrypted: with no text or files while its keys have not
+  // come.
   encrypted?: number
 }
 

@@ -65,6 +65,11 @@ msgstr "{0, plural, =1 {Eliminar a mensagem?} other {Eliminar # mensagens?}}"
 msgid "{0, plural, one {# file changed} other {# files changed}}"
 msgstr "{0, plural, one {# ficheiro alterado} other {# ficheiros alterados}}"
 
+#. placeholder {0}: result.restored
+#: src/features/chats/components/encryption-section.tsx
+msgid "{0, plural, one {# message key restored} other {# message keys restored}}"
+msgstr "{0, plural, one {# chave de mensagem restaurada} many {# de chaves de mensagem restauradas} other {# chaves de mensagem restauradas}}"
+
 #. placeholder {0}: message.replies
 #: src/features/chats/components/chat-message-list.tsx
 msgid "{0, plural, one {# reply} other {# replies}}"
@@ -175,6 +180,10 @@ msgstr "{truncated, plural, one {Mais # ficheiro não mostrado} other {Mais # fi
 msgid "{unreadCount, plural, one {Open menu (# unread notification)} other {Open menu (# unread notifications)}}"
 msgstr "{unreadCount, plural, one {Abrir menu (# notificação não lida)} other {Abrir menu (# notificações não lidas)}}"
 
+#: src/features/chats/components/verification-watcher.tsx
+msgid "{who} wants to verify you."
+msgstr "{who} quer verificar a sua identidade."
+
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "12 hours"
 msgstr "12 horas"
@@ -193,6 +202,7 @@ msgid "Absolute (date and time)"
 msgstr "Absoluta (data e hora)"
 
 #: ../../../lib/web/src/components/game/game-draw-offer-banner.tsx
+#: src/features/chats/components/verification-watcher.tsx
 #: src/features/chats/index.tsx
 msgid "Accept"
 msgstr "Aceitar"
@@ -380,6 +390,10 @@ msgstr "Push do Android"
 msgid "Angry"
 msgstr "Zangado"
 
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Another of your devices wants to verify this one."
+msgstr "Outro dos seus dispositivos quer verificar este."
+
 #: ../../../lib/web/src/features/access/access-list.tsx
 #: ../../../lib/web/src/features/access/types.ts
 #: src/features/chats/components/chat-settings-dialog.tsx
@@ -440,6 +454,10 @@ msgstr "Como {0}"
 #: ../../../lib/web/src/components/ui/sort-direction-button.tsx
 msgid "Ascending"
 msgstr "Ascendente"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Asking to compare emoji..."
+msgstr "A pedir a comparação de emojis..."
 
 #: ../../../lib/web/src/components/timezone-select.tsx
 msgid "At sea"
@@ -599,6 +617,8 @@ msgstr "Câmara indisponível"
 #: src/features/chats/components/chat-settings-dialog.tsx
 #: src/features/chats/components/forward-dialog.tsx
 #: src/features/chats/components/new-chat.tsx
+#: src/features/chats/components/verification-watcher.tsx
+#: src/features/chats/components/verification-watcher.tsx
 #: src/features/chats/index.tsx
 msgid "Cancel"
 msgstr "Cancelar"
@@ -735,6 +755,10 @@ msgstr "Conversa desfixada"
 msgid "Chats"
 msgstr "Conversas"
 
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Check that the same emoji appear on the other screen."
+msgstr "Confirme que os mesmos emojis aparecem no outro ecrã."
+
 #: ../../../lib/web/src/hooks/use-field-type-labels.ts
 msgid "Checkbox"
 msgstr "Caixa de verificação"
@@ -867,6 +891,11 @@ msgstr "Comentários ({0})"
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Compact"
 msgstr "Compacto"
+
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Compare emoji"
+msgstr "Comparar emojis"
 
 #: ../../../lib/web/src/components/entity/entity-option-dialog.tsx
 msgid "Configure option settings"
@@ -1023,6 +1052,7 @@ msgid "Date"
 msgstr "Data"
 
 #: ../../../lib/web/src/components/game/game-draw-offer-banner.tsx
+#: src/features/chats/components/verification-watcher.tsx
 #: src/features/chats/index.tsx
 msgid "Decline"
 msgstr "Recusar"
@@ -1162,6 +1192,10 @@ msgstr "Painel de Detalhes"
 msgid "Detect from web browser"
 msgstr "Detetar a partir do navegador web"
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "Device options"
+msgstr "Opções do dispositivo"
+
 #: ../../../lib/web/src/components/person-picker.tsx
 msgid "Directory"
 msgstr "Diretório"
@@ -1205,6 +1239,14 @@ msgstr "Dispensar"
 msgid "Displays the mobile sidebar."
 msgstr "Apresenta a barra lateral móvel."
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "Distrust"
+msgstr "Não confiar"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Distrusted"
+msgstr "Não fiável"
+
 #: src/features/chats/components/chat-input.tsx
 msgid "Document"
 msgstr "Documento"
@@ -1215,6 +1257,7 @@ msgstr "Não corresponde ao padrão exigido"
 
 #: ../../../lib/web/src/components/entity/entity-field-dialog.tsx
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx
+#: src/features/chats/components/encryption-section.tsx
 msgid "Done"
 msgstr "Concluído"
 
@@ -1303,6 +1346,12 @@ msgstr "Código por email"
 msgid "Encrypted message"
 msgstr "Mensagem encriptada"
 
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+msgid "Encryption"
+msgstr "Encriptação"
+
 #: ../../../lib/web/src/components/calendar/time-grid.tsx
 msgid "Ends before it starts"
 msgstr "Termina antes de começar"
@@ -1310,6 +1359,11 @@ msgstr "Termina antes de começar"
 #: ../../../lib/web/src/components/banner-section.tsx
 msgid "Enter banner text (markdown supported)..."
 msgstr "Introduza o texto da faixa (markdown suportado)..."
+
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+msgid "Enter recovery key"
+msgstr "Introduzir a chave de recuperação"
 
 #: ../../../lib/web/src/components/step-up-dialog.tsx
 msgid "Enter the code from your email"
@@ -1492,6 +1546,7 @@ msgstr "Falha ao revogar o acesso RSS"
 
 #: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx
 #: src/features/chats/components/chat-settings-dialog.tsx
+#: src/features/chats/components/encryption-section.tsx
 msgid "Failed to save"
 msgstr "Falha ao guardar"
 
@@ -1550,6 +1605,10 @@ msgstr "Sinalizações"
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Flat"
 msgstr "Plano"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Forget my decision"
+msgstr "Esquecer a minha decisão"
 
 #: src/features/chats/components/forward-dialog.tsx
 #: src/features/chats/components/message-hover-actions.tsx
@@ -1711,6 +1770,10 @@ msgstr "Ir para o fim"
 #: ../../../lib/web/src/lib/locale-format.ts
 msgid "Just now"
 msgstr "Agora mesmo"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Keep this key safe. It is shown once, and your other Matrix clients ask for it to read your encrypted messages."
+msgstr "Guarde esta chave num local seguro. Só é mostrada uma vez, e os seus outros clientes Matrix pedem-na para ler as suas mensagens encriptadas."
 
 #: ../../../lib/web/src/components/entity/keyboard-shortcuts-help.tsx
 msgid "Keyboard shortcuts"
@@ -2102,6 +2165,10 @@ msgstr "Sem conversas para reencaminhar"
 msgid "No comments yet"
 msgstr "Ainda não há comentários"
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "No devices"
+msgstr "Nenhum dispositivo"
+
 #: src/routes/_authenticated/$chatId_.settings.tsx
 msgid "No friends available"
 msgstr "Sem amigos disponíveis"
@@ -2137,6 +2204,10 @@ msgstr "Ainda não há mensagens"
 #: src/features/chats/components/chat-input.tsx
 msgid "No microphone found"
 msgstr "Nenhum microfone encontrado"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "No other devices"
+msgstr "Nenhum outro dispositivo"
 
 #: ../../../lib/web/src/components/entity/entity-field-editor.tsx
 #: ../../../lib/web/src/components/person-picker.tsx
@@ -2222,6 +2293,11 @@ msgstr "Não encontrado"
 #: ../../../lib/web/src/components/ui/editable-field-row.tsx
 msgid "Not set"
 msgstr "Não definido"
+
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+msgid "Not verified"
+msgstr "Não verificado"
 
 #: ../../../lib/web/src/components/entity/entity-tree-view.tsx
 msgid "Nothing found"
@@ -2351,6 +2427,10 @@ msgstr "Chaves de acesso"
 #: ../../../lib/web/src/lib/shell-errors.ts
 msgid "Passkeys are not available in this browser"
 msgstr "As chaves de acesso não estão disponíveis neste navegador"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Password"
+msgstr "Palavra-passe"
 
 #: ../../../lib/web/src/components/entity/entity-field-dialog.tsx
 msgid "Pattern (regex)"
@@ -2507,6 +2587,14 @@ msgstr "Gravação parada no limite de 5 minutos"
 #: src/features/chats/components/chat-input.tsx
 msgid "Recording voice note"
 msgstr "A gravar nota de voz"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Recovery could not be set up"
+msgstr "Não foi possível configurar a recuperação"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Recovery key"
+msgstr "Chave de recuperação"
 
 #: ../../../lib/web/src/components/layout/authenticated-layout.tsx
 msgid "Redirecting to login."
@@ -2672,6 +2760,10 @@ msgstr "Desistir"
 msgid "Resign game?"
 msgstr "Desistir do jogo?"
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "Restore"
+msgstr "Restaurar"
+
 #: ../../../lib/web/src/components/attachment-composer.tsx
 msgid "Retry"
 msgstr "Tentar novamente"
@@ -2729,7 +2821,12 @@ msgstr "Sábado"
 msgid "Save"
 msgstr "Guardar"
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "Saved"
+msgstr "Guardado"
+
 #: src/features/chats/components/chat-settings-dialog.tsx
+#: src/features/chats/components/encryption-section.tsx
 msgid "Saving..."
 msgstr "A guardar..."
 
@@ -2956,6 +3053,12 @@ msgstr "A sessão expirou. Inicie sessão novamente."
 msgid "Set origin and destination"
 msgstr "Definir origem e destino"
 
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+msgid "Set up recovery"
+msgstr "Configurar a recuperação"
+
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx
 #: ../../../lib/web/src/components/options-menu.tsx
@@ -3136,6 +3239,10 @@ msgstr "Esse código está incorreto ou expirou."
 msgid "That could not be sent. The files may be too large, or your connection failed. Try smaller files."
 msgstr "Não foi possível enviar. Os ficheiros podem ser demasiado grandes, ou a ligação falhou. Tente ficheiros mais pequenos."
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "That is not your recovery key"
+msgstr "Essa não é a sua chave de recuperação"
+
 #: ../../../lib/web/src/hooks/use-attachment-error.ts
 #: ../../../lib/web/src/lib/handle-server-error.ts
 msgid "That was too large to upload. Remove or shrink files and try again."
@@ -3158,6 +3265,14 @@ msgstr "O nome do chat pode ter no máximo {CHAT_NAME_MAX_LENGTH} caracteres"
 msgid "The chat name cannot contain < or >"
 msgstr "O nome do chat não pode conter < nem >"
 
+#: src/features/chats/components/verification-watcher.tsx
+msgid "The emoji did not match, so the verification was cancelled"
+msgstr "Os emojis não coincidiam, pelo que a verificação foi cancelada"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "The fingerprint matches"
+msgstr "A impressão digital coincide"
+
 #: ../../../lib/web/src/lib/shell-errors.ts
 msgid "The microphone request was not answered"
 msgstr "O pedido de microfone não obteve resposta"
@@ -3165,6 +3280,10 @@ msgstr "O pedido de microfone não obteve resposta"
 #: ../../../lib/web/src/lib/shell-errors.ts
 msgid "The passkey request was not answered"
 msgstr "O pedido da chave de acesso não obteve resposta"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "The password was not accepted"
+msgstr "A palavra-passe não foi aceite"
 
 #: ../../../lib/web/src/features/errors/general-error.tsx
 msgid "The requested content could not be found."
@@ -3174,10 +3293,30 @@ msgstr "Não foi possível encontrar o conteúdo pedido."
 msgid "The server returned a web page instead of data."
 msgstr "O servidor devolveu uma página web em vez de dados."
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "The verification could not be started"
+msgstr "Não foi possível iniciar a verificação"
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "The verification could not go on"
+msgstr "Não foi possível continuar a verificação"
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "The verification was cancelled"
+msgstr "A verificação foi cancelada"
+
 #. placeholder {0}: unknown.join(', ')
 #: src/features/chats/index.tsx
 msgid "These names are not in this chat: {0}. Pick from the @ list or remove them."
 msgstr "Estes nomes não estão neste chat: {0}. Escolha na lista @ ou remova-os."
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "They don't match"
+msgstr "Não coincidem"
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "They match"
+msgstr "Sim, coincidem"
 
 #: src/routes/_authenticated/$chatId_.settings.tsx
 msgid "They stop receiving new messages in this chat."
@@ -3197,12 +3336,20 @@ msgid "This chat may have been deleted or you don't have access to it"
 msgstr "Este chat pode ter sido eliminado ou não tem acesso"
 
 #: src/features/chats/index.tsx
-msgid "This conversation is encrypted. Messages cannot be sent to it from here yet."
-msgstr "Esta conversa está encriptada. Ainda não é possível enviar-lhe mensagens a partir daqui."
-
-#: src/features/chats/index.tsx
 msgid "This deletes the message for everyone and cannot be undone."
 msgstr "Isto elimina a mensagem para todos e não pode ser anulado."
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "This device"
+msgstr "Este dispositivo"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "This device (OMEMO 2)"
+msgstr "Este dispositivo (OMEMO 2)"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "This device (OMEMO)"
+msgstr "Este dispositivo (OMEMO)"
 
 #: src/features/chats/components/chat-message-list.tsx
 #: src/features/chats/components/message-quote.tsx
@@ -3400,14 +3547,28 @@ msgstr "Variáveis: {variables}"
 msgid "Verification code"
 msgstr "Código de verificação"
 
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Verified"
+msgstr "Verificado"
+
 #: ../../../lib/web/src/components/step-up-dialog.tsx
 #: ../../../lib/web/src/features/accounts/account-verify.tsx
 msgid "Verify"
 msgstr "Verificar"
 
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Verify {who}"
+msgstr "Verificar {who}"
+
 #: ../../../lib/web/src/features/accounts/account-verify.tsx
 msgid "Verify email address"
 msgstr "Verificar endereço de e-mail"
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Verify your device"
+msgstr "Verificar o seu dispositivo"
 
 #: ../../../lib/web/src/components/attachment-gallery.tsx
 #: src/features/chats/components/message-media-grid.tsx
@@ -3453,6 +3614,14 @@ msgstr "A gravação de voz não é suportada neste navegador"
 #: src/features/chats/components/chat-input.tsx
 msgid "Voice recording isn't available in this app version. Please update the app and try again."
 msgstr "A gravação de voz não está disponível nesta versão da aplicação. Atualize a aplicação e tente novamente."
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Waiting for the other device..."
+msgstr "A aguardar o outro dispositivo..."
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Waiting for them to accept"
+msgstr "A aguardar a aceitação"
 
 #: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx
 #: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx
@@ -3528,6 +3697,18 @@ msgstr "A sua conta foi transferida para aqui a partir de {source}. Até a elimi
 #: ../../../lib/web/src/components/comment-composer.tsx
 msgid "Your attachments will be lost."
 msgstr "Os seus anexos serão perdidos."
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Your Matrix server asks for your account's password."
+msgstr "O seu servidor Matrix pede a palavra-passe da sua conta."
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Your other devices"
+msgstr "Os seus outros dispositivos"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Your recovery key"
+msgstr "A sua chave de recuperação"
 
 #: ../../../lib/web/src/components/comment-composer.tsx
 msgid "Your text and attachments will be lost."

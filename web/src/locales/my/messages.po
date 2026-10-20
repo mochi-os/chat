@@ -65,6 +65,11 @@ msgstr "{0, plural, other {မက်ဆေ့ဂျ် # ခု ဖျက်မ�
 msgid "{0, plural, one {# file changed} other {# files changed}}"
 msgstr "{0, plural, one {ဖိုင် # ခု ပြောင်းလဲခဲ့သည်} other {ဖိုင် # ခု ပြောင်းလဲခဲ့သည်}}"
 
+#. placeholder {0}: result.restored
+#: src/features/chats/components/encryption-section.tsx
+msgid "{0, plural, one {# message key restored} other {# message keys restored}}"
+msgstr "{0, plural, other {မက်ဆေ့ဂျ်သော့ # ခု ပြန်လည်ရယူပြီး}}"
+
 #. placeholder {0}: message.replies
 #: src/features/chats/components/chat-message-list.tsx
 msgid "{0, plural, one {# reply} other {# replies}}"
@@ -175,6 +180,10 @@ msgstr "{truncated, plural, other {နောက်ထပ်ဖိုင် # ခ
 msgid "{unreadCount, plural, one {Open menu (# unread notification)} other {Open menu (# unread notifications)}}"
 msgstr "{unreadCount, plural, other {မီနူးဖွင့်ရန် (မဖတ်ရသေးသော အကြောင်းကြားချက် # ခု)}}"
 
+#: src/features/chats/components/verification-watcher.tsx
+msgid "{who} wants to verify you."
+msgstr "{who} က သင့်ကို အတည်ပြုလိုသည်။"
+
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "12 hours"
 msgstr "၁၂ နာရီ"
@@ -193,6 +202,7 @@ msgid "Absolute (date and time)"
 msgstr "အပြည့်အစုံ (ရက်စွဲနှင့် အချိန်)"
 
 #: ../../../lib/web/src/components/game/game-draw-offer-banner.tsx
+#: src/features/chats/components/verification-watcher.tsx
 #: src/features/chats/index.tsx
 msgid "Accept"
 msgstr "လက်ခံမည်"
@@ -380,6 +390,10 @@ msgstr "Android တွန်းပို့ အကြောင်းကြား
 msgid "Angry"
 msgstr "ဒေါသထွက်သည်"
 
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Another of your devices wants to verify this one."
+msgstr "သင်၏ အခြားကိရိယာတစ်ခုက ဤကိရိယာကို အတည်ပြုလိုသည်။"
+
 #: ../../../lib/web/src/features/access/access-list.tsx
 #: ../../../lib/web/src/features/access/types.ts
 #: src/features/chats/components/chat-settings-dialog.tsx
@@ -440,6 +454,10 @@ msgstr "{0} အဖြစ်"
 #: ../../../lib/web/src/components/ui/sort-direction-button.tsx
 msgid "Ascending"
 msgstr "ငယ်စဉ်ကြီးလိုက်"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Asking to compare emoji..."
+msgstr "အီမိုဂျီ နှိုင်းယှဉ်ရန် တောင်းဆိုနေသည်..."
 
 #: ../../../lib/web/src/components/timezone-select.tsx
 msgid "At sea"
@@ -599,6 +617,8 @@ msgstr "ကင်မရာ မရနိုင်ပါ"
 #: src/features/chats/components/chat-settings-dialog.tsx
 #: src/features/chats/components/forward-dialog.tsx
 #: src/features/chats/components/new-chat.tsx
+#: src/features/chats/components/verification-watcher.tsx
+#: src/features/chats/components/verification-watcher.tsx
 #: src/features/chats/index.tsx
 msgid "Cancel"
 msgstr "မလုပ်တော့ပါ"
@@ -735,6 +755,10 @@ msgstr "ချတ်ကို ပင်ဖြုတ်ပြီးပါပြ�
 msgid "Chats"
 msgstr "စကားပြောခန်းများ"
 
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Check that the same emoji appear on the other screen."
+msgstr "အခြားစခရင်ပေါ်တွင် တူညီသော အီမိုဂျီများ ပေါ်နေကြောင်း စစ်ဆေးပါ။"
+
 #: ../../../lib/web/src/hooks/use-field-type-labels.ts
 msgid "Checkbox"
 msgstr "အမှန်ခြစ်ကွက်"
@@ -867,6 +891,11 @@ msgstr "မှတ်ချက်များ ({0})"
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Compact"
 msgstr "ကျစ်လျစ်"
+
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Compare emoji"
+msgstr "အီမိုဂျီ နှိုင်းယှဉ်မည်"
 
 #: ../../../lib/web/src/components/entity/entity-option-dialog.tsx
 msgid "Configure option settings"
@@ -1023,6 +1052,7 @@ msgid "Date"
 msgstr "ရက်စွဲ"
 
 #: ../../../lib/web/src/components/game/game-draw-offer-banner.tsx
+#: src/features/chats/components/verification-watcher.tsx
 #: src/features/chats/index.tsx
 msgid "Decline"
 msgstr "ငြင်းပယ်မည်"
@@ -1162,6 +1192,10 @@ msgstr "အသေးစိတ် ပန်နယ်"
 msgid "Detect from web browser"
 msgstr "ဝဘ် ဘရောက်ဇာ မှ ရှာဖွေဖော်ထုတ်မည်"
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "Device options"
+msgstr "ကိရိယာ ရွေးချယ်စရာများ"
+
 #: ../../../lib/web/src/components/person-picker.tsx
 msgid "Directory"
 msgstr "လမ်းညွှန်"
@@ -1205,6 +1239,14 @@ msgstr "ပိတ်မည်"
 msgid "Displays the mobile sidebar."
 msgstr "မိုဘိုင်း ဘေးဘားကို ပြသသည်။"
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "Distrust"
+msgstr "မယုံကြည်မည်"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Distrusted"
+msgstr "မယုံကြည်ပါ"
+
 #: src/features/chats/components/chat-input.tsx
 msgid "Document"
 msgstr "စာရွက်စာတမ်း"
@@ -1215,6 +1257,7 @@ msgstr "လိုအပ်သော ပုံစံနှင့် မကို�
 
 #: ../../../lib/web/src/components/entity/entity-field-dialog.tsx
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx
+#: src/features/chats/components/encryption-section.tsx
 msgid "Done"
 msgstr "ပြီးပါပြီ"
 
@@ -1303,6 +1346,12 @@ msgstr "အီးမေးလ် ကုဒ်"
 msgid "Encrypted message"
 msgstr "ကုဒ်ဝှက်ထားသော မက်ဆေ့ဂျ်"
 
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+msgid "Encryption"
+msgstr "ကုဒ်ဝှက်ခြင်း"
+
 #: ../../../lib/web/src/components/calendar/time-grid.tsx
 msgid "Ends before it starts"
 msgstr "မစတင်မီ ပြီးဆုံးသည်"
@@ -1310,6 +1359,11 @@ msgstr "မစတင်မီ ပြီးဆုံးသည်"
 #: ../../../lib/web/src/components/banner-section.tsx
 msgid "Enter banner text (markdown supported)..."
 msgstr "ဘန်နာ စာသား ထည့်ပါ (markdown ပံ့ပိုးသည်)..."
+
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+msgid "Enter recovery key"
+msgstr "ပြန်လည်ရယူရေးသော့ ထည့်မည်"
 
 #: ../../../lib/web/src/components/step-up-dialog.tsx
 msgid "Enter the code from your email"
@@ -1492,6 +1546,7 @@ msgstr "RSS အသုံးပြုခွင့် ရုပ်သိမ်း�
 
 #: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx
 #: src/features/chats/components/chat-settings-dialog.tsx
+#: src/features/chats/components/encryption-section.tsx
 msgid "Failed to save"
 msgstr "သိမ်း၍ မရပါ"
 
@@ -1550,6 +1605,10 @@ msgstr "အလံများ"
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Flat"
 msgstr "ပြားသော"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Forget my decision"
+msgstr "ကျွန်ုပ်၏ ဆုံးဖြတ်ချက်ကို ဖျက်မည်"
 
 #: src/features/chats/components/forward-dialog.tsx
 #: src/features/chats/components/message-hover-actions.tsx
@@ -1711,6 +1770,10 @@ msgstr "အောက်ဆုံးသို့ သွားရန်"
 #: ../../../lib/web/src/lib/locale-format.ts
 msgid "Just now"
 msgstr "အခုပဲ"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Keep this key safe. It is shown once, and your other Matrix clients ask for it to read your encrypted messages."
+msgstr "ဤသော့ကို လုံခြုံစွာ သိမ်းထားပါ။ ၎င်းကို တစ်ကြိမ်သာ ပြသမည်ဖြစ်ပြီး သင်၏ အခြား Matrix ကလိုင်းယင့်များက သင်၏ ကုဒ်ဝှက်ထားသော မက်ဆေ့ဂျ်များကို ဖတ်ရန် ၎င်းကို တောင်းပါမည်။"
 
 #: ../../../lib/web/src/components/entity/keyboard-shortcuts-help.tsx
 msgid "Keyboard shortcuts"
@@ -2102,6 +2165,10 @@ msgstr "ထပ်ဆင့်ပို့ရန် ချတ် မရှိပ�
 msgid "No comments yet"
 msgstr "comment များ မရှိသေးပါ"
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "No devices"
+msgstr "ကိရိယာ မရှိပါ"
+
 #: src/routes/_authenticated/$chatId_.settings.tsx
 msgid "No friends available"
 msgstr "သူငယ်ချင်းများ မရရှိနိုင်ပါ"
@@ -2137,6 +2204,10 @@ msgstr "မက်ဆေ့ချ်များ မရှိသေးပါ"
 #: src/features/chats/components/chat-input.tsx
 msgid "No microphone found"
 msgstr "မိုက်ခရိုဖုန်း မတွေ့ပါ"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "No other devices"
+msgstr "အခြားကိရိယာ မရှိပါ"
 
 #: ../../../lib/web/src/components/entity/entity-field-editor.tsx
 #: ../../../lib/web/src/components/person-picker.tsx
@@ -2222,6 +2293,11 @@ msgstr "ရှာမတွေ့ပါ"
 #: ../../../lib/web/src/components/ui/editable-field-row.tsx
 msgid "Not set"
 msgstr "မသတ်မှတ်ထားပါ"
+
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+msgid "Not verified"
+msgstr "အတည်မပြုရသေး"
 
 #: ../../../lib/web/src/components/entity/entity-tree-view.tsx
 msgid "Nothing found"
@@ -2351,6 +2427,10 @@ msgstr "ဝင်ရောက်ခွင့်သော့များ"
 #: ../../../lib/web/src/lib/shell-errors.ts
 msgid "Passkeys are not available in this browser"
 msgstr "ဤဘရောက်ဆာတွင် ဝင်ရောက်ခွင့်သော့များ မရရှိနိုင်ပါ"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Password"
+msgstr "စကားဝှက်"
 
 #: ../../../lib/web/src/components/entity/entity-field-dialog.tsx
 msgid "Pattern (regex)"
@@ -2507,6 +2587,14 @@ msgstr "အသံဖမ်းယူမှု ၅ မိနစ် ကန့်သ
 #: src/features/chats/components/chat-input.tsx
 msgid "Recording voice note"
 msgstr "အသံမှတ်စု ဖမ်းယူနေသည်"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Recovery could not be set up"
+msgstr "ပြန်လည်ရယူရေးကို စနစ်ထည့်၍ မရပါ"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Recovery key"
+msgstr "ပြန်လည်ရယူရေးသော့"
 
 #: ../../../lib/web/src/components/layout/authenticated-layout.tsx
 msgid "Redirecting to login."
@@ -2672,6 +2760,10 @@ msgstr "ရှုံးကြောင်းပြော"
 msgid "Resign game?"
 msgstr "ဂိမ်း ရှုံးကြောင်းပြောမလား?"
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "Restore"
+msgstr "ပြန်ဆယ်ယူ"
+
 #: ../../../lib/web/src/components/attachment-composer.tsx
 msgid "Retry"
 msgstr "ထပ်စမ်းကြည့်ပါ"
@@ -2729,7 +2821,12 @@ msgstr "စနေနေ့"
 msgid "Save"
 msgstr "သိမ်းမည်"
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "Saved"
+msgstr "သိမ်းပြီး"
+
 #: src/features/chats/components/chat-settings-dialog.tsx
+#: src/features/chats/components/encryption-section.tsx
 msgid "Saving..."
 msgstr "သိမ်းနေသည်..."
 
@@ -2956,6 +3053,12 @@ msgstr "စက်ရှင်သက်တမ်း ကုန်သွားပ�
 msgid "Set origin and destination"
 msgstr "မူရင်းနှင့် ဦးတည်ရာ သတ်မှတ်မည်"
 
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+msgid "Set up recovery"
+msgstr "ပြန်လည်ရယူရေး စနစ်ထည့်မည်"
+
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx
 #: ../../../lib/web/src/components/options-menu.tsx
@@ -3136,6 +3239,10 @@ msgstr "ထိုကုဒ်မှားနေသည် သို့မဟု�
 msgid "That could not be sent. The files may be too large, or your connection failed. Try smaller files."
 msgstr "ပို့၍မရပါ။ ဖိုင်များ ကြီးလွန်းနိုင်သည် သို့မဟုတ် ချိတ်ဆက်မှု ပြတ်တောက်သွားသည်။ သေးငယ်သောဖိုင်များ စမ်းကြည့်ပါ။"
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "That is not your recovery key"
+msgstr "၎င်းသည် သင်၏ ပြန်လည်ရယူရေးသော့ မဟုတ်ပါ"
+
 #: ../../../lib/web/src/hooks/use-attachment-error.ts
 #: ../../../lib/web/src/lib/handle-server-error.ts
 msgid "That was too large to upload. Remove or shrink files and try again."
@@ -3158,6 +3265,14 @@ msgstr "စကားပြောခန်းအမည်သည် အမျာ�
 msgid "The chat name cannot contain < or >"
 msgstr "စကားပြောခန်းအမည်တွင် < သို့မဟုတ် > မပါဝင်ရ"
 
+#: src/features/chats/components/verification-watcher.tsx
+msgid "The emoji did not match, so the verification was cancelled"
+msgstr "အီမိုဂျီများ မကိုက်ညီသဖြင့် အတည်ပြုခြင်းကို ပယ်ဖျက်လိုက်သည်"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "The fingerprint matches"
+msgstr "လက်ဗွေ ကိုက်ညီသည်"
+
 #: ../../../lib/web/src/lib/shell-errors.ts
 msgid "The microphone request was not answered"
 msgstr "မိုက်ခရိုဖုန်း တောင်းဆိုမှုကို မဖြေကြားခဲ့ပါ"
@@ -3165,6 +3280,10 @@ msgstr "မိုက်ခရိုဖုန်း တောင်းဆို�
 #: ../../../lib/web/src/lib/shell-errors.ts
 msgid "The passkey request was not answered"
 msgstr "ဝင်ရောက်ခွင့်သော့ တောင်းဆိုမှုကို မဖြေကြားခဲ့ပါ"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "The password was not accepted"
+msgstr "စကားဝှက်ကို လက်မခံပါ"
 
 #: ../../../lib/web/src/features/errors/general-error.tsx
 msgid "The requested content could not be found."
@@ -3174,10 +3293,30 @@ msgstr "တောင်းဆိုထားသော အကြောင်း�
 msgid "The server returned a web page instead of data."
 msgstr "ဆာဗာသည် ဒေတာအစား ဝဘ်စာမျက်နှာကို ပြန်ပေးခဲ့သည်။"
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "The verification could not be started"
+msgstr "အတည်ပြုခြင်းကို စတင်၍ မရပါ"
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "The verification could not go on"
+msgstr "အတည်ပြုခြင်းကို ဆက်လုပ်၍ မရပါ"
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "The verification was cancelled"
+msgstr "အတည်ပြုခြင်းကို ပယ်ဖျက်လိုက်သည်"
+
 #. placeholder {0}: unknown.join(', ')
 #: src/features/chats/index.tsx
 msgid "These names are not in this chat: {0}. Pick from the @ list or remove them."
 msgstr "ဤနာမည်များ ဤစကားပြောခန်းတွင် မရှိပါ- {0}။ @ စာရင်းမှ ရွေးချယ်ပါ သို့မဟုတ် ဖယ်ရှားပါ။"
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "They don't match"
+msgstr "မကိုက်ညီပါ"
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "They match"
+msgstr "ကိုက်ညီသည်"
 
 #: src/routes/_authenticated/$chatId_.settings.tsx
 msgid "They stop receiving new messages in this chat."
@@ -3197,12 +3336,20 @@ msgid "This chat may have been deleted or you don't have access to it"
 msgstr "ဤ chat ကို ဖျက်ထားနိုင်သည် သို့မဟုတ် သင်ဝင်ခွင့်မရှိနိုင်ပါ"
 
 #: src/features/chats/index.tsx
-msgid "This conversation is encrypted. Messages cannot be sent to it from here yet."
-msgstr "ဤစကားပြောခန်းကို ကုဒ်ဝှက်ထားသည်။ ဤနေရာမှ ၎င်းသို့ မက်ဆေ့ဂျ်များ မပို့နိုင်သေးပါ။"
-
-#: src/features/chats/index.tsx
 msgid "This deletes the message for everyone and cannot be undone."
 msgstr "၎င်းသည် မက်ဆေ့ဂျ်ကို လူတိုင်းအတွက် ဖျက်ပစ်မည်ဖြစ်ပြီး ပြန်ပြင်၍ မရပါ။"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "This device"
+msgstr "ဤကိရိယာ"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "This device (OMEMO 2)"
+msgstr "ဤကိရိယာ (OMEMO 2)"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "This device (OMEMO)"
+msgstr "ဤကိရိယာ (OMEMO)"
 
 #: src/features/chats/components/chat-message-list.tsx
 #: src/features/chats/components/message-quote.tsx
@@ -3400,14 +3547,28 @@ msgstr "ကိန်းရှင်များ: {variables}"
 msgid "Verification code"
 msgstr "အတည်ပြု ကုဒ်"
 
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Verified"
+msgstr "အတည်ပြုပြီး"
+
 #: ../../../lib/web/src/components/step-up-dialog.tsx
 #: ../../../lib/web/src/features/accounts/account-verify.tsx
 msgid "Verify"
 msgstr "အတည်ပြုမည်"
 
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Verify {who}"
+msgstr "{who} ကို အတည်ပြုမည်"
+
 #: ../../../lib/web/src/features/accounts/account-verify.tsx
 msgid "Verify email address"
 msgstr "အီးမေးလ် လိပ်စာ အတည်ပြုမည်"
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Verify your device"
+msgstr "သင်၏ ကိရိယာကို အတည်ပြုမည်"
 
 #: ../../../lib/web/src/components/attachment-gallery.tsx
 #: src/features/chats/components/message-media-grid.tsx
@@ -3453,6 +3614,14 @@ msgstr "ဤဘရောက်ဇာတွင် အသံဖမ်းယူခ�
 #: src/features/chats/components/chat-input.tsx
 msgid "Voice recording isn't available in this app version. Please update the app and try again."
 msgstr "ဤအက်ပ်ဗားရှင်းတွင် အသံဖမ်းယူခြင်း မရနိုင်ပါ။ အက်ပ်ကို အပ်ဒိတ်လုပ်ပြီး ထပ်စမ်းကြည့်ပါ။"
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Waiting for the other device..."
+msgstr "အခြားကိရိယာကို စောင့်နေသည်..."
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Waiting for them to accept"
+msgstr "၎င်းတို့ လက်ခံရန် စောင့်နေသည်"
 
 #: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx
 #: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx
@@ -3528,6 +3697,18 @@ msgstr "သင်၏အကောင့်ကို {source} မှ ဤနေရ�
 #: ../../../lib/web/src/components/comment-composer.tsx
 msgid "Your attachments will be lost."
 msgstr "သင့်ပူးတွဲဖိုင်များ ပျောက်ဆုံးသွားပါမည်။"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Your Matrix server asks for your account's password."
+msgstr "သင်၏ Matrix ဆာဗာက သင့်အကောင့်၏ စကားဝှက်ကို တောင်းနေသည်။"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Your other devices"
+msgstr "သင်၏ အခြားကိရိယာများ"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Your recovery key"
+msgstr "သင်၏ ပြန်လည်ရယူရေးသော့"
 
 #: ../../../lib/web/src/components/comment-composer.tsx
 msgid "Your text and attachments will be lost."

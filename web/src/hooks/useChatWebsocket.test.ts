@@ -53,6 +53,21 @@ describe('handleWebsocketEvent', () => {
     expect(patched?.reaction).toBe('like')
   })
 
+  it('reads the messages again when an encrypted message is decrypted, adding nothing', () => {
+    const client = seeded()
+    const invalidate = vi.spyOn(client, 'invalidateQueries')
+    const kind = handleWebsocketEvent(
+      'c1',
+      { event: 'decrypted', message: 'm1' },
+      client,
+      'me'
+    )
+    expect(kind).toBe('event')
+    expect(invalidate).toHaveBeenCalledWith({
+      queryKey: chatKeys.messages('c1'),
+    })
+  })
+
   it('invalidates the list and detail keys exactly on a rename, not every loaded page', () => {
     const client = seeded()
     const invalidate = vi.spyOn(client, 'invalidateQueries')

@@ -16,7 +16,7 @@
 	"require": {"version": {"minimum": "2.0.12"}},
 
 	"database": {
-		"schema": 14,
+		"schema": 15,
 		"file": "chat.db",
 		"create": {"function": "database_create"},
 		"upgrade": {"function": "database_upgrade"},
@@ -57,6 +57,8 @@
 		"-/person/search": {"function": "action_person_search"},
 		"-/preferences/get": {"function": "action_preferences_get"},
 		"-/preferences/set": {"function": "action_preferences_set"},
+		"-/encryption/verifications": {"function": "action_encryption_verifications"},
+		"-/encryption/act": {"function": "action_encryption_act"},
 
 		":chat": {"file": "web/dist/index.html"},
 		":chat/-/view": {"function": "action_view"},
@@ -80,6 +82,12 @@
 		":chat/-/delete": {"function": "action_delete"},
 		":chat/-/member/add": {"function": "action_member_add"},
 		":chat/-/member/remove": {"function": "action_member_remove"},
+		":chat/-/encryption": {"function": "action_encryption"},
+		":chat/-/encryption/devices": {"function": "action_encryption_devices"},
+		":chat/-/encryption/trust": {"function": "action_encryption_trust"},
+		":chat/-/encryption/verify": {"function": "action_encryption_verify"},
+		":chat/-/encryption/setup": {"function": "action_encryption_setup"},
+		":chat/-/encryption/recover": {"function": "action_encryption_recover"},
 		":chat/-/attachments/:id": {"function": "action_attachment", "asset": true},
 		":chat/-/attachments/:id/thumbnail": {"function": "action_attachment_thumbnail", "asset": true},
 		":chat/-/attachments/:id/preview": {"function": "action_attachment_preview", "asset": true},

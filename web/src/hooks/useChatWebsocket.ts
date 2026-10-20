@@ -370,6 +370,12 @@ export const handleWebsocketEvent = (
       case 'edit':
         patchMessageEditFromWebsocket(chatId, payload, queryClient)
         return 'event'
+      case 'decrypted':
+        // A message whose keys came: its text and files are read again.
+        void queryClient.invalidateQueries({
+          queryKey: chatKeys.messages(chatId),
+        })
+        return 'event'
       case 'typing':
         if (
           typeof payload.member === 'string' &&

@@ -65,6 +65,11 @@ msgstr "{0, plural, =1 {Паём нест карда шавад?} other {# па�
 msgid "{0, plural, one {# file changed} other {# files changed}}"
 msgstr "{0, plural, one {# файл тағйир ёфт} other {# файл тағйир ёфт}}"
 
+#. placeholder {0}: result.restored
+#: src/features/chats/components/encryption-section.tsx
+msgid "{0, plural, one {# message key restored} other {# message keys restored}}"
+msgstr "{0, plural, one {# калиди паём барқарор шуд} other {# калиди паём барқарор шуд}}"
+
 #. placeholder {0}: message.replies
 #: src/features/chats/components/chat-message-list.tsx
 msgid "{0, plural, one {# reply} other {# replies}}"
@@ -175,6 +180,10 @@ msgstr "{truncated, plural, one {Боз # файл нишон дода нашу�
 msgid "{unreadCount, plural, one {Open menu (# unread notification)} other {Open menu (# unread notifications)}}"
 msgstr "{unreadCount, plural, one {Менюро кушоед (# огоҳиномаи хонданашуда)} other {Менюро кушоед (# огоҳиномаи хонданашуда)}}"
 
+#: src/features/chats/components/verification-watcher.tsx
+msgid "{who} wants to verify you."
+msgstr "{who} мехоҳад шуморо тасдиқ кунад."
+
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "12 hours"
 msgstr "12 соат"
@@ -193,6 +202,7 @@ msgid "Absolute (date and time)"
 msgstr "Мутлақ (сана ва вақт)"
 
 #: ../../../lib/web/src/components/game/game-draw-offer-banner.tsx
+#: src/features/chats/components/verification-watcher.tsx
 #: src/features/chats/index.tsx
 msgid "Accept"
 msgstr "Қабул кардан"
@@ -380,6 +390,10 @@ msgstr "Огоҳиҳои пуш барои Android"
 msgid "Angry"
 msgstr "Хашмгин"
 
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Another of your devices wants to verify this one."
+msgstr "Яке аз дастгоҳҳои дигари шумо мехоҳад ин дастгоҳро тасдиқ кунад."
+
 #: ../../../lib/web/src/features/access/access-list.tsx
 #: ../../../lib/web/src/features/access/types.ts
 #: src/features/chats/components/chat-settings-dialog.tsx
@@ -440,6 +454,10 @@ msgstr "Ҳамчун {0}"
 #: ../../../lib/web/src/components/ui/sort-direction-button.tsx
 msgid "Ascending"
 msgstr "Афзоишёбанда"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Asking to compare emoji..."
+msgstr "Дархости муқоисаи эмодзиҳо..."
 
 #: ../../../lib/web/src/components/timezone-select.tsx
 msgid "At sea"
@@ -599,6 +617,8 @@ msgstr "Камера дастрас нест"
 #: src/features/chats/components/chat-settings-dialog.tsx
 #: src/features/chats/components/forward-dialog.tsx
 #: src/features/chats/components/new-chat.tsx
+#: src/features/chats/components/verification-watcher.tsx
+#: src/features/chats/components/verification-watcher.tsx
 #: src/features/chats/index.tsx
 msgid "Cancel"
 msgstr "Бекор кардан"
@@ -735,6 +755,10 @@ msgstr "Часпониши чат бекор шуд"
 msgid "Chats"
 msgstr "Чатҳо"
 
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Check that the same emoji appear on the other screen."
+msgstr "Санҷед, ки дар экрани дигар ҳамон эмодзиҳо пайдо мешаванд."
+
 #: ../../../lib/web/src/hooks/use-field-type-labels.ts
 msgid "Checkbox"
 msgstr "Парчаминтихоб"
@@ -867,6 +891,11 @@ msgstr "Шарҳҳо ({0})"
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Compact"
 msgstr "Паймон"
+
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Compare emoji"
+msgstr "Муқоисаи эмодзиҳо"
 
 #: ../../../lib/web/src/components/entity/entity-option-dialog.tsx
 msgid "Configure option settings"
@@ -1023,6 +1052,7 @@ msgid "Date"
 msgstr "Сана"
 
 #: ../../../lib/web/src/components/game/game-draw-offer-banner.tsx
+#: src/features/chats/components/verification-watcher.tsx
 #: src/features/chats/index.tsx
 msgid "Decline"
 msgstr "Рад кардан"
@@ -1162,6 +1192,10 @@ msgstr "Панели тафсилот"
 msgid "Detect from web browser"
 msgstr "Аз браузери веб муайян кардан"
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "Device options"
+msgstr "Имконоти дастгоҳ"
+
 #: ../../../lib/web/src/components/person-picker.tsx
 msgid "Directory"
 msgstr "Феҳрист"
@@ -1205,6 +1239,14 @@ msgstr "Пӯшидан"
 msgid "Displays the mobile sidebar."
 msgstr "Панели канории мобилиро намоиш медиҳад."
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "Distrust"
+msgstr "Эътимод накардан"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Distrusted"
+msgstr "Беэътимод"
+
 #: src/features/chats/components/chat-input.tsx
 msgid "Document"
 msgstr "Ҳуҷҷат"
@@ -1215,6 +1257,7 @@ msgstr "Ба намунаи талабшуда мувофиқат намекун
 
 #: ../../../lib/web/src/components/entity/entity-field-dialog.tsx
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx
+#: src/features/chats/components/encryption-section.tsx
 msgid "Done"
 msgstr "Иҷро шуд"
 
@@ -1303,6 +1346,12 @@ msgstr "Рамзи email"
 msgid "Encrypted message"
 msgstr "Паёми рамзгузоришуда"
 
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+msgid "Encryption"
+msgstr "Рамзгузорӣ"
+
 #: ../../../lib/web/src/components/calendar/time-grid.tsx
 msgid "Ends before it starts"
 msgstr "Пеш аз оғоз ба анҷом мерасад"
@@ -1310,6 +1359,11 @@ msgstr "Пеш аз оғоз ба анҷом мерасад"
 #: ../../../lib/web/src/components/banner-section.tsx
 msgid "Enter banner text (markdown supported)..."
 msgstr "Матни баннерро ворид кунед (markdown дастгирӣ мешавад)..."
+
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+msgid "Enter recovery key"
+msgstr "Ворид кардани калиди барқарорсозӣ"
 
 #: ../../../lib/web/src/components/step-up-dialog.tsx
 msgid "Enter the code from your email"
@@ -1492,6 +1546,7 @@ msgstr "Бозхонд кардани дастрасии RSS ноком шуд"
 
 #: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx
 #: src/features/chats/components/chat-settings-dialog.tsx
+#: src/features/chats/components/encryption-section.tsx
 msgid "Failed to save"
 msgstr "Захира ба анҷом нарасид"
 
@@ -1550,6 +1605,10 @@ msgstr "Парчамҳо"
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Flat"
 msgstr "Ҳамвор"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Forget my decision"
+msgstr "Қарори маро фаромӯш кардан"
 
 #: src/features/chats/components/forward-dialog.tsx
 #: src/features/chats/components/message-hover-actions.tsx
@@ -1711,6 +1770,10 @@ msgstr "Ба поён гузаштан"
 #: ../../../lib/web/src/lib/locale-format.ts
 msgid "Just now"
 msgstr "Ҳозир"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Keep this key safe. It is shown once, and your other Matrix clients ask for it to read your encrypted messages."
+msgstr "Ин калидро дар ҷои бехатар нигоҳ доред. Он танҳо як бор нишон дода мешавад ва дигар муштариёни Matrix-и шумо онро барои хондани паёмҳои рамзгузоришудаи шумо талаб мекунанд."
 
 #: ../../../lib/web/src/components/entity/keyboard-shortcuts-help.tsx
 msgid "Keyboard shortcuts"
@@ -2102,6 +2165,10 @@ msgstr "Чате барои интиқол нест"
 msgid "No comments yet"
 msgstr "То ҳол ягон шарҳ нест"
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "No devices"
+msgstr "Дастгоҳ нест"
+
 #: src/routes/_authenticated/$chatId_.settings.tsx
 msgid "No friends available"
 msgstr "Ягон дӯст дастрас нест"
@@ -2137,6 +2204,10 @@ msgstr "То ҳол ягон паём нест"
 #: src/features/chats/components/chat-input.tsx
 msgid "No microphone found"
 msgstr "Микрофон ёфт нашуд"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "No other devices"
+msgstr "Дастгоҳҳои дигар нестанд"
 
 #: ../../../lib/web/src/components/entity/entity-field-editor.tsx
 #: ../../../lib/web/src/components/person-picker.tsx
@@ -2222,6 +2293,11 @@ msgstr "Ёфт нашуд"
 #: ../../../lib/web/src/components/ui/editable-field-row.tsx
 msgid "Not set"
 msgstr "Танзим нашудааст"
+
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+msgid "Not verified"
+msgstr "Тасдиқ нашудааст"
 
 #: ../../../lib/web/src/components/entity/entity-tree-view.tsx
 msgid "Nothing found"
@@ -2351,6 +2427,10 @@ msgstr "Калидҳои дастрасӣ"
 #: ../../../lib/web/src/lib/shell-errors.ts
 msgid "Passkeys are not available in this browser"
 msgstr "Калидҳои дастрасӣ дар ин браузер дастрас нестанд"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Password"
+msgstr "Рамз"
 
 #: ../../../lib/web/src/components/entity/entity-field-dialog.tsx
 msgid "Pattern (regex)"
@@ -2507,6 +2587,14 @@ msgstr "Сабт дар ҳудуди 5 дақиқа қатъ шуд"
 #: src/features/chats/components/chat-input.tsx
 msgid "Recording voice note"
 msgstr "Паёми овозӣ сабт мешавад"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Recovery could not be set up"
+msgstr "Танзими барқарорсозӣ ғайриимкон буд"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Recovery key"
+msgstr "Калиди барқарорсозӣ"
 
 #: ../../../lib/web/src/components/layout/authenticated-layout.tsx
 msgid "Redirecting to login."
@@ -2672,6 +2760,10 @@ msgstr "Таслим"
 msgid "Resign game?"
 msgstr "Аз бозӣ таслим шудан?"
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "Restore"
+msgstr "Барқарор кардан"
+
 #: ../../../lib/web/src/components/attachment-composer.tsx
 msgid "Retry"
 msgstr "Аз нав кӯшиш кунед"
@@ -2729,7 +2821,12 @@ msgstr "Шанбе"
 msgid "Save"
 msgstr "Захира"
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "Saved"
+msgstr "Захирашуда"
+
 #: src/features/chats/components/chat-settings-dialog.tsx
+#: src/features/chats/components/encryption-section.tsx
 msgid "Saving..."
 msgstr "Захира кардан..."
 
@@ -2956,6 +3053,12 @@ msgstr "Мӯҳлати сессия гузашт. Лутфан аз нав во�
 msgid "Set origin and destination"
 msgstr "Сарчашма ва таъиноти манзилро таъин кунед"
 
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+msgid "Set up recovery"
+msgstr "Танзими барқарорсозӣ"
+
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx
 #: ../../../lib/web/src/components/options-menu.tsx
@@ -3136,6 +3239,10 @@ msgstr "Он рамз нодуруст аст ё мӯҳлаташ гузашта
 msgid "That could not be sent. The files may be too large, or your connection failed. Try smaller files."
 msgstr "Фиристодан имконнопазир буд. Шояд файлҳо хеле калон бошанд ё пайвастшавӣ қатъ шуд. Файлҳои хурдтарро санҷед."
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "That is not your recovery key"
+msgstr "Ин калиди барқарорсозии шумо нест"
+
 #: ../../../lib/web/src/hooks/use-attachment-error.ts
 #: ../../../lib/web/src/lib/handle-server-error.ts
 msgid "That was too large to upload. Remove or shrink files and try again."
@@ -3158,6 +3265,14 @@ msgstr "Номи сӯҳбат метавонад ҳадди аксар {CHAT_NAM
 msgid "The chat name cannot contain < or >"
 msgstr "Номи сӯҳбат наметавонад < ё > дошта бошад"
 
+#: src/features/chats/components/verification-watcher.tsx
+msgid "The emoji did not match, so the verification was cancelled"
+msgstr "Эмодзиҳо мувофиқат накарданд, бинобар ин тасдиқ бекор карда шуд"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "The fingerprint matches"
+msgstr "Нақши ангушт мувофиқ аст"
+
 #: ../../../lib/web/src/lib/shell-errors.ts
 msgid "The microphone request was not answered"
 msgstr "Ба дархости микрофон ҷавоб дода нашуд"
@@ -3165,6 +3280,10 @@ msgstr "Ба дархости микрофон ҷавоб дода нашуд"
 #: ../../../lib/web/src/lib/shell-errors.ts
 msgid "The passkey request was not answered"
 msgstr "Ба дархости калиди дастрасӣ ҷавоб дода нашуд"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "The password was not accepted"
+msgstr "Рамз қабул нашуд"
 
 #: ../../../lib/web/src/features/errors/general-error.tsx
 msgid "The requested content could not be found."
@@ -3174,10 +3293,30 @@ msgstr "Муҳтавои дархостшуда ёфт нашуд."
 msgid "The server returned a web page instead of data."
 msgstr "Сервер ба ҷои маълумот саҳифаи вебро баргардонд."
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "The verification could not be started"
+msgstr "Оғоз кардани тасдиқ ғайриимкон буд"
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "The verification could not go on"
+msgstr "Идома додани тасдиқ ғайриимкон буд"
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "The verification was cancelled"
+msgstr "Тасдиқ бекор карда шуд"
+
 #. placeholder {0}: unknown.join(', ')
 #: src/features/chats/index.tsx
 msgid "These names are not in this chat: {0}. Pick from the @ list or remove them."
 msgstr "Ин номҳо дар ин чат нестанд: {0}. Аз рӯйхати @ интихоб кунед ё онҳоро тоза кунед."
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "They don't match"
+msgstr "Мувофиқат намекунанд"
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "They match"
+msgstr "Мувофиқат мекунанд"
 
 #: src/routes/_authenticated/$chatId_.settings.tsx
 msgid "They stop receiving new messages in this chat."
@@ -3197,12 +3336,20 @@ msgid "This chat may have been deleted or you don't have access to it"
 msgstr "Ин чат шояд нест карда шуда бошад ё шумо ба он дастрасӣ надошта бошед"
 
 #: src/features/chats/index.tsx
-msgid "This conversation is encrypted. Messages cannot be sent to it from here yet."
-msgstr "Ин сӯҳбат рамзгузорӣ шудааст. Аз ин ҷо ҳоло ба он паём фиристодан ғайриимкон аст."
-
-#: src/features/chats/index.tsx
 msgid "This deletes the message for everyone and cannot be undone."
 msgstr "Ин паёмро барои ҳама нест мекунад ва онро бекор кардан мумкин нест."
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "This device"
+msgstr "Ин дастгоҳ"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "This device (OMEMO 2)"
+msgstr "Ин дастгоҳ (OMEMO 2)"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "This device (OMEMO)"
+msgstr "Ин дастгоҳ (OMEMO)"
 
 #: src/features/chats/components/chat-message-list.tsx
 #: src/features/chats/components/message-quote.tsx
@@ -3400,14 +3547,28 @@ msgstr "Тағйирёбандаҳо: {variables}"
 msgid "Verification code"
 msgstr "Рамзи тасдиқ"
 
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Verified"
+msgstr "Тасдиқ шуд"
+
 #: ../../../lib/web/src/components/step-up-dialog.tsx
 #: ../../../lib/web/src/features/accounts/account-verify.tsx
 msgid "Verify"
 msgstr "Тасдиқ кардан"
 
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Verify {who}"
+msgstr "Тасдиқ кардани {who}"
+
 #: ../../../lib/web/src/features/accounts/account-verify.tsx
 msgid "Verify email address"
 msgstr "Тасдиқи суроғаи почтаи электронӣ"
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Verify your device"
+msgstr "Тасдиқ кардани дастгоҳи шумо"
 
 #: ../../../lib/web/src/components/attachment-gallery.tsx
 #: src/features/chats/components/message-media-grid.tsx
@@ -3453,6 +3614,14 @@ msgstr "Сабти овоз дар ин браузер дастгирӣ наме
 #: src/features/chats/components/chat-input.tsx
 msgid "Voice recording isn't available in this app version. Please update the app and try again."
 msgstr "Сабти овоз дар ин версияи барнома дастрас нест. Барномаро нав кунед ва бори дигар кӯшиш кунед."
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Waiting for the other device..."
+msgstr "Интизори дастгоҳи дигар..."
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Waiting for them to accept"
+msgstr "Интизори қабули онҳо"
 
 #: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx
 #: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx
@@ -3528,6 +3697,18 @@ msgstr "Ҳисоби шумо аз {source} ба ин ҷо интиқол дод
 #: ../../../lib/web/src/components/comment-composer.tsx
 msgid "Your attachments will be lost."
 msgstr "Замимаҳои шумо гум мешаванд."
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Your Matrix server asks for your account's password."
+msgstr "Сервери Matrix-и шумо рамзи ҳисоби шуморо талаб мекунад."
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Your other devices"
+msgstr "Дастгоҳҳои дигари шумо"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Your recovery key"
+msgstr "Калиди барқарорсозии шумо"
 
 #: ../../../lib/web/src/components/comment-composer.tsx
 msgid "Your text and attachments will be lost."

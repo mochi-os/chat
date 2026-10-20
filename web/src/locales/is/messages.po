@@ -65,6 +65,11 @@ msgstr "{0, plural, =1 {Eyða skilaboðum?} one {Eyða # skilaboðum?} other {Ey
 msgid "{0, plural, one {# file changed} other {# files changed}}"
 msgstr "{0, plural, one {# skrá breytt} other {# skrám breytt}}"
 
+#. placeholder {0}: result.restored
+#: src/features/chats/components/encryption-section.tsx
+msgid "{0, plural, one {# message key restored} other {# message keys restored}}"
+msgstr "{0, plural, one {# skilaboðalykill endurheimtur} other {# skilaboðalyklar endurheimtir}}"
+
 #. placeholder {0}: message.replies
 #: src/features/chats/components/chat-message-list.tsx
 msgid "{0, plural, one {# reply} other {# replies}}"
@@ -175,6 +180,10 @@ msgstr "{truncated, plural, one {# skrá til viðbótar ekki sýnd} other {# skr
 msgid "{unreadCount, plural, one {Open menu (# unread notification)} other {Open menu (# unread notifications)}}"
 msgstr "{unreadCount, plural, one {Opna valmynd (# ólesin tilkynning)} other {Opna valmynd (# ólesnar tilkynningar)}}"
 
+#: src/features/chats/components/verification-watcher.tsx
+msgid "{who} wants to verify you."
+msgstr "{who} vill sannprófa þig."
+
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "12 hours"
 msgstr "12 klukkustundir"
@@ -193,6 +202,7 @@ msgid "Absolute (date and time)"
 msgstr "Algilt (dagsetning og tími)"
 
 #: ../../../lib/web/src/components/game/game-draw-offer-banner.tsx
+#: src/features/chats/components/verification-watcher.tsx
 #: src/features/chats/index.tsx
 msgid "Accept"
 msgstr "Samþykkja"
@@ -380,6 +390,10 @@ msgstr "Android-ýting"
 msgid "Angry"
 msgstr "Reiður"
 
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Another of your devices wants to verify this one."
+msgstr "Annað af tækjunum þínum vill sannprófa þetta tæki."
+
 #: ../../../lib/web/src/features/access/access-list.tsx
 #: ../../../lib/web/src/features/access/types.ts
 #: src/features/chats/components/chat-settings-dialog.tsx
@@ -440,6 +454,10 @@ msgstr "Sem {0}"
 #: ../../../lib/web/src/components/ui/sort-direction-button.tsx
 msgid "Ascending"
 msgstr "Hækkandi"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Asking to compare emoji..."
+msgstr "Bið um að bera saman tjáningartákn..."
 
 #: ../../../lib/web/src/components/timezone-select.tsx
 msgid "At sea"
@@ -599,6 +617,8 @@ msgstr "Myndavél ekki tiltæk"
 #: src/features/chats/components/chat-settings-dialog.tsx
 #: src/features/chats/components/forward-dialog.tsx
 #: src/features/chats/components/new-chat.tsx
+#: src/features/chats/components/verification-watcher.tsx
+#: src/features/chats/components/verification-watcher.tsx
 #: src/features/chats/index.tsx
 msgid "Cancel"
 msgstr "Hætta við"
@@ -735,6 +755,10 @@ msgstr "Spjall losað"
 msgid "Chats"
 msgstr "Spjöll"
 
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Check that the same emoji appear on the other screen."
+msgstr "Gakktu úr skugga um að sömu tjáningartákn birtist á hinum skjánum."
+
 #: ../../../lib/web/src/hooks/use-field-type-labels.ts
 msgid "Checkbox"
 msgstr "Gátreitur"
@@ -867,6 +891,11 @@ msgstr "Athugasemdir ({0})"
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Compact"
 msgstr "Þétt"
+
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Compare emoji"
+msgstr "Bera saman tjáningartákn"
 
 #: ../../../lib/web/src/components/entity/entity-option-dialog.tsx
 msgid "Configure option settings"
@@ -1023,6 +1052,7 @@ msgid "Date"
 msgstr "Dagsetning"
 
 #: ../../../lib/web/src/components/game/game-draw-offer-banner.tsx
+#: src/features/chats/components/verification-watcher.tsx
 #: src/features/chats/index.tsx
 msgid "Decline"
 msgstr "Hafna"
@@ -1162,6 +1192,10 @@ msgstr "Smáatriðaspjald"
 msgid "Detect from web browser"
 msgstr "Greina út frá vafra"
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "Device options"
+msgstr "Valkostir tækis"
+
 #: ../../../lib/web/src/components/person-picker.tsx
 msgid "Directory"
 msgstr "Skrá"
@@ -1205,6 +1239,14 @@ msgstr "Hunsa"
 msgid "Displays the mobile sidebar."
 msgstr "Sýnir hliðarstiku farsíma."
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "Distrust"
+msgstr "Vantreysta"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Distrusted"
+msgstr "Vantreyst"
+
 #: src/features/chats/components/chat-input.tsx
 msgid "Document"
 msgstr "Skjal"
@@ -1215,6 +1257,7 @@ msgstr "Samsvarar ekki tilskildu mynstri"
 
 #: ../../../lib/web/src/components/entity/entity-field-dialog.tsx
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx
+#: src/features/chats/components/encryption-section.tsx
 msgid "Done"
 msgstr "Lokið"
 
@@ -1303,6 +1346,12 @@ msgstr "Tölvupóstkóði"
 msgid "Encrypted message"
 msgstr "Dulkóðuð skilaboð"
 
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+msgid "Encryption"
+msgstr "Dulkóðun"
+
 #: ../../../lib/web/src/components/calendar/time-grid.tsx
 msgid "Ends before it starts"
 msgstr "Lýkur áður en hann hefst"
@@ -1310,6 +1359,11 @@ msgstr "Lýkur áður en hann hefst"
 #: ../../../lib/web/src/components/banner-section.tsx
 msgid "Enter banner text (markdown supported)..."
 msgstr "Sláðu inn texta borða (markdown stutt)..."
+
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+msgid "Enter recovery key"
+msgstr "Slá inn endurheimtarlykil"
 
 #: ../../../lib/web/src/components/step-up-dialog.tsx
 msgid "Enter the code from your email"
@@ -1492,6 +1546,7 @@ msgstr "Ekki tókst að afturkalla RSS-aðgang"
 
 #: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx
 #: src/features/chats/components/chat-settings-dialog.tsx
+#: src/features/chats/components/encryption-section.tsx
 msgid "Failed to save"
 msgstr "Tókst ekki að vista"
 
@@ -1550,6 +1605,10 @@ msgstr "Flögg"
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Flat"
 msgstr "Flatt"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Forget my decision"
+msgstr "Gleyma ákvörðun minni"
 
 #: src/features/chats/components/forward-dialog.tsx
 #: src/features/chats/components/message-hover-actions.tsx
@@ -1711,6 +1770,10 @@ msgstr "Fara neðst"
 #: ../../../lib/web/src/lib/locale-format.ts
 msgid "Just now"
 msgstr "Rétt í þessu"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Keep this key safe. It is shown once, and your other Matrix clients ask for it to read your encrypted messages."
+msgstr "Geymdu þennan lykil á öruggum stað. Hann er aðeins sýndur einu sinni og aðrir Matrix-biðlar þínir biðja um hann til að lesa dulkóðuðu skilaboðin þín."
 
 #: ../../../lib/web/src/components/entity/keyboard-shortcuts-help.tsx
 msgid "Keyboard shortcuts"
@@ -2102,6 +2165,10 @@ msgstr "Engin spjöll til að áframsenda í"
 msgid "No comments yet"
 msgstr "Engar athugasemdir ennþá"
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "No devices"
+msgstr "Engin tæki"
+
 #: src/routes/_authenticated/$chatId_.settings.tsx
 msgid "No friends available"
 msgstr "Engir vinir tiltækir"
@@ -2137,6 +2204,10 @@ msgstr "Engin skilaboð ennþá"
 #: src/features/chats/components/chat-input.tsx
 msgid "No microphone found"
 msgstr "Enginn hljóðnemi fannst"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "No other devices"
+msgstr "Engin önnur tæki"
 
 #: ../../../lib/web/src/components/entity/entity-field-editor.tsx
 #: ../../../lib/web/src/components/person-picker.tsx
@@ -2222,6 +2293,11 @@ msgstr "Fannst ekki"
 #: ../../../lib/web/src/components/ui/editable-field-row.tsx
 msgid "Not set"
 msgstr "Ekki stillt"
+
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+msgid "Not verified"
+msgstr "Ekki sannprófað"
 
 #: ../../../lib/web/src/components/entity/entity-tree-view.tsx
 msgid "Nothing found"
@@ -2351,6 +2427,10 @@ msgstr "Aðgangslyklar"
 #: ../../../lib/web/src/lib/shell-errors.ts
 msgid "Passkeys are not available in this browser"
 msgstr "Aðgangslyklar eru ekki tiltækir í þessum vafra"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Password"
+msgstr "Lykilorð"
 
 #: ../../../lib/web/src/components/entity/entity-field-dialog.tsx
 msgid "Pattern (regex)"
@@ -2507,6 +2587,14 @@ msgstr "Upptaka stöðvaðist við 5 mínútna mörkin"
 #: src/features/chats/components/chat-input.tsx
 msgid "Recording voice note"
 msgstr "Tek upp talskilaboð"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Recovery could not be set up"
+msgstr "Ekki tókst að setja upp endurheimt"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Recovery key"
+msgstr "Endurheimtarlykill"
 
 #: ../../../lib/web/src/components/layout/authenticated-layout.tsx
 msgid "Redirecting to login."
@@ -2672,6 +2760,10 @@ msgstr "Gefast upp"
 msgid "Resign game?"
 msgstr "Gefast upp í leik?"
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "Restore"
+msgstr "Endurheimta"
+
 #: ../../../lib/web/src/components/attachment-composer.tsx
 msgid "Retry"
 msgstr "Reyna aftur"
@@ -2729,7 +2821,12 @@ msgstr "Laugardagur"
 msgid "Save"
 msgstr "Vista"
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "Saved"
+msgstr "Vistað"
+
 #: src/features/chats/components/chat-settings-dialog.tsx
+#: src/features/chats/components/encryption-section.tsx
 msgid "Saving..."
 msgstr "Vista..."
 
@@ -2956,6 +3053,12 @@ msgstr "Setan er útrunnin. Skráðu þig aftur inn."
 msgid "Set origin and destination"
 msgstr "Stilltu upphafsstað og áfangastað"
 
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+msgid "Set up recovery"
+msgstr "Setja upp endurheimt"
+
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx
 #: ../../../lib/web/src/components/options-menu.tsx
@@ -3136,6 +3239,10 @@ msgstr "Þessi kóði er rangur eða útrunninn."
 msgid "That could not be sent. The files may be too large, or your connection failed. Try smaller files."
 msgstr "Ekki tókst að senda. Skrárnar gætu verið of stórar eða tengingin rofnaði. Prófaðu minni skrár."
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "That is not your recovery key"
+msgstr "Þetta er ekki endurheimtarlykillinn þinn"
+
 #: ../../../lib/web/src/hooks/use-attachment-error.ts
 #: ../../../lib/web/src/lib/handle-server-error.ts
 msgid "That was too large to upload. Remove or shrink files and try again."
@@ -3158,6 +3265,14 @@ msgstr "Nafn spjallsins má að hámarki vera {CHAT_NAME_MAX_LENGTH} stafir"
 msgid "The chat name cannot contain < or >"
 msgstr "Nafn spjallsins má ekki innihalda < eða >"
 
+#: src/features/chats/components/verification-watcher.tsx
+msgid "The emoji did not match, so the verification was cancelled"
+msgstr "Tjáningartáknin pössuðu ekki saman, svo hætt var við sannprófunina"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "The fingerprint matches"
+msgstr "Fingrafarið passar"
+
 #: ../../../lib/web/src/lib/shell-errors.ts
 msgid "The microphone request was not answered"
 msgstr "Hljóðnemabeiðninni var ekki svarað"
@@ -3165,6 +3280,10 @@ msgstr "Hljóðnemabeiðninni var ekki svarað"
 #: ../../../lib/web/src/lib/shell-errors.ts
 msgid "The passkey request was not answered"
 msgstr "Aðgangslykilsbeiðninni var ekki svarað"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "The password was not accepted"
+msgstr "Lykilorðið var ekki samþykkt"
 
 #: ../../../lib/web/src/features/errors/general-error.tsx
 msgid "The requested content could not be found."
@@ -3174,10 +3293,30 @@ msgstr "Umbeðið efni fannst ekki."
 msgid "The server returned a web page instead of data."
 msgstr "Þjónninn skilaði vefsíðu í stað gagna."
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "The verification could not be started"
+msgstr "Ekki tókst að hefja sannprófunina"
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "The verification could not go on"
+msgstr "Ekki var hægt að halda sannprófuninni áfram"
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "The verification was cancelled"
+msgstr "Hætt var við sannprófunina"
+
 #. placeholder {0}: unknown.join(', ')
 #: src/features/chats/index.tsx
 msgid "These names are not in this chat: {0}. Pick from the @ list or remove them."
 msgstr "Þessi nöfn eru ekki í þessu spjalli: {0}. Veldu af @-listanum eða fjarlægðu þau."
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "They don't match"
+msgstr "Þau passa ekki saman"
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "They match"
+msgstr "Þau passa saman"
 
 #: src/routes/_authenticated/$chatId_.settings.tsx
 msgid "They stop receiving new messages in this chat."
@@ -3197,12 +3336,20 @@ msgid "This chat may have been deleted or you don't have access to it"
 msgstr "Þetta spjall kann að hafa verið eytt eða þú hefur ekki aðgang að því"
 
 #: src/features/chats/index.tsx
-msgid "This conversation is encrypted. Messages cannot be sent to it from here yet."
-msgstr "Þetta samtal er dulkóðað. Ekki er enn hægt að senda skilaboð í það héðan."
-
-#: src/features/chats/index.tsx
 msgid "This deletes the message for everyone and cannot be undone."
 msgstr "Þetta eyðir skilaboðunum fyrir alla og er ekki hægt að afturkalla."
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "This device"
+msgstr "Þetta tæki"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "This device (OMEMO 2)"
+msgstr "Þetta tæki (OMEMO 2)"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "This device (OMEMO)"
+msgstr "Þetta tæki (OMEMO)"
 
 #: src/features/chats/components/chat-message-list.tsx
 #: src/features/chats/components/message-quote.tsx
@@ -3400,14 +3547,28 @@ msgstr "Breytur: {variables}"
 msgid "Verification code"
 msgstr "Sannprófunarkóði"
 
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Verified"
+msgstr "Sannprófað"
+
 #: ../../../lib/web/src/components/step-up-dialog.tsx
 #: ../../../lib/web/src/features/accounts/account-verify.tsx
 msgid "Verify"
 msgstr "Sannprófa"
 
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Verify {who}"
+msgstr "Sannprófa {who}"
+
 #: ../../../lib/web/src/features/accounts/account-verify.tsx
 msgid "Verify email address"
 msgstr "Sannprófa netfang"
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Verify your device"
+msgstr "Sannprófa tækið þitt"
 
 #: ../../../lib/web/src/components/attachment-gallery.tsx
 #: src/features/chats/components/message-media-grid.tsx
@@ -3453,6 +3614,14 @@ msgstr "Talupptaka er ekki studd í þessum vafra"
 #: src/features/chats/components/chat-input.tsx
 msgid "Voice recording isn't available in this app version. Please update the app and try again."
 msgstr "Talupptaka er ekki í boði í þessari útgáfu forritsins. Uppfærðu forritið og reyndu aftur."
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Waiting for the other device..."
+msgstr "Beðið eftir hinu tækinu..."
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Waiting for them to accept"
+msgstr "Beðið eftir að viðkomandi samþykki"
 
 #: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx
 #: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx
@@ -3528,6 +3697,18 @@ msgstr "Reikningurinn þinn var fluttur hingað frá {source}. Þar til þú ey�
 #: ../../../lib/web/src/components/comment-composer.tsx
 msgid "Your attachments will be lost."
 msgstr "Viðhengin þín glatast."
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Your Matrix server asks for your account's password."
+msgstr "Matrix-þjónninn þinn biður um lykilorð reikningsins þíns."
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Your other devices"
+msgstr "Önnur tæki þín"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Your recovery key"
+msgstr "Endurheimtarlykillinn þinn"
 
 #: ../../../lib/web/src/components/comment-composer.tsx
 msgid "Your text and attachments will be lost."

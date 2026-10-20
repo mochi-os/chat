@@ -65,6 +65,11 @@ msgstr "{0, plural, other {删除 # 条消息？}}"
 msgid "{0, plural, one {# file changed} other {# files changed}}"
 msgstr "{0, plural, one {# 个文件已更改} other {# 个文件已更改}}"
 
+#. placeholder {0}: result.restored
+#: src/features/chats/components/encryption-section.tsx
+msgid "{0, plural, one {# message key restored} other {# message keys restored}}"
+msgstr "{0, plural, other {已恢复 # 个消息密钥}}"
+
 #. placeholder {0}: message.replies
 #: src/features/chats/components/chat-message-list.tsx
 msgid "{0, plural, one {# reply} other {# replies}}"
@@ -175,6 +180,10 @@ msgstr "{truncated, plural, one {另有 # 个文件未显示} other {另有 # �
 msgid "{unreadCount, plural, one {Open menu (# unread notification)} other {Open menu (# unread notifications)}}"
 msgstr "{unreadCount, plural, one {打开菜单（# 条未读通知）} other {打开菜单（# 条未读通知）}}"
 
+#: src/features/chats/components/verification-watcher.tsx
+msgid "{who} wants to verify you."
+msgstr "{who} 想要验证您。"
+
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "12 hours"
 msgstr "12 小时"
@@ -193,6 +202,7 @@ msgid "Absolute (date and time)"
 msgstr "绝对(日期和时间)"
 
 #: ../../../lib/web/src/components/game/game-draw-offer-banner.tsx
+#: src/features/chats/components/verification-watcher.tsx
 #: src/features/chats/index.tsx
 msgid "Accept"
 msgstr "接受"
@@ -380,6 +390,10 @@ msgstr "Android 推送"
 msgid "Angry"
 msgstr "生气"
 
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Another of your devices wants to verify this one."
+msgstr "您的另一台设备想要验证此设备。"
+
 #: ../../../lib/web/src/features/access/access-list.tsx
 #: ../../../lib/web/src/features/access/types.ts
 #: src/features/chats/components/chat-settings-dialog.tsx
@@ -440,6 +454,10 @@ msgstr "以 {0} 身份"
 #: ../../../lib/web/src/components/ui/sort-direction-button.tsx
 msgid "Ascending"
 msgstr "升序"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Asking to compare emoji..."
+msgstr "正在请求比较表情符号..."
 
 #: ../../../lib/web/src/components/timezone-select.tsx
 msgid "At sea"
@@ -599,6 +617,8 @@ msgstr "相机不可用"
 #: src/features/chats/components/chat-settings-dialog.tsx
 #: src/features/chats/components/forward-dialog.tsx
 #: src/features/chats/components/new-chat.tsx
+#: src/features/chats/components/verification-watcher.tsx
+#: src/features/chats/components/verification-watcher.tsx
 #: src/features/chats/index.tsx
 msgid "Cancel"
 msgstr "取消"
@@ -735,6 +755,10 @@ msgstr "聊天已取消置顶"
 msgid "Chats"
 msgstr "聊天"
 
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Check that the same emoji appear on the other screen."
+msgstr "请确认另一个屏幕上显示的是相同的表情符号。"
+
 #: ../../../lib/web/src/hooks/use-field-type-labels.ts
 msgid "Checkbox"
 msgstr "复选框"
@@ -867,6 +891,11 @@ msgstr "评论 ({0})"
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Compact"
 msgstr "紧凑"
+
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Compare emoji"
+msgstr "比较表情符号"
 
 #: ../../../lib/web/src/components/entity/entity-option-dialog.tsx
 msgid "Configure option settings"
@@ -1023,6 +1052,7 @@ msgid "Date"
 msgstr "日期"
 
 #: ../../../lib/web/src/components/game/game-draw-offer-banner.tsx
+#: src/features/chats/components/verification-watcher.tsx
 #: src/features/chats/index.tsx
 msgid "Decline"
 msgstr "拒绝"
@@ -1162,6 +1192,10 @@ msgstr "详情面板"
 msgid "Detect from web browser"
 msgstr "从浏览器检测"
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "Device options"
+msgstr "设备选项"
+
 #: ../../../lib/web/src/components/person-picker.tsx
 msgid "Directory"
 msgstr "目录"
@@ -1205,6 +1239,14 @@ msgstr "关闭"
 msgid "Displays the mobile sidebar."
 msgstr "显示移动端侧边栏。"
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "Distrust"
+msgstr "不信任"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Distrusted"
+msgstr "不受信任"
+
 #: src/features/chats/components/chat-input.tsx
 msgid "Document"
 msgstr "文档"
@@ -1215,6 +1257,7 @@ msgstr "与所需的模式不匹配"
 
 #: ../../../lib/web/src/components/entity/entity-field-dialog.tsx
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx
+#: src/features/chats/components/encryption-section.tsx
 msgid "Done"
 msgstr "完成"
 
@@ -1303,6 +1346,12 @@ msgstr "邮箱验证码"
 msgid "Encrypted message"
 msgstr "加密消息"
 
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+msgid "Encryption"
+msgstr "加密"
+
 #: ../../../lib/web/src/components/calendar/time-grid.tsx
 msgid "Ends before it starts"
 msgstr "结束早于开始"
@@ -1310,6 +1359,11 @@ msgstr "结束早于开始"
 #: ../../../lib/web/src/components/banner-section.tsx
 msgid "Enter banner text (markdown supported)..."
 msgstr "请输入横幅文本(支持 markdown)..."
+
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+msgid "Enter recovery key"
+msgstr "输入恢复密钥"
 
 #: ../../../lib/web/src/components/step-up-dialog.tsx
 msgid "Enter the code from your email"
@@ -1492,6 +1546,7 @@ msgstr "撤销 RSS 访问权限失败"
 
 #: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx
 #: src/features/chats/components/chat-settings-dialog.tsx
+#: src/features/chats/components/encryption-section.tsx
 msgid "Failed to save"
 msgstr "保存失败"
 
@@ -1550,6 +1605,10 @@ msgstr "标记"
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Flat"
 msgstr "扁平"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Forget my decision"
+msgstr "清除我的决定"
 
 #: src/features/chats/components/forward-dialog.tsx
 #: src/features/chats/components/message-hover-actions.tsx
@@ -1711,6 +1770,10 @@ msgstr "跳至底部"
 #: ../../../lib/web/src/lib/locale-format.ts
 msgid "Just now"
 msgstr "刚刚"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Keep this key safe. It is shown once, and your other Matrix clients ask for it to read your encrypted messages."
+msgstr "请妥善保管此密钥。它只显示一次，您的其他 Matrix 客户端需要用它来读取您的加密消息。"
 
 #: ../../../lib/web/src/components/entity/keyboard-shortcuts-help.tsx
 msgid "Keyboard shortcuts"
@@ -2102,6 +2165,10 @@ msgstr "没有可转发的聊天"
 msgid "No comments yet"
 msgstr "暂无评论"
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "No devices"
+msgstr "没有设备"
+
 #: src/routes/_authenticated/$chatId_.settings.tsx
 msgid "No friends available"
 msgstr "无可用好友"
@@ -2137,6 +2204,10 @@ msgstr "暂无消息"
 #: src/features/chats/components/chat-input.tsx
 msgid "No microphone found"
 msgstr "未找到麦克风"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "No other devices"
+msgstr "没有其他设备"
 
 #: ../../../lib/web/src/components/entity/entity-field-editor.tsx
 #: ../../../lib/web/src/components/person-picker.tsx
@@ -2222,6 +2293,11 @@ msgstr "未找到"
 #: ../../../lib/web/src/components/ui/editable-field-row.tsx
 msgid "Not set"
 msgstr "未设置"
+
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+msgid "Not verified"
+msgstr "未验证"
 
 #: ../../../lib/web/src/components/entity/entity-tree-view.tsx
 msgid "Nothing found"
@@ -2351,6 +2427,10 @@ msgstr "通行密钥"
 #: ../../../lib/web/src/lib/shell-errors.ts
 msgid "Passkeys are not available in this browser"
 msgstr "此浏览器不支持通行密钥"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Password"
+msgstr "密码"
 
 #: ../../../lib/web/src/components/entity/entity-field-dialog.tsx
 msgid "Pattern (regex)"
@@ -2507,6 +2587,14 @@ msgstr "录音在 5 分钟上限处停止"
 #: src/features/chats/components/chat-input.tsx
 msgid "Recording voice note"
 msgstr "正在录制语音留言"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Recovery could not be set up"
+msgstr "无法设置恢复"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Recovery key"
+msgstr "恢复密钥"
 
 #: ../../../lib/web/src/components/layout/authenticated-layout.tsx
 msgid "Redirecting to login."
@@ -2672,6 +2760,10 @@ msgstr "认输"
 msgid "Resign game?"
 msgstr "认输?"
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "Restore"
+msgstr "恢复"
+
 #: ../../../lib/web/src/components/attachment-composer.tsx
 msgid "Retry"
 msgstr "重试"
@@ -2729,7 +2821,12 @@ msgstr "星期六"
 msgid "Save"
 msgstr "保存"
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "Saved"
+msgstr "已保存"
+
 #: src/features/chats/components/chat-settings-dialog.tsx
+#: src/features/chats/components/encryption-section.tsx
 msgid "Saving..."
 msgstr "正在保存..."
 
@@ -2956,6 +3053,12 @@ msgstr "会话已过期，请重新登录。"
 msgid "Set origin and destination"
 msgstr "设置起点和终点"
 
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+msgid "Set up recovery"
+msgstr "设置恢复"
+
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx
 #: ../../../lib/web/src/components/options-menu.tsx
@@ -3136,6 +3239,10 @@ msgstr "该代码不正确或已过期。"
 msgid "That could not be sent. The files may be too large, or your connection failed. Try smaller files."
 msgstr "无法发送。文件可能太大，或者您的连接失败。请尝试较小的文件。"
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "That is not your recovery key"
+msgstr "这不是您的恢复密钥"
+
 #: ../../../lib/web/src/hooks/use-attachment-error.ts
 #: ../../../lib/web/src/lib/handle-server-error.ts
 msgid "That was too large to upload. Remove or shrink files and try again."
@@ -3158,6 +3265,14 @@ msgstr "聊天名称最多 {CHAT_NAME_MAX_LENGTH} 个字符"
 msgid "The chat name cannot contain < or >"
 msgstr "聊天名称不能包含 < 或 >"
 
+#: src/features/chats/components/verification-watcher.tsx
+msgid "The emoji did not match, so the verification was cancelled"
+msgstr "表情符号不匹配，验证已取消"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "The fingerprint matches"
+msgstr "指纹匹配"
+
 #: ../../../lib/web/src/lib/shell-errors.ts
 msgid "The microphone request was not answered"
 msgstr "麦克风请求未获回应"
@@ -3165,6 +3280,10 @@ msgstr "麦克风请求未获回应"
 #: ../../../lib/web/src/lib/shell-errors.ts
 msgid "The passkey request was not answered"
 msgstr "通行密钥请求未获回应"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "The password was not accepted"
+msgstr "密码未被接受"
 
 #: ../../../lib/web/src/features/errors/general-error.tsx
 msgid "The requested content could not be found."
@@ -3174,10 +3293,30 @@ msgstr "找不到请求的内容。"
 msgid "The server returned a web page instead of data."
 msgstr "服务器返回了网页而不是数据。"
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "The verification could not be started"
+msgstr "无法开始验证"
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "The verification could not go on"
+msgstr "验证无法继续"
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "The verification was cancelled"
+msgstr "验证已取消"
+
 #. placeholder {0}: unknown.join(', ')
 #: src/features/chats/index.tsx
 msgid "These names are not in this chat: {0}. Pick from the @ list or remove them."
 msgstr "这些名字不在此聊天中：{0}。请从 @ 列表中选择或移除。"
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "They don't match"
+msgstr "它们不匹配"
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "They match"
+msgstr "它们匹配"
 
 #: src/routes/_authenticated/$chatId_.settings.tsx
 msgid "They stop receiving new messages in this chat."
@@ -3197,12 +3336,20 @@ msgid "This chat may have been deleted or you don't have access to it"
 msgstr "此聊天可能已被删除,或者你没有访问权限"
 
 #: src/features/chats/index.tsx
-msgid "This conversation is encrypted. Messages cannot be sent to it from here yet."
-msgstr "此对话已加密。目前还无法从这里向其发送消息。"
-
-#: src/features/chats/index.tsx
 msgid "This deletes the message for everyone and cannot be undone."
 msgstr "这将为所有人删除该消息，且无法撤销。"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "This device"
+msgstr "此设备"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "This device (OMEMO 2)"
+msgstr "此设备 (OMEMO 2)"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "This device (OMEMO)"
+msgstr "此设备 (OMEMO)"
 
 #: src/features/chats/components/chat-message-list.tsx
 #: src/features/chats/components/message-quote.tsx
@@ -3400,14 +3547,28 @@ msgstr "变量:{variables}"
 msgid "Verification code"
 msgstr "验证码"
 
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Verified"
+msgstr "已验证"
+
 #: ../../../lib/web/src/components/step-up-dialog.tsx
 #: ../../../lib/web/src/features/accounts/account-verify.tsx
 msgid "Verify"
 msgstr "验证"
 
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Verify {who}"
+msgstr "验证 {who}"
+
 #: ../../../lib/web/src/features/accounts/account-verify.tsx
 msgid "Verify email address"
 msgstr "验证邮箱地址"
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Verify your device"
+msgstr "验证您的设备"
 
 #: ../../../lib/web/src/components/attachment-gallery.tsx
 #: src/features/chats/components/message-media-grid.tsx
@@ -3453,6 +3614,14 @@ msgstr "此浏览器不支持语音录制"
 #: src/features/chats/components/chat-input.tsx
 msgid "Voice recording isn't available in this app version. Please update the app and try again."
 msgstr "此版本的应用不支持语音录制。请更新应用后重试。"
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Waiting for the other device..."
+msgstr "正在等待另一台设备..."
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Waiting for them to accept"
+msgstr "正在等待对方接受"
 
 #: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx
 #: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx
@@ -3528,6 +3697,18 @@ msgstr "您的账户已从 {source} 迁移至此。在您于那里删除之前�
 #: ../../../lib/web/src/components/comment-composer.tsx
 msgid "Your attachments will be lost."
 msgstr "您的附件将丢失。"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Your Matrix server asks for your account's password."
+msgstr "您的 Matrix 服务器要求输入您账户的密码。"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Your other devices"
+msgstr "您的其他设备"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Your recovery key"
+msgstr "您的恢复密钥"
 
 #: ../../../lib/web/src/components/comment-composer.tsx
 msgid "Your text and attachments will be lost."

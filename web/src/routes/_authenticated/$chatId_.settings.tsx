@@ -54,6 +54,7 @@ import {
   CHAT_NAME_MAX_LENGTH,
 } from '@/features/chats/constants/limits'
 import { roleLabel } from '@/features/chats/roles'
+import { EncryptionSection } from '@/features/chats/components/encryption-section'
 import { matrixAddress, nameMatches, xmppAddress } from '@/features/chats/utils'
 
 export const Route = createFileRoute('/_authenticated/$chatId_/settings')({
@@ -150,6 +151,11 @@ function ChatSettingsPage() {
           </Section>
         ) : chatDetail ? (
           <ChatNameSection chatId={chatId} name={chatDetail.chat.name} />
+        ) : null}
+
+        {chatDetail?.chat.network === 'matrix' ||
+        chatDetail?.chat.network === 'xmpp' ? (
+          <EncryptionSection chatId={chatId} />
         ) : null}
 
         <MembersSection

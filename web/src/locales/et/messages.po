@@ -65,6 +65,11 @@ msgstr "{0, plural, =1 {Kas kustutada sõnum?} other {Kas kustutada # sõnumit?}
 msgid "{0, plural, one {# file changed} other {# files changed}}"
 msgstr "{0, plural, one {# fail muudetud} other {# faili muudetud}}"
 
+#. placeholder {0}: result.restored
+#: src/features/chats/components/encryption-section.tsx
+msgid "{0, plural, one {# message key restored} other {# message keys restored}}"
+msgstr "{0, plural, one {# sõnumivõti taastatud} other {# sõnumivõtit taastatud}}"
+
 #. placeholder {0}: message.replies
 #: src/features/chats/components/chat-message-list.tsx
 msgid "{0, plural, one {# reply} other {# replies}}"
@@ -175,6 +180,10 @@ msgstr "{truncated, plural, one {Veel # fail on kuvamata} other {Veel # faili on
 msgid "{unreadCount, plural, one {Open menu (# unread notification)} other {Open menu (# unread notifications)}}"
 msgstr "{unreadCount, plural, one {Ava menüü (# lugemata teatis)} other {Ava menüü (# lugemata teatist)}}"
 
+#: src/features/chats/components/verification-watcher.tsx
+msgid "{who} wants to verify you."
+msgstr "{who} soovib teid kontrollida."
+
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "12 hours"
 msgstr "12 tundi"
@@ -193,6 +202,7 @@ msgid "Absolute (date and time)"
 msgstr "Absoluutne (kuupäev ja kellaaeg)"
 
 #: ../../../lib/web/src/components/game/game-draw-offer-banner.tsx
+#: src/features/chats/components/verification-watcher.tsx
 #: src/features/chats/index.tsx
 msgid "Accept"
 msgstr "Nõustu"
@@ -380,6 +390,10 @@ msgstr "Androidi tõuketeade"
 msgid "Angry"
 msgstr "Vihane"
 
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Another of your devices wants to verify this one."
+msgstr "Üks teie teistest seadmetest soovib seda seadet kontrollida."
+
 #: ../../../lib/web/src/features/access/access-list.tsx
 #: ../../../lib/web/src/features/access/types.ts
 #: src/features/chats/components/chat-settings-dialog.tsx
@@ -440,6 +454,10 @@ msgstr "Kontona {0}"
 #: ../../../lib/web/src/components/ui/sort-direction-button.tsx
 msgid "Ascending"
 msgstr "Kasvav"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Asking to compare emoji..."
+msgstr "Emojide võrdlemise taotlemine..."
 
 #: ../../../lib/web/src/components/timezone-select.tsx
 msgid "At sea"
@@ -599,6 +617,8 @@ msgstr "Kaamera pole saadaval"
 #: src/features/chats/components/chat-settings-dialog.tsx
 #: src/features/chats/components/forward-dialog.tsx
 #: src/features/chats/components/new-chat.tsx
+#: src/features/chats/components/verification-watcher.tsx
+#: src/features/chats/components/verification-watcher.tsx
 #: src/features/chats/index.tsx
 msgid "Cancel"
 msgstr "Tühista"
@@ -735,6 +755,10 @@ msgstr "Vestluse kinnitus eemaldatud"
 msgid "Chats"
 msgstr "Vestlused"
 
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Check that the same emoji appear on the other screen."
+msgstr "Veenduge, et teisel ekraanil kuvatakse samad emojid."
+
 #: ../../../lib/web/src/hooks/use-field-type-labels.ts
 msgid "Checkbox"
 msgstr "Märkeruut"
@@ -867,6 +891,11 @@ msgstr "Kommentaarid ({0})"
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Compact"
 msgstr "Kompaktne"
+
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Compare emoji"
+msgstr "Võrdle emojisid"
 
 #: ../../../lib/web/src/components/entity/entity-option-dialog.tsx
 msgid "Configure option settings"
@@ -1023,6 +1052,7 @@ msgid "Date"
 msgstr "Kuupäev"
 
 #: ../../../lib/web/src/components/game/game-draw-offer-banner.tsx
+#: src/features/chats/components/verification-watcher.tsx
 #: src/features/chats/index.tsx
 msgid "Decline"
 msgstr "Keeldu"
@@ -1162,6 +1192,10 @@ msgstr "Üksikasjade paneel"
 msgid "Detect from web browser"
 msgstr "Tuvasta veebibrauserist"
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "Device options"
+msgstr "Seadme valikud"
+
 #: ../../../lib/web/src/components/person-picker.tsx
 msgid "Directory"
 msgstr "Kataloog"
@@ -1205,6 +1239,14 @@ msgstr "Sulge"
 msgid "Displays the mobile sidebar."
 msgstr "Kuvab mobiilse külgriba."
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "Distrust"
+msgstr "Ära usalda"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Distrusted"
+msgstr "Ei usaldata"
+
 #: src/features/chats/components/chat-input.tsx
 msgid "Document"
 msgstr "Dokument"
@@ -1215,6 +1257,7 @@ msgstr "Ei vasta nõutud mustrile"
 
 #: ../../../lib/web/src/components/entity/entity-field-dialog.tsx
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx
+#: src/features/chats/components/encryption-section.tsx
 msgid "Done"
 msgstr "Tehtud"
 
@@ -1303,6 +1346,12 @@ msgstr "E-posti kood"
 msgid "Encrypted message"
 msgstr "Krüpteeritud sõnum"
 
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+msgid "Encryption"
+msgstr "Krüpteerimine"
+
 #: ../../../lib/web/src/components/calendar/time-grid.tsx
 msgid "Ends before it starts"
 msgstr "Lõpeb enne algust"
@@ -1310,6 +1359,11 @@ msgstr "Lõpeb enne algust"
 #: ../../../lib/web/src/components/banner-section.tsx
 msgid "Enter banner text (markdown supported)..."
 msgstr "Sisesta bännerteksti tekst (markdown toetatud)…"
+
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+msgid "Enter recovery key"
+msgstr "Sisesta taastevõti"
 
 #: ../../../lib/web/src/components/step-up-dialog.tsx
 msgid "Enter the code from your email"
@@ -1492,6 +1546,7 @@ msgstr "RSS-i juurdepääsu äravõtmine ebaõnnestus"
 
 #: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx
 #: src/features/chats/components/chat-settings-dialog.tsx
+#: src/features/chats/components/encryption-section.tsx
 msgid "Failed to save"
 msgstr "Salvestamine ebaõnnestus"
 
@@ -1550,6 +1605,10 @@ msgstr "Lipud"
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Flat"
 msgstr "Lame"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Forget my decision"
+msgstr "Unusta minu otsus"
 
 #: src/features/chats/components/forward-dialog.tsx
 #: src/features/chats/components/message-hover-actions.tsx
@@ -1711,6 +1770,10 @@ msgstr "Mine lõppu"
 #: ../../../lib/web/src/lib/locale-format.ts
 msgid "Just now"
 msgstr "Just praegu"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Keep this key safe. It is shown once, and your other Matrix clients ask for it to read your encrypted messages."
+msgstr "Hoidke seda võtit turvalises kohas. Seda näidatakse ainult üks kord ja teie teised Matrixi kliendid küsivad seda, et lugeda teie krüpteeritud sõnumeid."
 
 #: ../../../lib/web/src/components/entity/keyboard-shortcuts-help.tsx
 msgid "Keyboard shortcuts"
@@ -2102,6 +2165,10 @@ msgstr "Pole vestlusi, kuhu edastada"
 msgid "No comments yet"
 msgstr "Kommentaare veel pole"
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "No devices"
+msgstr "Seadmeid pole"
+
 #: src/routes/_authenticated/$chatId_.settings.tsx
 msgid "No friends available"
 msgstr "Saadaolevaid sõpru pole"
@@ -2137,6 +2204,10 @@ msgstr "Sõnumeid veel pole"
 #: src/features/chats/components/chat-input.tsx
 msgid "No microphone found"
 msgstr "Mikrofoni ei leitud"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "No other devices"
+msgstr "Muid seadmeid pole"
 
 #: ../../../lib/web/src/components/entity/entity-field-editor.tsx
 #: ../../../lib/web/src/components/person-picker.tsx
@@ -2222,6 +2293,11 @@ msgstr "Ei leitud"
 #: ../../../lib/web/src/components/ui/editable-field-row.tsx
 msgid "Not set"
 msgstr "Pole määratud"
+
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+msgid "Not verified"
+msgstr "Kontrollimata"
 
 #: ../../../lib/web/src/components/entity/entity-tree-view.tsx
 msgid "Nothing found"
@@ -2351,6 +2427,10 @@ msgstr "Pääsuvõtmed"
 #: ../../../lib/web/src/lib/shell-errors.ts
 msgid "Passkeys are not available in this browser"
 msgstr "Pääsuvõtmed pole selles brauseris saadaval"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Password"
+msgstr "Parool"
 
 #: ../../../lib/web/src/components/entity/entity-field-dialog.tsx
 msgid "Pattern (regex)"
@@ -2507,6 +2587,14 @@ msgstr "Salvestamine peatus 5-minutilise piiri juures"
 #: src/features/chats/components/chat-input.tsx
 msgid "Recording voice note"
 msgstr "Häälsõnumi salvestamine"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Recovery could not be set up"
+msgstr "Taastamist ei õnnestunud seadistada"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Recovery key"
+msgstr "Taastevõti"
 
 #: ../../../lib/web/src/components/layout/authenticated-layout.tsx
 msgid "Redirecting to login."
@@ -2672,6 +2760,10 @@ msgstr "Anna alla"
 msgid "Resign game?"
 msgstr "Kas anda mäng alla?"
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "Restore"
+msgstr "Taasta"
+
 #: ../../../lib/web/src/components/attachment-composer.tsx
 msgid "Retry"
 msgstr "Proovi uuesti"
@@ -2729,7 +2821,12 @@ msgstr "Laupäev"
 msgid "Save"
 msgstr "Salvesta"
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "Saved"
+msgstr "Salvestatud"
+
 #: src/features/chats/components/chat-settings-dialog.tsx
+#: src/features/chats/components/encryption-section.tsx
 msgid "Saving..."
 msgstr "Salvestamine..."
 
@@ -2956,6 +3053,12 @@ msgstr "Seanss on aegunud. Palun logi uuesti sisse."
 msgid "Set origin and destination"
 msgstr "Määra lähtekoht ja sihtkoht"
 
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+msgid "Set up recovery"
+msgstr "Seadista taastamine"
+
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx
 #: ../../../lib/web/src/components/options-menu.tsx
@@ -3136,6 +3239,10 @@ msgstr "See kood on vale või aegunud."
 msgid "That could not be sent. The files may be too large, or your connection failed. Try smaller files."
 msgstr "Saatmine ebaõnnestus. Failid võivad olla liiga suured või ühendus katkes. Proovige väiksemaid faile."
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "That is not your recovery key"
+msgstr "See pole teie taastevõti"
+
 #: ../../../lib/web/src/hooks/use-attachment-error.ts
 #: ../../../lib/web/src/lib/handle-server-error.ts
 msgid "That was too large to upload. Remove or shrink files and try again."
@@ -3158,6 +3265,14 @@ msgstr "Vestluse nimi võib olla kuni {CHAT_NAME_MAX_LENGTH} märki"
 msgid "The chat name cannot contain < or >"
 msgstr "Vestluse nimi ei tohi sisaldada märke < ega >"
 
+#: src/features/chats/components/verification-watcher.tsx
+msgid "The emoji did not match, so the verification was cancelled"
+msgstr "Emojid ei ühtinud, seega kontrollimine tühistati"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "The fingerprint matches"
+msgstr "Sõrmejälg ühtib"
+
 #: ../../../lib/web/src/lib/shell-errors.ts
 msgid "The microphone request was not answered"
 msgstr "Mikrofoni päringule ei vastatud"
@@ -3165,6 +3280,10 @@ msgstr "Mikrofoni päringule ei vastatud"
 #: ../../../lib/web/src/lib/shell-errors.ts
 msgid "The passkey request was not answered"
 msgstr "Pääsuvõtme päringule ei vastatud"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "The password was not accepted"
+msgstr "Parooli ei aktsepteeritud"
 
 #: ../../../lib/web/src/features/errors/general-error.tsx
 msgid "The requested content could not be found."
@@ -3174,10 +3293,30 @@ msgstr "Soovitud sisu ei õnnestunud leida."
 msgid "The server returned a web page instead of data."
 msgstr "Server tagastas andmete asemel veebilehe."
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "The verification could not be started"
+msgstr "Kontrollimist ei õnnestunud alustada"
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "The verification could not go on"
+msgstr "Kontrollimist ei õnnestunud jätkata"
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "The verification was cancelled"
+msgstr "Kontrollimine tühistati"
+
 #. placeholder {0}: unknown.join(', ')
 #: src/features/chats/index.tsx
 msgid "These names are not in this chat: {0}. Pick from the @ list or remove them."
 msgstr "Neid nimesid pole selles vestluses: {0}. Vali @-loendist või eemalda need."
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "They don't match"
+msgstr "Ei ühti"
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "They match"
+msgstr "Ühtivad"
 
 #: src/routes/_authenticated/$chatId_.settings.tsx
 msgid "They stop receiving new messages in this chat."
@@ -3197,12 +3336,20 @@ msgid "This chat may have been deleted or you don't have access to it"
 msgstr "See vestlus võib olla kustutatud või sul pole sellele juurdepääsu"
 
 #: src/features/chats/index.tsx
-msgid "This conversation is encrypted. Messages cannot be sent to it from here yet."
-msgstr "See vestlus on krüpteeritud. Siit ei saa sellesse veel sõnumeid saata."
-
-#: src/features/chats/index.tsx
 msgid "This deletes the message for everyone and cannot be undone."
 msgstr "See kustutab sõnumi kõigil ja seda ei saa tagasi võtta."
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "This device"
+msgstr "See seade"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "This device (OMEMO 2)"
+msgstr "See seade (OMEMO 2)"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "This device (OMEMO)"
+msgstr "See seade (OMEMO)"
 
 #: src/features/chats/components/chat-message-list.tsx
 #: src/features/chats/components/message-quote.tsx
@@ -3400,14 +3547,28 @@ msgstr "Muutujad: {variables}"
 msgid "Verification code"
 msgstr "Kontrollkood"
 
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Verified"
+msgstr "Kontrollitud"
+
 #: ../../../lib/web/src/components/step-up-dialog.tsx
 #: ../../../lib/web/src/features/accounts/account-verify.tsx
 msgid "Verify"
 msgstr "Kontrolli"
 
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Verify {who}"
+msgstr "Kontrolli kasutajat {who}"
+
 #: ../../../lib/web/src/features/accounts/account-verify.tsx
 msgid "Verify email address"
 msgstr "Kontrolli e-posti aadressi"
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Verify your device"
+msgstr "Kontrolli oma seadet"
 
 #: ../../../lib/web/src/components/attachment-gallery.tsx
 #: src/features/chats/components/message-media-grid.tsx
@@ -3453,6 +3614,14 @@ msgstr "Häälsalvestust ei toetata selles brauseris"
 #: src/features/chats/components/chat-input.tsx
 msgid "Voice recording isn't available in this app version. Please update the app and try again."
 msgstr "Häälsalvestus pole selles rakenduse versioonis saadaval. Uuenda rakendust ja proovi uuesti."
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Waiting for the other device..."
+msgstr "Teise seadme ootamine..."
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Waiting for them to accept"
+msgstr "Nõustumise ootamine"
 
 #: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx
 #: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx
@@ -3528,6 +3697,18 @@ msgstr "Sinu konto liideti siia asukohast {source}. Kuni sa selle sealt ei kustu
 #: ../../../lib/web/src/components/comment-composer.tsx
 msgid "Your attachments will be lost."
 msgstr "Teie manused lähevad kaotsi."
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Your Matrix server asks for your account's password."
+msgstr "Teie Matrixi server küsib teie konto parooli."
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Your other devices"
+msgstr "Teie muud seadmed"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Your recovery key"
+msgstr "Teie taastevõti"
 
 #: ../../../lib/web/src/components/comment-composer.tsx
 msgid "Your text and attachments will be lost."

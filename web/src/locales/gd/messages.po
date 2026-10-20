@@ -65,6 +65,11 @@ msgstr "{0, plural, one {A bheil thu airson # teachdaireachd a sguabadh às?} tw
 msgid "{0, plural, one {# file changed} other {# files changed}}"
 msgstr "{0, plural, one {# fhaidhle air atharrachadh} two {# fhaidhle air atharrachadh} few {# faidhlichean air atharrachadh} other {# faidhle air atharrachadh}}"
 
+#. placeholder {0}: result.restored
+#: src/features/chats/components/encryption-section.tsx
+msgid "{0, plural, one {# message key restored} other {# message keys restored}}"
+msgstr "{0, plural, one {Chaidh # iuchair teachdaireachd aiseag} two {Chaidh # iuchair teachdaireachd aiseag} few {Chaidh # iuchraichean teachdaireachd aiseag} other {Chaidh # iuchair teachdaireachd aiseag}}"
+
 #. placeholder {0}: message.replies
 #: src/features/chats/components/chat-message-list.tsx
 msgid "{0, plural, one {# reply} other {# replies}}"
@@ -175,6 +180,10 @@ msgstr "{truncated, plural, one {# fhaidhle eile gun sealltainn} two {# fhaidhle
 msgid "{unreadCount, plural, one {Open menu (# unread notification)} other {Open menu (# unread notifications)}}"
 msgstr "{unreadCount, plural, one {Fosgail an clàr-taice (# bhrath gun leughadh)} two {Fosgail an clàr-taice (# bhrath gun leughadh)} few {Fosgail an clàr-taice (# brathan gun leughadh)} other {Fosgail an clàr-taice (# brath gun leughadh)}}"
 
+#: src/features/chats/components/verification-watcher.tsx
+msgid "{who} wants to verify you."
+msgstr "Tha {who} airson do dhearbhadh."
+
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "12 hours"
 msgstr "12 uair"
@@ -193,6 +202,7 @@ msgid "Absolute (date and time)"
 msgstr "Iomlan (ceann-là agus àm)"
 
 #: ../../../lib/web/src/components/game/game-draw-offer-banner.tsx
+#: src/features/chats/components/verification-watcher.tsx
 #: src/features/chats/index.tsx
 msgid "Accept"
 msgstr "Gabh ris"
@@ -380,6 +390,10 @@ msgstr "Push Android"
 msgid "Angry"
 msgstr "Feargach"
 
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Another of your devices wants to verify this one."
+msgstr "Tha inneal eile agad airson an t-inneal seo a dhearbhadh."
+
 #: ../../../lib/web/src/features/access/access-list.tsx
 #: ../../../lib/web/src/features/access/types.ts
 #: src/features/chats/components/chat-settings-dialog.tsx
@@ -440,6 +454,10 @@ msgstr "Mar {0}"
 #: ../../../lib/web/src/components/ui/sort-direction-button.tsx
 msgid "Ascending"
 msgstr "A' dìreadh"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Asking to compare emoji..."
+msgstr "Ag iarraidh emoji a choimeas..."
 
 #: ../../../lib/web/src/components/timezone-select.tsx
 msgid "At sea"
@@ -599,6 +617,8 @@ msgstr "Chan eil an camara ri fhaighinn"
 #: src/features/chats/components/chat-settings-dialog.tsx
 #: src/features/chats/components/forward-dialog.tsx
 #: src/features/chats/components/new-chat.tsx
+#: src/features/chats/components/verification-watcher.tsx
+#: src/features/chats/components/verification-watcher.tsx
 #: src/features/chats/index.tsx
 msgid "Cancel"
 msgstr "Sguir dheth"
@@ -735,6 +755,10 @@ msgstr "Chaidh am prìne a thoirt far na cabadaich"
 msgid "Chats"
 msgstr "Còmhraidhean"
 
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Check that the same emoji appear on the other screen."
+msgstr "Dèan cinnteach gu bheil na h-aon emoji a' nochdadh air an sgrìn eile."
+
 #: ../../../lib/web/src/hooks/use-field-type-labels.ts
 msgid "Checkbox"
 msgstr "Bogsa-cromaige"
@@ -867,6 +891,11 @@ msgstr "Beachdan ({0})"
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Compact"
 msgstr "Dùmhail"
+
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Compare emoji"
+msgstr "Dèan coimeas air emoji"
 
 #: ../../../lib/web/src/components/entity/entity-option-dialog.tsx
 msgid "Configure option settings"
@@ -1023,6 +1052,7 @@ msgid "Date"
 msgstr "Ceann-là"
 
 #: ../../../lib/web/src/components/game/game-draw-offer-banner.tsx
+#: src/features/chats/components/verification-watcher.tsx
 #: src/features/chats/index.tsx
 msgid "Decline"
 msgstr "Diùlt"
@@ -1162,6 +1192,10 @@ msgstr "Pannal mion-fhiosrachaidh"
 msgid "Detect from web browser"
 msgstr "Lorg bhon bhrabhsair-lìn"
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "Device options"
+msgstr "Roghainnean an inneil"
+
 #: ../../../lib/web/src/components/person-picker.tsx
 msgid "Directory"
 msgstr "Eòlaire"
@@ -1205,6 +1239,14 @@ msgstr "Leig seachad"
 msgid "Displays the mobile sidebar."
 msgstr "Seallaidh am bàr-thaobh fòn-làimhe."
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "Distrust"
+msgstr "Na cuir earbsa ann"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Distrusted"
+msgstr "Gun earbsa"
+
 #: src/features/chats/components/chat-input.tsx
 msgid "Document"
 msgstr "Sgrìobhainn"
@@ -1215,6 +1257,7 @@ msgstr "Chan eil e a' freagairt ris a' phàtran riatanach"
 
 #: ../../../lib/web/src/components/entity/entity-field-dialog.tsx
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx
+#: src/features/chats/components/encryption-section.tsx
 msgid "Done"
 msgstr "Deiseil"
 
@@ -1303,6 +1346,12 @@ msgstr "Còd puist-d"
 msgid "Encrypted message"
 msgstr "Teachdaireachd chrioptaichte"
 
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+msgid "Encryption"
+msgstr "Crioptachadh"
+
 #: ../../../lib/web/src/components/calendar/time-grid.tsx
 msgid "Ends before it starts"
 msgstr "Thig e gu crìch mus tòisich e"
@@ -1310,6 +1359,11 @@ msgstr "Thig e gu crìch mus tòisich e"
 #: ../../../lib/web/src/components/banner-section.tsx
 msgid "Enter banner text (markdown supported)..."
 msgstr "Cuir a-steach teacsa na brataich (markdown a' faighinn taic)..."
+
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+msgid "Enter recovery key"
+msgstr "Cuir a-steach iuchair aisig"
 
 #: ../../../lib/web/src/components/step-up-dialog.tsx
 msgid "Enter the code from your email"
@@ -1492,6 +1546,7 @@ msgstr "Cha b' urrainn inntrigeadh RSS a chùl-ghairm"
 
 #: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx
 #: src/features/chats/components/chat-settings-dialog.tsx
+#: src/features/chats/components/encryption-section.tsx
 msgid "Failed to save"
 msgstr "Cha b' urrainn sàbhaladh"
 
@@ -1550,6 +1605,10 @@ msgstr "Brataichean"
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Flat"
 msgstr "Còmhnard"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Forget my decision"
+msgstr "Dìochuimhnich mo cho-dhùnadh"
 
 #: src/features/chats/components/forward-dialog.tsx
 #: src/features/chats/components/message-hover-actions.tsx
@@ -1711,6 +1770,10 @@ msgstr "Leum gun bhonn"
 #: ../../../lib/web/src/lib/locale-format.ts
 msgid "Just now"
 msgstr "An-dràsta fhèin"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Keep this key safe. It is shown once, and your other Matrix clients ask for it to read your encrypted messages."
+msgstr "Cùm an iuchair seo sàbhailte. Cha tèid a sealltainn ach aon turas, agus iarraidh na cliantan Matrix eile agad i gus na teachdaireachdan crioptaichte agad a leughadh."
 
 #: ../../../lib/web/src/components/entity/keyboard-shortcuts-help.tsx
 msgid "Keyboard shortcuts"
@@ -2102,6 +2165,10 @@ msgstr "Chan eil cabadaich ann airson sìneadh air adhart"
 msgid "No comments yet"
 msgstr "Chan eil beachdan ann fhathast"
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "No devices"
+msgstr "Chan eil inneal ann"
+
 #: src/routes/_authenticated/$chatId_.settings.tsx
 msgid "No friends available"
 msgstr "Chan eil caraidean rim faotainn"
@@ -2137,6 +2204,10 @@ msgstr "Chan eil teachdaireachdan ann fhathast"
 #: src/features/chats/components/chat-input.tsx
 msgid "No microphone found"
 msgstr "Cha deach micreofon a lorg"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "No other devices"
+msgstr "Chan eil inneal eile ann"
 
 #: ../../../lib/web/src/components/entity/entity-field-editor.tsx
 #: ../../../lib/web/src/components/person-picker.tsx
@@ -2222,6 +2293,11 @@ msgstr "Cha deach a lorg"
 #: ../../../lib/web/src/components/ui/editable-field-row.tsx
 msgid "Not set"
 msgstr "Cha deach a shuidheachadh"
+
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+msgid "Not verified"
+msgstr "Gun dearbhadh"
 
 #: ../../../lib/web/src/components/entity/entity-tree-view.tsx
 msgid "Nothing found"
@@ -2351,6 +2427,10 @@ msgstr "Pasgairean"
 #: ../../../lib/web/src/lib/shell-errors.ts
 msgid "Passkeys are not available in this browser"
 msgstr "Chan eil pasgairean ri fhaighinn sa bhrabhsair seo"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Password"
+msgstr "Facal-faire"
 
 #: ../../../lib/web/src/components/entity/entity-field-dialog.tsx
 msgid "Pattern (regex)"
@@ -2507,6 +2587,14 @@ msgstr "Sguir an clàradh aig crìoch nan 5 mionaidean"
 #: src/features/chats/components/chat-input.tsx
 msgid "Recording voice note"
 msgstr "A' clàradh nòta gutha"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Recovery could not be set up"
+msgstr "Cha b' urrainn an t-aiseag a shuidheachadh"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Recovery key"
+msgstr "Iuchair aisig"
 
 #: ../../../lib/web/src/components/layout/authenticated-layout.tsx
 msgid "Redirecting to login."
@@ -2672,6 +2760,10 @@ msgstr "Leig seachad"
 msgid "Resign game?"
 msgstr "An leig thu seachad an geama?"
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "Restore"
+msgstr "Aiseag"
+
 #: ../../../lib/web/src/components/attachment-composer.tsx
 msgid "Retry"
 msgstr "Feuch ris a-rithist"
@@ -2729,7 +2821,12 @@ msgstr "Disathairne"
 msgid "Save"
 msgstr "Sàbhail"
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "Saved"
+msgstr "Air a shàbhaladh"
+
 #: src/features/chats/components/chat-settings-dialog.tsx
+#: src/features/chats/components/encryption-section.tsx
 msgid "Saving..."
 msgstr "A' sàbhaladh..."
 
@@ -2956,6 +3053,12 @@ msgstr "Dh'fhalbh an ùine air an t-seisean. Log a-steach a-rithist."
 msgid "Set origin and destination"
 msgstr "Suidhich tùs is ceann-uidhe"
 
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+msgid "Set up recovery"
+msgstr "Suidhich aiseag"
+
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx
 #: ../../../lib/web/src/components/options-menu.tsx
@@ -3136,6 +3239,10 @@ msgstr "Tha an còd sin ceàrr no air a dhol à bann."
 msgid "That could not be sent. The files may be too large, or your connection failed. Try smaller files."
 msgstr "Cha b' urrainn a chur. Dh'fhaodadh gu bheil na faidhlichean ro mhòr, no dh'fhàillig an ceangal agad. Feuch faidhlichean nas lugha."
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "That is not your recovery key"
+msgstr "Chan e sin an iuchair aisig agad"
+
 #: ../../../lib/web/src/hooks/use-attachment-error.ts
 #: ../../../lib/web/src/lib/handle-server-error.ts
 msgid "That was too large to upload. Remove or shrink files and try again."
@@ -3158,6 +3265,14 @@ msgstr "Faodaidh ainm a' chòmhraidh a bhith suas ri {CHAT_NAME_MAX_LENGTH} cara
 msgid "The chat name cannot contain < or >"
 msgstr "Chan fhaod < no > a bhith ann an ainm a' chòmhraidh"
 
+#: src/features/chats/components/verification-watcher.tsx
+msgid "The emoji did not match, so the verification was cancelled"
+msgstr "Cha robh na emoji a' freagairt, mar sin chaidh sgur dhen dearbhadh"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "The fingerprint matches"
+msgstr "Tha an meur-lorg a' freagairt"
+
 #: ../../../lib/web/src/lib/shell-errors.ts
 msgid "The microphone request was not answered"
 msgstr "Cha deach an t-iarrtas micreofon a fhreagairt"
@@ -3165,6 +3280,10 @@ msgstr "Cha deach an t-iarrtas micreofon a fhreagairt"
 #: ../../../lib/web/src/lib/shell-errors.ts
 msgid "The passkey request was not answered"
 msgstr "Cha deach an t-iarrtas pasgair a fhreagairt"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "The password was not accepted"
+msgstr "Cha deach gabhail ris an fhacal-fhaire"
 
 #: ../../../lib/web/src/features/errors/general-error.tsx
 msgid "The requested content could not be found."
@@ -3174,10 +3293,30 @@ msgstr "Cha b' urrainn dhuinn an t-susbaint a chaidh iarraidh a lorg."
 msgid "The server returned a web page instead of data."
 msgstr "Thill am frithealaiche duilleag-lìn an àite dàta."
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "The verification could not be started"
+msgstr "Cha b' urrainn an dearbhadh a thòiseachadh"
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "The verification could not go on"
+msgstr "Cha b' urrainn leantainn air adhart leis an dearbhadh"
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "The verification was cancelled"
+msgstr "Chaidh sgur dhen dearbhadh"
+
 #. placeholder {0}: unknown.join(', ')
 #: src/features/chats/index.tsx
 msgid "These names are not in this chat: {0}. Pick from the @ list or remove them."
 msgstr "Chan eil na h-ainmean seo sa chabadaich seo: {0}. Tagh on liosta @ no thoir air falbh iad."
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "They don't match"
+msgstr "Chan eil iad a' freagairt"
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "They match"
+msgstr "Tha iad a' freagairt"
 
 #: src/routes/_authenticated/$chatId_.settings.tsx
 msgid "They stop receiving new messages in this chat."
@@ -3197,12 +3336,20 @@ msgid "This chat may have been deleted or you don't have access to it"
 msgstr "Dh'fhaodadh gun deach an còmhradh seo a sguabadh às no nach eil cead-inntrigidh agad"
 
 #: src/features/chats/index.tsx
-msgid "This conversation is encrypted. Messages cannot be sent to it from here yet."
-msgstr "Tha an còmhradh seo crioptaichte. Chan urrainnear teachdaireachdan a chur thuige às an seo fhathast."
-
-#: src/features/chats/index.tsx
 msgid "This deletes the message for everyone and cannot be undone."
 msgstr "Sguabaidh seo às an teachdaireachd airson a h-uile duine is cha ghabh seo a neo-dhèanamh."
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "This device"
+msgstr "An t-inneal seo"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "This device (OMEMO 2)"
+msgstr "An t-inneal seo (OMEMO 2)"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "This device (OMEMO)"
+msgstr "An t-inneal seo (OMEMO)"
 
 #: src/features/chats/components/chat-message-list.tsx
 #: src/features/chats/components/message-quote.tsx
@@ -3400,14 +3547,28 @@ msgstr "Caochladairean: {variables}"
 msgid "Verification code"
 msgstr "Còd dearbhaidh"
 
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Verified"
+msgstr "Dearbhte"
+
 #: ../../../lib/web/src/components/step-up-dialog.tsx
 #: ../../../lib/web/src/features/accounts/account-verify.tsx
 msgid "Verify"
 msgstr "Dearbh"
 
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Verify {who}"
+msgstr "Dearbh {who}"
+
 #: ../../../lib/web/src/features/accounts/account-verify.tsx
 msgid "Verify email address"
 msgstr "Dearbh seòladh puist-d"
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Verify your device"
+msgstr "Dearbh an t-inneal agad"
 
 #: ../../../lib/web/src/components/attachment-gallery.tsx
 #: src/features/chats/components/message-media-grid.tsx
@@ -3453,6 +3614,14 @@ msgstr "Chan eil taic ri clàradh gutha sa bhrabhsair seo"
 #: src/features/chats/components/chat-input.tsx
 msgid "Voice recording isn't available in this app version. Please update the app and try again."
 msgstr "Chan eil clàradh gutha ri fhaighinn san tionndadh seo dhen aplacaid. Ùraich an aplacaid is feuch ris a-rithist."
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Waiting for the other device..."
+msgstr "A' feitheamh ris an inneal eile..."
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Waiting for them to accept"
+msgstr "A' feitheamh riutha gabhail ris"
 
 #: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx
 #: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx
@@ -3528,6 +3697,18 @@ msgstr "Chaidh do chunntas a ghluasad an seo à {source}. Gus an sguab thu às e
 #: ../../../lib/web/src/components/comment-composer.tsx
 msgid "Your attachments will be lost."
 msgstr "Thèid na ceanglachain agad air chall."
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Your Matrix server asks for your account's password."
+msgstr "Tha am frithealaiche Matrix agad ag iarraidh facal-faire a' chunntais agad."
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Your other devices"
+msgstr "Na h-innealan eile agad"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Your recovery key"
+msgstr "An iuchair aisig agad"
 
 #: ../../../lib/web/src/components/comment-composer.tsx
 msgid "Your text and attachments will be lost."

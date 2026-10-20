@@ -65,6 +65,11 @@ msgstr "{0, plural, other {Hapus # pesan?}}"
 msgid "{0, plural, one {# file changed} other {# files changed}}"
 msgstr "{0, plural, one {# berkas diubah} other {# berkas diubah}}"
 
+#. placeholder {0}: result.restored
+#: src/features/chats/components/encryption-section.tsx
+msgid "{0, plural, one {# message key restored} other {# message keys restored}}"
+msgstr "{0, plural, other {# kunci pesan dipulihkan}}"
+
 #. placeholder {0}: message.replies
 #: src/features/chats/components/chat-message-list.tsx
 msgid "{0, plural, one {# reply} other {# replies}}"
@@ -175,6 +180,10 @@ msgstr "{truncated, plural, one {# berkas lagi tidak ditampilkan} other {# berka
 msgid "{unreadCount, plural, one {Open menu (# unread notification)} other {Open menu (# unread notifications)}}"
 msgstr "{unreadCount, plural, one {Buka menu (# notifikasi belum dibaca)} other {Buka menu (# notifikasi belum dibaca)}}"
 
+#: src/features/chats/components/verification-watcher.tsx
+msgid "{who} wants to verify you."
+msgstr "{who} ingin memverifikasi Anda."
+
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "12 hours"
 msgstr "12 jam"
@@ -193,6 +202,7 @@ msgid "Absolute (date and time)"
 msgstr "Absolut (tanggal dan waktu)"
 
 #: ../../../lib/web/src/components/game/game-draw-offer-banner.tsx
+#: src/features/chats/components/verification-watcher.tsx
 #: src/features/chats/index.tsx
 msgid "Accept"
 msgstr "Terima"
@@ -380,6 +390,10 @@ msgstr "Push Android"
 msgid "Angry"
 msgstr "Marah"
 
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Another of your devices wants to verify this one."
+msgstr "Salah satu perangkat Anda yang lain ingin memverifikasi perangkat ini."
+
 #: ../../../lib/web/src/features/access/access-list.tsx
 #: ../../../lib/web/src/features/access/types.ts
 #: src/features/chats/components/chat-settings-dialog.tsx
@@ -440,6 +454,10 @@ msgstr "Sebagai {0}"
 #: ../../../lib/web/src/components/ui/sort-direction-button.tsx
 msgid "Ascending"
 msgstr "Naik"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Asking to compare emoji..."
+msgstr "Meminta untuk membandingkan emoji..."
 
 #: ../../../lib/web/src/components/timezone-select.tsx
 msgid "At sea"
@@ -599,6 +617,8 @@ msgstr "Kamera tidak tersedia"
 #: src/features/chats/components/chat-settings-dialog.tsx
 #: src/features/chats/components/forward-dialog.tsx
 #: src/features/chats/components/new-chat.tsx
+#: src/features/chats/components/verification-watcher.tsx
+#: src/features/chats/components/verification-watcher.tsx
 #: src/features/chats/index.tsx
 msgid "Cancel"
 msgstr "Batal"
@@ -735,6 +755,10 @@ msgstr "Sematan chat dilepas"
 msgid "Chats"
 msgstr "Chat"
 
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Check that the same emoji appear on the other screen."
+msgstr "Periksa apakah emoji yang sama muncul di layar lainnya."
+
 #: ../../../lib/web/src/hooks/use-field-type-labels.ts
 msgid "Checkbox"
 msgstr "Kotak centang"
@@ -867,6 +891,11 @@ msgstr "Komentar ({0})"
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Compact"
 msgstr "Kompak"
+
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Compare emoji"
+msgstr "Bandingkan emoji"
 
 #: ../../../lib/web/src/components/entity/entity-option-dialog.tsx
 msgid "Configure option settings"
@@ -1023,6 +1052,7 @@ msgid "Date"
 msgstr "Tanggal"
 
 #: ../../../lib/web/src/components/game/game-draw-offer-banner.tsx
+#: src/features/chats/components/verification-watcher.tsx
 #: src/features/chats/index.tsx
 msgid "Decline"
 msgstr "Tolak"
@@ -1162,6 +1192,10 @@ msgstr "Panel Detail"
 msgid "Detect from web browser"
 msgstr "Deteksi dari web browser"
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "Device options"
+msgstr "Opsi perangkat"
+
 #: ../../../lib/web/src/components/person-picker.tsx
 msgid "Directory"
 msgstr "Direktori"
@@ -1205,6 +1239,14 @@ msgstr "Tutup"
 msgid "Displays the mobile sidebar."
 msgstr "Menampilkan sidebar seluler."
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "Distrust"
+msgstr "Jangan percayai"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Distrusted"
+msgstr "Tidak dipercaya"
+
 #: src/features/chats/components/chat-input.tsx
 msgid "Document"
 msgstr "Dokumen"
@@ -1215,6 +1257,7 @@ msgstr "Tidak sesuai dengan pola yang diperlukan"
 
 #: ../../../lib/web/src/components/entity/entity-field-dialog.tsx
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx
+#: src/features/chats/components/encryption-section.tsx
 msgid "Done"
 msgstr "Selesai"
 
@@ -1303,6 +1346,12 @@ msgstr "Kode email"
 msgid "Encrypted message"
 msgstr "Pesan terenkripsi"
 
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+msgid "Encryption"
+msgstr "Enkripsi"
+
 #: ../../../lib/web/src/components/calendar/time-grid.tsx
 msgid "Ends before it starts"
 msgstr "Berakhir sebelum dimulai"
@@ -1310,6 +1359,11 @@ msgstr "Berakhir sebelum dimulai"
 #: ../../../lib/web/src/components/banner-section.tsx
 msgid "Enter banner text (markdown supported)..."
 msgstr "Masukkan teks banner (markdown didukung)..."
+
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+msgid "Enter recovery key"
+msgstr "Masukkan kunci pemulihan"
 
 #: ../../../lib/web/src/components/step-up-dialog.tsx
 msgid "Enter the code from your email"
@@ -1492,6 +1546,7 @@ msgstr "Gagal mencabut akses RSS"
 
 #: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx
 #: src/features/chats/components/chat-settings-dialog.tsx
+#: src/features/chats/components/encryption-section.tsx
 msgid "Failed to save"
 msgstr "Gagal menyimpan"
 
@@ -1550,6 +1605,10 @@ msgstr "Bendera"
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Flat"
 msgstr "Datar"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Forget my decision"
+msgstr "Lupakan keputusan saya"
 
 #: src/features/chats/components/forward-dialog.tsx
 #: src/features/chats/components/message-hover-actions.tsx
@@ -1711,6 +1770,10 @@ msgstr "Lompat ke bawah"
 #: ../../../lib/web/src/lib/locale-format.ts
 msgid "Just now"
 msgstr "Baru saja"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Keep this key safe. It is shown once, and your other Matrix clients ask for it to read your encrypted messages."
+msgstr "Simpan kunci ini dengan aman. Kunci ini hanya ditampilkan sekali, dan klien Matrix Anda yang lain memintanya untuk membaca pesan terenkripsi Anda."
 
 #: ../../../lib/web/src/components/entity/keyboard-shortcuts-help.tsx
 msgid "Keyboard shortcuts"
@@ -2102,6 +2165,10 @@ msgstr "Tidak ada chat untuk diteruskan"
 msgid "No comments yet"
 msgstr "Belum ada komentar"
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "No devices"
+msgstr "Tidak ada perangkat"
+
 #: src/routes/_authenticated/$chatId_.settings.tsx
 msgid "No friends available"
 msgstr "Tidak ada teman yang tersedia"
@@ -2137,6 +2204,10 @@ msgstr "Belum ada pesan"
 #: src/features/chats/components/chat-input.tsx
 msgid "No microphone found"
 msgstr "Mikrofon tidak ditemukan"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "No other devices"
+msgstr "Tidak ada perangkat lain"
 
 #: ../../../lib/web/src/components/entity/entity-field-editor.tsx
 #: ../../../lib/web/src/components/person-picker.tsx
@@ -2222,6 +2293,11 @@ msgstr "Tidak ditemukan"
 #: ../../../lib/web/src/components/ui/editable-field-row.tsx
 msgid "Not set"
 msgstr "Belum diatur"
+
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+msgid "Not verified"
+msgstr "Belum diverifikasi"
 
 #: ../../../lib/web/src/components/entity/entity-tree-view.tsx
 msgid "Nothing found"
@@ -2351,6 +2427,10 @@ msgstr "Kunci sandi"
 #: ../../../lib/web/src/lib/shell-errors.ts
 msgid "Passkeys are not available in this browser"
 msgstr "Kunci sandi tidak tersedia di browser ini"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Password"
+msgstr "Kata sandi"
 
 #: ../../../lib/web/src/components/entity/entity-field-dialog.tsx
 msgid "Pattern (regex)"
@@ -2507,6 +2587,14 @@ msgstr "Perekaman berhenti pada batas 5 menit"
 #: src/features/chats/components/chat-input.tsx
 msgid "Recording voice note"
 msgstr "Merekam pesan suara"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Recovery could not be set up"
+msgstr "Pemulihan tidak dapat disiapkan"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Recovery key"
+msgstr "Kunci pemulihan"
 
 #: ../../../lib/web/src/components/layout/authenticated-layout.tsx
 msgid "Redirecting to login."
@@ -2672,6 +2760,10 @@ msgstr "Menyerah"
 msgid "Resign game?"
 msgstr "Menyerah dalam permainan?"
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "Restore"
+msgstr "Pulihkan"
+
 #: ../../../lib/web/src/components/attachment-composer.tsx
 msgid "Retry"
 msgstr "Coba lagi"
@@ -2729,7 +2821,12 @@ msgstr "Sabtu"
 msgid "Save"
 msgstr "Simpan"
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "Saved"
+msgstr "Tersimpan"
+
 #: src/features/chats/components/chat-settings-dialog.tsx
+#: src/features/chats/components/encryption-section.tsx
 msgid "Saving..."
 msgstr "Menyimpan..."
 
@@ -2956,6 +3053,12 @@ msgstr "Sesi telah berakhir. Silakan masuk lagi."
 msgid "Set origin and destination"
 msgstr "Tetapkan asal dan tujuan"
 
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+msgid "Set up recovery"
+msgstr "Siapkan pemulihan"
+
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx
 #: ../../../lib/web/src/components/options-menu.tsx
@@ -3136,6 +3239,10 @@ msgstr "Kode tersebut salah atau telah kedaluwarsa."
 msgid "That could not be sent. The files may be too large, or your connection failed. Try smaller files."
 msgstr "Tidak dapat dikirim. Berkas mungkin terlalu besar, atau koneksi Anda gagal. Coba berkas yang lebih kecil."
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "That is not your recovery key"
+msgstr "Itu bukan kunci pemulihan Anda"
+
 #: ../../../lib/web/src/hooks/use-attachment-error.ts
 #: ../../../lib/web/src/lib/handle-server-error.ts
 msgid "That was too large to upload. Remove or shrink files and try again."
@@ -3158,6 +3265,14 @@ msgstr "Nama obrolan maksimal {CHAT_NAME_MAX_LENGTH} karakter"
 msgid "The chat name cannot contain < or >"
 msgstr "Nama obrolan tidak boleh mengandung < atau >"
 
+#: src/features/chats/components/verification-watcher.tsx
+msgid "The emoji did not match, so the verification was cancelled"
+msgstr "Emoji tidak cocok, jadi verifikasi dibatalkan"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "The fingerprint matches"
+msgstr "Sidik jari cocok"
+
 #: ../../../lib/web/src/lib/shell-errors.ts
 msgid "The microphone request was not answered"
 msgstr "Permintaan mikrofon tidak dijawab"
@@ -3165,6 +3280,10 @@ msgstr "Permintaan mikrofon tidak dijawab"
 #: ../../../lib/web/src/lib/shell-errors.ts
 msgid "The passkey request was not answered"
 msgstr "Permintaan kunci sandi tidak dijawab"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "The password was not accepted"
+msgstr "Kata sandi tidak diterima"
 
 #: ../../../lib/web/src/features/errors/general-error.tsx
 msgid "The requested content could not be found."
@@ -3174,10 +3293,30 @@ msgstr "Konten yang diminta tidak dapat ditemukan."
 msgid "The server returned a web page instead of data."
 msgstr "Server mengembalikan halaman web alih-alih data."
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "The verification could not be started"
+msgstr "Verifikasi tidak dapat dimulai"
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "The verification could not go on"
+msgstr "Verifikasi tidak dapat dilanjutkan"
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "The verification was cancelled"
+msgstr "Verifikasi dibatalkan"
+
 #. placeholder {0}: unknown.join(', ')
 #: src/features/chats/index.tsx
 msgid "These names are not in this chat: {0}. Pick from the @ list or remove them."
 msgstr "Nama-nama ini tidak ada di obrolan ini: {0}. Pilih dari daftar @ atau hapus."
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "They don't match"
+msgstr "Tidak cocok"
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "They match"
+msgstr "Ya, cocok"
 
 #: src/routes/_authenticated/$chatId_.settings.tsx
 msgid "They stop receiving new messages in this chat."
@@ -3197,12 +3336,20 @@ msgid "This chat may have been deleted or you don't have access to it"
 msgstr "Obrolan ini mungkin telah dihapus atau kamu tidak memiliki akses"
 
 #: src/features/chats/index.tsx
-msgid "This conversation is encrypted. Messages cannot be sent to it from here yet."
-msgstr "Percakapan ini terenkripsi. Pesan belum dapat dikirim ke percakapan ini dari sini."
-
-#: src/features/chats/index.tsx
 msgid "This deletes the message for everyone and cannot be undone."
 msgstr "Ini akan menghapus pesan untuk semua orang dan tidak dapat dibatalkan."
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "This device"
+msgstr "Perangkat ini"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "This device (OMEMO 2)"
+msgstr "Perangkat ini (OMEMO 2)"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "This device (OMEMO)"
+msgstr "Perangkat ini (OMEMO)"
 
 #: src/features/chats/components/chat-message-list.tsx
 #: src/features/chats/components/message-quote.tsx
@@ -3400,14 +3547,28 @@ msgstr "Variabel: {variables}"
 msgid "Verification code"
 msgstr "Kode verifikasi"
 
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Verified"
+msgstr "Terverifikasi"
+
 #: ../../../lib/web/src/components/step-up-dialog.tsx
 #: ../../../lib/web/src/features/accounts/account-verify.tsx
 msgid "Verify"
 msgstr "Verifikasi"
 
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Verify {who}"
+msgstr "Verifikasi {who}"
+
 #: ../../../lib/web/src/features/accounts/account-verify.tsx
 msgid "Verify email address"
 msgstr "Verifikasi alamat email"
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Verify your device"
+msgstr "Verifikasi perangkat Anda"
 
 #: ../../../lib/web/src/components/attachment-gallery.tsx
 #: src/features/chats/components/message-media-grid.tsx
@@ -3453,6 +3614,14 @@ msgstr "Perekaman suara tidak didukung di browser ini"
 #: src/features/chats/components/chat-input.tsx
 msgid "Voice recording isn't available in this app version. Please update the app and try again."
 msgstr "Perekaman suara tidak tersedia di versi aplikasi ini. Perbarui aplikasi dan coba lagi."
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Waiting for the other device..."
+msgstr "Menunggu perangkat lainnya..."
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Waiting for them to accept"
+msgstr "Menunggu mereka menerima"
 
 #: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx
 #: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx
@@ -3528,6 +3697,18 @@ msgstr "Akun Anda telah dipindahkan ke sini dari {source}. Sampai Anda menghapus
 #: ../../../lib/web/src/components/comment-composer.tsx
 msgid "Your attachments will be lost."
 msgstr "Lampiran Anda akan hilang."
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Your Matrix server asks for your account's password."
+msgstr "Server Matrix Anda meminta kata sandi akun Anda."
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Your other devices"
+msgstr "Perangkat Anda yang lain"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Your recovery key"
+msgstr "Kunci pemulihan Anda"
 
 #: ../../../lib/web/src/components/comment-composer.tsx
 msgid "Your text and attachments will be lost."
