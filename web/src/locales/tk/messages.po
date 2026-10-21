@@ -65,6 +65,11 @@ msgstr "{0, plural, =1 {Habar pozulsynmy?} other {# habar pozulsynmy?}}"
 msgid "{0, plural, one {# file changed} other {# files changed}}"
 msgstr "{0, plural, one {# faýl üýtgedildi} other {# faýl üýtgedildi}}"
 
+#. placeholder {0}: result.restored
+#: src/features/chats/components/encryption-section.tsx
+msgid "{0, plural, one {# message key restored} other {# message keys restored}}"
+msgstr "{0, plural, one {# habar açary dikeldildi} other {# habar açary dikeldildi}}"
+
 #. placeholder {0}: message.replies
 #: src/features/chats/components/chat-message-list.tsx
 msgid "{0, plural, one {# reply} other {# replies}}"
@@ -175,6 +180,10 @@ msgstr "{truncated, plural, one {Ýene # faýl görkezilmedi} other {Ýene # fa�
 msgid "{unreadCount, plural, one {Open menu (# unread notification)} other {Open menu (# unread notifications)}}"
 msgstr "{unreadCount, plural, one {Menýuny aç (# okalmadyk bildiriş)} other {Menýuny aç (# okalmadyk bildiriş)}}"
 
+#: src/features/chats/components/verification-watcher.tsx
+msgid "{who} wants to verify you."
+msgstr "{who} sizi tassyklamak isleýär."
+
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "12 hours"
 msgstr "12 sagat"
@@ -193,6 +202,7 @@ msgid "Absolute (date and time)"
 msgstr "Mutlak (sene we wagt)"
 
 #: ../../../lib/web/src/components/game/game-draw-offer-banner.tsx
+#: src/features/chats/components/verification-watcher.tsx
 #: src/features/chats/index.tsx
 msgid "Accept"
 msgstr "Kabul etmek"
@@ -326,6 +336,10 @@ msgstr "Agza goşulýar..."
 msgid "Addresses"
 msgstr "Salgylar"
 
+#: src/features/chats/roles.ts
+msgid "Administrator"
+msgstr "Administrator"
+
 #: src/features/chats/constants/reactions.ts
 msgid "Agree"
 msgstr "Razy"
@@ -379,6 +393,10 @@ msgstr "Android push bildirişleri"
 #: src/features/chats/constants/reactions.ts
 msgid "Angry"
 msgstr "Gaharly"
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Another of your devices wants to verify this one."
+msgstr "Beýleki enjamlaryňyzyň biri bu enjamy tassyklamak isleýär."
 
 #: ../../../lib/web/src/features/access/access-list.tsx
 #: ../../../lib/web/src/features/access/types.ts
@@ -440,6 +458,10 @@ msgstr "{0} hökmünde"
 #: ../../../lib/web/src/components/ui/sort-direction-button.tsx
 msgid "Ascending"
 msgstr "Artýan tertipde"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Asking to compare emoji..."
+msgstr "Emojileri deňeşdirmek soralýar..."
 
 #: ../../../lib/web/src/components/timezone-select.tsx
 msgid "At sea"
@@ -599,6 +621,8 @@ msgstr "Kamera elýeterli däl"
 #: src/features/chats/components/chat-settings-dialog.tsx
 #: src/features/chats/components/forward-dialog.tsx
 #: src/features/chats/components/new-chat.tsx
+#: src/features/chats/components/verification-watcher.tsx
+#: src/features/chats/components/verification-watcher.tsx
 #: src/features/chats/index.tsx
 msgid "Cancel"
 msgstr "Ýatyrmak"
@@ -735,6 +759,10 @@ msgstr "Çat berkitmeden aýryldy"
 msgid "Chats"
 msgstr "Söhbetdeşlikler"
 
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Check that the same emoji appear on the other screen."
+msgstr "Beýleki ekranda şol bir emojileriň görünýändigini barlaň."
+
 #: ../../../lib/web/src/hooks/use-field-type-labels.ts
 msgid "Checkbox"
 msgstr "Bellik gutusy"
@@ -867,6 +895,11 @@ msgstr "Teswirler ({0})"
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Compact"
 msgstr "Gysga"
+
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Compare emoji"
+msgstr "Emojileri deňeşdir"
 
 #: ../../../lib/web/src/components/entity/entity-option-dialog.tsx
 msgid "Configure option settings"
@@ -1028,6 +1061,7 @@ msgid "Date"
 msgstr "Sene"
 
 #: ../../../lib/web/src/components/game/game-draw-offer-banner.tsx
+#: src/features/chats/components/verification-watcher.tsx
 #: src/features/chats/index.tsx
 msgid "Decline"
 msgstr "Ret etmek"
@@ -1167,6 +1201,10 @@ msgstr "Jikme-jiklikler paneli"
 msgid "Detect from web browser"
 msgstr "Web brauzerden anyklamak"
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "Device options"
+msgstr "Enjam sazlamalary"
+
 #: ../../../lib/web/src/components/person-picker.tsx
 msgid "Directory"
 msgstr "Katalog"
@@ -1210,6 +1248,14 @@ msgstr "Goýbermek"
 msgid "Displays the mobile sidebar."
 msgstr "Mobil gapdal paneli görkezýär."
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "Distrust"
+msgstr "Ynanma"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Distrusted"
+msgstr "Ynamsyz"
+
 #: src/features/chats/components/chat-input.tsx
 msgid "Document"
 msgstr "Resminama"
@@ -1220,6 +1266,7 @@ msgstr "Talap edilýän nusga gabat gelmeýär"
 
 #: ../../../lib/web/src/components/entity/entity-field-dialog.tsx
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx
+#: src/features/chats/components/encryption-section.tsx
 msgid "Done"
 msgstr "Taýýar"
 
@@ -1308,6 +1355,12 @@ msgstr "E-poçta kody"
 msgid "Encrypted message"
 msgstr "Şifrlenen habar"
 
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+msgid "Encryption"
+msgstr "Şifrleme"
+
 #: ../../../lib/web/src/components/calendar/time-grid.tsx
 msgid "Ends before it starts"
 msgstr "Başlamanka tamamlanýar"
@@ -1315,6 +1368,11 @@ msgstr "Başlamanka tamamlanýar"
 #: ../../../lib/web/src/components/banner-section.tsx
 msgid "Enter banner text (markdown supported)..."
 msgstr "Baner tekstini giriziň (markdown goldanýar)..."
+
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+msgid "Enter recovery key"
+msgstr "Dikeldiş açaryny giriz"
 
 #: ../../../lib/web/src/components/step-up-dialog.tsx
 msgid "Enter the code from your email"
@@ -1498,6 +1556,7 @@ msgstr "RSS elýeterliligini yzyna almak başartmady"
 
 #: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx
 #: src/features/chats/components/chat-settings-dialog.tsx
+#: src/features/chats/components/encryption-section.tsx
 msgid "Failed to save"
 msgstr "Saklanyp galynmady"
 
@@ -1556,6 +1615,10 @@ msgstr "Belliler"
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Flat"
 msgstr "Tekiz"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Forget my decision"
+msgstr "Kararymy unut"
 
 #: src/features/chats/components/forward-dialog.tsx
 #: src/features/chats/components/message-hover-actions.tsx
@@ -1717,6 +1780,10 @@ msgstr "Aşaga geç"
 #: ../../../lib/web/src/lib/locale-format.ts
 msgid "Just now"
 msgstr "Häzir"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Keep this key safe. It is shown once, and your other Matrix clients ask for it to read your encrypted messages."
+msgstr "Bu açary howpsuz ýerde saklaň. Ol diňe bir gezek görkezilýär we beýleki Matrix müşderileriňiz şifrlenen habarlaryňyzy okamak üçin ony soraýar."
 
 #: ../../../lib/web/src/components/entity/keyboard-shortcuts-help.tsx
 msgid "Keyboard shortcuts"
@@ -1974,6 +2041,10 @@ msgstr "Mochi web"
 msgid "Moderation"
 msgstr "Moderasiýa"
 
+#: src/features/chats/roles.ts
+msgid "Moderator"
+msgstr "Moderator"
+
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Monday"
 msgstr "Duşenbe"
@@ -2104,6 +2175,10 @@ msgstr "Ugratmak üçin çat ýok"
 msgid "No comments yet"
 msgstr "Heniz teswirler ýok"
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "No devices"
+msgstr "Enjam ýok"
+
 #: src/routes/_authenticated/$chatId_.settings.tsx
 msgid "No friends available"
 msgstr "Elýeterli dostlar ýok"
@@ -2139,6 +2214,10 @@ msgstr "Heniz habarlar ýok"
 #: src/features/chats/components/chat-input.tsx
 msgid "No microphone found"
 msgstr "Mikrofon tapylmady"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "No other devices"
+msgstr "Başga enjam ýok"
 
 #: ../../../lib/web/src/components/entity/entity-field-editor.tsx
 #: ../../../lib/web/src/components/person-picker.tsx
@@ -2224,6 +2303,11 @@ msgstr "Tapylmady"
 #: ../../../lib/web/src/components/ui/editable-field-row.tsx
 msgid "Not set"
 msgstr "Bellenilmedik"
+
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+msgid "Not verified"
+msgstr "Tassyklanmadyk"
 
 #: ../../../lib/web/src/components/entity/entity-tree-view.tsx
 msgid "Nothing found"
@@ -2327,6 +2411,7 @@ msgstr "Beýleki"
 
 #: ../../../lib/web/src/components/member-list.tsx
 #: ../../../lib/web/src/features/access/access-list.tsx
+#: src/features/chats/roles.ts
 msgid "Owner"
 msgstr "Eýesi"
 
@@ -2352,6 +2437,10 @@ msgstr "Geçiş açarlary"
 #: ../../../lib/web/src/lib/shell-errors.ts
 msgid "Passkeys are not available in this browser"
 msgstr "Geçiş açarlary bu brauzerde elýeterli däl"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Password"
+msgstr "Parol"
 
 #: ../../../lib/web/src/components/entity/entity-field-dialog.tsx
 msgid "Pattern (regex)"
@@ -2508,6 +2597,14 @@ msgstr "Ýazgy 5 minutlyk çäkde durdy"
 #: src/features/chats/components/chat-input.tsx
 msgid "Recording voice note"
 msgstr "Ses belligi ýazylýar"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Recovery could not be set up"
+msgstr "Dikeldişi sazlap bolmady"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Recovery key"
+msgstr "Dikeldiş açary"
 
 #: ../../../lib/web/src/components/layout/authenticated-layout.tsx
 msgid "Redirecting to login."
@@ -2673,6 +2770,10 @@ msgstr "Resign et"
 msgid "Resign game?"
 msgstr "Oýny resign etmek?"
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "Restore"
+msgstr "Dikeld"
+
 #: ../../../lib/web/src/components/attachment-composer.tsx
 msgid "Retry"
 msgstr "Gaýtadan synanyş"
@@ -2730,7 +2831,12 @@ msgstr "Şenbe"
 msgid "Save"
 msgstr "Saklamak"
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "Saved"
+msgstr "Saklandy"
+
 #: src/features/chats/components/chat-settings-dialog.tsx
+#: src/features/chats/components/encryption-section.tsx
 msgid "Saving..."
 msgstr "Saklanýar..."
 
@@ -2957,6 +3063,12 @@ msgstr "Sessiýanyň möhleti gutardy. Täzeden giriň."
 msgid "Set origin and destination"
 msgstr "Başlangyç we baryljak ýeri belle"
 
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+msgid "Set up recovery"
+msgstr "Dikeldişi sazla"
+
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx
 #: ../../../lib/web/src/components/options-menu.tsx
@@ -3142,6 +3254,10 @@ msgstr "Ol kod nädogry ýa-da möhleti geçen."
 msgid "That could not be sent. The files may be too large, or your connection failed. Try smaller files."
 msgstr "Iberip bolmady. Faýllar gaty uly bolup biler ýa-da baglanyşygyňyz kesildi. Has kiçi faýllary synap görüň."
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "That is not your recovery key"
+msgstr "Bu siziň dikeldiş açaryňyz däl"
+
 #: ../../../lib/web/src/hooks/use-attachment-error.ts
 #: ../../../lib/web/src/lib/handle-server-error.ts
 msgid "That was too large to upload. Remove or shrink files and try again."
@@ -3164,6 +3280,14 @@ msgstr "Söhbetiň ady iň köp {CHAT_NAME_MAX_LENGTH} harp bolup biler"
 msgid "The chat name cannot contain < or >"
 msgstr "Söhbetiň adynda < ýa-da > bolup bilmez"
 
+#: src/features/chats/components/verification-watcher.tsx
+msgid "The emoji did not match, so the verification was cancelled"
+msgstr "Emojiler gabat gelmedi, şonuň üçin tassyklama ýatyryldy"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "The fingerprint matches"
+msgstr "Barmak yzy gabat gelýär"
+
 #: ../../../lib/web/src/lib/shell-errors.ts
 msgid "The microphone request was not answered"
 msgstr "Mikrofon haýyşyna jogap berilmedi"
@@ -3171,6 +3295,10 @@ msgstr "Mikrofon haýyşyna jogap berilmedi"
 #: ../../../lib/web/src/lib/shell-errors.ts
 msgid "The passkey request was not answered"
 msgstr "Geçiş açary haýyşyna jogap berilmedi"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "The password was not accepted"
+msgstr "Parol kabul edilmedi"
 
 #: ../../../lib/web/src/features/errors/general-error.tsx
 msgid "The requested content could not be found."
@@ -3180,10 +3308,30 @@ msgstr "Soralan mazmun tapylmady."
 msgid "The server returned a web page instead of data."
 msgstr "Serwer maglumatyň ýerine web sahypasyny gaýtardy."
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "The verification could not be started"
+msgstr "Tassyklamany başlap bolmady"
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "The verification could not go on"
+msgstr "Tassyklamany dowam etdirip bolmady"
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "The verification was cancelled"
+msgstr "Tassyklama ýatyryldy"
+
 #. placeholder {0}: unknown.join(', ')
 #: src/features/chats/index.tsx
 msgid "These names are not in this chat: {0}. Pick from the @ list or remove them."
 msgstr "Bu atlar bu çatda ýok: {0}. @ sanawyndan saýlaň ýa-da olary aýyryň."
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "They don't match"
+msgstr "Gabat gelmeýär"
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "They match"
+msgstr "Gabat gelýär"
 
 #: src/routes/_authenticated/$chatId_.settings.tsx
 msgid "They stop receiving new messages in this chat."
@@ -3203,12 +3351,20 @@ msgid "This chat may have been deleted or you don't have access to it"
 msgstr "Bu söhbetdeşlik pozulan bolup biler ýa-da rugsadyň ýok"
 
 #: src/features/chats/index.tsx
-msgid "This conversation is encrypted. Messages cannot be sent to it from here yet."
-msgstr "Bu söhbetdeşlik şifrlenen. Bu ýerden oňa entek habar iberip bolmaýar."
-
-#: src/features/chats/index.tsx
 msgid "This deletes the message for everyone and cannot be undone."
 msgstr "Bu habary hemmeler üçin pozýar we yzyna gaýtaryp bolmaýar."
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "This device"
+msgstr "Bu enjam"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "This device (OMEMO 2)"
+msgstr "Bu enjam (OMEMO 2)"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "This device (OMEMO)"
+msgstr "Bu enjam (OMEMO)"
 
 #: src/features/chats/components/chat-message-list.tsx
 #: src/features/chats/components/message-quote.tsx
@@ -3406,14 +3562,28 @@ msgstr "Üýtgeýjiler: {variables}"
 msgid "Verification code"
 msgstr "Tassyklama kody"
 
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Verified"
+msgstr "Tassyklandy"
+
 #: ../../../lib/web/src/components/step-up-dialog.tsx
 #: ../../../lib/web/src/features/accounts/account-verify.tsx
 msgid "Verify"
 msgstr "Tassykla"
 
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Verify {who}"
+msgstr "{who} tassykla"
+
 #: ../../../lib/web/src/features/accounts/account-verify.tsx
 msgid "Verify email address"
 msgstr "E-poçta salgysyny tassykla"
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Verify your device"
+msgstr "Enjamyňyzy tassyklaň"
 
 #: ../../../lib/web/src/components/attachment-gallery.tsx
 #: src/features/chats/components/message-media-grid.tsx
@@ -3438,6 +3608,10 @@ msgstr "Element jikme-jikliklerini görkez we redaktirle"
 msgid "View controls"
 msgstr "Görnüş dolandyryşlary"
 
+#: src/features/chats/roles.ts
+msgid "Visitor"
+msgstr "Myhman"
+
 #: src/features/chats/components/voice-waveform.tsx
 msgid "Voice note waveform"
 msgstr "Ses belliginiň tolkun görnüşi"
@@ -3455,6 +3629,14 @@ msgstr "Ses ýazgysy bu brauzerde goldanylmaýar"
 #: src/features/chats/components/chat-input.tsx
 msgid "Voice recording isn't available in this app version. Please update the app and try again."
 msgstr "Ses ýazgysy programmanyň bu wersiýasynda elýeterli däl. Programmany täzeläň we gaýtadan synanyşyň."
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Waiting for the other device..."
+msgstr "Beýleki enjama garaşylýar..."
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Waiting for them to accept"
+msgstr "Olaryň kabul etmegine garaşylýar"
 
 #: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx
 #: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx
@@ -3530,6 +3712,18 @@ msgstr "Hasabyňyz {source} serwерinden bu ýere geçirildi. Şol ýerden poz�
 #: ../../../lib/web/src/components/comment-composer.tsx
 msgid "Your attachments will be lost."
 msgstr "Goşundylaryňyz ýitiriler."
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Your Matrix server asks for your account's password."
+msgstr "Matrix serweriňiz hasabyňyzyň parolyny soraýar."
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Your other devices"
+msgstr "Beýleki enjamlaryňyz"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Your recovery key"
+msgstr "Dikeldiş açaryňyz"
 
 #: ../../../lib/web/src/components/comment-composer.tsx
 msgid "Your text and attachments will be lost."

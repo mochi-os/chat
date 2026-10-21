@@ -23,6 +23,7 @@ import { chatActive } from '@/api/types/chats'
 import { SidebarProvider, useSidebarContext } from '@/context/sidebar-context'
 import { useChatsQuery, useMarkChatReadMutation } from '@/hooks/useChats'
 import { NewChat } from '@/features/chats/components/new-chat'
+import { VerificationWatcher } from '@/features/chats/components/verification-watcher'
 import { formatCountBadge } from '@/features/chats/utils'
 import {
   chatIsDirect,
@@ -370,6 +371,9 @@ function ChatLayoutInner() {
       sidebarFooter={<WebsocketStatusIndicator />}
     >
       <Outlet />
+      <VerificationWatcher
+        enabled={chats.some((chat) => chat.network === 'matrix')}
+      />
     </AuthenticatedLayout>
   )
 }

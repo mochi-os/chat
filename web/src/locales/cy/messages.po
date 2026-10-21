@@ -65,6 +65,11 @@ msgstr "{0, plural, =1 {Dileu'r neges?} zero {Dileu # negeseuon?} two {Dileu # n
 msgid "{0, plural, one {# file changed} other {# files changed}}"
 msgstr "{0, plural, zero {# ffeil wedi newid} one {# ffeil wedi newid} two {# ffeil wedi newid} few {# ffeil wedi newid} many {# ffeil wedi newid} other {# ffeil wedi newid}}"
 
+#. placeholder {0}: result.restored
+#: src/features/chats/components/encryption-section.tsx
+msgid "{0, plural, one {# message key restored} other {# message keys restored}}"
+msgstr "{0, plural, zero {# allwedd neges wedi'u hadfer} one {# allwedd neges wedi'i hadfer} two {# allwedd neges wedi'u hadfer} few {# allwedd neges wedi'u hadfer} many {# allwedd neges wedi'u hadfer} other {# allwedd neges wedi'u hadfer}}"
+
 #. placeholder {0}: message.replies
 #: src/features/chats/components/chat-message-list.tsx
 msgid "{0, plural, one {# reply} other {# replies}}"
@@ -175,6 +180,10 @@ msgstr "{truncated, plural, zero {# ffeil arall heb eu dangos} one {# ffeil aral
 msgid "{unreadCount, plural, one {Open menu (# unread notification)} other {Open menu (# unread notifications)}}"
 msgstr "{unreadCount, plural, zero {Agor y ddewislen (# hysbysiad heb ei ddarllen)} one {Agor y ddewislen (# hysbysiad heb ei ddarllen)} two {Agor y ddewislen (# hysbysiad heb eu darllen)} few {Agor y ddewislen (# hysbysiad heb eu darllen)} many {Agor y ddewislen (# hysbysiad heb eu darllen)} other {Agor y ddewislen (# hysbysiad heb eu darllen)}}"
 
+#: src/features/chats/components/verification-watcher.tsx
+msgid "{who} wants to verify you."
+msgstr "Mae {who} eisiau eich dilysu."
+
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "12 hours"
 msgstr "12 awr"
@@ -193,6 +202,7 @@ msgid "Absolute (date and time)"
 msgstr "Absoliwt (dyddiad ac amser)"
 
 #: ../../../lib/web/src/components/game/game-draw-offer-banner.tsx
+#: src/features/chats/components/verification-watcher.tsx
 #: src/features/chats/index.tsx
 msgid "Accept"
 msgstr "Derbyn"
@@ -326,6 +336,10 @@ msgstr "Yn ychwanegu aelod..."
 msgid "Addresses"
 msgstr "Cyfeiriadau"
 
+#: src/features/chats/roles.ts
+msgid "Administrator"
+msgstr "Gweinyddwr"
+
 #: src/features/chats/constants/reactions.ts
 msgid "Agree"
 msgstr "Cytuno"
@@ -379,6 +393,10 @@ msgstr "Gwthiad Android"
 #: src/features/chats/constants/reactions.ts
 msgid "Angry"
 msgstr "Dig"
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Another of your devices wants to verify this one."
+msgstr "Mae un arall o'ch dyfeisiau eisiau dilysu'r un hon."
 
 #: ../../../lib/web/src/features/access/access-list.tsx
 #: ../../../lib/web/src/features/access/types.ts
@@ -440,6 +458,10 @@ msgstr "Fel {0}"
 #: ../../../lib/web/src/components/ui/sort-direction-button.tsx
 msgid "Ascending"
 msgstr "Esgynnol"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Asking to compare emoji..."
+msgstr "Yn gofyn am gymharu emoji..."
 
 #: ../../../lib/web/src/components/timezone-select.tsx
 msgid "At sea"
@@ -599,6 +621,8 @@ msgstr "Camera ddim ar gael"
 #: src/features/chats/components/chat-settings-dialog.tsx
 #: src/features/chats/components/forward-dialog.tsx
 #: src/features/chats/components/new-chat.tsx
+#: src/features/chats/components/verification-watcher.tsx
+#: src/features/chats/components/verification-watcher.tsx
 #: src/features/chats/index.tsx
 msgid "Cancel"
 msgstr "Canslo"
@@ -735,6 +759,10 @@ msgstr "Sgwrs wedi'i dadbinio"
 msgid "Chats"
 msgstr "Sgyrsiau"
 
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Check that the same emoji appear on the other screen."
+msgstr "Gwiriwch fod yr un emoji yn ymddangos ar y sgrin arall."
+
 #: ../../../lib/web/src/hooks/use-field-type-labels.ts
 msgid "Checkbox"
 msgstr "Blwch ticio"
@@ -867,6 +895,11 @@ msgstr "Sylwadau ({0})"
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Compact"
 msgstr "Cryno"
+
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Compare emoji"
+msgstr "Cymharu emoji"
 
 #: ../../../lib/web/src/components/entity/entity-option-dialog.tsx
 msgid "Configure option settings"
@@ -1028,6 +1061,7 @@ msgid "Date"
 msgstr "Dyddiad"
 
 #: ../../../lib/web/src/components/game/game-draw-offer-banner.tsx
+#: src/features/chats/components/verification-watcher.tsx
 #: src/features/chats/index.tsx
 msgid "Decline"
 msgstr "Gwrthod"
@@ -1167,6 +1201,10 @@ msgstr "Panel manylion"
 msgid "Detect from web browser"
 msgstr "Adnabod o'r porwr gwe"
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "Device options"
+msgstr "Opsiynau dyfais"
+
 #: ../../../lib/web/src/components/person-picker.tsx
 msgid "Directory"
 msgstr "Cyfeiriadur"
@@ -1210,6 +1248,14 @@ msgstr "Diystyru"
 msgid "Displays the mobile sidebar."
 msgstr "Yn dangos y bar ochr symudol."
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "Distrust"
+msgstr "Peidio ag ymddiried"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Distrusted"
+msgstr "Dim ymddiriedaeth"
+
 #: src/features/chats/components/chat-input.tsx
 msgid "Document"
 msgstr "Dogfen"
@@ -1220,6 +1266,7 @@ msgstr "Nid yw'n cyfateb i'r patrwm gofynnol"
 
 #: ../../../lib/web/src/components/entity/entity-field-dialog.tsx
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx
+#: src/features/chats/components/encryption-section.tsx
 msgid "Done"
 msgstr "Wedi gorffen"
 
@@ -1308,6 +1355,12 @@ msgstr "Cod e-bost"
 msgid "Encrypted message"
 msgstr "Neges wedi'i hamgryptio"
 
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+msgid "Encryption"
+msgstr "Amgryptio"
+
 #: ../../../lib/web/src/components/calendar/time-grid.tsx
 msgid "Ends before it starts"
 msgstr "Yn gorffen cyn iddo ddechrau"
@@ -1315,6 +1368,11 @@ msgstr "Yn gorffen cyn iddo ddechrau"
 #: ../../../lib/web/src/components/banner-section.tsx
 msgid "Enter banner text (markdown supported)..."
 msgstr "Rhowch destun y faner (cefnogir markdown)..."
+
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+msgid "Enter recovery key"
+msgstr "Rhowch yr allwedd adfer"
 
 #: ../../../lib/web/src/components/step-up-dialog.tsx
 msgid "Enter the code from your email"
@@ -1498,6 +1556,7 @@ msgstr "Methwyd â dirymu mynediad RSS"
 
 #: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx
 #: src/features/chats/components/chat-settings-dialog.tsx
+#: src/features/chats/components/encryption-section.tsx
 msgid "Failed to save"
 msgstr "Methwyd cadw"
 
@@ -1556,6 +1615,10 @@ msgstr "Baneri"
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Flat"
 msgstr "Gwastad"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Forget my decision"
+msgstr "Anghofio fy mhenderfyniad"
 
 #: src/features/chats/components/forward-dialog.tsx
 #: src/features/chats/components/message-hover-actions.tsx
@@ -1717,6 +1780,10 @@ msgstr "Neidio i'r gwaelod"
 #: ../../../lib/web/src/lib/locale-format.ts
 msgid "Just now"
 msgstr "Nawr"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Keep this key safe. It is shown once, and your other Matrix clients ask for it to read your encrypted messages."
+msgstr "Cadwch yr allwedd hon yn ddiogel. Dim ond unwaith y caiff ei dangos, ac mae eich cleientiaid Matrix eraill yn gofyn amdani i ddarllen eich negeseuon wedi'u hamgryptio."
 
 #: ../../../lib/web/src/components/entity/keyboard-shortcuts-help.tsx
 msgid "Keyboard shortcuts"
@@ -1974,6 +2041,10 @@ msgstr "Gwe Mochi"
 msgid "Moderation"
 msgstr "Cymedroli"
 
+#: src/features/chats/roles.ts
+msgid "Moderator"
+msgstr "Cymedrolwr"
+
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Monday"
 msgstr "Dydd Llun"
@@ -2104,6 +2175,10 @@ msgstr "Dim sgyrsiau i anfon ymlaen atynt"
 msgid "No comments yet"
 msgstr "Dim sylwadau eto"
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "No devices"
+msgstr "Dim dyfeisiau"
+
 #: src/routes/_authenticated/$chatId_.settings.tsx
 msgid "No friends available"
 msgstr "Dim ffrindiau ar gael"
@@ -2139,6 +2214,10 @@ msgstr "Dim negeseuon eto"
 #: src/features/chats/components/chat-input.tsx
 msgid "No microphone found"
 msgstr "Ni chanfuwyd meicroffon"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "No other devices"
+msgstr "Dim dyfeisiau eraill"
 
 #: ../../../lib/web/src/components/entity/entity-field-editor.tsx
 #: ../../../lib/web/src/components/person-picker.tsx
@@ -2224,6 +2303,11 @@ msgstr "Heb ei ganfod"
 #: ../../../lib/web/src/components/ui/editable-field-row.tsx
 msgid "Not set"
 msgstr "Heb ei osod"
+
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+msgid "Not verified"
+msgstr "Heb ei ddilysu"
 
 #: ../../../lib/web/src/components/entity/entity-tree-view.tsx
 msgid "Nothing found"
@@ -2327,6 +2411,7 @@ msgstr "Arall"
 
 #: ../../../lib/web/src/components/member-list.tsx
 #: ../../../lib/web/src/features/access/access-list.tsx
+#: src/features/chats/roles.ts
 msgid "Owner"
 msgstr "Perchennog"
 
@@ -2352,6 +2437,10 @@ msgstr "Pasallweddi"
 #: ../../../lib/web/src/lib/shell-errors.ts
 msgid "Passkeys are not available in this browser"
 msgstr "Nid yw pasallweddi ar gael yn y porwr hwn"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Password"
+msgstr "Cyfrinair"
 
 #: ../../../lib/web/src/components/entity/entity-field-dialog.tsx
 msgid "Pattern (regex)"
@@ -2508,6 +2597,14 @@ msgstr "Stopiodd y recordiad ar y terfyn 5 munud"
 #: src/features/chats/components/chat-input.tsx
 msgid "Recording voice note"
 msgstr "Yn recordio nodyn llais"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Recovery could not be set up"
+msgstr "Methwyd gosod adfer"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Recovery key"
+msgstr "Allwedd adfer"
 
 #: ../../../lib/web/src/components/layout/authenticated-layout.tsx
 msgid "Redirecting to login."
@@ -2673,6 +2770,10 @@ msgstr "Ymddiswyddo"
 msgid "Resign game?"
 msgstr "Ymddiswyddo o'r gêm?"
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "Restore"
+msgstr "Adfer"
+
 #: ../../../lib/web/src/components/attachment-composer.tsx
 msgid "Retry"
 msgstr "Ail-geisio"
@@ -2730,7 +2831,12 @@ msgstr "Dydd Sadwrn"
 msgid "Save"
 msgstr "Cadw"
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "Saved"
+msgstr "Wedi'i gadw"
+
 #: src/features/chats/components/chat-settings-dialog.tsx
+#: src/features/chats/components/encryption-section.tsx
 msgid "Saving..."
 msgstr "Yn cadw..."
 
@@ -2957,6 +3063,12 @@ msgstr "Mae'r sesiwn wedi dod i ben. Mewngofnodwch eto."
 msgid "Set origin and destination"
 msgstr "Gosod tarddiad a chyrchfan"
 
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+msgid "Set up recovery"
+msgstr "Gosod adfer"
+
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx
 #: ../../../lib/web/src/components/options-menu.tsx
@@ -3142,6 +3254,10 @@ msgstr "Mae'r cod hwnnw'n anghywir neu wedi dod i ben."
 msgid "That could not be sent. The files may be too large, or your connection failed. Try smaller files."
 msgstr "Nid oedd modd ei anfon. Efallai fod y ffeiliau'n rhy fawr, neu fe fethodd eich cysylltiad. Rhowch gynnig ar ffeiliau llai."
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "That is not your recovery key"
+msgstr "Nid dyna eich allwedd adfer"
+
 #: ../../../lib/web/src/hooks/use-attachment-error.ts
 #: ../../../lib/web/src/lib/handle-server-error.ts
 msgid "That was too large to upload. Remove or shrink files and try again."
@@ -3164,6 +3280,14 @@ msgstr "Gall enw'r sgwrs fod hyd at {CHAT_NAME_MAX_LENGTH} nod"
 msgid "The chat name cannot contain < or >"
 msgstr "Ni all enw'r sgwrs gynnwys < na >"
 
+#: src/features/chats/components/verification-watcher.tsx
+msgid "The emoji did not match, so the verification was cancelled"
+msgstr "Doedd yr emoji ddim yn cyfateb, felly cafodd y dilysu ei ganslo"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "The fingerprint matches"
+msgstr "Mae'r olion bysedd yn cyfateb"
+
 #: ../../../lib/web/src/lib/shell-errors.ts
 msgid "The microphone request was not answered"
 msgstr "Ni chafodd y cais meicroffon ei ateb"
@@ -3171,6 +3295,10 @@ msgstr "Ni chafodd y cais meicroffon ei ateb"
 #: ../../../lib/web/src/lib/shell-errors.ts
 msgid "The passkey request was not answered"
 msgstr "Ni chafodd y cais pasallwedd ei ateb"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "The password was not accepted"
+msgstr "Ni dderbyniwyd y cyfrinair"
 
 #: ../../../lib/web/src/features/errors/general-error.tsx
 msgid "The requested content could not be found."
@@ -3180,10 +3308,30 @@ msgstr "Nid oedd modd dod o hyd i'r cynnwys y gofynnwyd amdano."
 msgid "The server returned a web page instead of data."
 msgstr "Dychwelodd y gweinydd dudalen we yn lle data."
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "The verification could not be started"
+msgstr "Methwyd dechrau'r dilysu"
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "The verification could not go on"
+msgstr "Methwyd parhau â'r dilysu"
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "The verification was cancelled"
+msgstr "Cafodd y dilysu ei ganslo"
+
 #. placeholder {0}: unknown.join(', ')
 #: src/features/chats/index.tsx
 msgid "These names are not in this chat: {0}. Pick from the @ list or remove them."
 msgstr "Nid yw'r enwau hyn yn y sgwrs hon: {0}. Dewiswch o'r rhestr @ neu tynnwch nhw."
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "They don't match"
+msgstr "Dydyn nhw ddim yn cyfateb"
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "They match"
+msgstr "Maen nhw'n cyfateb"
 
 #: src/routes/_authenticated/$chatId_.settings.tsx
 msgid "They stop receiving new messages in this chat."
@@ -3203,12 +3351,20 @@ msgid "This chat may have been deleted or you don't have access to it"
 msgstr "Efallai bod y sgwrs hon wedi'i dileu neu nad oes gennych fynediad iddi"
 
 #: src/features/chats/index.tsx
-msgid "This conversation is encrypted. Messages cannot be sent to it from here yet."
-msgstr "Mae'r sgwrs hon wedi'i hamgryptio. Nid oes modd anfon negeseuon iddi o'r fan hon eto."
-
-#: src/features/chats/index.tsx
 msgid "This deletes the message for everyone and cannot be undone."
 msgstr "Mae hyn yn dileu'r neges i bawb ac ni ellir ei ddadwneud."
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "This device"
+msgstr "Y ddyfais hon"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "This device (OMEMO 2)"
+msgstr "Y ddyfais hon (OMEMO 2)"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "This device (OMEMO)"
+msgstr "Y ddyfais hon (OMEMO)"
 
 #: src/features/chats/components/chat-message-list.tsx
 #: src/features/chats/components/message-quote.tsx
@@ -3406,14 +3562,28 @@ msgstr "Newidynnau: {variables}"
 msgid "Verification code"
 msgstr "Cod dilysu"
 
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Verified"
+msgstr "Wedi'i ddilysu"
+
 #: ../../../lib/web/src/components/step-up-dialog.tsx
 #: ../../../lib/web/src/features/accounts/account-verify.tsx
 msgid "Verify"
 msgstr "Dilysu"
 
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Verify {who}"
+msgstr "Dilysu {who}"
+
 #: ../../../lib/web/src/features/accounts/account-verify.tsx
 msgid "Verify email address"
 msgstr "Dilysu cyfeiriad e-bost"
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Verify your device"
+msgstr "Dilysu eich dyfais"
 
 #: ../../../lib/web/src/components/attachment-gallery.tsx
 #: src/features/chats/components/message-media-grid.tsx
@@ -3438,6 +3608,10 @@ msgstr "Gweld a golygu manylion eitem"
 msgid "View controls"
 msgstr "Rheolaethau golwg"
 
+#: src/features/chats/roles.ts
+msgid "Visitor"
+msgstr "Ymwelydd"
+
 #: src/features/chats/components/voice-waveform.tsx
 msgid "Voice note waveform"
 msgstr "Tonffurf y nodyn llais"
@@ -3455,6 +3629,14 @@ msgstr "Nid yw recordio llais yn cael ei gefnogi yn y porwr hwn"
 #: src/features/chats/components/chat-input.tsx
 msgid "Voice recording isn't available in this app version. Please update the app and try again."
 msgstr "Nid yw recordio llais ar gael yn y fersiwn hwn o'r ap. Diweddarwch yr ap a rhowch gynnig arall arni."
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Waiting for the other device..."
+msgstr "Yn aros am y ddyfais arall..."
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Waiting for them to accept"
+msgstr "Yn aros iddyn nhw dderbyn"
 
 #: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx
 #: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx
@@ -3530,6 +3712,18 @@ msgstr "Symudwyd eich cyfrif yma o {source}. Hyd nes y byddwch yn ei ddileu yno,
 #: ../../../lib/web/src/components/comment-composer.tsx
 msgid "Your attachments will be lost."
 msgstr "Bydd eich atodiadau'n cael eu colli."
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Your Matrix server asks for your account's password."
+msgstr "Mae eich gweinydd Matrix yn gofyn am gyfrinair eich cyfrif."
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Your other devices"
+msgstr "Eich dyfeisiau eraill"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Your recovery key"
+msgstr "Eich allwedd adfer"
 
 #: ../../../lib/web/src/components/comment-composer.tsx
 msgid "Your text and attachments will be lost."

@@ -65,6 +65,11 @@ msgstr "{0, plural, =1 {Üzenet törlése?} other {# üzenet törlése?}}"
 msgid "{0, plural, one {# file changed} other {# files changed}}"
 msgstr "{0, plural, one {# fájl módosult} other {# fájl módosult}}"
 
+#. placeholder {0}: result.restored
+#: src/features/chats/components/encryption-section.tsx
+msgid "{0, plural, one {# message key restored} other {# message keys restored}}"
+msgstr "{0, plural, one {# üzenetkulcs visszaállítva} other {# üzenetkulcs visszaállítva}}"
+
 #. placeholder {0}: message.replies
 #: src/features/chats/components/chat-message-list.tsx
 msgid "{0, plural, one {# reply} other {# replies}}"
@@ -175,6 +180,10 @@ msgstr "{truncated, plural, one {# további fájl nincs megjelenítve} other {# 
 msgid "{unreadCount, plural, one {Open menu (# unread notification)} other {Open menu (# unread notifications)}}"
 msgstr "{unreadCount, plural, one {Menü megnyitása (# olvasatlan értesítés)} other {Menü megnyitása (# olvasatlan értesítés)}}"
 
+#: src/features/chats/components/verification-watcher.tsx
+msgid "{who} wants to verify you."
+msgstr "{who} ellenőrizni szeretné Önt."
+
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "12 hours"
 msgstr "12 óra"
@@ -193,6 +202,7 @@ msgid "Absolute (date and time)"
 msgstr "Abszolút (dátum és idő)"
 
 #: ../../../lib/web/src/components/game/game-draw-offer-banner.tsx
+#: src/features/chats/components/verification-watcher.tsx
 #: src/features/chats/index.tsx
 msgid "Accept"
 msgstr "Elfogadás"
@@ -326,6 +336,10 @@ msgstr "Tag hozzáadása..."
 msgid "Addresses"
 msgstr "Címek"
 
+#: src/features/chats/roles.ts
+msgid "Administrator"
+msgstr "Adminisztrátor"
+
 #: src/features/chats/constants/reactions.ts
 msgid "Agree"
 msgstr "Egyetért"
@@ -379,6 +393,10 @@ msgstr "Android push értesítés"
 #: src/features/chats/constants/reactions.ts
 msgid "Angry"
 msgstr "Mérges"
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Another of your devices wants to verify this one."
+msgstr "Egy másik eszköze ellenőrizni szeretné ezt az eszközt."
 
 #: ../../../lib/web/src/features/access/access-list.tsx
 #: ../../../lib/web/src/features/access/types.ts
@@ -440,6 +458,10 @@ msgstr "{0} nevében"
 #: ../../../lib/web/src/components/ui/sort-direction-button.tsx
 msgid "Ascending"
 msgstr "Növekvő"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Asking to compare emoji..."
+msgstr "Emojik összehasonlításának kérése..."
 
 #: ../../../lib/web/src/components/timezone-select.tsx
 msgid "At sea"
@@ -599,6 +621,8 @@ msgstr "A kamera nem érhető el"
 #: src/features/chats/components/chat-settings-dialog.tsx
 #: src/features/chats/components/forward-dialog.tsx
 #: src/features/chats/components/new-chat.tsx
+#: src/features/chats/components/verification-watcher.tsx
+#: src/features/chats/components/verification-watcher.tsx
 #: src/features/chats/index.tsx
 msgid "Cancel"
 msgstr "Mégse"
@@ -735,6 +759,10 @@ msgstr "Chat kitűzése megszüntetve"
 msgid "Chats"
 msgstr "Chatek"
 
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Check that the same emoji appear on the other screen."
+msgstr "Ellenőrizze, hogy ugyanazok az emojik jelennek-e meg a másik képernyőn."
+
 #: ../../../lib/web/src/hooks/use-field-type-labels.ts
 msgid "Checkbox"
 msgstr "Jelölőnégyzet"
@@ -867,6 +895,11 @@ msgstr "Megjegyzések ({0})"
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Compact"
 msgstr "Kompakt"
+
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Compare emoji"
+msgstr "Emojik összehasonlítása"
 
 #: ../../../lib/web/src/components/entity/entity-option-dialog.tsx
 msgid "Configure option settings"
@@ -1028,6 +1061,7 @@ msgid "Date"
 msgstr "Dátum"
 
 #: ../../../lib/web/src/components/game/game-draw-offer-banner.tsx
+#: src/features/chats/components/verification-watcher.tsx
 #: src/features/chats/index.tsx
 msgid "Decline"
 msgstr "Elutasítás"
@@ -1167,6 +1201,10 @@ msgstr "Részletek panel"
 msgid "Detect from web browser"
 msgstr "Felismerés a böngészőből"
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "Device options"
+msgstr "Eszközbeállítások"
+
 #: ../../../lib/web/src/components/person-picker.tsx
 msgid "Directory"
 msgstr "Címtár"
@@ -1210,6 +1248,14 @@ msgstr "Elvetés"
 msgid "Displays the mobile sidebar."
 msgstr "Megjeleníti a mobil oldalsávot."
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "Distrust"
+msgstr "Megjelölés nem megbízhatóként"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Distrusted"
+msgstr "Nem megbízható"
+
 #: src/features/chats/components/chat-input.tsx
 msgid "Document"
 msgstr "Dokumentum"
@@ -1220,6 +1266,7 @@ msgstr "Nem felel meg a megadott mintának"
 
 #: ../../../lib/web/src/components/entity/entity-field-dialog.tsx
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx
+#: src/features/chats/components/encryption-section.tsx
 msgid "Done"
 msgstr "Kész"
 
@@ -1308,6 +1355,12 @@ msgstr "E-mail kód"
 msgid "Encrypted message"
 msgstr "Titkosított üzenet"
 
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+msgid "Encryption"
+msgstr "Titkosítás"
+
 #: ../../../lib/web/src/components/calendar/time-grid.tsx
 msgid "Ends before it starts"
 msgstr "Előbb ér véget, mint elkezdődik"
@@ -1315,6 +1368,11 @@ msgstr "Előbb ér véget, mint elkezdődik"
 #: ../../../lib/web/src/components/banner-section.tsx
 msgid "Enter banner text (markdown supported)..."
 msgstr "Adja meg a banner szövegét (markdown támogatott)..."
+
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+msgid "Enter recovery key"
+msgstr "Helyreállítási kulcs megadása"
 
 #: ../../../lib/web/src/components/step-up-dialog.tsx
 msgid "Enter the code from your email"
@@ -1498,6 +1556,7 @@ msgstr "Az RSS-hozzáférés visszavonása sikertelen"
 
 #: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx
 #: src/features/chats/components/chat-settings-dialog.tsx
+#: src/features/chats/components/encryption-section.tsx
 msgid "Failed to save"
 msgstr "Nem sikerült menteni"
 
@@ -1556,6 +1615,10 @@ msgstr "Jelzések"
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Flat"
 msgstr "Lapos"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Forget my decision"
+msgstr "Döntésem elfelejtése"
 
 #: src/features/chats/components/forward-dialog.tsx
 #: src/features/chats/components/message-hover-actions.tsx
@@ -1717,6 +1780,10 @@ msgstr "Ugrás az aljára"
 #: ../../../lib/web/src/lib/locale-format.ts
 msgid "Just now"
 msgstr "Épp most"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Keep this key safe. It is shown once, and your other Matrix clients ask for it to read your encrypted messages."
+msgstr "Tartsa biztonságos helyen ezt a kulcsot. Csak egyszer jelenik meg, és a többi Matrix-kliense ezt kéri a titkosított üzenetei olvasásához."
 
 #: ../../../lib/web/src/components/entity/keyboard-shortcuts-help.tsx
 msgid "Keyboard shortcuts"
@@ -1974,6 +2041,10 @@ msgstr "Mochi web"
 msgid "Moderation"
 msgstr "Moderálás"
 
+#: src/features/chats/roles.ts
+msgid "Moderator"
+msgstr "Moderátor"
+
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Monday"
 msgstr "Hétfő"
@@ -2104,6 +2175,10 @@ msgstr "Nincs chat, ahová továbbíthatnál"
 msgid "No comments yet"
 msgstr "Még nincsenek hozzászólások"
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "No devices"
+msgstr "Nincs eszköz"
+
 #: src/routes/_authenticated/$chatId_.settings.tsx
 msgid "No friends available"
 msgstr "Nincsenek elérhető barátok"
@@ -2139,6 +2214,10 @@ msgstr "Még nincsenek üzenetek"
 #: src/features/chats/components/chat-input.tsx
 msgid "No microphone found"
 msgstr "Nem található mikrofon"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "No other devices"
+msgstr "Nincs más eszköz"
 
 #: ../../../lib/web/src/components/entity/entity-field-editor.tsx
 #: ../../../lib/web/src/components/person-picker.tsx
@@ -2224,6 +2303,11 @@ msgstr "Nem található"
 #: ../../../lib/web/src/components/ui/editable-field-row.tsx
 msgid "Not set"
 msgstr "Nincs beállítva"
+
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+msgid "Not verified"
+msgstr "Nincs ellenőrizve"
 
 #: ../../../lib/web/src/components/entity/entity-tree-view.tsx
 msgid "Nothing found"
@@ -2327,6 +2411,7 @@ msgstr "Egyéb"
 
 #: ../../../lib/web/src/components/member-list.tsx
 #: ../../../lib/web/src/features/access/access-list.tsx
+#: src/features/chats/roles.ts
 msgid "Owner"
 msgstr "Tulajdonos"
 
@@ -2352,6 +2437,10 @@ msgstr "Hozzáférési kulcsok"
 #: ../../../lib/web/src/lib/shell-errors.ts
 msgid "Passkeys are not available in this browser"
 msgstr "A hozzáférési kulcsok nem érhetők el ebben a böngészőben"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Password"
+msgstr "Jelszó"
 
 #: ../../../lib/web/src/components/entity/entity-field-dialog.tsx
 msgid "Pattern (regex)"
@@ -2508,6 +2597,14 @@ msgstr "A felvétel megállt az 5 perces korlátnál"
 #: src/features/chats/components/chat-input.tsx
 msgid "Recording voice note"
 msgstr "Hangüzenet felvétele folyamatban"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Recovery could not be set up"
+msgstr "A helyreállítást nem sikerült beállítani"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Recovery key"
+msgstr "Helyreállítási kulcs"
 
 #: ../../../lib/web/src/components/layout/authenticated-layout.tsx
 msgid "Redirecting to login."
@@ -2673,6 +2770,10 @@ msgstr "Feladás"
 msgid "Resign game?"
 msgstr "Feladja a játékot?"
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "Restore"
+msgstr "Visszaállítás"
+
 #: ../../../lib/web/src/components/attachment-composer.tsx
 msgid "Retry"
 msgstr "Újra"
@@ -2730,7 +2831,12 @@ msgstr "Szombat"
 msgid "Save"
 msgstr "Mentés"
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "Saved"
+msgstr "Mentve"
+
 #: src/features/chats/components/chat-settings-dialog.tsx
+#: src/features/chats/components/encryption-section.tsx
 msgid "Saving..."
 msgstr "Mentés..."
 
@@ -2957,6 +3063,12 @@ msgstr "A munkamenet lejárt. Kérjük, jelentkezzen be újra."
 msgid "Set origin and destination"
 msgstr "Kiindulási és úti cél beállítása"
 
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+msgid "Set up recovery"
+msgstr "Helyreállítás beállítása"
+
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx
 #: ../../../lib/web/src/components/options-menu.tsx
@@ -3142,6 +3254,10 @@ msgstr "Ez a kód helytelen vagy lejárt."
 msgid "That could not be sent. The files may be too large, or your connection failed. Try smaller files."
 msgstr "Nem sikerült elküldeni. A fájlok túl nagyok lehetnek, vagy a kapcsolat megszakadt. Próbáljon kisebb fájlokat."
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "That is not your recovery key"
+msgstr "Ez nem az Ön helyreállítási kulcsa"
+
 #: ../../../lib/web/src/hooks/use-attachment-error.ts
 #: ../../../lib/web/src/lib/handle-server-error.ts
 msgid "That was too large to upload. Remove or shrink files and try again."
@@ -3164,6 +3280,14 @@ msgstr "A csevegés neve legfeljebb {CHAT_NAME_MAX_LENGTH} karakter lehet"
 msgid "The chat name cannot contain < or >"
 msgstr "A csevegés neve nem tartalmazhat < vagy > jelet"
 
+#: src/features/chats/components/verification-watcher.tsx
+msgid "The emoji did not match, so the verification was cancelled"
+msgstr "Az emojik nem egyeztek, ezért az ellenőrzés megszakadt"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "The fingerprint matches"
+msgstr "Az ujjlenyomat egyezik"
+
 #: ../../../lib/web/src/lib/shell-errors.ts
 msgid "The microphone request was not answered"
 msgstr "A mikrofonkérésre nem érkezett válasz"
@@ -3171,6 +3295,10 @@ msgstr "A mikrofonkérésre nem érkezett válasz"
 #: ../../../lib/web/src/lib/shell-errors.ts
 msgid "The passkey request was not answered"
 msgstr "A hozzáférési kulcsra vonatkozó kérésre nem érkezett válasz"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "The password was not accepted"
+msgstr "A jelszót nem fogadták el"
 
 #: ../../../lib/web/src/features/errors/general-error.tsx
 msgid "The requested content could not be found."
@@ -3180,10 +3308,30 @@ msgstr "A kért tartalom nem található."
 msgid "The server returned a web page instead of data."
 msgstr "A kiszolgáló weboldalt adott vissza adatok helyett."
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "The verification could not be started"
+msgstr "Az ellenőrzést nem sikerült elindítani"
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "The verification could not go on"
+msgstr "Az ellenőrzést nem sikerült folytatni"
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "The verification was cancelled"
+msgstr "Az ellenőrzés megszakadt"
+
 #. placeholder {0}: unknown.join(', ')
 #: src/features/chats/index.tsx
 msgid "These names are not in this chat: {0}. Pick from the @ list or remove them."
 msgstr "Ezek a nevek nincsenek ebben a csevegésben: {0}. Válasszon a @ listából, vagy távolítsa el őket."
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "They don't match"
+msgstr "Nem egyeznek"
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "They match"
+msgstr "Igen, egyeznek"
 
 #: src/routes/_authenticated/$chatId_.settings.tsx
 msgid "They stop receiving new messages in this chat."
@@ -3203,12 +3351,20 @@ msgid "This chat may have been deleted or you don't have access to it"
 msgstr "Lehet, hogy ezt a csevegést törölték, vagy nincs hozzáférésed"
 
 #: src/features/chats/index.tsx
-msgid "This conversation is encrypted. Messages cannot be sent to it from here yet."
-msgstr "Ez a beszélgetés titkosított. Innen még nem lehet üzenetet küldeni bele."
-
-#: src/features/chats/index.tsx
 msgid "This deletes the message for everyone and cannot be undone."
 msgstr "Ez mindenkinél törli az üzenetet, és nem vonható vissza."
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "This device"
+msgstr "Ez az eszköz"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "This device (OMEMO 2)"
+msgstr "Ez az eszköz (OMEMO 2)"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "This device (OMEMO)"
+msgstr "Ez az eszköz (OMEMO)"
 
 #: src/features/chats/components/chat-message-list.tsx
 #: src/features/chats/components/message-quote.tsx
@@ -3406,14 +3562,28 @@ msgstr "Változók: {variables}"
 msgid "Verification code"
 msgstr "Ellenőrző kód"
 
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Verified"
+msgstr "Ellenőrizve"
+
 #: ../../../lib/web/src/components/step-up-dialog.tsx
 #: ../../../lib/web/src/features/accounts/account-verify.tsx
 msgid "Verify"
 msgstr "Ellenőrzés"
 
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Verify {who}"
+msgstr "{who} ellenőrzése"
+
 #: ../../../lib/web/src/features/accounts/account-verify.tsx
 msgid "Verify email address"
 msgstr "E-mail-cím ellenőrzése"
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Verify your device"
+msgstr "Saját eszköz ellenőrzése"
 
 #: ../../../lib/web/src/components/attachment-gallery.tsx
 #: src/features/chats/components/message-media-grid.tsx
@@ -3438,6 +3608,10 @@ msgstr "Tétel adatainak megtekintése és szerkesztése"
 msgid "View controls"
 msgstr "Vezérlők megtekintése"
 
+#: src/features/chats/roles.ts
+msgid "Visitor"
+msgstr "Látogató"
+
 #: src/features/chats/components/voice-waveform.tsx
 msgid "Voice note waveform"
 msgstr "Hangüzenet hullámformája"
@@ -3455,6 +3629,14 @@ msgstr "A hangfelvétel nem támogatott ebben a böngészőben"
 #: src/features/chats/components/chat-input.tsx
 msgid "Voice recording isn't available in this app version. Please update the app and try again."
 msgstr "A hangfelvétel nem érhető el az alkalmazás ezen verziójában. Frissítse az alkalmazást, és próbálja újra."
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Waiting for the other device..."
+msgstr "Várakozás a másik eszközre..."
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Waiting for them to accept"
+msgstr "Várakozás az elfogadásra"
 
 #: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx
 #: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx
@@ -3530,6 +3712,18 @@ msgstr "Fiókja ide lett áthelyezve innen: {source}. Amíg nem törli onnan, az
 #: ../../../lib/web/src/components/comment-composer.tsx
 msgid "Your attachments will be lost."
 msgstr "A mellékletei elvesznek."
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Your Matrix server asks for your account's password."
+msgstr "A Matrix-szervere kéri a fiókja jelszavát."
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Your other devices"
+msgstr "További eszközei"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Your recovery key"
+msgstr "Az Ön helyreállítási kulcsa"
 
 #: ../../../lib/web/src/components/comment-composer.tsx
 msgid "Your text and attachments will be lost."

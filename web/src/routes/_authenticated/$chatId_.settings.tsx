@@ -53,7 +53,9 @@ import {
   CHAT_NAME_FORBIDDEN,
   CHAT_NAME_MAX_LENGTH,
 } from '@/features/chats/constants/limits'
-import { matrixAddress, nameMatches } from '@/features/chats/utils'
+import { roleLabel } from '@/features/chats/roles'
+import { EncryptionSection } from '@/features/chats/components/encryption-section'
+import { matrixAddress, nameMatches, xmppAddress } from '@/features/chats/utils'
 
 export const Route = createFileRoute('/_authenticated/$chatId_/settings')({
   component: ChatSettingsPage,
@@ -149,6 +151,11 @@ function ChatSettingsPage() {
           </Section>
         ) : chatDetail ? (
           <ChatNameSection chatId={chatId} name={chatDetail.chat.name} />
+        ) : null}
+
+        {chatDetail?.chat.network === 'matrix' ||
+        chatDetail?.chat.network === 'xmpp' ? (
+          <EncryptionSection chatId={chatId} />
         ) : null}
 
         <MembersSection
@@ -250,7 +257,7 @@ function MembersSection({
   onRemoveMember,
   onLeave,
 }: {
-  members: Array<{ id: string; name: string }>
+  members: Array<{ id: string; name: string; role?: string }>
   currentUserIdentity: string
   isLoading: boolean
   error: unknown
@@ -274,7 +281,7 @@ function MembersSection({
       }
     >
       <MemberList
-        members={members}
+        members={members.map((m) => ({ ...m, detail: roleLabel(m.role) }))}
         currentUserId={currentUserIdentity}
         avatarUrls={(id) =>
           remote && id !== currentUserIdentity
@@ -395,11 +402,14 @@ function AddMemberDialog({
       .sort((a, b) => naturalCompare(a.name, b.name))
   }, [friendsData?.friends, existingMemberIds, filter])
 
-  // Someone on Matrix, by their address, joins a group through this member's
-  // server, which relays them.
+  // Someone on Matrix or XMPP, by their address, joins a group through this
+  // member's server, which relays them.
   const outside = useMemo(() => {
-    const address = matrixAddress(filter)
-    return address && !existingMemberIds.includes(address)
+    const matrix = matrixAddress(filter)
+    const xmpp = matrix ? null : xmppAddress(filter)
+    const address = matrix ?? xmpp
+    const id = xmpp ? 'xmpp:' + xmpp : address
+    return address && id && !existingMemberIds.includes(id)
       ? { name: address }
       : null
   }, [filter, existingMemberIds])

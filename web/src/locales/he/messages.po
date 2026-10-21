@@ -65,6 +65,11 @@ msgstr "{0, plural, =1 {למחוק את ההודעה?} two {למחוק שתי ה
 msgid "{0, plural, one {# file changed} other {# files changed}}"
 msgstr "{0, plural, one {קובץ אחד השתנה} two {# קבצים השתנו} many {# קבצים השתנו} other {# קבצים השתנו}}"
 
+#. placeholder {0}: result.restored
+#: src/features/chats/components/encryption-section.tsx
+msgid "{0, plural, one {# message key restored} other {# message keys restored}}"
+msgstr "{0, plural, one {מפתח הודעות אחד שוחזר} two {# מפתחות הודעות שוחזרו} many {# מפתחות הודעות שוחזרו} other {# מפתחות הודעות שוחזרו}}"
+
 #. placeholder {0}: message.replies
 #: src/features/chats/components/chat-message-list.tsx
 msgid "{0, plural, one {# reply} other {# replies}}"
@@ -175,6 +180,10 @@ msgstr "{truncated, plural, one {קובץ נוסף אחד לא מוצג} two {ש
 msgid "{unreadCount, plural, one {Open menu (# unread notification)} other {Open menu (# unread notifications)}}"
 msgstr "{unreadCount, plural, one {פתיחת התפריט (התראה אחת שלא נקראה)} two {פתיחת התפריט (# התראות שלא נקראו)} many {פתיחת התפריט (# התראות שלא נקראו)} other {פתיחת התפריט (# התראות שלא נקראו)}}"
 
+#: src/features/chats/components/verification-watcher.tsx
+msgid "{who} wants to verify you."
+msgstr "{who} רוצה לאמת אותך."
+
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "12 hours"
 msgstr "12 שעות"
@@ -193,6 +202,7 @@ msgid "Absolute (date and time)"
 msgstr "מוחלט (תאריך ושעה)"
 
 #: ../../../lib/web/src/components/game/game-draw-offer-banner.tsx
+#: src/features/chats/components/verification-watcher.tsx
 #: src/features/chats/index.tsx
 msgid "Accept"
 msgstr "אישור"
@@ -326,6 +336,10 @@ msgstr "מוסיף חבר..."
 msgid "Addresses"
 msgstr "כתובות"
 
+#: src/features/chats/roles.ts
+msgid "Administrator"
+msgstr "מנהל מערכת"
+
 #: src/features/chats/constants/reactions.ts
 msgid "Agree"
 msgstr "מסכים"
@@ -379,6 +393,10 @@ msgstr "פוש ל-Android"
 #: src/features/chats/constants/reactions.ts
 msgid "Angry"
 msgstr "כועס"
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Another of your devices wants to verify this one."
+msgstr "מכשיר אחר שלך רוצה לאמת את המכשיר הזה."
 
 #: ../../../lib/web/src/features/access/access-list.tsx
 #: ../../../lib/web/src/features/access/types.ts
@@ -440,6 +458,10 @@ msgstr "בתור {0}"
 #: ../../../lib/web/src/components/ui/sort-direction-button.tsx
 msgid "Ascending"
 msgstr "סדר עולה"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Asking to compare emoji..."
+msgstr "מבקש להשוות אמוג'י..."
 
 #: ../../../lib/web/src/components/timezone-select.tsx
 msgid "At sea"
@@ -599,6 +621,8 @@ msgstr "המצלמה אינה זמינה"
 #: src/features/chats/components/chat-settings-dialog.tsx
 #: src/features/chats/components/forward-dialog.tsx
 #: src/features/chats/components/new-chat.tsx
+#: src/features/chats/components/verification-watcher.tsx
+#: src/features/chats/components/verification-watcher.tsx
 #: src/features/chats/index.tsx
 msgid "Cancel"
 msgstr "ביטול"
@@ -735,6 +759,10 @@ msgstr "הצמדת הצ'אט בוטלה"
 msgid "Chats"
 msgstr "צ'אטים"
 
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Check that the same emoji appear on the other screen."
+msgstr "בדוק שאותם אמוג'י מופיעים במסך השני."
+
 #: ../../../lib/web/src/hooks/use-field-type-labels.ts
 msgid "Checkbox"
 msgstr "תיבת סימון"
@@ -867,6 +895,11 @@ msgstr "תגובות ({0})"
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Compact"
 msgstr "מצומצם"
+
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Compare emoji"
+msgstr "השוואת אמוג'י"
 
 #: ../../../lib/web/src/components/entity/entity-option-dialog.tsx
 msgid "Configure option settings"
@@ -1028,6 +1061,7 @@ msgid "Date"
 msgstr "תאריך"
 
 #: ../../../lib/web/src/components/game/game-draw-offer-banner.tsx
+#: src/features/chats/components/verification-watcher.tsx
 #: src/features/chats/index.tsx
 msgid "Decline"
 msgstr "דחייה"
@@ -1167,6 +1201,10 @@ msgstr "פאנל פרטים"
 msgid "Detect from web browser"
 msgstr "זיהוי מהדפדפן"
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "Device options"
+msgstr "אפשרויות מכשיר"
+
 #: ../../../lib/web/src/components/person-picker.tsx
 msgid "Directory"
 msgstr "מדריך"
@@ -1210,6 +1248,14 @@ msgstr "סגור"
 msgid "Displays the mobile sidebar."
 msgstr "מציג את סרגל הצד למובייל."
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "Distrust"
+msgstr "סמן כלא מהימן"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Distrusted"
+msgstr "לא מהימן"
+
 #: src/features/chats/components/chat-input.tsx
 msgid "Document"
 msgstr "מסמך"
@@ -1220,6 +1266,7 @@ msgstr "לא תואם לתבנית הנדרשת"
 
 #: ../../../lib/web/src/components/entity/entity-field-dialog.tsx
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx
+#: src/features/chats/components/encryption-section.tsx
 msgid "Done"
 msgstr "בוצע"
 
@@ -1308,6 +1355,12 @@ msgstr "קוד אימייל"
 msgid "Encrypted message"
 msgstr "הודעה מוצפנת"
 
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+msgid "Encryption"
+msgstr "הצפנה"
+
 #: ../../../lib/web/src/components/calendar/time-grid.tsx
 msgid "Ends before it starts"
 msgstr "מסתיים לפני שהתחיל"
@@ -1315,6 +1368,11 @@ msgstr "מסתיים לפני שהתחיל"
 #: ../../../lib/web/src/components/banner-section.tsx
 msgid "Enter banner text (markdown supported)..."
 msgstr "הזן טקסט באנר (יש תמיכה ב-markdown)..."
+
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+msgid "Enter recovery key"
+msgstr "הזנת מפתח שחזור"
 
 #: ../../../lib/web/src/components/step-up-dialog.tsx
 msgid "Enter the code from your email"
@@ -1498,6 +1556,7 @@ msgstr "שלילת גישת RSS נכשלה"
 
 #: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx
 #: src/features/chats/components/chat-settings-dialog.tsx
+#: src/features/chats/components/encryption-section.tsx
 msgid "Failed to save"
 msgstr "השמירה נכשלה"
 
@@ -1556,6 +1615,10 @@ msgstr "דגלים"
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Flat"
 msgstr "שטוח"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Forget my decision"
+msgstr "שכח את ההחלטה שלי"
 
 #: src/features/chats/components/forward-dialog.tsx
 #: src/features/chats/components/message-hover-actions.tsx
@@ -1717,6 +1780,10 @@ msgstr "דילוג לתחתית"
 #: ../../../lib/web/src/lib/locale-format.ts
 msgid "Just now"
 msgstr "הרגע"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Keep this key safe. It is shown once, and your other Matrix clients ask for it to read your encrypted messages."
+msgstr "שמור את המפתח הזה במקום בטוח. הוא מוצג פעם אחת בלבד, ולקוחות ה-Matrix האחרים שלך מבקשים אותו כדי לקרוא את ההודעות המוצפנות שלך."
 
 #: ../../../lib/web/src/components/entity/keyboard-shortcuts-help.tsx
 msgid "Keyboard shortcuts"
@@ -1974,6 +2041,10 @@ msgstr "Mochi ברשת"
 msgid "Moderation"
 msgstr "ניהול תוכן"
 
+#: src/features/chats/roles.ts
+msgid "Moderator"
+msgstr "מנהל תוכן"
+
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Monday"
 msgstr "יום שני"
@@ -2104,6 +2175,10 @@ msgstr "אין צ'אטים להעברה"
 msgid "No comments yet"
 msgstr "עדיין אין תגובות"
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "No devices"
+msgstr "אין מכשירים"
+
 #: src/routes/_authenticated/$chatId_.settings.tsx
 msgid "No friends available"
 msgstr "אין חברים זמינים"
@@ -2139,6 +2214,10 @@ msgstr "עדיין אין הודעות"
 #: src/features/chats/components/chat-input.tsx
 msgid "No microphone found"
 msgstr "לא נמצא מיקרופון"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "No other devices"
+msgstr "אין מכשירים אחרים"
 
 #: ../../../lib/web/src/components/entity/entity-field-editor.tsx
 #: ../../../lib/web/src/components/person-picker.tsx
@@ -2224,6 +2303,11 @@ msgstr "לא נמצא"
 #: ../../../lib/web/src/components/ui/editable-field-row.tsx
 msgid "Not set"
 msgstr "לא הוגדר"
+
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+msgid "Not verified"
+msgstr "לא מאומת"
 
 #: ../../../lib/web/src/components/entity/entity-tree-view.tsx
 msgid "Nothing found"
@@ -2327,6 +2411,7 @@ msgstr "אחר"
 
 #: ../../../lib/web/src/components/member-list.tsx
 #: ../../../lib/web/src/features/access/access-list.tsx
+#: src/features/chats/roles.ts
 msgid "Owner"
 msgstr "בעלים"
 
@@ -2352,6 +2437,10 @@ msgstr "מפתחות גישה"
 #: ../../../lib/web/src/lib/shell-errors.ts
 msgid "Passkeys are not available in this browser"
 msgstr "מפתחות גישה אינם זמינים בדפדפן זה"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Password"
+msgstr "סיסמה"
 
 #: ../../../lib/web/src/components/entity/entity-field-dialog.tsx
 msgid "Pattern (regex)"
@@ -2508,6 +2597,14 @@ msgstr "ההקלטה נעצרה במגבלת 5 הדקות"
 #: src/features/chats/components/chat-input.tsx
 msgid "Recording voice note"
 msgstr "מקליט הודעה קולית"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Recovery could not be set up"
+msgstr "לא ניתן היה להגדיר שחזור"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Recovery key"
+msgstr "מפתח שחזור"
 
 #: ../../../lib/web/src/components/layout/authenticated-layout.tsx
 msgid "Redirecting to login."
@@ -2673,6 +2770,10 @@ msgstr "פרוש"
 msgid "Resign game?"
 msgstr "לפרוש מהמשחק?"
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "Restore"
+msgstr "שחזר"
+
 #: ../../../lib/web/src/components/attachment-composer.tsx
 msgid "Retry"
 msgstr "נסה שוב"
@@ -2730,7 +2831,12 @@ msgstr "שבת"
 msgid "Save"
 msgstr "שמור"
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "Saved"
+msgstr "נשמר"
+
 #: src/features/chats/components/chat-settings-dialog.tsx
+#: src/features/chats/components/encryption-section.tsx
 msgid "Saving..."
 msgstr "שומר..."
 
@@ -2957,6 +3063,12 @@ msgstr "פג תוקף ההפעלה. יש להתחבר שוב."
 msgid "Set origin and destination"
 msgstr "קבע מקור ויעד"
 
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+msgid "Set up recovery"
+msgstr "הגדרת שחזור"
+
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx
 #: ../../../lib/web/src/components/options-menu.tsx
@@ -3142,6 +3254,10 @@ msgstr "הקוד שגוי או שתוקפו פג."
 msgid "That could not be sent. The files may be too large, or your connection failed. Try smaller files."
 msgstr "לא ניתן היה לשלוח. ייתכן שהקבצים גדולים מדי, או שהחיבור נכשל. נסו קבצים קטנים יותר."
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "That is not your recovery key"
+msgstr "זה לא מפתח השחזור שלך"
+
 #: ../../../lib/web/src/hooks/use-attachment-error.ts
 #: ../../../lib/web/src/lib/handle-server-error.ts
 msgid "That was too large to upload. Remove or shrink files and try again."
@@ -3164,6 +3280,14 @@ msgstr "שם הצ'אט יכול להכיל עד {CHAT_NAME_MAX_LENGTH} תווי�
 msgid "The chat name cannot contain < or >"
 msgstr "שם הצ'אט אינו יכול להכיל < או >"
 
+#: src/features/chats/components/verification-watcher.tsx
+msgid "The emoji did not match, so the verification was cancelled"
+msgstr "האמוג'י לא תאמו, ולכן האימות בוטל"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "The fingerprint matches"
+msgstr "טביעת האצבע תואמת"
+
 #: ../../../lib/web/src/lib/shell-errors.ts
 msgid "The microphone request was not answered"
 msgstr "בקשת המיקרופון לא נענתה"
@@ -3171,6 +3295,10 @@ msgstr "בקשת המיקרופון לא נענתה"
 #: ../../../lib/web/src/lib/shell-errors.ts
 msgid "The passkey request was not answered"
 msgstr "בקשת מפתח הגישה לא נענתה"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "The password was not accepted"
+msgstr "הסיסמה לא התקבלה"
 
 #: ../../../lib/web/src/features/errors/general-error.tsx
 msgid "The requested content could not be found."
@@ -3180,10 +3308,30 @@ msgstr "לא ניתן למצוא את התוכן המבוקש."
 msgid "The server returned a web page instead of data."
 msgstr "השרת החזיר דף אינטרנט במקום נתונים."
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "The verification could not be started"
+msgstr "לא ניתן היה להתחיל את האימות"
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "The verification could not go on"
+msgstr "לא ניתן היה להמשיך באימות"
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "The verification was cancelled"
+msgstr "האימות בוטל"
+
 #. placeholder {0}: unknown.join(', ')
 #: src/features/chats/index.tsx
 msgid "These names are not in this chat: {0}. Pick from the @ list or remove them."
 msgstr "השמות האלה אינם בצ'אט הזה: {0}. בחרו מרשימת ה-@ או הסירו אותם."
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "They don't match"
+msgstr "הם לא תואמים"
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "They match"
+msgstr "הם תואמים"
 
 #: src/routes/_authenticated/$chatId_.settings.tsx
 msgid "They stop receiving new messages in this chat."
@@ -3203,12 +3351,20 @@ msgid "This chat may have been deleted or you don't have access to it"
 msgstr "ייתכן שהצ'אט הזה נמחק או שאין לך גישה אליו"
 
 #: src/features/chats/index.tsx
-msgid "This conversation is encrypted. Messages cannot be sent to it from here yet."
-msgstr "השיחה הזו מוצפנת. עדיין לא ניתן לשלוח אליה הודעות מכאן."
-
-#: src/features/chats/index.tsx
 msgid "This deletes the message for everyone and cannot be undone."
 msgstr "פעולה זו מוחקת את ההודעה עבור כולם ולא ניתן לבטל אותה."
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "This device"
+msgstr "המכשיר הזה"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "This device (OMEMO 2)"
+msgstr "המכשיר הזה (OMEMO 2)"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "This device (OMEMO)"
+msgstr "המכשיר הזה (OMEMO)"
 
 #: src/features/chats/components/chat-message-list.tsx
 #: src/features/chats/components/message-quote.tsx
@@ -3406,14 +3562,28 @@ msgstr "משתנים: {variables}"
 msgid "Verification code"
 msgstr "קוד אימות"
 
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Verified"
+msgstr "מאומת"
+
 #: ../../../lib/web/src/components/step-up-dialog.tsx
 #: ../../../lib/web/src/features/accounts/account-verify.tsx
 msgid "Verify"
 msgstr "אמת"
 
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Verify {who}"
+msgstr "אימות {who}"
+
 #: ../../../lib/web/src/features/accounts/account-verify.tsx
 msgid "Verify email address"
 msgstr "אמת כתובת אימייל"
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Verify your device"
+msgstr "אימות המכשיר שלך"
 
 #: ../../../lib/web/src/components/attachment-gallery.tsx
 #: src/features/chats/components/message-media-grid.tsx
@@ -3438,6 +3608,10 @@ msgstr "הצג וערוך פרטי פריט"
 msgid "View controls"
 msgstr "פקדי תצוגה"
 
+#: src/features/chats/roles.ts
+msgid "Visitor"
+msgstr "מבקר"
+
 #: src/features/chats/components/voice-waveform.tsx
 msgid "Voice note waveform"
 msgstr "צורת הגל של ההודעה הקולית"
@@ -3455,6 +3629,14 @@ msgstr "הקלטה קולית אינה נתמכת בדפדפן זה"
 #: src/features/chats/components/chat-input.tsx
 msgid "Voice recording isn't available in this app version. Please update the app and try again."
 msgstr "הקלטה קולית אינה זמינה בגרסה זו של האפליקציה. עדכנו את האפליקציה ונסו שוב."
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Waiting for the other device..."
+msgstr "ממתין למכשיר השני..."
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Waiting for them to accept"
+msgstr "ממתין לאישור שלהם"
 
 #: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx
 #: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx
@@ -3530,6 +3712,18 @@ msgstr "חשבונך הועבר לכאן מ-{source}. עד שתמחק אותו �
 #: ../../../lib/web/src/components/comment-composer.tsx
 msgid "Your attachments will be lost."
 msgstr "הקבצים המצורפים שלך יאבדו."
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Your Matrix server asks for your account's password."
+msgstr "שרת ה-Matrix שלך מבקש את סיסמת החשבון שלך."
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Your other devices"
+msgstr "המכשירים האחרים שלך"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Your recovery key"
+msgstr "מפתח השחזור שלך"
 
 #: ../../../lib/web/src/components/comment-composer.tsx
 msgid "Your text and attachments will be lost."

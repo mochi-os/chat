@@ -69,13 +69,19 @@ def chat_commit_hook(table, kind, row_uid):
 	if not row_uid:
 		return
 	# A messages row update is an own-message edit (local action or
-	# received event): push the new body so open tabs replace it in place.
+	# received event), or an encrypted message whose keys came: push the new
+	# body so open tabs replace it in place.
 	if table == "messages" and kind == "update":
 		message = mochi.db.row("select * from messages where id=?", row_uid)
 		if not message:
 			return
 		chat = mochi.db.row("select key from chats where id=?", message["chat"])
 		if not chat:
+			return
+		# An encrypted message never edited is one whose keys came, with its
+		# files perhaps: open tabs read it again.
+		if message.get("encrypted") and not message.get("edited"):
+			chat_websocket(chat["key"], {"event": "decrypted", "message": row_uid})
 			return
 		chat_websocket(chat["key"], {"event": "edit", "message": row_uid, "body": message["body"], "edited": message.get("edited", 0)})
 		return
@@ -233,6 +239,8 @@ def database_create():
 	chat_schema_federation()
 	chat_schema_linked()
 	chat_schema_matrix()
+	chat_schema_xmpp()
+	chat_schema_encryption()
 
 def database_upgrade(version):
 	if version == 2:
@@ -264,6 +272,14 @@ def database_upgrade(version):
 		# A reaction's id on Matrix, and the members a group's relaying
 		# member carries from Matrix (the federation plan, phase 24).
 		chat_schema_matrix()
+	if version == 14:
+		# A hosted XMPP account's archive and rooms (the federation plan,
+		# phase 26).
+		chat_schema_xmpp()
+	if version == 15:
+		# What a file sent to an encrypted XMPP conversation went as (the
+		# federation plan, phase 27).
+		chat_schema_encryption()
 	if version == 5 or version == 6 or version == 7:
 		# Attachments move into this database, owned by the shared library: create the
 		# table and copy rows out of core's store (bridge or export file). Versions 6
@@ -839,11 +855,6 @@ def action_send(a):
 
 	if not chat_write_allowed(a, chat):
 		return
-	# A conversation its network encrypts takes nothing from here until
-	# Mochi's clients hold the keys (phase 27).
-	if chat.get("encrypted"):
-		a.error.label(403, "errors.encrypted_conversation")
-		return
 
 	body = a.input("body", "")
 	if not mochi.text.valid(body, "text"):
@@ -1124,11 +1135,11 @@ def action_react(a):
 		a.error.label(404, "errors.message_not_found")
 		return
 
-	# A Matrix conversation has the reaction too (phase 24), as does the room
-	# of a group this member relays.
+	# A Matrix or XMPP conversation has the reaction too (phases 24 and 26),
+	# as does the room of a group this member relays.
 	if chat.get("account"):
 		acc = chat_account(chat)
-		if acc and acc["network"] == "matrix":
+		if acc and acc["network"] in LINKED_CHAT:
 			linked_react(chat, acc, a.user.identity.id, message_id, reaction, prior["remote"] if prior else "")
 	if chat.get("relay"):
 		bridge_react(chat, a.user.identity.id, message_id, reaction, prior["remote"] if prior else "")
@@ -1632,7 +1643,7 @@ def action_view(a):
 		a.error.label(403, "errors.not_a_member_of_this_chat")
 		return
 
-	members = mochi.db.rows("select member as id, name, relay from members where chat=?", chat["id"])
+	members = mochi.db.rows("select member as id, name, relay, role from members where chat=?", chat["id"])
 	chat["members"] = members
 	acc = chat_account(chat)
 	if acc:
@@ -2242,7 +2253,7 @@ def action_members(a):
 		a.error.label(403, "errors.not_a_member_of_this_chat")
 		return
 
-	members = mochi.db.rows("select member as id, name, relay from members where chat=?", chat["id"])
+	members = mochi.db.rows("select member as id, name, relay, role from members where chat=?", chat["id"])
 	return {"data": {"members": members}}
 
 # Rename a chat
@@ -3074,8 +3085,10 @@ def direct_deleted(actor, remote):
 # the user does goes out through the account. A room keeps its id on its
 # network in the room column; a one-to-one XMPP or Mastodon conversation is
 # known by its people. Typing, receipts and presence follow the user's
-# switches as on Mochi. A conversation its network encrypts shows its messages
-# as encrypted and takes none until Mochi's clients hold the keys (phase 27).
+# switches as on Mochi. A conversation its network encrypts is decrypted and
+# encrypted by core, which holds the account's device (phase 27): its messages
+# come here readable, those whose keys have not yet come as encrypted with no
+# text, filled in once the keys come (decrypted).
 # Who may write is the account's server's to decide, so chat's policy does
 # not apply; an invitation to a room waits for the user to accept or decline.
 # A hosted account's server is this one, so the policy applies there: core's
@@ -3125,6 +3138,25 @@ def chat_schema_matrix():
 	column_add("chats", "relay", "text not null default ''")
 	mochi.db.execute("create index if not exists reactions_remote on reactions( remote )")
 	mochi.db.execute("create index if not exists chats_relay on chats( relay )")
+
+def chat_schema_xmpp():
+	"""The columns and table of phase 26, at creation and by the migration
+	alike: an XMPP message's encrypted content as it came, kept for a hosted
+	account's archive to give its other devices; a member's role in a room on
+	another network; and the address each file of a message came or went
+	with there, by the id of the message it went in, for the archive."""
+	column_add("messages", "payload", "text not null default ''")
+	column_add("members", "role", "text not null default ''")
+	mochi.db.execute("create table if not exists links ( message text not null, remote text not null default '', url text not null, primary key ( message, url ) )")
+
+def chat_schema_encryption():
+	"""The column of phase 27, at creation and by the migration alike: the
+	encrypted content a file went as to an XMPP conversation, which a hosted
+	account's archive gives its other devices."""
+	column_add("links", "payload", "text not null default ''")
+
+# The largest encrypted content kept with a message.
+PAYLOAD_MAXIMUM = 65536
 
 # A reaction's emoji on Matrix, as chat's web client shows each, and the
 # reactions read back by their emoji.
@@ -3360,10 +3392,23 @@ def linked_remote(chat_id, message_id):
 	return row["remote"] if row else ""
 
 def linked_local(chat_id, remote):
-	"""The message of a conversation a network id names, or None."""
+	"""The message of a conversation a network id names, its own or one of its
+	further ids - in an XMPP room the id the room gave it - or None."""
 	if not remote:
 		return None
-	return mochi.db.row("select id, thread from messages where chat=? and remote=?", chat_id, remote)
+	found = mochi.db.row("select id, thread from messages where chat=? and remote=?", chat_id, remote)
+	if found:
+		return found
+	return mochi.db.row("select m.id, m.thread from parts p join messages m on m.id=p.message where m.chat=? and p.remote=?", chat_id, remote)
+
+def linked_reference(chat, acc, message_id):
+	"""The id a message is named by on its network when replying or reacting
+	to it: in an XMPP room the id the room gave it, else its own."""
+	if acc["network"] == "xmpp" and chat.get("room") and message_id:
+		row = mochi.db.row("select remote from parts where message=? and kind='archive'", message_id)
+		if row:
+			return row["remote"]
+	return linked_remote(chat["id"], message_id)
 
 # --- What arrives ---
 
@@ -3387,6 +3432,8 @@ def function_linked_receive(context, account, network, events):
 				mochi.account.presence(acc["id"], chat_switch(mochi.user.preference, "presence"))
 		elif kind == "message":
 			linked_received(acc, identity, event)
+		elif kind == "decrypted":
+			linked_decrypted(acc, identity, event)
 		elif kind == "edit":
 			linked_edited(acc, identity, event)
 		elif kind == "delete":
@@ -3418,6 +3465,69 @@ def function_linked_accept(context, account, network, person):
 	if not acc or not acc.get("hosted") or account_network(acc) != network or not identity:
 		return False
 	return invite_accepted(mochi.user.preference, identity["id"], str(person or ""))
+
+def function_linked_archive(context, account, network, conversation, start, end, after, before, last, maximum):
+	"""A page of a hosted XMPP account's archive, which core's engine answers a
+	client's archive query from (phase 26): the messages of the account's
+	one-to-one conversations, or of the one with a person, between two times;
+	from the message an archive id names or up to it, either inclusive, else
+	the latest where last and the earliest otherwise. Each with its id in the
+	archive, its id on the network, the person, whether the account sent it,
+	its text as it stands, when, the message it replies to, its encrypted
+	content and its files; with whether more lie beyond the page and whether
+	the message named was found. A withdrawn message is left out."""
+	acc = mochi.account.get(account)
+	identity = chat_identity()
+	if not acc or not acc.get("hosted") or account_network(acc) != "xmpp" or network != "xmpp" or not identity:
+		return None
+	me = identity["id"]
+	maximum = min(maximum, 250) if type(maximum) == "int" and maximum >= 0 else 50
+	person = linked_person("xmpp", conversation) if conversation else None
+	chats = {}
+	for c in mochi.db.rows("select id from chats where account=? and room=''", acc["id"]) or []:
+		others = [m["member"] for m in mochi.db.rows("select member from members where chat=? and member!=?", c["id"], me) or []]
+		if len(others) == 1 and (not person or others[0] == person):
+			chats[c["id"]] = others[0]
+	mark = str(after or before or "")
+	if not chats:
+		return {"messages": [], "more": False, "found": not mark}
+	where = "chat in (" + ",".join(["?"] * len(chats)) + ") and id not in (select message from deletions) and (body!='' or payload!='' or id in (select message from links))"
+	values = list(chats.keys())
+	if type(start) == "int" and start > 0:
+		where += " and created>=?"
+		values.append(start)
+	if type(end) == "int" and end > 0:
+		where += " and created<=?"
+		values.append(end)
+	anchor = None
+	if mark:
+		anchor = mochi.db.row("select m.chat, m.created, m.rowid as place from parts p join messages m on m.id=p.message where p.kind='archive' and p.remote=?", mark) or mochi.db.row("select chat, created, rowid as place from messages where id=?", mark)
+		if not anchor or anchor["chat"] not in chats:
+			return {"messages": [], "more": False, "found": False}
+	order = "asc"
+	if after:
+		where += " and (created>? or (created=? and rowid>=?))"
+		values += [anchor["created"], anchor["created"], anchor["place"]]
+	elif before:
+		where += " and (created<? or (created=? and rowid<=?))"
+		values += [anchor["created"], anchor["created"], anchor["place"]]
+		order = "desc"
+	elif last == True:
+		order = "desc"
+	extra = 1 if anchor else 0
+	rows = mochi.db.rows("select rowid as place, * from messages where " + where + " order by created " + order + ", rowid " + order + " limit ?", *(values + [maximum + extra + 1])) or []
+	more = len(rows) > maximum + extra
+	rows = rows[:maximum + extra]
+	if order == "desc":
+		rows = reversed(rows)
+	return {"messages": [linked_archive_entry(chats[m["chat"]], me, m) for m in rows], "more": more, "found": True}
+
+def linked_archive_entry(person, me, message):
+	"""A message as a hosted XMPP account's archive gives it."""
+	archive = mochi.db.row("select remote from parts where message=? and kind='archive'", message["id"])
+	reply = linked_remote(message["chat"], message["reply"]) if message.get("reply") else ""
+	files = [{"id": link["remote"], "url": link["url"], "payload": link["payload"]} for link in mochi.db.rows("select remote, url, payload from links where message=? order by rowid", message["id"]) or []]
+	return {"archive": archive["remote"] if archive else message["id"], "id": message["remote"], "person": person, "own": message["member"] == me, "body": message["body"], "created": message["created"], "reply": reply, "payload": message.get("payload", "") or "", "files": files}
 
 def linked_name(value, fallback):
 	"""A name an event gives, where it is one to show."""
@@ -3487,7 +3597,7 @@ def linked_received(acc, identity, event):
 	name = mochi.db.row("select name from members where chat=? and member=?", chat["id"], member)
 	name = name["name"] if name else ""
 	encrypted = event.get("encrypted") == True
-	body = "" if encrypted else linked_body(acc, chat, event)[:10000]
+	body = linked_body(acc, chat, event)[:10000]
 	if body and not mochi.text.valid(body, "text"):
 		return
 	created = event.get("created", 0)
@@ -3501,18 +3611,8 @@ def linked_received(acc, identity, event):
 			mochi.db.execute("update messages set remote=? where id=?", remote, echo["id"])
 			return
 	id = mochi.uid()
-	object = "chat/" + chat["id"] + "/" + id
 	files = [f for f in listed(event.get("files")) if type(f) == "dict"][:FILES_MAXIMUM]
-	for f in files:
-		link = str(f.get("url", "") or "")
-		if not remote_ok(link):
-			continue
-		fetched = mochi.account.media(acc["id"], link)
-		kept = None
-		if fetched and fetched.get("status") == 200 and fetched.get("data"):
-			kept = attachment_create(object, str(f.get("name", "") or "file")[:200], fetched["data"], content_type=str(fetched.get("type", "") or f.get("type", "") or "").split(";")[0], description=str(f.get("description", "") or "")[:1000])
-		if not kept:
-			body = (body + "\n" + link).strip()[:10000]
+	body = linked_fetched(acc, chat, id, files, body)
 	if not body and not files and not encrypted:
 		return
 	thread = ""
@@ -3520,7 +3620,17 @@ def linked_received(acc, identity, event):
 	if root and not root["thread"]:
 		thread = root["id"]
 	reply = linked_local(chat["id"], str(event.get("reply", "") or ""))
-	mochi.db.execute("insert into messages ( id, chat, member, name, body, created, reply, remote, encrypted, thread ) values ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )", id, chat["id"], member, name, body, created, reply["id"] if reply else None, remote, 1 if encrypted else 0, thread)
+	# An XMPP message's encrypted content as it came, for a hosted account's
+	# archive (phase 26).
+	payload = str(event.get("payload", "") or "") if encrypted and network == "xmpp" else ""
+	if len(payload) > PAYLOAD_MAXIMUM:
+		payload = ""
+	mochi.db.execute("insert into messages ( id, chat, member, name, body, created, reply, remote, encrypted, thread, payload ) values ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )", id, chat["id"], member, name, body, created, reply["id"] if reply else None, remote, 1 if encrypted else 0, thread, payload)
+	if network == "xmpp":
+		for f in files:
+			link = str(f.get("url", "") or "")
+			if remote_ok(link):
+				mochi.db.execute("insert or ignore into links ( message, remote, url ) values ( ?, '', ? )", id, link[:REMOTE_MAXIMUM])
 	archive = str(event.get("archive", "") or "")[:REMOTE_MAXIMUM]
 	if archive and archive != remote:
 		mochi.db.execute("insert or ignore into parts ( message, remote, kind ) values ( ?, ?, 'archive' )", id, archive)
@@ -3533,8 +3643,48 @@ def linked_received(acc, identity, event):
 	chat_ensure_commit_hook()
 	mochi.db.commit.fire("messages", "insert", id)
 	if not own:
-		excerpt = mochi.app.label("messages.encrypted") if encrypted else body.strip()[:80]
+		# A message whose keys have not yet come has no text to show.
+		excerpt = body.strip()[:80] if body or files else mochi.app.label("messages.encrypted")
 		notify("message", chat["id"], mochi.app.label("notifications.title.message"), mochi.app.label("notifications.body.message", author=name, excerpt=excerpt), "/chat/" + chat["id"], chat["name"], event_id="message:" + id)
+
+def linked_fetched(acc, chat, id, files, body):
+	"""The files a message came with, fetched through the account and kept as
+	the message's attachments; the address of one that could not be is added
+	to its text, which is answered."""
+	object = "chat/" + chat["id"] + "/" + id
+	for f in files:
+		link = str(f.get("url", "") or "")
+		if not remote_ok(link):
+			continue
+		fetched = mochi.account.media(acc["id"], link)
+		kept = None
+		if fetched and fetched.get("status") == 200 and fetched.get("data"):
+			kept = attachment_create(object, str(f.get("name", "") or "file")[:200], fetched["data"], content_type=str(fetched.get("type", "") or f.get("type", "") or "").split(";")[0], description=str(f.get("description", "") or "")[:1000])
+		if not kept:
+			body = (body + "\n" + link).strip()[:10000]
+	return body
+
+def linked_decrypted(acc, identity, event):
+	"""A message that came encrypted before its keys did, now that they have
+	come: its text and its files, where it is still waiting for them."""
+	message = linked_message_of(acc, event.get("id"))
+	if not message or not message.get("encrypted") or message["body"] or mochi.db.exists("select 1 from deletions where message=?", message["id"]):
+		return
+	if mochi.db.exists("select 1 from attachments where object=?", "chat/" + message["chat"] + "/" + message["id"]):
+		return
+	chat = mochi.db.row("select * from chats where id=?", message["chat"])
+	if not chat:
+		return
+	body = linked_body(acc, chat, event)[:10000]
+	if body and not mochi.text.valid(body, "text"):
+		return
+	files = [f for f in listed(event.get("files")) if type(f) == "dict"][:FILES_MAXIMUM]
+	body = linked_fetched(acc, chat, message["id"], files, body)
+	if not body and not files:
+		return
+	mochi.db.execute("update messages set body=? where id=?", body, message["id"])
+	chat_ensure_commit_hook()
+	mochi.db.commit.fire("messages", "update", message["id"])
 
 def linked_sender(identity, event):
 	"""Who an event says acted: the user where it was them."""
@@ -3574,15 +3724,22 @@ def linked_withdrawn(acc, identity, event):
 	message_delete_apply(message["chat"], message["id"], sender or message["member"], mochi.time.now())
 
 def linked_reacted(acc, identity, event):
-	"""A reaction on Matrix to a message: kept as one of chat's with the id it
-	has there. A reaction chat has no name for is passed over."""
+	"""A reaction to a message: kept as one of chat's with the id it has on its
+	network. A reaction chat has no name for is passed over; on XMPP, where a
+	person's reactions to a message come whole, none withdraws theirs."""
 	message = linked_message_of(acc, event.get("id"))
-	reaction = reaction_name(event.get("reaction"))
-	if not message or not reaction:
+	given = str(event.get("reaction", "") or "")
+	reaction = reaction_name(given)
+	if not message:
 		return
 	member = linked_sender(identity, event)
 	row = mochi.db.row("select name from members where chat=? and member=?", message["chat"], member)
 	if not row:
+		return
+	if not given and acc["network"] == "xmpp":
+		message_reaction_set(message["chat"], message["id"], member, row["name"], None)
+		return
+	if not reaction:
 		return
 	if message_reaction_set(message["chat"], message["id"], member, row["name"], reaction):
 		mochi.db.execute("update reactions set remote=? where chat=? and message=? and member=?", str(event.get("event", "") or "")[:REMOTE_MAXIMUM], message["chat"], message["id"], member)
@@ -3666,7 +3823,7 @@ def linked_room(acc, identity, event):
 		mochi.db.execute("update chats set kind='direct' where id=?", chat["id"])
 
 def linked_member(acc, event):
-	"""Someone joining or leaving a room."""
+	"""Someone joining or leaving a room, with the role they have there."""
 	chat = mochi.db.row("select * from chats where account=? and room=? and status='active'", acc["id"], str(event.get("conversation", "") or ""))
 	member = str(event.get("id", "") or "")[:REMOTE_MAXIMUM]
 	if not chat or not member or mochi.text.valid(member, "entity"):
@@ -3675,7 +3832,19 @@ def linked_member(acc, event):
 		mochi.db.execute("delete from members where chat=? and member=?", chat["id"], member)
 		return
 	name = linked_name(event.get("name"), member)
-	mochi.db.execute("insert into members ( chat, member, name ) values ( ?, ?, ? ) on conflict ( chat, member ) do update set name=excluded.name", chat["id"], member, name)
+	role = linked_role(event)
+	mochi.db.execute("insert into members ( chat, member, name, role ) values ( ?, ?, ?, ? ) on conflict ( chat, member ) do update set name=excluded.name, role=excluded.role", chat["id"], member, name, role)
+
+def linked_role(event):
+	"""The role someone has in a room as chat shows it: owner, admin,
+	moderator, visitor, or '' for anyone else."""
+	affiliation = str(event.get("affiliation", "") or "")
+	role = str(event.get("role", "") or "")
+	if affiliation in ("owner", "admin"):
+		return affiliation
+	if role in ("moderator", "visitor"):
+		return role
+	return ""
 
 def linked_invite(acc, identity, event):
 	"""An invitation to a room: a conversation waiting for the user, who is
@@ -3733,12 +3902,12 @@ def linked_send(chat, acc, message, attachments):
 	as one more message, the first kept as the message's id there and the
 	rest as its further ids."""
 	target = linked_target(chat)
-	if not target or chat.get("encrypted"):
+	if not target:
 		return False
 	sent = ""
 	if message["body"]:
 		object = {"conversation": target, "content": message["body"]}
-		reply = linked_remote(chat["id"], message.get("reply"))
+		reply = linked_reference(chat, acc, message.get("reply"))
 		if reply:
 			object["reply"] = reply
 		thread = linked_remote(chat["id"], message.get("thread"))
@@ -3748,9 +3917,14 @@ def linked_send(chat, acc, message, attachments):
 		if not result or not result.get("id"):
 			return False
 		sent = str(result["id"])
+		linked_archived(message["id"], result, sent)
+		# What it went encrypted as, for a hosted XMPP account's archive.
+		if result.get("payload"):
+			mochi.db.execute("update messages set encrypted=1, payload=? where id=?", str(result["payload"])[:PAYLOAD_MAXIMUM], message["id"])
 	for att in attachments or []:
 		data = mochi.file.read(attachment_filename(att["id"], att["name"]), mochi.file.maximum())
-		uploaded = mochi.account.upload(acc["id"], data, str(att.get("type", "") or att.get("content_type", "") or ""), name=att["name"]) if data != None else None
+		# A file for an encrypted conversation is uploaded encrypted.
+		uploaded = mochi.account.upload(acc["id"], data, str(att.get("type", "") or att.get("content_type", "") or ""), name=att["name"], conversation=target) if data != None else None
 		result = mochi.account.object.create(acc["id"], {"conversation": target, "file": uploaded}, key="chat|" + message["id"] + "|" + att["id"]) if uploaded else None
 		if not result or not result.get("id"):
 			if not sent:
@@ -3760,10 +3934,181 @@ def linked_send(chat, acc, message, attachments):
 			mochi.db.execute("insert or ignore into parts ( message, remote, kind ) values ( ?, ?, 'file' )", message["id"], str(result["id"]))
 		else:
 			sent = str(result["id"])
+			linked_archived(message["id"], result, sent)
+		# The file's address, and what it went encrypted as, for a hosted
+		# XMPP account's archive (phases 26 and 27).
+		if acc["network"] == "xmpp" and uploaded.get("url"):
+			mochi.db.execute("insert or ignore into links ( message, remote, url, payload ) values ( ?, ?, ?, ? )", message["id"], str(result["id"]), str(uploaded["url"])[:REMOTE_MAXIMUM], str(result.get("payload", "") or "")[:PAYLOAD_MAXIMUM])
 	if not sent:
 		return False
 	mochi.db.execute("update messages set remote=? where id=?", sent, message["id"])
 	return True
+
+# --- Encryption ---
+#
+# Core holds the encryption device of each of the user's Matrix and XMPP
+# accounts and decrypts their conversations before chat hears them (phase
+# 27). Chat shows the device and the people's devices, takes the user's word
+# on them, runs Matrix's emoji verification, and sets up and enters the
+# account's recovery key.
+
+def encryption_chat(a):
+	"""A conversation on a Matrix or XMPP account the user may write to, with
+	its account; None where it is not one, the refusal given."""
+	chat_id = a.input("chat")
+	if not mochi.text.valid(chat_id, "id"):
+		a.error.label(400, "errors.invalid_chat_id")
+		return None, None
+	chat = mochi.db.row("select * from chats where id=?", chat_id)
+	if not chat:
+		a.error.label(404, "errors.chat_not_found")
+		return None, None
+	if not chat_write_allowed(a, chat):
+		return None, None
+	acc = mochi.account.get(chat["account"]) if chat.get("account") else None
+	network = account_network(acc)
+	if network not in ("matrix", "xmpp"):
+		a.error.label(400, "errors.encryption_unavailable")
+		return None, None
+	acc["network"] = network
+	return chat, acc
+
+def encryption_person(chat, person):
+	"""Whether someone is one of a conversation's people on its network."""
+	return person and mochi.db.exists("select 1 from members where chat=? and member=?", chat["id"], person)
+
+def action_encryption(a):
+	"""The account's device and the conversation's people on its network."""
+	chat, acc = encryption_chat(a)
+	if not chat:
+		return
+	status = mochi.account.encryption.status(acc["id"])
+	people = [{"id": m["member"], "name": m["name"]} for m in mochi.db.rows("select member, name from members where chat=?", chat["id"]) or [] if not mochi.text.valid(m["member"], "entity")]
+	return {"data": {"account": acc["id"], "status": status, "people": people}}
+
+def action_encryption_devices(a):
+	"""A person's devices: one of the conversation's, or the user's own."""
+	chat, acc = encryption_chat(a)
+	if not chat:
+		return
+	person = a.input("person", "")
+	status = mochi.account.encryption.status(acc["id"])
+	own = person == status.get("address") or person == "xmpp:" + str(status.get("address", ""))
+	if not own and not encryption_person(chat, person):
+		a.error.label(404, "errors.member_not_found_in_this_chat")
+		return
+	return {"data": {"devices": mochi.account.encryption.devices(acc["id"], person) or []}}
+
+def action_encryption_trust(a):
+	"""The user's word on a device of someone's."""
+	chat, acc = encryption_chat(a)
+	if not chat:
+		return
+	person = a.input("person", "")
+	status = mochi.account.encryption.status(acc["id"])
+	own = person == status.get("address") or person == "xmpp:" + str(status.get("address", ""))
+	if not own and not encryption_person(chat, person):
+		a.error.label(404, "errors.member_not_found_in_this_chat")
+		return
+	trust = a.input("trust", "")
+	if trust not in ("verified", "distrusted", "undecided"):
+		a.error.label(400, "errors.invalid_preference")
+		return
+	mochi.account.encryption.trust(acc["id"], person, a.input("device", ""), trust)
+	return {"data": {}}
+
+def action_encryption_verify(a):
+	"""Ask to verify someone in a Matrix conversation by comparing emoji, or
+	the user's own other devices."""
+	chat, acc = encryption_chat(a)
+	if not chat:
+		return
+	if acc["network"] != "matrix":
+		a.error.label(400, "errors.encryption_unavailable")
+		return
+	person = a.input("person", "")
+	status = mochi.account.encryption.status(acc["id"])
+	if person == status.get("address"):
+		asked = mochi.account.encryption.verify(acc["id"], person)
+	elif not encryption_person(chat, person) or not chat.get("room"):
+		a.error.label(404, "errors.member_not_found_in_this_chat")
+		return
+	else:
+		asked = mochi.account.encryption.verify(acc["id"], person, room=chat["room"])
+	# Core's device verifies once it holds the account's cross-signing keys.
+	if asked.get("recovery"):
+		a.error.label(409, "errors.recovery_needed")
+		return
+	return {"data": asked}
+
+def action_encryption_setup(a):
+	"""Set up a Matrix account's cross-signing and key backup: the recovery
+	key, shown once, or that the account's password is wanted."""
+	chat, acc = encryption_chat(a)
+	if not chat:
+		return
+	if acc["network"] != "matrix":
+		a.error.label(400, "errors.encryption_unavailable")
+		return
+	return {"data": mochi.account.encryption.setup(acc["id"], password=a.input("password", ""))}
+
+def action_encryption_recover(a):
+	"""Take a Matrix account's recovery key set up on another client."""
+	chat, acc = encryption_chat(a)
+	if not chat:
+		return
+	if acc["network"] != "matrix":
+		a.error.label(400, "errors.encryption_unavailable")
+		return
+	key = a.input("key", "")
+	if not key or len(key) > 200:
+		a.error.label(400, "errors.recovery_refused")
+		return
+	result = mochi.account.encryption.recover(acc["id"], key)
+	if result.get("refused"):
+		a.error.label(400, "errors.recovery_refused")
+		return
+	return {"data": result}
+
+def action_encryption_verifications(a):
+	"""The verifications under way on the user's Matrix accounts, each with
+	its account and the name of the person it is with."""
+	out = []
+	for acc in chat_accounts():
+		if acc.get("network") != "matrix":
+			continue
+		for v in mochi.account.encryption.verifications(acc["id"]) or []:
+			v["account"] = acc["id"]
+			member = mochi.db.row("select name from members where member=? and name!='' limit 1", v.get("person", ""))
+			v["name"] = member["name"] if member else ""
+			out.append(v)
+	return {"data": {"verifications": out}}
+
+def action_encryption_act(a):
+	"""A step of a verification on one of the user's Matrix accounts."""
+	account = a.input("account", "")
+	acc = None
+	for candidate in chat_accounts():
+		if candidate["id"] == account and candidate.get("network") == "matrix":
+			acc = candidate
+	if not acc:
+		a.error.label(400, "errors.invalid_account")
+		return
+	action = a.input("action", "")
+	if action not in ("accept", "start", "confirm", "mismatch", "cancel"):
+		a.error.label(400, "errors.invalid_preference")
+		return
+	if mochi.account.encryption.act(acc["id"], a.input("flow", ""), action).get("recovery"):
+		a.error.label(409, "errors.recovery_needed")
+		return
+	return {"data": {}}
+
+def linked_archived(message_id, result, remote):
+	"""The id a hosted XMPP account's archive gave a message chat sent, kept
+	among its further ids, as the archive gives it back (phase 26)."""
+	archive = str(result.get("archive", "") or "")[:REMOTE_MAXIMUM]
+	if archive and archive != remote:
+		mochi.db.execute("insert or ignore into parts ( message, remote, kind ) values ( ?, ?, 'archive' )", message_id, archive)
 
 def linked_edit(chat, acc, message):
 	"""A new version of a message the user sent, on its network."""
@@ -3791,15 +4136,18 @@ def linked_delete(chat, acc, message_id, remote):
 			mochi.account.object.delete(acc["id"], id, conversation=target)
 
 def linked_react(chat, acc, me, message_id, reaction, previous):
-	"""The user's reaction to a message of a Matrix conversation, there too:
-	the one before withdrawn, the new one sent and its id kept."""
+	"""The user's reaction to a message of a Matrix or XMPP conversation, there
+	too: on Matrix the one before withdrawn and the new one sent, its id kept;
+	on XMPP, where a person's reactions to a message go whole, the new one
+	replacing the one before, and none withdrawing it. In an XMPP room the
+	message is named by the id the room gave it."""
 	target = linked_target(chat)
-	remote = linked_remote(chat["id"], message_id)
+	remote = linked_reference(chat, acc, message_id)
 	if not target or not remote:
 		return
-	if previous:
+	emoji = REACTION_EMOJI.get(reaction or "", "")
+	if previous and (acc["network"] != "xmpp" or not emoji):
 		mochi.account.object.delete(acc["id"], previous, conversation=target)
-	emoji = REACTION_EMOJI.get(reaction, "")
 	if not emoji:
 		return
 	result = mochi.account.object.create(acc["id"], {"conversation": target, "reaction": emoji, "message": remote}, key="chat|react|" + message_id + "|" + mochi.uid())
@@ -3859,13 +4207,15 @@ def action_decline(a):
 	chat_delete_local(chat["id"])
 	return {"data": {"declined": True}}
 
-# === Groups with people from Matrix (the federation plan, phase 24) ===
+# === Groups with people from Matrix and XMPP (the federation plan, phases
+# 24 and 26) ===
 #
-# A Mochi group chat takes people from Matrix by their addresses (decision
-# 39). It stays a Mochi chat among its Mochi members, and the server of the
-# member who brought the first of them in relays between it and a Matrix room
-# made for them, every Mochi member seated there as a stand-in under their
-# own name. That member's copy keeps the room in chats.relay; every copy keeps,
+# A Mochi group chat takes people from Matrix or XMPP by their addresses
+# (decision 39), from one network at a time. It stays a Mochi chat among its
+# Mochi members, and the server of the member who brought the first of them
+# in relays between it and a room made for them - on Matrix with every Mochi
+# member seated as a stand-in under their own name, on XMPP on that server's
+# room service with every Mochi member an occupant under their name. That member's copy keeps the room in chats.relay; every copy keeps,
 # for each person from Matrix, the member who relays them in members.relay,
 # and takes what that person says only from that member. The relaying member
 # passes on what the Mochi members do there and what the people from Matrix
@@ -3882,10 +4232,26 @@ def bridge_relayer(chat_id):
 	return row["relay"] if row else ""
 
 def bridge_person(value):
-	"""A Matrix address as a member is known by, @name:host, or None."""
+	"""A person from Matrix or XMPP by an address, as a member is known by:
+	@name:host, or xmpp:name@host; or None."""
 	if mochi.text.valid(str(value or ""), "entity"):
 		return None
-	return linked_person("matrix", value)
+	return linked_person("matrix", value) or linked_person("xmpp", value)
+
+def bridge_network(value):
+	"""The network a person a group takes, or the room it relays through, is
+	on: XMPP or Matrix."""
+	return "xmpp" if str(value or "").startswith("xmpp:") else "matrix"
+
+def bridge_reference(chat, message_id):
+	"""The id a message of a relayed group is named by in its room when
+	reacting or replying to it: on XMPP the id the room gave it, else its
+	own."""
+	if message_id and bridge_network(chat.get("relay")) == "xmpp":
+		row = mochi.db.row("select remote from parts where message=? and kind='archive'", message_id)
+		if row:
+			return row["remote"]
+	return bridge_remote(chat["id"], message_id)
 
 def bridge_member_ok(chat_id, member, relay):
 	"""Whether a member from Matrix is one the relaying member named relays."""
@@ -3903,13 +4269,18 @@ def bridge_add(a, chat, person):
 	if count and count["members"] >= _MEMBERS_MAXIMUM:
 		a.error.label(400, "errors.too_many_members", maximum=_MEMBERS_MAXIMUM)
 		return
+	network = bridge_network(person)
 	relayer = bridge_relayer(chat["id"])
+	# A group is relayed to one network.
+	if relayer and bridge_network(mochi.db.row("select member from members where chat=? and relay!='' limit 1", chat["id"])["member"]) != network:
+		a.error.label(400, "errors.bridge_network")
+		return
 	if relayer and relayer != me:
 		row = mochi.db.row("select name from members where chat=? and member=?", chat["id"], relayer)
-		a.error.label(400, "errors.bridge_other_member", name=row["name"] if row else relayer)
+		a.error.label(400, "errors.bridge_xmpp_other_member" if network == "xmpp" else "errors.bridge_other_member", name=row["name"] if row else relayer)
 		return
-	if not mochi.bridge.available():
-		a.error.label(400, "errors.bridge_unavailable")
+	if not mochi.bridge.available(network=network):
+		a.error.label(400, "errors.bridge_xmpp_unavailable" if network == "xmpp" else "errors.bridge_unavailable")
 		return
 	if chat.get("relay"):
 		found = mochi.bridge.invite(chat["relay"], person)
@@ -3957,8 +4328,8 @@ def bridge_forward(chat, message_id, member, body, reply, thread, attachments):
 	sent = ""
 	if body:
 		object = {"content": body}
-		if bridge_remote(chat["id"], reply):
-			object["reply"] = bridge_remote(chat["id"], reply)
+		if bridge_reference(chat, reply):
+			object["reply"] = bridge_reference(chat, reply)
 		if bridge_remote(chat["id"], thread):
 			object["thread"] = bridge_remote(chat["id"], thread)
 		result = mochi.bridge.send(room, member, object, key=message_id)
@@ -3991,14 +4362,16 @@ def bridge_delete(chat, message_id, member, remote):
 			mochi.bridge.delete(chat["relay"], member, id)
 
 def bridge_react(chat, member, message_id, reaction, previous):
-	"""A Mochi member's reaction, passed to the relayed room: the one before
-	withdrawn, the new one sent and its id kept."""
-	remote = bridge_remote(chat["id"], message_id)
+	"""A Mochi member's reaction, passed to the relayed room: on Matrix the one
+	before withdrawn and the new one sent, its id kept; on XMPP, where a
+	person's reactions to a message go whole, the new one replacing the one
+	before, and none withdrawing it."""
+	remote = bridge_reference(chat, message_id)
 	if not remote:
 		return
-	if previous:
-		mochi.bridge.delete(chat["relay"], member, previous)
 	emoji = REACTION_EMOJI.get(reaction or "", "")
+	if previous and (bridge_network(chat["relay"]) != "xmpp" or not emoji):
+		mochi.bridge.delete(chat["relay"], member, previous)
 	if not emoji:
 		return
 	result = mochi.bridge.send(chat["relay"], member, {"reaction": emoji, "message": remote}, key=message_id + "|react|" + mochi.uid())
@@ -4090,6 +4463,10 @@ def bridge_received(chat, identity, event):
 	root = linked_local(chat["id"], str(event.get("thread", "") or ""))
 	thread = root["id"] if root and not root["thread"] else ""
 	mochi.db.execute("insert into messages ( id, chat, member, name, body, created, reply, remote, thread ) values ( ?, ?, ?, ?, ?, ?, ?, ?, ? )", id, chat["id"], sender, name, body, created, reply["id"] if reply else None, remote, thread)
+	# On XMPP the id the room gave it, which reactions and withdrawals name.
+	archive = str(event.get("archive", "") or "")[:REMOTE_MAXIMUM]
+	if archive and archive != remote:
+		mochi.db.execute("insert or ignore into parts ( message, remote, kind ) values ( ?, ?, 'archive' )", id, archive)
 	if created > (chat.get("updated") or 0):
 		mochi.db.execute("update chats set updated=? where id=?", created, chat["id"])
 	chat_ensure_commit_hook()
@@ -4106,10 +4483,16 @@ def bridge_received(chat, identity, event):
 	if chat.get("kind") != "bridge":
 		notify("message", chat["id"], mochi.app.label("notifications.title.message"), mochi.app.label("notifications.body.message", author=name, excerpt=body.strip()[:80]), "/chat/" + chat["id"], chat["name"], event_id="message:" + id)
 
+def bridge_message(chat, remote):
+	"""A message of a relayed group by its id in the room, its own or the one
+	the room gave it, or None."""
+	found = linked_local(chat["id"], str(remote or ""))
+	return mochi.db.row("select * from messages where id=?", found["id"]) if found else None
+
 def bridge_edited(chat, identity, event):
-	"""A person from Matrix's edit of their message, passed on."""
+	"""A person from Matrix or XMPP's edit of their message, passed on."""
 	sender = str(event.get("from", "") or "")
-	message = mochi.db.row("select * from messages where chat=? and remote=?", chat["id"], str(event.get("id", "") or ""))
+	message = bridge_message(chat, event.get("id"))
 	body = str(event.get("body", "") or "")[:10000]
 	if not message or message["member"] != sender or not body or not mochi.text.valid(body, "text") or body == message["body"]:
 		return
@@ -4133,19 +4516,28 @@ def bridge_withdrawn(chat, identity, event):
 		if not mochi.text.valid(reacted["member"], "entity"):
 			broadcast_chat(chat["id"], me, bridge_peers(chat, me), "bridge/react", {"message": reacted["message"], "member": reacted["member"], "reaction": None})
 		return
-	message = mochi.db.row("select * from messages where chat=? and remote=?", chat["id"], remote)
+	message = bridge_message(chat, remote)
 	if not message or mochi.text.valid(message["member"], "entity"):
 		return
 	message_delete_apply(chat["id"], message["id"], message["member"], mochi.time.now())
 	broadcast_chat(chat["id"], me, bridge_peers(chat, me), "bridge/delete", {"chat": chat["id"], "message": message["id"], "member": message["member"]})
 
 def bridge_reacted(chat, identity, event):
-	"""A person from Matrix's reaction, kept with its id there and passed on."""
+	"""A person from Matrix or XMPP's reaction, kept with its id there and
+	passed on; on XMPP, where a person's reactions to a message come whole,
+	none withdraws theirs."""
 	me = identity["id"]
 	sender = str(event.get("from", "") or "")
-	reaction = reaction_name(event.get("reaction"))
-	message = mochi.db.row("select * from messages where chat=? and remote=?", chat["id"], str(event.get("id", "") or ""))
-	if not message or not reaction or not bridge_member_ok(chat["id"], sender, me):
+	given = str(event.get("reaction", "") or "")
+	reaction = reaction_name(given)
+	message = bridge_message(chat, event.get("id"))
+	if not message or not bridge_member_ok(chat["id"], sender, me):
+		return
+	if not given and bridge_network(chat["relay"]) == "xmpp":
+		message_reaction_set(chat["id"], message["id"], sender, "", None)
+		broadcast_chat(chat["id"], me, bridge_peers(chat, me), "bridge/react", {"message": message["id"], "member": sender, "reaction": None})
+		return
+	if not reaction:
 		return
 	name = mochi.db.row("select name from members where chat=? and member=?", chat["id"], sender)["name"]
 	if message_reaction_set(chat["id"], message["id"], sender, name, reaction):

@@ -65,6 +65,11 @@ msgstr "{0, plural, =1 {A share saƙon?} other {A share saƙonni #?}}"
 msgid "{0, plural, one {# file changed} other {# files changed}}"
 msgstr "{0, plural, one {an canza fayil #} other {an canza fayiloli #}}"
 
+#. placeholder {0}: result.restored
+#: src/features/chats/components/encryption-section.tsx
+msgid "{0, plural, one {# message key restored} other {# message keys restored}}"
+msgstr "{0, plural, one {An maido da maɓallin saƙo #} other {An maido da maɓallan saƙo #}}"
+
 #. placeholder {0}: message.replies
 #: src/features/chats/components/chat-message-list.tsx
 msgid "{0, plural, one {# reply} other {# replies}}"
@@ -175,6 +180,10 @@ msgstr "{truncated, plural, one {Ba a nuna ƙarin fayil # ba} other {Ba a nuna �
 msgid "{unreadCount, plural, one {Open menu (# unread notification)} other {Open menu (# unread notifications)}}"
 msgstr "{unreadCount, plural, one {Buɗe menu (# sanarwar da ba a karanta ba)} other {Buɗe menu (# sanarwar da ba a karanta ba)}}"
 
+#: src/features/chats/components/verification-watcher.tsx
+msgid "{who} wants to verify you."
+msgstr "{who} yana son tabbatar da kai."
+
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "12 hours"
 msgstr "Awa 12"
@@ -193,6 +202,7 @@ msgid "Absolute (date and time)"
 msgstr "Cikakke (kwanan wata da lokaci)"
 
 #: ../../../lib/web/src/components/game/game-draw-offer-banner.tsx
+#: src/features/chats/components/verification-watcher.tsx
 #: src/features/chats/index.tsx
 msgid "Accept"
 msgstr "Yarda"
@@ -326,6 +336,10 @@ msgstr "Ana ƙara memba..."
 msgid "Addresses"
 msgstr "Adiresoshi"
 
+#: src/features/chats/roles.ts
+msgid "Administrator"
+msgstr "Mai gudanarwa"
+
 #: src/features/chats/constants/reactions.ts
 msgid "Agree"
 msgstr "Yarda"
@@ -379,6 +393,10 @@ msgstr "Tura ta Android"
 #: src/features/chats/constants/reactions.ts
 msgid "Angry"
 msgstr "Fushi"
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Another of your devices wants to verify this one."
+msgstr "Ɗaya daga cikin sauran na'urorinka yana son tabbatar da wannan."
 
 #: ../../../lib/web/src/features/access/access-list.tsx
 #: ../../../lib/web/src/features/access/types.ts
@@ -440,6 +458,10 @@ msgstr "A matsayin {0}"
 #: ../../../lib/web/src/components/ui/sort-direction-button.tsx
 msgid "Ascending"
 msgstr "Hawa sama"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Asking to compare emoji..."
+msgstr "Ana neman kwatanta emoji..."
 
 #: ../../../lib/web/src/components/timezone-select.tsx
 msgid "At sea"
@@ -599,6 +621,8 @@ msgstr "Babu kyamara"
 #: src/features/chats/components/chat-settings-dialog.tsx
 #: src/features/chats/components/forward-dialog.tsx
 #: src/features/chats/components/new-chat.tsx
+#: src/features/chats/components/verification-watcher.tsx
+#: src/features/chats/components/verification-watcher.tsx
 #: src/features/chats/index.tsx
 msgid "Cancel"
 msgstr "Soke"
@@ -735,6 +759,10 @@ msgstr "An cire liƙan hirar"
 msgid "Chats"
 msgstr "Tattaunawa"
 
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Check that the same emoji appear on the other screen."
+msgstr "Duba cewa emoji iri ɗaya ne suka bayyana a ɗayan allon."
+
 #: ../../../lib/web/src/hooks/use-field-type-labels.ts
 msgid "Checkbox"
 msgstr "Akwatin zaɓi"
@@ -867,6 +895,11 @@ msgstr "Sharhi ({0})"
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Compact"
 msgstr "Ƙanƙane"
+
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Compare emoji"
+msgstr "Kwatanta emoji"
 
 #: ../../../lib/web/src/components/entity/entity-option-dialog.tsx
 msgid "Configure option settings"
@@ -1028,6 +1061,7 @@ msgid "Date"
 msgstr "Kwanan wata"
 
 #: ../../../lib/web/src/components/game/game-draw-offer-banner.tsx
+#: src/features/chats/components/verification-watcher.tsx
 #: src/features/chats/index.tsx
 msgid "Decline"
 msgstr "Ƙi"
@@ -1167,6 +1201,10 @@ msgstr "Panel na cikakkun bayanai"
 msgid "Detect from web browser"
 msgstr "Gano daga web browser"
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "Device options"
+msgstr "Zaɓuɓɓukan na'ura"
+
 #: ../../../lib/web/src/components/person-picker.tsx
 msgid "Directory"
 msgstr "Jerin suna"
@@ -1210,6 +1248,14 @@ msgstr "Kau da shi"
 msgid "Displays the mobile sidebar."
 msgstr "Yana nuna sidebar na wayar hannu."
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "Distrust"
+msgstr "Kada ka amince"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Distrusted"
+msgstr "Ba a amince ba"
+
 #: src/features/chats/components/chat-input.tsx
 msgid "Document"
 msgstr "Takarda"
@@ -1220,6 +1266,7 @@ msgstr "Bai dace da tsarin da ake buƙata ba"
 
 #: ../../../lib/web/src/components/entity/entity-field-dialog.tsx
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx
+#: src/features/chats/components/encryption-section.tsx
 msgid "Done"
 msgstr "An gama"
 
@@ -1308,6 +1355,12 @@ msgstr "Lambar imel"
 msgid "Encrypted message"
 msgstr "Saƙon da aka ɓoye"
 
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+msgid "Encryption"
+msgstr "Ɓoyewa"
+
 #: ../../../lib/web/src/components/calendar/time-grid.tsx
 msgid "Ends before it starts"
 msgstr "Yana ƙarewa kafin ya fara"
@@ -1315,6 +1368,11 @@ msgstr "Yana ƙarewa kafin ya fara"
 #: ../../../lib/web/src/components/banner-section.tsx
 msgid "Enter banner text (markdown supported)..."
 msgstr "Shigar da rubutun banner (markdown ana goyon baya)..."
+
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+msgid "Enter recovery key"
+msgstr "Shigar da maɓallin dawowa"
 
 #: ../../../lib/web/src/components/step-up-dialog.tsx
 msgid "Enter the code from your email"
@@ -1498,6 +1556,7 @@ msgstr "An kasa janye damar shiga RSS"
 
 #: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx
 #: src/features/chats/components/chat-settings-dialog.tsx
+#: src/features/chats/components/encryption-section.tsx
 msgid "Failed to save"
 msgstr "An gaza ajiyewa"
 
@@ -1556,6 +1615,10 @@ msgstr "Tutoci"
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Flat"
 msgstr "Lebur"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Forget my decision"
+msgstr "Manta da shawarata"
 
 #: src/features/chats/components/forward-dialog.tsx
 #: src/features/chats/components/message-hover-actions.tsx
@@ -1717,6 +1780,10 @@ msgstr "Tsallaka zuwa ƙasa"
 #: ../../../lib/web/src/lib/locale-format.ts
 msgid "Just now"
 msgstr "Yanzu"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Keep this key safe. It is shown once, and your other Matrix clients ask for it to read your encrypted messages."
+msgstr "Ajiye wannan maɓalli lafiya. Ana nuna shi sau ɗaya kawai, kuma sauran manhajojin Matrix naka suna neman shi don karanta saƙonninka da aka ɓoye."
 
 #: ../../../lib/web/src/components/entity/keyboard-shortcuts-help.tsx
 msgid "Keyboard shortcuts"
@@ -1974,6 +2041,10 @@ msgstr "Yanar gizon Mochi"
 msgid "Moderation"
 msgstr "Daidaitawa"
 
+#: src/features/chats/roles.ts
+msgid "Moderator"
+msgstr "Mai sa ido"
+
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Monday"
 msgstr "Litinin"
@@ -2104,6 +2175,10 @@ msgstr "Babu hirarrakin da za a tura zuwa"
 msgid "No comments yet"
 msgstr "Babu sharhi tukuna"
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "No devices"
+msgstr "Babu na'urori"
+
 #: src/routes/_authenticated/$chatId_.settings.tsx
 msgid "No friends available"
 msgstr "Babu abokai"
@@ -2139,6 +2214,10 @@ msgstr "Babu saƙonni tukuna"
 #: src/features/chats/components/chat-input.tsx
 msgid "No microphone found"
 msgstr "Ba a sami makirufo ba"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "No other devices"
+msgstr "Babu wasu na'urori"
 
 #: ../../../lib/web/src/components/entity/entity-field-editor.tsx
 #: ../../../lib/web/src/components/person-picker.tsx
@@ -2224,6 +2303,11 @@ msgstr "Ba a samu ba"
 #: ../../../lib/web/src/components/ui/editable-field-row.tsx
 msgid "Not set"
 msgstr "Ba a saita ba"
+
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+msgid "Not verified"
+msgstr "Ba a tabbatar ba"
 
 #: ../../../lib/web/src/components/entity/entity-tree-view.tsx
 msgid "Nothing found"
@@ -2327,6 +2411,7 @@ msgstr "Sauran"
 
 #: ../../../lib/web/src/components/member-list.tsx
 #: ../../../lib/web/src/features/access/access-list.tsx
+#: src/features/chats/roles.ts
 msgid "Owner"
 msgstr "Mai shi"
 
@@ -2352,6 +2437,10 @@ msgstr "Makullan shiga"
 #: ../../../lib/web/src/lib/shell-errors.ts
 msgid "Passkeys are not available in this browser"
 msgstr "Makullan shiga ba sa samuwa a wannan burauzar"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Password"
+msgstr "Kalmar sirri"
 
 #: ../../../lib/web/src/components/entity/entity-field-dialog.tsx
 msgid "Pattern (regex)"
@@ -2508,6 +2597,14 @@ msgstr "Rikodin ya tsaya a iyakar minti 5"
 #: src/features/chats/components/chat-input.tsx
 msgid "Recording voice note"
 msgstr "Ana yin rikodin saƙon murya"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Recovery could not be set up"
+msgstr "Ba a iya saita dawowa ba"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Recovery key"
+msgstr "Maɓallin dawowa"
 
 #: ../../../lib/web/src/components/layout/authenticated-layout.tsx
 msgid "Redirecting to login."
@@ -2673,6 +2770,10 @@ msgstr "Yi murabus"
 msgid "Resign game?"
 msgstr "A yi murabus daga wasa?"
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "Restore"
+msgstr "Maidowa"
+
 #: ../../../lib/web/src/components/attachment-composer.tsx
 msgid "Retry"
 msgstr "Sake gwadawa"
@@ -2730,7 +2831,12 @@ msgstr "Asabar"
 msgid "Save"
 msgstr "Adana"
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "Saved"
+msgstr "An adana"
+
 #: src/features/chats/components/chat-settings-dialog.tsx
+#: src/features/chats/components/encryption-section.tsx
 msgid "Saving..."
 msgstr "Ana adanawa..."
 
@@ -2957,6 +3063,12 @@ msgstr "Lokacin zaman ya ƙare. Da fatan za a sake shiga."
 msgid "Set origin and destination"
 msgstr "Saita tushe da makoma"
 
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+msgid "Set up recovery"
+msgstr "Saita dawowa"
+
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx
 #: ../../../lib/web/src/components/options-menu.tsx
@@ -3142,6 +3254,10 @@ msgstr "Wannan lambar ba daidai ba ce ko kuma ta kare."
 msgid "That could not be sent. The files may be too large, or your connection failed. Try smaller files."
 msgstr "Ba a iya aikawa ba. Wataƙila fayilolin sun yi girma, ko haɗinka ya gaza. Gwada ƙananan fayiloli."
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "That is not your recovery key"
+msgstr "Wannan ba maɓallin dawowarka ba ne"
+
 #: ../../../lib/web/src/hooks/use-attachment-error.ts
 #: ../../../lib/web/src/lib/handle-server-error.ts
 msgid "That was too large to upload. Remove or shrink files and try again."
@@ -3164,6 +3280,14 @@ msgstr "Sunan tattaunawa zai iya kasancewa mafi yawa haruffa {CHAT_NAME_MAX_LENG
 msgid "The chat name cannot contain < or >"
 msgstr "Sunan tattaunawa ba zai iya ƙunsar < ko > ba"
 
+#: src/features/chats/components/verification-watcher.tsx
+msgid "The emoji did not match, so the verification was cancelled"
+msgstr "Emoji ba su dace ba, don haka an soke tabbatarwa"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "The fingerprint matches"
+msgstr "Sawun yatsa ya dace"
+
 #: ../../../lib/web/src/lib/shell-errors.ts
 msgid "The microphone request was not answered"
 msgstr "Ba a amsa buƙatar makirufo ba"
@@ -3171,6 +3295,10 @@ msgstr "Ba a amsa buƙatar makirufo ba"
 #: ../../../lib/web/src/lib/shell-errors.ts
 msgid "The passkey request was not answered"
 msgstr "Ba a amsa buƙatar maɓallin shiga ba"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "The password was not accepted"
+msgstr "Ba a karɓi kalmar sirri ba"
 
 #: ../../../lib/web/src/features/errors/general-error.tsx
 msgid "The requested content could not be found."
@@ -3180,10 +3308,30 @@ msgstr "Ba a iya samun abun cikin da aka nema ba."
 msgid "The server returned a web page instead of data."
 msgstr "Sabar ya mayar da shafin yanar gizo maimakon bayanai."
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "The verification could not be started"
+msgstr "Ba a iya fara tabbatarwa ba"
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "The verification could not go on"
+msgstr "Tabbatarwa ba ta iya ci gaba ba"
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "The verification was cancelled"
+msgstr "An soke tabbatarwa"
+
 #. placeholder {0}: unknown.join(', ')
 #: src/features/chats/index.tsx
 msgid "These names are not in this chat: {0}. Pick from the @ list or remove them."
 msgstr "Waɗannan sunayen ba sa cikin wannan hirar: {0}. Zaɓi daga jerin @ ko cire su."
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "They don't match"
+msgstr "Ba su dace ba"
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "They match"
+msgstr "Sun dace"
 
 #: src/routes/_authenticated/$chatId_.settings.tsx
 msgid "They stop receiving new messages in this chat."
@@ -3203,12 +3351,20 @@ msgid "This chat may have been deleted or you don't have access to it"
 msgstr "Wataƙila an goge wannan hira ko kuma ba ka da damar shiga"
 
 #: src/features/chats/index.tsx
-msgid "This conversation is encrypted. Messages cannot be sent to it from here yet."
-msgstr "An ɓoye wannan tattaunawa. Har yanzu ba za a iya aika saƙonni zuwa gare ta daga nan ba."
-
-#: src/features/chats/index.tsx
 msgid "This deletes the message for everyone and cannot be undone."
 msgstr "Wannan zai share saƙon ga kowa kuma ba za a iya mayar da shi ba."
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "This device"
+msgstr "Wannan na'ura"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "This device (OMEMO 2)"
+msgstr "Wannan na'ura (OMEMO 2)"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "This device (OMEMO)"
+msgstr "Wannan na'ura (OMEMO)"
 
 #: src/features/chats/components/chat-message-list.tsx
 #: src/features/chats/components/message-quote.tsx
@@ -3406,14 +3562,28 @@ msgstr "Masu canzawa: {variables}"
 msgid "Verification code"
 msgstr "Lambar tabbatarwa"
 
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Verified"
+msgstr "An tabbatar"
+
 #: ../../../lib/web/src/components/step-up-dialog.tsx
 #: ../../../lib/web/src/features/accounts/account-verify.tsx
 msgid "Verify"
 msgstr "Tabbatar"
 
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Verify {who}"
+msgstr "Tabbatar da {who}"
+
 #: ../../../lib/web/src/features/accounts/account-verify.tsx
 msgid "Verify email address"
 msgstr "Tabbatar da adireshin imel"
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Verify your device"
+msgstr "Tabbatar da na'urarka"
 
 #: ../../../lib/web/src/components/attachment-gallery.tsx
 #: src/features/chats/components/message-media-grid.tsx
@@ -3438,6 +3608,10 @@ msgstr "Kalla kuma gyara cikakkun bayanan abu"
 msgid "View controls"
 msgstr "Sarrafa kallo"
 
+#: src/features/chats/roles.ts
+msgid "Visitor"
+msgstr "Bako"
+
 #: src/features/chats/components/voice-waveform.tsx
 msgid "Voice note waveform"
 msgstr "Siffar igiyar sauti ta saƙon murya"
@@ -3455,6 +3629,14 @@ msgstr "Ba a goyon bayan rikodin murya a wannan burauzar ba"
 #: src/features/chats/components/chat-input.tsx
 msgid "Voice recording isn't available in this app version. Please update the app and try again."
 msgstr "Rikodin murya ba ya samuwa a wannan sigar manhajar. Da fatan za a sabunta manhajar a sake gwadawa."
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Waiting for the other device..."
+msgstr "Ana jiran ɗayan na'urar..."
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Waiting for them to accept"
+msgstr "Ana jiran su amince"
 
 #: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx
 #: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx
@@ -3530,6 +3712,18 @@ msgstr "An ƙauri asusunka zuwa nan daga {source}. Sai ka goge shi a can, saƙon
 #: ../../../lib/web/src/components/comment-composer.tsx
 msgid "Your attachments will be lost."
 msgstr "Za a rasa fayilolin da ka makala."
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Your Matrix server asks for your account's password."
+msgstr "Sabar Matrix ɗinka tana neman kalmar sirrin asusunka."
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Your other devices"
+msgstr "Sauran na'urorinka"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Your recovery key"
+msgstr "Maɓallin dawowarka"
 
 #: ../../../lib/web/src/components/comment-composer.tsx
 msgid "Your text and attachments will be lost."

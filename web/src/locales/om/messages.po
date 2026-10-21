@@ -65,6 +65,11 @@ msgstr "{0, plural, =1 {Ergaa haquu?} other {Ergaawwan # haquu?}}"
 msgid "{0, plural, one {# file changed} other {# files changed}}"
 msgstr "{0, plural, one {faayilii # jijjiirame} other {faayilii # jijjiiraman}}"
 
+#. placeholder {0}: result.restored
+#: src/features/chats/components/encryption-section.tsx
+msgid "{0, plural, one {# message key restored} other {# message keys restored}}"
+msgstr "{0, plural, one {furtuun ergaa # deebi'eera} other {furtuuwwan ergaa # deebi'aniiru}}"
+
 #. placeholder {0}: message.replies
 #: src/features/chats/components/chat-message-list.tsx
 msgid "{0, plural, one {# reply} other {# replies}}"
@@ -175,6 +180,10 @@ msgstr "{truncated, plural, one {Faayilli dabalataa # hin mul'ifamne} other {Faa
 msgid "{unreadCount, plural, one {Open menu (# unread notification)} other {Open menu (# unread notifications)}}"
 msgstr "{unreadCount, plural, one {Baafata bani (# beeksisa hin dubbifamne)} other {Baafata bani (# beeksisa hin dubbifamne)}}"
 
+#: src/features/chats/components/verification-watcher.tsx
+msgid "{who} wants to verify you."
+msgstr "{who} si mirkaneessuu barbaada."
+
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "12 hours"
 msgstr "Sa'aatii 12"
@@ -193,6 +202,7 @@ msgid "Absolute (date and time)"
 msgstr "Sirrii (guyyaa fi sa'aatii)"
 
 #: ../../../lib/web/src/components/game/game-draw-offer-banner.tsx
+#: src/features/chats/components/verification-watcher.tsx
 #: src/features/chats/index.tsx
 msgid "Accept"
 msgstr "Fudhadhu"
@@ -326,6 +336,10 @@ msgstr "Miseensa dabalaa jira..."
 msgid "Addresses"
 msgstr "Teessoowwan"
 
+#: src/features/chats/roles.ts
+msgid "Administrator"
+msgstr "Bulchaa"
+
 #: src/features/chats/constants/reactions.ts
 msgid "Agree"
 msgstr "Ittan walii gala"
@@ -379,6 +393,10 @@ msgstr "Push Android"
 #: src/features/chats/constants/reactions.ts
 msgid "Angry"
 msgstr "Aarii"
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Another of your devices wants to verify this one."
+msgstr "Meeshaa kee kan biraa tokko kana mirkaneessuu barbaada."
 
 #: ../../../lib/web/src/features/access/access-list.tsx
 #: ../../../lib/web/src/features/access/types.ts
@@ -440,6 +458,10 @@ msgstr "Akka {0}"
 #: ../../../lib/web/src/components/ui/sort-direction-button.tsx
 msgid "Ascending"
 msgstr "Ol kaʼaa"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Asking to compare emoji..."
+msgstr "Emoojii wal bira qabuuf gaafachaa jira..."
 
 #: ../../../lib/web/src/components/timezone-select.tsx
 msgid "At sea"
@@ -599,6 +621,8 @@ msgstr "Kaameraan hin argamu"
 #: src/features/chats/components/chat-settings-dialog.tsx
 #: src/features/chats/components/forward-dialog.tsx
 #: src/features/chats/components/new-chat.tsx
+#: src/features/chats/components/verification-watcher.tsx
+#: src/features/chats/components/verification-watcher.tsx
 #: src/features/chats/index.tsx
 msgid "Cancel"
 msgstr "Haquu"
@@ -735,6 +759,10 @@ msgstr "Maxxansi chaattii kaafame"
 msgid "Chats"
 msgstr "Chaattota"
 
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Check that the same emoji appear on the other screen."
+msgstr "Emoojiin wal fakkaatan iskiriinii isa kaan irratti akka mul'atan mirkaneessi."
+
 #: ../../../lib/web/src/hooks/use-field-type-labels.ts
 msgid "Checkbox"
 msgstr "Saanduqa filannoo"
@@ -867,6 +895,11 @@ msgstr "Yaadawwan ({0})"
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Compact"
 msgstr "Walitti qabame"
+
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Compare emoji"
+msgstr "Emoojii wal bira qabi"
 
 #: ../../../lib/web/src/components/entity/entity-option-dialog.tsx
 msgid "Configure option settings"
@@ -1028,6 +1061,7 @@ msgid "Date"
 msgstr "Guyyaa"
 
 #: ../../../lib/web/src/components/game/game-draw-offer-banner.tsx
+#: src/features/chats/components/verification-watcher.tsx
 #: src/features/chats/index.tsx
 msgid "Decline"
 msgstr "Dhiisi"
@@ -1167,6 +1201,10 @@ msgstr "Paanelii Bal'inaan"
 msgid "Detect from web browser"
 msgstr "Weeb biraawsarii irraa argi"
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "Device options"
+msgstr "Filannoowwan meeshaa"
+
 #: ../../../lib/web/src/components/person-picker.tsx
 msgid "Directory"
 msgstr "Galmee"
@@ -1210,6 +1248,14 @@ msgstr "Dhiisi"
 msgid "Displays the mobile sidebar."
 msgstr "Cinaa moobaayilaa mul'isa."
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "Distrust"
+msgstr "Hin amanin"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Distrusted"
+msgstr "Hin amanamne"
+
 #: src/features/chats/components/chat-input.tsx
 msgid "Document"
 msgstr "Sanada"
@@ -1220,6 +1266,7 @@ msgstr "Boca barbaachisu wajjin wal hin simu"
 
 #: ../../../lib/web/src/components/entity/entity-field-dialog.tsx
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx
+#: src/features/chats/components/encryption-section.tsx
 msgid "Done"
 msgstr "Xumurame"
 
@@ -1308,6 +1355,12 @@ msgstr "Koodii imeelii"
 msgid "Encrypted message"
 msgstr "Ergaa icciitiin eegame"
 
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+msgid "Encryption"
+msgstr "Iccitiin eeguu"
+
 #: ../../../lib/web/src/components/calendar/time-grid.tsx
 msgid "Ends before it starts"
 msgstr "Osoo hin jalqabin xumurama"
@@ -1315,6 +1368,11 @@ msgstr "Osoo hin jalqabin xumurama"
 #: ../../../lib/web/src/components/banner-section.tsx
 msgid "Enter banner text (markdown supported)..."
 msgstr "Barreeffama dabballee galchi (markdown deeggarama)..."
+
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+msgid "Enter recovery key"
+msgstr "Furtuu deebii galchi"
 
 #: ../../../lib/web/src/components/step-up-dialog.tsx
 msgid "Enter the code from your email"
@@ -1498,6 +1556,7 @@ msgstr "Argama RSS deebifachuun hin milkoofne"
 
 #: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx
 #: src/features/chats/components/chat-settings-dialog.tsx
+#: src/features/chats/components/encryption-section.tsx
 msgid "Failed to save"
 msgstr "Olkaa'uu hin dandeenye"
 
@@ -1556,6 +1615,10 @@ msgstr "Mallattoolee"
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Flat"
 msgstr "Diriiraa"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Forget my decision"
+msgstr "Murtoo koo irraanfadhu"
 
 #: src/features/chats/components/forward-dialog.tsx
 #: src/features/chats/components/message-hover-actions.tsx
@@ -1717,6 +1780,10 @@ msgstr "Gara jalaatti darbi"
 #: ../../../lib/web/src/lib/locale-format.ts
 msgid "Just now"
 msgstr "Amma"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Keep this key safe. It is shown once, and your other Matrix clients ask for it to read your encrypted messages."
+msgstr "Furtuu kana bakka nageenya qabu kaa'i. Inni al tokko qofa agarsiifama, appiliikeeshiniin Matrix kee kan biroo ergaawwan kee icciitiin eegaman dubbisuuf isa gaafatu."
 
 #: ../../../lib/web/src/components/entity/keyboard-shortcuts-help.tsx
 msgid "Keyboard shortcuts"
@@ -1974,6 +2041,10 @@ msgstr "Mochi marsariitii"
 msgid "Moderation"
 msgstr "To'annoo"
 
+#: src/features/chats/roles.ts
+msgid "Moderator"
+msgstr "To'ataa"
+
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Monday"
 msgstr "Wiixata"
@@ -2104,6 +2175,10 @@ msgstr "Chaattiin itti dabarsan hin jiru"
 msgid "No comments yet"
 msgstr "Hanga ammaatti yaadni hin jiru"
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "No devices"
+msgstr "Meeshaan hin jiru"
+
 #: src/routes/_authenticated/$chatId_.settings.tsx
 msgid "No friends available"
 msgstr "Hiriyoonni hin jiran"
@@ -2139,6 +2214,10 @@ msgstr "Hanga ammaatti ergaawwan hin jiran"
 #: src/features/chats/components/chat-input.tsx
 msgid "No microphone found"
 msgstr "Maayikirofooniin hin argamne"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "No other devices"
+msgstr "Meeshaan biraa hin jiru"
 
 #: ../../../lib/web/src/components/entity/entity-field-editor.tsx
 #: ../../../lib/web/src/components/person-picker.tsx
@@ -2224,6 +2303,11 @@ msgstr "Hin argamne"
 #: ../../../lib/web/src/components/ui/editable-field-row.tsx
 msgid "Not set"
 msgstr "Hin qabamne"
+
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+msgid "Not verified"
+msgstr "Hin mirkanoofne"
 
 #: ../../../lib/web/src/components/entity/entity-tree-view.tsx
 msgid "Nothing found"
@@ -2327,6 +2411,7 @@ msgstr "Biraa"
 
 #: ../../../lib/web/src/components/member-list.tsx
 #: ../../../lib/web/src/features/access/access-list.tsx
+#: src/features/chats/roles.ts
 msgid "Owner"
 msgstr "Abbaa qabeenyaa"
 
@@ -2352,6 +2437,10 @@ msgstr "Passkey-wwan"
 #: ../../../lib/web/src/lib/shell-errors.ts
 msgid "Passkeys are not available in this browser"
 msgstr "Passkey-wwan browsara kana keessatti hin argaman"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Password"
+msgstr "Jecha darbii"
 
 #: ../../../lib/web/src/components/entity/entity-field-dialog.tsx
 msgid "Pattern (regex)"
@@ -2508,6 +2597,14 @@ msgstr "Waraabuun daangaa daqiiqaa 5 irratti dhaabbate"
 #: src/features/chats/components/chat-input.tsx
 msgid "Recording voice note"
 msgstr "Yaadannoo sagalee waraabaa jira"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Recovery could not be set up"
+msgstr "Deebiin qindaa'uu hin dandeenye"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Recovery key"
+msgstr "Furtuu deebii"
 
 #: ../../../lib/web/src/components/layout/authenticated-layout.tsx
 msgid "Redirecting to login."
@@ -2673,6 +2770,10 @@ msgstr "Keessaa ba'i"
 msgid "Resign game?"
 msgstr "Taphaa keessaa ba'uuf?"
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "Restore"
+msgstr "Deebisi"
+
 #: ../../../lib/web/src/components/attachment-composer.tsx
 msgid "Retry"
 msgstr "Irra deebi'ii yaali"
@@ -2730,7 +2831,12 @@ msgstr "Sanbata"
 msgid "Save"
 msgstr "Olkaa'i"
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "Saved"
+msgstr "Olkaa'ame"
+
 #: src/features/chats/components/chat-settings-dialog.tsx
+#: src/features/chats/components/encryption-section.tsx
 msgid "Saving..."
 msgstr "Olkaa'aa jira..."
 
@@ -2957,6 +3063,12 @@ msgstr "Seeshinichi dhumateera. Maaloo irra deebi'ii seeni."
 msgid "Set origin and destination"
 msgstr "Madda fi galma qindeessi"
 
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+msgid "Set up recovery"
+msgstr "Deebii qindeessi"
+
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx
 #: ../../../lib/web/src/components/options-menu.tsx
@@ -3142,6 +3254,10 @@ msgstr "Koodiin sun sirrii miti yookaan yeroon isaa darbeera."
 msgid "That could not be sent. The files may be too large, or your connection failed. Try smaller files."
 msgstr "Erguun hin danda'amne. Faayilonni baay'ee guddaa ta'uu danda'u, yookiin walitti hidhamiinsi kee kufeera. Faayilota xiqqaa yaali."
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "That is not your recovery key"
+msgstr "Kun furtuu deebii kee miti"
+
 #: ../../../lib/web/src/hooks/use-attachment-error.ts
 #: ../../../lib/web/src/lib/handle-server-error.ts
 msgid "That was too large to upload. Remove or shrink files and try again."
@@ -3164,6 +3280,14 @@ msgstr "Maqaan haasawaa yeroo baayyee qubee {CHAT_NAME_MAX_LENGTH} ta'uu danda'a
 msgid "The chat name cannot contain < or >"
 msgstr "Maqaan haasawaa < ykn > qabaachuu hin danda'u"
 
+#: src/features/chats/components/verification-watcher.tsx
+msgid "The emoji did not match, so the verification was cancelled"
+msgstr "Emoojiin wal hin siman, kanaaf mirkaneessuun haqameera"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "The fingerprint matches"
+msgstr "Maxxansi quba wal sima"
+
 #: ../../../lib/web/src/lib/shell-errors.ts
 msgid "The microphone request was not answered"
 msgstr "Gaaffiin maayikroofoonii deebii hin arganne"
@@ -3171,6 +3295,10 @@ msgstr "Gaaffiin maayikroofoonii deebii hin arganne"
 #: ../../../lib/web/src/lib/shell-errors.ts
 msgid "The passkey request was not answered"
 msgstr "Gaaffiin passkey deebii hin arganne"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "The password was not accepted"
+msgstr "Jechi darbii hin fudhatamne"
 
 #: ../../../lib/web/src/features/errors/general-error.tsx
 msgid "The requested content could not be found."
@@ -3180,10 +3308,30 @@ msgstr "Qabiyyeen gaafatame argamuu hin dandeenye."
 msgid "The server returned a web page instead of data."
 msgstr "Sarviichiin qooda daataa fuula weebii deebise."
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "The verification could not be started"
+msgstr "Mirkaneessuun jalqabamuu hin dandeenye"
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "The verification could not go on"
+msgstr "Mirkaneessuun itti fufuu hin dandeenye"
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "The verification was cancelled"
+msgstr "Mirkaneessuun haqameera"
+
 #. placeholder {0}: unknown.join(', ')
 #: src/features/chats/index.tsx
 msgid "These names are not in this chat: {0}. Pick from the @ list or remove them."
 msgstr "Maqaaleen kun haasawa kana keessa hin jiran: {0}. Tarree @ irraa filadhu yookiin isaan balleessi."
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "They don't match"
+msgstr "Wal hin siman"
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "They match"
+msgstr "Wal simu"
 
 #: src/routes/_authenticated/$chatId_.settings.tsx
 msgid "They stop receiving new messages in this chat."
@@ -3203,12 +3351,20 @@ msgid "This chat may have been deleted or you don't have access to it"
 msgstr "Marii kun haqamuu mala ykn ittigaltee qabaachuu dhabuu mala"
 
 #: src/features/chats/index.tsx
-msgid "This conversation is encrypted. Messages cannot be sent to it from here yet."
-msgstr "Mariin kun icciitiin eegameera. Ammallee asii ergaawwan itti erguun hin danda'amu."
-
-#: src/features/chats/index.tsx
 msgid "This deletes the message for everyone and cannot be undone."
 msgstr "Kun ergaa nama hundaaf ni haqa; deebifamuus hin danda'u."
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "This device"
+msgstr "Meeshaa kana"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "This device (OMEMO 2)"
+msgstr "Meeshaa kana (OMEMO 2)"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "This device (OMEMO)"
+msgstr "Meeshaa kana (OMEMO)"
 
 #: src/features/chats/components/chat-message-list.tsx
 #: src/features/chats/components/message-quote.tsx
@@ -3406,14 +3562,28 @@ msgstr "Jijjiirraa: {variables}"
 msgid "Verification code"
 msgstr "Koodii mirkaneessaa"
 
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Verified"
+msgstr "Mirkanaa'eera"
+
 #: ../../../lib/web/src/components/step-up-dialog.tsx
 #: ../../../lib/web/src/features/accounts/account-verify.tsx
 msgid "Verify"
 msgstr "Mirkaneessi"
 
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Verify {who}"
+msgstr "{who} mirkaneessi"
+
 #: ../../../lib/web/src/features/accounts/account-verify.tsx
 msgid "Verify email address"
 msgstr "Teessoo iimeelii mirkaneessi"
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Verify your device"
+msgstr "Meeshaa kee mirkaneessi"
 
 #: ../../../lib/web/src/components/attachment-gallery.tsx
 #: src/features/chats/components/message-media-grid.tsx
@@ -3438,6 +3608,10 @@ msgstr "Bal'ina wantichaa daawwadhu fi sirreessi"
 msgid "View controls"
 msgstr "Toofta daawwannaa"
 
+#: src/features/chats/roles.ts
+msgid "Visitor"
+msgstr "Daawwataa"
+
 #: src/features/chats/components/voice-waveform.tsx
 msgid "Voice note waveform"
 msgstr "Bifa dambalii yaadannoo sagalee"
@@ -3455,6 +3629,14 @@ msgstr "Biraawzarii kana keessatti sagalee waraabuun hin deeggaramu"
 #: src/features/chats/components/chat-input.tsx
 msgid "Voice recording isn't available in this app version. Please update the app and try again."
 msgstr "Vershinii appii kana keessatti sagalee waraabuun hin argamu. Maaloo appicha haaromsiitii irra deebiʼii yaali."
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Waiting for the other device..."
+msgstr "Meeshaa isa kaan eegaa jira..."
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Waiting for them to accept"
+msgstr "Akka isaan fudhatan eegaa jira"
 
 #: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx
 #: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx
@@ -3530,6 +3712,18 @@ msgstr "Akkaawuntiin kee {source} irraa as fidame. Achitti haqtee hanga fixtutti
 #: ../../../lib/web/src/components/comment-composer.tsx
 msgid "Your attachments will be lost."
 msgstr "Miiltoowwan kee ni badu."
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Your Matrix server asks for your account's password."
+msgstr "Sarvarri Matrix kee jecha darbii herrega keetii gaafachaa jira."
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Your other devices"
+msgstr "Meeshaalee kee kan biroo"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Your recovery key"
+msgstr "Furtuu deebii kee"
 
 #: ../../../lib/web/src/components/comment-composer.tsx
 msgid "Your text and attachments will be lost."

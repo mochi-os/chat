@@ -65,6 +65,11 @@ msgstr "{0, plural, =1 {Ucime umyalezo?} other {Ucime imiyalezo engu-#?}}"
 msgid "{0, plural, one {# file changed} other {# files changed}}"
 msgstr "{0, plural, one {ifayile e-# itshintshile} other {iifayile ezi-# zitshintshile}}"
 
+#. placeholder {0}: result.restored
+#: src/features/chats/components/encryption-section.tsx
+msgid "{0, plural, one {# message key restored} other {# message keys restored}}"
+msgstr "{0, plural, one {Isitshixo somyalezo # sibuyiselwe} other {Izitshixo zemiyalezo # zibuyiselwe}}"
+
 #. placeholder {0}: message.replies
 #: src/features/chats/components/chat-message-list.tsx
 msgid "{0, plural, one {# reply} other {# replies}}"
@@ -175,6 +180,10 @@ msgstr "{truncated, plural, one {Ifayile e-# eyongezelelweyo ayiboniswanga} othe
 msgid "{unreadCount, plural, one {Open menu (# unread notification)} other {Open menu (# unread notifications)}}"
 msgstr "{unreadCount, plural, one {Vula imenyu (# isaziso esingafundwanga)} other {Vula imenyu (# izaziso ezingafundwanga)}}"
 
+#: src/features/chats/components/verification-watcher.tsx
+msgid "{who} wants to verify you."
+msgstr "U-{who} ufuna ukukuqinisekisa."
+
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "12 hours"
 msgstr "iiyure ezili-12"
@@ -193,6 +202,7 @@ msgid "Absolute (date and time)"
 msgstr "Eyokwenene (umhla nexesha)"
 
 #: ../../../lib/web/src/components/game/game-draw-offer-banner.tsx
+#: src/features/chats/components/verification-watcher.tsx
 #: src/features/chats/index.tsx
 msgid "Accept"
 msgstr "Yamkela"
@@ -326,6 +336,10 @@ msgstr "Ukongeza ilungu..."
 msgid "Addresses"
 msgstr "Iidilesi"
 
+#: src/features/chats/roles.ts
+msgid "Administrator"
+msgstr "Umlawuli"
+
 #: src/features/chats/constants/reactions.ts
 msgid "Agree"
 msgstr "Vumelana"
@@ -379,6 +393,10 @@ msgstr "I-push ye-Android"
 #: src/features/chats/constants/reactions.ts
 msgid "Angry"
 msgstr "Umsindo"
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Another of your devices wants to verify this one."
+msgstr "Esinye sezixhobo zakho sifuna ukuqinisekisa esi."
 
 #: ../../../lib/web/src/features/access/access-list.tsx
 #: ../../../lib/web/src/features/access/types.ts
@@ -440,6 +458,10 @@ msgstr "Njenge-{0}"
 #: ../../../lib/web/src/components/ui/sort-direction-button.tsx
 msgid "Ascending"
 msgstr "Ukunyuka"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Asking to compare emoji..."
+msgstr "Kucelwa ukuthelekisa ii-emoji..."
 
 #: ../../../lib/web/src/components/timezone-select.tsx
 msgid "At sea"
@@ -599,6 +621,8 @@ msgstr "Ikhamera ayifumaneki"
 #: src/features/chats/components/chat-settings-dialog.tsx
 #: src/features/chats/components/forward-dialog.tsx
 #: src/features/chats/components/new-chat.tsx
+#: src/features/chats/components/verification-watcher.tsx
+#: src/features/chats/components/verification-watcher.tsx
 #: src/features/chats/index.tsx
 msgid "Cancel"
 msgstr "Rhoxisa"
@@ -735,6 +759,10 @@ msgstr "Isikhonkwane sisusiwe kwincoko"
 msgid "Chats"
 msgstr "Iincoko"
 
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Check that the same emoji appear on the other screen."
+msgstr "Jonga ukuba ii-emoji ezifanayo ziyavela kwesinye isikrini."
+
 #: ../../../lib/web/src/hooks/use-field-type-labels.ts
 msgid "Checkbox"
 msgstr "Ibhokisi yokuhlola"
@@ -867,6 +895,11 @@ msgstr "Izimvo ({0})"
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Compact"
 msgstr "Mfutshane"
+
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Compare emoji"
+msgstr "Thelekisa ii-emoji"
 
 #: ../../../lib/web/src/components/entity/entity-option-dialog.tsx
 msgid "Configure option settings"
@@ -1028,6 +1061,7 @@ msgid "Date"
 msgstr "Umhla"
 
 #: ../../../lib/web/src/components/game/game-draw-offer-banner.tsx
+#: src/features/chats/components/verification-watcher.tsx
 #: src/features/chats/index.tsx
 msgid "Decline"
 msgstr "Yala"
@@ -1167,6 +1201,10 @@ msgstr "Iphaneli yenkcukacha"
 msgid "Detect from web browser"
 msgstr "Bhaqa kwibhrawuza yewebhu"
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "Device options"
+msgstr "Iinketho zesixhobo"
+
 #: ../../../lib/web/src/components/person-picker.tsx
 msgid "Directory"
 msgstr "Uluhlu"
@@ -1210,6 +1248,14 @@ msgstr "Yikhabe"
 msgid "Displays the mobile sidebar."
 msgstr "Ibonisa ibara lecala leselula."
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "Distrust"
+msgstr "Musa ukuthemba"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Distrusted"
+msgstr "Akuthenjwanga"
+
 #: src/features/chats/components/chat-input.tsx
 msgid "Document"
 msgstr "Uxwebhu"
@@ -1220,6 +1266,7 @@ msgstr "Ayihambelani nepateni efunekayo"
 
 #: ../../../lib/web/src/components/entity/entity-field-dialog.tsx
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx
+#: src/features/chats/components/encryption-section.tsx
 msgid "Done"
 msgstr "Kwenziwe"
 
@@ -1308,6 +1355,12 @@ msgstr "Ikhowudi ye-imeyili"
 msgid "Encrypted message"
 msgstr "Umyalezo ofihliweyo"
 
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+msgid "Encryption"
+msgstr "Ukufihla"
+
 #: ../../../lib/web/src/components/calendar/time-grid.tsx
 msgid "Ends before it starts"
 msgstr "Iphela ingekaqali"
@@ -1315,6 +1368,11 @@ msgstr "Iphela ingekaqali"
 #: ../../../lib/web/src/components/banner-section.tsx
 msgid "Enter banner text (markdown supported)..."
 msgstr "Faka umbhalo webhena (i-markdown iyaxhaswa)..."
+
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+msgid "Enter recovery key"
+msgstr "Faka isitshixo sokubuyisela"
 
 #: ../../../lib/web/src/components/step-up-dialog.tsx
 msgid "Enter the code from your email"
@@ -1498,6 +1556,7 @@ msgstr "Ayiphumelelanga ukususa ufikelelo lwe-RSS"
 
 #: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx
 #: src/features/chats/components/chat-settings-dialog.tsx
+#: src/features/chats/components/encryption-section.tsx
 msgid "Failed to save"
 msgstr "Ayiphumelelanga ukugcina"
 
@@ -1556,6 +1615,10 @@ msgstr "Iiflegi"
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Flat"
 msgstr "Isicaba"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Forget my decision"
+msgstr "Libala isigqibo sam"
 
 #: src/features/chats/components/forward-dialog.tsx
 #: src/features/chats/components/message-hover-actions.tsx
@@ -1717,6 +1780,10 @@ msgstr "Yiya ezantsi"
 #: ../../../lib/web/src/lib/locale-format.ts
 msgid "Just now"
 msgstr "Kwangoku"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Keep this key safe. It is shown once, and your other Matrix clients ask for it to read your encrypted messages."
+msgstr "Gcina esi sitshixo sikhuselekile. Siboniswa kanye kuphela, kwaye ezinye iinkqubo zakho ze-Matrix ziyasicela ukuze zifunde imiyalezo yakho efihliweyo."
 
 #: ../../../lib/web/src/components/entity/keyboard-shortcuts-help.tsx
 msgid "Keyboard shortcuts"
@@ -1974,6 +2041,10 @@ msgstr "Iwebhu ye-Mochi"
 msgid "Moderation"
 msgstr "Ulungelelwaniso"
 
+#: src/features/chats/roles.ts
+msgid "Moderator"
+msgstr "Umlungelelanisi"
+
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Monday"
 msgstr "Umvulo"
@@ -2104,6 +2175,10 @@ msgstr "Akukho ncoko zokudlulisela kuzo"
 msgid "No comments yet"
 msgstr "Akukho zimvo okwangoku"
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "No devices"
+msgstr "Akukho zixhobo"
+
 #: src/routes/_authenticated/$chatId_.settings.tsx
 msgid "No friends available"
 msgstr "Akukho bahlobo bafumanekayo"
@@ -2139,6 +2214,10 @@ msgstr "Akukho miyalezo okwangoku"
 #: src/features/chats/components/chat-input.tsx
 msgid "No microphone found"
 msgstr "Akukho makrofoni ifunyenweyo"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "No other devices"
+msgstr "Akukho zinye izixhobo"
 
 #: ../../../lib/web/src/components/entity/entity-field-editor.tsx
 #: ../../../lib/web/src/components/person-picker.tsx
@@ -2224,6 +2303,11 @@ msgstr "Ayifumanekanga"
 #: ../../../lib/web/src/components/ui/editable-field-row.tsx
 msgid "Not set"
 msgstr "Akumiselwanga"
+
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+msgid "Not verified"
+msgstr "Akuqinisekiswanga"
 
 #: ../../../lib/web/src/components/entity/entity-tree-view.tsx
 msgid "Nothing found"
@@ -2327,6 +2411,7 @@ msgstr "Okunye"
 
 #: ../../../lib/web/src/components/member-list.tsx
 #: ../../../lib/web/src/features/access/access-list.tsx
+#: src/features/chats/roles.ts
 msgid "Owner"
 msgstr "Umnini"
 
@@ -2352,6 +2437,10 @@ msgstr "Izitshixo zokungena"
 #: ../../../lib/web/src/lib/shell-errors.ts
 msgid "Passkeys are not available in this browser"
 msgstr "Izitshixo zokungena azifumaneki kule bhrawuza"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Password"
+msgstr "Igama lokugqitha"
 
 #: ../../../lib/web/src/components/entity/entity-field-dialog.tsx
 msgid "Pattern (regex)"
@@ -2508,6 +2597,14 @@ msgstr "Ushicilelo lumise kumda wemizuzu emi-5"
 #: src/features/chats/components/chat-input.tsx
 msgid "Recording voice note"
 msgstr "Kushicilelwa inqaku lelizwi"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Recovery could not be set up"
+msgstr "Ukubuyisela akukwazanga ukusetwa"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Recovery key"
+msgstr "Isitshixo sokubuyisela"
 
 #: ../../../lib/web/src/components/layout/authenticated-layout.tsx
 msgid "Redirecting to login."
@@ -2673,6 +2770,10 @@ msgstr "Rhoxa"
 msgid "Resign game?"
 msgstr "Rhoxa kumdlalo?"
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "Restore"
+msgstr "Buyisela"
+
 #: ../../../lib/web/src/components/attachment-composer.tsx
 msgid "Retry"
 msgstr "Zama kwakhona"
@@ -2730,7 +2831,12 @@ msgstr "Umgqibelo"
 msgid "Save"
 msgstr "Gcina"
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "Saved"
+msgstr "Igciniwe"
+
 #: src/features/chats/components/chat-settings-dialog.tsx
+#: src/features/chats/components/encryption-section.tsx
 msgid "Saving..."
 msgstr "Iyagcina..."
 
@@ -2957,6 +3063,12 @@ msgstr "Iseshoni iphelelwe. Nceda uphinde ungene."
 msgid "Set origin and destination"
 msgstr "Misa indawo yokuqala neyokugqibela"
 
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+msgid "Set up recovery"
+msgstr "Seta ukubuyisela"
+
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx
 #: ../../../lib/web/src/components/options-menu.tsx
@@ -3142,6 +3254,10 @@ msgstr "Loo khowudi ayichanekanga okanye iphelelwe lixesha."
 msgid "That could not be sent. The files may be too large, or your connection failed. Try smaller files."
 msgstr "Ayikwazanga ukuthunyelwa. Iifayile zisenokuba zinkulu kakhulu, okanye uqhagamshelo lwakho luphanzile. Zama iifayile ezincinane."
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "That is not your recovery key"
+msgstr "Esi asisositshixo sakho sokubuyisela"
+
 #: ../../../lib/web/src/hooks/use-attachment-error.ts
 #: ../../../lib/web/src/lib/handle-server-error.ts
 msgid "That was too large to upload. Remove or shrink files and try again."
@@ -3164,6 +3280,14 @@ msgstr "Igama lencoko lingaba neempawu ezingekho ngaphezu kwe-{CHAT_NAME_MAX_LEN
 msgid "The chat name cannot contain < or >"
 msgstr "Igama lencoko alinakuqulatha u< okanye u>"
 
+#: src/features/chats/components/verification-watcher.tsx
+msgid "The emoji did not match, so the verification was cancelled"
+msgstr "Ii-emoji azifananga, ngoko uqinisekiso lurhoxisiwe"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "The fingerprint matches"
+msgstr "Uphawu lomnwe luyafana"
+
 #: ../../../lib/web/src/lib/shell-errors.ts
 msgid "The microphone request was not answered"
 msgstr "Isicelo semayikrofoni asiphendulwanga"
@@ -3171,6 +3295,10 @@ msgstr "Isicelo semayikrofoni asiphendulwanga"
 #: ../../../lib/web/src/lib/shell-errors.ts
 msgid "The passkey request was not answered"
 msgstr "Isicelo sesitshixo sokungena asiphendulwanga"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "The password was not accepted"
+msgstr "Igama lokugqitha alamkelwanga"
 
 #: ../../../lib/web/src/features/errors/general-error.tsx
 msgid "The requested content could not be found."
@@ -3180,10 +3308,30 @@ msgstr "Umxholo oceliweyo awufumanekanga."
 msgid "The server returned a web page instead of data."
 msgstr "Iseva ibuyise iphepha lewebhu endaweni yedatha."
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "The verification could not be started"
+msgstr "Uqinisekiso alukwazanga ukuqaliswa"
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "The verification could not go on"
+msgstr "Uqinisekiso alukwazanga ukuqhubeka"
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "The verification was cancelled"
+msgstr "Uqinisekiso lurhoxisiwe"
+
 #. placeholder {0}: unknown.join(', ')
 #: src/features/chats/index.tsx
 msgid "These names are not in this chat: {0}. Pick from the @ list or remove them."
 msgstr "La magama awakho kule ncoko: {0}. Khetha kuluhlu luka-@ okanye uwasuse."
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "They don't match"
+msgstr "Azifani"
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "They match"
+msgstr "Ziyafana"
 
 #: src/routes/_authenticated/$chatId_.settings.tsx
 msgid "They stop receiving new messages in this chat."
@@ -3203,12 +3351,20 @@ msgid "This chat may have been deleted or you don't have access to it"
 msgstr "Le ncoko isenokuba icinyiwe okanye awunafikelelo kuyo"
 
 #: src/features/chats/index.tsx
-msgid "This conversation is encrypted. Messages cannot be sent to it from here yet."
-msgstr "Le ncoko ifihliwe. Imiyalezo ayikakwazi ukuthunyelwa kuyo ukusuka apha."
-
-#: src/features/chats/index.tsx
 msgid "This deletes the message for everyone and cannot be undone."
 msgstr "Oku kucima umyalezo kuwo wonke umntu kwaye akunakubuyiswa."
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "This device"
+msgstr "Esi sixhobo"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "This device (OMEMO 2)"
+msgstr "Esi sixhobo (OMEMO 2)"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "This device (OMEMO)"
+msgstr "Esi sixhobo (OMEMO)"
 
 #: src/features/chats/components/chat-message-list.tsx
 #: src/features/chats/components/message-quote.tsx
@@ -3406,14 +3562,28 @@ msgstr "Iimaphakamayo: {variables}"
 msgid "Verification code"
 msgstr "Ikhowudi yoqinisekiso"
 
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Verified"
+msgstr "Kuqinisekisiwe"
+
 #: ../../../lib/web/src/components/step-up-dialog.tsx
 #: ../../../lib/web/src/features/accounts/account-verify.tsx
 msgid "Verify"
 msgstr "Qinisekisa"
 
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Verify {who}"
+msgstr "Qinisekisa u-{who}"
+
 #: ../../../lib/web/src/features/accounts/account-verify.tsx
 msgid "Verify email address"
 msgstr "Qinisekisa idilesi ye-imeyile"
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Verify your device"
+msgstr "Qinisekisa isixhobo sakho"
 
 #: ../../../lib/web/src/components/attachment-gallery.tsx
 #: src/features/chats/components/message-media-grid.tsx
@@ -3438,6 +3608,10 @@ msgstr "Bonisa kwaye uhlele iinkcukacha zento"
 msgid "View controls"
 msgstr "Bonisa izilawuli"
 
+#: src/features/chats/roles.ts
+msgid "Visitor"
+msgstr "Undwendwe"
+
 #: src/features/chats/components/voice-waveform.tsx
 msgid "Voice note waveform"
 msgstr "Imilo yamaza yenqaku lelizwi"
@@ -3455,6 +3629,14 @@ msgstr "Ushicilelo lwelizwi aluxhaswa kule bhrawuza"
 #: src/features/chats/components/chat-input.tsx
 msgid "Voice recording isn't available in this app version. Please update the app and try again."
 msgstr "Ushicilelo lwelizwi alufumaneki kolu guqulelo lwe-app. Nceda uhlaziye i-app uze uzame kwakhona."
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Waiting for the other device..."
+msgstr "Kulindwe esinye isixhobo..."
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Waiting for them to accept"
+msgstr "Kulindwe ukuba bamkele"
 
 #: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx
 #: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx
@@ -3530,6 +3712,18 @@ msgstr "I-akhawunti yakho ihanjiswe apha ukusuka ku-{source}. Kude ukuze uyicime
 #: ../../../lib/web/src/components/comment-composer.tsx
 msgid "Your attachments will be lost."
 msgstr "Iziqhoboshelo zakho ziza kulahleka."
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Your Matrix server asks for your account's password."
+msgstr "Iseva yakho ye-Matrix icela igama lokugqitha leakhawunti yakho."
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Your other devices"
+msgstr "Ezinye izixhobo zakho"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Your recovery key"
+msgstr "Isitshixo sakho sokubuyisela"
 
 #: ../../../lib/web/src/components/comment-composer.tsx
 msgid "Your text and attachments will be lost."

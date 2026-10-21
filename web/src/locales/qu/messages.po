@@ -65,6 +65,11 @@ msgstr "{0, plural, =1 {¿Willakuyta wischunki?} other {¿# willakuykunata wisch
 msgid "{0, plural, one {# file changed} other {# files changed}}"
 msgstr "{0, plural, one {# archivo tikrasqa} other {# archivokuna tikrasqa}}"
 
+#. placeholder {0}: result.restored
+#: src/features/chats/components/encryption-section.tsx
+msgid "{0, plural, one {# message key restored} other {# message keys restored}}"
+msgstr "{0, plural, one {# willakuy clave kutichisqa} other {# willakuy clavekuna kutichisqa}}"
+
 #. placeholder {0}: message.replies
 #: src/features/chats/components/chat-message-list.tsx
 msgid "{0, plural, one {# reply} other {# replies}}"
@@ -175,6 +180,10 @@ msgstr "{truncated, plural, one {# huk archivo mana rikuchisqa} other {# huk arc
 msgid "{unreadCount, plural, one {Open menu (# unread notification)} other {Open menu (# unread notifications)}}"
 msgstr "{unreadCount, plural, one {Menuta kichay (# mana ñawinchasqa willakuy)} other {Menuta kichay (# mana ñawinchasqa willakuykuna)}}"
 
+#: src/features/chats/components/verification-watcher.tsx
+msgid "{who} wants to verify you."
+msgstr "{who} qamta takyachiyta munan."
+
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "12 hours"
 msgstr "12 hora"
@@ -193,6 +202,7 @@ msgid "Absolute (date and time)"
 msgstr "Absoluto (p'unchaw hinaspa hora)"
 
 #: ../../../lib/web/src/components/game/game-draw-offer-banner.tsx
+#: src/features/chats/components/verification-watcher.tsx
 #: src/features/chats/index.tsx
 msgid "Accept"
 msgstr "Chaskiy"
@@ -326,6 +336,10 @@ msgstr "Miembrota yapachkan..."
 msgid "Addresses"
 msgstr "Direccionkuna"
 
+#: src/features/chats/roles.ts
+msgid "Administrator"
+msgstr "Kamachiq"
+
 #: src/features/chats/constants/reactions.ts
 msgid "Agree"
 msgstr "Arí niy"
@@ -379,6 +393,10 @@ msgstr "Android push willakuy"
 #: src/features/chats/constants/reactions.ts
 msgid "Angry"
 msgstr "Phiñasqa"
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Another of your devices wants to verify this one."
+msgstr "Huk dispositivoykim kayta takyachiyta munan."
 
 #: ../../../lib/web/src/features/access/access-list.tsx
 #: ../../../lib/web/src/features/access/types.ts
@@ -440,6 +458,10 @@ msgstr "{0} hina"
 #: ../../../lib/web/src/components/ui/sort-direction-button.tsx
 msgid "Ascending"
 msgstr "Wicharispa"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Asking to compare emoji..."
+msgstr "Emojikunata tupachinapaq mañakuchkan..."
 
 #: ../../../lib/web/src/components/timezone-select.tsx
 msgid "At sea"
@@ -599,6 +621,8 @@ msgstr "Cámara mana kanchu"
 #: src/features/chats/components/chat-settings-dialog.tsx
 #: src/features/chats/components/forward-dialog.tsx
 #: src/features/chats/components/new-chat.tsx
+#: src/features/chats/components/verification-watcher.tsx
+#: src/features/chats/components/verification-watcher.tsx
 #: src/features/chats/index.tsx
 msgid "Cancel"
 msgstr "Mana ruway"
@@ -735,6 +759,10 @@ msgstr "Rimanakuy mana fijasqaña"
 msgid "Chats"
 msgstr "Rimanakuykuna"
 
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Check that the same emoji appear on the other screen."
+msgstr "Huk pantallapi kikin emojikuna rikuriqta qhaway."
+
 #: ../../../lib/web/src/hooks/use-field-type-labels.ts
 msgid "Checkbox"
 msgstr "Casilla"
@@ -867,6 +895,11 @@ msgstr "Comentariokuna ({0})"
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Compact"
 msgstr "Pisi"
+
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Compare emoji"
+msgstr "Emojikunata tupachiy"
 
 #: ../../../lib/web/src/components/entity/entity-option-dialog.tsx
 msgid "Configure option settings"
@@ -1028,6 +1061,7 @@ msgid "Date"
 msgstr "P'unchaw"
 
 #: ../../../lib/web/src/components/game/game-draw-offer-banner.tsx
+#: src/features/chats/components/verification-watcher.tsx
 #: src/features/chats/index.tsx
 msgid "Decline"
 msgstr "Mana chaskiy"
@@ -1167,6 +1201,10 @@ msgstr "Detallekuna panel"
 msgid "Detect from web browser"
 msgstr "Web navegadormanta tariy"
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "Device options"
+msgstr "Dispositivopa akllanakuna"
+
 #: ../../../lib/web/src/components/person-picker.tsx
 msgid "Directory"
 msgstr "Directorio"
@@ -1210,6 +1248,14 @@ msgstr "Mana kasuy"
 msgid "Displays the mobile sidebar."
 msgstr "Celular waqta barrata rikuchin."
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "Distrust"
+msgstr "Ama iñiychu"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Distrusted"
+msgstr "Mana iñisqa"
+
 #: src/features/chats/components/chat-input.tsx
 msgid "Document"
 msgstr "Documento"
@@ -1220,6 +1266,7 @@ msgstr "Mana mañakusqa patrónwan tupanchu"
 
 #: ../../../lib/web/src/components/entity/entity-field-dialog.tsx
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx
+#: src/features/chats/components/encryption-section.tsx
 msgid "Done"
 msgstr "Tukusqa"
 
@@ -1308,6 +1355,12 @@ msgstr "Email código"
 msgid "Encrypted message"
 msgstr "Pakasqa willakuy"
 
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+msgid "Encryption"
+msgstr "Pakay"
+
 #: ../../../lib/web/src/components/calendar/time-grid.tsx
 msgid "Ends before it starts"
 msgstr "Manaraq qallarichkaptin tukun"
@@ -1315,6 +1368,11 @@ msgstr "Manaraq qallarichkaptin tukun"
 #: ../../../lib/web/src/components/banner-section.tsx
 msgid "Enter banner text (markdown supported)..."
 msgstr "Banner qillqata qillqay (markdown atikun)..."
+
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+msgid "Enter recovery key"
+msgstr "Kutichinapaq claveta qillqay"
 
 #: ../../../lib/web/src/components/step-up-dialog.tsx
 msgid "Enter the code from your email"
@@ -1498,6 +1556,7 @@ msgstr "RSS yaykuyta mana qichuyta atikurqanchu"
 
 #: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx
 #: src/features/chats/components/chat-settings-dialog.tsx
+#: src/features/chats/components/encryption-section.tsx
 msgid "Failed to save"
 msgstr "Mana waqaychayta atinchu"
 
@@ -1556,6 +1615,10 @@ msgstr "Banderakuna"
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Flat"
 msgstr "Pampa"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Forget my decision"
+msgstr "Tanteasqayta qunqay"
 
 #: src/features/chats/components/forward-dialog.tsx
 #: src/features/chats/components/message-hover-actions.tsx
@@ -1717,6 +1780,10 @@ msgstr "Uraman riy"
 #: ../../../lib/web/src/lib/locale-format.ts
 msgid "Just now"
 msgstr "Kunanlla"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Keep this key safe. It is shown once, and your other Matrix clients ask for it to read your encrypted messages."
+msgstr "Kay claveta allinta waqaychay. Huk kutillatam rikuchikun, hinaspa huk Matrix clienteykikunam mañanku pakasqa willakuyniykikunata ñawinchanankupaq."
 
 #: ../../../lib/web/src/components/entity/keyboard-shortcuts-help.tsx
 msgid "Keyboard shortcuts"
@@ -1974,6 +2041,10 @@ msgstr "Mochi web"
 msgid "Moderation"
 msgstr "Moderación"
 
+#: src/features/chats/roles.ts
+msgid "Moderator"
+msgstr "Moderador"
+
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Monday"
 msgstr "Killachaw"
@@ -2104,6 +2175,10 @@ msgstr "Reenvianapaq mana rimanakuy kanchu"
 msgid "No comments yet"
 msgstr "Manaraq comentariokuna kanchu"
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "No devices"
+msgstr "Mana dispositivokuna kanchu"
+
 #: src/routes/_authenticated/$chatId_.settings.tsx
 msgid "No friends available"
 msgstr "Mana masikuna kanchu"
@@ -2139,6 +2214,10 @@ msgstr "Manaraq willakuykuna kanchu"
 #: src/features/chats/components/chat-input.tsx
 msgid "No microphone found"
 msgstr "Manam micrófono tarikurqanchu"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "No other devices"
+msgstr "Mana huk dispositivokuna kanchu"
 
 #: ../../../lib/web/src/components/entity/entity-field-editor.tsx
 #: ../../../lib/web/src/components/person-picker.tsx
@@ -2224,6 +2303,11 @@ msgstr "Mana tarikunchu"
 #: ../../../lib/web/src/components/ui/editable-field-row.tsx
 msgid "Not set"
 msgstr "Mana churasqa"
+
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+msgid "Not verified"
+msgstr "Mana takyachisqachu"
 
 #: ../../../lib/web/src/components/entity/entity-tree-view.tsx
 msgid "Nothing found"
@@ -2327,6 +2411,7 @@ msgstr "Huk"
 
 #: ../../../lib/web/src/components/member-list.tsx
 #: ../../../lib/web/src/features/access/access-list.tsx
+#: src/features/chats/roles.ts
 msgid "Owner"
 msgstr "Apuq"
 
@@ -2352,6 +2437,10 @@ msgstr "Yaykuna llavekuna"
 #: ../../../lib/web/src/lib/shell-errors.ts
 msgid "Passkeys are not available in this browser"
 msgstr "Yaykuna llavekunaqa manam kay navegadorpi kanchu"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Password"
+msgstr "Contraseña"
 
 #: ../../../lib/web/src/components/entity/entity-field-dialog.tsx
 msgid "Pattern (regex)"
@@ -2508,6 +2597,14 @@ msgstr "Grabacionqa 5 minuto limitepim sayarqan"
 #: src/features/chats/components/chat-input.tsx
 msgid "Recording voice note"
 msgstr "Kunka notata grabachkan"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Recovery could not be set up"
+msgstr "Kutichiyqa manam wakichiyta atikurqanchu"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Recovery key"
+msgstr "Kutichinapaq clave"
 
 #: ../../../lib/web/src/components/layout/authenticated-layout.tsx
 msgid "Redirecting to login."
@@ -2673,6 +2770,10 @@ msgstr "Saqirakapuy"
 msgid "Resign game?"
 msgstr "¿Pukllayta saqirakapunkichu?"
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "Restore"
+msgstr "Kutichipuy"
+
 #: ../../../lib/web/src/components/attachment-composer.tsx
 msgid "Retry"
 msgstr "Kutimanta ruway"
@@ -2730,7 +2831,12 @@ msgstr "K'uychichaw"
 msgid "Save"
 msgstr "Waqaychay"
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "Saved"
+msgstr "Waqaychasqa"
+
 #: src/features/chats/components/chat-settings-dialog.tsx
+#: src/features/chats/components/encryption-section.tsx
 msgid "Saving..."
 msgstr "Waqaychachkan..."
 
@@ -2957,6 +3063,12 @@ msgstr "Sesionqa tukurqunña. Kutimanta yaykuy."
 msgid "Set origin and destination"
 msgstr "Origenta destinotawan churay"
 
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+msgid "Set up recovery"
+msgstr "Kutichiyta wakichiy"
+
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx
 #: ../../../lib/web/src/components/options-menu.tsx
@@ -3142,6 +3254,10 @@ msgstr "Chay códigoqa mana allinchu utaq pachan tukurqunña."
 msgid "That could not be sent. The files may be too large, or your connection failed. Try smaller files."
 msgstr "Manam apachiyta atikurqanchu. Archivokunaqa nishu hatunchá kanku, utaq t'inkiyniyki p'itikurqan. Aswan huch'uy archivokunawan kutimanta ruway."
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "That is not your recovery key"
+msgstr "Kayqa manam kutichinapaq claveykichu"
+
 #: ../../../lib/web/src/hooks/use-attachment-error.ts
 #: ../../../lib/web/src/lib/handle-server-error.ts
 msgid "That was too large to upload. Remove or shrink files and try again."
@@ -3164,6 +3280,14 @@ msgstr "Rimanakuypa sutinqa {CHAT_NAME_MAX_LENGTH} sananchakunallam kanman"
 msgid "The chat name cannot contain < or >"
 msgstr "Rimanakuypa sutinqa manam < utaq > kanmanchu"
 
+#: src/features/chats/components/verification-watcher.tsx
+msgid "The emoji did not match, so the verification was cancelled"
+msgstr "Emojikuna mana tuparqanchu, chaymi takyachiyqa sayachisqa karqan"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "The fingerprint matches"
+msgstr "Ruk'ana unanchaqa tupanmi"
+
 #: ../../../lib/web/src/lib/shell-errors.ts
 msgid "The microphone request was not answered"
 msgstr "Micrófono mañakuyqa manam kutichisqachu karqan"
@@ -3171,6 +3295,10 @@ msgstr "Micrófono mañakuyqa manam kutichisqachu karqan"
 #: ../../../lib/web/src/lib/shell-errors.ts
 msgid "The passkey request was not answered"
 msgstr "Yaykuna llave mañakuyqa manam kutichisqachu karqan"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "The password was not accepted"
+msgstr "Contraseñaqa manam chaskisqachu karqan"
 
 #: ../../../lib/web/src/features/errors/general-error.tsx
 msgid "The requested content could not be found."
@@ -3180,10 +3308,30 @@ msgstr "Mañakusqa contenido mana tarikunchu."
 msgid "The server returned a web page instead of data."
 msgstr "Servidorqa mana datokunatachu kutichirqan, huk web páginatam."
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "The verification could not be started"
+msgstr "Takyachiyqa manam qallariyta atikurqanchu"
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "The verification could not go on"
+msgstr "Takyachiyqa manam qatipayta atikurqanchu"
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "The verification was cancelled"
+msgstr "Takyachiyqa sayachisqa karqan"
+
 #. placeholder {0}: unknown.join(', ')
 #: src/features/chats/index.tsx
 msgid "These names are not in this chat: {0}. Pick from the @ list or remove them."
 msgstr "Kay sutikunaqa manam kay rimanakuypichu: {0}. @ listamanta akllay utaq qichuy."
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "They don't match"
+msgstr "Mana tupankuchu"
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "They match"
+msgstr "Tupankum"
 
 #: src/routes/_authenticated/$chatId_.settings.tsx
 msgid "They stop receiving new messages in this chat."
@@ -3203,12 +3351,20 @@ msgid "This chat may have been deleted or you don't have access to it"
 msgstr "Kay rimanakuy wischusqa kanman utaq mana yaykuyniyki kanchu"
 
 #: src/features/chats/index.tsx
-msgid "This conversation is encrypted. Messages cannot be sent to it from here yet."
-msgstr "Kay rimanakuyqa pakasqam. Manaraqmi kaymanta willakuykunata payman apachiyta atikunchu."
-
-#: src/features/chats/index.tsx
 msgid "This deletes the message for everyone and cannot be undone."
 msgstr "Kayqa willakuyta llapanpaq wischun, manataq kutichiy atikunchu."
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "This device"
+msgstr "Kay dispositivo"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "This device (OMEMO 2)"
+msgstr "Kay dispositivo (OMEMO 2)"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "This device (OMEMO)"
+msgstr "Kay dispositivo (OMEMO)"
 
 #: src/features/chats/components/chat-message-list.tsx
 #: src/features/chats/components/message-quote.tsx
@@ -3406,14 +3562,28 @@ msgstr "Variablekuna: {variables}"
 msgid "Verification code"
 msgstr "Takyachiy código"
 
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Verified"
+msgstr "Takyachisqa"
+
 #: ../../../lib/web/src/components/step-up-dialog.tsx
 #: ../../../lib/web/src/features/accounts/account-verify.tsx
 msgid "Verify"
 msgstr "Takyachiy"
 
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Verify {who}"
+msgstr "{who}ta takyachiy"
+
 #: ../../../lib/web/src/features/accounts/account-verify.tsx
 msgid "Verify email address"
 msgstr "Email direccionta takyachiy"
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Verify your device"
+msgstr "Dispositivoykita takyachiy"
 
 #: ../../../lib/web/src/components/attachment-gallery.tsx
 #: src/features/chats/components/message-media-grid.tsx
@@ -3438,6 +3608,10 @@ msgstr "Itempa detallenkunata qhaway hinaspa hukchay"
 msgid "View controls"
 msgstr "Vista controlkuna"
 
+#: src/features/chats/roles.ts
+msgid "Visitor"
+msgstr "Watukuq"
+
 #: src/features/chats/components/voice-waveform.tsx
 msgid "Voice note waveform"
 msgstr "Kunka notapa onda forman"
@@ -3455,6 +3629,14 @@ msgstr "Kay navegadorpiqa manam kunka grabay atikunchu"
 #: src/features/chats/components/chat-input.tsx
 msgid "Voice recording isn't available in this app version. Please update the app and try again."
 msgstr "Kay app versionpiqa manam kunka grabay kanchu. App-ta musuqchay hinaspa kutimanta ruway."
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Waiting for the other device..."
+msgstr "Huk dispositivota suyachkan..."
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Waiting for them to accept"
+msgstr "Chaskinankuta suyachkan"
 
 #: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx
 #: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx
@@ -3530,6 +3712,18 @@ msgstr "Cuentaykiqa {source}-manta kayman astasqa karqan. Chaypi manaraq wischuc
 #: ../../../lib/web/src/components/comment-composer.tsx
 msgid "Your attachments will be lost."
 msgstr "Adjuntoykikuna chinkanqa."
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Your Matrix server asks for your account's password."
+msgstr "Matrix servidorniykim cuentaykipa contraseñanta mañan."
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Your other devices"
+msgstr "Huk dispositivoykikuna"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Your recovery key"
+msgstr "Kutichinapaq claveyki"
 
 #: ../../../lib/web/src/components/comment-composer.tsx
 msgid "Your text and attachments will be lost."

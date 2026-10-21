@@ -173,6 +173,22 @@ export function matrixAddress(value: string): string | null {
   return MATRIX_ADDRESS.test(address) ? address : null
 }
 
+// An XMPP address, name@server.
+const XMPP_ADDRESS = /^[^\s@/]{1,500}@[A-Za-z0-9.-]+$/
+
+/**
+ * The XMPP address a search names, name@server, as typed or as a contact
+ * card's messaging address gives it (xmpp:name@server), lowercased as chat
+ * keeps it; null for anything else.
+ */
+export function xmppAddress(value: string): string | null {
+  const text = value.trim()
+  const address = text.toLowerCase().startsWith('xmpp:')
+    ? text.slice('xmpp:'.length)
+    : text
+  return XMPP_ADDRESS.test(address) ? address.toLowerCase() : null
+}
+
 /**
  * Accent- and case-insensitive substring match ("cafe" finds "Café");
  * naturalCompare orders but cannot answer "contains".

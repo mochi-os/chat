@@ -65,6 +65,11 @@ msgstr "{0, plural, =1 {Mezua ezabatu?} other {# mezu ezabatu?}}"
 msgid "{0, plural, one {# file changed} other {# files changed}}"
 msgstr "{0, plural, one {fitxategi # aldatuta} other {# fitxategi aldatuta}}"
 
+#. placeholder {0}: result.restored
+#: src/features/chats/components/encryption-section.tsx
+msgid "{0, plural, one {# message key restored} other {# message keys restored}}"
+msgstr "{0, plural, one {# mezu-gako berreskuratu da} other {# mezu-gako berreskuratu dira}}"
+
 #. placeholder {0}: message.replies
 #: src/features/chats/components/chat-message-list.tsx
 msgid "{0, plural, one {# reply} other {# replies}}"
@@ -175,6 +180,10 @@ msgstr "{truncated, plural, one {Beste # fitxategi ez da erakusten} other {Beste
 msgid "{unreadCount, plural, one {Open menu (# unread notification)} other {Open menu (# unread notifications)}}"
 msgstr "{unreadCount, plural, one {Ireki menua (irakurri gabeko # jakinarazpen)} other {Ireki menua (irakurri gabeko # jakinarazpen)}}"
 
+#: src/features/chats/components/verification-watcher.tsx
+msgid "{who} wants to verify you."
+msgstr "{who} erabiltzaileak egiaztatu nahi zaitu."
+
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "12 hours"
 msgstr "12 ordu"
@@ -193,6 +202,7 @@ msgid "Absolute (date and time)"
 msgstr "Absolutua (data eta ordua)"
 
 #: ../../../lib/web/src/components/game/game-draw-offer-banner.tsx
+#: src/features/chats/components/verification-watcher.tsx
 #: src/features/chats/index.tsx
 msgid "Accept"
 msgstr "Onartu"
@@ -326,6 +336,10 @@ msgstr "Kidea gehitzen..."
 msgid "Addresses"
 msgstr "Helbideak"
 
+#: src/features/chats/roles.ts
+msgid "Administrator"
+msgstr "Administratzailea"
+
 #: src/features/chats/constants/reactions.ts
 msgid "Agree"
 msgstr "Ados"
@@ -379,6 +393,10 @@ msgstr "Android push jakinarazpenak"
 #: src/features/chats/constants/reactions.ts
 msgid "Angry"
 msgstr "Haserre"
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Another of your devices wants to verify this one."
+msgstr "Zure beste gailu batek hau egiaztatu nahi du."
 
 #: ../../../lib/web/src/features/access/access-list.tsx
 #: ../../../lib/web/src/features/access/types.ts
@@ -440,6 +458,10 @@ msgstr "{0} gisa"
 #: ../../../lib/web/src/components/ui/sort-direction-button.tsx
 msgid "Ascending"
 msgstr "Gorakorra"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Asking to compare emoji..."
+msgstr "Emojiak alderatzeko eskatzen..."
 
 #: ../../../lib/web/src/components/timezone-select.tsx
 msgid "At sea"
@@ -599,6 +621,8 @@ msgstr "Kamera ez dago erabilgarri"
 #: src/features/chats/components/chat-settings-dialog.tsx
 #: src/features/chats/components/forward-dialog.tsx
 #: src/features/chats/components/new-chat.tsx
+#: src/features/chats/components/verification-watcher.tsx
+#: src/features/chats/components/verification-watcher.tsx
 #: src/features/chats/index.tsx
 msgid "Cancel"
 msgstr "Utzi"
@@ -735,6 +759,10 @@ msgstr "Txata desfinkatu da"
 msgid "Chats"
 msgstr "Txatak"
 
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Check that the same emoji appear on the other screen."
+msgstr "Egiaztatu emoji berak agertzen direla beste pantailan."
+
 #: ../../../lib/web/src/hooks/use-field-type-labels.ts
 msgid "Checkbox"
 msgstr "Kontrol-laukia"
@@ -867,6 +895,11 @@ msgstr "Iruzkinak ({0})"
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Compact"
 msgstr "Trinkoa"
+
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Compare emoji"
+msgstr "Alderatu emojiak"
 
 #: ../../../lib/web/src/components/entity/entity-option-dialog.tsx
 msgid "Configure option settings"
@@ -1028,6 +1061,7 @@ msgid "Date"
 msgstr "Data"
 
 #: ../../../lib/web/src/components/game/game-draw-offer-banner.tsx
+#: src/features/chats/components/verification-watcher.tsx
 #: src/features/chats/index.tsx
 msgid "Decline"
 msgstr "Ukatu"
@@ -1167,6 +1201,10 @@ msgstr "Xehetasun panela"
 msgid "Detect from web browser"
 msgstr "Detektatu web nabigatzailetik"
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "Device options"
+msgstr "Gailuaren aukerak"
+
 #: ../../../lib/web/src/components/person-picker.tsx
 msgid "Directory"
 msgstr "Direktorioa"
@@ -1210,6 +1248,14 @@ msgstr "Baztertu"
 msgid "Displays the mobile sidebar."
 msgstr "Mugikorraren alboko barra erakusten du."
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "Distrust"
+msgstr "Ez fidatu"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Distrusted"
+msgstr "Ez fidagarria"
+
 #: src/features/chats/components/chat-input.tsx
 msgid "Document"
 msgstr "Dokumentua"
@@ -1220,6 +1266,7 @@ msgstr "Ez dator bat beharrezko ereduarekin"
 
 #: ../../../lib/web/src/components/entity/entity-field-dialog.tsx
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx
+#: src/features/chats/components/encryption-section.tsx
 msgid "Done"
 msgstr "Eginda"
 
@@ -1308,6 +1355,12 @@ msgstr "Posta elektronikoko kodea"
 msgid "Encrypted message"
 msgstr "Mezu enkriptatua"
 
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+msgid "Encryption"
+msgstr "Zifratzea"
+
 #: ../../../lib/web/src/components/calendar/time-grid.tsx
 msgid "Ends before it starts"
 msgstr "Hasi baino lehen amaitzen da"
@@ -1315,6 +1368,11 @@ msgstr "Hasi baino lehen amaitzen da"
 #: ../../../lib/web/src/components/banner-section.tsx
 msgid "Enter banner text (markdown supported)..."
 msgstr "Sartu iragarki-testua (markdown onartzen da)..."
+
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+msgid "Enter recovery key"
+msgstr "Sartu berreskuratze-gakoa"
 
 #: ../../../lib/web/src/components/step-up-dialog.tsx
 msgid "Enter the code from your email"
@@ -1498,6 +1556,7 @@ msgstr "Ezin izan da RSS sarbidea ezeztatu"
 
 #: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx
 #: src/features/chats/components/chat-settings-dialog.tsx
+#: src/features/chats/components/encryption-section.tsx
 msgid "Failed to save"
 msgstr "Ezin izan da gorde"
 
@@ -1556,6 +1615,10 @@ msgstr "Banderak"
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Flat"
 msgstr "Laua"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Forget my decision"
+msgstr "Ahaztu nire erabakia"
 
 #: src/features/chats/components/forward-dialog.tsx
 #: src/features/chats/components/message-hover-actions.tsx
@@ -1717,6 +1780,10 @@ msgstr "Joan behera"
 #: ../../../lib/web/src/lib/locale-format.ts
 msgid "Just now"
 msgstr "Oraintxe"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Keep this key safe. It is shown once, and your other Matrix clients ask for it to read your encrypted messages."
+msgstr "Gorde gako hau leku seguru batean. Behin bakarrik erakusten da, eta zure beste Matrix bezeroek eskatu egiten dute zure mezu zifratuak irakurtzeko."
 
 #: ../../../lib/web/src/components/entity/keyboard-shortcuts-help.tsx
 msgid "Keyboard shortcuts"
@@ -1974,6 +2041,10 @@ msgstr "Mochi weba"
 msgid "Moderation"
 msgstr "Moderazioa"
 
+#: src/features/chats/roles.ts
+msgid "Moderator"
+msgstr "Moderatzailea"
+
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Monday"
 msgstr "Astelehena"
@@ -2104,6 +2175,10 @@ msgstr "Ez dago txatik birbidaltzeko"
 msgid "No comments yet"
 msgstr "Oraindik iruzkinik ez"
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "No devices"
+msgstr "Ez dago gailurik"
+
 #: src/routes/_authenticated/$chatId_.settings.tsx
 msgid "No friends available"
 msgstr "Ez dago lagun erabilgarririk"
@@ -2139,6 +2214,10 @@ msgstr "Oraindik mezurik ez"
 #: src/features/chats/components/chat-input.tsx
 msgid "No microphone found"
 msgstr "Ez da mikrofonorik aurkitu"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "No other devices"
+msgstr "Ez dago beste gailurik"
 
 #: ../../../lib/web/src/components/entity/entity-field-editor.tsx
 #: ../../../lib/web/src/components/person-picker.tsx
@@ -2224,6 +2303,11 @@ msgstr "Ez da aurkitu"
 #: ../../../lib/web/src/components/ui/editable-field-row.tsx
 msgid "Not set"
 msgstr "Ezarri gabe"
+
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+msgid "Not verified"
+msgstr "Egiaztatu gabe"
 
 #: ../../../lib/web/src/components/entity/entity-tree-view.tsx
 msgid "Nothing found"
@@ -2327,6 +2411,7 @@ msgstr "Bestelakoa"
 
 #: ../../../lib/web/src/components/member-list.tsx
 #: ../../../lib/web/src/features/access/access-list.tsx
+#: src/features/chats/roles.ts
 msgid "Owner"
 msgstr "Jabea"
 
@@ -2352,6 +2437,10 @@ msgstr "Sarbide-gakoak"
 #: ../../../lib/web/src/lib/shell-errors.ts
 msgid "Passkeys are not available in this browser"
 msgstr "Sarbide-gakoak ez daude erabilgarri nabigatzaile honetan"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Password"
+msgstr "Pasahitza"
 
 #: ../../../lib/web/src/components/entity/entity-field-dialog.tsx
 msgid "Pattern (regex)"
@@ -2508,6 +2597,14 @@ msgstr "Grabazioa 5 minutuko mugan gelditu da"
 #: src/features/chats/components/chat-input.tsx
 msgid "Recording voice note"
 msgstr "Ahots-oharra grabatzen"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Recovery could not be set up"
+msgstr "Ezin izan da berreskuratzea konfiguratu"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Recovery key"
+msgstr "Berreskuratze-gakoa"
 
 #: ../../../lib/web/src/components/layout/authenticated-layout.tsx
 msgid "Redirecting to login."
@@ -2673,6 +2770,10 @@ msgstr "Amore eman"
 msgid "Resign game?"
 msgstr "Jokoan amore eman?"
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "Restore"
+msgstr "Berrezarri"
+
 #: ../../../lib/web/src/components/attachment-composer.tsx
 msgid "Retry"
 msgstr "Saiatu berriro"
@@ -2730,7 +2831,12 @@ msgstr "Larunbata"
 msgid "Save"
 msgstr "Gorde"
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "Saved"
+msgstr "Gordeta"
+
 #: src/features/chats/components/chat-settings-dialog.tsx
+#: src/features/chats/components/encryption-section.tsx
 msgid "Saving..."
 msgstr "Gordetzen..."
 
@@ -2957,6 +3063,12 @@ msgstr "Saioa iraungi da. Hasi saioa berriro."
 msgid "Set origin and destination"
 msgstr "Ezarri jatorria eta helmuga"
 
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+msgid "Set up recovery"
+msgstr "Konfiguratu berreskuratzea"
+
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx
 #: ../../../lib/web/src/components/options-menu.tsx
@@ -3142,6 +3254,10 @@ msgstr "Kode hori okerra da edo iraungi egin da."
 msgid "That could not be sent. The files may be too large, or your connection failed. Try smaller files."
 msgstr "Ezin izan da bidali. Fitxategiak handiegiak izan daitezke, edo konexioak huts egin du. Probatu fitxategi txikiagoak."
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "That is not your recovery key"
+msgstr "Hori ez da zure berreskuratze-gakoa"
+
 #: ../../../lib/web/src/hooks/use-attachment-error.ts
 #: ../../../lib/web/src/lib/handle-server-error.ts
 msgid "That was too large to upload. Remove or shrink files and try again."
@@ -3164,6 +3280,14 @@ msgstr "Txataren izenak gehienez {CHAT_NAME_MAX_LENGTH} karaktere izan ditzake"
 msgid "The chat name cannot contain < or >"
 msgstr "Txataren izenak ezin du < edo > eduki"
 
+#: src/features/chats/components/verification-watcher.tsx
+msgid "The emoji did not match, so the verification was cancelled"
+msgstr "Emojiak ez zetozen bat, beraz egiaztapena bertan behera utzi da"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "The fingerprint matches"
+msgstr "Hatz-marka bat dator"
+
 #: ../../../lib/web/src/lib/shell-errors.ts
 msgid "The microphone request was not answered"
 msgstr "Mikrofono eskaerak ez du erantzunik jaso"
@@ -3171,6 +3295,10 @@ msgstr "Mikrofono eskaerak ez du erantzunik jaso"
 #: ../../../lib/web/src/lib/shell-errors.ts
 msgid "The passkey request was not answered"
 msgstr "Sarbide-gakoaren eskaerak ez du erantzunik jaso"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "The password was not accepted"
+msgstr "Ez da pasahitza onartu"
 
 #: ../../../lib/web/src/features/errors/general-error.tsx
 msgid "The requested content could not be found."
@@ -3180,10 +3308,30 @@ msgstr "Eskatutako edukia ezin izan da aurkitu."
 msgid "The server returned a web page instead of data."
 msgstr "Zerbitzariak web-orri bat itzuli du datuen ordez."
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "The verification could not be started"
+msgstr "Ezin izan da egiaztapena hasi"
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "The verification could not go on"
+msgstr "Ezin izan da egiaztapenarekin jarraitu"
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "The verification was cancelled"
+msgstr "Egiaztapena bertan behera utzi da"
+
 #. placeholder {0}: unknown.join(', ')
 #: src/features/chats/index.tsx
 msgid "These names are not in this chat: {0}. Pick from the @ list or remove them."
 msgstr "Izen hauek ez daude txat honetan: {0}. Aukeratu @ zerrendatik edo kendu."
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "They don't match"
+msgstr "Ez datoz bat"
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "They match"
+msgstr "Bat datoz"
 
 #: src/routes/_authenticated/$chatId_.settings.tsx
 msgid "They stop receiving new messages in this chat."
@@ -3203,12 +3351,20 @@ msgid "This chat may have been deleted or you don't have access to it"
 msgstr "Txat hau ezabatu da agian edo ez duzu sarbiderik"
 
 #: src/features/chats/index.tsx
-msgid "This conversation is encrypted. Messages cannot be sent to it from here yet."
-msgstr "Elkarrizketa hau enkriptatuta dago. Oraindik ezin zaio hemendik mezurik bidali."
-
-#: src/features/chats/index.tsx
 msgid "This deletes the message for everyone and cannot be undone."
 msgstr "Honek mezua guztientzat ezabatzen du eta ezin da desegin."
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "This device"
+msgstr "Gailu hau"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "This device (OMEMO 2)"
+msgstr "Gailu hau (OMEMO 2)"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "This device (OMEMO)"
+msgstr "Gailu hau (OMEMO)"
 
 #: src/features/chats/components/chat-message-list.tsx
 #: src/features/chats/components/message-quote.tsx
@@ -3406,14 +3562,28 @@ msgstr "Aldagaiak: {variables}"
 msgid "Verification code"
 msgstr "Egiaztatze-kodea"
 
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Verified"
+msgstr "Egiaztatuta"
+
 #: ../../../lib/web/src/components/step-up-dialog.tsx
 #: ../../../lib/web/src/features/accounts/account-verify.tsx
 msgid "Verify"
 msgstr "Egiaztatu"
 
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Verify {who}"
+msgstr "Egiaztatu {who}"
+
 #: ../../../lib/web/src/features/accounts/account-verify.tsx
 msgid "Verify email address"
 msgstr "Egiaztatu helbide elektronikoa"
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Verify your device"
+msgstr "Egiaztatu zure gailua"
 
 #: ../../../lib/web/src/components/attachment-gallery.tsx
 #: src/features/chats/components/message-media-grid.tsx
@@ -3438,6 +3608,10 @@ msgstr "Ikusi eta editatu elementuaren xehetasunak"
 msgid "View controls"
 msgstr "Ikuspegi-kontrolak"
 
+#: src/features/chats/roles.ts
+msgid "Visitor"
+msgstr "Bisitaria"
+
 #: src/features/chats/components/voice-waveform.tsx
 msgid "Voice note waveform"
 msgstr "Ahots-oharraren uhin-forma"
@@ -3455,6 +3629,14 @@ msgstr "Nabigatzaile honek ez du ahots-grabazioa onartzen"
 #: src/features/chats/components/chat-input.tsx
 msgid "Voice recording isn't available in this app version. Please update the app and try again."
 msgstr "Ahots-grabazioa ez dago erabilgarri aplikazioaren bertsio honetan. Eguneratu aplikazioa eta saiatu berriro."
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Waiting for the other device..."
+msgstr "Beste gailuaren zain..."
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Waiting for them to accept"
+msgstr "Onartu arte zain"
 
 #: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx
 #: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx
@@ -3530,6 +3712,18 @@ msgstr "Zure kontua {source}-etik hona mugitu da. Han ezabatu arte, mezuak eta j
 #: ../../../lib/web/src/components/comment-composer.tsx
 msgid "Your attachments will be lost."
 msgstr "Zure eranskinak galduko dira."
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Your Matrix server asks for your account's password."
+msgstr "Zure Matrix zerbitzariak zure kontuaren pasahitza eskatzen du."
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Your other devices"
+msgstr "Zure beste gailuak"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Your recovery key"
+msgstr "Zure berreskuratze-gakoa"
 
 #: ../../../lib/web/src/components/comment-composer.tsx
 msgid "Your text and attachments will be lost."

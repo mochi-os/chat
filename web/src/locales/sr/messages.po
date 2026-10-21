@@ -65,6 +65,11 @@ msgstr "{0, plural, one {Избрисати # поруку?} few {Избриса
 msgid "{0, plural, one {# file changed} other {# files changed}}"
 msgstr "{0, plural, one {# датотека промењена} few {# датотеке промењене} other {# датотека промењено}}"
 
+#. placeholder {0}: result.restored
+#: src/features/chats/components/encryption-section.tsx
+msgid "{0, plural, one {# message key restored} other {# message keys restored}}"
+msgstr "{0, plural, one {Враћен је # кључ порука} few {Враћена су # кључа порука} other {Враћено је # кључева порука}}"
+
 #. placeholder {0}: message.replies
 #: src/features/chats/components/chat-message-list.tsx
 msgid "{0, plural, one {# reply} other {# replies}}"
@@ -175,6 +180,10 @@ msgstr "{truncated, plural, one {Још # датотека није приказ
 msgid "{unreadCount, plural, one {Open menu (# unread notification)} other {Open menu (# unread notifications)}}"
 msgstr "{unreadCount, plural, one {Отвори мени (# непрочитано обавештење)} few {Отвори мени (# непрочитана обавештења)} other {Отвори мени (# непрочитаних обавештења)}}"
 
+#: src/features/chats/components/verification-watcher.tsx
+msgid "{who} wants to verify you."
+msgstr "{who} жели да вас верификује."
+
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "12 hours"
 msgstr "12 сати"
@@ -193,6 +202,7 @@ msgid "Absolute (date and time)"
 msgstr "Апсолутно (датум и време)"
 
 #: ../../../lib/web/src/components/game/game-draw-offer-banner.tsx
+#: src/features/chats/components/verification-watcher.tsx
 #: src/features/chats/index.tsx
 msgid "Accept"
 msgstr "Прихвати"
@@ -326,6 +336,10 @@ msgstr "Додавање члана..."
 msgid "Addresses"
 msgstr "Адресе"
 
+#: src/features/chats/roles.ts
+msgid "Administrator"
+msgstr "Администратор"
+
 #: src/features/chats/constants/reactions.ts
 msgid "Agree"
 msgstr "Слажем се"
@@ -379,6 +393,10 @@ msgstr "Пуш за Android"
 #: src/features/chats/constants/reactions.ts
 msgid "Angry"
 msgstr "Љутито"
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Another of your devices wants to verify this one."
+msgstr "Један од ваших других уређаја жели да верификује овај."
 
 #: ../../../lib/web/src/features/access/access-list.tsx
 #: ../../../lib/web/src/features/access/types.ts
@@ -440,6 +458,10 @@ msgstr "Као {0}"
 #: ../../../lib/web/src/components/ui/sort-direction-button.tsx
 msgid "Ascending"
 msgstr "Растуће"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Asking to compare emoji..."
+msgstr "Тражење поређења емоџија..."
 
 #: ../../../lib/web/src/components/timezone-select.tsx
 msgid "At sea"
@@ -599,6 +621,8 @@ msgstr "Камера није доступна"
 #: src/features/chats/components/chat-settings-dialog.tsx
 #: src/features/chats/components/forward-dialog.tsx
 #: src/features/chats/components/new-chat.tsx
+#: src/features/chats/components/verification-watcher.tsx
+#: src/features/chats/components/verification-watcher.tsx
 #: src/features/chats/index.tsx
 msgid "Cancel"
 msgstr "Откажи"
@@ -735,6 +759,10 @@ msgstr "Ћаскање је откачено"
 msgid "Chats"
 msgstr "Разговори"
 
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Check that the same emoji appear on the other screen."
+msgstr "Проверите да ли се исти емоџији појављују на другом екрану."
+
 #: ../../../lib/web/src/hooks/use-field-type-labels.ts
 msgid "Checkbox"
 msgstr "Поље за потврду"
@@ -867,6 +895,11 @@ msgstr "Коментари ({0})"
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Compact"
 msgstr "Компактно"
+
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Compare emoji"
+msgstr "Упореди емоџије"
 
 #: ../../../lib/web/src/components/entity/entity-option-dialog.tsx
 msgid "Configure option settings"
@@ -1028,6 +1061,7 @@ msgid "Date"
 msgstr "Датум"
 
 #: ../../../lib/web/src/components/game/game-draw-offer-banner.tsx
+#: src/features/chats/components/verification-watcher.tsx
 #: src/features/chats/index.tsx
 msgid "Decline"
 msgstr "Одбиј"
@@ -1167,6 +1201,10 @@ msgstr "Панел детаља"
 msgid "Detect from web browser"
 msgstr "Препознај из веб прегледача"
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "Device options"
+msgstr "Опције уређаја"
+
 #: ../../../lib/web/src/components/person-picker.tsx
 msgid "Directory"
 msgstr "Именик"
@@ -1210,6 +1248,14 @@ msgstr "Одбаци"
 msgid "Displays the mobile sidebar."
 msgstr "Приказује мобилну бочну траку."
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "Distrust"
+msgstr "Означи као непоуздано"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Distrusted"
+msgstr "Непоуздано"
+
 #: src/features/chats/components/chat-input.tsx
 msgid "Document"
 msgstr "Документ"
@@ -1220,6 +1266,7 @@ msgstr "Не одговара траженом обрасцу"
 
 #: ../../../lib/web/src/components/entity/entity-field-dialog.tsx
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx
+#: src/features/chats/components/encryption-section.tsx
 msgid "Done"
 msgstr "Готово"
 
@@ -1308,6 +1355,12 @@ msgstr "Код е-поште"
 msgid "Encrypted message"
 msgstr "Шифрована порука"
 
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+msgid "Encryption"
+msgstr "Шифровање"
+
 #: ../../../lib/web/src/components/calendar/time-grid.tsx
 msgid "Ends before it starts"
 msgstr "Завршава се пре него што почне"
@@ -1315,6 +1368,11 @@ msgstr "Завршава се пре него што почне"
 #: ../../../lib/web/src/components/banner-section.tsx
 msgid "Enter banner text (markdown supported)..."
 msgstr "Унесите текст банера (markdown подржан)..."
+
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+msgid "Enter recovery key"
+msgstr "Унеси кључ за опоравак"
 
 #: ../../../lib/web/src/components/step-up-dialog.tsx
 msgid "Enter the code from your email"
@@ -1498,6 +1556,7 @@ msgstr "Опозивање RSS приступа није успело"
 
 #: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx
 #: src/features/chats/components/chat-settings-dialog.tsx
+#: src/features/chats/components/encryption-section.tsx
 msgid "Failed to save"
 msgstr "Чување није успело"
 
@@ -1556,6 +1615,10 @@ msgstr "Заставице"
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Flat"
 msgstr "Равно"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Forget my decision"
+msgstr "Заборави моју одлуку"
 
 #: src/features/chats/components/forward-dialog.tsx
 #: src/features/chats/components/message-hover-actions.tsx
@@ -1717,6 +1780,10 @@ msgstr "Иди на дно"
 #: ../../../lib/web/src/lib/locale-format.ts
 msgid "Just now"
 msgstr "Управо сада"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Keep this key safe. It is shown once, and your other Matrix clients ask for it to read your encrypted messages."
+msgstr "Чувајте овај кључ на безбедном месту. Приказује се само једном, а ваши остали Matrix клијенти траже га да би читали ваше шифроване поруке."
 
 #: ../../../lib/web/src/components/entity/keyboard-shortcuts-help.tsx
 msgid "Keyboard shortcuts"
@@ -1974,6 +2041,10 @@ msgstr "Mochi веб"
 msgid "Moderation"
 msgstr "Модерација"
 
+#: src/features/chats/roles.ts
+msgid "Moderator"
+msgstr "Модератор"
+
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Monday"
 msgstr "Понедељак"
@@ -2104,6 +2175,10 @@ msgstr "Нема ћаскања за прослеђивање"
 msgid "No comments yet"
 msgstr "Још нема коментара"
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "No devices"
+msgstr "Нема уређаја"
+
 #: src/routes/_authenticated/$chatId_.settings.tsx
 msgid "No friends available"
 msgstr "Нема доступних пријатеља"
@@ -2139,6 +2214,10 @@ msgstr "Још нема порука"
 #: src/features/chats/components/chat-input.tsx
 msgid "No microphone found"
 msgstr "Микрофон није пронађен"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "No other devices"
+msgstr "Нема других уређаја"
 
 #: ../../../lib/web/src/components/entity/entity-field-editor.tsx
 #: ../../../lib/web/src/components/person-picker.tsx
@@ -2224,6 +2303,11 @@ msgstr "Није пронађено"
 #: ../../../lib/web/src/components/ui/editable-field-row.tsx
 msgid "Not set"
 msgstr "Није постављено"
+
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+msgid "Not verified"
+msgstr "Није верификовано"
 
 #: ../../../lib/web/src/components/entity/entity-tree-view.tsx
 msgid "Nothing found"
@@ -2327,6 +2411,7 @@ msgstr "Друго"
 
 #: ../../../lib/web/src/components/member-list.tsx
 #: ../../../lib/web/src/features/access/access-list.tsx
+#: src/features/chats/roles.ts
 msgid "Owner"
 msgstr "Власник"
 
@@ -2352,6 +2437,10 @@ msgstr "Приступни кључеви"
 #: ../../../lib/web/src/lib/shell-errors.ts
 msgid "Passkeys are not available in this browser"
 msgstr "Приступни кључеви нису доступни у овом прегледачу"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Password"
+msgstr "Лозинка"
 
 #: ../../../lib/web/src/components/entity/entity-field-dialog.tsx
 msgid "Pattern (regex)"
@@ -2508,6 +2597,14 @@ msgstr "Снимање је заустављено на граници од 5 м
 #: src/features/chats/components/chat-input.tsx
 msgid "Recording voice note"
 msgstr "Снима се гласовна порука"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Recovery could not be set up"
+msgstr "Опоравак није било могуће подесити"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Recovery key"
+msgstr "Кључ за опоравак"
 
 #: ../../../lib/web/src/components/layout/authenticated-layout.tsx
 msgid "Redirecting to login."
@@ -2673,6 +2770,10 @@ msgstr "Предај се"
 msgid "Resign game?"
 msgstr "Предати игру?"
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "Restore"
+msgstr "Врати"
+
 #: ../../../lib/web/src/components/attachment-composer.tsx
 msgid "Retry"
 msgstr "Покушај поново"
@@ -2730,7 +2831,12 @@ msgstr "Субота"
 msgid "Save"
 msgstr "Сачувај"
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "Saved"
+msgstr "Сачувано"
+
 #: src/features/chats/components/chat-settings-dialog.tsx
+#: src/features/chats/components/encryption-section.tsx
 msgid "Saving..."
 msgstr "Чување..."
 
@@ -2957,6 +3063,12 @@ msgstr "Сесија је истекла. Пријавите се поново."
 msgid "Set origin and destination"
 msgstr "Постави полазиште и одредиште"
 
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+msgid "Set up recovery"
+msgstr "Подеси опоравак"
+
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx
 #: ../../../lib/web/src/components/options-menu.tsx
@@ -3142,6 +3254,10 @@ msgstr "Тај код је нетачан или је истекао."
 msgid "That could not be sent. The files may be too large, or your connection failed. Try smaller files."
 msgstr "Слање није успело. Датотеке су можда превелике или је веза прекинута. Покушајте с мањим датотекама."
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "That is not your recovery key"
+msgstr "То није ваш кључ за опоравак"
+
 #: ../../../lib/web/src/hooks/use-attachment-error.ts
 #: ../../../lib/web/src/lib/handle-server-error.ts
 msgid "That was too large to upload. Remove or shrink files and try again."
@@ -3164,6 +3280,14 @@ msgstr "Назив ћаскања може имати највише {CHAT_NAME_
 msgid "The chat name cannot contain < or >"
 msgstr "Назив ћаскања не може садржати < или >"
 
+#: src/features/chats/components/verification-watcher.tsx
+msgid "The emoji did not match, so the verification was cancelled"
+msgstr "Емоџији се нису подударали, па је верификација отказана"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "The fingerprint matches"
+msgstr "Отисак се подудара"
+
 #: ../../../lib/web/src/lib/shell-errors.ts
 msgid "The microphone request was not answered"
 msgstr "На захтев за микрофон није одговорено"
@@ -3171,6 +3295,10 @@ msgstr "На захтев за микрофон није одговорено"
 #: ../../../lib/web/src/lib/shell-errors.ts
 msgid "The passkey request was not answered"
 msgstr "На захтев за приступни кључ није одговорено"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "The password was not accepted"
+msgstr "Лозинка није прихваћена"
 
 #: ../../../lib/web/src/features/errors/general-error.tsx
 msgid "The requested content could not be found."
@@ -3180,10 +3308,30 @@ msgstr "Тражени садржај није пронађен."
 msgid "The server returned a web page instead of data."
 msgstr "Сервер је вратио веб страницу уместо података."
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "The verification could not be started"
+msgstr "Верификацију није било могуће покренути"
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "The verification could not go on"
+msgstr "Верификацију није било могуће наставити"
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "The verification was cancelled"
+msgstr "Верификација је отказана"
+
 #. placeholder {0}: unknown.join(', ')
 #: src/features/chats/index.tsx
 msgid "These names are not in this chat: {0}. Pick from the @ list or remove them."
 msgstr "Ова имена нису у овом ћаскању: {0}. Изаберите са листе @ или их уклоните."
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "They don't match"
+msgstr "Не, не подударају се"
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "They match"
+msgstr "Да, подударају се"
 
 #: src/routes/_authenticated/$chatId_.settings.tsx
 msgid "They stop receiving new messages in this chat."
@@ -3203,12 +3351,20 @@ msgid "This chat may have been deleted or you don't have access to it"
 msgstr "Овај разговор је можда обрисан или немаш приступ"
 
 #: src/features/chats/index.tsx
-msgid "This conversation is encrypted. Messages cannot be sent to it from here yet."
-msgstr "Овај разговор је шифрован. Одавде му се још не могу слати поруке."
-
-#: src/features/chats/index.tsx
 msgid "This deletes the message for everyone and cannot be undone."
 msgstr "Ово брише поруку за све и не може да се опозове."
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "This device"
+msgstr "Овај уређај"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "This device (OMEMO 2)"
+msgstr "Овај уређај (OMEMO 2)"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "This device (OMEMO)"
+msgstr "Овај уређај (OMEMO)"
 
 #: src/features/chats/components/chat-message-list.tsx
 #: src/features/chats/components/message-quote.tsx
@@ -3406,14 +3562,28 @@ msgstr "Променљиве: {variables}"
 msgid "Verification code"
 msgstr "Верификациони код"
 
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Verified"
+msgstr "Верификовано"
+
 #: ../../../lib/web/src/components/step-up-dialog.tsx
 #: ../../../lib/web/src/features/accounts/account-verify.tsx
 msgid "Verify"
 msgstr "Верификуј"
 
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Verify {who}"
+msgstr "Верификуј {who}"
+
 #: ../../../lib/web/src/features/accounts/account-verify.tsx
 msgid "Verify email address"
 msgstr "Верификуј адресу е-поште"
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Verify your device"
+msgstr "Верификуј свој уређај"
 
 #: ../../../lib/web/src/components/attachment-gallery.tsx
 #: src/features/chats/components/message-media-grid.tsx
@@ -3438,6 +3608,10 @@ msgstr "Прикажи и уреди детаље ставке"
 msgid "View controls"
 msgstr "Контроле приказа"
 
+#: src/features/chats/roles.ts
+msgid "Visitor"
+msgstr "Посетилац"
+
 #: src/features/chats/components/voice-waveform.tsx
 msgid "Voice note waveform"
 msgstr "Таласни облик гласовне поруке"
@@ -3455,6 +3629,14 @@ msgstr "Снимање гласа није подржано у овом прег
 #: src/features/chats/components/chat-input.tsx
 msgid "Voice recording isn't available in this app version. Please update the app and try again."
 msgstr "Снимање гласа није доступно у овој верзији апликације. Ажурирајте апликацију и покушајте поново."
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Waiting for the other device..."
+msgstr "Чека се други уређај..."
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Waiting for them to accept"
+msgstr "Чека се прихватање"
 
 #: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx
 #: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx
@@ -3530,6 +3712,18 @@ msgstr "Ваш налог је премештен овде са {source}. Све
 #: ../../../lib/web/src/components/comment-composer.tsx
 msgid "Your attachments will be lost."
 msgstr "Ваши прилози ће бити изгубљени."
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Your Matrix server asks for your account's password."
+msgstr "Ваш Matrix сервер тражи лозинку вашег налога."
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Your other devices"
+msgstr "Ваши остали уређаји"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Your recovery key"
+msgstr "Ваш кључ за опоравак"
 
 #: ../../../lib/web/src/components/comment-composer.tsx
 msgid "Your text and attachments will be lost."

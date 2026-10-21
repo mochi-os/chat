@@ -65,6 +65,11 @@ msgstr "{0, plural, =1 {Διαγραφή μηνύματος;} other {Διαγρ�
 msgid "{0, plural, one {# file changed} other {# files changed}}"
 msgstr "{0, plural, one {# αρχείο άλλαξε} other {# αρχεία άλλαξαν}}"
 
+#. placeholder {0}: result.restored
+#: src/features/chats/components/encryption-section.tsx
+msgid "{0, plural, one {# message key restored} other {# message keys restored}}"
+msgstr "{0, plural, one {Ανακτήθηκε # κλειδί μηνυμάτων} other {Ανακτήθηκαν # κλειδιά μηνυμάτων}}"
+
 #. placeholder {0}: message.replies
 #: src/features/chats/components/chat-message-list.tsx
 msgid "{0, plural, one {# reply} other {# replies}}"
@@ -175,6 +180,10 @@ msgstr "{truncated, plural, one {# ακόμη αρχείο δεν εμφανίζ
 msgid "{unreadCount, plural, one {Open menu (# unread notification)} other {Open menu (# unread notifications)}}"
 msgstr "{unreadCount, plural, one {Άνοιγμα μενού (# μη αναγνωσμένη ειδοποίηση)} other {Άνοιγμα μενού (# μη αναγνωσμένες ειδοποιήσεις)}}"
 
+#: src/features/chats/components/verification-watcher.tsx
+msgid "{who} wants to verify you."
+msgstr "{who} θέλει να σας επαληθεύσει."
+
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "12 hours"
 msgstr "12 ώρες"
@@ -193,6 +202,7 @@ msgid "Absolute (date and time)"
 msgstr "Απόλυτη (ημερομηνία και ώρα)"
 
 #: ../../../lib/web/src/components/game/game-draw-offer-banner.tsx
+#: src/features/chats/components/verification-watcher.tsx
 #: src/features/chats/index.tsx
 msgid "Accept"
 msgstr "Αποδοχή"
@@ -326,6 +336,10 @@ msgstr "Προσθήκη μέλους..."
 msgid "Addresses"
 msgstr "Διευθύνσεις"
 
+#: src/features/chats/roles.ts
+msgid "Administrator"
+msgstr "Διαχειριστής"
+
 #: src/features/chats/constants/reactions.ts
 msgid "Agree"
 msgstr "Συμφωνώ"
@@ -379,6 +393,10 @@ msgstr "Ειδοποιήσεις push Android"
 #: src/features/chats/constants/reactions.ts
 msgid "Angry"
 msgstr "Θυμωμένος"
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Another of your devices wants to verify this one."
+msgstr "Μια άλλη συσκευή σας θέλει να επαληθεύσει αυτήν."
 
 #: ../../../lib/web/src/features/access/access-list.tsx
 #: ../../../lib/web/src/features/access/types.ts
@@ -440,6 +458,10 @@ msgstr "Ως {0}"
 #: ../../../lib/web/src/components/ui/sort-direction-button.tsx
 msgid "Ascending"
 msgstr "Αύξουσα"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Asking to compare emoji..."
+msgstr "Αίτημα σύγκρισης emoji..."
 
 #: ../../../lib/web/src/components/timezone-select.tsx
 msgid "At sea"
@@ -599,6 +621,8 @@ msgstr "Η κάμερα δεν είναι διαθέσιμη"
 #: src/features/chats/components/chat-settings-dialog.tsx
 #: src/features/chats/components/forward-dialog.tsx
 #: src/features/chats/components/new-chat.tsx
+#: src/features/chats/components/verification-watcher.tsx
+#: src/features/chats/components/verification-watcher.tsx
 #: src/features/chats/index.tsx
 msgid "Cancel"
 msgstr "Ακύρωση"
@@ -735,6 +759,10 @@ msgstr "Η συνομιλία ξεκαρφιτσώθηκε"
 msgid "Chats"
 msgstr "Συνομιλίες"
 
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Check that the same emoji appear on the other screen."
+msgstr "Ελέγξτε ότι εμφανίζονται τα ίδια emoji στην άλλη οθόνη."
+
 #: ../../../lib/web/src/hooks/use-field-type-labels.ts
 msgid "Checkbox"
 msgstr "Πλαίσιο ελέγχου"
@@ -867,6 +895,11 @@ msgstr "Σχόλια ({0})"
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Compact"
 msgstr "Συμπαγές"
+
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Compare emoji"
+msgstr "Σύγκριση emoji"
 
 #: ../../../lib/web/src/components/entity/entity-option-dialog.tsx
 msgid "Configure option settings"
@@ -1028,6 +1061,7 @@ msgid "Date"
 msgstr "Ημερομηνία"
 
 #: ../../../lib/web/src/components/game/game-draw-offer-banner.tsx
+#: src/features/chats/components/verification-watcher.tsx
 #: src/features/chats/index.tsx
 msgid "Decline"
 msgstr "Απόρριψη"
@@ -1167,6 +1201,10 @@ msgstr "Πίνακας λεπτομερειών"
 msgid "Detect from web browser"
 msgstr "Εντοπισμός από το πρόγραμμα περιήγησης"
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "Device options"
+msgstr "Επιλογές συσκευής"
+
 #: ../../../lib/web/src/components/person-picker.tsx
 msgid "Directory"
 msgstr "Κατάλογος"
@@ -1210,6 +1248,14 @@ msgstr "Απόρριψη"
 msgid "Displays the mobile sidebar."
 msgstr "Εμφανίζει την πλευρική μπάρα κινητού."
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "Distrust"
+msgstr "Σήμανση ως μη αξιόπιστο"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Distrusted"
+msgstr "Μη αξιόπιστο"
+
 #: src/features/chats/components/chat-input.tsx
 msgid "Document"
 msgstr "Έγγραφο"
@@ -1220,6 +1266,7 @@ msgstr "Δεν ταιριάζει με το απαιτούμενο μοτίβο"
 
 #: ../../../lib/web/src/components/entity/entity-field-dialog.tsx
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx
+#: src/features/chats/components/encryption-section.tsx
 msgid "Done"
 msgstr "Ολοκληρώθηκε"
 
@@ -1308,6 +1355,12 @@ msgstr "Κωδικός email"
 msgid "Encrypted message"
 msgstr "Κρυπτογραφημένο μήνυμα"
 
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+msgid "Encryption"
+msgstr "Κρυπτογράφηση"
+
 #: ../../../lib/web/src/components/calendar/time-grid.tsx
 msgid "Ends before it starts"
 msgstr "Λήγει πριν αρχίσει"
@@ -1315,6 +1368,11 @@ msgstr "Λήγει πριν αρχίσει"
 #: ../../../lib/web/src/components/banner-section.tsx
 msgid "Enter banner text (markdown supported)..."
 msgstr "Εισαγάγετε κείμενο μπάνερ (υποστηρίζεται markdown)..."
+
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+msgid "Enter recovery key"
+msgstr "Εισαγωγή κλειδιού ανάκτησης"
 
 #: ../../../lib/web/src/components/step-up-dialog.tsx
 msgid "Enter the code from your email"
@@ -1498,6 +1556,7 @@ msgstr "Αποτυχία ανάκλησης πρόσβασης RSS"
 
 #: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx
 #: src/features/chats/components/chat-settings-dialog.tsx
+#: src/features/chats/components/encryption-section.tsx
 msgid "Failed to save"
 msgstr "Αποτυχία αποθήκευσης"
 
@@ -1556,6 +1615,10 @@ msgstr "Σημαίες"
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Flat"
 msgstr "Επίπεδη"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Forget my decision"
+msgstr "Επαναφορά της απόφασής μου"
 
 #: src/features/chats/components/forward-dialog.tsx
 #: src/features/chats/components/message-hover-actions.tsx
@@ -1717,6 +1780,10 @@ msgstr "Μετάβαση στο τέλος"
 #: ../../../lib/web/src/lib/locale-format.ts
 msgid "Just now"
 msgstr "Μόλις τώρα"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Keep this key safe. It is shown once, and your other Matrix clients ask for it to read your encrypted messages."
+msgstr "Φυλάξτε αυτό το κλειδί σε ασφαλές μέρος. Εμφανίζεται μόνο μία φορά και τα άλλα προγράμματα Matrix σας το ζητούν για να διαβάσουν τα κρυπτογραφημένα μηνύματά σας."
 
 #: ../../../lib/web/src/components/entity/keyboard-shortcuts-help.tsx
 msgid "Keyboard shortcuts"
@@ -1974,6 +2041,10 @@ msgstr "Mochi στον ιστό"
 msgid "Moderation"
 msgstr "Συντονισμός"
 
+#: src/features/chats/roles.ts
+msgid "Moderator"
+msgstr "Συντονιστής"
+
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Monday"
 msgstr "Δευτέρα"
@@ -2104,6 +2175,10 @@ msgstr "Δεν υπάρχουν συνομιλίες για προώθηση"
 msgid "No comments yet"
 msgstr "Δεν υπάρχουν ακόμη σχόλια"
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "No devices"
+msgstr "Δεν υπάρχουν συσκευές"
+
 #: src/routes/_authenticated/$chatId_.settings.tsx
 msgid "No friends available"
 msgstr "Δεν υπάρχουν διαθέσιμοι φίλοι"
@@ -2139,6 +2214,10 @@ msgstr "Δεν υπάρχουν ακόμη μηνύματα"
 #: src/features/chats/components/chat-input.tsx
 msgid "No microphone found"
 msgstr "Δεν βρέθηκε μικρόφωνο"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "No other devices"
+msgstr "Δεν υπάρχουν άλλες συσκευές"
 
 #: ../../../lib/web/src/components/entity/entity-field-editor.tsx
 #: ../../../lib/web/src/components/person-picker.tsx
@@ -2224,6 +2303,11 @@ msgstr "Δεν βρέθηκε"
 #: ../../../lib/web/src/components/ui/editable-field-row.tsx
 msgid "Not set"
 msgstr "Δεν έχει οριστεί"
+
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+msgid "Not verified"
+msgstr "Μη επαληθευμένο"
 
 #: ../../../lib/web/src/components/entity/entity-tree-view.tsx
 msgid "Nothing found"
@@ -2327,6 +2411,7 @@ msgstr "Άλλο"
 
 #: ../../../lib/web/src/components/member-list.tsx
 #: ../../../lib/web/src/features/access/access-list.tsx
+#: src/features/chats/roles.ts
 msgid "Owner"
 msgstr "Ιδιοκτήτης"
 
@@ -2352,6 +2437,10 @@ msgstr "Κλειδιά πρόσβασης"
 #: ../../../lib/web/src/lib/shell-errors.ts
 msgid "Passkeys are not available in this browser"
 msgstr "Τα κλειδιά πρόσβασης δεν είναι διαθέσιμα σε αυτό το πρόγραμμα περιήγησης"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Password"
+msgstr "Κωδικός πρόσβασης"
 
 #: ../../../lib/web/src/components/entity/entity-field-dialog.tsx
 msgid "Pattern (regex)"
@@ -2508,6 +2597,14 @@ msgstr "Η εγγραφή σταμάτησε στο όριο των 5 λεπτώ
 #: src/features/chats/components/chat-input.tsx
 msgid "Recording voice note"
 msgstr "Γίνεται εγγραφή φωνητικού μηνύματος"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Recovery could not be set up"
+msgstr "Δεν ήταν δυνατή η ρύθμιση της ανάκτησης"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Recovery key"
+msgstr "Κλειδί ανάκτησης"
 
 #: ../../../lib/web/src/components/layout/authenticated-layout.tsx
 msgid "Redirecting to login."
@@ -2673,6 +2770,10 @@ msgstr "Παραίτηση"
 msgid "Resign game?"
 msgstr "Παραίτηση από το παιχνίδι;"
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "Restore"
+msgstr "Επαναφορά"
+
 #: ../../../lib/web/src/components/attachment-composer.tsx
 msgid "Retry"
 msgstr "Δοκιμή ξανά"
@@ -2730,7 +2831,12 @@ msgstr "Σάββατο"
 msgid "Save"
 msgstr "Αποθήκευση"
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "Saved"
+msgstr "Αποθηκεύτηκε"
+
 #: src/features/chats/components/chat-settings-dialog.tsx
+#: src/features/chats/components/encryption-section.tsx
 msgid "Saving..."
 msgstr "Αποθήκευση..."
 
@@ -2957,6 +3063,12 @@ msgstr "Η συνεδρία έληξε. Συνδεθείτε ξανά."
 msgid "Set origin and destination"
 msgstr "Ορίστε αφετηρία και προορισμό"
 
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+msgid "Set up recovery"
+msgstr "Ρύθμιση ανάκτησης"
+
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx
 #: ../../../lib/web/src/components/options-menu.tsx
@@ -3142,6 +3254,10 @@ msgstr "Αυτός ο κωδικός είναι λανθασμένος ή έχε
 msgid "That could not be sent. The files may be too large, or your connection failed. Try smaller files."
 msgstr "Δεν ήταν δυνατή η αποστολή. Τα αρχεία μπορεί να είναι πολύ μεγάλα ή η σύνδεσή σας διακόπηκε. Δοκιμάστε μικρότερα αρχεία."
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "That is not your recovery key"
+msgstr "Αυτό δεν είναι το κλειδί ανάκτησής σας"
+
 #: ../../../lib/web/src/hooks/use-attachment-error.ts
 #: ../../../lib/web/src/lib/handle-server-error.ts
 msgid "That was too large to upload. Remove or shrink files and try again."
@@ -3164,6 +3280,14 @@ msgstr "Το όνομα της συνομιλίας μπορεί να έχει �
 msgid "The chat name cannot contain < or >"
 msgstr "Το όνομα της συνομιλίας δεν μπορεί να περιέχει < ή >"
 
+#: src/features/chats/components/verification-watcher.tsx
+msgid "The emoji did not match, so the verification was cancelled"
+msgstr "Τα emoji δεν ταίριαζαν, οπότε η επαλήθευση ακυρώθηκε"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "The fingerprint matches"
+msgstr "Το αποτύπωμα ταιριάζει"
+
 #: ../../../lib/web/src/lib/shell-errors.ts
 msgid "The microphone request was not answered"
 msgstr "Το αίτημα μικροφώνου δεν απαντήθηκε"
@@ -3171,6 +3295,10 @@ msgstr "Το αίτημα μικροφώνου δεν απαντήθηκε"
 #: ../../../lib/web/src/lib/shell-errors.ts
 msgid "The passkey request was not answered"
 msgstr "Το αίτημα κλειδιού πρόσβασης δεν απαντήθηκε"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "The password was not accepted"
+msgstr "Ο κωδικός πρόσβασης δεν έγινε δεκτός"
 
 #: ../../../lib/web/src/features/errors/general-error.tsx
 msgid "The requested content could not be found."
@@ -3180,10 +3308,30 @@ msgstr "Το περιεχόμενο που ζητήσατε δεν βρέθηκ�
 msgid "The server returned a web page instead of data."
 msgstr "Ο διακομιστής επέστρεψε ιστοσελίδα αντί για δεδομένα."
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "The verification could not be started"
+msgstr "Δεν ήταν δυνατή η έναρξη της επαλήθευσης"
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "The verification could not go on"
+msgstr "Δεν ήταν δυνατή η συνέχιση της επαλήθευσης"
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "The verification was cancelled"
+msgstr "Η επαλήθευση ακυρώθηκε"
+
 #. placeholder {0}: unknown.join(', ')
 #: src/features/chats/index.tsx
 msgid "These names are not in this chat: {0}. Pick from the @ list or remove them."
 msgstr "Αυτά τα ονόματα δεν είναι σε αυτή τη συνομιλία: {0}. Επιλέξτε από τη λίστα @ ή αφαιρέστε τα."
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "They don't match"
+msgstr "Όχι, δεν ταιριάζουν"
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "They match"
+msgstr "Ναι, ταιριάζουν"
 
 #: src/routes/_authenticated/$chatId_.settings.tsx
 msgid "They stop receiving new messages in this chat."
@@ -3203,12 +3351,20 @@ msgid "This chat may have been deleted or you don't have access to it"
 msgstr "Αυτή η συνομιλία μπορεί να έχει διαγραφεί ή να μην έχετε πρόσβαση"
 
 #: src/features/chats/index.tsx
-msgid "This conversation is encrypted. Messages cannot be sent to it from here yet."
-msgstr "Αυτή η συνομιλία είναι κρυπτογραφημένη. Δεν είναι ακόμη δυνατή η αποστολή μηνυμάτων σε αυτήν από εδώ."
-
-#: src/features/chats/index.tsx
 msgid "This deletes the message for everyone and cannot be undone."
 msgstr "Αυτό διαγράφει το μήνυμα για όλους και δεν μπορεί να αναιρεθεί."
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "This device"
+msgstr "Αυτή η συσκευή"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "This device (OMEMO 2)"
+msgstr "Αυτή η συσκευή (OMEMO 2)"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "This device (OMEMO)"
+msgstr "Αυτή η συσκευή (OMEMO)"
 
 #: src/features/chats/components/chat-message-list.tsx
 #: src/features/chats/components/message-quote.tsx
@@ -3406,14 +3562,28 @@ msgstr "Μεταβλητές: {variables}"
 msgid "Verification code"
 msgstr "Κωδικός επαλήθευσης"
 
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Verified"
+msgstr "Επαληθευμένο"
+
 #: ../../../lib/web/src/components/step-up-dialog.tsx
 #: ../../../lib/web/src/features/accounts/account-verify.tsx
 msgid "Verify"
 msgstr "Επαλήθευση"
 
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Verify {who}"
+msgstr "Επαλήθευση {who}"
+
 #: ../../../lib/web/src/features/accounts/account-verify.tsx
 msgid "Verify email address"
 msgstr "Επαλήθευση διεύθυνσης email"
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Verify your device"
+msgstr "Επαλήθευση της συσκευής σας"
 
 #: ../../../lib/web/src/components/attachment-gallery.tsx
 #: src/features/chats/components/message-media-grid.tsx
@@ -3438,6 +3608,10 @@ msgstr "Προβολή και επεξεργασία λεπτομερειών σ
 msgid "View controls"
 msgstr "Στοιχεία ελέγχου προβολής"
 
+#: src/features/chats/roles.ts
+msgid "Visitor"
+msgstr "Επισκέπτης"
+
 #: src/features/chats/components/voice-waveform.tsx
 msgid "Voice note waveform"
 msgstr "Κυματομορφή φωνητικού μηνύματος"
@@ -3455,6 +3629,14 @@ msgstr "Η φωνητική εγγραφή δεν υποστηρίζεται σ�
 #: src/features/chats/components/chat-input.tsx
 msgid "Voice recording isn't available in this app version. Please update the app and try again."
 msgstr "Η φωνητική εγγραφή δεν είναι διαθέσιμη σε αυτήν την έκδοση της εφαρμογής. Ενημερώστε την εφαρμογή και δοκιμάστε ξανά."
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Waiting for the other device..."
+msgstr "Αναμονή για την άλλη συσκευή..."
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Waiting for them to accept"
+msgstr "Αναμονή για αποδοχή"
 
 #: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx
 #: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx
@@ -3530,6 +3712,18 @@ msgstr "Ο λογαριασμός σας μεταφέρθηκε εδώ από {s
 #: ../../../lib/web/src/components/comment-composer.tsx
 msgid "Your attachments will be lost."
 msgstr "Τα συνημμένα σας θα χαθούν."
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Your Matrix server asks for your account's password."
+msgstr "Ο διακομιστής Matrix σας ζητά τον κωδικό πρόσβασης του λογαριασμού σας."
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Your other devices"
+msgstr "Οι άλλες συσκευές σας"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Your recovery key"
+msgstr "Το κλειδί ανάκτησής σας"
 
 #: ../../../lib/web/src/components/comment-composer.tsx
 msgid "Your text and attachments will be lost."

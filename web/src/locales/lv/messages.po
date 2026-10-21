@@ -65,6 +65,11 @@ msgstr "{0, plural, zero {Dzēst # ziņu?} one {Dzēst # ziņu?} other {Dzēst #
 msgid "{0, plural, one {# file changed} other {# files changed}}"
 msgstr "{0, plural, zero {mainīti # faili} one {mainīts # fails} other {mainīti # faili}}"
 
+#. placeholder {0}: result.restored
+#: src/features/chats/components/encryption-section.tsx
+msgid "{0, plural, one {# message key restored} other {# message keys restored}}"
+msgstr "{0, plural, zero {Atjaunotas # ziņu atslēgas} one {Atjaunota # ziņu atslēga} other {Atjaunotas # ziņu atslēgas}}"
+
 #. placeholder {0}: message.replies
 #: src/features/chats/components/chat-message-list.tsx
 msgid "{0, plural, one {# reply} other {# replies}}"
@@ -175,6 +180,10 @@ msgstr "{truncated, plural, zero {Vēl # failu nav parādīti} one {Vēl # fails
 msgid "{unreadCount, plural, one {Open menu (# unread notification)} other {Open menu (# unread notifications)}}"
 msgstr "{unreadCount, plural, zero {Atvērt izvēlni (# neizlasītu paziņojumu)} one {Atvērt izvēlni (# neizlasīts paziņojums)} other {Atvērt izvēlni (# neizlasīti paziņojumi)}}"
 
+#: src/features/chats/components/verification-watcher.tsx
+msgid "{who} wants to verify you."
+msgstr "{who} vēlas jūs verificēt."
+
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "12 hours"
 msgstr "12 stundas"
@@ -193,6 +202,7 @@ msgid "Absolute (date and time)"
 msgstr "Absolūts (datums un laiks)"
 
 #: ../../../lib/web/src/components/game/game-draw-offer-banner.tsx
+#: src/features/chats/components/verification-watcher.tsx
 #: src/features/chats/index.tsx
 msgid "Accept"
 msgstr "Pieņemt"
@@ -326,6 +336,10 @@ msgstr "Pievieno dalībnieku..."
 msgid "Addresses"
 msgstr "Adreses"
 
+#: src/features/chats/roles.ts
+msgid "Administrator"
+msgstr "Administrators"
+
 #: src/features/chats/constants/reactions.ts
 msgid "Agree"
 msgstr "Piekrist"
@@ -379,6 +393,10 @@ msgstr "Android push paziņojumi"
 #: src/features/chats/constants/reactions.ts
 msgid "Angry"
 msgstr "Dusmīgs"
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Another of your devices wants to verify this one."
+msgstr "Kāda cita jūsu ierīce vēlas verificēt šo."
 
 #: ../../../lib/web/src/features/access/access-list.tsx
 #: ../../../lib/web/src/features/access/types.ts
@@ -440,6 +458,10 @@ msgstr "Kā {0}"
 #: ../../../lib/web/src/components/ui/sort-direction-button.tsx
 msgid "Ascending"
 msgstr "Augošā secībā"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Asking to compare emoji..."
+msgstr "Pieprasa emocijzīmju salīdzināšanu..."
 
 #: ../../../lib/web/src/components/timezone-select.tsx
 msgid "At sea"
@@ -599,6 +621,8 @@ msgstr "Kamera nav pieejama"
 #: src/features/chats/components/chat-settings-dialog.tsx
 #: src/features/chats/components/forward-dialog.tsx
 #: src/features/chats/components/new-chat.tsx
+#: src/features/chats/components/verification-watcher.tsx
+#: src/features/chats/components/verification-watcher.tsx
 #: src/features/chats/index.tsx
 msgid "Cancel"
 msgstr "Atcelt"
@@ -735,6 +759,10 @@ msgstr "Saruna atsprausta"
 msgid "Chats"
 msgstr "Sarunas"
 
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Check that the same emoji appear on the other screen."
+msgstr "Pārbaudiet, vai otrā ekrānā redzamas tās pašas emocijzīmes."
+
 #: ../../../lib/web/src/hooks/use-field-type-labels.ts
 msgid "Checkbox"
 msgstr "Izvēles rūtiņa"
@@ -867,6 +895,11 @@ msgstr "Komentāri ({0})"
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Compact"
 msgstr "Kompakts"
+
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Compare emoji"
+msgstr "Salīdzināt emocijzīmes"
 
 #: ../../../lib/web/src/components/entity/entity-option-dialog.tsx
 msgid "Configure option settings"
@@ -1028,6 +1061,7 @@ msgid "Date"
 msgstr "Datums"
 
 #: ../../../lib/web/src/components/game/game-draw-offer-banner.tsx
+#: src/features/chats/components/verification-watcher.tsx
 #: src/features/chats/index.tsx
 msgid "Decline"
 msgstr "Noraidīt"
@@ -1167,6 +1201,10 @@ msgstr "Detaļu panelis"
 msgid "Detect from web browser"
 msgstr "Noteikt no tīmekļa pārlūka"
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "Device options"
+msgstr "Ierīces opcijas"
+
 #: ../../../lib/web/src/components/person-picker.tsx
 msgid "Directory"
 msgstr "Katalogs"
@@ -1210,6 +1248,14 @@ msgstr "Aizvērt"
 msgid "Displays the mobile sidebar."
 msgstr "Parāda mobilo sānu joslu."
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "Distrust"
+msgstr "Neuzticēties"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Distrusted"
+msgstr "Neuzticams"
+
 #: src/features/chats/components/chat-input.tsx
 msgid "Document"
 msgstr "Dokuments"
@@ -1220,6 +1266,7 @@ msgstr "Neatbilst prasītajam šablonam"
 
 #: ../../../lib/web/src/components/entity/entity-field-dialog.tsx
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx
+#: src/features/chats/components/encryption-section.tsx
 msgid "Done"
 msgstr "Pabeigts"
 
@@ -1308,6 +1355,12 @@ msgstr "E-pasta kods"
 msgid "Encrypted message"
 msgstr "Šifrēts ziņojums"
 
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+msgid "Encryption"
+msgstr "Šifrēšana"
+
 #: ../../../lib/web/src/components/calendar/time-grid.tsx
 msgid "Ends before it starts"
 msgstr "Beidzas, pirms sākas"
@@ -1315,6 +1368,11 @@ msgstr "Beidzas, pirms sākas"
 #: ../../../lib/web/src/components/banner-section.tsx
 msgid "Enter banner text (markdown supported)..."
 msgstr "Ievadiet reklāmkaroga tekstu (atbalsta markdown)..."
+
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+msgid "Enter recovery key"
+msgstr "Ievadīt atkopšanas atslēgu"
 
 #: ../../../lib/web/src/components/step-up-dialog.tsx
 msgid "Enter the code from your email"
@@ -1498,6 +1556,7 @@ msgstr "Neizdevās atsaukt RSS piekļuvi"
 
 #: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx
 #: src/features/chats/components/chat-settings-dialog.tsx
+#: src/features/chats/components/encryption-section.tsx
 msgid "Failed to save"
 msgstr "Neizdevās saglabāt"
 
@@ -1556,6 +1615,10 @@ msgstr "Karogi"
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Flat"
 msgstr "Plakana"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Forget my decision"
+msgstr "Aizmirst manu lēmumu"
 
 #: src/features/chats/components/forward-dialog.tsx
 #: src/features/chats/components/message-hover-actions.tsx
@@ -1717,6 +1780,10 @@ msgstr "Pāriet uz apakšu"
 #: ../../../lib/web/src/lib/locale-format.ts
 msgid "Just now"
 msgstr "Tikko"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Keep this key safe. It is shown once, and your other Matrix clients ask for it to read your encrypted messages."
+msgstr "Glabājiet šo atslēgu drošā vietā. Tā tiek parādīta tikai vienreiz, un jūsu citi Matrix klienti to pieprasa, lai lasītu jūsu šifrētās ziņas."
 
 #: ../../../lib/web/src/components/entity/keyboard-shortcuts-help.tsx
 msgid "Keyboard shortcuts"
@@ -1974,6 +2041,10 @@ msgstr "Mochi tīmeklis"
 msgid "Moderation"
 msgstr "Moderēšana"
 
+#: src/features/chats/roles.ts
+msgid "Moderator"
+msgstr "Moderators"
+
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Monday"
 msgstr "Pirmdiena"
@@ -2104,6 +2175,10 @@ msgstr "Nav sarunu, uz kurām pārsūtīt"
 msgid "No comments yet"
 msgstr "Vēl nav komentāru"
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "No devices"
+msgstr "Nav ierīču"
+
 #: src/routes/_authenticated/$chatId_.settings.tsx
 msgid "No friends available"
 msgstr "Nav pieejamu draugu"
@@ -2139,6 +2214,10 @@ msgstr "Vēl nav ziņojumu"
 #: src/features/chats/components/chat-input.tsx
 msgid "No microphone found"
 msgstr "Mikrofons nav atrasts"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "No other devices"
+msgstr "Nav citu ierīču"
 
 #: ../../../lib/web/src/components/entity/entity-field-editor.tsx
 #: ../../../lib/web/src/components/person-picker.tsx
@@ -2224,6 +2303,11 @@ msgstr "Nav atrasts"
 #: ../../../lib/web/src/components/ui/editable-field-row.tsx
 msgid "Not set"
 msgstr "Nav iestatīts"
+
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+msgid "Not verified"
+msgstr "Nav verificēts"
 
 #: ../../../lib/web/src/components/entity/entity-tree-view.tsx
 msgid "Nothing found"
@@ -2327,6 +2411,7 @@ msgstr "Cits"
 
 #: ../../../lib/web/src/components/member-list.tsx
 #: ../../../lib/web/src/features/access/access-list.tsx
+#: src/features/chats/roles.ts
 msgid "Owner"
 msgstr "Īpašnieks"
 
@@ -2352,6 +2437,10 @@ msgstr "Piekļuves atslēgas"
 #: ../../../lib/web/src/lib/shell-errors.ts
 msgid "Passkeys are not available in this browser"
 msgstr "Piekļuves atslēgas šajā pārlūkā nav pieejamas"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Password"
+msgstr "Parole"
 
 #: ../../../lib/web/src/components/entity/entity-field-dialog.tsx
 msgid "Pattern (regex)"
@@ -2508,6 +2597,14 @@ msgstr "Ierakstīšana apstājās pie 5 minūšu ierobežojuma"
 #: src/features/chats/components/chat-input.tsx
 msgid "Recording voice note"
 msgstr "Notiek balss ziņas ierakstīšana"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Recovery could not be set up"
+msgstr "Atkopšanu neizdevās iestatīt"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Recovery key"
+msgstr "Atkopšanas atslēga"
 
 #: ../../../lib/web/src/components/layout/authenticated-layout.tsx
 msgid "Redirecting to login."
@@ -2673,6 +2770,10 @@ msgstr "Padoties"
 msgid "Resign game?"
 msgstr "Padoties spēlē?"
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "Restore"
+msgstr "Atjaunot"
+
 #: ../../../lib/web/src/components/attachment-composer.tsx
 msgid "Retry"
 msgstr "Mēģināt vēlreiz"
@@ -2730,7 +2831,12 @@ msgstr "Sestdiena"
 msgid "Save"
 msgstr "Saglabāt"
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "Saved"
+msgstr "Saglabāts"
+
 #: src/features/chats/components/chat-settings-dialog.tsx
+#: src/features/chats/components/encryption-section.tsx
 msgid "Saving..."
 msgstr "Saglabā..."
 
@@ -2957,6 +3063,12 @@ msgstr "Sesija ir beigusies. Lūdzu, piesakieties vēlreiz."
 msgid "Set origin and destination"
 msgstr "Iestatīt sākuma un galapunktu"
 
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+msgid "Set up recovery"
+msgstr "Iestatīt atkopšanu"
+
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx
 #: ../../../lib/web/src/components/options-menu.tsx
@@ -3142,6 +3254,10 @@ msgstr "Šis kods ir nepareizs vai tā derīguma termiņš ir beidzies."
 msgid "That could not be sent. The files may be too large, or your connection failed. Try smaller files."
 msgstr "Neizdevās nosūtīt. Faili var būt pārāk lieli, vai savienojums pārtrūka. Mēģiniet mazākus failus."
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "That is not your recovery key"
+msgstr "Tā nav jūsu atkopšanas atslēga"
+
 #: ../../../lib/web/src/hooks/use-attachment-error.ts
 #: ../../../lib/web/src/lib/handle-server-error.ts
 msgid "That was too large to upload. Remove or shrink files and try again."
@@ -3164,6 +3280,14 @@ msgstr "Tērzēšanas nosaukumā var būt ne vairāk kā {CHAT_NAME_MAX_LENGTH} 
 msgid "The chat name cannot contain < or >"
 msgstr "Tērzēšanas nosaukumā nedrīkst būt < vai >"
 
+#: src/features/chats/components/verification-watcher.tsx
+msgid "The emoji did not match, so the verification was cancelled"
+msgstr "Emocijzīmes nesakrita, tāpēc verifikācija tika atcelta"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "The fingerprint matches"
+msgstr "Pirkstu nospiedums sakrīt"
+
 #: ../../../lib/web/src/lib/shell-errors.ts
 msgid "The microphone request was not answered"
 msgstr "Uz mikrofona pieprasījumu netika atbildēts"
@@ -3171,6 +3295,10 @@ msgstr "Uz mikrofona pieprasījumu netika atbildēts"
 #: ../../../lib/web/src/lib/shell-errors.ts
 msgid "The passkey request was not answered"
 msgstr "Uz piekļuves atslēgas pieprasījumu netika atbildēts"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "The password was not accepted"
+msgstr "Parole netika pieņemta"
 
 #: ../../../lib/web/src/features/errors/general-error.tsx
 msgid "The requested content could not be found."
@@ -3180,10 +3308,30 @@ msgstr "Pieprasīto saturu neizdevās atrast."
 msgid "The server returned a web page instead of data."
 msgstr "Serveris atgrieza tīmekļa lapu, nevis datus."
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "The verification could not be started"
+msgstr "Verifikāciju neizdevās sākt"
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "The verification could not go on"
+msgstr "Verifikāciju neizdevās turpināt"
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "The verification was cancelled"
+msgstr "Verifikācija tika atcelta"
+
 #. placeholder {0}: unknown.join(', ')
 #: src/features/chats/index.tsx
 msgid "These names are not in this chat: {0}. Pick from the @ list or remove them."
 msgstr "Šo vārdu nav šajā tērzēšanā: {0}. Izvēlieties no @ saraksta vai noņemiet tos."
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "They don't match"
+msgstr "Nē, nesakrīt"
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "They match"
+msgstr "Jā, sakrīt"
 
 #: src/routes/_authenticated/$chatId_.settings.tsx
 msgid "They stop receiving new messages in this chat."
@@ -3203,12 +3351,20 @@ msgid "This chat may have been deleted or you don't have access to it"
 msgstr "Šī tērzēšana, iespējams, ir izdzēsta vai jums nav piekļuves"
 
 #: src/features/chats/index.tsx
-msgid "This conversation is encrypted. Messages cannot be sent to it from here yet."
-msgstr "Šī saruna ir šifrēta. No šejienes uz to vēl nevar sūtīt ziņojumus."
-
-#: src/features/chats/index.tsx
 msgid "This deletes the message for everyone and cannot be undone."
 msgstr "Šī darbība izdzēš ziņu visiem, un to nevar atsaukt."
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "This device"
+msgstr "Šī ierīce"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "This device (OMEMO 2)"
+msgstr "Šī ierīce (OMEMO 2)"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "This device (OMEMO)"
+msgstr "Šī ierīce (OMEMO)"
 
 #: src/features/chats/components/chat-message-list.tsx
 #: src/features/chats/components/message-quote.tsx
@@ -3406,14 +3562,28 @@ msgstr "Mainīgie: {variables}"
 msgid "Verification code"
 msgstr "Verifikācijas kods"
 
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Verified"
+msgstr "Verificēts"
+
 #: ../../../lib/web/src/components/step-up-dialog.tsx
 #: ../../../lib/web/src/features/accounts/account-verify.tsx
 msgid "Verify"
 msgstr "Verificēt"
 
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Verify {who}"
+msgstr "Verificēt {who}"
+
 #: ../../../lib/web/src/features/accounts/account-verify.tsx
 msgid "Verify email address"
 msgstr "Verificēt e-pasta adresi"
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Verify your device"
+msgstr "Verificēt savu ierīci"
 
 #: ../../../lib/web/src/components/attachment-gallery.tsx
 #: src/features/chats/components/message-media-grid.tsx
@@ -3438,6 +3608,10 @@ msgstr "Skatīt un rediģēt vienuma detaļas"
 msgid "View controls"
 msgstr "Skata vadīklas"
 
+#: src/features/chats/roles.ts
+msgid "Visitor"
+msgstr "Apmeklētājs"
+
 #: src/features/chats/components/voice-waveform.tsx
 msgid "Voice note waveform"
 msgstr "Balss ziņas viļņforma"
@@ -3455,6 +3629,14 @@ msgstr "Balss ierakstīšana šajā pārlūkā netiek atbalstīta"
 #: src/features/chats/components/chat-input.tsx
 msgid "Voice recording isn't available in this app version. Please update the app and try again."
 msgstr "Balss ierakstīšana šajā lietotnes versijā nav pieejama. Lūdzu, atjauniniet lietotni un mēģiniet vēlreiz."
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Waiting for the other device..."
+msgstr "Gaida otru ierīci..."
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Waiting for them to accept"
+msgstr "Gaida pieņemšanu"
 
 #: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx
 #: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx
@@ -3530,6 +3712,18 @@ msgstr "Jūsu konts tika pārvietots šeit no {source}. Kamēr to tur nedzēšat
 #: ../../../lib/web/src/components/comment-composer.tsx
 msgid "Your attachments will be lost."
 msgstr "Jūsu pielikumi tiks zaudēti."
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Your Matrix server asks for your account's password."
+msgstr "Jūsu Matrix serveris pieprasa jūsu konta paroli."
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Your other devices"
+msgstr "Jūsu citas ierīces"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Your recovery key"
+msgstr "Jūsu atkopšanas atslēga"
 
 #: ../../../lib/web/src/components/comment-composer.tsx
 msgid "Your text and attachments will be lost."

@@ -65,6 +65,11 @@ msgstr "{0, plural, =1 {I-delete ang mensahe?} one {I-delete ang # na mensahe?} 
 msgid "{0, plural, one {# file changed} other {# files changed}}"
 msgstr "{0, plural, one {# file ang binago} other {# file ang binago}}"
 
+#. placeholder {0}: result.restored
+#: src/features/chats/components/encryption-section.tsx
+msgid "{0, plural, one {# message key restored} other {# message keys restored}}"
+msgstr "{0, plural, one {# key ng mensahe ang naibalik} other {# key ng mensahe ang naibalik}}"
+
 #. placeholder {0}: message.replies
 #: src/features/chats/components/chat-message-list.tsx
 msgid "{0, plural, one {# reply} other {# replies}}"
@@ -175,6 +180,10 @@ msgstr "{truncated, plural, one {# pang file ang hindi ipinakita} other {# pang 
 msgid "{unreadCount, plural, one {Open menu (# unread notification)} other {Open menu (# unread notifications)}}"
 msgstr "{unreadCount, plural, one {Buksan ang menu (# hindi pa nababasang notification)} other {Buksan ang menu (# hindi pa nababasang notification)}}"
 
+#: src/features/chats/components/verification-watcher.tsx
+msgid "{who} wants to verify you."
+msgstr "Gusto kang beripikahin ni {who}."
+
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "12 hours"
 msgstr "12 oras"
@@ -193,6 +202,7 @@ msgid "Absolute (date and time)"
 msgstr "Absolute (petsa at oras)"
 
 #: ../../../lib/web/src/components/game/game-draw-offer-banner.tsx
+#: src/features/chats/components/verification-watcher.tsx
 #: src/features/chats/index.tsx
 msgid "Accept"
 msgstr "Tanggapin"
@@ -326,6 +336,10 @@ msgstr "Nagdaragdag ng miyembro..."
 msgid "Addresses"
 msgstr "Mga address"
 
+#: src/features/chats/roles.ts
+msgid "Administrator"
+msgstr "Administrator"
+
 #: src/features/chats/constants/reactions.ts
 msgid "Agree"
 msgstr "Sang-ayon"
@@ -379,6 +393,10 @@ msgstr "Android push"
 #: src/features/chats/constants/reactions.ts
 msgid "Angry"
 msgstr "Galit"
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Another of your devices wants to verify this one."
+msgstr "Gusto ng isa mo pang device na beripikahin ito."
 
 #: ../../../lib/web/src/features/access/access-list.tsx
 #: ../../../lib/web/src/features/access/types.ts
@@ -440,6 +458,10 @@ msgstr "Bilang {0}"
 #: ../../../lib/web/src/components/ui/sort-direction-button.tsx
 msgid "Ascending"
 msgstr "Pataas"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Asking to compare emoji..."
+msgstr "Humihiling na ihambing ang emoji..."
 
 #: ../../../lib/web/src/components/timezone-select.tsx
 msgid "At sea"
@@ -599,6 +621,8 @@ msgstr "Hindi available ang camera"
 #: src/features/chats/components/chat-settings-dialog.tsx
 #: src/features/chats/components/forward-dialog.tsx
 #: src/features/chats/components/new-chat.tsx
+#: src/features/chats/components/verification-watcher.tsx
+#: src/features/chats/components/verification-watcher.tsx
 #: src/features/chats/index.tsx
 msgid "Cancel"
 msgstr "Kanselahin"
@@ -735,6 +759,10 @@ msgstr "Na-unpin ang chat"
 msgid "Chats"
 msgstr "Mga chat"
 
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Check that the same emoji appear on the other screen."
+msgstr "Tingnan kung parehong emoji ang lumalabas sa kabilang screen."
+
 #: ../../../lib/web/src/hooks/use-field-type-labels.ts
 msgid "Checkbox"
 msgstr "Checkbox"
@@ -867,6 +895,11 @@ msgstr "Mga komento ({0})"
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Compact"
 msgstr "Siksik"
+
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Compare emoji"
+msgstr "Ihambing ang emoji"
 
 #: ../../../lib/web/src/components/entity/entity-option-dialog.tsx
 msgid "Configure option settings"
@@ -1028,6 +1061,7 @@ msgid "Date"
 msgstr "Petsa"
 
 #: ../../../lib/web/src/components/game/game-draw-offer-banner.tsx
+#: src/features/chats/components/verification-watcher.tsx
 #: src/features/chats/index.tsx
 msgid "Decline"
 msgstr "Tanggihan"
@@ -1167,6 +1201,10 @@ msgstr "Panel ng mga detalye"
 msgid "Detect from web browser"
 msgstr "Tukuyin mula sa web browser"
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "Device options"
+msgstr "Mga opsyon ng device"
+
 #: ../../../lib/web/src/components/person-picker.tsx
 msgid "Directory"
 msgstr "Direktoryo"
@@ -1210,6 +1248,14 @@ msgstr "I-dismiss"
 msgid "Displays the mobile sidebar."
 msgstr "Ipinapakita ang mobile sidebar."
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "Distrust"
+msgstr "Huwag pagkatiwalaan"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Distrusted"
+msgstr "Hindi pinagkakatiwalaan"
+
 #: src/features/chats/components/chat-input.tsx
 msgid "Document"
 msgstr "Dokumento"
@@ -1220,6 +1266,7 @@ msgstr "Hindi tumutugma sa kinakailangang pattern"
 
 #: ../../../lib/web/src/components/entity/entity-field-dialog.tsx
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx
+#: src/features/chats/components/encryption-section.tsx
 msgid "Done"
 msgstr "Tapos na"
 
@@ -1308,6 +1355,12 @@ msgstr "Code ng email"
 msgid "Encrypted message"
 msgstr "Naka-encrypt na mensahe"
 
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+msgid "Encryption"
+msgstr "Pag-encrypt"
+
 #: ../../../lib/web/src/components/calendar/time-grid.tsx
 msgid "Ends before it starts"
 msgstr "Nagtatapos bago magsimula"
@@ -1315,6 +1368,11 @@ msgstr "Nagtatapos bago magsimula"
 #: ../../../lib/web/src/components/banner-section.tsx
 msgid "Enter banner text (markdown supported)..."
 msgstr "Maglagay ng banner text (suportado ang markdown)..."
+
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+msgid "Enter recovery key"
+msgstr "Ilagay ang key sa pagbawi"
 
 #: ../../../lib/web/src/components/step-up-dialog.tsx
 msgid "Enter the code from your email"
@@ -1498,6 +1556,7 @@ msgstr "Nabigong bawiin ang RSS access"
 
 #: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx
 #: src/features/chats/components/chat-settings-dialog.tsx
+#: src/features/chats/components/encryption-section.tsx
 msgid "Failed to save"
 msgstr "Nabigong i-save"
 
@@ -1556,6 +1615,10 @@ msgstr "Mga flag"
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Flat"
 msgstr "Patag"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Forget my decision"
+msgstr "Kalimutan ang aking desisyon"
 
 #: src/features/chats/components/forward-dialog.tsx
 #: src/features/chats/components/message-hover-actions.tsx
@@ -1717,6 +1780,10 @@ msgstr "Pumunta sa ibaba"
 #: ../../../lib/web/src/lib/locale-format.ts
 msgid "Just now"
 msgstr "Ngayon lang"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Keep this key safe. It is shown once, and your other Matrix clients ask for it to read your encrypted messages."
+msgstr "Ingatan ang key na ito. Isang beses lang ito ipapakita, at hihingin ito ng iba mo pang Matrix client para mabasa ang iyong mga naka-encrypt na mensahe."
 
 #: ../../../lib/web/src/components/entity/keyboard-shortcuts-help.tsx
 msgid "Keyboard shortcuts"
@@ -1974,6 +2041,10 @@ msgstr "Mochi web"
 msgid "Moderation"
 msgstr "Moderasyon"
 
+#: src/features/chats/roles.ts
+msgid "Moderator"
+msgstr "Moderator"
+
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Monday"
 msgstr "Lunes"
@@ -2104,6 +2175,10 @@ msgstr "Walang chat na puwedeng pag-forward-an"
 msgid "No comments yet"
 msgstr "Wala pang komento"
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "No devices"
+msgstr "Walang device"
+
 #: src/routes/_authenticated/$chatId_.settings.tsx
 msgid "No friends available"
 msgstr "Walang available na kaibigan"
@@ -2139,6 +2214,10 @@ msgstr "Wala pang mensahe"
 #: src/features/chats/components/chat-input.tsx
 msgid "No microphone found"
 msgstr "Walang nahanap na mikropono"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "No other devices"
+msgstr "Walang ibang device"
 
 #: ../../../lib/web/src/components/entity/entity-field-editor.tsx
 #: ../../../lib/web/src/components/person-picker.tsx
@@ -2224,6 +2303,11 @@ msgstr "Hindi nahanap"
 #: ../../../lib/web/src/components/ui/editable-field-row.tsx
 msgid "Not set"
 msgstr "Hindi naka-set"
+
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+msgid "Not verified"
+msgstr "Hindi naberipika"
 
 #: ../../../lib/web/src/components/entity/entity-tree-view.tsx
 msgid "Nothing found"
@@ -2327,6 +2411,7 @@ msgstr "Iba pa"
 
 #: ../../../lib/web/src/components/member-list.tsx
 #: ../../../lib/web/src/features/access/access-list.tsx
+#: src/features/chats/roles.ts
 msgid "Owner"
 msgstr "May-ari"
 
@@ -2352,6 +2437,10 @@ msgstr "Mga Passkey"
 #: ../../../lib/web/src/lib/shell-errors.ts
 msgid "Passkeys are not available in this browser"
 msgstr "Hindi available ang mga passkey sa browser na ito"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Password"
+msgstr "Password"
 
 #: ../../../lib/web/src/components/entity/entity-field-dialog.tsx
 msgid "Pattern (regex)"
@@ -2508,6 +2597,14 @@ msgstr "Huminto ang recording sa 5-minutong limitasyon"
 #: src/features/chats/components/chat-input.tsx
 msgid "Recording voice note"
 msgstr "Nagre-record ng voice note"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Recovery could not be set up"
+msgstr "Hindi ma-set up ang pagbawi"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Recovery key"
+msgstr "Key sa pagbawi"
 
 #: ../../../lib/web/src/components/layout/authenticated-layout.tsx
 msgid "Redirecting to login."
@@ -2673,6 +2770,10 @@ msgstr "Sumuko"
 msgid "Resign game?"
 msgstr "Sumuko sa laro?"
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "Restore"
+msgstr "Ibalik"
+
 #: ../../../lib/web/src/components/attachment-composer.tsx
 msgid "Retry"
 msgstr "Subukang muli"
@@ -2730,7 +2831,12 @@ msgstr "Sabado"
 msgid "Save"
 msgstr "I-save"
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "Saved"
+msgstr "Na-save"
+
 #: src/features/chats/components/chat-settings-dialog.tsx
+#: src/features/chats/components/encryption-section.tsx
 msgid "Saving..."
 msgstr "Sini-save..."
 
@@ -2957,6 +3063,12 @@ msgstr "Nag-expire na ang session. Mag-log in muli."
 msgid "Set origin and destination"
 msgstr "Itakda ang origin at destination"
 
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+msgid "Set up recovery"
+msgstr "I-set up ang pagbawi"
+
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx
 #: ../../../lib/web/src/components/options-menu.tsx
@@ -3142,6 +3254,10 @@ msgstr "Mali ang code na iyon o nag-expire na."
 msgid "That could not be sent. The files may be too large, or your connection failed. Try smaller files."
 msgstr "Hindi maipadala. Maaaring masyadong malaki ang mga file, o nabigo ang iyong koneksyon. Subukan ang mas maliliit na file."
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "That is not your recovery key"
+msgstr "Hindi iyan ang iyong key sa pagbawi"
+
 #: ../../../lib/web/src/hooks/use-attachment-error.ts
 #: ../../../lib/web/src/lib/handle-server-error.ts
 msgid "That was too large to upload. Remove or shrink files and try again."
@@ -3164,6 +3280,14 @@ msgstr "Ang pangalan ng chat ay maaaring hanggang {CHAT_NAME_MAX_LENGTH} charact
 msgid "The chat name cannot contain < or >"
 msgstr "Hindi maaaring maglaman ng < o > ang pangalan ng chat"
 
+#: src/features/chats/components/verification-watcher.tsx
+msgid "The emoji did not match, so the verification was cancelled"
+msgstr "Hindi tugma ang emoji, kaya kinansela ang pagberipika"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "The fingerprint matches"
+msgstr "Tugma ang fingerprint"
+
 #: ../../../lib/web/src/lib/shell-errors.ts
 msgid "The microphone request was not answered"
 msgstr "Hindi nasagot ang kahilingan sa mikropono"
@@ -3171,6 +3295,10 @@ msgstr "Hindi nasagot ang kahilingan sa mikropono"
 #: ../../../lib/web/src/lib/shell-errors.ts
 msgid "The passkey request was not answered"
 msgstr "Hindi nasagot ang kahilingan sa passkey"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "The password was not accepted"
+msgstr "Hindi tinanggap ang password"
 
 #: ../../../lib/web/src/features/errors/general-error.tsx
 msgid "The requested content could not be found."
@@ -3180,10 +3308,30 @@ msgstr "Hindi mahanap ang hiniling na content."
 msgid "The server returned a web page instead of data."
 msgstr "Nagbalik ang server ng web page sa halip na data."
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "The verification could not be started"
+msgstr "Hindi masimulan ang pagberipika"
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "The verification could not go on"
+msgstr "Hindi maituloy ang pagberipika"
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "The verification was cancelled"
+msgstr "Kinansela ang pagberipika"
+
 #. placeholder {0}: unknown.join(', ')
 #: src/features/chats/index.tsx
 msgid "These names are not in this chat: {0}. Pick from the @ list or remove them."
 msgstr "Wala sa chat na ito ang mga pangalang ito: {0}. Pumili mula sa listahan ng @ o alisin ang mga ito."
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "They don't match"
+msgstr "Hindi sila tugma"
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "They match"
+msgstr "Tugma sila"
 
 #: src/routes/_authenticated/$chatId_.settings.tsx
 msgid "They stop receiving new messages in this chat."
@@ -3203,12 +3351,20 @@ msgid "This chat may have been deleted or you don't have access to it"
 msgstr "Maaaring nabura na ang chat na ito o wala kang access dito"
 
 #: src/features/chats/index.tsx
-msgid "This conversation is encrypted. Messages cannot be sent to it from here yet."
-msgstr "Naka-encrypt ang usapang ito. Hindi pa ito mapapadalhan ng mga mensahe mula rito."
-
-#: src/features/chats/index.tsx
 msgid "This deletes the message for everyone and cannot be undone."
 msgstr "Made-delete ang mensahe para sa lahat at hindi na ito maibabalik."
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "This device"
+msgstr "Ang device na ito"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "This device (OMEMO 2)"
+msgstr "Ang device na ito (OMEMO 2)"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "This device (OMEMO)"
+msgstr "Ang device na ito (OMEMO)"
 
 #: src/features/chats/components/chat-message-list.tsx
 #: src/features/chats/components/message-quote.tsx
@@ -3406,14 +3562,28 @@ msgstr "Mga variable: {variables}"
 msgid "Verification code"
 msgstr "Verification code"
 
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Verified"
+msgstr "Naberipika"
+
 #: ../../../lib/web/src/components/step-up-dialog.tsx
 #: ../../../lib/web/src/features/accounts/account-verify.tsx
 msgid "Verify"
 msgstr "Beripikahin"
 
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Verify {who}"
+msgstr "Beripikahin si {who}"
+
 #: ../../../lib/web/src/features/accounts/account-verify.tsx
 msgid "Verify email address"
 msgstr "Beripikahin ang email address"
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Verify your device"
+msgstr "Beripikahin ang iyong device"
 
 #: ../../../lib/web/src/components/attachment-gallery.tsx
 #: src/features/chats/components/message-media-grid.tsx
@@ -3438,6 +3608,10 @@ msgstr "Tingnan at i-edit ang mga detalye ng item"
 msgid "View controls"
 msgstr "Mga view control"
 
+#: src/features/chats/roles.ts
+msgid "Visitor"
+msgstr "Bisita"
+
 #: src/features/chats/components/voice-waveform.tsx
 msgid "Voice note waveform"
 msgstr "Waveform ng voice note"
@@ -3455,6 +3629,14 @@ msgstr "Hindi suportado ang voice recording sa browser na ito"
 #: src/features/chats/components/chat-input.tsx
 msgid "Voice recording isn't available in this app version. Please update the app and try again."
 msgstr "Hindi available ang voice recording sa bersyong ito ng app. Paki-update ang app at subukang muli."
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Waiting for the other device..."
+msgstr "Hinihintay ang kabilang device..."
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Waiting for them to accept"
+msgstr "Hinihintay silang tumanggap"
 
 #: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx
 #: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx
@@ -3530,6 +3712,18 @@ msgstr "Ang iyong account ay inilipat dito mula sa {source}. Hanggang hindi mo i
 #: ../../../lib/web/src/components/comment-composer.tsx
 msgid "Your attachments will be lost."
 msgstr "Mawawala ang iyong mga attachment."
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Your Matrix server asks for your account's password."
+msgstr "Hinihingi ng iyong Matrix server ang password ng iyong account."
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Your other devices"
+msgstr "Ang iba mo pang device"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Your recovery key"
+msgstr "Ang iyong key sa pagbawi"
 
 #: ../../../lib/web/src/components/comment-composer.tsx
 msgid "Your text and attachments will be lost."

@@ -65,6 +65,11 @@ msgstr "{0, plural, =1 {Peyam bê jêbirin?} other {# peyam bên jêbirin?}}"
 msgid "{0, plural, one {# file changed} other {# files changed}}"
 msgstr "{0, plural, one {# pel hat guhertin} other {# pel hatin guhertin}}"
 
+#. placeholder {0}: result.restored
+#: src/features/chats/components/encryption-section.tsx
+msgid "{0, plural, one {# message key restored} other {# message keys restored}}"
+msgstr "{0, plural, one {# mifteya peyamê hate vegerandin} other {# mifteyên peyaman hatin vegerandin}}"
+
 #. placeholder {0}: message.replies
 #: src/features/chats/components/chat-message-list.tsx
 msgid "{0, plural, one {# reply} other {# replies}}"
@@ -175,6 +180,10 @@ msgstr "{truncated, plural, one {# pelê din nehat nîşandan} other {# pelên d
 msgid "{unreadCount, plural, one {Open menu (# unread notification)} other {Open menu (# unread notifications)}}"
 msgstr "{unreadCount, plural, one {Pêşek veke (# agahdariya nexwendî)} other {Pêşek veke (# agahdariyên nexwendî)}}"
 
+#: src/features/chats/components/verification-watcher.tsx
+msgid "{who} wants to verify you."
+msgstr "{who} dixwaze te verifîke bike."
+
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "12 hours"
 msgstr "12 saet"
@@ -193,6 +202,7 @@ msgid "Absolute (date and time)"
 msgstr "Mutleq (dîrok û saet)"
 
 #: ../../../lib/web/src/components/game/game-draw-offer-banner.tsx
+#: src/features/chats/components/verification-watcher.tsx
 #: src/features/chats/index.tsx
 msgid "Accept"
 msgstr "Qebûl bike"
@@ -326,6 +336,10 @@ msgstr "Endam tê zêdekirin..."
 msgid "Addresses"
 msgstr "Navnîşan"
 
+#: src/features/chats/roles.ts
+msgid "Administrator"
+msgstr "Rêvebir"
+
 #: src/features/chats/constants/reactions.ts
 msgid "Agree"
 msgstr "Erê"
@@ -379,6 +393,10 @@ msgstr "Push a Android"
 #: src/features/chats/constants/reactions.ts
 msgid "Angry"
 msgstr "Hêrs"
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Another of your devices wants to verify this one."
+msgstr "Yek ji cîhazên te yên din dixwaze vê verifîke bike."
 
 #: ../../../lib/web/src/features/access/access-list.tsx
 #: ../../../lib/web/src/features/access/types.ts
@@ -440,6 +458,10 @@ msgstr "Wekî {0}"
 #: ../../../lib/web/src/components/ui/sort-direction-button.tsx
 msgid "Ascending"
 msgstr "Hilkişandî"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Asking to compare emoji..."
+msgstr "Berhevkirina emojiyan tê xwestin..."
 
 #: ../../../lib/web/src/components/timezone-select.tsx
 msgid "At sea"
@@ -599,6 +621,8 @@ msgstr "Kamera tune ye"
 #: src/features/chats/components/chat-settings-dialog.tsx
 #: src/features/chats/components/forward-dialog.tsx
 #: src/features/chats/components/new-chat.tsx
+#: src/features/chats/components/verification-watcher.tsx
+#: src/features/chats/components/verification-watcher.tsx
 #: src/features/chats/index.tsx
 msgid "Cancel"
 msgstr "Betal bike"
@@ -735,6 +759,10 @@ msgstr "Sabîtkirina sohbetê hat rakirin"
 msgid "Chats"
 msgstr "Chat"
 
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Check that the same emoji appear on the other screen."
+msgstr "Kontrol bike ku heman emoji li ser ekrana din xuya dibin."
+
 #: ../../../lib/web/src/hooks/use-field-type-labels.ts
 msgid "Checkbox"
 msgstr "Qutiya kontrol"
@@ -867,6 +895,11 @@ msgstr "Şîrove ({0})"
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Compact"
 msgstr "Kompakt"
+
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Compare emoji"
+msgstr "Emojiyan berhev bike"
 
 #: ../../../lib/web/src/components/entity/entity-option-dialog.tsx
 msgid "Configure option settings"
@@ -1028,6 +1061,7 @@ msgid "Date"
 msgstr "Dîrok"
 
 #: ../../../lib/web/src/components/game/game-draw-offer-banner.tsx
+#: src/features/chats/components/verification-watcher.tsx
 #: src/features/chats/index.tsx
 msgid "Decline"
 msgstr "Red bike"
@@ -1167,6 +1201,10 @@ msgstr "Panela hûragahiyan"
 msgid "Detect from web browser"
 msgstr "Ji geroka webê tespît bike"
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "Device options"
+msgstr "Vebijarkên cîhazê"
+
 #: ../../../lib/web/src/components/person-picker.tsx
 msgid "Directory"
 msgstr "Rêber"
@@ -1210,6 +1248,14 @@ msgstr "Red bike"
 msgid "Displays the mobile sidebar."
 msgstr "Panela kêlekê ya mobîl nîşan dide."
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "Distrust"
+msgstr "Bawer neke"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Distrusted"
+msgstr "Ne pêbawer"
+
 #: src/features/chats/components/chat-input.tsx
 msgid "Document"
 msgstr "Belge"
@@ -1220,6 +1266,7 @@ msgstr "Bi şablona pêwîst re li hev nake"
 
 #: ../../../lib/web/src/components/entity/entity-field-dialog.tsx
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx
+#: src/features/chats/components/encryption-section.tsx
 msgid "Done"
 msgstr "Qediya"
 
@@ -1308,6 +1355,12 @@ msgstr "Koda e-nameyê"
 msgid "Encrypted message"
 msgstr "Peyama şîfrekirî"
 
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+msgid "Encryption"
+msgstr "Şîfrekirin"
+
 #: ../../../lib/web/src/components/calendar/time-grid.tsx
 msgid "Ends before it starts"
 msgstr "Berî ku dest pê bike diqede"
@@ -1315,6 +1368,11 @@ msgstr "Berî ku dest pê bike diqede"
 #: ../../../lib/web/src/components/banner-section.tsx
 msgid "Enter banner text (markdown supported)..."
 msgstr "Nivîsa pankartê binivîse (markdown tê piştgirîkirin)..."
+
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+msgid "Enter recovery key"
+msgstr "Mifteya vegerê binivîse"
 
 #: ../../../lib/web/src/components/step-up-dialog.tsx
 msgid "Enter the code from your email"
@@ -1498,6 +1556,7 @@ msgstr "Vekişandina gihîştina RSS bi ser neket"
 
 #: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx
 #: src/features/chats/components/chat-settings-dialog.tsx
+#: src/features/chats/components/encryption-section.tsx
 msgid "Failed to save"
 msgstr "Tomarkirin neserkeftî bû"
 
@@ -1556,6 +1615,10 @@ msgstr "Ala"
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Flat"
 msgstr "Tasî"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Forget my decision"
+msgstr "Biryara min ji bîr bike"
 
 #: src/features/chats/components/forward-dialog.tsx
 #: src/features/chats/components/message-hover-actions.tsx
@@ -1717,6 +1780,10 @@ msgstr "Biçe binî"
 #: ../../../lib/web/src/lib/locale-format.ts
 msgid "Just now"
 msgstr "Nuha"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Keep this key safe. It is shown once, and your other Matrix clients ask for it to read your encrypted messages."
+msgstr "Vê miftê li cihekî ewle biparêze. Ew tenê carekê tê nîşandan, û bernameyên te yên din ên Matrix ji bo xwendina peyamên te yên şîfrekirî wê dixwazin."
 
 #: ../../../lib/web/src/components/entity/keyboard-shortcuts-help.tsx
 msgid "Keyboard shortcuts"
@@ -1974,6 +2041,10 @@ msgstr "Mochi di gerokê de"
 msgid "Moderation"
 msgstr "Moderasyon"
 
+#: src/features/chats/roles.ts
+msgid "Moderator"
+msgstr "Modarator"
+
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Monday"
 msgstr "Duşem"
@@ -2104,6 +2175,10 @@ msgstr "Sohbetek ji bo beralîkirinê tune"
 msgid "No comments yet"
 msgstr "Hêj tu şîrove tune"
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "No devices"
+msgstr "Cîhaz tune ne"
+
 #: src/routes/_authenticated/$chatId_.settings.tsx
 msgid "No friends available"
 msgstr "Tu hevalên berdest tune"
@@ -2139,6 +2214,10 @@ msgstr "Hêj tu peyam tune"
 #: src/features/chats/components/chat-input.tsx
 msgid "No microphone found"
 msgstr "Mîkrofon nehat dîtin"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "No other devices"
+msgstr "Cîhazên din tune ne"
 
 #: ../../../lib/web/src/components/entity/entity-field-editor.tsx
 #: ../../../lib/web/src/components/person-picker.tsx
@@ -2224,6 +2303,11 @@ msgstr "Nehat dîtin"
 #: ../../../lib/web/src/components/ui/editable-field-row.tsx
 msgid "Not set"
 msgstr "Nehatiye danîn"
+
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+msgid "Not verified"
+msgstr "Ne verifîkirî"
 
 #: ../../../lib/web/src/components/entity/entity-tree-view.tsx
 msgid "Nothing found"
@@ -2327,6 +2411,7 @@ msgstr "Yên din"
 
 #: ../../../lib/web/src/components/member-list.tsx
 #: ../../../lib/web/src/features/access/access-list.tsx
+#: src/features/chats/roles.ts
 msgid "Owner"
 msgstr "Xwedî"
 
@@ -2352,6 +2437,10 @@ msgstr "Passkey"
 #: ../../../lib/web/src/lib/shell-errors.ts
 msgid "Passkeys are not available in this browser"
 msgstr "Passkey di vê gerokê de ne berdest in"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Password"
+msgstr "Şîfre"
 
 #: ../../../lib/web/src/components/entity/entity-field-dialog.tsx
 msgid "Pattern (regex)"
@@ -2508,6 +2597,14 @@ msgstr "Tomarkirin li sînorê 5 deqeyan sekinî"
 #: src/features/chats/components/chat-input.tsx
 msgid "Recording voice note"
 msgstr "Peyama dengî tê tomarkirin"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Recovery could not be set up"
+msgstr "Veger nehat sazkirin"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Recovery key"
+msgstr "Mifteya vegerê"
 
 #: ../../../lib/web/src/components/layout/authenticated-layout.tsx
 msgid "Redirecting to login."
@@ -2673,6 +2770,10 @@ msgstr "Dest jê berde"
 msgid "Resign game?"
 msgstr "Dest ji lîstikê berde?"
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "Restore"
+msgstr "Vegerîne"
+
 #: ../../../lib/web/src/components/attachment-composer.tsx
 msgid "Retry"
 msgstr "Dîsa biceribîne"
@@ -2730,7 +2831,12 @@ msgstr "Şemî"
 msgid "Save"
 msgstr "Tomar bike"
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "Saved"
+msgstr "Hatiye tomarkirin"
+
 #: src/features/chats/components/chat-settings-dialog.tsx
+#: src/features/chats/components/encryption-section.tsx
 msgid "Saving..."
 msgstr "Tê tomarkirin..."
 
@@ -2957,6 +3063,12 @@ msgstr "Danişîn bi dawî bû. Ji kerema xwe dîsa têkeve."
 msgid "Set origin and destination"
 msgstr "Çavkanî û armanc diyar bike"
 
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+msgid "Set up recovery"
+msgstr "Vegerê saz bike"
+
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx
 #: ../../../lib/web/src/components/options-menu.tsx
@@ -3142,6 +3254,10 @@ msgstr "Ew kod çewt e an dema wê qediyaye."
 msgid "That could not be sent. The files may be too large, or your connection failed. Try smaller files."
 msgstr "Nehat şandin. Dibe ku pel pir mezin bin, an girêdana te têk çû. Pelên biçûktir biceribîne."
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "That is not your recovery key"
+msgstr "Ev ne mifteya te ya vegerê ye"
+
 #: ../../../lib/web/src/hooks/use-attachment-error.ts
 #: ../../../lib/web/src/lib/handle-server-error.ts
 msgid "That was too large to upload. Remove or shrink files and try again."
@@ -3164,6 +3280,14 @@ msgstr "Navê sohbetê dikare herî zêde {CHAT_NAME_MAX_LENGTH} tîp be"
 msgid "The chat name cannot contain < or >"
 msgstr "Navê sohbetê nikare < an > bihewîne"
 
+#: src/features/chats/components/verification-watcher.tsx
+msgid "The emoji did not match, so the verification was cancelled"
+msgstr "Emoji li hev nekirin, ji ber vê yekê verifîkasyon hate betalkirin"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "The fingerprint matches"
+msgstr "Şopa tiliyê li hev dike"
+
 #: ../../../lib/web/src/lib/shell-errors.ts
 msgid "The microphone request was not answered"
 msgstr "Daxwaza mîkrofonê nehat bersivandin"
@@ -3171,6 +3295,10 @@ msgstr "Daxwaza mîkrofonê nehat bersivandin"
 #: ../../../lib/web/src/lib/shell-errors.ts
 msgid "The passkey request was not answered"
 msgstr "Daxwaza passkey nehat bersivandin"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "The password was not accepted"
+msgstr "Şîfre nehat qebûlkirin"
 
 #: ../../../lib/web/src/features/errors/general-error.tsx
 msgid "The requested content could not be found."
@@ -3180,10 +3308,30 @@ msgstr "Naveroka xwestî nehat dîtin."
 msgid "The server returned a web page instead of data."
 msgstr "Rajekar li şûna daneyan rûpeleke webê vegerand."
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "The verification could not be started"
+msgstr "Verifîkasyon nehat destpêkirin"
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "The verification could not go on"
+msgstr "Verifîkasyon nikarîbû berdewam bike"
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "The verification was cancelled"
+msgstr "Verifîkasyon hate betalkirin"
+
 #. placeholder {0}: unknown.join(', ')
 #: src/features/chats/index.tsx
 msgid "These names are not in this chat: {0}. Pick from the @ list or remove them."
 msgstr "Ev nav ne di vê sohbetê de ne: {0}. Ji lîsteya @ hilbijêre an wan rake."
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "They don't match"
+msgstr "Li hev nakin"
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "They match"
+msgstr "Li hev dikin"
 
 #: src/routes/_authenticated/$chatId_.settings.tsx
 msgid "They stop receiving new messages in this chat."
@@ -3203,12 +3351,20 @@ msgid "This chat may have been deleted or you don't have access to it"
 msgstr "Dibe ku ev sohbet hatibe jêbirin an gihîştina te jê re tune be"
 
 #: src/features/chats/index.tsx
-msgid "This conversation is encrypted. Messages cannot be sent to it from here yet."
-msgstr "Ev sohbet şîfrekirî ye. Hêj ji vir nayê peyam jê re şandin."
-
-#: src/features/chats/index.tsx
 msgid "This deletes the message for everyone and cannot be undone."
 msgstr "Ev yek peyamê ji bo her kesî jê dibe û nikare bê vegerandin."
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "This device"
+msgstr "Ev cîhaz"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "This device (OMEMO 2)"
+msgstr "Ev cîhaz (OMEMO 2)"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "This device (OMEMO)"
+msgstr "Ev cîhaz (OMEMO)"
 
 #: src/features/chats/components/chat-message-list.tsx
 #: src/features/chats/components/message-quote.tsx
@@ -3406,14 +3562,28 @@ msgstr "Guherbar: {variables}"
 msgid "Verification code"
 msgstr "Koda verifîkasyonê"
 
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Verified"
+msgstr "Verifîkirî"
+
 #: ../../../lib/web/src/components/step-up-dialog.tsx
 #: ../../../lib/web/src/features/accounts/account-verify.tsx
 msgid "Verify"
 msgstr "Verifîke bike"
 
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Verify {who}"
+msgstr "{who} verifîke bike"
+
 #: ../../../lib/web/src/features/accounts/account-verify.tsx
 msgid "Verify email address"
 msgstr "Navnîşana e-nameyê verifîke bike"
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Verify your device"
+msgstr "Cîhaza xwe verifîke bike"
 
 #: ../../../lib/web/src/components/attachment-gallery.tsx
 #: src/features/chats/components/message-media-grid.tsx
@@ -3438,6 +3608,10 @@ msgstr "Hûragahên tiştî bibîne û sererast bike"
 msgid "View controls"
 msgstr "Kontrolên dîtinê"
 
+#: src/features/chats/roles.ts
+msgid "Visitor"
+msgstr "Mêvan"
+
 #: src/features/chats/components/voice-waveform.tsx
 msgid "Voice note waveform"
 msgstr "Şêweya pêlê ya peyama dengî"
@@ -3455,6 +3629,14 @@ msgstr "Tomarkirina dengî di vê gerokê de nayê destekkirin"
 #: src/features/chats/components/chat-input.tsx
 msgid "Voice recording isn't available in this app version. Please update the app and try again."
 msgstr "Tomarkirina dengî di vê guhertoya sepanê de ne berdest e. Ji kerema xwe sepanê nû bike û dîsa biceribîne."
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Waiting for the other device..."
+msgstr "Li benda cîhaza din..."
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Waiting for them to accept"
+msgstr "Li benda qebûlkirina wan"
 
 #: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx
 #: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx
@@ -3530,6 +3712,18 @@ msgstr "Hesabê we ji {source} hat vir veguheztin. Heya ku hûn wê li wir jêne
 #: ../../../lib/web/src/components/comment-composer.tsx
 msgid "Your attachments will be lost."
 msgstr "Pêvekên te wê winda bibin."
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Your Matrix server asks for your account's password."
+msgstr "Servera te ya Matrix şîfreya hesabê te dixwaze."
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Your other devices"
+msgstr "Cîhazên te yên din"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Your recovery key"
+msgstr "Mifteya te ya vegerê"
 
 #: ../../../lib/web/src/components/comment-composer.tsx
 msgid "Your text and attachments will be lost."

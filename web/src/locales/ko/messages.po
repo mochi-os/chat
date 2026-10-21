@@ -65,6 +65,11 @@ msgstr "{0, plural, other {메시지 #개를 삭제할까요?}}"
 msgid "{0, plural, one {# file changed} other {# files changed}}"
 msgstr "{0, plural, one {#개 파일 변경됨} other {#개 파일 변경됨}}"
 
+#. placeholder {0}: result.restored
+#: src/features/chats/components/encryption-section.tsx
+msgid "{0, plural, one {# message key restored} other {# message keys restored}}"
+msgstr "{0, plural, other {메시지 키 #개를 복원했어요}}"
+
 #. placeholder {0}: message.replies
 #: src/features/chats/components/chat-message-list.tsx
 msgid "{0, plural, one {# reply} other {# replies}}"
@@ -175,6 +180,10 @@ msgstr "{truncated, plural, one {파일 #개 더 표시되지 않음} other {파
 msgid "{unreadCount, plural, one {Open menu (# unread notification)} other {Open menu (# unread notifications)}}"
 msgstr "{unreadCount, plural, one {메뉴 열기(읽지 않은 알림 #개)} other {메뉴 열기(읽지 않은 알림 #개)}}"
 
+#: src/features/chats/components/verification-watcher.tsx
+msgid "{who} wants to verify you."
+msgstr "{who}님이 회원님을 확인하려고 해요."
+
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "12 hours"
 msgstr "12시간"
@@ -193,6 +202,7 @@ msgid "Absolute (date and time)"
 msgstr "절대값 (날짜 및 시간)"
 
 #: ../../../lib/web/src/components/game/game-draw-offer-banner.tsx
+#: src/features/chats/components/verification-watcher.tsx
 #: src/features/chats/index.tsx
 msgid "Accept"
 msgstr "수락"
@@ -326,6 +336,10 @@ msgstr "멤버 추가 중..."
 msgid "Addresses"
 msgstr "주소"
 
+#: src/features/chats/roles.ts
+msgid "Administrator"
+msgstr "관리자"
+
 #: src/features/chats/constants/reactions.ts
 msgid "Agree"
 msgstr "동의"
@@ -379,6 +393,10 @@ msgstr "Android 푸시"
 #: src/features/chats/constants/reactions.ts
 msgid "Angry"
 msgstr "분노"
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Another of your devices wants to verify this one."
+msgstr "회원님의 다른 기기에서 이 기기를 확인하려고 해요."
 
 #: ../../../lib/web/src/features/access/access-list.tsx
 #: ../../../lib/web/src/features/access/types.ts
@@ -440,6 +458,10 @@ msgstr "{0}(으)로"
 #: ../../../lib/web/src/components/ui/sort-direction-button.tsx
 msgid "Ascending"
 msgstr "오름차순"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Asking to compare emoji..."
+msgstr "이모지 비교를 요청하는 중..."
 
 #: ../../../lib/web/src/components/timezone-select.tsx
 msgid "At sea"
@@ -599,6 +621,8 @@ msgstr "카메라를 사용할 수 없음"
 #: src/features/chats/components/chat-settings-dialog.tsx
 #: src/features/chats/components/forward-dialog.tsx
 #: src/features/chats/components/new-chat.tsx
+#: src/features/chats/components/verification-watcher.tsx
+#: src/features/chats/components/verification-watcher.tsx
 #: src/features/chats/index.tsx
 msgid "Cancel"
 msgstr "취소"
@@ -735,6 +759,10 @@ msgstr "채팅 고정을 해제했습니다"
 msgid "Chats"
 msgstr "채팅"
 
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Check that the same emoji appear on the other screen."
+msgstr "다른 화면에 같은 이모지가 표시되는지 확인하세요."
+
 #: ../../../lib/web/src/hooks/use-field-type-labels.ts
 msgid "Checkbox"
 msgstr "체크박스"
@@ -867,6 +895,11 @@ msgstr "댓글 ({0})"
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Compact"
 msgstr "컴팩트"
+
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Compare emoji"
+msgstr "이모지 비교"
 
 #: ../../../lib/web/src/components/entity/entity-option-dialog.tsx
 msgid "Configure option settings"
@@ -1028,6 +1061,7 @@ msgid "Date"
 msgstr "날짜"
 
 #: ../../../lib/web/src/components/game/game-draw-offer-banner.tsx
+#: src/features/chats/components/verification-watcher.tsx
 #: src/features/chats/index.tsx
 msgid "Decline"
 msgstr "거절"
@@ -1167,6 +1201,10 @@ msgstr "세부 정보 패널"
 msgid "Detect from web browser"
 msgstr "웹 브라우저에서 감지"
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "Device options"
+msgstr "기기 옵션"
+
 #: ../../../lib/web/src/components/person-picker.tsx
 msgid "Directory"
 msgstr "디렉터리"
@@ -1210,6 +1248,14 @@ msgstr "닫기"
 msgid "Displays the mobile sidebar."
 msgstr "모바일 사이드바를 표시해요."
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "Distrust"
+msgstr "신뢰 안 함"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Distrusted"
+msgstr "신뢰하지 않음"
+
 #: src/features/chats/components/chat-input.tsx
 msgid "Document"
 msgstr "문서"
@@ -1220,6 +1266,7 @@ msgstr "필요한 패턴과 일치하지 않습니다"
 
 #: ../../../lib/web/src/components/entity/entity-field-dialog.tsx
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx
+#: src/features/chats/components/encryption-section.tsx
 msgid "Done"
 msgstr "완료"
 
@@ -1308,6 +1355,12 @@ msgstr "이메일 코드"
 msgid "Encrypted message"
 msgstr "암호화된 메시지"
 
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+msgid "Encryption"
+msgstr "암호화"
+
 #: ../../../lib/web/src/components/calendar/time-grid.tsx
 msgid "Ends before it starts"
 msgstr "시작하기 전에 종료됨"
@@ -1315,6 +1368,11 @@ msgstr "시작하기 전에 종료됨"
 #: ../../../lib/web/src/components/banner-section.tsx
 msgid "Enter banner text (markdown supported)..."
 msgstr "배너 텍스트를 입력하세요 (마크다운 지원)..."
+
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+msgid "Enter recovery key"
+msgstr "복구 키 입력"
 
 #: ../../../lib/web/src/components/step-up-dialog.tsx
 msgid "Enter the code from your email"
@@ -1498,6 +1556,7 @@ msgstr "RSS 액세스 철회에 실패했습니다"
 
 #: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx
 #: src/features/chats/components/chat-settings-dialog.tsx
+#: src/features/chats/components/encryption-section.tsx
 msgid "Failed to save"
 msgstr "저장에 실패했어요"
 
@@ -1556,6 +1615,10 @@ msgstr "플래그"
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Flat"
 msgstr "평면"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Forget my decision"
+msgstr "내 결정 취소"
 
 #: src/features/chats/components/forward-dialog.tsx
 #: src/features/chats/components/message-hover-actions.tsx
@@ -1717,6 +1780,10 @@ msgstr "맨 아래로 이동"
 #: ../../../lib/web/src/lib/locale-format.ts
 msgid "Just now"
 msgstr "방금"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Keep this key safe. It is shown once, and your other Matrix clients ask for it to read your encrypted messages."
+msgstr "이 키를 안전하게 보관하세요. 한 번만 표시되며, 다른 Matrix 클라이언트에서 암호화된 메시지를 읽을 때 이 키를 요청해요."
 
 #: ../../../lib/web/src/components/entity/keyboard-shortcuts-help.tsx
 msgid "Keyboard shortcuts"
@@ -1974,6 +2041,10 @@ msgstr "Mochi 웹"
 msgid "Moderation"
 msgstr "모더레이션"
 
+#: src/features/chats/roles.ts
+msgid "Moderator"
+msgstr "모더레이터"
+
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Monday"
 msgstr "월요일"
@@ -2104,6 +2175,10 @@ msgstr "전달할 채팅이 없습니다"
 msgid "No comments yet"
 msgstr "아직 댓글이 없어요"
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "No devices"
+msgstr "기기 없음"
+
 #: src/routes/_authenticated/$chatId_.settings.tsx
 msgid "No friends available"
 msgstr "이용 가능한 친구가 없어요"
@@ -2139,6 +2214,10 @@ msgstr "아직 메시지가 없어요"
 #: src/features/chats/components/chat-input.tsx
 msgid "No microphone found"
 msgstr "마이크를 찾을 수 없습니다"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "No other devices"
+msgstr "다른 기기 없음"
 
 #: ../../../lib/web/src/components/entity/entity-field-editor.tsx
 #: ../../../lib/web/src/components/person-picker.tsx
@@ -2224,6 +2303,11 @@ msgstr "찾을 수 없음"
 #: ../../../lib/web/src/components/ui/editable-field-row.tsx
 msgid "Not set"
 msgstr "설정되지 않음"
+
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+msgid "Not verified"
+msgstr "확인되지 않음"
 
 #: ../../../lib/web/src/components/entity/entity-tree-view.tsx
 msgid "Nothing found"
@@ -2327,6 +2411,7 @@ msgstr "기타"
 
 #: ../../../lib/web/src/components/member-list.tsx
 #: ../../../lib/web/src/features/access/access-list.tsx
+#: src/features/chats/roles.ts
 msgid "Owner"
 msgstr "소유자"
 
@@ -2352,6 +2437,10 @@ msgstr "패스키"
 #: ../../../lib/web/src/lib/shell-errors.ts
 msgid "Passkeys are not available in this browser"
 msgstr "이 브라우저에서는 패스키를 사용할 수 없습니다"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Password"
+msgstr "비밀번호"
 
 #: ../../../lib/web/src/components/entity/entity-field-dialog.tsx
 msgid "Pattern (regex)"
@@ -2508,6 +2597,14 @@ msgstr "녹음이 5분 제한에서 중지되었습니다"
 #: src/features/chats/components/chat-input.tsx
 msgid "Recording voice note"
 msgstr "음성 메모 녹음 중"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Recovery could not be set up"
+msgstr "복구를 설정할 수 없었어요"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Recovery key"
+msgstr "복구 키"
 
 #: ../../../lib/web/src/components/layout/authenticated-layout.tsx
 msgid "Redirecting to login."
@@ -2673,6 +2770,10 @@ msgstr "기권"
 msgid "Resign game?"
 msgstr "게임을 기권할까요?"
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "Restore"
+msgstr "복원"
+
 #: ../../../lib/web/src/components/attachment-composer.tsx
 msgid "Retry"
 msgstr "다시 시도"
@@ -2730,7 +2831,12 @@ msgstr "토요일"
 msgid "Save"
 msgstr "저장"
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "Saved"
+msgstr "저장됨"
+
 #: src/features/chats/components/chat-settings-dialog.tsx
+#: src/features/chats/components/encryption-section.tsx
 msgid "Saving..."
 msgstr "저장 중..."
 
@@ -2957,6 +3063,12 @@ msgstr "세션이 만료되었습니다. 다시 로그인해 주세요."
 msgid "Set origin and destination"
 msgstr "출발지와 도착지 설정"
 
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+msgid "Set up recovery"
+msgstr "복구 설정"
+
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx
 #: ../../../lib/web/src/components/options-menu.tsx
@@ -3142,6 +3254,10 @@ msgstr "코드가 올바르지 않거나 만료되었습니다."
 msgid "That could not be sent. The files may be too large, or your connection failed. Try smaller files."
 msgstr "보낼 수 없습니다. 파일이 너무 크거나 연결이 실패했을 수 있습니다. 더 작은 파일을 시도하세요."
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "That is not your recovery key"
+msgstr "회원님의 복구 키가 아니에요"
+
 #: ../../../lib/web/src/hooks/use-attachment-error.ts
 #: ../../../lib/web/src/lib/handle-server-error.ts
 msgid "That was too large to upload. Remove or shrink files and try again."
@@ -3164,6 +3280,14 @@ msgstr "채팅 이름은 최대 {CHAT_NAME_MAX_LENGTH}자입니다"
 msgid "The chat name cannot contain < or >"
 msgstr "채팅 이름에는 < 또는 >를 사용할 수 없습니다"
 
+#: src/features/chats/components/verification-watcher.tsx
+msgid "The emoji did not match, so the verification was cancelled"
+msgstr "이모지가 일치하지 않아 확인이 취소되었어요"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "The fingerprint matches"
+msgstr "지문이 일치해요"
+
 #: ../../../lib/web/src/lib/shell-errors.ts
 msgid "The microphone request was not answered"
 msgstr "마이크 요청에 응답이 없었습니다"
@@ -3171,6 +3295,10 @@ msgstr "마이크 요청에 응답이 없었습니다"
 #: ../../../lib/web/src/lib/shell-errors.ts
 msgid "The passkey request was not answered"
 msgstr "패스키 요청에 응답이 없었습니다"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "The password was not accepted"
+msgstr "비밀번호가 받아들여지지 않았어요"
 
 #: ../../../lib/web/src/features/errors/general-error.tsx
 msgid "The requested content could not be found."
@@ -3180,10 +3308,30 @@ msgstr "요청한 콘텐츠를 찾을 수 없습니다."
 msgid "The server returned a web page instead of data."
 msgstr "서버가 데이터 대신 웹 페이지를 반환했습니다."
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "The verification could not be started"
+msgstr "확인을 시작할 수 없었어요"
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "The verification could not go on"
+msgstr "확인을 계속할 수 없었어요"
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "The verification was cancelled"
+msgstr "확인이 취소되었어요"
+
 #. placeholder {0}: unknown.join(', ')
 #: src/features/chats/index.tsx
 msgid "These names are not in this chat: {0}. Pick from the @ list or remove them."
 msgstr "이 이름들은 이 채팅에 없습니다: {0}. @ 목록에서 선택하거나 제거하세요."
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "They don't match"
+msgstr "일치하지 않아요"
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "They match"
+msgstr "일치해요"
 
 #: src/routes/_authenticated/$chatId_.settings.tsx
 msgid "They stop receiving new messages in this chat."
@@ -3203,12 +3351,20 @@ msgid "This chat may have been deleted or you don't have access to it"
 msgstr "이 대화가 삭제되었거나 접근 권한이 없을 수 있습니다"
 
 #: src/features/chats/index.tsx
-msgid "This conversation is encrypted. Messages cannot be sent to it from here yet."
-msgstr "이 대화는 암호화되어 있어요. 아직 여기에서는 이 대화로 메시지를 보낼 수 없어요."
-
-#: src/features/chats/index.tsx
 msgid "This deletes the message for everyone and cannot be undone."
 msgstr "모든 사람에게서 메시지가 삭제되며 되돌릴 수 없습니다."
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "This device"
+msgstr "이 기기"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "This device (OMEMO 2)"
+msgstr "이 기기 (OMEMO 2)"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "This device (OMEMO)"
+msgstr "이 기기 (OMEMO)"
 
 #: src/features/chats/components/chat-message-list.tsx
 #: src/features/chats/components/message-quote.tsx
@@ -3406,14 +3562,28 @@ msgstr "변수: {variables}"
 msgid "Verification code"
 msgstr "확인 코드"
 
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Verified"
+msgstr "확인됨"
+
 #: ../../../lib/web/src/components/step-up-dialog.tsx
 #: ../../../lib/web/src/features/accounts/account-verify.tsx
 msgid "Verify"
 msgstr "확인"
 
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Verify {who}"
+msgstr "{who} 확인"
+
 #: ../../../lib/web/src/features/accounts/account-verify.tsx
 msgid "Verify email address"
 msgstr "이메일 주소 확인"
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Verify your device"
+msgstr "내 기기 확인"
 
 #: ../../../lib/web/src/components/attachment-gallery.tsx
 #: src/features/chats/components/message-media-grid.tsx
@@ -3438,6 +3608,10 @@ msgstr "항목 세부 정보 보기 및 수정"
 msgid "View controls"
 msgstr "보기 컨트롤"
 
+#: src/features/chats/roles.ts
+msgid "Visitor"
+msgstr "방문자"
+
 #: src/features/chats/components/voice-waveform.tsx
 msgid "Voice note waveform"
 msgstr "음성 메모 파형"
@@ -3455,6 +3629,14 @@ msgstr "이 브라우저에서는 음성 녹음이 지원되지 않습니다"
 #: src/features/chats/components/chat-input.tsx
 msgid "Voice recording isn't available in this app version. Please update the app and try again."
 msgstr "이 앱 버전에서는 음성 녹음을 사용할 수 없습니다. 앱을 업데이트한 후 다시 시도하세요."
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Waiting for the other device..."
+msgstr "다른 기기를 기다리는 중..."
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Waiting for them to accept"
+msgstr "상대방의 수락을 기다리는 중"
 
 #: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx
 #: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx
@@ -3530,6 +3712,18 @@ msgstr "계정이 {source}에서 이곳으로 이전되었습니다. 거기서 �
 #: ../../../lib/web/src/components/comment-composer.tsx
 msgid "Your attachments will be lost."
 msgstr "첨부 파일이 사라집니다."
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Your Matrix server asks for your account's password."
+msgstr "Matrix 서버에서 계정 비밀번호를 요청해요."
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Your other devices"
+msgstr "내 다른 기기"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Your recovery key"
+msgstr "내 복구 키"
 
 #: ../../../lib/web/src/components/comment-composer.tsx
 msgid "Your text and attachments will be lost."

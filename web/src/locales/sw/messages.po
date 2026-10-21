@@ -65,6 +65,11 @@ msgstr "{0, plural, =1 {Futa ujumbe?} other {Futa jumbe #?}}"
 msgid "{0, plural, one {# file changed} other {# files changed}}"
 msgstr "{0, plural, one {faili # limebadilishwa} other {faili # yamebadilishwa}}"
 
+#. placeholder {0}: result.restored
+#: src/features/chats/components/encryption-section.tsx
+msgid "{0, plural, one {# message key restored} other {# message keys restored}}"
+msgstr "{0, plural, one {Ufunguo # wa ujumbe umerejeshwa} other {Funguo # za ujumbe zimerejeshwa}}"
+
 #. placeholder {0}: message.replies
 #: src/features/chats/components/chat-message-list.tsx
 msgid "{0, plural, one {# reply} other {# replies}}"
@@ -175,6 +180,10 @@ msgstr "{truncated, plural, one {Faili # zaidi haijaonyeshwa} other {Faili # zai
 msgid "{unreadCount, plural, one {Open menu (# unread notification)} other {Open menu (# unread notifications)}}"
 msgstr "{unreadCount, plural, one {Fungua menyu (arifa # ambayo haijasomwa)} other {Fungua menyu (arifa # ambazo hazijasomwa)}}"
 
+#: src/features/chats/components/verification-watcher.tsx
+msgid "{who} wants to verify you."
+msgstr "{who} anataka kukuthibitisha."
+
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "12 hours"
 msgstr "Masaa 12"
@@ -193,6 +202,7 @@ msgid "Absolute (date and time)"
 msgstr "Kamili (tarehe na muda)"
 
 #: ../../../lib/web/src/components/game/game-draw-offer-banner.tsx
+#: src/features/chats/components/verification-watcher.tsx
 #: src/features/chats/index.tsx
 msgid "Accept"
 msgstr "Kubali"
@@ -326,6 +336,10 @@ msgstr "Inaongeza mwanachama..."
 msgid "Addresses"
 msgstr "Anwani"
 
+#: src/features/chats/roles.ts
+msgid "Administrator"
+msgstr "Msimamizi"
+
 #: src/features/chats/constants/reactions.ts
 msgid "Agree"
 msgstr "Kubali"
@@ -379,6 +393,10 @@ msgstr "Push ya Android"
 #: src/features/chats/constants/reactions.ts
 msgid "Angry"
 msgstr "Hasira"
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Another of your devices wants to verify this one."
+msgstr "Kifaa chako kingine kinataka kuthibitisha hiki."
 
 #: ../../../lib/web/src/features/access/access-list.tsx
 #: ../../../lib/web/src/features/access/types.ts
@@ -440,6 +458,10 @@ msgstr "Kama {0}"
 #: ../../../lib/web/src/components/ui/sort-direction-button.tsx
 msgid "Ascending"
 msgstr "Kupanda"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Asking to compare emoji..."
+msgstr "Inaomba kulinganisha emoji..."
 
 #: ../../../lib/web/src/components/timezone-select.tsx
 msgid "At sea"
@@ -599,6 +621,8 @@ msgstr "Kamera haipatikani"
 #: src/features/chats/components/chat-settings-dialog.tsx
 #: src/features/chats/components/forward-dialog.tsx
 #: src/features/chats/components/new-chat.tsx
+#: src/features/chats/components/verification-watcher.tsx
+#: src/features/chats/components/verification-watcher.tsx
 #: src/features/chats/index.tsx
 msgid "Cancel"
 msgstr "Ghairi"
@@ -735,6 +759,10 @@ msgstr "Gumzo limebanduliwa"
 msgid "Chats"
 msgstr "Magumzo"
 
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Check that the same emoji appear on the other screen."
+msgstr "Hakikisha kuwa emoji zilezile zinaonekana kwenye skrini nyingine."
+
 #: ../../../lib/web/src/hooks/use-field-type-labels.ts
 msgid "Checkbox"
 msgstr "Kisanduku cha kuteua"
@@ -867,6 +895,11 @@ msgstr "Maoni ({0})"
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Compact"
 msgstr "Fupi"
+
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Compare emoji"
+msgstr "Linganisha emoji"
 
 #: ../../../lib/web/src/components/entity/entity-option-dialog.tsx
 msgid "Configure option settings"
@@ -1028,6 +1061,7 @@ msgid "Date"
 msgstr "Tarehe"
 
 #: ../../../lib/web/src/components/game/game-draw-offer-banner.tsx
+#: src/features/chats/components/verification-watcher.tsx
 #: src/features/chats/index.tsx
 msgid "Decline"
 msgstr "Kataa"
@@ -1167,6 +1201,10 @@ msgstr "Paneli ya Undani"
 msgid "Detect from web browser"
 msgstr "Tambua kutoka kwa kivinjari cha wavuti"
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "Device options"
+msgstr "Chaguo za kifaa"
+
 #: ../../../lib/web/src/components/person-picker.tsx
 msgid "Directory"
 msgstr "Saraka"
@@ -1210,6 +1248,14 @@ msgstr "Ondoa"
 msgid "Displays the mobile sidebar."
 msgstr "Huonyesha utepe wa simu."
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "Distrust"
+msgstr "Usiamini"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Distrusted"
+msgstr "Hakiaminiki"
+
 #: src/features/chats/components/chat-input.tsx
 msgid "Document"
 msgstr "Hati"
@@ -1220,6 +1266,7 @@ msgstr "Hailingani na muundo unaohitajika"
 
 #: ../../../lib/web/src/components/entity/entity-field-dialog.tsx
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx
+#: src/features/chats/components/encryption-section.tsx
 msgid "Done"
 msgstr "Imekamilika"
 
@@ -1308,6 +1355,12 @@ msgstr "Msimbo wa barua pepe"
 msgid "Encrypted message"
 msgstr "Ujumbe uliosimbwa kwa njia fiche"
 
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+msgid "Encryption"
+msgstr "Usimbaji fiche"
+
 #: ../../../lib/web/src/components/calendar/time-grid.tsx
 msgid "Ends before it starts"
 msgstr "Inaisha kabla ya kuanza"
@@ -1315,6 +1368,11 @@ msgstr "Inaisha kabla ya kuanza"
 #: ../../../lib/web/src/components/banner-section.tsx
 msgid "Enter banner text (markdown supported)..."
 msgstr "Ingiza maandishi ya bango (markdown inakubaliwa)..."
+
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+msgid "Enter recovery key"
+msgstr "Ingiza ufunguo wa kurejesha"
 
 #: ../../../lib/web/src/components/step-up-dialog.tsx
 msgid "Enter the code from your email"
@@ -1498,6 +1556,7 @@ msgstr "Imeshindwa kubatilisha ufikiaji wa RSS"
 
 #: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx
 #: src/features/chats/components/chat-settings-dialog.tsx
+#: src/features/chats/components/encryption-section.tsx
 msgid "Failed to save"
 msgstr "Imeshindwa kuhifadhi"
 
@@ -1556,6 +1615,10 @@ msgstr "Alama"
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Flat"
 msgstr "Tambarare"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Forget my decision"
+msgstr "Sahau uamuzi wangu"
 
 #: src/features/chats/components/forward-dialog.tsx
 #: src/features/chats/components/message-hover-actions.tsx
@@ -1717,6 +1780,10 @@ msgstr "Nenda chini"
 #: ../../../lib/web/src/lib/locale-format.ts
 msgid "Just now"
 msgstr "Sasa hivi"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Keep this key safe. It is shown once, and your other Matrix clients ask for it to read your encrypted messages."
+msgstr "Hifadhi ufunguo huu mahali salama. Unaonyeshwa mara moja tu, na programu zako nyingine za Matrix huuomba ili kusoma ujumbe wako uliosimbwa kwa njia fiche."
 
 #: ../../../lib/web/src/components/entity/keyboard-shortcuts-help.tsx
 msgid "Keyboard shortcuts"
@@ -1974,6 +2041,10 @@ msgstr "Mochi wavuti"
 msgid "Moderation"
 msgstr "Udhibiti"
 
+#: src/features/chats/roles.ts
+msgid "Moderator"
+msgstr "Msimamizi"
+
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Monday"
 msgstr "Jumatatu"
@@ -2104,6 +2175,10 @@ msgstr "Hakuna gumzo la kusambaza"
 msgid "No comments yet"
 msgstr "Hakuna maoni bado"
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "No devices"
+msgstr "Hakuna vifaa"
+
 #: src/routes/_authenticated/$chatId_.settings.tsx
 msgid "No friends available"
 msgstr "Hakuna marafiki wanaopatikana"
@@ -2139,6 +2214,10 @@ msgstr "Hakuna ujumbe bado"
 #: src/features/chats/components/chat-input.tsx
 msgid "No microphone found"
 msgstr "Hakuna maikrofoni iliyopatikana"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "No other devices"
+msgstr "Hakuna vifaa vingine"
 
 #: ../../../lib/web/src/components/entity/entity-field-editor.tsx
 #: ../../../lib/web/src/components/person-picker.tsx
@@ -2224,6 +2303,11 @@ msgstr "Haikupatikana"
 #: ../../../lib/web/src/components/ui/editable-field-row.tsx
 msgid "Not set"
 msgstr "Haijawekwa"
+
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+msgid "Not verified"
+msgstr "Hakijathibitishwa"
 
 #: ../../../lib/web/src/components/entity/entity-tree-view.tsx
 msgid "Nothing found"
@@ -2327,6 +2411,7 @@ msgstr "Nyingine"
 
 #: ../../../lib/web/src/components/member-list.tsx
 #: ../../../lib/web/src/features/access/access-list.tsx
+#: src/features/chats/roles.ts
 msgid "Owner"
 msgstr "Mmiliki"
 
@@ -2352,6 +2437,10 @@ msgstr "Pasiki"
 #: ../../../lib/web/src/lib/shell-errors.ts
 msgid "Passkeys are not available in this browser"
 msgstr "Pasiki hazipatikani kwenye kivinjari hiki"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Password"
+msgstr "Nenosiri"
 
 #: ../../../lib/web/src/components/entity/entity-field-dialog.tsx
 msgid "Pattern (regex)"
@@ -2508,6 +2597,14 @@ msgstr "Kurekodi kumesimama kwenye kikomo cha dakika 5"
 #: src/features/chats/components/chat-input.tsx
 msgid "Recording voice note"
 msgstr "Inarekodi ujumbe wa sauti"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Recovery could not be set up"
+msgstr "Urejeshaji haukuweza kuwekwa"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Recovery key"
+msgstr "Ufunguo wa kurejesha"
 
 #: ../../../lib/web/src/components/layout/authenticated-layout.tsx
 msgid "Redirecting to login."
@@ -2673,6 +2770,10 @@ msgstr "Jiuzulu"
 msgid "Resign game?"
 msgstr "Jiuzulu mchezo?"
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "Restore"
+msgstr "Rejesha"
+
 #: ../../../lib/web/src/components/attachment-composer.tsx
 msgid "Retry"
 msgstr "Jaribu tena"
@@ -2730,7 +2831,12 @@ msgstr "Jumamosi"
 msgid "Save"
 msgstr "Hifadhi"
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "Saved"
+msgstr "Imehifadhiwa"
+
 #: src/features/chats/components/chat-settings-dialog.tsx
+#: src/features/chats/components/encryption-section.tsx
 msgid "Saving..."
 msgstr "Inahifadhi..."
 
@@ -2957,6 +3063,12 @@ msgstr "Kipindi kimeisha. Tafadhali ingia tena."
 msgid "Set origin and destination"
 msgstr "Weka chanzo na marudio"
 
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+msgid "Set up recovery"
+msgstr "Weka urejeshaji"
+
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx
 #: ../../../lib/web/src/components/options-menu.tsx
@@ -3142,6 +3254,10 @@ msgstr "Msimbo huo si sahihi au umekwisha muda wake."
 msgid "That could not be sent. The files may be too large, or your connection failed. Try smaller files."
 msgstr "Haikuweza kutumwa. Huenda faili ni kubwa mno, au muunganisho wako ulikatika. Jaribu faili ndogo zaidi."
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "That is not your recovery key"
+msgstr "Huu si ufunguo wako wa kurejesha"
+
 #: ../../../lib/web/src/hooks/use-attachment-error.ts
 #: ../../../lib/web/src/lib/handle-server-error.ts
 msgid "That was too large to upload. Remove or shrink files and try again."
@@ -3164,6 +3280,14 @@ msgstr "Jina la gumzo linaweza kuwa na herufi {CHAT_NAME_MAX_LENGTH} kwa juu zai
 msgid "The chat name cannot contain < or >"
 msgstr "Jina la gumzo haliwezi kuwa na < au >"
 
+#: src/features/chats/components/verification-watcher.tsx
+msgid "The emoji did not match, so the verification was cancelled"
+msgstr "Emoji hazikulingana, kwa hivyo uthibitishaji ulighairiwa"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "The fingerprint matches"
+msgstr "Alama ya kidole inalingana"
+
 #: ../../../lib/web/src/lib/shell-errors.ts
 msgid "The microphone request was not answered"
 msgstr "Ombi la maikrofoni halikujibiwa"
@@ -3171,6 +3295,10 @@ msgstr "Ombi la maikrofoni halikujibiwa"
 #: ../../../lib/web/src/lib/shell-errors.ts
 msgid "The passkey request was not answered"
 msgstr "Ombi la pasiki halikujibiwa"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "The password was not accepted"
+msgstr "Nenosiri halikukubaliwa"
 
 #: ../../../lib/web/src/features/errors/general-error.tsx
 msgid "The requested content could not be found."
@@ -3180,10 +3308,30 @@ msgstr "Maudhui yaliyoombwa hayakupatikana."
 msgid "The server returned a web page instead of data."
 msgstr "Seva ilirudisha ukurasa wa wavuti badala ya data."
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "The verification could not be started"
+msgstr "Uthibitishaji haukuweza kuanzishwa"
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "The verification could not go on"
+msgstr "Uthibitishaji haukuweza kuendelea"
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "The verification was cancelled"
+msgstr "Uthibitishaji ulighairiwa"
+
 #. placeholder {0}: unknown.join(', ')
 #: src/features/chats/index.tsx
 msgid "These names are not in this chat: {0}. Pick from the @ list or remove them."
 msgstr "Majina haya hayapo kwenye gumzo hili: {0}. Chagua kutoka kwenye orodha ya @ au yaondoe."
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "They don't match"
+msgstr "Hazilingani"
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "They match"
+msgstr "Zinalingana"
 
 #: src/routes/_authenticated/$chatId_.settings.tsx
 msgid "They stop receiving new messages in this chat."
@@ -3203,12 +3351,20 @@ msgid "This chat may have been deleted or you don't have access to it"
 msgstr "Gumzo hili huenda limefutwa au huna ufikiaji"
 
 #: src/features/chats/index.tsx
-msgid "This conversation is encrypted. Messages cannot be sent to it from here yet."
-msgstr "Mazungumzo haya yamesimbwa kwa njia fiche. Bado haiwezekani kutuma ujumbe kwake kutoka hapa."
-
-#: src/features/chats/index.tsx
 msgid "This deletes the message for everyone and cannot be undone."
 msgstr "Hii itafuta ujumbe kwa kila mtu na haiwezi kutenduliwa."
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "This device"
+msgstr "Kifaa hiki"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "This device (OMEMO 2)"
+msgstr "Kifaa hiki (OMEMO 2)"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "This device (OMEMO)"
+msgstr "Kifaa hiki (OMEMO)"
 
 #: src/features/chats/components/chat-message-list.tsx
 #: src/features/chats/components/message-quote.tsx
@@ -3406,14 +3562,28 @@ msgstr "Vigeu: {variables}"
 msgid "Verification code"
 msgstr "Msimbo wa uthibitishaji"
 
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Verified"
+msgstr "Imethibitishwa"
+
 #: ../../../lib/web/src/components/step-up-dialog.tsx
 #: ../../../lib/web/src/features/accounts/account-verify.tsx
 msgid "Verify"
 msgstr "Thibitisha"
 
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Verify {who}"
+msgstr "Thibitisha {who}"
+
 #: ../../../lib/web/src/features/accounts/account-verify.tsx
 msgid "Verify email address"
 msgstr "Thibitisha anwani ya barua pepe"
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Verify your device"
+msgstr "Thibitisha kifaa chako"
 
 #: ../../../lib/web/src/components/attachment-gallery.tsx
 #: src/features/chats/components/message-media-grid.tsx
@@ -3438,6 +3608,10 @@ msgstr "Tazama na hariri maelezo ya kipengee"
 msgid "View controls"
 msgstr "Tazama udhibiti"
 
+#: src/features/chats/roles.ts
+msgid "Visitor"
+msgstr "Mgeni"
+
 #: src/features/chats/components/voice-waveform.tsx
 msgid "Voice note waveform"
 msgstr "Umbo la mawimbi la ujumbe wa sauti"
@@ -3455,6 +3629,14 @@ msgstr "Kurekodi sauti hakutumiki kwenye kivinjari hiki"
 #: src/features/chats/components/chat-input.tsx
 msgid "Voice recording isn't available in this app version. Please update the app and try again."
 msgstr "Kurekodi sauti hakupatikani kwenye toleo hili la programu. Tafadhali sasisha programu kisha ujaribu tena."
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Waiting for the other device..."
+msgstr "Inasubiri kifaa kingine..."
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Waiting for them to accept"
+msgstr "Inasubiri wakubali"
 
 #: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx
 #: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx
@@ -3530,6 +3712,18 @@ msgstr "Akaunti yako ilihamishiwa hapa kutoka {source}. Mpaka uifute hapo, ujumb
 #: ../../../lib/web/src/components/comment-composer.tsx
 msgid "Your attachments will be lost."
 msgstr "Viambatisho vyako vitapotea."
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Your Matrix server asks for your account's password."
+msgstr "Seva yako ya Matrix inaomba nenosiri la akaunti yako."
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Your other devices"
+msgstr "Vifaa vyako vingine"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Your recovery key"
+msgstr "Ufunguo wako wa kurejesha"
 
 #: ../../../lib/web/src/components/comment-composer.tsx
 msgid "Your text and attachments will be lost."

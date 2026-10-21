@@ -65,6 +65,11 @@ msgstr "{0, plural, other {Xóa # tin nhắn?}}"
 msgid "{0, plural, one {# file changed} other {# files changed}}"
 msgstr "{0, plural, one {# tệp đã thay đổi} other {# tệp đã thay đổi}}"
 
+#. placeholder {0}: result.restored
+#: src/features/chats/components/encryption-section.tsx
+msgid "{0, plural, one {# message key restored} other {# message keys restored}}"
+msgstr "{0, plural, other {Đã khôi phục # khoá tin nhắn}}"
+
 #. placeholder {0}: message.replies
 #: src/features/chats/components/chat-message-list.tsx
 msgid "{0, plural, one {# reply} other {# replies}}"
@@ -175,6 +180,10 @@ msgstr "{truncated, plural, one {Còn # tệp nữa không hiển thị} other {
 msgid "{unreadCount, plural, one {Open menu (# unread notification)} other {Open menu (# unread notifications)}}"
 msgstr "{unreadCount, plural, one {Mở menu (# thông báo chưa đọc)} other {Mở menu (# thông báo chưa đọc)}}"
 
+#: src/features/chats/components/verification-watcher.tsx
+msgid "{who} wants to verify you."
+msgstr "{who} muốn xác minh bạn."
+
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "12 hours"
 msgstr "12 giờ"
@@ -193,6 +202,7 @@ msgid "Absolute (date and time)"
 msgstr "Tuyệt đối (ngày và giờ)"
 
 #: ../../../lib/web/src/components/game/game-draw-offer-banner.tsx
+#: src/features/chats/components/verification-watcher.tsx
 #: src/features/chats/index.tsx
 msgid "Accept"
 msgstr "Chấp nhận"
@@ -326,6 +336,10 @@ msgstr "Đang thêm thành viên..."
 msgid "Addresses"
 msgstr "Địa chỉ"
 
+#: src/features/chats/roles.ts
+msgid "Administrator"
+msgstr "Quản trị viên"
+
 #: src/features/chats/constants/reactions.ts
 msgid "Agree"
 msgstr "Đồng ý"
@@ -379,6 +393,10 @@ msgstr "Push Android"
 #: src/features/chats/constants/reactions.ts
 msgid "Angry"
 msgstr "Tức giận"
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Another of your devices wants to verify this one."
+msgstr "Một thiết bị khác của bạn muốn xác minh thiết bị này."
 
 #: ../../../lib/web/src/features/access/access-list.tsx
 #: ../../../lib/web/src/features/access/types.ts
@@ -440,6 +458,10 @@ msgstr "Với tư cách {0}"
 #: ../../../lib/web/src/components/ui/sort-direction-button.tsx
 msgid "Ascending"
 msgstr "Tăng dần"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Asking to compare emoji..."
+msgstr "Đang yêu cầu so sánh biểu tượng cảm xúc..."
 
 #: ../../../lib/web/src/components/timezone-select.tsx
 msgid "At sea"
@@ -599,6 +621,8 @@ msgstr "Camera không khả dụng"
 #: src/features/chats/components/chat-settings-dialog.tsx
 #: src/features/chats/components/forward-dialog.tsx
 #: src/features/chats/components/new-chat.tsx
+#: src/features/chats/components/verification-watcher.tsx
+#: src/features/chats/components/verification-watcher.tsx
 #: src/features/chats/index.tsx
 msgid "Cancel"
 msgstr "Hủy"
@@ -735,6 +759,10 @@ msgstr "Đã bỏ ghim cuộc trò chuyện"
 msgid "Chats"
 msgstr "Trò chuyện"
 
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Check that the same emoji appear on the other screen."
+msgstr "Kiểm tra xem màn hình bên kia có hiển thị cùng các biểu tượng cảm xúc không."
+
 #: ../../../lib/web/src/hooks/use-field-type-labels.ts
 msgid "Checkbox"
 msgstr "Hộp kiểm"
@@ -867,6 +895,11 @@ msgstr "Bình luận ({0})"
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Compact"
 msgstr "Gọn"
+
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Compare emoji"
+msgstr "So sánh biểu tượng cảm xúc"
 
 #: ../../../lib/web/src/components/entity/entity-option-dialog.tsx
 msgid "Configure option settings"
@@ -1028,6 +1061,7 @@ msgid "Date"
 msgstr "Ngày"
 
 #: ../../../lib/web/src/components/game/game-draw-offer-banner.tsx
+#: src/features/chats/components/verification-watcher.tsx
 #: src/features/chats/index.tsx
 msgid "Decline"
 msgstr "Từ chối"
@@ -1167,6 +1201,10 @@ msgstr "Bảng chi tiết"
 msgid "Detect from web browser"
 msgstr "Phát hiện từ trình duyệt web"
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "Device options"
+msgstr "Tùy chọn thiết bị"
+
 #: ../../../lib/web/src/components/person-picker.tsx
 msgid "Directory"
 msgstr "Danh bạ"
@@ -1210,6 +1248,14 @@ msgstr "Bỏ qua"
 msgid "Displays the mobile sidebar."
 msgstr "Hiển thị thanh bên di động."
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "Distrust"
+msgstr "Đánh dấu không tin cậy"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Distrusted"
+msgstr "Không tin cậy"
+
 #: src/features/chats/components/chat-input.tsx
 msgid "Document"
 msgstr "Tài liệu"
@@ -1220,6 +1266,7 @@ msgstr "Không khớp với mẫu bắt buộc"
 
 #: ../../../lib/web/src/components/entity/entity-field-dialog.tsx
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx
+#: src/features/chats/components/encryption-section.tsx
 msgid "Done"
 msgstr "Xong"
 
@@ -1308,6 +1355,12 @@ msgstr "Mã email"
 msgid "Encrypted message"
 msgstr "Tin nhắn được mã hóa"
 
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+msgid "Encryption"
+msgstr "Mã hóa"
+
 #: ../../../lib/web/src/components/calendar/time-grid.tsx
 msgid "Ends before it starts"
 msgstr "Kết thúc trước khi bắt đầu"
@@ -1315,6 +1368,11 @@ msgstr "Kết thúc trước khi bắt đầu"
 #: ../../../lib/web/src/components/banner-section.tsx
 msgid "Enter banner text (markdown supported)..."
 msgstr "Nhập nội dung biểu ngữ (hỗ trợ markdown)..."
+
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+msgid "Enter recovery key"
+msgstr "Nhập khoá khôi phục"
 
 #: ../../../lib/web/src/components/step-up-dialog.tsx
 msgid "Enter the code from your email"
@@ -1498,6 +1556,7 @@ msgstr "Không thể thu hồi quyền truy cập RSS"
 
 #: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx
 #: src/features/chats/components/chat-settings-dialog.tsx
+#: src/features/chats/components/encryption-section.tsx
 msgid "Failed to save"
 msgstr "Không lưu được"
 
@@ -1556,6 +1615,10 @@ msgstr "Cờ"
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Flat"
 msgstr "Phẳng"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Forget my decision"
+msgstr "Xoá quyết định của tôi"
 
 #: src/features/chats/components/forward-dialog.tsx
 #: src/features/chats/components/message-hover-actions.tsx
@@ -1717,6 +1780,10 @@ msgstr "Xuống cuối"
 #: ../../../lib/web/src/lib/locale-format.ts
 msgid "Just now"
 msgstr "Vừa xong"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Keep this key safe. It is shown once, and your other Matrix clients ask for it to read your encrypted messages."
+msgstr "Hãy giữ khoá này an toàn. Khoá chỉ hiển thị một lần và các ứng dụng Matrix khác của bạn sẽ yêu cầu khoá này để đọc tin nhắn được mã hóa của bạn."
 
 #: ../../../lib/web/src/components/entity/keyboard-shortcuts-help.tsx
 msgid "Keyboard shortcuts"
@@ -1974,6 +2041,10 @@ msgstr "Web Mochi"
 msgid "Moderation"
 msgstr "Kiểm duyệt"
 
+#: src/features/chats/roles.ts
+msgid "Moderator"
+msgstr "Người kiểm duyệt"
+
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Monday"
 msgstr "Thứ Hai"
@@ -2104,6 +2175,10 @@ msgstr "Không có cuộc trò chuyện nào để chuyển tiếp"
 msgid "No comments yet"
 msgstr "Chưa có bình luận"
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "No devices"
+msgstr "Không có thiết bị nào"
+
 #: src/routes/_authenticated/$chatId_.settings.tsx
 msgid "No friends available"
 msgstr "Không có bạn bè nào"
@@ -2139,6 +2214,10 @@ msgstr "Chưa có tin nhắn"
 #: src/features/chats/components/chat-input.tsx
 msgid "No microphone found"
 msgstr "Không tìm thấy micrô"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "No other devices"
+msgstr "Không có thiết bị nào khác"
 
 #: ../../../lib/web/src/components/entity/entity-field-editor.tsx
 #: ../../../lib/web/src/components/person-picker.tsx
@@ -2224,6 +2303,11 @@ msgstr "Không tìm thấy"
 #: ../../../lib/web/src/components/ui/editable-field-row.tsx
 msgid "Not set"
 msgstr "Chưa đặt"
+
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+msgid "Not verified"
+msgstr "Chưa xác minh"
 
 #: ../../../lib/web/src/components/entity/entity-tree-view.tsx
 msgid "Nothing found"
@@ -2327,6 +2411,7 @@ msgstr "Khác"
 
 #: ../../../lib/web/src/components/member-list.tsx
 #: ../../../lib/web/src/features/access/access-list.tsx
+#: src/features/chats/roles.ts
 msgid "Owner"
 msgstr "Chủ sở hữu"
 
@@ -2352,6 +2437,10 @@ msgstr "Mã khóa"
 #: ../../../lib/web/src/lib/shell-errors.ts
 msgid "Passkeys are not available in this browser"
 msgstr "Mã khóa không khả dụng trên trình duyệt này"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Password"
+msgstr "Mật khẩu"
 
 #: ../../../lib/web/src/components/entity/entity-field-dialog.tsx
 msgid "Pattern (regex)"
@@ -2508,6 +2597,14 @@ msgstr "Ghi âm dừng ở giới hạn 5 phút"
 #: src/features/chats/components/chat-input.tsx
 msgid "Recording voice note"
 msgstr "Đang ghi âm tin nhắn thoại"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Recovery could not be set up"
+msgstr "Không thể thiết lập khôi phục"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Recovery key"
+msgstr "Khoá khôi phục"
 
 #: ../../../lib/web/src/components/layout/authenticated-layout.tsx
 msgid "Redirecting to login."
@@ -2673,6 +2770,10 @@ msgstr "Đầu hàng"
 msgid "Resign game?"
 msgstr "Đầu hàng trận đấu?"
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "Restore"
+msgstr "Khôi phục"
+
 #: ../../../lib/web/src/components/attachment-composer.tsx
 msgid "Retry"
 msgstr "Thử lại"
@@ -2730,7 +2831,12 @@ msgstr "Thứ bảy"
 msgid "Save"
 msgstr "Lưu"
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "Saved"
+msgstr "Đã lưu"
+
 #: src/features/chats/components/chat-settings-dialog.tsx
+#: src/features/chats/components/encryption-section.tsx
 msgid "Saving..."
 msgstr "Đang lưu..."
 
@@ -2957,6 +3063,12 @@ msgstr "Phiên đã hết hạn. Vui lòng đăng nhập lại."
 msgid "Set origin and destination"
 msgstr "Đặt điểm xuất phát và điểm đến"
 
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+msgid "Set up recovery"
+msgstr "Thiết lập khôi phục"
+
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx
 #: ../../../lib/web/src/components/options-menu.tsx
@@ -3142,6 +3254,10 @@ msgstr "Mã đó không đúng hoặc đã hết hạn."
 msgid "That could not be sent. The files may be too large, or your connection failed. Try smaller files."
 msgstr "Không thể gửi. Tệp có thể quá lớn, hoặc kết nối của bạn bị lỗi. Hãy thử tệp nhỏ hơn."
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "That is not your recovery key"
+msgstr "Đó không phải là khoá khôi phục của bạn"
+
 #: ../../../lib/web/src/hooks/use-attachment-error.ts
 #: ../../../lib/web/src/lib/handle-server-error.ts
 msgid "That was too large to upload. Remove or shrink files and try again."
@@ -3164,6 +3280,14 @@ msgstr "Tên cuộc trò chuyện có thể dài tối đa {CHAT_NAME_MAX_LENGTH
 msgid "The chat name cannot contain < or >"
 msgstr "Tên cuộc trò chuyện không được chứa < hoặc >"
 
+#: src/features/chats/components/verification-watcher.tsx
+msgid "The emoji did not match, so the verification was cancelled"
+msgstr "Biểu tượng cảm xúc không khớp nên quá trình xác minh đã bị hủy"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "The fingerprint matches"
+msgstr "Dấu vân tay khớp"
+
 #: ../../../lib/web/src/lib/shell-errors.ts
 msgid "The microphone request was not answered"
 msgstr "Yêu cầu micrô không được trả lời"
@@ -3171,6 +3295,10 @@ msgstr "Yêu cầu micrô không được trả lời"
 #: ../../../lib/web/src/lib/shell-errors.ts
 msgid "The passkey request was not answered"
 msgstr "Yêu cầu mã khóa không được trả lời"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "The password was not accepted"
+msgstr "Mật khẩu không được chấp nhận"
 
 #: ../../../lib/web/src/features/errors/general-error.tsx
 msgid "The requested content could not be found."
@@ -3180,10 +3308,30 @@ msgstr "Không tìm thấy nội dung được yêu cầu."
 msgid "The server returned a web page instead of data."
 msgstr "Máy chủ đã trả về một trang web thay vì dữ liệu."
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "The verification could not be started"
+msgstr "Không thể bắt đầu xác minh"
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "The verification could not go on"
+msgstr "Không thể tiếp tục xác minh"
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "The verification was cancelled"
+msgstr "Quá trình xác minh đã bị hủy"
+
 #. placeholder {0}: unknown.join(', ')
 #: src/features/chats/index.tsx
 msgid "These names are not in this chat: {0}. Pick from the @ list or remove them."
 msgstr "Những tên này không có trong cuộc trò chuyện: {0}. Hãy chọn từ danh sách @ hoặc xóa họ."
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "They don't match"
+msgstr "Không khớp nhau"
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "They match"
+msgstr "Có, khớp nhau"
 
 #: src/routes/_authenticated/$chatId_.settings.tsx
 msgid "They stop receiving new messages in this chat."
@@ -3203,12 +3351,20 @@ msgid "This chat may have been deleted or you don't have access to it"
 msgstr "Cuộc trò chuyện này có thể đã bị xóa hoặc bạn không có quyền truy cập"
 
 #: src/features/chats/index.tsx
-msgid "This conversation is encrypted. Messages cannot be sent to it from here yet."
-msgstr "Cuộc trò chuyện này được mã hóa. Hiện chưa thể gửi tin nhắn đến cuộc trò chuyện này từ đây."
-
-#: src/features/chats/index.tsx
 msgid "This deletes the message for everyone and cannot be undone."
 msgstr "Thao tác này sẽ xóa tin nhắn đối với mọi người và không thể hoàn tác."
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "This device"
+msgstr "Thiết bị này"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "This device (OMEMO 2)"
+msgstr "Thiết bị này (OMEMO 2)"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "This device (OMEMO)"
+msgstr "Thiết bị này (OMEMO)"
 
 #: src/features/chats/components/chat-message-list.tsx
 #: src/features/chats/components/message-quote.tsx
@@ -3406,14 +3562,28 @@ msgstr "Biến: {variables}"
 msgid "Verification code"
 msgstr "Mã xác minh"
 
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Verified"
+msgstr "Đã xác minh"
+
 #: ../../../lib/web/src/components/step-up-dialog.tsx
 #: ../../../lib/web/src/features/accounts/account-verify.tsx
 msgid "Verify"
 msgstr "Xác minh"
 
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Verify {who}"
+msgstr "Xác minh {who}"
+
 #: ../../../lib/web/src/features/accounts/account-verify.tsx
 msgid "Verify email address"
 msgstr "Xác minh địa chỉ email"
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Verify your device"
+msgstr "Xác minh thiết bị của bạn"
 
 #: ../../../lib/web/src/components/attachment-gallery.tsx
 #: src/features/chats/components/message-media-grid.tsx
@@ -3438,6 +3608,10 @@ msgstr "Xem và chỉnh sửa chi tiết mục"
 msgid "View controls"
 msgstr "Điều khiển xem"
 
+#: src/features/chats/roles.ts
+msgid "Visitor"
+msgstr "Khách"
+
 #: src/features/chats/components/voice-waveform.tsx
 msgid "Voice note waveform"
 msgstr "Dạng sóng tin nhắn thoại"
@@ -3455,6 +3629,14 @@ msgstr "Trình duyệt này không hỗ trợ ghi âm giọng nói"
 #: src/features/chats/components/chat-input.tsx
 msgid "Voice recording isn't available in this app version. Please update the app and try again."
 msgstr "Phiên bản ứng dụng này không hỗ trợ ghi âm giọng nói. Vui lòng cập nhật ứng dụng và thử lại."
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Waiting for the other device..."
+msgstr "Đang chờ thiết bị kia..."
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Waiting for them to accept"
+msgstr "Đang chờ họ chấp nhận"
 
 #: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx
 #: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx
@@ -3530,6 +3712,18 @@ msgstr "Tài khoản của bạn đã được chuyển đến đây từ {sourc
 #: ../../../lib/web/src/components/comment-composer.tsx
 msgid "Your attachments will be lost."
 msgstr "Tệp đính kèm của bạn sẽ bị mất."
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Your Matrix server asks for your account's password."
+msgstr "Máy chủ Matrix của bạn yêu cầu mật khẩu tài khoản của bạn."
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Your other devices"
+msgstr "Các thiết bị khác của bạn"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Your recovery key"
+msgstr "Khoá khôi phục của bạn"
 
 #: ../../../lib/web/src/components/comment-composer.tsx
 msgid "Your text and attachments will be lost."

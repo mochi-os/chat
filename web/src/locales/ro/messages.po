@@ -65,6 +65,11 @@ msgstr "{0, plural, =1 {Ștergi mesajul?} few {Ștergi # mesaje?} other {Ștergi
 msgid "{0, plural, one {# file changed} other {# files changed}}"
 msgstr "{0, plural, one {# fișier modificat} few {# fișiere modificate} other {# de fișiere modificate}}"
 
+#. placeholder {0}: result.restored
+#: src/features/chats/components/encryption-section.tsx
+msgid "{0, plural, one {# message key restored} other {# message keys restored}}"
+msgstr "{0, plural, one {# cheie de mesaj restaurată} few {# chei de mesaj restaurate} other {# de chei de mesaj restaurate}}"
+
 #. placeholder {0}: message.replies
 #: src/features/chats/components/chat-message-list.tsx
 msgid "{0, plural, one {# reply} other {# replies}}"
@@ -175,6 +180,10 @@ msgstr "{truncated, plural, one {Încă # fișier neafișat} few {Încă # fiși
 msgid "{unreadCount, plural, one {Open menu (# unread notification)} other {Open menu (# unread notifications)}}"
 msgstr "{unreadCount, plural, one {Deschideți meniul (# notificare necitită)} few {Deschideți meniul (# notificări necitite)} other {Deschideți meniul (# de notificări necitite)}}"
 
+#: src/features/chats/components/verification-watcher.tsx
+msgid "{who} wants to verify you."
+msgstr "{who} vrea să te verifice."
+
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "12 hours"
 msgstr "12 ore"
@@ -193,6 +202,7 @@ msgid "Absolute (date and time)"
 msgstr "Absolut (dată și oră)"
 
 #: ../../../lib/web/src/components/game/game-draw-offer-banner.tsx
+#: src/features/chats/components/verification-watcher.tsx
 #: src/features/chats/index.tsx
 msgid "Accept"
 msgstr "Acceptă"
@@ -326,6 +336,10 @@ msgstr "Se adaugă membrul..."
 msgid "Addresses"
 msgstr "Adrese"
 
+#: src/features/chats/roles.ts
+msgid "Administrator"
+msgstr "Administrator"
+
 #: src/features/chats/constants/reactions.ts
 msgid "Agree"
 msgstr "De acord"
@@ -379,6 +393,10 @@ msgstr "Push Android"
 #: src/features/chats/constants/reactions.ts
 msgid "Angry"
 msgstr "Supărat"
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Another of your devices wants to verify this one."
+msgstr "Un alt dispozitiv al tău vrea să îl verifice pe acesta."
 
 #: ../../../lib/web/src/features/access/access-list.tsx
 #: ../../../lib/web/src/features/access/types.ts
@@ -440,6 +458,10 @@ msgstr "Ca {0}"
 #: ../../../lib/web/src/components/ui/sort-direction-button.tsx
 msgid "Ascending"
 msgstr "Crescător"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Asking to compare emoji..."
+msgstr "Se solicită compararea emoji..."
 
 #: ../../../lib/web/src/components/timezone-select.tsx
 msgid "At sea"
@@ -599,6 +621,8 @@ msgstr "Camera nu este disponibilă"
 #: src/features/chats/components/chat-settings-dialog.tsx
 #: src/features/chats/components/forward-dialog.tsx
 #: src/features/chats/components/new-chat.tsx
+#: src/features/chats/components/verification-watcher.tsx
+#: src/features/chats/components/verification-watcher.tsx
 #: src/features/chats/index.tsx
 msgid "Cancel"
 msgstr "Anulează"
@@ -735,6 +759,10 @@ msgstr "Fixarea chatului a fost anulată"
 msgid "Chats"
 msgstr "Chaturi"
 
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Check that the same emoji appear on the other screen."
+msgstr "Verifică dacă pe celălalt ecran apar aceleași emoji."
+
 #: ../../../lib/web/src/hooks/use-field-type-labels.ts
 msgid "Checkbox"
 msgstr "Casetă de selectare"
@@ -867,6 +895,11 @@ msgstr "Comentarii ({0})"
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Compact"
 msgstr "Compact"
+
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Compare emoji"
+msgstr "Compară emoji"
 
 #: ../../../lib/web/src/components/entity/entity-option-dialog.tsx
 msgid "Configure option settings"
@@ -1028,6 +1061,7 @@ msgid "Date"
 msgstr "Dată"
 
 #: ../../../lib/web/src/components/game/game-draw-offer-banner.tsx
+#: src/features/chats/components/verification-watcher.tsx
 #: src/features/chats/index.tsx
 msgid "Decline"
 msgstr "Respinge"
@@ -1167,6 +1201,10 @@ msgstr "Panou detalii"
 msgid "Detect from web browser"
 msgstr "Detectează din browser"
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "Device options"
+msgstr "Opțiuni dispozitiv"
+
 #: ../../../lib/web/src/components/person-picker.tsx
 msgid "Directory"
 msgstr "Director"
@@ -1210,6 +1248,14 @@ msgstr "Renunță"
 msgid "Displays the mobile sidebar."
 msgstr "Afișează bara laterală mobilă."
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "Distrust"
+msgstr "Marchează ca nesigur"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Distrusted"
+msgstr "Nesigur"
+
 #: src/features/chats/components/chat-input.tsx
 msgid "Document"
 msgstr "Document"
@@ -1220,6 +1266,7 @@ msgstr "Nu corespunde modelului necesar"
 
 #: ../../../lib/web/src/components/entity/entity-field-dialog.tsx
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx
+#: src/features/chats/components/encryption-section.tsx
 msgid "Done"
 msgstr "Terminat"
 
@@ -1308,6 +1355,12 @@ msgstr "Cod email"
 msgid "Encrypted message"
 msgstr "Mesaj criptat"
 
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+msgid "Encryption"
+msgstr "Criptare"
+
 #: ../../../lib/web/src/components/calendar/time-grid.tsx
 msgid "Ends before it starts"
 msgstr "Se termină înainte să înceapă"
@@ -1315,6 +1368,11 @@ msgstr "Se termină înainte să înceapă"
 #: ../../../lib/web/src/components/banner-section.tsx
 msgid "Enter banner text (markdown supported)..."
 msgstr "Introdu textul bannerului (markdown acceptat)..."
+
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+msgid "Enter recovery key"
+msgstr "Introdu cheia de recuperare"
 
 #: ../../../lib/web/src/components/step-up-dialog.tsx
 msgid "Enter the code from your email"
@@ -1498,6 +1556,7 @@ msgstr "Revocarea accesului RSS a eșuat"
 
 #: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx
 #: src/features/chats/components/chat-settings-dialog.tsx
+#: src/features/chats/components/encryption-section.tsx
 msgid "Failed to save"
 msgstr "Salvarea a eșuat"
 
@@ -1556,6 +1615,10 @@ msgstr "Indicatoare"
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Flat"
 msgstr "Plat"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Forget my decision"
+msgstr "Uită decizia mea"
 
 #: src/features/chats/components/forward-dialog.tsx
 #: src/features/chats/components/message-hover-actions.tsx
@@ -1717,6 +1780,10 @@ msgstr "Sari la final"
 #: ../../../lib/web/src/lib/locale-format.ts
 msgid "Just now"
 msgstr "Chiar acum"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Keep this key safe. It is shown once, and your other Matrix clients ask for it to read your encrypted messages."
+msgstr "Păstrează această cheie în siguranță. Este afișată o singură dată, iar ceilalți clienți Matrix ai tăi o cer pentru a-ți citi mesajele criptate."
 
 #: ../../../lib/web/src/components/entity/keyboard-shortcuts-help.tsx
 msgid "Keyboard shortcuts"
@@ -1974,6 +2041,10 @@ msgstr "Mochi web"
 msgid "Moderation"
 msgstr "Moderare"
 
+#: src/features/chats/roles.ts
+msgid "Moderator"
+msgstr "Moderator"
+
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Monday"
 msgstr "Luni"
@@ -2104,6 +2175,10 @@ msgstr "Niciun chat către care să redirecționezi"
 msgid "No comments yet"
 msgstr "Încă niciun comentariu"
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "No devices"
+msgstr "Niciun dispozitiv"
+
 #: src/routes/_authenticated/$chatId_.settings.tsx
 msgid "No friends available"
 msgstr "Niciun prieten disponibil"
@@ -2139,6 +2214,10 @@ msgstr "Încă niciun mesaj"
 #: src/features/chats/components/chat-input.tsx
 msgid "No microphone found"
 msgstr "Nu s-a găsit niciun microfon"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "No other devices"
+msgstr "Niciun alt dispozitiv"
 
 #: ../../../lib/web/src/components/entity/entity-field-editor.tsx
 #: ../../../lib/web/src/components/person-picker.tsx
@@ -2224,6 +2303,11 @@ msgstr "Nu a fost găsit"
 #: ../../../lib/web/src/components/ui/editable-field-row.tsx
 msgid "Not set"
 msgstr "Nesetat"
+
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+msgid "Not verified"
+msgstr "Neverificat"
 
 #: ../../../lib/web/src/components/entity/entity-tree-view.tsx
 msgid "Nothing found"
@@ -2327,6 +2411,7 @@ msgstr "Altele"
 
 #: ../../../lib/web/src/components/member-list.tsx
 #: ../../../lib/web/src/features/access/access-list.tsx
+#: src/features/chats/roles.ts
 msgid "Owner"
 msgstr "Proprietar"
 
@@ -2352,6 +2437,10 @@ msgstr "Chei de acces"
 #: ../../../lib/web/src/lib/shell-errors.ts
 msgid "Passkeys are not available in this browser"
 msgstr "Cheile de acces nu sunt disponibile în acest browser"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Password"
+msgstr "Parolă"
 
 #: ../../../lib/web/src/components/entity/entity-field-dialog.tsx
 msgid "Pattern (regex)"
@@ -2508,6 +2597,14 @@ msgstr "Înregistrarea s-a oprit la limita de 5 minute"
 #: src/features/chats/components/chat-input.tsx
 msgid "Recording voice note"
 msgstr "Se înregistrează nota vocală"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Recovery could not be set up"
+msgstr "Recuperarea nu a putut fi configurată"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Recovery key"
+msgstr "Cheie de recuperare"
 
 #: ../../../lib/web/src/components/layout/authenticated-layout.tsx
 msgid "Redirecting to login."
@@ -2673,6 +2770,10 @@ msgstr "Abandonează"
 msgid "Resign game?"
 msgstr "Abandonezi jocul?"
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "Restore"
+msgstr "Restaurează"
+
 #: ../../../lib/web/src/components/attachment-composer.tsx
 msgid "Retry"
 msgstr "Reîncearcă"
@@ -2730,7 +2831,12 @@ msgstr "Sâmbătă"
 msgid "Save"
 msgstr "Salvează"
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "Saved"
+msgstr "Salvat"
+
 #: src/features/chats/components/chat-settings-dialog.tsx
+#: src/features/chats/components/encryption-section.tsx
 msgid "Saving..."
 msgstr "Se salvează..."
 
@@ -2957,6 +3063,12 @@ msgstr "Sesiunea a expirat. Autentificați-vă din nou."
 msgid "Set origin and destination"
 msgstr "Setează originea și destinația"
 
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+msgid "Set up recovery"
+msgstr "Configurează recuperarea"
+
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx
 #: ../../../lib/web/src/components/options-menu.tsx
@@ -3142,6 +3254,10 @@ msgstr "Acel cod este incorect sau a expirat."
 msgid "That could not be sent. The files may be too large, or your connection failed. Try smaller files."
 msgstr "Nu s-a putut trimite. Fișierele pot fi prea mari sau conexiunea a eșuat. Încercați fișiere mai mici."
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "That is not your recovery key"
+msgstr "Aceasta nu este cheia ta de recuperare"
+
 #: ../../../lib/web/src/hooks/use-attachment-error.ts
 #: ../../../lib/web/src/lib/handle-server-error.ts
 msgid "That was too large to upload. Remove or shrink files and try again."
@@ -3164,6 +3280,14 @@ msgstr "Numele conversației poate avea cel mult {CHAT_NAME_MAX_LENGTH} caracter
 msgid "The chat name cannot contain < or >"
 msgstr "Numele conversației nu poate conține < sau >"
 
+#: src/features/chats/components/verification-watcher.tsx
+msgid "The emoji did not match, so the verification was cancelled"
+msgstr "Emoji nu s-au potrivit, așa că verificarea a fost anulată"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "The fingerprint matches"
+msgstr "Amprenta se potrivește"
+
 #: ../../../lib/web/src/lib/shell-errors.ts
 msgid "The microphone request was not answered"
 msgstr "Solicitarea microfonului nu a primit răspuns"
@@ -3171,6 +3295,10 @@ msgstr "Solicitarea microfonului nu a primit răspuns"
 #: ../../../lib/web/src/lib/shell-errors.ts
 msgid "The passkey request was not answered"
 msgstr "Solicitarea cheii de acces nu a primit răspuns"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "The password was not accepted"
+msgstr "Parola nu a fost acceptată"
 
 #: ../../../lib/web/src/features/errors/general-error.tsx
 msgid "The requested content could not be found."
@@ -3180,10 +3308,30 @@ msgstr "Conținutul solicitat nu a putut fi găsit."
 msgid "The server returned a web page instead of data."
 msgstr "Serverul a returnat o pagină web în loc de date."
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "The verification could not be started"
+msgstr "Verificarea nu a putut fi pornită"
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "The verification could not go on"
+msgstr "Verificarea nu a putut continua"
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "The verification was cancelled"
+msgstr "Verificarea a fost anulată"
+
 #. placeholder {0}: unknown.join(', ')
 #: src/features/chats/index.tsx
 msgid "These names are not in this chat: {0}. Pick from the @ list or remove them."
 msgstr "Aceste nume nu sunt în această conversație: {0}. Alegeți din lista @ sau eliminați-le."
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "They don't match"
+msgstr "Nu se potrivesc"
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "They match"
+msgstr "Da, se potrivesc"
 
 #: src/routes/_authenticated/$chatId_.settings.tsx
 msgid "They stop receiving new messages in this chat."
@@ -3203,12 +3351,20 @@ msgid "This chat may have been deleted or you don't have access to it"
 msgstr "Acest chat poate să fi fost șters sau nu ai acces la el"
 
 #: src/features/chats/index.tsx
-msgid "This conversation is encrypted. Messages cannot be sent to it from here yet."
-msgstr "Această conversație este criptată. Încă nu se pot trimite mesaje în ea de aici."
-
-#: src/features/chats/index.tsx
 msgid "This deletes the message for everyone and cannot be undone."
 msgstr "Mesajul va fi șters pentru toți și nu se poate anula."
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "This device"
+msgstr "Acest dispozitiv"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "This device (OMEMO 2)"
+msgstr "Acest dispozitiv (OMEMO 2)"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "This device (OMEMO)"
+msgstr "Acest dispozitiv (OMEMO)"
 
 #: src/features/chats/components/chat-message-list.tsx
 #: src/features/chats/components/message-quote.tsx
@@ -3406,14 +3562,28 @@ msgstr "Variabile: {variables}"
 msgid "Verification code"
 msgstr "Cod de verificare"
 
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Verified"
+msgstr "Verificat"
+
 #: ../../../lib/web/src/components/step-up-dialog.tsx
 #: ../../../lib/web/src/features/accounts/account-verify.tsx
 msgid "Verify"
 msgstr "Verifică"
 
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Verify {who}"
+msgstr "Verifică {who}"
+
 #: ../../../lib/web/src/features/accounts/account-verify.tsx
 msgid "Verify email address"
 msgstr "Verifică adresa de email"
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Verify your device"
+msgstr "Verifică-ți dispozitivul"
 
 #: ../../../lib/web/src/components/attachment-gallery.tsx
 #: src/features/chats/components/message-media-grid.tsx
@@ -3438,6 +3608,10 @@ msgstr "Vizualizează și editează detaliile elementului"
 msgid "View controls"
 msgstr "Controale de vizualizare"
 
+#: src/features/chats/roles.ts
+msgid "Visitor"
+msgstr "Vizitator"
+
 #: src/features/chats/components/voice-waveform.tsx
 msgid "Voice note waveform"
 msgstr "Forma de undă a notei vocale"
@@ -3455,6 +3629,14 @@ msgstr "Înregistrarea vocală nu este acceptată în acest browser"
 #: src/features/chats/components/chat-input.tsx
 msgid "Voice recording isn't available in this app version. Please update the app and try again."
 msgstr "Înregistrarea vocală nu este disponibilă în această versiune a aplicației. Actualizați aplicația și încercați din nou."
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Waiting for the other device..."
+msgstr "Se așteaptă celălalt dispozitiv..."
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Waiting for them to accept"
+msgstr "Se așteaptă acceptarea"
 
 #: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx
 #: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx
@@ -3530,6 +3712,18 @@ msgstr "Contul dvs. a fost mutat aici de la {source}. Până când îl ștergeț
 #: ../../../lib/web/src/components/comment-composer.tsx
 msgid "Your attachments will be lost."
 msgstr "Atașamentele tale se vor pierde."
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Your Matrix server asks for your account's password."
+msgstr "Serverul tău Matrix cere parola contului tău."
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Your other devices"
+msgstr "Celelalte dispozitive ale tale"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Your recovery key"
+msgstr "Cheia ta de recuperare"
 
 #: ../../../lib/web/src/components/comment-composer.tsx
 msgid "Your text and attachments will be lost."

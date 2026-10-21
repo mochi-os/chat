@@ -65,6 +65,11 @@ msgstr "{0, plural, =1 {Vee boodskap uit?} other {Vee # boodskappe uit?}}"
 msgid "{0, plural, one {# file changed} other {# files changed}}"
 msgstr "{0, plural, one {# lêer verander} other {# lêers verander}}"
 
+#. placeholder {0}: result.restored
+#: src/features/chats/components/encryption-section.tsx
+msgid "{0, plural, one {# message key restored} other {# message keys restored}}"
+msgstr "{0, plural, one {# boodskapsleutel herstel} other {# boodskapsleutels herstel}}"
+
 #. placeholder {0}: message.replies
 #: src/features/chats/components/chat-message-list.tsx
 msgid "{0, plural, one {# reply} other {# replies}}"
@@ -175,6 +180,10 @@ msgstr "{truncated, plural, one {# verdere lêer nie gewys nie} other {# verdere
 msgid "{unreadCount, plural, one {Open menu (# unread notification)} other {Open menu (# unread notifications)}}"
 msgstr "{unreadCount, plural, one {Open kieslys (# ongeleeste kennisgewing)} other {Open kieslys (# ongeleeste kennisgewings)}}"
 
+#: src/features/chats/components/verification-watcher.tsx
+msgid "{who} wants to verify you."
+msgstr "{who} wil jou verifieer."
+
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "12 hours"
 msgstr "12 uur"
@@ -193,6 +202,7 @@ msgid "Absolute (date and time)"
 msgstr "Absoluut (datum en tyd)"
 
 #: ../../../lib/web/src/components/game/game-draw-offer-banner.tsx
+#: src/features/chats/components/verification-watcher.tsx
 #: src/features/chats/index.tsx
 msgid "Accept"
 msgstr "Aanvaar"
@@ -326,6 +336,10 @@ msgstr "Lid word bygevoeg..."
 msgid "Addresses"
 msgstr "Adresse"
 
+#: src/features/chats/roles.ts
+msgid "Administrator"
+msgstr "Administrateur"
+
 #: src/features/chats/constants/reactions.ts
 msgid "Agree"
 msgstr "Saamstem"
@@ -379,6 +393,10 @@ msgstr "Android-stoot"
 #: src/features/chats/constants/reactions.ts
 msgid "Angry"
 msgstr "Kwaad"
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Another of your devices wants to verify this one."
+msgstr "Nog een van jou toestelle wil hierdie een verifieer."
 
 #: ../../../lib/web/src/features/access/access-list.tsx
 #: ../../../lib/web/src/features/access/types.ts
@@ -440,6 +458,10 @@ msgstr "Met rekening {0}"
 #: ../../../lib/web/src/components/ui/sort-direction-button.tsx
 msgid "Ascending"
 msgstr "Oplopend"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Asking to compare emoji..."
+msgstr "Vra om emoji te vergelyk..."
 
 #: ../../../lib/web/src/components/timezone-select.tsx
 msgid "At sea"
@@ -599,6 +621,8 @@ msgstr "Kamera nie beskikbaar nie"
 #: src/features/chats/components/chat-settings-dialog.tsx
 #: src/features/chats/components/forward-dialog.tsx
 #: src/features/chats/components/new-chat.tsx
+#: src/features/chats/components/verification-watcher.tsx
+#: src/features/chats/components/verification-watcher.tsx
 #: src/features/chats/index.tsx
 msgid "Cancel"
 msgstr "Kanselleer"
@@ -735,6 +759,10 @@ msgstr "Gesprek ontspeld"
 msgid "Chats"
 msgstr "Kletse"
 
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Check that the same emoji appear on the other screen."
+msgstr "Kontroleer dat dieselfde emoji op die ander skerm verskyn."
+
 #: ../../../lib/web/src/hooks/use-field-type-labels.ts
 msgid "Checkbox"
 msgstr "Merkblokkie"
@@ -867,6 +895,11 @@ msgstr "Kommentaar ({0})"
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Compact"
 msgstr "Kompak"
+
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Compare emoji"
+msgstr "Vergelyk emoji"
 
 #: ../../../lib/web/src/components/entity/entity-option-dialog.tsx
 msgid "Configure option settings"
@@ -1028,6 +1061,7 @@ msgid "Date"
 msgstr "Datum"
 
 #: ../../../lib/web/src/components/game/game-draw-offer-banner.tsx
+#: src/features/chats/components/verification-watcher.tsx
 #: src/features/chats/index.tsx
 msgid "Decline"
 msgstr "Wys af"
@@ -1167,6 +1201,10 @@ msgstr "Besonderhede-paneel"
 msgid "Detect from web browser"
 msgstr "Spoor op vanaf webblaaier"
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "Device options"
+msgstr "Toestelopsies"
+
 #: ../../../lib/web/src/components/person-picker.tsx
 msgid "Directory"
 msgstr "Gids"
@@ -1210,6 +1248,14 @@ msgstr "Sluit"
 msgid "Displays the mobile sidebar."
 msgstr "Vertoon die mobiele sybalk."
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "Distrust"
+msgstr "Moenie vertrou nie"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Distrusted"
+msgstr "Nie vertrou nie"
+
 #: src/features/chats/components/chat-input.tsx
 msgid "Document"
 msgstr "Dokument"
@@ -1220,6 +1266,7 @@ msgstr "Stem nie met die vereiste patroon ooreen nie"
 
 #: ../../../lib/web/src/components/entity/entity-field-dialog.tsx
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx
+#: src/features/chats/components/encryption-section.tsx
 msgid "Done"
 msgstr "Klaar"
 
@@ -1308,6 +1355,12 @@ msgstr "E-poskode"
 msgid "Encrypted message"
 msgstr "Geënkripteerde boodskap"
 
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+msgid "Encryption"
+msgstr "Enkripsie"
+
 #: ../../../lib/web/src/components/calendar/time-grid.tsx
 msgid "Ends before it starts"
 msgstr "Eindig voor dit begin"
@@ -1315,6 +1368,11 @@ msgstr "Eindig voor dit begin"
 #: ../../../lib/web/src/components/banner-section.tsx
 msgid "Enter banner text (markdown supported)..."
 msgstr "Tik banierteks in (markdown ondersteun)..."
+
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+msgid "Enter recovery key"
+msgstr "Voer herstelsleutel in"
 
 #: ../../../lib/web/src/components/step-up-dialog.tsx
 msgid "Enter the code from your email"
@@ -1498,6 +1556,7 @@ msgstr "Kon nie RSS-toegang herroep nie"
 
 #: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx
 #: src/features/chats/components/chat-settings-dialog.tsx
+#: src/features/chats/components/encryption-section.tsx
 msgid "Failed to save"
 msgstr "Kon nie stoor nie"
 
@@ -1556,6 +1615,10 @@ msgstr "Vlae"
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Flat"
 msgstr "Plat"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Forget my decision"
+msgstr "Vergeet my besluit"
 
 #: src/features/chats/components/forward-dialog.tsx
 #: src/features/chats/components/message-hover-actions.tsx
@@ -1717,6 +1780,10 @@ msgstr "Spring na onder"
 #: ../../../lib/web/src/lib/locale-format.ts
 msgid "Just now"
 msgstr "Nou net"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Keep this key safe. It is shown once, and your other Matrix clients ask for it to read your encrypted messages."
+msgstr "Hou hierdie sleutel veilig. Dit word net een keer gewys, en jou ander Matrix-kliënte vra daarvoor om jou geënkripteerde boodskappe te lees."
 
 #: ../../../lib/web/src/components/entity/keyboard-shortcuts-help.tsx
 msgid "Keyboard shortcuts"
@@ -1974,6 +2041,10 @@ msgstr "Mochi-web"
 msgid "Moderation"
 msgstr "Moderering"
 
+#: src/features/chats/roles.ts
+msgid "Moderator"
+msgstr "Moderator"
+
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Monday"
 msgstr "Maandag"
@@ -2104,6 +2175,10 @@ msgstr "Geen gesprekke om na aan te stuur nie"
 msgid "No comments yet"
 msgstr "Nog geen kommentaar nie"
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "No devices"
+msgstr "Geen toestelle nie"
+
 #: src/routes/_authenticated/$chatId_.settings.tsx
 msgid "No friends available"
 msgstr "Geen vriende beskikbaar nie"
@@ -2139,6 +2214,10 @@ msgstr "Nog geen boodskappe nie"
 #: src/features/chats/components/chat-input.tsx
 msgid "No microphone found"
 msgstr "Geen mikrofoon gevind nie"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "No other devices"
+msgstr "Geen ander toestelle nie"
 
 #: ../../../lib/web/src/components/entity/entity-field-editor.tsx
 #: ../../../lib/web/src/components/person-picker.tsx
@@ -2224,6 +2303,11 @@ msgstr "Nie gevind nie"
 #: ../../../lib/web/src/components/ui/editable-field-row.tsx
 msgid "Not set"
 msgstr "Nie ingestel nie"
+
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+msgid "Not verified"
+msgstr "Nie geverifieer nie"
 
 #: ../../../lib/web/src/components/entity/entity-tree-view.tsx
 msgid "Nothing found"
@@ -2327,6 +2411,7 @@ msgstr "Ander"
 
 #: ../../../lib/web/src/components/member-list.tsx
 #: ../../../lib/web/src/features/access/access-list.tsx
+#: src/features/chats/roles.ts
 msgid "Owner"
 msgstr "Eienaar"
 
@@ -2352,6 +2437,10 @@ msgstr "Toegangsleutels"
 #: ../../../lib/web/src/lib/shell-errors.ts
 msgid "Passkeys are not available in this browser"
 msgstr "Toegangsleutels is nie in hierdie blaaier beskikbaar nie"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Password"
+msgstr "Wagwoord"
 
 #: ../../../lib/web/src/components/entity/entity-field-dialog.tsx
 msgid "Pattern (regex)"
@@ -2508,6 +2597,14 @@ msgstr "Opname het by die 5-minuut-limiet gestop"
 #: src/features/chats/components/chat-input.tsx
 msgid "Recording voice note"
 msgstr "Neem tans stemnota op"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Recovery could not be set up"
+msgstr "Herstel kon nie opgestel word nie"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Recovery key"
+msgstr "Herstelsleutel"
 
 #: ../../../lib/web/src/components/layout/authenticated-layout.tsx
 msgid "Redirecting to login."
@@ -2673,6 +2770,10 @@ msgstr "Bedank"
 msgid "Resign game?"
 msgstr "Bedank spel?"
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "Restore"
+msgstr "Herstel"
+
 #: ../../../lib/web/src/components/attachment-composer.tsx
 msgid "Retry"
 msgstr "Probeer weer"
@@ -2730,7 +2831,12 @@ msgstr "Saterdag"
 msgid "Save"
 msgstr "Stoor"
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "Saved"
+msgstr "Gestoor"
+
 #: src/features/chats/components/chat-settings-dialog.tsx
+#: src/features/chats/components/encryption-section.tsx
 msgid "Saving..."
 msgstr "Besig om te stoor..."
 
@@ -2957,6 +3063,12 @@ msgstr "Sessie het verval. Meld asseblief weer aan."
 msgid "Set origin and destination"
 msgstr "Stel oorsprong en bestemming"
 
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+msgid "Set up recovery"
+msgstr "Stel herstel op"
+
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx
 #: ../../../lib/web/src/components/options-menu.tsx
@@ -3142,6 +3254,10 @@ msgstr "Daardie kode is verkeerd of het verval."
 msgid "That could not be sent. The files may be too large, or your connection failed. Try smaller files."
 msgstr "Dit kon nie gestuur word nie. Die lêers is dalk te groot, of jou verbinding het gefaal. Probeer kleiner lêers."
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "That is not your recovery key"
+msgstr "Dit is nie jou herstelsleutel nie"
+
 #: ../../../lib/web/src/hooks/use-attachment-error.ts
 #: ../../../lib/web/src/lib/handle-server-error.ts
 msgid "That was too large to upload. Remove or shrink files and try again."
@@ -3164,6 +3280,14 @@ msgstr "Die kletsnaam kan hoogstens {CHAT_NAME_MAX_LENGTH} karakters wees"
 msgid "The chat name cannot contain < or >"
 msgstr "Die kletsnaam mag nie < of > bevat nie"
 
+#: src/features/chats/components/verification-watcher.tsx
+msgid "The emoji did not match, so the verification was cancelled"
+msgstr "Die emoji het nie ooreengestem nie, dus is die verifikasie gekanselleer"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "The fingerprint matches"
+msgstr "Die vingerafdruk stem ooreen"
+
 #: ../../../lib/web/src/lib/shell-errors.ts
 msgid "The microphone request was not answered"
 msgstr "Die mikrofoonversoek is nie beantwoord nie"
@@ -3171,6 +3295,10 @@ msgstr "Die mikrofoonversoek is nie beantwoord nie"
 #: ../../../lib/web/src/lib/shell-errors.ts
 msgid "The passkey request was not answered"
 msgstr "Die toegangsleutelversoek is nie beantwoord nie"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "The password was not accepted"
+msgstr "Die wagwoord is nie aanvaar nie"
 
 #: ../../../lib/web/src/features/errors/general-error.tsx
 msgid "The requested content could not be found."
@@ -3180,10 +3308,30 @@ msgstr "Die aangevraagde inhoud kon nie gevind word nie."
 msgid "The server returned a web page instead of data."
 msgstr "Die bediener het 'n webblad in plaas van data teruggestuur."
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "The verification could not be started"
+msgstr "Die verifikasie kon nie begin word nie"
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "The verification could not go on"
+msgstr "Die verifikasie kon nie voortgaan nie"
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "The verification was cancelled"
+msgstr "Die verifikasie is gekanselleer"
+
 #. placeholder {0}: unknown.join(', ')
 #: src/features/chats/index.tsx
 msgid "These names are not in this chat: {0}. Pick from the @ list or remove them."
 msgstr "Hierdie name is nie in hierdie klets nie: {0}. Kies uit die @-lys of verwyder hulle."
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "They don't match"
+msgstr "Hulle stem nie ooreen nie"
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "They match"
+msgstr "Hulle stem ooreen"
 
 #: src/routes/_authenticated/$chatId_.settings.tsx
 msgid "They stop receiving new messages in this chat."
@@ -3203,12 +3351,20 @@ msgid "This chat may have been deleted or you don't have access to it"
 msgstr "Hierdie gesprek is moontlik uitgevee of jy het nie toegang nie"
 
 #: src/features/chats/index.tsx
-msgid "This conversation is encrypted. Messages cannot be sent to it from here yet."
-msgstr "Hierdie gesprek is geënkripteer. Boodskappe kan nog nie van hier af daarheen gestuur word nie."
-
-#: src/features/chats/index.tsx
 msgid "This deletes the message for everyone and cannot be undone."
 msgstr "Dit vee die boodskap vir almal uit en kan nie ongedaan gemaak word nie."
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "This device"
+msgstr "Hierdie toestel"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "This device (OMEMO 2)"
+msgstr "Hierdie toestel (OMEMO 2)"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "This device (OMEMO)"
+msgstr "Hierdie toestel (OMEMO)"
 
 #: src/features/chats/components/chat-message-list.tsx
 #: src/features/chats/components/message-quote.tsx
@@ -3406,14 +3562,28 @@ msgstr "Veranderlikes: {variables}"
 msgid "Verification code"
 msgstr "Verifikasiekode"
 
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Verified"
+msgstr "Geverifieer"
+
 #: ../../../lib/web/src/components/step-up-dialog.tsx
 #: ../../../lib/web/src/features/accounts/account-verify.tsx
 msgid "Verify"
 msgstr "Verifieer"
 
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Verify {who}"
+msgstr "Verifieer {who}"
+
 #: ../../../lib/web/src/features/accounts/account-verify.tsx
 msgid "Verify email address"
 msgstr "Verifieer e-posadres"
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Verify your device"
+msgstr "Verifieer jou toestel"
 
 #: ../../../lib/web/src/components/attachment-gallery.tsx
 #: src/features/chats/components/message-media-grid.tsx
@@ -3438,6 +3608,10 @@ msgstr "Bekyk en wysig item-besonderhede"
 msgid "View controls"
 msgstr "Bekyk-kontroles"
 
+#: src/features/chats/roles.ts
+msgid "Visitor"
+msgstr "Besoeker"
+
 #: src/features/chats/components/voice-waveform.tsx
 msgid "Voice note waveform"
 msgstr "Golfvorm van stemnota"
@@ -3455,6 +3629,14 @@ msgstr "Stemopname word nie in hierdie blaaier ondersteun nie"
 #: src/features/chats/components/chat-input.tsx
 msgid "Voice recording isn't available in this app version. Please update the app and try again."
 msgstr "Stemopname is nie in hierdie appweergawe beskikbaar nie. Werk asseblief die app by en probeer weer."
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Waiting for the other device..."
+msgstr "Wag vir die ander toestel..."
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Waiting for them to accept"
+msgstr "Wag dat hulle aanvaar"
 
 #: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx
 #: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx
@@ -3530,6 +3712,18 @@ msgstr "Jou rekening is hierheen geskuif vanaf {source}. Totdat jy dit daar uitv
 #: ../../../lib/web/src/components/comment-composer.tsx
 msgid "Your attachments will be lost."
 msgstr "Jou aanhegsels sal verlore gaan."
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Your Matrix server asks for your account's password."
+msgstr "Jou Matrix-bediener vra vir jou rekening se wagwoord."
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Your other devices"
+msgstr "Jou ander toestelle"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Your recovery key"
+msgstr "Jou herstelsleutel"
 
 #: ../../../lib/web/src/components/comment-composer.tsx
 msgid "Your text and attachments will be lost."

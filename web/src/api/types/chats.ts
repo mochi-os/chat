@@ -40,7 +40,7 @@ export interface Chat {
   network?: ChatNetwork
   // A room's id on its network.
   room?: string
-  // Whether its network encrypts it: no message is sent to it from here.
+  // Whether its network encrypts it, which the server does for it.
   encrypted?: number
 }
 
@@ -55,8 +55,10 @@ export interface MarkReadResponse {
 interface ChatMember {
   id: string
   name: string
-  /** For someone from Matrix, the member whose server relays them. */
+  /** For someone from Matrix or XMPP, the member whose server relays them. */
   relay?: string
+  /** In a room on another network: owner, admin, moderator or visitor. */
+  role?: string
 }
 
 interface ChatDetail extends Omit<Chat, 'members'> {
@@ -114,7 +116,8 @@ export interface ChatMessage {
   // when the latest came.
   replies?: number
   latest?: number
-  // Whether it came encrypted, with nothing shown until Mochi holds the keys.
+  // Whether it came encrypted: with no text or files while its keys have not
+  // come.
   encrypted?: number
 }
 

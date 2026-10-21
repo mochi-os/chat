@@ -65,6 +65,11 @@ msgstr "{0, plural, =1 {אויסמעקן דעם מעסעדזש?} other {אויס
 msgid "{0, plural, one {# file changed} other {# files changed}}"
 msgstr "{0, plural, one {# טעקע געענדערט} other {# טעקעס געענדערט}}"
 
+#. placeholder {0}: result.restored
+#: src/features/chats/components/encryption-section.tsx
+msgid "{0, plural, one {# message key restored} other {# message keys restored}}"
+msgstr "{0, plural, one {# מעסעדזש־שליסל צוריקגעשטעלט} other {# מעסעדזש־שליסלען צוריקגעשטעלט}}"
+
 #. placeholder {0}: message.replies
 #: src/features/chats/components/chat-message-list.tsx
 msgid "{0, plural, one {# reply} other {# replies}}"
@@ -175,6 +180,10 @@ msgstr "{truncated, plural, one {נאָך # טעקע ניט געוויזן} othe
 msgid "{unreadCount, plural, one {Open menu (# unread notification)} other {Open menu (# unread notifications)}}"
 msgstr "{unreadCount, plural, one {עפֿנט מעניו (# אומגעלײענטע מעלדונג)} other {עפֿנט מעניו (# אומגעלײענטע מעלדונגען)}}"
 
+#: src/features/chats/components/verification-watcher.tsx
+msgid "{who} wants to verify you."
+msgstr "{who} וויל אײַך פֿאַריפֿיצירן."
+
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "12 hours"
 msgstr "12 שעה"
@@ -193,6 +202,7 @@ msgid "Absolute (date and time)"
 msgstr "אַבסאָלוט (דאַטע און צײַט)"
 
 #: ../../../lib/web/src/components/game/game-draw-offer-banner.tsx
+#: src/features/chats/components/verification-watcher.tsx
 #: src/features/chats/index.tsx
 msgid "Accept"
 msgstr "אָננעמען"
@@ -326,6 +336,10 @@ msgstr "צוגעבן מיטגליד..."
 msgid "Addresses"
 msgstr "אַדרעסן"
 
+#: src/features/chats/roles.ts
+msgid "Administrator"
+msgstr "אַדמיניסטראַטאָר"
+
 #: src/features/chats/constants/reactions.ts
 msgid "Agree"
 msgstr "מסכּים זײַן"
@@ -379,6 +393,10 @@ msgstr "Android פּוש"
 #: src/features/chats/constants/reactions.ts
 msgid "Angry"
 msgstr "אין כּעס"
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Another of your devices wants to verify this one."
+msgstr "אַן אַנדער מיטל פֿון אײַך וויל פֿאַריפֿיצירן דאָס דאָזיקע."
 
 #: ../../../lib/web/src/features/access/access-list.tsx
 #: ../../../lib/web/src/features/access/types.ts
@@ -440,6 +458,10 @@ msgstr "אַלס {0}"
 #: ../../../lib/web/src/components/ui/sort-direction-button.tsx
 msgid "Ascending"
 msgstr "אַרויפֿגייענדיק"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Asking to compare emoji..."
+msgstr "מע בעט צו פֿאַרגלײַכן עמאָדזשי..."
 
 #: ../../../lib/web/src/components/timezone-select.tsx
 msgid "At sea"
@@ -599,6 +621,8 @@ msgstr "די קאַמערע איז נישט פֿאַראַן"
 #: src/features/chats/components/chat-settings-dialog.tsx
 #: src/features/chats/components/forward-dialog.tsx
 #: src/features/chats/components/new-chat.tsx
+#: src/features/chats/components/verification-watcher.tsx
+#: src/features/chats/components/verification-watcher.tsx
 #: src/features/chats/index.tsx
 msgid "Cancel"
 msgstr "אָפּזאָגן"
@@ -735,6 +759,10 @@ msgstr "שמועס אָפּגעשפּיליעט"
 msgid "Chats"
 msgstr "שמועסן"
 
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Check that the same emoji appear on the other screen."
+msgstr "קאָנטראָלירט אַז די זעלביקע עמאָדזשי זײַנען אויפֿן אַנדערן עקראַן."
+
 #: ../../../lib/web/src/hooks/use-field-type-labels.ts
 msgid "Checkbox"
 msgstr "טשעקבאָקס"
@@ -867,6 +895,11 @@ msgstr "קאָמענטאַרן ({0})"
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Compact"
 msgstr "קאָמפּאַקט"
+
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Compare emoji"
+msgstr "עמאָדזשי פֿאַרגלײַכן"
 
 #: ../../../lib/web/src/components/entity/entity-option-dialog.tsx
 msgid "Configure option settings"
@@ -1028,6 +1061,7 @@ msgid "Date"
 msgstr "דאַטע"
 
 #: ../../../lib/web/src/components/game/game-draw-offer-banner.tsx
+#: src/features/chats/components/verification-watcher.tsx
 #: src/features/chats/index.tsx
 msgid "Decline"
 msgstr "אָפּזאָגן"
@@ -1167,6 +1201,10 @@ msgstr "פּרטים פּאַנעל"
 msgid "Detect from web browser"
 msgstr "אויסקלײַבן פֿון וועב בראָוזער"
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "Device options"
+msgstr "מיטל־אָפּציעס"
+
 #: ../../../lib/web/src/components/person-picker.tsx
 msgid "Directory"
 msgstr "פֿאַרצײכעניש"
@@ -1210,6 +1248,14 @@ msgstr "אַראָפּזאָגן"
 msgid "Displays the mobile sidebar."
 msgstr "ווײַזט די מאָבילע סײַדבאַר."
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "Distrust"
+msgstr "ניט טרויען"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Distrusted"
+msgstr "ניט געטרויט"
+
 #: src/features/chats/components/chat-input.tsx
 msgid "Document"
 msgstr "דאָקומענט"
@@ -1220,6 +1266,7 @@ msgstr "פּאַסט נישט צום פֿאָדערטן מוסטער"
 
 #: ../../../lib/web/src/components/entity/entity-field-dialog.tsx
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx
+#: src/features/chats/components/encryption-section.tsx
 msgid "Done"
 msgstr "געטאָן"
 
@@ -1308,6 +1355,12 @@ msgstr "בליצפּאָסט־קאָד"
 msgid "Encrypted message"
 msgstr "פֿאַרשיפֿרירטער בריוו"
 
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+msgid "Encryption"
+msgstr "פֿאַרשיפֿרירונג"
+
 #: ../../../lib/web/src/components/calendar/time-grid.tsx
 msgid "Ends before it starts"
 msgstr "ענדיקט זיך איידער עס הייבט זיך אָן"
@@ -1315,6 +1368,11 @@ msgstr "ענדיקט זיך איידער עס הייבט זיך אָן"
 #: ../../../lib/web/src/components/banner-section.tsx
 msgid "Enter banner text (markdown supported)..."
 msgstr "גיט אַרײַן באַנער־טעקסט (markdown געשטיצט)..."
+
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+msgid "Enter recovery key"
+msgstr "צוריקשטעל־שליסל אַרײַנגעבן"
 
 #: ../../../lib/web/src/components/step-up-dialog.tsx
 msgid "Enter the code from your email"
@@ -1498,6 +1556,7 @@ msgstr "ניט געלונגען צוריקצונעמען RSS צוטריט"
 
 #: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx
 #: src/features/chats/components/chat-settings-dialog.tsx
+#: src/features/chats/components/encryption-section.tsx
 msgid "Failed to save"
 msgstr "ניט געלונגען אויפֿצוהיטן"
 
@@ -1556,6 +1615,10 @@ msgstr "פֿאָנען"
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Flat"
 msgstr "פלאַך"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Forget my decision"
+msgstr "פֿאַרגעסן מײַן באַשלוס"
 
 #: src/features/chats/components/forward-dialog.tsx
 #: src/features/chats/components/message-hover-actions.tsx
@@ -1717,6 +1780,10 @@ msgstr "שפּרינגען אַראָפּ"
 #: ../../../lib/web/src/lib/locale-format.ts
 msgid "Just now"
 msgstr "פּונקט אַצינד"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Keep this key safe. It is shown once, and your other Matrix clients ask for it to read your encrypted messages."
+msgstr "היט אָפּ דעם דאָזיקן שליסל אויף אַ זיכער אָרט. ער ווערט געוויזן נאָר איין מאָל, און אײַערע אַנדערע קליענטן פֿון Matrix בעטן אים כּדי צו לייענען אײַערע פֿאַרשיפֿרירטע מעסעדזשן."
 
 #: ../../../lib/web/src/components/entity/keyboard-shortcuts-help.tsx
 msgid "Keyboard shortcuts"
@@ -1974,6 +2041,10 @@ msgstr "Mochi װעב"
 msgid "Moderation"
 msgstr "מאָדעראַציע"
 
+#: src/features/chats/roles.ts
+msgid "Moderator"
+msgstr "מאָדעראַטאָר"
+
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Monday"
 msgstr "מאָנטיק"
@@ -2104,6 +2175,10 @@ msgstr "ניטאָ קיין שמועסן וווּהין ווײַטערצושיק
 msgid "No comments yet"
 msgstr "נאָך קיין באַמערקונגען"
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "No devices"
+msgstr "קיין מיטלען"
+
 #: src/routes/_authenticated/$chatId_.settings.tsx
 msgid "No friends available"
 msgstr "קיין פֿרײַנד פֿאַראַן"
@@ -2139,6 +2214,10 @@ msgstr "נאָך קיין מעלדונגען"
 #: src/features/chats/components/chat-input.tsx
 msgid "No microphone found"
 msgstr "קיין מיקראָפֿאָן נישט געפֿונען"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "No other devices"
+msgstr "קיין אַנדערע מיטלען"
 
 #: ../../../lib/web/src/components/entity/entity-field-editor.tsx
 #: ../../../lib/web/src/components/person-picker.tsx
@@ -2224,6 +2303,11 @@ msgstr "נישט געפֿונען"
 #: ../../../lib/web/src/components/ui/editable-field-row.tsx
 msgid "Not set"
 msgstr "ניט געשטעלט"
+
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+msgid "Not verified"
+msgstr "ניט פֿאַריפֿיצירט"
 
 #: ../../../lib/web/src/components/entity/entity-tree-view.tsx
 msgid "Nothing found"
@@ -2327,6 +2411,7 @@ msgstr "אַנדער"
 
 #: ../../../lib/web/src/components/member-list.tsx
 #: ../../../lib/web/src/features/access/access-list.tsx
+#: src/features/chats/roles.ts
 msgid "Owner"
 msgstr "אייגנטימער"
 
@@ -2352,6 +2437,10 @@ msgstr "פּאַסקייס"
 #: ../../../lib/web/src/lib/shell-errors.ts
 msgid "Passkeys are not available in this browser"
 msgstr "פּאַסקייס זענען נישט פֿאַראַן אין דעם בראַוזער"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Password"
+msgstr "פּאַראָל"
 
 #: ../../../lib/web/src/components/entity/entity-field-dialog.tsx
 msgid "Pattern (regex)"
@@ -2508,6 +2597,14 @@ msgstr "די רעקאָרדירונג האָט זיך אָפּגעשטעלט ב�
 #: src/features/chats/components/chat-input.tsx
 msgid "Recording voice note"
 msgstr "רעקאָרדירט אַ קול־מעלדונג"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Recovery could not be set up"
+msgstr "מע האָט ניט געקענט אײַנשטעלן די צוריקשטעלונג"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Recovery key"
+msgstr "צוריקשטעל־שליסל"
 
 #: ../../../lib/web/src/components/layout/authenticated-layout.tsx
 msgid "Redirecting to login."
@@ -2673,6 +2770,10 @@ msgstr "רעזיגנירן"
 msgid "Resign game?"
 msgstr "רעזיגנירן שפּיל?"
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "Restore"
+msgstr "אויפֿשטעלן"
+
 #: ../../../lib/web/src/components/attachment-composer.tsx
 msgid "Retry"
 msgstr "פּרוּווט נאָך אַ מאָל"
@@ -2730,7 +2831,12 @@ msgstr "שבת"
 msgid "Save"
 msgstr "היט אויף"
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "Saved"
+msgstr "אויפֿגעהיט"
+
 #: src/features/chats/components/chat-settings-dialog.tsx
+#: src/features/chats/components/encryption-section.tsx
 msgid "Saving..."
 msgstr "היטן..."
 
@@ -2957,6 +3063,12 @@ msgstr "די סעסיע איז אויסגעגאַנגען. ביטע לאָגט �
 msgid "Set origin and destination"
 msgstr "שטעל אָנהייב און ציל"
 
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+msgid "Set up recovery"
+msgstr "צוריקשטעלונג אײַנשטעלן"
+
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx
 #: ../../../lib/web/src/components/options-menu.tsx
@@ -3142,6 +3254,10 @@ msgstr "יענער קאָד איז אומריכטיק אָדער איז אויס
 msgid "That could not be sent. The files may be too large, or your connection failed. Try smaller files."
 msgstr "עס האָט נישט געקענט געשיקט ווערן. די טעקעס זײַנען אפֿשר צו גרויס, אָדער דײַן פֿאַרבינדונג איז דורכגעפֿאַלן. פּרוּווט קלענערע טעקעס."
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "That is not your recovery key"
+msgstr "דאָס איז ניט אײַער צוריקשטעל־שליסל"
+
 #: ../../../lib/web/src/hooks/use-attachment-error.ts
 #: ../../../lib/web/src/lib/handle-server-error.ts
 msgid "That was too large to upload. Remove or shrink files and try again."
@@ -3164,6 +3280,14 @@ msgstr "דער שמועס־נאָמען קען זײַן מאַקסימום {CHAT
 msgid "The chat name cannot contain < or >"
 msgstr "דער שמועס־נאָמען קען נישט אַנטהאַלטן < אָדער >"
 
+#: src/features/chats/components/verification-watcher.tsx
+msgid "The emoji did not match, so the verification was cancelled"
+msgstr "די עמאָדזשי האָבן ניט געשטימט, דערפֿאַר איז די פֿאַריפֿיקאַציע אָפּגעשטעלט געוואָרן"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "The fingerprint matches"
+msgstr "דער פֿינגער־אָפּדרוק שטימט"
+
 #: ../../../lib/web/src/lib/shell-errors.ts
 msgid "The microphone request was not answered"
 msgstr "די מיקראָפֿאָן־בקשה איז נישט געענטפֿערט געוואָרן"
@@ -3171,6 +3295,10 @@ msgstr "די מיקראָפֿאָן־בקשה איז נישט געענטפֿער
 #: ../../../lib/web/src/lib/shell-errors.ts
 msgid "The passkey request was not answered"
 msgstr "די פּאַסקיי־בקשה איז נישט געענטפֿערט געוואָרן"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "The password was not accepted"
+msgstr "די פּאַראָל איז ניט אָנגענומען געוואָרן"
 
 #: ../../../lib/web/src/features/errors/general-error.tsx
 msgid "The requested content could not be found."
@@ -3180,10 +3308,30 @@ msgstr "דער פֿאַרלאַנגטער אינהאַלט איז נישט גע�
 msgid "The server returned a web page instead of data."
 msgstr "דער סערװער האָט צוריקגעגעבן אַ וועב-בלאַט אַנשטאָט דאַטן."
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "The verification could not be started"
+msgstr "מע האָט ניט געקענט אָנהייבן די פֿאַריפֿיקאַציע"
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "The verification could not go on"
+msgstr "די פֿאַריפֿיקאַציע האָט ניט געקענט ווײַטער גיין"
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "The verification was cancelled"
+msgstr "די פֿאַריפֿיקאַציע איז אָפּגעשטעלט געוואָרן"
+
 #. placeholder {0}: unknown.join(', ')
 #: src/features/chats/index.tsx
 msgid "These names are not in this chat: {0}. Pick from the @ list or remove them."
 msgstr "די נעמען זײַנען נישט אין דעם שמועס: {0}. קלײַבט פֿון דער @ ליסטע אָדער נעמט זיי אַראָפּ."
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "They don't match"
+msgstr "זיי שטימען ניט איבער"
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "They match"
+msgstr "זיי שטימען איבער"
 
 #: src/routes/_authenticated/$chatId_.settings.tsx
 msgid "They stop receiving new messages in this chat."
@@ -3203,12 +3351,20 @@ msgid "This chat may have been deleted or you don't have access to it"
 msgstr "דער שמועס איז אפֿשר אויסגעמעקט אָדער איר האָט נישט קיין צוטריט"
 
 #: src/features/chats/index.tsx
-msgid "This conversation is encrypted. Messages cannot be sent to it from here yet."
-msgstr "דער שמועס איז פֿאַרשיפֿרירט. מע קען נאָך ניט שיקן קיין בריוו צו אים פֿון דאַנען."
-
-#: src/features/chats/index.tsx
 msgid "This deletes the message for everyone and cannot be undone."
 msgstr "דאָס מעקט אויס דעם מעסעדזש פֿאַר אַלעמען און מע קען עס ניט צוריקדרייען."
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "This device"
+msgstr "דאָס דאָזיקע מיטל"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "This device (OMEMO 2)"
+msgstr "דאָס דאָזיקע מיטל (OMEMO 2)"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "This device (OMEMO)"
+msgstr "דאָס דאָזיקע מיטל (OMEMO)"
 
 #: src/features/chats/components/chat-message-list.tsx
 #: src/features/chats/components/message-quote.tsx
@@ -3406,14 +3562,28 @@ msgstr "וואַריאַבלען: {variables}"
 msgid "Verification code"
 msgstr "פֿאַריפֿיקאַציע־קאָד"
 
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Verified"
+msgstr "פֿאַריפֿיצירט"
+
 #: ../../../lib/web/src/components/step-up-dialog.tsx
 #: ../../../lib/web/src/features/accounts/account-verify.tsx
 msgid "Verify"
 msgstr "פֿאַריפֿיצירן"
 
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Verify {who}"
+msgstr "פֿאַריפֿיצירן {who}"
+
 #: ../../../lib/web/src/features/accounts/account-verify.tsx
 msgid "Verify email address"
 msgstr "פֿאַריפֿיצירן אי־מייל אַדרעס"
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Verify your device"
+msgstr "פֿאַריפֿיצירן אײַער מיטל"
 
 #: ../../../lib/web/src/components/attachment-gallery.tsx
 #: src/features/chats/components/message-media-grid.tsx
@@ -3438,6 +3608,10 @@ msgstr "זע און רעדאַקטיר אַרטיקל־פּרטים"
 msgid "View controls"
 msgstr "בליק־קאָנטראָלן"
 
+#: src/features/chats/roles.ts
+msgid "Visitor"
+msgstr "באַזוכער"
+
 #: src/features/chats/components/voice-waveform.tsx
 msgid "Voice note waveform"
 msgstr "כוואַליע־פֿאָרעם פֿון דער קול־מעלדונג"
@@ -3455,6 +3629,14 @@ msgstr "קול רעקאָרדירונג ווערט נישט געשטיצט אי�
 #: src/features/chats/components/chat-input.tsx
 msgid "Voice recording isn't available in this app version. Please update the app and try again."
 msgstr "קול רעקאָרדירונג איז נישט צוטריטלעך אין דער דאָזיקער ווערסיע פֿון דער אַפּ. ביטע דערהײַנטיקט די אַפּ און פּרוּווט נאָך אַ מאָל."
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Waiting for the other device..."
+msgstr "מע וואַרט אויפֿן אַנדערן מיטל..."
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Waiting for them to accept"
+msgstr "מע וואַרט ביז זיי נעמען אָן"
 
 #: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx
 #: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx
@@ -3530,6 +3712,18 @@ msgstr "דיין קאנטע איז אהערגעברענגט ווארן פון {s
 #: ../../../lib/web/src/components/comment-composer.tsx
 msgid "Your attachments will be lost."
 msgstr "דײַנע צוגעלייגטע טעקעס וועלן פֿאַרלוירן גיין."
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Your Matrix server asks for your account's password."
+msgstr "אײַער Matrix סערווער בעט די פּאַראָל פֿון אײַער קאָנטע."
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Your other devices"
+msgstr "אײַערע אַנדערע מיטלען"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Your recovery key"
+msgstr "אײַער צוריקשטעל־שליסל"
 
 #: ../../../lib/web/src/components/comment-composer.tsx
 msgid "Your text and attachments will be lost."

@@ -65,6 +65,11 @@ msgstr "{0, plural, =1 {Slet besked?} other {Slet # beskeder?}}"
 msgid "{0, plural, one {# file changed} other {# files changed}}"
 msgstr "{0, plural, one {# fil ændret} other {# filer ændret}}"
 
+#. placeholder {0}: result.restored
+#: src/features/chats/components/encryption-section.tsx
+msgid "{0, plural, one {# message key restored} other {# message keys restored}}"
+msgstr "{0, plural, one {# beskednøgle gendannet} other {# beskednøgler gendannet}}"
+
 #. placeholder {0}: message.replies
 #: src/features/chats/components/chat-message-list.tsx
 msgid "{0, plural, one {# reply} other {# replies}}"
@@ -175,6 +180,10 @@ msgstr "{truncated, plural, one {# fil mere vises ikke} other {# filer mere vise
 msgid "{unreadCount, plural, one {Open menu (# unread notification)} other {Open menu (# unread notifications)}}"
 msgstr "{unreadCount, plural, one {Åbn menu (# ulæst notifikation)} other {Åbn menu (# ulæste notifikationer)}}"
 
+#: src/features/chats/components/verification-watcher.tsx
+msgid "{who} wants to verify you."
+msgstr "{who} vil verificere dig."
+
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "12 hours"
 msgstr "12 timer"
@@ -193,6 +202,7 @@ msgid "Absolute (date and time)"
 msgstr "Absolut (dato og klokkeslæt)"
 
 #: ../../../lib/web/src/components/game/game-draw-offer-banner.tsx
+#: src/features/chats/components/verification-watcher.tsx
 #: src/features/chats/index.tsx
 msgid "Accept"
 msgstr "Accepter"
@@ -326,6 +336,10 @@ msgstr "Tilføjer medlem..."
 msgid "Addresses"
 msgstr "Adresser"
 
+#: src/features/chats/roles.ts
+msgid "Administrator"
+msgstr "Administrator"
+
 #: src/features/chats/constants/reactions.ts
 msgid "Agree"
 msgstr "Enig"
@@ -379,6 +393,10 @@ msgstr "Android-push"
 #: src/features/chats/constants/reactions.ts
 msgid "Angry"
 msgstr "Vred"
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Another of your devices wants to verify this one."
+msgstr "En af dine andre enheder vil verificere denne."
 
 #: ../../../lib/web/src/features/access/access-list.tsx
 #: ../../../lib/web/src/features/access/types.ts
@@ -440,6 +458,10 @@ msgstr "Som {0}"
 #: ../../../lib/web/src/components/ui/sort-direction-button.tsx
 msgid "Ascending"
 msgstr "Stigende"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Asking to compare emoji..."
+msgstr "Beder om at sammenligne emoji..."
 
 #: ../../../lib/web/src/components/timezone-select.tsx
 msgid "At sea"
@@ -599,6 +621,8 @@ msgstr "Kamera ikke tilgængeligt"
 #: src/features/chats/components/chat-settings-dialog.tsx
 #: src/features/chats/components/forward-dialog.tsx
 #: src/features/chats/components/new-chat.tsx
+#: src/features/chats/components/verification-watcher.tsx
+#: src/features/chats/components/verification-watcher.tsx
 #: src/features/chats/index.tsx
 msgid "Cancel"
 msgstr "Annuller"
@@ -735,6 +759,10 @@ msgstr "Chat frigjort"
 msgid "Chats"
 msgstr "Chats"
 
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Check that the same emoji appear on the other screen."
+msgstr "Kontrollér, at de samme emoji vises på den anden skærm."
+
 #: ../../../lib/web/src/hooks/use-field-type-labels.ts
 msgid "Checkbox"
 msgstr "Afkrydsningsfelt"
@@ -867,6 +895,11 @@ msgstr "Kommentarer ({0})"
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Compact"
 msgstr "Kompakt"
+
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Compare emoji"
+msgstr "Sammenlign emoji"
 
 #: ../../../lib/web/src/components/entity/entity-option-dialog.tsx
 msgid "Configure option settings"
@@ -1028,6 +1061,7 @@ msgid "Date"
 msgstr "Dato"
 
 #: ../../../lib/web/src/components/game/game-draw-offer-banner.tsx
+#: src/features/chats/components/verification-watcher.tsx
 #: src/features/chats/index.tsx
 msgid "Decline"
 msgstr "Afvis"
@@ -1167,6 +1201,10 @@ msgstr "Detaljepanel"
 msgid "Detect from web browser"
 msgstr "Registrer fra webbrowser"
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "Device options"
+msgstr "Enhedsindstillinger"
+
 #: ../../../lib/web/src/components/person-picker.tsx
 msgid "Directory"
 msgstr "Kartotek"
@@ -1210,6 +1248,14 @@ msgstr "Afvis"
 msgid "Displays the mobile sidebar."
 msgstr "Viser mobil-sidebjælken."
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "Distrust"
+msgstr "Stol ikke på"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Distrusted"
+msgstr "Ikke betroet"
+
 #: src/features/chats/components/chat-input.tsx
 msgid "Document"
 msgstr "Dokument"
@@ -1220,6 +1266,7 @@ msgstr "Matcher ikke det påkrævede mønster"
 
 #: ../../../lib/web/src/components/entity/entity-field-dialog.tsx
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx
+#: src/features/chats/components/encryption-section.tsx
 msgid "Done"
 msgstr "Færdig"
 
@@ -1308,6 +1355,12 @@ msgstr "E-mailkode"
 msgid "Encrypted message"
 msgstr "Krypteret besked"
 
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+msgid "Encryption"
+msgstr "Kryptering"
+
 #: ../../../lib/web/src/components/calendar/time-grid.tsx
 msgid "Ends before it starts"
 msgstr "Slutter før den begynder"
@@ -1315,6 +1368,11 @@ msgstr "Slutter før den begynder"
 #: ../../../lib/web/src/components/banner-section.tsx
 msgid "Enter banner text (markdown supported)..."
 msgstr "Indtast bannertekst (markdown understøttes)..."
+
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+msgid "Enter recovery key"
+msgstr "Indtast gendannelsesnøgle"
 
 #: ../../../lib/web/src/components/step-up-dialog.tsx
 msgid "Enter the code from your email"
@@ -1498,6 +1556,7 @@ msgstr "Kunne ikke tilbagekalde RSS-adgang"
 
 #: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx
 #: src/features/chats/components/chat-settings-dialog.tsx
+#: src/features/chats/components/encryption-section.tsx
 msgid "Failed to save"
 msgstr "Kunne ikke gemme"
 
@@ -1556,6 +1615,10 @@ msgstr "Flag"
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Flat"
 msgstr "Flad"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Forget my decision"
+msgstr "Glem min beslutning"
 
 #: src/features/chats/components/forward-dialog.tsx
 #: src/features/chats/components/message-hover-actions.tsx
@@ -1717,6 +1780,10 @@ msgstr "Hop til bunden"
 #: ../../../lib/web/src/lib/locale-format.ts
 msgid "Just now"
 msgstr "Lige nu"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Keep this key safe. It is shown once, and your other Matrix clients ask for it to read your encrypted messages."
+msgstr "Opbevar denne nøgle sikkert. Den vises kun én gang, og dine andre Matrix-klienter beder om den for at læse dine krypterede beskeder."
 
 #: ../../../lib/web/src/components/entity/keyboard-shortcuts-help.tsx
 msgid "Keyboard shortcuts"
@@ -1974,6 +2041,10 @@ msgstr "Mochi web"
 msgid "Moderation"
 msgstr "Moderation"
 
+#: src/features/chats/roles.ts
+msgid "Moderator"
+msgstr "Moderator"
+
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Monday"
 msgstr "Mandag"
@@ -2104,6 +2175,10 @@ msgstr "Ingen chats at videresende til"
 msgid "No comments yet"
 msgstr "Ingen kommentarer endnu"
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "No devices"
+msgstr "Ingen enheder"
+
 #: src/routes/_authenticated/$chatId_.settings.tsx
 msgid "No friends available"
 msgstr "Ingen venner tilgængelige"
@@ -2139,6 +2214,10 @@ msgstr "Ingen beskeder endnu"
 #: src/features/chats/components/chat-input.tsx
 msgid "No microphone found"
 msgstr "Ingen mikrofon fundet"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "No other devices"
+msgstr "Ingen andre enheder"
 
 #: ../../../lib/web/src/components/entity/entity-field-editor.tsx
 #: ../../../lib/web/src/components/person-picker.tsx
@@ -2224,6 +2303,11 @@ msgstr "Ikke fundet"
 #: ../../../lib/web/src/components/ui/editable-field-row.tsx
 msgid "Not set"
 msgstr "Ikke angivet"
+
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+msgid "Not verified"
+msgstr "Ikke verificeret"
 
 #: ../../../lib/web/src/components/entity/entity-tree-view.tsx
 msgid "Nothing found"
@@ -2327,6 +2411,7 @@ msgstr "Andet"
 
 #: ../../../lib/web/src/components/member-list.tsx
 #: ../../../lib/web/src/features/access/access-list.tsx
+#: src/features/chats/roles.ts
 msgid "Owner"
 msgstr "Ejer"
 
@@ -2352,6 +2437,10 @@ msgstr "Adgangsnøgler"
 #: ../../../lib/web/src/lib/shell-errors.ts
 msgid "Passkeys are not available in this browser"
 msgstr "Adgangsnøgler er ikke tilgængelige i denne browser"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Password"
+msgstr "Adgangskode"
 
 #: ../../../lib/web/src/components/entity/entity-field-dialog.tsx
 msgid "Pattern (regex)"
@@ -2508,6 +2597,14 @@ msgstr "Optagelsen stoppede ved grænsen på 5 minutter"
 #: src/features/chats/components/chat-input.tsx
 msgid "Recording voice note"
 msgstr "Optager talebesked"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Recovery could not be set up"
+msgstr "Gendannelse kunne ikke konfigureres"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Recovery key"
+msgstr "Gendannelsesnøgle"
 
 #: ../../../lib/web/src/components/layout/authenticated-layout.tsx
 msgid "Redirecting to login."
@@ -2673,6 +2770,10 @@ msgstr "Giv op"
 msgid "Resign game?"
 msgstr "Giv op i spillet?"
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "Restore"
+msgstr "Gendan"
+
 #: ../../../lib/web/src/components/attachment-composer.tsx
 msgid "Retry"
 msgstr "Prøv igen"
@@ -2730,7 +2831,12 @@ msgstr "Lørdag"
 msgid "Save"
 msgstr "Gem"
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "Saved"
+msgstr "Gemt"
+
 #: src/features/chats/components/chat-settings-dialog.tsx
+#: src/features/chats/components/encryption-section.tsx
 msgid "Saving..."
 msgstr "Gemmer..."
 
@@ -2957,6 +3063,12 @@ msgstr "Sessionen er udløbet. Log ind igen."
 msgid "Set origin and destination"
 msgstr "Angiv oprindelse og destination"
 
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+msgid "Set up recovery"
+msgstr "Konfigurer gendannelse"
+
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx
 #: ../../../lib/web/src/components/options-menu.tsx
@@ -3142,6 +3254,10 @@ msgstr "Koden er forkert eller udløbet."
 msgid "That could not be sent. The files may be too large, or your connection failed. Try smaller files."
 msgstr "Det kunne ikke sendes. Filerne er måske for store, eller din forbindelse svigtede. Prøv mindre filer."
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "That is not your recovery key"
+msgstr "Det er ikke din gendannelsesnøgle"
+
 #: ../../../lib/web/src/hooks/use-attachment-error.ts
 #: ../../../lib/web/src/lib/handle-server-error.ts
 msgid "That was too large to upload. Remove or shrink files and try again."
@@ -3164,6 +3280,14 @@ msgstr "Chatnavnet må højst være {CHAT_NAME_MAX_LENGTH} tegn"
 msgid "The chat name cannot contain < or >"
 msgstr "Chatnavnet må ikke indeholde < eller >"
 
+#: src/features/chats/components/verification-watcher.tsx
+msgid "The emoji did not match, so the verification was cancelled"
+msgstr "Emojierne passede ikke sammen, så verifikationen blev annulleret"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "The fingerprint matches"
+msgstr "Fingeraftrykket stemmer"
+
 #: ../../../lib/web/src/lib/shell-errors.ts
 msgid "The microphone request was not answered"
 msgstr "Anmodningen om mikrofon blev ikke besvaret"
@@ -3171,6 +3295,10 @@ msgstr "Anmodningen om mikrofon blev ikke besvaret"
 #: ../../../lib/web/src/lib/shell-errors.ts
 msgid "The passkey request was not answered"
 msgstr "Anmodningen om adgangsnøgle blev ikke besvaret"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "The password was not accepted"
+msgstr "Adgangskoden blev ikke accepteret"
 
 #: ../../../lib/web/src/features/errors/general-error.tsx
 msgid "The requested content could not be found."
@@ -3180,10 +3308,30 @@ msgstr "Det ønskede indhold kunne ikke findes."
 msgid "The server returned a web page instead of data."
 msgstr "Serveren returnerede en webside i stedet for data."
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "The verification could not be started"
+msgstr "Verifikationen kunne ikke startes"
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "The verification could not go on"
+msgstr "Verifikationen kunne ikke fortsætte"
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "The verification was cancelled"
+msgstr "Verifikationen blev annulleret"
+
 #. placeholder {0}: unknown.join(', ')
 #: src/features/chats/index.tsx
 msgid "These names are not in this chat: {0}. Pick from the @ list or remove them."
 msgstr "Disse navne er ikke i denne chat: {0}. Vælg fra @-listen, eller fjern dem."
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "They don't match"
+msgstr "De passer ikke sammen"
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "They match"
+msgstr "De passer sammen"
 
 #: src/routes/_authenticated/$chatId_.settings.tsx
 msgid "They stop receiving new messages in this chat."
@@ -3203,12 +3351,20 @@ msgid "This chat may have been deleted or you don't have access to it"
 msgstr "Denne chat er muligvis slettet, eller du har ikke adgang til den"
 
 #: src/features/chats/index.tsx
-msgid "This conversation is encrypted. Messages cannot be sent to it from here yet."
-msgstr "Denne samtale er krypteret. Der kan endnu ikke sendes beskeder til den herfra."
-
-#: src/features/chats/index.tsx
 msgid "This deletes the message for everyone and cannot be undone."
 msgstr "Dette sletter beskeden for alle og kan ikke fortrydes."
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "This device"
+msgstr "Denne enhed"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "This device (OMEMO 2)"
+msgstr "Denne enhed (OMEMO 2)"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "This device (OMEMO)"
+msgstr "Denne enhed (OMEMO)"
 
 #: src/features/chats/components/chat-message-list.tsx
 #: src/features/chats/components/message-quote.tsx
@@ -3406,14 +3562,28 @@ msgstr "Variabler: {variables}"
 msgid "Verification code"
 msgstr "Verifikationskode"
 
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Verified"
+msgstr "Verificeret"
+
 #: ../../../lib/web/src/components/step-up-dialog.tsx
 #: ../../../lib/web/src/features/accounts/account-verify.tsx
 msgid "Verify"
 msgstr "Verificer"
 
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Verify {who}"
+msgstr "Verificer {who}"
+
 #: ../../../lib/web/src/features/accounts/account-verify.tsx
 msgid "Verify email address"
 msgstr "Verificer e-mailadresse"
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Verify your device"
+msgstr "Verificer din enhed"
 
 #: ../../../lib/web/src/components/attachment-gallery.tsx
 #: src/features/chats/components/message-media-grid.tsx
@@ -3438,6 +3608,10 @@ msgstr "Vis og redigér elementets detaljer"
 msgid "View controls"
 msgstr "Vis kontroller"
 
+#: src/features/chats/roles.ts
+msgid "Visitor"
+msgstr "Besøgende"
+
 #: src/features/chats/components/voice-waveform.tsx
 msgid "Voice note waveform"
 msgstr "Talebeskedens bølgeform"
@@ -3455,6 +3629,14 @@ msgstr "Stemmeoptagelse understøttes ikke i denne browser"
 #: src/features/chats/components/chat-input.tsx
 msgid "Voice recording isn't available in this app version. Please update the app and try again."
 msgstr "Stemmeoptagelse er ikke tilgængelig i denne version af appen. Opdater appen, og prøv igen."
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Waiting for the other device..."
+msgstr "Venter på den anden enhed..."
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Waiting for them to accept"
+msgstr "Venter på, at de accepterer"
 
 #: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx
 #: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx
@@ -3530,6 +3712,18 @@ msgstr "Din konto blev flyttet hertil fra {source}. Indtil du sletter den dér, 
 #: ../../../lib/web/src/components/comment-composer.tsx
 msgid "Your attachments will be lost."
 msgstr "Dine vedhæftninger går tabt."
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Your Matrix server asks for your account's password."
+msgstr "Din Matrix-server beder om adgangskoden til din konto."
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Your other devices"
+msgstr "Dine andre enheder"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Your recovery key"
+msgstr "Din gendannelsesnøgle"
 
 #: ../../../lib/web/src/components/comment-composer.tsx
 msgid "Your text and attachments will be lost."

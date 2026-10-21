@@ -65,6 +65,11 @@ msgstr "{0, plural, =1 {پیغام حذف کریں؟} other {# پیغامات ح
 msgid "{0, plural, one {# file changed} other {# files changed}}"
 msgstr "{0, plural, one {# فائل تبدیل ہوئی} other {# فائلیں تبدیل ہوئیں}}"
 
+#. placeholder {0}: result.restored
+#: src/features/chats/components/encryption-section.tsx
+msgid "{0, plural, one {# message key restored} other {# message keys restored}}"
+msgstr "{0, plural, one {# پیغام کلید بحال کی گئی} other {# پیغام کلیدیں بحال کی گئیں}}"
+
 #. placeholder {0}: message.replies
 #: src/features/chats/components/chat-message-list.tsx
 msgid "{0, plural, one {# reply} other {# replies}}"
@@ -175,6 +180,10 @@ msgstr "{truncated, plural, one {# مزید فائل نہیں دکھائی گئ�
 msgid "{unreadCount, plural, one {Open menu (# unread notification)} other {Open menu (# unread notifications)}}"
 msgstr "{unreadCount, plural, one {مینو کھولیں (# غیر پڑھی اطلاع)} other {مینو کھولیں (# غیر پڑھی اطلاعات)}}"
 
+#: src/features/chats/components/verification-watcher.tsx
+msgid "{who} wants to verify you."
+msgstr "{who} آپ کی تصدیق کرنا چاہتے ہیں۔"
+
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "12 hours"
 msgstr "12 گھنٹے"
@@ -193,6 +202,7 @@ msgid "Absolute (date and time)"
 msgstr "مطلق (تاریخ اور وقت)"
 
 #: ../../../lib/web/src/components/game/game-draw-offer-banner.tsx
+#: src/features/chats/components/verification-watcher.tsx
 #: src/features/chats/index.tsx
 msgid "Accept"
 msgstr "قبول کریں"
@@ -326,6 +336,10 @@ msgstr "رکن شامل کیا جا رہا ہے..."
 msgid "Addresses"
 msgstr "پتے"
 
+#: src/features/chats/roles.ts
+msgid "Administrator"
+msgstr "ایڈمنسٹریٹر"
+
 #: src/features/chats/constants/reactions.ts
 msgid "Agree"
 msgstr "اتفاق"
@@ -379,6 +393,10 @@ msgstr "Android پش"
 #: src/features/chats/constants/reactions.ts
 msgid "Angry"
 msgstr "ناراض"
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Another of your devices wants to verify this one."
+msgstr "آپ کی ایک اور ڈیوائس اس کی تصدیق کرنا چاہتی ہے۔"
 
 #: ../../../lib/web/src/features/access/access-list.tsx
 #: ../../../lib/web/src/features/access/types.ts
@@ -440,6 +458,10 @@ msgstr "بطور {0}"
 #: ../../../lib/web/src/components/ui/sort-direction-button.tsx
 msgid "Ascending"
 msgstr "صعودی"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Asking to compare emoji..."
+msgstr "ایموجی کا موازنہ کرنے کی درخواست کی جا رہی ہے..."
 
 #: ../../../lib/web/src/components/timezone-select.tsx
 msgid "At sea"
@@ -599,6 +621,8 @@ msgstr "کیمرہ دستیاب نہیں"
 #: src/features/chats/components/chat-settings-dialog.tsx
 #: src/features/chats/components/forward-dialog.tsx
 #: src/features/chats/components/new-chat.tsx
+#: src/features/chats/components/verification-watcher.tsx
+#: src/features/chats/components/verification-watcher.tsx
 #: src/features/chats/index.tsx
 msgid "Cancel"
 msgstr "منسوخ کریں"
@@ -735,6 +759,10 @@ msgstr "چیٹ ان پن کر دی گئی"
 msgid "Chats"
 msgstr "چیٹس"
 
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Check that the same emoji appear on the other screen."
+msgstr "چیک کریں کہ دوسری اسکرین پر وہی ایموجی نظر آ رہے ہیں۔"
+
 #: ../../../lib/web/src/hooks/use-field-type-labels.ts
 msgid "Checkbox"
 msgstr "چیک باکس"
@@ -867,6 +895,11 @@ msgstr "تبصرے ({0})"
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Compact"
 msgstr "کمپیکٹ"
+
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Compare emoji"
+msgstr "ایموجی کا موازنہ کریں"
 
 #: ../../../lib/web/src/components/entity/entity-option-dialog.tsx
 msgid "Configure option settings"
@@ -1028,6 +1061,7 @@ msgid "Date"
 msgstr "تاریخ"
 
 #: ../../../lib/web/src/components/game/game-draw-offer-banner.tsx
+#: src/features/chats/components/verification-watcher.tsx
 #: src/features/chats/index.tsx
 msgid "Decline"
 msgstr "انکار کریں"
@@ -1167,6 +1201,10 @@ msgstr "تفصیلات کا پینل"
 msgid "Detect from web browser"
 msgstr "ویب براؤزر سے پتہ لگائیں"
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "Device options"
+msgstr "ڈیوائس کے اختیارات"
+
 #: ../../../lib/web/src/components/person-picker.tsx
 msgid "Directory"
 msgstr "ڈائریکٹری"
@@ -1210,6 +1248,14 @@ msgstr "برخاست کریں"
 msgid "Displays the mobile sidebar."
 msgstr "موبائل سائڈبار دکھاتا ہے۔"
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "Distrust"
+msgstr "اعتماد نہ کریں"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Distrusted"
+msgstr "ناقابلِ اعتماد"
+
 #: src/features/chats/components/chat-input.tsx
 msgid "Document"
 msgstr "دستاویز"
@@ -1220,6 +1266,7 @@ msgstr "مطلوبہ نمونے سے مطابقت نہیں رکھتا"
 
 #: ../../../lib/web/src/components/entity/entity-field-dialog.tsx
 #: ../../../lib/web/src/components/entity/entity-view-sheet.tsx
+#: src/features/chats/components/encryption-section.tsx
 msgid "Done"
 msgstr "مکمل"
 
@@ -1308,6 +1355,12 @@ msgstr "ای میل کوڈ"
 msgid "Encrypted message"
 msgstr "خفیہ کردہ پیغام"
 
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+msgid "Encryption"
+msgstr "انکرپشن"
+
 #: ../../../lib/web/src/components/calendar/time-grid.tsx
 msgid "Ends before it starts"
 msgstr "شروع ہونے سے پہلے ختم ہو جاتا ہے"
@@ -1315,6 +1368,11 @@ msgstr "شروع ہونے سے پہلے ختم ہو جاتا ہے"
 #: ../../../lib/web/src/components/banner-section.tsx
 msgid "Enter banner text (markdown supported)..."
 msgstr "بینر کا متن درج کریں (مارک ڈاؤن سپورٹڈ)..."
+
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+msgid "Enter recovery key"
+msgstr "بازیابی کلید درج کریں"
 
 #: ../../../lib/web/src/components/step-up-dialog.tsx
 msgid "Enter the code from your email"
@@ -1498,6 +1556,7 @@ msgstr "RSS رسائی واپس لینے میں ناکام"
 
 #: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx
 #: src/features/chats/components/chat-settings-dialog.tsx
+#: src/features/chats/components/encryption-section.tsx
 msgid "Failed to save"
 msgstr "محفوظ کرنے میں ناکامی"
 
@@ -1556,6 +1615,10 @@ msgstr "فلیگز"
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Flat"
 msgstr "ہموار"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Forget my decision"
+msgstr "میرا فیصلہ بھول جائیں"
 
 #: src/features/chats/components/forward-dialog.tsx
 #: src/features/chats/components/message-hover-actions.tsx
@@ -1717,6 +1780,10 @@ msgstr "نیچے جائیں"
 #: ../../../lib/web/src/lib/locale-format.ts
 msgid "Just now"
 msgstr "ابھی ابھی"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Keep this key safe. It is shown once, and your other Matrix clients ask for it to read your encrypted messages."
+msgstr "اس کلید کو محفوظ رکھیں۔ یہ صرف ایک بار دکھائی جاتی ہے، اور آپ کے دیگر Matrix کلائنٹس آپ کے خفیہ کردہ پیغامات پڑھنے کے لیے اسے مانگتے ہیں۔"
 
 #: ../../../lib/web/src/components/entity/keyboard-shortcuts-help.tsx
 msgid "Keyboard shortcuts"
@@ -1974,6 +2041,10 @@ msgstr "Mochi ویب"
 msgid "Moderation"
 msgstr "نگرانی"
 
+#: src/features/chats/roles.ts
+msgid "Moderator"
+msgstr "ماڈریٹر"
+
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Monday"
 msgstr "پیر"
@@ -2104,6 +2175,10 @@ msgstr "فارورڈ کرنے کے لیے کوئی چیٹ نہیں"
 msgid "No comments yet"
 msgstr "ابھی تک کوئی تبصرے نہیں"
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "No devices"
+msgstr "کوئی ڈیوائس نہیں"
+
 #: src/routes/_authenticated/$chatId_.settings.tsx
 msgid "No friends available"
 msgstr "کوئی دوست دستیاب نہیں"
@@ -2139,6 +2214,10 @@ msgstr "ابھی تک کوئی پیغامات نہیں"
 #: src/features/chats/components/chat-input.tsx
 msgid "No microphone found"
 msgstr "کوئی مائیکروفون نہیں ملا"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "No other devices"
+msgstr "کوئی دوسری ڈیوائس نہیں"
 
 #: ../../../lib/web/src/components/entity/entity-field-editor.tsx
 #: ../../../lib/web/src/components/person-picker.tsx
@@ -2224,6 +2303,11 @@ msgstr "نہیں ملا"
 #: ../../../lib/web/src/components/ui/editable-field-row.tsx
 msgid "Not set"
 msgstr "سیٹ نہیں ہے"
+
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+msgid "Not verified"
+msgstr "تصدیق شدہ نہیں"
 
 #: ../../../lib/web/src/components/entity/entity-tree-view.tsx
 msgid "Nothing found"
@@ -2327,6 +2411,7 @@ msgstr "دیگر"
 
 #: ../../../lib/web/src/components/member-list.tsx
 #: ../../../lib/web/src/features/access/access-list.tsx
+#: src/features/chats/roles.ts
 msgid "Owner"
 msgstr "مالک"
 
@@ -2352,6 +2437,10 @@ msgstr "پاس کیز"
 #: ../../../lib/web/src/lib/shell-errors.ts
 msgid "Passkeys are not available in this browser"
 msgstr "اس براؤزر میں پاس کیز دستیاب نہیں ہیں"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Password"
+msgstr "پاس ورڈ"
 
 #: ../../../lib/web/src/components/entity/entity-field-dialog.tsx
 msgid "Pattern (regex)"
@@ -2508,6 +2597,14 @@ msgstr "ریکارڈنگ 5 منٹ کی حد پر رک گئی"
 #: src/features/chats/components/chat-input.tsx
 msgid "Recording voice note"
 msgstr "صوتی پیغام ریکارڈ ہو رہا ہے"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Recovery could not be set up"
+msgstr "بازیابی سیٹ اپ نہیں ہو سکی"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Recovery key"
+msgstr "بازیابی کلید"
 
 #: ../../../lib/web/src/components/layout/authenticated-layout.tsx
 msgid "Redirecting to login."
@@ -2673,6 +2770,10 @@ msgstr "ہار مانیں"
 msgid "Resign game?"
 msgstr "گیم میں ہار مانیں؟"
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "Restore"
+msgstr "بحال کریں"
+
 #: ../../../lib/web/src/components/attachment-composer.tsx
 msgid "Retry"
 msgstr "دوبارہ کوشش کریں"
@@ -2730,7 +2831,12 @@ msgstr "ہفتہ"
 msgid "Save"
 msgstr "محفوظ کریں"
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "Saved"
+msgstr "محفوظ ہو گیا"
+
 #: src/features/chats/components/chat-settings-dialog.tsx
+#: src/features/chats/components/encryption-section.tsx
 msgid "Saving..."
 msgstr "محفوظ کیا جا رہا ہے..."
 
@@ -2957,6 +3063,12 @@ msgstr "سیشن کی میعاد ختم ہو گئی ہے۔ براہ کرم دو�
 msgid "Set origin and destination"
 msgstr "ابتدائی مقام اور منزل مقرر کریں"
 
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+msgid "Set up recovery"
+msgstr "بازیابی سیٹ اپ کریں"
+
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx
 #: ../../../lib/web/src/components/options-menu.tsx
@@ -3142,6 +3254,10 @@ msgstr "وہ کوڈ غلط ہے یا اس کی میعاد ختم ہو چکی ہ�
 msgid "That could not be sent. The files may be too large, or your connection failed. Try smaller files."
 msgstr "بھیجا نہیں جا سکا۔ ہو سکتا ہے فائلیں بہت بڑی ہوں، یا آپ کا کنکشن منقطع ہو گیا۔ چھوٹی فائلیں آزمائیں۔"
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "That is not your recovery key"
+msgstr "یہ آپ کی بازیابی کلید نہیں ہے"
+
 #: ../../../lib/web/src/hooks/use-attachment-error.ts
 #: ../../../lib/web/src/lib/handle-server-error.ts
 msgid "That was too large to upload. Remove or shrink files and try again."
@@ -3164,6 +3280,14 @@ msgstr "چیٹ کا نام زیادہ سے زیادہ {CHAT_NAME_MAX_LENGTH} ح�
 msgid "The chat name cannot contain < or >"
 msgstr "چیٹ کے نام میں < یا > نہیں ہو سکتا"
 
+#: src/features/chats/components/verification-watcher.tsx
+msgid "The emoji did not match, so the verification was cancelled"
+msgstr "ایموجی مماثل نہیں تھے، اس لیے تصدیق منسوخ کر دی گئی"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "The fingerprint matches"
+msgstr "فنگر پرنٹ مماثل ہے"
+
 #: ../../../lib/web/src/lib/shell-errors.ts
 msgid "The microphone request was not answered"
 msgstr "مائیکروفون کی درخواست کا جواب نہیں دیا گیا"
@@ -3171,6 +3295,10 @@ msgstr "مائیکروفون کی درخواست کا جواب نہیں دیا �
 #: ../../../lib/web/src/lib/shell-errors.ts
 msgid "The passkey request was not answered"
 msgstr "پاس کی کی درخواست کا جواب نہیں دیا گیا"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "The password was not accepted"
+msgstr "پاس ورڈ قبول نہیں کیا گیا"
 
 #: ../../../lib/web/src/features/errors/general-error.tsx
 msgid "The requested content could not be found."
@@ -3180,10 +3308,30 @@ msgstr "مطلوبہ مواد نہیں مل سکا۔"
 msgid "The server returned a web page instead of data."
 msgstr "سرور نے ڈیٹا کے بجائے ایک ویب صفحہ واپس کیا۔"
 
+#: src/features/chats/components/encryption-section.tsx
+msgid "The verification could not be started"
+msgstr "تصدیق شروع نہیں ہو سکی"
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "The verification could not go on"
+msgstr "تصدیق جاری نہیں رہ سکی"
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "The verification was cancelled"
+msgstr "تصدیق منسوخ کر دی گئی"
+
 #. placeholder {0}: unknown.join(', ')
 #: src/features/chats/index.tsx
 msgid "These names are not in this chat: {0}. Pick from the @ list or remove them."
 msgstr "یہ نام اس چیٹ میں نہیں ہیں: {0}۔ @ فہرست سے منتخب کریں یا انہیں ہٹا دیں۔"
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "They don't match"
+msgstr "یہ مماثل نہیں ہیں"
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "They match"
+msgstr "یہ مماثل ہیں"
 
 #: src/routes/_authenticated/$chatId_.settings.tsx
 msgid "They stop receiving new messages in this chat."
@@ -3203,12 +3351,20 @@ msgid "This chat may have been deleted or you don't have access to it"
 msgstr "ممکن ہے یہ چیٹ حذف ہو چکی ہو یا آپ کو اس تک رسائی نہ ہو"
 
 #: src/features/chats/index.tsx
-msgid "This conversation is encrypted. Messages cannot be sent to it from here yet."
-msgstr "یہ گفتگو خفیہ کردہ ہے۔ یہاں سے ابھی اس میں پیغامات نہیں بھیجے جا سکتے۔"
-
-#: src/features/chats/index.tsx
 msgid "This deletes the message for everyone and cannot be undone."
 msgstr "اس سے پیغام سب کے لیے حذف ہو جائے گا اور اسے واپس نہیں کیا جا سکتا۔"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "This device"
+msgstr "یہ ڈیوائس"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "This device (OMEMO 2)"
+msgstr "یہ ڈیوائس (OMEMO 2)"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "This device (OMEMO)"
+msgstr "یہ ڈیوائس (OMEMO)"
 
 #: src/features/chats/components/chat-message-list.tsx
 #: src/features/chats/components/message-quote.tsx
@@ -3406,14 +3562,28 @@ msgstr "متغیرات: {variables}"
 msgid "Verification code"
 msgstr "تصدیقی کوڈ"
 
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/encryption-section.tsx
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Verified"
+msgstr "تصدیق شدہ"
+
 #: ../../../lib/web/src/components/step-up-dialog.tsx
 #: ../../../lib/web/src/features/accounts/account-verify.tsx
 msgid "Verify"
 msgstr "تصدیق کریں"
 
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Verify {who}"
+msgstr "{who} کی تصدیق کریں"
+
 #: ../../../lib/web/src/features/accounts/account-verify.tsx
 msgid "Verify email address"
 msgstr "ای میل ایڈریس کی تصدیق کریں"
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Verify your device"
+msgstr "اپنی ڈیوائس کی تصدیق کریں"
 
 #: ../../../lib/web/src/components/attachment-gallery.tsx
 #: src/features/chats/components/message-media-grid.tsx
@@ -3438,6 +3608,10 @@ msgstr "آئٹم کی تفصیلات دیکھیں اور ایڈٹ کریں"
 msgid "View controls"
 msgstr "کنٹرولز دیکھیں"
 
+#: src/features/chats/roles.ts
+msgid "Visitor"
+msgstr "مہمان"
+
 #: src/features/chats/components/voice-waveform.tsx
 msgid "Voice note waveform"
 msgstr "صوتی پیغام کی لہر"
@@ -3455,6 +3629,14 @@ msgstr "اس براؤزر میں صوتی ریکارڈنگ کی سہولت نہ�
 #: src/features/chats/components/chat-input.tsx
 msgid "Voice recording isn't available in this app version. Please update the app and try again."
 msgstr "ایپ کے اس ورژن میں صوتی ریکارڈنگ دستیاب نہیں۔ براہ کرم ایپ اپ ڈیٹ کریں اور دوبارہ کوشش کریں۔"
+
+#: src/features/chats/components/verification-watcher.tsx
+msgid "Waiting for the other device..."
+msgstr "دوسری ڈیوائس کا انتظار ہے..."
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Waiting for them to accept"
+msgstr "ان کے قبول کرنے کا انتظار ہے"
 
 #: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx
 #: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx
@@ -3530,6 +3712,18 @@ msgstr "آپ کا اکاؤنٹ {source} سے یہاں منتقل کر دیا گ�
 #: ../../../lib/web/src/components/comment-composer.tsx
 msgid "Your attachments will be lost."
 msgstr "آپ کے منسلکات ضائع ہو جائیں گے۔"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Your Matrix server asks for your account's password."
+msgstr "آپ کا Matrix سرور آپ کے اکاؤنٹ کا پاس ورڈ مانگ رہا ہے۔"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Your other devices"
+msgstr "آپ کی دیگر ڈیوائسز"
+
+#: src/features/chats/components/encryption-section.tsx
+msgid "Your recovery key"
+msgstr "آپ کی بازیابی کلید"
 
 #: ../../../lib/web/src/components/comment-composer.tsx
 msgid "Your text and attachments will be lost."

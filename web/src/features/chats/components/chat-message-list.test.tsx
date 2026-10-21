@@ -29,13 +29,17 @@ const query = {
 } as unknown as UseInfiniteQueryResult<InfiniteData<GetMessagesResponse>, unknown>
 
 describe('ChatMessageList', () => {
-  it('shows a message its network encrypted as encrypted, with no content', () => {
+  it('shows an encrypted message the server read, and one whose keys have not come as encrypted', () => {
     render(
       <I18nProvider i18n={i18n}>
         <ChatMessageList
           chatId='c1'
           messagesQuery={query}
-          chatMessages={[message('m1', 'Hello in the clear'), message('m2', '', 1)]}
+          chatMessages={[
+            message('m1', 'Hello in the clear'),
+            message('m2', '', 1),
+            message('m3', 'Hello decrypted', 1),
+          ]}
           isLoadingMessages={false}
           messagesError={null}
           currentUserIdentity='me'
@@ -44,6 +48,7 @@ describe('ChatMessageList', () => {
       </I18nProvider>
     )
     expect(screen.getByText('Hello in the clear')).toBeInTheDocument()
+    expect(screen.getByText('Hello decrypted')).toBeInTheDocument()
     expect(screen.getAllByText('Encrypted message')).toHaveLength(1)
   })
 })
