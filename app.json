@@ -12,7 +12,7 @@
 	"services": ["chat"],
 
 	"architecture": {"engine": "starlark", "version": 4},
-	"execute": ["lib/attachments.star", "lib/content.star", "chat.star"],
+	"execute": ["lib/attachments.star", "lib/content.star", "chat.star", "direct.star"],
 	"require": {"version": {"minimum": "2.0.12"}},
 
 	"database": {
@@ -39,7 +39,16 @@
 		// What the people from Matrix do in a room this server relays for a
 		// group, and the people on Matrix a search finds, for people (phase 24).
 		"bridge/receive": {"function": "function_bridge_receive"},
-		"directory": {"function": "function_directory"}
+		"directory": {"function": "function_directory"},
+		// A hosted fediverse account's direct conversations, for core's
+		// Mastodon and Lemmy interfaces (phase 28).
+		"direct/conversations": {"function": "function_direct_conversations"},
+		"direct/messages": {"function": "function_direct_messages"},
+		"direct/message": {"function": "function_direct_message"},
+		"direct/send": {"function": "function_direct_send"},
+		"direct/edit": {"function": "function_direct_edit"},
+		"direct/delete": {"function": "function_direct_delete"},
+		"direct/read": {"function": "function_direct_read"}
 	},
 
 	"icons": [
