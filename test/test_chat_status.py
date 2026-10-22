@@ -60,9 +60,9 @@ def call(role, method, path, body=None):
 
 # B accepts new chats only from friends. Befriending is a no-op when A and B
 # already are: the invite and the accept are refused and nothing changes.
-request(jwt(A_SESSION, "people"), "POST", "/people/-/friends/create", {"id": B_ID, "name": "Chat test B"})
+request(jwt(A_SESSION, "people"), "POST", "/people/-/friends/invite", {"person": B_ID, "name": "Chat test B"})
 time.sleep(1)
-request(jwt(B_SESSION, "people"), "POST", "/people/-/friends/accept", {"id": A_ID})
+request(jwt(B_SESSION, "people"), "POST", "/people/-/friends/accept", {"person": A_ID})
 time.sleep(1)
 
 def db(path, q, args=()):
