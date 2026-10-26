@@ -11,7 +11,11 @@ import {
   type UseQueryOptions,
   type InfiniteData,
 } from '@tanstack/react-query'
-import { useQueryWithError, useInfiniteQueryWithError } from '@mochi/web'
+import {
+  optimistic,
+  useQueryWithError,
+  useInfiniteQueryWithError,
+} from '@mochi/web'
 import {
   chatsApi,
   type ChatPreferences,
@@ -559,7 +563,18 @@ export const useRemoveMemberMutation = (
 
 interface MarkChatReadVariables extends MarkReadRequest {
   chatId: string
+  /** Clear the badge before the server answers. Only for a reader's own
+   * click, which reports a refusal; the read sent as a chat opens has no
+   * message to show, so it keeps waiting. Never sent to the server. */
+  instant?: boolean
 }
+
+const clearUnread = (old: GetChatsResponse, chatId: string) => ({
+  ...old,
+  chats: old.chats.map((chat) =>
+    chat.id === chatId ? { ...chat, unread: 0 } : chat
+  ),
+})
 
 export const useMarkChatReadMutation = (
   options?: UseMutationOptions<
@@ -570,20 +585,34 @@ export const useMarkChatReadMutation = (
   >
 ) => {
   const queryClient = useQueryClient()
-  const { onSuccess, ...restOptions } = options ?? {}
+  const { onSuccess, onError, ...restOptions } = options ?? {}
+  const patch = optimistic(
+    queryClient,
+    ({ chatId, instant }: MarkChatReadVariables) =>
+      instant
+        ? [
+            {
+              filters: { queryKey: chatKeys.all(), exact: true },
+              update: (old: GetChatsResponse) => clearUnread(old, chatId),
+            },
+          ]
+        : []
+  )
   return useMutation({
-    mutationFn: ({ chatId, ...payload }: MarkChatReadVariables) =>
-      chatsApi.markRead(chatId, payload),
+    mutationFn: ({
+      chatId,
+      instant: _instant,
+      ...payload
+    }: MarkChatReadVariables) => chatsApi.markRead(chatId, payload),
+    onMutate: patch.onMutate,
+    onError: (error, variables, context, mutation) => {
+      patch.rollback(context)
+      onError?.(error, variables, context, mutation)
+    },
     onSuccess: (data, variables, context, mutation) => {
-      queryClient.setQueryData<GetChatsResponse>(chatKeys.all(), (old) => {
-        if (!old) return old
-        return {
-          ...old,
-          chats: old.chats.map((chat) =>
-            chat.id === variables.chatId ? { ...chat, unread: 0 } : chat
-          ),
-        }
-      })
+      queryClient.setQueryData<GetChatsResponse>(chatKeys.all(), (old) =>
+        old ? clearUnread(old, variables.chatId) : old
+      )
       onSuccess?.(data, variables, context, mutation)
     },
     ...restOptions,

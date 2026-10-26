@@ -197,7 +197,7 @@ function ChatLayoutInner() {
     async (chatId: string) => {
       clearMarkedUnread(chatId)
       try {
-        await toastAction(markChatReadAsync({ chatId }), {
+        await toastAction(markChatReadAsync({ chatId, instant: true }), {
           loading: t`Marking as read...`,
           success: t`Chat marked as read`,
           error: (error) =>
