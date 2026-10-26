@@ -4449,7 +4449,9 @@ def function_bridge_receive(context, room, events):
 		if type(event) != "dict":
 			continue
 		kind = str(event.get("kind", "") or "")
-		if kind == "invite":
+		if kind == "invite" and event.get("left") == True:
+			bridge_uninvited(identity, room, event)
+		elif kind == "invite":
 			bridge_invited(identity, room, event)
 		elif not chat:
 			continue
@@ -4619,6 +4621,37 @@ def bridge_invited(identity, room, event):
 	mochi.db.execute("insert into members ( chat, member, name ) values ( ?, ?, ? )", chat, member, known["name"])
 	mochi.db.execute("insert into members ( chat, member, name, relay ) values ( ?, ?, ?, ? )", chat, person, name, me)
 	mochi.message.send({"from": me, "to": member, "service": "chat", "event": "bridge/new"}, {"id": chat, "name": name, "person": person})
+
+def bridge_uninvited(identity, room, event):
+	"""An invitation to a member's stand-in withdrawn before it was taken: the
+	conversation it started is dropped, the copy here and, for another
+	member, theirs."""
+	me = identity["id"]
+	member = str(event.get("to", "") or "")
+	chat = mochi.db.row("select * from chats where relay=? and status='active'", room)
+	if not chat or not mochi.text.valid(member, "entity"):
+		return
+	if member != me:
+		if chat.get("kind") != "bridge":
+			return
+		mochi.message.send({"from": me, "to": member, "service": "chat", "event": "bridge/withdrawn"}, {"id": chat["id"]})
+	chat_delete_local(chat["id"])
+
+def event_bridge_withdrawn(e):
+	"""The member relaying a person from Matrix telling the user the person
+	withdrew the conversation before it was taken: dropped where nothing was
+	said in it, else the person leaves it."""
+	chat = mochi.db.row("select * from chats where id=? and status='active'", content_text(e, "id", ""))
+	if not chat:
+		return
+	person = mochi.db.row("select member from members where chat=? and relay=?", chat["id"], e.header("from"))
+	if not person:
+		return
+	if not mochi.db.exists("select 1 from messages where chat=?", chat["id"]):
+		chat_delete_local(chat["id"])
+		return
+	mochi.db.execute("delete from members where chat=? and member=?", chat["id"], person["member"])
+	chat_websocket(chat["key"], {"event": "member/remove", "member": person["member"]})
 
 def event_bridge_new(e):
 	"""A person from Matrix starting a conversation with the user through the
