@@ -40,6 +40,7 @@ import {
   BubbleGroup,
   useFormat,
   QuoteCard,
+  addressByAuthor,
 } from '@mochi/web'
 import { Check, CheckCheck, ChevronsDown, MessageCircle } from 'lucide-react'
 import type { ChatMessage } from '@/api/chats'
@@ -335,6 +336,20 @@ export function ChatMessageList({
     [chatMessages]
   )
 
+  // One avatar address per sender across the loaded messages: the route names
+  // a message, and any message of the chat answers with its sender's picture,
+  // so building each message's own fetched the same picture once per message.
+  const avatars = useMemo(
+    () =>
+      addressByAuthor(chatMessages, {
+        getAuthor: (m) => m.member,
+        getAddress: (m) => `${getAppPath()}/${m.chat}/-/${m.id}/asset`,
+      }),
+    [chatMessages]
+  )
+  const avatarFor = (m: ChatMessage) =>
+    avatars.get(m.member) ?? `${getAppPath()}/${m.chat}/-/${m.id}/asset`
+
   const seen = useMemo(
     () =>
       isGroupChat
@@ -614,10 +629,10 @@ export function ChatMessageList({
                                   (index === 0 ? (
                                     <EntityAvatar
                                       src={assetUrl(
-                                        `${getAppPath()}/${message.chat}/-/${message.id}/asset/avatar`
+                                        `${avatarFor(message)}/avatar`
                                       )}
                                       styleUrl={assetUrl(
-                                        `${getAppPath()}/${message.chat}/-/${message.id}/asset/style`
+                                        `${avatarFor(message)}/style`
                                       )}
                                       seed={message.member}
                                       name={message.name}
