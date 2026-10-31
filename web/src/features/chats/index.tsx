@@ -481,12 +481,14 @@ export function Chats() {
     clearMarkedUnread(loadedChatId)
     markChatRead({ chatId: loadedChatId })
   }, [loadedChatId, loadedChatStatus, clearMarkedUnread, markChatRead])
-  // Chat detail (members, names)
-  const { data: chatDetail } = useChatDetailQuery(selectedChat?.id)
+  // Chat detail (members, names), by the chat the address names rather than
+  // once the whole chat list has answered. The server checks membership on
+  // each of these, and nothing renders from a refused answer.
+  const { data: chatDetail } = useChatDetailQuery(selectedChatId)
   const detailMembers = chatDetail?.chat.members
-  const { data: membersResponse } = useChatMembersQuery(selectedChat?.id, {
+  const { data: membersResponse } = useChatMembersQuery(selectedChatId, {
     enabled:
-      Boolean(selectedChat?.id) && !(detailMembers && detailMembers.length > 0),
+      Boolean(selectedChatId) && !(detailMembers && detailMembers.length > 0),
   })
 
   const chatMemberRoster = useMemo(
@@ -642,8 +644,10 @@ export function Chats() {
     setThreadRoot(null)
   }, [selectedChat?.id])
 
-  // Messages
-  const messagesQuery = useInfiniteMessagesQuery(selectedChat?.id)
+  // Messages, by the address's chat as the detail is. Marking them read stays
+  // on the list-resolved chat above, so the watermark moves only for a chat
+  // the user holds.
+  const messagesQuery = useInfiniteMessagesQuery(selectedChatId)
   const chatMessages = useMemo(() => {
     if (!messagesQuery.data?.pages) return []
     return [...messagesQuery.data.pages].reverse().flatMap((p) => p.messages)
