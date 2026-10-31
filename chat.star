@@ -345,35 +345,6 @@ def fail(a, failure):
 	else:
 		a.error.label(failure[0], failure[1])
 
-def stream_asset(a, entity_id, service, asset):
-	if not entity_id:
-		a.error.label(404, "errors.asset_unavailable", asset=asset)
-		return None
-	# Reject a malformed id before opening a stream: mochi.remote.stream errors
-	# out on an invalid entity, which aborts the whole action as a 500. The
-	# user-asset routes pass a caller-supplied id here. Mirrors crm.
-	if not mochi.text.valid(entity_id, "entity") and not mochi.text.valid(entity_id, "fingerprint"):
-		a.error.label(404, "errors.asset_unavailable", asset=asset)
-		return None
-	s = mochi.remote.stream(entity_id, service, asset, {})
-	if not s:
-		a.error.label(404, "errors.asset_unavailable", asset=asset)
-		return None
-	header = s.read()
-	if not header or header.get("status") != "200":
-		a.error.label(404, "errors.asset_not_set", asset=asset)
-		return None
-	a.header("Cache-Control", "private, max-age=300")
-	if "data" in header:
-		return {"data": header["data"]}
-	a.header("Content-Type", header.get("content_type", "application/octet-stream"))
-	# Per-slot byte caps matching what the people app accepts on upload; the route
-	# is public, so an uncapped stream could run indefinitely. Unknown slots fall
-	# back to the largest cap.
-	caps = {"avatar": 2 * 1024 * 1024, "banner": 10 * 1024 * 1024, "favicon": 64 * 1024}
-	a.write.stream(s, maximum=caps.get(asset, 10 * 1024 * 1024))
-	return None
-
 # Only what the message list renders. The people service offers banner,
 # favicon and information too, but proxying those here would widen what a
 # chat URL discloses about its participants for no caller that wants them.
@@ -408,7 +379,7 @@ def action_message_asset(a):
 	# Bind the message to the route chat so this can't be used to resolve a
 	# message (and its author) in a chat the URL doesn't name.
 	row = mochi.db.row("select member from messages where id=? and chat=?", a.input("message"), a.input("chat"))
-	return stream_asset(a, row["member"] if row else "", "people", asset)
+	return asset_serve(a, row["member"] if row else "", "people", asset)
 
 # Serves a person's avatar or style through THIS app, so the SPA never fetches
 # /people/<id>/-/avatar itself. A cross-app image request carries Origin: null
@@ -439,7 +410,7 @@ def action_person_asset(a):
 		a.error.label(403, "errors.asset_unavailable", asset=asset)
 		return
 
-	return stream_asset(a, person, "people", asset)
+	return asset_serve(a, person, "people", asset)
 
 # Whom may start a chat with this user: friends only (default) or anyone.
 _VALID_CHAT_POLICIES = ("friends", "anyone")
