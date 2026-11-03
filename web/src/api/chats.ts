@@ -201,11 +201,16 @@ export const chatsApi = {
       })
       .then((res) => res.data),
 
+  // Making a chat on another network, and accepting an invitation to one,
+  // wait on the account's server, up to a linked account's own limit for each
+  // request. No limit of the client's own, since the server always answers,
+  // and a shorter one reported a failure for a chat that was made.
   create: (payload: CreateChatRequest) =>
     client
       .post<CreateChatResponse | { data: CreateChatResponse }>(
         endpoints.chat.create,
-        payload
+        payload,
+        { timeout: 0 }
       )
       .then((res) => unwrapData<CreateChatResponse>(res)),
 
@@ -242,7 +247,9 @@ export const chatsApi = {
   accept: (chatId: string) =>
     client
       .post<AcceptResponse | { data: AcceptResponse }>(
-        endpoints.chat.accept(chatId)
+        endpoints.chat.accept(chatId),
+        undefined,
+        { timeout: 0 }
       )
       .then((res) => unwrapData<AcceptResponse>(res)),
 
