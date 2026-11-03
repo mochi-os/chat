@@ -576,6 +576,12 @@ const clearUnread = (old: GetChatsResponse, chatId: string) => ({
   ),
 })
 
+// What a caller's own onMutate returned, keyed by the patch's call. Weak, so
+// an entry goes with its mutation.
+const callerResults = new WeakMap<object, unknown>()
+const callerResult = (call: object | undefined) =>
+  call ? callerResults.get(call) : undefined
+
 export const useMarkChatReadMutation = (
   options?: UseMutationOptions<
     MarkReadResponse,
@@ -585,7 +591,8 @@ export const useMarkChatReadMutation = (
   >
 ) => {
   const queryClient = useQueryClient()
-  const { onSuccess, onError, ...restOptions } = options ?? {}
+  const { onMutate, onSuccess, onError, onSettled, ...restOptions } =
+    options ?? {}
   const patch = optimistic(
     queryClient,
     ({ chatId, instant }: MarkChatReadVariables) =>
@@ -598,24 +605,43 @@ export const useMarkChatReadMutation = (
           ]
         : []
   )
+  // The patch and a caller's own onMutate both run, and each keeps its own
+  // result: rollback gets the patch's, the caller's callbacks get theirs.
+  // A caller's onMutate spread over this one would drop the rollback.
+  //
+  // The mutation's context stays the patch's own call, unwrapped: optimistic
+  // only forgets a settled call whose context is that object, so a wrapper
+  // would leave every accepted read in its list. The caller's result rides
+  // beside it instead.
+  //
+  // The caller's onMutate runs first. If it throws, TanStack fails the read
+  // with no context to roll back, so the badge must not have been cleared.
   return useMutation({
+    ...restOptions,
     mutationFn: ({
       chatId,
       instant: _instant,
       ...payload
     }: MarkChatReadVariables) => chatsApi.markRead(chatId, payload),
-    onMutate: patch.onMutate,
-    onError: (error, variables, context, mutation) => {
-      patch.rollback(context)
-      onError?.(error, variables, context, mutation)
+    onMutate: async (variables, context) => {
+      const caller = await onMutate?.(variables, context)
+      const call = await patch.onMutate(variables)
+      callerResults.set(call, caller)
+      return call
     },
-    onSuccess: (data, variables, context, mutation) => {
+    onError: async (error, variables, call, context) => {
+      patch.rollback(call)
+      await onError?.(error, variables, callerResult(call), context)
+    },
+    onSuccess: async (data, variables, call, context) => {
       queryClient.setQueryData<GetChatsResponse>(chatKeys.all(), (old) =>
         old ? clearUnread(old, variables.chatId) : old
       )
-      onSuccess?.(data, variables, context, mutation)
+      await onSuccess?.(data, variables, callerResult(call), context)
     },
-    ...restOptions,
+    onSettled: async (data, error, variables, call, context) => {
+      await onSettled?.(data, error, variables, callerResult(call), context)
+    },
   })
 }
 

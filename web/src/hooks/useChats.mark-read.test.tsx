@@ -29,12 +29,12 @@ describe('useMarkChatReadMutation', () => {
     )
   })
 
-  function mount() {
+  function mount(options?: Parameters<typeof useMarkChatReadMutation>[0]) {
     const queryClient = new QueryClient()
     queryClient.setQueryData(['chats'], {
       chats: [{ id: 'c1', unread: 3 }],
     })
-    const view = renderHook(() => useMarkChatReadMutation(), {
+    const view = renderHook(() => useMarkChatReadMutation(options), {
       wrapper: ({ children }: { children: ReactNode }) => (
         <QueryClientProvider client={queryClient}>
           {children}
@@ -44,7 +44,7 @@ describe('useMarkChatReadMutation', () => {
     const unread = () =>
       queryClient.getQueryData<{ chats: { unread: number }[] }>(['chats'])
         ?.chats[0].unread
-    return { view, unread }
+    return { view, unread, queryClient }
   }
 
   it('clears the badge at once and puts it back when refused', async () => {
@@ -72,5 +72,55 @@ describe('useMarkChatReadMutation', () => {
     act(() => view.result.current.mutate({ chatId: 'c1', instant: true }))
     await waitFor(() => expect(chatsApi.markRead).toHaveBeenCalled())
     expect(chatsApi.markRead).toHaveBeenCalledWith('c1', {})
+  })
+
+  // A caller's own onMutate used to replace the hook's, so a refusal left the
+  // badge cleared. Both now run, and each side gets its own result back.
+  it('keeps the undo when the caller has its own onMutate', async () => {
+    const onError = vi.fn()
+    const { view, unread } = mount({
+      onMutate: () => 'caller result',
+      onError,
+    })
+    act(() => view.result.current.mutate({ chatId: 'c1', instant: true }))
+    await waitFor(() => expect(unread()).toBe(0))
+
+    act(() => answer.reject(new Error('refused')))
+    await waitFor(() => expect(view.result.current.isError).toBe(true))
+    expect(unread()).toBe(3)
+    expect(onError.mock.lastCall?.[2]).toBe('caller result')
+  })
+
+  // optimistic forgets a settled call only when the mutation's context is
+  // the call it returned. A wrapper object kept every accepted read, and its
+  // snapshot, for the rest of the session.
+  it('leaves the context as the patch made it, so a settled read is forgotten', async () => {
+    const { view, queryClient } = mount({ onMutate: () => 'caller result' })
+    act(() => view.result.current.mutate({ chatId: 'c1', instant: true }))
+    await waitFor(() => expect(chatsApi.markRead).toHaveBeenCalled())
+    act(() => answer.resolve())
+    await waitFor(() => expect(view.result.current.isSuccess).toBe(true))
+    const [mutation] = queryClient.getMutationCache().getAll()
+    expect(Object.getPrototypeOf(mutation.state.context)).not.toBe(
+      Object.prototype
+    )
+  })
+
+  // A caller's onMutate that throws fails the read before it is sent, and
+  // TanStack then has no context to roll back. It runs before the badge is
+  // cleared, so the badge is never touched.
+  it("leaves the badge alone when the caller's onMutate throws", async () => {
+    const onError = vi.fn()
+    const { view, unread } = mount({
+      onMutate: () => {
+        throw new Error('caller failed')
+      },
+      onError,
+    })
+    act(() => view.result.current.mutate({ chatId: 'c1', instant: true }))
+    await waitFor(() => expect(view.result.current.isError).toBe(true))
+    expect(unread()).toBe(3)
+    expect(chatsApi.markRead).not.toHaveBeenCalled()
+    expect(onError).toHaveBeenCalled()
   })
 })
