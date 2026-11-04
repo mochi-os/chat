@@ -55,6 +55,8 @@ export type VerificationPhase =
   | 'requested'
   | 'ready'
   | 'compare'
+  // This side confirmed the emoji; the other has yet to.
+  | 'confirmed'
   | 'done'
   | 'cancelled'
 
