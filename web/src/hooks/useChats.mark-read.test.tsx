@@ -71,24 +71,66 @@ describe('useMarkChatReadMutation', () => {
     await waitFor(() => expect(unread()).toBe(0))
   })
 
-  // The read sent as a chat opens patches nothing, so it costs no reload.
-  it('reloads the list only after a menu read', async () => {
+  // A refused menu read puts back its own badge, so neither read needs the
+  // list reloaded.
+  it('reloads the list after neither read', async () => {
     const { view, queryClient } = mount()
     const invalidate = vi.spyOn(queryClient, 'invalidateQueries')
     act(() => view.result.current.mutate({ chatId: 'c1' }))
     await waitFor(() => expect(chatsApi.markRead).toHaveBeenCalled())
     act(() => answer.resolve())
     await waitFor(() => expect(view.result.current.isSuccess).toBe(true))
-    expect(invalidate).not.toHaveBeenCalled()
 
     act(() => view.result.current.mutate({ chatId: 'c1', instant: true }))
     await waitFor(() => expect(chatsApi.markRead).toHaveBeenCalledTimes(2))
     act(() => answer.resolve())
-    await waitFor(() => expect(invalidate).toHaveBeenCalledTimes(1))
-    expect(invalidate).toHaveBeenCalledWith({
-      queryKey: ['chats'],
-      exact: true,
+    await waitFor(() => expect(chatsApi.markRead).toHaveBeenCalledTimes(2))
+    await waitFor(() => expect(queryClient.isMutating()).toBe(0))
+    expect(invalidate).not.toHaveBeenCalled()
+  })
+
+  it('puts the badge back after something else wrote the list', async () => {
+    const { view, unread, queryClient } = mount()
+    act(() => view.result.current.mutate({ chatId: 'c1', instant: true }))
+    await waitFor(() => expect(unread()).toBe(0))
+    // A forward bumps the chat to the top while the read is out.
+    queryClient.setQueryData<{ chats: object[] }>(['chats'], (old) => ({
+      chats: old!.chats.map((chat) => ({ ...chat, updated: 99 })),
+    }))
+
+    act(() => answer.reject(new Error('refused')))
+    await waitFor(() => expect(view.result.current.isError).toBe(true))
+    expect(unread()).toBe(3)
+  })
+
+  it('keeps the chat read when opening it was taken while a menu read was out', async () => {
+    const answers: Array<{
+      resolve: () => void
+      reject: (error: unknown) => void
+    }> = []
+    vi.mocked(chatsApi.markRead).mockImplementation(
+      () =>
+        new Promise((resolve, reject) => {
+          answers.push({ resolve: () => resolve({} as never), reject })
+        })
+    )
+    const { view, unread, queryClient } = mount()
+    act(() => {
+      void view.result.current
+        .mutateAsync({ chatId: 'c1', instant: true })
+        .catch(() => {})
     })
+    await waitFor(() => expect(answers).toHaveLength(1))
+    act(() => {
+      void view.result.current.mutateAsync({ chatId: 'c1' }).catch(() => {})
+    })
+    await waitFor(() => expect(answers).toHaveLength(2))
+
+    act(() => answers[1].resolve())
+    await waitFor(() => expect(queryClient.isMutating()).toBe(1))
+    act(() => answers[0].reject(new Error('refused')))
+    await waitFor(() => expect(queryClient.isMutating()).toBe(0))
+    expect(unread()).toBe(0)
   })
 
   it('never sends the flag to the server', async () => {
@@ -99,7 +141,7 @@ describe('useMarkChatReadMutation', () => {
   })
 
   // Two quick menu reads, one accepted and one refused, in either order of
-  // answers: the refused chat's badge comes back from the reload.
+  // answers: the refused chat's badge comes back, and only that one.
   it.each([
     ['accepted first', ['c2', 'c1']],
     ['refused first', ['c1', 'c2']],
@@ -180,8 +222,8 @@ describe('useMarkChatReadMutation', () => {
     }
   )
 
-  // optimistic forgets a settled call only when the mutation's context is
-  // the call it returned. A wrapper object kept every accepted read, and its
+  // The undo forgets a settled call only when the mutation's context is the
+  // call it returned. A wrapper object kept every accepted read, and its
   // snapshot, for the rest of the session.
   it('leaves the context as the patch made it, so a settled read is forgotten', async () => {
     const { view, queryClient } = mount()
