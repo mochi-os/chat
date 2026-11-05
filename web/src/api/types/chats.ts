@@ -211,6 +211,7 @@ export interface SendMessageRequest {
 
 export interface SendMessageResponse {
   id: string
+  unsent?: string[] // what a message on another network went without, in the user's language
 }
 
 export interface EditMessageResponse {

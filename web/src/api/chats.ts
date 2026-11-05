@@ -3,7 +3,7 @@
 // This file is part of Mochi, licensed under the GNU AGPL v3 with the
 // Mochi Application Interface Exception - see license.txt and license-exception.md.
 import type { AxiosProgressEvent } from 'axios'
-import { createAppClient } from '@mochi/web'
+import { createAppClient, toast } from '@mochi/web'
 import endpoints from './endpoints'
 import type {
   Chat,
@@ -43,6 +43,15 @@ import type {
 export * from './types/chats'
 
 const client = createAppClient({ appName: 'chat' })
+
+// What a message on another network went without, a line each, worded by the
+// server in the user's language. The message is sent either way.
+function sayUnsent(sent: SendMessageResponse): SendMessageResponse {
+  for (const line of sent.unsent ?? []) {
+    toast.warning(line)
+  }
+  return sent
+}
 
 const unwrapData = <T>(raw: unknown): T => {
   if (raw && typeof raw === 'object' && 'data' in raw) {
@@ -128,7 +137,7 @@ export const chatsApi = {
           formData,
           { timeout: 0, onUploadProgress: onProgress }
         )
-        .then((res) => unwrapData<SendMessageResponse>(res))
+        .then((res) => sayUnsent(unwrapData<SendMessageResponse>(res)))
     }
 
     return client
@@ -136,7 +145,7 @@ export const chatsApi = {
         endpoints.chat.send(chatId),
         payload
       )
-      .then((res) => unwrapData<SendMessageResponse>(res))
+      .then((res) => sayUnsent(unwrapData<SendMessageResponse>(res)))
   },
 
   editMessage: (
