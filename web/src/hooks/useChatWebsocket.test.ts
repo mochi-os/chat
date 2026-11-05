@@ -49,8 +49,40 @@ describe('handleWebsocketEvent', () => {
     )
     const patched = cached?.pages[0].messages[0]
     expect(patched?.reactions).toEqual({ love: 2 })
-    // The frame carries no member or reaction, so nothing else can be patched.
+    // The frame names no member, as an older chat app sends it, so the
+    // viewer's own reaction stays.
     expect(patched?.reaction).toBe('like')
+  })
+
+  it("takes the viewer's own reaction from a frame that names them, and only them", () => {
+    const client = seeded()
+    const held = () =>
+      client.getQueryData<{ pages: GetMessagesResponse[] }>(
+        chatKeys.messages('c1')
+      )?.pages[0].messages[0]
+    handleWebsocketEvent(
+      'c1',
+      { event: 'reaction', message: 'm1', reactions: { love: 1 }, member: 'bob', reaction: 'love' },
+      client,
+      'me'
+    )
+    expect(held()?.reaction).toBe('like')
+    // Removed on another of the viewer's devices.
+    handleWebsocketEvent(
+      'c1',
+      { event: 'reaction', message: 'm1', reactions: { love: 1 }, member: 'me', reaction: null },
+      client,
+      'me'
+    )
+    expect(held()?.reactions).toEqual({ love: 1 })
+    expect(held()?.reaction).toBeNull()
+    handleWebsocketEvent(
+      'c1',
+      { event: 'reaction', message: 'm1', reactions: { love: 2 }, member: 'me', reaction: 'love' },
+      client,
+      'me'
+    )
+    expect(held()?.reaction).toBe('love')
   })
 
   it('reads the messages again when an encrypted message is decrypted, adding nothing', () => {
@@ -66,6 +98,30 @@ describe('handleWebsocketEvent', () => {
     expect(invalidate).toHaveBeenCalledWith({
       queryKey: chatKeys.messages('c1'),
     })
+  })
+
+  it('shows a new message whose keys have not come as encrypted, not as an empty bubble', () => {
+    const client = seeded()
+    appendMessageToCache(
+      'c1',
+      { id: 'm2', member: 'them', name: 'Them', body: '', created: 2, attachments: [], encrypted: 1 },
+      client,
+      'Unknown',
+      'me'
+    )
+    appendMessageToCache(
+      'c1',
+      { id: 'm3', member: 'them', name: 'Them', body: 'plain', created: 3, attachments: [] },
+      client,
+      'Unknown',
+      'me'
+    )
+    const cached = client.getQueryData<{ pages: GetMessagesResponse[] }>(
+      chatKeys.messages('c1')
+    )
+    const held = cached?.pages[0].messages ?? []
+    expect(held.find((m) => m.id === 'm2')?.encrypted).toBe(1)
+    expect(held.find((m) => m.id === 'm3')?.encrypted ?? 0).toBe(0)
   })
 
   it('invalidates the list and detail keys exactly on a rename, not every loaded page', () => {

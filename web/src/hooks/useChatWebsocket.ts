@@ -15,6 +15,7 @@ import type {
   ChatMessageAttachment,
   GetMessagesResponse,
   ReactionCounts,
+  ReactionId,
 } from '@/api/chats'
 import {
   type ChatWebsocketMessagePayload,
@@ -126,6 +127,9 @@ const createMessageFromPayload = (
     reply: replyTo,
     attachments: payload.attachments ?? [],
     quote: isQuote(payload.quote) ? payload.quote : null,
+    // Without it a message whose keys have not come showed as an empty
+    // bubble until the decrypted frame's refetch.
+    encrypted: typeof payload.encrypted === 'number' ? payload.encrypted : 0,
   }
 }
 
@@ -152,7 +156,8 @@ const parseReactionCounts = (value: unknown): ReactionCounts => {
 const patchMessageReactionFromWebsocket = (
   chatId: string,
   payload: NormalizedChatWebsocketMessagePayload,
-  queryClient: QueryClient
+  queryClient: QueryClient,
+  currentUserId?: string
 ) => {
   const messageId =
     typeof payload.message === 'string' ? payload.message : undefined
@@ -160,10 +165,18 @@ const patchMessageReactionFromWebsocket = (
     return
   }
 
-  // Counts only. The commit hook that emits this frame knows the message,
-  // not which member changed, and every client keeps its own reaction from
-  // its own mutation's answer - so there is nothing else to patch here.
+  // The counts, and the viewer's own reaction where the frame says it was
+  // theirs that changed: made on another device, it is not this one's
+  // mutation's answer. A frame from an older chat app names no member.
   const reactionCounts = parseReactionCounts(payload.reactions)
+  const mine =
+    !!currentUserId &&
+    typeof payload.member === 'string' &&
+    payload.member === currentUserId
+  const reaction: ReactionId | null =
+    typeof payload.reaction === 'string' && isReactionId(payload.reaction)
+      ? payload.reaction
+      : null
 
   queryClient.setQueryData<InfiniteData<GetMessagesResponse>>(
     chatKeys.messages(chatId),
@@ -180,7 +193,9 @@ const patchMessageReactionFromWebsocket = (
             return message
           }
           found = true
-          return { ...message, reactions: reactionCounts }
+          return mine
+            ? { ...message, reactions: reactionCounts, reaction }
+            : { ...message, reactions: reactionCounts }
         }),
       }))
 
@@ -362,7 +377,12 @@ export const handleWebsocketEvent = (
   if (event) {
     switch (event) {
       case 'reaction':
-        patchMessageReactionFromWebsocket(chatId, payload, queryClient)
+        patchMessageReactionFromWebsocket(
+          chatId,
+          payload,
+          queryClient,
+          currentUserId
+        )
         return 'reaction'
       case 'delete':
         markMessageDeletedFromWebsocket(chatId, payload, queryClient)

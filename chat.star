@@ -99,17 +99,24 @@ def chat_commit_hook(table, kind, row_uid):
 		chat_websocket(chat["key"], {"event": "delete", "message": deletion["message"]})
 		return
 	# A reactions row commit recomputes that message's authoritative counts
-	# and pushes them to every member's tabs. row_uid is the message id
-	# (passed by message_reaction_apply); clients keep their own reaction
-	# and reconcile counts from this payload.
+	# and pushes them to every member's tabs, with whose reaction changed and
+	# what it now is: that member's other devices show it as theirs. row_uid
+	# is "<message>/<member>" (passed by message_reaction_apply); a row
+	# logged before the member was added names the message alone.
 	if table == "reactions":
-		message = mochi.db.row("select chat from messages where id=?", row_uid)
+		message_id, _, member_id = row_uid.partition("/")
+		message = mochi.db.row("select chat from messages where id=?", message_id)
 		if not message:
 			return
 		chat = mochi.db.row("select key from chats where id=?", message["chat"])
 		if not chat:
 			return
-		chat_websocket(chat["key"], {"event": "reaction", "message": row_uid, "reactions": message_reaction_counts(message["chat"], row_uid)})
+		payload = {"event": "reaction", "message": message_id, "reactions": message_reaction_counts(message["chat"], message_id)}
+		if member_id:
+			mine = mochi.db.row("select reaction from reactions where chat=? and message=? and member=?", message["chat"], message_id, member_id)
+			payload["member"] = member_id
+			payload["reaction"] = mine["reaction"] if mine else None
+		chat_websocket(chat["key"], payload)
 		return
 	if table != "messages":
 		return
@@ -131,6 +138,9 @@ def chat_commit_hook(table, kind, row_uid):
 		"attachments": attachments,
 		"quote": message_quote_of(message),
 		"thread": message.get("thread", ""),
+		# A message whose keys have not come carries no text: the flag is what
+		# shows it as one, where it would otherwise show as an empty bubble.
+		"encrypted": message.get("encrypted", 0),
 	})
 
 # --- Quotes -----------------------------------------------------------------
@@ -1067,7 +1077,7 @@ def message_reaction_apply(chat_id, message_id, member_id, name, reaction):
 	else:
 		mochi.db.execute("delete from reactions where chat=? and message=? and member=?", chat_id, message_id, member_id)
 	chat_ensure_commit_hook()
-	mochi.db.commit.fire("reactions", "insert", message_id)
+	mochi.db.commit.fire("reactions", "insert", message_id + "/" + member_id)
 
 # Validate the target exists, apply, and return the authoritative state.
 def message_reaction_set(chat_id, message_id, member_id, name, reaction):
@@ -1383,7 +1393,7 @@ def message_edit(chat_input, message_id, user_id, body):
 	if not body.strip():
 		return None, (400, "errors.message_empty")
 
-	now_edit = mochi.time.now()
+	now_edit = edit_time(row["edited"])
 	mochi.db.execute("update messages set body=?, edited=? where id=? and chat=?", body, now_edit, message_id, chat["id"])
 	chat_ensure_commit_hook()
 	mochi.db.commit.fire("messages", "update", message_id)
@@ -1895,9 +1905,12 @@ def event_message(e):
 		attachment_store(attachments, e.header("from"), "chat/" + chat["id"] + "/" + id)
 		attachments = attachment_list("chat/" + chat["id"] + "/" + id, chat["id"])
 
-	# The live-update push fires from chat_commit_hook.
-	chat_ensure_commit_hook()
-	mochi.db.commit.fire("messages", "insert", id)
+	# The live-update push fires from chat_commit_hook, for a message not
+	# held before: open tabs already show a replayed copy, and would count it
+	# again on its thread's root.
+	if not existing:
+		chat_ensure_commit_hook()
+		mochi.db.commit.fire("messages", "insert", id)
 
 	# A group with people from Matrix whose room this member relays.
 	if chat.get("relay") and not existing:
@@ -3063,6 +3076,14 @@ def direct_received(acc, identity, actor, activity, object):
 	mochi.db.commit.fire("messages", "insert", id)
 	notify("message", chat["id"], mochi.app.label("notifications.title.message"), mochi.app.label("notifications.body.message", author=member["name"], excerpt=body.strip()[:80]), "/chat/" + chat["id"], chat["name"], event_id="message:" + id)
 
+# The time of an edit to a message last edited at previous: now, or one past
+# previous where that is later, so each edit is newer than the one before.
+# Members and clients keep an edit only when it is newer than what they hold,
+# and times are whole seconds, so a second edit within the same second was
+# dropped everywhere but the editor's own host.
+def edit_time(previous):
+	return max(mochi.time.now(), (previous or 0) + 1)
+
 def direct_updated(actor, object):
 	"""A sender's edit of a direct message they sent."""
 	message = mochi.db.row("select * from messages where remote=? and member=?", object_id(object.get("id")), actor)
@@ -3071,7 +3092,7 @@ def direct_updated(actor, object):
 	body = html_text(object.get("content", ""))
 	if not body or not mochi.text.valid(body, "text"):
 		return
-	mochi.db.execute("update messages set body=?, edited=? where id=?", body[:10000], mochi.time.now(), message["id"])
+	mochi.db.execute("update messages set body=?, edited=? where id=?", body[:10000], edit_time(message["edited"]), message["id"])
 	chat_ensure_commit_hook()
 	mochi.db.commit.fire("messages", "update", message["id"])
 
@@ -3709,7 +3730,7 @@ def linked_edited(acc, identity, event):
 	body = linked_body(acc, chat, event)[:10000]
 	if not body or not mochi.text.valid(body, "text") or body == message["body"]:
 		return
-	mochi.db.execute("update messages set body=?, edited=? where id=?", body, mochi.time.now(), message["id"])
+	mochi.db.execute("update messages set body=?, edited=? where id=?", body, edit_time(message["edited"]), message["id"])
 	chat_ensure_commit_hook()
 	mochi.db.commit.fire("messages", "update", message["id"])
 
@@ -4507,7 +4528,7 @@ def bridge_edited(chat, identity, event):
 		return
 	if mochi.db.exists("select 1 from deletions where message=?", message["id"]):
 		return
-	now = mochi.time.now()
+	now = edit_time(message["edited"])
 	mochi.db.execute("update messages set body=?, edited=? where id=?", body, now, message["id"])
 	chat_ensure_commit_hook()
 	mochi.db.commit.fire("messages", "update", message["id"])
