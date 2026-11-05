@@ -601,6 +601,17 @@ export const useMarkChatReadMutation = () => {
       queryClient.setQueryData<GetChatsResponse>(chatKeys.all(), (old) =>
         old ? clearUnread(old, variables.chatId) : old
       )
+      // optimistic undoes the whole list, and skips the undo once anything
+      // else has written to it. With two quick menu reads, one accepted and
+      // one refused, the write above would leave the refused chat looking
+      // read. Reloading after a menu read puts the server's counts back. The
+      // read sent as a chat opens patches nothing, so it needs no reload.
+      if (variables.instant) {
+        void queryClient.invalidateQueries({
+          queryKey: chatKeys.all(),
+          exact: true,
+        })
+      }
     },
   })
 }
