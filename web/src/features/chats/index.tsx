@@ -260,8 +260,9 @@ export function Chats() {
           })
         }
       } catch {
-        deepLinkHandled.current = false
-        // toastAction already showed error
+        // toastAction already showed error. The flag stays set: clearing it
+        // re-ran this effect (createChatMutation changes identity on every
+        // state change) and retried the refused create in a loop.
       }
     })()
   }, [
@@ -308,8 +309,9 @@ export function Chats() {
           })
         }
       } catch {
-        addressLinkHandled.current = false
-        // toastAction already showed error
+        // toastAction already showed error. The flag stays set: clearing it
+        // re-ran this effect (createChatMutation changes identity on every
+        // state change) and retried the refused create in a loop.
       }
     })()
   }, [
