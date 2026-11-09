@@ -2830,7 +2830,10 @@ def remote_create(account, name, addresses, user_id, user_name, kind):
 			return None, (404, "errors.person_not_found_on_network")
 		if person[0] != acc["url"] and person[0] not in [p[0] for p in people]:
 			people.append(person)
-	if not people or len(people) > DIRECT_MAXIMUM:
+	# No one but the account itself: not a conversation.
+	if not people:
+		return None, (400, "errors.cannot_chat_with_yourself")
+	if len(people) > DIRECT_MAXIMUM:
 		return None, (400, "errors.too_many_members", {"maximum": DIRECT_MAXIMUM})
 	chat = remote_conversation(acc["id"], [p[0] for p in people])
 	if chat:
@@ -3335,7 +3338,7 @@ def chat_create_linked(a, acc, name, addresses):
 	network = acc["network"]
 	me = a.user.identity.id
 	if not addresses:
-		a.error.label(400, "errors.too_many_members", maximum=DIRECT_MAXIMUM)
+		a.error.label(400, "errors.cannot_chat_with_yourself")
 		return
 	# A room, joined by its address.
 	if len(addresses) == 1 and network in LINKED_CHAT:
@@ -3362,7 +3365,11 @@ def chat_create_linked(a, acc, name, addresses):
 			return
 		if person != linked_self(acc) and person not in people:
 			people.append(person)
-	if not people or len(people) > DIRECT_MAXIMUM:
+	# No one but the account itself: not a conversation.
+	if not people:
+		a.error.label(400, "errors.cannot_chat_with_yourself")
+		return
+	if len(people) > DIRECT_MAXIMUM:
 		a.error.label(400, "errors.too_many_members", maximum=DIRECT_MAXIMUM)
 		return
 	if len(people) == 1:

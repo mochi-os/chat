@@ -450,7 +450,7 @@ function AddMemberDialog({
           <SearchInput
             value={filter}
             onValueChange={setFilter}
-            placeholder={t`Search friends…`}
+            placeholder={t`Search friends`}
             clearLabel={t`Clear search`}
           />
 

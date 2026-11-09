@@ -17,6 +17,8 @@ const calls = vi.hoisted(() => ({
   // What the create's error resolver answered for each failure: a message
   // toasted, or false for none.
   toasted: [] as unknown[],
+  // The user's accounts on other networks.
+  accounts: [] as { id: string; identifier: string; network: string }[],
 }))
 
 vi.mock('@tanstack/react-router', () => ({
@@ -56,7 +58,7 @@ vi.mock('@/context/sidebar-context', () => ({
 }))
 vi.mock('@/hooks/useChats', () => ({
   useNewChatFriendsQuery: () => ({
-    data: { friends: [], name: 'Me', accounts: [] },
+    data: { friends: [], name: 'Me', accounts: calls.accounts },
     isLoading: false,
     error: null,
     refetch: vi.fn(),
@@ -94,7 +96,13 @@ async function create() {
   fireEvent.click(button)
 }
 
+// Radix's Select reaches for pointer capture and scrolling, which jsdom lacks.
+Element.prototype.hasPointerCapture = () => false
+Element.prototype.releasePointerCapture = () => {}
+Element.prototype.scrollIntoView = () => {}
+
 beforeEach(() => {
+  calls.accounts = []
   calls.create = vi.fn()
   calls.close = vi.fn()
   calls.navigate = vi.fn()
@@ -163,5 +171,33 @@ describe('friendRequest', () => {
   it("opens the person's page in People", () => {
     expect(friendRequest('abcdefghi')).toBe('/people/abcdefghi')
     expect(friendRequest('a/b')).toBe('/people/a%2Fb')
+  })
+})
+
+describe('NewChat on another network', () => {
+  it("asks for a name only for a group, as one person's chat is named after them", async () => {
+    // THE POINT: the server names a one-to-one conversation itself and drops
+    // a typed name, so no name is asked for.
+    calls.accounts = [
+      { id: 'a1', identifier: '@me:example.org', network: 'matrix' },
+    ]
+    render(
+      <I18nProvider i18n={i18n}>
+        <NewChat />
+      </I18nProvider>
+    )
+    fireEvent.keyDown(screen.getByRole('combobox'), { key: 'Enter' })
+    fireEvent.click(
+      await screen.findByRole('option', { name: /@me:example\.org/ })
+    )
+    const people = await screen.findByRole('textbox', { name: 'Addresses' })
+    expect(screen.queryByLabelText('Chat name')).toBeNull()
+    fireEvent.change(people, { target: { value: '@ann:example.org' } })
+    expect(screen.queryByLabelText('Chat name')).toBeNull()
+    expect(screen.getByRole('button', { name: /Create chat/ })).toBeEnabled()
+    fireEvent.change(people, {
+      target: { value: '@ann:example.org, @bob:example.org' },
+    })
+    expect(screen.getByLabelText('Chat name')).toBeInTheDocument()
   })
 })

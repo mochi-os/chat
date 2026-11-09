@@ -195,7 +195,7 @@ export function ForwardDialog({
           <SearchInput
             value={filter}
             onValueChange={setFilter}
-            placeholder={t`Search chats…`}
+            placeholder={t`Search chats`}
             clearLabel={t`Clear search`}
           />
 

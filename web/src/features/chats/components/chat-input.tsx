@@ -770,7 +770,7 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(
                     ref={textareaRef}
                     rows={1}
                     placeholder={
-                      replyTo ? t`Type your reply…` : t`Type your message…`
+                      replyTo ? t`Type your reply` : t`Type your message`
                     }
                     value={newMessage}
                     people={people}

@@ -474,7 +474,8 @@ export function NewChat() {
                       assetUrl={(person, asset) =>
                         `${getAppPath()}/-/person/${person.id}/asset/${asset}`
                       }
-                      placeholder={t`Select people...`}
+                      placeholder=''
+                      label={t`People`}
                       emptyMessage={t`No people found`}
                       open={friendsPickerOpen}
                       onOpenChange={setFriendsPickerOpen}
@@ -528,18 +529,20 @@ export function NewChat() {
                 </div>
               )}
 
-              {/* Chat Name */}
-              <div className='space-y-2'>
-                <label className='text-sm font-medium'>
-                  <Trans>Chat name</Trans>
-                </label>
-                <Input
-                  id='chat-name'
-                  placeholder={t`Chat name...`}
-                  value={chatName}
-                  onChange={(e) => setChatName(e.target.value)}
-                />
-              </div>
+              {/* Chat Name: on another network only a group's, as one
+                  person's conversation is named by the server after them. */}
+              {!account || addressList.length > 1 ? (
+                <div className='space-y-2'>
+                  <label htmlFor='chat-name' className='text-sm font-medium'>
+                    <Trans>Chat name</Trans>
+                  </label>
+                  <Input
+                    id='chat-name'
+                    value={chatName}
+                    onChange={(e) => setChatName(e.target.value)}
+                  />
+                </div>
+              ) : null}
             </div>
 
             {addingRemainder ? (
