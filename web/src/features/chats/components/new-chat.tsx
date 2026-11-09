@@ -19,6 +19,7 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
+  extractStatus,
   getErrorMessage,
   toast,
   toastAction,
@@ -58,6 +59,20 @@ const ADDRESS_FORMS: Record<ChatNetwork, string> = {
   mastodon: '@name@server.example',
   xmpp: 'name@server.example',
   matrix: '@name:server.example',
+}
+
+// Who a refused create offers a friend request to: the one person picked who
+// is not a friend, where their chat policy refused (403) - a friend may always
+// be chatted with. With several, the refusal does not say which.
+export function befriend(error: unknown, strangers: string[]): string | null {
+  return extractStatus(error) === 403 && strangers.length === 1
+    ? strangers[0]
+    : null
+}
+
+// People's add dialog, opened on the person to send a friend request to.
+export function friendRequest(person: string): string {
+  return `/people/?action=add&search=${encodeURIComponent(person)}`
 }
 
 export function NewChat() {
@@ -255,6 +270,20 @@ export function NewChat() {
           loading: t`Creating chat...`,
           success: (result) => (result.id ? t`Chat ready` : t`Chat created`),
           error: (error) => getErrorMessage(error, t`Failed to create chat`),
+          errorOptions: (error) => {
+            const person = befriend(error, firstBatch)
+            return person
+              ? {
+                  action: {
+                    label: t`Send friend request`,
+                    onClick: () => {
+                      onOpenChange(false)
+                      shellNavigateExternal(friendRequest(person))
+                    },
+                  },
+                }
+              : undefined
+          },
         }
       )
 

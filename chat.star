@@ -513,7 +513,8 @@ def action_person_search(a):
 # May `user` start a chat with `member`? Friends always may; a non-friend's own
 # server answers from their chat_policy (accept/query), so create fails loudly
 # instead of event_new dropping it silently (#206). Returns {"name": ...} or
-# {"error": label}.
+# {"error": label, "status": code}: 403 where their policy refuses, so the
+# clients can offer a friend request, and 400 where their server did not answer.
 def chat_member_allowed(user, member_id):
 	friend = mochi.service.call("friends", "get", user, member_id)
 	if friend:
@@ -525,11 +526,11 @@ def chat_member_allowed(user, member_id):
 	# means the member's server could not be reached or did not answer -
 	# distinct from an explicit {"accept": False} policy refusal.
 	if response == None or response.get("error"):
-		return {"error": "errors.member_unreachable"}
+		return {"error": "errors.member_unreachable", "status": 400}
 	answered = response.get("name", "")
 	if response.get("accept") and type(answered) == "string" and mochi.text.valid(answered, "display"):
 		return {"name": answered, "probed": True}
-	return {"error": "errors.does_not_accept_chats"}
+	return {"error": "errors.does_not_accept_chats", "status": 403}
 
 # Create new chat
 def action_create(a):
@@ -585,7 +586,7 @@ def action_create(a):
 		# event_new dropping it silently (#206).
 		member = chat_member_allowed(a.user.identity.id, member_id)
 		if member.get("error"):
-			a.error.label(400, member["error"])
+			a.error.label(member["status"], member["error"])
 			return
 		if member.get("probed"):
 			probes += 1
@@ -1617,7 +1618,7 @@ def action_messages_forward_friend(a):
 	# silently drops (#206).
 	member = chat_member_allowed(a.user.identity.id, member_id)
 	if member.get("error"):
-		a.error.label(400, member["error"])
+		a.error.label(member["status"], member["error"])
 		return
 	member_name = member["name"]
 
@@ -2429,7 +2430,7 @@ def action_member_add(a):
 	# allows (verified by probing their server).
 	member = chat_member_allowed(a.user.identity.id, member_id)
 	if member.get("error"):
-		a.error.label(400, member["error"])
+		a.error.label(member["status"], member["error"])
 		return
 
 	member_name = member["name"]
