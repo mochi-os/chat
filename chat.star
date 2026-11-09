@@ -513,7 +513,8 @@ def action_person_search(a):
 # May `user` start a chat with `member`? Friends always may; a non-friend's own
 # server answers from their chat_policy (accept/query), so create fails loudly
 # instead of event_new dropping it silently (#206). Returns {"name": ...} or
-# {"error": label}.
+# {"error": label, "status": code}: 403 where their policy refuses, so the
+# clients can offer a friend request, and 400 where their server did not answer.
 def chat_member_allowed(user, member_id):
 	friend = mochi.service.call("friends", "get", user, member_id)
 	if friend:
@@ -525,11 +526,11 @@ def chat_member_allowed(user, member_id):
 	# means the member's server could not be reached or did not answer -
 	# distinct from an explicit {"accept": False} policy refusal.
 	if response == None or response.get("error"):
-		return {"error": "errors.member_unreachable"}
+		return {"error": "errors.member_unreachable", "status": 400}
 	answered = response.get("name", "")
 	if response.get("accept") and type(answered) == "string" and mochi.text.valid(answered, "display"):
 		return {"name": answered, "probed": True}
-	return {"error": "errors.does_not_accept_chats"}
+	return {"error": "errors.does_not_accept_chats", "status": 403}
 
 # Create new chat
 def action_create(a):
@@ -585,7 +586,7 @@ def action_create(a):
 		# event_new dropping it silently (#206).
 		member = chat_member_allowed(a.user.identity.id, member_id)
 		if member.get("error"):
-			a.error.label(400, member["error"])
+			a.error.label(member["status"], member["error"])
 			return
 		if member.get("probed"):
 			probes += 1
@@ -950,10 +951,14 @@ def message_send(chat_input, user_id, user_name, body, reply, thread, mentions, 
 
 	# A conversation on another network takes the message through its
 	# account; one that cannot go is not kept.
-	if chat.get("account") and not remote_send(chat, id, body, attachments):
+	unsent = []
+	if chat.get("account") and not remote_send(chat, id, body, attachments, unsent):
 		mochi.db.execute("delete from messages where id=?", id)
 		for att in attachments:
 			attachment_delete(att["id"])
+		# A message of files alone, none of which went, says why.
+		if unsent and unsent[0]["reason"]:
+			return None, (502, "errors.file_unsent_because", {"name": unsent[0]["name"], "reason": unsent[0]["reason"]})
 		return None, (502, "errors.network_unavailable")
 	# Bump the chat's updated timestamp so the chat list sorts by last
 	# message activity, not by member-event history.
@@ -988,7 +993,7 @@ def message_send(chat_input, user_id, user_name, body, reply, thread, mentions, 
 	if chat.get("relay"):
 		bridge_forward(chat, id, user_id, body, reply, thread, attachments)
 
-	return {"id": id}, None
+	return {"id": id, "unsent": [unsent_text(entry) for entry in unsent]}, None
 
 # --- Read tracking ---------------------------------------------------------
 
@@ -1613,7 +1618,7 @@ def action_messages_forward_friend(a):
 	# silently drops (#206).
 	member = chat_member_allowed(a.user.identity.id, member_id)
 	if member.get("error"):
-		a.error.label(400, member["error"])
+		a.error.label(member["status"], member["error"])
 		return
 	member_name = member["name"]
 
@@ -2425,7 +2430,7 @@ def action_member_add(a):
 	# allows (verified by probing their server).
 	member = chat_member_allowed(a.user.identity.id, member_id)
 	if member.get("error"):
-		a.error.label(400, member["error"])
+		a.error.label(member["status"], member["error"])
 		return
 
 	member_name = member["name"]
@@ -2871,9 +2876,9 @@ def remote_note(chat, acc, message):
 	note["source"] = {"content": body or "", "mediaType": "text/plain"}
 	return note
 
-def remote_documents(acc, attachments):
+def remote_documents(acc, attachments, unsent=None):
 	"""The message's files uploaded through the account, as the documents the
-	Note lists."""
+	Note lists; one that does not upload goes into unsent (unsent_entry)."""
 	documents = []
 	for att in attachments or []:
 		kind = str(att.get("type", "") or att.get("content_type", "") or "")
@@ -2881,23 +2886,38 @@ def remote_documents(acc, attachments):
 		uploaded = mochi.account.upload(acc["id"], data, kind, name=att["name"], description=att.get("caption", "")) if data != None else None
 		if uploaded and type(uploaded.get("data")) == "dict":
 			documents.append(uploaded["data"])
+		elif unsent != None:
+			unsent.append(unsent_entry(att, uploaded))
 	return documents
 
-def remote_send(chat, message_id, body, attachments):
+def unsent_entry(att, uploaded):
+	"""A file whose upload failed, and why in the user's language where core
+	says (mochi.account.upload), for unsent_text to word."""
+	failed = uploaded.get("error") if uploaded and type(uploaded.get("error")) == "dict" else {}
+	return {"name": att.get("name", "") or "file", "reason": str(failed.get("message", "") or "")}
+
+def unsent_text(entry):
+	"""What a message went without, in the user's language."""
+	if entry["reason"]:
+		return mochi.app.label("messages.unsent_because", name=entry["name"], reason=entry["reason"])
+	return mochi.app.label("messages.unsent", name=entry["name"])
+
+def remote_send(chat, message_id, body, attachments, unsent=None):
 	"""Send a message of a conversation on another network through its
-	account, and keep its record. Answers False where it could not go."""
+	account, and keep its record; a file that does not go goes into unsent.
+	Answers False where it could not go."""
 	acc = chat_account(chat)
 	if not acc:
 		return False
 	if acc["network"] != "fediverse":
 		message = mochi.db.row("select * from messages where id=?", message_id)
 		if acc["network"] == "mastodon":
-			return mastodon_send(chat, acc, message, attachments)
-		return linked_send(chat, acc, message, attachments)
+			return mastodon_send(chat, acc, message, attachments, unsent)
+		return linked_send(chat, acc, message, attachments, unsent)
 	note = remote_note(chat, acc, {"id": message_id, "body": body, "created": mochi.time.now()})
 	if not note:
 		return False
-	documents = remote_documents(acc, attachments)
+	documents = remote_documents(acc, attachments, unsent)
 	if documents:
 		note["attachment"] = documents
 	result = mochi.account.object.create(acc["id"], note, key="chat|" + message_id)
@@ -3901,7 +3921,7 @@ def linked_mentions(chat):
 	"""A Mastodon conversation's people as a status names them."""
 	return " ".join(["@" + m["member"][len("acct:"):] for m in mochi.db.rows("select member from members where chat=?", chat["id"]) or [] if m["member"].startswith("acct:")])
 
-def mastodon_send(chat, acc, message, attachments):
+def mastodon_send(chat, acc, message, attachments, unsent=None):
 	"""A message of a Mastodon conversation, as a direct status naming its
 	people, in reply to the conversation's latest."""
 	mentions = linked_mentions(chat)
@@ -3913,6 +3933,8 @@ def mastodon_send(chat, acc, message, attachments):
 		uploaded = mochi.account.upload(acc["id"], data, str(att.get("type", "") or att.get("content_type", "") or ""), name=att["name"], description=att.get("caption", "")) if data != None else None
 		if uploaded and uploaded.get("id"):
 			media.append(str(uploaded["id"]))
+		elif unsent != None:
+			unsent.append(unsent_entry(att, uploaded))
 	status = {"status": (mentions + " " + message["body"]).strip(), "visibility": "direct"}
 	before = mochi.db.row("select remote from messages where chat=? and remote!='' and id!=? and created<=? order by created desc limit 1", chat["id"], message["id"], message["created"])
 	if before:
@@ -3925,7 +3947,7 @@ def mastodon_send(chat, acc, message, attachments):
 	mochi.db.execute("update messages set remote=? where id=?", str(result["id"]), message["id"])
 	return True
 
-def linked_send(chat, acc, message, attachments):
+def linked_send(chat, acc, message, attachments, unsent=None):
 	"""A message of an XMPP or Matrix conversation: its text, then each file
 	as one more message, the first kept as the message's id there and the
 	rest as its further ids."""
@@ -3953,6 +3975,10 @@ def linked_send(chat, acc, message, attachments):
 		data = mochi.file.read(attachment_filename(att["id"], att["name"]), mochi.file.maximum())
 		# A file for an encrypted conversation is uploaded encrypted.
 		uploaded = mochi.account.upload(acc["id"], data, str(att.get("type", "") or att.get("content_type", "") or ""), name=att["name"], conversation=target) if data != None else None
+		if not uploaded or uploaded.get("error"):
+			if unsent != None:
+				unsent.append(unsent_entry(att, uploaded))
+			uploaded = None
 		result = mochi.account.object.create(acc["id"], {"conversation": target, "file": uploaded}, key="chat|" + message["id"] + "|" + att["id"]) if uploaded else None
 		if not result or not result.get("id"):
 			if not sent:

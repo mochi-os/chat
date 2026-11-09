@@ -19,6 +19,7 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
+  extractStatus,
   getErrorMessage,
   toast,
   toastAction,
@@ -60,6 +61,23 @@ const ADDRESS_FORMS: Record<ChatNetwork, string> = {
   matrix: '@name:server.example',
 }
 
+// A create refused by a member's chat policy (403), which admits only their
+// friends, so a friend request is the way in. It names the one person picked
+// who is not a friend - a friend may always be chatted with - and no one
+// where several were, as the refusal does not say which.
+export function refusal(
+  error: unknown,
+  strangers: string[]
+): { person: string | null } | null {
+  if (extractStatus(error) !== 403) return null
+  return { person: strangers.length === 1 ? strangers[0] : null }
+}
+
+// The person's page in People, where a friend request is one tap.
+export function friendRequest(person: string): string {
+  return `/people/${encodeURIComponent(person)}`
+}
+
 export function NewChat() {
   const { t } = useLingui()
   const navigate = useNavigate()
@@ -79,6 +97,11 @@ export function NewChat() {
   // people there by their addresses; '' for Mochi.
   const [account, setAccount] = useState('')
   const [addresses, setAddresses] = useState('')
+  // A create the member's chat policy refused, shown in place of the form.
+  const [refused, setRefused] = useState<{
+    person: string | null
+    message: string
+  } | null>(null)
 
   const handleOpenChat = (chatId: string) => {
     onOpenChange(false)
@@ -136,13 +159,18 @@ export function NewChat() {
   // allow it. Names of picked directory people are kept for the chat-name
   // autofill (the picker resolves its own display names internally).
   const directoryNames = useRef(new Map<string, string>())
+  // Their fingerprints, for the short address of their page in People.
+  const directoryFingerprints = useRef(new Map<string, string>())
   const searchDirectory = useCallback(
     async (query: string): Promise<Person[]> => {
       try {
         const response = await chatsApi.personSearch(query)
         const results = response.results ?? []
-        for (const person of results)
+        for (const person of results) {
           directoryNames.current.set(person.id, person.name)
+          if (person.fingerprint)
+            directoryFingerprints.current.set(person.id, person.fingerprint)
+        }
         return results.map((person) => ({ id: person.id, name: person.name }))
       } catch (error) {
         // Returning an empty list on failure is indistinguishable from "nobody
@@ -254,7 +282,11 @@ export function NewChat() {
         {
           loading: t`Creating chat...`,
           success: (result) => (result.id ? t`Chat ready` : t`Chat created`),
-          error: (error) => getErrorMessage(error, t`Failed to create chat`),
+          // A refusal has its own view rather than a toast.
+          error: (error) =>
+            refusal(error, firstBatch)
+              ? false
+              : getErrorMessage(error, t`Failed to create chat`),
         }
       )
 
@@ -291,8 +323,18 @@ export function NewChat() {
           params: { chatId: data.id },
         })
       }
-    } catch {
-      // toastAction already showed error
+    } catch (error) {
+      // toastAction showed anything but a refusal.
+      const found = refusal(error, firstBatch)
+      if (found) {
+        const name = found.person ? memberName(found.person) : undefined
+        setRefused({
+          person: found.person,
+          message: name
+            ? t`${name} only accepts chats from friends.`
+            : getErrorMessage(error, t`Failed to create chat`),
+        })
+      }
     }
   }
 
@@ -304,6 +346,7 @@ export function NewChat() {
       setFriendsPickerOpen(false)
       setAccount('')
       setAddresses('')
+      setRefused(null)
     }
   }, [open])
 
@@ -323,174 +366,212 @@ export function NewChat() {
       shouldCloseOnInteractOutside={false}
     >
       <ResponsiveDialogContent className='sm:max-w-[520px]'>
-        <ResponsiveDialogHeader>
-          <ResponsiveDialogTitle className='flex items-center gap-2'>
-            <MessageCircle className='size-5' />
-            <Trans>New chat</Trans>
-          </ResponsiveDialogTitle>
-          <ResponsiveDialogDescription className='sr-only'>
-            <Trans>Create a new chat</Trans>
-          </ResponsiveDialogDescription>
-        </ResponsiveDialogHeader>
+        {refused ? (
+          <>
+            <ResponsiveDialogHeader className='text-start'>
+              <ResponsiveDialogTitle>
+                <Trans>Chat refused</Trans>
+              </ResponsiveDialogTitle>
+              <ResponsiveDialogDescription>
+                {refused.message}
+              </ResponsiveDialogDescription>
+            </ResponsiveDialogHeader>
+            <ResponsiveDialogFooter className='gap-2'>
+              <Button variant='outline' onClick={() => setRefused(null)}>
+                <Trans>Back</Trans>
+              </Button>
+              {refused.person ? (
+                <Button
+                  icon={<UserPlus className='size-4' />}
+                  onClick={() => {
+                    const person = refused.person as string
+                    onOpenChange(false)
+                    shellNavigateExternal(
+                      friendRequest(
+                        directoryFingerprints.current.get(person) ?? person
+                      )
+                    )
+                  }}
+                >
+                  <Trans>Send friend request</Trans>
+                </Button>
+              ) : null}
+            </ResponsiveDialogFooter>
+          </>
+        ) : (
+          <>
+            <ResponsiveDialogHeader>
+              <ResponsiveDialogTitle className='flex items-center gap-2'>
+                <MessageCircle className='size-5' />
+                <Trans>New chat</Trans>
+              </ResponsiveDialogTitle>
+              <ResponsiveDialogDescription className='sr-only'>
+                <Trans>Create a new chat</Trans>
+              </ResponsiveDialogDescription>
+            </ResponsiveDialogHeader>
 
-        <div className='space-y-4'>
-          {accounts.length > 0 ? (
-            <div className='space-y-2'>
-              <label htmlFor='chat-network' className='text-sm font-medium'>
-                <Trans>Network</Trans>
-              </label>
-              <Select
-                value={account || 'mochi'}
-                onValueChange={(value) => {
-                  setAccount(value === 'mochi' ? '' : value)
-                  setSelectedFriends([])
-                }}
-              >
-                <SelectTrigger id='chat-network' className='w-full'>
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value='mochi'>Mochi</SelectItem>
-                  {accounts.map((option) => (
-                    <SelectItem key={option.id} value={option.id}>
-                      {option.network && NETWORK_NAMES[option.network]
-                        ? `${NETWORK_NAMES[option.network]} · ${option.identifier}`
-                        : option.identifier}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div>
-          ) : null}
-
-          {/* Friend Picker */}
-          <div className='space-y-2'>
-            <label className='text-sm font-medium'>
-              <Trans>People</Trans>
-            </label>
-            {account ? (
-              <Input
-                aria-label={t`Addresses`}
-                placeholder={ADDRESS_FORMS[network ?? 'fediverse']}
-                value={addresses}
-                onChange={(event) => setAddresses(event.target.value)}
-              />
-            ) : isLoading ? (
-              <Skeleton className='h-9 w-full' />
-            ) : error ? (
-              <GeneralError
-                error={error}
-                minimal
-                mode='inline'
-                reset={refetch}
-              />
-            ) : (
-              <>
-                <PersonPicker
-                  presentation='combobox'
-                  mode='multiple'
-                  value={selectedFriends}
-                  onChange={handleFriendsChange}
-                  local={friendsAsPeople}
-                  localLabel={t`Friends`}
-                  directoryFn={searchDirectory}
-                  assetUrl={(person, asset) =>
-                    `${getAppPath()}/-/person/${person.id}/asset/${asset}`
-                  }
-                  placeholder={t`Select people...`}
-                  emptyMessage={t`No people found`}
-                  open={friendsPickerOpen}
-                  onOpenChange={setFriendsPickerOpen}
-                />
-                {friends.length === 0 && (
-                  <div className='flex items-center justify-between rounded-lg border px-3 py-2'>
-                    <p className='text-muted-foreground text-xs'>
-                      <Trans>No friends yet</Trans>
-                    </p>
-                    <Button
-                      variant='outline'
-                      size='xs'
-                      onClick={() => {
-                        onOpenChange(false)
-                        shellNavigateExternal('/people/')
-                      }}
-                    >
-                      <UserPlus className='size-3.5' />
-                      <Trans>Open people</Trans>
-                    </Button>
-                  </div>
-                )}
-              </>
-            )}
-          </div>
-
-          {/* Existing conversations notice */}
-          {existingChats.length > 0 && (
-            <div className='bg-muted/50 rounded-lg border p-3'>
-              <p className='text-muted-foreground mb-2 text-xs font-medium'>
-                <Trans>You already have chats with:</Trans>
-              </p>
-              <div className='space-y-1'>
-                {existingChats.map((chat) => (
-                  <div
-                    key={chat.id}
-                    className='flex items-center justify-between'
+            <div className='space-y-4'>
+              {accounts.length > 0 ? (
+                <div className='space-y-2'>
+                  <label htmlFor='chat-network' className='text-sm font-medium'>
+                    <Trans>Network</Trans>
+                  </label>
+                  <Select
+                    value={account || 'mochi'}
+                    onValueChange={(value) => {
+                      setAccount(value === 'mochi' ? '' : value)
+                      setSelectedFriends([])
+                    }}
                   >
-                    <span className='text-sm'>{chat.name}</span>
-                    <Button
-                      variant='ghost'
-                      size='xs'
-                      onClick={() => handleOpenChat(chat.chat)}
-                    >
-                      <MessageCircle className='me-1.5 h-3 w-3' />
-                      <Trans>Open</Trans>
-                    </Button>
+                    <SelectTrigger id='chat-network' className='w-full'>
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value='mochi'>Mochi</SelectItem>
+                      {accounts.map((option) => (
+                        <SelectItem key={option.id} value={option.id}>
+                          {option.network && NETWORK_NAMES[option.network]
+                            ? `${NETWORK_NAMES[option.network]} · ${option.identifier}`
+                            : option.identifier}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+              ) : null}
+
+              {/* Friend Picker */}
+              <div className='space-y-2'>
+                <label className='text-sm font-medium'>
+                  <Trans>People</Trans>
+                </label>
+                {account ? (
+                  <Input
+                    aria-label={t`Addresses`}
+                    placeholder={ADDRESS_FORMS[network ?? 'fediverse']}
+                    value={addresses}
+                    onChange={(event) => setAddresses(event.target.value)}
+                  />
+                ) : isLoading ? (
+                  <Skeleton className='h-9 w-full' />
+                ) : error ? (
+                  <GeneralError
+                    error={error}
+                    minimal
+                    mode='inline'
+                    reset={refetch}
+                  />
+                ) : (
+                  <>
+                    <PersonPicker
+                      presentation='combobox'
+                      mode='multiple'
+                      value={selectedFriends}
+                      onChange={handleFriendsChange}
+                      local={friendsAsPeople}
+                      localLabel={t`Friends`}
+                      directoryFn={searchDirectory}
+                      assetUrl={(person, asset) =>
+                        `${getAppPath()}/-/person/${person.id}/asset/${asset}`
+                      }
+                      placeholder={t`Select people...`}
+                      emptyMessage={t`No people found`}
+                      open={friendsPickerOpen}
+                      onOpenChange={setFriendsPickerOpen}
+                    />
+                    {friends.length === 0 && (
+                      <div className='flex items-center justify-between rounded-lg border px-3 py-2'>
+                        <p className='text-muted-foreground text-xs'>
+                          <Trans>No friends yet</Trans>
+                        </p>
+                        <Button
+                          variant='outline'
+                          size='xs'
+                          onClick={() => {
+                            onOpenChange(false)
+                            shellNavigateExternal('/people/')
+                          }}
+                        >
+                          <UserPlus className='size-3.5' />
+                          <Trans>Open people</Trans>
+                        </Button>
+                      </div>
+                    )}
+                  </>
+                )}
+              </div>
+
+              {/* Existing conversations notice */}
+              {existingChats.length > 0 && (
+                <div className='bg-muted/50 rounded-lg border p-3'>
+                  <p className='text-muted-foreground mb-2 text-xs font-medium'>
+                    <Trans>You already have chats with:</Trans>
+                  </p>
+                  <div className='space-y-1'>
+                    {existingChats.map((chat) => (
+                      <div
+                        key={chat.id}
+                        className='flex items-center justify-between'
+                      >
+                        <span className='text-sm'>{chat.name}</span>
+                        <Button
+                          variant='ghost'
+                          size='xs'
+                          onClick={() => handleOpenChat(chat.chat)}
+                        >
+                          <MessageCircle className='me-1.5 h-3 w-3' />
+                          <Trans>Open</Trans>
+                        </Button>
+                      </div>
+                    ))}
                   </div>
-                ))}
+                </div>
+              )}
+
+              {/* Chat Name */}
+              <div className='space-y-2'>
+                <label className='text-sm font-medium'>
+                  <Trans>Chat name</Trans>
+                </label>
+                <Input
+                  id='chat-name'
+                  placeholder={t`Chat name...`}
+                  value={chatName}
+                  onChange={(e) => setChatName(e.target.value)}
+                />
               </div>
             </div>
-          )}
 
-          {/* Chat Name */}
-          <div className='space-y-2'>
-            <label className='text-sm font-medium'>
-              <Trans>Chat name</Trans>
-            </label>
-            <Input
-              id='chat-name'
-              placeholder={t`Chat name...`}
-              value={chatName}
-              onChange={(e) => setChatName(e.target.value)}
-            />
-          </div>
-        </div>
-
-        {addingRemainder ? (
-          <p
-            role='status'
-            aria-live='polite'
-            className='text-muted-foreground text-end text-xs'
-          >
-            {t`Adding ${addingRemainder.done}/${addingRemainder.total}...`}
-          </p>
-        ) : null}
-        <ResponsiveDialogFooter className='gap-2'>
-          <Button
-            variant='outline'
-            onClick={() => onOpenChange(false)}
-            disabled={createChatMutation.isPending}
-          >
-            <Trans>Cancel</Trans>
-          </Button>
-          <Button
-            onClick={account ? handleCreateRemote : handleCreateChat}
-            disabled={!canSubmit}
-            loading={createChatMutation.isPending || Boolean(addingRemainder)}
-            icon={<MessageCircle className='size-4' />}
-          >
-            <Trans>Create chat</Trans>
-          </Button>
-        </ResponsiveDialogFooter>
+            {addingRemainder ? (
+              <p
+                role='status'
+                aria-live='polite'
+                className='text-muted-foreground text-end text-xs'
+              >
+                {t`Adding ${addingRemainder.done}/${addingRemainder.total}...`}
+              </p>
+            ) : null}
+            <ResponsiveDialogFooter className='gap-2'>
+              <Button
+                variant='outline'
+                onClick={() => onOpenChange(false)}
+                disabled={createChatMutation.isPending}
+              >
+                <Trans>Cancel</Trans>
+              </Button>
+              <Button
+                onClick={account ? handleCreateRemote : handleCreateChat}
+                disabled={!canSubmit}
+                loading={
+                  createChatMutation.isPending || Boolean(addingRemainder)
+                }
+                icon={<MessageCircle className='size-4' />}
+              >
+                <Trans>Create chat</Trans>
+              </Button>
+            </ResponsiveDialogFooter>
+          </>
+        )}
       </ResponsiveDialogContent>
     </ResponsiveDialog>
   )
