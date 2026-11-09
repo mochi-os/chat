@@ -62,7 +62,7 @@ import {
   MessageReactionPicker,
   MessageReactionSummary,
 } from './message-reaction-bar'
-import { ThreadSummary } from './thread-summary'
+import { ThreadReplies } from './thread-replies'
 
 const BOTTOM_THRESHOLD_PX = 80
 const MESSAGE_ENTER_MS = 200
@@ -850,6 +850,17 @@ export function ChatMessageList({
                                           ) : null}
                                         </>
                                       )}
+                                      {/* The thread, in the message's own
+                                          bubble below a rule. */}
+                                      {onThread &&
+                                      message.answers?.length &&
+                                      !isDeleted ? (
+                                        <ThreadReplies
+                                          answers={message.answers}
+                                          isSent={isSent}
+                                          onOpen={() => onThread(message)}
+                                        />
+                                      ) : null}
                                     </BubbleContent>
 
                                     {!isSelecting && !isDeleted ? (
@@ -965,30 +976,6 @@ export function ChatMessageList({
 
                                 {/* Hover actions moved to BubbleReactions */}
                               </div>
-                              {/* The thread beneath its message, seen without
-                                  hovering: its newest reply and its count. */}
-                              {onThread &&
-                              message.replies &&
-                              !isDeleted &&
-                              !isSelecting ? (
-                                <div
-                                  className={cn(
-                                    'flex w-full min-w-0 gap-1.5',
-                                    isSent ? 'justify-end' : 'justify-start'
-                                  )}
-                                >
-                                  {isGroupChat && !isSent ? (
-                                    <div className='w-5 shrink-0' />
-                                  ) : null}
-                                  <ThreadSummary
-                                    root={message}
-                                    identity={currentUserIdentity}
-                                    isSent={isSent}
-                                    isGroupChat={isGroupChat}
-                                    onOpen={() => onThread(message)}
-                                  />
-                                </div>
-                              ) : null}
                               {seen && seen.id === message.id ? (
                                 <p className='text-muted-foreground px-1 text-end text-[11px]'>
                                   {t`Seen by ${formatList(seen.names)}`}

@@ -249,20 +249,28 @@ describe('signals and threads (phase 22)', () => {
     ).toEqual(['r1'])
   })
 
-  // A root seeded with its newest reply, as the server sends it.
+  // A root seeded with its thread's replies, as the server sends them.
   const threaded = () => {
     const client = new QueryClient()
-    const newest = {
-      ...message('r2'),
-      name: 'Bob',
-      body: 'newest so far',
-      created: 5,
-      thread: 'm1',
-    } as ChatMessage
+    const answer = (id: string, body: string, created: number) =>
+      ({
+        ...message(id),
+        name: 'Bob',
+        body,
+        created,
+        thread: 'm1',
+      }) as ChatMessage
     client.setQueryData(chatKeys.messages('c1'), {
       pages: [
         {
-          messages: [{ ...message('m1'), replies: 2, latest: 5, newest }],
+          messages: [
+            {
+              ...message('m1'),
+              replies: 2,
+              latest: 5,
+              answers: [answer('r1', 'first', 4), answer('r2', 'second', 5)],
+            },
+          ],
           more: false,
           cursor: null,
         },
@@ -273,68 +281,51 @@ describe('signals and threads (phase 22)', () => {
   }
   const root = (client: QueryClient) =>
     pages(client, chatKeys.messages('c1'))[0].messages[0]
-
-  it("shows a thread reply that arrives as its root's newest", () => {
-    // THE POINT: the reply beneath the root follows the thread live.
-    const client = threaded()
+  const shown = (client: QueryClient) =>
+    (root(client).answers ?? []).map((answer) => answer.id)
+  const arrive = (client: QueryClient, id: string, created: number) =>
     appendMessageToCache(
       'c1',
-      {
-        id: 'r3',
-        member: 'bob',
-        name: 'Bob',
-        body: 'just now',
-        created: 6,
-        thread: 'm1',
-      },
+      { id, member: 'bob', name: 'Bob', body: id, created, thread: 'm1' },
       client,
       'Unknown',
       'me'
     )
-    expect(root(client).newest?.body).toBe('just now')
-    expect(root(client).replies).toBe(3)
-  })
 
-  it('keeps the newest where an earlier reply arrives late', () => {
+  it("adds a thread reply that arrives to its root's bubble, in order", () => {
+    // THE POINT: the thread in the bubble follows it live.
     const client = threaded()
-    appendMessageToCache(
-      'c1',
-      {
-        id: 'r1',
-        member: 'bob',
-        name: 'Bob',
-        body: 'sent earlier',
-        created: 4,
-        thread: 'm1',
-      },
-      client,
-      'Unknown',
-      'me'
-    )
-    expect(root(client).newest?.id).toBe('r2')
+    arrive(client, 'r3', 6)
+    expect(shown(client)).toEqual(['r1', 'r2', 'r3'])
     expect(root(client).replies).toBe(3)
+    // One sent earlier that lands late takes its place by time.
+    arrive(client, 'r0', 3)
+    expect(shown(client)).toEqual(['r0', 'r1', 'r2', 'r3'])
+    // The bubble holds it already: not counted again.
+    arrive(client, 'r3', 6)
+    expect(root(client).replies).toBe(4)
   })
 
-  it('shows an edit of the newest reply beneath its root', () => {
+  it("shows an edit of a reply in its root's bubble", () => {
     const client = threaded()
     handleWebsocketEvent(
       'c1',
-      { event: 'edit', message: 'r2', body: 'newest, edited', edited: 7 },
+      { event: 'edit', message: 'r1', body: 'first, edited', edited: 7 },
       client,
       'me'
     )
-    expect(root(client).newest?.body).toBe('newest, edited')
+    expect(root(client).answers?.[0].body).toBe('first, edited')
     expect(root(client).body).toBe('hello')
   })
 
-  it('reads the conversation again when the newest reply is deleted, as only the server knows the one before', () => {
+  it("takes a deleted reply out of its root's bubble, without reading the conversation again", () => {
     const client = threaded()
     const invalidate = vi.spyOn(client, 'invalidateQueries')
     handleWebsocketEvent('c1', { event: 'delete', message: 'r2' }, client, 'me')
-    expect(invalidate).toHaveBeenCalledWith({
-      queryKey: chatKeys.messages('c1'),
-      exact: true,
-    })
-    expect(root(client).newest?.id).toBe('r2')
+    expect(shown(client)).toEqual(['r1'])
+    expect(root(client).replies).toBe(1)
+    expect(root(client).latest).toBe(4)
+    expect(root(client).deleted).toBeUndefined()
+    expect(invalidate).not.toHaveBeenCalled()
   })
 })

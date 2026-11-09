@@ -10,7 +10,7 @@ import {
   type InfiniteData,
   type UseInfiniteQueryResult,
 } from '@tanstack/react-query'
-import { cleanup, fireEvent, render, screen } from '@testing-library/react'
+import { fireEvent, render, screen } from '@testing-library/react'
 import { describe, expect, it, vi } from 'vitest'
 import type { ChatMessage, GetMessagesResponse } from '@/api/types/chats'
 import { ChatMessageList } from './chat-message-list'
@@ -93,18 +93,25 @@ describe('ChatMessageList', () => {
 
   const threaded = (
     onThread?: (m: ChatMessage) => void,
-    { member = 'bob', group = false } = {}
+    { deleted = false } = {}
   ) => {
-    const root = {
-      ...message('m1', 'Start a thread here'),
-      replies: 2,
-      latest: 1700000100,
-      newest: {
-        ...message('r2', 'The newest reply'),
-        member,
-        name: 'Bob',
+    const answer = (id: string, name: string, body: string, created: number) =>
+      ({
+        ...message(id, body),
+        member: name.toLowerCase(),
+        name,
+        created,
         thread: 'm1',
-      },
+      }) as ChatMessage
+    const root = {
+      ...message('m1', deleted ? '' : 'Start a thread here'),
+      deleted,
+      replies: 2,
+      latest: 1700000200,
+      answers: [
+        answer('r1', 'Ann', 'The first answer', 1700000100),
+        answer('r2', 'Bob', 'The second answer', 1700000200),
+      ],
     } as ChatMessage
     render(
       <QueryClientProvider client={new QueryClient()}>
@@ -116,7 +123,7 @@ describe('ChatMessageList', () => {
             isLoadingMessages={false}
             messagesError={null}
             currentUserIdentity='me'
-            isGroupChat={group}
+            isGroupChat={false}
             onThread={onThread}
           />
         </I18nProvider>
@@ -124,77 +131,39 @@ describe('ChatMessageList', () => {
     )
     return root
   }
-  // The bubble a reply's text is drawn in, as a message's is.
-  const bubble = (text: string) =>
-    screen.getByText(text).closest('[data-slot="bubble"]')
 
-  it('shows a thread beneath its message without hovering: the newest reply and the count, either opening it', () => {
-    // THE POINT: the recipient sees there is a thread. The row under a
-    // bubble that holds the time and the ⋯ menu is hidden until hover.
+  it("shows a message's thread inside its own bubble, each reply below a rule, oldest first", () => {
+    // THE POINT: the recipient sees the thread in the message itself,
+    // without hovering or opening anything.
     const opened = vi.fn()
     const root = threaded(opened)
-    const reply = screen.getByText('The newest reply')
-    const count = screen.getByText('2 replies')
-    for (const shown of [reply, count]) {
-      expect(shown.closest('[class*="opacity-0"]')).toBeNull()
-    }
-    fireEvent.click(count)
+    const content = screen
+      .getByText('Start a thread here')
+      .closest('[data-slot="bubble-content"]')!
+    const first = screen.getByText('The first answer')
+    const second = screen.getByText('The second answer')
+    expect(content).toContainElement(first)
+    expect(content).toContainElement(second)
+    expect(content).toHaveTextContent('Ann')
+    expect(content).toHaveTextContent('Bob')
+    expect(content.querySelectorAll('hr')).toHaveLength(2)
+    expect(
+      first.compareDocumentPosition(second) & Node.DOCUMENT_POSITION_FOLLOWING
+    ).toBeTruthy()
+    expect(content.closest('[class*="opacity-0"]')).toBeNull()
+    fireEvent.click(second)
     expect(opened).toHaveBeenCalledWith(root)
-    fireEvent.click(reply)
-    expect(opened).toHaveBeenCalledTimes(2)
   })
 
-  it("draws the newest reply in its sender's message bubble", () => {
-    // THE POINT: a reply looks like the messages around it, not a card of
-    // its own: someone else's in theirs, the viewer's in the viewer's.
-    threaded(() => {}, { member: 'bob' })
-    expect(bubble('The newest reply')).toHaveAttribute('data-variant', 'muted')
-    cleanup()
-    threaded(() => {}, { member: 'me' })
-    expect(bubble('The newest reply')).toHaveAttribute(
-      'data-variant',
-      'default'
-    )
-  })
-
-  it('names the replier in a group as a message from them is named, and only there', () => {
-    threaded(() => {}, { group: true })
-    expect(bubble('The newest reply')).toHaveTextContent('Bob')
-    cleanup()
-    threaded(() => {})
-    expect(screen.queryByText('Bob')).toBeNull()
-  })
-
-  it('shows no thread under a message deleted while its count stands', () => {
-    render(
-      <I18nProvider i18n={i18n}>
-        <ChatMessageList
-          chatId='c1'
-          messagesQuery={query}
-          chatMessages={[
-            {
-              ...message('m1', ''),
-              deleted: true,
-              replies: 2,
-              newest: { ...message('r2', 'The newest reply'), thread: 'm1' },
-            } as ChatMessage,
-          ]}
-          isLoadingMessages={false}
-          messagesError={null}
-          currentUserIdentity='me'
-          isGroupChat={false}
-          onThread={() => {}}
-        />
-      </I18nProvider>
-    )
+  it('shows no thread in a message deleted while its count stands', () => {
+    threaded(() => {}, { deleted: true })
     expect(screen.getByText('This message was deleted')).toBeInTheDocument()
-    expect(screen.queryByText('The newest reply')).toBeNull()
+    expect(screen.queryByText('The first answer')).toBeNull()
   })
 
   it('shows no thread where the conversation has none', () => {
     threaded(undefined)
-    expect(screen.queryByText('The newest reply')).toBeNull()
-    expect(screen.queryByText('2 replies')).toBeNull()
+    expect(screen.queryByText('The first answer')).toBeNull()
   })
 })
 

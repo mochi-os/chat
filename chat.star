@@ -823,13 +823,13 @@ def action_messages(a):
 			m["reactions"] = {}
 			m["reaction"] = None
 
-	# How many replies each message has in its thread, and the newest of them.
+	# How many replies each message has in its thread, and the replies.
 	if not thread:
 		counts = thread_counts(chat["id"], [m["id"] for m in messages if not m["deleted"]])
 		for m in messages:
 			m["replies"] = counts.get(m["id"], {}).get("replies", 0)
 			m["latest"] = counts.get(m["id"], {}).get("latest", 0)
-			m["newest"] = counts.get(m["id"], {}).get("newest")
+			m["answers"] = counts.get(m["id"], {}).get("answers", [])
 
 	return {
 		"data": {
@@ -2735,35 +2735,23 @@ def thread_root(chat_id, thread):
 	return mochi.text.valid(thread, "id") and mochi.db.exists("select 1 from messages where id=? and chat=? and thread=''", thread, chat_id) and not mochi.db.exists("select 1 from deletions where message=?", thread)
 
 def thread_counts(chat_id, roots):
-	"""How many replies each root has, when the latest came, and the newest
-	reply itself: the one its thread lists last, shown under the root."""
+	"""How many replies each root has, when the latest came, and the replies
+	themselves, oldest first, shown in the root's own bubble."""
 	out = {}
 	for start in range(0, len(roots), _LIST_BATCH):
 		batch = roots[start:start + _LIST_BATCH]
 		places = ", ".join(["?" for _ in batch])
-		for row in mochi.db.rows("select thread, count(*) as replies, max(created) as latest from messages where chat=? and thread in (" + places + ") and id not in (select message from deletions where chat=?) group by thread", chat_id, *(batch + [chat_id])) or []:
-			out[row["thread"]] = {"replies": row["replies"], "latest": row["latest"]}
-
-	# The newest is among the replies of the latest second; of those, the
-	# thread lists the highest id last.
-	threads = list(out.keys())
-	newest = {}
-	for start in range(0, len(threads), _LIST_BATCH // 2):
-		batch = threads[start:start + _LIST_BATCH // 2]
-		pairs = " or ".join(["( thread=? and created=? )" for _ in batch])
-		args = []
-		for thread in batch:
-			args += [thread, out[thread]["latest"]]
-		for row in mochi.db.rows("select * from messages where chat=? and ( " + pairs + " ) and id not in (select message from deletions where chat=?)", chat_id, *(args + [chat_id])) or []:
-			held = newest.get(row["thread"])
-			if not held or row["id"] > held["id"]:
-				newest[row["thread"]] = row
-	attachments = attachment_list_many(["chat/" + chat_id + "/" + m["id"] for m in newest.values()], chat_id)
-	for thread, m in newest.items():
+		for m in mochi.db.rows("select * from messages where chat=? and thread in (" + places + ") and id not in (select message from deletions where chat=?) order by created, id", chat_id, *(batch + [chat_id])) or []:
+			held = out.setdefault(m["thread"], {"replies": 0, "latest": 0, "answers": []})
+			held["replies"] += 1
+			held["latest"] = max(held["latest"], m["created"])
+			held["answers"].append(m)
+	answers = [m for held in out.values() for m in held["answers"]]
+	attachments = attachment_list_many(["chat/" + chat_id + "/" + m["id"] for m in answers], chat_id)
+	for m in answers:
 		m["deleted"] = False
 		m["attachments"] = attachments.get("chat/" + chat_id + "/" + m["id"], [])
 		m["quote"] = message_quote_of(m)
-		out[thread]["newest"] = m
 	return out
 
 # --- Accounts ---
