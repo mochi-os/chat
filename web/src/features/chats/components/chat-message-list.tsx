@@ -982,6 +982,9 @@ export function ChatMessageList({
                                   ) : null}
                                   <ThreadSummary
                                     root={message}
+                                    identity={currentUserIdentity}
+                                    isSent={isSent}
+                                    isGroupChat={isGroupChat}
                                     onOpen={() => onThread(message)}
                                   />
                                 </div>
