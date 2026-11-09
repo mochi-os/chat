@@ -215,6 +215,21 @@ const markMessageDeletedFromWebsocket = (
     return
   }
 
+  // The newest reply shown under a root: which reply takes its place only
+  // the server knows, so the conversation is read again.
+  const shown = queryClient
+    .getQueryData<InfiniteData<GetMessagesResponse>>(chatKeys.messages(chatId))
+    ?.pages.some((page) =>
+      page.messages.some((message) => message.newest?.id === messageId)
+    )
+  if (shown) {
+    void queryClient.invalidateQueries({
+      queryKey: chatKeys.messages(chatId),
+      exact: true,
+    })
+    return
+  }
+
   queryClient.setQueryData<InfiniteData<GetMessagesResponse>>(
     chatKeys.messages(chatId),
     (current) => {
@@ -273,6 +288,14 @@ const patchMessageEditFromWebsocket = (
             found = true
             return applyMessageEditLWW(message, { body, edited })
           }
+          // The newest reply shown under its root.
+          if (message.newest?.id === messageId) {
+            found = true
+            return {
+              ...message,
+              newest: applyMessageEditLWW(message.newest, { body, edited }),
+            }
+          }
           return message
         }),
       }))
@@ -318,8 +341,16 @@ const patchReceiptFromWebsocket = (
   )
 }
 
-// A reply in a thread: counted on its root in the main timeline and added to
-// the thread where it is open, never put on the main timeline itself.
+// Whether a reply comes after another in its thread, as the server orders
+// them: by time, then by id within a second.
+const listedAfter = (reply: ChatMessage, other?: ChatMessage | null) =>
+  !other ||
+  reply.created > other.created ||
+  (reply.created === other.created && reply.id > other.id)
+
+// A reply in a thread: counted on its root in the main timeline, shown there
+// as its newest, and added to the thread where it is open, never put on the
+// main timeline itself.
 const addThreadReply = (
   chatId: string,
   message: ChatMessage,
@@ -355,6 +386,9 @@ const addThreadReply = (
             ...existing,
             replies: (existing.replies ?? 0) + 1,
             latest: Math.max(existing.latest ?? 0, message.created),
+            newest: listedAfter(message, existing.newest)
+              ? message
+              : existing.newest,
           }
         }),
       }))

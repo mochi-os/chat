@@ -10,8 +10,8 @@ import {
   type InfiniteData,
   type UseInfiniteQueryResult,
 } from '@tanstack/react-query'
-import { render, screen } from '@testing-library/react'
-import { describe, expect, it } from 'vitest'
+import { fireEvent, render, screen } from '@testing-library/react'
+import { describe, expect, it, vi } from 'vitest'
 import type { ChatMessage, GetMessagesResponse } from '@/api/types/chats'
 import { ChatMessageList } from './chat-message-list'
 
@@ -89,5 +89,118 @@ describe('ChatMessageList', () => {
         .map((img) => img.getAttribute('src'))
     expect(sources('Ann')).toEqual(Array(3).fill('/c1/-/m1/asset/avatar'))
     expect(sources('Bob')).toEqual(Array(2).fill('/c1/-/m2/asset/avatar'))
+  })
+
+  const threaded = (onThread?: (m: ChatMessage) => void) => {
+    const root = {
+      ...message('m1', 'Start a thread here'),
+      replies: 2,
+      latest: 1700000100,
+      newest: {
+        ...message('r2', 'The newest reply'),
+        name: 'Bob',
+        thread: 'm1',
+      },
+    } as ChatMessage
+    render(
+      <I18nProvider i18n={i18n}>
+        <ChatMessageList
+          chatId='c1'
+          messagesQuery={query}
+          chatMessages={[root]}
+          isLoadingMessages={false}
+          messagesError={null}
+          currentUserIdentity='me'
+          isGroupChat={false}
+          onThread={onThread}
+        />
+      </I18nProvider>
+    )
+    return root
+  }
+
+  it('shows a thread beneath its message without hovering: the newest reply and the count, either opening it', () => {
+    // THE POINT: the recipient sees there is a thread. The row under a
+    // bubble that holds the time and the ⋯ menu is hidden until hover.
+    const opened = vi.fn()
+    const root = threaded(opened)
+    const reply = screen.getByText('The newest reply')
+    expect(screen.getByText('Bob')).toBeInTheDocument()
+    const count = screen.getByText('2 replies')
+    for (const shown of [reply, count]) {
+      expect(shown.closest('[class*="opacity-0"]')).toBeNull()
+    }
+    fireEvent.click(count)
+    expect(opened).toHaveBeenCalledWith(root)
+  })
+
+  it('shows no thread under a message deleted while its count stands', () => {
+    render(
+      <I18nProvider i18n={i18n}>
+        <ChatMessageList
+          chatId='c1'
+          messagesQuery={query}
+          chatMessages={[
+            {
+              ...message('m1', ''),
+              deleted: true,
+              replies: 2,
+              newest: { ...message('r2', 'The newest reply'), thread: 'm1' },
+            } as ChatMessage,
+          ]}
+          isLoadingMessages={false}
+          messagesError={null}
+          currentUserIdentity='me'
+          isGroupChat={false}
+          onThread={() => {}}
+        />
+      </I18nProvider>
+    )
+    expect(screen.getByText('This message was deleted')).toBeInTheDocument()
+    expect(screen.queryByText('The newest reply')).toBeNull()
+  })
+
+  it('shows no thread where the conversation has none', () => {
+    threaded(undefined)
+    expect(screen.queryByText('The newest reply')).toBeNull()
+    expect(screen.queryByText('2 replies')).toBeNull()
+  })
+})
+
+describe('Seen by', () => {
+  it('sits under the newest message in a group, not beside it in the bubble row', () => {
+    // THE POINT: a paragraph in the bubble's own row is laid out beside it.
+    const mine = {
+      ...message('m1', 'Did you see this'),
+      member: 'me',
+      name: 'Me',
+    } as ChatMessage
+    render(
+      <QueryClientProvider client={new QueryClient()}>
+        <I18nProvider i18n={i18n}>
+          <ChatMessageList
+            chatId='c1'
+            messagesQuery={query}
+            chatMessages={[mine]}
+            receipts={[
+              {
+                member: 'ann',
+                name: 'Ann',
+                delivered: 1700000000,
+                displayed: 1700000000,
+              },
+              { member: 'bob', name: 'Bob', delivered: 0, displayed: 0 },
+            ]}
+            isLoadingMessages={false}
+            messagesError={null}
+            currentUserIdentity='me'
+            isGroupChat
+          />
+        </I18nProvider>
+      </QueryClientProvider>
+    )
+    const seen = screen.getByText('Seen by Ann')
+    const column = document.getElementById('chat-message-m1')
+    expect(seen.parentElement).toBe(column)
   })
 })

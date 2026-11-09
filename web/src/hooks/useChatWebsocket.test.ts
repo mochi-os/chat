@@ -248,4 +248,93 @@ describe('signals and threads (phase 22)', () => {
       pages(client, chatKeys.thread('c1', 'm1'))[0].messages.map((m) => m.id)
     ).toEqual(['r1'])
   })
+
+  // A root seeded with its newest reply, as the server sends it.
+  const threaded = () => {
+    const client = new QueryClient()
+    const newest = {
+      ...message('r2'),
+      name: 'Bob',
+      body: 'newest so far',
+      created: 5,
+      thread: 'm1',
+    } as ChatMessage
+    client.setQueryData(chatKeys.messages('c1'), {
+      pages: [
+        {
+          messages: [{ ...message('m1'), replies: 2, latest: 5, newest }],
+          more: false,
+          cursor: null,
+        },
+      ],
+      pageParams: [undefined],
+    })
+    return client
+  }
+  const root = (client: QueryClient) =>
+    pages(client, chatKeys.messages('c1'))[0].messages[0]
+
+  it("shows a thread reply that arrives as its root's newest", () => {
+    // THE POINT: the reply beneath the root follows the thread live.
+    const client = threaded()
+    appendMessageToCache(
+      'c1',
+      {
+        id: 'r3',
+        member: 'bob',
+        name: 'Bob',
+        body: 'just now',
+        created: 6,
+        thread: 'm1',
+      },
+      client,
+      'Unknown',
+      'me'
+    )
+    expect(root(client).newest?.body).toBe('just now')
+    expect(root(client).replies).toBe(3)
+  })
+
+  it('keeps the newest where an earlier reply arrives late', () => {
+    const client = threaded()
+    appendMessageToCache(
+      'c1',
+      {
+        id: 'r1',
+        member: 'bob',
+        name: 'Bob',
+        body: 'sent earlier',
+        created: 4,
+        thread: 'm1',
+      },
+      client,
+      'Unknown',
+      'me'
+    )
+    expect(root(client).newest?.id).toBe('r2')
+    expect(root(client).replies).toBe(3)
+  })
+
+  it('shows an edit of the newest reply beneath its root', () => {
+    const client = threaded()
+    handleWebsocketEvent(
+      'c1',
+      { event: 'edit', message: 'r2', body: 'newest, edited', edited: 7 },
+      client,
+      'me'
+    )
+    expect(root(client).newest?.body).toBe('newest, edited')
+    expect(root(client).body).toBe('hello')
+  })
+
+  it('reads the conversation again when the newest reply is deleted, as only the server knows the one before', () => {
+    const client = threaded()
+    const invalidate = vi.spyOn(client, 'invalidateQueries')
+    handleWebsocketEvent('c1', { event: 'delete', message: 'r2' }, client, 'me')
+    expect(invalidate).toHaveBeenCalledWith({
+      queryKey: chatKeys.messages('c1'),
+      exact: true,
+    })
+    expect(root(client).newest?.id).toBe('r2')
+  })
 })
