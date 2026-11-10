@@ -70,11 +70,6 @@ msgstr "{0, plural, one {# fișier modificat} few {# fișiere modificate} other 
 msgid "{0, plural, one {# message key restored} other {# message keys restored}}"
 msgstr "{0, plural, one {# cheie de mesaj restaurată} few {# chei de mesaj restaurate} other {# de chei de mesaj restaurate}}"
 
-#. placeholder {0}: message.replies
-#: src/features/chats/components/chat-message-list.tsx
-msgid "{0, plural, one {# reply} other {# replies}}"
-msgstr "{0, plural, one {# răspuns} few {# răspunsuri} other {# de răspunsuri}}"
-
 #. placeholder {0}: visible.length
 #: ../../../lib/web/src/components/inline-entity-search.tsx
 msgid "{0, plural, one {# result} other {# results}}"
@@ -242,8 +237,8 @@ msgid "Add {0} to chat"
 msgstr "Adaugă {0} în chat"
 
 #: ../../../lib/web/src/components/entity/entity-comment-list.tsx
-msgid "Add a comment..."
-msgstr "Adaugă un comentariu..."
+msgid "Add a comment"
+msgstr "Adaugă un comentariu"
 
 #: ../../../lib/web/src/features/accounts/account-add.tsx
 msgid "Add a new account"
@@ -280,8 +275,8 @@ msgid "Add field"
 msgstr "Adaugă câmp"
 
 #: ../../../lib/web/src/components/entity/entity-field-editor.tsx
-msgid "Add item..."
-msgstr "Adaugă element..."
+msgid "Add item"
+msgstr "Adaugă element"
 
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx
 msgid "Add link"
@@ -306,8 +301,8 @@ msgid "Add reaction"
 msgstr "Adaugă reacție"
 
 #: ../../../lib/web/src/components/post-tags.tsx
-msgid "Add tag..."
-msgstr "Adaugă etichetă..."
+msgid "Add tag"
+msgstr "Adaugă etichetă"
 
 #: ../../../lib/web/src/features/accounts/account-add.tsx
 msgid "Add to existing notifications"
@@ -716,10 +711,6 @@ msgstr "Nume chat"
 #: src/routes/_authenticated/$chatId_.settings.tsx
 msgid "Chat name is required"
 msgstr "Numele chatului este obligatoriu"
-
-#: src/features/chats/components/new-chat.tsx
-msgid "Chat name..."
-msgstr "Nume chat..."
 
 #: src/features/chats/index.tsx
 #: src/routes/_authenticated/$chatId_.settings.tsx
@@ -1361,6 +1352,7 @@ msgid "Email code"
 msgstr "Cod email"
 
 #: src/features/chats/components/chat-message-list.tsx
+#: src/features/chats/components/thread-replies.tsx
 msgid "Encrypted message"
 msgstr "Mesaj criptat"
 
@@ -1375,21 +1367,13 @@ msgid "Ends before it starts"
 msgstr "Se termină înainte să înceapă"
 
 #: ../../../lib/web/src/components/banner-section.tsx
-msgid "Enter banner text (markdown supported)..."
-msgstr "Introdu textul bannerului (markdown acceptat)..."
+msgid "Enter banner text (markdown supported)"
+msgstr "Introdu textul bannerului (markdown acceptat)"
 
 #: src/features/chats/components/encryption-section.tsx
 #: src/features/chats/components/encryption-section.tsx
 msgid "Enter recovery key"
 msgstr "Introdu cheia de recuperare"
-
-#: ../../../lib/web/src/components/step-up-dialog.tsx
-msgid "Enter the code from your email"
-msgstr "Introduceți codul din e-mailul dumneavoastră"
-
-#: ../../../lib/web/src/components/step-up-dialog.tsx
-msgid "Enter your authenticator code"
-msgstr "Introdu codul din aplicația de autentificare"
 
 #: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx
 msgid "Error"
@@ -2474,6 +2458,7 @@ msgstr "Pauză notă vocală"
 
 #: ../../../lib/web/src/components/person-picker.tsx
 #: src/features/chats/components/new-chat.tsx
+#: src/features/chats/components/new-chat.tsx
 msgid "People"
 msgstr "Persoane"
 
@@ -2765,8 +2750,8 @@ msgstr "Răspunde în discuție"
 
 #. placeholder {0}: comment.name || comment.author
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx
-msgid "Reply to {0}..."
-msgstr "Răspunde lui {0}..."
+msgid "Reply to {0}"
+msgstr "Răspunde lui {0}"
 
 #. placeholder {0}: replyTo.name
 #: src/features/chats/components/chat-input.tsx
@@ -2860,20 +2845,22 @@ msgid "Saving..."
 msgstr "Se salvează..."
 
 #: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx
+#: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx
+#: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx
 #: ../../../lib/web/src/components/filter-bar.tsx
 #: ../../../lib/web/src/components/header-search.tsx
+#: ../../../lib/web/src/components/inline-entity-search.tsx
+#: ../../../lib/web/src/components/person-picker.tsx
+#: ../../../lib/web/src/components/search-entity-page.tsx
 #: ../../../lib/web/src/components/search.tsx
 msgid "Search"
 msgstr "Caută"
 
 #: src/components/layout/chat-list-filters.tsx
 #: src/components/layout/chat-list-filters.tsx
+#: src/features/chats/components/forward-dialog.tsx
 msgid "Search chats"
 msgstr "Caută chaturi"
-
-#: src/features/chats/components/forward-dialog.tsx
-msgid "Search chats…"
-msgstr "Caută chaturi…"
 
 #: src/features/chats/components/chat-search-header.tsx
 msgid "Search failed"
@@ -2884,40 +2871,29 @@ msgid "Search for a command to run..."
 msgstr "Căutați o comandă de executat..."
 
 #: ../../../lib/web/src/components/place-picker.tsx
+#: ../../../lib/web/src/components/place-picker.tsx
 msgid "Search for a place"
 msgstr "Caută un loc"
 
-#: ../../../lib/web/src/components/place-picker.tsx
-msgid "Search for a place..."
-msgstr "Căutați un loc..."
-
-#: ../../../lib/web/src/components/travelling-picker.tsx
-msgid "Search for destination..."
-msgstr "Caută o destinație..."
-
-#: ../../../lib/web/src/components/travelling-picker.tsx
-msgid "Search for origin..."
-msgstr "Caută o origine..."
-
 #: src/routes/_authenticated/$chatId_.settings.tsx
-msgid "Search friends…"
-msgstr "Caută prieteni…"
+msgid "Search friends"
+msgstr "Caută prieteni"
 
 #: src/features/chats/components/chat-search-header.tsx
-msgid "Search in chat..."
-msgstr "Caută în chat..."
+msgid "Search in chat"
+msgstr "Caută în chat"
 
 #: src/features/chats/index.tsx
 msgid "Search messages"
 msgstr "Caută mesaje"
 
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx
-msgid "Search objects..."
-msgstr "Caută obiecte..."
+msgid "Search objects"
+msgstr "Caută obiecte"
 
 #: ../../../lib/web/src/components/timezone-select.tsx
-msgid "Search time zone..."
-msgstr "Caută fus orar..."
+msgid "Search time zone"
+msgstr "Caută fus orar"
 
 #: ../../../lib/web/src/features/access/access-dialog.tsx
 msgid "Search users"
@@ -2926,14 +2902,6 @@ msgstr "Caută utilizatori"
 #: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx
 msgid "Search, watch, and sort this view."
 msgstr "Caută, urmărește și sortează această vizualizare."
-
-#: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx
-#: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx
-#: ../../../lib/web/src/components/inline-entity-search.tsx
-#: ../../../lib/web/src/components/person-picker.tsx
-#: ../../../lib/web/src/components/search-entity-page.tsx
-msgid "Search..."
-msgstr "Caută..."
 
 #: ../../../lib/web/src/components/search-entity-page.tsx
 #: ../../../lib/web/src/features/access/access-dialog.tsx
@@ -2953,6 +2921,7 @@ msgstr "Derulează în nota vocală"
 msgid "Seen by {0}"
 msgstr "Văzut de {0}"
 
+#: ../../../lib/web/src/components/entity/entity-field-editor.tsx
 #: ../../../lib/web/src/hooks/use-field-type-labels.ts
 msgid "Select"
 msgstr "Selectează"
@@ -2966,10 +2935,6 @@ msgstr "Selectează"
 msgid "Select a chat"
 msgstr "Selectează o conversație"
 
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx
-msgid "Select a field"
-msgstr "Selectează un câmp"
-
 #: ../../../lib/web/src/components/game/game-empty-state.tsx
 msgid "Select a game"
 msgstr "Selectează un joc"
@@ -2981,10 +2946,6 @@ msgstr "Selectează un utilizator, grup sau altă regulă pentru a acorda accesu
 #: ../../../lib/web/src/features/access/access-dialog.tsx
 msgid "Select access rule"
 msgstr "Selectează regula de acces"
-
-#: ../../../lib/web/src/features/accounts/account-add.tsx
-msgid "Select account type"
-msgstr "Selectează tipul contului"
 
 #: ../../../lib/web/src/features/access/access-dialog.tsx
 msgid "Select group"
@@ -3006,22 +2967,13 @@ msgstr "Selectează mesajul"
 msgid "Select next card"
 msgstr "Selectează cardul următor"
 
-#: src/features/chats/components/new-chat.tsx
-msgid "Select people..."
-msgstr "Selectează persoane..."
-
 #: ../../../lib/web/src/components/person-picker.tsx
-msgid "Select person..."
-msgstr "Selectați o persoană..."
+msgid "Select person"
+msgstr "Selectați o persoană"
 
 #: ../../../lib/web/src/components/entity/keyboard-shortcuts-help.tsx
 msgid "Select previous card"
 msgstr "Selectează cardul anterior"
-
-#: ../../../lib/web/src/components/entity/entity-field-editor.tsx
-#: ../../../lib/web/src/components/entity/entity-field-editor.tsx
-msgid "Select..."
-msgstr "Selectează..."
 
 #: src/features/chats/index.tsx
 msgid "Selected the newest {BULK_MESSAGES_MAX} messages, the most that can be forwarded or deleted at once"
@@ -3468,28 +3420,24 @@ msgid "Type"
 msgstr "Tip"
 
 #: ../../../lib/web/src/components/command-menu.tsx
-msgid "Type a command or search..."
-msgstr "Tastează o comandă sau caută..."
+msgid "Type a command or search"
+msgstr "Tastează o comandă sau caută"
 
 #: ../../../lib/web/src/components/game/game-chat-input.tsx
-msgid "Type a message…"
-msgstr "Tastează un mesaj…"
+msgid "Type a message"
+msgstr "Tastează un mesaj"
 
 #: ../../../lib/web/src/features/access/access-dialog.tsx
 msgid "Type to search users"
 msgstr "Tastează pentru a căuta utilizatori"
 
-#: ../../../lib/web/src/features/access/access-dialog.tsx
-msgid "Type to search..."
-msgstr "Tastează pentru a căuta..."
+#: src/features/chats/components/chat-input.tsx
+msgid "Type your message"
+msgstr "Tastează mesajul tău"
 
 #: src/features/chats/components/chat-input.tsx
-msgid "Type your message…"
-msgstr "Tastează mesajul tău…"
-
-#: src/features/chats/components/chat-input.tsx
-msgid "Type your reply…"
-msgstr "Scrie răspunsul tău…"
+msgid "Type your reply"
+msgstr "Scrie răspunsul tău"
 
 #: ../../../lib/web/src/lib/api-response-interceptors.ts
 msgid "Unable to connect to remote server"

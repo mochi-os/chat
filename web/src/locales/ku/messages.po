@@ -70,11 +70,6 @@ msgstr "{0, plural, one {# pel hat guhertin} other {# pel hatin guhertin}}"
 msgid "{0, plural, one {# message key restored} other {# message keys restored}}"
 msgstr "{0, plural, one {# mifteya peyamê hate vegerandin} other {# mifteyên peyaman hatin vegerandin}}"
 
-#. placeholder {0}: message.replies
-#: src/features/chats/components/chat-message-list.tsx
-msgid "{0, plural, one {# reply} other {# replies}}"
-msgstr "{0, plural, one {# bersiv} other {# bersiv}}"
-
 #. placeholder {0}: visible.length
 #: ../../../lib/web/src/components/inline-entity-search.tsx
 msgid "{0, plural, one {# result} other {# results}}"
@@ -242,8 +237,8 @@ msgid "Add {0} to chat"
 msgstr "{0} li chatê zêde bike"
 
 #: ../../../lib/web/src/components/entity/entity-comment-list.tsx
-msgid "Add a comment..."
-msgstr "Şîroveyekê zêde bike..."
+msgid "Add a comment"
+msgstr "Şîroveyekê zêde bike"
 
 #: ../../../lib/web/src/features/accounts/account-add.tsx
 msgid "Add a new account"
@@ -280,8 +275,8 @@ msgid "Add field"
 msgstr "Qad zêde bike"
 
 #: ../../../lib/web/src/components/entity/entity-field-editor.tsx
-msgid "Add item..."
-msgstr "Hêman zêde bike..."
+msgid "Add item"
+msgstr "Hêman zêde bike"
 
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx
 msgid "Add link"
@@ -306,8 +301,8 @@ msgid "Add reaction"
 msgstr "Bertekê zêde bike"
 
 #: ../../../lib/web/src/components/post-tags.tsx
-msgid "Add tag..."
-msgstr "Etîket zêde bike..."
+msgid "Add tag"
+msgstr "Etîket zêde bike"
 
 #: ../../../lib/web/src/features/accounts/account-add.tsx
 msgid "Add to existing notifications"
@@ -716,10 +711,6 @@ msgstr "Navê chatê"
 #: src/routes/_authenticated/$chatId_.settings.tsx
 msgid "Chat name is required"
 msgstr "Navê chatê pêwîst e"
-
-#: src/features/chats/components/new-chat.tsx
-msgid "Chat name..."
-msgstr "Navê chatê..."
 
 #: src/features/chats/index.tsx
 #: src/routes/_authenticated/$chatId_.settings.tsx
@@ -1361,6 +1352,7 @@ msgid "Email code"
 msgstr "Koda e-nameyê"
 
 #: src/features/chats/components/chat-message-list.tsx
+#: src/features/chats/components/thread-replies.tsx
 msgid "Encrypted message"
 msgstr "Peyama şîfrekirî"
 
@@ -1375,21 +1367,13 @@ msgid "Ends before it starts"
 msgstr "Berî ku dest pê bike diqede"
 
 #: ../../../lib/web/src/components/banner-section.tsx
-msgid "Enter banner text (markdown supported)..."
-msgstr "Nivîsa pankartê binivîse (markdown tê piştgirîkirin)..."
+msgid "Enter banner text (markdown supported)"
+msgstr "Nivîsa pankartê binivîse (markdown tê piştgirîkirin)"
 
 #: src/features/chats/components/encryption-section.tsx
 #: src/features/chats/components/encryption-section.tsx
 msgid "Enter recovery key"
 msgstr "Mifteya vegerê binivîse"
-
-#: ../../../lib/web/src/components/step-up-dialog.tsx
-msgid "Enter the code from your email"
-msgstr "Koda ji e-nameya xwe binivîse"
-
-#: ../../../lib/web/src/components/step-up-dialog.tsx
-msgid "Enter your authenticator code"
-msgstr "Koda authenticator-a xwe têkevê"
 
 #: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx
 msgid "Error"
@@ -2474,6 +2458,7 @@ msgstr "Peyama dengî rawestîne"
 
 #: ../../../lib/web/src/components/person-picker.tsx
 #: src/features/chats/components/new-chat.tsx
+#: src/features/chats/components/new-chat.tsx
 msgid "People"
 msgstr "Mirov"
 
@@ -2765,8 +2750,8 @@ msgstr "Di mijarê de bersiv bide"
 
 #. placeholder {0}: comment.name || comment.author
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx
-msgid "Reply to {0}..."
-msgstr "Bersiv ji {0} re..."
+msgid "Reply to {0}"
+msgstr "Bersiv ji {0} re"
 
 #. placeholder {0}: replyTo.name
 #: src/features/chats/components/chat-input.tsx
@@ -2860,20 +2845,22 @@ msgid "Saving..."
 msgstr "Tê tomarkirin..."
 
 #: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx
+#: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx
+#: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx
 #: ../../../lib/web/src/components/filter-bar.tsx
 #: ../../../lib/web/src/components/header-search.tsx
+#: ../../../lib/web/src/components/inline-entity-search.tsx
+#: ../../../lib/web/src/components/person-picker.tsx
+#: ../../../lib/web/src/components/search-entity-page.tsx
 #: ../../../lib/web/src/components/search.tsx
 msgid "Search"
 msgstr "Lêger"
 
 #: src/components/layout/chat-list-filters.tsx
 #: src/components/layout/chat-list-filters.tsx
+#: src/features/chats/components/forward-dialog.tsx
 msgid "Search chats"
 msgstr "Li chatan bigere"
-
-#: src/features/chats/components/forward-dialog.tsx
-msgid "Search chats…"
-msgstr "Li sohbetan bigere…"
 
 #: src/features/chats/components/chat-search-header.tsx
 msgid "Search failed"
@@ -2884,40 +2871,29 @@ msgid "Search for a command to run..."
 msgstr "Li fermanekê bigere ku bimeşe..."
 
 #: ../../../lib/web/src/components/place-picker.tsx
+#: ../../../lib/web/src/components/place-picker.tsx
 msgid "Search for a place"
 msgstr "Li cîhekî bigere"
 
-#: ../../../lib/web/src/components/place-picker.tsx
-msgid "Search for a place..."
-msgstr "Li cihekî bigere..."
-
-#: ../../../lib/web/src/components/travelling-picker.tsx
-msgid "Search for destination..."
-msgstr "Li mebestê bigere..."
-
-#: ../../../lib/web/src/components/travelling-picker.tsx
-msgid "Search for origin..."
-msgstr "Li çavkaniyê bigere..."
-
 #: src/routes/_authenticated/$chatId_.settings.tsx
-msgid "Search friends…"
-msgstr "Li hevalan bigere…"
+msgid "Search friends"
+msgstr "Li hevalan bigere"
 
 #: src/features/chats/components/chat-search-header.tsx
-msgid "Search in chat..."
-msgstr "Di sohbetê de bigere..."
+msgid "Search in chat"
+msgstr "Di sohbetê de bigere"
 
 #: src/features/chats/index.tsx
 msgid "Search messages"
 msgstr "Li peyaman bigere"
 
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx
-msgid "Search objects..."
-msgstr "Li objeyan bigere..."
+msgid "Search objects"
+msgstr "Li objeyan bigere"
 
 #: ../../../lib/web/src/components/timezone-select.tsx
-msgid "Search time zone..."
-msgstr "Li herêma demê bigere..."
+msgid "Search time zone"
+msgstr "Li herêma demê bigere"
 
 #: ../../../lib/web/src/features/access/access-dialog.tsx
 msgid "Search users"
@@ -2926,14 +2902,6 @@ msgstr "Li bikarhêneran bigere"
 #: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx
 msgid "Search, watch, and sort this view."
 msgstr "Bigere, temaşe bike, û vê dîtinê rêz bike."
-
-#: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx
-#: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx
-#: ../../../lib/web/src/components/inline-entity-search.tsx
-#: ../../../lib/web/src/components/person-picker.tsx
-#: ../../../lib/web/src/components/search-entity-page.tsx
-msgid "Search..."
-msgstr "Bigere..."
 
 #: ../../../lib/web/src/components/search-entity-page.tsx
 #: ../../../lib/web/src/features/access/access-dialog.tsx
@@ -2953,6 +2921,7 @@ msgstr "Di peyama dengî de bigere"
 msgid "Seen by {0}"
 msgstr "Ji aliyê {0} ve hat dîtin"
 
+#: ../../../lib/web/src/components/entity/entity-field-editor.tsx
 #: ../../../lib/web/src/hooks/use-field-type-labels.ts
 msgid "Select"
 msgstr "Hilbijêre"
@@ -2966,10 +2935,6 @@ msgstr "Hilbijêre"
 msgid "Select a chat"
 msgstr "Chatê hilbijêre"
 
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx
-msgid "Select a field"
-msgstr "Qadekê hilbijêre"
-
 #: ../../../lib/web/src/components/game/game-empty-state.tsx
 msgid "Select a game"
 msgstr "Lîstikek hilbijêre"
@@ -2981,10 +2946,6 @@ msgstr "Bikarhêner, kom an rêzikek din hilbijêre da ku destûr bidî."
 #: ../../../lib/web/src/features/access/access-dialog.tsx
 msgid "Select access rule"
 msgstr "Rêzika destpêkirinê hilbijêre"
-
-#: ../../../lib/web/src/features/accounts/account-add.tsx
-msgid "Select account type"
-msgstr "Cureyê hesab hilbijêre"
 
 #: ../../../lib/web/src/features/access/access-dialog.tsx
 msgid "Select group"
@@ -3006,22 +2967,13 @@ msgstr "Peyamê hilbijêre"
 msgid "Select next card"
 msgstr "Karta paşîn hilbijêre"
 
-#: src/features/chats/components/new-chat.tsx
-msgid "Select people..."
-msgstr "Kesan hilbijêre..."
-
 #: ../../../lib/web/src/components/person-picker.tsx
-msgid "Select person..."
-msgstr "Kesek hilbijêre..."
+msgid "Select person"
+msgstr "Kesek hilbijêre"
 
 #: ../../../lib/web/src/components/entity/keyboard-shortcuts-help.tsx
 msgid "Select previous card"
 msgstr "Karta berê hilbijêre"
-
-#: ../../../lib/web/src/components/entity/entity-field-editor.tsx
-#: ../../../lib/web/src/components/entity/entity-field-editor.tsx
-msgid "Select..."
-msgstr "Hilbijêre..."
 
 #: src/features/chats/index.tsx
 msgid "Selected the newest {BULK_MESSAGES_MAX} messages, the most that can be forwarded or deleted at once"
@@ -3468,28 +3420,24 @@ msgid "Type"
 msgstr "Cure"
 
 #: ../../../lib/web/src/components/command-menu.tsx
-msgid "Type a command or search..."
-msgstr "Fermanek an lêgerînê binivîse..."
+msgid "Type a command or search"
+msgstr "Fermanek an lêgerînê binivîse"
 
 #: ../../../lib/web/src/components/game/game-chat-input.tsx
-msgid "Type a message…"
-msgstr "Peyamekê binivîse…"
+msgid "Type a message"
+msgstr "Peyamekê binivîse"
 
 #: ../../../lib/web/src/features/access/access-dialog.tsx
 msgid "Type to search users"
 msgstr "Ji bo lêgerîna bikarhêneran binivîse"
 
-#: ../../../lib/web/src/features/access/access-dialog.tsx
-msgid "Type to search..."
-msgstr "Ji bo lêgerînê binivîse..."
+#: src/features/chats/components/chat-input.tsx
+msgid "Type your message"
+msgstr "Peyama xwe binivîse"
 
 #: src/features/chats/components/chat-input.tsx
-msgid "Type your message…"
-msgstr "Peyama xwe binivîse…"
-
-#: src/features/chats/components/chat-input.tsx
-msgid "Type your reply…"
-msgstr "Bersiva xwe binivîse…"
+msgid "Type your reply"
+msgstr "Bersiva xwe binivîse"
 
 #: ../../../lib/web/src/lib/api-response-interceptors.ts
 msgid "Unable to connect to remote server"

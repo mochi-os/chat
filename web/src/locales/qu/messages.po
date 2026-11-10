@@ -70,11 +70,6 @@ msgstr "{0, plural, one {# archivo tikrasqa} other {# archivokuna tikrasqa}}"
 msgid "{0, plural, one {# message key restored} other {# message keys restored}}"
 msgstr "{0, plural, one {# willakuy clave kutichisqa} other {# willakuy clavekuna kutichisqa}}"
 
-#. placeholder {0}: message.replies
-#: src/features/chats/components/chat-message-list.tsx
-msgid "{0, plural, one {# reply} other {# replies}}"
-msgstr "{0, plural, one {# kutichiy} other {# kutichiykuna}}"
-
 #. placeholder {0}: visible.length
 #: ../../../lib/web/src/components/inline-entity-search.tsx
 msgid "{0, plural, one {# result} other {# results}}"
@@ -242,8 +237,8 @@ msgid "Add {0} to chat"
 msgstr "{0}-ta rimanakuyman yapay"
 
 #: ../../../lib/web/src/components/entity/entity-comment-list.tsx
-msgid "Add a comment..."
-msgstr "Comentario yapay..."
+msgid "Add a comment"
+msgstr "Comentario yapay"
 
 #: ../../../lib/web/src/features/accounts/account-add.tsx
 msgid "Add a new account"
@@ -280,8 +275,8 @@ msgid "Add field"
 msgstr "Campo yapay"
 
 #: ../../../lib/web/src/components/entity/entity-field-editor.tsx
-msgid "Add item..."
-msgstr "Item yapay..."
+msgid "Add item"
+msgstr "Item yapay"
 
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx
 msgid "Add link"
@@ -306,8 +301,8 @@ msgid "Add reaction"
 msgstr "Reaccionta yapay"
 
 #: ../../../lib/web/src/components/post-tags.tsx
-msgid "Add tag..."
-msgstr "Unancha yapay..."
+msgid "Add tag"
+msgstr "Unancha yapay"
 
 #: ../../../lib/web/src/features/accounts/account-add.tsx
 msgid "Add to existing notifications"
@@ -716,10 +711,6 @@ msgstr "Rimanakuy suti"
 #: src/routes/_authenticated/$chatId_.settings.tsx
 msgid "Chat name is required"
 msgstr "Rimanakuy suti necesitakun"
-
-#: src/features/chats/components/new-chat.tsx
-msgid "Chat name..."
-msgstr "Rimanakuy suti..."
 
 #: src/features/chats/index.tsx
 #: src/routes/_authenticated/$chatId_.settings.tsx
@@ -1361,6 +1352,7 @@ msgid "Email code"
 msgstr "Email código"
 
 #: src/features/chats/components/chat-message-list.tsx
+#: src/features/chats/components/thread-replies.tsx
 msgid "Encrypted message"
 msgstr "Pakasqa willakuy"
 
@@ -1375,21 +1367,13 @@ msgid "Ends before it starts"
 msgstr "Manaraq qallarichkaptin tukun"
 
 #: ../../../lib/web/src/components/banner-section.tsx
-msgid "Enter banner text (markdown supported)..."
-msgstr "Banner qillqata qillqay (markdown atikun)..."
+msgid "Enter banner text (markdown supported)"
+msgstr "Banner qillqata qillqay (markdown atikun)"
 
 #: src/features/chats/components/encryption-section.tsx
 #: src/features/chats/components/encryption-section.tsx
 msgid "Enter recovery key"
 msgstr "Kutichinapaq claveta qillqay"
-
-#: ../../../lib/web/src/components/step-up-dialog.tsx
-msgid "Enter the code from your email"
-msgstr "Emailniykiman chayamusqan códigota qillqay"
-
-#: ../../../lib/web/src/components/step-up-dialog.tsx
-msgid "Enter your authenticator code"
-msgstr "Autenticador códigoykita qillqay"
 
 #: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx
 msgid "Error"
@@ -2474,6 +2458,7 @@ msgstr "Kunka notata sayachiy"
 
 #: ../../../lib/web/src/components/person-picker.tsx
 #: src/features/chats/components/new-chat.tsx
+#: src/features/chats/components/new-chat.tsx
 msgid "People"
 msgstr "Runakuna"
 
@@ -2765,8 +2750,8 @@ msgstr "Hilopi kutichiy"
 
 #. placeholder {0}: comment.name || comment.author
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx
-msgid "Reply to {0}..."
-msgstr "{0}-man kutichiy..."
+msgid "Reply to {0}"
+msgstr "{0}-man kutichiy"
 
 #. placeholder {0}: replyTo.name
 #: src/features/chats/components/chat-input.tsx
@@ -2860,20 +2845,22 @@ msgid "Saving..."
 msgstr "Waqaychachkan..."
 
 #: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx
+#: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx
+#: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx
 #: ../../../lib/web/src/components/filter-bar.tsx
 #: ../../../lib/web/src/components/header-search.tsx
+#: ../../../lib/web/src/components/inline-entity-search.tsx
+#: ../../../lib/web/src/components/person-picker.tsx
+#: ../../../lib/web/src/components/search-entity-page.tsx
 #: ../../../lib/web/src/components/search.tsx
 msgid "Search"
 msgstr "Maskay"
 
 #: src/components/layout/chat-list-filters.tsx
 #: src/components/layout/chat-list-filters.tsx
+#: src/features/chats/components/forward-dialog.tsx
 msgid "Search chats"
 msgstr "Rimanakuykunata maskay"
-
-#: src/features/chats/components/forward-dialog.tsx
-msgid "Search chats…"
-msgstr "Rimanakuykunata maskay…"
 
 #: src/features/chats/components/chat-search-header.tsx
 msgid "Search failed"
@@ -2884,40 +2871,29 @@ msgid "Search for a command to run..."
 msgstr "Huk kamachiyta maskay ruwanapaq..."
 
 #: ../../../lib/web/src/components/place-picker.tsx
+#: ../../../lib/web/src/components/place-picker.tsx
 msgid "Search for a place"
 msgstr "Huk lugarta maskay"
 
-#: ../../../lib/web/src/components/place-picker.tsx
-msgid "Search for a place..."
-msgstr "Huk lugarta maskay..."
-
-#: ../../../lib/web/src/components/travelling-picker.tsx
-msgid "Search for destination..."
-msgstr "Destinota maskay..."
-
-#: ../../../lib/web/src/components/travelling-picker.tsx
-msgid "Search for origin..."
-msgstr "Origenta maskay..."
-
 #: src/routes/_authenticated/$chatId_.settings.tsx
-msgid "Search friends…"
-msgstr "Masikunata maskay…"
+msgid "Search friends"
+msgstr "Masikunata maskay"
 
 #: src/features/chats/components/chat-search-header.tsx
-msgid "Search in chat..."
-msgstr "Rimanakuypi maskay..."
+msgid "Search in chat"
+msgstr "Rimanakuypi maskay"
 
 #: src/features/chats/index.tsx
 msgid "Search messages"
 msgstr "Willakuykunata maskay"
 
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx
-msgid "Search objects..."
-msgstr "Objetokunata maskay..."
+msgid "Search objects"
+msgstr "Objetokunata maskay"
 
 #: ../../../lib/web/src/components/timezone-select.tsx
-msgid "Search time zone..."
-msgstr "Pacha suyuta maskay..."
+msgid "Search time zone"
+msgstr "Pacha suyuta maskay"
 
 #: ../../../lib/web/src/features/access/access-dialog.tsx
 msgid "Search users"
@@ -2926,14 +2902,6 @@ msgstr "Apaykachaqkunata maskay"
 #: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx
 msgid "Search, watch, and sort this view."
 msgstr "Kay vistapi maskay, qatipay hinaspa ordenay."
-
-#: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx
-#: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx
-#: ../../../lib/web/src/components/inline-entity-search.tsx
-#: ../../../lib/web/src/components/person-picker.tsx
-#: ../../../lib/web/src/components/search-entity-page.tsx
-msgid "Search..."
-msgstr "Maskay..."
 
 #: ../../../lib/web/src/components/search-entity-page.tsx
 #: ../../../lib/web/src/features/access/access-dialog.tsx
@@ -2953,6 +2921,7 @@ msgstr "Kunka notapi puriy"
 msgid "Seen by {0}"
 msgstr "Rikuqkuna: {0}"
 
+#: ../../../lib/web/src/components/entity/entity-field-editor.tsx
 #: ../../../lib/web/src/hooks/use-field-type-labels.ts
 msgid "Select"
 msgstr "Akllay"
@@ -2966,10 +2935,6 @@ msgstr "Akllay"
 msgid "Select a chat"
 msgstr "Huk rimanakuyta akllay"
 
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx
-msgid "Select a field"
-msgstr "Huk campota akllay"
-
 #: ../../../lib/web/src/components/game/game-empty-state.tsx
 msgid "Select a game"
 msgstr "Pukllayta akllay"
@@ -2981,10 +2946,6 @@ msgstr "Yaykuyta qonaykipaq huk apaykachaqta, huñuta utaq huk kamachiyta akllay
 #: ../../../lib/web/src/features/access/access-dialog.tsx
 msgid "Select access rule"
 msgstr "Yaykuy kamachiyta akllay"
-
-#: ../../../lib/web/src/features/accounts/account-add.tsx
-msgid "Select account type"
-msgstr "Cuenta layata akllay"
 
 #: ../../../lib/web/src/features/access/access-dialog.tsx
 msgid "Select group"
@@ -3006,22 +2967,13 @@ msgstr "Willakuyta akllay"
 msgid "Select next card"
 msgstr "Hamuq tarjetata akllay"
 
-#: src/features/chats/components/new-chat.tsx
-msgid "Select people..."
-msgstr "Runakunata akllay..."
-
 #: ../../../lib/web/src/components/person-picker.tsx
-msgid "Select person..."
-msgstr "Runata akllay..."
+msgid "Select person"
+msgstr "Runata akllay"
 
 #: ../../../lib/web/src/components/entity/keyboard-shortcuts-help.tsx
 msgid "Select previous card"
 msgstr "Ñawpaq tarjetata akllay"
-
-#: ../../../lib/web/src/components/entity/entity-field-editor.tsx
-#: ../../../lib/web/src/components/entity/entity-field-editor.tsx
-msgid "Select..."
-msgstr "Akllay..."
 
 #: src/features/chats/index.tsx
 msgid "Selected the newest {BULK_MESSAGES_MAX} messages, the most that can be forwarded or deleted at once"
@@ -3468,28 +3420,24 @@ msgid "Type"
 msgstr "Layan"
 
 #: ../../../lib/web/src/components/command-menu.tsx
-msgid "Type a command or search..."
-msgstr "Comandota qillqay utaq maskay..."
+msgid "Type a command or search"
+msgstr "Comandota qillqay utaq maskay"
 
 #: ../../../lib/web/src/components/game/game-chat-input.tsx
-msgid "Type a message…"
-msgstr "Willakuyta qillqay…"
+msgid "Type a message"
+msgstr "Willakuyta qillqay"
 
 #: ../../../lib/web/src/features/access/access-dialog.tsx
 msgid "Type to search users"
 msgstr "Apaykachaqkunata maskanapaq qillqay"
 
-#: ../../../lib/web/src/features/access/access-dialog.tsx
-msgid "Type to search..."
-msgstr "Maskanapaq qillqay..."
+#: src/features/chats/components/chat-input.tsx
+msgid "Type your message"
+msgstr "Willakuyniykita qillqay"
 
 #: src/features/chats/components/chat-input.tsx
-msgid "Type your message…"
-msgstr "Willakuyniykita qillqay…"
-
-#: src/features/chats/components/chat-input.tsx
-msgid "Type your reply…"
-msgstr "Kutichiyniykita qillqay…"
+msgid "Type your reply"
+msgstr "Kutichiyniykita qillqay"
 
 #: ../../../lib/web/src/lib/api-response-interceptors.ts
 msgid "Unable to connect to remote server"

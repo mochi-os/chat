@@ -70,11 +70,6 @@ msgstr "{0, plural, one {# file dirobah} other {# file dirobah}}"
 msgid "{0, plural, one {# message key restored} other {# message keys restored}}"
 msgstr "{0, plural, other {# konci pesen dipulihkeun}}"
 
-#. placeholder {0}: message.replies
-#: src/features/chats/components/chat-message-list.tsx
-msgid "{0, plural, one {# reply} other {# replies}}"
-msgstr "{0, plural, one {# balesan} other {# balesan}}"
-
 #. placeholder {0}: visible.length
 #: ../../../lib/web/src/components/inline-entity-search.tsx
 msgid "{0, plural, one {# result} other {# results}}"
@@ -242,8 +237,8 @@ msgid "Add {0} to chat"
 msgstr "Tambah {0} ka chat"
 
 #: ../../../lib/web/src/components/entity/entity-comment-list.tsx
-msgid "Add a comment..."
-msgstr "Tambah koméntar..."
+msgid "Add a comment"
+msgstr "Tambah koméntar"
 
 #: ../../../lib/web/src/features/accounts/account-add.tsx
 msgid "Add a new account"
@@ -280,8 +275,8 @@ msgid "Add field"
 msgstr "Tambah field"
 
 #: ../../../lib/web/src/components/entity/entity-field-editor.tsx
-msgid "Add item..."
-msgstr "Tambah item..."
+msgid "Add item"
+msgstr "Tambah item"
 
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx
 msgid "Add link"
@@ -306,8 +301,8 @@ msgid "Add reaction"
 msgstr "Tambahkeun réaksi"
 
 #: ../../../lib/web/src/components/post-tags.tsx
-msgid "Add tag..."
-msgstr "Tambah tag..."
+msgid "Add tag"
+msgstr "Tambah tag"
 
 #: ../../../lib/web/src/features/accounts/account-add.tsx
 msgid "Add to existing notifications"
@@ -716,10 +711,6 @@ msgstr "Ngaran chat"
 #: src/routes/_authenticated/$chatId_.settings.tsx
 msgid "Chat name is required"
 msgstr "Ngaran chat diperlukeun"
-
-#: src/features/chats/components/new-chat.tsx
-msgid "Chat name..."
-msgstr "Ngaran chat..."
 
 #: src/features/chats/index.tsx
 #: src/routes/_authenticated/$chatId_.settings.tsx
@@ -1361,6 +1352,7 @@ msgid "Email code"
 msgstr "Kode surélék"
 
 #: src/features/chats/components/chat-message-list.tsx
+#: src/features/chats/components/thread-replies.tsx
 msgid "Encrypted message"
 msgstr "Pesen anu dienkripsi"
 
@@ -1375,21 +1367,13 @@ msgid "Ends before it starts"
 msgstr "Réngsé saméméh dimimitian"
 
 #: ../../../lib/web/src/components/banner-section.tsx
-msgid "Enter banner text (markdown supported)..."
-msgstr "Asupkeun téks spanduk (markdown didukung)..."
+msgid "Enter banner text (markdown supported)"
+msgstr "Asupkeun téks spanduk (markdown didukung)"
 
 #: src/features/chats/components/encryption-section.tsx
 #: src/features/chats/components/encryption-section.tsx
 msgid "Enter recovery key"
 msgstr "Lebetkeun konci pamulihan"
-
-#: ../../../lib/web/src/components/step-up-dialog.tsx
-msgid "Enter the code from your email"
-msgstr "Lebetkeun kode tina email anjeun"
-
-#: ../../../lib/web/src/components/step-up-dialog.tsx
-msgid "Enter your authenticator code"
-msgstr "Lebetkeun kode aplikasi pamariksa"
 
 #: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx
 msgid "Error"
@@ -2474,6 +2458,7 @@ msgstr "Reureuhkeun catetan sora"
 
 #: ../../../lib/web/src/components/person-picker.tsx
 #: src/features/chats/components/new-chat.tsx
+#: src/features/chats/components/new-chat.tsx
 msgid "People"
 msgstr "Jalma"
 
@@ -2765,8 +2750,8 @@ msgstr "Bales dina utas"
 
 #. placeholder {0}: comment.name || comment.author
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx
-msgid "Reply to {0}..."
-msgstr "Bales ka {0}..."
+msgid "Reply to {0}"
+msgstr "Bales ka {0}"
 
 #. placeholder {0}: replyTo.name
 #: src/features/chats/components/chat-input.tsx
@@ -2860,20 +2845,22 @@ msgid "Saving..."
 msgstr "Nyimpen..."
 
 #: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx
+#: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx
+#: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx
 #: ../../../lib/web/src/components/filter-bar.tsx
 #: ../../../lib/web/src/components/header-search.tsx
+#: ../../../lib/web/src/components/inline-entity-search.tsx
+#: ../../../lib/web/src/components/person-picker.tsx
+#: ../../../lib/web/src/components/search-entity-page.tsx
 #: ../../../lib/web/src/components/search.tsx
 msgid "Search"
 msgstr "Paluruh"
 
 #: src/components/layout/chat-list-filters.tsx
 #: src/components/layout/chat-list-filters.tsx
+#: src/features/chats/components/forward-dialog.tsx
 msgid "Search chats"
 msgstr "Paluruh chat"
-
-#: src/features/chats/components/forward-dialog.tsx
-msgid "Search chats…"
-msgstr "Téangan obrolan…"
 
 #: src/features/chats/components/chat-search-header.tsx
 msgid "Search failed"
@@ -2884,40 +2871,29 @@ msgid "Search for a command to run..."
 msgstr "Milarian paréntah pikeun dijalankeun..."
 
 #: ../../../lib/web/src/components/place-picker.tsx
+#: ../../../lib/web/src/components/place-picker.tsx
 msgid "Search for a place"
 msgstr "Paluruh tempat"
 
-#: ../../../lib/web/src/components/place-picker.tsx
-msgid "Search for a place..."
-msgstr "Milarian tempat..."
-
-#: ../../../lib/web/src/components/travelling-picker.tsx
-msgid "Search for destination..."
-msgstr "Paluruh tujuan..."
-
-#: ../../../lib/web/src/components/travelling-picker.tsx
-msgid "Search for origin..."
-msgstr "Paluruh asal..."
-
 #: src/routes/_authenticated/$chatId_.settings.tsx
-msgid "Search friends…"
-msgstr "Téangan babaturan…"
+msgid "Search friends"
+msgstr "Téangan babaturan"
 
 #: src/features/chats/components/chat-search-header.tsx
-msgid "Search in chat..."
-msgstr "Téangan dina obrolan..."
+msgid "Search in chat"
+msgstr "Téangan dina obrolan"
 
 #: src/features/chats/index.tsx
 msgid "Search messages"
 msgstr "Téangan pesen"
 
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx
-msgid "Search objects..."
-msgstr "Paluruh objék..."
+msgid "Search objects"
+msgstr "Paluruh objék"
 
 #: ../../../lib/web/src/components/timezone-select.tsx
-msgid "Search time zone..."
-msgstr "Paluruh zona waktu..."
+msgid "Search time zone"
+msgstr "Paluruh zona waktu"
 
 #: ../../../lib/web/src/features/access/access-dialog.tsx
 msgid "Search users"
@@ -2926,14 +2902,6 @@ msgstr "Paluruh pamaké"
 #: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx
 msgid "Search, watch, and sort this view."
 msgstr "Paluruh, tonton, jeung urut tempoan ieu."
-
-#: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx
-#: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx
-#: ../../../lib/web/src/components/inline-entity-search.tsx
-#: ../../../lib/web/src/components/person-picker.tsx
-#: ../../../lib/web/src/components/search-entity-page.tsx
-msgid "Search..."
-msgstr "Paluruh..."
 
 #: ../../../lib/web/src/components/search-entity-page.tsx
 #: ../../../lib/web/src/features/access/access-dialog.tsx
@@ -2953,6 +2921,7 @@ msgstr "Pindah posisi dina catetan sora"
 msgid "Seen by {0}"
 msgstr "Ditingali ku {0}"
 
+#: ../../../lib/web/src/components/entity/entity-field-editor.tsx
 #: ../../../lib/web/src/hooks/use-field-type-labels.ts
 msgid "Select"
 msgstr "Pilih"
@@ -2966,10 +2935,6 @@ msgstr "Pilih"
 msgid "Select a chat"
 msgstr "Pilih obrolan"
 
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx
-msgid "Select a field"
-msgstr "Pilih field"
-
 #: ../../../lib/web/src/components/game/game-empty-state.tsx
 msgid "Select a game"
 msgstr "Pilih game"
@@ -2981,10 +2946,6 @@ msgstr "Pilih pamaké, grup, atawa aturan séjén pikeun ngabikeun aksés."
 #: ../../../lib/web/src/features/access/access-dialog.tsx
 msgid "Select access rule"
 msgstr "Pilih aturan aksés"
-
-#: ../../../lib/web/src/features/accounts/account-add.tsx
-msgid "Select account type"
-msgstr "Pilih jenis akun"
 
 #: ../../../lib/web/src/features/access/access-dialog.tsx
 msgid "Select group"
@@ -3006,22 +2967,13 @@ msgstr "Pilih pesen"
 msgid "Select next card"
 msgstr "Pilih kartu salajengna"
 
-#: src/features/chats/components/new-chat.tsx
-msgid "Select people..."
-msgstr "Pilih jalma..."
-
 #: ../../../lib/web/src/components/person-picker.tsx
-msgid "Select person..."
-msgstr "Pilih jalma..."
+msgid "Select person"
+msgstr "Pilih jalma"
 
 #: ../../../lib/web/src/components/entity/keyboard-shortcuts-help.tsx
 msgid "Select previous card"
 msgstr "Pilih kartu sateuacanna"
-
-#: ../../../lib/web/src/components/entity/entity-field-editor.tsx
-#: ../../../lib/web/src/components/entity/entity-field-editor.tsx
-msgid "Select..."
-msgstr "Pilih..."
 
 #: src/features/chats/index.tsx
 msgid "Selected the newest {BULK_MESSAGES_MAX} messages, the most that can be forwarded or deleted at once"
@@ -3468,28 +3420,24 @@ msgid "Type"
 msgstr "Tipe"
 
 #: ../../../lib/web/src/components/command-menu.tsx
-msgid "Type a command or search..."
-msgstr "Ketik paréntah atawa pamilarian..."
+msgid "Type a command or search"
+msgstr "Ketik paréntah atawa pamilarian"
 
 #: ../../../lib/web/src/components/game/game-chat-input.tsx
-msgid "Type a message…"
-msgstr "Ketik pesen…"
+msgid "Type a message"
+msgstr "Ketik pesen"
 
 #: ../../../lib/web/src/features/access/access-dialog.tsx
 msgid "Type to search users"
 msgstr "Ketik pikeun néangan pamaké"
 
-#: ../../../lib/web/src/features/access/access-dialog.tsx
-msgid "Type to search..."
-msgstr "Ketik pikeun néangan..."
+#: src/features/chats/components/chat-input.tsx
+msgid "Type your message"
+msgstr "Ketik pesen anjeun"
 
 #: src/features/chats/components/chat-input.tsx
-msgid "Type your message…"
-msgstr "Ketik pesen anjeun…"
-
-#: src/features/chats/components/chat-input.tsx
-msgid "Type your reply…"
-msgstr "Ketik balesan anjeun…"
+msgid "Type your reply"
+msgstr "Ketik balesan anjeun"
 
 #: ../../../lib/web/src/lib/api-response-interceptors.ts
 msgid "Unable to connect to remote server"

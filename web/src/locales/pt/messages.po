@@ -70,11 +70,6 @@ msgstr "{0, plural, one {# ficheiro alterado} other {# ficheiros alterados}}"
 msgid "{0, plural, one {# message key restored} other {# message keys restored}}"
 msgstr "{0, plural, one {# chave de mensagem restaurada} many {# de chaves de mensagem restauradas} other {# chaves de mensagem restauradas}}"
 
-#. placeholder {0}: message.replies
-#: src/features/chats/components/chat-message-list.tsx
-msgid "{0, plural, one {# reply} other {# replies}}"
-msgstr "{0, plural, one {# resposta} other {# respostas}}"
-
 #. placeholder {0}: visible.length
 #: ../../../lib/web/src/components/inline-entity-search.tsx
 msgid "{0, plural, one {# result} other {# results}}"
@@ -242,8 +237,8 @@ msgid "Add {0} to chat"
 msgstr "Adicionar {0} ao chat"
 
 #: ../../../lib/web/src/components/entity/entity-comment-list.tsx
-msgid "Add a comment..."
-msgstr "Adicionar um comentário..."
+msgid "Add a comment"
+msgstr "Adicionar um comentário"
 
 #: ../../../lib/web/src/features/accounts/account-add.tsx
 msgid "Add a new account"
@@ -280,8 +275,8 @@ msgid "Add field"
 msgstr "Adicionar campo"
 
 #: ../../../lib/web/src/components/entity/entity-field-editor.tsx
-msgid "Add item..."
-msgstr "Adicionar item..."
+msgid "Add item"
+msgstr "Adicionar item"
 
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx
 msgid "Add link"
@@ -306,8 +301,8 @@ msgid "Add reaction"
 msgstr "Adicionar reação"
 
 #: ../../../lib/web/src/components/post-tags.tsx
-msgid "Add tag..."
-msgstr "Adicionar etiqueta..."
+msgid "Add tag"
+msgstr "Adicionar etiqueta"
 
 #: ../../../lib/web/src/features/accounts/account-add.tsx
 msgid "Add to existing notifications"
@@ -716,10 +711,6 @@ msgstr "Nome da conversa"
 #: src/routes/_authenticated/$chatId_.settings.tsx
 msgid "Chat name is required"
 msgstr "O nome do chat é obrigatório"
-
-#: src/features/chats/components/new-chat.tsx
-msgid "Chat name..."
-msgstr "Nome da conversa..."
 
 #: src/features/chats/index.tsx
 #: src/routes/_authenticated/$chatId_.settings.tsx
@@ -1361,6 +1352,7 @@ msgid "Email code"
 msgstr "Código por email"
 
 #: src/features/chats/components/chat-message-list.tsx
+#: src/features/chats/components/thread-replies.tsx
 msgid "Encrypted message"
 msgstr "Mensagem encriptada"
 
@@ -1375,21 +1367,13 @@ msgid "Ends before it starts"
 msgstr "Termina antes de começar"
 
 #: ../../../lib/web/src/components/banner-section.tsx
-msgid "Enter banner text (markdown supported)..."
-msgstr "Introduza o texto da faixa (markdown suportado)..."
+msgid "Enter banner text (markdown supported)"
+msgstr "Introduza o texto da faixa (markdown suportado)"
 
 #: src/features/chats/components/encryption-section.tsx
 #: src/features/chats/components/encryption-section.tsx
 msgid "Enter recovery key"
 msgstr "Introduzir a chave de recuperação"
-
-#: ../../../lib/web/src/components/step-up-dialog.tsx
-msgid "Enter the code from your email"
-msgstr "Introduza o código do seu e-mail"
-
-#: ../../../lib/web/src/components/step-up-dialog.tsx
-msgid "Enter your authenticator code"
-msgstr "Introduza o código do autenticador"
 
 #: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx
 msgid "Error"
@@ -2474,6 +2458,7 @@ msgstr "Pausar nota de voz"
 
 #: ../../../lib/web/src/components/person-picker.tsx
 #: src/features/chats/components/new-chat.tsx
+#: src/features/chats/components/new-chat.tsx
 msgid "People"
 msgstr "Pessoas"
 
@@ -2765,8 +2750,8 @@ msgstr "Responder no tópico"
 
 #. placeholder {0}: comment.name || comment.author
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx
-msgid "Reply to {0}..."
-msgstr "Responder a {0}..."
+msgid "Reply to {0}"
+msgstr "Responder a {0}"
 
 #. placeholder {0}: replyTo.name
 #: src/features/chats/components/chat-input.tsx
@@ -2860,20 +2845,22 @@ msgid "Saving..."
 msgstr "A guardar..."
 
 #: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx
+#: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx
+#: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx
 #: ../../../lib/web/src/components/filter-bar.tsx
 #: ../../../lib/web/src/components/header-search.tsx
+#: ../../../lib/web/src/components/inline-entity-search.tsx
+#: ../../../lib/web/src/components/person-picker.tsx
+#: ../../../lib/web/src/components/search-entity-page.tsx
 #: ../../../lib/web/src/components/search.tsx
 msgid "Search"
 msgstr "Pesquisar"
 
 #: src/components/layout/chat-list-filters.tsx
 #: src/components/layout/chat-list-filters.tsx
+#: src/features/chats/components/forward-dialog.tsx
 msgid "Search chats"
 msgstr "Pesquisar conversas"
-
-#: src/features/chats/components/forward-dialog.tsx
-msgid "Search chats…"
-msgstr "Pesquisar conversas…"
 
 #: src/features/chats/components/chat-search-header.tsx
 msgid "Search failed"
@@ -2884,40 +2871,29 @@ msgid "Search for a command to run..."
 msgstr "Procurar um comando para executar..."
 
 #: ../../../lib/web/src/components/place-picker.tsx
+#: ../../../lib/web/src/components/place-picker.tsx
 msgid "Search for a place"
 msgstr "Pesquisar um local"
 
-#: ../../../lib/web/src/components/place-picker.tsx
-msgid "Search for a place..."
-msgstr "Procurar um local..."
-
-#: ../../../lib/web/src/components/travelling-picker.tsx
-msgid "Search for destination..."
-msgstr "Pesquisar destino..."
-
-#: ../../../lib/web/src/components/travelling-picker.tsx
-msgid "Search for origin..."
-msgstr "Pesquisar origem..."
-
 #: src/routes/_authenticated/$chatId_.settings.tsx
-msgid "Search friends…"
-msgstr "Procurar amigos…"
+msgid "Search friends"
+msgstr "Procurar amigos"
 
 #: src/features/chats/components/chat-search-header.tsx
-msgid "Search in chat..."
-msgstr "Pesquisar na conversa..."
+msgid "Search in chat"
+msgstr "Pesquisar na conversa"
 
 #: src/features/chats/index.tsx
 msgid "Search messages"
 msgstr "Pesquisar mensagens"
 
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx
-msgid "Search objects..."
-msgstr "Pesquisar objetos..."
+msgid "Search objects"
+msgstr "Pesquisar objetos"
 
 #: ../../../lib/web/src/components/timezone-select.tsx
-msgid "Search time zone..."
-msgstr "Pesquisar fuso horário..."
+msgid "Search time zone"
+msgstr "Pesquisar fuso horário"
 
 #: ../../../lib/web/src/features/access/access-dialog.tsx
 msgid "Search users"
@@ -2926,14 +2902,6 @@ msgstr "Pesquisar utilizadores"
 #: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx
 msgid "Search, watch, and sort this view."
 msgstr "Pesquise, observe e ordene esta vista."
-
-#: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx
-#: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx
-#: ../../../lib/web/src/components/inline-entity-search.tsx
-#: ../../../lib/web/src/components/person-picker.tsx
-#: ../../../lib/web/src/components/search-entity-page.tsx
-msgid "Search..."
-msgstr "Pesquisar..."
 
 #: ../../../lib/web/src/components/search-entity-page.tsx
 #: ../../../lib/web/src/features/access/access-dialog.tsx
@@ -2953,6 +2921,7 @@ msgstr "Percorrer a nota de voz"
 msgid "Seen by {0}"
 msgstr "Vista por {0}"
 
+#: ../../../lib/web/src/components/entity/entity-field-editor.tsx
 #: ../../../lib/web/src/hooks/use-field-type-labels.ts
 msgid "Select"
 msgstr "Selecionar"
@@ -2966,10 +2935,6 @@ msgstr "Selecionar"
 msgid "Select a chat"
 msgstr "Selecione uma conversa"
 
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx
-msgid "Select a field"
-msgstr "Selecione um campo"
-
 #: ../../../lib/web/src/components/game/game-empty-state.tsx
 msgid "Select a game"
 msgstr "Selecione um jogo"
@@ -2981,10 +2946,6 @@ msgstr "Selecione um utilizador, grupo ou outra regra para conceder acesso."
 #: ../../../lib/web/src/features/access/access-dialog.tsx
 msgid "Select access rule"
 msgstr "Selecione uma regra de acesso"
-
-#: ../../../lib/web/src/features/accounts/account-add.tsx
-msgid "Select account type"
-msgstr "Selecione o tipo de conta"
 
 #: ../../../lib/web/src/features/access/access-dialog.tsx
 msgid "Select group"
@@ -3006,22 +2967,13 @@ msgstr "Selecionar mensagem"
 msgid "Select next card"
 msgstr "Selecionar cartão seguinte"
 
-#: src/features/chats/components/new-chat.tsx
-msgid "Select people..."
-msgstr "Selecionar pessoas..."
-
 #: ../../../lib/web/src/components/person-picker.tsx
-msgid "Select person..."
-msgstr "Selecionar pessoa..."
+msgid "Select person"
+msgstr "Selecionar pessoa"
 
 #: ../../../lib/web/src/components/entity/keyboard-shortcuts-help.tsx
 msgid "Select previous card"
 msgstr "Selecionar cartão anterior"
-
-#: ../../../lib/web/src/components/entity/entity-field-editor.tsx
-#: ../../../lib/web/src/components/entity/entity-field-editor.tsx
-msgid "Select..."
-msgstr "Selecione..."
 
 #: src/features/chats/index.tsx
 msgid "Selected the newest {BULK_MESSAGES_MAX} messages, the most that can be forwarded or deleted at once"
@@ -3468,28 +3420,24 @@ msgid "Type"
 msgstr "Tipo"
 
 #: ../../../lib/web/src/components/command-menu.tsx
-msgid "Type a command or search..."
-msgstr "Escreva um comando ou pesquise..."
+msgid "Type a command or search"
+msgstr "Escreva um comando ou pesquise"
 
 #: ../../../lib/web/src/components/game/game-chat-input.tsx
-msgid "Type a message…"
-msgstr "Escreva uma mensagem…"
+msgid "Type a message"
+msgstr "Escreva uma mensagem"
 
 #: ../../../lib/web/src/features/access/access-dialog.tsx
 msgid "Type to search users"
 msgstr "Escreva para pesquisar utilizadores"
 
-#: ../../../lib/web/src/features/access/access-dialog.tsx
-msgid "Type to search..."
-msgstr "Escreva para pesquisar..."
+#: src/features/chats/components/chat-input.tsx
+msgid "Type your message"
+msgstr "Escreva a sua mensagem"
 
 #: src/features/chats/components/chat-input.tsx
-msgid "Type your message…"
-msgstr "Escreva a sua mensagem…"
-
-#: src/features/chats/components/chat-input.tsx
-msgid "Type your reply…"
-msgstr "Escreva a sua resposta…"
+msgid "Type your reply"
+msgstr "Escreva a sua resposta"
 
 #: ../../../lib/web/src/lib/api-response-interceptors.ts
 msgid "Unable to connect to remote server"

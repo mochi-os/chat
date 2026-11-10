@@ -70,11 +70,6 @@ msgstr "{0, plural, one {fáìlì # yípadà} other {àwọn fáìlì # yípadà
 msgid "{0, plural, one {# message key restored} other {# message keys restored}}"
 msgstr "{0, plural, other {Kọ́kọ́rọ́ ìfiránṣẹ́ # ni a ti mú padà}}"
 
-#. placeholder {0}: message.replies
-#: src/features/chats/components/chat-message-list.tsx
-msgid "{0, plural, one {# reply} other {# replies}}"
-msgstr "{0, plural, one {Ìdáhùn #} other {Àwọn ìdáhùn #}}"
-
 #. placeholder {0}: visible.length
 #: ../../../lib/web/src/components/inline-entity-search.tsx
 msgid "{0, plural, one {# result} other {# results}}"
@@ -242,8 +237,8 @@ msgid "Add {0} to chat"
 msgstr "Fi {0} kún ìbánisọ̀rọ̀"
 
 #: ../../../lib/web/src/components/entity/entity-comment-list.tsx
-msgid "Add a comment..."
-msgstr "Fi àlàyé kún..."
+msgid "Add a comment"
+msgstr "Fi àlàyé kún"
 
 #: ../../../lib/web/src/features/accounts/account-add.tsx
 msgid "Add a new account"
@@ -280,8 +275,8 @@ msgid "Add field"
 msgstr "Fi pápá kún"
 
 #: ../../../lib/web/src/components/entity/entity-field-editor.tsx
-msgid "Add item..."
-msgstr "Fi ohun kún..."
+msgid "Add item"
+msgstr "Fi ohun kún"
 
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx
 msgid "Add link"
@@ -306,8 +301,8 @@ msgid "Add reaction"
 msgstr "Fi ìhùwàpadà kún"
 
 #: ../../../lib/web/src/components/post-tags.tsx
-msgid "Add tag..."
-msgstr "Fi tag kún..."
+msgid "Add tag"
+msgstr "Fi tag kún"
 
 #: ../../../lib/web/src/features/accounts/account-add.tsx
 msgid "Add to existing notifications"
@@ -716,10 +711,6 @@ msgstr "Orúkọ ìjíròrò"
 #: src/routes/_authenticated/$chatId_.settings.tsx
 msgid "Chat name is required"
 msgstr "A nílò orúkọ ìbánisọ̀rọ̀"
-
-#: src/features/chats/components/new-chat.tsx
-msgid "Chat name..."
-msgstr "Orúkọ ìjíròrò..."
 
 #: src/features/chats/index.tsx
 #: src/routes/_authenticated/$chatId_.settings.tsx
@@ -1361,6 +1352,7 @@ msgid "Email code"
 msgstr "Kóòdù ímẹ́ẹ̀lì"
 
 #: src/features/chats/components/chat-message-list.tsx
+#: src/features/chats/components/thread-replies.tsx
 msgid "Encrypted message"
 msgstr "Ìránṣẹ́ tí a ti fi kóòdù pa mọ́"
 
@@ -1375,21 +1367,13 @@ msgid "Ends before it starts"
 msgstr "Ó parí kí ó tó bẹ̀rẹ̀"
 
 #: ../../../lib/web/src/components/banner-section.tsx
-msgid "Enter banner text (markdown supported)..."
-msgstr "Tẹ ọ̀rọ̀ banner (a gba markdown)..."
+msgid "Enter banner text (markdown supported)"
+msgstr "Tẹ ọ̀rọ̀ banner (a gba markdown)"
 
 #: src/features/chats/components/encryption-section.tsx
 #: src/features/chats/components/encryption-section.tsx
 msgid "Enter recovery key"
 msgstr "Tẹ kọ́kọ́rọ́ ìmúpadàbọ̀sípò sí i"
-
-#: ../../../lib/web/src/components/step-up-dialog.tsx
-msgid "Enter the code from your email"
-msgstr "Tẹ koodu láti inú ímeèlì rẹ"
-
-#: ../../../lib/web/src/components/step-up-dialog.tsx
-msgid "Enter your authenticator code"
-msgstr "Tẹ kóòdù authenticator rẹ"
 
 #: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx
 msgid "Error"
@@ -2474,6 +2458,7 @@ msgstr "Dá àkọsílẹ̀ ohùn dúró fún ìgbà díẹ̀"
 
 #: ../../../lib/web/src/components/person-picker.tsx
 #: src/features/chats/components/new-chat.tsx
+#: src/features/chats/components/new-chat.tsx
 msgid "People"
 msgstr "Àwọn ènìyàn"
 
@@ -2765,8 +2750,8 @@ msgstr "Dáhùn nínú òwò ìjíròrò"
 
 #. placeholder {0}: comment.name || comment.author
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx
-msgid "Reply to {0}..."
-msgstr "Dáhùn {0}..."
+msgid "Reply to {0}"
+msgstr "Dáhùn {0}"
 
 #. placeholder {0}: replyTo.name
 #: src/features/chats/components/chat-input.tsx
@@ -2860,20 +2845,22 @@ msgid "Saving..."
 msgstr "Ń fi pamọ́..."
 
 #: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx
+#: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx
+#: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx
 #: ../../../lib/web/src/components/filter-bar.tsx
 #: ../../../lib/web/src/components/header-search.tsx
+#: ../../../lib/web/src/components/inline-entity-search.tsx
+#: ../../../lib/web/src/components/person-picker.tsx
+#: ../../../lib/web/src/components/search-entity-page.tsx
 #: ../../../lib/web/src/components/search.tsx
 msgid "Search"
 msgstr "Wá"
 
 #: src/components/layout/chat-list-filters.tsx
 #: src/components/layout/chat-list-filters.tsx
+#: src/features/chats/components/forward-dialog.tsx
 msgid "Search chats"
 msgstr "Wá àwọn ìjíròrò"
-
-#: src/features/chats/components/forward-dialog.tsx
-msgid "Search chats…"
-msgstr "Wá àwọn ìfọ̀rọ̀wérọ̀…"
 
 #: src/features/chats/components/chat-search-header.tsx
 msgid "Search failed"
@@ -2884,40 +2871,29 @@ msgid "Search for a command to run..."
 msgstr "Wá àṣẹ láti ṣiṣẹ́..."
 
 #: ../../../lib/web/src/components/place-picker.tsx
+#: ../../../lib/web/src/components/place-picker.tsx
 msgid "Search for a place"
 msgstr "Wá ibìkan"
 
-#: ../../../lib/web/src/components/place-picker.tsx
-msgid "Search for a place..."
-msgstr "Wá ibì kan..."
-
-#: ../../../lib/web/src/components/travelling-picker.tsx
-msgid "Search for destination..."
-msgstr "Wá ibi tí o ń lọ..."
-
-#: ../../../lib/web/src/components/travelling-picker.tsx
-msgid "Search for origin..."
-msgstr "Wá ibi tí o ti wá..."
-
 #: src/routes/_authenticated/$chatId_.settings.tsx
-msgid "Search friends…"
-msgstr "Wá àwọn ọ̀rẹ́…"
+msgid "Search friends"
+msgstr "Wá àwọn ọ̀rẹ́"
 
 #: src/features/chats/components/chat-search-header.tsx
-msgid "Search in chat..."
-msgstr "Wá nínú ìfọ̀rọ̀wérọ̀..."
+msgid "Search in chat"
+msgstr "Wá nínú ìfọ̀rọ̀wérọ̀"
 
 #: src/features/chats/index.tsx
 msgid "Search messages"
 msgstr "Wá àwọn ìfiránṣẹ́"
 
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx
-msgid "Search objects..."
-msgstr "Wá àwọn nǹkan..."
+msgid "Search objects"
+msgstr "Wá àwọn nǹkan"
 
 #: ../../../lib/web/src/components/timezone-select.tsx
-msgid "Search time zone..."
-msgstr "Wá agbègbè àkókò..."
+msgid "Search time zone"
+msgstr "Wá agbègbè àkókò"
 
 #: ../../../lib/web/src/features/access/access-dialog.tsx
 msgid "Search users"
@@ -2926,14 +2902,6 @@ msgstr "Wá àwọn user"
 #: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx
 msgid "Search, watch, and sort this view."
 msgstr "Wá, ṣọ́, kí o sì ṣètò ìwòye yìí."
-
-#: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx
-#: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx
-#: ../../../lib/web/src/components/inline-entity-search.tsx
-#: ../../../lib/web/src/components/person-picker.tsx
-#: ../../../lib/web/src/components/search-entity-page.tsx
-msgid "Search..."
-msgstr "Wá..."
 
 #: ../../../lib/web/src/components/search-entity-page.tsx
 #: ../../../lib/web/src/features/access/access-dialog.tsx
@@ -2953,6 +2921,7 @@ msgstr "Lọ síwájú-sẹ́yìn nínú àkọsílẹ̀ ohùn"
 msgid "Seen by {0}"
 msgstr "{0} ti rí i"
 
+#: ../../../lib/web/src/components/entity/entity-field-editor.tsx
 #: ../../../lib/web/src/hooks/use-field-type-labels.ts
 msgid "Select"
 msgstr "Yan"
@@ -2966,10 +2935,6 @@ msgstr "Yan"
 msgid "Select a chat"
 msgstr "Yan chat kan"
 
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx
-msgid "Select a field"
-msgstr "Yan aaye kan"
-
 #: ../../../lib/web/src/components/game/game-empty-state.tsx
 msgid "Select a game"
 msgstr "Yan eré kan"
@@ -2981,10 +2946,6 @@ msgstr "Yan user, ẹgbẹ́, tàbí òfin míì láti fún ní ààyè."
 #: ../../../lib/web/src/features/access/access-dialog.tsx
 msgid "Select access rule"
 msgstr "Yan òfin ààyè"
-
-#: ../../../lib/web/src/features/accounts/account-add.tsx
-msgid "Select account type"
-msgstr "Yan irú account"
 
 #: ../../../lib/web/src/features/access/access-dialog.tsx
 msgid "Select group"
@@ -3006,22 +2967,13 @@ msgstr "Yan ìfiránṣẹ́"
 msgid "Select next card"
 msgstr "Yan káàdì tó kàn"
 
-#: src/features/chats/components/new-chat.tsx
-msgid "Select people..."
-msgstr "Yan àwọn ènìyàn..."
-
 #: ../../../lib/web/src/components/person-picker.tsx
-msgid "Select person..."
-msgstr "Yan ènìyàn..."
+msgid "Select person"
+msgstr "Yan ènìyàn"
 
 #: ../../../lib/web/src/components/entity/keyboard-shortcuts-help.tsx
 msgid "Select previous card"
 msgstr "Yan káàdì tó wà ṣáájú"
-
-#: ../../../lib/web/src/components/entity/entity-field-editor.tsx
-#: ../../../lib/web/src/components/entity/entity-field-editor.tsx
-msgid "Select..."
-msgstr "Yan..."
 
 #: src/features/chats/index.tsx
 msgid "Selected the newest {BULK_MESSAGES_MAX} messages, the most that can be forwarded or deleted at once"
@@ -3468,28 +3420,24 @@ msgid "Type"
 msgstr "Irú"
 
 #: ../../../lib/web/src/components/command-menu.tsx
-msgid "Type a command or search..."
-msgstr "Tẹ àṣẹ tàbí wá..."
+msgid "Type a command or search"
+msgstr "Tẹ àṣẹ tàbí wá"
 
 #: ../../../lib/web/src/components/game/game-chat-input.tsx
-msgid "Type a message…"
-msgstr "Tẹ ìránṣẹ́…"
+msgid "Type a message"
+msgstr "Tẹ ìránṣẹ́"
 
 #: ../../../lib/web/src/features/access/access-dialog.tsx
 msgid "Type to search users"
 msgstr "Tẹ láti wá àwọn user"
 
-#: ../../../lib/web/src/features/access/access-dialog.tsx
-msgid "Type to search..."
-msgstr "Tẹ láti wá..."
+#: src/features/chats/components/chat-input.tsx
+msgid "Type your message"
+msgstr "Tẹ ìránṣẹ́ rẹ"
 
 #: src/features/chats/components/chat-input.tsx
-msgid "Type your message…"
-msgstr "Tẹ ìránṣẹ́ rẹ…"
-
-#: src/features/chats/components/chat-input.tsx
-msgid "Type your reply…"
-msgstr "Tẹ èsì rẹ…"
+msgid "Type your reply"
+msgstr "Tẹ èsì rẹ"
 
 #: ../../../lib/web/src/lib/api-response-interceptors.ts
 msgid "Unable to connect to remote server"

@@ -70,11 +70,6 @@ msgstr "{0, plural, one {# فائل تبديل ٿي} other {# فائلون تب�
 msgid "{0, plural, one {# message key restored} other {# message keys restored}}"
 msgstr "{0, plural, one {# پيغام ڪنجي بحال ٿي} other {# پيغام ڪنجيون بحال ٿيون}}"
 
-#. placeholder {0}: message.replies
-#: src/features/chats/components/chat-message-list.tsx
-msgid "{0, plural, one {# reply} other {# replies}}"
-msgstr "{0, plural, one {# جواب} other {# جواب}}"
-
 #. placeholder {0}: visible.length
 #: ../../../lib/web/src/components/inline-entity-search.tsx
 msgid "{0, plural, one {# result} other {# results}}"
@@ -242,8 +237,8 @@ msgid "Add {0} to chat"
 msgstr "{0} کي چيٽ ۾ شامل ڪريو"
 
 #: ../../../lib/web/src/components/entity/entity-comment-list.tsx
-msgid "Add a comment..."
-msgstr "تبصرو شامل ڪريو..."
+msgid "Add a comment"
+msgstr "تبصرو شامل ڪريو"
 
 #: ../../../lib/web/src/features/accounts/account-add.tsx
 msgid "Add a new account"
@@ -280,8 +275,8 @@ msgid "Add field"
 msgstr "فيلڊ شامل ڪريو"
 
 #: ../../../lib/web/src/components/entity/entity-field-editor.tsx
-msgid "Add item..."
-msgstr "شيءِ شامل ڪريو..."
+msgid "Add item"
+msgstr "شيءِ شامل ڪريو"
 
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx
 msgid "Add link"
@@ -306,8 +301,8 @@ msgid "Add reaction"
 msgstr "ردِعمل شامل ڪريو"
 
 #: ../../../lib/web/src/components/post-tags.tsx
-msgid "Add tag..."
-msgstr "ٽيگ شامل ڪريو..."
+msgid "Add tag"
+msgstr "ٽيگ شامل ڪريو"
 
 #: ../../../lib/web/src/features/accounts/account-add.tsx
 msgid "Add to existing notifications"
@@ -716,10 +711,6 @@ msgstr "چيٽ جو نالو"
 #: src/routes/_authenticated/$chatId_.settings.tsx
 msgid "Chat name is required"
 msgstr "چيٽ جو نالو گهربل آهي"
-
-#: src/features/chats/components/new-chat.tsx
-msgid "Chat name..."
-msgstr "چيٽ جو نالو..."
 
 #: src/features/chats/index.tsx
 #: src/routes/_authenticated/$chatId_.settings.tsx
@@ -1361,6 +1352,7 @@ msgid "Email code"
 msgstr "اي ميل ڪوڊ"
 
 #: src/features/chats/components/chat-message-list.tsx
+#: src/features/chats/components/thread-replies.tsx
 msgid "Encrypted message"
 msgstr "انڪرپٽ ٿيل پيغام"
 
@@ -1375,21 +1367,13 @@ msgid "Ends before it starts"
 msgstr "شروع ٿيڻ کان اڳ ختم ٿئي ٿو"
 
 #: ../../../lib/web/src/components/banner-section.tsx
-msgid "Enter banner text (markdown supported)..."
-msgstr "بينر متن داخل ڪريو (markdown سپورٽ ٿيل)..."
+msgid "Enter banner text (markdown supported)"
+msgstr "بينر متن داخل ڪريو (markdown سپورٽ ٿيل)"
 
 #: src/features/chats/components/encryption-section.tsx
 #: src/features/chats/components/encryption-section.tsx
 msgid "Enter recovery key"
 msgstr "بحالي ڪنجي داخل ڪريو"
-
-#: ../../../lib/web/src/components/step-up-dialog.tsx
-msgid "Enter the code from your email"
-msgstr "پنھنجي اِيميل مان ڪوڊ داخل ڪريو"
-
-#: ../../../lib/web/src/components/step-up-dialog.tsx
-msgid "Enter your authenticator code"
-msgstr "پنهنجو تصديق ڪندڙ ڪوڊ داخل ڪريو"
 
 #: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx
 msgid "Error"
@@ -2474,6 +2458,7 @@ msgstr "آوازي پيغام روڪيو"
 
 #: ../../../lib/web/src/components/person-picker.tsx
 #: src/features/chats/components/new-chat.tsx
+#: src/features/chats/components/new-chat.tsx
 msgid "People"
 msgstr "ماڻهو"
 
@@ -2765,8 +2750,8 @@ msgstr "سلسلي ۾ جواب ڏيو"
 
 #. placeholder {0}: comment.name || comment.author
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx
-msgid "Reply to {0}..."
-msgstr "{0} کي جواب ڏيو..."
+msgid "Reply to {0}"
+msgstr "{0} کي جواب ڏيو"
 
 #. placeholder {0}: replyTo.name
 #: src/features/chats/components/chat-input.tsx
@@ -2860,20 +2845,22 @@ msgid "Saving..."
 msgstr "محفوظ ٿي رهيو آهي..."
 
 #: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx
+#: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx
+#: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx
 #: ../../../lib/web/src/components/filter-bar.tsx
 #: ../../../lib/web/src/components/header-search.tsx
+#: ../../../lib/web/src/components/inline-entity-search.tsx
+#: ../../../lib/web/src/components/person-picker.tsx
+#: ../../../lib/web/src/components/search-entity-page.tsx
 #: ../../../lib/web/src/components/search.tsx
 msgid "Search"
 msgstr "ڳوليو"
 
 #: src/components/layout/chat-list-filters.tsx
 #: src/components/layout/chat-list-filters.tsx
+#: src/features/chats/components/forward-dialog.tsx
 msgid "Search chats"
 msgstr "چيٽ ڳوليو"
-
-#: src/features/chats/components/forward-dialog.tsx
-msgid "Search chats…"
-msgstr "چيٽون ڳوليو…"
 
 #: src/features/chats/components/chat-search-header.tsx
 msgid "Search failed"
@@ -2884,40 +2871,29 @@ msgid "Search for a command to run..."
 msgstr "هلائڻ لاءِ ڪمانڊ ڳوليو..."
 
 #: ../../../lib/web/src/components/place-picker.tsx
+#: ../../../lib/web/src/components/place-picker.tsx
 msgid "Search for a place"
 msgstr "هڪ جاءِ ڳوليو"
 
-#: ../../../lib/web/src/components/place-picker.tsx
-msgid "Search for a place..."
-msgstr "جڳھ ڳوليو..."
-
-#: ../../../lib/web/src/components/travelling-picker.tsx
-msgid "Search for destination..."
-msgstr "منزل ڳوليو..."
-
-#: ../../../lib/web/src/components/travelling-picker.tsx
-msgid "Search for origin..."
-msgstr "اصل ڳوليو..."
-
 #: src/routes/_authenticated/$chatId_.settings.tsx
-msgid "Search friends…"
-msgstr "دوست ڳوليو…"
+msgid "Search friends"
+msgstr "دوست ڳوليو"
 
 #: src/features/chats/components/chat-search-header.tsx
-msgid "Search in chat..."
-msgstr "چيٽ ۾ ڳوليو..."
+msgid "Search in chat"
+msgstr "چيٽ ۾ ڳوليو"
 
 #: src/features/chats/index.tsx
 msgid "Search messages"
 msgstr "پيغام ڳوليو"
 
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx
-msgid "Search objects..."
-msgstr "اعتراض ڳوليو..."
+msgid "Search objects"
+msgstr "اعتراض ڳوليو"
 
 #: ../../../lib/web/src/components/timezone-select.tsx
-msgid "Search time zone..."
-msgstr "ٽائيم زون ڳوليو..."
+msgid "Search time zone"
+msgstr "ٽائيم زون ڳوليو"
 
 #: ../../../lib/web/src/features/access/access-dialog.tsx
 msgid "Search users"
@@ -2926,14 +2902,6 @@ msgstr "يوزر ڳوليو"
 #: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx
 msgid "Search, watch, and sort this view."
 msgstr "هن ڏيک کي ڳوليو، ڏسو، ۽ ترتيب ڏيو."
-
-#: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx
-#: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx
-#: ../../../lib/web/src/components/inline-entity-search.tsx
-#: ../../../lib/web/src/components/person-picker.tsx
-#: ../../../lib/web/src/components/search-entity-page.tsx
-msgid "Search..."
-msgstr "ڳوليو..."
 
 #: ../../../lib/web/src/components/search-entity-page.tsx
 #: ../../../lib/web/src/features/access/access-dialog.tsx
@@ -2953,6 +2921,7 @@ msgstr "آوازي پيغام ۾ اڳتي پوئتي وڃو"
 msgid "Seen by {0}"
 msgstr "ڏٺو: {0}"
 
+#: ../../../lib/web/src/components/entity/entity-field-editor.tsx
 #: ../../../lib/web/src/hooks/use-field-type-labels.ts
 msgid "Select"
 msgstr "چونڊيو"
@@ -2966,10 +2935,6 @@ msgstr "چونڊيو"
 msgid "Select a chat"
 msgstr "چيٽ چونڊيو"
 
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx
-msgid "Select a field"
-msgstr "هڪ فيلڊ چونڊيو"
-
 #: ../../../lib/web/src/components/game/game-empty-state.tsx
 msgid "Select a game"
 msgstr "هڪ گيم چونڊيو"
@@ -2981,10 +2946,6 @@ msgstr "رسائي ڏيڻ لاءِ هڪ يوزر، گروپ، يا ٻيو قاع
 #: ../../../lib/web/src/features/access/access-dialog.tsx
 msgid "Select access rule"
 msgstr "رسائي قاعدو چونڊيو"
-
-#: ../../../lib/web/src/features/accounts/account-add.tsx
-msgid "Select account type"
-msgstr "اڪائونٽ قسم چونڊيو"
 
 #: ../../../lib/web/src/features/access/access-dialog.tsx
 msgid "Select group"
@@ -3006,22 +2967,13 @@ msgstr "پيغام چونڊيو"
 msgid "Select next card"
 msgstr "اڳيون ڪارڊ چونڊيو"
 
-#: src/features/chats/components/new-chat.tsx
-msgid "Select people..."
-msgstr "ماڻهو چونڊيو..."
-
 #: ../../../lib/web/src/components/person-picker.tsx
-msgid "Select person..."
-msgstr "شخص چونڊيو..."
+msgid "Select person"
+msgstr "شخص چونڊيو"
 
 #: ../../../lib/web/src/components/entity/keyboard-shortcuts-help.tsx
 msgid "Select previous card"
 msgstr "پويون ڪارڊ چونڊيو"
-
-#: ../../../lib/web/src/components/entity/entity-field-editor.tsx
-#: ../../../lib/web/src/components/entity/entity-field-editor.tsx
-msgid "Select..."
-msgstr "چونڊيو..."
 
 #: src/features/chats/index.tsx
 msgid "Selected the newest {BULK_MESSAGES_MAX} messages, the most that can be forwarded or deleted at once"
@@ -3468,28 +3420,24 @@ msgid "Type"
 msgstr "قسم"
 
 #: ../../../lib/web/src/components/command-menu.tsx
-msgid "Type a command or search..."
-msgstr "ھدايت ٽائپ ڪريو يا ڳوليو..."
+msgid "Type a command or search"
+msgstr "ھدايت ٽائپ ڪريو يا ڳوليو"
 
 #: ../../../lib/web/src/components/game/game-chat-input.tsx
-msgid "Type a message…"
-msgstr "پيغام ٽائپ ڪريو…"
+msgid "Type a message"
+msgstr "پيغام ٽائپ ڪريو"
 
 #: ../../../lib/web/src/features/access/access-dialog.tsx
 msgid "Type to search users"
 msgstr "صارفن کي ڳولڻ لاءِ ٽائپ ڪريو"
 
-#: ../../../lib/web/src/features/access/access-dialog.tsx
-msgid "Type to search..."
-msgstr "ڳولڻ لاءِ ٽائپ ڪريو..."
+#: src/features/chats/components/chat-input.tsx
+msgid "Type your message"
+msgstr "پنهنجو پيغام ٽائپ ڪريو"
 
 #: src/features/chats/components/chat-input.tsx
-msgid "Type your message…"
-msgstr "پنهنجو پيغام ٽائپ ڪريو…"
-
-#: src/features/chats/components/chat-input.tsx
-msgid "Type your reply…"
-msgstr "پنهنجو جواب لکو…"
+msgid "Type your reply"
+msgstr "پنهنجو جواب لکو"
 
 #: ../../../lib/web/src/lib/api-response-interceptors.ts
 msgid "Unable to connect to remote server"

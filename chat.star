@@ -823,12 +823,13 @@ def action_messages(a):
 			m["reactions"] = {}
 			m["reaction"] = None
 
-	# How many replies each message has in its thread.
+	# How many replies each message has in its thread, and the replies.
 	if not thread:
 		counts = thread_counts(chat["id"], [m["id"] for m in messages if not m["deleted"]])
 		for m in messages:
 			m["replies"] = counts.get(m["id"], {}).get("replies", 0)
 			m["latest"] = counts.get(m["id"], {}).get("latest", 0)
+			m["answers"] = counts.get(m["id"], {}).get("answers", [])
 
 	return {
 		"data": {
@@ -2734,13 +2735,23 @@ def thread_root(chat_id, thread):
 	return mochi.text.valid(thread, "id") and mochi.db.exists("select 1 from messages where id=? and chat=? and thread=''", thread, chat_id) and not mochi.db.exists("select 1 from deletions where message=?", thread)
 
 def thread_counts(chat_id, roots):
-	"""How many replies each root has, and when the latest came."""
+	"""How many replies each root has, when the latest came, and the replies
+	themselves, oldest first, shown in the root's own bubble."""
 	out = {}
 	for start in range(0, len(roots), _LIST_BATCH):
 		batch = roots[start:start + _LIST_BATCH]
 		places = ", ".join(["?" for _ in batch])
-		for row in mochi.db.rows("select thread, count(*) as replies, max(created) as latest from messages where chat=? and thread in (" + places + ") and id not in (select message from deletions where chat=?) group by thread", chat_id, *(batch + [chat_id])) or []:
-			out[row["thread"]] = {"replies": row["replies"], "latest": row["latest"]}
+		for m in mochi.db.rows("select * from messages where chat=? and thread in (" + places + ") and id not in (select message from deletions where chat=?) order by created, id", chat_id, *(batch + [chat_id])) or []:
+			held = out.setdefault(m["thread"], {"replies": 0, "latest": 0, "answers": []})
+			held["replies"] += 1
+			held["latest"] = max(held["latest"], m["created"])
+			held["answers"].append(m)
+	answers = [m for held in out.values() for m in held["answers"]]
+	attachments = attachment_list_many(["chat/" + chat_id + "/" + m["id"] for m in answers], chat_id)
+	for m in answers:
+		m["deleted"] = False
+		m["attachments"] = attachments.get("chat/" + chat_id + "/" + m["id"], [])
+		m["quote"] = message_quote_of(m)
 	return out
 
 # --- Accounts ---
@@ -2819,7 +2830,10 @@ def remote_create(account, name, addresses, user_id, user_name, kind):
 			return None, (404, "errors.person_not_found_on_network")
 		if person[0] != acc["url"] and person[0] not in [p[0] for p in people]:
 			people.append(person)
-	if not people or len(people) > DIRECT_MAXIMUM:
+	# No one but the account itself: not a conversation.
+	if not people:
+		return None, (400, "errors.cannot_chat_with_yourself")
+	if len(people) > DIRECT_MAXIMUM:
 		return None, (400, "errors.too_many_members", {"maximum": DIRECT_MAXIMUM})
 	chat = remote_conversation(acc["id"], [p[0] for p in people])
 	if chat:
@@ -3324,7 +3338,7 @@ def chat_create_linked(a, acc, name, addresses):
 	network = acc["network"]
 	me = a.user.identity.id
 	if not addresses:
-		a.error.label(400, "errors.too_many_members", maximum=DIRECT_MAXIMUM)
+		a.error.label(400, "errors.cannot_chat_with_yourself")
 		return
 	# A room, joined by its address.
 	if len(addresses) == 1 and network in LINKED_CHAT:
@@ -3351,7 +3365,11 @@ def chat_create_linked(a, acc, name, addresses):
 			return
 		if person != linked_self(acc) and person not in people:
 			people.append(person)
-	if not people or len(people) > DIRECT_MAXIMUM:
+	# No one but the account itself: not a conversation.
+	if not people:
+		a.error.label(400, "errors.cannot_chat_with_yourself")
+		return
+	if len(people) > DIRECT_MAXIMUM:
 		a.error.label(400, "errors.too_many_members", maximum=DIRECT_MAXIMUM)
 		return
 	if len(people) == 1:

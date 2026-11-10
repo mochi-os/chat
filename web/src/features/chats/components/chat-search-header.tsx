@@ -60,7 +60,7 @@ export function ChatSearchHeader({
             type='search'
             value={query}
             onChange={(e) => onQueryChange(e.target.value)}
-            placeholder={t`Search in chat...`}
+            placeholder={t`Search in chat`}
             className='ps-10'
             autoFocus
             onKeyDown={(e) => {

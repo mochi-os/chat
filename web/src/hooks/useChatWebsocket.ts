@@ -226,6 +226,19 @@ const markMessageDeletedFromWebsocket = (
       const pages = current.pages.map((page) => ({
         ...page,
         messages: page.messages.map((message): ChatMessage => {
+          // A reply in a root's bubble leaves it, and stops counting.
+          if (message.answers?.some((answer) => answer.id === messageId)) {
+            found = true
+            const answers = message.answers.filter(
+              (answer) => answer.id !== messageId
+            )
+            return {
+              ...message,
+              answers,
+              replies: Math.max((message.replies ?? 1) - 1, 0),
+              latest: answers.length ? answers[answers.length - 1].created : 0,
+            }
+          }
           if (message.id !== messageId) {
             return message
           }
@@ -273,6 +286,18 @@ const patchMessageEditFromWebsocket = (
             found = true
             return applyMessageEditLWW(message, { body, edited })
           }
+          // A reply in its root's bubble.
+          if (message.answers?.some((answer) => answer.id === messageId)) {
+            found = true
+            return {
+              ...message,
+              answers: message.answers.map((answer) =>
+                answer.id === messageId
+                  ? applyMessageEditLWW(answer, { body, edited })
+                  : answer
+              ),
+            }
+          }
           return message
         }),
       }))
@@ -318,8 +343,14 @@ const patchReceiptFromWebsocket = (
   )
 }
 
-// A reply in a thread: counted on its root in the main timeline and added to
-// the thread where it is open, never put on the main timeline itself.
+// Replies in the order the server lists them: by time, then by id within a
+// second.
+const inOrder = (a: ChatMessage, b: ChatMessage) =>
+  a.created - b.created || (a.id < b.id ? -1 : a.id > b.id ? 1 : 0)
+
+// A reply in a thread: counted on its root in the main timeline and shown in
+// its bubble, and added to the thread where it is open, never put on the
+// main timeline itself.
 const addThreadReply = (
   chatId: string,
   message: ChatMessage,
@@ -351,10 +382,16 @@ const addThreadReply = (
         messages: page.messages.map((existing) => {
           if (existing.id !== root) return existing
           found = true
+          // One the bubble holds was counted when it was read.
+          if (
+            existing.answers?.some((answer) => isSameMessage(message, answer))
+          )
+            return existing
           return {
             ...existing,
             replies: (existing.replies ?? 0) + 1,
             latest: Math.max(existing.latest ?? 0, message.created),
+            answers: [...(existing.answers ?? []), message].sort(inOrder),
           }
         }),
       }))

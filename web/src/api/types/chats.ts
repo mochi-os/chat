@@ -116,6 +116,9 @@ export interface ChatMessage {
   // when the latest came.
   replies?: number
   latest?: number
+  // On the main timeline: the replies in the message's thread, oldest
+  // first, shown in its bubble.
+  answers?: ChatMessage[]
   // Whether it came encrypted: with no text or files while its keys have not
   // come.
   encrypted?: number

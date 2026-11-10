@@ -70,11 +70,6 @@ msgstr "{0, plural, one {# ફાઇલ બદલાઈ} other {# ફાઇલ�
 msgid "{0, plural, one {# message key restored} other {# message keys restored}}"
 msgstr "{0, plural, one {# સંદેશ કી પુનઃસ્થાપિત થઈ} other {# સંદેશ કી પુનઃસ્થાપિત થઈ}}"
 
-#. placeholder {0}: message.replies
-#: src/features/chats/components/chat-message-list.tsx
-msgid "{0, plural, one {# reply} other {# replies}}"
-msgstr "{0, plural, one {# જવાબ} other {# જવાબો}}"
-
 #. placeholder {0}: visible.length
 #: ../../../lib/web/src/components/inline-entity-search.tsx
 msgid "{0, plural, one {# result} other {# results}}"
@@ -242,8 +237,8 @@ msgid "Add {0} to chat"
 msgstr "{0}ને ચેટમાં ઉમેરો"
 
 #: ../../../lib/web/src/components/entity/entity-comment-list.tsx
-msgid "Add a comment..."
-msgstr "ટિપ્પણી ઉમેરો..."
+msgid "Add a comment"
+msgstr "ટિપ્પણી ઉમેરો"
 
 #: ../../../lib/web/src/features/accounts/account-add.tsx
 msgid "Add a new account"
@@ -280,8 +275,8 @@ msgid "Add field"
 msgstr "ફીલ્ડ ઉમેરો"
 
 #: ../../../lib/web/src/components/entity/entity-field-editor.tsx
-msgid "Add item..."
-msgstr "આઇટમ ઉમેરો..."
+msgid "Add item"
+msgstr "આઇટમ ઉમેરો"
 
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx
 msgid "Add link"
@@ -306,8 +301,8 @@ msgid "Add reaction"
 msgstr "પ્રતિક્રિયા ઉમેરો"
 
 #: ../../../lib/web/src/components/post-tags.tsx
-msgid "Add tag..."
-msgstr "ટૅગ ઉમેરો..."
+msgid "Add tag"
+msgstr "ટૅગ ઉમેરો"
 
 #: ../../../lib/web/src/features/accounts/account-add.tsx
 msgid "Add to existing notifications"
@@ -716,10 +711,6 @@ msgstr "ચેટનું નામ"
 #: src/routes/_authenticated/$chatId_.settings.tsx
 msgid "Chat name is required"
 msgstr "ચેટનું નામ આવશ્યક છે"
-
-#: src/features/chats/components/new-chat.tsx
-msgid "Chat name..."
-msgstr "ચેટનું નામ..."
 
 #: src/features/chats/index.tsx
 #: src/routes/_authenticated/$chatId_.settings.tsx
@@ -1361,6 +1352,7 @@ msgid "Email code"
 msgstr "ઇમેઇલ કોડ"
 
 #: src/features/chats/components/chat-message-list.tsx
+#: src/features/chats/components/thread-replies.tsx
 msgid "Encrypted message"
 msgstr "એન્ક્રિપ્ટ કરેલો સંદેશ"
 
@@ -1375,21 +1367,13 @@ msgid "Ends before it starts"
 msgstr "શરૂ થાય તે પહેલાં સમાપ્ત થાય છે"
 
 #: ../../../lib/web/src/components/banner-section.tsx
-msgid "Enter banner text (markdown supported)..."
-msgstr "બેનર ટેક્સ્ટ દાખલ કરો (માર્કડાઉન સપોર્ટેડ)..."
+msgid "Enter banner text (markdown supported)"
+msgstr "બેનર ટેક્સ્ટ દાખલ કરો (માર્કડાઉન સપોર્ટેડ)"
 
 #: src/features/chats/components/encryption-section.tsx
 #: src/features/chats/components/encryption-section.tsx
 msgid "Enter recovery key"
 msgstr "રિકવરી કી દાખલ કરો"
-
-#: ../../../lib/web/src/components/step-up-dialog.tsx
-msgid "Enter the code from your email"
-msgstr "તમારા ઈમેલમાંથી કોડ દાખલ કરો"
-
-#: ../../../lib/web/src/components/step-up-dialog.tsx
-msgid "Enter your authenticator code"
-msgstr "તમારો ઑથેન્ટિકેટર કોડ દાખલ કરો"
 
 #: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx
 msgid "Error"
@@ -2474,6 +2458,7 @@ msgstr "વૉઇસ નોટ થોભાવો"
 
 #: ../../../lib/web/src/components/person-picker.tsx
 #: src/features/chats/components/new-chat.tsx
+#: src/features/chats/components/new-chat.tsx
 msgid "People"
 msgstr "લોકો"
 
@@ -2765,8 +2750,8 @@ msgstr "થ્રેડમાં જવાબ આપો"
 
 #. placeholder {0}: comment.name || comment.author
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx
-msgid "Reply to {0}..."
-msgstr "{0} ને જવાબ આપો..."
+msgid "Reply to {0}"
+msgstr "{0} ને જવાબ આપો"
 
 #. placeholder {0}: replyTo.name
 #: src/features/chats/components/chat-input.tsx
@@ -2860,20 +2845,22 @@ msgid "Saving..."
 msgstr "સાચવી રહ્યું છે..."
 
 #: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx
+#: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx
+#: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx
 #: ../../../lib/web/src/components/filter-bar.tsx
 #: ../../../lib/web/src/components/header-search.tsx
+#: ../../../lib/web/src/components/inline-entity-search.tsx
+#: ../../../lib/web/src/components/person-picker.tsx
+#: ../../../lib/web/src/components/search-entity-page.tsx
 #: ../../../lib/web/src/components/search.tsx
 msgid "Search"
 msgstr "શોધો"
 
 #: src/components/layout/chat-list-filters.tsx
 #: src/components/layout/chat-list-filters.tsx
+#: src/features/chats/components/forward-dialog.tsx
 msgid "Search chats"
 msgstr "ચેટ્સ શોધો"
-
-#: src/features/chats/components/forward-dialog.tsx
-msgid "Search chats…"
-msgstr "ચેટ્સ શોધો…"
 
 #: src/features/chats/components/chat-search-header.tsx
 msgid "Search failed"
@@ -2884,40 +2871,29 @@ msgid "Search for a command to run..."
 msgstr "ચલાવવા માટે કમાન્ડ શોધો..."
 
 #: ../../../lib/web/src/components/place-picker.tsx
+#: ../../../lib/web/src/components/place-picker.tsx
 msgid "Search for a place"
 msgstr "સ્થળ માટે શોધો"
 
-#: ../../../lib/web/src/components/place-picker.tsx
-msgid "Search for a place..."
-msgstr "સ્થળ શોધો..."
-
-#: ../../../lib/web/src/components/travelling-picker.tsx
-msgid "Search for destination..."
-msgstr "ગંતવ્ય માટે શોધો..."
-
-#: ../../../lib/web/src/components/travelling-picker.tsx
-msgid "Search for origin..."
-msgstr "મૂળ માટે શોધો..."
-
 #: src/routes/_authenticated/$chatId_.settings.tsx
-msgid "Search friends…"
-msgstr "મિત્રો શોધો…"
+msgid "Search friends"
+msgstr "મિત્રો શોધો"
 
 #: src/features/chats/components/chat-search-header.tsx
-msgid "Search in chat..."
-msgstr "ચેટમાં શોધો..."
+msgid "Search in chat"
+msgstr "ચેટમાં શોધો"
 
 #: src/features/chats/index.tsx
 msgid "Search messages"
 msgstr "સંદેશા શોધો"
 
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx
-msgid "Search objects..."
-msgstr "ઑબ્જેક્ટ્સ શોધો..."
+msgid "Search objects"
+msgstr "ઑબ્જેક્ટ્સ શોધો"
 
 #: ../../../lib/web/src/components/timezone-select.tsx
-msgid "Search time zone..."
-msgstr "સમય ઝોન શોધો..."
+msgid "Search time zone"
+msgstr "સમય ઝોન શોધો"
 
 #: ../../../lib/web/src/features/access/access-dialog.tsx
 msgid "Search users"
@@ -2926,14 +2902,6 @@ msgstr "વપરાશકર્તાઓ શોધો"
 #: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx
 msgid "Search, watch, and sort this view."
 msgstr "આ વ્યૂને શોધો, જુઓ અને સોર્ટ કરો."
-
-#: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx
-#: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx
-#: ../../../lib/web/src/components/inline-entity-search.tsx
-#: ../../../lib/web/src/components/person-picker.tsx
-#: ../../../lib/web/src/components/search-entity-page.tsx
-msgid "Search..."
-msgstr "શોધો..."
 
 #: ../../../lib/web/src/components/search-entity-page.tsx
 #: ../../../lib/web/src/features/access/access-dialog.tsx
@@ -2953,6 +2921,7 @@ msgstr "વૉઇસ નોટમાં આગળ-પાછળ જાઓ"
 msgid "Seen by {0}"
 msgstr "{0} એ જોયું"
 
+#: ../../../lib/web/src/components/entity/entity-field-editor.tsx
 #: ../../../lib/web/src/hooks/use-field-type-labels.ts
 msgid "Select"
 msgstr "પસંદ કરો"
@@ -2966,10 +2935,6 @@ msgstr "પસંદ કરો"
 msgid "Select a chat"
 msgstr "ચેટ પસંદ કરો"
 
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx
-msgid "Select a field"
-msgstr "ફીલ્ડ પસંદ કરો"
-
 #: ../../../lib/web/src/components/game/game-empty-state.tsx
 msgid "Select a game"
 msgstr "રમત પસંદ કરો"
@@ -2981,10 +2946,6 @@ msgstr "ઍક્સેસ આપવા માટે વપરાશકર્ત
 #: ../../../lib/web/src/features/access/access-dialog.tsx
 msgid "Select access rule"
 msgstr "ઍક્સેસ નિયમ પસંદ કરો"
-
-#: ../../../lib/web/src/features/accounts/account-add.tsx
-msgid "Select account type"
-msgstr "ખાતા પ્રકાર પસંદ કરો"
 
 #: ../../../lib/web/src/features/access/access-dialog.tsx
 msgid "Select group"
@@ -3006,22 +2967,13 @@ msgstr "સંદેશ પસંદ કરો"
 msgid "Select next card"
 msgstr "આગલું કાર્ડ પસંદ કરો"
 
-#: src/features/chats/components/new-chat.tsx
-msgid "Select people..."
-msgstr "લોકો પસંદ કરો..."
-
 #: ../../../lib/web/src/components/person-picker.tsx
-msgid "Select person..."
-msgstr "વ્યક્તિ પસંદ કરો..."
+msgid "Select person"
+msgstr "વ્યક્તિ પસંદ કરો"
 
 #: ../../../lib/web/src/components/entity/keyboard-shortcuts-help.tsx
 msgid "Select previous card"
 msgstr "પાછલું કાર્ડ પસંદ કરો"
-
-#: ../../../lib/web/src/components/entity/entity-field-editor.tsx
-#: ../../../lib/web/src/components/entity/entity-field-editor.tsx
-msgid "Select..."
-msgstr "પસંદ કરો..."
 
 #: src/features/chats/index.tsx
 msgid "Selected the newest {BULK_MESSAGES_MAX} messages, the most that can be forwarded or deleted at once"
@@ -3468,28 +3420,24 @@ msgid "Type"
 msgstr "પ્રકાર"
 
 #: ../../../lib/web/src/components/command-menu.tsx
-msgid "Type a command or search..."
-msgstr "કમાન્ડ ટાઇપ કરો અથવા શોધો..."
+msgid "Type a command or search"
+msgstr "કમાન્ડ ટાઇપ કરો અથવા શોધો"
 
 #: ../../../lib/web/src/components/game/game-chat-input.tsx
-msgid "Type a message…"
-msgstr "સંદેશ ટાઇપ કરો…"
+msgid "Type a message"
+msgstr "સંદેશ ટાઇપ કરો"
 
 #: ../../../lib/web/src/features/access/access-dialog.tsx
 msgid "Type to search users"
 msgstr "વપરાશકર્તાઓ શોધવા માટે ટાઇપ કરો"
 
-#: ../../../lib/web/src/features/access/access-dialog.tsx
-msgid "Type to search..."
-msgstr "શોધવા માટે ટાઇપ કરો..."
+#: src/features/chats/components/chat-input.tsx
+msgid "Type your message"
+msgstr "તમારો સંદેશ ટાઇપ કરો"
 
 #: src/features/chats/components/chat-input.tsx
-msgid "Type your message…"
-msgstr "તમારો સંદેશ ટાઇપ કરો…"
-
-#: src/features/chats/components/chat-input.tsx
-msgid "Type your reply…"
-msgstr "તમારો જવાબ લખો…"
+msgid "Type your reply"
+msgstr "તમારો જવાબ લખો"
 
 #: ../../../lib/web/src/lib/api-response-interceptors.ts
 msgid "Unable to connect to remote server"

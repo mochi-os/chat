@@ -70,11 +70,6 @@ msgstr "{0, plural, one {# ఫైల్ మార్చబడింది} other
 msgid "{0, plural, one {# message key restored} other {# message keys restored}}"
 msgstr "{0, plural, one {# సందేశ కీ పునరుద్ధరించబడింది} other {# సందేశ కీలు పునరుద్ధరించబడ్డాయి}}"
 
-#. placeholder {0}: message.replies
-#: src/features/chats/components/chat-message-list.tsx
-msgid "{0, plural, one {# reply} other {# replies}}"
-msgstr "{0, plural, one {# జవాబు} other {# జవాబులు}}"
-
 #. placeholder {0}: visible.length
 #: ../../../lib/web/src/components/inline-entity-search.tsx
 msgid "{0, plural, one {# result} other {# results}}"
@@ -242,8 +237,8 @@ msgid "Add {0} to chat"
 msgstr "{0} ను చాట్‌కు జోడించండి"
 
 #: ../../../lib/web/src/components/entity/entity-comment-list.tsx
-msgid "Add a comment..."
-msgstr "ఒక వ్యాఖ్యను జోడించండి..."
+msgid "Add a comment"
+msgstr "ఒక వ్యాఖ్యను జోడించండి"
 
 #: ../../../lib/web/src/features/accounts/account-add.tsx
 msgid "Add a new account"
@@ -280,8 +275,8 @@ msgid "Add field"
 msgstr "ఫీల్డ్‌ను జోడించండి"
 
 #: ../../../lib/web/src/components/entity/entity-field-editor.tsx
-msgid "Add item..."
-msgstr "ఐటెమ్‌ను జోడించండి..."
+msgid "Add item"
+msgstr "ఐటెమ్‌ను జోడించండి"
 
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx
 msgid "Add link"
@@ -306,8 +301,8 @@ msgid "Add reaction"
 msgstr "రియాక్షన్ జోడించండి"
 
 #: ../../../lib/web/src/components/post-tags.tsx
-msgid "Add tag..."
-msgstr "ట్యాగ్‌ను జోడించండి..."
+msgid "Add tag"
+msgstr "ట్యాగ్‌ను జోడించండి"
 
 #: ../../../lib/web/src/features/accounts/account-add.tsx
 msgid "Add to existing notifications"
@@ -716,10 +711,6 @@ msgstr "చాట్ పేరు"
 #: src/routes/_authenticated/$chatId_.settings.tsx
 msgid "Chat name is required"
 msgstr "చాట్ పేరు అవసరం"
-
-#: src/features/chats/components/new-chat.tsx
-msgid "Chat name..."
-msgstr "చాట్ పేరు..."
 
 #: src/features/chats/index.tsx
 #: src/routes/_authenticated/$chatId_.settings.tsx
@@ -1361,6 +1352,7 @@ msgid "Email code"
 msgstr "ఇమెయిల్ కోడ్"
 
 #: src/features/chats/components/chat-message-list.tsx
+#: src/features/chats/components/thread-replies.tsx
 msgid "Encrypted message"
 msgstr "ఎన్‌క్రిప్ట్ చేసిన సందేశం"
 
@@ -1375,21 +1367,13 @@ msgid "Ends before it starts"
 msgstr "ప్రారంభానికి ముందే ముగుస్తుంది"
 
 #: ../../../lib/web/src/components/banner-section.tsx
-msgid "Enter banner text (markdown supported)..."
-msgstr "బ్యానర్ టెక్స్ట్ నమోదు చేయండి (మార్క్‌డౌన్ మద్దతు ఉంది)..."
+msgid "Enter banner text (markdown supported)"
+msgstr "బ్యానర్ టెక్స్ట్ నమోదు చేయండి (మార్క్‌డౌన్ మద్దతు ఉంది)"
 
 #: src/features/chats/components/encryption-section.tsx
 #: src/features/chats/components/encryption-section.tsx
 msgid "Enter recovery key"
 msgstr "రికవరీ కీని నమోదు చేయండి"
-
-#: ../../../lib/web/src/components/step-up-dialog.tsx
-msgid "Enter the code from your email"
-msgstr "మీ ఇమెయిల్‌లోని కోడ్‌ను నమోదు చేయండి"
-
-#: ../../../lib/web/src/components/step-up-dialog.tsx
-msgid "Enter your authenticator code"
-msgstr "మీ ప్రమాణీకరణ కోడ్‌ను నమోదు చేయండి"
 
 #: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx
 msgid "Error"
@@ -2474,6 +2458,7 @@ msgstr "వాయిస్ నోట్‌ను పాజ్ చేయండి
 
 #: ../../../lib/web/src/components/person-picker.tsx
 #: src/features/chats/components/new-chat.tsx
+#: src/features/chats/components/new-chat.tsx
 msgid "People"
 msgstr "వ్యక్తులు"
 
@@ -2765,8 +2750,8 @@ msgstr "థ్రెడ్‌లో ప్రత్యుత్తరం ఇవ�
 
 #. placeholder {0}: comment.name || comment.author
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx
-msgid "Reply to {0}..."
-msgstr "{0} కి ప్రత్యుత్తరం..."
+msgid "Reply to {0}"
+msgstr "{0} కి ప్రత్యుత్తరం"
 
 #. placeholder {0}: replyTo.name
 #: src/features/chats/components/chat-input.tsx
@@ -2860,20 +2845,22 @@ msgid "Saving..."
 msgstr "సేవ్ చేస్తోంది..."
 
 #: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx
+#: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx
+#: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx
 #: ../../../lib/web/src/components/filter-bar.tsx
 #: ../../../lib/web/src/components/header-search.tsx
+#: ../../../lib/web/src/components/inline-entity-search.tsx
+#: ../../../lib/web/src/components/person-picker.tsx
+#: ../../../lib/web/src/components/search-entity-page.tsx
 #: ../../../lib/web/src/components/search.tsx
 msgid "Search"
 msgstr "శోధన"
 
 #: src/components/layout/chat-list-filters.tsx
 #: src/components/layout/chat-list-filters.tsx
+#: src/features/chats/components/forward-dialog.tsx
 msgid "Search chats"
 msgstr "చాట్‌లను శోధించండి"
-
-#: src/features/chats/components/forward-dialog.tsx
-msgid "Search chats…"
-msgstr "చాట్‌లను వెతకండి…"
 
 #: src/features/chats/components/chat-search-header.tsx
 msgid "Search failed"
@@ -2884,40 +2871,29 @@ msgid "Search for a command to run..."
 msgstr "అమలు చేయడానికి కమాండ్ కోసం వెతకండి..."
 
 #: ../../../lib/web/src/components/place-picker.tsx
+#: ../../../lib/web/src/components/place-picker.tsx
 msgid "Search for a place"
 msgstr "ఒక ప్రదేశాన్ని శోధించండి"
 
-#: ../../../lib/web/src/components/place-picker.tsx
-msgid "Search for a place..."
-msgstr "స్థలం కోసం వెతకండి..."
-
-#: ../../../lib/web/src/components/travelling-picker.tsx
-msgid "Search for destination..."
-msgstr "గమ్యస్థానాన్ని శోధించండి..."
-
-#: ../../../lib/web/src/components/travelling-picker.tsx
-msgid "Search for origin..."
-msgstr "మూలాన్ని శోధించండి..."
-
 #: src/routes/_authenticated/$chatId_.settings.tsx
-msgid "Search friends…"
-msgstr "స్నేహితులను వెతుకు…"
+msgid "Search friends"
+msgstr "స్నేహితులను వెతుకు"
 
 #: src/features/chats/components/chat-search-header.tsx
-msgid "Search in chat..."
-msgstr "చాట్‌లో వెతకండి..."
+msgid "Search in chat"
+msgstr "చాట్‌లో వెతకండి"
 
 #: src/features/chats/index.tsx
 msgid "Search messages"
 msgstr "సందేశాలను వెతకండి"
 
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx
-msgid "Search objects..."
-msgstr "ఆబ్జెక్ట్‌లను శోధించండి..."
+msgid "Search objects"
+msgstr "ఆబ్జెక్ట్‌లను శోధించండి"
 
 #: ../../../lib/web/src/components/timezone-select.tsx
-msgid "Search time zone..."
-msgstr "టైమ్ జోన్‌ను శోధించండి..."
+msgid "Search time zone"
+msgstr "టైమ్ జోన్‌ను శోధించండి"
 
 #: ../../../lib/web/src/features/access/access-dialog.tsx
 msgid "Search users"
@@ -2926,14 +2902,6 @@ msgstr "యూజర్లను శోధించండి"
 #: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx
 msgid "Search, watch, and sort this view."
 msgstr "ఈ వ్యూను శోధించండి, వాచ్ చేయండి మరియు సార్ట్ చేయండి."
-
-#: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx
-#: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx
-#: ../../../lib/web/src/components/inline-entity-search.tsx
-#: ../../../lib/web/src/components/person-picker.tsx
-#: ../../../lib/web/src/components/search-entity-page.tsx
-msgid "Search..."
-msgstr "శోధించండి..."
 
 #: ../../../lib/web/src/components/search-entity-page.tsx
 #: ../../../lib/web/src/features/access/access-dialog.tsx
@@ -2953,6 +2921,7 @@ msgstr "వాయిస్ నోట్‌లో ముందుకు వెన
 msgid "Seen by {0}"
 msgstr "{0} చూశారు"
 
+#: ../../../lib/web/src/components/entity/entity-field-editor.tsx
 #: ../../../lib/web/src/hooks/use-field-type-labels.ts
 msgid "Select"
 msgstr "ఎంచుకోండి"
@@ -2966,10 +2935,6 @@ msgstr "ఎంచుకోండి"
 msgid "Select a chat"
 msgstr "ఒక చాట్‌ను ఎంచుకోండి"
 
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx
-msgid "Select a field"
-msgstr "ఒక ఫీల్డ్‌ను ఎంచుకోండి"
-
 #: ../../../lib/web/src/components/game/game-empty-state.tsx
 msgid "Select a game"
 msgstr "ఒక ఆటను ఎంచుకోండి"
@@ -2981,10 +2946,6 @@ msgstr "యాక్సెస్ ఇవ్వడానికి ఒక యూజ
 #: ../../../lib/web/src/features/access/access-dialog.tsx
 msgid "Select access rule"
 msgstr "యాక్సెస్ నియమాన్ని ఎంచుకోండి"
-
-#: ../../../lib/web/src/features/accounts/account-add.tsx
-msgid "Select account type"
-msgstr "ఖాతా రకాన్ని ఎంచుకోండి"
 
 #: ../../../lib/web/src/features/access/access-dialog.tsx
 msgid "Select group"
@@ -3006,22 +2967,13 @@ msgstr "సందేశాన్ని ఎంచుకోండి"
 msgid "Select next card"
 msgstr "తదుపరి కార్డును ఎంచుకోండి"
 
-#: src/features/chats/components/new-chat.tsx
-msgid "Select people..."
-msgstr "వ్యక్తులను ఎంచుకోండి..."
-
 #: ../../../lib/web/src/components/person-picker.tsx
-msgid "Select person..."
-msgstr "వ్యక్తిని ఎంచుకోండి..."
+msgid "Select person"
+msgstr "వ్యక్తిని ఎంచుకోండి"
 
 #: ../../../lib/web/src/components/entity/keyboard-shortcuts-help.tsx
 msgid "Select previous card"
 msgstr "మునుపటి కార్డును ఎంచుకోండి"
-
-#: ../../../lib/web/src/components/entity/entity-field-editor.tsx
-#: ../../../lib/web/src/components/entity/entity-field-editor.tsx
-msgid "Select..."
-msgstr "ఎంచుకోండి..."
 
 #: src/features/chats/index.tsx
 msgid "Selected the newest {BULK_MESSAGES_MAX} messages, the most that can be forwarded or deleted at once"
@@ -3468,28 +3420,24 @@ msgid "Type"
 msgstr "రకం"
 
 #: ../../../lib/web/src/components/command-menu.tsx
-msgid "Type a command or search..."
-msgstr "ఒక కమాండ్‌ను టైప్ చేయండి లేదా శోధించండి..."
+msgid "Type a command or search"
+msgstr "ఒక కమాండ్‌ను టైప్ చేయండి లేదా శోధించండి"
 
 #: ../../../lib/web/src/components/game/game-chat-input.tsx
-msgid "Type a message…"
-msgstr "ఒక సందేశాన్ని టైప్ చేయండి…"
+msgid "Type a message"
+msgstr "ఒక సందేశాన్ని టైప్ చేయండి"
 
 #: ../../../lib/web/src/features/access/access-dialog.tsx
 msgid "Type to search users"
 msgstr "యూజర్లను శోధించడానికి టైప్ చేయండి"
 
-#: ../../../lib/web/src/features/access/access-dialog.tsx
-msgid "Type to search..."
-msgstr "శోధించడానికి టైప్ చేయండి..."
+#: src/features/chats/components/chat-input.tsx
+msgid "Type your message"
+msgstr "మీ సందేశాన్ని టైప్ చేయండి"
 
 #: src/features/chats/components/chat-input.tsx
-msgid "Type your message…"
-msgstr "మీ సందేశాన్ని టైప్ చేయండి…"
-
-#: src/features/chats/components/chat-input.tsx
-msgid "Type your reply…"
-msgstr "మీ ప్రత్యుత్తరాన్ని టైప్ చేయండి…"
+msgid "Type your reply"
+msgstr "మీ ప్రత్యుత్తరాన్ని టైప్ చేయండి"
 
 #: ../../../lib/web/src/lib/api-response-interceptors.ts
 msgid "Unable to connect to remote server"

@@ -70,11 +70,6 @@ msgstr "{0, plural, zero {# ffeil wedi newid} one {# ffeil wedi newid} two {# ff
 msgid "{0, plural, one {# message key restored} other {# message keys restored}}"
 msgstr "{0, plural, zero {# allwedd neges wedi'u hadfer} one {# allwedd neges wedi'i hadfer} two {# allwedd neges wedi'u hadfer} few {# allwedd neges wedi'u hadfer} many {# allwedd neges wedi'u hadfer} other {# allwedd neges wedi'u hadfer}}"
 
-#. placeholder {0}: message.replies
-#: src/features/chats/components/chat-message-list.tsx
-msgid "{0, plural, one {# reply} other {# replies}}"
-msgstr "{0, plural, zero {# ateb} one {# ateb} two {# ateb} few {# ateb} many {# ateb} other {# ateb}}"
-
 #. placeholder {0}: visible.length
 #: ../../../lib/web/src/components/inline-entity-search.tsx
 msgid "{0, plural, one {# result} other {# results}}"
@@ -242,8 +237,8 @@ msgid "Add {0} to chat"
 msgstr "Ychwanegu {0} at sgwrs"
 
 #: ../../../lib/web/src/components/entity/entity-comment-list.tsx
-msgid "Add a comment..."
-msgstr "Ychwanegu sylw..."
+msgid "Add a comment"
+msgstr "Ychwanegu sylw"
 
 #: ../../../lib/web/src/features/accounts/account-add.tsx
 msgid "Add a new account"
@@ -280,8 +275,8 @@ msgid "Add field"
 msgstr "Ychwanegu maes"
 
 #: ../../../lib/web/src/components/entity/entity-field-editor.tsx
-msgid "Add item..."
-msgstr "Ychwanegu eitem..."
+msgid "Add item"
+msgstr "Ychwanegu eitem"
 
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx
 msgid "Add link"
@@ -306,8 +301,8 @@ msgid "Add reaction"
 msgstr "Ychwanegu adwaith"
 
 #: ../../../lib/web/src/components/post-tags.tsx
-msgid "Add tag..."
-msgstr "Ychwanegu tag..."
+msgid "Add tag"
+msgstr "Ychwanegu tag"
 
 #: ../../../lib/web/src/features/accounts/account-add.tsx
 msgid "Add to existing notifications"
@@ -716,10 +711,6 @@ msgstr "Enw'r sgwrs"
 #: src/routes/_authenticated/$chatId_.settings.tsx
 msgid "Chat name is required"
 msgstr "Mae angen enw sgwrs"
-
-#: src/features/chats/components/new-chat.tsx
-msgid "Chat name..."
-msgstr "Enw'r sgwrs..."
 
 #: src/features/chats/index.tsx
 #: src/routes/_authenticated/$chatId_.settings.tsx
@@ -1361,6 +1352,7 @@ msgid "Email code"
 msgstr "Cod e-bost"
 
 #: src/features/chats/components/chat-message-list.tsx
+#: src/features/chats/components/thread-replies.tsx
 msgid "Encrypted message"
 msgstr "Neges wedi'i hamgryptio"
 
@@ -1375,21 +1367,13 @@ msgid "Ends before it starts"
 msgstr "Yn gorffen cyn iddo ddechrau"
 
 #: ../../../lib/web/src/components/banner-section.tsx
-msgid "Enter banner text (markdown supported)..."
-msgstr "Rhowch destun y faner (cefnogir markdown)..."
+msgid "Enter banner text (markdown supported)"
+msgstr "Rhowch destun y faner (cefnogir markdown)"
 
 #: src/features/chats/components/encryption-section.tsx
 #: src/features/chats/components/encryption-section.tsx
 msgid "Enter recovery key"
 msgstr "Rhowch yr allwedd adfer"
-
-#: ../../../lib/web/src/components/step-up-dialog.tsx
-msgid "Enter the code from your email"
-msgstr "Rhowch y cod o'ch e-bost"
-
-#: ../../../lib/web/src/components/step-up-dialog.tsx
-msgid "Enter your authenticator code"
-msgstr "Rhowch god eich ap dilysu"
 
 #: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx
 msgid "Error"
@@ -2474,6 +2458,7 @@ msgstr "Oedi'r nodyn llais"
 
 #: ../../../lib/web/src/components/person-picker.tsx
 #: src/features/chats/components/new-chat.tsx
+#: src/features/chats/components/new-chat.tsx
 msgid "People"
 msgstr "Pobl"
 
@@ -2765,8 +2750,8 @@ msgstr "Ymateb yn yr edau"
 
 #. placeholder {0}: comment.name || comment.author
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx
-msgid "Reply to {0}..."
-msgstr "Ymateb i {0}..."
+msgid "Reply to {0}"
+msgstr "Ymateb i {0}"
 
 #. placeholder {0}: replyTo.name
 #: src/features/chats/components/chat-input.tsx
@@ -2860,20 +2845,22 @@ msgid "Saving..."
 msgstr "Yn cadw..."
 
 #: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx
+#: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx
+#: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx
 #: ../../../lib/web/src/components/filter-bar.tsx
 #: ../../../lib/web/src/components/header-search.tsx
+#: ../../../lib/web/src/components/inline-entity-search.tsx
+#: ../../../lib/web/src/components/person-picker.tsx
+#: ../../../lib/web/src/components/search-entity-page.tsx
 #: ../../../lib/web/src/components/search.tsx
 msgid "Search"
 msgstr "Chwilio"
 
 #: src/components/layout/chat-list-filters.tsx
 #: src/components/layout/chat-list-filters.tsx
+#: src/features/chats/components/forward-dialog.tsx
 msgid "Search chats"
 msgstr "Chwilio sgyrsiau"
-
-#: src/features/chats/components/forward-dialog.tsx
-msgid "Search chats…"
-msgstr "Chwilio sgyrsiau…"
 
 #: src/features/chats/components/chat-search-header.tsx
 msgid "Search failed"
@@ -2884,40 +2871,29 @@ msgid "Search for a command to run..."
 msgstr "Chwilio am orchymyn i'w redeg..."
 
 #: ../../../lib/web/src/components/place-picker.tsx
+#: ../../../lib/web/src/components/place-picker.tsx
 msgid "Search for a place"
 msgstr "Chwilio am le"
 
-#: ../../../lib/web/src/components/place-picker.tsx
-msgid "Search for a place..."
-msgstr "Chwilio am le..."
-
-#: ../../../lib/web/src/components/travelling-picker.tsx
-msgid "Search for destination..."
-msgstr "Chwilio am gyrchfan..."
-
-#: ../../../lib/web/src/components/travelling-picker.tsx
-msgid "Search for origin..."
-msgstr "Chwilio am darddiad..."
-
 #: src/routes/_authenticated/$chatId_.settings.tsx
-msgid "Search friends…"
-msgstr "Chwilio am ffrindiau…"
+msgid "Search friends"
+msgstr "Chwilio am ffrindiau"
 
 #: src/features/chats/components/chat-search-header.tsx
-msgid "Search in chat..."
-msgstr "Chwilio yn y sgwrs..."
+msgid "Search in chat"
+msgstr "Chwilio yn y sgwrs"
 
 #: src/features/chats/index.tsx
 msgid "Search messages"
 msgstr "Chwilio negeseuon"
 
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx
-msgid "Search objects..."
-msgstr "Chwilio gwrthrychau..."
+msgid "Search objects"
+msgstr "Chwilio gwrthrychau"
 
 #: ../../../lib/web/src/components/timezone-select.tsx
-msgid "Search time zone..."
-msgstr "Chwilio parth amser..."
+msgid "Search time zone"
+msgstr "Chwilio parth amser"
 
 #: ../../../lib/web/src/features/access/access-dialog.tsx
 msgid "Search users"
@@ -2926,14 +2902,6 @@ msgstr "Chwilio defnyddwyr"
 #: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx
 msgid "Search, watch, and sort this view."
 msgstr "Chwilio, gwylio, a didoli'r olygfa hon."
-
-#: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx
-#: ../../../lib/web/src/components/entity/entity-view-options-bar.tsx
-#: ../../../lib/web/src/components/inline-entity-search.tsx
-#: ../../../lib/web/src/components/person-picker.tsx
-#: ../../../lib/web/src/components/search-entity-page.tsx
-msgid "Search..."
-msgstr "Chwilio..."
 
 #: ../../../lib/web/src/components/search-entity-page.tsx
 #: ../../../lib/web/src/features/access/access-dialog.tsx
@@ -2953,6 +2921,7 @@ msgstr "Symud drwy'r nodyn llais"
 msgid "Seen by {0}"
 msgstr "Gwelwyd gan {0}"
 
+#: ../../../lib/web/src/components/entity/entity-field-editor.tsx
 #: ../../../lib/web/src/hooks/use-field-type-labels.ts
 msgid "Select"
 msgstr "Dewis"
@@ -2966,10 +2935,6 @@ msgstr "Dewis"
 msgid "Select a chat"
 msgstr "Dewiswch sgwrs"
 
-#: ../../../lib/web/src/components/entity/entity-view-sheet.tsx
-msgid "Select a field"
-msgstr "Dewiswch faes"
-
 #: ../../../lib/web/src/components/game/game-empty-state.tsx
 msgid "Select a game"
 msgstr "Dewiswch gêm"
@@ -2981,10 +2946,6 @@ msgstr "Dewiswch ddefnyddiwr, grŵp, neu reol arall i roi mynediad."
 #: ../../../lib/web/src/features/access/access-dialog.tsx
 msgid "Select access rule"
 msgstr "Dewiswch reol mynediad"
-
-#: ../../../lib/web/src/features/accounts/account-add.tsx
-msgid "Select account type"
-msgstr "Dewiswch fath o gyfrif"
 
 #: ../../../lib/web/src/features/access/access-dialog.tsx
 msgid "Select group"
@@ -3006,22 +2967,13 @@ msgstr "Dewis neges"
 msgid "Select next card"
 msgstr "Dewis y cerdyn nesaf"
 
-#: src/features/chats/components/new-chat.tsx
-msgid "Select people..."
-msgstr "Dewis pobl..."
-
 #: ../../../lib/web/src/components/person-picker.tsx
-msgid "Select person..."
-msgstr "Dewiswch berson..."
+msgid "Select person"
+msgstr "Dewiswch berson"
 
 #: ../../../lib/web/src/components/entity/keyboard-shortcuts-help.tsx
 msgid "Select previous card"
 msgstr "Dewis y cerdyn blaenorol"
-
-#: ../../../lib/web/src/components/entity/entity-field-editor.tsx
-#: ../../../lib/web/src/components/entity/entity-field-editor.tsx
-msgid "Select..."
-msgstr "Dewis..."
 
 #: src/features/chats/index.tsx
 msgid "Selected the newest {BULK_MESSAGES_MAX} messages, the most that can be forwarded or deleted at once"
@@ -3468,28 +3420,24 @@ msgid "Type"
 msgstr "Math"
 
 #: ../../../lib/web/src/components/command-menu.tsx
-msgid "Type a command or search..."
-msgstr "Teipiwch orchymyn neu chwilio..."
+msgid "Type a command or search"
+msgstr "Teipiwch orchymyn neu chwilio"
 
 #: ../../../lib/web/src/components/game/game-chat-input.tsx
-msgid "Type a message…"
-msgstr "Teipiwch neges…"
+msgid "Type a message"
+msgstr "Teipiwch neges"
 
 #: ../../../lib/web/src/features/access/access-dialog.tsx
 msgid "Type to search users"
 msgstr "Teipiwch i chwilio defnyddwyr"
 
-#: ../../../lib/web/src/features/access/access-dialog.tsx
-msgid "Type to search..."
-msgstr "Teipiwch i chwilio..."
+#: src/features/chats/components/chat-input.tsx
+msgid "Type your message"
+msgstr "Teipiwch eich neges"
 
 #: src/features/chats/components/chat-input.tsx
-msgid "Type your message…"
-msgstr "Teipiwch eich neges…"
-
-#: src/features/chats/components/chat-input.tsx
-msgid "Type your reply…"
-msgstr "Teipiwch eich ateb…"
+msgid "Type your reply"
+msgstr "Teipiwch eich ateb"
 
 #: ../../../lib/web/src/lib/api-response-interceptors.ts
 msgid "Unable to connect to remote server"
