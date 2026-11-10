@@ -12,7 +12,8 @@ import {
   type InfiniteData,
 } from '@tanstack/react-query'
 import {
-  optimistic,
+  optimisticFields,
+  type FieldsPlace,
   useQueryWithError,
   useInfiniteQueryWithError,
 } from '@mochi/web'
@@ -575,43 +576,51 @@ const clearUnread = (old: GetChatsResponse, chatId: string) => ({
   ),
 })
 
+type ListedChat = GetChatsResponse['chats'][number]
+
+// The badge goes back on its own chat only, so a forward, another chat's read
+// or a second menu read that wrote the list meanwhile stays as it is.
+const chatInList: FieldsPlace<ListedChat> = {
+  filters: { queryKey: chatKeys.all(), exact: true },
+  edit: (old: GetChatsResponse, id, change) => {
+    let changed = false
+    const chats = old.chats.map((chat) => {
+      if (chat.id !== id) return chat
+      const next = change(chat)
+      changed ||= next !== chat
+      return next
+    })
+    return changed ? { ...old, chats } : old
+  },
+}
+
 export const useMarkChatReadMutation = () => {
   const queryClient = useQueryClient()
-  const patch = optimistic(
-    queryClient,
-    ({ chatId, instant }: MarkChatReadVariables) =>
-      instant
-        ? [
-            {
-              filters: { queryKey: chatKeys.all(), exact: true },
-              update: (old: GetChatsResponse) => clearUnread(old, chatId),
-            },
-          ]
-        : []
-  )
+  const patch = optimisticFields(queryClient, {
+    places: [chatInList],
+    id: ({ chatId }: MarkChatReadVariables) => chatId,
+    fields: ['unread'],
+    apply: (chat: ListedChat) =>
+      chat.unread === 0 ? chat : { ...chat, unread: 0 },
+  })
   return useMutation({
     mutationFn: ({
       chatId,
       instant: _instant,
       ...payload
     }: MarkChatReadVariables) => chatsApi.markRead(chatId, payload),
-    onMutate: patch.onMutate,
+    // Only a menu read touches the list on the click. The read sent as a
+    // chat opens stops no fetch and waits for the server.
+    onMutate: (variables) =>
+      variables.instant ? patch.onMutate(variables) : undefined,
     onError: (_error, _variables, call) => patch.rollback(call),
     onSuccess: (_data, variables) => {
+      // A menu read refused after this one was taken must not bring the
+      // badge back: the server holds the chat as read either way.
+      patch.accepted(variables)
       queryClient.setQueryData<GetChatsResponse>(chatKeys.all(), (old) =>
         old ? clearUnread(old, variables.chatId) : old
       )
-      // optimistic undoes the whole list, and skips the undo once anything
-      // else has written to it. With two quick menu reads, one accepted and
-      // one refused, the write above would leave the refused chat looking
-      // read. Reloading after a menu read puts the server's counts back. The
-      // read sent as a chat opens patches nothing, so it needs no reload.
-      if (variables.instant) {
-        void queryClient.invalidateQueries({
-          queryKey: chatKeys.all(),
-          exact: true,
-        })
-      }
     },
   })
 }
