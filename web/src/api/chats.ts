@@ -2,8 +2,7 @@
 // SPDX-License-Identifier: AGPL-3.0-only
 // This file is part of Mochi, licensed under the GNU AGPL v3 with the
 // Mochi Application Interface Exception - see license.txt and license-exception.md.
-import type { AxiosProgressEvent } from 'axios'
-import { createAppClient, toast } from '@mochi/web'
+import { createAppClient, toast, type TransferProgress } from '@mochi/web'
 import endpoints from './endpoints'
 import type {
   Chat,
@@ -109,7 +108,7 @@ export const chatsApi = {
   sendMessage: (
     chatId: string,
     payload: SendMessageRequest,
-    onProgress?: (event: AxiosProgressEvent) => void
+    onProgress?: (event: TransferProgress) => void
   ) => {
     // Check if we need to send as FormData (for attachments)
     if (payload.attachments && payload.attachments.length > 0) {
