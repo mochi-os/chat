@@ -165,6 +165,70 @@ describe('ChatMessageList', () => {
     threaded(undefined)
     expect(screen.queryByText('The first answer')).toBeNull()
   })
+
+  // A photo cannot size its own bubble: Firefox gives an image sized in
+  // percentages no width in a bubble that fits its content, so a photo sent
+  // without a caption showed as an empty circle.
+  const photo = (id: string) => ({
+    id,
+    name: `${id}.jpg`,
+    size: 1000,
+    type: 'image/jpeg',
+    content_type: 'image/jpeg',
+    caption: '',
+    created: 1700000000,
+  })
+  const bubbleOf = (messages: ChatMessage[], alt: string) => {
+    render(
+      <QueryClientProvider client={new QueryClient()}>
+        <I18nProvider i18n={i18n}>
+          <ChatMessageList
+            chatId='c1'
+            messagesQuery={query}
+            chatMessages={messages}
+            isLoadingMessages={false}
+            messagesError={null}
+            currentUserIdentity='me'
+            isGroupChat={false}
+            onThread={() => {}}
+          />
+        </I18nProvider>
+      </QueryClientProvider>
+    )
+    return screen
+      .getByAltText(alt)
+      .closest('[data-slot="bubble-content"]') as HTMLElement
+  }
+
+  it('gives a photo with no caption a bubble of the photo width', () => {
+    const content = bubbleOf(
+      [{ ...message('m1', ''), attachments: [photo('p1')] } as ChatMessage],
+      'p1.jpg'
+    )
+    // THE POINT: a width of its own, not one taken from the photo.
+    expect(content.className.split(' ')).toContain('w-[20rem]')
+  })
+
+  it('gives a message the photo width when a reply in its thread holds a photo', () => {
+    const answer = {
+      ...message('r1', ''),
+      thread: 'm1',
+      attachments: [photo('p2')],
+    } as ChatMessage
+    const content = bubbleOf(
+      [
+        {
+          ...message('m1', 'Hi'),
+          replies: 1,
+          latest: 1700000100,
+          answers: [answer],
+        } as ChatMessage,
+      ],
+      'p2.jpg'
+    )
+    expect(content).toHaveTextContent('Hi')
+    expect(content.className.split(' ')).toContain('w-[20rem]')
+  })
 })
 
 describe('Seen by', () => {
