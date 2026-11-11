@@ -3296,6 +3296,24 @@ def linked_person(network, address):
 		return "acct:" + value.lower()
 	return None
 
+def linked_typed(network, address):
+	"""A person as the user typed them for an account on the network: as
+	linked_person reads them, and on Matrix also name@host or @name@host, the
+	only person either can mean there. Not for an address whose network is
+	unknown, where name@host is an XMPP one."""
+	person = linked_person(network, address)
+	if person or network != "matrix":
+		return person
+	value = str(address or "").strip()
+	if value.startswith("@"):
+		value = value[1:]
+	if value.count("@") != 1:
+		return None
+	name, host = value.split("@")
+	if not name or not host or ":" in name:
+		return None
+	return linked_person(network, "@" + name + ":" + host)
+
 def linked_room_address(network, address):
 	"""A Matrix room's address (#alias:host, !id:host, or a matrix: address of
 	either), or None. An XMPP room's address looks like a person's, so it is
@@ -3359,7 +3377,7 @@ def chat_create_linked(a, acc, name, addresses):
 			return
 	people = []
 	for address in addresses:
-		person = linked_person(network, address)
+		person = linked_typed(network, address)
 		if not person:
 			a.error.label(404, "errors.person_not_found_on_network")
 			return

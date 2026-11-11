@@ -13,10 +13,11 @@ export const CHAT_MEDIA_BUBBLE_CLASS =
   'box-border w-[17.5rem] max-w-[calc(100vw-4.5rem)] shrink-0'
 
 /**
- * Column for image / video bubbles, capped so one photo does not fill a wide
- * viewport.
+ * Column for image / video bubbles, capped by the bubble. Also a rem width: a
+ * photo cannot size its own bubble, as Firefox gives an image sized in
+ * percentages no width there, so a photo with no text was an empty circle.
  */
-export const CHAT_MEDIA_GRID_BUBBLE_CLASS = 'w-full max-w-[20rem] min-w-0'
+export const CHAT_MEDIA_GRID_BUBBLE_CLASS = 'w-[20rem] max-w-full min-w-0'
 
 type MediaWidthAttachment = {
   type?: string
@@ -24,23 +25,30 @@ type MediaWidthAttachment = {
   caption?: string
 }
 
+/** True when any attachment shows in the image / video grid. */
+export function attachmentsHaveVisualMedia(
+  attachments: MediaWidthAttachment[] | undefined
+): boolean {
+  return Boolean(
+    attachments?.some((att) => {
+      if (
+        att.caption?.startsWith('voice:') ||
+        att.caption?.startsWith('audio:')
+      ) {
+        return false
+      }
+      const type = att.type || att.content_type || ''
+      return isImage(type) || isVideo(type)
+    })
+  )
+}
+
 /** True when bubble should use the shared fixed media width (not image/video grids). */
 export function attachmentsNeedFixedMediaWidth(
   attachments: MediaWidthAttachment[] | undefined
 ): boolean {
   if (!attachments?.length) return false
-
-  const hasVisualMedia = attachments.some((att) => {
-    if (
-      att.caption?.startsWith('voice:') ||
-      att.caption?.startsWith('audio:')
-    ) {
-      return false
-    }
-    const type = att.type || att.content_type || ''
-    return isImage(type) || isVideo(type)
-  })
-  if (hasVisualMedia) return false
+  if (attachmentsHaveVisualMedia(attachments)) return false
 
   return attachments.some((att) => {
     if (

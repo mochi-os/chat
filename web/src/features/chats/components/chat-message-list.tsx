@@ -50,6 +50,7 @@ import { formatCountBadge } from '../utils'
 import {
   CHAT_MEDIA_BUBBLE_CLASS,
   CHAT_MEDIA_GRID_BUBBLE_CLASS,
+  attachmentsHaveVisualMedia,
   attachmentsNeedFixedMediaWidth,
 } from '../utils/chat-media-size'
 import { highlightSearchText } from '../utils/highlight-search-text'
@@ -560,6 +561,17 @@ export function ChatMessageList({
                           Boolean(message.encrypted) &&
                           !message.body &&
                           !message.attachments?.length
+                        // Photos in the bubble, its own or its thread's,
+                        // give it the photo column's width.
+                        const hasPhotos =
+                          attachmentsHaveVisualMedia(message.attachments) ||
+                          Boolean(
+                            onThread &&
+                            !isDeleted &&
+                            message.answers?.some((answer) =>
+                              attachmentsHaveVisualMedia(answer.attachments)
+                            )
+                          )
                         return (
                           <div
                             key={message.id}
@@ -731,10 +743,7 @@ export function ChatMessageList({
                                           (message.body
                                             ? 'w-fit max-w-[calc(100vw-4.5rem)] min-w-[min(17.5rem,calc(100vw-4.5rem))]'
                                             : CHAT_MEDIA_BUBBLE_CLASS),
-                                        message.attachments?.length &&
-                                          !attachmentsNeedFixedMediaWidth(
-                                            message.attachments
-                                          ) &&
+                                        hasPhotos &&
                                           CHAT_MEDIA_GRID_BUBBLE_CLASS,
                                         message.attachments?.length &&
                                           !message.body &&
