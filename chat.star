@@ -3941,8 +3941,10 @@ def linked_invite(acc, identity, event):
 		return
 	# A hosted account's invitations are Mochi's to police: chat's policy
 	# applies, and one from someone the user does not know is passed over
-	# unseen (phase 24). A linked account's server polices its own.
-	if acc.get("hosted") and not invite_accepted(mochi.user.preference, identity["id"], inviter):
+	# unseen (phase 24). One core marks as a friend's, sent from the friend's
+	# account on this server, is from someone the user knows. A linked
+	# account's server polices its own.
+	if acc.get("hosted") and event.get("friend") != True and not invite_accepted(mochi.user.preference, identity["id"], inviter):
 		return
 	name = linked_name(event.get("name"), conversation)
 	chat = linked_chat_make(acc, name, conversation, identity["id"], identity.get("name", ""), [(inviter, inviter)], status="invited")
