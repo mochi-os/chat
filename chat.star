@@ -4836,16 +4836,27 @@ def invite_accepted(preference, me, person):
 		return True
 	return bool(mochi.service.call("people", "contacts/known", me, person))
 
+# Most accounts one mochi.account.directories call searches, its own maximum.
+DIRECTORY_ACCOUNTS = 32
+
 def function_directory(context, query):
 	"""People on Matrix whose name or address holds a query, through the
 	user's Matrix accounts, for people's search: each as {id, name, address,
 	network}."""
 	out = []
 	seen = {}
-	for acc in chat_accounts():
-		if acc["network"] != "matrix":
-			continue
-		for p in listed(mochi.account.directory(acc["id"], str(query or ""))):
+	query = str(query or "")
+	accounts = [acc["id"] for acc in chat_accounts() if acc["network"] == "matrix"]
+	# A core with mochi.account.directories searches the accounts together,
+	# so a search costs its slowest account rather than all of them in turn.
+	if hasattr(mochi.account, "directories"):
+		answers = []
+		for first in range(0, len(accounts), DIRECTORY_ACCOUNTS):
+			answers.extend(mochi.account.directories(accounts[first:first + DIRECTORY_ACCOUNTS], query))
+	else:
+		answers = [mochi.account.directory(account, query) for account in accounts]
+	for found in answers:
+		for p in listed(found):
 			id = str(p.get("id", "") or "")
 			if not id or id in seen or not id.startswith("@"):
 				continue
