@@ -11,7 +11,7 @@ import {
   type UseInfiniteQueryResult,
 } from '@tanstack/react-query'
 import { fireEvent, render, screen } from '@testing-library/react'
-import { describe, expect, it, vi } from 'vitest'
+import { describe, expect, it, onTestFinished, vi } from 'vitest'
 import type { ChatMessage, GetMessagesResponse } from '@/api/types/chats'
 import { ChatMessageList } from './chat-message-list'
 
@@ -266,5 +266,49 @@ describe('Seen by', () => {
     const seen = screen.getByText('Seen by Ann')
     const column = document.getElementById('chat-message-m1')
     expect(seen.parentElement).toBe(column)
+  })
+})
+
+describe('Editing a message', () => {
+  it('shows the edit box at the bubble side, with no band across the row, and scrolls all of it into view', () => {
+    const scrolled: { element: Element; options: unknown }[] = []
+    const original = Element.prototype.scrollIntoView
+    Element.prototype.scrollIntoView = function (options) {
+      scrolled.push({ element: this as Element, options })
+    }
+    onTestFinished(() => {
+      Element.prototype.scrollIntoView = original
+    })
+    const mine = { ...message('m1', '4'), member: 'me', name: 'Me' }
+    render(
+      <QueryClientProvider client={new QueryClient()}>
+        <I18nProvider i18n={i18n}>
+          <ChatMessageList
+            chatId='c1'
+            messagesQuery={query}
+            chatMessages={[mine as ChatMessage]}
+            isLoadingMessages={false}
+            messagesError={null}
+            currentUserIdentity='me'
+            isGroupChat={false}
+            editingMessageId='m1'
+            editingBody='4a'
+          />
+        </I18nProvider>
+      </QueryClientProvider>
+    )
+    const box = screen.getByDisplayValue('4a').closest('.rounded-xl')
+    expect(box?.className.split(' ')).toContain('ml-auto')
+    // THE POINT: nothing between the box and the list tints the whole row.
+    const column = document.getElementById('chat-message-m1')
+    const row = column?.parentElement
+    for (const element of [column, row]) {
+      expect(element?.className).not.toMatch(/\bbg-primary/)
+    }
+    // The box is taller than the bubble: its buttons must show too.
+    expect(scrolled).toContainEqual({
+      element: box,
+      options: { block: 'nearest' },
+    })
   })
 })

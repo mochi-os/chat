@@ -739,12 +739,8 @@ export function Chats() {
       setEditingMessage(message)
       setEditingBody(message.body ?? '')
       setReplyTo(null)
-
-      // Scroll and highlight
-      setScrollToMessageId(message.id)
-      flashHighlight(message.id)
     },
-    [flashHighlight]
+    []
   )
 
   const handleCancelEdit = useCallback(() => {

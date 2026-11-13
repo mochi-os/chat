@@ -200,6 +200,7 @@ export function ChatMessageList({
   const scrollContainerRef = useRef<HTMLDivElement | null>(null)
   const messagesEndRef = useRef<HTMLDivElement | null>(null)
   const inlineTextareaRef = useRef<HTMLTextAreaElement>(null)
+  const inlineEditorRef = useRef<HTMLDivElement>(null)
 
   // Auto-resize inline editor textarea
   useEffect(() => {
@@ -209,12 +210,14 @@ export function ChatMessageList({
     el.style.height = `${el.scrollHeight}px`
   }, [editingBody])
 
-  // Focus inline editor on start edit
+  // Focus inline editor on start edit. The editor is taller than the bubble
+  // it replaces, so it is scrolled until its buttons show too.
   useEffect(() => {
     if (editingMessageId && inlineTextareaRef.current) {
       inlineTextareaRef.current.focus()
       const len = inlineTextareaRef.current.value.length
       inlineTextareaRef.current.setSelectionRange(len, len)
+      inlineEditorRef.current?.scrollIntoView({ block: 'nearest' })
     }
   }, [editingMessageId])
 
@@ -579,7 +582,6 @@ export function ChatMessageList({
                               'flex w-full items-start gap-2 rounded-lg transition-colors',
                               isSelecting && 'cursor-pointer select-none',
                               isSelecting && isSelected && 'bg-primary/8',
-                              editingMessageId === message.id && 'bg-primary/8',
                               // Dim siblings without transition — animating opacity on every
                               // row at once is expensive on long threads.
                               editingMessageId &&
@@ -658,6 +660,7 @@ export function ChatMessageList({
 
                                 {editingMessageId === message.id ? (
                                   <div
+                                    ref={inlineEditorRef}
                                     className={cn(
                                       'border-border bg-card flex w-full max-w-[500px] flex-col gap-2 rounded-xl border p-3 shadow-sm',
                                       isSent ? 'ml-auto' : 'mr-auto'

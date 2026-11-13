@@ -251,6 +251,7 @@ def database_create():
 	chat_schema_matrix()
 	chat_schema_xmpp()
 	chat_schema_encryption()
+	chat_schema_names()
 
 def database_upgrade(version):
 	if version == 2:
@@ -290,6 +291,10 @@ def database_upgrade(version):
 		# What a file sent to an encrypted XMPP conversation went as (the
 		# federation plan, phase 27).
 		chat_schema_encryption()
+	if version == 16:
+		# A group's name ordered by its own stamp and author, apart from the
+		# activity the chat list sorts by.
+		chat_schema_names()
 	if version == 5 or version == 6 or version == 7:
 		# Attachments move into this database, owned by the shared library: create the
 		# table and copy rows out of core's store (bridge or export file). Versions 6
@@ -2075,23 +2080,26 @@ def event_rename(e):
 	if not mochi.text.valid(name, "display"):
 		return
 
-	# LWW gate: if a newer rename has already landed locally (concurrent
-	# rename from another member's host), drop this older one. Older
-	# events without `updated` (pre-conversion senders) fall back to
-	# applying with local now, preserving prior behaviour.
+	# The latest rename wins on every member's server: by its stamp, which a
+	# rename made after seeing another puts after it (action_rename), then by
+	# its author, so renames made in the same second without either seeing
+	# the other settle on the same one everywhere. The chat's activity, which
+	# messages and members move, plays no part. An event without a stamp, from
+	# a sender before stamps, takes our clock.
 	now = mochi.time.now()
 	incoming = content_number(e, "updated", 0)
-	# Same window as created/edited. A far-future stamp would pin the chat to the
-	# top of the list and make every later rename lose to the gate below, freezing
-	# the name. Fall back to our clock; the name itself is legitimate.
+	# Same window as created/edited. A far-future stamp would win every later
+	# rename, freezing the name. Fall back to our clock; the name itself is
+	# legitimate.
 	if incoming > now + 86400 or incoming < now - 31536000:
 		incoming = 0
-	if incoming and chat["updated"] and incoming <= chat["updated"]:
-		return
 	if not incoming:
 		incoming = now
-
-	mochi.db.execute("update chats set name=?, updated=? where id=?", name, incoming, chat["id"])
+	# Ordered in the statement that writes it, so two renames heard at once
+	# cannot both pass on what each read before; one heard again changes
+	# nothing and goes no further.
+	if not mochi.db.execute("update chats set name=?, renamed=?, renamer=?, updated=max(updated, ?) where id=? and (renamed<? or (renamed=? and renamer<?))", name, incoming, sender, incoming, chat["id"], incoming, incoming, sender):
+		return
 	chat_websocket(chat["key"], {"event": "rename", "name": name})
 	if chat.get("relay"):
 		mochi.bridge.rename(chat["relay"], name)
@@ -2294,14 +2302,23 @@ def action_rename(a):
 		a.error.label(400, "errors.invalid_chat_name")
 		return
 
+	# After the name the chat has, even one set in this second, so this rename
+	# wins on every member's server that saw that one (event_rename). Stamped
+	# in the statement that writes it, so a rename heard meanwhile is not
+	# stamped past; one heard since that comes after it leaves nothing to send.
 	now = mochi.time.now()
-	mochi.db.execute("update chats set name=?, updated=? where id=?", name, now, chat["id"])
+	me = a.user.identity.id
+	mochi.db.execute("update chats set name=?, renamed=max(?, renamed+1), renamer=?, updated=max(updated, ?) where id=?", name, now, me, now, chat["id"])
+	kept = mochi.db.row("select renamed from chats where id=? and renamer=? and name=?", chat["id"], me, name)
+	if not kept:
+		return {"data": {"success": True}}
+	stamp = kept["renamed"]
 
-	# Notify other members. Includes `updated` so receivers can LWW-gate
-	# against their own chats.updated and drop stale concurrent renames.
+	# Notify other members, the stamp as `updated`, which receivers order
+	# renames by.
 	members = mochi.db.rows("select member from members where chat=?", chat["id"])
 	member_ids = [m["member"] for m in members]
-	broadcast_chat(chat["id"], a.user.identity.id, member_ids, "rename", {"id": chat["id"], "name": name, "updated": now}, exclude=a.user.identity.id)
+	broadcast_chat(chat["id"], a.user.identity.id, member_ids, "rename", {"id": chat["id"], "name": name, "updated": stamp}, exclude=a.user.identity.id)
 	if chat.get("relay"):
 		mochi.bridge.rename(chat["relay"], name)
 
@@ -3211,6 +3228,14 @@ def chat_schema_xmpp():
 	column_add("members", "role", "text not null default ''")
 	mochi.db.execute("create table if not exists links ( message text not null, remote text not null default '', url text not null, primary key ( message, url ) )")
 
+def chat_schema_names():
+	"""The columns of a group's name, at creation and by the migration alike:
+	when the name was set, as its renames order it, and by whom, which breaks
+	a tie between renames made in the same second without either having seen
+	the other."""
+	column_add("chats", "renamed", "integer not null default 0")
+	column_add("chats", "renamer", "text not null default ''")
+
 def chat_schema_encryption():
 	"""The column of phase 27, at creation and by the migration alike: the
 	encrypted content a file went as to an XMPP conversation, which a hosted
@@ -3372,6 +3397,10 @@ def chat_create_linked(a, acc, name, addresses):
 			elif chat["status"] != "active":
 				linked_rejoin(chat, me, a.user.identity.name)
 			return {"data": {"id": chat["id"], "name": chat["name"], "members": []}}
+		# A room that would not have the account is no person to talk to.
+		if joined and joined.get("refused"):
+			a.error.label(502, "errors.join_failed")
+			return
 		if linked_room_address(network, addresses[0]):
 			a.error.label(404, "errors.person_not_found_on_network")
 			return
@@ -3941,8 +3970,10 @@ def linked_invite(acc, identity, event):
 		return
 	# A hosted account's invitations are Mochi's to police: chat's policy
 	# applies, and one from someone the user does not know is passed over
-	# unseen (phase 24). A linked account's server polices its own.
-	if acc.get("hosted") and not invite_accepted(mochi.user.preference, identity["id"], inviter):
+	# unseen (phase 24). One core marks as a friend's, sent from the friend's
+	# account on this server, is from someone the user knows. A linked
+	# account's server polices its own.
+	if acc.get("hosted") and event.get("friend") != True and not invite_accepted(mochi.user.preference, identity["id"], inviter):
 		return
 	name = linked_name(event.get("name"), conversation)
 	chat = linked_chat_make(acc, name, conversation, identity["id"], identity.get("name", ""), [(inviter, inviter)], status="invited")
@@ -4834,16 +4865,27 @@ def invite_accepted(preference, me, person):
 		return True
 	return bool(mochi.service.call("people", "contacts/known", me, person))
 
+# Most accounts one mochi.account.directories call searches, its own maximum.
+DIRECTORY_ACCOUNTS = 32
+
 def function_directory(context, query):
 	"""People on Matrix whose name or address holds a query, through the
 	user's Matrix accounts, for people's search: each as {id, name, address,
 	network}."""
 	out = []
 	seen = {}
-	for acc in chat_accounts():
-		if acc["network"] != "matrix":
-			continue
-		for p in listed(mochi.account.directory(acc["id"], str(query or ""))):
+	query = str(query or "")
+	accounts = [acc["id"] for acc in chat_accounts() if acc["network"] == "matrix"]
+	# A core with mochi.account.directories searches the accounts together,
+	# so a search costs its slowest account rather than all of them in turn.
+	if hasattr(mochi.account, "directories"):
+		answers = []
+		for first in range(0, len(accounts), DIRECTORY_ACCOUNTS):
+			answers.extend(mochi.account.directories(accounts[first:first + DIRECTORY_ACCOUNTS], query))
+	else:
+		answers = [mochi.account.directory(account, query) for account in accounts]
+	for found in answers:
+		for p in listed(found):
 			id = str(p.get("id", "") or "")
 			if not id or id in seen or not id.startswith("@"):
 				continue
