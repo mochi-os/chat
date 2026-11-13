@@ -3710,6 +3710,12 @@ def linked_received(acc, identity, event):
 	name = mochi.db.row("select name from members where chat=? and member=?", chat["id"], member)
 	name = name["name"] if name else ""
 	encrypted = event.get("encrypted") == True
+	# How it came: 0 readable, 1 encrypted, 2 encrypted before the account's
+	# device was made, 3 encrypted for other devices only. The last two can
+	# never be read here.
+	sealed = 1 if encrypted else 0
+	if encrypted and network == "xmpp":
+		sealed = {"before": 2, "excluded": 3}.get(event.get("unreadable"), 1)
 	body = linked_body(acc, chat, event)[:10000]
 	if body and not mochi.text.valid(body, "text"):
 		return
@@ -3738,7 +3744,7 @@ def linked_received(acc, identity, event):
 	payload = str(event.get("payload", "") or "") if encrypted and network == "xmpp" else ""
 	if len(payload) > PAYLOAD_MAXIMUM:
 		payload = ""
-	mochi.db.execute("insert into messages ( id, chat, member, name, body, created, reply, remote, encrypted, thread, payload ) values ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )", id, chat["id"], member, name, body, created, reply["id"] if reply else None, remote, 1 if encrypted else 0, thread, payload)
+	mochi.db.execute("insert into messages ( id, chat, member, name, body, created, reply, remote, encrypted, thread, payload ) values ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )", id, chat["id"], member, name, body, created, reply["id"] if reply else None, remote, sealed, thread, payload)
 	if network == "xmpp":
 		for f in files:
 			link = str(f.get("url", "") or "")
@@ -3755,7 +3761,9 @@ def linked_received(acc, identity, event):
 		mochi.db.execute("update chats set encrypted=? where id=?", 1 if encrypted else 0, chat["id"])
 	chat_ensure_commit_hook()
 	mochi.db.commit.fire("messages", "insert", id)
-	if not own:
+	# History from before the account's device was made, which can never be
+	# read here, is not news.
+	if not own and sealed != 2:
 		# A message whose keys have not yet come has no text to show.
 		excerpt = body.strip()[:80] if body or files else mochi.app.label("messages.encrypted")
 		notify("message", chat["id"], mochi.app.label("notifications.title.message"), mochi.app.label("notifications.body.message", author=name, excerpt=excerpt), "/chat/" + chat["id"], chat["name"], event_id="message:" + id)

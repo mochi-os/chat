@@ -39,7 +39,11 @@ export function ThreadReplies({ answers, isSent, onOpen }: ThreadRepliesProps) {
               </span>
             ) : answer.encrypted && !answer.attachments?.length ? (
               <span className='block italic opacity-80'>
-                <Trans>Encrypted message</Trans>
+                {answer.encrypted === 3 ? (
+                  <Trans>Encrypted for other devices only</Trans>
+                ) : (
+                  <Trans>Encrypted message</Trans>
+                )}
               </span>
             ) : null}
           </button>
