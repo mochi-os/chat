@@ -3397,6 +3397,10 @@ def chat_create_linked(a, acc, name, addresses):
 			elif chat["status"] != "active":
 				linked_rejoin(chat, me, a.user.identity.name)
 			return {"data": {"id": chat["id"], "name": chat["name"], "members": []}}
+		# A room that would not have the account is no person to talk to.
+		if joined and joined.get("refused"):
+			a.error.label(502, "errors.join_failed")
+			return
 		if linked_room_address(network, addresses[0]):
 			a.error.label(404, "errors.person_not_found_on_network")
 			return
