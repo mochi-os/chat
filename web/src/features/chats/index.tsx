@@ -23,7 +23,6 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
   Label,
   toast,
@@ -44,7 +43,6 @@ import {
   LockOpen,
   MoreHorizontal,
   Settings,
-  Shield,
   LogOut,
   Trash2,
   MessageCircle,
@@ -94,7 +92,6 @@ import { ChatEmptyState } from './components/chat-empty-state'
 import { ChatInput, type ChatInputHandle } from './components/chat-input'
 import { ChatMessageList } from './components/chat-message-list'
 import { ChatSearchHeader } from './components/chat-search-header'
-import { ChatSettingsDialog } from './components/chat-settings-dialog'
 import { ChatSkeleton } from './components/chat-skeleton'
 import { ForwardDialog } from './components/forward-dialog'
 import { ThreadPanel } from './components/thread-panel'
@@ -146,7 +143,6 @@ export function Chats() {
   } = useSidebarContext()
   const [newMessage, setNewMessage] = useState('')
   const [showLeaveDialog, setShowLeaveDialog] = useState(false)
-  const [chatSettingsOpen, setChatSettingsOpen] = useState(false)
   const [deleteOnLeave, setDeleteOnLeave] = useState(false)
 
   const {
@@ -1301,19 +1297,6 @@ export function Chats() {
         <PageHeader
           title={t`Chat`}
           icon={<MessageCircle className='size-4 md:size-5' />}
-          menuAction={
-            <IconButton
-              variant='ghost'
-              label={t`Privacy`}
-              onClick={() => setChatSettingsOpen(true)}
-            >
-              <Shield className='size-5' />
-            </IconButton>
-          }
-        />
-        <ChatSettingsDialog
-          open={chatSettingsOpen}
-          onOpenChange={setChatSettingsOpen}
         />
         <Main className='flex min-h-0 flex-1 flex-col gap-4 overflow-hidden'>
           {chatsQuery.error ? (
@@ -1416,11 +1399,6 @@ export function Chats() {
                         </DropdownMenuItem>
                       </>
                     )}
-                    <DropdownMenuSeparator />
-                    <DropdownMenuItem onClick={() => setChatSettingsOpen(true)}>
-                      <Shield className='me-2 size-4' />{' '}
-                      <Trans>Privacy</Trans>
-                    </DropdownMenuItem>
                   </DropdownMenuContent>
                 </DropdownMenu>
               </div>
@@ -1723,10 +1701,6 @@ export function Chats() {
           }}
         />
       ) : null}
-      <ChatSettingsDialog
-        open={chatSettingsOpen}
-        onOpenChange={setChatSettingsOpen}
-      />
     </>
   )
 }
