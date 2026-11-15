@@ -96,7 +96,16 @@ def chat_commit_hook(table, kind, row_uid):
 		chat = mochi.db.row("select key from chats where id=?", deletion["chat"])
 		if not chat:
 			return
-		chat_websocket(chat["key"], {"event": "delete", "message": deletion["message"]})
+		# The thread a deleted reply was in, and that thread as it now stands:
+		# its root's bubble shows only the newest replies, so a page holding
+		# the root, whether or not it holds the reply, takes the root's count
+		# and newest replies from here.
+		message = mochi.db.row("select thread from messages where id=?", deletion["message"])
+		thread = (message or {}).get("thread", "") or ""
+		payload = {"event": "delete", "message": deletion["message"], "thread": thread}
+		if thread:
+			payload["root"] = thread_summary(deletion["chat"], thread)
+		chat_websocket(chat["key"], payload)
 		return
 	# A reactions row commit recomputes that message's authoritative counts
 	# and pushes them to every member's tabs, with whose reaction changed and
@@ -127,7 +136,7 @@ def chat_commit_hook(table, kind, row_uid):
 	if not chat:
 		return
 	attachments = attachment_list("chat/" + message["chat"] + "/" + message["id"], message["chat"])
-	chat_websocket(chat["key"], {
+	payload = {
 		"id": message["id"],
 		"created": message["created"],
 		"member": message["member"],
@@ -141,7 +150,11 @@ def chat_commit_hook(table, kind, row_uid):
 		# A message whose keys have not come carries no text: the flag is what
 		# shows it as one, where it would otherwise show as an empty bubble.
 		"encrypted": message.get("encrypted", 0),
-	})
+	}
+	# A reply carries its root's thread as it now stands, as the delete does.
+	if message.get("thread", ""):
+		payload["root"] = thread_summary(message["chat"], message["thread"])
+	chat_websocket(chat["key"], payload)
 
 # --- Quotes -----------------------------------------------------------------
 #
@@ -2751,17 +2764,25 @@ def thread_root(chat_id, thread):
 	not itself in a thread, not deleted."""
 	return mochi.text.valid(thread, "id") and mochi.db.exists("select 1 from messages where id=? and chat=? and thread=''", thread, chat_id) and not mochi.db.exists("select 1 from deletions where message=?", thread)
 
+# How many of a thread's replies its root's bubble shows: the newest.
+THREAD_SHOWN = 3
+
 def thread_counts(chat_id, roots):
-	"""How many replies each root has, when the latest came, and the replies
-	themselves, oldest first, shown in the root's own bubble."""
+	"""How many replies each root has and when the latest came, over all of
+	them, and the newest THREAD_SHOWN of them, oldest first, shown in the
+	root's own bubble. A client says how many earlier ones there are (replies
+	less the answers) and opens the thread for them. One statement, so the
+	count and the answers agree with each other, and only the answers kept are
+	read whole: a page of a conversation with long threads carried every reply
+	of every one."""
 	out = {}
 	for start in range(0, len(roots), _LIST_BATCH):
 		batch = roots[start:start + _LIST_BATCH]
 		places = ", ".join(["?" for _ in batch])
-		for m in mochi.db.rows("select * from messages where chat=? and thread in (" + places + ") and id not in (select message from deletions where chat=?) order by created, id", chat_id, *(batch + [chat_id])) or []:
-			held = out.setdefault(m["thread"], {"replies": 0, "latest": 0, "answers": []})
-			held["replies"] += 1
-			held["latest"] = max(held["latest"], m["created"])
+		for m in mochi.db.rows("select m.*, w.counted, w.newest from (select id, row_number() over (partition by thread order by created desc, id desc) as place, count(*) over (partition by thread) as counted, max(created) over (partition by thread) as newest from messages where chat=? and thread in (" + places + ") and id not in (select message from deletions where chat=?)) w join messages m on m.chat=? and m.id=w.id where w.place<=? order by m.created, m.id", chat_id, *(batch + [chat_id, chat_id, THREAD_SHOWN])) or []:
+			held = out.setdefault(m["thread"], {"replies": m["counted"], "latest": m["newest"], "answers": []})
+			m.pop("counted")
+			m.pop("newest")
 			held["answers"].append(m)
 	answers = [m for held in out.values() for m in held["answers"]]
 	attachments = attachment_list_many(["chat/" + chat_id + "/" + m["id"] for m in answers], chat_id)
@@ -2770,6 +2791,14 @@ def thread_counts(chat_id, roots):
 		m["attachments"] = attachments.get("chat/" + chat_id + "/" + m["id"], [])
 		m["quote"] = message_quote_of(m)
 	return out
+
+def thread_summary(chat_id, thread):
+	"""A root's thread as a page of messages carries it - how many replies,
+	when the latest came, and the newest of them - for a frame that changed
+	it. A client sets what it holds of the root to this rather than counting
+	the change itself, so a frame sent twice, or about a reply it never held,
+	leaves it right."""
+	return thread_counts(chat_id, [thread]).get(thread) or {"replies": 0, "latest": 0, "answers": []}
 
 # --- Accounts ---
 

@@ -298,12 +298,173 @@ describe('signals and threads (phase 22)', () => {
     arrive(client, 'r3', 6)
     expect(shown(client)).toEqual(['r1', 'r2', 'r3'])
     expect(root(client).replies).toBe(3)
-    // One sent earlier that lands late takes its place by time.
+    // One sent earlier that lands late is counted, and takes its place by
+    // time: before the newest three the bubble keeps, so it is not shown.
     arrive(client, 'r0', 3)
-    expect(shown(client)).toEqual(['r0', 'r1', 'r2', 'r3'])
+    expect(shown(client)).toEqual(['r1', 'r2', 'r3'])
+    expect(root(client).replies).toBe(4)
     // The bubble holds it already: not counted again.
     arrive(client, 'r3', 6)
     expect(root(client).replies).toBe(4)
+  })
+
+  // A root as the server sends one with more replies than its bubble shows:
+  // five in all, the newest three in answers.
+  const capped = () => {
+    const client = threaded()
+    const first = root(client)
+    const answer = (id: string, created: number) => ({
+      ...first.answers![0],
+      id,
+      body: id,
+      created,
+    })
+    client.setQueryData(chatKeys.messages('c1'), {
+      pages: [
+        {
+          messages: [
+            {
+              ...first,
+              replies: 5,
+              latest: 7,
+              answers: [answer('r3', 5), answer('r4', 6), answer('r5', 7)],
+            },
+          ],
+          more: false,
+          cursor: null,
+        },
+      ],
+      pageParams: [undefined],
+    })
+    return client
+  }
+
+  it('keeps the newest three in the bubble as replies arrive, counting every one', () => {
+    // THE POINT: a page carried every reply of every thread; the bubble
+    // shows the newest three and the count says how many there are.
+    const client = capped()
+    const invalidate = vi.spyOn(client, 'invalidateQueries')
+    arrive(client, 'r6', 8)
+    expect(shown(client)).toEqual(['r4', 'r5', 'r6'])
+    expect(root(client).replies).toBe(6)
+    expect(root(client).latest).toBe(8)
+    arrive(client, 'r7', 9)
+    expect(shown(client)).toEqual(['r5', 'r6', 'r7'])
+    expect(root(client).replies).toBe(7)
+    expect(invalidate).not.toHaveBeenCalled()
+  })
+
+  it('reads the page again for a reply older than those shown on a root with earlier ones', () => {
+    // It may be one of the earlier replies, counted already.
+    const client = capped()
+    const invalidate = vi.spyOn(client, 'invalidateQueries')
+    arrive(client, 'r2', 4)
+    expect(shown(client)).toEqual(['r3', 'r4', 'r5'])
+    expect(root(client).replies).toBe(5)
+    expect(invalidate).toHaveBeenCalledWith({
+      queryKey: chatKeys.messages('c1'),
+    })
+  })
+
+  it('reads the page again when a shown reply of a root with earlier ones is deleted', () => {
+    // The next earlier reply takes its place, and only the server has it.
+    const client = capped()
+    const invalidate = vi.spyOn(client, 'invalidateQueries')
+    handleWebsocketEvent(
+      'c1',
+      { event: 'delete', message: 'r4', thread: 'm1' },
+      client,
+      'me'
+    )
+    expect(shown(client)).toEqual(['r3', 'r5'])
+    expect(root(client).replies).toBe(4)
+    expect(invalidate).toHaveBeenCalledWith({
+      queryKey: chatKeys.messages('c1'),
+    })
+  })
+
+  it('reads the page again when an earlier reply the bubble does not show is deleted', () => {
+    const client = capped()
+    const invalidate = vi.spyOn(client, 'invalidateQueries')
+    handleWebsocketEvent(
+      'c1',
+      { event: 'delete', message: 'r1', thread: 'm1' },
+      client,
+      'me'
+    )
+    expect(shown(client)).toEqual(['r3', 'r4', 'r5'])
+    expect(invalidate).toHaveBeenCalledWith({
+      queryKey: chatKeys.messages('c1'),
+    })
+  })
+
+  // A chat app that sends the root's thread with each reply and delete: the
+  // root takes it as it is, and the page is never read again for it.
+  const summary = (client: QueryClient, replies: number, ...ids: string[]) => {
+    const first = root(client).answers![0]
+    return {
+      replies,
+      latest: 9,
+      answers: ids.map((id, i) => ({ ...first, id, body: id, created: 7 + i })),
+    }
+  }
+
+  it('sets the root from the thread a reply frame carries, guessing nothing', () => {
+    const client = capped()
+    const invalidate = vi.spyOn(client, 'invalidateQueries')
+    const thread = summary(client, 6, 'r4', 'r5', 'r6')
+    const send = () =>
+      appendMessageToCache(
+        'c1',
+        { id: 'r0', member: 'bob', name: 'Bob', body: 'r0', created: 2, thread: 'm1', root: thread },
+        client,
+        'Unknown',
+        'me'
+      )
+    // Older than every reply shown, which without the thread is read again.
+    send()
+    expect(shown(client)).toEqual(['r4', 'r5', 'r6'])
+    expect(root(client).replies).toBe(6)
+    expect(root(client).latest).toBe(9)
+    // THE POINT: the same frame again leaves the count as the server has it.
+    send()
+    expect(root(client).replies).toBe(6)
+    expect(invalidate).not.toHaveBeenCalled()
+  })
+
+  it('sets the root from the thread a delete frame carries, whether or not it held the reply', () => {
+    const client = capped()
+    const invalidate = vi.spyOn(client, 'invalidateQueries')
+    handleWebsocketEvent(
+      'c1',
+      { event: 'delete', message: 'r1', thread: 'm1', root: summary(client, 4, 'r3', 'r4', 'r5') },
+      client,
+      'me'
+    )
+    expect(root(client).replies).toBe(4)
+    expect(shown(client)).toEqual(['r3', 'r4', 'r5'])
+    expect(invalidate).not.toHaveBeenCalled()
+  })
+
+  it('starts a read of the page under way again when a frame changes its messages', async () => {
+    // The read answers from before the frame, and landing would undo it.
+    const client = capped()
+    vi.spyOn(client, 'isFetching').mockReturnValue(1)
+    const invalidate = vi.spyOn(client, 'invalidateQueries')
+    appendMessageToCache(
+      'c1',
+      { event: 'typing', member: 'bob', name: 'Bob' },
+      client,
+      'Unknown',
+      'me'
+    )
+    await Promise.resolve()
+    expect(invalidate).not.toHaveBeenCalled()
+    arrive(client, 'r6', 8)
+    await Promise.resolve()
+    expect(invalidate).toHaveBeenCalledWith({
+      queryKey: chatKeys.messages('c1'),
+    })
   })
 
   it("shows an edit of a reply in its root's bubble", () => {

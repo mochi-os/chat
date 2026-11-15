@@ -19,7 +19,7 @@ msgid "Please check your internet connection and try again."
 msgstr "ਕਿਰਪਾ ਕਰਕੇ ਆਪਣਾ ਇੰਟਰਨੈੱਟ ਕਨੈਕਸ਼ਨ ਜਾਂਚੋ ਅਤੇ ਮੁੜ ਕੋਸ਼ਿਸ਼ ਕਰੋ।"
 
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx
-#: src/features/chats/components/chat-message-list.tsx
+#: src/features/chats/components/message-bubble.tsx
 msgid "(edited)"
 msgstr "(ਸੰਪਾਦਿਤ)"
 
@@ -122,6 +122,10 @@ msgstr "{count, plural, one {#ਹ} other {#ਹ}}"
 #: ../../../lib/web/src/components/calendar/tooltip.ts
 msgid "{day}, {from} to {to}"
 msgstr "{day}, {from} ਤੋਂ {to} ਤੱਕ"
+
+#: src/features/chats/components/thread-replies.tsx
+msgid "{earlier, plural, one {# earlier reply} other {# earlier replies}}"
+msgstr "{earlier, plural, one {# ਪਹਿਲਾਂ ਵਾਲਾ ਜਵਾਬ} other {# ਪਹਿਲਾਂ ਵਾਲੇ ਜਵਾਬ}}"
 
 #: ../../../lib/web/src/components/ui/create-entity-dialog.tsx
 msgid "{entityLabel} name"
@@ -1173,7 +1177,7 @@ msgstr "ਚੈਟ ਮਿਟਾਈ ਜਾ ਰਹੀ ਹੈ..."
 msgid "Deleting..."
 msgstr "ਮਿਟਾ ਰਹੇ ਹਾਂ..."
 
-#: src/features/chats/components/chat-message-list.tsx
+#: src/features/chats/components/message-bubble.tsx
 msgctxt "receipt"
 msgid "Delivered"
 msgstr "ਡਿਲੀਵਰ ਹੋਇਆ"
@@ -1351,12 +1355,12 @@ msgstr "ਈਮੇਲ"
 msgid "Email code"
 msgstr "ਈਮੇਲ ਕੋਡ"
 
-#: src/features/chats/components/chat-message-list.tsx
+#: src/features/chats/components/message-bubble.tsx
 #: src/features/chats/components/thread-replies.tsx
 msgid "Encrypted for other devices only"
 msgstr "ਸਿਰਫ਼ ਹੋਰ ਡਿਵਾਈਸਾਂ ਲਈ ਇਨਕ੍ਰਿਪਟ ਕੀਤਾ"
 
-#: src/features/chats/components/chat-message-list.tsx
+#: src/features/chats/components/message-bubble.tsx
 #: src/features/chats/components/thread-replies.tsx
 msgid "Encrypted message"
 msgstr "ਇਨਕ੍ਰਿਪਟ ਕੀਤਾ ਸੁਨੇਹਾ"
@@ -2566,7 +2570,7 @@ msgstr "ਇਸ ਸਰਵਰ 'ਤੇ ਆਪਣੇ ਖਾਤੇ ਮੁੜ-ਲਿ�
 msgid "Re-register your passkeys on this server"
 msgstr "ਇਸ ਸਰਵਰ 'ਤੇ ਆਪਣੀਆਂ ਪਾਸਕੀਆਂ ਮੁੜ-ਰਜਿਸਟਰ ਕਰੋ"
 
-#: src/features/chats/components/chat-message-list.tsx
+#: src/features/chats/components/message-bubble.tsx
 msgctxt "receipt"
 msgid "Read"
 msgstr "ਪੜ੍ਹਿਆ ਗਿਆ"
@@ -3019,7 +3023,7 @@ msgstr "ਸੁਨੇਹਾ ਭੇਜੋ"
 msgid "Send read receipts"
 msgstr "ਪੜ੍ਹਨ ਦੀਆਂ ਰਸੀਦਾਂ ਭੇਜੋ"
 
-#: src/features/chats/components/chat-message-list.tsx
+#: src/features/chats/components/message-bubble.tsx
 msgctxt "receipt"
 msgid "Sent"
 msgstr "ਭੇਜਿਆ ਗਿਆ"
@@ -3349,7 +3353,7 @@ msgstr "ਇਹ ਡਿਵਾਈਸ (OMEMO 2)"
 msgid "This device (OMEMO)"
 msgstr "ਇਹ ਡਿਵਾਈਸ (OMEMO)"
 
-#: src/features/chats/components/chat-message-list.tsx
+#: src/features/chats/components/message-bubble.tsx
 #: src/features/chats/components/message-quote.tsx
 #: src/features/chats/components/thread-panel.tsx
 msgid "This message was deleted"

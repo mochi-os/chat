@@ -19,7 +19,7 @@ msgid "Please check your internet connection and try again."
 msgstr "Лутфан пайвасти интернети худро санҷед ва аз нав кӯшиш кунед."
 
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx
-#: src/features/chats/components/chat-message-list.tsx
+#: src/features/chats/components/message-bubble.tsx
 msgid "(edited)"
 msgstr "(таҳриршуда)"
 
@@ -122,6 +122,10 @@ msgstr "{count, plural, one {#ҳаф} other {#ҳаф}}"
 #: ../../../lib/web/src/components/calendar/tooltip.ts
 msgid "{day}, {from} to {to}"
 msgstr "{day}, аз {from} то {to}"
+
+#: src/features/chats/components/thread-replies.tsx
+msgid "{earlier, plural, one {# earlier reply} other {# earlier replies}}"
+msgstr "{earlier, plural, one {# ҷавоби пештара} other {# ҷавоби пештара}}"
 
 #: ../../../lib/web/src/components/ui/create-entity-dialog.tsx
 msgid "{entityLabel} name"
@@ -1173,7 +1177,7 @@ msgstr "Чат нест карда мешавад..."
 msgid "Deleting..."
 msgstr "Нест карда истодааст..."
 
-#: src/features/chats/components/chat-message-list.tsx
+#: src/features/chats/components/message-bubble.tsx
 msgctxt "receipt"
 msgid "Delivered"
 msgstr "Расонида шуд"
@@ -1351,12 +1355,12 @@ msgstr "Имейл"
 msgid "Email code"
 msgstr "Рамзи email"
 
-#: src/features/chats/components/chat-message-list.tsx
+#: src/features/chats/components/message-bubble.tsx
 #: src/features/chats/components/thread-replies.tsx
 msgid "Encrypted for other devices only"
 msgstr "Танҳо барои дастгоҳҳои дигар рамзгузорӣ шудааст"
 
-#: src/features/chats/components/chat-message-list.tsx
+#: src/features/chats/components/message-bubble.tsx
 #: src/features/chats/components/thread-replies.tsx
 msgid "Encrypted message"
 msgstr "Паёми рамзгузоришуда"
@@ -2566,7 +2570,7 @@ msgstr "Ҳисобҳоятонро дар ин сервер аз нав пайв
 msgid "Re-register your passkeys on this server"
 msgstr "Калидҳои дастрасии худро дар ин сервер аз нав сабт кунед"
 
-#: src/features/chats/components/chat-message-list.tsx
+#: src/features/chats/components/message-bubble.tsx
 msgctxt "receipt"
 msgid "Read"
 msgstr "Хонда шуд"
@@ -3019,7 +3023,7 @@ msgstr "Паём фиристодан"
 msgid "Send read receipts"
 msgstr "Фиристодани тасдиқи хондан"
 
-#: src/features/chats/components/chat-message-list.tsx
+#: src/features/chats/components/message-bubble.tsx
 msgctxt "receipt"
 msgid "Sent"
 msgstr "Фиристода шуд"
@@ -3349,7 +3353,7 @@ msgstr "Ин дастгоҳ (OMEMO 2)"
 msgid "This device (OMEMO)"
 msgstr "Ин дастгоҳ (OMEMO)"
 
-#: src/features/chats/components/chat-message-list.tsx
+#: src/features/chats/components/message-bubble.tsx
 #: src/features/chats/components/message-quote.tsx
 #: src/features/chats/components/thread-panel.tsx
 msgid "This message was deleted"

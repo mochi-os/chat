@@ -19,7 +19,7 @@ msgid "Please check your internet connection and try again."
 msgstr "Gwiriwch eich cysylltiad rhyngrwyd a rhowch gynnig arall arni."
 
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx
-#: src/features/chats/components/chat-message-list.tsx
+#: src/features/chats/components/message-bubble.tsx
 msgid "(edited)"
 msgstr "(golygwyd)"
 
@@ -122,6 +122,10 @@ msgstr "{count, plural, one {#wyth} other {#wyth}}"
 #: ../../../lib/web/src/components/calendar/tooltip.ts
 msgid "{day}, {from} to {to}"
 msgstr "{day}, {from} i {to}"
+
+#: src/features/chats/components/thread-replies.tsx
+msgid "{earlier, plural, one {# earlier reply} other {# earlier replies}}"
+msgstr "{earlier, plural, zero {# ateb cynharach} one {# ateb cynharach} two {# ateb cynharach} few {# ateb cynharach} many {# ateb cynharach} other {# ateb cynharach}}"
 
 #: ../../../lib/web/src/components/ui/create-entity-dialog.tsx
 msgid "{entityLabel} name"
@@ -1173,7 +1177,7 @@ msgstr "Yn dileu sgwrs..."
 msgid "Deleting..."
 msgstr "Yn dileu..."
 
-#: src/features/chats/components/chat-message-list.tsx
+#: src/features/chats/components/message-bubble.tsx
 msgctxt "receipt"
 msgid "Delivered"
 msgstr "Wedi'i danfon"
@@ -1351,12 +1355,12 @@ msgstr "E-bost"
 msgid "Email code"
 msgstr "Cod e-bost"
 
-#: src/features/chats/components/chat-message-list.tsx
+#: src/features/chats/components/message-bubble.tsx
 #: src/features/chats/components/thread-replies.tsx
 msgid "Encrypted for other devices only"
 msgstr "Wedi'i amgryptio ar gyfer dyfeisiau eraill yn unig"
 
-#: src/features/chats/components/chat-message-list.tsx
+#: src/features/chats/components/message-bubble.tsx
 #: src/features/chats/components/thread-replies.tsx
 msgid "Encrypted message"
 msgstr "Neges wedi'i hamgryptio"
@@ -2566,7 +2570,7 @@ msgstr "Ail-gysylltwch eich cyfrifon ar y gweinydd hwn"
 msgid "Re-register your passkeys on this server"
 msgstr "Ailgofrestrwch eich pasallweddi ar y gweinydd hwn"
 
-#: src/features/chats/components/chat-message-list.tsx
+#: src/features/chats/components/message-bubble.tsx
 msgctxt "receipt"
 msgid "Read"
 msgstr "Wedi'i darllen"
@@ -3019,7 +3023,7 @@ msgstr "Anfon neges"
 msgid "Send read receipts"
 msgstr "Anfon derbynebau darllen"
 
-#: src/features/chats/components/chat-message-list.tsx
+#: src/features/chats/components/message-bubble.tsx
 msgctxt "receipt"
 msgid "Sent"
 msgstr "Wedi'i hanfon"
@@ -3349,7 +3353,7 @@ msgstr "Y ddyfais hon (OMEMO 2)"
 msgid "This device (OMEMO)"
 msgstr "Y ddyfais hon (OMEMO)"
 
-#: src/features/chats/components/chat-message-list.tsx
+#: src/features/chats/components/message-bubble.tsx
 #: src/features/chats/components/message-quote.tsx
 #: src/features/chats/components/thread-panel.tsx
 msgid "This message was deleted"

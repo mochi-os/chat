@@ -31,51 +31,29 @@ import {
   Skeleton,
   getAppPath,
   authenticatedUrl,
-  actionPillExpandMaxWidthMap,
-  actionPillExpandOpacityMap,
   MentionTextarea,
-  Bubble,
-  BubbleContent,
-  BubbleReactions,
   BubbleGroup,
   useFormat,
-  QuoteCard,
   addressByAuthor,
 } from '@mochi/web'
-import { Check, CheckCheck, ChevronsDown, MessageCircle } from 'lucide-react'
+import { Check, ChevronsDown, MessageCircle } from 'lucide-react'
 import type { ChatMessage } from '@/api/chats'
 import type { ChatReceipt, GetMessagesResponse } from '@/api/types/chats'
 import type { ReactionId } from '../constants/reactions'
 import { formatCountBadge } from '../utils'
 import {
-  CHAT_MEDIA_BUBBLE_CLASS,
-  CHAT_MEDIA_GRID_BUBBLE_CLASS,
-  attachmentsHaveVisualMedia,
-  attachmentsNeedFixedMediaWidth,
-} from '../utils/chat-media-size'
-import {
   collapseEarlierHistory,
   isEarlierHistory,
 } from '../utils/encryption'
-import { highlightSearchText } from '../utils/highlight-search-text'
 import { receiptState, seenBy } from '../utils/receipts'
-import { MessageAttachments } from './message-attachments'
-import { MessageBody } from './message-body'
-import { MessageHoverActions } from './message-hover-actions'
-import { MessageQuote } from './message-quote'
 import {
-  MessageReactionPicker,
-  MessageReactionSummary,
-} from './message-reaction-bar'
-import { ThreadReplies } from './thread-replies'
+  MessageBubble,
+  type BubbleActions,
+  type BubbleOffers,
+} from './message-bubble'
 
 const BOTTOM_THRESHOLD_PX = 80
 const MESSAGE_ENTER_MS = 200
-/** Edit = body text only. Media-only / deleted / others' messages stay non-editable. */
-function canEditMessage(message: ChatMessage, isOwn: boolean): boolean {
-  return isOwn && message.deleted !== true && Boolean(message.body?.trim())
-}
-
 function groupMessagesBySender(messages: ChatMessage[]) {
   const groups: ChatMessage[][] = []
   let currentGroup: ChatMessage[] = []
@@ -199,7 +177,7 @@ export function ChatMessageList({
   onAtBottomChange,
 }: ChatMessageListProps) {
   const { t } = useLingui()
-  const { formatDate, formatTime, formatNumber, formatList } = useFormat()
+  const { formatDate, formatNumber, formatList } = useFormat()
 
   // The asset route is member-only, so the <img> carries the app token: cookies
   // are refused, and none are sent inside the shell's sandboxed iframe.
@@ -207,6 +185,34 @@ export function ChatMessageList({
   // puts the raw app JWT in access logs, the Referer header and browser
   // history, and the shell branch was already avoiding it.
   const assetUrl = (path: string) => authenticatedUrl(path)
+
+  // What the bubbles offer, and the callbacks behind it: the page makes the
+  // callbacks anew on every render, so the bubbles read them from here when
+  // one is used rather than compare them (message-bubble.tsx).
+  const actions = useRef<BubbleActions>({})
+  useLayoutEffect(() => {
+    actions.current = {
+      onReply,
+      onThread,
+      onReact,
+      onScrollToMessage,
+      onForward,
+      onDelete,
+      onSelectMessage,
+      onStartEdit,
+    }
+  })
+  const reply = Boolean(onReply)
+  const thread = Boolean(onThread)
+  const react = Boolean(onReact)
+  const quote = Boolean(onScrollToMessage)
+  const forward = Boolean(onForward)
+  const remove = Boolean(onDelete)
+  const select = Boolean(onSelectMessage)
+  const offers = useMemo<BubbleOffers>(
+    () => ({ reply, thread, react, quote, forward, remove, select }),
+    [reply, thread, react, quote, forward, remove, select]
+  )
 
   const scrollContainerRef = useRef<HTMLDivElement | null>(null)
   const messagesEndRef = useRef<HTMLDivElement | null>(null)
@@ -581,24 +587,6 @@ export function ChatMessageList({
                       {messageGroup.map((message, index) => {
                         const isSent = isCurrentUserMessage(message)
                         const isSelected = selectedIds?.has(message.id) ?? false
-                        const isDeleted = message.deleted === true
-                        // An encrypted message whose keys have not come shows
-                        // no content until they do.
-                        const isEncrypted =
-                          Boolean(message.encrypted) &&
-                          !message.body &&
-                          !message.attachments?.length
-                        // Photos in the bubble, its own or its thread's,
-                        // give it the photo column's width.
-                        const hasPhotos =
-                          attachmentsHaveVisualMedia(message.attachments) ||
-                          Boolean(
-                            onThread &&
-                            !isDeleted &&
-                            message.answers?.some((answer) =>
-                              attachmentsHaveVisualMedia(answer.attachments)
-                            )
-                          )
                         return (
                           <div
                             key={message.id}
@@ -735,285 +723,45 @@ export function ChatMessageList({
                                     </div>
                                   </div>
                                 ) : (
-                                  <Bubble
-                                    variant={isSent ? 'default' : 'muted'}
-                                    align={isSent ? 'end' : 'start'}
-                                    data-active={activeMessageId === message.id}
-                                    className={cn(
-                                      'transition-[opacity,transform,max-height] duration-300 ease-out',
-                                      isDeleted && 'scale-[0.97] opacity-60',
-                                      enteringMessageIds.has(message.id) &&
-                                        'animate-in fade-in-0 slide-in-from-bottom-2 fill-mode-backwards duration-200 ease-out',
-                                      !isSelecting &&
-                                        !isDeleted &&
-                                        message.reactions &&
-                                        Object.keys(message.reactions).length >
-                                          0 &&
-                                        'mb-4'
+                                  <MessageBubble
+                                    message={message}
+                                    quoted={
+                                      message.reply
+                                        ? messagesById.get(message.reply)
+                                        : undefined
+                                    }
+                                    isSent={isSent}
+                                    named={Boolean(
+                                      isGroupChat &&
+                                      !isSent &&
+                                      index === 0 &&
+                                      message.name
                                     )}
-                                  >
-                                    {isGroupChat &&
-                                    !isSent &&
-                                    index === 0 &&
-                                    message.name ? (
-                                      <span className='text-muted-foreground -mb-0.5 ml-1.5 text-xs font-semibold'>
-                                        {message.name}
-                                      </span>
-                                    ) : null}
-                                    <BubbleContent
-                                      className={cn(
-                                        (isDeleted || isEncrypted) &&
-                                          'text-muted-foreground border-dashed bg-transparent italic',
-                                        attachmentsNeedFixedMediaWidth(
-                                          message.attachments
-                                        ) &&
-                                          (message.body
-                                            ? 'w-fit max-w-[calc(100vw-4.5rem)] min-w-[min(17.5rem,calc(100vw-4.5rem))]'
-                                            : CHAT_MEDIA_BUBBLE_CLASS),
-                                        hasPhotos &&
-                                          CHAT_MEDIA_GRID_BUBBLE_CLASS,
-                                        message.attachments?.length &&
-                                          !message.body &&
-                                          'px-1.5 py-1.5'
-                                      )}
-                                    >
-                                      {isDeleted ? (
-                                        <p className='text-muted-foreground text-sm italic'>
-                                          <Trans>
-                                            This message was deleted
-                                          </Trans>
-                                        </p>
-                                      ) : isEncrypted ? (
-                                        <p className='text-muted-foreground text-sm italic'>
-                                          {message.encrypted === 3 ? (
-                                            <Trans>
-                                              Encrypted for other devices only
-                                            </Trans>
-                                          ) : (
-                                            <Trans>Encrypted message</Trans>
-                                          )}
-                                        </p>
-                                      ) : (
-                                        <>
-                                          {message.reply &&
-                                          onScrollToMessage ? (
-                                            <MessageQuote
-                                              quoted={messagesById.get(
-                                                message.reply
-                                              )}
-                                              isSent={isSent}
-                                              onClick={() =>
-                                                onScrollToMessage(
-                                                  message.reply!
-                                                )
-                                              }
-                                            />
-                                          ) : null}
-
-                                          {message.attachments?.length ? (
-                                            <MessageAttachments
-                                              attachments={message.attachments}
-                                              chatId={message.chat}
-                                              isSent={isSent}
-                                            />
-                                          ) : null}
-
-                                          {message.body ? (
-                                            <MessageBody
-                                              isSent={isSent}
-                                              className={
-                                                message.attachments?.length
-                                                  ? 'mt-2'
-                                                  : undefined
-                                              }
-                                            >
-                                              {(() => {
-                                                // 1. Parse mentions first
-                                                const mentionParts =
-                                                  message.body.split(
-                                                    /(@\[[^\]]+\])/g
-                                                  )
-                                                return mentionParts.map(
-                                                  (part, i) => {
-                                                    if (part.startsWith('@[')) {
-                                                      return (
-                                                        <span
-                                                          key={i}
-                                                          className={cn(
-                                                            'rounded-sm px-1 py-0.5 font-medium',
-                                                            isSent
-                                                              ? 'bg-primary-foreground/20 text-primary-foreground'
-                                                              : 'bg-primary/15 text-primary'
-                                                          )}
-                                                        >
-                                                          @{part.slice(2, -1)}
-                                                        </span>
-                                                      )
-                                                    }
-                                                    // 2. Apply search highlight to the plain text parts
-                                                    if (
-                                                      searchActive &&
-                                                      searchQuery.length >= 2 &&
-                                                      matchedMessageIds?.has(
-                                                        message.id
-                                                      )
-                                                    ) {
-                                                      return (
-                                                        <Fragment key={i}>
-                                                          {highlightSearchText(
-                                                            part,
-                                                            searchQuery,
-                                                            activeMatchId ===
-                                                              message.id
-                                                          )}
-                                                        </Fragment>
-                                                      )
-                                                    }
-                                                    return (
-                                                      <Fragment key={i}>
-                                                        {part}
-                                                      </Fragment>
-                                                    )
-                                                  }
-                                                )
-                                              })()}
-                                            </MessageBody>
-                                          ) : null}
-
-                                          {message.quote ? (
-                                            <QuoteCard
-                                              quote={message.quote}
-                                              className={cn(
-                                                'mt-2',
-                                                isSent &&
-                                                  'border-primary-foreground/20 bg-primary-foreground/10 text-primary-foreground'
-                                              )}
-                                            />
-                                          ) : null}
-                                        </>
-                                      )}
-                                      {/* The thread, in the message's own
-                                          bubble below a rule. */}
-                                      {onThread &&
-                                      message.answers?.length &&
-                                      !isDeleted ? (
-                                        <ThreadReplies
-                                          answers={message.answers}
-                                          isSent={isSent}
-                                          onOpen={() => onThread(message)}
-                                        />
-                                      ) : null}
-                                    </BubbleContent>
-
-                                    {!isSelecting && !isDeleted ? (
-                                      <BubbleReactions
-                                        align={isSent ? 'end' : 'start'}
-                                        className={cn(
-                                          'rounded-lg',
-                                          isSent
-                                            ? 'flex-row-reverse'
-                                            : 'flex-row',
-                                          !message.reactions ||
-                                            Object.keys(message.reactions)
-                                              .length === 0
-                                            ? actionPillExpandOpacityMap.bubble
-                                            : ''
-                                        )}
-                                      >
-                                        {message.reactions &&
-                                          Object.keys(message.reactions)
-                                            .length > 0 && (
-                                            <MessageReactionSummary
-                                              counts={message.reactions ?? {}}
-                                              activeReaction={message.reaction}
-                                            />
-                                          )}
-
-                                        <div
-                                          className={cn(
-                                            'flex items-center gap-0.5',
-                                            isSent
-                                              ? 'flex-row-reverse'
-                                              : 'flex-row',
-                                            message.reactions &&
-                                              Object.keys(message.reactions)
-                                                .length > 0
-                                              ? actionPillExpandMaxWidthMap
-                                                  .bubble[200]
-                                              : ''
-                                          )}
-                                        >
-                                          {onReact && (
-                                            <MessageReactionPicker
-                                              activeReaction={message.reaction}
-                                              onSelect={(reaction) =>
-                                                onReact(message.id, reaction)
-                                              }
-                                              isSent={isSent}
-                                              className='!opacity-100'
-                                            />
-                                          )}
-                                          {onReply && (
-                                            <MessageHoverActions
-                                              message={message}
-                                              onReply={onReply}
-                                              onThread={
-                                                onThread && !message.deleted
-                                                  ? () => onThread(message)
-                                                  : undefined
-                                              }
-                                              onSelect={
-                                                onSelectMessage
-                                                  ? () =>
-                                                      onSelectMessage(message)
-                                                  : undefined
-                                              }
-                                              onForward={
-                                                onForward
-                                                  ? () => onForward(message)
-                                                  : undefined
-                                              }
-                                              onDelete={
-                                                onDelete
-                                                  ? () => onDelete(message)
-                                                  : undefined
-                                              }
-                                              onEdit={
-                                                canEditMessage(message, isSent)
-                                                  ? () => onStartEdit?.(message)
-                                                  : undefined
-                                              }
-                                              canDelete={isSent}
-                                              canEdit={canEditMessage(
-                                                message,
-                                                isSent
-                                              )}
-                                              className='!opacity-100'
-                                            />
-                                          )}
-                                          <span className='text-muted-foreground/70 px-1 text-[10px] whitespace-nowrap'>
-                                            {formatTime(
-                                              new Date(message.created * 1000)
-                                            )}
-                                            {message.edited ? (
-                                              <span className='ml-1 italic'>
-                                                <Trans>(edited)</Trans>
-                                              </span>
-                                            ) : null}
-                                            {isSent && receipts && !message.deleted ? (
-                                              <ReceiptTick
-                                                state={receiptState(
-                                                  message,
-                                                  receipts,
-                                                  currentUserIdentity
-                                                )}
-                                              />
-                                            ) : null}
-                                          </span>
-                                        </div>
-                                      </BubbleReactions>
-                                    ) : null}
-                                  </Bubble>
+                                    active={activeMessageId === message.id}
+                                    entering={enteringMessageIds.has(
+                                      message.id
+                                    )}
+                                    isSelecting={isSelecting}
+                                    highlight={
+                                      searchActive &&
+                                      searchQuery.length >= 2 &&
+                                      matchedMessageIds?.has(message.id)
+                                        ? searchQuery
+                                        : ''
+                                    }
+                                    current={activeMatchId === message.id}
+                                    receipt={
+                                      isSent && receipts && !message.deleted
+                                        ? receiptState(
+                                            message,
+                                            receipts,
+                                            currentUserIdentity
+                                          )
+                                        : null
+                                    }
+                                    offers={offers}
+                                    actions={actions}
+                                  />
                                 )}
 
                                 {/* Hover actions moved to BubbleReactions */}
@@ -1105,28 +853,5 @@ export function ChatMessageList({
         </div>
       ) : null}
     </div>
-  )
-}
-
-/** The tick on the user's own message: one when sent, two when delivered,
- * two in the primary colour when read. */
-function ReceiptTick({ state }: { state: 'sent' | 'delivered' | 'read' }) {
-  const { t } = useLingui()
-  const label =
-    state === 'read'
-      ? t({ message: 'Read', context: 'receipt' })
-      : state === 'delivered'
-        ? t({ message: 'Delivered', context: 'receipt' })
-        : t({ message: 'Sent', context: 'receipt' })
-  const Icon = state === 'sent' ? Check : CheckCheck
-  return (
-    <Icon
-      role='img'
-      aria-label={label}
-      className={cn(
-        'ml-1 inline size-3 align-[-2px]',
-        state === 'read' && 'text-primary'
-      )}
-    />
   )
 }
