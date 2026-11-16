@@ -16,21 +16,43 @@ vi.mock('@tanstack/react-router', () => ({
   Outlet: () => null,
   useParams: () => ({}),
 }))
-// The sidebar is drawn by lib/web; here only its menu entries are wanted, as
-// plain buttons.
+// The sidebar is drawn by lib/web; here only its entries that act on a click
+// and their menu entries are wanted, as plain buttons, with what the layout
+// holds.
 vi.mock('@mochi/web', async (importOriginal) => ({
   ...(await importOriginal<typeof import('@mochi/web')>()),
-  AuthenticatedLayout: ({ sidebarData }: { sidebarData: SidebarData }) => (
+  AuthenticatedLayout: ({
+    sidebarData,
+    children,
+  }: {
+    sidebarData: SidebarData
+    children: ReactNode
+  }) => (
     <>
       {sidebarData.navGroups.flatMap((group) =>
-        group.items.flatMap((item) =>
-          ((item as { menu?: NavMenuItem[] }).menu ?? []).map((entry) => (
-            <button key={entry.title} onClick={entry.onClick}>
-              {entry.title}
-            </button>
-          ))
-        )
+        group.items.flatMap((item) => {
+          const entry = item as {
+            title: string
+            onClick?: () => void
+            menu?: NavMenuItem[]
+          }
+          return [
+            ...(entry.onClick
+              ? [
+                  <button key={'item ' + entry.title} onClick={entry.onClick}>
+                    {entry.title}
+                  </button>,
+                ]
+              : []),
+            ...(entry.menu ?? []).map((choice) => (
+              <button key={choice.title} onClick={choice.onClick}>
+                {choice.title}
+              </button>
+            )),
+          ]
+        })
       )}
+      {children}
     </>
   ),
 }))
@@ -61,6 +83,10 @@ vi.mock('@/features/chats/components/verification-watcher', () => ({
   VerificationWatcher: () => null,
 }))
 vi.mock('./chat-list-filters', () => ({ ChatListFilters: () => null }))
+vi.mock('@/features/chats/components/chat-settings-dialog', () => ({
+  ChatSettingsDialog: ({ open }: { open: boolean }) =>
+    open ? <div>Privacy settings</div> : null,
+}))
 
 // Mark as read from the chat's menu clears the badge on the click. That is
 // the instant flag; without it the hook waits for the server, which is right
@@ -80,5 +106,20 @@ describe('ChatLayout Mark as read', () => {
     await waitFor(() =>
       expect(markRead).toHaveBeenCalledWith({ chatId: 'c1', instant: true })
     )
+  })
+})
+
+// Who may start a chat and what the user shares are for every chat at once, so
+// they are reached from the sidebar, open chat or none.
+describe('ChatLayout Privacy', () => {
+  it('opens the privacy settings from the sidebar', async () => {
+    render(
+      <I18nProvider i18n={i18n}>
+        <ChatLayout />
+      </I18nProvider>
+    )
+    expect(screen.queryByText('Privacy settings')).toBeNull()
+    fireEvent.click(await screen.findByRole('button', { name: 'Privacy' }))
+    expect(await screen.findByText('Privacy settings')).toBeTruthy()
   })
 })

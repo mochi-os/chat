@@ -53,6 +53,10 @@ import {
   attachmentsHaveVisualMedia,
   attachmentsNeedFixedMediaWidth,
 } from '../utils/chat-media-size'
+import {
+  collapseEarlierHistory,
+  isEarlierHistory,
+} from '../utils/encryption'
 import { highlightSearchText } from '../utils/highlight-search-text'
 import { receiptState, seenBy } from '../utils/receipts'
 import { MessageAttachments } from './message-attachments'
@@ -78,7 +82,14 @@ function groupMessagesBySender(messages: ChatMessage[]) {
   let currentSenderId: string | null = null
 
   for (const msg of messages) {
-    if (msg.member !== currentSenderId) {
+    // History from before the account was added to Mochi stands alone, as
+    // one line for its run.
+    if (isEarlierHistory(msg)) {
+      if (currentGroup.length > 0) groups.push(currentGroup)
+      groups.push([msg])
+      currentGroup = []
+      currentSenderId = null
+    } else if (msg.member !== currentSenderId) {
       if (currentGroup.length > 0) groups.push(currentGroup)
       currentGroup = [msg]
       currentSenderId = msg.member
@@ -325,7 +336,7 @@ export function ChatMessageList({
   // Group messages by date
   const groupedMessages = useMemo(() => {
     const groups: Record<string, ChatMessage[]> = {}
-    chatMessages.forEach((message) => {
+    collapseEarlierHistory(chatMessages).forEach((message) => {
       const d = new Date(message.created * 1000)
       const date = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`
       if (!groups[date]) {
@@ -545,6 +556,19 @@ export function ChatMessageList({
 
               {groupMessagesBySender(groupedMessages[key]).map(
                 (messageGroup) => {
+                  if (isEarlierHistory(messageGroup[0])) {
+                    return (
+                      <p
+                        key={messageGroup[0].id}
+                        className='text-muted-foreground mb-4 text-center text-xs italic'
+                      >
+                        <Trans>
+                          Messages from before this account was added to Mochi
+                          are encrypted and can't be read here
+                        </Trans>
+                      </p>
+                    )
+                  }
                   const isSentGroup = isCurrentUserMessage(messageGroup[0])
                   return (
                     <BubbleGroup
@@ -761,7 +785,13 @@ export function ChatMessageList({
                                         </p>
                                       ) : isEncrypted ? (
                                         <p className='text-muted-foreground text-sm italic'>
-                                          <Trans>Encrypted message</Trans>
+                                          {message.encrypted === 3 ? (
+                                            <Trans>
+                                              Encrypted for other devices only
+                                            </Trans>
+                                          ) : (
+                                            <Trans>Encrypted message</Trans>
+                                          )}
                                         </p>
                                       ) : (
                                         <>
