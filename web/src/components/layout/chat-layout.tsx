@@ -17,11 +17,21 @@ import {
   type NavMenuItem,
   type SidebarData,
 } from '@mochi/web'
-import { CheckCheck, Globe, Mail, Pin, PinOff, Plus, Users } from 'lucide-react'
+import {
+  CheckCheck,
+  Globe,
+  Mail,
+  Pin,
+  PinOff,
+  Plus,
+  Shield,
+  Users,
+} from 'lucide-react'
 import { personAssetUrl } from '@/api/person'
 import { chatActive } from '@/api/types/chats'
 import { SidebarProvider, useSidebarContext } from '@/context/sidebar-context'
 import { useChatsQuery, useMarkChatReadMutation } from '@/hooks/useChats'
+import { ChatSettingsDialog } from '@/features/chats/components/chat-settings-dialog'
 import { NewChat } from '@/features/chats/components/new-chat'
 import { VerificationWatcher } from '@/features/chats/components/verification-watcher'
 import { formatCountBadge } from '@/features/chats/utils'
@@ -175,6 +185,7 @@ function ChatLayoutInner() {
   const { mutateAsync: markChatReadAsync } = useMarkChatReadMutation()
 
   const [search, setSearch] = useState('')
+  const [privacyOpen, setPrivacyOpen] = useState(false)
   const [filter, setFilter] = useState<ChatFilter>('all')
 
   const unreadCount = useMemo(
@@ -334,6 +345,14 @@ function ChatLayoutInner() {
               onClick: openNewChatDialog,
               icon: Plus,
             },
+            // Who may start a chat with the user and what they share, for
+            // every chat at once: here, not in any one chat's menu.
+            {
+              id: 'privacy',
+              title: t`Privacy`,
+              onClick: () => setPrivacyOpen(true),
+              icon: Shield,
+            },
           ],
         },
       ],
@@ -374,6 +393,7 @@ function ChatLayoutInner() {
       <VerificationWatcher
         enabled={chats.some((chat) => chat.network === 'matrix')}
       />
+      <ChatSettingsDialog open={privacyOpen} onOpenChange={setPrivacyOpen} />
     </AuthenticatedLayout>
   )
 }
