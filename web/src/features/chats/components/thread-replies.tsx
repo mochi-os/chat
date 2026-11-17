@@ -14,8 +14,8 @@ interface ThreadRepliesProps {
   onOpen: () => void
 }
 
-/** A message's thread inside its own bubble: each reply below a rule, with
- * who wrote it, opening the thread. */
+/** A message's thread inside its own bubble: every reply below a rule, with
+ * who wrote it, each folded to a few lines, opening the thread. */
 export function ThreadReplies({ answers, isSent, onOpen }: ThreadRepliesProps) {
   return (
     <>
@@ -34,7 +34,9 @@ export function ThreadReplies({ answers, isSent, onOpen }: ThreadRepliesProps) {
               {answer.name}
             </span>
             {answer.body ? (
-              <span className='block whitespace-pre-wrap'>
+              // Folded as the message's own body folds at 10 lines, but
+              // shorter: the whole reply is one tap away in the thread.
+              <span className='line-clamp-4 whitespace-pre-wrap'>
                 {answer.body.replace(/@\[([^\]]+)\]/g, '@$1')}
               </span>
             ) : answer.encrypted && !answer.attachments?.length ? (

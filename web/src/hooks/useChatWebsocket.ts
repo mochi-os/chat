@@ -403,6 +403,14 @@ const addThreadReply = (
   )
 }
 
+// A reaction, edit or deletion may be on a reply in a thread. The patches above
+// reach the main timeline and the replies in a root's bubble; the open thread
+// panel reads its own query, which is read again. A thread not open is only
+// marked stale.
+const refreshThreads = (chatId: string, queryClient: QueryClient) => {
+  void queryClient.invalidateQueries({ queryKey: chatKeys.threads(chatId) })
+}
+
 export const handleWebsocketEvent = (
   chatId: string,
   payload: NormalizedChatWebsocketMessagePayload,
@@ -423,12 +431,15 @@ export const handleWebsocketEvent = (
           queryClient,
           currentUserId
         )
+        refreshThreads(chatId, queryClient)
         return 'reaction'
       case 'delete':
         markMessageDeletedFromWebsocket(chatId, payload, queryClient)
+        refreshThreads(chatId, queryClient)
         return 'event'
       case 'edit':
         patchMessageEditFromWebsocket(chatId, payload, queryClient)
+        refreshThreads(chatId, queryClient)
         return 'event'
       case 'decrypted':
         // A message whose keys came: its text and files are read again.

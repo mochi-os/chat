@@ -29,7 +29,8 @@ import type { ChatMessage } from '@/api/chats'
 
 interface MessageHoverActionsProps {
   message: ChatMessage
-  onReply: (message: ChatMessage) => void
+  // Absent where a quoted reply is not offered, as in a thread.
+  onReply?: (message: ChatMessage) => void
   onThread?: () => void
   onSelect?: () => void
   onForward?: () => void
@@ -125,15 +126,17 @@ export function MessageHoverActions({
               {t`Edit`}
             </DropdownMenuItem>
           ) : null}
-          <DropdownMenuItem
-            onSelect={() => {
-              replyingRef.current = true
-              onReply(message)
-            }}
-          >
-            <Reply className='me-2 size-3.5' />
-            {t`Reply`}
-          </DropdownMenuItem>
+          {onReply ? (
+            <DropdownMenuItem
+              onSelect={() => {
+                replyingRef.current = true
+                onReply(message)
+              }}
+            >
+              <Reply className='me-2 size-3.5' />
+              {t`Reply`}
+            </DropdownMenuItem>
+          ) : null}
           {onThread ? (
             <DropdownMenuItem onSelect={onThread}>
               <MessagesSquare className='me-2 size-3.5' />

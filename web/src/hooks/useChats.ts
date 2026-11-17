@@ -52,6 +52,8 @@ export const chatKeys = {
   messages: (chatId: string) => ['chats', chatId, 'messages'] as const,
   thread: (chatId: string, root: string) =>
     ['chats', chatId, 'thread', root] as const,
+  // Every thread of a conversation, whichever is open.
+  threads: (chatId: string) => ['chats', chatId, 'thread'] as const,
   presence: (chatId: string) => ['chats', chatId, 'presence'] as const,
   newChat: () => ['chats', 'new'] as const,
   preferences: () => ['chats', 'preferences'] as const,

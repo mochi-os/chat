@@ -851,6 +851,10 @@ export function Chats() {
       )
       setDeleteTargetIds(null)
       clearSelection()
+      // The deleted message may be a reply in the open thread.
+      void queryClient.invalidateQueries({
+        queryKey: chatKeys.threads(selectedChat.id),
+      })
     } catch {
       // toastAction already showed error
     }
@@ -1633,6 +1637,10 @@ export function Chats() {
           currentUserIdentity={currentUserIdentity}
           canWrite={chatActive(selectedChat)}
           onClose={() => setThreadRoot(null)}
+          onForward={(message) => requestForward([message.id])}
+          // A reply is not on the main timeline that requestDelete reads, and
+          // the panel offers delete on the user's own replies alone.
+          onDelete={(message) => setDeleteTargetIds([message.id])}
         />
       ) : null}
 

@@ -14,6 +14,11 @@ import { ThreadPanel } from './thread-panel'
 const calls = vi.hoisted(() => ({
   send: vi.fn(),
   error: vi.fn(),
+  edit: vi.fn(),
+  forward: vi.fn(),
+  remove: vi.fn(),
+  // The thread's replies, as its query answers them.
+  replies: [] as unknown[],
 }))
 
 vi.mock('@mochi/web', async (importOriginal) => {
@@ -26,7 +31,7 @@ vi.mock('@mochi/web', async (importOriginal) => {
     SidePanelTitle: Pass,
     SidePanelBody: Pass,
     SidePanelFooter: Pass,
-    useFormat: () => ({ formatTimestamp: String }),
+    useFormat: () => ({ formatTimestamp: String, formatNumber: String }),
     toast: { error: calls.error },
   }
 })
@@ -37,8 +42,9 @@ vi.mock('@/hooks/useChats', () => ({
   chatKeys: {
     thread: (chat: string, root: string) => ['chats', chat, 'thread', root],
   },
+  useEditMessageMutation: () => ({ mutate: calls.edit, isPending: false }),
   useThreadMessagesQuery: () => ({
-    data: { pages: [] },
+    data: { pages: [{ messages: calls.replies }] },
     isLoading: false,
     error: null,
     hasNextPage: false,
@@ -66,6 +72,8 @@ function setup() {
           currentUserIdentity='me'
           canWrite
           onClose={() => {}}
+          onForward={calls.forward}
+          onDelete={calls.remove}
         />
       </I18nProvider>
     </QueryClientProvider>
@@ -76,6 +84,10 @@ function setup() {
 
 describe('ThreadPanel', () => {
   beforeEach(() => {
+    calls.replies = []
+    calls.edit.mockReset()
+    calls.forward.mockReset()
+    calls.remove.mockReset()
     calls.send.mockReset()
     calls.error.mockReset()
   })
@@ -118,5 +130,74 @@ describe('ThreadPanel', () => {
     expect(calls.error).toHaveBeenCalledWith('Message is too long')
     expect(calls.send).not.toHaveBeenCalled()
     expect(invalidate).not.toHaveBeenCalled()
+  })
+
+  const reply = (id: string, member: string, body: string) =>
+    ({
+      id,
+      chat: 'c1',
+      member,
+      name: member === 'me' ? 'Me' : 'Tien',
+      body,
+      created: 2,
+      thread: 'r1',
+    }) as ChatMessage
+
+  // Radix opens a menu from the keyboard; jsdom has no pointer events.
+  const menu = (index: number) =>
+    fireEvent.keyDown(
+      screen.getAllByRole('button', { name: 'Message actions' })[index],
+      { key: 'Enter' }
+    )
+
+  it("offers the timeline's actions on a reply, and none on the root", () => {
+    calls.replies = [reply('a1', 'me', 'Mine'), reply('a2', 'tien', 'Theirs')]
+    setup()
+    // THE POINT: one menu per reply; the root's actions are on its bubble.
+    expect(
+      screen.getAllByRole('button', { name: 'Message actions' })
+    ).toHaveLength(2)
+    menu(0)
+    expect(screen.getByRole('menuitem', { name: 'Edit' })).toBeInTheDocument()
+    fireEvent.click(screen.getByRole('menuitem', { name: 'Delete' }))
+    expect(calls.remove).toHaveBeenCalledWith(calls.replies[0])
+  })
+
+  it("lets the user forward another member's reply but not edit or delete it", () => {
+    calls.replies = [reply('a2', 'tien', 'Theirs')]
+    setup()
+    menu(0)
+    expect(screen.queryByRole('menuitem', { name: 'Edit' })).toBeNull()
+    expect(screen.queryByRole('menuitem', { name: 'Delete' })).toBeNull()
+    fireEvent.click(screen.getByRole('menuitem', { name: 'Forward' }))
+    expect(calls.forward).toHaveBeenCalledWith(calls.replies[0])
+  })
+
+  it('edits a reply in place', () => {
+    calls.replies = [reply('a1', 'me', 'Mine')]
+    setup()
+    menu(0)
+    fireEvent.click(screen.getByRole('menuitem', { name: 'Edit' }))
+    fireEvent.change(screen.getByRole('textbox', { name: 'Edit' }), {
+      target: { value: 'Mine, edited' },
+    })
+    fireEvent.click(screen.getByRole('button', { name: 'Save' }))
+    expect(calls.edit).toHaveBeenCalledWith({
+      chatId: 'c1',
+      messageId: 'a1',
+      body: 'Mine, edited',
+    })
+  })
+
+  it("holds a reply's reactions and actions in the timeline's pill", () => {
+    calls.replies = [
+      { ...reply('a1', 'tien', 'Theirs'), reactions: { like: 2 } },
+    ]
+    setup()
+    const pill = screen
+      .getByRole('button', { name: 'Message actions' })
+      .closest('[data-slot="bubble-reactions"]')
+    expect(pill).not.toBeNull()
+    expect(pill).toHaveTextContent('2')
   })
 })

@@ -382,6 +382,13 @@ describe('signals and threads (phase 22)', () => {
     expect(root(client).replies).toBe(1)
     expect(root(client).latest).toBe(4)
     expect(root(client).deleted).toBeUndefined()
-    expect(invalidate).not.toHaveBeenCalled()
+    // The conversation is not read again; an open thread is, as the deleted
+    // reply is in its own query.
+    expect(invalidate).not.toHaveBeenCalledWith({
+      queryKey: ['chats', 'c1', 'messages'],
+    })
+    expect(invalidate).toHaveBeenCalledWith({
+      queryKey: ['chats', 'c1', 'thread'],
+    })
   })
 })
