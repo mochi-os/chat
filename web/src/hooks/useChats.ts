@@ -2,7 +2,6 @@
 // SPDX-License-Identifier: AGPL-3.0-only
 // This file is part of Mochi, licensed under the GNU AGPL v3 with the
 // Mochi Application Interface Exception - see license.txt and license-exception.md.
-import type { AxiosProgressEvent } from 'axios'
 import {
   useMutation,
   useQueryClient,
@@ -16,6 +15,7 @@ import {
   type FieldsPlace,
   useQueryWithError,
   useInfiniteQueryWithError,
+  type TransferProgress,
 } from '@mochi/web'
 import {
   chatsApi,
@@ -195,7 +195,7 @@ export const useChatPresenceQuery = (chatId?: string, enabled = true) =>
 interface SendMessageVariables extends SendMessageRequest {
   chatId: string
   /** Byte-progress callback threaded through to the attachment upload */
-  onProgress?: (event: AxiosProgressEvent) => void
+  onProgress?: (event: TransferProgress) => void
 }
 
 // How long the websocket gets to deliver the sender's own message before the
