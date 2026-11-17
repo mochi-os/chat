@@ -213,12 +213,25 @@ function fold(value: string): string {
  */
 export type SendRefusal = 'empty' | 'length'
 
+const encoder = new TextEncoder()
+
+/**
+ * A message body's size as the server measures it. Starlark's len() counts
+ * UTF-8 bytes, and String.length counts UTF-16 units, so a body of Cyrillic,
+ * Chinese or emoji passed here and was refused there. The client counts bytes
+ * rather than the server counting characters, since every member's server
+ * applies the same byte limit to what it receives, older ones included.
+ */
+export function messageSize(text: string): number {
+  return encoder.encode(text).length
+}
+
 export function sendRefusal(
   text: string,
   attachments: number,
   maximum: number
 ): SendRefusal | null {
-  if (text.length > maximum) return 'length'
+  if (messageSize(text) > maximum) return 'length'
   if (!text.trim() && attachments === 0) return 'empty'
   return null
 }

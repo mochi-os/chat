@@ -108,6 +108,7 @@ import {
   createPendingAudioAttachment,
   createPendingVoiceNote,
   probeAudioDuration,
+  messageSize,
   revokePendingAttachmentPreview,
   sendRefusal,
   resolveChatView,
@@ -190,7 +191,7 @@ export function Chats() {
   // The layout route's beforeLoad already awaited the store's initialize;
   // calling it again here re-ran the shell handshake on every mount.
   const { identity: currentUserIdentity } = useAuthStore()
-  const { formatNumber, formatTimestamp, formatList } = useFormat()
+  const { formatTimestamp, formatList } = useFormat()
 
   // URL param
   const params = useParams({ strict: false }) as { chatId?: string }
@@ -744,7 +745,7 @@ export function Chats() {
 
     const body = editingBody.trim()
     if (!body) return
-    if (body.length > MESSAGE_MAX_LENGTH) return
+    if (messageSize(body) > MESSAGE_MAX_LENGTH) return
     if (body === editingMessage.body?.trim()) {
       handleCancelEdit()
       return
@@ -1144,9 +1145,7 @@ export function Chats() {
       return
     }
     if (refusal === 'length') {
-      toast.error(
-        t`Message is ${formatNumber(newMessage.length - MESSAGE_MAX_LENGTH)} characters too long`
-      )
+      toast.error(t`Message is too long`)
       return
     }
 
@@ -1242,7 +1241,7 @@ export function Chats() {
     (isEditingSaving ||
       !editingBody.trim() ||
       editingBody.trim() === editingMessage.body?.trim() ||
-      editingBody.length > MESSAGE_MAX_LENGTH)
+      messageSize(editingBody.trim()) > MESSAGE_MAX_LENGTH)
 
   const isSendDisabled = !canSendMessage
 

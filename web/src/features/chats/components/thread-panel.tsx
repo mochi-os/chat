@@ -22,6 +22,8 @@ import {
 import { Send } from 'lucide-react'
 import { chatsApi, type ChatMessage } from '@/api/chats'
 import { chatKeys, useThreadMessagesQuery } from '@/hooks/useChats'
+import { MESSAGE_MAX_LENGTH } from '../constants/limits'
+import { messageSize } from '../utils'
 import { MessageAttachments } from './message-attachments'
 import { MessageBody } from './message-body'
 
@@ -55,20 +57,23 @@ export function ThreadPanel({
   )
   const [body, setBody] = useState('')
 
+  // The thread travels with the send rather than being read from root, which
+  // is null once the panel closes and another message once a different thread
+  // opens: the grace check below runs after both can have happened.
   const send = useMutation({
-    mutationFn: (text: string) =>
-      chatsApi.sendMessage(chatId, { body: text, thread: root!.id }),
-    onSuccess: (data) => {
+    mutationFn: ({ text, thread }: { text: string; thread: string }) =>
+      chatsApi.sendMessage(chatId, { body: text, thread }),
+    onSuccess: (data, { thread }) => {
       setBody('')
       window.setTimeout(() => {
         const delivered = queryClient
           .getQueryData<{ pages: { messages: ChatMessage[] }[] }>(
-            chatKeys.thread(chatId, root!.id)
+            chatKeys.thread(chatId, thread)
           )
           ?.pages.some((page) => page.messages.some((m) => m.id === data.id))
         if (!delivered) {
           void queryClient.invalidateQueries({
-            queryKey: chatKeys.thread(chatId, root!.id),
+            queryKey: chatKeys.thread(chatId, thread),
           })
         }
       }, SOCKET_DELIVERY_GRACE)
@@ -81,8 +86,13 @@ export function ThreadPanel({
   const submit = (event: React.FormEvent) => {
     event.preventDefault()
     const text = body.trim()
-    if (!text || send.isPending) return
-    send.mutate(text)
+    if (!text || !root || send.isPending) return
+    // The main composer's rule: the server measures the body in bytes.
+    if (messageSize(text) > MESSAGE_MAX_LENGTH) {
+      toast.error(t`Message is too long`)
+      return
+    }
+    send.mutate({ text, thread: root.id })
   }
 
   return (

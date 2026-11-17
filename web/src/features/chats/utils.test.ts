@@ -7,6 +7,7 @@ import {
   formatCountBadge,
   matrixAddress,
   resolveChatView,
+  messageSize,
   sendRefusal,
   xmppAddress,
 } from './utils'
@@ -24,6 +25,23 @@ describe('sendRefusal', () => {
     expect(sendRefusal('', 1, 10)).toBeNull()
     expect(sendRefusal('hello', 0, 10)).toBeNull()
     expect(sendRefusal('a'.repeat(10), 0, 10)).toBeNull()
+  })
+
+  it('measures in UTF-8 bytes, as the server does', () => {
+    // 6 Cyrillic letters are 12 bytes, 4 Chinese characters 12, 3 emoji 12.
+    expect(sendRefusal('привет', 0, 10)).toBe('length')
+    expect(sendRefusal('你好世界', 0, 10)).toBe('length')
+    expect(sendRefusal('😀😀😀', 0, 10)).toBe('length')
+    expect(sendRefusal('привет', 0, 12)).toBeNull()
+  })
+})
+
+describe('messageSize', () => {
+  it('counts UTF-8 bytes, not UTF-16 units', () => {
+    expect(messageSize('abc')).toBe(3)
+    expect(messageSize('é')).toBe(2)
+    expect(messageSize('你')).toBe(3)
+    expect(messageSize('😀')).toBe(4)
   })
 })
 

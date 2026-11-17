@@ -57,13 +57,14 @@ import {
   Image as ImageIcon,
 } from 'lucide-react'
 import { MESSAGE_MAX_LENGTH } from '../constants/limits'
-import type { PendingAttachment } from '../utils'
+import { messageSize, type PendingAttachment } from '../utils'
 import type { ReplyTarget } from '../utils/reply'
 import { VoiceNotePlayer } from './audio-player'
 import { ReplyQuoteContent } from './reply-quote-content'
 import { VoiceWaveform } from './voice-waveform'
 
-/** Character count appears this close to the limit, not before. */
+/** The size counter appears this close to the limit, not before. It counts
+ *  UTF-8 bytes, the server's measure, so it carries no unit. */
 const MESSAGE_COUNTER_FROM = MESSAGE_MAX_LENGTH - 500
 
 /** Soft cap for voice notes — auto-stop and keep the clip. */
@@ -145,6 +146,7 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(
     const stoppingRef = useRef(false)
     const startingRef = useRef(false)
     const autoStoppedRef = useRef(false)
+    const size = messageSize(newMessage)
     /** True after unmount — mic starts resolving late must cancel, not record. */
     const disposedRef = useRef(false)
     const stopRecordingRef = useRef<(cancel?: boolean) => Promise<void>>(
@@ -876,18 +878,18 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(
         {isSending && <UploadProgress progress={sendProgress ?? null} />}
         {/* Shown only as the limit approaches, so it isn't noise on every
           message, and turns red once the send is actually blocked. */}
-        {newMessage.length >= MESSAGE_COUNTER_FROM && (
+        {size >= MESSAGE_COUNTER_FROM && (
           <p
             className={cn(
               'w-full pe-2 text-end text-xs tabular-nums',
-              newMessage.length > MESSAGE_MAX_LENGTH
+              size > MESSAGE_MAX_LENGTH
                 ? 'text-destructive'
                 : 'text-muted-foreground'
             )}
           >
-            {newMessage.length > MESSAGE_MAX_LENGTH
-              ? t`Message is ${formatNumber(newMessage.length - MESSAGE_MAX_LENGTH)} characters too long`
-              : `${formatNumber(newMessage.length)}/${formatNumber(MESSAGE_MAX_LENGTH)}`}
+            {size > MESSAGE_MAX_LENGTH
+              ? t`Message is too long`
+              : `${formatNumber(size)}/${formatNumber(MESSAGE_MAX_LENGTH)}`}
           </p>
         )}
         {sendMessageErrorMessage && (
