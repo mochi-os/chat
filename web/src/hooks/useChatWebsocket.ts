@@ -368,7 +368,10 @@ const addThreadReply = (
       const [newest, ...rest] = current.pages
       return {
         ...current,
-        pages: [{ ...newest, messages: [...newest.messages, message] }, ...rest],
+        pages: [
+          { ...newest, messages: [...newest.messages, message] },
+          ...rest,
+        ],
       }
     }
   )
@@ -516,11 +519,7 @@ export const appendMessageToCache = (
 
   if (typeof payload.member === 'string') typingClear(chatId, payload.member)
 
-  const incoming = createMessageFromPayload(
-    chatId,
-    payload,
-    unknownSenderLabel
-  )
+  const incoming = createMessageFromPayload(chatId, payload, unknownSenderLabel)
   if (incoming.thread) {
     addThreadReply(chatId, incoming, queryClient)
     return

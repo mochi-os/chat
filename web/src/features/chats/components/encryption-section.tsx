@@ -2,16 +2,14 @@
 // SPDX-License-Identifier: AGPL-3.0-only
 // This file is part of Mochi, licensed under the GNU AGPL v3 with the
 // Mochi Application Interface Exception - see license.txt and license-exception.md.
-
 // A Matrix or XMPP conversation's encryption, which the server holds the
 // device for: the device's fingerprints, the people's devices and the user's
 // word on each, and on Matrix comparing emoji with someone and the account's
 // recovery key.
-
 import { useState } from 'react'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
-import { Trans, useLingui } from '@lingui/react/macro'
 import { plural } from '@lingui/core/macro'
+import { Trans, useLingui } from '@lingui/react/macro'
 import {
   Button,
   DataChip,
@@ -121,7 +119,9 @@ export function EncryptionSection({ chatId }: { chatId: string }) {
       <DeviceRows status={status} />
       <PersonDevices
         chatId={chatId}
-        person={status.network === 'xmpp' ? 'xmpp:' + status.address : status.address}
+        person={
+          status.network === 'xmpp' ? 'xmpp:' + status.address : status.address
+        }
         name={t`Your other devices`}
         matrix={matrix}
         own
@@ -171,7 +171,10 @@ function DeviceRows({ status }: { status: EncryptionStatus }) {
                 : t`This device (OMEMO)`
             }
           >
-            <DataChip value={fingerprintGroups(f.fingerprint)} truncate='none' />
+            <DataChip
+              value={fingerprintGroups(f.fingerprint)}
+              truncate='none'
+            />
           </FieldRow>
         ))}
       </>
@@ -245,7 +248,8 @@ function PersonDevices({
               void toastAction(verify.mutateAsync(), {
                 loading: t`Asking to compare emoji...`,
                 success: t`Waiting for them to accept`,
-                error: (e) => getErrorMessage(e, t`The verification could not be started`),
+                error: (e) =>
+                  getErrorMessage(e, t`The verification could not be started`),
               }).catch(() => undefined)
             }
           >
@@ -310,7 +314,11 @@ function DeviceRow({
       }),
   })
   const tone =
-    trust === 'verified' ? 'success' : trust === 'distrusted' ? 'danger' : 'neutral'
+    trust === 'verified'
+      ? 'success'
+      : trust === 'distrusted'
+        ? 'danger'
+        : 'neutral'
   const label =
     trust === 'verified'
       ? t`Verified`
@@ -328,7 +336,10 @@ function DeviceRow({
     <div className='flex min-w-0 flex-wrap items-center gap-2'>
       <span className='text-sm font-medium'>{device.name || device.id}</span>
       {device.fingerprint ? (
-        <DataChip value={fingerprintGroups(device.fingerprint)} truncate='none' />
+        <DataChip
+          value={fingerprintGroups(device.fingerprint)}
+          truncate='none'
+        />
       ) : null}
       <StatusPill tone={tone}>{label}</StatusPill>
       <DropdownMenu>
@@ -415,7 +426,9 @@ function SetupDialog({
             </ResponsiveDialogDescription>
           ) : asked ? (
             <ResponsiveDialogDescription>
-              <Trans>Your Matrix server asks for your account's password.</Trans>
+              <Trans>
+                Your Matrix server asks for your account's password.
+              </Trans>
             </ResponsiveDialogDescription>
           ) : null}
         </ResponsiveDialogHeader>

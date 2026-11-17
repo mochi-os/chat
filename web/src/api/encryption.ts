@@ -2,11 +2,9 @@
 // SPDX-License-Identifier: AGPL-3.0-only
 // This file is part of Mochi, licensed under the GNU AGPL v3 with the
 // Mochi Application Interface Exception - see license.txt and license-exception.md.
-
 // The encryption of conversations on Matrix and XMPP accounts, whose devices
 // the server holds: the account's device, the people's devices and the
 // user's word on them, Matrix's emoji verification, and its recovery key.
-
 import { createAppClient } from '@mochi/web'
 
 const client = createAppClient({ appName: 'chat' })
@@ -75,11 +73,7 @@ export interface Verification {
 }
 
 export type VerificationAction =
-  | 'accept'
-  | 'start'
-  | 'confirm'
-  | 'mismatch'
-  | 'cancel'
+  'accept' | 'start' | 'confirm' | 'mismatch' | 'cancel'
 
 export const encryptionApi = {
   overview: (chatId: string) =>

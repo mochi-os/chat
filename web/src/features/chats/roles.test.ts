@@ -2,8 +2,8 @@
 // SPDX-License-Identifier: AGPL-3.0-only
 // This file is part of Mochi, licensed under the GNU AGPL v3 with the
 // Mochi Application Interface Exception - see license.txt and license-exception.md.
-import { beforeEach, describe, expect, it } from 'vitest'
 import { i18n } from '@lingui/core'
+import { beforeEach, describe, expect, it } from 'vitest'
 import { roleLabel } from './roles'
 
 describe('roleLabel', () => {

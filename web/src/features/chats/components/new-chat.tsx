@@ -42,12 +42,10 @@ import {
   CREATE_NON_FRIENDS_MAX,
 } from '../constants/limits'
 
-
 // The networks a linked account is on, by the names they go by: brand and
 // protocol names, the same in every language.
 const NETWORK_NAMES: Partial<Record<ChatNetwork, string>> = {
   xmpp: 'XMPP',
-  // eslint-disable-next-line lingui/no-unlocalized-strings -- a network's name
   matrix: 'Matrix',
   // eslint-disable-next-line lingui/no-unlocalized-strings -- a network's name
   mastodon: 'Mastodon',
@@ -65,6 +63,7 @@ const ADDRESS_FORMS: Record<ChatNetwork, string> = {
 // friends, so a friend request is the way in. It names the one person picked
 // who is not a friend - a friend may always be chatted with - and no one
 // where several were, as the refusal does not say which.
+// eslint-disable-next-line react-refresh/only-export-components
 export function refusal(
   error: unknown,
   strangers: string[]
@@ -74,6 +73,7 @@ export function refusal(
 }
 
 // The person's page in People, where a friend request is one tap.
+// eslint-disable-next-line react-refresh/only-export-components
 export function friendRequest(person: string): string {
   return `/people/${encodeURIComponent(person)}`
 }
@@ -231,8 +231,7 @@ export function NewChat() {
   const hasExistingDirectChat =
     selectedFriends.length === 1 && existingChats.length === 1
   const canSubmit = account
-    ? addressList.length > 0 &&
-      (addressList.length === 1 || isChatNameValid)
+    ? addressList.length > 0 && (addressList.length === 1 || isChatNameValid)
     : selectedFriends.length > 0 && isChatNameValid && !hasExistingDirectChat
 
   const handleCreateChat = async () => {

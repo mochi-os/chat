@@ -2,12 +2,10 @@
 // SPDX-License-Identifier: AGPL-3.0-only
 // This file is part of Mochi, licensed under the GNU AGPL v3 with the
 // Mochi Application Interface Exception - see license.txt and license-exception.md.
-
 // Matrix's emoji verification, which the server runs for the device it holds
 // on each of the user's Matrix accounts: a request from someone or from the
 // user's other clients, the emoji to compare, and how it ended. Read while
 // the user has a Matrix conversation; often while one is under way.
-
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { Trans, useLingui } from '@lingui/react/macro'
@@ -97,7 +95,9 @@ export function VerificationWatcher({ enabled }: { enabled: boolean }) {
           </ResponsiveDialogTitle>
           {shown.phase === 'compare' ? (
             <ResponsiveDialogDescription>
-              <Trans>Check that the same emoji appear on the other screen.</Trans>
+              <Trans>
+                Check that the same emoji appear on the other screen.
+              </Trans>
             </ResponsiveDialogDescription>
           ) : shown.phase === 'requested' && !shown.started ? (
             <ResponsiveDialogDescription>
@@ -143,7 +143,11 @@ export function VerificationWatcher({ enabled }: { enabled: boolean }) {
             </>
           ) : shown.phase === 'requested' && !shown.started ? (
             <>
-              <Button variant='outline' onClick={close} disabled={act.isPending}>
+              <Button
+                variant='outline'
+                onClick={close}
+                disabled={act.isPending}
+              >
                 <Trans>Decline</Trans>
               </Button>
               <Button
@@ -156,7 +160,11 @@ export function VerificationWatcher({ enabled }: { enabled: boolean }) {
             </>
           ) : shown.phase === 'ready' ? (
             <>
-              <Button variant='outline' onClick={close} disabled={act.isPending}>
+              <Button
+                variant='outline'
+                onClick={close}
+                disabled={act.isPending}
+              >
                 <Trans>Cancel</Trans>
               </Button>
               <Button

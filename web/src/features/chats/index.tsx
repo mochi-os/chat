@@ -278,8 +278,7 @@ export function Chats() {
   const addressLinkHandled = useRef(false)
   useEffect(() => {
     if (selectedChatId) return
-    if (!search.account || !search.address || addressLinkHandled.current)
-      return
+    if (!search.account || !search.address || addressLinkHandled.current) return
     addressLinkHandled.current = true
     const account = search.account
     const address = search.address
@@ -580,16 +579,14 @@ export function Chats() {
   // on another network otherwise shows the account it is had through.
   const directPresence = Boolean(
     selectedChat &&
-      (!selectedChat.account || chatLinked(selectedChat)) &&
-      chatActive(selectedChat) &&
-      isDirectChat
+    (!selectedChat.account || chatLinked(selectedChat)) &&
+    chatActive(selectedChat) &&
+    isDirectChat
   )
   const presenceQuery = useChatPresenceQuery(selectedChat?.id, directPresence)
   const presence = presenceQuery.data
   const standing = useMemo(() => {
-    const address = selectedChat?.address
-      ? t`As ${selectedChat.address}`
-      : null
+    const address = selectedChat?.address ? t`As ${selectedChat.address}` : null
     if (!directPresence || !presence?.status) return address
     const label =
       presence.status === 'online'
@@ -599,11 +596,10 @@ export function Chats() {
           : presence.status === 'busy'
             ? t({ message: 'Busy', context: 'presence' })
             : null
-    if (label) return presence.message ? `${label} · ${presence.message}` : label
+    if (label)
+      return presence.message ? `${label} · ${presence.message}` : label
     if (selectedChat?.account) return address
-    return presence.seen
-      ? t`Last seen ${formatTimestamp(presence.seen)}`
-      : null
+    return presence.seen ? t`Last seen ${formatTimestamp(presence.seen)}` : null
   }, [
     selectedChat?.address,
     selectedChat?.account,
@@ -730,14 +726,11 @@ export function Chats() {
     chatInputRef.current?.focusInput()
   }, [])
 
-  const handleStartEdit = useCallback(
-    (message: ChatMessage) => {
-      setEditingMessage(message)
-      setEditingBody(message.body ?? '')
-      setReplyTo(null)
-    },
-    []
-  )
+  const handleStartEdit = useCallback((message: ChatMessage) => {
+    setEditingMessage(message)
+    setEditingBody(message.body ?? '')
+    setReplyTo(null)
+  }, [])
 
   const handleCancelEdit = useCallback(() => {
     setEditingMessage(null)
@@ -1585,50 +1578,50 @@ export function Chats() {
             </div>
           ) : (
             <>
-            {relayed ? (
-              <p className='text-muted-foreground flex items-center gap-2 px-4 pb-1 text-xs'>
-                <LockOpen className='size-3.5 shrink-0' />
-                <Trans>Messages in this chat reach Matrix unencrypted.</Trans>
-              </p>
-            ) : null}
-            {typingNames.length > 0 ? (
-              <p
-                className='text-muted-foreground px-4 pb-1 text-xs'
-                aria-live='polite'
-              >
-                {plural(typingNames.length, {
-                  1: `${typingNames[0]} is typing...`,
-                  other: `${formatList(typingNames)} are typing...`,
-                })}
-              </p>
-            ) : null}
-            <ChatInput
-              key={selectedChat.id}
-              ref={chatInputRef}
-              newMessage={newMessage}
-              setNewMessage={setNewMessage}
-              people={mentionPeople}
-              selectedMentions={selectedMentions}
-              onMentionsChange={setSelectedMentions}
-              onSendMessage={handleSendMessage}
-              isSending={sendMessageMutation.isPending}
-              sendProgress={sendProgress}
-              isSendDisabled={isSendDisabled}
-              pendingAttachments={pendingAttachments}
-              onRemoveAttachment={handleRemoveAttachment}
-              onReorderAttachments={handleReorderAttachments}
-              onAttachmentSelection={handleAttachmentSelection}
-              onAudioAttachmentSelection={handleAudioAttachmentSelection}
-              onAddVoiceNote={(file, durationSecs) => {
-                setPendingAttachments((prev) => [
-                  ...prev,
-                  createPendingVoiceNote(file, durationSecs),
-                ])
-              }}
-              replyTo={replyTo}
-              onClearReply={() => setReplyTo(null)}
-              sendMessageErrorMessage={sendAttachmentErrorMessage}
-            />
+              {relayed ? (
+                <p className='text-muted-foreground flex items-center gap-2 px-4 pb-1 text-xs'>
+                  <LockOpen className='size-3.5 shrink-0' />
+                  <Trans>Messages in this chat reach Matrix unencrypted.</Trans>
+                </p>
+              ) : null}
+              {typingNames.length > 0 ? (
+                <p
+                  className='text-muted-foreground px-4 pb-1 text-xs'
+                  aria-live='polite'
+                >
+                  {plural(typingNames.length, {
+                    1: `${typingNames[0]} is typing...`,
+                    other: `${formatList(typingNames)} are typing...`,
+                  })}
+                </p>
+              ) : null}
+              <ChatInput
+                key={selectedChat.id}
+                ref={chatInputRef}
+                newMessage={newMessage}
+                setNewMessage={setNewMessage}
+                people={mentionPeople}
+                selectedMentions={selectedMentions}
+                onMentionsChange={setSelectedMentions}
+                onSendMessage={handleSendMessage}
+                isSending={sendMessageMutation.isPending}
+                sendProgress={sendProgress}
+                isSendDisabled={isSendDisabled}
+                pendingAttachments={pendingAttachments}
+                onRemoveAttachment={handleRemoveAttachment}
+                onReorderAttachments={handleReorderAttachments}
+                onAttachmentSelection={handleAttachmentSelection}
+                onAudioAttachmentSelection={handleAudioAttachmentSelection}
+                onAddVoiceNote={(file, durationSecs) => {
+                  setPendingAttachments((prev) => [
+                    ...prev,
+                    createPendingVoiceNote(file, durationSecs),
+                  ])
+                }}
+                replyTo={replyTo}
+                onClearReply={() => setReplyTo(null)}
+                sendMessageErrorMessage={sendAttachmentErrorMessage}
+              />
             </>
           )}
         </Main>

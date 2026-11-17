@@ -53,10 +53,7 @@ import {
   attachmentsHaveVisualMedia,
   attachmentsNeedFixedMediaWidth,
 } from '../utils/chat-media-size'
-import {
-  collapseEarlierHistory,
-  isEarlierHistory,
-} from '../utils/encryption'
+import { collapseEarlierHistory, isEarlierHistory } from '../utils/encryption'
 import { highlightSearchText } from '../utils/highlight-search-text'
 import { receiptState, seenBy } from '../utils/receipts'
 import { MessageAttachments } from './message-attachments'
@@ -1000,7 +997,9 @@ export function ChatMessageList({
                                                 <Trans>(edited)</Trans>
                                               </span>
                                             ) : null}
-                                            {isSent && receipts && !message.deleted ? (
+                                            {isSent &&
+                                            receipts &&
+                                            !message.deleted ? (
                                               <ReceiptTick
                                                 state={receiptState(
                                                   message,

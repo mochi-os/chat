@@ -49,12 +49,12 @@ import {
   useRemoveMemberMutation,
   useNewChatFriendsQuery,
 } from '@/hooks/useChats'
+import { EncryptionSection } from '@/features/chats/components/encryption-section'
 import {
   CHAT_NAME_FORBIDDEN,
   CHAT_NAME_MAX_LENGTH,
 } from '@/features/chats/constants/limits'
 import { roleLabel } from '@/features/chats/roles'
-import { EncryptionSection } from '@/features/chats/components/encryption-section'
 import { matrixAddress, nameMatches, xmppAddress } from '@/features/chats/utils'
 
 export const Route = createFileRoute('/_authenticated/$chatId_/settings')({

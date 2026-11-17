@@ -117,7 +117,10 @@ export function ChatSettingsDialog({ open, onOpenChange }: Props) {
               <RadioGroup
                 value={value.policy}
                 onValueChange={(v) =>
-                  setValue((current) => ({ ...current, policy: v as ChatPolicy }))
+                  setValue((current) => ({
+                    ...current,
+                    policy: v as ChatPolicy,
+                  }))
                 }
               >
                 {options.map((opt) => (

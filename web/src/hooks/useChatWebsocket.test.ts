@@ -62,7 +62,13 @@ describe('handleWebsocketEvent', () => {
       )?.pages[0].messages[0]
     handleWebsocketEvent(
       'c1',
-      { event: 'reaction', message: 'm1', reactions: { love: 1 }, member: 'bob', reaction: 'love' },
+      {
+        event: 'reaction',
+        message: 'm1',
+        reactions: { love: 1 },
+        member: 'bob',
+        reaction: 'love',
+      },
       client,
       'me'
     )
@@ -70,7 +76,13 @@ describe('handleWebsocketEvent', () => {
     // Removed on another of the viewer's devices.
     handleWebsocketEvent(
       'c1',
-      { event: 'reaction', message: 'm1', reactions: { love: 1 }, member: 'me', reaction: null },
+      {
+        event: 'reaction',
+        message: 'm1',
+        reactions: { love: 1 },
+        member: 'me',
+        reaction: null,
+      },
       client,
       'me'
     )
@@ -78,7 +90,13 @@ describe('handleWebsocketEvent', () => {
     expect(held()?.reaction).toBeNull()
     handleWebsocketEvent(
       'c1',
-      { event: 'reaction', message: 'm1', reactions: { love: 2 }, member: 'me', reaction: 'love' },
+      {
+        event: 'reaction',
+        message: 'm1',
+        reactions: { love: 2 },
+        member: 'me',
+        reaction: 'love',
+      },
       client,
       'me'
     )
@@ -104,14 +122,29 @@ describe('handleWebsocketEvent', () => {
     const client = seeded()
     appendMessageToCache(
       'c1',
-      { id: 'm2', member: 'them', name: 'Them', body: '', created: 2, attachments: [], encrypted: 1 },
+      {
+        id: 'm2',
+        member: 'them',
+        name: 'Them',
+        body: '',
+        created: 2,
+        attachments: [],
+        encrypted: 1,
+      },
       client,
       'Unknown',
       'me'
     )
     appendMessageToCache(
       'c1',
-      { id: 'm3', member: 'them', name: 'Them', body: 'plain', created: 3, attachments: [] },
+      {
+        id: 'm3',
+        member: 'them',
+        name: 'Them',
+        body: 'plain',
+        created: 3,
+        attachments: [],
+      },
       client,
       'Unknown',
       'me'
@@ -155,7 +188,7 @@ describe('signals and threads (phase 22)', () => {
   const pages = (client: QueryClient, key: readonly unknown[]) =>
     client.getQueryData<{ pages: GetMessagesResponse[] }>(key)?.pages ?? []
 
-  it('moves a member\'s receipt forward and never back', () => {
+  it("moves a member's receipt forward and never back", () => {
     const client = seeded()
     handleWebsocketEvent(
       'c1',
@@ -204,7 +237,13 @@ describe('signals and threads (phase 22)', () => {
     const start = Date.now()
     handleWebsocketEvent(
       'c2',
-      { event: 'typing', member: '@dave:example.org', name: 'Dave', typing: true, held: 30 },
+      {
+        event: 'typing',
+        member: '@dave:example.org',
+        name: 'Dave',
+        typing: true,
+        held: 30,
+      },
       client,
       'me'
     )
@@ -212,7 +251,12 @@ describe('signals and threads (phase 22)', () => {
     expect(typingNames('c2', start + 31000)).toEqual([])
     handleWebsocketEvent(
       'c2',
-      { event: 'typing', member: '@dave:example.org', name: 'Dave', typing: false },
+      {
+        event: 'typing',
+        member: '@dave:example.org',
+        name: 'Dave',
+        typing: false,
+      },
       client,
       'me'
     )
@@ -222,7 +266,12 @@ describe('signals and threads (phase 22)', () => {
   it('lets a Mochi typing event lapse with the server window', () => {
     const client = seeded()
     const start = Date.now()
-    handleWebsocketEvent('c3', { event: 'typing', member: 'bob', name: 'Bob' }, client, 'me')
+    handleWebsocketEvent(
+      'c3',
+      { event: 'typing', member: 'bob', name: 'Bob' },
+      client,
+      'me'
+    )
     expect(typingNames('c3', start + 5000)).toEqual(['Bob'])
     expect(typingNames('c3', start + 9000)).toEqual([])
   })
@@ -235,7 +284,14 @@ describe('signals and threads (phase 22)', () => {
     })
     appendMessageToCache(
       'c1',
-      { id: 'r1', member: 'bob', name: 'Bob', body: 'in thread', created: 3, thread: 'm1' },
+      {
+        id: 'r1',
+        member: 'bob',
+        name: 'Bob',
+        body: 'in thread',
+        created: 3,
+        thread: 'm1',
+      },
       client,
       'Unknown',
       'me'

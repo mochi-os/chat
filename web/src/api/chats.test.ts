@@ -3,6 +3,7 @@
 // This file is part of Mochi, licensed under the GNU AGPL v3 with the
 // Mochi Application Interface Exception - see license.txt and license-exception.md.
 import { describe, it, expect, vi, beforeEach } from 'vitest'
+import { chatsApi } from './chats'
 
 const { post, warning } = vi.hoisted(() => ({
   post: vi.fn(),
@@ -14,8 +15,6 @@ vi.mock('@mochi/web', async (importOriginal) => ({
   createAppClient: () => ({ get: vi.fn(), post, delete: vi.fn() }),
   toast: { warning },
 }))
-
-import { chatsApi } from './chats'
 
 // Making a chat on another network and accepting an invitation to one wait on
 // the account's server, which the server bounds and always answers: the

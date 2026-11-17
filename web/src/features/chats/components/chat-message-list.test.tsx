@@ -2,14 +2,14 @@
 // SPDX-License-Identifier: AGPL-3.0-only
 // This file is part of Mochi, licensed under the GNU AGPL v3 with the
 // Mochi Application Interface Exception - see license.txt and license-exception.md.
-import { i18n } from '@lingui/core'
-import { I18nProvider } from '@lingui/react'
 import {
   QueryClient,
   QueryClientProvider,
   type InfiniteData,
   type UseInfiniteQueryResult,
 } from '@tanstack/react-query'
+import { i18n } from '@lingui/core'
+import { I18nProvider } from '@lingui/react'
 import { fireEvent, render, screen } from '@testing-library/react'
 import { describe, expect, it, onTestFinished, vi } from 'vitest'
 import type { ChatMessage, GetMessagesResponse } from '@/api/types/chats'
@@ -31,7 +31,10 @@ const query = {
   hasNextPage: false,
   isFetchingNextPage: false,
   fetchNextPage: () => Promise.resolve(),
-} as unknown as UseInfiniteQueryResult<InfiniteData<GetMessagesResponse>, unknown>
+} as unknown as UseInfiniteQueryResult<
+  InfiniteData<GetMessagesResponse>,
+  unknown
+>
 
 describe('ChatMessageList', () => {
   it('shows an encrypted message the server read, and one whose keys have not come as encrypted', () => {
