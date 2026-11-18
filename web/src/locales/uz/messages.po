@@ -56,8 +56,10 @@ msgstr "[oʻrnatilmagan]"
 msgid "{0, plural, =1 {{1} is typing...} other {{2} are typing...}}"
 msgstr "{0, plural, =1 {{1} yozmoqda...} other {{2} yozmoqda...}}"
 
+#. placeholder {0}: deleteIds?.length ?? 0
 #. placeholder {0}: deleteTargetIds?.length ?? 0
 #: src/features/chats/index.tsx
+#: src/features/chats/thread-page.tsx
 msgid "{0, plural, =1 {Delete message?} other {Delete # messages?}}"
 msgstr "{0, plural, =1 {Xabar oʻchirilsinmi?} other {# ta xabar oʻchirilsinmi?}}"
 
@@ -981,6 +983,7 @@ msgstr "Nusxalandi"
 
 #: ../../../lib/web/src/components/comment-share-button.tsx
 #: ../../../lib/web/src/components/ui/copy-button.tsx
+#: src/features/chats/components/thread-panel.tsx
 msgid "Copied to clipboard"
 msgstr "Buferga nusxalandi"
 
@@ -996,6 +999,10 @@ msgstr "Buferga nusxalandi"
 #: src/features/chats/index.tsx
 msgid "Copy"
 msgstr "Nusxalash"
+
+#: src/features/chats/components/thread-panel.tsx
+msgid "Copy link"
+msgstr ""
 
 #. placeholder {0}: ambiguous.join(', ')
 #. placeholder {1}: unknown.join(', ')
@@ -1124,6 +1131,7 @@ msgstr "Standart saralash"
 #: src/features/chats/components/message-hover-actions.tsx
 #: src/features/chats/index.tsx
 #: src/features/chats/index.tsx
+#: src/features/chats/thread-page.tsx
 msgid "Delete"
 msgstr "Oʻchirish"
 
@@ -1194,6 +1202,7 @@ msgid "Deleting chat..."
 msgstr "Suhbat oʻchirilmoqda..."
 
 #: src/features/chats/index.tsx
+#: src/features/chats/thread-page.tsx
 msgid "Deleting..."
 msgstr "Oʻchirilmoqda..."
 
@@ -1452,6 +1461,7 @@ msgstr "Aʼzo qoʻshib boʻlmadi"
 #: ../../../lib/web/src/components/comment-share-button.tsx
 #: ../../../lib/web/src/components/ui/copy-button.tsx
 #: ../../../lib/web/src/lib/toast-utils.ts
+#: src/features/chats/components/thread-panel.tsx
 #: src/features/chats/index.tsx
 msgid "Failed to copy"
 msgstr "Nusxalab boʻlmadi"
@@ -1477,6 +1487,7 @@ msgstr "Rad etib boʻlmadi"
 
 #: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx
 #: src/features/chats/index.tsx
+#: src/features/chats/thread-page.tsx
 msgid "Failed to delete"
 msgstr "Oʻchirib boʻlmadi"
 
@@ -2021,6 +2032,7 @@ msgid "Message could not be sent. Attachments may be too large, or your connecti
 msgstr "Xabar yuborib boʻlmadi. Biriktirmalar juda katta boʻlishi yoki aloqangiz uzilgan boʻlishi mumkin. Kichikroq fayllarni sinab koʻring."
 
 #: src/features/chats/index.tsx
+#: src/features/chats/thread-page.tsx
 msgid "Message deleted"
 msgstr "Xabar oʻchirildi"
 
@@ -2032,6 +2044,7 @@ msgid "Message is too long"
 msgstr ""
 
 #: src/features/chats/components/message-quote.tsx
+#: src/features/chats/components/thread-panel.tsx
 #: src/features/chats/index.tsx
 msgid "Message not available"
 msgstr "Xabar mavjud emas"
@@ -2418,6 +2431,10 @@ msgstr "Amallarni ochish"
 #: src/features/chats/index.tsx
 msgid "Open chat actions"
 msgstr "Suhbat amallarini ochish"
+
+#: src/features/chats/components/thread-panel.tsx
+msgid "Open in new window"
+msgstr ""
 
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx
 msgid "Open menu"
@@ -3397,6 +3414,7 @@ msgid "This chat may have been deleted or you don't have access to it"
 msgstr "Ushbu chat oʻchirilgan boʻlishi mumkin yoki sizda unga kirish ruxsati yoʻq"
 
 #: src/features/chats/index.tsx
+#: src/features/chats/thread-page.tsx
 msgid "This deletes the message for everyone and cannot be undone."
 msgstr "Bu xabarni hamma uchun oʻchiradi va buni bekor qilib boʻlmaydi."
 
@@ -3423,8 +3441,19 @@ msgid "This permanently deletes the game and its chat. This cannot be undone."
 msgstr "Bu oʻyin va uning chatini butunlay oʻchirib tashlaydi. Bu amalni bekor qilib boʻlmaydi."
 
 #: src/features/chats/components/thread-panel.tsx
+#: src/features/chats/thread-page.tsx
+#: src/features/chats/thread-page.tsx
 msgid "Thread"
 msgstr "Mavzu"
+
+#. placeholder {0}: chat.name
+#: src/features/chats/thread-page.tsx
+msgid "Thread in {0}"
+msgstr ""
+
+#: src/features/chats/components/thread-panel.tsx
+msgid "Thread options"
+msgstr ""
 
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Thursday"

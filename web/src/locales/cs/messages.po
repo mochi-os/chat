@@ -56,8 +56,10 @@ msgstr "[neuvedeno]"
 msgid "{0, plural, =1 {{1} is typing...} other {{2} are typing...}}"
 msgstr "{0, plural, =1 {{1} píše...} few {{2} píšou...} many {{2} píšou...} other {{2} píšou...}}"
 
+#. placeholder {0}: deleteIds?.length ?? 0
 #. placeholder {0}: deleteTargetIds?.length ?? 0
 #: src/features/chats/index.tsx
+#: src/features/chats/thread-page.tsx
 msgid "{0, plural, =1 {Delete message?} other {Delete # messages?}}"
 msgstr "{0, plural, =1 {Smazat zprávu?} few {Smazat # zprávy?} many {Smazat # zprávy?} other {Smazat # zpráv?}}"
 
@@ -981,6 +983,7 @@ msgstr "Zkopírováno"
 
 #: ../../../lib/web/src/components/comment-share-button.tsx
 #: ../../../lib/web/src/components/ui/copy-button.tsx
+#: src/features/chats/components/thread-panel.tsx
 msgid "Copied to clipboard"
 msgstr "Zkopírováno do schránky"
 
@@ -996,6 +999,10 @@ msgstr "Zkopírováno do schránky"
 #: src/features/chats/index.tsx
 msgid "Copy"
 msgstr "Kopírovat"
+
+#: src/features/chats/components/thread-panel.tsx
+msgid "Copy link"
+msgstr ""
 
 #. placeholder {0}: ambiguous.join(', ')
 #. placeholder {1}: unknown.join(', ')
@@ -1124,6 +1131,7 @@ msgstr "Výchozí řazení"
 #: src/features/chats/components/message-hover-actions.tsx
 #: src/features/chats/index.tsx
 #: src/features/chats/index.tsx
+#: src/features/chats/thread-page.tsx
 msgid "Delete"
 msgstr "Smazat"
 
@@ -1194,6 +1202,7 @@ msgid "Deleting chat..."
 msgstr "Mazání chatu..."
 
 #: src/features/chats/index.tsx
+#: src/features/chats/thread-page.tsx
 msgid "Deleting..."
 msgstr "Mazání..."
 
@@ -1452,6 +1461,7 @@ msgstr "Nepodařilo se přidat člena"
 #: ../../../lib/web/src/components/comment-share-button.tsx
 #: ../../../lib/web/src/components/ui/copy-button.tsx
 #: ../../../lib/web/src/lib/toast-utils.ts
+#: src/features/chats/components/thread-panel.tsx
 #: src/features/chats/index.tsx
 msgid "Failed to copy"
 msgstr "Nepodařilo se zkopírovat"
@@ -1477,6 +1487,7 @@ msgstr "Nepodařilo se odmítnout"
 
 #: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx
 #: src/features/chats/index.tsx
+#: src/features/chats/thread-page.tsx
 msgid "Failed to delete"
 msgstr "Nepodařilo se smazat"
 
@@ -2021,6 +2032,7 @@ msgid "Message could not be sent. Attachments may be too large, or your connecti
 msgstr "Zprávu se nepodařilo odeslat. Přílohy mohou být příliš velké, nebo selhalo připojení. Zkuste menší soubory."
 
 #: src/features/chats/index.tsx
+#: src/features/chats/thread-page.tsx
 msgid "Message deleted"
 msgstr "Zpráva smazána"
 
@@ -2032,6 +2044,7 @@ msgid "Message is too long"
 msgstr ""
 
 #: src/features/chats/components/message-quote.tsx
+#: src/features/chats/components/thread-panel.tsx
 #: src/features/chats/index.tsx
 msgid "Message not available"
 msgstr "Zpráva není k dispozici"
@@ -2418,6 +2431,10 @@ msgstr "Otevřít akce"
 #: src/features/chats/index.tsx
 msgid "Open chat actions"
 msgstr "Otevřít akce chatu"
+
+#: src/features/chats/components/thread-panel.tsx
+msgid "Open in new window"
+msgstr ""
 
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx
 msgid "Open menu"
@@ -3397,6 +3414,7 @@ msgid "This chat may have been deleted or you don't have access to it"
 msgstr "Tento chat byl možná smazán nebo k němu nemáte přístup"
 
 #: src/features/chats/index.tsx
+#: src/features/chats/thread-page.tsx
 msgid "This deletes the message for everyone and cannot be undone."
 msgstr "Tím se zpráva smaže všem a nelze to vrátit zpět."
 
@@ -3423,8 +3441,19 @@ msgid "This permanently deletes the game and its chat. This cannot be undone."
 msgstr "Tímto trvale smažete hru a její chat. Tuto akci nelze vzít zpět."
 
 #: src/features/chats/components/thread-panel.tsx
+#: src/features/chats/thread-page.tsx
+#: src/features/chats/thread-page.tsx
 msgid "Thread"
 msgstr "Vlákno"
+
+#. placeholder {0}: chat.name
+#: src/features/chats/thread-page.tsx
+msgid "Thread in {0}"
+msgstr ""
+
+#: src/features/chats/components/thread-panel.tsx
+msgid "Thread options"
+msgstr ""
 
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Thursday"

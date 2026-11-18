@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as AuthenticatedIndexRouteImport } from './routes/_authenticated/index'
 import { Route as AuthenticatedChatIdRouteImport } from './routes/_authenticated/$chatId'
+import { Route as ChatIdThreadMessageIdRouteImport } from './routes/$chatId_.thread.$messageId'
 import { Route as AuthenticatedChatIdSettingsRouteImport } from './routes/_authenticated/$chatId_.settings'
 
 const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
@@ -28,6 +29,11 @@ const AuthenticatedChatIdRoute = AuthenticatedChatIdRouteImport.update({
   path: '/$chatId',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const ChatIdThreadMessageIdRoute = ChatIdThreadMessageIdRouteImport.update({
+  id: '/$chatId_/thread/$messageId',
+  path: '/$chatId/thread/$messageId',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AuthenticatedChatIdSettingsRoute =
   AuthenticatedChatIdSettingsRouteImport.update({
     id: '/$chatId_/settings',
@@ -38,11 +44,13 @@ const AuthenticatedChatIdSettingsRoute =
 export interface FileRoutesByFullPath {
   '/': typeof AuthenticatedIndexRoute
   '/$chatId': typeof AuthenticatedChatIdRoute
+  '/$chatId/thread/$messageId': typeof ChatIdThreadMessageIdRoute
   '/$chatId/settings': typeof AuthenticatedChatIdSettingsRoute
 }
 export interface FileRoutesByTo {
   '/$chatId': typeof AuthenticatedChatIdRoute
   '/': typeof AuthenticatedIndexRoute
+  '/$chatId/thread/$messageId': typeof ChatIdThreadMessageIdRoute
   '/$chatId/settings': typeof AuthenticatedChatIdSettingsRoute
 }
 export interface FileRoutesById {
@@ -50,23 +58,27 @@ export interface FileRoutesById {
   '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/_authenticated/$chatId': typeof AuthenticatedChatIdRoute
   '/_authenticated/': typeof AuthenticatedIndexRoute
+  '/$chatId_/thread/$messageId': typeof ChatIdThreadMessageIdRoute
   '/_authenticated/$chatId_/settings': typeof AuthenticatedChatIdSettingsRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/$chatId' | '/$chatId/settings'
+  fullPaths:
+    '/' | '/$chatId' | '/$chatId/thread/$messageId' | '/$chatId/settings'
   fileRoutesByTo: FileRoutesByTo
-  to: '/$chatId' | '/' | '/$chatId/settings'
+  to: '/$chatId' | '/' | '/$chatId/thread/$messageId' | '/$chatId/settings'
   id:
     | '__root__'
     | '/_authenticated'
     | '/_authenticated/$chatId'
     | '/_authenticated/'
+    | '/$chatId_/thread/$messageId'
     | '/_authenticated/$chatId_/settings'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
+  ChatIdThreadMessageIdRoute: typeof ChatIdThreadMessageIdRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -91,6 +103,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/$chatId'
       preLoaderRoute: typeof AuthenticatedChatIdRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/$chatId_/thread/$messageId': {
+      id: '/$chatId_/thread/$messageId'
+      path: '/$chatId/thread/$messageId'
+      fullPath: '/$chatId/thread/$messageId'
+      preLoaderRoute: typeof ChatIdThreadMessageIdRouteImport
+      parentRoute: typeof rootRouteImport
     }
     '/_authenticated/$chatId_/settings': {
       id: '/_authenticated/$chatId_/settings'
@@ -119,6 +138,7 @@ const AuthenticatedRouteRouteWithChildren =
 
 const rootRouteChildren: RootRouteChildren = {
   AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
+  ChatIdThreadMessageIdRoute: ChatIdThreadMessageIdRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

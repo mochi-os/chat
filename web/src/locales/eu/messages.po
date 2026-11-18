@@ -56,8 +56,10 @@ msgstr "[ezarri gabe]"
 msgid "{0, plural, =1 {{1} is typing...} other {{2} are typing...}}"
 msgstr "{0, plural, =1 {{1} idazten ari da...} other {{2} idazten ari dira...}}"
 
+#. placeholder {0}: deleteIds?.length ?? 0
 #. placeholder {0}: deleteTargetIds?.length ?? 0
 #: src/features/chats/index.tsx
+#: src/features/chats/thread-page.tsx
 msgid "{0, plural, =1 {Delete message?} other {Delete # messages?}}"
 msgstr "{0, plural, =1 {Mezua ezabatu?} other {# mezu ezabatu?}}"
 
@@ -981,6 +983,7 @@ msgstr "Kopiatuta"
 
 #: ../../../lib/web/src/components/comment-share-button.tsx
 #: ../../../lib/web/src/components/ui/copy-button.tsx
+#: src/features/chats/components/thread-panel.tsx
 msgid "Copied to clipboard"
 msgstr "Arbelera kopiatu da"
 
@@ -996,6 +999,10 @@ msgstr "Arbelera kopiatu da"
 #: src/features/chats/index.tsx
 msgid "Copy"
 msgstr "Kopiatu"
+
+#: src/features/chats/components/thread-panel.tsx
+msgid "Copy link"
+msgstr ""
 
 #. placeholder {0}: ambiguous.join(', ')
 #. placeholder {1}: unknown.join(', ')
@@ -1124,6 +1131,7 @@ msgstr "Lehenetsitako ordena"
 #: src/features/chats/components/message-hover-actions.tsx
 #: src/features/chats/index.tsx
 #: src/features/chats/index.tsx
+#: src/features/chats/thread-page.tsx
 msgid "Delete"
 msgstr "Ezabatu"
 
@@ -1194,6 +1202,7 @@ msgid "Deleting chat..."
 msgstr "Txata ezabatzen..."
 
 #: src/features/chats/index.tsx
+#: src/features/chats/thread-page.tsx
 msgid "Deleting..."
 msgstr "Ezabatzen..."
 
@@ -1452,6 +1461,7 @@ msgstr "Ezin izan da kidea gehitu"
 #: ../../../lib/web/src/components/comment-share-button.tsx
 #: ../../../lib/web/src/components/ui/copy-button.tsx
 #: ../../../lib/web/src/lib/toast-utils.ts
+#: src/features/chats/components/thread-panel.tsx
 #: src/features/chats/index.tsx
 msgid "Failed to copy"
 msgstr "Ezin izan da kopiatu"
@@ -1477,6 +1487,7 @@ msgstr "Ezin izan da ukatu"
 
 #: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx
 #: src/features/chats/index.tsx
+#: src/features/chats/thread-page.tsx
 msgid "Failed to delete"
 msgstr "Ezin izan da ezabatu"
 
@@ -2021,6 +2032,7 @@ msgid "Message could not be sent. Attachments may be too large, or your connecti
 msgstr "Ezin izan da mezua bidali. Baliteke eranskinak handiegiak izatea edo konexioak huts egin izana. Saiatu fitxategi txikiagoekin."
 
 #: src/features/chats/index.tsx
+#: src/features/chats/thread-page.tsx
 msgid "Message deleted"
 msgstr "Mezua ezabatu da"
 
@@ -2032,6 +2044,7 @@ msgid "Message is too long"
 msgstr ""
 
 #: src/features/chats/components/message-quote.tsx
+#: src/features/chats/components/thread-panel.tsx
 #: src/features/chats/index.tsx
 msgid "Message not available"
 msgstr "Mezua ez dago erabilgarri"
@@ -2418,6 +2431,10 @@ msgstr "Ireki ekintzak"
 #: src/features/chats/index.tsx
 msgid "Open chat actions"
 msgstr "Ireki txat-ekintzak"
+
+#: src/features/chats/components/thread-panel.tsx
+msgid "Open in new window"
+msgstr ""
 
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx
 msgid "Open menu"
@@ -3397,6 +3414,7 @@ msgid "This chat may have been deleted or you don't have access to it"
 msgstr "Txat hau ezabatu da agian edo ez duzu sarbiderik"
 
 #: src/features/chats/index.tsx
+#: src/features/chats/thread-page.tsx
 msgid "This deletes the message for everyone and cannot be undone."
 msgstr "Honek mezua guztientzat ezabatzen du eta ezin da desegin."
 
@@ -3423,8 +3441,19 @@ msgid "This permanently deletes the game and its chat. This cannot be undone."
 msgstr "Honek jokoa eta bere txata betiko ezabatuko ditu. Ekintza hau ezin da desegin."
 
 #: src/features/chats/components/thread-panel.tsx
+#: src/features/chats/thread-page.tsx
+#: src/features/chats/thread-page.tsx
 msgid "Thread"
 msgstr "Haria"
+
+#. placeholder {0}: chat.name
+#: src/features/chats/thread-page.tsx
+msgid "Thread in {0}"
+msgstr ""
+
+#: src/features/chats/components/thread-panel.tsx
+msgid "Thread options"
+msgstr ""
 
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Thursday"

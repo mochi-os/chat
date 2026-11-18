@@ -56,8 +56,10 @@ msgstr "[ikke angivet]"
 msgid "{0, plural, =1 {{1} is typing...} other {{2} are typing...}}"
 msgstr "{0, plural, =1 {{1} skriver...} other {{2} skriver...}}"
 
+#. placeholder {0}: deleteIds?.length ?? 0
 #. placeholder {0}: deleteTargetIds?.length ?? 0
 #: src/features/chats/index.tsx
+#: src/features/chats/thread-page.tsx
 msgid "{0, plural, =1 {Delete message?} other {Delete # messages?}}"
 msgstr "{0, plural, =1 {Slet besked?} other {Slet # beskeder?}}"
 
@@ -981,6 +983,7 @@ msgstr "Kopieret"
 
 #: ../../../lib/web/src/components/comment-share-button.tsx
 #: ../../../lib/web/src/components/ui/copy-button.tsx
+#: src/features/chats/components/thread-panel.tsx
 msgid "Copied to clipboard"
 msgstr "Kopieret til udklipsholder"
 
@@ -996,6 +999,10 @@ msgstr "Kopieret til udklipsholder"
 #: src/features/chats/index.tsx
 msgid "Copy"
 msgstr "Kopier"
+
+#: src/features/chats/components/thread-panel.tsx
+msgid "Copy link"
+msgstr ""
 
 #. placeholder {0}: ambiguous.join(', ')
 #. placeholder {1}: unknown.join(', ')
@@ -1124,6 +1131,7 @@ msgstr "Standardsortering"
 #: src/features/chats/components/message-hover-actions.tsx
 #: src/features/chats/index.tsx
 #: src/features/chats/index.tsx
+#: src/features/chats/thread-page.tsx
 msgid "Delete"
 msgstr "Slet"
 
@@ -1194,6 +1202,7 @@ msgid "Deleting chat..."
 msgstr "Sletter chat..."
 
 #: src/features/chats/index.tsx
+#: src/features/chats/thread-page.tsx
 msgid "Deleting..."
 msgstr "Sletter..."
 
@@ -1452,6 +1461,7 @@ msgstr "Kunne ikke tilføje medlem"
 #: ../../../lib/web/src/components/comment-share-button.tsx
 #: ../../../lib/web/src/components/ui/copy-button.tsx
 #: ../../../lib/web/src/lib/toast-utils.ts
+#: src/features/chats/components/thread-panel.tsx
 #: src/features/chats/index.tsx
 msgid "Failed to copy"
 msgstr "Kunne ikke kopiere"
@@ -1477,6 +1487,7 @@ msgstr "Kunne ikke afvise"
 
 #: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx
 #: src/features/chats/index.tsx
+#: src/features/chats/thread-page.tsx
 msgid "Failed to delete"
 msgstr "Kunne ikke slette"
 
@@ -2021,6 +2032,7 @@ msgid "Message could not be sent. Attachments may be too large, or your connecti
 msgstr "Beskeden kunne ikke sendes. Vedhæftningerne kan være for store, eller din forbindelse fejlede. Prøv med mindre filer."
 
 #: src/features/chats/index.tsx
+#: src/features/chats/thread-page.tsx
 msgid "Message deleted"
 msgstr "Besked slettet"
 
@@ -2032,6 +2044,7 @@ msgid "Message is too long"
 msgstr ""
 
 #: src/features/chats/components/message-quote.tsx
+#: src/features/chats/components/thread-panel.tsx
 #: src/features/chats/index.tsx
 msgid "Message not available"
 msgstr "Beskeden er ikke tilgængelig"
@@ -2418,6 +2431,10 @@ msgstr "Åbn handlinger"
 #: src/features/chats/index.tsx
 msgid "Open chat actions"
 msgstr "Åbn chathandlinger"
+
+#: src/features/chats/components/thread-panel.tsx
+msgid "Open in new window"
+msgstr ""
 
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx
 msgid "Open menu"
@@ -3397,6 +3414,7 @@ msgid "This chat may have been deleted or you don't have access to it"
 msgstr "Denne chat er muligvis slettet, eller du har ikke adgang til den"
 
 #: src/features/chats/index.tsx
+#: src/features/chats/thread-page.tsx
 msgid "This deletes the message for everyone and cannot be undone."
 msgstr "Dette sletter beskeden for alle og kan ikke fortrydes."
 
@@ -3423,8 +3441,19 @@ msgid "This permanently deletes the game and its chat. This cannot be undone."
 msgstr "Dette sletter spillet og dets chat permanent. Dette kan ikke fortrydes."
 
 #: src/features/chats/components/thread-panel.tsx
+#: src/features/chats/thread-page.tsx
+#: src/features/chats/thread-page.tsx
 msgid "Thread"
 msgstr "Tråd"
+
+#. placeholder {0}: chat.name
+#: src/features/chats/thread-page.tsx
+msgid "Thread in {0}"
+msgstr ""
+
+#: src/features/chats/components/thread-panel.tsx
+msgid "Thread options"
+msgstr ""
 
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Thursday"

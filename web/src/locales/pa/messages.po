@@ -56,8 +56,10 @@ msgstr "[ਸੈੱਟ ਨਹੀਂ]"
 msgid "{0, plural, =1 {{1} is typing...} other {{2} are typing...}}"
 msgstr "{0, plural, =1 {{1} ਟਾਈਪ ਕਰ ਰਹੇ ਹਨ...} other {{2} ਟਾਈਪ ਕਰ ਰਹੇ ਹਨ...}}"
 
+#. placeholder {0}: deleteIds?.length ?? 0
 #. placeholder {0}: deleteTargetIds?.length ?? 0
 #: src/features/chats/index.tsx
+#: src/features/chats/thread-page.tsx
 msgid "{0, plural, =1 {Delete message?} other {Delete # messages?}}"
 msgstr "{0, plural, =1 {ਸੁਨੇਹਾ ਮਿਟਾਉਣਾ ਹੈ?} other {# ਸੁਨੇਹੇ ਮਿਟਾਉਣੇ ਹਨ?}}"
 
@@ -981,6 +983,7 @@ msgstr "ਕਾਪੀ ਕੀਤਾ ਗਿਆ"
 
 #: ../../../lib/web/src/components/comment-share-button.tsx
 #: ../../../lib/web/src/components/ui/copy-button.tsx
+#: src/features/chats/components/thread-panel.tsx
 msgid "Copied to clipboard"
 msgstr "ਕਲਿੱਪਬੋਰਡ ਵਿੱਚ ਕਾਪੀ ਹੋਇਆ"
 
@@ -996,6 +999,10 @@ msgstr "ਕਲਿੱਪਬੋਰਡ ਵਿੱਚ ਕਾਪੀ ਹੋਇਆ"
 #: src/features/chats/index.tsx
 msgid "Copy"
 msgstr "ਕਾਪੀ ਕਰੋ"
+
+#: src/features/chats/components/thread-panel.tsx
+msgid "Copy link"
+msgstr ""
 
 #. placeholder {0}: ambiguous.join(', ')
 #. placeholder {1}: unknown.join(', ')
@@ -1124,6 +1131,7 @@ msgstr "ਡਿਫਾਲਟ ਛਾਂਟ"
 #: src/features/chats/components/message-hover-actions.tsx
 #: src/features/chats/index.tsx
 #: src/features/chats/index.tsx
+#: src/features/chats/thread-page.tsx
 msgid "Delete"
 msgstr "ਮਿਟਾਓ"
 
@@ -1194,6 +1202,7 @@ msgid "Deleting chat..."
 msgstr "ਚੈਟ ਮਿਟਾਈ ਜਾ ਰਹੀ ਹੈ..."
 
 #: src/features/chats/index.tsx
+#: src/features/chats/thread-page.tsx
 msgid "Deleting..."
 msgstr "ਮਿਟਾ ਰਹੇ ਹਾਂ..."
 
@@ -1452,6 +1461,7 @@ msgstr "ਮੈਂਬਰ ਜੋੜਨ ਵਿੱਚ ਅਸਫਲ"
 #: ../../../lib/web/src/components/comment-share-button.tsx
 #: ../../../lib/web/src/components/ui/copy-button.tsx
 #: ../../../lib/web/src/lib/toast-utils.ts
+#: src/features/chats/components/thread-panel.tsx
 #: src/features/chats/index.tsx
 msgid "Failed to copy"
 msgstr "ਕਾਪੀ ਕਰਨ ਵਿੱਚ ਅਸਫਲ"
@@ -1477,6 +1487,7 @@ msgstr "ਅਸਵੀਕਾਰ ਕਰਨ ਵਿੱਚ ਅਸਫਲ"
 
 #: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx
 #: src/features/chats/index.tsx
+#: src/features/chats/thread-page.tsx
 msgid "Failed to delete"
 msgstr "ਮਿਟਾਉਣ ਵਿੱਚ ਅਸਫਲ"
 
@@ -2021,6 +2032,7 @@ msgid "Message could not be sent. Attachments may be too large, or your connecti
 msgstr "ਸੁਨੇਹਾ ਭੇਜਿਆ ਨਹੀਂ ਜਾ ਸਕਿਆ। ਅਟੈਚਮੈਂਟਾਂ ਬਹੁਤ ਵੱਡੀਆਂ ਹੋ ਸਕਦੀਆਂ ਹਨ, ਜਾਂ ਤੁਹਾਡਾ ਕਨੈਕਸ਼ਨ ਅਸਫਲ ਹੋ ਗਿਆ। ਛੋਟੀਆਂ ਫਾਈਲਾਂ ਨਾਲ ਕੋਸ਼ਿਸ਼ ਕਰੋ।"
 
 #: src/features/chats/index.tsx
+#: src/features/chats/thread-page.tsx
 msgid "Message deleted"
 msgstr "ਸੁਨੇਹਾ ਮਿਟਾਇਆ ਗਿਆ"
 
@@ -2032,6 +2044,7 @@ msgid "Message is too long"
 msgstr ""
 
 #: src/features/chats/components/message-quote.tsx
+#: src/features/chats/components/thread-panel.tsx
 #: src/features/chats/index.tsx
 msgid "Message not available"
 msgstr "ਸੁਨੇਹਾ ਉਪਲਬਧ ਨਹੀਂ"
@@ -2418,6 +2431,10 @@ msgstr "ਕਾਰਵਾਈਆਂ ਖੋਲ੍ਹੋ"
 #: src/features/chats/index.tsx
 msgid "Open chat actions"
 msgstr "ਚੈਟ ਐਕਸ਼ਨ ਖੋਲ੍ਹੋ"
+
+#: src/features/chats/components/thread-panel.tsx
+msgid "Open in new window"
+msgstr ""
 
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx
 msgid "Open menu"
@@ -3397,6 +3414,7 @@ msgid "This chat may have been deleted or you don't have access to it"
 msgstr "ਇਹ ਚੈਟ ਮਿਟਾਈ ਗਈ ਹੋ ਸਕਦੀ ਹੈ ਜਾਂ ਤੁਹਾਡੇ ਕੋਲ ਪਹੁੰਚ ਨਹੀਂ ਹੈ"
 
 #: src/features/chats/index.tsx
+#: src/features/chats/thread-page.tsx
 msgid "This deletes the message for everyone and cannot be undone."
 msgstr "ਇਸ ਨਾਲ ਸੁਨੇਹਾ ਸਾਰਿਆਂ ਲਈ ਮਿਟ ਜਾਵੇਗਾ ਅਤੇ ਇਸਨੂੰ ਵਾਪਸ ਨਹੀਂ ਲਿਆਂਦਾ ਜਾ ਸਕਦਾ।"
 
@@ -3423,8 +3441,19 @@ msgid "This permanently deletes the game and its chat. This cannot be undone."
 msgstr "ਇਹ ਗੇਮ ਅਤੇ ਇਸਦੀ ਚੈਟ ਨੂੰ ਸਥਾਈ ਤੌਰ 'ਤੇ ਮਿਟਾ ਦੇਵੇਗਾ। ਇਸ ਕਾਰਵਾਈ ਨੂੰ ਵਾਪਸ ਨਹੀਂ ਲਿਆ ਜਾ ਸਕਦਾ।"
 
 #: src/features/chats/components/thread-panel.tsx
+#: src/features/chats/thread-page.tsx
+#: src/features/chats/thread-page.tsx
 msgid "Thread"
 msgstr "ਥ੍ਰੈੱਡ"
+
+#. placeholder {0}: chat.name
+#: src/features/chats/thread-page.tsx
+msgid "Thread in {0}"
+msgstr ""
+
+#: src/features/chats/components/thread-panel.tsx
+msgid "Thread options"
+msgstr ""
 
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Thursday"

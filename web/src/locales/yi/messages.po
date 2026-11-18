@@ -56,8 +56,10 @@ msgstr "[נישט געשטעלט]"
 msgid "{0, plural, =1 {{1} is typing...} other {{2} are typing...}}"
 msgstr "{0, plural, =1 {{1} טיפּט...} other {{2} טיפּן...}}"
 
+#. placeholder {0}: deleteIds?.length ?? 0
 #. placeholder {0}: deleteTargetIds?.length ?? 0
 #: src/features/chats/index.tsx
+#: src/features/chats/thread-page.tsx
 msgid "{0, plural, =1 {Delete message?} other {Delete # messages?}}"
 msgstr "{0, plural, =1 {אויסמעקן דעם מעסעדזש?} other {אויסמעקן # מעסעדזשעס?}}"
 
@@ -981,6 +983,7 @@ msgstr "קאָפּירט"
 
 #: ../../../lib/web/src/components/comment-share-button.tsx
 #: ../../../lib/web/src/components/ui/copy-button.tsx
+#: src/features/chats/components/thread-panel.tsx
 msgid "Copied to clipboard"
 msgstr "קאָפּירט צו קליפּברעט"
 
@@ -996,6 +999,10 @@ msgstr "קאָפּירט צו קליפּברעט"
 #: src/features/chats/index.tsx
 msgid "Copy"
 msgstr "קאָפּירן"
+
+#: src/features/chats/components/thread-panel.tsx
+msgid "Copy link"
+msgstr ""
 
 #. placeholder {0}: ambiguous.join(', ')
 #. placeholder {1}: unknown.join(', ')
@@ -1124,6 +1131,7 @@ msgstr "סטאַנדאַרד סאָרטירונג"
 #: src/features/chats/components/message-hover-actions.tsx
 #: src/features/chats/index.tsx
 #: src/features/chats/index.tsx
+#: src/features/chats/thread-page.tsx
 msgid "Delete"
 msgstr "אויסמעקן"
 
@@ -1194,6 +1202,7 @@ msgid "Deleting chat..."
 msgstr "אויסמעקן שמועס..."
 
 #: src/features/chats/index.tsx
+#: src/features/chats/thread-page.tsx
 msgid "Deleting..."
 msgstr "אויסמעקן..."
 
@@ -1452,6 +1461,7 @@ msgstr "ניט געלונגען צוצוגעבן מיטגליד"
 #: ../../../lib/web/src/components/comment-share-button.tsx
 #: ../../../lib/web/src/components/ui/copy-button.tsx
 #: ../../../lib/web/src/lib/toast-utils.ts
+#: src/features/chats/components/thread-panel.tsx
 #: src/features/chats/index.tsx
 msgid "Failed to copy"
 msgstr "ניט געלונגען צו קאָפּירן"
@@ -1477,6 +1487,7 @@ msgstr "ניט געלונגען אָפּצוזאָגן"
 
 #: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx
 #: src/features/chats/index.tsx
+#: src/features/chats/thread-page.tsx
 msgid "Failed to delete"
 msgstr "ניט געלונגען צו מעקן"
 
@@ -2021,6 +2032,7 @@ msgid "Message could not be sent. Attachments may be too large, or your connecti
 msgstr "דער מעסעדזש האָט זיך נישט געקענט שיקן. די בײַלאַגעס זענען אפֿשר צו גרויס, אָדער אײַער פֿאַרבינדונג איז דורכגעפֿאַלן. פּרוּווט מיט קלענערע טעקעס."
 
 #: src/features/chats/index.tsx
+#: src/features/chats/thread-page.tsx
 msgid "Message deleted"
 msgstr "מעסעדזש אויסגעמעקט"
 
@@ -2032,6 +2044,7 @@ msgid "Message is too long"
 msgstr ""
 
 #: src/features/chats/components/message-quote.tsx
+#: src/features/chats/components/thread-panel.tsx
 #: src/features/chats/index.tsx
 msgid "Message not available"
 msgstr "מעסעדזש ניט פֿאַראַן"
@@ -2418,6 +2431,10 @@ msgstr "עפֿענען אַקציעס"
 #: src/features/chats/index.tsx
 msgid "Open chat actions"
 msgstr "עפֿן שמועס אַקציעס"
+
+#: src/features/chats/components/thread-panel.tsx
+msgid "Open in new window"
+msgstr ""
 
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx
 msgid "Open menu"
@@ -3397,6 +3414,7 @@ msgid "This chat may have been deleted or you don't have access to it"
 msgstr "דער שמועס איז אפֿשר אויסגעמעקט אָדער איר האָט נישט קיין צוטריט"
 
 #: src/features/chats/index.tsx
+#: src/features/chats/thread-page.tsx
 msgid "This deletes the message for everyone and cannot be undone."
 msgstr "דאָס מעקט אויס דעם מעסעדזש פֿאַר אַלעמען און מע קען עס ניט צוריקדרייען."
 
@@ -3423,8 +3441,19 @@ msgid "This permanently deletes the game and its chat. This cannot be undone."
 msgstr "דאָס וועט אויף שטענדיק אויסמעקן דעם שפּיל און זײַן טשאַט. מע קען דעם ניט מבֿטל מאַכן."
 
 #: src/features/chats/components/thread-panel.tsx
+#: src/features/chats/thread-page.tsx
+#: src/features/chats/thread-page.tsx
 msgid "Thread"
 msgstr "פֿאָדעם"
+
+#. placeholder {0}: chat.name
+#: src/features/chats/thread-page.tsx
+msgid "Thread in {0}"
+msgstr ""
+
+#: src/features/chats/components/thread-panel.tsx
+msgid "Thread options"
+msgstr ""
 
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Thursday"

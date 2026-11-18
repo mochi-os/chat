@@ -56,8 +56,10 @@ msgstr "[gun shuidheachadh]"
 msgid "{0, plural, =1 {{1} is typing...} other {{2} are typing...}}"
 msgstr "{0, plural, =1 {Tha {1} a' sgrìobhadh...} two {Tha {2} a' sgrìobhadh...} few {Tha {2} a' sgrìobhadh...} other {Tha {2} a' sgrìobhadh...}}"
 
+#. placeholder {0}: deleteIds?.length ?? 0
 #. placeholder {0}: deleteTargetIds?.length ?? 0
 #: src/features/chats/index.tsx
+#: src/features/chats/thread-page.tsx
 msgid "{0, plural, =1 {Delete message?} other {Delete # messages?}}"
 msgstr "{0, plural, one {A bheil thu airson # teachdaireachd a sguabadh às?} two {A bheil thu airson # theachdaireachd a sguabadh às?} few {A bheil thu airson # teachdaireachdan a sguabadh às?} other {A bheil thu airson # teachdaireachd a sguabadh às?}}"
 
@@ -981,6 +983,7 @@ msgstr "Chaidh lethbhreac a dhèanamh"
 
 #: ../../../lib/web/src/components/comment-share-button.tsx
 #: ../../../lib/web/src/components/ui/copy-button.tsx
+#: src/features/chats/components/thread-panel.tsx
 msgid "Copied to clipboard"
 msgstr "Air a chopaigeadh chun a' chliopaboird"
 
@@ -996,6 +999,10 @@ msgstr "Air a chopaigeadh chun a' chliopaboird"
 #: src/features/chats/index.tsx
 msgid "Copy"
 msgstr "Dèan lethbhreac"
+
+#: src/features/chats/components/thread-panel.tsx
+msgid "Copy link"
+msgstr ""
 
 #. placeholder {0}: ambiguous.join(', ')
 #. placeholder {1}: unknown.join(', ')
@@ -1124,6 +1131,7 @@ msgstr "Seòrsachadh bunaiteach"
 #: src/features/chats/components/message-hover-actions.tsx
 #: src/features/chats/index.tsx
 #: src/features/chats/index.tsx
+#: src/features/chats/thread-page.tsx
 msgid "Delete"
 msgstr "Sguab às"
 
@@ -1194,6 +1202,7 @@ msgid "Deleting chat..."
 msgstr "A’ sguabadh às a’ chabadaich..."
 
 #: src/features/chats/index.tsx
+#: src/features/chats/thread-page.tsx
 msgid "Deleting..."
 msgstr "A' sguabadh às..."
 
@@ -1452,6 +1461,7 @@ msgstr "Cha b' urrainn ball a chur ris"
 #: ../../../lib/web/src/components/comment-share-button.tsx
 #: ../../../lib/web/src/components/ui/copy-button.tsx
 #: ../../../lib/web/src/lib/toast-utils.ts
+#: src/features/chats/components/thread-panel.tsx
 #: src/features/chats/index.tsx
 msgid "Failed to copy"
 msgstr "Cha b' urrainn copaigeadh"
@@ -1477,6 +1487,7 @@ msgstr "Cha b' urrainn diùltadh"
 
 #: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx
 #: src/features/chats/index.tsx
+#: src/features/chats/thread-page.tsx
 msgid "Failed to delete"
 msgstr "Cha b' urrainn sguabadh às"
 
@@ -2021,6 +2032,7 @@ msgid "Message could not be sent. Attachments may be too large, or your connecti
 msgstr "Cha b' urrainn an teachdaireachd a chur. Dh'fhaoidte gu bheil na ceanglachain ro mhòr no gun do dh'fhàillig an ceangal agad. Feuch faidhlichean nas lugha."
 
 #: src/features/chats/index.tsx
+#: src/features/chats/thread-page.tsx
 msgid "Message deleted"
 msgstr "Chaidh an teachdaireachd a sguabadh às"
 
@@ -2032,6 +2044,7 @@ msgid "Message is too long"
 msgstr ""
 
 #: src/features/chats/components/message-quote.tsx
+#: src/features/chats/components/thread-panel.tsx
 #: src/features/chats/index.tsx
 msgid "Message not available"
 msgstr "Chan eil an teachdaireachd ri fhaighinn"
@@ -2418,6 +2431,10 @@ msgstr "Fosgail na gnìomhan"
 #: src/features/chats/index.tsx
 msgid "Open chat actions"
 msgstr "Fosgail gnìomhan na cabadaich"
+
+#: src/features/chats/components/thread-panel.tsx
+msgid "Open in new window"
+msgstr ""
 
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx
 msgid "Open menu"
@@ -3397,6 +3414,7 @@ msgid "This chat may have been deleted or you don't have access to it"
 msgstr "Dh'fhaodadh gun deach an còmhradh seo a sguabadh às no nach eil cead-inntrigidh agad"
 
 #: src/features/chats/index.tsx
+#: src/features/chats/thread-page.tsx
 msgid "This deletes the message for everyone and cannot be undone."
 msgstr "Sguabaidh seo às an teachdaireachd airson a h-uile duine is cha ghabh seo a neo-dhèanamh."
 
@@ -3423,8 +3441,19 @@ msgid "This permanently deletes the game and its chat. This cannot be undone."
 msgstr "Sguabaidh seo às an geama agus an cabadaich aige gu buan. Chan urrainn seo a neo-dhèanamh."
 
 #: src/features/chats/components/thread-panel.tsx
+#: src/features/chats/thread-page.tsx
+#: src/features/chats/thread-page.tsx
 msgid "Thread"
 msgstr "Snàithlean"
+
+#. placeholder {0}: chat.name
+#: src/features/chats/thread-page.tsx
+msgid "Thread in {0}"
+msgstr ""
+
+#: src/features/chats/components/thread-panel.tsx
+msgid "Thread options"
+msgstr ""
 
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Thursday"

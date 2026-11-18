@@ -2,12 +2,23 @@
 // SPDX-License-Identifier: AGPL-3.0-only
 // This file is part of Mochi, licensed under the GNU AGPL v3 with the
 // Mochi Application Interface Exception - see license.txt and license-exception.md.
-import { useLayoutEffect, useMemo, useRef, useState } from 'react'
+import {
+  useLayoutEffect,
+  useMemo,
+  useRef,
+  useState,
+  type ComponentProps,
+} from 'react'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { useRouter } from '@tanstack/react-router'
 import { Trans, useLingui } from '@lingui/react/macro'
 import {
   BubbleReactions,
   Button,
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
   GeneralError,
   SidePanel,
   SidePanelBody,
@@ -16,14 +27,23 @@ import {
   SidePanelTitle,
   Skeleton,
   actionPillExpandMaxWidthMap,
+  absoluteRouteUrl,
   actionPillExpandOpacityMap,
   cn,
   getErrorMessage,
+  shellClipboardWrite,
+  shellOpenExternal,
   toast,
   useFormat,
 } from '@mochi/web'
 import { EditorContent } from '@tiptap/react'
-import { Check, Send } from 'lucide-react'
+import {
+  Check,
+  ExternalLink,
+  Link as LinkIcon,
+  MoreHorizontal,
+  Send,
+} from 'lucide-react'
 import { chatsApi, type ChatMessage, type ReactionId } from '@/api/chats'
 import {
   chatKeys,
@@ -33,6 +53,11 @@ import {
 import { MESSAGE_MAX_LENGTH } from '../constants/limits'
 import { useMessageEditor } from '../editor/use-message-editor'
 import { messageSize } from '../utils'
+import {
+  CHAT_MEDIA_BUBBLE_CLASS,
+  CHAT_MEDIA_GRID_BUBBLE_CLASS,
+  attachmentsHaveVisualMedia,
+} from '../utils/chat-media-size'
 import { checkIsAtBottom, pinToBottom } from '../utils/scroll'
 import { FormattingToolbar } from './formatting-toolbar'
 import { MessageAttachments } from './message-attachments'
@@ -60,7 +85,7 @@ interface ThreadPanelProps {
   onDelete?: (message: ChatMessage) => void
 }
 
-/** A message's thread: the message, its replies, and a reply box. */
+/** A message's thread in a side panel over the conversation. */
 export function ThreadPanel({
   chatId,
   root,
@@ -70,15 +95,148 @@ export function ThreadPanel({
   onForward,
   onDelete,
 }: ThreadPanelProps) {
+  // Held here, not in the view, so a reply being typed outlives the panel
+  // closing and opening again, as it did before the view was shared.
+  const [draft, setDraft] = useState('')
+  return (
+    <SidePanel
+      open={Boolean(root)}
+      onOpenChange={(open) => {
+        if (!open) onClose()
+      }}
+      size='md'
+      dismissOnOutsideClick={!draft.trim()}
+    >
+      <SidePanelHeader
+        actions={
+          root ? (
+            <ThreadMenu chatId={chatId} rootId={root.id} onOpened={onClose} />
+          ) : null
+        }
+      >
+        <SidePanelTitle>
+          <Trans>Thread</Trans>
+        </SidePanelTitle>
+      </SidePanelHeader>
+      {root ? (
+        <ThreadView
+          layout='panel'
+          chatId={chatId}
+          rootId={root.id}
+          root={root}
+          currentUserIdentity={currentUserIdentity}
+          canWrite={canWrite}
+          onForward={onForward}
+          onDelete={onDelete}
+          draft={draft}
+          onDraftChange={setDraft}
+        />
+      ) : null}
+    </SidePanel>
+  )
+}
+
+/** The thread's own page, as the panel's menu opens and copies it. */
+function useThreadUrl(chatId: string, rootId: string): () => string {
+  const router = useRouter()
+  return () =>
+    absoluteRouteUrl(router, {
+      to: '/$chatId/thread/$messageId',
+      params: { chatId, messageId: rootId },
+    })
+}
+
+/** Slack's thread menu: the thread on its own page, or its address. */
+function ThreadMenu({
+  chatId,
+  rootId,
+  onOpened,
+}: {
+  chatId: string
+  rootId: string
+  onOpened: () => void
+}) {
+  const { t } = useLingui()
+  const url = useThreadUrl(chatId, rootId)
+  return (
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <Button
+          variant='ghost'
+          size='icon'
+          className='size-8'
+          aria-label={t`Thread options`}
+        >
+          <MoreHorizontal className='size-4' />
+        </Button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent align='end'>
+        <DropdownMenuItem
+          onSelect={() => {
+            // The thread goes to its own window, so it leaves this one.
+            if (shellOpenExternal(url())) onOpened()
+          }}
+        >
+          <ExternalLink className='me-2 size-4' />
+          <Trans>Open in new window</Trans>
+        </DropdownMenuItem>
+        <DropdownMenuItem
+          onSelect={() => {
+            void shellClipboardWrite(url()).then((ok) => {
+              if (ok) toast.success(t`Copied to clipboard`)
+              else toast.error(t`Failed to copy`)
+            })
+          }}
+        >
+          <LinkIcon className='me-2 size-4' />
+          <Trans>Copy link</Trans>
+        </DropdownMenuItem>
+      </DropdownMenuContent>
+    </DropdownMenu>
+  )
+}
+
+interface ThreadViewProps {
+  // In the side panel, or on the thread's own page.
+  layout: 'panel' | 'page'
+  chatId: string
+  rootId: string
+  // The root message itself; undefined while the page still looks for it,
+  // null once it gave up.
+  root: ChatMessage | null | undefined
+  currentUserIdentity: string
+  canWrite: boolean
+  onForward?: (message: ChatMessage) => void
+  onDelete?: (message: ChatMessage) => void
+  // The reply being typed.
+  draft: string
+  onDraftChange: (draft: string) => void
+}
+
+/**
+ * A message's thread: the message, its replies, and a reply box. Shared by
+ * the side panel and the thread's own page, which differ only in what holds
+ * the scrolling body and the reply box.
+ */
+export function ThreadView({
+  layout,
+  chatId,
+  rootId,
+  root,
+  currentUserIdentity,
+  canWrite,
+  onForward,
+  onDelete,
+  draft: body,
+  onDraftChange: setBody,
+}: ThreadViewProps) {
   const { t } = useLingui()
   const queryClient = useQueryClient()
-  const query = useThreadMessagesQuery(chatId, root?.id)
+  const query = useThreadMessagesQuery(chatId, rootId)
   const replies = useMemo(
     () => [...(query.data?.pages ?? [])].reverse().flatMap((p) => p.messages),
     [query.data?.pages]
   )
-  const [body, setBody] = useState('')
-
   // New replies are followed as the main timeline follows new messages: the
   // user's own always, anyone else's while the panel is already at the
   // bottom. Earlier replies loaded above, and the thread first showing, move
@@ -95,10 +253,10 @@ export function ThreadPanel({
   useLayoutEffect(() => {
     const el = bodyRef.current
     const last = followed.current
-    followed.current = { root: root?.id, newest: newest?.id, loaded }
+    followed.current = { root: rootId, newest: newest?.id, loaded }
     // Only a reply arriving in a thread already shown, so the first reply
     // of a thread that had none counts too.
-    if (!el || !newest || last.root !== root?.id || !last.loaded) return
+    if (!el || !newest || last.root !== rootId || !last.loaded) return
     if (newest.id === last.newest) return
     if (newest.member === currentUserIdentity) {
       if (atBottom.current) pinToBottom(el)
@@ -107,7 +265,7 @@ export function ThreadPanel({
     } else if (atBottom.current) {
       pinToBottom(el)
     }
-  }, [root?.id, newest, loaded, currentUserIdentity])
+  }, [rootId, newest, loaded, currentUserIdentity])
   const [editing, setEditing] = useState<{ id: string; body: string } | null>(
     null
   )
@@ -133,7 +291,7 @@ export function ThreadPanel({
   const edit = useEditMessageMutation({
     onSuccess: () => {
       setEditing(null)
-      if (root) void refresh(root.id)
+      void refresh(rootId)
     },
     onError: (error) =>
       toast.error(getErrorMessage(error, t`Failed to edit message`)),
@@ -182,13 +340,13 @@ export function ThreadPanel({
   const submit = (event?: React.FormEvent) => {
     event?.preventDefault()
     const text = body.trim()
-    if (!text || !root || send.isPending) return
+    if (!text || send.isPending) return
     // The main composer's rule: the server measures the body in bytes.
     if (messageSize(text) > MESSAGE_MAX_LENGTH) {
       toast.error(t`Message is too long`)
       return
     }
-    send.mutate({ text, thread: root.id })
+    send.mutate({ text, thread: rootId })
   }
 
   const { editor: replyEditor } = useMessageEditor({
@@ -199,21 +357,13 @@ export function ThreadPanel({
     className: 'max-h-40',
   })
 
+  // The panel's own body and footer, or the page's plain equivalents.
+  const Body = layout === 'panel' ? SidePanelBody : PageBody
+  const Footer = layout === 'panel' ? SidePanelFooter : PageFooter
+
   return (
-    <SidePanel
-      open={Boolean(root)}
-      onOpenChange={(open) => {
-        if (!open) onClose()
-      }}
-      size='md'
-      dismissOnOutsideClick={!body.trim()}
-    >
-      <SidePanelHeader>
-        <SidePanelTitle>
-          <Trans>Thread</Trans>
-        </SidePanelTitle>
-      </SidePanelHeader>
-      <SidePanelBody
+    <>
+      <Body
         ref={bodyRef}
         className='space-y-4'
         onScroll={(event) => {
@@ -225,7 +375,13 @@ export function ThreadPanel({
             message={root}
             isSent={root.member === currentUserIdentity}
           />
-        ) : null}
+        ) : root === undefined ? (
+          <Skeleton className='h-16 w-full' />
+        ) : (
+          <p className='text-muted-foreground text-sm italic'>
+            <Trans>Message not available</Trans>
+          </p>
+        )}
         <div className='space-y-3 border-t pt-4'>
           {query.hasNextPage ? (
             <Button
@@ -249,7 +405,7 @@ export function ThreadPanel({
           ) : (
             replies.map((message) => {
               const isSent = message.member === currentUserIdentity
-              const open = canWrite && !message.deleted && root
+              const open = canWrite && !message.deleted
               return (
                 <ThreadMessage
                   key={message.id}
@@ -264,7 +420,7 @@ export function ThreadPanel({
                             react.mutate({
                               message: message.id,
                               reaction,
-                              thread: root.id,
+                              thread: rootId,
                             })
                           }
                           isSent={isSent}
@@ -309,9 +465,9 @@ export function ThreadPanel({
             })
           )}
         </div>
-      </SidePanelBody>
+      </Body>
       {canWrite ? (
-        <SidePanelFooter>
+        <Footer>
           <form onSubmit={submit} className='flex flex-col gap-1'>
             <FormattingToolbar editor={replyEditor} className='-ms-1.5' />
             <div className='flex items-end gap-2'>
@@ -329,10 +485,23 @@ export function ThreadPanel({
               </Button>
             </div>
           </form>
-        </SidePanelFooter>
+        </Footer>
       ) : null}
-    </SidePanel>
+    </>
   )
+}
+
+function PageBody({ className, ...props }: ComponentProps<'div'>) {
+  return (
+    <div
+      className={cn('min-h-0 flex-1 overflow-y-auto p-4 sm:p-6', className)}
+      {...props}
+    />
+  )
+}
+
+function PageFooter({ className, ...props }: ComponentProps<'div'>) {
+  return <div className={cn('border-t p-4', className)} {...props} />
 }
 
 // The look of the Textarea these boxes replaced, on the editor's wrapper.
@@ -443,11 +612,21 @@ function ThreadMessage({
       ) : (
         <>
           {message.attachments?.length ? (
-            <MessageAttachments
-              attachments={message.attachments}
-              chatId={message.chat}
-              isSent={isSent}
-            />
+            // Sized as the timeline sizes a message's media, so a photo on
+            // the thread's own page does not fill the window.
+            <div
+              className={
+                attachmentsHaveVisualMedia(message.attachments)
+                  ? CHAT_MEDIA_GRID_BUBBLE_CLASS
+                  : CHAT_MEDIA_BUBBLE_CLASS
+              }
+            >
+              <MessageAttachments
+                attachments={message.attachments}
+                chatId={message.chat}
+                isSent={isSent}
+              />
+            </div>
           ) : null}
           {message.body ? (
             <MessageBody isSent={isSent}>

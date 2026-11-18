@@ -56,8 +56,10 @@ msgstr "[సెట్ చేయలేదు]"
 msgid "{0, plural, =1 {{1} is typing...} other {{2} are typing...}}"
 msgstr "{0, plural, =1 {{1} టైప్ చేస్తున్నారు...} other {{2} టైప్ చేస్తున్నారు...}}"
 
+#. placeholder {0}: deleteIds?.length ?? 0
 #. placeholder {0}: deleteTargetIds?.length ?? 0
 #: src/features/chats/index.tsx
+#: src/features/chats/thread-page.tsx
 msgid "{0, plural, =1 {Delete message?} other {Delete # messages?}}"
 msgstr "{0, plural, =1 {సందేశాన్ని తొలగించాలా?} other {# సందేశాలను తొలగించాలా?}}"
 
@@ -981,6 +983,7 @@ msgstr "కాపీ అయింది"
 
 #: ../../../lib/web/src/components/comment-share-button.tsx
 #: ../../../lib/web/src/components/ui/copy-button.tsx
+#: src/features/chats/components/thread-panel.tsx
 msgid "Copied to clipboard"
 msgstr "క్లిప్‌బోర్డ్‌కి కాపీ చేయబడింది"
 
@@ -996,6 +999,10 @@ msgstr "క్లిప్‌బోర్డ్‌కి కాపీ చేయ�
 #: src/features/chats/index.tsx
 msgid "Copy"
 msgstr "కాపీ చేయండి"
+
+#: src/features/chats/components/thread-panel.tsx
+msgid "Copy link"
+msgstr ""
 
 #. placeholder {0}: ambiguous.join(', ')
 #. placeholder {1}: unknown.join(', ')
@@ -1124,6 +1131,7 @@ msgstr "డిఫాల్ట్ క్రమబద్ధీకరణ"
 #: src/features/chats/components/message-hover-actions.tsx
 #: src/features/chats/index.tsx
 #: src/features/chats/index.tsx
+#: src/features/chats/thread-page.tsx
 msgid "Delete"
 msgstr "తొలగించండి"
 
@@ -1194,6 +1202,7 @@ msgid "Deleting chat..."
 msgstr "చాట్‌ను తొలగిస్తోంది..."
 
 #: src/features/chats/index.tsx
+#: src/features/chats/thread-page.tsx
 msgid "Deleting..."
 msgstr "తొలగిస్తోంది..."
 
@@ -1452,6 +1461,7 @@ msgstr "సభ్యుని జోడించడంలో విఫలమై�
 #: ../../../lib/web/src/components/comment-share-button.tsx
 #: ../../../lib/web/src/components/ui/copy-button.tsx
 #: ../../../lib/web/src/lib/toast-utils.ts
+#: src/features/chats/components/thread-panel.tsx
 #: src/features/chats/index.tsx
 msgid "Failed to copy"
 msgstr "కాపీ చేయడంలో విఫలమైంది"
@@ -1477,6 +1487,7 @@ msgstr "తిరస్కరించడంలో విఫలమైంది"
 
 #: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx
 #: src/features/chats/index.tsx
+#: src/features/chats/thread-page.tsx
 msgid "Failed to delete"
 msgstr "తొలగించడంలో విఫలమైంది"
 
@@ -2021,6 +2032,7 @@ msgid "Message could not be sent. Attachments may be too large, or your connecti
 msgstr "సందేశాన్ని పంపడం సాధ్యం కాలేదు. అటాచ్‌మెంట్‌లు చాలా పెద్దగా ఉండవచ్చు లేదా మీ కనెక్షన్ విఫలమై ఉండవచ్చు. చిన్న ఫైళ్లతో ప్రయత్నించండి."
 
 #: src/features/chats/index.tsx
+#: src/features/chats/thread-page.tsx
 msgid "Message deleted"
 msgstr "సందేశం తొలగించబడింది"
 
@@ -2032,6 +2044,7 @@ msgid "Message is too long"
 msgstr ""
 
 #: src/features/chats/components/message-quote.tsx
+#: src/features/chats/components/thread-panel.tsx
 #: src/features/chats/index.tsx
 msgid "Message not available"
 msgstr "సందేశం అందుబాటులో లేదు"
@@ -2418,6 +2431,10 @@ msgstr "చర్యలను తెరవండి"
 #: src/features/chats/index.tsx
 msgid "Open chat actions"
 msgstr "చాట్ చర్యలను ఓపెన్ చేయండి"
+
+#: src/features/chats/components/thread-panel.tsx
+msgid "Open in new window"
+msgstr ""
 
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx
 msgid "Open menu"
@@ -3397,6 +3414,7 @@ msgid "This chat may have been deleted or you don't have access to it"
 msgstr "ఈ చాట్ తొలగించబడి ఉండవచ్చు లేదా మీకు ప్రాప్యత లేదు"
 
 #: src/features/chats/index.tsx
+#: src/features/chats/thread-page.tsx
 msgid "This deletes the message for everyone and cannot be undone."
 msgstr "ఇది సందేశాన్ని అందరికీ తొలగిస్తుంది, దీన్ని వెనక్కి తీసుకోలేరు."
 
@@ -3423,8 +3441,19 @@ msgid "This permanently deletes the game and its chat. This cannot be undone."
 msgstr "ఇది గేమ్‌ను మరియు దాని చాట్‌ను శాశ్వతంగా తొలగిస్తుంది. ఈ చర్యను తిరిగి మార్చలేరు."
 
 #: src/features/chats/components/thread-panel.tsx
+#: src/features/chats/thread-page.tsx
+#: src/features/chats/thread-page.tsx
 msgid "Thread"
 msgstr "థ్రెడ్"
+
+#. placeholder {0}: chat.name
+#: src/features/chats/thread-page.tsx
+msgid "Thread in {0}"
+msgstr ""
+
+#: src/features/chats/components/thread-panel.tsx
+msgid "Thread options"
+msgstr ""
 
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Thursday"

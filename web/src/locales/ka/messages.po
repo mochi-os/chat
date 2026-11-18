@@ -56,8 +56,10 @@ msgstr "[არ არის მითითებული]"
 msgid "{0, plural, =1 {{1} is typing...} other {{2} are typing...}}"
 msgstr "{0, plural, =1 {{1} ბეჭდავს...} other {{2} ბეჭდავენ...}}"
 
+#. placeholder {0}: deleteIds?.length ?? 0
 #. placeholder {0}: deleteTargetIds?.length ?? 0
 #: src/features/chats/index.tsx
+#: src/features/chats/thread-page.tsx
 msgid "{0, plural, =1 {Delete message?} other {Delete # messages?}}"
 msgstr "{0, plural, =1 {წაიშალოს შეტყობინება?} other {წაიშალოს # შეტყობინება?}}"
 
@@ -981,6 +983,7 @@ msgstr "დაკოპირდა"
 
 #: ../../../lib/web/src/components/comment-share-button.tsx
 #: ../../../lib/web/src/components/ui/copy-button.tsx
+#: src/features/chats/components/thread-panel.tsx
 msgid "Copied to clipboard"
 msgstr "ბუფერში დაკოპირდა"
 
@@ -996,6 +999,10 @@ msgstr "ბუფერში დაკოპირდა"
 #: src/features/chats/index.tsx
 msgid "Copy"
 msgstr "კოპირება"
+
+#: src/features/chats/components/thread-panel.tsx
+msgid "Copy link"
+msgstr ""
 
 #. placeholder {0}: ambiguous.join(', ')
 #. placeholder {1}: unknown.join(', ')
@@ -1124,6 +1131,7 @@ msgstr "ნაგულისხმევი დახარისხება"
 #: src/features/chats/components/message-hover-actions.tsx
 #: src/features/chats/index.tsx
 #: src/features/chats/index.tsx
+#: src/features/chats/thread-page.tsx
 msgid "Delete"
 msgstr "წაშლა"
 
@@ -1194,6 +1202,7 @@ msgid "Deleting chat..."
 msgstr "ჩატის წაშლა..."
 
 #: src/features/chats/index.tsx
+#: src/features/chats/thread-page.tsx
 msgid "Deleting..."
 msgstr "იშლება..."
 
@@ -1452,6 +1461,7 @@ msgstr "წევრის დამატება ვერ მოხერხ
 #: ../../../lib/web/src/components/comment-share-button.tsx
 #: ../../../lib/web/src/components/ui/copy-button.tsx
 #: ../../../lib/web/src/lib/toast-utils.ts
+#: src/features/chats/components/thread-panel.tsx
 #: src/features/chats/index.tsx
 msgid "Failed to copy"
 msgstr "კოპირება ვერ მოხერხდა"
@@ -1477,6 +1487,7 @@ msgstr "უარის თქმა ვერ მოხერხდა"
 
 #: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx
 #: src/features/chats/index.tsx
+#: src/features/chats/thread-page.tsx
 msgid "Failed to delete"
 msgstr "წაშლა ვერ მოხერხდა"
 
@@ -2021,6 +2032,7 @@ msgid "Message could not be sent. Attachments may be too large, or your connecti
 msgstr "შეტყობინების გაგზავნა ვერ მოხერხდა. დანართები შესაძლოა ზედმეტად დიდი იყოს, ან კავშირი გაწყდა. სცადეთ უფრო მცირე ზომის ფაილებით."
 
 #: src/features/chats/index.tsx
+#: src/features/chats/thread-page.tsx
 msgid "Message deleted"
 msgstr "შეტყობინება წაიშალა"
 
@@ -2032,6 +2044,7 @@ msgid "Message is too long"
 msgstr ""
 
 #: src/features/chats/components/message-quote.tsx
+#: src/features/chats/components/thread-panel.tsx
 #: src/features/chats/index.tsx
 msgid "Message not available"
 msgstr "შეტყობინება მიუწვდომელია"
@@ -2418,6 +2431,10 @@ msgstr "მოქმედებების გახსნა"
 #: src/features/chats/index.tsx
 msgid "Open chat actions"
 msgstr "ჩატის მოქმედებების გახსნა"
+
+#: src/features/chats/components/thread-panel.tsx
+msgid "Open in new window"
+msgstr ""
 
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx
 msgid "Open menu"
@@ -3397,6 +3414,7 @@ msgid "This chat may have been deleted or you don't have access to it"
 msgstr "ეს ჩატი შესაძლოა წაიშალა ან არ გაქვთ მასზე წვდომა"
 
 #: src/features/chats/index.tsx
+#: src/features/chats/thread-page.tsx
 msgid "This deletes the message for everyone and cannot be undone."
 msgstr "ეს წაშლის შეტყობინებას ყველასთვის და ვერ გაუქმდება."
 
@@ -3423,8 +3441,19 @@ msgid "This permanently deletes the game and its chat. This cannot be undone."
 msgstr "ეს სამუდამოდ წაშლის თამაშსა და მის ჩატს. ამ მოქმედების გაუქმება შეუძლებელია."
 
 #: src/features/chats/components/thread-panel.tsx
+#: src/features/chats/thread-page.tsx
+#: src/features/chats/thread-page.tsx
 msgid "Thread"
 msgstr "თემა"
+
+#. placeholder {0}: chat.name
+#: src/features/chats/thread-page.tsx
+msgid "Thread in {0}"
+msgstr ""
+
+#: src/features/chats/components/thread-panel.tsx
+msgid "Thread options"
+msgstr ""
 
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Thursday"

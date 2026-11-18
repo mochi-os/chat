@@ -10,7 +10,7 @@ import { act, fireEvent, render, screen, waitFor } from '@testing-library/react'
 import type { Editor } from '@tiptap/core'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 import type { ChatMessage } from '@/api/chats'
-import { ThreadPanel } from './thread-panel'
+import { ThreadPanel, ThreadView } from './thread-panel'
 
 const calls = vi.hoisted(() => ({
   send: vi.fn(),
@@ -20,6 +20,9 @@ const calls = vi.hoisted(() => ({
   remove: vi.fn(),
   // The thread's replies, as its query answers them.
   replies: [] as unknown[],
+  copy: vi.fn(),
+  open: vi.fn(),
+  close: vi.fn(),
 }))
 
 vi.mock('@mochi/web', async (importOriginal) => {
@@ -28,7 +31,18 @@ vi.mock('@mochi/web', async (importOriginal) => {
     ...(await importOriginal<typeof import('@mochi/web')>()),
     SidePanel: ({ open, children }: { open: boolean; children: ReactNode }) =>
       open ? <div>{children}</div> : null,
-    SidePanelHeader: Pass,
+    SidePanelHeader: ({
+      children,
+      actions,
+    }: {
+      children?: ReactNode
+      actions?: ReactNode
+    }) => (
+      <div>
+        {children}
+        {actions}
+      </div>
+    ),
     SidePanelTitle: Pass,
     // A real element, so the panel can follow new replies on it.
     SidePanelBody: (props: ComponentProps<'div'>) => (
@@ -36,9 +50,21 @@ vi.mock('@mochi/web', async (importOriginal) => {
     ),
     SidePanelFooter: Pass,
     useFormat: () => ({ formatTimestamp: String, formatNumber: String }),
-    toast: { error: calls.error },
+    toast: { error: calls.error, success: vi.fn() },
+    shellClipboardWrite: calls.copy,
+    shellOpenExternal: calls.open,
   }
 })
+// The thread's address, as the router builds it.
+vi.mock('@tanstack/react-router', async (importOriginal) => ({
+  ...(await importOriginal<typeof import('@tanstack/react-router')>()),
+  useRouter: () => ({
+    buildLocation: ({ params }: { params: Record<string, string> }) => ({
+      publicHref: `/${params.chatId}/thread/${params.messageId}`,
+    }),
+    history: { createHref: (href: string) => href },
+  }),
+}))
 vi.mock('@/api/chats', () => ({
   chatsApi: { sendMessage: calls.send },
 }))
@@ -86,7 +112,7 @@ function setup() {
           root={open}
           currentUserIdentity='me'
           canWrite
-          onClose={() => {}}
+          onClose={calls.close}
           onForward={calls.forward}
           onDelete={calls.remove}
         />
@@ -288,5 +314,89 @@ describe('ThreadPanel following new replies', () => {
     refresh()
     expect(body.scrollTop).toBe(100)
     expect(body.scrollTo).not.toHaveBeenCalled()
+  })
+})
+
+describe('ThreadPanel menu', () => {
+  const menu = () =>
+    fireEvent.keyDown(screen.getByRole('button', { name: 'Thread options' }), {
+      key: 'Enter',
+    })
+  const address = `${window.location.origin}/c1/thread/r1`
+
+  it('copies the thread’s own address', async () => {
+    calls.copy.mockResolvedValue(true)
+    setup()
+    menu()
+    fireEvent.click(screen.getByRole('menuitem', { name: 'Copy link' }))
+    expect(calls.copy).toHaveBeenCalledWith(address)
+  })
+
+  it('opens the thread in a new window and closes the panel', () => {
+    calls.open.mockReturnValue(true)
+    calls.close.mockClear()
+    setup()
+    menu()
+    fireEvent.click(
+      screen.getByRole('menuitem', { name: 'Open in new window' })
+    )
+    expect(calls.open).toHaveBeenCalledWith(address)
+    expect(calls.close).toHaveBeenCalledOnce()
+  })
+
+  it('keeps the panel when the browser blocks the window', () => {
+    calls.open.mockReturnValue(false)
+    calls.close.mockClear()
+    setup()
+    menu()
+    fireEvent.click(
+      screen.getByRole('menuitem', { name: 'Open in new window' })
+    )
+    expect(calls.close).not.toHaveBeenCalled()
+  })
+})
+
+describe('ThreadView on its own page', () => {
+  const page = (root: ChatMessage | null | undefined) =>
+    render(
+      <QueryClientProvider client={new QueryClient()}>
+        <I18nProvider i18n={i18n}>
+          <ThreadView
+            layout='page'
+            chatId='c1'
+            rootId='r1'
+            root={root}
+            currentUserIdentity='me'
+            canWrite
+            draft=''
+            onDraftChange={() => {}}
+          />
+        </I18nProvider>
+      </QueryClientProvider>
+    )
+
+  it('shows the replies with a note in place of a root it could not find', () => {
+    calls.replies = [
+      {
+        id: 'a1',
+        chat: 'c1',
+        member: 'them',
+        name: 'Tien',
+        body: 'A reply',
+        created: 2,
+        thread: 'r1',
+      },
+    ]
+    page(null)
+    expect(screen.getByText('Message not available')).toBeInTheDocument()
+    expect(screen.getByText('A reply')).toBeInTheDocument()
+    expect(screen.getByLabelText('Reply in thread')).toBeInTheDocument()
+  })
+
+  it('shows the root once found', () => {
+    calls.replies = []
+    page(root)
+    expect(screen.getByText('Root')).toBeInTheDocument()
+    expect(screen.queryByText('Message not available')).toBeNull()
   })
 })

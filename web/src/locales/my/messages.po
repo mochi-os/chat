@@ -56,8 +56,10 @@ msgstr "[မသတ်မှတ်ရသေး]"
 msgid "{0, plural, =1 {{1} is typing...} other {{2} are typing...}}"
 msgstr "{0, plural, =1 {{1} စာရိုက်နေသည်...} other {{2} စာရိုက်နေကြသည်...}}"
 
+#. placeholder {0}: deleteIds?.length ?? 0
 #. placeholder {0}: deleteTargetIds?.length ?? 0
 #: src/features/chats/index.tsx
+#: src/features/chats/thread-page.tsx
 msgid "{0, plural, =1 {Delete message?} other {Delete # messages?}}"
 msgstr "{0, plural, other {မက်ဆေ့ဂျ် # ခု ဖျက်မလား?}}"
 
@@ -981,6 +983,7 @@ msgstr "ကူးယူပြီးပါပြီ"
 
 #: ../../../lib/web/src/components/comment-share-button.tsx
 #: ../../../lib/web/src/components/ui/copy-button.tsx
+#: src/features/chats/components/thread-panel.tsx
 msgid "Copied to clipboard"
 msgstr "ကလစ်ဘုတ်သို့ ကူးပြီး"
 
@@ -996,6 +999,10 @@ msgstr "ကလစ်ဘုတ်သို့ ကူးပြီး"
 #: src/features/chats/index.tsx
 msgid "Copy"
 msgstr "ကူးမည်"
+
+#: src/features/chats/components/thread-panel.tsx
+msgid "Copy link"
+msgstr ""
 
 #. placeholder {0}: ambiguous.join(', ')
 #. placeholder {1}: unknown.join(', ')
@@ -1124,6 +1131,7 @@ msgstr "မူရင်း စီစဉ်မှု"
 #: src/features/chats/components/message-hover-actions.tsx
 #: src/features/chats/index.tsx
 #: src/features/chats/index.tsx
+#: src/features/chats/thread-page.tsx
 msgid "Delete"
 msgstr "ဖျက်မည်"
 
@@ -1194,6 +1202,7 @@ msgid "Deleting chat..."
 msgstr "ချတ်ကို ဖျက်နေသည်..."
 
 #: src/features/chats/index.tsx
+#: src/features/chats/thread-page.tsx
 msgid "Deleting..."
 msgstr "ဖျက်နေသည်..."
 
@@ -1452,6 +1461,7 @@ msgstr "အဖွဲ့ဝင် ထည့်၍ မရပါ"
 #: ../../../lib/web/src/components/comment-share-button.tsx
 #: ../../../lib/web/src/components/ui/copy-button.tsx
 #: ../../../lib/web/src/lib/toast-utils.ts
+#: src/features/chats/components/thread-panel.tsx
 #: src/features/chats/index.tsx
 msgid "Failed to copy"
 msgstr "ကူးယူ၍ မရပါ"
@@ -1477,6 +1487,7 @@ msgstr "ငြင်းပယ်၍ မရပါ"
 
 #: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx
 #: src/features/chats/index.tsx
+#: src/features/chats/thread-page.tsx
 msgid "Failed to delete"
 msgstr "ဖျက်၍ မရပါ"
 
@@ -2021,6 +2032,7 @@ msgid "Message could not be sent. Attachments may be too large, or your connecti
 msgstr "မက်ဆေ့ဂျ် ပို့၍မရပါ။ ပူးတွဲဖိုင်များ ကြီးလွန်းနိုင်သည် သို့မဟုတ် သင့်ချိတ်ဆက်မှု မအောင်မြင်ပါ။ ပိုသေးသော ဖိုင်များဖြင့် ကြိုးစားကြည့်ပါ။"
 
 #: src/features/chats/index.tsx
+#: src/features/chats/thread-page.tsx
 msgid "Message deleted"
 msgstr "မက်ဆေ့ဂျ်ကို ဖျက်ပြီးပါပြီ"
 
@@ -2032,6 +2044,7 @@ msgid "Message is too long"
 msgstr ""
 
 #: src/features/chats/components/message-quote.tsx
+#: src/features/chats/components/thread-panel.tsx
 #: src/features/chats/index.tsx
 msgid "Message not available"
 msgstr "မက်ဆေ့ဂျ် မရရှိနိုင်ပါ"
@@ -2418,6 +2431,10 @@ msgstr "လုပ်ဆောင်ချက်များ ဖွင့်ရ�
 #: src/features/chats/index.tsx
 msgid "Open chat actions"
 msgstr "ချတ် လုပ်ဆောင်ချက်များကို ဖွင့်"
+
+#: src/features/chats/components/thread-panel.tsx
+msgid "Open in new window"
+msgstr ""
 
 #: ../../../lib/web/src/components/layout/mochi-menu.tsx
 msgid "Open menu"
@@ -3397,6 +3414,7 @@ msgid "This chat may have been deleted or you don't have access to it"
 msgstr "ဤ chat ကို ဖျက်ထားနိုင်သည် သို့မဟုတ် သင်ဝင်ခွင့်မရှိနိုင်ပါ"
 
 #: src/features/chats/index.tsx
+#: src/features/chats/thread-page.tsx
 msgid "This deletes the message for everyone and cannot be undone."
 msgstr "၎င်းသည် မက်ဆေ့ဂျ်ကို လူတိုင်းအတွက် ဖျက်ပစ်မည်ဖြစ်ပြီး ပြန်ပြင်၍ မရပါ။"
 
@@ -3423,8 +3441,19 @@ msgid "This permanently deletes the game and its chat. This cannot be undone."
 msgstr "ဤလုပ်ဆောင်ချက်သည် ဂိမ်းနှင့် ၎င်း၏ ချတ်ကို အပြီးအပိုင် ဖျက်ပစ်မည်ဖြစ်သည်။ ဤလုပ်ဆောင်ချက်ကို ပြန်ပြောင်း၍မရပါ။"
 
 #: src/features/chats/components/thread-panel.tsx
+#: src/features/chats/thread-page.tsx
+#: src/features/chats/thread-page.tsx
 msgid "Thread"
 msgstr "စကားဝိုင်း"
+
+#. placeholder {0}: chat.name
+#: src/features/chats/thread-page.tsx
+msgid "Thread in {0}"
+msgstr ""
+
+#: src/features/chats/components/thread-panel.tsx
+msgid "Thread options"
+msgstr ""
 
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Thursday"
