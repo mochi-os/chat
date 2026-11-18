@@ -15,7 +15,6 @@ import {
   SidePanelHeader,
   SidePanelTitle,
   Skeleton,
-  Textarea,
   actionPillExpandMaxWidthMap,
   actionPillExpandOpacityMap,
   cn,
@@ -23,6 +22,7 @@ import {
   toast,
   useFormat,
 } from '@mochi/web'
+import { EditorContent } from '@tiptap/react'
 import { Check, Send } from 'lucide-react'
 import { chatsApi, type ChatMessage, type ReactionId } from '@/api/chats'
 import {
@@ -31,7 +31,9 @@ import {
   useThreadMessagesQuery,
 } from '@/hooks/useChats'
 import { MESSAGE_MAX_LENGTH } from '../constants/limits'
+import { useMessageEditor } from '../editor/use-message-editor'
 import { messageSize } from '../utils'
+import { FormattingToolbar } from './formatting-toolbar'
 import { MessageAttachments } from './message-attachments'
 import { MessageBody } from './message-body'
 import { MessageHoverActions } from './message-hover-actions'
@@ -39,6 +41,7 @@ import {
   MessageReactionPicker,
   MessageReactionSummary,
 } from './message-reaction-bar'
+import { MessageText } from './message-text'
 
 // How long the websocket gets to bring the user's own reply before the
 // thread is fetched again, as the main timeline's send path waits.
@@ -145,8 +148,8 @@ export function ThreadPanel({
     },
   })
 
-  const submit = (event: React.FormEvent) => {
-    event.preventDefault()
+  const submit = (event?: React.FormEvent) => {
+    event?.preventDefault()
     const text = body.trim()
     if (!text || !root || send.isPending) return
     // The main composer's rule: the server measures the body in bytes.
@@ -156,6 +159,14 @@ export function ThreadPanel({
     }
     send.mutate({ text, thread: root.id })
   }
+
+  const { editor: replyEditor } = useMessageEditor({
+    value: body,
+    onValueChange: setBody,
+    onSubmit: () => submit(),
+    ariaLabel: t`Reply in thread`,
+    className: 'max-h-40',
+  })
 
   return (
     <SidePanel
@@ -245,50 +256,15 @@ export function ThreadPanel({
                   }
                   editor={
                     editing?.id === message.id ? (
-                      <div className='space-y-2'>
-                        <Textarea
-                          aria-label={t`Edit`}
-                          className='max-h-40 min-h-10 resize-none'
-                          rows={1}
-                          autoFocus
-                          value={editing.body}
-                          onChange={(event) =>
-                            setEditing({
-                              id: message.id,
-                              body: event.target.value,
-                            })
-                          }
-                          onKeyDown={(event) => {
-                            if (event.key === 'Enter' && !event.shiftKey) {
-                              event.preventDefault()
-                              saveEdit(message)
-                            } else if (event.key === 'Escape') {
-                              event.preventDefault()
-                              setEditing(null)
-                            }
-                          }}
-                        />
-                        <div className='flex justify-end gap-2'>
-                          <Button
-                            type='button'
-                            variant='ghost'
-                            size='sm'
-                            onClick={() => setEditing(null)}
-                          >
-                            <Trans>Cancel</Trans>
-                          </Button>
-                          <Button
-                            type='button'
-                            size='sm'
-                            disabled={!editing.body.trim()}
-                            loading={edit.isPending}
-                            icon={<Check className='size-3' />}
-                            onClick={() => saveEdit(message)}
-                          >
-                            <Trans>Save</Trans>
-                          </Button>
-                        </div>
-                      </div>
+                      <ThreadEditBox
+                        value={editing.body}
+                        onValueChange={(next) =>
+                          setEditing({ id: message.id, body: next })
+                        }
+                        onSave={() => saveEdit(message)}
+                        onCancel={() => setEditing(null)}
+                        saving={edit.isPending}
+                      />
                     ) : null
                   }
                 />
@@ -299,29 +275,78 @@ export function ThreadPanel({
       </SidePanelBody>
       {canWrite ? (
         <SidePanelFooter>
-          <form onSubmit={submit} className='flex items-end gap-2'>
-            <Textarea
-              aria-label={t`Reply in thread`}
-              className='max-h-40 min-h-10 flex-1 resize-none'
-              rows={1}
-              value={body}
-              onChange={(event) => setBody(event.target.value)}
-              onKeyDown={(event) => {
-                if (event.key === 'Enter' && !event.shiftKey) submit(event)
-              }}
-            />
-            <Button
-              type='submit'
-              disabled={!body.trim()}
-              loading={send.isPending}
-              icon={<Send className='size-4' />}
-            >
-              <Trans>Send</Trans>
-            </Button>
+          <form onSubmit={submit} className='flex flex-col gap-1'>
+            <FormattingToolbar editor={replyEditor} className='-ms-1.5' />
+            <div className='flex items-end gap-2'>
+              <EditorContent
+                editor={replyEditor}
+                className={cn(BOX_CLASS, 'flex-1')}
+              />
+              <Button
+                type='submit'
+                disabled={!body.trim()}
+                loading={send.isPending}
+                icon={<Send className='size-4' />}
+              >
+                <Trans>Send</Trans>
+              </Button>
+            </div>
           </form>
         </SidePanelFooter>
       ) : null}
     </SidePanel>
+  )
+}
+
+// The look of the Textarea these boxes replaced, on the editor's wrapper.
+const BOX_CLASS =
+  'border-border focus-within:border-ring focus-within:ring-ring/50 dark:bg-input/30 min-h-10 min-w-0 rounded-md border-[length:var(--border-width)] bg-transparent px-3 py-2 shadow-xs transition-[color,box-shadow] focus-within:ring-[3px]'
+
+/** A thread reply's edit box, with its formatting bar and buttons. */
+function ThreadEditBox({
+  value,
+  onValueChange,
+  onSave,
+  onCancel,
+  saving,
+}: {
+  value: string
+  onValueChange: (value: string) => void
+  onSave: () => void
+  onCancel: () => void
+  saving: boolean
+}) {
+  const { t } = useLingui()
+  const { editor } = useMessageEditor({
+    value,
+    onValueChange,
+    onSubmit: onSave,
+    onEscape: onCancel,
+    ariaLabel: t`Edit`,
+    autoFocus: true,
+  })
+  return (
+    <div className='space-y-2'>
+      <EditorContent editor={editor} className={BOX_CLASS} />
+      <div className='flex flex-wrap items-center gap-2'>
+        <FormattingToolbar editor={editor} className='-ms-1.5' />
+        <div className='ms-auto flex gap-2'>
+          <Button type='button' variant='ghost' size='sm' onClick={onCancel}>
+            <Trans>Cancel</Trans>
+          </Button>
+          <Button
+            type='button'
+            size='sm'
+            disabled={!value.trim()}
+            loading={saving}
+            icon={<Check className='size-3' />}
+            onClick={onSave}
+          >
+            <Trans>Save</Trans>
+          </Button>
+        </div>
+      </div>
+    </div>
   )
 }
 
@@ -388,7 +413,9 @@ function ThreadMessage({
             />
           ) : null}
           {message.body ? (
-            <MessageBody isSent={isSent}>{message.body}</MessageBody>
+            <MessageBody isSent={isSent}>
+              <MessageText body={message.body} isSent={isSent} />
+            </MessageBody>
           ) : null}
         </>
       )}

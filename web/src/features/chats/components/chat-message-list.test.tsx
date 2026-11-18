@@ -300,7 +300,9 @@ describe('Editing a message', () => {
         </I18nProvider>
       </QueryClientProvider>
     )
-    const box = screen.getByDisplayValue('4a').closest('.rounded-xl')
+    const field = screen.getByRole('textbox', { name: 'Edit' })
+    expect(field.textContent).toBe('4a')
+    const box = field.closest('.rounded-xl')
     expect(box?.className.split(' ')).toContain('ml-auto')
     // THE POINT: nothing between the box and the list tints the whole row.
     const column = document.getElementById('chat-message-m1')

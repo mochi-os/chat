@@ -3,6 +3,7 @@
 // This file is part of Mochi, licensed under the GNU AGPL v3 with the
 // Mochi Application Interface Exception - see license.txt and license-exception.md.
 import { Trans } from '@lingui/react/macro'
+import { stripFormatting } from '@mochi/web/lib/text-format'
 import type { ChatMessage } from '@/api/chats'
 import { MessageAttachments } from './message-attachments'
 
@@ -37,7 +38,7 @@ export function ThreadReplies({ answers, isSent, onOpen }: ThreadRepliesProps) {
               // Folded as the message's own body folds at 10 lines, but
               // shorter: the whole reply is one tap away in the thread.
               <span className='line-clamp-4 whitespace-pre-wrap'>
-                {answer.body.replace(/@\[([^\]]+)\]/g, '@$1')}
+                {stripFormatting(answer.body).replace(/@\[([^\]]+)\]/g, '@$1')}
               </span>
             ) : answer.encrypted && !answer.attachments?.length ? (
               <span className='block italic opacity-80'>

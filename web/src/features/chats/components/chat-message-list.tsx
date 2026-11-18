@@ -33,7 +33,6 @@ import {
   authenticatedUrl,
   actionPillExpandMaxWidthMap,
   actionPillExpandOpacityMap,
-  MentionTextarea,
   Bubble,
   BubbleContent,
   BubbleReactions,
@@ -54,8 +53,8 @@ import {
   attachmentsNeedFixedMediaWidth,
 } from '../utils/chat-media-size'
 import { collapseEarlierHistory, isEarlierHistory } from '../utils/encryption'
-import { highlightSearchText } from '../utils/highlight-search-text'
 import { receiptState, seenBy } from '../utils/receipts'
+import { InlineMessageEditor } from './inline-message-editor'
 import { MessageAttachments } from './message-attachments'
 import { MessageBody } from './message-body'
 import { MessageHoverActions } from './message-hover-actions'
@@ -64,6 +63,7 @@ import {
   MessageReactionPicker,
   MessageReactionSummary,
 } from './message-reaction-bar'
+import { MessageText } from './message-text'
 import { ThreadReplies } from './thread-replies'
 
 const BOTTOM_THRESHOLD_PX = 80
@@ -148,7 +148,7 @@ interface ChatMessageListProps {
   setEditingBody?: (val: string) => void
   isEditingSaving?: boolean
   isEditSaveDisabled?: boolean
-  onSaveEdit?: (e: React.FormEvent) => void
+  onSaveEdit?: (e?: React.FormEvent) => void
   onCancelEdit?: () => void
   /** Reports whether the list is pinned to the newest message. The page uses
    * it to decide whether an arriving message has actually been read. */
@@ -207,28 +207,6 @@ export function ChatMessageList({
 
   const scrollContainerRef = useRef<HTMLDivElement | null>(null)
   const messagesEndRef = useRef<HTMLDivElement | null>(null)
-  const inlineTextareaRef = useRef<HTMLTextAreaElement>(null)
-  const inlineEditorRef = useRef<HTMLDivElement>(null)
-
-  // Auto-resize inline editor textarea
-  useEffect(() => {
-    const el = inlineTextareaRef.current
-    if (!el) return
-    el.style.height = 'auto'
-    el.style.height = `${el.scrollHeight}px`
-  }, [editingBody])
-
-  // Focus inline editor on start edit. The editor is taller than the bubble
-  // it replaces, so it is scrolled until its buttons show too.
-  useEffect(() => {
-    if (editingMessageId && inlineTextareaRef.current) {
-      inlineTextareaRef.current.focus()
-      const len = inlineTextareaRef.current.value.length
-      inlineTextareaRef.current.setSelectionRange(len, len)
-      inlineEditorRef.current?.scrollIntoView({ block: 'nearest' })
-    }
-  }, [editingMessageId])
-
   const prevScrollHeightRef = useRef<number>(0)
   const isLoadingMoreRef = useRef(false)
   const skipNextAutoScrollRef = useRef(false)
@@ -680,57 +658,17 @@ export function ChatMessageList({
                                   ))}
 
                                 {editingMessageId === message.id ? (
-                                  <div
-                                    ref={inlineEditorRef}
-                                    className={cn(
-                                      'border-border bg-card flex w-full max-w-[500px] flex-col gap-2 rounded-xl border p-3 shadow-sm',
-                                      isSent ? 'ml-auto' : 'mr-auto'
-                                    )}
-                                  >
-                                    <MentionTextarea
-                                      ref={inlineTextareaRef}
-                                      value={editingBody ?? ''}
-                                      // No @ autocomplete on edit until backend accepts mention ids.
-                                      people={[]}
-                                      onValueChange={(val) =>
-                                        setEditingBody?.(val)
-                                      }
-                                      onKeyDown={(e) => {
-                                        if (e.key === 'Enter' && !e.shiftKey) {
-                                          e.preventDefault()
-                                          onSaveEdit?.(e)
-                                        } else if (e.key === 'Escape') {
-                                          e.preventDefault()
-                                          onCancelEdit?.()
-                                        }
-                                      }}
-                                      className='max-h-40 min-h-[40px] w-full resize-none overflow-y-auto rounded-none border-0 bg-transparent px-0 py-1 text-sm leading-5 shadow-none focus-visible:ring-0 focus-visible:ring-offset-0 focus-visible:outline-none'
-                                    />
-                                    <div className='text-muted-foreground/60 mt-1 flex items-center justify-end px-0.5 text-[10px]'>
-                                      <div className='flex items-center gap-2 text-xs'>
-                                        <Button
-                                          type='button'
-                                          variant='ghost'
-                                          size='sm'
-                                          onClick={onCancelEdit}
-                                          className='text-muted-foreground hover:text-foreground h-7 px-2.5'
-                                        >
-                                          <Trans>Cancel</Trans>
-                                        </Button>
-                                        <Button
-                                          type='button'
-                                          size='sm'
-                                          disabled={isEditSaveDisabled}
-                                          loading={isEditingSaving}
-                                          icon={<Check className='size-3' />}
-                                          onClick={onSaveEdit}
-                                          className='bg-primary hover:bg-primary/80 text-primary-foreground h-7 px-2.5 font-medium transition-colors'
-                                        >
-                                          <Trans>Save</Trans>
-                                        </Button>
-                                      </div>
-                                    </div>
-                                  </div>
+                                  <InlineMessageEditor
+                                    value={editingBody ?? ''}
+                                    onValueChange={(val) =>
+                                      setEditingBody?.(val)
+                                    }
+                                    onSave={() => onSaveEdit?.()}
+                                    onCancel={() => onCancelEdit?.()}
+                                    isSent={isSent}
+                                    saveDisabled={Boolean(isEditSaveDisabled)}
+                                    saving={Boolean(isEditingSaving)}
+                                  />
                                 ) : (
                                   <Bubble
                                     variant={isSent ? 'default' : 'muted'}
@@ -824,56 +762,24 @@ export function ChatMessageList({
                                                   : undefined
                                               }
                                             >
-                                              {(() => {
-                                                // 1. Parse mentions first
-                                                const mentionParts =
-                                                  message.body.split(
-                                                    /(@\[[^\]]+\])/g
+                                              <MessageText
+                                                body={message.body}
+                                                isSent={isSent}
+                                                highlight={
+                                                  searchActive &&
+                                                  searchQuery.length >= 2 &&
+                                                  matchedMessageIds?.has(
+                                                    message.id
                                                   )
-                                                return mentionParts.map(
-                                                  (part, i) => {
-                                                    if (part.startsWith('@[')) {
-                                                      return (
-                                                        <span
-                                                          key={i}
-                                                          className={cn(
-                                                            'rounded-sm px-1 py-0.5 font-medium',
-                                                            isSent
-                                                              ? 'bg-primary-foreground/20 text-primary-foreground'
-                                                              : 'bg-primary/15 text-primary'
-                                                          )}
-                                                        >
-                                                          @{part.slice(2, -1)}
-                                                        </span>
-                                                      )
-                                                    }
-                                                    // 2. Apply search highlight to the plain text parts
-                                                    if (
-                                                      searchActive &&
-                                                      searchQuery.length >= 2 &&
-                                                      matchedMessageIds?.has(
-                                                        message.id
-                                                      )
-                                                    ) {
-                                                      return (
-                                                        <Fragment key={i}>
-                                                          {highlightSearchText(
-                                                            part,
-                                                            searchQuery,
-                                                            activeMatchId ===
-                                                              message.id
-                                                          )}
-                                                        </Fragment>
-                                                      )
-                                                    }
-                                                    return (
-                                                      <Fragment key={i}>
-                                                        {part}
-                                                      </Fragment>
-                                                    )
-                                                  }
-                                                )
-                                              })()}
+                                                    ? {
+                                                        query: searchQuery,
+                                                        active:
+                                                          activeMatchId ===
+                                                          message.id,
+                                                      }
+                                                    : null
+                                                }
+                                              />
                                             </MessageBody>
                                           ) : null}
 

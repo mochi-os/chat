@@ -6,7 +6,8 @@ import type { ReactNode } from 'react'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { i18n } from '@lingui/core'
 import { I18nProvider } from '@lingui/react'
-import { fireEvent, render, screen, waitFor } from '@testing-library/react'
+import { act, fireEvent, render, screen, waitFor } from '@testing-library/react'
+import type { Editor } from '@tiptap/core'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 import type { ChatMessage } from '@/api/chats'
 import { ThreadPanel } from './thread-panel'
@@ -60,6 +61,16 @@ const root = {
   created: 1,
 } as ChatMessage
 
+/** Replaces what a message editor holds, as typing would. Tiptap hangs its
+ *  editor on the element it renders. */
+function type(element: HTMLElement, text: string) {
+  const editor = (element as HTMLElement & { editor?: Editor }).editor
+  if (!editor) throw new Error('not a message editor')
+  act(() => {
+    editor.chain().selectAll().insertContent(text).run()
+  })
+}
+
 function setup() {
   const client = new QueryClient()
   const invalidate = vi.spyOn(client, 'invalidateQueries')
@@ -100,9 +111,7 @@ describe('ThreadPanel', () => {
       })
     )
     const { invalidate, close } = setup()
-    fireEvent.change(screen.getByLabelText('Reply in thread'), {
-      target: { value: 'Hello' },
-    })
+    type(screen.getByLabelText('Reply in thread'), 'Hello')
     fireEvent.click(screen.getByRole('button', { name: 'Send' }))
     await waitFor(() => expect(calls.send).toHaveBeenCalled())
     expect(calls.send).toHaveBeenCalledWith('c1', {
@@ -123,9 +132,7 @@ describe('ThreadPanel', () => {
   it('refuses a reply over the server limit in bytes, not characters', () => {
     const { invalidate } = setup()
     // 3400 Chinese characters are 10200 bytes.
-    fireEvent.change(screen.getByLabelText('Reply in thread'), {
-      target: { value: '你'.repeat(3400) },
-    })
+    type(screen.getByLabelText('Reply in thread'), '你'.repeat(3400))
     fireEvent.click(screen.getByRole('button', { name: 'Send' }))
     expect(calls.error).toHaveBeenCalledWith('Message is too long')
     expect(calls.send).not.toHaveBeenCalled()
@@ -178,9 +185,7 @@ describe('ThreadPanel', () => {
     setup()
     menu(0)
     fireEvent.click(screen.getByRole('menuitem', { name: 'Edit' }))
-    fireEvent.change(screen.getByRole('textbox', { name: 'Edit' }), {
-      target: { value: 'Mine, edited' },
-    })
+    type(screen.getByRole('textbox', { name: 'Edit' }), 'Mine, edited')
     fireEvent.click(screen.getByRole('button', { name: 'Save' }))
     expect(calls.edit).toHaveBeenCalledWith({
       chatId: 'c1',

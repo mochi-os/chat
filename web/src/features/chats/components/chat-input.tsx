@@ -28,7 +28,6 @@ import {
   cn,
   useFormat,
   formatVideoDuration,
-  MentionTextarea,
   type MentionUser,
   toast,
   isInShell,
@@ -44,6 +43,7 @@ import {
   UploadProgress,
   type Upload,
 } from '@mochi/web'
+import { EditorContent } from '@tiptap/react'
 // Image is aliased: the bare name shadows the DOM Image constructor.
 import {
   Paperclip,
@@ -57,9 +57,11 @@ import {
   Image as ImageIcon,
 } from 'lucide-react'
 import { MESSAGE_MAX_LENGTH } from '../constants/limits'
+import { useMessageEditor } from '../editor/use-message-editor'
 import { messageSize, type PendingAttachment } from '../utils'
 import type { ReplyTarget } from '../utils/reply'
 import { VoiceNotePlayer } from './audio-player'
+import { FormattingToolbar } from './formatting-toolbar'
 import { ReplyQuoteContent } from './reply-quote-content'
 import { VoiceWaveform } from './voice-waveform'
 
@@ -128,7 +130,28 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(
     const fileInputRef = useRef<HTMLInputElement | null>(null)
     const mediaInputRef = useRef<HTMLInputElement | null>(null)
     const audioInputRef = useRef<HTMLInputElement | null>(null)
-    const textareaRef = useRef<HTMLTextAreaElement | null>(null)
+    const { editor, mentionMenu } = useMessageEditor({
+      value: newMessage,
+      onValueChange: (val) => {
+        setNewMessage(val)
+        const nextMentions = selectedMentions.filter((m) =>
+          val.includes(`@[${m.name}]`)
+        )
+        if (nextMentions.length !== selectedMentions.length) {
+          onMentionsChange(nextMentions)
+        }
+      },
+      onSubmit: onSendMessage,
+      onEscape: replyTo ? onClearReply : undefined,
+      placeholder: replyTo ? t`Type your reply` : t`Type your message`,
+      ariaLabel: t`Chat text box`,
+      people,
+      onMentionSelect: (person) => {
+        if (selectedMentions.some((m) => m.id === person.id)) return
+        onMentionsChange([...selectedMentions, person])
+      },
+      className: 'py-1.5',
+    })
 
     const [isRecording, setIsRecording] = useState(false)
     const [recordingDuration, setRecordingDuration] = useState(0)
@@ -188,9 +211,9 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(
 
     const focusInput = useCallback(() => {
       window.setTimeout(() => {
-        textareaRef.current?.focus({ preventScroll: true })
+        editor?.commands.focus(null, { scrollIntoView: false })
       }, 0)
-    }, [])
+    }, [editor])
 
     useImperativeHandle(ref, () => ({ focusInput }), [focusInput])
 
@@ -216,14 +239,6 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(
         }
       })
     }, [isRecording, pushLevel])
-
-    // Auto-resize: grow with content, shrink when cleared
-    useEffect(() => {
-      const el = textareaRef.current
-      if (!el) return
-      el.style.height = 'auto'
-      el.style.height = `${el.scrollHeight}px`
-    }, [newMessage])
 
     const clearRecordingTimer = () => {
       if (timerRef.current) {
@@ -664,6 +679,12 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(
               ) : null}
             </div>
           )}
+          {!isRecording ? (
+            <FormattingToolbar
+              editor={editor}
+              className='border-border/50 border-b px-3 py-1'
+            />
+          ) : null}
           <div className='flex w-full items-end gap-2 px-4 py-2'>
             {isRecording ? (
               <div
@@ -764,46 +785,10 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(
                     </DropdownMenuContent>
                   </DropdownMenu>
                 </div>
-                <label className='flex-1'>
-                  <span className='sr-only'>
-                    <Trans>Chat text box</Trans>
-                  </span>
-                  <MentionTextarea
-                    ref={textareaRef}
-                    rows={1}
-                    placeholder={
-                      replyTo ? t`Type your reply` : t`Type your message`
-                    }
-                    value={newMessage}
-                    people={people}
-                    onValueChange={(val) => {
-                      setNewMessage(val)
-                      const nextMentions = selectedMentions.filter((m) =>
-                        val.includes(`@[${m.name}]`)
-                      )
-                      if (nextMentions.length !== selectedMentions.length) {
-                        onMentionsChange(nextMentions)
-                      }
-                    }}
-                    onMentionSelect={(person) => {
-                      if (selectedMentions.some((m) => m.id === person.id))
-                        return
-                      onMentionsChange([...selectedMentions, person])
-                    }}
-                    onKeyDown={(e) => {
-                      if (e.key === 'Escape' && replyTo) {
-                        e.preventDefault()
-                        onClearReply?.()
-                        return
-                      }
-                      if (e.key === 'Enter' && !e.shiftKey) {
-                        e.preventDefault()
-                        onSendMessage()
-                      }
-                    }}
-                    className='max-h-40 min-h-0 w-full resize-none overflow-y-auto rounded-none border-0 bg-transparent px-0 py-1.5 text-sm leading-5 shadow-none focus-visible:ring-0 focus-visible:ring-offset-0 focus-visible:outline-none'
-                  />
-                </label>
+                <div className='min-w-0 flex-1'>
+                  <EditorContent editor={editor} />
+                  {mentionMenu}
+                </div>
                 <div className='flex items-end gap-0.5 pb-0.5'>
                   <Tooltip>
                     <TooltipTrigger asChild>

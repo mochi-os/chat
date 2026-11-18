@@ -3,6 +3,7 @@
 // This file is part of Mochi, licensed under the GNU AGPL v3 with the
 // Mochi Application Interface Exception - see license.txt and license-exception.md.
 import { cn } from '@mochi/web'
+import { stripFormatting } from '@mochi/web/lib/text-format'
 
 interface ReplyQuoteContentProps {
   body: string
@@ -20,7 +21,7 @@ export function ReplyQuoteContent({ body, className }: ReplyQuoteContentProps) {
         className
       )}
     >
-      {body}
+      {stripFormatting(body)}
     </div>
   )
 }
