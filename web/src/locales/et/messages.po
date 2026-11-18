@@ -19,7 +19,7 @@ msgid "Please check your internet connection and try again."
 msgstr "Kontrolli internetiühendust ja proovi uuesti."
 
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx
-#: src/features/chats/components/chat-message-list.tsx
+#: src/features/chats/components/message-bubble.tsx
 msgid "(edited)"
 msgstr "(muudetud)"
 
@@ -122,6 +122,10 @@ msgstr "{count, plural, one {#näd} other {#näd}}"
 #: ../../../lib/web/src/components/calendar/tooltip.ts
 msgid "{day}, {from} to {to}"
 msgstr "{day}, {from} kuni {to}"
+
+#: src/features/chats/components/thread-replies.tsx
+msgid "{earlier, plural, one {# earlier reply} other {# earlier replies}}"
+msgstr "{earlier, plural, one {# varasem vastus} other {# varasemat vastust}}"
 
 #: ../../../lib/web/src/components/ui/create-entity-dialog.tsx
 msgid "{entityLabel} name"
@@ -1173,7 +1177,7 @@ msgstr "Vestluse kustutamine..."
 msgid "Deleting..."
 msgstr "Kustutamine..."
 
-#: src/features/chats/components/chat-message-list.tsx
+#: src/features/chats/components/message-bubble.tsx
 msgctxt "receipt"
 msgid "Delivered"
 msgstr "Kohale toimetatud"
@@ -1351,12 +1355,12 @@ msgstr "E-post"
 msgid "Email code"
 msgstr "E-posti kood"
 
-#: src/features/chats/components/chat-message-list.tsx
+#: src/features/chats/components/message-bubble.tsx
 #: src/features/chats/components/thread-replies.tsx
 msgid "Encrypted for other devices only"
 msgstr "Krüpteeritud ainult teistele seadmetele"
 
-#: src/features/chats/components/chat-message-list.tsx
+#: src/features/chats/components/message-bubble.tsx
 #: src/features/chats/components/thread-replies.tsx
 msgid "Encrypted message"
 msgstr "Krüpteeritud sõnum"
@@ -2566,7 +2570,7 @@ msgstr "Ühenda kontod uuesti selle serveriga"
 msgid "Re-register your passkeys on this server"
 msgstr "Registreerige oma pääsuvõtmed selles serveris uuesti"
 
-#: src/features/chats/components/chat-message-list.tsx
+#: src/features/chats/components/message-bubble.tsx
 msgctxt "receipt"
 msgid "Read"
 msgstr "Loetud"
@@ -3023,7 +3027,7 @@ msgstr "Saada sõnum"
 msgid "Send read receipts"
 msgstr "Saada lugemiskinnitusi"
 
-#: src/features/chats/components/chat-message-list.tsx
+#: src/features/chats/components/message-bubble.tsx
 msgctxt "receipt"
 msgid "Sent"
 msgstr "Saadetud"
@@ -3353,7 +3357,7 @@ msgstr "See seade (OMEMO 2)"
 msgid "This device (OMEMO)"
 msgstr "See seade (OMEMO)"
 
-#: src/features/chats/components/chat-message-list.tsx
+#: src/features/chats/components/message-bubble.tsx
 #: src/features/chats/components/message-quote.tsx
 #: src/features/chats/components/thread-panel.tsx
 msgid "This message was deleted"

@@ -19,7 +19,7 @@ msgid "Please check your internet connection and try again."
 msgstr "Tafadhali angalia muunganisho wako wa intaneti na ujaribu tena."
 
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx
-#: src/features/chats/components/chat-message-list.tsx
+#: src/features/chats/components/message-bubble.tsx
 msgid "(edited)"
 msgstr "(imehaririwa)"
 
@@ -122,6 +122,10 @@ msgstr "{count, plural, one {#wk} other {#wk}}"
 #: ../../../lib/web/src/components/calendar/tooltip.ts
 msgid "{day}, {from} to {to}"
 msgstr "{day}, {from} hadi {to}"
+
+#: src/features/chats/components/thread-replies.tsx
+msgid "{earlier, plural, one {# earlier reply} other {# earlier replies}}"
+msgstr "{earlier, plural, one {jibu # la awali} other {majibu # ya awali}}"
 
 #: ../../../lib/web/src/components/ui/create-entity-dialog.tsx
 msgid "{entityLabel} name"
@@ -1173,7 +1177,7 @@ msgstr "Inafuta gumzo..."
 msgid "Deleting..."
 msgstr "Inafuta..."
 
-#: src/features/chats/components/chat-message-list.tsx
+#: src/features/chats/components/message-bubble.tsx
 msgctxt "receipt"
 msgid "Delivered"
 msgstr "Imewasilishwa"
@@ -1351,12 +1355,12 @@ msgstr "Barua pepe"
 msgid "Email code"
 msgstr "Msimbo wa barua pepe"
 
-#: src/features/chats/components/chat-message-list.tsx
+#: src/features/chats/components/message-bubble.tsx
 #: src/features/chats/components/thread-replies.tsx
 msgid "Encrypted for other devices only"
 msgstr "Imesimbwa kwa njia fiche kwa vifaa vingine pekee"
 
-#: src/features/chats/components/chat-message-list.tsx
+#: src/features/chats/components/message-bubble.tsx
 #: src/features/chats/components/thread-replies.tsx
 msgid "Encrypted message"
 msgstr "Ujumbe uliosimbwa kwa njia fiche"
@@ -2566,7 +2570,7 @@ msgstr "Unganisha tena akaunti zako kwenye seva hii"
 msgid "Re-register your passkeys on this server"
 msgstr "Sajili upya pasiki zako kwenye seva hii"
 
-#: src/features/chats/components/chat-message-list.tsx
+#: src/features/chats/components/message-bubble.tsx
 msgctxt "receipt"
 msgid "Read"
 msgstr "Imesomwa"
@@ -3023,7 +3027,7 @@ msgstr "Tuma ujumbe"
 msgid "Send read receipts"
 msgstr "Tuma arifa za kusomwa"
 
-#: src/features/chats/components/chat-message-list.tsx
+#: src/features/chats/components/message-bubble.tsx
 msgctxt "receipt"
 msgid "Sent"
 msgstr "Imetumwa"
@@ -3353,7 +3357,7 @@ msgstr "Kifaa hiki (OMEMO 2)"
 msgid "This device (OMEMO)"
 msgstr "Kifaa hiki (OMEMO)"
 
-#: src/features/chats/components/chat-message-list.tsx
+#: src/features/chats/components/message-bubble.tsx
 #: src/features/chats/components/message-quote.tsx
 #: src/features/chats/components/thread-panel.tsx
 msgid "This message was deleted"

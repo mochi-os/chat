@@ -19,7 +19,7 @@ msgid "Please check your internet connection and try again."
 msgstr "Internet aloqangizni tekshiring va qayta urinib ko‘ring."
 
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx
-#: src/features/chats/components/chat-message-list.tsx
+#: src/features/chats/components/message-bubble.tsx
 msgid "(edited)"
 msgstr "(tahrirlangan)"
 
@@ -122,6 +122,10 @@ msgstr "{count, plural, one {#hafta} other {#hafta}}"
 #: ../../../lib/web/src/components/calendar/tooltip.ts
 msgid "{day}, {from} to {to}"
 msgstr "{day}, {from} – {to}"
+
+#: src/features/chats/components/thread-replies.tsx
+msgid "{earlier, plural, one {# earlier reply} other {# earlier replies}}"
+msgstr "{earlier, plural, one {# avvalgi javob} other {# avvalgi javob}}"
 
 #: ../../../lib/web/src/components/ui/create-entity-dialog.tsx
 msgid "{entityLabel} name"
@@ -1173,7 +1177,7 @@ msgstr "Suhbat oʻchirilmoqda..."
 msgid "Deleting..."
 msgstr "Oʻchirilmoqda..."
 
-#: src/features/chats/components/chat-message-list.tsx
+#: src/features/chats/components/message-bubble.tsx
 msgctxt "receipt"
 msgid "Delivered"
 msgstr "Yetkazildi"
@@ -1351,12 +1355,12 @@ msgstr "Email"
 msgid "Email code"
 msgstr "Email kodi"
 
-#: src/features/chats/components/chat-message-list.tsx
+#: src/features/chats/components/message-bubble.tsx
 #: src/features/chats/components/thread-replies.tsx
 msgid "Encrypted for other devices only"
 msgstr "Faqat boshqa qurilmalar uchun shifrlangan"
 
-#: src/features/chats/components/chat-message-list.tsx
+#: src/features/chats/components/message-bubble.tsx
 #: src/features/chats/components/thread-replies.tsx
 msgid "Encrypted message"
 msgstr "Shifrlangan xabar"
@@ -2566,7 +2570,7 @@ msgstr "Bu serverdagi hisoblaringizni qayta ulang"
 msgid "Re-register your passkeys on this server"
 msgstr "Ushbu serverda kirish kalitlaringizni qayta roʻyxatdan oʻtkazing"
 
-#: src/features/chats/components/chat-message-list.tsx
+#: src/features/chats/components/message-bubble.tsx
 msgctxt "receipt"
 msgid "Read"
 msgstr "Oʻqildi"
@@ -3023,7 +3027,7 @@ msgstr "Xabar yuborish"
 msgid "Send read receipts"
 msgstr "Oʻqilganlik haqida xabar yuborish"
 
-#: src/features/chats/components/chat-message-list.tsx
+#: src/features/chats/components/message-bubble.tsx
 msgctxt "receipt"
 msgid "Sent"
 msgstr "Yuborildi"
@@ -3353,7 +3357,7 @@ msgstr "Bu qurilma (OMEMO 2)"
 msgid "This device (OMEMO)"
 msgstr "Bu qurilma (OMEMO)"
 
-#: src/features/chats/components/chat-message-list.tsx
+#: src/features/chats/components/message-bubble.tsx
 #: src/features/chats/components/message-quote.tsx
 #: src/features/chats/components/thread-panel.tsx
 msgid "This message was deleted"

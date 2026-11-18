@@ -19,7 +19,7 @@ msgid "Please check your internet connection and try again."
 msgstr "Kontrolloni lidhjen tuaj me internetin dhe provoni përsëri."
 
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx
-#: src/features/chats/components/chat-message-list.tsx
+#: src/features/chats/components/message-bubble.tsx
 msgid "(edited)"
 msgstr "(redaktuar)"
 
@@ -122,6 +122,10 @@ msgstr "{count, plural, one {#javë} other {#javë}}"
 #: ../../../lib/web/src/components/calendar/tooltip.ts
 msgid "{day}, {from} to {to}"
 msgstr "{day}, nga {from} deri në {to}"
+
+#: src/features/chats/components/thread-replies.tsx
+msgid "{earlier, plural, one {# earlier reply} other {# earlier replies}}"
+msgstr "{earlier, plural, one {# përgjigje e mëparshme} other {# përgjigje të mëparshme}}"
 
 #: ../../../lib/web/src/components/ui/create-entity-dialog.tsx
 msgid "{entityLabel} name"
@@ -1173,7 +1177,7 @@ msgstr "Po fshihet biseda..."
 msgid "Deleting..."
 msgstr "Po fshin..."
 
-#: src/features/chats/components/chat-message-list.tsx
+#: src/features/chats/components/message-bubble.tsx
 msgctxt "receipt"
 msgid "Delivered"
 msgstr "U dorëzua"
@@ -1351,12 +1355,12 @@ msgstr "Email"
 msgid "Email code"
 msgstr "Kodi me email"
 
-#: src/features/chats/components/chat-message-list.tsx
+#: src/features/chats/components/message-bubble.tsx
 #: src/features/chats/components/thread-replies.tsx
 msgid "Encrypted for other devices only"
 msgstr "I enkriptuar vetëm për pajisje të tjera"
 
-#: src/features/chats/components/chat-message-list.tsx
+#: src/features/chats/components/message-bubble.tsx
 #: src/features/chats/components/thread-replies.tsx
 msgid "Encrypted message"
 msgstr "Mesazh i enkriptuar"
@@ -2566,7 +2570,7 @@ msgstr "Rilinkoni llogaritë tuaja në këtë server"
 msgid "Re-register your passkeys on this server"
 msgstr "Riregjistroni kyçet tuaj në këtë server"
 
-#: src/features/chats/components/chat-message-list.tsx
+#: src/features/chats/components/message-bubble.tsx
 msgctxt "receipt"
 msgid "Read"
 msgstr "U lexua"
@@ -3023,7 +3027,7 @@ msgstr "Dërgo mesazhin"
 msgid "Send read receipts"
 msgstr "Dërgo konfirmime leximi"
 
-#: src/features/chats/components/chat-message-list.tsx
+#: src/features/chats/components/message-bubble.tsx
 msgctxt "receipt"
 msgid "Sent"
 msgstr "U dërgua"
@@ -3353,7 +3357,7 @@ msgstr "Kjo pajisje (OMEMO 2)"
 msgid "This device (OMEMO)"
 msgstr "Kjo pajisje (OMEMO)"
 
-#: src/features/chats/components/chat-message-list.tsx
+#: src/features/chats/components/message-bubble.tsx
 #: src/features/chats/components/message-quote.tsx
 #: src/features/chats/components/thread-panel.tsx
 msgid "This message was deleted"

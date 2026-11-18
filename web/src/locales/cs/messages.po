@@ -19,7 +19,7 @@ msgid "Please check your internet connection and try again."
 msgstr "Zkontrolujte připojení k internetu a zkuste to znovu."
 
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx
-#: src/features/chats/components/chat-message-list.tsx
+#: src/features/chats/components/message-bubble.tsx
 msgid "(edited)"
 msgstr "(upraveno)"
 
@@ -122,6 +122,10 @@ msgstr "{count, plural, one {#týd} other {#týd}}"
 #: ../../../lib/web/src/components/calendar/tooltip.ts
 msgid "{day}, {from} to {to}"
 msgstr "{day}, {from} až {to}"
+
+#: src/features/chats/components/thread-replies.tsx
+msgid "{earlier, plural, one {# earlier reply} other {# earlier replies}}"
+msgstr "{earlier, plural, one {# starší odpověď} few {# starší odpovědi} many {# starší odpovědi} other {# starších odpovědí}}"
 
 #: ../../../lib/web/src/components/ui/create-entity-dialog.tsx
 msgid "{entityLabel} name"
@@ -1173,7 +1177,7 @@ msgstr "Mazání chatu..."
 msgid "Deleting..."
 msgstr "Mazání..."
 
-#: src/features/chats/components/chat-message-list.tsx
+#: src/features/chats/components/message-bubble.tsx
 msgctxt "receipt"
 msgid "Delivered"
 msgstr "Doručeno"
@@ -1351,12 +1355,12 @@ msgstr "E-mail"
 msgid "Email code"
 msgstr "E-mailový kód"
 
-#: src/features/chats/components/chat-message-list.tsx
+#: src/features/chats/components/message-bubble.tsx
 #: src/features/chats/components/thread-replies.tsx
 msgid "Encrypted for other devices only"
 msgstr "Šifrováno pouze pro jiná zařízení"
 
-#: src/features/chats/components/chat-message-list.tsx
+#: src/features/chats/components/message-bubble.tsx
 #: src/features/chats/components/thread-replies.tsx
 msgid "Encrypted message"
 msgstr "Šifrovaná zpráva"
@@ -2566,7 +2570,7 @@ msgstr "Znovu propojit účty na tomto serveru"
 msgid "Re-register your passkeys on this server"
 msgstr "Znovu zaregistrujte své přístupové klíče na tomto serveru"
 
-#: src/features/chats/components/chat-message-list.tsx
+#: src/features/chats/components/message-bubble.tsx
 msgctxt "receipt"
 msgid "Read"
 msgstr "Přečteno"
@@ -3023,7 +3027,7 @@ msgstr "Odeslat zprávu"
 msgid "Send read receipts"
 msgstr "Odesílat potvrzení o přečtení"
 
-#: src/features/chats/components/chat-message-list.tsx
+#: src/features/chats/components/message-bubble.tsx
 msgctxt "receipt"
 msgid "Sent"
 msgstr "Odesláno"
@@ -3353,7 +3357,7 @@ msgstr "Toto zařízení (OMEMO 2)"
 msgid "This device (OMEMO)"
 msgstr "Toto zařízení (OMEMO)"
 
-#: src/features/chats/components/chat-message-list.tsx
+#: src/features/chats/components/message-bubble.tsx
 #: src/features/chats/components/message-quote.tsx
 #: src/features/chats/components/thread-panel.tsx
 msgid "This message was deleted"

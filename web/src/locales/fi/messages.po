@@ -19,7 +19,7 @@ msgid "Please check your internet connection and try again."
 msgstr "Tarkista internetyhteytesi ja yritä uudelleen."
 
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx
-#: src/features/chats/components/chat-message-list.tsx
+#: src/features/chats/components/message-bubble.tsx
 msgid "(edited)"
 msgstr "(muokattu)"
 
@@ -122,6 +122,10 @@ msgstr "{count, plural, one {#vk} other {#vk}}"
 #: ../../../lib/web/src/components/calendar/tooltip.ts
 msgid "{day}, {from} to {to}"
 msgstr "{day}, {from}–{to}"
+
+#: src/features/chats/components/thread-replies.tsx
+msgid "{earlier, plural, one {# earlier reply} other {# earlier replies}}"
+msgstr "{earlier, plural, one {# aiempi vastaus} other {# aiempaa vastausta}}"
 
 #: ../../../lib/web/src/components/ui/create-entity-dialog.tsx
 msgid "{entityLabel} name"
@@ -1173,7 +1177,7 @@ msgstr "Poistetaan keskustelua..."
 msgid "Deleting..."
 msgstr "Poistetaan..."
 
-#: src/features/chats/components/chat-message-list.tsx
+#: src/features/chats/components/message-bubble.tsx
 msgctxt "receipt"
 msgid "Delivered"
 msgstr "Toimitettu"
@@ -1351,12 +1355,12 @@ msgstr "Sähköposti"
 msgid "Email code"
 msgstr "Sähköpostikoodi"
 
-#: src/features/chats/components/chat-message-list.tsx
+#: src/features/chats/components/message-bubble.tsx
 #: src/features/chats/components/thread-replies.tsx
 msgid "Encrypted for other devices only"
 msgstr "Salattu vain muille laitteille"
 
-#: src/features/chats/components/chat-message-list.tsx
+#: src/features/chats/components/message-bubble.tsx
 #: src/features/chats/components/thread-replies.tsx
 msgid "Encrypted message"
 msgstr "Salattu viesti"
@@ -2566,7 +2570,7 @@ msgstr "Yhdistä tilisi uudelleen tällä palvelimella"
 msgid "Re-register your passkeys on this server"
 msgstr "Rekisteröi avainkoodisi uudelleen tällä palvelimella"
 
-#: src/features/chats/components/chat-message-list.tsx
+#: src/features/chats/components/message-bubble.tsx
 msgctxt "receipt"
 msgid "Read"
 msgstr "Luettu"
@@ -3023,7 +3027,7 @@ msgstr "Lähetä viesti"
 msgid "Send read receipts"
 msgstr "Lähetä lukukuittaukset"
 
-#: src/features/chats/components/chat-message-list.tsx
+#: src/features/chats/components/message-bubble.tsx
 msgctxt "receipt"
 msgid "Sent"
 msgstr "Lähetetty"
@@ -3353,7 +3357,7 @@ msgstr "Tämä laite (OMEMO 2)"
 msgid "This device (OMEMO)"
 msgstr "Tämä laite (OMEMO)"
 
-#: src/features/chats/components/chat-message-list.tsx
+#: src/features/chats/components/message-bubble.tsx
 #: src/features/chats/components/message-quote.tsx
 #: src/features/chats/components/thread-panel.tsx
 msgid "This message was deleted"

@@ -19,7 +19,7 @@ msgid "Please check your internet connection and try again."
 msgstr "ກະລຸນາກວດສອບການເຊື່ອມຕໍ່ອິນເຕີເນັດຂອງທ່ານ ແລະ ລອງໃໝ່ອີກຄັ້ງ."
 
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx
-#: src/features/chats/components/chat-message-list.tsx
+#: src/features/chats/components/message-bubble.tsx
 msgid "(edited)"
 msgstr "(ແກ້ໄຂແລ້ວ)"
 
@@ -122,6 +122,10 @@ msgstr "{count, plural, one {#ອທ} other {#ອທ}}"
 #: ../../../lib/web/src/components/calendar/tooltip.ts
 msgid "{day}, {from} to {to}"
 msgstr "{day} {from} ຫາ {to}"
+
+#: src/features/chats/components/thread-replies.tsx
+msgid "{earlier, plural, one {# earlier reply} other {# earlier replies}}"
+msgstr "{earlier, plural, other {ການຕອບກັບກ່ອນໜ້າ #}}"
 
 #: ../../../lib/web/src/components/ui/create-entity-dialog.tsx
 msgid "{entityLabel} name"
@@ -1173,7 +1177,7 @@ msgstr "ກຳລັງລຶບການສົນທະນາ..."
 msgid "Deleting..."
 msgstr "ກຳລັງລົບ..."
 
-#: src/features/chats/components/chat-message-list.tsx
+#: src/features/chats/components/message-bubble.tsx
 msgctxt "receipt"
 msgid "Delivered"
 msgstr "ສົ່ງເຖິງແລ້ວ"
@@ -1351,12 +1355,12 @@ msgstr "ອີເມວ"
 msgid "Email code"
 msgstr "ລະຫັດອີເມວ"
 
-#: src/features/chats/components/chat-message-list.tsx
+#: src/features/chats/components/message-bubble.tsx
 #: src/features/chats/components/thread-replies.tsx
 msgid "Encrypted for other devices only"
 msgstr "ເຂົ້າລະຫັດສຳລັບອຸປະກອນອື່ນເທົ່ານັ້ນ"
 
-#: src/features/chats/components/chat-message-list.tsx
+#: src/features/chats/components/message-bubble.tsx
 #: src/features/chats/components/thread-replies.tsx
 msgid "Encrypted message"
 msgstr "ຂໍ້ຄວາມທີ່ເຂົ້າລະຫັດ"
@@ -2566,7 +2570,7 @@ msgstr "ເຊື່ອມໂຍງບັນຊີຂອງທ່ານຄືນ
 msgid "Re-register your passkeys on this server"
 msgstr "ລົງທະບຽນກະແຈຜ່ານຂອງທ່ານຄືນໃໝ່ໃນເຄື່ອງແມ່ຂ່າຍນີ້"
 
-#: src/features/chats/components/chat-message-list.tsx
+#: src/features/chats/components/message-bubble.tsx
 msgctxt "receipt"
 msgid "Read"
 msgstr "ອ່ານແລ້ວ"
@@ -3023,7 +3027,7 @@ msgstr "ສົ່ງຂໍ້ຄວາມ"
 msgid "Send read receipts"
 msgstr "ສົ່ງການແຈ້ງວ່າອ່ານແລ້ວ"
 
-#: src/features/chats/components/chat-message-list.tsx
+#: src/features/chats/components/message-bubble.tsx
 msgctxt "receipt"
 msgid "Sent"
 msgstr "ສົ່ງແລ້ວ"
@@ -3353,7 +3357,7 @@ msgstr "ອຸປະກອນນີ້ (OMEMO 2)"
 msgid "This device (OMEMO)"
 msgstr "ອຸປະກອນນີ້ (OMEMO)"
 
-#: src/features/chats/components/chat-message-list.tsx
+#: src/features/chats/components/message-bubble.tsx
 #: src/features/chats/components/message-quote.tsx
 #: src/features/chats/components/thread-panel.tsx
 msgid "This message was deleted"

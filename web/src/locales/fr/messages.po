@@ -19,7 +19,7 @@ msgid "Please check your internet connection and try again."
 msgstr "Veuillez vérifier votre connexion Internet et réessayer."
 
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx
-#: src/features/chats/components/chat-message-list.tsx
+#: src/features/chats/components/message-bubble.tsx
 msgid "(edited)"
 msgstr "(modifié)"
 
@@ -122,6 +122,10 @@ msgstr "{count, plural, one {#sem} other {#sem}}"
 #: ../../../lib/web/src/components/calendar/tooltip.ts
 msgid "{day}, {from} to {to}"
 msgstr "{day}, de {from} à {to}"
+
+#: src/features/chats/components/thread-replies.tsx
+msgid "{earlier, plural, one {# earlier reply} other {# earlier replies}}"
+msgstr "{earlier, plural, one {# réponse précédente} other {# réponses précédentes}}"
 
 #: ../../../lib/web/src/components/ui/create-entity-dialog.tsx
 msgid "{entityLabel} name"
@@ -1173,7 +1177,7 @@ msgstr "Suppression de la discussion..."
 msgid "Deleting..."
 msgstr "Suppression..."
 
-#: src/features/chats/components/chat-message-list.tsx
+#: src/features/chats/components/message-bubble.tsx
 msgctxt "receipt"
 msgid "Delivered"
 msgstr "Distribué"
@@ -1351,12 +1355,12 @@ msgstr "E-mail"
 msgid "Email code"
 msgstr "Code par e-mail"
 
-#: src/features/chats/components/chat-message-list.tsx
+#: src/features/chats/components/message-bubble.tsx
 #: src/features/chats/components/thread-replies.tsx
 msgid "Encrypted for other devices only"
 msgstr "Chiffré uniquement pour d'autres appareils"
 
-#: src/features/chats/components/chat-message-list.tsx
+#: src/features/chats/components/message-bubble.tsx
 #: src/features/chats/components/thread-replies.tsx
 msgid "Encrypted message"
 msgstr "Message chiffré"
@@ -2566,7 +2570,7 @@ msgstr "Relinkez vos comptes sur ce serveur"
 msgid "Re-register your passkeys on this server"
 msgstr "Réenregistrez vos clés d'accès sur ce serveur"
 
-#: src/features/chats/components/chat-message-list.tsx
+#: src/features/chats/components/message-bubble.tsx
 msgctxt "receipt"
 msgid "Read"
 msgstr "Lu"
@@ -3023,7 +3027,7 @@ msgstr "Envoyer un message"
 msgid "Send read receipts"
 msgstr "Envoyer les confirmations de lecture"
 
-#: src/features/chats/components/chat-message-list.tsx
+#: src/features/chats/components/message-bubble.tsx
 msgctxt "receipt"
 msgid "Sent"
 msgstr "Envoyé"
@@ -3353,7 +3357,7 @@ msgstr "Cet appareil (OMEMO 2)"
 msgid "This device (OMEMO)"
 msgstr "Cet appareil (OMEMO)"
 
-#: src/features/chats/components/chat-message-list.tsx
+#: src/features/chats/components/message-bubble.tsx
 #: src/features/chats/components/message-quote.tsx
 #: src/features/chats/components/thread-panel.tsx
 msgid "This message was deleted"

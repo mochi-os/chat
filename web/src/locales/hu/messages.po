@@ -19,7 +19,7 @@ msgid "Please check your internet connection and try again."
 msgstr "Ellenőrizze az internetkapcsolatát, és próbálja újra."
 
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx
-#: src/features/chats/components/chat-message-list.tsx
+#: src/features/chats/components/message-bubble.tsx
 msgid "(edited)"
 msgstr "(szerkesztve)"
 
@@ -122,6 +122,10 @@ msgstr "{count, plural, one {#hét} other {#hét}}"
 #: ../../../lib/web/src/components/calendar/tooltip.ts
 msgid "{day}, {from} to {to}"
 msgstr "{day}, {from} és {to} között"
+
+#: src/features/chats/components/thread-replies.tsx
+msgid "{earlier, plural, one {# earlier reply} other {# earlier replies}}"
+msgstr "{earlier, plural, one {# korábbi válasz} other {# korábbi válasz}}"
 
 #: ../../../lib/web/src/components/ui/create-entity-dialog.tsx
 msgid "{entityLabel} name"
@@ -1173,7 +1177,7 @@ msgstr "Csevegés törlése..."
 msgid "Deleting..."
 msgstr "Törlés..."
 
-#: src/features/chats/components/chat-message-list.tsx
+#: src/features/chats/components/message-bubble.tsx
 msgctxt "receipt"
 msgid "Delivered"
 msgstr "Kézbesítve"
@@ -1351,12 +1355,12 @@ msgstr "E-mail"
 msgid "Email code"
 msgstr "E-mail kód"
 
-#: src/features/chats/components/chat-message-list.tsx
+#: src/features/chats/components/message-bubble.tsx
 #: src/features/chats/components/thread-replies.tsx
 msgid "Encrypted for other devices only"
 msgstr "Csak más eszközökre titkosítva"
 
-#: src/features/chats/components/chat-message-list.tsx
+#: src/features/chats/components/message-bubble.tsx
 #: src/features/chats/components/thread-replies.tsx
 msgid "Encrypted message"
 msgstr "Titkosított üzenet"
@@ -2566,7 +2570,7 @@ msgstr "Kapcsolja újra össze fiókjait ezen a szerveren"
 msgid "Re-register your passkeys on this server"
 msgstr "Regisztrálja újra a hozzáférési kulcsait ezen a kiszolgálón"
 
-#: src/features/chats/components/chat-message-list.tsx
+#: src/features/chats/components/message-bubble.tsx
 msgctxt "receipt"
 msgid "Read"
 msgstr "Olvasva"
@@ -3023,7 +3027,7 @@ msgstr "Üzenet küldése"
 msgid "Send read receipts"
 msgstr "Olvasási visszaigazolások küldése"
 
-#: src/features/chats/components/chat-message-list.tsx
+#: src/features/chats/components/message-bubble.tsx
 msgctxt "receipt"
 msgid "Sent"
 msgstr "Elküldve"
@@ -3353,7 +3357,7 @@ msgstr "Ez az eszköz (OMEMO 2)"
 msgid "This device (OMEMO)"
 msgstr "Ez az eszköz (OMEMO)"
 
-#: src/features/chats/components/chat-message-list.tsx
+#: src/features/chats/components/message-bubble.tsx
 #: src/features/chats/components/message-quote.tsx
 #: src/features/chats/components/thread-panel.tsx
 msgid "This message was deleted"

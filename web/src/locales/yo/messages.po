@@ -19,7 +19,7 @@ msgid "Please check your internet connection and try again."
 msgstr "Jọ̀wọ́ ṣàyẹ̀wò ìsopọ̀ íntánẹ́ẹ̀tì rẹ kí o sì gbìyànjú lẹ́ẹ̀kan sí i."
 
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx
-#: src/features/chats/components/chat-message-list.tsx
+#: src/features/chats/components/message-bubble.tsx
 msgid "(edited)"
 msgstr "(a tunṣe)"
 
@@ -122,6 +122,10 @@ msgstr "{count, plural, one {#ọs} other {#ọs}}"
 #: ../../../lib/web/src/components/calendar/tooltip.ts
 msgid "{day}, {from} to {to}"
 msgstr "{day}, láti {from} sí {to}"
+
+#: src/features/chats/components/thread-replies.tsx
+msgid "{earlier, plural, one {# earlier reply} other {# earlier replies}}"
+msgstr "{earlier, plural, one {# ìdáhùn ti tẹ́lẹ̀} other {# ìdáhùn ti tẹ́lẹ̀}}"
 
 #: ../../../lib/web/src/components/ui/create-entity-dialog.tsx
 msgid "{entityLabel} name"
@@ -1173,7 +1177,7 @@ msgstr "Ń pa ìfọ̀rọ̀wérọ̀ rẹ́..."
 msgid "Deleting..."
 msgstr "Ó ń pa rẹ́..."
 
-#: src/features/chats/components/chat-message-list.tsx
+#: src/features/chats/components/message-bubble.tsx
 msgctxt "receipt"
 msgid "Delivered"
 msgstr "Ó ti dé"
@@ -1351,12 +1355,12 @@ msgstr "Ímẹ́ẹ̀lì"
 msgid "Email code"
 msgstr "Kóòdù ímẹ́ẹ̀lì"
 
-#: src/features/chats/components/chat-message-list.tsx
+#: src/features/chats/components/message-bubble.tsx
 #: src/features/chats/components/thread-replies.tsx
 msgid "Encrypted for other devices only"
 msgstr "A fi kóòdù pa mọ́ fún àwọn ẹ̀rọ mìíràn nìkan"
 
-#: src/features/chats/components/chat-message-list.tsx
+#: src/features/chats/components/message-bubble.tsx
 #: src/features/chats/components/thread-replies.tsx
 msgid "Encrypted message"
 msgstr "Ìránṣẹ́ tí a ti fi kóòdù pa mọ́"
@@ -2566,7 +2570,7 @@ msgstr "Tun so akonti rẹ pọ lori olupin yii"
 msgid "Re-register your passkeys on this server"
 msgstr "Tún àwọn kọ́kọ́rọ́-ìwọlé rẹ forúkọsílẹ̀ lórí olùpèsè yìí"
 
-#: src/features/chats/components/chat-message-list.tsx
+#: src/features/chats/components/message-bubble.tsx
 msgctxt "receipt"
 msgid "Read"
 msgstr "A ti kà á"
@@ -3023,7 +3027,7 @@ msgstr "Fi ìránṣẹ́ ránṣẹ́"
 msgid "Send read receipts"
 msgstr "Fi ìjẹ́rìí kíkà ránṣẹ́"
 
-#: src/features/chats/components/chat-message-list.tsx
+#: src/features/chats/components/message-bubble.tsx
 msgctxt "receipt"
 msgid "Sent"
 msgstr "A ti fi ránṣẹ́"
@@ -3353,7 +3357,7 @@ msgstr "Ẹ̀rọ yìí (OMEMO 2)"
 msgid "This device (OMEMO)"
 msgstr "Ẹ̀rọ yìí (OMEMO)"
 
-#: src/features/chats/components/chat-message-list.tsx
+#: src/features/chats/components/message-bubble.tsx
 #: src/features/chats/components/message-quote.tsx
 #: src/features/chats/components/thread-panel.tsx
 msgid "This message was deleted"

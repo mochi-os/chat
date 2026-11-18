@@ -19,7 +19,7 @@ msgid "Please check your internet connection and try again."
 msgstr "لطفاً اتصال اینترنت خود را بررسی کرده و دوباره تلاش کنید."
 
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx
-#: src/features/chats/components/chat-message-list.tsx
+#: src/features/chats/components/message-bubble.tsx
 msgid "(edited)"
 msgstr "(ویرایش‌شده)"
 
@@ -122,6 +122,10 @@ msgstr "{count, plural, one {#ه} other {#ه}}"
 #: ../../../lib/web/src/components/calendar/tooltip.ts
 msgid "{day}, {from} to {to}"
 msgstr "{day}، {from} تا {to}"
+
+#: src/features/chats/components/thread-replies.tsx
+msgid "{earlier, plural, one {# earlier reply} other {# earlier replies}}"
+msgstr "{earlier, plural, one {# پاسخ قبلی} other {# پاسخ قبلی}}"
 
 #: ../../../lib/web/src/components/ui/create-entity-dialog.tsx
 msgid "{entityLabel} name"
@@ -1173,7 +1177,7 @@ msgstr "در حال حذف گفتگو..."
 msgid "Deleting..."
 msgstr "در حال حذف..."
 
-#: src/features/chats/components/chat-message-list.tsx
+#: src/features/chats/components/message-bubble.tsx
 msgctxt "receipt"
 msgid "Delivered"
 msgstr "تحویل شد"
@@ -1351,12 +1355,12 @@ msgstr "ایمیل"
 msgid "Email code"
 msgstr "کد ایمیل"
 
-#: src/features/chats/components/chat-message-list.tsx
+#: src/features/chats/components/message-bubble.tsx
 #: src/features/chats/components/thread-replies.tsx
 msgid "Encrypted for other devices only"
 msgstr "فقط برای دستگاه‌های دیگر رمزگذاری شده"
 
-#: src/features/chats/components/chat-message-list.tsx
+#: src/features/chats/components/message-bubble.tsx
 #: src/features/chats/components/thread-replies.tsx
 msgid "Encrypted message"
 msgstr "پیام رمزگذاری‌شده"
@@ -2566,7 +2570,7 @@ msgstr "حساب‌های خود را در این سرور مجدداً پیون
 msgid "Re-register your passkeys on this server"
 msgstr "پسکی‌های خود را دوباره در این سرور ثبت کنید"
 
-#: src/features/chats/components/chat-message-list.tsx
+#: src/features/chats/components/message-bubble.tsx
 msgctxt "receipt"
 msgid "Read"
 msgstr "خوانده شد"
@@ -3023,7 +3027,7 @@ msgstr "ارسال پیام"
 msgid "Send read receipts"
 msgstr "ارسال رسید خواندن"
 
-#: src/features/chats/components/chat-message-list.tsx
+#: src/features/chats/components/message-bubble.tsx
 msgctxt "receipt"
 msgid "Sent"
 msgstr "ارسال شد"
@@ -3353,7 +3357,7 @@ msgstr "این دستگاه (OMEMO 2)"
 msgid "This device (OMEMO)"
 msgstr "این دستگاه (OMEMO)"
 
-#: src/features/chats/components/chat-message-list.tsx
+#: src/features/chats/components/message-bubble.tsx
 #: src/features/chats/components/message-quote.tsx
 #: src/features/chats/components/thread-panel.tsx
 msgid "This message was deleted"

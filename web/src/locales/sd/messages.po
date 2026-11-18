@@ -19,7 +19,7 @@ msgid "Please check your internet connection and try again."
 msgstr "مهرباني ڪري پنهنجو انٽرنيٽ ڪنيڪشن چيڪ ڪريو ۽ ٻيهر ڪوشش ڪريو."
 
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx
-#: src/features/chats/components/chat-message-list.tsx
+#: src/features/chats/components/message-bubble.tsx
 msgid "(edited)"
 msgstr "(تبديل ٿيل)"
 
@@ -122,6 +122,10 @@ msgstr "{count, plural, one {#ه} other {#ه}}"
 #: ../../../lib/web/src/components/calendar/tooltip.ts
 msgid "{day}, {from} to {to}"
 msgstr "{day}، {from} کان {to}"
+
+#: src/features/chats/components/thread-replies.tsx
+msgid "{earlier, plural, one {# earlier reply} other {# earlier replies}}"
+msgstr "{earlier, plural, one {# اڳوڻو جواب} other {# اڳوڻا جواب}}"
 
 #: ../../../lib/web/src/components/ui/create-entity-dialog.tsx
 msgid "{entityLabel} name"
@@ -1173,7 +1177,7 @@ msgstr "چيٽ ڊليٽ ڪري رهيو آهي..."
 msgid "Deleting..."
 msgstr "ختم ڪري رهيو آهي..."
 
-#: src/features/chats/components/chat-message-list.tsx
+#: src/features/chats/components/message-bubble.tsx
 msgctxt "receipt"
 msgid "Delivered"
 msgstr "پهچي ويو"
@@ -1351,12 +1355,12 @@ msgstr "اي ميل"
 msgid "Email code"
 msgstr "اي ميل ڪوڊ"
 
-#: src/features/chats/components/chat-message-list.tsx
+#: src/features/chats/components/message-bubble.tsx
 #: src/features/chats/components/thread-replies.tsx
 msgid "Encrypted for other devices only"
 msgstr "صرف ٻين ڊوائيسز لاءِ انڪرپٽ ٿيل"
 
-#: src/features/chats/components/chat-message-list.tsx
+#: src/features/chats/components/message-bubble.tsx
 #: src/features/chats/components/thread-replies.tsx
 msgid "Encrypted message"
 msgstr "انڪرپٽ ٿيل پيغام"
@@ -2566,7 +2570,7 @@ msgstr "هن سرور تي پنهنجا اڪائونٽ ٻيهر ڳنڍيو"
 msgid "Re-register your passkeys on this server"
 msgstr "هن سرور تي پنهنجون پاس ڪيز ٻيهر رجسٽر ڪريو"
 
-#: src/features/chats/components/chat-message-list.tsx
+#: src/features/chats/components/message-bubble.tsx
 msgctxt "receipt"
 msgid "Read"
 msgstr "پڙهيو ويو"
@@ -3023,7 +3027,7 @@ msgstr "پيغام موڪليو"
 msgid "Send read receipts"
 msgstr "پڙهڻ جون رسيدون موڪليو"
 
-#: src/features/chats/components/chat-message-list.tsx
+#: src/features/chats/components/message-bubble.tsx
 msgctxt "receipt"
 msgid "Sent"
 msgstr "موڪليو ويو"
@@ -3353,7 +3357,7 @@ msgstr "هي ڊوائيس (OMEMO 2)"
 msgid "This device (OMEMO)"
 msgstr "هي ڊوائيس (OMEMO)"
 
-#: src/features/chats/components/chat-message-list.tsx
+#: src/features/chats/components/message-bubble.tsx
 #: src/features/chats/components/message-quote.tsx
 #: src/features/chats/components/thread-panel.tsx
 msgid "This message was deleted"

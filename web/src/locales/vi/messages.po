@@ -19,7 +19,7 @@ msgid "Please check your internet connection and try again."
 msgstr "Vui lòng kiểm tra kết nối internet và thử lại."
 
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx
-#: src/features/chats/components/chat-message-list.tsx
+#: src/features/chats/components/message-bubble.tsx
 msgid "(edited)"
 msgstr "(đã chỉnh sửa)"
 
@@ -122,6 +122,10 @@ msgstr "{count, plural, one {#tu} other {#tu}}"
 #: ../../../lib/web/src/components/calendar/tooltip.ts
 msgid "{day}, {from} to {to}"
 msgstr "{day}, {from} đến {to}"
+
+#: src/features/chats/components/thread-replies.tsx
+msgid "{earlier, plural, one {# earlier reply} other {# earlier replies}}"
+msgstr "{earlier, plural, other {# phản hồi trước đó}}"
 
 #: ../../../lib/web/src/components/ui/create-entity-dialog.tsx
 msgid "{entityLabel} name"
@@ -1173,7 +1177,7 @@ msgstr "Đang xóa cuộc trò chuyện..."
 msgid "Deleting..."
 msgstr "Đang xóa..."
 
-#: src/features/chats/components/chat-message-list.tsx
+#: src/features/chats/components/message-bubble.tsx
 msgctxt "receipt"
 msgid "Delivered"
 msgstr "Đã nhận"
@@ -1351,12 +1355,12 @@ msgstr "Email"
 msgid "Email code"
 msgstr "Mã email"
 
-#: src/features/chats/components/chat-message-list.tsx
+#: src/features/chats/components/message-bubble.tsx
 #: src/features/chats/components/thread-replies.tsx
 msgid "Encrypted for other devices only"
 msgstr "Chỉ được mã hóa cho các thiết bị khác"
 
-#: src/features/chats/components/chat-message-list.tsx
+#: src/features/chats/components/message-bubble.tsx
 #: src/features/chats/components/thread-replies.tsx
 msgid "Encrypted message"
 msgstr "Tin nhắn được mã hóa"
@@ -2566,7 +2570,7 @@ msgstr "Liên kết lại các tài khoản của bạn trên máy chủ này"
 msgid "Re-register your passkeys on this server"
 msgstr "Đăng ký lại mã khóa của bạn trên máy chủ này"
 
-#: src/features/chats/components/chat-message-list.tsx
+#: src/features/chats/components/message-bubble.tsx
 msgctxt "receipt"
 msgid "Read"
 msgstr "Đã đọc"
@@ -3023,7 +3027,7 @@ msgstr "Gửi tin nhắn"
 msgid "Send read receipts"
 msgstr "Gửi thông báo đã đọc"
 
-#: src/features/chats/components/chat-message-list.tsx
+#: src/features/chats/components/message-bubble.tsx
 msgctxt "receipt"
 msgid "Sent"
 msgstr "Đã gửi"
@@ -3353,7 +3357,7 @@ msgstr "Thiết bị này (OMEMO 2)"
 msgid "This device (OMEMO)"
 msgstr "Thiết bị này (OMEMO)"
 
-#: src/features/chats/components/chat-message-list.tsx
+#: src/features/chats/components/message-bubble.tsx
 #: src/features/chats/components/message-quote.tsx
 #: src/features/chats/components/thread-panel.tsx
 msgid "This message was deleted"

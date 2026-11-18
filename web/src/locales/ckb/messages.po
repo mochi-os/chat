@@ -19,7 +19,7 @@ msgid "Please check your internet connection and try again."
 msgstr "تکایە پەیوەندی ئینتەرنێتەکەت بپشکنە و دووبارە هەوڵ بدەرەوە."
 
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx
-#: src/features/chats/components/chat-message-list.tsx
+#: src/features/chats/components/message-bubble.tsx
 msgid "(edited)"
 msgstr "(دەستکاریکراو)"
 
@@ -122,6 +122,10 @@ msgstr "{count, plural, one {#ه} other {#ه}}"
 #: ../../../lib/web/src/components/calendar/tooltip.ts
 msgid "{day}, {from} to {to}"
 msgstr "{day}، لە {from} بۆ {to}"
+
+#: src/features/chats/components/thread-replies.tsx
+msgid "{earlier, plural, one {# earlier reply} other {# earlier replies}}"
+msgstr "{earlier, plural, one {# وەڵامی پێشوو} other {# وەڵامی پێشوو}}"
 
 #: ../../../lib/web/src/components/ui/create-entity-dialog.tsx
 msgid "{entityLabel} name"
@@ -1173,7 +1177,7 @@ msgstr "سڕینەوەی چات..."
 msgid "Deleting..."
 msgstr "سڕینەوە..."
 
-#: src/features/chats/components/chat-message-list.tsx
+#: src/features/chats/components/message-bubble.tsx
 msgctxt "receipt"
 msgid "Delivered"
 msgstr "گەیشت"
@@ -1351,12 +1355,12 @@ msgstr "ئیمەیڵ"
 msgid "Email code"
 msgstr "کۆدی ئیمەیڵ"
 
-#: src/features/chats/components/chat-message-list.tsx
+#: src/features/chats/components/message-bubble.tsx
 #: src/features/chats/components/thread-replies.tsx
 msgid "Encrypted for other devices only"
 msgstr "تەنها بۆ ئامێرەکانی تر شفرەکراوە"
 
-#: src/features/chats/components/chat-message-list.tsx
+#: src/features/chats/components/message-bubble.tsx
 #: src/features/chats/components/thread-replies.tsx
 msgid "Encrypted message"
 msgstr "پەیامی شفرەکراو"
@@ -2566,7 +2570,7 @@ msgstr "هەژمارەکانت لەم سێرڤەرەدا دووبارە بەست
 msgid "Re-register your passkeys on this server"
 msgstr "پاسکییەکانت لەسەر ئەم ڕاژەیە دووبارە تۆمار بکە"
 
-#: src/features/chats/components/chat-message-list.tsx
+#: src/features/chats/components/message-bubble.tsx
 msgctxt "receipt"
 msgid "Read"
 msgstr "خوێندرایەوە"
@@ -3023,7 +3027,7 @@ msgstr "نامە بنێرە"
 msgid "Send read receipts"
 msgstr "ناردنی ئاگاداری خوێندنەوە"
 
-#: src/features/chats/components/chat-message-list.tsx
+#: src/features/chats/components/message-bubble.tsx
 msgctxt "receipt"
 msgid "Sent"
 msgstr "نێردرا"
@@ -3353,7 +3357,7 @@ msgstr "ئەم ئامێرە (OMEMO 2)"
 msgid "This device (OMEMO)"
 msgstr "ئەم ئامێرە (OMEMO)"
 
-#: src/features/chats/components/chat-message-list.tsx
+#: src/features/chats/components/message-bubble.tsx
 #: src/features/chats/components/message-quote.tsx
 #: src/features/chats/components/thread-panel.tsx
 msgid "This message was deleted"

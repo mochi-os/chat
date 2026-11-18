@@ -96,7 +96,16 @@ def chat_commit_hook(table, kind, row_uid):
 		chat = mochi.db.row("select key from chats where id=?", deletion["chat"])
 		if not chat:
 			return
-		chat_websocket(chat["key"], {"event": "delete", "message": deletion["message"]})
+		# The thread a deleted reply was in, and that thread as it now stands:
+		# its root's bubble shows only the newest replies, so a page holding
+		# the root, whether or not it holds the reply, takes the root's count
+		# and newest replies from here.
+		message = mochi.db.row("select thread from messages where id=?", deletion["message"])
+		thread = (message or {}).get("thread", "") or ""
+		payload = {"event": "delete", "message": deletion["message"], "thread": thread}
+		if thread:
+			payload["root"] = thread_summary(deletion["chat"], thread)
+		chat_websocket(chat["key"], payload)
 		return
 	# A reactions row commit recomputes that message's authoritative counts
 	# and pushes them to every member's tabs, with whose reaction changed and
@@ -127,7 +136,7 @@ def chat_commit_hook(table, kind, row_uid):
 	if not chat:
 		return
 	attachments = attachment_list("chat/" + message["chat"] + "/" + message["id"], message["chat"])
-	chat_websocket(chat["key"], {
+	payload = {
 		"id": message["id"],
 		"created": message["created"],
 		"member": message["member"],
@@ -141,7 +150,11 @@ def chat_commit_hook(table, kind, row_uid):
 		# A message whose keys have not come carries no text: the flag is what
 		# shows it as one, where it would otherwise show as an empty bubble.
 		"encrypted": message.get("encrypted", 0),
-	})
+	}
+	# A reply carries its root's thread as it now stands, as the delete does.
+	if message.get("thread", ""):
+		payload["root"] = thread_summary(message["chat"], message["thread"])
+	chat_websocket(chat["key"], payload)
 
 # --- Quotes -----------------------------------------------------------------
 #
@@ -2751,17 +2764,25 @@ def thread_root(chat_id, thread):
 	not itself in a thread, not deleted."""
 	return mochi.text.valid(thread, "id") and mochi.db.exists("select 1 from messages where id=? and chat=? and thread=''", thread, chat_id) and not mochi.db.exists("select 1 from deletions where message=?", thread)
 
+# How many of a thread's replies its root's bubble shows: the newest.
+THREAD_SHOWN = 3
+
 def thread_counts(chat_id, roots):
-	"""How many replies each root has, when the latest came, and the replies
-	themselves, oldest first, shown in the root's own bubble."""
+	"""How many replies each root has and when the latest came, over all of
+	them, and the newest THREAD_SHOWN of them, oldest first, shown in the
+	root's own bubble. A client says how many earlier ones there are (replies
+	less the answers) and opens the thread for them. One statement, so the
+	count and the answers agree with each other, and only the answers kept are
+	read whole: a page of a conversation with long threads carried every reply
+	of every one."""
 	out = {}
 	for start in range(0, len(roots), _LIST_BATCH):
 		batch = roots[start:start + _LIST_BATCH]
 		places = ", ".join(["?" for _ in batch])
-		for m in mochi.db.rows("select * from messages where chat=? and thread in (" + places + ") and id not in (select message from deletions where chat=?) order by created, id", chat_id, *(batch + [chat_id])) or []:
-			held = out.setdefault(m["thread"], {"replies": 0, "latest": 0, "answers": []})
-			held["replies"] += 1
-			held["latest"] = max(held["latest"], m["created"])
+		for m in mochi.db.rows("select m.*, w.counted, w.newest from (select id, row_number() over (partition by thread order by created desc, id desc) as place, count(*) over (partition by thread) as counted, max(created) over (partition by thread) as newest from messages where chat=? and thread in (" + places + ") and id not in (select message from deletions where chat=?)) w join messages m on m.chat=? and m.id=w.id where w.place<=? order by m.created, m.id", chat_id, *(batch + [chat_id, chat_id, THREAD_SHOWN])) or []:
+			held = out.setdefault(m["thread"], {"replies": m["counted"], "latest": m["newest"], "answers": []})
+			m.pop("counted")
+			m.pop("newest")
 			held["answers"].append(m)
 	answers = [m for held in out.values() for m in held["answers"]]
 	attachments = attachment_list_many(["chat/" + chat_id + "/" + m["id"] for m in answers], chat_id)
@@ -2770,6 +2791,14 @@ def thread_counts(chat_id, roots):
 		m["attachments"] = attachments.get("chat/" + chat_id + "/" + m["id"], [])
 		m["quote"] = message_quote_of(m)
 	return out
+
+def thread_summary(chat_id, thread):
+	"""A root's thread as a page of messages carries it - how many replies,
+	when the latest came, and the newest of them - for a frame that changed
+	it. A client sets what it holds of the root to this rather than counting
+	the change itself, so a frame sent twice, or about a reply it never held,
+	leaves it right."""
+	return thread_counts(chat_id, [thread]).get(thread) or {"replies": 0, "latest": 0, "answers": []}
 
 # --- Accounts ---
 
@@ -3374,6 +3403,80 @@ def linked_chat_make(acc, name, room, me, my_name, people, status="active"):
 		mochi.db.execute("insert or ignore into members ( chat, member, name ) values ( ?, ?, ? )", chat, person[0], person[1][:200])
 	return mochi.db.row("select * from chats where id=?", chat)
 
+def linked_join(a, acc, address):
+	"""Join a room by its address, its conversation readied first. The join
+	brings the occupants' presences at once, each with their role, and
+	linked_member keeps only those of a conversation it finds, so one made
+	after the join would lose them. The readied conversation is 'joining': it
+	keeps the room's members, and nothing else finds it - not the user's list,
+	which has the user only once joined, and not the messages, receipts and
+	typing linked_find places, so an XMPP address that turns out to be a
+	person's has its messages reach the one-to-one conversation meanwhile. A
+	room the network names otherwise (a Matrix alias's id), or one a sync or a
+	message made a conversation for meanwhile, is joined under that
+	conversation. One readied by an earlier attempt that never finished is
+	taken up again. Answers what the join answered and the conversation, or
+	the answer and None when the join failed, with what was readied undone."""
+	me = a.user.identity.id
+	my_name = a.user.identity.name
+	# The room's conversation, where there is one. A one-to-one conversation
+	# with the address (a person's, or a room once taken for one) is left to
+	# its own messages, and the room readied beside it.
+	held = linked_room_chat(acc, address)
+	readied = None
+	left = None
+	present = False
+	if held:
+		# A room left or invited to is taken back for the join, so its members
+		# are kept.
+		if held["status"] != "active":
+			left = held["status"]
+			present = mochi.db.exists("select 1 from members where chat=? and member=?", held["id"], me)
+			linked_rejoin(held, me, my_name)
+	else:
+		readied = mochi.db.row("select * from chats where account=? and room=? and status='joining' order by updated desc limit 1", acc["id"], address)
+		if not readied:
+			readied = {"id": mochi.uid()}
+			mochi.db.execute("insert into chats ( id, name, key, updated, account, kind, room, status ) values ( ?, ?, ?, ?, ?, '', ?, 'joining' )", readied["id"], address[:200], mochi.random.alphanumeric(16), mochi.time.now(), acc["id"], address)
+	joined = mochi.account.room.join(acc["id"], address)
+	if not joined or not joined.get("conversation"):
+		if readied:
+			linked_unready(readied["id"])
+		elif left:
+			mochi.db.execute("update chats set status=? where id=?", left, held["id"])
+			if not present:
+				mochi.db.execute("delete from members where chat=? and member=?", held["id"], me)
+		return joined, None
+	if not readied:
+		return joined, mochi.db.row("select * from chats where id=?", held["id"])
+	conversation = str(joined["conversation"])
+	name = str(joined.get("name", "") or "")
+	other = linked_room_chat(acc, conversation)
+	if other and other["id"] != readied["id"]:
+		# Joined under a conversation already here: it takes the members the
+		# join brought.
+		for m in mochi.db.rows("select member, name, role from members where chat=?", readied["id"]) or []:
+			mochi.db.execute("insert into members ( chat, member, name, role ) values ( ?, ?, ?, ? ) on conflict ( chat, member ) do update set name=excluded.name, role=excluded.role", other["id"], m["member"], m["name"], m["role"])
+		linked_unready(readied["id"])
+		if other["status"] != "active":
+			linked_rejoin(other, me, my_name)
+		return joined, mochi.db.row("select * from chats where id=?", other["id"])
+	if not mochi.db.exists("select 1 from chats where id=?", readied["id"]):
+		# Readied by another attempt that has since failed and undone it.
+		return joined, other or linked_chat_make(acc, name or address, conversation, me, my_name, [])
+	mochi.db.execute("update chats set room=?, updated=? where id=?", conversation, mochi.time.now(), readied["id"])
+	if name:
+		mochi.db.execute("update chats set name=? where id=?", name[:200], readied["id"])
+	linked_rejoin(readied, me, my_name)
+	return joined, mochi.db.row("select * from chats where id=?", readied["id"])
+
+def linked_unready(chat):
+	"""A conversation readied for a join that did not happen, gone. One a sync
+	has meanwhile shown the account to be in is kept."""
+	if mochi.db.exists("select 1 from chats where id=? and status='joining'", chat):
+		mochi.db.execute("delete from members where chat=?", chat)
+		mochi.db.execute("delete from chats where id=?", chat)
+
 def chat_create_linked(a, acc, name, addresses):
 	"""A conversation on a linked account: a room joined by its address, a
 	one-to-one conversation with one person (the one there is, where there is
@@ -3388,14 +3491,8 @@ def chat_create_linked(a, acc, name, addresses):
 		address = linked_room_address(network, addresses[0])
 		if not address and network == "xmpp":
 			address = linked_person(network, addresses[0])
-		joined = mochi.account.room.join(acc["id"], address) if address else None
-		if joined and joined.get("conversation"):
-			conversation = str(joined["conversation"])
-			chat = linked_find(acc, conversation)
-			if not chat:
-				chat = linked_chat_make(acc, str(joined.get("name", "") or "") or address, conversation, me, a.user.identity.name, [])
-			elif chat["status"] != "active":
-				linked_rejoin(chat, me, a.user.identity.name)
+		joined, chat = linked_join(a, acc, address) if address else (None, None)
+		if chat:
 			return {"data": {"id": chat["id"], "name": chat["name"], "members": []}}
 		# A room that would not have the account is no person to talk to.
 		if joined and joined.get("refused"):
@@ -3473,11 +3570,16 @@ def linked_find(acc, conversation):
 	conversation = str(conversation or "")
 	if not conversation:
 		return None
-	room = mochi.db.row("select * from chats where account=? and room=? order by status='active' desc, updated desc limit 1", acc["id"], conversation)
+	room = linked_room_chat(acc, conversation)
 	if room:
 		return room
 	found = remote_conversation(acc["id"], [conversation])
 	return mochi.db.row("select * from chats where id=?", found["id"]) if found else None
+
+def linked_room_chat(acc, room):
+	"""The conversation on an account for a room by its id, the active one
+	first. One readied for a join still under way is not yet anyone's."""
+	return mochi.db.row("select * from chats where account=? and room=? and status!='joining' order by status='active' desc, updated desc limit 1", acc["id"], room)
 
 def linked_target(chat):
 	"""A conversation's id on its network: a room's, else its one person's."""
@@ -3944,8 +4046,9 @@ def linked_room(acc, identity, event):
 		mochi.db.execute("update chats set kind='direct' where id=?", chat["id"])
 
 def linked_member(acc, event):
-	"""Someone joining or leaving a room, with the role they have there."""
-	chat = mochi.db.row("select * from chats where account=? and room=? and status='active'", acc["id"], str(event.get("conversation", "") or ""))
+	"""Someone joining or leaving a room, with the role they have there: kept
+	in its conversation, or in the one readied while the account joins it."""
+	chat = mochi.db.row("select * from chats where account=? and room=? and status in ('active', 'joining') order by status='active' desc, updated desc limit 1", acc["id"], str(event.get("conversation", "") or ""))
 	member = str(event.get("id", "") or "")[:REMOTE_MAXIMUM]
 	if not chat or not member or mochi.text.valid(member, "entity"):
 		return

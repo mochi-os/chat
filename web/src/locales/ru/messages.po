@@ -19,7 +19,7 @@ msgid "Please check your internet connection and try again."
 msgstr "Проверьте подключение к интернету и попробуйте снова."
 
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx
-#: src/features/chats/components/chat-message-list.tsx
+#: src/features/chats/components/message-bubble.tsx
 msgid "(edited)"
 msgstr "(изменено)"
 
@@ -122,6 +122,10 @@ msgstr "{count, plural, one {#нед} other {#нед}}"
 #: ../../../lib/web/src/components/calendar/tooltip.ts
 msgid "{day}, {from} to {to}"
 msgstr "{day}, с {from} до {to}"
+
+#: src/features/chats/components/thread-replies.tsx
+msgid "{earlier, plural, one {# earlier reply} other {# earlier replies}}"
+msgstr "{earlier, plural, one {# более ранний ответ} few {# более ранних ответа} many {# более ранних ответов} other {# более раннего ответа}}"
 
 #: ../../../lib/web/src/components/ui/create-entity-dialog.tsx
 msgid "{entityLabel} name"
@@ -1173,7 +1177,7 @@ msgstr "Удаление чата..."
 msgid "Deleting..."
 msgstr "Удаление..."
 
-#: src/features/chats/components/chat-message-list.tsx
+#: src/features/chats/components/message-bubble.tsx
 msgctxt "receipt"
 msgid "Delivered"
 msgstr "Доставлено"
@@ -1351,12 +1355,12 @@ msgstr "Электронная почта"
 msgid "Email code"
 msgstr "Код по электронной почте"
 
-#: src/features/chats/components/chat-message-list.tsx
+#: src/features/chats/components/message-bubble.tsx
 #: src/features/chats/components/thread-replies.tsx
 msgid "Encrypted for other devices only"
 msgstr "Зашифровано только для других устройств"
 
-#: src/features/chats/components/chat-message-list.tsx
+#: src/features/chats/components/message-bubble.tsx
 #: src/features/chats/components/thread-replies.tsx
 msgid "Encrypted message"
 msgstr "Зашифрованное сообщение"
@@ -2566,7 +2570,7 @@ msgstr "Повторно привяжите свои аккаунты на эт�
 msgid "Re-register your passkeys on this server"
 msgstr "Зарегистрируйте ключи доступа на этом сервере заново"
 
-#: src/features/chats/components/chat-message-list.tsx
+#: src/features/chats/components/message-bubble.tsx
 msgctxt "receipt"
 msgid "Read"
 msgstr "Прочитано"
@@ -3023,7 +3027,7 @@ msgstr "Отправить сообщение"
 msgid "Send read receipts"
 msgstr "Отправлять уведомления о прочтении"
 
-#: src/features/chats/components/chat-message-list.tsx
+#: src/features/chats/components/message-bubble.tsx
 msgctxt "receipt"
 msgid "Sent"
 msgstr "Отправлено"
@@ -3353,7 +3357,7 @@ msgstr "Это устройство (OMEMO 2)"
 msgid "This device (OMEMO)"
 msgstr "Это устройство (OMEMO)"
 
-#: src/features/chats/components/chat-message-list.tsx
+#: src/features/chats/components/message-bubble.tsx
 #: src/features/chats/components/message-quote.tsx
 #: src/features/chats/components/thread-panel.tsx
 msgid "This message was deleted"

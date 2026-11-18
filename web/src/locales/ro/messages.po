@@ -19,7 +19,7 @@ msgid "Please check your internet connection and try again."
 msgstr "Verifică conexiunea la internet și încearcă din nou."
 
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx
-#: src/features/chats/components/chat-message-list.tsx
+#: src/features/chats/components/message-bubble.tsx
 msgid "(edited)"
 msgstr "(editat)"
 
@@ -122,6 +122,10 @@ msgstr "{count, plural, one {#săpt} other {#săpt}}"
 #: ../../../lib/web/src/components/calendar/tooltip.ts
 msgid "{day}, {from} to {to}"
 msgstr "{day}, de la {from} la {to}"
+
+#: src/features/chats/components/thread-replies.tsx
+msgid "{earlier, plural, one {# earlier reply} other {# earlier replies}}"
+msgstr "{earlier, plural, one {# răspuns anterior} few {# răspunsuri anterioare} other {# de răspunsuri anterioare}}"
 
 #: ../../../lib/web/src/components/ui/create-entity-dialog.tsx
 msgid "{entityLabel} name"
@@ -1173,7 +1177,7 @@ msgstr "Se șterge conversația..."
 msgid "Deleting..."
 msgstr "Se șterge..."
 
-#: src/features/chats/components/chat-message-list.tsx
+#: src/features/chats/components/message-bubble.tsx
 msgctxt "receipt"
 msgid "Delivered"
 msgstr "Livrat"
@@ -1351,12 +1355,12 @@ msgstr "Email"
 msgid "Email code"
 msgstr "Cod email"
 
-#: src/features/chats/components/chat-message-list.tsx
+#: src/features/chats/components/message-bubble.tsx
 #: src/features/chats/components/thread-replies.tsx
 msgid "Encrypted for other devices only"
 msgstr "Criptat doar pentru alte dispozitive"
 
-#: src/features/chats/components/chat-message-list.tsx
+#: src/features/chats/components/message-bubble.tsx
 #: src/features/chats/components/thread-replies.tsx
 msgid "Encrypted message"
 msgstr "Mesaj criptat"
@@ -2566,7 +2570,7 @@ msgstr "Reconectați conturile pe acest server"
 msgid "Re-register your passkeys on this server"
 msgstr "Reînregistrați-vă cheile de acces pe acest server"
 
-#: src/features/chats/components/chat-message-list.tsx
+#: src/features/chats/components/message-bubble.tsx
 msgctxt "receipt"
 msgid "Read"
 msgstr "Citit"
@@ -3023,7 +3027,7 @@ msgstr "Trimite mesajul"
 msgid "Send read receipts"
 msgstr "Trimite confirmări de citire"
 
-#: src/features/chats/components/chat-message-list.tsx
+#: src/features/chats/components/message-bubble.tsx
 msgctxt "receipt"
 msgid "Sent"
 msgstr "Trimis"
@@ -3353,7 +3357,7 @@ msgstr "Acest dispozitiv (OMEMO 2)"
 msgid "This device (OMEMO)"
 msgstr "Acest dispozitiv (OMEMO)"
 
-#: src/features/chats/components/chat-message-list.tsx
+#: src/features/chats/components/message-bubble.tsx
 #: src/features/chats/components/message-quote.tsx
 #: src/features/chats/components/thread-panel.tsx
 msgid "This message was deleted"
