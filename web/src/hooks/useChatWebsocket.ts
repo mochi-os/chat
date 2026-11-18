@@ -212,7 +212,9 @@ export const THREAD_SHOWN = 3
 const capped = (message: ChatMessage) =>
   (message.replies ?? 0) > (message.answers?.length ?? 0)
 
-type ThreadSummary = Required<Pick<ChatMessage, 'replies' | 'latest' | 'answers'>>
+type ThreadSummary = Required<
+  Pick<ChatMessage, 'replies' | 'latest' | 'answers'>
+>
 
 // A root's thread as it stands after a reply or a delete, from a frame of a
 // chat app that sends it: the root takes it as it is, so a frame sent twice,
@@ -483,12 +485,49 @@ const addThreadReply = (
   }
 }
 
-// A reaction, edit or deletion may be on a reply in a thread. The patches above
-// reach the main timeline and the replies in a root's bubble; the open thread
-// panel reads its own query, which is read again. A thread not open is only
-// marked stale.
+// A reaction or edit may be on a reply in a thread. The patches above reach
+// the main timeline and the replies in a root's bubble; the open thread panel
+// reads its own query, which is read again. A thread not open is only marked
+// stale.
 const refreshThreads = (chatId: string, queryClient: QueryClient) => {
   void queryClient.invalidateQueries({ queryKey: chatKeys.threads(chatId) })
+}
+
+// A deleted reply is marked so in every thread the client holds, as the main
+// timeline marks it, rather than reading the thread again: the delete frame
+// already carries all there is to know, and the root's thread summary it
+// brings is set on the timeline by markMessageDeletedFromWebsocket.
+const markThreadReplyDeleted = (
+  chatId: string,
+  payload: NormalizedChatWebsocketMessagePayload,
+  queryClient: QueryClient
+) => {
+  const messageId =
+    typeof payload.message === 'string' ? payload.message : undefined
+  if (!messageId) return
+  queryClient.setQueriesData<InfiniteData<GetMessagesResponse>>(
+    { queryKey: chatKeys.threads(chatId) },
+    (current) => {
+      if (!current?.pages) return current
+      let found = false
+      const pages = current.pages.map((page) => ({
+        ...page,
+        messages: page.messages.map((message): ChatMessage => {
+          if (message.id !== messageId) return message
+          found = true
+          return {
+            ...message,
+            deleted: true,
+            body: '',
+            attachments: [],
+            reactions: {},
+            reaction: null,
+          }
+        }),
+      }))
+      return found ? { ...current, pages } : current
+    }
+  )
 }
 
 export const handleWebsocketEvent = (
@@ -515,7 +554,7 @@ export const handleWebsocketEvent = (
         return 'reaction'
       case 'delete':
         markMessageDeletedFromWebsocket(chatId, payload, queryClient)
-        refreshThreads(chatId, queryClient)
+        markThreadReplyDeleted(chatId, payload, queryClient)
         return 'event'
       case 'edit':
         patchMessageEditFromWebsocket(chatId, payload, queryClient)

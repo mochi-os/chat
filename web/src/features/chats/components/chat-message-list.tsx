@@ -42,6 +42,7 @@ import type { ReactionId } from '../constants/reactions'
 import { formatCountBadge } from '../utils'
 import { collapseEarlierHistory, isEarlierHistory } from '../utils/encryption'
 import { receiptState, seenBy } from '../utils/receipts'
+import { checkIsAtBottom, pinToBottom } from '../utils/scroll'
 import { InlineMessageEditor } from './inline-message-editor'
 import {
   MessageBubble,
@@ -49,7 +50,6 @@ import {
   type BubbleOffers,
 } from './message-bubble'
 
-const BOTTOM_THRESHOLD_PX = 80
 const MESSAGE_ENTER_MS = 200
 function groupMessagesBySender(messages: ChatMessage[]) {
   const groups: ChatMessage[][] = []
@@ -74,14 +74,6 @@ function groupMessagesBySender(messages: ChatMessage[]) {
   }
   if (currentGroup.length > 0) groups.push(currentGroup)
   return groups
-}
-
-function checkIsAtBottom(el: HTMLDivElement) {
-  return el.scrollHeight - el.scrollTop - el.clientHeight <= BOTTOM_THRESHOLD_PX
-}
-
-function pinToBottom(el: HTMLDivElement) {
-  el.scrollTop = el.scrollHeight - el.clientHeight
 }
 
 interface ChatMessageListProps {

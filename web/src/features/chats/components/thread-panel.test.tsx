@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: AGPL-3.0-only
 // This file is part of Mochi, licensed under the GNU AGPL v3 with the
 // Mochi Application Interface Exception - see license.txt and license-exception.md.
-import type { ReactNode } from 'react'
+import type { ComponentProps, ReactNode } from 'react'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { i18n } from '@lingui/core'
 import { I18nProvider } from '@lingui/react'
@@ -30,7 +30,10 @@ vi.mock('@mochi/web', async (importOriginal) => {
       open ? <div>{children}</div> : null,
     SidePanelHeader: Pass,
     SidePanelTitle: Pass,
-    SidePanelBody: Pass,
+    // A real element, so the panel can follow new replies on it.
+    SidePanelBody: (props: ComponentProps<'div'>) => (
+      <div data-testid='thread-body' {...props} />
+    ),
     SidePanelFooter: Pass,
     useFormat: () => ({ formatTimestamp: String, formatNumber: String }),
     toast: { error: calls.error },
@@ -47,6 +50,7 @@ vi.mock('@/hooks/useChats', () => ({
   useThreadMessagesQuery: () => ({
     data: { pages: [{ messages: calls.replies }] },
     isLoading: false,
+    isSuccess: true,
     error: null,
     hasNextPage: false,
   }),
@@ -90,7 +94,11 @@ function setup() {
     </QueryClientProvider>
   )
   const view = render(panel(root))
-  return { invalidate, close: () => view.rerender(panel(null)) }
+  return {
+    invalidate,
+    close: () => view.rerender(panel(null)),
+    refresh: () => view.rerender(panel(root)),
+  }
 }
 
 describe('ThreadPanel', () => {
@@ -204,5 +212,81 @@ describe('ThreadPanel', () => {
       .closest('[data-slot="bubble-reactions"]')
     expect(pill).not.toBeNull()
     expect(pill).toHaveTextContent('2')
+  })
+})
+
+describe('ThreadPanel following new replies', () => {
+  const reply = (id: string, member: string) =>
+    ({
+      id,
+      chat: 'c1',
+      member,
+      name: member,
+      body: id,
+      created: 2,
+      thread: 'r1',
+    }) as ChatMessage
+
+  /** The body as a 1000px conversation in a 300px panel, scrolled to top. */
+  function scrolled(top: number) {
+    const body = screen.getByTestId('thread-body')
+    let scrollTop = top
+    Object.defineProperties(body, {
+      scrollHeight: { value: 1000, configurable: true },
+      clientHeight: { value: 300, configurable: true },
+      scrollTop: {
+        configurable: true,
+        get: () => scrollTop,
+        set: (value: number) => {
+          scrollTop = value
+        },
+      },
+    })
+    body.scrollTo = vi.fn() as typeof body.scrollTo
+    fireEvent.scroll(body)
+    return body
+  }
+
+  beforeEach(() => {
+    calls.replies = [reply('a1', 'them')]
+  })
+
+  it('brings the user’s own new reply into view, even scrolled up', () => {
+    const { refresh } = setup()
+    const body = scrolled(0)
+    calls.replies = [reply('a1', 'them'), reply('a2', 'me')]
+    refresh()
+    expect(body.scrollTo).toHaveBeenCalledWith({
+      top: 1000,
+      behavior: 'smooth',
+    })
+  })
+
+  it('follows someone else’s reply while at the bottom', () => {
+    const { refresh } = setup()
+    const body = scrolled(650)
+    calls.replies = [reply('a1', 'them'), reply('a2', 'them')]
+    refresh()
+    // 50px short of the end counts as the bottom, and it is pinned there:
+    // the full height less the panel.
+    expect(body.scrollTop).toBe(1000 - 300)
+  })
+
+  it('leaves the user reading higher up where they are', () => {
+    const { refresh } = setup()
+    const body = scrolled(100)
+    calls.replies = [reply('a1', 'them'), reply('a2', 'them')]
+    refresh()
+    expect(body.scrollTop).toBe(100)
+    expect(body.scrollTo).not.toHaveBeenCalled()
+  })
+
+  it('does not move for earlier replies loaded above', () => {
+    const { refresh } = setup()
+    const body = scrolled(100)
+    calls.replies = [reply('a0', 'me'), reply('a1', 'them')]
+    refresh()
+    expect(body.scrollTop).toBe(100)
+    expect(body.scrollTo).not.toHaveBeenCalled()
   })
 })

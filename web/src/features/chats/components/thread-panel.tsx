@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: AGPL-3.0-only
 // This file is part of Mochi, licensed under the GNU AGPL v3 with the
 // Mochi Application Interface Exception - see license.txt and license-exception.md.
-import { useMemo, useState } from 'react'
+import { useLayoutEffect, useMemo, useRef, useState } from 'react'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { Trans, useLingui } from '@lingui/react/macro'
 import {
@@ -33,6 +33,7 @@ import {
 import { MESSAGE_MAX_LENGTH } from '../constants/limits'
 import { useMessageEditor } from '../editor/use-message-editor'
 import { messageSize } from '../utils'
+import { checkIsAtBottom, pinToBottom } from '../utils/scroll'
 import { FormattingToolbar } from './formatting-toolbar'
 import { MessageAttachments } from './message-attachments'
 import { MessageBody } from './message-body'
@@ -77,6 +78,36 @@ export function ThreadPanel({
     [query.data?.pages]
   )
   const [body, setBody] = useState('')
+
+  // New replies are followed as the main timeline follows new messages: the
+  // user's own always, anyone else's while the panel is already at the
+  // bottom. Earlier replies loaded above, and the thread first showing, move
+  // nothing.
+  const bodyRef = useRef<HTMLDivElement>(null)
+  const atBottom = useRef(true)
+  const followed = useRef<{
+    root?: string
+    newest?: string
+    loaded: boolean
+  }>({ loaded: false })
+  const newest = replies[replies.length - 1]
+  const loaded = query.isSuccess
+  useLayoutEffect(() => {
+    const el = bodyRef.current
+    const last = followed.current
+    followed.current = { root: root?.id, newest: newest?.id, loaded }
+    // Only a reply arriving in a thread already shown, so the first reply
+    // of a thread that had none counts too.
+    if (!el || !newest || last.root !== root?.id || !last.loaded) return
+    if (newest.id === last.newest) return
+    if (newest.member === currentUserIdentity) {
+      if (atBottom.current) pinToBottom(el)
+      else el.scrollTo({ top: el.scrollHeight, behavior: 'smooth' })
+      atBottom.current = true
+    } else if (atBottom.current) {
+      pinToBottom(el)
+    }
+  }, [root?.id, newest, loaded, currentUserIdentity])
   const [editing, setEditing] = useState<{ id: string; body: string } | null>(
     null
   )
@@ -182,7 +213,13 @@ export function ThreadPanel({
           <Trans>Thread</Trans>
         </SidePanelTitle>
       </SidePanelHeader>
-      <SidePanelBody className='space-y-4'>
+      <SidePanelBody
+        ref={bodyRef}
+        className='space-y-4'
+        onScroll={(event) => {
+          atBottom.current = checkIsAtBottom(event.currentTarget)
+        }}
+      >
         {root ? (
           <ThreadMessage
             message={root}

@@ -472,7 +472,15 @@ describe('signals and threads (phase 22)', () => {
     const send = () =>
       appendMessageToCache(
         'c1',
-        { id: 'r0', member: 'bob', name: 'Bob', body: 'r0', created: 2, thread: 'm1', root: thread },
+        {
+          id: 'r0',
+          member: 'bob',
+          name: 'Bob',
+          body: 'r0',
+          created: 2,
+          thread: 'm1',
+          root: thread,
+        },
         client,
         'Unknown',
         'me'
@@ -493,7 +501,12 @@ describe('signals and threads (phase 22)', () => {
     const invalidate = vi.spyOn(client, 'invalidateQueries')
     handleWebsocketEvent(
       'c1',
-      { event: 'delete', message: 'r1', thread: 'm1', root: summary(client, 4, 'r3', 'r4', 'r5') },
+      {
+        event: 'delete',
+        message: 'r1',
+        thread: 'm1',
+        root: summary(client, 4, 'r3', 'r4', 'r5'),
+      },
       client,
       'me'
     )
@@ -543,12 +556,39 @@ describe('signals and threads (phase 22)', () => {
     expect(root(client).replies).toBe(1)
     expect(root(client).latest).toBe(4)
     expect(root(client).deleted).toBeUndefined()
-    // The conversation is not read again; an open thread is, as the deleted
-    // reply is in its own query.
     expect(invalidate).not.toHaveBeenCalledWith({
       queryKey: ['chats', 'c1', 'messages'],
     })
-    expect(invalidate).toHaveBeenCalledWith({
+  })
+
+  it('marks a deleted reply in an open thread, without reading the thread again', () => {
+    const client = threaded()
+    // The thread panel's own query, holding both replies.
+    client.setQueryData(chatKeys.thread('c1', 'm1'), {
+      pages: [
+        {
+          messages: [
+            { ...message('r1'), body: 'first', thread: 'm1' },
+            { ...message('r2'), body: 'second', thread: 'm1' },
+          ],
+          more: false,
+          cursor: null,
+        },
+      ],
+      pageParams: [undefined],
+    })
+    const invalidate = vi.spyOn(client, 'invalidateQueries')
+    handleWebsocketEvent(
+      'c1',
+      { event: 'delete', message: 'r2', thread: 'm1' },
+      client,
+      'me'
+    )
+    const [first, second] = pages(client, chatKeys.thread('c1', 'm1'))[0]
+      .messages
+    expect(first.deleted).toBeUndefined()
+    expect(second).toMatchObject({ deleted: true, body: '' })
+    expect(invalidate).not.toHaveBeenCalledWith({
       queryKey: ['chats', 'c1', 'thread'],
     })
   })
