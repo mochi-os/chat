@@ -19,7 +19,7 @@ msgid "Please check your internet connection and try again."
 msgstr "ನಿಮ್ಮ ಇಂಟರ್ನೆಟ್ ಸಂಪರ್ಕವನ್ನು ಪರಿಶೀಲಿಸಿ ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ."
 
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx
-#: src/features/chats/components/chat-message-list.tsx
+#: src/features/chats/components/message-bubble.tsx
 #: src/features/chats/components/thread-panel.tsx
 msgid "(edited)"
 msgstr "(ಸಂಪಾದಿಸಲಾಗಿದೆ)"
@@ -123,6 +123,10 @@ msgstr "{count, plural, one {#ವಾ} other {#ವಾ}}"
 #: ../../../lib/web/src/components/calendar/tooltip.ts
 msgid "{day}, {from} to {to}"
 msgstr "{day}, {from} ರಿಂದ {to} ವರೆಗೆ"
+
+#: src/features/chats/components/thread-replies.tsx
+msgid "{earlier, plural, one {# earlier reply} other {# earlier replies}}"
+msgstr "{earlier, plural, one {# ಹಿಂದಿನ ಪ್ರತ್ಯುತ್ತರ} other {# ಹಿಂದಿನ ಪ್ರತ್ಯುತ್ತರಗಳು}}"
 
 #: ../../../lib/web/src/components/ui/create-entity-dialog.tsx
 msgid "{entityLabel} name"
@@ -1193,7 +1197,7 @@ msgstr "ಚಾಟ್ ಅನ್ನು ಅಳಿಸಲಾಗುತ್ತಿದೆ.
 msgid "Deleting..."
 msgstr "ಅಳಿಸಲಾಗುತ್ತಿದೆ..."
 
-#: src/features/chats/components/chat-message-list.tsx
+#: src/features/chats/components/message-bubble.tsx
 msgctxt "receipt"
 msgid "Delivered"
 msgstr "ತಲುಪಿಸಲಾಗಿದೆ"
@@ -1377,12 +1381,12 @@ msgstr "ಇಮೇಲ್"
 msgid "Email code"
 msgstr "ಇಮೇಲ್ ಕೋಡ್"
 
-#: src/features/chats/components/chat-message-list.tsx
+#: src/features/chats/components/message-bubble.tsx
 #: src/features/chats/components/thread-replies.tsx
 msgid "Encrypted for other devices only"
 msgstr "ಇತರ ಸಾಧನಗಳಿಗೆ ಮಾತ್ರ ಎನ್‌ಕ್ರಿಪ್ಟ್ ಮಾಡಲಾಗಿದೆ"
 
-#: src/features/chats/components/chat-message-list.tsx
+#: src/features/chats/components/message-bubble.tsx
 #: src/features/chats/components/thread-replies.tsx
 msgid "Encrypted message"
 msgstr "ಎನ್‌ಕ್ರಿಪ್ಟ್ ಮಾಡಿದ ಸಂದೇಶ"
@@ -2613,7 +2617,7 @@ msgstr "ಈ ಸರ್ವರ್‌ನಲ್ಲಿ ನಿಮ್ಮ ಖಾತೆಗ
 msgid "Re-register your passkeys on this server"
 msgstr "ಈ ಸರ್ವರ್‌ನಲ್ಲಿ ನಿಮ್ಮ ಪಾಸ್‌ಕೀಗಳನ್ನು ಮರು-ನೋಂದಣಿ ಮಾಡಿ"
 
-#: src/features/chats/components/chat-message-list.tsx
+#: src/features/chats/components/message-bubble.tsx
 msgctxt "receipt"
 msgid "Read"
 msgstr "ಓದಲಾಗಿದೆ"
@@ -3073,7 +3077,7 @@ msgstr "ಸಂದೇಶ ಕಳುಹಿಸಿ"
 msgid "Send read receipts"
 msgstr "ಓದಿದ ರಸೀದಿಗಳನ್ನು ಕಳುಹಿಸಿ"
 
-#: src/features/chats/components/chat-message-list.tsx
+#: src/features/chats/components/message-bubble.tsx
 msgctxt "receipt"
 msgid "Sent"
 msgstr "ಕಳುಹಿಸಲಾಗಿದೆ"
@@ -3408,7 +3412,7 @@ msgstr "ಈ ಸಾಧನ (OMEMO 2)"
 msgid "This device (OMEMO)"
 msgstr "ಈ ಸಾಧನ (OMEMO)"
 
-#: src/features/chats/components/chat-message-list.tsx
+#: src/features/chats/components/message-bubble.tsx
 #: src/features/chats/components/message-quote.tsx
 #: src/features/chats/components/thread-panel.tsx
 msgid "This message was deleted"

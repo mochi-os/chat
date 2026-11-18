@@ -27,7 +27,12 @@ const answers = (count: number) =>
 const show = (count: number, onOpen = vi.fn()) => {
   render(
     <I18nProvider i18n={i18n}>
-      <ThreadReplies answers={answers(count)} isSent={false} onOpen={onOpen} />
+      <ThreadReplies
+        answers={answers(count)}
+        replies={count}
+        isSent={false}
+        onOpen={onOpen}
+      />
     </I18nProvider>
   )
   return onOpen

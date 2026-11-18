@@ -19,7 +19,7 @@ msgid "Please check your internet connection and try again."
 msgstr "कृपया तुमचे इंटरनेट कनेक्शन तपासा आणि पुन्हा प्रयत्न करा."
 
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx
-#: src/features/chats/components/chat-message-list.tsx
+#: src/features/chats/components/message-bubble.tsx
 #: src/features/chats/components/thread-panel.tsx
 msgid "(edited)"
 msgstr "(संपादित)"
@@ -123,6 +123,10 @@ msgstr "{count, plural, one {#आठ} other {#आठ}}"
 #: ../../../lib/web/src/components/calendar/tooltip.ts
 msgid "{day}, {from} to {to}"
 msgstr "{day}, {from} ते {to}"
+
+#: src/features/chats/components/thread-replies.tsx
+msgid "{earlier, plural, one {# earlier reply} other {# earlier replies}}"
+msgstr "{earlier, plural, one {# आधीचे उत्तर} other {# आधीची उत्तरे}}"
 
 #: ../../../lib/web/src/components/ui/create-entity-dialog.tsx
 msgid "{entityLabel} name"
@@ -1193,7 +1197,7 @@ msgstr "चॅट हटवत आहे..."
 msgid "Deleting..."
 msgstr "हटवत आहे..."
 
-#: src/features/chats/components/chat-message-list.tsx
+#: src/features/chats/components/message-bubble.tsx
 msgctxt "receipt"
 msgid "Delivered"
 msgstr "वितरित"
@@ -1377,12 +1381,12 @@ msgstr "ईमेल"
 msgid "Email code"
 msgstr "ईमेल कोड"
 
-#: src/features/chats/components/chat-message-list.tsx
+#: src/features/chats/components/message-bubble.tsx
 #: src/features/chats/components/thread-replies.tsx
 msgid "Encrypted for other devices only"
 msgstr "फक्त इतर डिव्हाइससाठी एन्क्रिप्ट केलेला"
 
-#: src/features/chats/components/chat-message-list.tsx
+#: src/features/chats/components/message-bubble.tsx
 #: src/features/chats/components/thread-replies.tsx
 msgid "Encrypted message"
 msgstr "एन्क्रिप्ट केलेला मेसेज"
@@ -2613,7 +2617,7 @@ msgstr "या सर्व्हरवर तुमची खाती पु�
 msgid "Re-register your passkeys on this server"
 msgstr "या सर्व्हरवर तुमच्या पासकी पुन्हा नोंदवा"
 
-#: src/features/chats/components/chat-message-list.tsx
+#: src/features/chats/components/message-bubble.tsx
 msgctxt "receipt"
 msgid "Read"
 msgstr "वाचले"
@@ -3073,7 +3077,7 @@ msgstr "संदेश पाठवा"
 msgid "Send read receipts"
 msgstr "वाचल्याची पावती पाठवा"
 
-#: src/features/chats/components/chat-message-list.tsx
+#: src/features/chats/components/message-bubble.tsx
 msgctxt "receipt"
 msgid "Sent"
 msgstr "पाठवले"
@@ -3408,7 +3412,7 @@ msgstr "हे डिव्हाइस (OMEMO 2)"
 msgid "This device (OMEMO)"
 msgstr "हे डिव्हाइस (OMEMO)"
 
-#: src/features/chats/components/chat-message-list.tsx
+#: src/features/chats/components/message-bubble.tsx
 #: src/features/chats/components/message-quote.tsx
 #: src/features/chats/components/thread-panel.tsx
 msgid "This message was deleted"

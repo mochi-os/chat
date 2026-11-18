@@ -19,7 +19,7 @@ msgid "Please check your internet connection and try again."
 msgstr "Jekk jogħġbok iċċekkja l-konnessjoni tal-internet tiegħek u erġa' pprova."
 
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx
-#: src/features/chats/components/chat-message-list.tsx
+#: src/features/chats/components/message-bubble.tsx
 #: src/features/chats/components/thread-panel.tsx
 msgid "(edited)"
 msgstr "(editjat)"
@@ -123,6 +123,10 @@ msgstr "{count, plural, one {#ġim} other {#ġim}}"
 #: ../../../lib/web/src/components/calendar/tooltip.ts
 msgid "{day}, {from} to {to}"
 msgstr "{day}, minn {from} sa {to}"
+
+#: src/features/chats/components/thread-replies.tsx
+msgid "{earlier, plural, one {# earlier reply} other {# earlier replies}}"
+msgstr "{earlier, plural, one {# tweġiba preċedenti} two {# tweġibiet preċedenti} few {# tweġibiet preċedenti} many {# tweġiba preċedenti} other {# tweġiba preċedenti}}"
 
 #: ../../../lib/web/src/components/ui/create-entity-dialog.tsx
 msgid "{entityLabel} name"
@@ -1193,7 +1197,7 @@ msgstr "Qed inħassar il-chat..."
 msgid "Deleting..."
 msgstr "Qed iħassar..."
 
-#: src/features/chats/components/chat-message-list.tsx
+#: src/features/chats/components/message-bubble.tsx
 msgctxt "receipt"
 msgid "Delivered"
 msgstr "Mwassal"
@@ -1377,12 +1381,12 @@ msgstr "Email"
 msgid "Email code"
 msgstr "Kodiċi tal-email"
 
-#: src/features/chats/components/chat-message-list.tsx
+#: src/features/chats/components/message-bubble.tsx
 #: src/features/chats/components/thread-replies.tsx
 msgid "Encrypted for other devices only"
 msgstr "Kriptat għal apparati oħra biss"
 
-#: src/features/chats/components/chat-message-list.tsx
+#: src/features/chats/components/message-bubble.tsx
 #: src/features/chats/components/thread-replies.tsx
 msgid "Encrypted message"
 msgstr "Messaġġ kriptat"
@@ -2613,7 +2617,7 @@ msgstr "Erġa' għaqqad il-kontijiet tiegħek fuq dan is-server"
 msgid "Re-register your passkeys on this server"
 msgstr "Erġa' rreġistra ċ-ċwievet tal-aċċess tiegħek fuq dan is-server"
 
-#: src/features/chats/components/chat-message-list.tsx
+#: src/features/chats/components/message-bubble.tsx
 msgctxt "receipt"
 msgid "Read"
 msgstr "Moqri"
@@ -3073,7 +3077,7 @@ msgstr "Ibgħat messaġġ"
 msgid "Send read receipts"
 msgstr "Ibgħat konfermi tal-qari"
 
-#: src/features/chats/components/chat-message-list.tsx
+#: src/features/chats/components/message-bubble.tsx
 msgctxt "receipt"
 msgid "Sent"
 msgstr "Mibgħut"
@@ -3408,7 +3412,7 @@ msgstr "Dan l-apparat (OMEMO 2)"
 msgid "This device (OMEMO)"
 msgstr "Dan l-apparat (OMEMO)"
 
-#: src/features/chats/components/chat-message-list.tsx
+#: src/features/chats/components/message-bubble.tsx
 #: src/features/chats/components/message-quote.tsx
 #: src/features/chats/components/thread-panel.tsx
 msgid "This message was deleted"

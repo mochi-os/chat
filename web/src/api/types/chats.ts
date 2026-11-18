@@ -115,8 +115,9 @@ export interface ChatMessage {
   // when the latest came.
   replies?: number
   latest?: number
-  // On the main timeline: the replies in the message's thread, oldest
-  // first, shown in its bubble.
+  // On the main timeline: the newest few replies in the message's thread,
+  // oldest first among them, shown in its bubble; replies less their number
+  // is how many earlier ones the thread holds.
   answers?: ChatMessage[]
   // How it came: 0 readable; 1 encrypted, with no text or files while its
   // keys have not come; 2 encrypted before the account was added to Mochi,

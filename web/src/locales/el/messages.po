@@ -19,7 +19,7 @@ msgid "Please check your internet connection and try again."
 msgstr "Ελέγξτε τη σύνδεσή σας στο διαδίκτυο και δοκιμάστε ξανά."
 
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx
-#: src/features/chats/components/chat-message-list.tsx
+#: src/features/chats/components/message-bubble.tsx
 #: src/features/chats/components/thread-panel.tsx
 msgid "(edited)"
 msgstr "(επεξεργάστηκε)"
@@ -123,6 +123,10 @@ msgstr "{count, plural, one {#εβδ} other {#εβδ}}"
 #: ../../../lib/web/src/components/calendar/tooltip.ts
 msgid "{day}, {from} to {to}"
 msgstr "{day}, {from} έως {to}"
+
+#: src/features/chats/components/thread-replies.tsx
+msgid "{earlier, plural, one {# earlier reply} other {# earlier replies}}"
+msgstr "{earlier, plural, one {# προηγούμενη απάντηση} other {# προηγούμενες απαντήσεις}}"
 
 #: ../../../lib/web/src/components/ui/create-entity-dialog.tsx
 msgid "{entityLabel} name"
@@ -1193,7 +1197,7 @@ msgstr "Διαγραφή συνομιλίας..."
 msgid "Deleting..."
 msgstr "Διαγραφή..."
 
-#: src/features/chats/components/chat-message-list.tsx
+#: src/features/chats/components/message-bubble.tsx
 msgctxt "receipt"
 msgid "Delivered"
 msgstr "Παραδόθηκε"
@@ -1377,12 +1381,12 @@ msgstr "Email"
 msgid "Email code"
 msgstr "Κωδικός email"
 
-#: src/features/chats/components/chat-message-list.tsx
+#: src/features/chats/components/message-bubble.tsx
 #: src/features/chats/components/thread-replies.tsx
 msgid "Encrypted for other devices only"
 msgstr "Κρυπτογραφημένο μόνο για άλλες συσκευές"
 
-#: src/features/chats/components/chat-message-list.tsx
+#: src/features/chats/components/message-bubble.tsx
 #: src/features/chats/components/thread-replies.tsx
 msgid "Encrypted message"
 msgstr "Κρυπτογραφημένο μήνυμα"
@@ -2613,7 +2617,7 @@ msgstr "Επανασυνδέστε τους λογαριασμούς σας σε
 msgid "Re-register your passkeys on this server"
 msgstr "Καταχωρίστε ξανά τα κλειδιά πρόσβασής σας σε αυτόν τον διακομιστή"
 
-#: src/features/chats/components/chat-message-list.tsx
+#: src/features/chats/components/message-bubble.tsx
 msgctxt "receipt"
 msgid "Read"
 msgstr "Διαβάστηκε"
@@ -3073,7 +3077,7 @@ msgstr "Αποστολή μηνύματος"
 msgid "Send read receipts"
 msgstr "Αποστολή επιβεβαιώσεων ανάγνωσης"
 
-#: src/features/chats/components/chat-message-list.tsx
+#: src/features/chats/components/message-bubble.tsx
 msgctxt "receipt"
 msgid "Sent"
 msgstr "Στάλθηκε"
@@ -3408,7 +3412,7 @@ msgstr "Αυτή η συσκευή (OMEMO 2)"
 msgid "This device (OMEMO)"
 msgstr "Αυτή η συσκευή (OMEMO)"
 
-#: src/features/chats/components/chat-message-list.tsx
+#: src/features/chats/components/message-bubble.tsx
 #: src/features/chats/components/message-quote.tsx
 #: src/features/chats/components/thread-panel.tsx
 msgid "This message was deleted"

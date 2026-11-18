@@ -204,6 +204,46 @@ const patchMessageReactionFromWebsocket = (
   )
 }
 
+// How many of a thread's replies its root's bubble shows: the newest, as the
+// server sends them (THREAD_SHOWN in chat.star).
+export const THREAD_SHOWN = 3
+
+// Whether a root has earlier replies than its bubble shows.
+const capped = (message: ChatMessage) =>
+  (message.replies ?? 0) > (message.answers?.length ?? 0)
+
+type ThreadSummary = Required<Pick<ChatMessage, 'replies' | 'latest' | 'answers'>>
+
+// A root's thread as it stands after a reply or a delete, from a frame of a
+// chat app that sends it: the root takes it as it is, so a frame sent twice,
+// or about a reply this page never held, leaves the root right. Undefined
+// for an older chat app's frame, or one of another shape.
+const threadSummary = (value: unknown): ThreadSummary | undefined => {
+  if (typeof value !== 'object' || value === null) return undefined
+  const summary = value as Record<string, unknown>
+  if (
+    typeof summary.replies !== 'number' ||
+    typeof summary.latest !== 'number' ||
+    !Array.isArray(summary.answers)
+  )
+    return undefined
+  const answers = (summary.answers as unknown[]).filter(
+    (answer): answer is ChatMessage =>
+      typeof answer === 'object' &&
+      answer !== null &&
+      typeof (answer as ChatMessage).id === 'string' &&
+      typeof (answer as ChatMessage).created === 'number'
+  )
+  return {
+    replies: summary.replies,
+    latest: summary.latest,
+    answers: answers.map((answer) => ({
+      ...answer,
+      attachments: normalizeAttachments(answer.attachments),
+    })),
+  }
+}
+
 const markMessageDeletedFromWebsocket = (
   chatId: string,
   payload: NormalizedChatWebsocketMessagePayload,
@@ -214,7 +254,15 @@ const markMessageDeletedFromWebsocket = (
   if (!messageId) {
     return
   }
+  // The thread a deleted reply was in, and that thread as it now stands;
+  // both absent from an older chat app's frame.
+  const thread = typeof payload.thread === 'string' ? payload.thread : ''
+  const summary = thread ? threadSummary(payload.root) : undefined
 
+  // A root that shows fewer replies than it has has the next earlier one to
+  // show in a deleted one's place, and a reply it does not show changes a
+  // count it cannot work out: either way the page is read again.
+  let reread = false
   queryClient.setQueryData<InfiniteData<GetMessagesResponse>>(
     chatKeys.messages(chatId),
     (current) => {
@@ -226,9 +274,15 @@ const markMessageDeletedFromWebsocket = (
       const pages = current.pages.map((page) => ({
         ...page,
         messages: page.messages.map((message): ChatMessage => {
+          // The root, as the server now has it.
+          if (summary && message.id === thread) {
+            found = true
+            return { ...message, ...summary }
+          }
           // A reply in a root's bubble leaves it, and stops counting.
           if (message.answers?.some((answer) => answer.id === messageId)) {
             found = true
+            if (capped(message)) reread = true
             const answers = message.answers.filter(
               (answer) => answer.id !== messageId
             )
@@ -238,6 +292,11 @@ const markMessageDeletedFromWebsocket = (
               replies: Math.max((message.replies ?? 1) - 1, 0),
               latest: answers.length ? answers[answers.length - 1].created : 0,
             }
+          }
+          // One of a root's earlier replies, which its bubble does not show.
+          if (thread && message.id === thread) {
+            reread = true
+            return message
           }
           if (message.id !== messageId) {
             return message
@@ -257,6 +316,9 @@ const markMessageDeletedFromWebsocket = (
       return found ? { ...current, pages } : current
     }
   )
+  if (reread) {
+    void queryClient.invalidateQueries({ queryKey: chatKeys.messages(chatId) })
+  }
 }
 
 const patchMessageEditFromWebsocket = (
@@ -354,7 +416,8 @@ const inOrder = (a: ChatMessage, b: ChatMessage) =>
 const addThreadReply = (
   chatId: string,
   message: ChatMessage,
-  queryClient: QueryClient
+  queryClient: QueryClient,
+  summary?: ThreadSummary
 ) => {
   const root = message.thread!
   queryClient.setQueryData<InfiniteData<GetMessagesResponse>>(
@@ -375,6 +438,7 @@ const addThreadReply = (
       }
     }
   )
+  let reread = false
   queryClient.setQueryData<InfiniteData<GetMessagesResponse>>(
     chatKeys.messages(chatId),
     (current) => {
@@ -385,22 +449,38 @@ const addThreadReply = (
         messages: page.messages.map((existing) => {
           if (existing.id !== root) return existing
           found = true
+          // The thread as the server now has it, the new reply included.
+          if (summary) return { ...existing, ...summary }
+          const answers = existing.answers ?? []
           // One the bubble holds was counted when it was read.
-          if (
-            existing.answers?.some((answer) => isSameMessage(message, answer))
-          )
+          if (answers.some((answer) => isSameMessage(message, answer)))
             return existing
+          // One older than every reply shown, on a root with earlier replies
+          // than it shows, may be one of those, already counted: the page is
+          // read again rather than guessed at.
+          if (
+            capped(existing) &&
+            answers.length &&
+            inOrder(message, answers[0]) < 0
+          ) {
+            reread = true
+            return existing
+          }
+          // The bubble keeps the newest, and the count takes the new one.
           return {
             ...existing,
             replies: (existing.replies ?? 0) + 1,
             latest: Math.max(existing.latest ?? 0, message.created),
-            answers: [...(existing.answers ?? []), message].sort(inOrder),
+            answers: [...answers, message].sort(inOrder).slice(-THREAD_SHOWN),
           }
         }),
       }))
       return found ? { ...current, pages } : current
     }
   )
+  if (reread) {
+    void queryClient.invalidateQueries({ queryKey: chatKeys.messages(chatId) })
+  }
 }
 
 // A reaction, edit or deletion may be on a reply in a thread. The patches above
@@ -507,6 +587,9 @@ export const handleWebsocketEvent = (
   return 'message'
 }
 
+// The frames that change the messages a page holds.
+const CHANGES = new Set(['delete', 'edit', 'reaction'])
+
 export const appendMessageToCache = (
   chatId: string,
   payload: NormalizedChatWebsocketMessagePayload,
@@ -516,6 +599,19 @@ export const appendMessageToCache = (
 ) => {
   if (!chatId) {
     return
+  }
+
+  // A read of the page under way answers from before this frame, and would
+  // undo it on landing: one that changes the messages starts the read again.
+  const reading =
+    queryClient.isFetching({ queryKey: chatKeys.messages(chatId) }) > 0
+  const event = typeof payload.event === 'string' ? payload.event : ''
+  if (reading && (!event || CHANGES.has(event))) {
+    queueMicrotask(() => {
+      void queryClient.invalidateQueries({
+        queryKey: chatKeys.messages(chatId),
+      })
+    })
   }
 
   const eventKind = handleWebsocketEvent(
@@ -532,7 +628,7 @@ export const appendMessageToCache = (
 
   const incoming = createMessageFromPayload(chatId, payload, unknownSenderLabel)
   if (incoming.thread) {
-    addThreadReply(chatId, incoming, queryClient)
+    addThreadReply(chatId, incoming, queryClient, threadSummary(payload.root))
     return
   }
 

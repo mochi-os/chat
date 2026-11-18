@@ -19,7 +19,7 @@ msgid "Please check your internet connection and try again."
 msgstr "దయచేసి మీ ఇంటర్నెట్ కనెక్షన్‌ను తనిఖీ చేసి మళ్లీ ప్రయత్నించండి."
 
 #: ../../../lib/web/src/components/entity/entity-comment-thread.tsx
-#: src/features/chats/components/chat-message-list.tsx
+#: src/features/chats/components/message-bubble.tsx
 #: src/features/chats/components/thread-panel.tsx
 msgid "(edited)"
 msgstr "(సవరించబడింది)"
@@ -123,6 +123,10 @@ msgstr "{count, plural, one {#వా} other {#వా}}"
 #: ../../../lib/web/src/components/calendar/tooltip.ts
 msgid "{day}, {from} to {to}"
 msgstr "{day}, {from} నుండి {to} వరకు"
+
+#: src/features/chats/components/thread-replies.tsx
+msgid "{earlier, plural, one {# earlier reply} other {# earlier replies}}"
+msgstr "{earlier, plural, one {# మునుపటి ప్రత్యుత్తరం} other {# మునుపటి ప్రత్యుత్తరాలు}}"
 
 #: ../../../lib/web/src/components/ui/create-entity-dialog.tsx
 msgid "{entityLabel} name"
@@ -1193,7 +1197,7 @@ msgstr "చాట్‌ను తొలగిస్తోంది..."
 msgid "Deleting..."
 msgstr "తొలగిస్తోంది..."
 
-#: src/features/chats/components/chat-message-list.tsx
+#: src/features/chats/components/message-bubble.tsx
 msgctxt "receipt"
 msgid "Delivered"
 msgstr "డెలివరీ అయింది"
@@ -1377,12 +1381,12 @@ msgstr "ఇమెయిల్"
 msgid "Email code"
 msgstr "ఇమెయిల్ కోడ్"
 
-#: src/features/chats/components/chat-message-list.tsx
+#: src/features/chats/components/message-bubble.tsx
 #: src/features/chats/components/thread-replies.tsx
 msgid "Encrypted for other devices only"
 msgstr "ఇతర పరికరాల కోసం మాత్రమే ఎన్‌క్రిప్ట్ చేయబడింది"
 
-#: src/features/chats/components/chat-message-list.tsx
+#: src/features/chats/components/message-bubble.tsx
 #: src/features/chats/components/thread-replies.tsx
 msgid "Encrypted message"
 msgstr "ఎన్‌క్రిప్ట్ చేసిన సందేశం"
@@ -2613,7 +2617,7 @@ msgstr "ఈ సర్వర్‌లో మీ ఖాతాలను మళ్�
 msgid "Re-register your passkeys on this server"
 msgstr "ఈ సర్వర్‌లో మీ పాస్‌కీలను మళ్లీ నమోదు చేయండి"
 
-#: src/features/chats/components/chat-message-list.tsx
+#: src/features/chats/components/message-bubble.tsx
 msgctxt "receipt"
 msgid "Read"
 msgstr "చదివారు"
@@ -3073,7 +3077,7 @@ msgstr "సందేశాన్ని పంపండి"
 msgid "Send read receipts"
 msgstr "చదివిన రసీదులను పంపండి"
 
-#: src/features/chats/components/chat-message-list.tsx
+#: src/features/chats/components/message-bubble.tsx
 msgctxt "receipt"
 msgid "Sent"
 msgstr "పంపబడింది"
@@ -3408,7 +3412,7 @@ msgstr "ఈ పరికరం (OMEMO 2)"
 msgid "This device (OMEMO)"
 msgstr "ఈ పరికరం (OMEMO)"
 
-#: src/features/chats/components/chat-message-list.tsx
+#: src/features/chats/components/message-bubble.tsx
 #: src/features/chats/components/message-quote.tsx
 #: src/features/chats/components/thread-panel.tsx
 msgid "This message was deleted"
