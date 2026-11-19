@@ -259,6 +259,7 @@ def database_create():
 
 	# Attachments now live in this database, owned by the shared library.
 	attachment_schema_create()
+	attachment_schema_kind()
 	chat_schema_federation()
 	chat_schema_linked()
 	chat_schema_matrix()
@@ -308,6 +309,10 @@ def database_upgrade(version):
 		# A group's name ordered by its own stamp and author, apart from the
 		# activity the chat list sorts by.
 		chat_schema_names()
+	if version == 17:
+		# Attachment rows name the kind of thing they belong to. Every chat
+		# attachment is a message's, which the column's default already says.
+		attachment_schema_kind()
 	if version == 5 or version == 6 or version == 7:
 		# Attachments move into this database, owned by the shared library: create the
 		# table and copy rows out of core's store (bridge or export file). Versions 6
@@ -736,9 +741,10 @@ def serve_attachment(a, variant):
 	# was checked above; the binding runs in the member predicate: the
 	# attachment's object is "chat/<chat_id>/<message_id>", so a prefix check
 	# binds it to this chat and blocks fetching another chat's file by id.
+	# Every chat attachment is a message's, filed as an object's.
 	prefix = "chat/" + chat["id"] + "/"
 	attachment_serve(a, attachment, chat["id"], variant=variant,
-		member=lambda object: object.startswith(prefix))
+		member=lambda object, kind: kind == "object" and object.startswith(prefix))
 
 # P2P byte-pull responder: a member on another host stores the metadata and
 # pulls bytes from the sender on demand. The chat id comes from the attachment's
@@ -753,7 +759,7 @@ def event_attachment_fetch(e):
 	prefix = "chat/" + chat_id + "/"
 	attachment_respond(e, chat_id,
 		lambda sender, container: bool(container) and mochi.db.exists("select 1 from members where chat=? and member=?", container, sender),
-		member=lambda obj: obj.startswith(prefix))
+		member=lambda object, kind: kind == "object" and object.startswith(prefix))
 
 # Get messages for a chat with cursor-based pagination
 def action_messages(a):

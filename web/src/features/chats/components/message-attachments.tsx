@@ -13,7 +13,6 @@ import {
   AttachmentTrigger,
   authenticatedUrl,
   cn,
-  getAppPath,
   getFileIcon,
   isImage,
   isVideo,
@@ -22,6 +21,7 @@ import {
   type GalleryAttachment,
 } from '@mochi/web'
 import type { ChatMessageAttachment } from '@/api/chats'
+import { attachmentAddress } from '../addresses'
 import { VoiceNotePlayer } from './audio-player'
 import { MessageMediaGrid } from './message-media-grid'
 
@@ -44,26 +44,23 @@ const isPlayableCaption = (caption?: string) =>
   Boolean(caption?.startsWith('voice:') || caption?.startsWith('audio:'))
 
 function useAttachmentUrls(chatId: string) {
-  const appBase = getAppPath()
-
-  const resolve = (own: string | undefined, fallback: string) => {
-    const path =
+  // The fallback is built from the chat and attachment ids, each one path
+  // segment; an id that cannot be one leaves the attachment without an address.
+  const resolve = (own: string | undefined, fallback: string | undefined) => {
+    const address =
       own && (isAbsoluteUrl(own) || isAttachmentPathCompatible(own))
         ? own
         : fallback
-    return authenticatedUrl(normalizeEntityUrl(path))
+    return address ? authenticatedUrl(normalizeEntityUrl(address)) : ''
   }
 
   return {
     getUrl: (att: GalleryAttachment) =>
-      resolve(att.url, `${appBase}/${chatId}/-/attachments/${att.id}`),
+      resolve(att.url, attachmentAddress(chatId, att.id)),
     // Bubble media tiles render large enough that the 250px thumbnail blurs;
     // use the preview variant.
     getPreviewUrl: (att: GalleryAttachment) =>
-      resolve(
-        att.preview_url,
-        `${appBase}/${chatId}/-/attachments/${att.id}/preview`
-      ),
+      resolve(att.preview_url, attachmentAddress(chatId, att.id, 'preview')),
   }
 }
 
