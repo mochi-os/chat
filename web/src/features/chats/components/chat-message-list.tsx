@@ -299,6 +299,27 @@ export function ChatMessageList({
     }
   }, [])
 
+  // The timeline narrows when a thread docks beside it, or the window or the
+  // sidebar changes width, and its messages wrap taller. Nothing scrolls, so
+  // a reader at the bottom would find the newest messages pushed out of view;
+  // keep them pinned. A callback ref, as the list mounts only once it has
+  // messages to show.
+  const widthObserver = useRef<ResizeObserver | null>(null)
+  const attachScrollContainer = useCallback((el: HTMLDivElement | null) => {
+    scrollContainerRef.current = el
+    widthObserver.current?.disconnect()
+    widthObserver.current = null
+    if (!el || typeof ResizeObserver === 'undefined') return
+    let width = el.clientWidth
+    const observer = new ResizeObserver(() => {
+      if (el.clientWidth === width) return
+      width = el.clientWidth
+      if (isAtBottomRef.current) pinToBottom(el)
+    })
+    observer.observe(el)
+    widthObserver.current = observer
+  }, [])
+
   const scrollToBottom = useCallback(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
     setNewMessageCount(0)
@@ -502,7 +523,7 @@ export function ChatMessageList({
   return (
     <div className='relative flex min-h-0 flex-1 flex-col'>
       <div
-        ref={scrollContainerRef}
+        ref={attachScrollContainer}
         onScroll={handleScroll}
         onClick={() => !isSelecting && setActiveMessageId(null)}
         className='flex w-full flex-1 flex-col justify-start gap-4 overflow-y-auto px-4 py-2 pb-4'

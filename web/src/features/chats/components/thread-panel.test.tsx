@@ -10,6 +10,7 @@ import { act, fireEvent, render, screen, waitFor } from '@testing-library/react'
 import type { Editor } from '@tiptap/core'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 import type { ChatMessage } from '@/api/chats'
+import { useThreadMessagesQuery } from '@/hooks/useChats'
 import { ThreadPanel, ThreadView } from './thread-panel'
 
 const calls = vi.hoisted(() => ({
@@ -73,13 +74,13 @@ vi.mock('@/hooks/useChats', () => ({
     thread: (chat: string, root: string) => ['chats', chat, 'thread', root],
   },
   useEditMessageMutation: () => ({ mutate: calls.edit, isPending: false }),
-  useThreadMessagesQuery: () => ({
+  useThreadMessagesQuery: vi.fn(() => ({
     data: { pages: [{ messages: calls.replies }] },
     isLoading: false,
     isSuccess: true,
     error: null,
     hasNextPage: false,
-  }),
+  })),
 }))
 
 const root = {
@@ -123,7 +124,12 @@ function setup() {
   return {
     invalidate,
     close: () => view.rerender(panel(null)),
-    refresh: () => view.rerender(panel(root)),
+    // The mocked query does not tell the panel its replies changed, as the
+    // real one does, and the panel is memoised; a fresh copy of the same root
+    // makes it render again.
+    refresh: () => view.rerender(panel({ ...root })),
+    // The page rendering again around an unchanged thread.
+    same: () => view.rerender(panel(root)),
     open: (next: ChatMessage) => view.rerender(panel(next)),
   }
 }
@@ -438,5 +444,17 @@ describe('ThreadView on its own page', () => {
     page(root)
     expect(screen.getByText('Root')).toBeInTheDocument()
     expect(screen.queryByText('Message not available')).toBeNull()
+  })
+})
+
+describe('ThreadPanel redrawing', () => {
+  // Docked, the page re-renders on every key typed in the conversation's own
+  // message box, and the open thread must not redraw with it.
+  it('does not render again when the page does with the same props', () => {
+    const query = vi.mocked(useThreadMessagesQuery)
+    const { same } = setup()
+    const before = query.mock.calls.length
+    same()
+    expect(query.mock.calls.length).toBe(before)
   })
 })

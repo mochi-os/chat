@@ -3,6 +3,7 @@
 // This file is part of Mochi, licensed under the GNU AGPL v3 with the
 // Mochi Application Interface Exception - see license.txt and license-exception.md.
 import {
+  memo,
   useLayoutEffect,
   useMemo,
   useRef,
@@ -91,7 +92,7 @@ interface ThreadPanelProps {
  * A message's thread in a side panel: over the conversation, or docked
  * beside it on a wide screen.
  */
-export function ThreadPanel({
+export const ThreadPanel = memo(function ThreadPanel({
   chatId,
   root,
   currentUserIdentity,
@@ -150,7 +151,7 @@ export function ThreadPanel({
       ) : null}
     </SidePanel>
   )
-}
+})
 
 /** The thread's own page, as the panel's menu opens and copies it. */
 function useThreadUrl(chatId: string, rootId: string): () => string {

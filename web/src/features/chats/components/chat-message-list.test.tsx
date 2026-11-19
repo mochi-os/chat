@@ -317,3 +317,81 @@ describe('Editing a message', () => {
     })
   })
 })
+
+// A thread docking beside the timeline narrows it, and its messages wrap
+// taller without anything scrolling.
+describe('Timeline width', () => {
+  function observed() {
+    const resized: (() => void)[] = []
+    const original = global.ResizeObserver
+    global.ResizeObserver = class {
+      constructor(callback: () => void) {
+        resized.push(callback)
+      }
+      observe() {}
+      unobserve() {}
+      disconnect() {}
+    } as unknown as typeof ResizeObserver
+    onTestFinished(() => {
+      global.ResizeObserver = original
+    })
+    render(
+      <I18nProvider i18n={i18n}>
+        <ChatMessageList
+          chatId='c1'
+          messagesQuery={query}
+          chatMessages={[message('m1', 'One'), message('m2', 'Two')]}
+          isLoadingMessages={false}
+          messagesError={null}
+          currentUserIdentity='me'
+          isGroupChat={false}
+        />
+      </I18nProvider>
+    )
+    const list = screen.getByText('One').closest('.overflow-y-auto')
+    if (!(list instanceof HTMLElement)) throw new Error('no timeline')
+    let width = 800
+    let top = 0
+    Object.defineProperties(list, {
+      clientWidth: { configurable: true, get: () => width },
+      clientHeight: { configurable: true, value: 300 },
+      scrollHeight: { configurable: true, value: 1000 },
+      scrollTop: {
+        configurable: true,
+        get: () => top,
+        set: (value: number) => {
+          top = value
+        },
+      },
+    })
+    return {
+      list,
+      // The timeline narrowing, as the observer reports it.
+      narrow: () => {
+        width = 500
+        resized.forEach((callback) => callback())
+      },
+      scrollTo: (value: number) => {
+        top = value
+        fireEvent.scroll(list)
+      },
+    }
+  }
+
+  it('keeps a reader at the bottom there when it narrows', () => {
+    const { list, narrow, scrollTo } = observed()
+    scrollTo(700)
+    // The messages wrapped taller and nothing scrolled.
+    Object.defineProperty(list, 'scrollHeight', { value: 1200 })
+    narrow()
+    expect(list.scrollTop).toBe(1200 - 300)
+  })
+
+  it('leaves a reader higher up where they are', () => {
+    const { list, narrow, scrollTo } = observed()
+    scrollTo(100)
+    Object.defineProperty(list, 'scrollHeight', { value: 1200 })
+    narrow()
+    expect(list.scrollTop).toBe(100)
+  })
+})

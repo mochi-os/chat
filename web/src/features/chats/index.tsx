@@ -652,14 +652,17 @@ export function Chats() {
     const chat = selectedChat.id
     setOpenThreads((prev) => ({ ...prev, [chat]: message }))
   }
-  const closeThread = () => {
-    if (!selectedChat) return
-    const chat = selectedChat.id
+  // Stable, as ThreadPanel is memoised: docked, the conversation's own
+  // message box re-renders this page on every key, and the open thread must
+  // not redraw with it.
+  const threadChat = selectedChat?.id
+  const closeThread = useCallback(() => {
+    if (!threadChat) return
     setOpenThreads((prev) => {
-      const { [chat]: _, ...rest } = prev
+      const { [threadChat]: _, ...rest } = prev
       return rest
     })
-  }
+  }, [threadChat])
   // Docked beside the conversation from xl up. Below that the sidebar and a
   // docked thread leave the conversation too narrow, and it slides over.
   const { width } = useScreenSize()
@@ -896,6 +899,17 @@ export function Chats() {
     if (ids.length === 0) return
     setForwardTargetIds(ids)
   }, [])
+  // The thread's own forward and delete, stable for the memoised panel.
+  const forwardThreadReply = useCallback(
+    (message: ChatMessage) => requestForward([message.id]),
+    [requestForward]
+  )
+  // A reply is not on the main timeline that requestDelete reads, and the
+  // panel offers delete on the user's own replies alone.
+  const deleteThreadReply = useCallback(
+    (message: ChatMessage) => setDeleteTargetIds([message.id]),
+    []
+  )
 
   const handleScrollToMessage = useCallback(
     async (messageId: string) => {
@@ -1680,10 +1694,8 @@ export function Chats() {
             canWrite={chatActive(selectedChat)}
             onClose={closeThread}
             docked={threadDocked}
-            onForward={(message) => requestForward([message.id])}
-            // A reply is not on the main timeline that requestDelete reads, and
-            // the panel offers delete on the user's own replies alone.
-            onDelete={(message) => setDeleteTargetIds([message.id])}
+            onForward={forwardThreadReply}
+            onDelete={deleteThreadReply}
           />
         ) : null}
       </div>
