@@ -83,9 +83,14 @@ interface ThreadPanelProps {
   // The page's own forward and delete dialogs, as the main timeline uses.
   onForward?: (message: ChatMessage) => void
   onDelete?: (message: ChatMessage) => void
+  // Beside the conversation instead of over it, on a wide screen.
+  docked?: boolean
 }
 
-/** A message's thread in a side panel over the conversation. */
+/**
+ * A message's thread in a side panel: over the conversation, or docked
+ * beside it on a wide screen.
+ */
 export function ThreadPanel({
   chatId,
   root,
@@ -94,12 +99,23 @@ export function ThreadPanel({
   onClose,
   onForward,
   onDelete,
+  docked = false,
 }: ThreadPanelProps) {
   // Held here, not in the view, so a reply being typed outlives the panel
-  // closing and opening again, as it did before the view was shared.
-  const [draft, setDraft] = useState('')
+  // closing and opening again, and the panel moving between docked and
+  // sliding. One per thread: docked, the conversation stays usable, so
+  // another thread can open with a reply half typed in the first.
+  const [drafts, setDrafts] = useState<Record<string, string>>({})
+  const draft = root ? (drafts[root.id] ?? '') : ''
+  const setDraft = (next: string, thread: string) =>
+    setDrafts((prev) => {
+      if ((prev[thread] ?? '') === next) return prev
+      const { [thread]: _, ...rest } = prev
+      return next ? { ...rest, [thread]: next } : rest
+    })
   return (
     <SidePanel
+      docked={docked}
       open={Boolean(root)}
       onOpenChange={(open) => {
         if (!open) onClose()
@@ -208,9 +224,10 @@ interface ThreadViewProps {
   canWrite: boolean
   onForward?: (message: ChatMessage) => void
   onDelete?: (message: ChatMessage) => void
-  // The reply being typed.
+  // The reply being typed, and the thread it belongs to: a send can finish
+  // after another thread has opened, and clears the thread it went to.
   draft: string
-  onDraftChange: (draft: string) => void
+  onDraftChange: (draft: string, rootId: string) => void
 }
 
 /**
@@ -228,8 +245,9 @@ export function ThreadView({
   onForward,
   onDelete,
   draft: body,
-  onDraftChange: setBody,
+  onDraftChange,
 }: ThreadViewProps) {
+  const setBody = (next: string) => onDraftChange(next, rootId)
   const { t } = useLingui()
   const queryClient = useQueryClient()
   const query = useThreadMessagesQuery(chatId, rootId)
@@ -318,7 +336,7 @@ export function ThreadView({
     mutationFn: ({ text, thread }: { text: string; thread: string }) =>
       chatsApi.sendMessage(chatId, { body: text, thread }),
     onSuccess: (data, { thread }) => {
-      setBody('')
+      onDraftChange('', thread)
       window.setTimeout(() => {
         const delivered = queryClient
           .getQueryData<{ pages: { messages: ChatMessage[] }[] }>(

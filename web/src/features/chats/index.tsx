@@ -35,6 +35,7 @@ import {
   classifyUnresolvedMentions,
   naturalCompare,
   useUploadProgress,
+  useScreenSize,
 } from '@mochi/web'
 import {
   Check,
@@ -119,6 +120,7 @@ import {
 } from './utils/composer-draft'
 import { shouldDiscardMessageEdit } from './utils/message-edit-session'
 import { type ReplyTarget, messageToReplyTarget } from './utils/reply'
+import { liveThreadRoot } from './utils/thread-root'
 import { useTyping } from './utils/typing'
 
 // How long a chat must sit in front of the reader, pinned to the newest
@@ -129,6 +131,11 @@ const READ_SETTLE = 1000
 // How often typing is told while the user writes; the server's window is
 // twice it, so the indicator holds between ticks.
 const TYPING_INTERVAL = 4000
+
+// The window width from which an open thread docks beside the conversation
+// rather than sliding over it: Tailwind's xl. At lg the sidebar and a 28rem
+// thread leave the conversation about 320 px or less.
+const THREAD_DOCK_WIDTH = 1280
 
 export function Chats() {
   const { t } = useLingui()
@@ -633,11 +640,30 @@ export function Chats() {
   }, [newMessage, selectedChat, draftHydratedChatId, draftChatKey])
   const typingNames = useTyping(selectedChat?.id)
 
-  // The message whose thread is open.
-  const [threadRoot, setThreadRoot] = useState<ChatMessage | null>(null)
-  useEffect(() => {
-    setThreadRoot(null)
-  }, [selectedChat?.id])
+  // The thread open in each chat, as its root message when it was opened.
+  // Switching chats leaves it behind and coming back reopens it; a thread
+  // kept open across the switch would sit beside another chat's timeline.
+  // In memory only, so a reload starts with none open.
+  const [openThreads, setOpenThreads] = useState<Record<string, ChatMessage>>(
+    {}
+  )
+  const openThread = (message: ChatMessage) => {
+    if (!selectedChat) return
+    const chat = selectedChat.id
+    setOpenThreads((prev) => ({ ...prev, [chat]: message }))
+  }
+  const closeThread = () => {
+    if (!selectedChat) return
+    const chat = selectedChat.id
+    setOpenThreads((prev) => {
+      const { [chat]: _, ...rest } = prev
+      return rest
+    })
+  }
+  // Docked beside the conversation from xl up. Below that the sidebar and a
+  // docked thread leave the conversation too narrow, and it slides over.
+  const { width } = useScreenSize()
+  const threadDocked = width >= THREAD_DOCK_WIDTH
 
   // Messages, by the address's chat as the detail is. Marking them read stays
   // on the list-resolved chat above, so the watermark moves only for a chat
@@ -647,6 +673,12 @@ export function Chats() {
     if (!messagesQuery.data?.pages) return []
     return [...messagesQuery.data.pages].reverse().flatMap((p) => p.messages)
   }, [messagesQuery.data?.pages])
+
+  const threadOpened = selectedChat ? openThreads[selectedChat.id] : undefined
+  const threadRoot = useMemo(
+    () => liveThreadRoot(threadOpened, chatMessages),
+    [threadOpened, chatMessages]
+  )
 
   // Re-mark read as messages arrive while the chat is open, but only while
   // pinned to the newest message; further up the history an arrival is not in
@@ -1315,334 +1347,346 @@ export function Chats() {
 
   return (
     <>
-      <div className='flex h-full flex-col overflow-hidden'>
-        {messageSearch.isSearchOpen ? (
-          <ChatSearchHeader
-            query={messageSearch.query}
-            onQueryChange={messageSearch.setQuery}
-            activeIndex={messageSearch.activeIndex}
-            totalMatches={messageSearch.matches.length}
-            isSearching={messageSearch.isSearching}
-            searchError={messageSearch.searchError}
-            onNewer={messageSearch.goNewer}
-            onOlder={messageSearch.goOlder}
-            onClose={messageSearch.closeSearch}
-          />
-        ) : (
-          <PageHeader
-            title={selectedChat.name}
-            icon={
-              selectedChat.members === 2 &&
-              selectedChat.other &&
-              !selectedChat.account ? (
-                <EntityAvatar
-                  src={personAssetUrl(selectedChat.other, 'avatar')}
-                  styleUrl={personAssetUrl(selectedChat.other, 'style')}
-                  name={selectedChat.name}
-                  size='xl'
-                />
-              ) : (
-                <EntityAvatar size='xl' icon={Users} />
-              )
-            }
-            description={subtitle || standing || undefined}
-            menuAction={
-              <div className='flex items-center gap-1'>
-                {chatActive(selectedChat) ? (
-                  <IconButton
-                    variant='ghost'
-                    label={t`Search messages`}
-                    onClick={messageSearch.openSearch}
-                  >
-                    <Search className='size-5' />
-                  </IconButton>
-                ) : null}
-                <DropdownMenu>
-                  <DropdownMenuTrigger asChild>
-                    <IconButton variant='ghost' label={t`Open chat actions`}>
-                      <MoreHorizontal className='size-5' />
-                    </IconButton>
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent align='end' className='w-56'>
-                    {selectedChat.status === 'invited' ? (
-                      <DropdownMenuItem onClick={handleDecline}>
-                        <X className='me-2 size-4' />{' '}
-                        <Trans>Decline invitation</Trans>
-                      </DropdownMenuItem>
-                    ) : !chatActive(selectedChat) ? (
-                      <DropdownMenuItem onClick={handleDeleteChat}>
-                        <Trash2 className='me-2 size-4' />{' '}
-                        <Trans>Delete chat</Trans>
-                      </DropdownMenuItem>
-                    ) : (
-                      <>
-                        <DropdownMenuItem
-                          onClick={() => setShowLeaveDialog(true)}
-                        >
-                          <LogOut className='me-2 size-4' />{' '}
-                          <Trans>Leave chat</Trans>
-                        </DropdownMenuItem>
-                        <DropdownMenuItem
-                          onClick={() =>
-                            void navigate({
-                              to: '/$chatId/settings',
-                              params: { chatId: selectedChat.id },
-                            })
-                          }
-                        >
-                          <Settings className='me-2 size-4' />{' '}
-                          <Trans>Chat settings</Trans>
-                        </DropdownMenuItem>
-                      </>
-                    )}
-                  </DropdownMenuContent>
-                </DropdownMenu>
-              </div>
-            }
-          />
-        )}
-
-        <Main className='flex min-h-0 flex-1 flex-col overflow-hidden'>
-          {chatsQuery.error ? (
-            <GeneralError
-              error={chatsQuery.error}
-              minimal
-              mode='inline'
-              reset={chatsQuery.refetch}
-              className='pb-4'
+      {/* A row, so a docked thread takes its width from the conversation. */}
+      <div className='flex h-full overflow-hidden'>
+        <div className='flex h-full min-w-0 flex-1 flex-col overflow-hidden'>
+          {messageSearch.isSearchOpen ? (
+            <ChatSearchHeader
+              query={messageSearch.query}
+              onQueryChange={messageSearch.setQuery}
+              activeIndex={messageSearch.activeIndex}
+              totalMatches={messageSearch.matches.length}
+              isSearching={messageSearch.isSearching}
+              searchError={messageSearch.searchError}
+              onNewer={messageSearch.goNewer}
+              onOlder={messageSearch.goOlder}
+              onClose={messageSearch.closeSearch}
             />
-          ) : null}
-          <ChatMessageList
-            onAtBottomChange={setAtBottom}
-            chatId={selectedChat?.id}
-            messagesQuery={messagesQuery}
-            chatMessages={chatMessages}
-            isLoadingMessages={messagesQuery.isLoading}
-            messagesError={messagesQuery.error}
-            currentUserIdentity={currentUserIdentity}
-            isGroupChat={(chatDetail?.chat.members?.length ?? 0) > 2}
-            searchActive={messageSearch.isSearchOpen}
-            searchQuery={messageSearch.debouncedQuery}
-            matchedMessageIds={messageSearch.matchedMessageIds}
-            activeMatchId={messageSearch.activeMatchId}
-            scrollToMessageId={activeScrollTargetId}
-            scrollToMessageEnabled={scrollToMessageEnabled}
-            highlightMessageId={
-              messageSearch.isSearchOpen
-                ? messageSearch.activeMatchId
-                : highlightMessageId
-            }
-            onEnsureMatchVisible={(id) => {
-              void ensureMatchVisible(id)
-            }}
-            onScrollToMessageComplete={(id) => {
-              if (!messageSearch.isSearchOpen) {
-                setScrollToMessageId((current) =>
-                  current === id ? null : current
+          ) : (
+            <PageHeader
+              title={selectedChat.name}
+              icon={
+                selectedChat.members === 2 &&
+                selectedChat.other &&
+                !selectedChat.account ? (
+                  <EntityAvatar
+                    src={personAssetUrl(selectedChat.other, 'avatar')}
+                    styleUrl={personAssetUrl(selectedChat.other, 'style')}
+                    name={selectedChat.name}
+                    size='xl'
+                  />
+                ) : (
+                  <EntityAvatar size='xl' icon={Users} />
                 )
               }
-            }}
-            onReply={chatActive(selectedChat) ? handleReply : undefined}
-            onThread={
-              chatActive(selectedChat) &&
-              (!selectedChat.account || selectedChat.network === 'matrix')
-                ? setThreadRoot
-                : undefined
-            }
-            receipts={
-              selectedChat.account && !chatLinked(selectedChat)
-                ? undefined
-                : (messagesQuery.data?.pages[0]?.receipts ?? [])
-            }
-            onReact={chatActive(selectedChat) ? handleReact : undefined}
-            onScrollToMessage={handleScrollToMessage}
-            onForward={
-              chatActive(selectedChat)
-                ? (m) => requestForward([m.id])
-                : undefined
-            }
-            onDelete={
-              chatActive(selectedChat)
-                ? (m) => requestDelete([m.id])
-                : undefined
-            }
-            isSelecting={isSelecting}
-            selectedIds={selectedIds}
-            onToggleSelect={toggleMessageSelection}
-            onSelectMessage={(message) => selectOne(message.id)}
-            onSelectAll={(ids) => {
-              // Forward and delete take at most BULK_MESSAGES_MAX ids, and
-              // "select loaded" grows with how far the user has scrolled.
-              if (ids.length > BULK_MESSAGES_MAX) {
-                toast.info(
-                  t`Selected the newest ${BULK_MESSAGES_MAX} messages, the most that can be forwarded or deleted at once`
-                )
-              }
-              selectAllMessages(ids.slice(-BULK_MESSAGES_MAX))
-            }}
-            onClearSelection={clearSelection}
-            editingMessageId={editingMessage?.id}
-            editingBody={editingBody}
-            setEditingBody={setEditingBody}
-            isEditingSaving={isEditingSaving}
-            isEditSaveDisabled={isEditSaveDisabled}
-            onSaveEdit={handleSaveEdit}
-            onCancelEdit={handleCancelEdit}
-            onStartEdit={chatActive(selectedChat) ? handleStartEdit : undefined}
-          />
-
-          {isSelecting ? (
-            <div className='border-t px-4 py-3'>
-              <div className='flex items-center justify-between gap-2'>
-                <span className='text-muted-foreground text-sm'>
-                  {plural(selectedIds.size, {
-                    one: '# selected',
-                    other: '# selected',
-                  })}
-                </span>
+              description={subtitle || standing || undefined}
+              menuAction={
                 <div className='flex items-center gap-1'>
-                  <Button
-                    variant='ghost'
-                    size='sm'
-                    onClick={() => void handleCopySelected()}
-                  >
-                    <Copy className='me-1.5 size-4' />
-                    <Trans>Copy</Trans>
-                  </Button>
-                  <Button
-                    variant='ghost'
-                    size='sm'
-                    onClick={() => requestForward([...selectedIds])}
-                  >
-                    <Forward className='me-1.5 size-4' />
-                    <Trans>Forward</Trans>
-                  </Button>
-                  <Button
-                    variant='ghost'
-                    size='sm'
-                    onClick={() => requestDelete([...selectedIds])}
-                  >
-                    <Trash2 className='me-1.5 size-4' />
-                    <Trans>Delete</Trans>
-                  </Button>
-                  <Button variant='outline' size='sm' onClick={clearSelection}>
-                    <Trans>Cancel</Trans>
-                  </Button>
+                  {chatActive(selectedChat) ? (
+                    <IconButton
+                      variant='ghost'
+                      label={t`Search messages`}
+                      onClick={messageSearch.openSearch}
+                    >
+                      <Search className='size-5' />
+                    </IconButton>
+                  ) : null}
+                  <DropdownMenu>
+                    <DropdownMenuTrigger asChild>
+                      <IconButton variant='ghost' label={t`Open chat actions`}>
+                        <MoreHorizontal className='size-5' />
+                      </IconButton>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent align='end' className='w-56'>
+                      {selectedChat.status === 'invited' ? (
+                        <DropdownMenuItem onClick={handleDecline}>
+                          <X className='me-2 size-4' />{' '}
+                          <Trans>Decline invitation</Trans>
+                        </DropdownMenuItem>
+                      ) : !chatActive(selectedChat) ? (
+                        <DropdownMenuItem onClick={handleDeleteChat}>
+                          <Trash2 className='me-2 size-4' />{' '}
+                          <Trans>Delete chat</Trans>
+                        </DropdownMenuItem>
+                      ) : (
+                        <>
+                          <DropdownMenuItem
+                            onClick={() => setShowLeaveDialog(true)}
+                          >
+                            <LogOut className='me-2 size-4' />{' '}
+                            <Trans>Leave chat</Trans>
+                          </DropdownMenuItem>
+                          <DropdownMenuItem
+                            onClick={() =>
+                              void navigate({
+                                to: '/$chatId/settings',
+                                params: { chatId: selectedChat.id },
+                              })
+                            }
+                          >
+                            <Settings className='me-2 size-4' />{' '}
+                            <Trans>Chat settings</Trans>
+                          </DropdownMenuItem>
+                        </>
+                      )}
+                    </DropdownMenuContent>
+                  </DropdownMenu>
+                </div>
+              }
+            />
+          )}
+
+          <Main className='flex min-h-0 flex-1 flex-col overflow-hidden'>
+            {chatsQuery.error ? (
+              <GeneralError
+                error={chatsQuery.error}
+                minimal
+                mode='inline'
+                reset={chatsQuery.refetch}
+                className='pb-4'
+              />
+            ) : null}
+            <ChatMessageList
+              onAtBottomChange={setAtBottom}
+              chatId={selectedChat?.id}
+              messagesQuery={messagesQuery}
+              chatMessages={chatMessages}
+              isLoadingMessages={messagesQuery.isLoading}
+              messagesError={messagesQuery.error}
+              currentUserIdentity={currentUserIdentity}
+              isGroupChat={(chatDetail?.chat.members?.length ?? 0) > 2}
+              searchActive={messageSearch.isSearchOpen}
+              searchQuery={messageSearch.debouncedQuery}
+              matchedMessageIds={messageSearch.matchedMessageIds}
+              activeMatchId={messageSearch.activeMatchId}
+              scrollToMessageId={activeScrollTargetId}
+              scrollToMessageEnabled={scrollToMessageEnabled}
+              highlightMessageId={
+                messageSearch.isSearchOpen
+                  ? messageSearch.activeMatchId
+                  : highlightMessageId
+              }
+              onEnsureMatchVisible={(id) => {
+                void ensureMatchVisible(id)
+              }}
+              onScrollToMessageComplete={(id) => {
+                if (!messageSearch.isSearchOpen) {
+                  setScrollToMessageId((current) =>
+                    current === id ? null : current
+                  )
+                }
+              }}
+              onReply={chatActive(selectedChat) ? handleReply : undefined}
+              onThread={
+                chatActive(selectedChat) &&
+                (!selectedChat.account || selectedChat.network === 'matrix')
+                  ? openThread
+                  : undefined
+              }
+              receipts={
+                selectedChat.account && !chatLinked(selectedChat)
+                  ? undefined
+                  : (messagesQuery.data?.pages[0]?.receipts ?? [])
+              }
+              onReact={chatActive(selectedChat) ? handleReact : undefined}
+              onScrollToMessage={handleScrollToMessage}
+              onForward={
+                chatActive(selectedChat)
+                  ? (m) => requestForward([m.id])
+                  : undefined
+              }
+              onDelete={
+                chatActive(selectedChat)
+                  ? (m) => requestDelete([m.id])
+                  : undefined
+              }
+              isSelecting={isSelecting}
+              selectedIds={selectedIds}
+              onToggleSelect={toggleMessageSelection}
+              onSelectMessage={(message) => selectOne(message.id)}
+              onSelectAll={(ids) => {
+                // Forward and delete take at most BULK_MESSAGES_MAX ids, and
+                // "select loaded" grows with how far the user has scrolled.
+                if (ids.length > BULK_MESSAGES_MAX) {
+                  toast.info(
+                    t`Selected the newest ${BULK_MESSAGES_MAX} messages, the most that can be forwarded or deleted at once`
+                  )
+                }
+                selectAllMessages(ids.slice(-BULK_MESSAGES_MAX))
+              }}
+              onClearSelection={clearSelection}
+              editingMessageId={editingMessage?.id}
+              editingBody={editingBody}
+              setEditingBody={setEditingBody}
+              isEditingSaving={isEditingSaving}
+              isEditSaveDisabled={isEditSaveDisabled}
+              onSaveEdit={handleSaveEdit}
+              onCancelEdit={handleCancelEdit}
+              onStartEdit={
+                chatActive(selectedChat) ? handleStartEdit : undefined
+              }
+            />
+
+            {isSelecting ? (
+              <div className='border-t px-4 py-3'>
+                <div className='flex items-center justify-between gap-2'>
+                  <span className='text-muted-foreground text-sm'>
+                    {plural(selectedIds.size, {
+                      one: '# selected',
+                      other: '# selected',
+                    })}
+                  </span>
+                  <div className='flex items-center gap-1'>
+                    <Button
+                      variant='ghost'
+                      size='sm'
+                      onClick={() => void handleCopySelected()}
+                    >
+                      <Copy className='me-1.5 size-4' />
+                      <Trans>Copy</Trans>
+                    </Button>
+                    <Button
+                      variant='ghost'
+                      size='sm'
+                      onClick={() => requestForward([...selectedIds])}
+                    >
+                      <Forward className='me-1.5 size-4' />
+                      <Trans>Forward</Trans>
+                    </Button>
+                    <Button
+                      variant='ghost'
+                      size='sm'
+                      onClick={() => requestDelete([...selectedIds])}
+                    >
+                      <Trash2 className='me-1.5 size-4' />
+                      <Trans>Delete</Trans>
+                    </Button>
+                    <Button
+                      variant='outline'
+                      size='sm'
+                      onClick={clearSelection}
+                    >
+                      <Trans>Cancel</Trans>
+                    </Button>
+                  </div>
                 </div>
               </div>
-            </div>
-          ) : selectedChat.status === 'invited' ? (
-            <div className='bg-muted/50 border-t p-4'>
-              <div className='flex flex-wrap items-center justify-between gap-2'>
-                <p className='text-muted-foreground text-sm'>
-                  <Trans>You are invited to this conversation</Trans>
-                </p>
-                <div className='flex items-center gap-2'>
+            ) : selectedChat.status === 'invited' ? (
+              <div className='bg-muted/50 border-t p-4'>
+                <div className='flex flex-wrap items-center justify-between gap-2'>
+                  <p className='text-muted-foreground text-sm'>
+                    <Trans>You are invited to this conversation</Trans>
+                  </p>
+                  <div className='flex items-center gap-2'>
+                    <Button
+                      variant='outline'
+                      size='sm'
+                      onClick={() => void handleDecline()}
+                      loading={declineMutation.isPending}
+                      icon={<X className='me-2 size-4' />}
+                    >
+                      <Trans>Decline</Trans>
+                    </Button>
+                    <Button
+                      size='sm'
+                      onClick={() => void handleAccept()}
+                      loading={acceptMutation.isPending}
+                      icon={<Check className='me-2 size-4' />}
+                    >
+                      <Trans>Accept</Trans>
+                    </Button>
+                  </div>
+                </div>
+              </div>
+            ) : !chatActive(selectedChat) ? (
+              <div className='bg-muted/50 border-t p-4'>
+                <div className='flex items-center justify-between'>
+                  <p className='text-muted-foreground text-sm'>
+                    {selectedChat.status === 'removed' ? (
+                      <Trans>You were removed from this chat</Trans>
+                    ) : (
+                      <Trans>You left this chat</Trans>
+                    )}
+                  </p>
                   <Button
                     variant='outline'
                     size='sm'
-                    onClick={() => void handleDecline()}
-                    loading={declineMutation.isPending}
-                    icon={<X className='me-2 size-4' />}
+                    onClick={handleDeleteChat}
+                    loading={deleteChatMutation.isPending}
+                    icon={<Trash2 className='me-2 size-4' />}
                   >
-                    <Trans>Decline</Trans>
-                  </Button>
-                  <Button
-                    size='sm'
-                    onClick={() => void handleAccept()}
-                    loading={acceptMutation.isPending}
-                    icon={<Check className='me-2 size-4' />}
-                  >
-                    <Trans>Accept</Trans>
+                    <Trans>Delete chat</Trans>
                   </Button>
                 </div>
               </div>
-            </div>
-          ) : !chatActive(selectedChat) ? (
-            <div className='bg-muted/50 border-t p-4'>
-              <div className='flex items-center justify-between'>
-                <p className='text-muted-foreground text-sm'>
-                  {selectedChat.status === 'removed' ? (
-                    <Trans>You were removed from this chat</Trans>
-                  ) : (
-                    <Trans>You left this chat</Trans>
-                  )}
-                </p>
-                <Button
-                  variant='outline'
-                  size='sm'
-                  onClick={handleDeleteChat}
-                  loading={deleteChatMutation.isPending}
-                  icon={<Trash2 className='me-2 size-4' />}
-                >
-                  <Trans>Delete chat</Trans>
-                </Button>
-              </div>
-            </div>
-          ) : (
-            <>
-              {relayed ? (
-                <p className='text-muted-foreground flex items-center gap-2 px-4 pb-1 text-xs'>
-                  <LockOpen className='size-3.5 shrink-0' />
-                  <Trans>Messages in this chat reach Matrix unencrypted.</Trans>
-                </p>
-              ) : null}
-              {typingNames.length > 0 ? (
-                <p
-                  className='text-muted-foreground px-4 pb-1 text-xs'
-                  aria-live='polite'
-                >
-                  {plural(typingNames.length, {
-                    1: `${typingNames[0]} is typing...`,
-                    other: `${formatList(typingNames)} are typing...`,
-                  })}
-                </p>
-              ) : null}
-              <ChatInput
-                key={selectedChat.id}
-                ref={chatInputRef}
-                newMessage={newMessage}
-                setNewMessage={setNewMessage}
-                people={mentionPeople}
-                selectedMentions={selectedMentions}
-                onMentionsChange={setSelectedMentions}
-                onSendMessage={handleSendMessage}
-                isSending={sendMessageMutation.isPending}
-                sendProgress={sendProgress}
-                isSendDisabled={isSendDisabled}
-                pendingAttachments={pendingAttachments}
-                onRemoveAttachment={handleRemoveAttachment}
-                onReorderAttachments={handleReorderAttachments}
-                onAttachmentSelection={handleAttachmentSelection}
-                onAudioAttachmentSelection={handleAudioAttachmentSelection}
-                onAddVoiceNote={(file, durationSecs) => {
-                  setPendingAttachments((prev) => [
-                    ...prev,
-                    createPendingVoiceNote(file, durationSecs),
-                  ])
-                }}
-                replyTo={replyTo}
-                onClearReply={() => setReplyTo(null)}
-                sendMessageErrorMessage={sendAttachmentErrorMessage}
-              />
-            </>
-          )}
-        </Main>
-      </div>
+            ) : (
+              <>
+                {relayed ? (
+                  <p className='text-muted-foreground flex items-center gap-2 px-4 pb-1 text-xs'>
+                    <LockOpen className='size-3.5 shrink-0' />
+                    <Trans>
+                      Messages in this chat reach Matrix unencrypted.
+                    </Trans>
+                  </p>
+                ) : null}
+                {typingNames.length > 0 ? (
+                  <p
+                    className='text-muted-foreground px-4 pb-1 text-xs'
+                    aria-live='polite'
+                  >
+                    {plural(typingNames.length, {
+                      1: `${typingNames[0]} is typing...`,
+                      other: `${formatList(typingNames)} are typing...`,
+                    })}
+                  </p>
+                ) : null}
+                <ChatInput
+                  key={selectedChat.id}
+                  ref={chatInputRef}
+                  newMessage={newMessage}
+                  setNewMessage={setNewMessage}
+                  people={mentionPeople}
+                  selectedMentions={selectedMentions}
+                  onMentionsChange={setSelectedMentions}
+                  onSendMessage={handleSendMessage}
+                  isSending={sendMessageMutation.isPending}
+                  sendProgress={sendProgress}
+                  isSendDisabled={isSendDisabled}
+                  pendingAttachments={pendingAttachments}
+                  onRemoveAttachment={handleRemoveAttachment}
+                  onReorderAttachments={handleReorderAttachments}
+                  onAttachmentSelection={handleAttachmentSelection}
+                  onAudioAttachmentSelection={handleAudioAttachmentSelection}
+                  onAddVoiceNote={(file, durationSecs) => {
+                    setPendingAttachments((prev) => [
+                      ...prev,
+                      createPendingVoiceNote(file, durationSecs),
+                    ])
+                  }}
+                  replyTo={replyTo}
+                  onClearReply={() => setReplyTo(null)}
+                  sendMessageErrorMessage={sendAttachmentErrorMessage}
+                />
+              </>
+            )}
+          </Main>
+        </div>
 
-      {selectedChat ? (
-        <ThreadPanel
-          chatId={selectedChat.id}
-          root={threadRoot}
-          currentUserIdentity={currentUserIdentity}
-          canWrite={chatActive(selectedChat)}
-          onClose={() => setThreadRoot(null)}
-          onForward={(message) => requestForward([message.id])}
-          // A reply is not on the main timeline that requestDelete reads, and
-          // the panel offers delete on the user's own replies alone.
-          onDelete={(message) => setDeleteTargetIds([message.id])}
-        />
-      ) : null}
+        {selectedChat ? (
+          <ThreadPanel
+            chatId={selectedChat.id}
+            root={threadRoot}
+            currentUserIdentity={currentUserIdentity}
+            canWrite={chatActive(selectedChat)}
+            onClose={closeThread}
+            docked={threadDocked}
+            onForward={(message) => requestForward([message.id])}
+            // A reply is not on the main timeline that requestDelete reads, and
+            // the panel offers delete on the user's own replies alone.
+            onDelete={(message) => setDeleteTargetIds([message.id])}
+          />
+        ) : null}
+      </div>
 
       <ConfirmDialog
         open={showLeaveDialog}

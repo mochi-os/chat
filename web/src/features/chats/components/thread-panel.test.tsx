@@ -124,8 +124,11 @@ function setup() {
     invalidate,
     close: () => view.rerender(panel(null)),
     refresh: () => view.rerender(panel(root)),
+    open: (next: ChatMessage) => view.rerender(panel(next)),
   }
 }
+
+const other = { ...root, id: 'r2', body: 'Other root' } as ChatMessage
 
 describe('ThreadPanel', () => {
   beforeEach(() => {
@@ -161,6 +164,43 @@ describe('ThreadPanel', () => {
         }),
       { timeout: 3000 }
     )
+  })
+
+  // Docked, the conversation stays usable, so a second thread can open with
+  // a reply half typed in the first.
+  it('keeps a separate draft for each thread', () => {
+    const { open } = setup()
+    const box = () => screen.getByLabelText('Reply in thread')
+    type(box(), 'For the first')
+    open(other)
+    expect(box()).toHaveTextContent(/^$/)
+    type(box(), 'For the second')
+    open(root)
+    expect(box()).toHaveTextContent('For the first')
+    open(other)
+    expect(box()).toHaveTextContent('For the second')
+  })
+
+  it('clears only the thread a reply went to, when another opened meanwhile', async () => {
+    let answer: (value: { id: string }) => void = () => {}
+    calls.send.mockReturnValue(
+      new Promise((resolve) => {
+        answer = resolve
+      })
+    )
+    const { open } = setup()
+    const box = () => screen.getByLabelText('Reply in thread')
+    type(box(), 'Sent to the first')
+    fireEvent.click(screen.getByRole('button', { name: 'Send' }))
+    await waitFor(() => expect(calls.send).toHaveBeenCalled())
+    open(other)
+    type(box(), 'Still typing')
+    await act(async () => {
+      answer({ id: 'm2' })
+    })
+    expect(box()).toHaveTextContent('Still typing')
+    open(root)
+    expect(box()).toHaveTextContent(/^$/)
   })
 
   it('refuses a reply over the server limit in bytes, not characters', () => {

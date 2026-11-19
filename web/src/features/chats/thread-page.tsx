@@ -99,7 +99,7 @@ export function ThreadPage({ chatId, messageId }: ThreadPageProps) {
             onForward={(message) => setForwardIds([message.id])}
             onDelete={(message) => setDeleteIds([message.id])}
             draft={draft}
-            onDraftChange={setDraft}
+            onDraftChange={(next) => setDraft(next)}
           />
         </div>
       </div>
