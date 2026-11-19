@@ -26,7 +26,6 @@ import {
   Skeleton,
   PersonPicker,
   GeneralError,
-  getAppPath,
   shellNavigateExternal,
   type Person,
   naturalCompare,
@@ -36,6 +35,7 @@ import { chatsApi } from '@/api/chats'
 import type { ChatNetwork } from '@/api/types/chats'
 import { useSidebarContext } from '@/context/sidebar-context'
 import { useNewChatFriendsQuery, useCreateChatMutation } from '@/hooks/useChats'
+import { personAsset } from '../addresses'
 import {
   CHAT_NAME_FORBIDDEN,
   CHAT_NAME_MAX_LENGTH,
@@ -472,7 +472,7 @@ export function NewChat() {
                       localLabel={t`Friends`}
                       directoryFn={searchDirectory}
                       assetUrl={(person, asset) =>
-                        `${getAppPath()}/-/person/${person.id}/asset/${asset}`
+                        personAsset(person.id, asset)
                       }
                       placeholder=''
                       label={t`People`}

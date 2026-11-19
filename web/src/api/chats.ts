@@ -59,20 +59,23 @@ const unwrapData = <T>(raw: unknown): T => {
   return raw as T
 }
 
+// A call whose address is built from a chat id is async, so an id the
+// endpoint table refuses rejects the call as a failed request would, rather
+// than throwing out of an effect or an event handler.
 export const chatsApi = {
   list: (): Promise<GetChatsResponse> =>
     client
       .get<{ data: Chat[] }>(endpoints.chat.list)
       .then((res) => ({ chats: res.data })),
 
-  detail: (chatId: string) =>
+  detail: async (chatId: string) =>
     client
       .get<ChatViewResponse | { data: ChatViewResponse }>(
         endpoints.chat.detail(chatId)
       )
       .then((res) => unwrapData<ChatViewResponse>(res)),
 
-  messages: (
+  messages: async (
     chatId: string,
     params?: { cursor?: string; limit?: number; thread?: string }
   ) =>
@@ -89,7 +92,7 @@ export const chatsApi = {
       )
       .then((res) => unwrapData<GetMessagesResponse>(res)),
 
-  search: (chatId: string, params: { q: string }) =>
+  search: async (chatId: string, params: { q: string }) =>
     client
       .get<SearchMessagesResponse | { data: SearchMessagesResponse }>(
         endpoints.chat.search(chatId),
@@ -97,7 +100,7 @@ export const chatsApi = {
       )
       .then((res) => unwrapData<SearchMessagesResponse>(res)),
 
-  markRead: (chatId: string, payload?: MarkReadRequest) =>
+  markRead: async (chatId: string, payload?: MarkReadRequest) =>
     client
       .post<MarkReadResponse | { data: MarkReadResponse }>(
         endpoints.chat.read(chatId),
@@ -105,7 +108,7 @@ export const chatsApi = {
       )
       .then((res) => unwrapData<MarkReadResponse>(res)),
 
-  sendMessage: (
+  sendMessage: async (
     chatId: string,
     payload: SendMessageRequest,
     onProgress?: (event: TransferProgress) => void
@@ -147,7 +150,7 @@ export const chatsApi = {
       .then((res) => sayUnsent(unwrapData<SendMessageResponse>(res)))
   },
 
-  editMessage: (
+  editMessage: async (
     chatId: string,
     messageId: string,
     body: string
@@ -197,12 +200,12 @@ export const chatsApi = {
 
   // Tell the other members the user is typing; the server sends nothing where
   // the user has turned typing off.
-  typing: (chatId: string): Promise<void> =>
+  typing: async (chatId: string): Promise<void> =>
     client
       .post<{ data: { sent: boolean } }>(endpoints.chat.typing(chatId), {})
       .then(() => undefined),
 
-  presence: (chatId: string, member?: string) =>
+  presence: async (chatId: string, member?: string) =>
     client
       .get<{ data: ChatPresence }>(endpoints.chat.presence(chatId), {
         params: { member },
@@ -222,14 +225,14 @@ export const chatsApi = {
       )
       .then((res) => unwrapData<CreateChatResponse>(res)),
 
-  getMembers: (chatId: string) =>
+  getMembers: async (chatId: string) =>
     client
       .get<GetMembersResponse | { data: GetMembersResponse }>(
         endpoints.chat.members(chatId)
       )
       .then((res) => unwrapData<GetMembersResponse>(res)),
 
-  rename: (chatId: string, payload: RenameRequest) =>
+  rename: async (chatId: string, payload: RenameRequest) =>
     client
       .post<RenameResponse | { data: RenameResponse }>(
         endpoints.chat.rename(chatId),
@@ -237,7 +240,7 @@ export const chatsApi = {
       )
       .then((res) => unwrapData<RenameResponse>(res)),
 
-  leave: (chatId: string, payload: LeaveRequest) =>
+  leave: async (chatId: string, payload: LeaveRequest) =>
     client
       .post<LeaveResponse | { data: LeaveResponse }>(
         endpoints.chat.leave(chatId),
@@ -245,14 +248,14 @@ export const chatsApi = {
       )
       .then((res) => unwrapData<LeaveResponse>(res)),
 
-  delete: (chatId: string) =>
+  delete: async (chatId: string) =>
     client
       .post<DeleteResponse | { data: DeleteResponse }>(
         endpoints.chat.delete(chatId)
       )
       .then((res) => unwrapData<DeleteResponse>(res)),
 
-  accept: (chatId: string) =>
+  accept: async (chatId: string) =>
     client
       .post<AcceptResponse | { data: AcceptResponse }>(
         endpoints.chat.accept(chatId),
@@ -261,14 +264,14 @@ export const chatsApi = {
       )
       .then((res) => unwrapData<AcceptResponse>(res)),
 
-  decline: (chatId: string) =>
+  decline: async (chatId: string) =>
     client
       .post<DeclineResponse | { data: DeclineResponse }>(
         endpoints.chat.decline(chatId)
       )
       .then((res) => unwrapData<DeclineResponse>(res)),
 
-  addMember: (chatId: string, payload: MemberAddRequest) =>
+  addMember: async (chatId: string, payload: MemberAddRequest) =>
     client
       .post<MemberAddResponse | { data: MemberAddResponse }>(
         endpoints.chat.memberAdd(chatId),
@@ -276,7 +279,7 @@ export const chatsApi = {
       )
       .then((res) => unwrapData<MemberAddResponse>(res)),
 
-  removeMember: (chatId: string, payload: MemberRemoveRequest) =>
+  removeMember: async (chatId: string, payload: MemberRemoveRequest) =>
     client
       .post<MemberRemoveResponse | { data: MemberRemoveResponse }>(
         endpoints.chat.memberRemove(chatId),
@@ -284,7 +287,7 @@ export const chatsApi = {
       )
       .then((res) => unwrapData<MemberRemoveResponse>(res)),
 
-  reactToMessage: (
+  reactToMessage: async (
     chatId: string,
     messageId: string,
     reaction: string
@@ -303,7 +306,7 @@ export const chatsApi = {
   // Delete messages for everyone. The source chat is the URL entity; the
   // backend skips ids the caller doesn't own. messages is a JSON-encoded
   // array string sent form-encoded (same convention as photo-reorder ids).
-  deleteMessages: (
+  deleteMessages: async (
     chatId: string,
     messageIds: string[]
   ): Promise<DeleteMessagesResponse> =>
@@ -317,7 +320,7 @@ export const chatsApi = {
 
   // Forward messages from this (source) chat into another chat. body +
   // attachments are copied as new messages authored by the caller.
-  forwardMessages: (
+  forwardMessages: async (
     chatId: string,
     messageIds: string[],
     toChat: string
@@ -336,7 +339,7 @@ export const chatsApi = {
   // Forward to a friend with no chat yet. The server validates the source
   // messages BEFORE creating anything, so an empty or refused forward cannot
   // leave an orphaned chat behind - which is what create-then-forward did.
-  forwardMessagesToFriend: (
+  forwardMessagesToFriend: async (
     chatId: string,
     messageIds: string[],
     member: string

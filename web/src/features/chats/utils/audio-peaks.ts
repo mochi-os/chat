@@ -87,7 +87,7 @@ async function decodePeaks(
   let decodable: ArrayBuffer
   try {
     if (typeof source === 'string') {
-      const res = await fetch(source)
+      const res = await fetch(source) // method-ok: an audio attachment's address, an asset route
       if (!res.ok) return failed(barCount)
       decodable = await res.arrayBuffer()
     } else if (source instanceof Blob) {

@@ -29,7 +29,6 @@ import {
   TooltipTrigger,
   cn,
   Skeleton,
-  getAppPath,
   authenticatedUrl,
   MentionTextarea,
   BubbleGroup,
@@ -39,6 +38,7 @@ import {
 import { Check, ChevronsDown, MessageCircle } from 'lucide-react'
 import type { ChatMessage } from '@/api/chats'
 import type { ChatReceipt, GetMessagesResponse } from '@/api/types/chats'
+import { messageAsset } from '../addresses'
 import type { ReactionId } from '../constants/reactions'
 import { formatCountBadge } from '../utils'
 import {
@@ -365,12 +365,11 @@ export function ChatMessageList({
     () =>
       addressByAuthor(chatMessages, {
         getAuthor: (m) => m.member,
-        getAddress: (m) => `${getAppPath()}/${m.chat}/-/${m.id}/asset`,
+        getAddress: (m) => messageAsset(m),
       }),
     [chatMessages]
   )
-  const avatarFor = (m: ChatMessage) =>
-    avatars.get(m.member) ?? `${getAppPath()}/${m.chat}/-/${m.id}/asset`
+  const avatarFor = (m: ChatMessage) => avatars.get(m.member) ?? messageAsset(m)
 
   const seen = useMemo(
     () =>

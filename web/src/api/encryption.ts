@@ -7,7 +7,7 @@
 // the server holds: the account's device, the people's devices and the
 // user's word on them, Matrix's emoji verification, and its recovery key.
 
-import { createAppClient } from '@mochi/web'
+import { createAppClient, path } from '@mochi/web'
 
 const client = createAppClient({ appName: 'chat' })
 
@@ -81,49 +81,59 @@ export type VerificationAction =
   | 'mismatch'
   | 'cancel'
 
+// Each chat id goes in through path, as one encoded segment. A call whose
+// address is built from one is async, so an id path refuses rejects the call
+// as a failed request would, rather than throwing out of an effect or an
+// event handler.
 export const encryptionApi = {
-  overview: (chatId: string) =>
+  overview: async (chatId: string) =>
     client
-      .get<{ data: EncryptionOverview }>(`/${chatId}/-/encryption`)
+      .get<{ data: EncryptionOverview }>(path`/${chatId}/-/encryption`)
       .then((res) => res.data),
 
-  devices: (chatId: string, person: string) =>
+  devices: async (chatId: string, person: string) =>
     client
       .get<{ data: { devices: EncryptionDevice[] } }>(
-        `/${chatId}/-/encryption/devices`,
+        path`/${chatId}/-/encryption/devices`,
         { params: { person } }
       )
       .then((res) => res.data.devices),
 
-  trust: (chatId: string, person: string, device: string, trust: Trust) =>
+  trust: async (chatId: string, person: string, device: string, trust: Trust) =>
     client
-      .post<{ data: Record<string, never> }>(`/${chatId}/-/encryption/trust`, {
-        person,
-        device,
-        trust,
-      })
+      .post<{ data: Record<string, never> }>(
+        path`/${chatId}/-/encryption/trust`,
+        {
+          person,
+          device,
+          trust,
+        }
+      )
       .then(() => undefined),
 
-  verify: (chatId: string, person: string) =>
+  verify: async (chatId: string, person: string) =>
     client
-      .post<{ data: Verification }>(`/${chatId}/-/encryption/verify`, {
+      .post<{ data: Verification }>(path`/${chatId}/-/encryption/verify`, {
         person,
       })
       .then((res) => res.data),
 
-  setup: (chatId: string, password?: string) =>
+  setup: async (chatId: string, password?: string) =>
     client
       .post<{ data: { recovery?: string; password?: boolean } }>(
-        `/${chatId}/-/encryption/setup`,
+        path`/${chatId}/-/encryption/setup`,
         password ? { password } : {}
       )
       .then((res) => res.data),
 
-  recover: (chatId: string, key: string) =>
+  recover: async (chatId: string, key: string) =>
     client
-      .post<{ data: { restored: number } }>(`/${chatId}/-/encryption/recover`, {
-        key,
-      })
+      .post<{ data: { restored: number } }>(
+        path`/${chatId}/-/encryption/recover`,
+        {
+          key,
+        }
+      )
       .then((res) => res.data),
 
   verifications: () =>
