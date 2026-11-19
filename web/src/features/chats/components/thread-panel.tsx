@@ -53,7 +53,7 @@ import {
 } from '@/hooks/useChats'
 import { MESSAGE_MAX_LENGTH } from '../constants/limits'
 import { useMessageEditor } from '../editor/use-message-editor'
-import { messageSize } from '../utils'
+import { messageSize, tooLongMessage } from '../utils'
 import {
   CHAT_MEDIA_BUBBLE_CLASS,
   CHAT_MEDIA_GRID_BUBBLE_CLASS,
@@ -324,7 +324,7 @@ export function ThreadView({
       return
     }
     if (messageSize(text) > MESSAGE_MAX_LENGTH) {
-      toast.error(t`Message is too long`)
+      toast.error(tooLongMessage(messageSize(text), MESSAGE_MAX_LENGTH))
       return
     }
     edit.mutate({ chatId, messageId: message.id, body: text })
@@ -362,7 +362,7 @@ export function ThreadView({
     if (!text || send.isPending) return
     // The main composer's rule: the server measures the body in bytes.
     if (messageSize(text) > MESSAGE_MAX_LENGTH) {
-      toast.error(t`Message is too long`)
+      toast.error(tooLongMessage(messageSize(text), MESSAGE_MAX_LENGTH))
       return
     }
     send.mutate({ text, thread: rootId })

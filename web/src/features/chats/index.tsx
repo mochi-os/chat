@@ -110,6 +110,7 @@ import {
   createPendingVoiceNote,
   probeAudioDuration,
   messageSize,
+  tooLongMessage,
   revokePendingAttachmentPreview,
   sendRefusal,
   resolveChatView,
@@ -1195,7 +1196,7 @@ export function Chats() {
       return
     }
     if (refusal === 'length') {
-      toast.error(t`Message is too long`)
+      toast.error(tooLongMessage(messageSize(newMessage), MESSAGE_MAX_LENGTH))
       return
     }
 

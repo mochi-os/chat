@@ -58,7 +58,7 @@ import {
 } from 'lucide-react'
 import { MESSAGE_MAX_LENGTH } from '../constants/limits'
 import { useMessageEditor } from '../editor/use-message-editor'
-import { messageSize, type PendingAttachment } from '../utils'
+import { messageSize, tooLongMessage, type PendingAttachment } from '../utils'
 import type { ReplyTarget } from '../utils/reply'
 import { VoiceNotePlayer } from './audio-player'
 import { FormattingToolbar } from './formatting-toolbar'
@@ -873,7 +873,7 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(
             )}
           >
             {size > MESSAGE_MAX_LENGTH
-              ? t`Message is too long`
+              ? tooLongMessage(size, MESSAGE_MAX_LENGTH)
               : `${formatNumber(size)}/${formatNumber(MESSAGE_MAX_LENGTH)}`}
           </p>
         )}

@@ -214,7 +214,7 @@ describe('ThreadPanel', () => {
     // 3400 Chinese characters are 10200 bytes.
     type(screen.getByLabelText('Reply in thread'), '你'.repeat(3400))
     fireEvent.click(screen.getByRole('button', { name: 'Send' }))
-    expect(calls.error).toHaveBeenCalledWith('Message is too long')
+    expect(calls.error).toHaveBeenCalledWith('Message is 200 bytes too long')
     expect(calls.send).not.toHaveBeenCalled()
     expect(invalidate).not.toHaveBeenCalled()
   })

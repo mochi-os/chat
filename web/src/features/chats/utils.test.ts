@@ -9,6 +9,7 @@ import {
   resolveChatView,
   messageSize,
   sendRefusal,
+  tooLongMessage,
   xmppAddress,
 } from './utils'
 
@@ -33,6 +34,16 @@ describe('sendRefusal', () => {
     expect(sendRefusal('你好世界', 0, 10)).toBe('length')
     expect(sendRefusal('😀😀😀', 0, 10)).toBe('length')
     expect(sendRefusal('привет', 0, 12)).toBeNull()
+  })
+})
+
+describe('tooLongMessage', () => {
+  it('says by how many bytes the body is over', () => {
+    // 6 Cyrillic letters are 12 bytes, 2 over a maximum of 10.
+    expect(tooLongMessage(messageSize('привет'), 10)).toBe(
+      'Message is 2 bytes too long'
+    )
+    expect(tooLongMessage(11, 10)).toBe('Message is 1 byte too long')
   })
 })
 

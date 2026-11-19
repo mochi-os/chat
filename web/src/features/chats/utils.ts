@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: AGPL-3.0-only
 // This file is part of Mochi, licensed under the GNU AGPL v3 with the
 // Mochi Application Interface Exception - see license.txt and license-exception.md.
+import { plural } from '@lingui/core/macro'
 
 type AttachmentKind = 'image' | 'video' | 'file'
 
@@ -224,6 +225,19 @@ const encoder = new TextEncoder()
  */
 export function messageSize(text: string): number {
   return encoder.encode(text).length
+}
+
+/**
+ * The refusal for a body over the limit, saying by how much. Counted in the
+ * bytes messageSize measures, the server's own unit, so the figure is the
+ * amount to cut: a count in characters would undershoot for Cyrillic, Chinese
+ * or emoji. One message for every place that refuses a body.
+ */
+export function tooLongMessage(size: number, maximum: number): string {
+  return plural(size - maximum, {
+    one: 'Message is # byte too long',
+    other: 'Message is # bytes too long',
+  })
 }
 
 export function sendRefusal(
