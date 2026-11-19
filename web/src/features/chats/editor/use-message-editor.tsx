@@ -8,6 +8,7 @@ import { safeHref } from '@mochi/web/lib/text-format'
 import { Extension, type Editor } from '@tiptap/core'
 import Mention from '@tiptap/extension-mention'
 import { Placeholder } from '@tiptap/extensions'
+import { Slice } from '@tiptap/pm/model'
 import { useEditor } from '@tiptap/react'
 import StarterKit from '@tiptap/starter-kit'
 import type { SuggestionProps } from '@tiptap/suggestion'
@@ -231,13 +232,34 @@ export function useMessageEditor(options: MessageEditorOptions): {
         // Plain text that carries markers (a copied message body) pastes as
         // formatting. A paste with HTML is left to Tiptap, which keeps the
         // formats this editor has and drops the rest.
-        handlePaste: (_view, event) => {
+        handlePaste: (view, event) => {
           const data = event.clipboardData
           if (!data || data.types.includes('text/html')) return false
           const text = data.getData('text/plain')
           if (!/[*_~`[>]|^\s*(?:[-+]|\d+[.)])\s/m.test(text)) return false
-          const content = markdownToDoc(text).content ?? []
-          return editorRef.current?.commands.insertContent(content) ?? false
+          const editor = editorRef.current
+          // Code keeps what was pasted as it was, markers and lines and all.
+          if (
+            !editor ||
+            editor.isActive('codeBlock') ||
+            editor.isActive('code')
+          )
+            return false
+          // A lone address is left to the link extension, which links the
+          // selected text with it, or puts it in as text, as a typed one is.
+          const trimmed = text.trim()
+          if (!/\s/.test(trimmed) && safeHref(trimmed) !== null) return false
+          const doc = editor.schema.nodeFromJSON(markdownToDoc(text))
+          // Open at both ends, as ProseMirror's own paste is: the first and
+          // last blocks join the line the caret is in. Inserting them as
+          // whole blocks split that line, so a_b pasted into the middle of a
+          // sentence sent as three lines.
+          view.dispatch(
+            view.state.tr
+              .replaceSelection(Slice.maxOpen(doc.content))
+              .scrollIntoView()
+          )
+          return true
         },
       },
       onUpdate: ({ editor }) => {

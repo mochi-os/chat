@@ -4,6 +4,7 @@
 // Mochi Application Interface Exception - see license.txt and license-exception.md.
 import { act, render } from '@testing-library/react'
 import type { Editor } from '@tiptap/core'
+import { Slice } from '@tiptap/pm/model'
 import { EditorContent } from '@tiptap/react'
 import { describe, expect, it, vi } from 'vitest'
 import {
@@ -91,5 +92,81 @@ describe('useMessageEditor', () => {
       { type: 'bold' },
     ])
     expect(onValueChange).not.toHaveBeenCalled()
+  })
+
+  describe('paste', () => {
+    // The view's own paste handler, given what a browser hands it for
+    // copied plain text. False leaves the paste to Tiptap.
+    const paste = (editor: Editor, text: string) => {
+      const event = {
+        clipboardData: {
+          types: ['text/plain'],
+          getData: (type: string) => (type === 'text/plain' ? text : ''),
+        },
+      } as unknown as ClipboardEvent
+      let handled: boolean | void = false
+      act(() => {
+        handled = editor.view.props.handlePaste?.(
+          editor.view,
+          event,
+          Slice.empty
+        )
+      })
+      return handled
+    }
+
+    it('joins text pasted mid-line to that line', () => {
+      const { editor, onValueChange } = setup('foobar')
+      act(() => {
+        editor.commands.setTextSelection(4)
+      })
+      expect(paste(editor, 'a_b')).toBe(true)
+      expect(editor.getJSON().content).toHaveLength(1)
+      expect(onValueChange).toHaveBeenLastCalledWith('fooa_bbar')
+    })
+
+    it('formats markers pasted mid-line, still on that line', () => {
+      const { editor, onValueChange } = setup('say  now')
+      act(() => {
+        editor.commands.setTextSelection(5)
+      })
+      paste(editor, '**loud**')
+      expect(editor.getJSON().content).toHaveLength(1)
+      expect(onValueChange).toHaveBeenLastCalledWith('say **loud** now')
+    })
+
+    it('keeps the line breaks the pasted text has, and no others', () => {
+      const { editor, onValueChange } = setup('ab')
+      act(() => {
+        editor.commands.setTextSelection(2)
+      })
+      paste(editor, 'one *x*\ntwo')
+      expect(editor.getJSON().content).toHaveLength(2)
+      expect(onValueChange).toHaveBeenLastCalledWith('aone _x_\ntwob')
+    })
+
+    it('pastes a list into an empty box as a list', () => {
+      const { editor, onValueChange } = setup('')
+      paste(editor, '- one\n- two')
+      expect(editor.getJSON().content?.[0].type).toBe('bulletList')
+      expect(onValueChange).toHaveBeenLastCalledWith('- one\n- two')
+    })
+
+    it('leaves a paste into code to Tiptap, so it stays code', () => {
+      const { editor } = setup('```\nx = 1\n```')
+      act(() => {
+        editor.commands.setTextSelection(6)
+      })
+      expect(editor.isActive('codeBlock')).toBe(true)
+      expect(paste(editor, 'my_var = 2\ny = 3')).toBe(false)
+    })
+
+    it('leaves a lone address to the link extension', () => {
+      const { editor } = setup('site')
+      act(() => {
+        editor.commands.setTextSelection({ from: 1, to: 5 })
+      })
+      expect(paste(editor, 'https://example.com/a_b_c')).toBe(false)
+    })
   })
 })
