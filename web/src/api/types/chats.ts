@@ -202,6 +202,8 @@ export interface GetNewChatResponse {
   friends: NewChatFriend[]
   name: string
   accounts?: ChatAccount[]
+  // The networks the server offers an account on that chats are had on.
+  offered?: string[]
 }
 
 type SendMessageAttachment = File | Blob

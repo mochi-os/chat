@@ -711,7 +711,7 @@ def action_new(a):
 			friend["chat"] = existing_chats[friend["id"]]
 
 	return {
-		"data": {"name": a.user.identity.name, "friends": friends, "accounts": [account_entry(acc) for acc in chat_accounts()]}
+		"data": {"name": a.user.identity.name, "friends": friends, "accounts": [account_entry(acc) for acc in chat_accounts()], "offered": networks_offered(["fediverse", "matrix", "xmpp"])}
 	}
 
 # Attachment routes (bytes, thumbnail, preview). attachment_serve performs no
@@ -3316,6 +3316,18 @@ def chat_accounts():
 			acc["network"] = network
 			out.append(acc)
 	return out
+
+# The provider an existing account on a network is linked through, where it
+# is not the network's own name.
+LINKED_THROUGH = {"fediverse": "mastodon"}
+
+def networks_offered(names):
+	"""Of the networks named, those the server offers the user an account on:
+	it hosts accounts there, or an existing one there may be linked. New chat
+	shows a way to set one up on each the user has no account on."""
+	hosted = mochi.account.networks() or []
+	linkable = [p.get("type") for p in (mochi.account.providers() or []) if p.get("link")]
+	return [n for n in names if n in hosted or LINKED_THROUGH.get(n, n) in linkable]
 
 def account_entry(acc):
 	"""An account as the client lists it."""
