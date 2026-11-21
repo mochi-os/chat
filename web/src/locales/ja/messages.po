@@ -154,6 +154,10 @@ msgstr "{newMessageCount, plural, other {#件の新着メッセージへ移動}}
 msgid "{opponentName} offered a draw"
 msgstr "{opponentName}が引き分けを提案しました"
 
+#: src/features/chats/utils.ts
+msgid "{over, plural, one {Message is {count} character too long} other {Message is {count} characters too long}}"
+msgstr "{over, plural, other {メッセージが{count}文字超過しています}}"
+
 #: ../../../lib/web/src/components/attachment-composer.tsx
 #: ../../../lib/web/src/components/ui/upload-progress.tsx
 msgid "{sentLabel} of {totalLabel}"
@@ -956,6 +960,7 @@ msgstr "{providerLabel}で続行"
 
 #: ../../../lib/web/src/lib/toast-utils.ts
 #: src/features/chats/index.tsx
+#: src/features/chats/index.tsx
 msgid "Copied"
 msgstr "コピーしました"
 
@@ -973,6 +978,7 @@ msgstr "クリップボードにコピーしました"
 #: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx
 #: ../../../lib/web/src/components/ui/copy-button.tsx
 #: src/features/chats/components/message-hover-actions.tsx
+#: src/features/chats/components/unsent-message.tsx
 #: src/features/chats/index.tsx
 msgid "Copy"
 msgstr "コピー"
@@ -1222,6 +1228,7 @@ msgid "Disagree"
 msgstr "反対"
 
 #: ../../../lib/web/src/components/comment-composer.tsx
+#: src/features/chats/components/unsent-message.tsx
 msgid "Discard"
 msgstr "破棄"
 
@@ -1426,6 +1433,7 @@ msgstr "メンバーの追加に失敗しました"
 #: ../../../lib/web/src/components/comment-share-button.tsx
 #: ../../../lib/web/src/components/ui/copy-button.tsx
 #: ../../../lib/web/src/lib/toast-utils.ts
+#: src/features/chats/index.tsx
 #: src/features/chats/index.tsx
 msgid "Failed to copy"
 msgstr "コピーに失敗しました"
@@ -1985,12 +1993,6 @@ msgstr "メッセージを送信できませんでした。添付ファイルが
 #: src/features/chats/index.tsx
 msgid "Message deleted"
 msgstr "メッセージを削除しました"
-
-#. placeholder {0}: formatNumber(newMessage.length - MESSAGE_MAX_LENGTH)
-#: src/features/chats/components/chat-input.tsx
-#: src/features/chats/index.tsx
-msgid "Message is {0} characters too long"
-msgstr "メッセージが {0} 文字超過しています"
 
 #: src/features/chats/components/message-quote.tsx
 #: src/features/chats/index.tsx
@@ -2791,6 +2793,7 @@ msgid "Restore"
 msgstr "復元"
 
 #: ../../../lib/web/src/components/attachment-composer.tsx
+#: src/features/chats/components/unsent-message.tsx
 msgid "Retry"
 msgstr "再試行"
 

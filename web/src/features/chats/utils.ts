@@ -3,6 +3,9 @@
 // This file is part of Mochi, licensed under the GNU AGPL v3 with the
 // Mochi Application Interface Exception - see license.txt and license-exception.md.
 
+import { plural } from '@lingui/core/macro'
+import { messageLength } from './constants/limits'
+
 type AttachmentKind = 'image' | 'video' | 'file'
 
 export interface PendingAttachment {
@@ -213,12 +216,73 @@ function fold(value: string): string {
  */
 export type SendRefusal = 'empty' | 'length'
 
+/**
+ * Whether a message whose send failed goes back into the composer: only into
+ * its own chat's, and only while that holds nothing, no text, files or reply
+ * target. One typed meanwhile keeps the composer, and the failed message is
+ * listed apart instead.
+ */
+export function restoresInto(
+  composer: {
+    chatId: string
+    newMessage: string
+    pendingAttachments: readonly unknown[]
+    replyTo: unknown
+  },
+  chatId: string
+): boolean {
+  return (
+    composer.chatId === chatId &&
+    !composer.newMessage.trim() &&
+    composer.pendingAttachments.length === 0 &&
+    !composer.replyTo
+  )
+}
+
+/**
+ * The message a search match's thread is under, for a match that is a reply
+ * in one: from the messages loaded, else as the search sent it. Null for a
+ * match of the main timeline, or a root neither holds.
+ */
+export function matchRoot<T extends { id: string }>(
+  thread: string | null | undefined,
+  loaded: readonly T[],
+  roots: ReadonlyMap<string, T>
+): T | null {
+  if (!thread) return null
+  return loaded.find((m) => m.id === thread) ?? roots.get(thread) ?? null
+}
+
+/**
+ * The open thread's root as the list now holds it - deleted since the thread
+ * was opened, say - else as it was opened.
+ */
+export function heldRoot<T extends { id: string }>(
+  open: T | null,
+  loaded: readonly T[]
+): T | null {
+  if (!open) return null
+  return loaded.find((m) => m.id === open.id) ?? open
+}
+
+/** By how much a message is over the limit, said with [formatNumber]'s digits. */
+export function tooLong(
+  over: number,
+  formatNumber: (value: number) => string
+): string {
+  const count = formatNumber(over)
+  return plural(over, {
+    one: `Message is ${count} character too long`,
+    other: `Message is ${count} characters too long`,
+  })
+}
+
 export function sendRefusal(
   text: string,
   attachments: number,
   maximum: number
 ): SendRefusal | null {
-  if (text.length > maximum) return 'length'
+  if (messageLength(text) > maximum) return 'length'
   if (!text.trim() && attachments === 0) return 'empty'
   return null
 }

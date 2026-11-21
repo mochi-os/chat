@@ -154,6 +154,10 @@ msgstr "{newMessageCount, plural, zero {Neidio i # negeseuon newydd} one {Neidio
 msgid "{opponentName} offered a draw"
 msgstr "Cynigiodd {opponentName} gêm gyfartal"
 
+#: src/features/chats/utils.ts
+msgid "{over, plural, one {Message is {count} character too long} other {Message is {count} characters too long}}"
+msgstr "{over, plural, zero {Mae'r neges {count} nod yn rhy hir} one {Mae'r neges {count} nod yn rhy hir} two {Mae'r neges {count} nod yn rhy hir} few {Mae'r neges {count} nod yn rhy hir} many {Mae'r neges {count} nod yn rhy hir} other {Mae'r neges {count} nod yn rhy hir}}"
+
 #: ../../../lib/web/src/components/attachment-composer.tsx
 #: ../../../lib/web/src/components/ui/upload-progress.tsx
 msgid "{sentLabel} of {totalLabel}"
@@ -956,6 +960,7 @@ msgstr "Parhau gyda {providerLabel}"
 
 #: ../../../lib/web/src/lib/toast-utils.ts
 #: src/features/chats/index.tsx
+#: src/features/chats/index.tsx
 msgid "Copied"
 msgstr "Copïwyd"
 
@@ -973,6 +978,7 @@ msgstr "Wedi'i gopïo i'r clipfwrdd"
 #: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx
 #: ../../../lib/web/src/components/ui/copy-button.tsx
 #: src/features/chats/components/message-hover-actions.tsx
+#: src/features/chats/components/unsent-message.tsx
 #: src/features/chats/index.tsx
 msgid "Copy"
 msgstr "Copïo"
@@ -1222,6 +1228,7 @@ msgid "Disagree"
 msgstr "Anghytuno"
 
 #: ../../../lib/web/src/components/comment-composer.tsx
+#: src/features/chats/components/unsent-message.tsx
 msgid "Discard"
 msgstr "Hepgor"
 
@@ -1426,6 +1433,7 @@ msgstr "Methwyd ychwanegu aelod"
 #: ../../../lib/web/src/components/comment-share-button.tsx
 #: ../../../lib/web/src/components/ui/copy-button.tsx
 #: ../../../lib/web/src/lib/toast-utils.ts
+#: src/features/chats/index.tsx
 #: src/features/chats/index.tsx
 msgid "Failed to copy"
 msgstr "Methwyd copïo"
@@ -1985,12 +1993,6 @@ msgstr "Ni ellid anfon y neges. Efallai bod yr atodiadau'n rhy fawr, neu fe feth
 #: src/features/chats/index.tsx
 msgid "Message deleted"
 msgstr "Dilëwyd y neges"
-
-#. placeholder {0}: formatNumber(newMessage.length - MESSAGE_MAX_LENGTH)
-#: src/features/chats/components/chat-input.tsx
-#: src/features/chats/index.tsx
-msgid "Message is {0} characters too long"
-msgstr "Mae'r neges {0} nod yn rhy hir"
 
 #: src/features/chats/components/message-quote.tsx
 #: src/features/chats/index.tsx
@@ -2791,6 +2793,7 @@ msgid "Restore"
 msgstr "Adfer"
 
 #: ../../../lib/web/src/components/attachment-composer.tsx
+#: src/features/chats/components/unsent-message.tsx
 msgid "Retry"
 msgstr "Ail-geisio"
 

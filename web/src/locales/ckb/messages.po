@@ -154,6 +154,10 @@ msgstr "{newMessageCount, plural, one {بازدان بۆ # پەیامی نوێ} 
 msgid "{opponentName} offered a draw"
 msgstr "{opponentName} پێشنیاری یەکسانی کرد"
 
+#: src/features/chats/utils.ts
+msgid "{over, plural, one {Message is {count} character too long} other {Message is {count} characters too long}}"
+msgstr "{over, plural, one {نامەکە {count} پیت لە سنوور درێژترە} other {نامەکە {count} پیت لە سنوور درێژترە}}"
+
 #: ../../../lib/web/src/components/attachment-composer.tsx
 #: ../../../lib/web/src/components/ui/upload-progress.tsx
 msgid "{sentLabel} of {totalLabel}"
@@ -956,6 +960,7 @@ msgstr "بەردەوامبوون بە {providerLabel}"
 
 #: ../../../lib/web/src/lib/toast-utils.ts
 #: src/features/chats/index.tsx
+#: src/features/chats/index.tsx
 msgid "Copied"
 msgstr "کۆپی کرا"
 
@@ -973,6 +978,7 @@ msgstr "کۆپی کرا بۆ کلیپبۆرد"
 #: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx
 #: ../../../lib/web/src/components/ui/copy-button.tsx
 #: src/features/chats/components/message-hover-actions.tsx
+#: src/features/chats/components/unsent-message.tsx
 #: src/features/chats/index.tsx
 msgid "Copy"
 msgstr "کۆپیکردن"
@@ -1222,6 +1228,7 @@ msgid "Disagree"
 msgstr "ناڕەزایی"
 
 #: ../../../lib/web/src/components/comment-composer.tsx
+#: src/features/chats/components/unsent-message.tsx
 msgid "Discard"
 msgstr "فڕێدان"
 
@@ -1426,6 +1433,7 @@ msgstr "زیادکردنی ئەندام سەرکەوتوو نەبوو"
 #: ../../../lib/web/src/components/comment-share-button.tsx
 #: ../../../lib/web/src/components/ui/copy-button.tsx
 #: ../../../lib/web/src/lib/toast-utils.ts
+#: src/features/chats/index.tsx
 #: src/features/chats/index.tsx
 msgid "Failed to copy"
 msgstr "لەبەرگیرایەوە سەرکەوتوو نەبوو"
@@ -1985,12 +1993,6 @@ msgstr "پەیامەکە نەنێردرا. لەوانەیە هاوپێچەکان
 #: src/features/chats/index.tsx
 msgid "Message deleted"
 msgstr "پەیام سڕایەوە"
-
-#. placeholder {0}: formatNumber(newMessage.length - MESSAGE_MAX_LENGTH)
-#: src/features/chats/components/chat-input.tsx
-#: src/features/chats/index.tsx
-msgid "Message is {0} characters too long"
-msgstr "نامەکە {0} پیت درێژترە"
 
 #: src/features/chats/components/message-quote.tsx
 #: src/features/chats/index.tsx
@@ -2791,6 +2793,7 @@ msgid "Restore"
 msgstr "گەڕاندنەوە"
 
 #: ../../../lib/web/src/components/attachment-composer.tsx
+#: src/features/chats/components/unsent-message.tsx
 msgid "Retry"
 msgstr "دووبارە هەوڵبدەرەوە"
 

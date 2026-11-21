@@ -154,6 +154,10 @@ msgstr "{newMessageCount, plural, one {Przejdź do # nowej wiadomości} few {Prz
 msgid "{opponentName} offered a draw"
 msgstr "{opponentName} zaproponował remis"
 
+#: src/features/chats/utils.ts
+msgid "{over, plural, one {Message is {count} character too long} other {Message is {count} characters too long}}"
+msgstr "{over, plural, one {Wiadomość jest za długa o {count} znak} few {Wiadomość jest za długa o {count} znaki} many {Wiadomość jest za długa o {count} znaków} other {Wiadomość jest za długa o {count} znaku}}"
+
 #: ../../../lib/web/src/components/attachment-composer.tsx
 #: ../../../lib/web/src/components/ui/upload-progress.tsx
 msgid "{sentLabel} of {totalLabel}"
@@ -956,6 +960,7 @@ msgstr "Kontynuuj z {providerLabel}"
 
 #: ../../../lib/web/src/lib/toast-utils.ts
 #: src/features/chats/index.tsx
+#: src/features/chats/index.tsx
 msgid "Copied"
 msgstr "Skopiowano"
 
@@ -973,6 +978,7 @@ msgstr "Skopiowano do schowka"
 #: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx
 #: ../../../lib/web/src/components/ui/copy-button.tsx
 #: src/features/chats/components/message-hover-actions.tsx
+#: src/features/chats/components/unsent-message.tsx
 #: src/features/chats/index.tsx
 msgid "Copy"
 msgstr "Kopiuj"
@@ -1222,6 +1228,7 @@ msgid "Disagree"
 msgstr "Nie zgadzam się"
 
 #: ../../../lib/web/src/components/comment-composer.tsx
+#: src/features/chats/components/unsent-message.tsx
 msgid "Discard"
 msgstr "Odrzuć"
 
@@ -1426,6 +1433,7 @@ msgstr "Nie udało się dodać członka"
 #: ../../../lib/web/src/components/comment-share-button.tsx
 #: ../../../lib/web/src/components/ui/copy-button.tsx
 #: ../../../lib/web/src/lib/toast-utils.ts
+#: src/features/chats/index.tsx
 #: src/features/chats/index.tsx
 msgid "Failed to copy"
 msgstr "Nie udało się skopiować"
@@ -1985,12 +1993,6 @@ msgstr "Nie udało się wysłać wiadomości. Załączniki mogą być zbyt duże
 #: src/features/chats/index.tsx
 msgid "Message deleted"
 msgstr "Usunięto wiadomość"
-
-#. placeholder {0}: formatNumber(newMessage.length - MESSAGE_MAX_LENGTH)
-#: src/features/chats/components/chat-input.tsx
-#: src/features/chats/index.tsx
-msgid "Message is {0} characters too long"
-msgstr "Wiadomość jest dłuższa o {0} znaków"
 
 #: src/features/chats/components/message-quote.tsx
 #: src/features/chats/index.tsx
@@ -2791,6 +2793,7 @@ msgid "Restore"
 msgstr "Przywróć"
 
 #: ../../../lib/web/src/components/attachment-composer.tsx
+#: src/features/chats/components/unsent-message.tsx
 msgid "Retry"
 msgstr "Ponów próbę"
 

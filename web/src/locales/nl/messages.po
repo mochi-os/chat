@@ -154,6 +154,10 @@ msgstr "{newMessageCount, plural, one {Ga naar # nieuw bericht} other {Ga naar #
 msgid "{opponentName} offered a draw"
 msgstr "{opponentName} bood remise aan"
 
+#: src/features/chats/utils.ts
+msgid "{over, plural, one {Message is {count} character too long} other {Message is {count} characters too long}}"
+msgstr "{over, plural, one {Bericht is {count} teken te lang} other {Bericht is {count} tekens te lang}}"
+
 #: ../../../lib/web/src/components/attachment-composer.tsx
 #: ../../../lib/web/src/components/ui/upload-progress.tsx
 msgid "{sentLabel} of {totalLabel}"
@@ -956,6 +960,7 @@ msgstr "Doorgaan met {providerLabel}"
 
 #: ../../../lib/web/src/lib/toast-utils.ts
 #: src/features/chats/index.tsx
+#: src/features/chats/index.tsx
 msgid "Copied"
 msgstr "Gekopieerd"
 
@@ -973,6 +978,7 @@ msgstr "Gekopieerd naar klembord"
 #: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx
 #: ../../../lib/web/src/components/ui/copy-button.tsx
 #: src/features/chats/components/message-hover-actions.tsx
+#: src/features/chats/components/unsent-message.tsx
 #: src/features/chats/index.tsx
 msgid "Copy"
 msgstr "Kopiëren"
@@ -1222,6 +1228,7 @@ msgid "Disagree"
 msgstr "Oneens"
 
 #: ../../../lib/web/src/components/comment-composer.tsx
+#: src/features/chats/components/unsent-message.tsx
 msgid "Discard"
 msgstr "Verwerpen"
 
@@ -1426,6 +1433,7 @@ msgstr "Lid toevoegen mislukt"
 #: ../../../lib/web/src/components/comment-share-button.tsx
 #: ../../../lib/web/src/components/ui/copy-button.tsx
 #: ../../../lib/web/src/lib/toast-utils.ts
+#: src/features/chats/index.tsx
 #: src/features/chats/index.tsx
 msgid "Failed to copy"
 msgstr "Kopiëren mislukt"
@@ -1985,12 +1993,6 @@ msgstr "Het bericht kon niet worden verzonden. Mogelijk zijn de bijlagen te groo
 #: src/features/chats/index.tsx
 msgid "Message deleted"
 msgstr "Bericht verwijderd"
-
-#. placeholder {0}: formatNumber(newMessage.length - MESSAGE_MAX_LENGTH)
-#: src/features/chats/components/chat-input.tsx
-#: src/features/chats/index.tsx
-msgid "Message is {0} characters too long"
-msgstr "Het bericht is {0} tekens te lang"
 
 #: src/features/chats/components/message-quote.tsx
 #: src/features/chats/index.tsx
@@ -2791,6 +2793,7 @@ msgid "Restore"
 msgstr "Herstellen"
 
 #: ../../../lib/web/src/components/attachment-composer.tsx
+#: src/features/chats/components/unsent-message.tsx
 msgid "Retry"
 msgstr "Opnieuw proberen"
 

@@ -154,6 +154,10 @@ msgstr "{newMessageCount, plural, one {නව පණිවිඩ #ක් වෙ�
 msgid "{opponentName} offered a draw"
 msgstr "{opponentName} ජය පරාජය ඉදිරිපත් කළා"
 
+#: src/features/chats/utils.ts
+msgid "{over, plural, one {Message is {count} character too long} other {Message is {count} characters too long}}"
+msgstr "{over, plural, one {පණිවිඩය අකුරු {count} කින් දිග වැඩියි} other {පණිවිඩය අකුරු {count} කින් දිග වැඩියි}}"
+
 #: ../../../lib/web/src/components/attachment-composer.tsx
 #: ../../../lib/web/src/components/ui/upload-progress.tsx
 msgid "{sentLabel} of {totalLabel}"
@@ -956,6 +960,7 @@ msgstr "{providerLabel} සමඟ ඉදිරියට"
 
 #: ../../../lib/web/src/lib/toast-utils.ts
 #: src/features/chats/index.tsx
+#: src/features/chats/index.tsx
 msgid "Copied"
 msgstr "පිටපත් කළා"
 
@@ -973,6 +978,7 @@ msgstr "ක්ලිප්බෝඩ් වෙත පිටපත් කරන �
 #: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx
 #: ../../../lib/web/src/components/ui/copy-button.tsx
 #: src/features/chats/components/message-hover-actions.tsx
+#: src/features/chats/components/unsent-message.tsx
 #: src/features/chats/index.tsx
 msgid "Copy"
 msgstr "පිටපත් කරන්න"
@@ -1222,6 +1228,7 @@ msgid "Disagree"
 msgstr "එකඟ නොවේ"
 
 #: ../../../lib/web/src/components/comment-composer.tsx
+#: src/features/chats/components/unsent-message.tsx
 msgid "Discard"
 msgstr "ඉවත ලන්න"
 
@@ -1426,6 +1433,7 @@ msgstr "සාමාජිකයා එක් කිරීමට අසමත්
 #: ../../../lib/web/src/components/comment-share-button.tsx
 #: ../../../lib/web/src/components/ui/copy-button.tsx
 #: ../../../lib/web/src/lib/toast-utils.ts
+#: src/features/chats/index.tsx
 #: src/features/chats/index.tsx
 msgid "Failed to copy"
 msgstr "පිටපත් කිරීමට අසමත් විය"
@@ -1985,12 +1993,6 @@ msgstr "පණිවිඩය යැවිය නොහැකි විය. ඇ�
 #: src/features/chats/index.tsx
 msgid "Message deleted"
 msgstr "පණිවිඩය මකන ලදී"
-
-#. placeholder {0}: formatNumber(newMessage.length - MESSAGE_MAX_LENGTH)
-#: src/features/chats/components/chat-input.tsx
-#: src/features/chats/index.tsx
-msgid "Message is {0} characters too long"
-msgstr "පණිවිඩය අකුරු {0}කින් දිගයි"
 
 #: src/features/chats/components/message-quote.tsx
 #: src/features/chats/index.tsx
@@ -2791,6 +2793,7 @@ msgid "Restore"
 msgstr "ප්‍රතිසාධනය කරන්න"
 
 #: ../../../lib/web/src/components/attachment-composer.tsx
+#: src/features/chats/components/unsent-message.tsx
 msgid "Retry"
 msgstr "නැවත උත්සාහ කරන්න"
 

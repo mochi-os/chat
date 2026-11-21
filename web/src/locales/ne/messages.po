@@ -154,6 +154,10 @@ msgstr "{newMessageCount, plural, one {# नयाँ सन्देशमा �
 msgid "{opponentName} offered a draw"
 msgstr "{opponentName} ले बराबरीको प्रस्ताव गर्‍यो"
 
+#: src/features/chats/utils.ts
+msgid "{over, plural, one {Message is {count} character too long} other {Message is {count} characters too long}}"
+msgstr "{over, plural, one {सन्देश {count} वर्णले बढी लामो छ} other {सन्देश {count} वर्णले बढी लामो छ}}"
+
 #: ../../../lib/web/src/components/attachment-composer.tsx
 #: ../../../lib/web/src/components/ui/upload-progress.tsx
 msgid "{sentLabel} of {totalLabel}"
@@ -956,6 +960,7 @@ msgstr "{providerLabel} सँग जारी राख्नुहोस्"
 
 #: ../../../lib/web/src/lib/toast-utils.ts
 #: src/features/chats/index.tsx
+#: src/features/chats/index.tsx
 msgid "Copied"
 msgstr "कपी गरियो"
 
@@ -973,6 +978,7 @@ msgstr "क्लिपबोर्डमा प्रतिलिपि गर�
 #: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx
 #: ../../../lib/web/src/components/ui/copy-button.tsx
 #: src/features/chats/components/message-hover-actions.tsx
+#: src/features/chats/components/unsent-message.tsx
 #: src/features/chats/index.tsx
 msgid "Copy"
 msgstr "प्रतिलिपि"
@@ -1222,6 +1228,7 @@ msgid "Disagree"
 msgstr "असहमत"
 
 #: ../../../lib/web/src/components/comment-composer.tsx
+#: src/features/chats/components/unsent-message.tsx
 msgid "Discard"
 msgstr "हटाउनुहोस्"
 
@@ -1426,6 +1433,7 @@ msgstr "सदस्य थप्न असफल"
 #: ../../../lib/web/src/components/comment-share-button.tsx
 #: ../../../lib/web/src/components/ui/copy-button.tsx
 #: ../../../lib/web/src/lib/toast-utils.ts
+#: src/features/chats/index.tsx
 #: src/features/chats/index.tsx
 msgid "Failed to copy"
 msgstr "प्रतिलिपि गर्न असफल"
@@ -1985,12 +1993,6 @@ msgstr "सन्देश पठाउन सकिएन। संलग्न
 #: src/features/chats/index.tsx
 msgid "Message deleted"
 msgstr "सन्देश मेटाइयो"
-
-#. placeholder {0}: formatNumber(newMessage.length - MESSAGE_MAX_LENGTH)
-#: src/features/chats/components/chat-input.tsx
-#: src/features/chats/index.tsx
-msgid "Message is {0} characters too long"
-msgstr "सन्देश {0} अक्षर बढी लामो छ"
 
 #: src/features/chats/components/message-quote.tsx
 #: src/features/chats/index.tsx
@@ -2791,6 +2793,7 @@ msgid "Restore"
 msgstr "पुनर्स्थापना गर्नुहोस्"
 
 #: ../../../lib/web/src/components/attachment-composer.tsx
+#: src/features/chats/components/unsent-message.tsx
 msgid "Retry"
 msgstr "फेरि प्रयास गर्नुहोस्"
 

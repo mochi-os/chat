@@ -154,6 +154,10 @@ msgstr "{newMessageCount, plural, one {# жаңы билдирүүгө өтүү}
 msgid "{opponentName} offered a draw"
 msgstr "{opponentName} теңме-тең сунуш кылды"
 
+#: src/features/chats/utils.ts
+msgid "{over, plural, one {Message is {count} character too long} other {Message is {count} characters too long}}"
+msgstr "{over, plural, one {Билдирүү {count} белгиге ашып кетти} other {Билдирүү {count} белгиге ашып кетти}}"
+
 #: ../../../lib/web/src/components/attachment-composer.tsx
 #: ../../../lib/web/src/components/ui/upload-progress.tsx
 msgid "{sentLabel} of {totalLabel}"
@@ -956,6 +960,7 @@ msgstr "{providerLabel} менен улантуу"
 
 #: ../../../lib/web/src/lib/toast-utils.ts
 #: src/features/chats/index.tsx
+#: src/features/chats/index.tsx
 msgid "Copied"
 msgstr "Көчүрүлдү"
 
@@ -973,6 +978,7 @@ msgstr "Алмашуу буферине көчүрүлдү"
 #: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx
 #: ../../../lib/web/src/components/ui/copy-button.tsx
 #: src/features/chats/components/message-hover-actions.tsx
+#: src/features/chats/components/unsent-message.tsx
 #: src/features/chats/index.tsx
 msgid "Copy"
 msgstr "Көчүрүү"
@@ -1222,6 +1228,7 @@ msgid "Disagree"
 msgstr "Макул эмес"
 
 #: ../../../lib/web/src/components/comment-composer.tsx
+#: src/features/chats/components/unsent-message.tsx
 msgid "Discard"
 msgstr "Таштоо"
 
@@ -1426,6 +1433,7 @@ msgstr "Мүчө кошуу ишке ашкан жок"
 #: ../../../lib/web/src/components/comment-share-button.tsx
 #: ../../../lib/web/src/components/ui/copy-button.tsx
 #: ../../../lib/web/src/lib/toast-utils.ts
+#: src/features/chats/index.tsx
 #: src/features/chats/index.tsx
 msgid "Failed to copy"
 msgstr "Көчүрүү ишке ашкан жок"
@@ -1985,12 +1993,6 @@ msgstr "Билдирүүнү жөнөтүү мүмкүн болгон жок. Т
 #: src/features/chats/index.tsx
 msgid "Message deleted"
 msgstr "Билдирүү өчүрүлдү"
-
-#. placeholder {0}: formatNumber(newMessage.length - MESSAGE_MAX_LENGTH)
-#: src/features/chats/components/chat-input.tsx
-#: src/features/chats/index.tsx
-msgid "Message is {0} characters too long"
-msgstr "Билдирүү {0} белгиге узун"
 
 #: src/features/chats/components/message-quote.tsx
 #: src/features/chats/index.tsx
@@ -2791,6 +2793,7 @@ msgid "Restore"
 msgstr "Калыбына келтирүү"
 
 #: ../../../lib/web/src/components/attachment-composer.tsx
+#: src/features/chats/components/unsent-message.tsx
 msgid "Retry"
 msgstr "Кайра аракет кылуу"
 

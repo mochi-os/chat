@@ -154,6 +154,10 @@ msgstr "{newMessageCount, plural, other {Chuyển đến # tin nhắn mới}}"
 msgid "{opponentName} offered a draw"
 msgstr "{opponentName} đã đề nghị hòa"
 
+#: src/features/chats/utils.ts
+msgid "{over, plural, one {Message is {count} character too long} other {Message is {count} characters too long}}"
+msgstr "{over, plural, other {Tin nhắn dài quá {count} ký tự}}"
+
 #: ../../../lib/web/src/components/attachment-composer.tsx
 #: ../../../lib/web/src/components/ui/upload-progress.tsx
 msgid "{sentLabel} of {totalLabel}"
@@ -956,6 +960,7 @@ msgstr "Tiếp tục với {providerLabel}"
 
 #: ../../../lib/web/src/lib/toast-utils.ts
 #: src/features/chats/index.tsx
+#: src/features/chats/index.tsx
 msgid "Copied"
 msgstr "Đã sao chép"
 
@@ -973,6 +978,7 @@ msgstr "Đã sao chép vào bộ nhớ tạm"
 #: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx
 #: ../../../lib/web/src/components/ui/copy-button.tsx
 #: src/features/chats/components/message-hover-actions.tsx
+#: src/features/chats/components/unsent-message.tsx
 #: src/features/chats/index.tsx
 msgid "Copy"
 msgstr "Sao chép"
@@ -1222,6 +1228,7 @@ msgid "Disagree"
 msgstr "Không đồng ý"
 
 #: ../../../lib/web/src/components/comment-composer.tsx
+#: src/features/chats/components/unsent-message.tsx
 msgid "Discard"
 msgstr "Loại bỏ"
 
@@ -1426,6 +1433,7 @@ msgstr "Không thêm thành viên được"
 #: ../../../lib/web/src/components/comment-share-button.tsx
 #: ../../../lib/web/src/components/ui/copy-button.tsx
 #: ../../../lib/web/src/lib/toast-utils.ts
+#: src/features/chats/index.tsx
 #: src/features/chats/index.tsx
 msgid "Failed to copy"
 msgstr "Không sao chép được"
@@ -1985,12 +1993,6 @@ msgstr "Không gửi được tin nhắn. Tệp đính kèm có thể quá lớn
 #: src/features/chats/index.tsx
 msgid "Message deleted"
 msgstr "Đã xóa tin nhắn"
-
-#. placeholder {0}: formatNumber(newMessage.length - MESSAGE_MAX_LENGTH)
-#: src/features/chats/components/chat-input.tsx
-#: src/features/chats/index.tsx
-msgid "Message is {0} characters too long"
-msgstr "Tin nhắn dài quá {0} ký tự"
 
 #: src/features/chats/components/message-quote.tsx
 #: src/features/chats/index.tsx
@@ -2791,6 +2793,7 @@ msgid "Restore"
 msgstr "Khôi phục"
 
 #: ../../../lib/web/src/components/attachment-composer.tsx
+#: src/features/chats/components/unsent-message.tsx
 msgid "Retry"
 msgstr "Thử lại"
 

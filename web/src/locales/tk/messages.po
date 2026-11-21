@@ -154,6 +154,10 @@ msgstr "{newMessageCount, plural, one {# täze habara geç} other {# täze habar
 msgid "{opponentName} offered a draw"
 msgstr "{opponentName} deňme-deň teklip etdi"
 
+#: src/features/chats/utils.ts
+msgid "{over, plural, one {Message is {count} character too long} other {Message is {count} characters too long}}"
+msgstr "{over, plural, one {Habar {count} nyşan artyk uzyn} other {Habar {count} nyşan artyk uzyn}}"
+
 #: ../../../lib/web/src/components/attachment-composer.tsx
 #: ../../../lib/web/src/components/ui/upload-progress.tsx
 msgid "{sentLabel} of {totalLabel}"
@@ -956,6 +960,7 @@ msgstr "{providerLabel} bilen dowam et"
 
 #: ../../../lib/web/src/lib/toast-utils.ts
 #: src/features/chats/index.tsx
+#: src/features/chats/index.tsx
 msgid "Copied"
 msgstr "Göçürildi"
 
@@ -973,6 +978,7 @@ msgstr "Aralyk buferine nusgalandy"
 #: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx
 #: ../../../lib/web/src/components/ui/copy-button.tsx
 #: src/features/chats/components/message-hover-actions.tsx
+#: src/features/chats/components/unsent-message.tsx
 #: src/features/chats/index.tsx
 msgid "Copy"
 msgstr "Nusgalamak"
@@ -1222,6 +1228,7 @@ msgid "Disagree"
 msgstr "Razy däl"
 
 #: ../../../lib/web/src/components/comment-composer.tsx
+#: src/features/chats/components/unsent-message.tsx
 msgid "Discard"
 msgstr "Taşla"
 
@@ -1426,6 +1433,7 @@ msgstr "Agza goşulmady"
 #: ../../../lib/web/src/components/comment-share-button.tsx
 #: ../../../lib/web/src/components/ui/copy-button.tsx
 #: ../../../lib/web/src/lib/toast-utils.ts
+#: src/features/chats/index.tsx
 #: src/features/chats/index.tsx
 msgid "Failed to copy"
 msgstr "Göçürilmedi"
@@ -1985,12 +1993,6 @@ msgstr "Habar iberilmedi. Goşundylar gaty uly bolup biler ýa-da birikmäňiz �
 #: src/features/chats/index.tsx
 msgid "Message deleted"
 msgstr "Habar pozuldy"
-
-#. placeholder {0}: formatNumber(newMessage.length - MESSAGE_MAX_LENGTH)
-#: src/features/chats/components/chat-input.tsx
-#: src/features/chats/index.tsx
-msgid "Message is {0} characters too long"
-msgstr "Habar {0} harp uzyn"
 
 #: src/features/chats/components/message-quote.tsx
 #: src/features/chats/index.tsx
@@ -2791,6 +2793,7 @@ msgid "Restore"
 msgstr "Dikeld"
 
 #: ../../../lib/web/src/components/attachment-composer.tsx
+#: src/features/chats/components/unsent-message.tsx
 msgid "Retry"
 msgstr "Gaýtadan synanyş"
 

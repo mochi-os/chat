@@ -154,6 +154,10 @@ msgstr "{newMessageCount, plural, one {Pumunta sa # bagong mensahe} other {Pumun
 msgid "{opponentName} offered a draw"
 msgstr "Nag-alok ng draw si {opponentName}"
 
+#: src/features/chats/utils.ts
+msgid "{over, plural, one {Message is {count} character too long} other {Message is {count} characters too long}}"
+msgstr "{over, plural, one {Lampas ng {count} karakter ang mensahe} other {Lampas ng {count} karakter ang mensahe}}"
+
 #: ../../../lib/web/src/components/attachment-composer.tsx
 #: ../../../lib/web/src/components/ui/upload-progress.tsx
 msgid "{sentLabel} of {totalLabel}"
@@ -956,6 +960,7 @@ msgstr "Magpatuloy gamit ang {providerLabel}"
 
 #: ../../../lib/web/src/lib/toast-utils.ts
 #: src/features/chats/index.tsx
+#: src/features/chats/index.tsx
 msgid "Copied"
 msgstr "Nakopya"
 
@@ -973,6 +978,7 @@ msgstr "Nakopya sa clipboard"
 #: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx
 #: ../../../lib/web/src/components/ui/copy-button.tsx
 #: src/features/chats/components/message-hover-actions.tsx
+#: src/features/chats/components/unsent-message.tsx
 #: src/features/chats/index.tsx
 msgid "Copy"
 msgstr "Kopyahin"
@@ -1222,6 +1228,7 @@ msgid "Disagree"
 msgstr "Hindi sumasang-ayon"
 
 #: ../../../lib/web/src/components/comment-composer.tsx
+#: src/features/chats/components/unsent-message.tsx
 msgid "Discard"
 msgstr "Itapon"
 
@@ -1426,6 +1433,7 @@ msgstr "Nabigong magdagdag ng member"
 #: ../../../lib/web/src/components/comment-share-button.tsx
 #: ../../../lib/web/src/components/ui/copy-button.tsx
 #: ../../../lib/web/src/lib/toast-utils.ts
+#: src/features/chats/index.tsx
 #: src/features/chats/index.tsx
 msgid "Failed to copy"
 msgstr "Nabigong kumopya"
@@ -1985,12 +1993,6 @@ msgstr "Hindi naipadala ang mensahe. Maaaring masyadong malaki ang mga attachmen
 #: src/features/chats/index.tsx
 msgid "Message deleted"
 msgstr "Na-delete ang mensahe"
-
-#. placeholder {0}: formatNumber(newMessage.length - MESSAGE_MAX_LENGTH)
-#: src/features/chats/components/chat-input.tsx
-#: src/features/chats/index.tsx
-msgid "Message is {0} characters too long"
-msgstr "Mas mahaba ang mensahe ng {0} character"
 
 #: src/features/chats/components/message-quote.tsx
 #: src/features/chats/index.tsx
@@ -2791,6 +2793,7 @@ msgid "Restore"
 msgstr "Ibalik"
 
 #: ../../../lib/web/src/components/attachment-composer.tsx
+#: src/features/chats/components/unsent-message.tsx
 msgid "Retry"
 msgstr "Subukang muli"
 

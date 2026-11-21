@@ -43,8 +43,11 @@ import {
   type DeleteMessagesResponse,
   type ForwardMessagesResponse,
 } from '@/api/chats'
+import { useEffect, useState } from 'react'
 import type { ChatMessage } from '@/api/types/chats'
 import { applyMessageEditLWW } from '@/features/chats/utils/message-edit-lww'
+import { USER_KEY } from '@/lib/websocket-manager'
+import { useWebsocketManager } from '@/hooks/useWebsocketManager'
 
 export const chatKeys = {
   all: () => ['chats'] as const,
@@ -106,6 +109,61 @@ export const useChatsQuery = (
     queryFn: () => chatsApi.list(),
     ...options,
   })
+
+/** How long a burst of list frames waits before the list is read again. */
+const LIST_DEBOUNCE = 300
+
+/**
+ * Keep the chat list current from the user's own socket, which says when it
+ * changed - a chat started or gone, a rename, a member, a message moving one
+ * up, a read - and read it again once it opens after being down. Answers
+ * whether the socket is open: only while it is not is the list read on a
+ * timer.
+ */
+export function useChatListLive(): boolean {
+  const manager = useWebsocketManager()
+  const queryClient = useQueryClient()
+  const [live, setLive] = useState(false)
+  useEffect(() => {
+    if (!manager) return undefined
+    let opened = false
+    let lost = false
+    let timer: ReturnType<typeof setTimeout> | undefined
+    const read = () => {
+      clearTimeout(timer)
+      timer = setTimeout(() => {
+        void queryClient.invalidateQueries({
+          queryKey: chatKeys.all(),
+          exact: true,
+        })
+      }, LIST_DEBOUNCE)
+    }
+    const unsubscribe = manager.subscribe(USER_KEY, {
+      chatKey: USER_KEY,
+      onMessage: (event) => {
+        if (event.payload.event === 'list') read()
+      },
+      onStatusChange: (snapshot) => {
+        const ready = snapshot.status === 'ready'
+        if (ready) {
+          // Open again: what changed while it was down is read once.
+          if (lost) read()
+          opened = true
+          lost = false
+        } else if (opened) {
+          lost = true
+        }
+        setLive(ready)
+      },
+    })
+    return () => {
+      clearTimeout(timer)
+      unsubscribe()
+      setLive(false)
+    }
+  }, [manager, queryClient])
+  return live
+}
 
 const DEFAULT_PAGE_SIZE = 30
 

@@ -154,6 +154,10 @@ msgstr "{newMessageCount, plural, one {Aqbeż għal # messaġġ ġdid} two {Aqbe
 msgid "{opponentName} offered a draw"
 msgstr "{opponentName} offra draw"
 
+#: src/features/chats/utils.ts
+msgid "{over, plural, one {Message is {count} character too long} other {Message is {count} characters too long}}"
+msgstr "{over, plural, one {Il-messaġġ għandu {count} karattru żejjed} two {Il-messaġġ għandu {count} karattri żejda} few {Il-messaġġ għandu {count} karattri żejda} many {Il-messaġġ għandu {count}-il karattru żejjed} other {Il-messaġġ għandu {count} karattru żejjed}}"
+
 #: ../../../lib/web/src/components/attachment-composer.tsx
 #: ../../../lib/web/src/components/ui/upload-progress.tsx
 msgid "{sentLabel} of {totalLabel}"
@@ -956,6 +960,7 @@ msgstr "Kompli b'{providerLabel}"
 
 #: ../../../lib/web/src/lib/toast-utils.ts
 #: src/features/chats/index.tsx
+#: src/features/chats/index.tsx
 msgid "Copied"
 msgstr "Ikkupjat"
 
@@ -973,6 +978,7 @@ msgstr "Ikkupjat fil-clipboard"
 #: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx
 #: ../../../lib/web/src/components/ui/copy-button.tsx
 #: src/features/chats/components/message-hover-actions.tsx
+#: src/features/chats/components/unsent-message.tsx
 #: src/features/chats/index.tsx
 msgid "Copy"
 msgstr "Ikkupja"
@@ -1222,6 +1228,7 @@ msgid "Disagree"
 msgstr "Ma naqbilx"
 
 #: ../../../lib/web/src/components/comment-composer.tsx
+#: src/features/chats/components/unsent-message.tsx
 msgid "Discard"
 msgstr "Armi"
 
@@ -1426,6 +1433,7 @@ msgstr "Ma rnexxiex jiżdied il-membru"
 #: ../../../lib/web/src/components/comment-share-button.tsx
 #: ../../../lib/web/src/components/ui/copy-button.tsx
 #: ../../../lib/web/src/lib/toast-utils.ts
+#: src/features/chats/index.tsx
 #: src/features/chats/index.tsx
 msgid "Failed to copy"
 msgstr "Ma rnexxiex jiġi kkupjat"
@@ -1985,12 +1993,6 @@ msgstr "Il-messaġġ ma setax jintbagħat. Il-hemżiet jistgħu jkunu kbar wisq,
 #: src/features/chats/index.tsx
 msgid "Message deleted"
 msgstr "Messaġġ imħassar"
-
-#. placeholder {0}: formatNumber(newMessage.length - MESSAGE_MAX_LENGTH)
-#: src/features/chats/components/chat-input.tsx
-#: src/features/chats/index.tsx
-msgid "Message is {0} characters too long"
-msgstr "Il-messaġġ huwa {0} karattri twil wisq"
 
 #: src/features/chats/components/message-quote.tsx
 #: src/features/chats/index.tsx
@@ -2791,6 +2793,7 @@ msgid "Restore"
 msgstr "Restawra"
 
 #: ../../../lib/web/src/components/attachment-composer.tsx
+#: src/features/chats/components/unsent-message.tsx
 msgid "Retry"
 msgstr "Erġa' pprova"
 

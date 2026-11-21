@@ -99,6 +99,18 @@ describe('a thread in its root bubble', () => {
     expect(opened).toHaveBeenCalledWith(shown)
   })
 
+  it('stays under a deleted message, still opening the thread', () => {
+    // THE POINT: the members' replies under a message deleted for everyone
+    // are still there, so its thread is too.
+    const opened = vi.fn()
+    const gone = { ...root(4), body: '', deleted: true } as ChatMessage
+    render(list([gone], opened))
+    expect(screen.getByText('This message was deleted')).toBeInTheDocument()
+    expect(screen.queryByText('Answer r3')).toBeInTheDocument()
+    fireEvent.click(screen.getByText('1 earlier reply'))
+    expect(opened).toHaveBeenCalledWith(gone)
+  })
+
   it('says one earlier reply in the singular, and nothing when all are shown', () => {
     const { unmount } = render(list([root(4)], () => {}))
     expect(screen.getByText('1 earlier reply')).toBeInTheDocument()

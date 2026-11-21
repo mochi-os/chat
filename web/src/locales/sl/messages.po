@@ -154,6 +154,10 @@ msgstr "{newMessageCount, plural, one {Skoči na # novo sporočilo} two {Skoči 
 msgid "{opponentName} offered a draw"
 msgstr "{opponentName} je ponudil neodločeno"
 
+#: src/features/chats/utils.ts
+msgid "{over, plural, one {Message is {count} character too long} other {Message is {count} characters too long}}"
+msgstr "{over, plural, one {Sporočilo je predolgo za {count} znak} two {Sporočilo je predolgo za {count} znaka} few {Sporočilo je predolgo za {count} znake} other {Sporočilo je predolgo za {count} znakov}}"
+
 #: ../../../lib/web/src/components/attachment-composer.tsx
 #: ../../../lib/web/src/components/ui/upload-progress.tsx
 msgid "{sentLabel} of {totalLabel}"
@@ -956,6 +960,7 @@ msgstr "Nadaljuj z {providerLabel}"
 
 #: ../../../lib/web/src/lib/toast-utils.ts
 #: src/features/chats/index.tsx
+#: src/features/chats/index.tsx
 msgid "Copied"
 msgstr "Kopirano"
 
@@ -973,6 +978,7 @@ msgstr "Kopirano v odložišče"
 #: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx
 #: ../../../lib/web/src/components/ui/copy-button.tsx
 #: src/features/chats/components/message-hover-actions.tsx
+#: src/features/chats/components/unsent-message.tsx
 #: src/features/chats/index.tsx
 msgid "Copy"
 msgstr "Kopiraj"
@@ -1222,6 +1228,7 @@ msgid "Disagree"
 msgstr "Ne strinjam se"
 
 #: ../../../lib/web/src/components/comment-composer.tsx
+#: src/features/chats/components/unsent-message.tsx
 msgid "Discard"
 msgstr "Zavrzi"
 
@@ -1426,6 +1433,7 @@ msgstr "Neuspešno dodajanje člana"
 #: ../../../lib/web/src/components/comment-share-button.tsx
 #: ../../../lib/web/src/components/ui/copy-button.tsx
 #: ../../../lib/web/src/lib/toast-utils.ts
+#: src/features/chats/index.tsx
 #: src/features/chats/index.tsx
 msgid "Failed to copy"
 msgstr "Kopiranje ni uspelo"
@@ -1985,12 +1993,6 @@ msgstr "Sporočila ni bilo mogoče poslati. Priloge so morda prevelike ali pa je
 #: src/features/chats/index.tsx
 msgid "Message deleted"
 msgstr "Sporočilo izbrisano"
-
-#. placeholder {0}: formatNumber(newMessage.length - MESSAGE_MAX_LENGTH)
-#: src/features/chats/components/chat-input.tsx
-#: src/features/chats/index.tsx
-msgid "Message is {0} characters too long"
-msgstr "Sporočilo je daljše za {0} znakov"
 
 #: src/features/chats/components/message-quote.tsx
 #: src/features/chats/index.tsx
@@ -2791,6 +2793,7 @@ msgid "Restore"
 msgstr "Obnovi"
 
 #: ../../../lib/web/src/components/attachment-composer.tsx
+#: src/features/chats/components/unsent-message.tsx
 msgid "Retry"
 msgstr "Poskusi znova"
 

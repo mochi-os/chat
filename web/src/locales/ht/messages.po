@@ -154,6 +154,10 @@ msgstr "{newMessageCount, plural, one {Ale nan # nouvo mesaj} other {Ale nan # n
 msgid "{opponentName} offered a draw"
 msgstr "{opponentName} ofri yon egal"
 
+#: src/features/chats/utils.ts
+msgid "{over, plural, one {Message is {count} character too long} other {Message is {count} characters too long}}"
+msgstr "{over, plural, other {Mesaj la gen {count} karaktè twòp}}"
+
 #: ../../../lib/web/src/components/attachment-composer.tsx
 #: ../../../lib/web/src/components/ui/upload-progress.tsx
 msgid "{sentLabel} of {totalLabel}"
@@ -956,6 +960,7 @@ msgstr "Kontinye ak {providerLabel}"
 
 #: ../../../lib/web/src/lib/toast-utils.ts
 #: src/features/chats/index.tsx
+#: src/features/chats/index.tsx
 msgid "Copied"
 msgstr "Kopye"
 
@@ -973,6 +978,7 @@ msgstr "Kopye nan clipboard"
 #: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx
 #: ../../../lib/web/src/components/ui/copy-button.tsx
 #: src/features/chats/components/message-hover-actions.tsx
+#: src/features/chats/components/unsent-message.tsx
 #: src/features/chats/index.tsx
 msgid "Copy"
 msgstr "Kopye"
@@ -1222,6 +1228,7 @@ msgid "Disagree"
 msgstr "Pa dakò"
 
 #: ../../../lib/web/src/components/comment-composer.tsx
+#: src/features/chats/components/unsent-message.tsx
 msgid "Discard"
 msgstr "Jete"
 
@@ -1426,6 +1433,7 @@ msgstr "Echwe pou ajoute manm"
 #: ../../../lib/web/src/components/comment-share-button.tsx
 #: ../../../lib/web/src/components/ui/copy-button.tsx
 #: ../../../lib/web/src/lib/toast-utils.ts
+#: src/features/chats/index.tsx
 #: src/features/chats/index.tsx
 msgid "Failed to copy"
 msgstr "Echwe pou kopye"
@@ -1985,12 +1993,6 @@ msgstr "Mesaj la pa t kapab voye. Pyès jwent yo ka twò gwo, oswa koneksyon ou 
 #: src/features/chats/index.tsx
 msgid "Message deleted"
 msgstr "Mesaj la efase"
-
-#. placeholder {0}: formatNumber(newMessage.length - MESSAGE_MAX_LENGTH)
-#: src/features/chats/components/chat-input.tsx
-#: src/features/chats/index.tsx
-msgid "Message is {0} characters too long"
-msgstr "Mesaj la gen {0} karaktè an twòp"
 
 #: src/features/chats/components/message-quote.tsx
 #: src/features/chats/index.tsx
@@ -2791,6 +2793,7 @@ msgid "Restore"
 msgstr "Retabli"
 
 #: ../../../lib/web/src/components/attachment-composer.tsx
+#: src/features/chats/components/unsent-message.tsx
 msgid "Retry"
 msgstr "Eseye ankò"
 

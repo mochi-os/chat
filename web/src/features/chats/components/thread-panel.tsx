@@ -54,6 +54,8 @@ export function ThreadPanel({
     [query.data?.pages]
   )
   const [body, setBody] = useState('')
+  // No reply goes under a deleted message, though its thread stays to read.
+  const writable = canWrite && !root?.deleted
 
   const send = useMutation({
     mutationFn: (text: string) =>
@@ -137,7 +139,7 @@ export function ThreadPanel({
           )}
         </div>
       </SidePanelBody>
-      {canWrite ? (
+      {writable ? (
         <SidePanelFooter>
           <form onSubmit={submit} className='flex items-end gap-2'>
             <Textarea

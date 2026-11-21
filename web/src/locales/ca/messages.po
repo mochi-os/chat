@@ -154,6 +154,10 @@ msgstr "{newMessageCount, plural, one {Vés a # missatge nou} other {Vés a # mi
 msgid "{opponentName} offered a draw"
 msgstr "{opponentName} ha ofert un empat"
 
+#: src/features/chats/utils.ts
+msgid "{over, plural, one {Message is {count} character too long} other {Message is {count} characters too long}}"
+msgstr "{over, plural, one {El missatge té {count} caràcter de més} other {El missatge té {count} caràcters de més}}"
+
 #: ../../../lib/web/src/components/attachment-composer.tsx
 #: ../../../lib/web/src/components/ui/upload-progress.tsx
 msgid "{sentLabel} of {totalLabel}"
@@ -956,6 +960,7 @@ msgstr "Continua amb {providerLabel}"
 
 #: ../../../lib/web/src/lib/toast-utils.ts
 #: src/features/chats/index.tsx
+#: src/features/chats/index.tsx
 msgid "Copied"
 msgstr "Copiat"
 
@@ -973,6 +978,7 @@ msgstr "Copiat al porta-retalls"
 #: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx
 #: ../../../lib/web/src/components/ui/copy-button.tsx
 #: src/features/chats/components/message-hover-actions.tsx
+#: src/features/chats/components/unsent-message.tsx
 #: src/features/chats/index.tsx
 msgid "Copy"
 msgstr "Copia"
@@ -1222,6 +1228,7 @@ msgid "Disagree"
 msgstr "No hi estic d'acord"
 
 #: ../../../lib/web/src/components/comment-composer.tsx
+#: src/features/chats/components/unsent-message.tsx
 msgid "Discard"
 msgstr "Descarta"
 
@@ -1426,6 +1433,7 @@ msgstr "No s'ha pogut afegir el membre"
 #: ../../../lib/web/src/components/comment-share-button.tsx
 #: ../../../lib/web/src/components/ui/copy-button.tsx
 #: ../../../lib/web/src/lib/toast-utils.ts
+#: src/features/chats/index.tsx
 #: src/features/chats/index.tsx
 msgid "Failed to copy"
 msgstr "No s'ha pogut copiar"
@@ -1985,12 +1993,6 @@ msgstr "No s'ha pogut enviar el missatge. Pot ser que els fitxers adjunts siguin
 #: src/features/chats/index.tsx
 msgid "Message deleted"
 msgstr "Missatge suprimit"
-
-#. placeholder {0}: formatNumber(newMessage.length - MESSAGE_MAX_LENGTH)
-#: src/features/chats/components/chat-input.tsx
-#: src/features/chats/index.tsx
-msgid "Message is {0} characters too long"
-msgstr "El missatge té {0} caràcters de més"
 
 #: src/features/chats/components/message-quote.tsx
 #: src/features/chats/index.tsx
@@ -2791,6 +2793,7 @@ msgid "Restore"
 msgstr "Restaura"
 
 #: ../../../lib/web/src/components/attachment-composer.tsx
+#: src/features/chats/components/unsent-message.tsx
 msgid "Retry"
 msgstr "Torna-ho a provar"
 

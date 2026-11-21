@@ -154,6 +154,10 @@ msgstr "{newMessageCount, plural, zero {الانتقال إلى # رسالة ج�
 msgid "{opponentName} offered a draw"
 msgstr "عرض {opponentName} التعادل"
 
+#: src/features/chats/utils.ts
+msgid "{over, plural, one {Message is {count} character too long} other {Message is {count} characters too long}}"
+msgstr "{over, plural, zero {الرسالة أطول من الحد بمقدار {count} حرف} one {الرسالة أطول من الحد بمقدار {count} حرف} two {الرسالة أطول من الحد بمقدار {count} حرفين} few {الرسالة أطول من الحد بمقدار {count} أحرف} many {الرسالة أطول من الحد بمقدار {count} حرفًا} other {الرسالة أطول من الحد بمقدار {count} حرف}}"
+
 #: ../../../lib/web/src/components/attachment-composer.tsx
 #: ../../../lib/web/src/components/ui/upload-progress.tsx
 msgid "{sentLabel} of {totalLabel}"
@@ -956,6 +960,7 @@ msgstr "المتابعة باستخدام {providerLabel}"
 
 #: ../../../lib/web/src/lib/toast-utils.ts
 #: src/features/chats/index.tsx
+#: src/features/chats/index.tsx
 msgid "Copied"
 msgstr "تم النسخ"
 
@@ -973,6 +978,7 @@ msgstr "تم النسخ إلى الحافظة"
 #: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx
 #: ../../../lib/web/src/components/ui/copy-button.tsx
 #: src/features/chats/components/message-hover-actions.tsx
+#: src/features/chats/components/unsent-message.tsx
 #: src/features/chats/index.tsx
 msgid "Copy"
 msgstr "نسخ"
@@ -1222,6 +1228,7 @@ msgid "Disagree"
 msgstr "غير موافق"
 
 #: ../../../lib/web/src/components/comment-composer.tsx
+#: src/features/chats/components/unsent-message.tsx
 msgid "Discard"
 msgstr "تجاهل"
 
@@ -1426,6 +1433,7 @@ msgstr "فشل إضافة العضو"
 #: ../../../lib/web/src/components/comment-share-button.tsx
 #: ../../../lib/web/src/components/ui/copy-button.tsx
 #: ../../../lib/web/src/lib/toast-utils.ts
+#: src/features/chats/index.tsx
 #: src/features/chats/index.tsx
 msgid "Failed to copy"
 msgstr "فشل النسخ"
@@ -1985,12 +1993,6 @@ msgstr "تعذر إرسال الرسالة. قد تكون المرفقات كب�
 #: src/features/chats/index.tsx
 msgid "Message deleted"
 msgstr "تم حذف الرسالة"
-
-#. placeholder {0}: formatNumber(newMessage.length - MESSAGE_MAX_LENGTH)
-#: src/features/chats/components/chat-input.tsx
-#: src/features/chats/index.tsx
-msgid "Message is {0} characters too long"
-msgstr "الرسالة أطول بمقدار {0} حرف"
 
 #: src/features/chats/components/message-quote.tsx
 #: src/features/chats/index.tsx
@@ -2791,6 +2793,7 @@ msgid "Restore"
 msgstr "استعادة"
 
 #: ../../../lib/web/src/components/attachment-composer.tsx
+#: src/features/chats/components/unsent-message.tsx
 msgid "Retry"
 msgstr "إعادة المحاولة"
 

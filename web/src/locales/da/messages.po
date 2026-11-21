@@ -154,6 +154,10 @@ msgstr "{newMessageCount, plural, one {Hop til # ny besked} other {Hop til # nye
 msgid "{opponentName} offered a draw"
 msgstr "{opponentName} tilbød remis"
 
+#: src/features/chats/utils.ts
+msgid "{over, plural, one {Message is {count} character too long} other {Message is {count} characters too long}}"
+msgstr "{over, plural, one {Beskeden er {count} tegn for lang} other {Beskeden er {count} tegn for lang}}"
+
 #: ../../../lib/web/src/components/attachment-composer.tsx
 #: ../../../lib/web/src/components/ui/upload-progress.tsx
 msgid "{sentLabel} of {totalLabel}"
@@ -956,6 +960,7 @@ msgstr "Fortsæt med {providerLabel}"
 
 #: ../../../lib/web/src/lib/toast-utils.ts
 #: src/features/chats/index.tsx
+#: src/features/chats/index.tsx
 msgid "Copied"
 msgstr "Kopieret"
 
@@ -973,6 +978,7 @@ msgstr "Kopieret til udklipsholder"
 #: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx
 #: ../../../lib/web/src/components/ui/copy-button.tsx
 #: src/features/chats/components/message-hover-actions.tsx
+#: src/features/chats/components/unsent-message.tsx
 #: src/features/chats/index.tsx
 msgid "Copy"
 msgstr "Kopier"
@@ -1222,6 +1228,7 @@ msgid "Disagree"
 msgstr "Uenig"
 
 #: ../../../lib/web/src/components/comment-composer.tsx
+#: src/features/chats/components/unsent-message.tsx
 msgid "Discard"
 msgstr "Kassér"
 
@@ -1426,6 +1433,7 @@ msgstr "Kunne ikke tilføje medlem"
 #: ../../../lib/web/src/components/comment-share-button.tsx
 #: ../../../lib/web/src/components/ui/copy-button.tsx
 #: ../../../lib/web/src/lib/toast-utils.ts
+#: src/features/chats/index.tsx
 #: src/features/chats/index.tsx
 msgid "Failed to copy"
 msgstr "Kunne ikke kopiere"
@@ -1985,12 +1993,6 @@ msgstr "Beskeden kunne ikke sendes. Vedhæftningerne kan være for store, eller 
 #: src/features/chats/index.tsx
 msgid "Message deleted"
 msgstr "Besked slettet"
-
-#. placeholder {0}: formatNumber(newMessage.length - MESSAGE_MAX_LENGTH)
-#: src/features/chats/components/chat-input.tsx
-#: src/features/chats/index.tsx
-msgid "Message is {0} characters too long"
-msgstr "Beskeden er {0} tegn for lang"
 
 #: src/features/chats/components/message-quote.tsx
 #: src/features/chats/index.tsx
@@ -2791,6 +2793,7 @@ msgid "Restore"
 msgstr "Gendan"
 
 #: ../../../lib/web/src/components/attachment-composer.tsx
+#: src/features/chats/components/unsent-message.tsx
 msgid "Retry"
 msgstr "Prøv igen"
 

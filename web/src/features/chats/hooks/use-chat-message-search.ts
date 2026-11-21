@@ -5,7 +5,7 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { useQueryWithError } from '@mochi/web'
 import { chatsApi } from '@/api/chats'
-import type { ChatSearchResult } from '@/api/types/chats'
+import type { ChatMessage, ChatSearchResult } from '@/api/types/chats'
 
 const DEBOUNCE_MS = 300
 
@@ -45,6 +45,15 @@ export function useChatMessageSearch(chatId?: string, enabled = true) {
   const matches: ChatSearchResult[] = useMemo(
     () => searchQuery.data?.results ?? [],
     [searchQuery.data?.results]
+  )
+
+  // The messages the threads of the matches that are replies are under.
+  const roots = useMemo(
+    () =>
+      new Map<string, ChatMessage>(
+        (searchQuery.data?.roots ?? []).map((root) => [root.id, root])
+      ),
+    [searchQuery.data?.roots]
   )
 
   useEffect(() => {
@@ -95,6 +104,7 @@ export function useChatMessageSearch(chatId?: string, enabled = true) {
     activeMatch,
     activeMatchId,
     matchedMessageIds,
+    roots,
     goOlder,
     goNewer,
     isSearching: searchQuery.isFetching,

@@ -154,6 +154,10 @@ msgstr "{newMessageCount, plural, one {پرش به # پیام جدید} other {�
 msgid "{opponentName} offered a draw"
 msgstr "{opponentName} پیشنهاد مساوی داد"
 
+#: src/features/chats/utils.ts
+msgid "{over, plural, one {Message is {count} character too long} other {Message is {count} characters too long}}"
+msgstr "{over, plural, one {پیام {count} نویسه از حد مجاز طولانی‌تر است} other {پیام {count} نویسه از حد مجاز طولانی‌تر است}}"
+
 #: ../../../lib/web/src/components/attachment-composer.tsx
 #: ../../../lib/web/src/components/ui/upload-progress.tsx
 msgid "{sentLabel} of {totalLabel}"
@@ -956,6 +960,7 @@ msgstr "ادامه با {providerLabel}"
 
 #: ../../../lib/web/src/lib/toast-utils.ts
 #: src/features/chats/index.tsx
+#: src/features/chats/index.tsx
 msgid "Copied"
 msgstr "کپی شد"
 
@@ -973,6 +978,7 @@ msgstr "در کلیپ‌بورد کپی شد"
 #: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx
 #: ../../../lib/web/src/components/ui/copy-button.tsx
 #: src/features/chats/components/message-hover-actions.tsx
+#: src/features/chats/components/unsent-message.tsx
 #: src/features/chats/index.tsx
 msgid "Copy"
 msgstr "کپی"
@@ -1222,6 +1228,7 @@ msgid "Disagree"
 msgstr "مخالفم"
 
 #: ../../../lib/web/src/components/comment-composer.tsx
+#: src/features/chats/components/unsent-message.tsx
 msgid "Discard"
 msgstr "دور انداختن"
 
@@ -1426,6 +1433,7 @@ msgstr "افزودن عضو ناموفق بود"
 #: ../../../lib/web/src/components/comment-share-button.tsx
 #: ../../../lib/web/src/components/ui/copy-button.tsx
 #: ../../../lib/web/src/lib/toast-utils.ts
+#: src/features/chats/index.tsx
 #: src/features/chats/index.tsx
 msgid "Failed to copy"
 msgstr "کپی ناموفق بود"
@@ -1985,12 +1993,6 @@ msgstr "پیام ارسال نشد. ممکن است پیوست‌ها بیش ا�
 #: src/features/chats/index.tsx
 msgid "Message deleted"
 msgstr "پیام حذف شد"
-
-#. placeholder {0}: formatNumber(newMessage.length - MESSAGE_MAX_LENGTH)
-#: src/features/chats/components/chat-input.tsx
-#: src/features/chats/index.tsx
-msgid "Message is {0} characters too long"
-msgstr "پیام {0} نویسه طولانی‌تر است"
 
 #: src/features/chats/components/message-quote.tsx
 #: src/features/chats/index.tsx
@@ -2791,6 +2793,7 @@ msgid "Restore"
 msgstr "بازیابی"
 
 #: ../../../lib/web/src/components/attachment-composer.tsx
+#: src/features/chats/components/unsent-message.tsx
 msgid "Retry"
 msgstr "تلاش دوباره"
 

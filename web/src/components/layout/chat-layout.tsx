@@ -30,7 +30,11 @@ import {
 import { personAssetUrl } from '@/api/person'
 import { chatActive } from '@/api/types/chats'
 import { SidebarProvider, useSidebarContext } from '@/context/sidebar-context'
-import { useChatsQuery, useMarkChatReadMutation } from '@/hooks/useChats'
+import {
+  useChatListLive,
+  useChatsQuery,
+  useMarkChatReadMutation,
+} from '@/hooks/useChats'
 import { ChatSettingsDialog } from '@/features/chats/components/chat-settings-dialog'
 import { NewChat } from '@/features/chats/components/new-chat'
 import { VerificationWatcher } from '@/features/chats/components/verification-watcher'
@@ -162,7 +166,9 @@ function WebsocketStatusIndicator() {
 function ChatLayoutInner() {
   const { t } = useLingui()
   const { formatNumber } = useFormat()
-  const chatsQuery = useChatsQuery({ refetchInterval: 60_000 })
+  // Current from the user's own socket; on a timer only while it is down.
+  const listLive = useChatListLive()
+  const chatsQuery = useChatsQuery({ refetchInterval: listLive ? false : 60_000 })
   const chats = useMemo(
     () => chatsQuery.data?.chats ?? [],
     [chatsQuery.data?.chats]

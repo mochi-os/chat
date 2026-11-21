@@ -56,8 +56,8 @@ import {
   Music,
   Image as ImageIcon,
 } from 'lucide-react'
-import { MESSAGE_MAX_LENGTH } from '../constants/limits'
-import type { PendingAttachment } from '../utils'
+import { MESSAGE_MAX_LENGTH, messageLength } from '../constants/limits'
+import { tooLong, type PendingAttachment } from '../utils'
 import type { ReplyTarget } from '../utils/reply'
 import { VoiceNotePlayer } from './audio-player'
 import { ReplyQuoteContent } from './reply-quote-content'
@@ -124,6 +124,8 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(
   ) {
     const { t } = useLingui()
     const { formatNumber } = useFormat()
+    // Counted as the server counts it, in code points.
+    const length = messageLength(newMessage)
     const fileInputRef = useRef<HTMLInputElement | null>(null)
     const mediaInputRef = useRef<HTMLInputElement | null>(null)
     const audioInputRef = useRef<HTMLInputElement | null>(null)
@@ -876,18 +878,18 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(
         {isSending && <UploadProgress progress={sendProgress ?? null} />}
         {/* Shown only as the limit approaches, so it isn't noise on every
           message, and turns red once the send is actually blocked. */}
-        {newMessage.length >= MESSAGE_COUNTER_FROM && (
+        {length >= MESSAGE_COUNTER_FROM && (
           <p
             className={cn(
               'w-full pe-2 text-end text-xs tabular-nums',
-              newMessage.length > MESSAGE_MAX_LENGTH
+              length > MESSAGE_MAX_LENGTH
                 ? 'text-destructive'
                 : 'text-muted-foreground'
             )}
           >
-            {newMessage.length > MESSAGE_MAX_LENGTH
-              ? t`Message is ${formatNumber(newMessage.length - MESSAGE_MAX_LENGTH)} characters too long`
-              : `${formatNumber(newMessage.length)}/${formatNumber(MESSAGE_MAX_LENGTH)}`}
+            {length > MESSAGE_MAX_LENGTH
+              ? tooLong(length - MESSAGE_MAX_LENGTH, formatNumber)
+              : `${formatNumber(length)}/${formatNumber(MESSAGE_MAX_LENGTH)}`}
           </p>
         )}
         {sendMessageErrorMessage && (

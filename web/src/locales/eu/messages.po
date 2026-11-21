@@ -154,6 +154,10 @@ msgstr "{newMessageCount, plural, one {Joan mezu berri batera} other {Joan # mez
 msgid "{opponentName} offered a draw"
 msgstr "{opponentName}-(e)k berdinketa eskaini du"
 
+#: src/features/chats/utils.ts
+msgid "{over, plural, one {Message is {count} character too long} other {Message is {count} characters too long}}"
+msgstr "{over, plural, one {Mezuak {count} karaktere gehiegi ditu} other {Mezuak {count} karaktere gehiegi ditu}}"
+
 #: ../../../lib/web/src/components/attachment-composer.tsx
 #: ../../../lib/web/src/components/ui/upload-progress.tsx
 msgid "{sentLabel} of {totalLabel}"
@@ -956,6 +960,7 @@ msgstr "Jarraitu {providerLabel} erabiliz"
 
 #: ../../../lib/web/src/lib/toast-utils.ts
 #: src/features/chats/index.tsx
+#: src/features/chats/index.tsx
 msgid "Copied"
 msgstr "Kopiatuta"
 
@@ -973,6 +978,7 @@ msgstr "Arbelera kopiatu da"
 #: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx
 #: ../../../lib/web/src/components/ui/copy-button.tsx
 #: src/features/chats/components/message-hover-actions.tsx
+#: src/features/chats/components/unsent-message.tsx
 #: src/features/chats/index.tsx
 msgid "Copy"
 msgstr "Kopiatu"
@@ -1222,6 +1228,7 @@ msgid "Disagree"
 msgstr "Ez ados"
 
 #: ../../../lib/web/src/components/comment-composer.tsx
+#: src/features/chats/components/unsent-message.tsx
 msgid "Discard"
 msgstr "Baztertu"
 
@@ -1426,6 +1433,7 @@ msgstr "Ezin izan da kidea gehitu"
 #: ../../../lib/web/src/components/comment-share-button.tsx
 #: ../../../lib/web/src/components/ui/copy-button.tsx
 #: ../../../lib/web/src/lib/toast-utils.ts
+#: src/features/chats/index.tsx
 #: src/features/chats/index.tsx
 msgid "Failed to copy"
 msgstr "Ezin izan da kopiatu"
@@ -1985,12 +1993,6 @@ msgstr "Ezin izan da mezua bidali. Baliteke eranskinak handiegiak izatea edo kon
 #: src/features/chats/index.tsx
 msgid "Message deleted"
 msgstr "Mezua ezabatu da"
-
-#. placeholder {0}: formatNumber(newMessage.length - MESSAGE_MAX_LENGTH)
-#: src/features/chats/components/chat-input.tsx
-#: src/features/chats/index.tsx
-msgid "Message is {0} characters too long"
-msgstr "Mezua {0} karaktere luzeegia da"
 
 #: src/features/chats/components/message-quote.tsx
 #: src/features/chats/index.tsx
@@ -2791,6 +2793,7 @@ msgid "Restore"
 msgstr "Berrezarri"
 
 #: ../../../lib/web/src/components/attachment-composer.tsx
+#: src/features/chats/components/unsent-message.tsx
 msgid "Retry"
 msgstr "Saiatu berriro"
 

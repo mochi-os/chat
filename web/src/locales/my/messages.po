@@ -154,6 +154,10 @@ msgstr "{newMessageCount, plural, other {မက်ဆေ့ဂျ်အသစ်
 msgid "{opponentName} offered a draw"
 msgstr "{opponentName} က သရေ ပေးခဲ့သည်"
 
+#: src/features/chats/utils.ts
+msgid "{over, plural, one {Message is {count} character too long} other {Message is {count} characters too long}}"
+msgstr "{over, plural, other {မက်ဆေ့ချ်သည် စာလုံး {count} လုံး ပိုရှည်နေသည်}}"
+
 #: ../../../lib/web/src/components/attachment-composer.tsx
 #: ../../../lib/web/src/components/ui/upload-progress.tsx
 msgid "{sentLabel} of {totalLabel}"
@@ -956,6 +960,7 @@ msgstr "{providerLabel} ဖြင့် ဆက်လုပ်မည်"
 
 #: ../../../lib/web/src/lib/toast-utils.ts
 #: src/features/chats/index.tsx
+#: src/features/chats/index.tsx
 msgid "Copied"
 msgstr "ကူးယူပြီးပါပြီ"
 
@@ -973,6 +978,7 @@ msgstr "ကလစ်ဘုတ်သို့ ကူးပြီး"
 #: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx
 #: ../../../lib/web/src/components/ui/copy-button.tsx
 #: src/features/chats/components/message-hover-actions.tsx
+#: src/features/chats/components/unsent-message.tsx
 #: src/features/chats/index.tsx
 msgid "Copy"
 msgstr "ကူးမည်"
@@ -1222,6 +1228,7 @@ msgid "Disagree"
 msgstr "သဘောမတူပါ"
 
 #: ../../../lib/web/src/components/comment-composer.tsx
+#: src/features/chats/components/unsent-message.tsx
 msgid "Discard"
 msgstr "ဖျက်ပစ်ရန်"
 
@@ -1426,6 +1433,7 @@ msgstr "အဖွဲ့ဝင် ထည့်၍ မရပါ"
 #: ../../../lib/web/src/components/comment-share-button.tsx
 #: ../../../lib/web/src/components/ui/copy-button.tsx
 #: ../../../lib/web/src/lib/toast-utils.ts
+#: src/features/chats/index.tsx
 #: src/features/chats/index.tsx
 msgid "Failed to copy"
 msgstr "ကူးယူ၍ မရပါ"
@@ -1985,12 +1993,6 @@ msgstr "မက်ဆေ့ဂျ် ပို့၍မရပါ။ ပူးတ�
 #: src/features/chats/index.tsx
 msgid "Message deleted"
 msgstr "မက်ဆေ့ဂျ်ကို ဖျက်ပြီးပါပြီ"
-
-#. placeholder {0}: formatNumber(newMessage.length - MESSAGE_MAX_LENGTH)
-#: src/features/chats/components/chat-input.tsx
-#: src/features/chats/index.tsx
-msgid "Message is {0} characters too long"
-msgstr "မက်ဆေ့ဂျ်သည် စာလုံး {0} လုံး ပိုရှည်နေသည်"
 
 #: src/features/chats/components/message-quote.tsx
 #: src/features/chats/index.tsx
@@ -2791,6 +2793,7 @@ msgid "Restore"
 msgstr "ပြန်ဆယ်ယူ"
 
 #: ../../../lib/web/src/components/attachment-composer.tsx
+#: src/features/chats/components/unsent-message.tsx
 msgid "Retry"
 msgstr "ထပ်စမ်းကြည့်ပါ"
 

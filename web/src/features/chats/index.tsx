@@ -95,11 +95,13 @@ import { ChatSearchHeader } from './components/chat-search-header'
 import { ChatSkeleton } from './components/chat-skeleton'
 import { ForwardDialog } from './components/forward-dialog'
 import { ThreadPanel } from './components/thread-panel'
+import { UnsentMessage } from './components/unsent-message'
 import {
   BULK_MESSAGES_MAX,
   CAPTIONS_MAX,
   MENTIONS_MAX,
   MESSAGE_MAX_LENGTH,
+  messageLength,
 } from './constants/limits'
 import { useChatMessageSearch } from './hooks/use-chat-message-search'
 import {
@@ -111,6 +113,10 @@ import {
   revokePendingAttachmentPreview,
   sendRefusal,
   resolveChatView,
+  restoresInto,
+  matchRoot,
+  heldRoot,
+  tooLong,
 } from './utils'
 import {
   canPersistComposerDraft,
@@ -119,6 +125,22 @@ import {
 import { shouldDiscardMessageEdit } from './utils/message-edit-session'
 import { type ReplyTarget, messageToReplyTarget } from './utils/reply'
 import { useTyping } from './utils/typing'
+
+// A message as it leaves the composer: what goes again if its send fails.
+interface Outgoing {
+  chatId: string
+  body: string
+  attachments: PendingAttachment[]
+  replyTo: ReplyTarget | null
+  mentions: { id: string; name: string }[]
+  mentionIds: string[]
+}
+
+// A message whose send failed while the composer held the next one, and why.
+interface Unsent extends Outgoing {
+  key: number
+  error: string
+}
 
 // How long a chat must sit in front of the reader, pinned to the newest
 // message, before the arriving message counts as read. Long enough that a
@@ -751,7 +773,7 @@ export function Chats() {
 
     const body = editingBody.trim()
     if (!body) return
-    if (body.length > MESSAGE_MAX_LENGTH) return
+    if (messageLength(body) > MESSAGE_MAX_LENGTH) return
     if (body === editingMessage.body?.trim()) {
       handleCancelEdit()
       return
@@ -889,24 +911,33 @@ export function Chats() {
     }
   }, [])
 
-  const activeScrollTargetId =
-    messageSearch.isSearchOpen && messageSearch.activeMatchId
+  // A match that is a reply in a thread is never on the main timeline, so
+  // its thread opens rather than the list paging for it; only a match of the
+  // main timeline is scrolled to.
+  const threadMatch = messageSearch.isSearchOpen
+    ? messageSearch.activeMatch?.thread || null
+    : null
+  const timelineMatchId =
+    messageSearch.isSearchOpen && !threadMatch
       ? messageSearch.activeMatchId
-      : scrollToMessageId
+      : null
+
+  useEffect(() => {
+    const root = matchRoot(threadMatch, chatMessages, messageSearch.roots)
+    if (root) setThreadRoot((open) => (open?.id === root.id ? open : root))
+  }, [threadMatch, chatMessages, messageSearch.roots])
+
+  const activeScrollTargetId =
+    timelineMatchId ?? (threadMatch ? null : scrollToMessageId)
 
   const scrollToMessageEnabled = Boolean(
-    (messageSearch.isSearchOpen && messageSearch.activeMatchId) ||
-    scrollToMessageId
+    timelineMatchId || (!threadMatch && scrollToMessageId)
   )
 
   useEffect(() => {
-    if (!messageSearch.isSearchOpen || !messageSearch.activeMatchId) return
-    void ensureMatchVisible(messageSearch.activeMatchId)
-  }, [
-    messageSearch.isSearchOpen,
-    messageSearch.activeMatchId,
-    ensureMatchVisible,
-  ])
+    if (!timelineMatchId) return
+    void ensureMatchVisible(timelineMatchId)
+  }, [timelineMatchId, ensureMatchVisible])
 
   const openSearch = messageSearch.openSearch
   const isChatActive = Boolean(selectedChat && chatActive(selectedChat))
@@ -936,16 +967,6 @@ export function Chats() {
   const { progress: sendProgress, upload } = useUploadProgress()
 
   const sendMessageMutation = useSendMessageMutation({
-    onSuccess: () => {
-      setNewMessage('')
-      setReplyTo(null)
-      setSelectedMentions([])
-      clearAttachments()
-      if (selectedChat) {
-        clearDraft(selectedChat.id)
-        setChatDraftPresent(selectedChat.id, false)
-      }
-    },
     onError: (error) => {
       if (!isAttachmentPayloadTooLargeError(error)) return
       toast.error(
@@ -953,6 +974,19 @@ export function Chats() {
       )
     },
   })
+
+  // Messages whose send failed while the composer held the next one, each to
+  // retry, copy or discard; listed under the chat they were sent to.
+  const [unsent, setUnsent] = useState<Unsent[]>([])
+  const unsentKey = useRef(0)
+  // The composer as it stands, for a send that fails after it was cleared.
+  const composer = useRef({ chatId: '', newMessage, pendingAttachments, replyTo })
+  composer.current = {
+    chatId: selectedChat?.id ?? '',
+    newMessage,
+    pendingAttachments,
+    replyTo,
+  }
 
   // Leave chat
   const leaveChatMutation = useLeaveChatMutation({
@@ -1044,11 +1078,6 @@ export function Chats() {
     setWebsocketStatus(status, retries)
   }, [status, retries, setWebsocketStatus])
 
-  const clearAttachments = () => {
-    pendingAttachments.forEach(revokePendingAttachmentPreview)
-    setPendingAttachments([])
-  }
-
   const handleAttachmentSelection = (
     e: React.ChangeEvent<HTMLInputElement>
   ) => {
@@ -1129,6 +1158,86 @@ export function Chats() {
     })
   }
 
+  // A message goes as the send starts: its text, files, reply target and
+  // mentions leave the composer, so whatever is typed meanwhile is the next
+  // message. A send that fails puts them back while the composer is still
+  // empty, and lists the message as unsent otherwise.
+  const send = (outgoing: Outgoing) => {
+    const variables = {
+      chatId: outgoing.chatId,
+      body: outgoing.body.trim(),
+      reply: outgoing.replyTo?.id,
+      attachments: outgoing.attachments.map((a) => a.file),
+      mentions: outgoing.mentionIds,
+      captions: outgoing.attachments.some((a) => a.playable)
+        ? outgoing.attachments.map((a) => {
+            if (a.playable === 'voice') {
+              return `voice:${Math.round(a.duration ?? 0)}`
+            }
+            if (a.playable === 'audio') {
+              return `audio:${Math.round(a.duration ?? 0)}`
+            }
+            return ''
+          })
+        : undefined,
+    }
+    // Attachments ride a multipart upload — track its byte progress. Sizes
+    // come off the same array the FormData is built from, voice notes
+    // included — the composer hides those, but they are still on the wire.
+    const sent =
+      outgoing.attachments.length > 0
+        ? upload(
+            (onProgress) =>
+              sendMessageMutation.mutateAsync({ ...variables, onProgress }),
+            { sizes: variables.attachments.map((file) => file.size) }
+          )
+        : sendMessageMutation.mutateAsync(variables)
+    sent.then(
+      () => outgoing.attachments.forEach(revokePendingAttachmentPreview),
+      (error: unknown) => {
+        if (restoresInto(composer.current, outgoing.chatId)) {
+          // Back into the empty composer, the failure said under it.
+          setNewMessage(outgoing.body)
+          setPendingAttachments(outgoing.attachments)
+          setReplyTo(outgoing.replyTo)
+          setSelectedMentions(outgoing.mentions)
+          return
+        }
+        // The composer holds the next message: this one is listed, saying
+        // why itself.
+        sendMessageMutation.reset()
+        setUnsent((list) => [
+          ...list,
+          {
+            ...outgoing,
+            key: unsentKey.current++,
+            error: getSendAttachmentErrorMessage(
+              error,
+              sendAttachmentErrorMessages
+            ),
+          },
+        ])
+      }
+    )
+  }
+
+  const retryUnsent = (message: Unsent) => {
+    if (sendMessageMutation.isPending) return
+    setUnsent((list) => list.filter((m) => m.key !== message.key))
+    send(message)
+  }
+
+  const discardUnsent = (message: Unsent) => {
+    message.attachments.forEach(revokePendingAttachmentPreview)
+    setUnsent((list) => list.filter((m) => m.key !== message.key))
+  }
+
+  const copyUnsent = async (message: Unsent) => {
+    const ok = await shellClipboardWrite(message.body.trim())
+    if (ok) toast.success(t`Copied`)
+    else toast.error(t`Failed to copy`)
+  }
+
   // The composer prevents the form's default before calling this, so the
   // event itself was never used here.
   const handleSendMessage = () => {
@@ -1152,7 +1261,7 @@ export function Chats() {
     }
     if (refusal === 'length') {
       toast.error(
-        t`Message is ${formatNumber(newMessage.length - MESSAGE_MAX_LENGTH)} characters too long`
+        tooLong(messageLength(newMessage) - MESSAGE_MAX_LENGTH, formatNumber)
       )
       return
     }
@@ -1202,38 +1311,23 @@ export function Chats() {
       }
     }
 
-    const variables = {
+    const outgoing: Outgoing = {
       chatId: selectedChat.id,
-      body,
-      reply: replyTo?.id,
-      attachments: pendingAttachments.map((a) => a.file),
-      mentions,
-      captions: pendingAttachments.some((a) => a.playable)
-        ? pendingAttachments.map((a) => {
-            if (a.playable === 'voice') {
-              return `voice:${Math.round(a.duration ?? 0)}`
-            }
-            if (a.playable === 'audio') {
-              return `audio:${Math.round(a.duration ?? 0)}`
-            }
-            return ''
-          })
-        : undefined,
+      body: newMessage,
+      attachments: pendingAttachments,
+      replyTo,
+      mentions: selectedMentions,
+      mentionIds: mentions,
     }
-    if (pendingAttachments.length > 0) {
-      // Attachments ride a multipart upload — track its byte progress. The
-      // rejection is swallowed because errors already land in the mutation's
-      // error state and onError, same as the fire-and-forget mutate below.
-      void upload(
-        (onProgress) =>
-          sendMessageMutation.mutateAsync({ ...variables, onProgress }),
-        // Sizes come off the same array the FormData is built from, voice notes
-        // included — the composer hides those, but they are still on the wire.
-        { sizes: variables.attachments.map((file) => file.size) }
-      ).catch(() => {})
-    } else {
-      sendMessageMutation.mutate(variables)
-    }
+    // Out of the composer now; its previews stay with the message until it
+    // has gone or been discarded.
+    setNewMessage('')
+    setReplyTo(null)
+    setSelectedMentions([])
+    setPendingAttachments([])
+    clearDraft(selectedChat.id)
+    setChatDraftPresent(selectedChat.id, false)
+    send(outgoing)
   }
 
   // Length is checked here rather than capping the textarea: a maxLength would
@@ -1249,7 +1343,7 @@ export function Chats() {
     (isEditingSaving ||
       !editingBody.trim() ||
       editingBody.trim() === editingMessage.body?.trim() ||
-      editingBody.length > MESSAGE_MAX_LENGTH)
+      messageLength(editingBody) > MESSAGE_MAX_LENGTH)
 
   const isSendDisabled = !canSendMessage
 
@@ -1428,13 +1522,11 @@ export function Chats() {
             searchActive={messageSearch.isSearchOpen}
             searchQuery={messageSearch.debouncedQuery}
             matchedMessageIds={messageSearch.matchedMessageIds}
-            activeMatchId={messageSearch.activeMatchId}
+            activeMatchId={timelineMatchId}
             scrollToMessageId={activeScrollTargetId}
             scrollToMessageEnabled={scrollToMessageEnabled}
             highlightMessageId={
-              messageSearch.isSearchOpen
-                ? messageSearch.activeMatchId
-                : highlightMessageId
+              messageSearch.isSearchOpen ? timelineMatchId : highlightMessageId
             }
             onEnsureMatchVisible={(id) => {
               void ensureMatchVisible(id)
@@ -1602,6 +1694,20 @@ export function Chats() {
                 })}
               </p>
             ) : null}
+            {unsent
+              .filter((message) => message.chatId === selectedChat.id)
+              .map((message) => (
+                <UnsentMessage
+                  key={message.key}
+                  body={message.body}
+                  files={message.attachments.length}
+                  error={message.error}
+                  retryDisabled={sendMessageMutation.isPending}
+                  onRetry={() => retryUnsent(message)}
+                  onCopy={() => void copyUnsent(message)}
+                  onDiscard={() => discardUnsent(message)}
+                />
+              ))}
             <ChatInput
               key={selectedChat.id}
               ref={chatInputRef}
@@ -1637,7 +1743,7 @@ export function Chats() {
       {selectedChat ? (
         <ThreadPanel
           chatId={selectedChat.id}
-          root={threadRoot}
+          root={heldRoot(threadRoot, chatMessages)}
           currentUserIdentity={currentUserIdentity}
           canWrite={chatActive(selectedChat)}
           onClose={() => setThreadRoot(null)}

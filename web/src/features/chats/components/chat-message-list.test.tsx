@@ -155,10 +155,11 @@ describe('ChatMessageList', () => {
     expect(opened).toHaveBeenCalledWith(root)
   })
 
-  it('shows no thread in a message deleted while its count stands', () => {
+  it('keeps the thread of a message deleted while its count stands', () => {
+    // The replies under it are still there to read.
     threaded(() => {}, { deleted: true })
     expect(screen.getByText('This message was deleted')).toBeInTheDocument()
-    expect(screen.queryByText('The first answer')).toBeNull()
+    expect(screen.queryByText('The first answer')).toBeInTheDocument()
   })
 
   it('shows no thread where the conversation has none', () => {

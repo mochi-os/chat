@@ -113,12 +113,11 @@ export const MessageBubble = memo(function MessageBubble({
   const isEncrypted =
     Boolean(message.encrypted) && !message.body && !message.attachments?.length
   // Photos in the bubble, its own or its thread's, give it the photo column's
-  // width.
+  // width. A deleted message keeps its thread, and so its thread's photos.
   const hasPhotos =
     attachmentsHaveVisualMedia(message.attachments) ||
     Boolean(
       offers.thread &&
-      !isDeleted &&
       message.answers?.some((answer) =>
         attachmentsHaveVisualMedia(answer.attachments)
       )
@@ -254,8 +253,9 @@ export const MessageBubble = memo(function MessageBubble({
             )}
           </p>
         ) : null}
-        {/* The thread, in the message's own bubble below a rule. */}
-        {offers.thread && message.answers?.length && !isDeleted ? (
+        {/* The thread, in the message's own bubble below a rule: under a
+            deleted message too, whose replies are still there to read. */}
+        {offers.thread && message.answers?.length ? (
           <ThreadReplies
             answers={message.answers}
             replies={message.replies ?? message.answers.length}

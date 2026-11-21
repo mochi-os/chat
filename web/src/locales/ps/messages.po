@@ -154,6 +154,10 @@ msgstr "{newMessageCount, plural, one {# نوي پیغام ته لاړ شئ} oth
 msgid "{opponentName} offered a draw"
 msgstr "{opponentName} مساوي وړاندیز کړل"
 
+#: src/features/chats/utils.ts
+msgid "{over, plural, one {Message is {count} character too long} other {Message is {count} characters too long}}"
+msgstr "{over, plural, one {پیغام {count} توری ډېر اوږد دی} other {پیغام {count} توري ډېر اوږد دی}}"
+
 #: ../../../lib/web/src/components/attachment-composer.tsx
 #: ../../../lib/web/src/components/ui/upload-progress.tsx
 msgid "{sentLabel} of {totalLabel}"
@@ -956,6 +960,7 @@ msgstr "د {providerLabel} سره دوام ورکړئ"
 
 #: ../../../lib/web/src/lib/toast-utils.ts
 #: src/features/chats/index.tsx
+#: src/features/chats/index.tsx
 msgid "Copied"
 msgstr "کاپي شو"
 
@@ -973,6 +978,7 @@ msgstr "په کلیپ بورډ کاپي شو"
 #: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx
 #: ../../../lib/web/src/components/ui/copy-button.tsx
 #: src/features/chats/components/message-hover-actions.tsx
+#: src/features/chats/components/unsent-message.tsx
 #: src/features/chats/index.tsx
 msgid "Copy"
 msgstr "کاپي کړئ"
@@ -1222,6 +1228,7 @@ msgid "Disagree"
 msgstr "موافق نه یم"
 
 #: ../../../lib/web/src/components/comment-composer.tsx
+#: src/features/chats/components/unsent-message.tsx
 msgid "Discard"
 msgstr "ړنګول"
 
@@ -1426,6 +1433,7 @@ msgstr "د غړي اضافه کولو پاتې راغلل"
 #: ../../../lib/web/src/components/comment-share-button.tsx
 #: ../../../lib/web/src/components/ui/copy-button.tsx
 #: ../../../lib/web/src/lib/toast-utils.ts
+#: src/features/chats/index.tsx
 #: src/features/chats/index.tsx
 msgid "Failed to copy"
 msgstr "د کاپي کولو پاتې راغلل"
@@ -1985,12 +1993,6 @@ msgstr "پیغام ونه لېږل شو. ښایي ضمیمې ډېرې لویې �
 #: src/features/chats/index.tsx
 msgid "Message deleted"
 msgstr "پیغام ړنګ شو"
-
-#. placeholder {0}: formatNumber(newMessage.length - MESSAGE_MAX_LENGTH)
-#: src/features/chats/components/chat-input.tsx
-#: src/features/chats/index.tsx
-msgid "Message is {0} characters too long"
-msgstr "پیغام {0} تورې اوږد دی"
 
 #: src/features/chats/components/message-quote.tsx
 #: src/features/chats/index.tsx
@@ -2791,6 +2793,7 @@ msgid "Restore"
 msgstr "بیرته راګرځول"
 
 #: ../../../lib/web/src/components/attachment-composer.tsx
+#: src/features/chats/components/unsent-message.tsx
 msgid "Retry"
 msgstr "بیا هڅه وکړئ"
 

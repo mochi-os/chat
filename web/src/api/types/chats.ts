@@ -166,11 +166,16 @@ export interface ChatSearchResult {
   name: string
   body: string
   created: number
+  // A reply in a thread: the message the thread is under. Empty, or absent
+  // from an older server, on the main timeline.
+  thread?: string
 }
 
 export interface SearchMessagesResponse {
   query: string
   results: ChatSearchResult[]
+  // The messages the threads of the results that are replies are under.
+  roots?: ChatMessage[]
 }
 
 export interface CreateChatRequest {
