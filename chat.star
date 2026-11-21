@@ -4031,14 +4031,26 @@ def linked_reacted(acc, identity, event):
 		mochi.db.execute("update reactions set remote=? where chat=? and message=? and member=?", str(event.get("event", "") or "")[:REMOTE_MAXIMUM], message["chat"], message["id"], member)
 
 def linked_sent(acc, event):
-	"""The id a room gave a message the user sent, by which the room knows it."""
+	"""The id a room gave a message the user sent, by which the room knows it.
+	The room's copy can come back before the send has kept the message's own
+	id, so the message is also found by the key chat sent it under."""
 	chat = linked_find(acc, event.get("conversation"))
 	archive = str(event.get("archive", "") or "")[:REMOTE_MAXIMUM]
 	if not chat or not archive:
 		return
-	message = linked_local(chat["id"], str(event.get("id", "") or ""))
+	remote = str(event.get("id", "") or "")
+	message = linked_local(chat["id"], remote) or linked_keyed(chat["id"], remote)
 	if message:
 		mochi.db.execute("insert or ignore into parts ( message, remote, kind ) values ( ?, ?, 'archive' )", message["id"], archive)
+
+def linked_keyed(chat_id, remote):
+	"""The message of a conversation an id names that chat sent it under -
+	chat| and the message's id, then a file's - which XMPP keeps as the
+	message's id; or None."""
+	keyed = remote.split("|")
+	if len(keyed) < 2 or keyed[0] != "chat" or not mochi.text.valid(keyed[1], "id"):
+		return None
+	return mochi.db.row("select id, thread from messages where chat=? and id=?", chat_id, keyed[1])
 
 def linked_typing(acc, event):
 	"""Someone typing in a conversation, or stopped: shown on its open tabs."""
