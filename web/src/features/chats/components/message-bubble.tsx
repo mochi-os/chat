@@ -14,7 +14,7 @@ import {
   cn,
   useFormat,
 } from '@mochi/web'
-import { Check, CheckCheck } from 'lucide-react'
+import { Check, CheckCheck, ShieldAlert } from 'lucide-react'
 import type { ChatMessage } from '@/api/chats'
 import type { ReactionId } from '../constants/reactions'
 import {
@@ -237,6 +237,23 @@ export const MessageBubble = memo(function MessageBubble({
             ) : null}
           </>
         )}
+        {/* A Matrix message read from a device the user distrusted, or one
+            whose keys do not match: shown, with the warning. */}
+        {message.warning && !isDeleted ? (
+          <p
+            className={cn(
+              'mt-1 flex items-center gap-1 text-xs not-italic',
+              isSent ? 'text-primary-foreground/80' : 'text-destructive'
+            )}
+          >
+            <ShieldAlert className='size-3.5 shrink-0' aria-hidden='true' />
+            {message.warning === 'distrusted' ? (
+              <Trans>Sent from a device you distrusted</Trans>
+            ) : (
+              <Trans>Sent from a device whose keys do not match</Trans>
+            )}
+          </p>
+        ) : null}
         {/* The thread, in the message's own bubble below a rule. */}
         {offers.thread && message.answers?.length && !isDeleted ? (
           <ThreadReplies

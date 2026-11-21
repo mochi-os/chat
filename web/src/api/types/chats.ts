@@ -125,7 +125,12 @@ export interface ChatMessage {
   // and 3 encrypted for other devices only, neither of which can ever be
   // read here.
   encrypted?: number
+  // A Matrix message read from a device the user distrusted, or from one
+  // whose keys do not match those it was sent with: shown with the warning.
+  warning?: MessageWarning
 }
+
+export type MessageWarning = '' | 'distrusted' | 'mismatched'
 
 // How far a member has received and read the conversation: every message up
 // to each time.

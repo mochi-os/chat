@@ -65,6 +65,12 @@ def chat_websocket(key, payload):
 	if key:
 		mochi.websocket.write(key, payload)
 
+# The user's own websocket key, which every page of chat the user has open
+# listens on, apart from each chat's: what changes outside any one chat. Core
+# keeps a user's connections apart from every other user's, so one constant
+# names each user's own.
+USER_KEY = "chat"
+
 def chat_commit_hook(table, kind, row_uid):
 	if not row_uid:
 		return
@@ -83,7 +89,7 @@ def chat_commit_hook(table, kind, row_uid):
 		if message.get("encrypted") and not message.get("edited"):
 			chat_websocket(chat["key"], {"event": "decrypted", "message": row_uid})
 			return
-		chat_websocket(chat["key"], {"event": "edit", "message": row_uid, "body": message["body"], "edited": message.get("edited", 0)})
+		chat_websocket(chat["key"], {"event": "edit", "message": row_uid, "body": message["body"], "edited": message.get("edited", 0), "warning": message.get("warning", "") or ""})
 		return
 	if kind != "insert":
 		return
@@ -150,6 +156,9 @@ def chat_commit_hook(table, kind, row_uid):
 		# A message whose keys have not come carries no text: the flag is what
 		# shows it as one, where it would otherwise show as an empty bubble.
 		"encrypted": message.get("encrypted", 0),
+		# Read from a device the user distrusted, or one whose keys do not
+		# match: shown with the warning.
+		"warning": message.get("warning", "") or "",
 	}
 	# A reply carries its root's thread as it now stands, as the delete does.
 	if message.get("thread", ""):
@@ -266,6 +275,7 @@ def database_create():
 	chat_schema_xmpp()
 	chat_schema_encryption()
 	chat_schema_names()
+	chat_schema_warning()
 
 def database_upgrade(version):
 	if version == 2:
@@ -313,6 +323,10 @@ def database_upgrade(version):
 		# Attachment rows name the kind of thing they belong to. Every chat
 		# attachment is a message's, which the column's default already says.
 		attachment_schema_kind()
+	if version == 18:
+		# The warning a Matrix message is read with: from a device the user
+		# distrusted, or one whose keys do not match.
+		chat_schema_warning()
 	if version == 5 or version == 6 or version == 7:
 		# Attachments move into this database, owned by the shared library: create the
 		# table and copy rows out of core's store (bridge or export file). Versions 6
@@ -3271,6 +3285,13 @@ def chat_schema_names():
 	column_add("chats", "renamed", "integer not null default 0")
 	column_add("chats", "renamer", "text not null default ''")
 
+def chat_schema_warning():
+	"""The warning a message from a Matrix conversation is shown with, at
+	creation and by the migration alike: "distrusted" where it was read from
+	a device the user distrusted, "mismatched" from one whose keys are not
+	those it was sent with, else empty."""
+	column_add("messages", "warning", "text not null default ''")
+
 def chat_schema_encryption():
 	"""The column of phase 27, at creation and by the migration alike: the
 	encrypted content a file went as to an XMPP conversation, which a hosted
@@ -3687,6 +3708,8 @@ def function_linked_receive(context, account, network, events):
 			linked_member(acc, event)
 		elif kind == "invite":
 			linked_invite(acc, identity, event)
+		elif kind == "verification":
+			linked_verification(acc, event)
 	return None
 
 def function_linked_accept(context, account, network, person):
@@ -3784,6 +3807,14 @@ def linked_body(acc, chat, event):
 			break
 	return text
 
+# The warnings core reads a Matrix message with.
+WARNINGS = ("distrusted", "mismatched")
+
+def linked_warning(event):
+	"""The warning a message from another network is shown with, or empty."""
+	warning = str(event.get("warning", "") or "")
+	return warning if warning in WARNINGS else ""
+
 def linked_received(acc, identity, event):
 	"""A message: kept in its conversation, which is made where it is new, and
 	the user told; one the user sent from elsewhere is theirs."""
@@ -3851,7 +3882,7 @@ def linked_received(acc, identity, event):
 			return
 	id = mochi.uid()
 	files = [f for f in listed(event.get("files")) if type(f) == "dict"][:FILES_MAXIMUM]
-	body = linked_fetched(acc, chat, id, files, body)
+	body = linked_fetched(acc, chat, id, remote, files, body)
 	if not body and not files and not encrypted:
 		return
 	thread = ""
@@ -3864,7 +3895,7 @@ def linked_received(acc, identity, event):
 	payload = str(event.get("payload", "") or "") if encrypted and network == "xmpp" else ""
 	if len(payload) > PAYLOAD_MAXIMUM:
 		payload = ""
-	mochi.db.execute("insert into messages ( id, chat, member, name, body, created, reply, remote, encrypted, thread, payload ) values ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )", id, chat["id"], member, name, body, created, reply["id"] if reply else None, remote, sealed, thread, payload)
+	mochi.db.execute("insert into messages ( id, chat, member, name, body, created, reply, remote, encrypted, thread, payload, warning ) values ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )", id, chat["id"], member, name, body, created, reply["id"] if reply else None, remote, sealed, thread, payload, linked_warning(event))
 	if network == "xmpp":
 		for f in files:
 			link = str(f.get("url", "") or "")
@@ -3888,16 +3919,17 @@ def linked_received(acc, identity, event):
 		excerpt = body.strip()[:80] if body or files else mochi.app.label("messages.encrypted")
 		notify("message", chat["id"], mochi.app.label("notifications.title.message"), mochi.app.label("notifications.body.message", author=name, excerpt=excerpt), "/chat/" + chat["id"], chat["name"], event_id="message:" + id)
 
-def linked_fetched(acc, chat, id, files, body):
+def linked_fetched(acc, chat, id, remote, files, body):
 	"""The files a message came with, fetched through the account and kept as
 	the message's attachments; the address of one that could not be is added
-	to its text, which is answered."""
+	to its text, which is answered. The message is named by its id on the
+	network, so a file it carried encrypted opens with its own key."""
 	object = "chat/" + chat["id"] + "/" + id
 	for f in files:
 		link = str(f.get("url", "") or "")
 		if not remote_ok(link):
 			continue
-		fetched = mochi.account.media(acc["id"], link)
+		fetched = mochi.account.media(acc["id"], link, event=remote)
 		kept = None
 		if fetched and fetched.get("status") == 200 and fetched.get("data"):
 			kept = attachment_create(object, str(f.get("name", "") or "file")[:200], fetched["data"], content_type=str(fetched.get("type", "") or f.get("type", "") or "").split(";")[0], description=str(f.get("description", "") or "")[:1000])
@@ -3920,12 +3952,23 @@ def linked_decrypted(acc, identity, event):
 	if body and not mochi.text.valid(body, "text"):
 		return
 	files = [f for f in listed(event.get("files")) if type(f) == "dict"][:FILES_MAXIMUM]
-	body = linked_fetched(acc, chat, message["id"], files, body)
+	body = linked_fetched(acc, chat, message["id"], message["remote"], files, body)
 	if not body and not files:
 		return
-	mochi.db.execute("update messages set body=? where id=?", body, message["id"])
+	mochi.db.execute("update messages set body=?, warning=? where id=?", body, linked_warning(event), message["id"])
 	chat_ensure_commit_hook()
 	mochi.db.commit.fire("messages", "update", message["id"])
+
+def linked_verification(acc, event):
+	"""A Matrix account's emoji verification changed, as core tells it: the
+	user's open pages are told to read the verifications again, rather than
+	asking every few seconds. A frame of its own, like typing, since chat
+	keeps no row for it."""
+	flow = str(event.get("flow", "") or "")
+	phase = str(event.get("phase", "") or "")
+	if not flow or phase not in ("requested", "ready", "compare", "confirmed", "done", "cancelled"):
+		return
+	chat_websocket(USER_KEY, {"event": "verification", "account": acc["id"], "flow": flow, "phase": phase})
 
 def linked_sender(identity, event):
 	"""Who an event says acted: the user where it was them."""
@@ -3943,7 +3986,9 @@ def linked_edited(acc, identity, event):
 	body = linked_body(acc, chat, event)[:10000]
 	if not body or not mochi.text.valid(body, "text") or body == message["body"]:
 		return
-	mochi.db.execute("update messages set body=?, edited=? where id=?", body, edit_time(message["edited"]), message["id"])
+	# The warning is the new version's: the text shown is the one it came
+	# with.
+	mochi.db.execute("update messages set body=?, edited=?, warning=? where id=?", body, edit_time(message["edited"]), linked_warning(event), message["id"])
 	chat_ensure_commit_hook()
 	mochi.db.commit.fire("messages", "update", message["id"])
 
@@ -4315,6 +4360,13 @@ def action_encryption_recover(a):
 		a.error.label(400, "errors.recovery_refused")
 		return
 	result = mochi.account.encryption.recover(acc["id"], key)
+	# Read before refused, which core also gives with them for one release.
+	if result.get("missing"):
+		a.error.label(409, "errors.recovery_missing")
+		return
+	if result.get("failed"):
+		a.error.label(502, "errors.recovery_failed", reason=str(result["failed"])[:500])
+		return
 	if result.get("refused"):
 		a.error.label(400, "errors.recovery_refused")
 		return

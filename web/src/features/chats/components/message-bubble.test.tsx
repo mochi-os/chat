@@ -154,3 +154,33 @@ describe('the bubbles are memoised', () => {
     expect(first).not.toHaveBeenCalled()
   })
 })
+
+// A Matrix message read from a device the user distrusted, or from one whose
+// keys do not match, is shown with a warning naming which; another with none.
+describe('a message read from a device to warn of', () => {
+  it('says which warning it came with, and none for a message without one', () => {
+    render(
+      list(
+        [
+          {
+            ...message('m1', 'From a distrusted device'),
+            warning: 'distrusted',
+          },
+          {
+            ...message('m2', 'From a mismatched device', 1700000100),
+            warning: 'mismatched',
+          },
+          message('m3', 'From a device in good standing', 1700000200),
+        ],
+        () => {}
+      )
+    )
+    expect(
+      screen.getByText('Sent from a device you distrusted')
+    ).toBeInTheDocument()
+    expect(
+      screen.getByText('Sent from a device whose keys do not match')
+    ).toBeInTheDocument()
+    expect(screen.getAllByText(/Sent from a device/)).toHaveLength(2)
+  })
+})

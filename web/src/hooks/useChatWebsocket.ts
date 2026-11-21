@@ -14,6 +14,7 @@ import type {
   ChatMessage,
   ChatMessageAttachment,
   GetMessagesResponse,
+  MessageWarning,
   ReactionCounts,
   ReactionId,
 } from '@/api/chats'
@@ -130,8 +131,15 @@ const createMessageFromPayload = (
     // Without it a message whose keys have not come showed as an empty
     // bubble until the decrypted frame's refetch.
     encrypted: typeof payload.encrypted === 'number' ? payload.encrypted : 0,
+    warning: parseWarning(payload.warning) ?? '',
   }
 }
+
+// The warning a message comes with, where it is one the client shows.
+const parseWarning = (value: unknown): MessageWarning | undefined =>
+  value === 'distrusted' || value === 'mismatched' || value === ''
+    ? value
+    : undefined
 
 // A quote arrives as the server stored it; anything else is no quote.
 const isQuote = (value: unknown): value is Quote =>
@@ -330,6 +338,7 @@ const patchMessageEditFromWebsocket = (
     typeof payload.message === 'string' ? payload.message : undefined
   const body = typeof payload.body === 'string' ? payload.body : undefined
   const edited = typeof payload.edited === 'number' ? payload.edited : undefined
+  const warning = parseWarning(payload.warning)
 
   if (!messageId || body === undefined || edited === undefined) {
     return
@@ -346,7 +355,7 @@ const patchMessageEditFromWebsocket = (
         messages: page.messages.map((message) => {
           if (message.id === messageId) {
             found = true
-            return applyMessageEditLWW(message, { body, edited })
+            return applyMessageEditLWW(message, { body, edited, warning })
           }
           // A reply in its root's bubble.
           if (message.answers?.some((answer) => answer.id === messageId)) {
@@ -355,7 +364,7 @@ const patchMessageEditFromWebsocket = (
               ...message,
               answers: message.answers.map((answer) =>
                 answer.id === messageId
-                  ? applyMessageEditLWW(answer, { body, edited })
+                  ? applyMessageEditLWW(answer, { body, edited, warning })
                   : answer
               ),
             }
