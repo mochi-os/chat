@@ -95,7 +95,11 @@ export function friendRequest(person: string): string {
 export function NewChat() {
   const { t } = useLingui()
   const navigate = useNavigate()
-  const { newChatDialogOpen: open, closeNewChatDialog } = useSidebarContext()
+  const {
+    newChatDialogOpen: open,
+    closeNewChatDialog,
+    newChatChosen,
+  } = useSidebarContext()
   const onOpenChange = (isOpen: boolean) => {
     if (!isOpen) closeNewChatDialog()
   }
@@ -119,9 +123,16 @@ export function NewChat() {
     message: string
   } | null>(null)
 
+  // The chat the dialog ends on opens once its opener has had what it wants
+  // of it.
+  const openChat = async (chatId: string) => {
+    await newChatChosen(chatId)
+    void navigate({ to: '/$chatId', params: { chatId } })
+  }
+
   const handleOpenChat = (chatId: string) => {
     onOpenChange(false)
-    navigate({ to: '/$chatId', params: { chatId } })
+    void openChat(chatId)
   }
 
   const { data, isLoading, error, refetch } = useNewChatFriendsQuery({
@@ -153,9 +164,7 @@ export function NewChat() {
         }
       )
       onOpenChange(false)
-      if (result.id) {
-        void navigate({ to: '/$chatId', params: { chatId: result.id } })
-      }
+      if (result.id) void openChat(result.id)
     } catch {
       // toastAction already showed error
     }
@@ -333,12 +342,7 @@ export function NewChat() {
       }
 
       onOpenChange(false)
-      if (data.id) {
-        void navigate({
-          to: '/$chatId',
-          params: { chatId: data.id },
-        })
-      }
+      if (data.id) void openChat(data.id)
     } catch (error) {
       // toastAction showed anything but a refusal.
       const found = refusal(error, firstBatch)

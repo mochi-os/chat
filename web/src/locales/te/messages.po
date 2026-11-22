@@ -634,6 +634,7 @@ msgstr "కెమెరా అందుబాటులో లేదు"
 #: src/features/chats/components/verification-watcher.tsx
 #: src/features/chats/components/verification-watcher.tsx
 #: src/features/chats/index.tsx
+#: src/features/chats/share-page.tsx
 msgid "Cancel"
 msgstr "రద్దు చేయండి"
 
@@ -824,6 +825,7 @@ msgstr "అన్నీ క్లియర్ చేయండి"
 #: ../../../lib/web/src/components/search-input.tsx
 #: src/components/layout/chat-list-filters.tsx
 #: src/features/chats/components/forward-dialog.tsx
+#: src/features/chats/share-page.tsx
 #: src/routes/_authenticated/$chatId_.settings.tsx
 msgid "Clear search"
 msgstr "శోధనను క్లియర్ చేయండి"
@@ -971,6 +973,7 @@ msgid "Copied"
 msgstr "కాపీ అయింది"
 
 #: ../../../lib/web/src/components/comment-share-button.tsx
+#: ../../../lib/web/src/components/share-menu.tsx
 #: ../../../lib/web/src/components/ui/copy-button.tsx
 msgid "Copied to clipboard"
 msgstr "క్లిప్‌బోర్డ్‌కి కాపీ చేయబడింది"
@@ -1369,13 +1372,11 @@ msgstr "ఇమెయిల్"
 msgid "Email code"
 msgstr "ఇమెయిల్ కోడ్"
 
-#: src/features/chats/components/message-bubble.tsx
-#: src/features/chats/components/thread-replies.tsx
+#: src/features/chats/components/sealed-text.tsx
 msgid "Encrypted for other devices only"
 msgstr "ఇతర పరికరాల కోసం మాత్రమే ఎన్‌క్రిప్ట్ చేయబడింది"
 
-#: src/features/chats/components/message-bubble.tsx
-#: src/features/chats/components/thread-replies.tsx
+#: src/features/chats/components/sealed-text.tsx
 msgid "Encrypted message"
 msgstr "ఎన్‌క్రిప్ట్ చేసిన సందేశం"
 
@@ -1438,6 +1439,7 @@ msgid "Failed to add member"
 msgstr "సభ్యుని జోడించడంలో విఫలమైంది"
 
 #: ../../../lib/web/src/components/comment-share-button.tsx
+#: ../../../lib/web/src/components/share-menu.tsx
 #: ../../../lib/web/src/components/ui/copy-button.tsx
 #: ../../../lib/web/src/lib/toast-utils.ts
 #: src/features/chats/index.tsx
@@ -1456,7 +1458,8 @@ msgid "Failed to create chat"
 msgstr "చాట్‌ను సృష్టించడంలో విఫలమైంది"
 
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx
-#: ../../../lib/web/src/components/options-menu.tsx
+#: ../../../lib/web/src/components/share-menu.tsx
+#: ../../../lib/web/src/components/share-menu.tsx
 msgid "Failed to create link"
 msgstr "లింక్‌ను సృష్టించడంలో విఫలమైంది"
 
@@ -1866,10 +1869,6 @@ msgstr "లైట్"
 msgid "Like"
 msgstr "ఇష్టం"
 
-#: ../../../lib/web/src/components/options-menu.tsx
-msgid "Link"
-msgstr "లింక్"
-
 #: ../../../lib/web/src/components/entity/entity-activity-list.tsx
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx
 msgid "Links"
@@ -2143,6 +2142,7 @@ msgstr "సరికొత్తవి"
 #: src/features/chats/components/chat-empty-state.tsx
 #: src/features/chats/components/chat-empty-state.tsx
 #: src/features/chats/components/new-chat.tsx
+#: src/features/chats/share-page.tsx
 msgid "New chat"
 msgstr "కొత్త చాట్"
 
@@ -2189,6 +2189,8 @@ msgid "No changes to display"
 msgstr "ప్రదర్శించడానికి మార్పులు లేవు"
 
 #: src/components/layout/chat-list-filters.tsx
+#: src/features/chats/share-page.tsx
+#: src/features/chats/share-page.tsx
 msgid "No chats"
 msgstr "చాట్‌లు లేవు"
 
@@ -2883,6 +2885,7 @@ msgstr "శోధన"
 #: src/components/layout/chat-list-filters.tsx
 #: src/components/layout/chat-list-filters.tsx
 #: src/features/chats/components/forward-dialog.tsx
+#: src/features/chats/share-page.tsx
 msgid "Search chats"
 msgstr "చాట్‌లను శోధించండి"
 
@@ -3024,6 +3027,11 @@ msgstr "ఇమెయిల్ పంపండి"
 msgid "Send friend request"
 msgstr "స్నేహ అభ్యర్థనను పంపండి"
 
+#: src/features/chats/share-page.tsx
+#: src/features/chats/share-page.tsx
+msgid "Send in a chat"
+msgstr "చాట్‌లో పంపండి"
+
 #: ../../../lib/web/src/components/game/game-chat-input.tsx
 #: ../../../lib/web/src/components/game/game-chat-input.tsx
 #: src/features/chats/components/chat-input.tsx
@@ -3035,6 +3043,12 @@ msgstr "సందేశాన్ని పంపండి"
 msgid "Send read receipts"
 msgstr "చదివిన రసీదులను పంపండి"
 
+#: src/features/chats/components/chat-input.tsx
+#: src/features/chats/components/thread-panel.tsx
+#: src/features/chats/components/unsent-message.tsx
+msgid "Send unencrypted"
+msgstr "ఎన్‌క్రిప్షన్ లేకుండా పంపండి"
+
 #: src/features/chats/components/message-bubble.tsx
 msgctxt "receipt"
 msgid "Sent"
@@ -3045,6 +3059,7 @@ msgid "Sent from a device whose keys do not match"
 msgstr "కీలు సరిపోలని పరికరం నుండి పంపబడింది"
 
 #: src/features/chats/components/message-bubble.tsx
+#: src/features/chats/components/sealed-text.tsx
 msgid "Sent from a device you distrusted"
 msgstr "మీరు విశ్వసించని పరికరం నుండి పంపబడింది"
 
@@ -3092,6 +3107,7 @@ msgstr "సెట్టింగ్‌లు సేవ్ చేయబడ్డ�
 
 #: ../../../lib/web/src/components/comment-share-button.tsx
 #: ../../../lib/web/src/components/comment-share-button.tsx
+#: ../../../lib/web/src/components/share-menu.tsx
 msgid "Share"
 msgstr "పంచుకోండి"
 
@@ -3314,6 +3330,10 @@ msgstr "పాస్‌వర్డ్ అంగీకరించబడలే�
 #: ../../../lib/web/src/features/errors/general-error.tsx
 msgid "The requested content could not be found."
 msgstr "అభ్యర్థించిన కంటెంట్ కనుగొనబడలేదు."
+
+#: src/features/chats/components/sealed-text.tsx
+msgid "The sender's encryption key changed"
+msgstr "పంపినవారి ఎన్‌క్రిప్షన్ కీ మారింది"
 
 #: ../../../lib/web/src/lib/api-response-interceptors.ts
 msgid "The server returned a web page instead of data."

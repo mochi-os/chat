@@ -634,6 +634,7 @@ msgstr "ကင်မရာ မရနိုင်ပါ"
 #: src/features/chats/components/verification-watcher.tsx
 #: src/features/chats/components/verification-watcher.tsx
 #: src/features/chats/index.tsx
+#: src/features/chats/share-page.tsx
 msgid "Cancel"
 msgstr "မလုပ်တော့ပါ"
 
@@ -824,6 +825,7 @@ msgstr "အားလုံး ရှင်းမည်"
 #: ../../../lib/web/src/components/search-input.tsx
 #: src/components/layout/chat-list-filters.tsx
 #: src/features/chats/components/forward-dialog.tsx
+#: src/features/chats/share-page.tsx
 #: src/routes/_authenticated/$chatId_.settings.tsx
 msgid "Clear search"
 msgstr "ရှာဖွေမှု ရှင်းမည်"
@@ -971,6 +973,7 @@ msgid "Copied"
 msgstr "ကူးယူပြီးပါပြီ"
 
 #: ../../../lib/web/src/components/comment-share-button.tsx
+#: ../../../lib/web/src/components/share-menu.tsx
 #: ../../../lib/web/src/components/ui/copy-button.tsx
 msgid "Copied to clipboard"
 msgstr "ကလစ်ဘုတ်သို့ ကူးပြီး"
@@ -1369,13 +1372,11 @@ msgstr "အီးမေးလ်"
 msgid "Email code"
 msgstr "အီးမေးလ် ကုဒ်"
 
-#: src/features/chats/components/message-bubble.tsx
-#: src/features/chats/components/thread-replies.tsx
+#: src/features/chats/components/sealed-text.tsx
 msgid "Encrypted for other devices only"
 msgstr "အခြားစက်များအတွက်သာ ကုဒ်ဝှက်ထားသည်"
 
-#: src/features/chats/components/message-bubble.tsx
-#: src/features/chats/components/thread-replies.tsx
+#: src/features/chats/components/sealed-text.tsx
 msgid "Encrypted message"
 msgstr "ကုဒ်ဝှက်ထားသော မက်ဆေ့ဂျ်"
 
@@ -1438,6 +1439,7 @@ msgid "Failed to add member"
 msgstr "အဖွဲ့ဝင် ထည့်၍ မရပါ"
 
 #: ../../../lib/web/src/components/comment-share-button.tsx
+#: ../../../lib/web/src/components/share-menu.tsx
 #: ../../../lib/web/src/components/ui/copy-button.tsx
 #: ../../../lib/web/src/lib/toast-utils.ts
 #: src/features/chats/index.tsx
@@ -1456,7 +1458,8 @@ msgid "Failed to create chat"
 msgstr "စကားပြော ဖန်တီး၍ မရပါ"
 
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx
-#: ../../../lib/web/src/components/options-menu.tsx
+#: ../../../lib/web/src/components/share-menu.tsx
+#: ../../../lib/web/src/components/share-menu.tsx
 msgid "Failed to create link"
 msgstr "လင့် ဖန်တီး၍ မရပါ"
 
@@ -1866,10 +1869,6 @@ msgstr "အလင်း"
 msgid "Like"
 msgstr "နှစ်သက်"
 
-#: ../../../lib/web/src/components/options-menu.tsx
-msgid "Link"
-msgstr "လင့်ခ်"
-
 #: ../../../lib/web/src/components/entity/entity-activity-list.tsx
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx
 msgid "Links"
@@ -2143,6 +2142,7 @@ msgstr "အသစ်ဆုံး"
 #: src/features/chats/components/chat-empty-state.tsx
 #: src/features/chats/components/chat-empty-state.tsx
 #: src/features/chats/components/new-chat.tsx
+#: src/features/chats/share-page.tsx
 msgid "New chat"
 msgstr "ချတ်အသစ်"
 
@@ -2189,6 +2189,8 @@ msgid "No changes to display"
 msgstr "ပြသရန် ပြောင်းလဲမှုများ မရှိပါ"
 
 #: src/components/layout/chat-list-filters.tsx
+#: src/features/chats/share-page.tsx
+#: src/features/chats/share-page.tsx
 msgid "No chats"
 msgstr "စကားပြောခန်းများ မရှိပါ"
 
@@ -2883,6 +2885,7 @@ msgstr "ရှာဖွေ"
 #: src/components/layout/chat-list-filters.tsx
 #: src/components/layout/chat-list-filters.tsx
 #: src/features/chats/components/forward-dialog.tsx
+#: src/features/chats/share-page.tsx
 msgid "Search chats"
 msgstr "စကားပြောခန်းများ ရှာဖွေ"
 
@@ -3024,6 +3027,11 @@ msgstr "အီးမေးလ်ပို့ရန်"
 msgid "Send friend request"
 msgstr "မိတ်ဆွေတောင်းဆိုမှု ပို့ရန်"
 
+#: src/features/chats/share-page.tsx
+#: src/features/chats/share-page.tsx
+msgid "Send in a chat"
+msgstr "ချတ်တွင် ပို့ရန်"
+
 #: ../../../lib/web/src/components/game/game-chat-input.tsx
 #: ../../../lib/web/src/components/game/game-chat-input.tsx
 #: src/features/chats/components/chat-input.tsx
@@ -3035,6 +3043,12 @@ msgstr "မက်ဆေ့ပို့မည်"
 msgid "Send read receipts"
 msgstr "ဖတ်ပြီးကြောင်း အသိပေးချက် ပို့ရန်"
 
+#: src/features/chats/components/chat-input.tsx
+#: src/features/chats/components/thread-panel.tsx
+#: src/features/chats/components/unsent-message.tsx
+msgid "Send unencrypted"
+msgstr "ကုဒ်မဝှက်ဘဲ ပို့"
+
 #: src/features/chats/components/message-bubble.tsx
 msgctxt "receipt"
 msgid "Sent"
@@ -3045,6 +3059,7 @@ msgid "Sent from a device whose keys do not match"
 msgstr "သော့များ မကိုက်ညီသော စက်မှ ပို့ထားသည်"
 
 #: src/features/chats/components/message-bubble.tsx
+#: src/features/chats/components/sealed-text.tsx
 msgid "Sent from a device you distrusted"
 msgstr "သင်မယုံကြည်သော စက်မှ ပို့ထားသည်"
 
@@ -3092,6 +3107,7 @@ msgstr "ဆက်တင်များ သိမ်းပြီး"
 
 #: ../../../lib/web/src/components/comment-share-button.tsx
 #: ../../../lib/web/src/components/comment-share-button.tsx
+#: ../../../lib/web/src/components/share-menu.tsx
 msgid "Share"
 msgstr "မျှဝေရန်"
 
@@ -3314,6 +3330,10 @@ msgstr "စကားဝှက်ကို လက်မခံပါ"
 #: ../../../lib/web/src/features/errors/general-error.tsx
 msgid "The requested content could not be found."
 msgstr "တောင်းဆိုထားသော အကြောင်းအရာကို ရှာမတွေ့ပါ။"
+
+#: src/features/chats/components/sealed-text.tsx
+msgid "The sender's encryption key changed"
+msgstr "ပေးပို့သူ၏ ကုဒ်ဝှက်သော့ ပြောင်းသွားပါပြီ"
 
 #: ../../../lib/web/src/lib/api-response-interceptors.ts
 msgid "The server returned a web page instead of data."

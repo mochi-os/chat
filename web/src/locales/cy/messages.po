@@ -634,6 +634,7 @@ msgstr "Camera ddim ar gael"
 #: src/features/chats/components/verification-watcher.tsx
 #: src/features/chats/components/verification-watcher.tsx
 #: src/features/chats/index.tsx
+#: src/features/chats/share-page.tsx
 msgid "Cancel"
 msgstr "Canslo"
 
@@ -824,6 +825,7 @@ msgstr "Clirio popeth"
 #: ../../../lib/web/src/components/search-input.tsx
 #: src/components/layout/chat-list-filters.tsx
 #: src/features/chats/components/forward-dialog.tsx
+#: src/features/chats/share-page.tsx
 #: src/routes/_authenticated/$chatId_.settings.tsx
 msgid "Clear search"
 msgstr "Clirio chwiliad"
@@ -971,6 +973,7 @@ msgid "Copied"
 msgstr "Copïwyd"
 
 #: ../../../lib/web/src/components/comment-share-button.tsx
+#: ../../../lib/web/src/components/share-menu.tsx
 #: ../../../lib/web/src/components/ui/copy-button.tsx
 msgid "Copied to clipboard"
 msgstr "Wedi'i gopïo i'r clipfwrdd"
@@ -1369,13 +1372,11 @@ msgstr "E-bost"
 msgid "Email code"
 msgstr "Cod e-bost"
 
-#: src/features/chats/components/message-bubble.tsx
-#: src/features/chats/components/thread-replies.tsx
+#: src/features/chats/components/sealed-text.tsx
 msgid "Encrypted for other devices only"
 msgstr "Wedi'i amgryptio ar gyfer dyfeisiau eraill yn unig"
 
-#: src/features/chats/components/message-bubble.tsx
-#: src/features/chats/components/thread-replies.tsx
+#: src/features/chats/components/sealed-text.tsx
 msgid "Encrypted message"
 msgstr "Neges wedi'i hamgryptio"
 
@@ -1438,6 +1439,7 @@ msgid "Failed to add member"
 msgstr "Methwyd ychwanegu aelod"
 
 #: ../../../lib/web/src/components/comment-share-button.tsx
+#: ../../../lib/web/src/components/share-menu.tsx
 #: ../../../lib/web/src/components/ui/copy-button.tsx
 #: ../../../lib/web/src/lib/toast-utils.ts
 #: src/features/chats/index.tsx
@@ -1456,7 +1458,8 @@ msgid "Failed to create chat"
 msgstr "Methwyd creu sgwrs"
 
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx
-#: ../../../lib/web/src/components/options-menu.tsx
+#: ../../../lib/web/src/components/share-menu.tsx
+#: ../../../lib/web/src/components/share-menu.tsx
 msgid "Failed to create link"
 msgstr "Methwyd creu dolen"
 
@@ -1866,10 +1869,6 @@ msgstr "Golau"
 msgid "Like"
 msgstr "Hoffi"
 
-#: ../../../lib/web/src/components/options-menu.tsx
-msgid "Link"
-msgstr "Dolen"
-
 #: ../../../lib/web/src/components/entity/entity-activity-list.tsx
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx
 msgid "Links"
@@ -2143,6 +2142,7 @@ msgstr "Diweddaraf"
 #: src/features/chats/components/chat-empty-state.tsx
 #: src/features/chats/components/chat-empty-state.tsx
 #: src/features/chats/components/new-chat.tsx
+#: src/features/chats/share-page.tsx
 msgid "New chat"
 msgstr "Sgwrs newydd"
 
@@ -2189,6 +2189,8 @@ msgid "No changes to display"
 msgstr "Dim newidiadau i'w dangos"
 
 #: src/components/layout/chat-list-filters.tsx
+#: src/features/chats/share-page.tsx
+#: src/features/chats/share-page.tsx
 msgid "No chats"
 msgstr "Dim sgyrsiau"
 
@@ -2883,6 +2885,7 @@ msgstr "Chwilio"
 #: src/components/layout/chat-list-filters.tsx
 #: src/components/layout/chat-list-filters.tsx
 #: src/features/chats/components/forward-dialog.tsx
+#: src/features/chats/share-page.tsx
 msgid "Search chats"
 msgstr "Chwilio sgyrsiau"
 
@@ -3024,6 +3027,11 @@ msgstr "Anfon e-bost"
 msgid "Send friend request"
 msgstr "Anfon cais ffrind"
 
+#: src/features/chats/share-page.tsx
+#: src/features/chats/share-page.tsx
+msgid "Send in a chat"
+msgstr "Anfon mewn sgwrs"
+
 #: ../../../lib/web/src/components/game/game-chat-input.tsx
 #: ../../../lib/web/src/components/game/game-chat-input.tsx
 #: src/features/chats/components/chat-input.tsx
@@ -3035,6 +3043,12 @@ msgstr "Anfon neges"
 msgid "Send read receipts"
 msgstr "Anfon derbynebau darllen"
 
+#: src/features/chats/components/chat-input.tsx
+#: src/features/chats/components/thread-panel.tsx
+#: src/features/chats/components/unsent-message.tsx
+msgid "Send unencrypted"
+msgstr "Anfon heb amgryptio"
+
 #: src/features/chats/components/message-bubble.tsx
 msgctxt "receipt"
 msgid "Sent"
@@ -3045,6 +3059,7 @@ msgid "Sent from a device whose keys do not match"
 msgstr "Anfonwyd o ddyfais nad yw ei hallweddau'n cyfateb"
 
 #: src/features/chats/components/message-bubble.tsx
+#: src/features/chats/components/sealed-text.tsx
 msgid "Sent from a device you distrusted"
 msgstr "Anfonwyd o ddyfais nad ydych yn ymddiried ynddi"
 
@@ -3092,6 +3107,7 @@ msgstr "Gosodiadau wedi'u cadw"
 
 #: ../../../lib/web/src/components/comment-share-button.tsx
 #: ../../../lib/web/src/components/comment-share-button.tsx
+#: ../../../lib/web/src/components/share-menu.tsx
 msgid "Share"
 msgstr "Rhannu"
 
@@ -3314,6 +3330,10 @@ msgstr "Ni dderbyniwyd y cyfrinair"
 #: ../../../lib/web/src/features/errors/general-error.tsx
 msgid "The requested content could not be found."
 msgstr "Nid oedd modd dod o hyd i'r cynnwys y gofynnwyd amdano."
+
+#: src/features/chats/components/sealed-text.tsx
+msgid "The sender's encryption key changed"
+msgstr "Mae allwedd amgryptio'r anfonwr wedi newid"
 
 #: ../../../lib/web/src/lib/api-response-interceptors.ts
 msgid "The server returned a web page instead of data."

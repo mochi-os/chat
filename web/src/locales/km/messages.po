@@ -634,6 +634,7 @@ msgstr "កាមេរ៉ាមិនអាចប្រើបាន"
 #: src/features/chats/components/verification-watcher.tsx
 #: src/features/chats/components/verification-watcher.tsx
 #: src/features/chats/index.tsx
+#: src/features/chats/share-page.tsx
 msgid "Cancel"
 msgstr "បោះបង់"
 
@@ -824,6 +825,7 @@ msgstr "សម្អាតទាំងអស់"
 #: ../../../lib/web/src/components/search-input.tsx
 #: src/components/layout/chat-list-filters.tsx
 #: src/features/chats/components/forward-dialog.tsx
+#: src/features/chats/share-page.tsx
 #: src/routes/_authenticated/$chatId_.settings.tsx
 msgid "Clear search"
 msgstr "សម្អាតការស្វែងរក"
@@ -971,6 +973,7 @@ msgid "Copied"
 msgstr "បានចម្លង"
 
 #: ../../../lib/web/src/components/comment-share-button.tsx
+#: ../../../lib/web/src/components/share-menu.tsx
 #: ../../../lib/web/src/components/ui/copy-button.tsx
 msgid "Copied to clipboard"
 msgstr "បានចម្លងទៅក្ដារតម្បៀតខ្ទាស់"
@@ -1369,13 +1372,11 @@ msgstr "អ៊ីមែល"
 msgid "Email code"
 msgstr "កូដអ៊ីមែល"
 
-#: src/features/chats/components/message-bubble.tsx
-#: src/features/chats/components/thread-replies.tsx
+#: src/features/chats/components/sealed-text.tsx
 msgid "Encrypted for other devices only"
 msgstr "បានអ៊ិនគ្រីបសម្រាប់ឧបករណ៍ផ្សេងទៀតតែប៉ុណ្ណោះ"
 
-#: src/features/chats/components/message-bubble.tsx
-#: src/features/chats/components/thread-replies.tsx
+#: src/features/chats/components/sealed-text.tsx
 msgid "Encrypted message"
 msgstr "សារដែលបានអ៊ិនគ្រីប"
 
@@ -1438,6 +1439,7 @@ msgid "Failed to add member"
 msgstr "បរាជ័យក្នុងការបន្ថែមសមាជិក"
 
 #: ../../../lib/web/src/components/comment-share-button.tsx
+#: ../../../lib/web/src/components/share-menu.tsx
 #: ../../../lib/web/src/components/ui/copy-button.tsx
 #: ../../../lib/web/src/lib/toast-utils.ts
 #: src/features/chats/index.tsx
@@ -1456,7 +1458,8 @@ msgid "Failed to create chat"
 msgstr "បរាជ័យក្នុងការបង្កើតការជជែក"
 
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx
-#: ../../../lib/web/src/components/options-menu.tsx
+#: ../../../lib/web/src/components/share-menu.tsx
+#: ../../../lib/web/src/components/share-menu.tsx
 msgid "Failed to create link"
 msgstr "បរាជ័យក្នុងការបង្កើតតំណ"
 
@@ -1866,10 +1869,6 @@ msgstr "ភ្លឺ"
 msgid "Like"
 msgstr "ចូលចិត្ត"
 
-#: ../../../lib/web/src/components/options-menu.tsx
-msgid "Link"
-msgstr "តំណ"
-
 #: ../../../lib/web/src/components/entity/entity-activity-list.tsx
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx
 msgid "Links"
@@ -2143,6 +2142,7 @@ msgstr "ថ្មីបំផុត"
 #: src/features/chats/components/chat-empty-state.tsx
 #: src/features/chats/components/chat-empty-state.tsx
 #: src/features/chats/components/new-chat.tsx
+#: src/features/chats/share-page.tsx
 msgid "New chat"
 msgstr "ការសន្ទនាថ្មី"
 
@@ -2189,6 +2189,8 @@ msgid "No changes to display"
 msgstr "មិនមានការផ្លាស់ប្តូរដើម្បីបង្ហាញ"
 
 #: src/components/layout/chat-list-filters.tsx
+#: src/features/chats/share-page.tsx
+#: src/features/chats/share-page.tsx
 msgid "No chats"
 msgstr "មិនមានការជជែក"
 
@@ -2883,6 +2885,7 @@ msgstr "ស្វែងរក"
 #: src/components/layout/chat-list-filters.tsx
 #: src/components/layout/chat-list-filters.tsx
 #: src/features/chats/components/forward-dialog.tsx
+#: src/features/chats/share-page.tsx
 msgid "Search chats"
 msgstr "ស្វែងរកការជជែក"
 
@@ -3024,6 +3027,11 @@ msgstr "ផ្ញើអ៊ីមែល"
 msgid "Send friend request"
 msgstr "ផ្ញើសំណើមិត្តភក្តិ"
 
+#: src/features/chats/share-page.tsx
+#: src/features/chats/share-page.tsx
+msgid "Send in a chat"
+msgstr "ផ្ញើក្នុងការសន្ទនា"
+
 #: ../../../lib/web/src/components/game/game-chat-input.tsx
 #: ../../../lib/web/src/components/game/game-chat-input.tsx
 #: src/features/chats/components/chat-input.tsx
@@ -3035,6 +3043,12 @@ msgstr "ផ្ញើសារ"
 msgid "Send read receipts"
 msgstr "ផ្ញើការជូនដំណឹងថាបានអាន"
 
+#: src/features/chats/components/chat-input.tsx
+#: src/features/chats/components/thread-panel.tsx
+#: src/features/chats/components/unsent-message.tsx
+msgid "Send unencrypted"
+msgstr "ផ្ញើដោយមិនអ៊ិនគ្រីប"
+
 #: src/features/chats/components/message-bubble.tsx
 msgctxt "receipt"
 msgid "Sent"
@@ -3045,6 +3059,7 @@ msgid "Sent from a device whose keys do not match"
 msgstr "បានផ្ញើពីឧបករណ៍ដែលកូនសោមិនត្រូវគ្នា"
 
 #: src/features/chats/components/message-bubble.tsx
+#: src/features/chats/components/sealed-text.tsx
 msgid "Sent from a device you distrusted"
 msgstr "បានផ្ញើពីឧបករណ៍ដែលអ្នកមិនទុកចិត្ត"
 
@@ -3092,6 +3107,7 @@ msgstr "បានរក្សាទុកការកំណត់"
 
 #: ../../../lib/web/src/components/comment-share-button.tsx
 #: ../../../lib/web/src/components/comment-share-button.tsx
+#: ../../../lib/web/src/components/share-menu.tsx
 msgid "Share"
 msgstr "ចែករំលែក"
 
@@ -3314,6 +3330,10 @@ msgstr "ពាក្យសម្ងាត់មិនត្រូវបានទ
 #: ../../../lib/web/src/features/errors/general-error.tsx
 msgid "The requested content could not be found."
 msgstr "រកមិនឃើញខ្លឹមសារដែលបានស្នើសុំទេ។"
+
+#: src/features/chats/components/sealed-text.tsx
+msgid "The sender's encryption key changed"
+msgstr "កូនសោអ៊ិនគ្រីបរបស់អ្នកផ្ញើបានផ្លាស់ប្ដូរ"
 
 #: ../../../lib/web/src/lib/api-response-interceptors.ts
 msgid "The server returned a web page instead of data."

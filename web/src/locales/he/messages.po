@@ -634,6 +634,7 @@ msgstr "המצלמה אינה זמינה"
 #: src/features/chats/components/verification-watcher.tsx
 #: src/features/chats/components/verification-watcher.tsx
 #: src/features/chats/index.tsx
+#: src/features/chats/share-page.tsx
 msgid "Cancel"
 msgstr "ביטול"
 
@@ -824,6 +825,7 @@ msgstr "נקה הכול"
 #: ../../../lib/web/src/components/search-input.tsx
 #: src/components/layout/chat-list-filters.tsx
 #: src/features/chats/components/forward-dialog.tsx
+#: src/features/chats/share-page.tsx
 #: src/routes/_authenticated/$chatId_.settings.tsx
 msgid "Clear search"
 msgstr "נקה חיפוש"
@@ -971,6 +973,7 @@ msgid "Copied"
 msgstr "הועתק"
 
 #: ../../../lib/web/src/components/comment-share-button.tsx
+#: ../../../lib/web/src/components/share-menu.tsx
 #: ../../../lib/web/src/components/ui/copy-button.tsx
 msgid "Copied to clipboard"
 msgstr "הועתק ללוח"
@@ -1369,13 +1372,11 @@ msgstr "אימייל"
 msgid "Email code"
 msgstr "קוד אימייל"
 
-#: src/features/chats/components/message-bubble.tsx
-#: src/features/chats/components/thread-replies.tsx
+#: src/features/chats/components/sealed-text.tsx
 msgid "Encrypted for other devices only"
 msgstr "מוצפנת למכשירים אחרים בלבד"
 
-#: src/features/chats/components/message-bubble.tsx
-#: src/features/chats/components/thread-replies.tsx
+#: src/features/chats/components/sealed-text.tsx
 msgid "Encrypted message"
 msgstr "הודעה מוצפנת"
 
@@ -1438,6 +1439,7 @@ msgid "Failed to add member"
 msgstr "הוספת חבר נכשלה"
 
 #: ../../../lib/web/src/components/comment-share-button.tsx
+#: ../../../lib/web/src/components/share-menu.tsx
 #: ../../../lib/web/src/components/ui/copy-button.tsx
 #: ../../../lib/web/src/lib/toast-utils.ts
 #: src/features/chats/index.tsx
@@ -1456,7 +1458,8 @@ msgid "Failed to create chat"
 msgstr "יצירת הצ'אט נכשלה"
 
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx
-#: ../../../lib/web/src/components/options-menu.tsx
+#: ../../../lib/web/src/components/share-menu.tsx
+#: ../../../lib/web/src/components/share-menu.tsx
 msgid "Failed to create link"
 msgstr "יצירת הקישור נכשלה"
 
@@ -1866,10 +1869,6 @@ msgstr "בהיר"
 msgid "Like"
 msgstr "לייק"
 
-#: ../../../lib/web/src/components/options-menu.tsx
-msgid "Link"
-msgstr "קישור"
-
 #: ../../../lib/web/src/components/entity/entity-activity-list.tsx
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx
 msgid "Links"
@@ -2143,6 +2142,7 @@ msgstr "חדשים"
 #: src/features/chats/components/chat-empty-state.tsx
 #: src/features/chats/components/chat-empty-state.tsx
 #: src/features/chats/components/new-chat.tsx
+#: src/features/chats/share-page.tsx
 msgid "New chat"
 msgstr "צ'אט חדש"
 
@@ -2189,6 +2189,8 @@ msgid "No changes to display"
 msgstr "אין שינויים להציג"
 
 #: src/components/layout/chat-list-filters.tsx
+#: src/features/chats/share-page.tsx
+#: src/features/chats/share-page.tsx
 msgid "No chats"
 msgstr "אין צ'אטים"
 
@@ -2883,6 +2885,7 @@ msgstr "חיפוש"
 #: src/components/layout/chat-list-filters.tsx
 #: src/components/layout/chat-list-filters.tsx
 #: src/features/chats/components/forward-dialog.tsx
+#: src/features/chats/share-page.tsx
 msgid "Search chats"
 msgstr "חיפוש צ'אטים"
 
@@ -3024,6 +3027,11 @@ msgstr "שלח אימייל"
 msgid "Send friend request"
 msgstr "שלח בקשת חברות"
 
+#: src/features/chats/share-page.tsx
+#: src/features/chats/share-page.tsx
+msgid "Send in a chat"
+msgstr "שליחה בצ'אט"
+
 #: ../../../lib/web/src/components/game/game-chat-input.tsx
 #: ../../../lib/web/src/components/game/game-chat-input.tsx
 #: src/features/chats/components/chat-input.tsx
@@ -3035,6 +3043,12 @@ msgstr "שלח הודעה"
 msgid "Send read receipts"
 msgstr "שליחת אישורי קריאה"
 
+#: src/features/chats/components/chat-input.tsx
+#: src/features/chats/components/thread-panel.tsx
+#: src/features/chats/components/unsent-message.tsx
+msgid "Send unencrypted"
+msgstr "שלח ללא הצפנה"
+
 #: src/features/chats/components/message-bubble.tsx
 msgctxt "receipt"
 msgid "Sent"
@@ -3045,6 +3059,7 @@ msgid "Sent from a device whose keys do not match"
 msgstr "נשלח ממכשיר שהמפתחות שלו אינם תואמים"
 
 #: src/features/chats/components/message-bubble.tsx
+#: src/features/chats/components/sealed-text.tsx
 msgid "Sent from a device you distrusted"
 msgstr "נשלח ממכשיר שסימנת כלא מהימן"
 
@@ -3092,6 +3107,7 @@ msgstr "ההגדרות נשמרו"
 
 #: ../../../lib/web/src/components/comment-share-button.tsx
 #: ../../../lib/web/src/components/comment-share-button.tsx
+#: ../../../lib/web/src/components/share-menu.tsx
 msgid "Share"
 msgstr "שתף"
 
@@ -3314,6 +3330,10 @@ msgstr "הסיסמה לא התקבלה"
 #: ../../../lib/web/src/features/errors/general-error.tsx
 msgid "The requested content could not be found."
 msgstr "לא ניתן למצוא את התוכן המבוקש."
+
+#: src/features/chats/components/sealed-text.tsx
+msgid "The sender's encryption key changed"
+msgstr "מפתח ההצפנה של השולח השתנה"
 
 #: ../../../lib/web/src/lib/api-response-interceptors.ts
 msgid "The server returned a web page instead of data."

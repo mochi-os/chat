@@ -634,6 +634,7 @@ msgstr "ບໍ່ມີກ້ອງຖ່າຍຮູບ"
 #: src/features/chats/components/verification-watcher.tsx
 #: src/features/chats/components/verification-watcher.tsx
 #: src/features/chats/index.tsx
+#: src/features/chats/share-page.tsx
 msgid "Cancel"
 msgstr "ຍົກເລີກ"
 
@@ -824,6 +825,7 @@ msgstr "ລ້າງທັງໝົດ"
 #: ../../../lib/web/src/components/search-input.tsx
 #: src/components/layout/chat-list-filters.tsx
 #: src/features/chats/components/forward-dialog.tsx
+#: src/features/chats/share-page.tsx
 #: src/routes/_authenticated/$chatId_.settings.tsx
 msgid "Clear search"
 msgstr "ລ້າງການຄົ້ນຫາ"
@@ -971,6 +973,7 @@ msgid "Copied"
 msgstr "ສຳເນົາແລ້ວ"
 
 #: ../../../lib/web/src/components/comment-share-button.tsx
+#: ../../../lib/web/src/components/share-menu.tsx
 #: ../../../lib/web/src/components/ui/copy-button.tsx
 msgid "Copied to clipboard"
 msgstr "ສຳເນົາໄປຄລິບບອດແລ້ວ"
@@ -1369,13 +1372,11 @@ msgstr "ອີເມວ"
 msgid "Email code"
 msgstr "ລະຫັດອີເມວ"
 
-#: src/features/chats/components/message-bubble.tsx
-#: src/features/chats/components/thread-replies.tsx
+#: src/features/chats/components/sealed-text.tsx
 msgid "Encrypted for other devices only"
 msgstr "ເຂົ້າລະຫັດສຳລັບອຸປະກອນອື່ນເທົ່ານັ້ນ"
 
-#: src/features/chats/components/message-bubble.tsx
-#: src/features/chats/components/thread-replies.tsx
+#: src/features/chats/components/sealed-text.tsx
 msgid "Encrypted message"
 msgstr "ຂໍ້ຄວາມທີ່ເຂົ້າລະຫັດ"
 
@@ -1438,6 +1439,7 @@ msgid "Failed to add member"
 msgstr "ເພີ່ມສະມາຊິກລົ້ມເຫຼວ"
 
 #: ../../../lib/web/src/components/comment-share-button.tsx
+#: ../../../lib/web/src/components/share-menu.tsx
 #: ../../../lib/web/src/components/ui/copy-button.tsx
 #: ../../../lib/web/src/lib/toast-utils.ts
 #: src/features/chats/index.tsx
@@ -1456,7 +1458,8 @@ msgid "Failed to create chat"
 msgstr "ສ້າງການສົນທະນາລົ້ມເຫຼວ"
 
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx
-#: ../../../lib/web/src/components/options-menu.tsx
+#: ../../../lib/web/src/components/share-menu.tsx
+#: ../../../lib/web/src/components/share-menu.tsx
 msgid "Failed to create link"
 msgstr "ສ້າງລິ້ງລົ້ມເຫຼວ"
 
@@ -1866,10 +1869,6 @@ msgstr "ສະຫວ່າງ"
 msgid "Like"
 msgstr "ມັກ"
 
-#: ../../../lib/web/src/components/options-menu.tsx
-msgid "Link"
-msgstr "ລິ້ງ"
-
 #: ../../../lib/web/src/components/entity/entity-activity-list.tsx
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx
 msgid "Links"
@@ -2143,6 +2142,7 @@ msgstr "ໃໝ່ລ່າສຸດ"
 #: src/features/chats/components/chat-empty-state.tsx
 #: src/features/chats/components/chat-empty-state.tsx
 #: src/features/chats/components/new-chat.tsx
+#: src/features/chats/share-page.tsx
 msgid "New chat"
 msgstr "ສົນທະນາໃໝ່"
 
@@ -2189,6 +2189,8 @@ msgid "No changes to display"
 msgstr "ບໍ່ມີການປ່ຽນແປງທີ່ຈະສະແດງ"
 
 #: src/components/layout/chat-list-filters.tsx
+#: src/features/chats/share-page.tsx
+#: src/features/chats/share-page.tsx
 msgid "No chats"
 msgstr "ບໍ່ມີແຊັດ"
 
@@ -2883,6 +2885,7 @@ msgstr "ຄົ້ນຫາ"
 #: src/components/layout/chat-list-filters.tsx
 #: src/components/layout/chat-list-filters.tsx
 #: src/features/chats/components/forward-dialog.tsx
+#: src/features/chats/share-page.tsx
 msgid "Search chats"
 msgstr "ຄົ້ນຫາແຊັດ"
 
@@ -3024,6 +3027,11 @@ msgstr "ສົ່ງອີເມວ"
 msgid "Send friend request"
 msgstr "ສົ່ງຄຳຂໍເປັນໝູ່"
 
+#: src/features/chats/share-page.tsx
+#: src/features/chats/share-page.tsx
+msgid "Send in a chat"
+msgstr "ສົ່ງໃນການສົນທະນາ"
+
 #: ../../../lib/web/src/components/game/game-chat-input.tsx
 #: ../../../lib/web/src/components/game/game-chat-input.tsx
 #: src/features/chats/components/chat-input.tsx
@@ -3035,6 +3043,12 @@ msgstr "ສົ່ງຂໍ້ຄວາມ"
 msgid "Send read receipts"
 msgstr "ສົ່ງການແຈ້ງວ່າອ່ານແລ້ວ"
 
+#: src/features/chats/components/chat-input.tsx
+#: src/features/chats/components/thread-panel.tsx
+#: src/features/chats/components/unsent-message.tsx
+msgid "Send unencrypted"
+msgstr "ສົ່ງໂດຍບໍ່ເຂົ້າລະຫັດ"
+
 #: src/features/chats/components/message-bubble.tsx
 msgctxt "receipt"
 msgid "Sent"
@@ -3045,6 +3059,7 @@ msgid "Sent from a device whose keys do not match"
 msgstr "ສົ່ງມາຈາກອຸປະກອນທີ່ກະແຈບໍ່ກົງກັນ"
 
 #: src/features/chats/components/message-bubble.tsx
+#: src/features/chats/components/sealed-text.tsx
 msgid "Sent from a device you distrusted"
 msgstr "ສົ່ງມາຈາກອຸປະກອນທີ່ທ່ານບໍ່ເຊື່ອຖື"
 
@@ -3092,6 +3107,7 @@ msgstr "ການຕັ້ງຄ່າຖືກບັນທຶກແລ້ວ"
 
 #: ../../../lib/web/src/components/comment-share-button.tsx
 #: ../../../lib/web/src/components/comment-share-button.tsx
+#: ../../../lib/web/src/components/share-menu.tsx
 msgid "Share"
 msgstr "ແບ່ງປັນ"
 
@@ -3314,6 +3330,10 @@ msgstr "ລະຫັດຜ່ານບໍ່ໄດ້ຮັບການຍອມ
 #: ../../../lib/web/src/features/errors/general-error.tsx
 msgid "The requested content could not be found."
 msgstr "ບໍ່ພົບເນື້ອຫາທີ່ຮ້ອງຂໍ."
+
+#: src/features/chats/components/sealed-text.tsx
+msgid "The sender's encryption key changed"
+msgstr "ກະແຈເຂົ້າລະຫັດຂອງຜູ້ສົ່ງໄດ້ປ່ຽນແປງ"
 
 #: ../../../lib/web/src/lib/api-response-interceptors.ts
 msgid "The server returned a web page instead of data."

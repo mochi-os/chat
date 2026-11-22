@@ -634,6 +634,7 @@ msgstr "Chan eil an camara ri fhaighinn"
 #: src/features/chats/components/verification-watcher.tsx
 #: src/features/chats/components/verification-watcher.tsx
 #: src/features/chats/index.tsx
+#: src/features/chats/share-page.tsx
 msgid "Cancel"
 msgstr "Sguir dheth"
 
@@ -824,6 +825,7 @@ msgstr "Falamhaich a h-uile"
 #: ../../../lib/web/src/components/search-input.tsx
 #: src/components/layout/chat-list-filters.tsx
 #: src/features/chats/components/forward-dialog.tsx
+#: src/features/chats/share-page.tsx
 #: src/routes/_authenticated/$chatId_.settings.tsx
 msgid "Clear search"
 msgstr "Falamhaich an lorg"
@@ -971,6 +973,7 @@ msgid "Copied"
 msgstr "Chaidh lethbhreac a dhèanamh"
 
 #: ../../../lib/web/src/components/comment-share-button.tsx
+#: ../../../lib/web/src/components/share-menu.tsx
 #: ../../../lib/web/src/components/ui/copy-button.tsx
 msgid "Copied to clipboard"
 msgstr "Air a chopaigeadh chun a' chliopaboird"
@@ -1369,13 +1372,11 @@ msgstr "Post-d"
 msgid "Email code"
 msgstr "Còd puist-d"
 
-#: src/features/chats/components/message-bubble.tsx
-#: src/features/chats/components/thread-replies.tsx
+#: src/features/chats/components/sealed-text.tsx
 msgid "Encrypted for other devices only"
 msgstr "Crioptaichte airson uidheaman eile a-mhàin"
 
-#: src/features/chats/components/message-bubble.tsx
-#: src/features/chats/components/thread-replies.tsx
+#: src/features/chats/components/sealed-text.tsx
 msgid "Encrypted message"
 msgstr "Teachdaireachd chrioptaichte"
 
@@ -1438,6 +1439,7 @@ msgid "Failed to add member"
 msgstr "Cha b' urrainn ball a chur ris"
 
 #: ../../../lib/web/src/components/comment-share-button.tsx
+#: ../../../lib/web/src/components/share-menu.tsx
 #: ../../../lib/web/src/components/ui/copy-button.tsx
 #: ../../../lib/web/src/lib/toast-utils.ts
 #: src/features/chats/index.tsx
@@ -1456,7 +1458,8 @@ msgid "Failed to create chat"
 msgstr "Cha b' urrainn còmhradh a chruthachadh"
 
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx
-#: ../../../lib/web/src/components/options-menu.tsx
+#: ../../../lib/web/src/components/share-menu.tsx
+#: ../../../lib/web/src/components/share-menu.tsx
 msgid "Failed to create link"
 msgstr "Cha b' urrainn ceangal a chruthachadh"
 
@@ -1866,10 +1869,6 @@ msgstr "Soilleir"
 msgid "Like"
 msgstr "Toil"
 
-#: ../../../lib/web/src/components/options-menu.tsx
-msgid "Link"
-msgstr "Ceangal"
-
 #: ../../../lib/web/src/components/entity/entity-activity-list.tsx
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx
 msgid "Links"
@@ -2143,6 +2142,7 @@ msgstr "As ùire"
 #: src/features/chats/components/chat-empty-state.tsx
 #: src/features/chats/components/chat-empty-state.tsx
 #: src/features/chats/components/new-chat.tsx
+#: src/features/chats/share-page.tsx
 msgid "New chat"
 msgstr "Cabadaich ùr"
 
@@ -2189,6 +2189,8 @@ msgid "No changes to display"
 msgstr "Chan eil atharrachaidhean ri shealltainn"
 
 #: src/components/layout/chat-list-filters.tsx
+#: src/features/chats/share-page.tsx
+#: src/features/chats/share-page.tsx
 msgid "No chats"
 msgstr "Gun chòmhraidhean"
 
@@ -2883,6 +2885,7 @@ msgstr "Lorg"
 #: src/components/layout/chat-list-filters.tsx
 #: src/components/layout/chat-list-filters.tsx
 #: src/features/chats/components/forward-dialog.tsx
+#: src/features/chats/share-page.tsx
 msgid "Search chats"
 msgstr "Lorg còmhraidhean"
 
@@ -3024,6 +3027,11 @@ msgstr "Cuir post-d"
 msgid "Send friend request"
 msgstr "Cuir iarrtas caraid"
 
+#: src/features/chats/share-page.tsx
+#: src/features/chats/share-page.tsx
+msgid "Send in a chat"
+msgstr "Cuir ann an cabadaich"
+
 #: ../../../lib/web/src/components/game/game-chat-input.tsx
 #: ../../../lib/web/src/components/game/game-chat-input.tsx
 #: src/features/chats/components/chat-input.tsx
@@ -3035,6 +3043,12 @@ msgstr "Cuir teachdaireachd"
 msgid "Send read receipts"
 msgstr "Cuir cuidhteasan leughaidh"
 
+#: src/features/chats/components/chat-input.tsx
+#: src/features/chats/components/thread-panel.tsx
+#: src/features/chats/components/unsent-message.tsx
+msgid "Send unencrypted"
+msgstr "Cuir gun chrioptachadh"
+
 #: src/features/chats/components/message-bubble.tsx
 msgctxt "receipt"
 msgid "Sent"
@@ -3045,6 +3059,7 @@ msgid "Sent from a device whose keys do not match"
 msgstr "Air a chur o uidheam nach eil na h-iuchraichean aige a' freagairt"
 
 #: src/features/chats/components/message-bubble.tsx
+#: src/features/chats/components/sealed-text.tsx
 msgid "Sent from a device you distrusted"
 msgstr "Air a chur o uidheam anns nach eil earbsa agad"
 
@@ -3092,6 +3107,7 @@ msgstr "Roghainnean air an sàbhaladh"
 
 #: ../../../lib/web/src/components/comment-share-button.tsx
 #: ../../../lib/web/src/components/comment-share-button.tsx
+#: ../../../lib/web/src/components/share-menu.tsx
 msgid "Share"
 msgstr "Co-roinn"
 
@@ -3314,6 +3330,10 @@ msgstr "Cha deach gabhail ris an fhacal-fhaire"
 #: ../../../lib/web/src/features/errors/general-error.tsx
 msgid "The requested content could not be found."
 msgstr "Cha b' urrainn dhuinn an t-susbaint a chaidh iarraidh a lorg."
+
+#: src/features/chats/components/sealed-text.tsx
+msgid "The sender's encryption key changed"
+msgstr "Tha iuchair crioptachaidh an t-seòladair air atharrachadh"
 
 #: ../../../lib/web/src/lib/api-response-interceptors.ts
 msgid "The server returned a web page instead of data."

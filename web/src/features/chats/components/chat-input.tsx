@@ -46,6 +46,7 @@ import {
 } from '@mochi/web'
 // Image is aliased: the bare name shadows the DOM Image constructor.
 import {
+  LockOpen,
   Paperclip,
   Send,
   X,
@@ -94,6 +95,8 @@ interface ChatInputProps {
   onAudioAttachmentSelection: (e: ChangeEvent<HTMLInputElement>) => void
   onAddVoiceNote?: (file: File, durationSecs: number) => void
   sendMessageErrorMessage: string | null
+  /** Where the send was refused for want of encryption: send it unencrypted. */
+  onSendUnencrypted?: () => void
   replyTo?: ReplyTarget | null
   onClearReply?: () => void
 }
@@ -117,6 +120,7 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(
       onAudioAttachmentSelection,
       onAddVoiceNote,
       sendMessageErrorMessage,
+      onSendUnencrypted,
       replyTo,
       onClearReply,
     },
@@ -896,6 +900,20 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(
           <p className='text-destructive w-full pe-2 text-end text-xs'>
             {sendMessageErrorMessage}
           </p>
+        )}
+        {onSendUnencrypted && (
+          <div className='flex w-full justify-end pe-2'>
+            <Button
+              type='button'
+              variant='ghost'
+              size='sm'
+              onClick={onSendUnencrypted}
+              disabled={isSending}
+            >
+              <LockOpen className='size-4' />
+              <Trans>Send unencrypted</Trans>
+            </Button>
+          </div>
         )}
       </form>
     )

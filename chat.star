@@ -949,18 +949,20 @@ def action_send(a):
 			captions.append(caption)
 
 	save = (lambda object: attachment_save(a, object, captions=captions)) if has_files else None
-	result, failure = message_send(a.input("chat"), a.user.identity.id, a.user.identity.name, body, a.input("reply", ""), a.input("thread", "") or "", mentions, save)
+	result, failure = message_send(a.input("chat"), a.user.identity.id, a.user.identity.name, body, a.input("reply", ""), a.input("thread", "") or "", mentions, save, unencrypted=str(a.input("unencrypted", "")) in ("true", "True", "1"))
 	if failure:
 		fail(a, failure)
 		return
 	return {"data": result}
 
-def message_send(chat_input, user_id, user_name, body, reply, thread, mentions, save):
+def message_send(chat_input, user_id, user_name, body, reply, thread, mentions, save, unencrypted=False):
 	"""Send a message to a conversation as the user: checked as the send
 	action checks it, kept, sent through the conversation's account where it
 	is on another network, and told to the other members. save keeps the
-	message's files, or is None for a message with none. Answers ({id},
-	None) or (None, failure)."""
+	message's files, or is None for a message with none. unencrypted is the
+	user's choice to send it so where its conversation was encrypted and can
+	no longer be encrypted to everyone in it, which refuses it otherwise.
+	Answers ({id}, None) or (None, failure)."""
 	if not mochi.text.valid(chat_input, "id"):
 		return None, (400, "errors.invalid_chat_id")
 	chat = mochi.db.row("select * from chats where id=?", chat_input)
@@ -1027,10 +1029,15 @@ def message_send(chat_input, user_id, user_name, body, reply, thread, mentions, 
 	# A conversation on another network takes the message through its
 	# account; one that cannot go is not kept.
 	unsent = []
-	if chat.get("account") and not remote_send(chat, id, body, attachments, unsent):
+	refused = []
+	if chat.get("account") and not remote_send(chat, id, body, attachments, unsent, unencrypted, refused):
 		mochi.db.execute("delete from messages where id=?", id)
 		for att in attachments:
 			attachment_delete(att["id"])
+		# One that would have gone unencrypted where the conversation was
+		# encrypted, which the user may choose to send so.
+		if refused:
+			return None, (409, "errors.encryption_lost")
 		# A message of files alone, none of which went, says why.
 		if unsent and unsent[0]["reason"]:
 			return None, (502, "errors.file_unsent_because", {"name": unsent[0]["name"], "reason": unsent[0]["reason"]})
@@ -3044,10 +3051,12 @@ def unsent_text(entry):
 		return mochi.app.label("messages.unsent_because", name=entry["name"], reason=entry["reason"])
 	return mochi.app.label("messages.unsent", name=entry["name"])
 
-def remote_send(chat, message_id, body, attachments, unsent=None):
+def remote_send(chat, message_id, body, attachments, unsent=None, unencrypted=False, refused=None):
 	"""Send a message of a conversation on another network through its
-	account, and keep its record; a file that does not go goes into unsent.
-	Answers False where it could not go."""
+	account, and keep its record; a file that does not go goes into unsent,
+	and a message refused for want of encryption says so in refused.
+	unencrypted is the user's choice to send it so where encryption can no
+	longer be had. Answers False where it could not go."""
 	acc = chat_account(chat)
 	if not acc:
 		return False
@@ -3055,7 +3064,7 @@ def remote_send(chat, message_id, body, attachments, unsent=None):
 		message = mochi.db.row("select * from messages where id=?", message_id)
 		if acc["network"] == "mastodon":
 			return mastodon_send(chat, acc, message, attachments, unsent)
-		return linked_send(chat, acc, message, attachments, unsent)
+		return linked_send(chat, acc, message, attachments, unsent, unencrypted, refused)
 	note = remote_note(chat, acc, {"id": message_id, "body": body, "created": mochi.time.now()})
 	if not note:
 		return False
@@ -3772,6 +3781,8 @@ def function_linked_receive(context, account, network, events):
 			linked_member(acc, event)
 		elif kind == "invite":
 			linked_invite(acc, identity, event)
+		elif kind == "named":
+			linked_named(acc, event)
 		elif kind == "verification":
 			linked_verification(acc, event)
 	return None
@@ -3926,11 +3937,12 @@ def linked_received(acc, identity, event):
 	name = name["name"] if name else ""
 	encrypted = event.get("encrypted") == True
 	# How it came: 0 readable, 1 encrypted, 2 encrypted before the account's
-	# device was made, 3 encrypted for other devices only. The last two can
-	# never be read here.
+	# device was made, 3 encrypted for other devices only, 4 from a device
+	# whose key changed from the one the user decided on, 5 from a device the
+	# user distrusted. The last four are not read here.
 	sealed = 1 if encrypted else 0
 	if encrypted and network == "xmpp":
-		sealed = {"before": 2, "excluded": 3}.get(event.get("unreadable"), 1)
+		sealed = {"before": 2, "excluded": 3, "changed": 4, "distrusted": 5}.get(event.get("unreadable"), 1)
 	body = message_cut(linked_body(acc, chat, event))
 	if body and not mochi.text.valid(body, "text"):
 		return
@@ -4039,12 +4051,16 @@ def linked_sender(identity, event):
 	return identity["id"] if event.get("own") == True else str(event.get("from", "") or "")
 
 def linked_edited(acc, identity, event):
-	"""A new version of a message, from whoever sent it."""
+	"""A new version of a message, from whoever sent it. An XMPP message that
+	came encrypted is changed only by a version that came encrypted too: one
+	in the clear is anyone's on the way. Core says how each came."""
 	message = linked_message_of(acc, event.get("id"))
 	if not message or mochi.db.exists("select 1 from deletions where message=?", message["id"]):
 		return
 	sender = linked_sender(identity, event)
 	if sender and message["member"] != sender:
+		return
+	if acc["network"] == "xmpp" and message.get("encrypted") and event.get("encrypted") == False:
 		return
 	chat = mochi.db.row("select * from chats where id=?", message["chat"])
 	body = message_cut(linked_body(acc, chat, event))
@@ -4057,8 +4073,10 @@ def linked_edited(acc, identity, event):
 	mochi.db.commit.fire("messages", "update", message["id"])
 
 def linked_withdrawn(acc, identity, event):
-	"""A message withdrawn: by whoever sent it, or in a room by whoever the
-	room lets; or a reaction withdrawn, by the id it has on Matrix."""
+	"""A message withdrawn: by whoever sent it, or in a room by the room's
+	moderation, which core marks (moderated) where the room said so from its
+	own address, or on Matrix where the room's rules allowed its sender; or a
+	reaction withdrawn, by the id it has on Matrix."""
 	remote = str(event.get("id", "") or "")
 	reacted = mochi.db.row("select r.chat, r.message, r.member from reactions r join chats c on c.id=r.chat where c.account=? and r.remote=?", acc["id"], remote) if remote else None
 	if reacted:
@@ -4069,7 +4087,17 @@ def linked_withdrawn(acc, identity, event):
 		return
 	chat = mochi.db.row("select * from chats where id=?", message["chat"])
 	sender = linked_sender(identity, event)
-	if sender and message["member"] != sender and not chat.get("room"):
+	moderated = event.get("moderated")
+	if moderated == True:
+		# The room's own word, for a message of that room alone.
+		if not chat.get("room") or chat["room"] != str(event.get("conversation", "") or ""):
+			return
+	elif moderated == None:
+		# A core that does not yet say which withdrawals are moderation: the
+		# rule before it did.
+		if sender and message["member"] != sender and not chat.get("room"):
+			return
+	elif sender and message["member"] != sender:
 		return
 	message_delete_apply(message["chat"], message["id"], sender or message["member"], mochi.time.now())
 
@@ -4232,6 +4260,21 @@ def linked_invite(acc, identity, event):
 		mochi.db.execute("update chats set kind='direct' where id=?", chat["id"])
 	notify("invite", chat["id"], mochi.app.label("notifications.title.invite"), mochi.app.label("notifications.body.invite", name=name), "/chat/" + chat["id"], name, event_id="invite:" + acc["id"] + ":" + conversation)
 
+def linked_named(acc, event):
+	"""The name a room gave once asked, which its invitation, delivered
+	without waiting for it, did not carry: the invitation still waiting for
+	the user takes it."""
+	conversation = str(event.get("conversation", "") or "")[:REMOTE_MAXIMUM]
+	name = linked_name(event.get("name"), "")
+	if not conversation or not name:
+		return
+	chat = mochi.db.row("select * from chats where account=? and room=? and status='invited'", acc["id"], conversation)
+	if not chat or name == chat["name"]:
+		return
+	mochi.db.execute("update chats set name=? where id=?", name, chat["id"])
+	chat_websocket(chat["key"], {"event": "rename", "name": name})
+	chats_changed()
+
 # --- What goes out ---
 
 def linked_mentions(chat):
@@ -4264,13 +4307,17 @@ def mastodon_send(chat, acc, message, attachments, unsent=None):
 	mochi.db.execute("update messages set remote=? where id=?", str(result["id"]), message["id"])
 	return True
 
-def linked_send(chat, acc, message, attachments, unsent=None):
+def linked_send(chat, acc, message, attachments, unsent=None, unencrypted=False, refused=None):
 	"""A message of an XMPP or Matrix conversation: its text, then each file
 	as one more message, the first kept as the message's id there and the
-	rest as its further ids."""
+	rest as its further ids. An XMPP conversation that was encrypted and can
+	no longer be encrypted to everyone in it refuses the message, which
+	refused is told of, unless the user chose to send it unencrypted: its
+	files then go up unencrypted too."""
 	target = linked_target(chat)
 	if not target:
 		return False
+	clear = unencrypted and acc["network"] == "xmpp"
 	sent = ""
 	if message["body"]:
 		object = {"conversation": target, "content": message["body"]}
@@ -4280,7 +4327,11 @@ def linked_send(chat, acc, message, attachments, unsent=None):
 		thread = linked_remote(chat["id"], message.get("thread"))
 		if thread:
 			object["thread"] = thread
+		if clear:
+			object["unencrypted"] = True
 		result = mochi.account.object.create(acc["id"], object, key="chat|" + message["id"])
+		if result and result.get("refused") == "unencrypted" and refused != None:
+			refused.append("unencrypted")
 		if not result or not result.get("id"):
 			return False
 		sent = str(result["id"])
@@ -4290,13 +4341,19 @@ def linked_send(chat, acc, message, attachments, unsent=None):
 			mochi.db.execute("update messages set encrypted=1, payload=? where id=?", str(result["payload"])[:PAYLOAD_MAXIMUM], message["id"])
 	for att in attachments or []:
 		data = mochi.file.read(attachment_filename(att["id"], att["name"]), mochi.file.maximum())
-		# A file for an encrypted conversation is uploaded encrypted.
-		uploaded = mochi.account.upload(acc["id"], data, str(att.get("type", "") or att.get("content_type", "") or ""), name=att["name"], conversation=target) if data != None else None
+		# A file for an encrypted conversation is uploaded encrypted, unless
+		# the user chose to send it unencrypted.
+		uploaded = mochi.account.upload(acc["id"], data, str(att.get("type", "") or att.get("content_type", "") or ""), name=att["name"], conversation="" if clear else target) if data != None else None
 		if not uploaded or uploaded.get("error"):
 			if unsent != None:
 				unsent.append(unsent_entry(att, uploaded))
 			uploaded = None
-		result = mochi.account.object.create(acc["id"], {"conversation": target, "file": uploaded}, key="chat|" + message["id"] + "|" + att["id"]) if uploaded else None
+		object = {"conversation": target, "file": uploaded}
+		if clear:
+			object["unencrypted"] = True
+		result = mochi.account.object.create(acc["id"], object, key="chat|" + message["id"] + "|" + att["id"]) if uploaded else None
+		if result and result.get("refused") == "unencrypted" and refused != None and not sent:
+			refused.append("unencrypted")
 		if not result or not result.get("id"):
 			if not sent:
 				return False
@@ -4385,7 +4442,16 @@ def action_encryption_trust(a):
 	if trust not in ("verified", "distrusted", "undecided"):
 		a.error.label(400, "errors.invalid_preference")
 		return
-	mochi.account.encryption.trust(acc["id"], person, a.input("device", ""), trust)
+	# The fingerprint the user compared, which an XMPP device's word is held
+	# to: one whose identity changed since is not decided on unseen.
+	fingerprint = a.input("fingerprint", "")
+	if fingerprint:
+		result = mochi.account.encryption.trust(acc["id"], person, a.input("device", ""), trust, fingerprint=fingerprint)
+	else:
+		result = mochi.account.encryption.trust(acc["id"], person, a.input("device", ""), trust)
+	if type(result) == "dict" and result.get("refused") == "changed":
+		a.error.label(409, "errors.identity_changed")
+		return
 	return {"data": {}}
 
 def action_encryption_verify(a):

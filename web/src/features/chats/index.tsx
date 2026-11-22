@@ -30,6 +30,7 @@ import {
   getErrorMessage,
   shellClipboardWrite,
   getSendAttachmentErrorMessage,
+  extractStatus,
   isAttachmentPayloadTooLargeError,
   resolveMentionsFromBody,
   classifyUnresolvedMentions,
@@ -134,13 +135,23 @@ interface Outgoing {
   replyTo: ReplyTarget | null
   mentions: { id: string; name: string }[]
   mentionIds: string[]
+  // Sent unencrypted by the user's choice, where the conversation was
+  // encrypted and can no longer be encrypted to everyone in it.
+  unencrypted?: boolean
 }
 
-// A message whose send failed while the composer held the next one, and why.
+// A message whose send failed while the composer held the next one, why,
+// and whether it was for want of encryption, which the user may send
+// unencrypted.
 interface Unsent extends Outgoing {
   key: number
   error: string
+  encryption: boolean
 }
+
+// The send's refusal of a message that would go unencrypted in a
+// conversation that was encrypted.
+const ENCRYPTION_REFUSED = 409
 
 // How long a chat must sit in front of the reader, pinned to the newest
 // message, before the arriving message counts as read. Long enough that a
@@ -1169,6 +1180,7 @@ export function Chats() {
       reply: outgoing.replyTo?.id,
       attachments: outgoing.attachments.map((a) => a.file),
       mentions: outgoing.mentionIds,
+      unencrypted: outgoing.unencrypted,
       captions: outgoing.attachments.some((a) => a.playable)
         ? outgoing.attachments.map((a) => {
             if (a.playable === 'voice') {
@@ -1215,16 +1227,17 @@ export function Chats() {
               error,
               sendAttachmentErrorMessages
             ),
+            encryption: extractStatus(error) === ENCRYPTION_REFUSED,
           },
         ])
       }
     )
   }
 
-  const retryUnsent = (message: Unsent) => {
+  const retryUnsent = (message: Unsent, unencrypted = false) => {
     if (sendMessageMutation.isPending) return
     setUnsent((list) => list.filter((m) => m.key !== message.key))
-    send(message)
+    send({ ...message, unencrypted: unencrypted || message.unencrypted })
   }
 
   const discardUnsent = (message: Unsent) => {
@@ -1238,9 +1251,9 @@ export function Chats() {
     else toast.error(t`Failed to copy`)
   }
 
-  // The composer prevents the form's default before calling this, so the
-  // event itself was never used here.
-  const handleSendMessage = () => {
+  // What the composer holds goes, unencrypted where the user chose so after
+  // the send refused it for want of encryption.
+  const sendComposed = (unencrypted: boolean) => {
     if (!selectedChat || sendMessageMutation.isPending) return
 
     const body = newMessage.trim()
@@ -1318,6 +1331,7 @@ export function Chats() {
       replyTo,
       mentions: selectedMentions,
       mentionIds: mentions,
+      unencrypted,
     }
     // Out of the composer now; its previews stay with the message until it
     // has gone or been discarded.
@@ -1329,6 +1343,10 @@ export function Chats() {
     setChatDraftPresent(selectedChat.id, false)
     send(outgoing)
   }
+
+  // The composer prevents the form's default before calling this, so the
+  // event itself was never used here.
+  const handleSendMessage = () => sendComposed(false)
 
   // Length is checked here rather than capping the textarea: a maxLength would
   // silently swallow the tail of a paste, and the server rejects an over-long
@@ -1353,6 +1371,10 @@ export function Chats() {
         sendAttachmentErrorMessages
       )
     : null
+  // A send refused for want of encryption, back in the composer, may go
+  // unencrypted by the user's choice.
+  const sendRefusedEncryption =
+    extractStatus(sendMessageMutation.error) === ENCRYPTION_REFUSED
 
   const view = resolveChatView({
     selectedChatId,
@@ -1704,6 +1726,11 @@ export function Chats() {
                   error={message.error}
                   retryDisabled={sendMessageMutation.isPending}
                   onRetry={() => retryUnsent(message)}
+                  onSendUnencrypted={
+                    message.encryption
+                      ? () => retryUnsent(message, true)
+                      : undefined
+                  }
                   onCopy={() => void copyUnsent(message)}
                   onDiscard={() => discardUnsent(message)}
                 />
@@ -1734,6 +1761,9 @@ export function Chats() {
               replyTo={replyTo}
               onClearReply={() => setReplyTo(null)}
               sendMessageErrorMessage={sendAttachmentErrorMessage}
+              onSendUnencrypted={
+                sendRefusedEncryption ? () => sendComposed(true) : undefined
+              }
             />
             </>
           )}

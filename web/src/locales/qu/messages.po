@@ -634,6 +634,7 @@ msgstr "Cámara mana kanchu"
 #: src/features/chats/components/verification-watcher.tsx
 #: src/features/chats/components/verification-watcher.tsx
 #: src/features/chats/index.tsx
+#: src/features/chats/share-page.tsx
 msgid "Cancel"
 msgstr "Mana ruway"
 
@@ -824,6 +825,7 @@ msgstr "Llapan pichay"
 #: ../../../lib/web/src/components/search-input.tsx
 #: src/components/layout/chat-list-filters.tsx
 #: src/features/chats/components/forward-dialog.tsx
+#: src/features/chats/share-page.tsx
 #: src/routes/_authenticated/$chatId_.settings.tsx
 msgid "Clear search"
 msgstr "Maskayta pichay"
@@ -971,6 +973,7 @@ msgid "Copied"
 msgstr "Copiasqa"
 
 #: ../../../lib/web/src/components/comment-share-button.tsx
+#: ../../../lib/web/src/components/share-menu.tsx
 #: ../../../lib/web/src/components/ui/copy-button.tsx
 msgid "Copied to clipboard"
 msgstr "Clipboard-man copiasqa"
@@ -1369,13 +1372,11 @@ msgstr "Email"
 msgid "Email code"
 msgstr "Email código"
 
-#: src/features/chats/components/message-bubble.tsx
-#: src/features/chats/components/thread-replies.tsx
+#: src/features/chats/components/sealed-text.tsx
 msgid "Encrypted for other devices only"
 msgstr "Huk kaqkunallapaq pakasqa"
 
-#: src/features/chats/components/message-bubble.tsx
-#: src/features/chats/components/thread-replies.tsx
+#: src/features/chats/components/sealed-text.tsx
 msgid "Encrypted message"
 msgstr "Pakasqa willakuy"
 
@@ -1438,6 +1439,7 @@ msgid "Failed to add member"
 msgstr "Mana miembrota yapayta atinchu"
 
 #: ../../../lib/web/src/components/comment-share-button.tsx
+#: ../../../lib/web/src/components/share-menu.tsx
 #: ../../../lib/web/src/components/ui/copy-button.tsx
 #: ../../../lib/web/src/lib/toast-utils.ts
 #: src/features/chats/index.tsx
@@ -1456,7 +1458,8 @@ msgid "Failed to create chat"
 msgstr "Mana rimanakuyta kamariyta atinchu"
 
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx
-#: ../../../lib/web/src/components/options-menu.tsx
+#: ../../../lib/web/src/components/share-menu.tsx
+#: ../../../lib/web/src/components/share-menu.tsx
 msgid "Failed to create link"
 msgstr "Mana t'inkita kamariyta atinchu"
 
@@ -1866,10 +1869,6 @@ msgstr "Sut'i"
 msgid "Like"
 msgstr "Kusikuy"
 
-#: ../../../lib/web/src/components/options-menu.tsx
-msgid "Link"
-msgstr "T'inki"
-
 #: ../../../lib/web/src/components/entity/entity-activity-list.tsx
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx
 msgid "Links"
@@ -2143,6 +2142,7 @@ msgstr "Aswan musuq"
 #: src/features/chats/components/chat-empty-state.tsx
 #: src/features/chats/components/chat-empty-state.tsx
 #: src/features/chats/components/new-chat.tsx
+#: src/features/chats/share-page.tsx
 msgid "New chat"
 msgstr "Musuq rimanakuy"
 
@@ -2189,6 +2189,8 @@ msgid "No changes to display"
 msgstr "Rikuchinapaq mana hukchaykuna kanchu"
 
 #: src/components/layout/chat-list-filters.tsx
+#: src/features/chats/share-page.tsx
+#: src/features/chats/share-page.tsx
 msgid "No chats"
 msgstr "Mana rimanakuykuna kanchu"
 
@@ -2883,6 +2885,7 @@ msgstr "Maskay"
 #: src/components/layout/chat-list-filters.tsx
 #: src/components/layout/chat-list-filters.tsx
 #: src/features/chats/components/forward-dialog.tsx
+#: src/features/chats/share-page.tsx
 msgid "Search chats"
 msgstr "Rimanakuykunata maskay"
 
@@ -3024,6 +3027,11 @@ msgstr "Email apachiy"
 msgid "Send friend request"
 msgstr "Masi mañakuyta apachiy"
 
+#: src/features/chats/share-page.tsx
+#: src/features/chats/share-page.tsx
+msgid "Send in a chat"
+msgstr "Huk rimanakuypi kachay"
+
 #: ../../../lib/web/src/components/game/game-chat-input.tsx
 #: ../../../lib/web/src/components/game/game-chat-input.tsx
 #: src/features/chats/components/chat-input.tsx
@@ -3035,6 +3043,12 @@ msgstr "Willakuyta apachiy"
 msgid "Send read receipts"
 msgstr "Ñawinchasqa willakuykunata apachiy"
 
+#: src/features/chats/components/chat-input.tsx
+#: src/features/chats/components/thread-panel.tsx
+#: src/features/chats/components/unsent-message.tsx
+msgid "Send unencrypted"
+msgstr "Mana pakasqata apachiy"
+
 #: src/features/chats/components/message-bubble.tsx
 msgctxt "receipt"
 msgid "Sent"
@@ -3045,6 +3059,7 @@ msgid "Sent from a device whose keys do not match"
 msgstr "Llavenkuna mana tupanchu chay aparatomanta kachamusqa"
 
 #: src/features/chats/components/message-bubble.tsx
+#: src/features/chats/components/sealed-text.tsx
 msgid "Sent from a device you distrusted"
 msgstr "Mana iñisqayki aparatomanta kachamusqa"
 
@@ -3092,6 +3107,7 @@ msgstr "Wakichiykuna waqaychasqa"
 
 #: ../../../lib/web/src/components/comment-share-button.tsx
 #: ../../../lib/web/src/components/comment-share-button.tsx
+#: ../../../lib/web/src/components/share-menu.tsx
 msgid "Share"
 msgstr "Rakiy"
 
@@ -3314,6 +3330,10 @@ msgstr "Contraseñaqa manam chaskisqachu karqan"
 #: ../../../lib/web/src/features/errors/general-error.tsx
 msgid "The requested content could not be found."
 msgstr "Mañakusqa contenido mana tarikunchu."
+
+#: src/features/chats/components/sealed-text.tsx
+msgid "The sender's encryption key changed"
+msgstr "Kachaqpa pakay clavenqa tikrasqañam"
 
 #: ../../../lib/web/src/lib/api-response-interceptors.ts
 msgid "The server returned a web page instead of data."

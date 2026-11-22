@@ -634,6 +634,7 @@ msgstr "කැමරාව නොමැත"
 #: src/features/chats/components/verification-watcher.tsx
 #: src/features/chats/components/verification-watcher.tsx
 #: src/features/chats/index.tsx
+#: src/features/chats/share-page.tsx
 msgid "Cancel"
 msgstr "අවලංගු කරන්න"
 
@@ -824,6 +825,7 @@ msgstr "සියල්ල හිස් කරන්න"
 #: ../../../lib/web/src/components/search-input.tsx
 #: src/components/layout/chat-list-filters.tsx
 #: src/features/chats/components/forward-dialog.tsx
+#: src/features/chats/share-page.tsx
 #: src/routes/_authenticated/$chatId_.settings.tsx
 msgid "Clear search"
 msgstr "සෙවුම හිස් කරන්න"
@@ -971,6 +973,7 @@ msgid "Copied"
 msgstr "පිටපත් කළා"
 
 #: ../../../lib/web/src/components/comment-share-button.tsx
+#: ../../../lib/web/src/components/share-menu.tsx
 #: ../../../lib/web/src/components/ui/copy-button.tsx
 msgid "Copied to clipboard"
 msgstr "ක්ලිප්බෝඩ් වෙත පිටපත් කරන ලදී"
@@ -1369,13 +1372,11 @@ msgstr "ඊමේල්"
 msgid "Email code"
 msgstr "ඊමේල් කේතය"
 
-#: src/features/chats/components/message-bubble.tsx
-#: src/features/chats/components/thread-replies.tsx
+#: src/features/chats/components/sealed-text.tsx
 msgid "Encrypted for other devices only"
 msgstr "වෙනත් උපාංග සඳහා පමණක් සංකේතනය කර ඇත"
 
-#: src/features/chats/components/message-bubble.tsx
-#: src/features/chats/components/thread-replies.tsx
+#: src/features/chats/components/sealed-text.tsx
 msgid "Encrypted message"
 msgstr "සංකේතනය කළ පණිවිඩය"
 
@@ -1438,6 +1439,7 @@ msgid "Failed to add member"
 msgstr "සාමාජිකයා එක් කිරීමට අසමත් විය"
 
 #: ../../../lib/web/src/components/comment-share-button.tsx
+#: ../../../lib/web/src/components/share-menu.tsx
 #: ../../../lib/web/src/components/ui/copy-button.tsx
 #: ../../../lib/web/src/lib/toast-utils.ts
 #: src/features/chats/index.tsx
@@ -1456,7 +1458,8 @@ msgid "Failed to create chat"
 msgstr "කතාබහක් සෑදීමට අසමත් විය"
 
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx
-#: ../../../lib/web/src/components/options-menu.tsx
+#: ../../../lib/web/src/components/share-menu.tsx
+#: ../../../lib/web/src/components/share-menu.tsx
 msgid "Failed to create link"
 msgstr "සබැඳියක් සෑදීමට අසමත් විය"
 
@@ -1866,10 +1869,6 @@ msgstr "ලා"
 msgid "Like"
 msgstr "කැමති"
 
-#: ../../../lib/web/src/components/options-menu.tsx
-msgid "Link"
-msgstr "සබැඳිය"
-
 #: ../../../lib/web/src/components/entity/entity-activity-list.tsx
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx
 msgid "Links"
@@ -2143,6 +2142,7 @@ msgstr "නවතම"
 #: src/features/chats/components/chat-empty-state.tsx
 #: src/features/chats/components/chat-empty-state.tsx
 #: src/features/chats/components/new-chat.tsx
+#: src/features/chats/share-page.tsx
 msgid "New chat"
 msgstr "නව චැට්"
 
@@ -2189,6 +2189,8 @@ msgid "No changes to display"
 msgstr "පෙන්වීමට වෙනස්කම් නැත"
 
 #: src/components/layout/chat-list-filters.tsx
+#: src/features/chats/share-page.tsx
+#: src/features/chats/share-page.tsx
 msgid "No chats"
 msgstr "චැට් නැත"
 
@@ -2883,6 +2885,7 @@ msgstr "සොයන්න"
 #: src/components/layout/chat-list-filters.tsx
 #: src/components/layout/chat-list-filters.tsx
 #: src/features/chats/components/forward-dialog.tsx
+#: src/features/chats/share-page.tsx
 msgid "Search chats"
 msgstr "චැට් සොයන්න"
 
@@ -3024,6 +3027,11 @@ msgstr "ඊමේල් යවන්න"
 msgid "Send friend request"
 msgstr "මිතුරු ඉල්ලීමක් යවන්න"
 
+#: src/features/chats/share-page.tsx
+#: src/features/chats/share-page.tsx
+msgid "Send in a chat"
+msgstr "චැට් එකක යවන්න"
+
 #: ../../../lib/web/src/components/game/game-chat-input.tsx
 #: ../../../lib/web/src/components/game/game-chat-input.tsx
 #: src/features/chats/components/chat-input.tsx
@@ -3035,6 +3043,12 @@ msgstr "පණිවිඩය යවන්න"
 msgid "Send read receipts"
 msgstr "කියවීමේ තහවුරු කිරීම් යවන්න"
 
+#: src/features/chats/components/chat-input.tsx
+#: src/features/chats/components/thread-panel.tsx
+#: src/features/chats/components/unsent-message.tsx
+msgid "Send unencrypted"
+msgstr "සංකේතනයකින් තොරව යවන්න"
+
 #: src/features/chats/components/message-bubble.tsx
 msgctxt "receipt"
 msgid "Sent"
@@ -3045,6 +3059,7 @@ msgid "Sent from a device whose keys do not match"
 msgstr "යතුරු නොගැළපෙන උපාංගයකින් යවන ලදී"
 
 #: src/features/chats/components/message-bubble.tsx
+#: src/features/chats/components/sealed-text.tsx
 msgid "Sent from a device you distrusted"
 msgstr "ඔබ විශ්වාස නොකළ උපාංගයකින් යවන ලදී"
 
@@ -3092,6 +3107,7 @@ msgstr "සැකසුම් සුරකින ලදී"
 
 #: ../../../lib/web/src/components/comment-share-button.tsx
 #: ../../../lib/web/src/components/comment-share-button.tsx
+#: ../../../lib/web/src/components/share-menu.tsx
 msgid "Share"
 msgstr "බෙදාගන්න"
 
@@ -3314,6 +3330,10 @@ msgstr "මුරපදය පිළිගනු නොලැබීය"
 #: ../../../lib/web/src/features/errors/general-error.tsx
 msgid "The requested content could not be found."
 msgstr "ඉල්ලූ අන්තර්ගතය සොයාගත නොහැකි විය."
+
+#: src/features/chats/components/sealed-text.tsx
+msgid "The sender's encryption key changed"
+msgstr "යවන්නාගේ සංකේතන යතුර වෙනස් වී ඇත"
 
 #: ../../../lib/web/src/lib/api-response-interceptors.ts
 msgid "The server returned a web page instead of data."

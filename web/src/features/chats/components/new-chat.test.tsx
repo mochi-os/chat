@@ -21,10 +21,13 @@ const calls = vi.hoisted(() => ({
   accounts: [] as { id: string; identifier: string; network: string }[],
   // The networks the server offers an account on.
   offered: [] as string[],
+  // The router's navigation, and what the dialog's opener was handed.
+  route: vi.fn(),
+  chosen: vi.fn((_chatId: string) => Promise.resolve()),
 }))
 
 vi.mock('@tanstack/react-router', () => ({
-  useNavigate: () => vi.fn(),
+  useNavigate: () => calls.route,
 }))
 vi.mock('@mochi/web', async (importOriginal) => ({
   ...(await importOriginal<typeof import('@mochi/web')>()),
@@ -56,6 +59,7 @@ vi.mock('@/context/sidebar-context', () => ({
   useSidebarContext: () => ({
     newChatDialogOpen: true,
     closeNewChatDialog: calls.close,
+    newChatChosen: (chatId: string) => calls.chosen(chatId),
   }),
 }))
 vi.mock('@/hooks/useChats', () => ({
@@ -115,9 +119,29 @@ beforeEach(() => {
   calls.close = vi.fn()
   calls.navigate = vi.fn()
   calls.toasted = []
+  calls.route = vi.fn()
+  calls.chosen = vi.fn(() => Promise.resolve())
 })
 
 describe('NewChat', () => {
+  it('opens the chat it made once its opener has had it, as Share fills its message box', async () => {
+    let release = () => {}
+    calls.chosen = vi.fn(
+      () => new Promise<void>((resolve) => (release = resolve))
+    )
+    calls.create.mockResolvedValue({ id: 'c9' })
+    await create()
+    await waitFor(() => expect(calls.chosen).toHaveBeenCalledWith('c9'))
+    expect(calls.route).not.toHaveBeenCalled()
+    release()
+    await waitFor(() =>
+      expect(calls.route).toHaveBeenCalledWith({
+        to: '/$chatId',
+        params: { chatId: 'c9' },
+      })
+    )
+  })
+
   it('says who refused the chat and opens their page in People for a friend request', async () => {
     // THE POINT: a refusal is a dialog naming the person, not an error toast,
     // and its button lands on the page where the request is one tap.

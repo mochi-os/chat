@@ -29,6 +29,7 @@ import { MessageAttachments } from './message-attachments'
 import { MessageBody } from './message-body'
 import { MessageHoverActions } from './message-hover-actions'
 import { MessageQuote } from './message-quote'
+import { SealedText } from './sealed-text'
 import {
   MessageReactionPicker,
   MessageReactionSummary,
@@ -163,11 +164,7 @@ export const MessageBubble = memo(function MessageBubble({
           </p>
         ) : isEncrypted ? (
           <p className='text-muted-foreground text-sm italic'>
-            {message.encrypted === 3 ? (
-              <Trans>Encrypted for other devices only</Trans>
-            ) : (
-              <Trans>Encrypted message</Trans>
-            )}
+            <SealedText encrypted={message.encrypted} />
           </p>
         ) : (
           <>

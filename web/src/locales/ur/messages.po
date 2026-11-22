@@ -634,6 +634,7 @@ msgstr "کیمرہ دستیاب نہیں"
 #: src/features/chats/components/verification-watcher.tsx
 #: src/features/chats/components/verification-watcher.tsx
 #: src/features/chats/index.tsx
+#: src/features/chats/share-page.tsx
 msgid "Cancel"
 msgstr "منسوخ کریں"
 
@@ -824,6 +825,7 @@ msgstr "سب صاف کریں"
 #: ../../../lib/web/src/components/search-input.tsx
 #: src/components/layout/chat-list-filters.tsx
 #: src/features/chats/components/forward-dialog.tsx
+#: src/features/chats/share-page.tsx
 #: src/routes/_authenticated/$chatId_.settings.tsx
 msgid "Clear search"
 msgstr "تلاش صاف کریں"
@@ -971,6 +973,7 @@ msgid "Copied"
 msgstr "کاپی ہو گیا"
 
 #: ../../../lib/web/src/components/comment-share-button.tsx
+#: ../../../lib/web/src/components/share-menu.tsx
 #: ../../../lib/web/src/components/ui/copy-button.tsx
 msgid "Copied to clipboard"
 msgstr "کلپ بورڈ پر کاپی ہو گیا"
@@ -1369,13 +1372,11 @@ msgstr "ای میل"
 msgid "Email code"
 msgstr "ای میل کوڈ"
 
-#: src/features/chats/components/message-bubble.tsx
-#: src/features/chats/components/thread-replies.tsx
+#: src/features/chats/components/sealed-text.tsx
 msgid "Encrypted for other devices only"
 msgstr "صرف دوسرے آلات کے لیے خفیہ کردہ"
 
-#: src/features/chats/components/message-bubble.tsx
-#: src/features/chats/components/thread-replies.tsx
+#: src/features/chats/components/sealed-text.tsx
 msgid "Encrypted message"
 msgstr "خفیہ کردہ پیغام"
 
@@ -1438,6 +1439,7 @@ msgid "Failed to add member"
 msgstr "ممبر شامل کرنے میں ناکامی"
 
 #: ../../../lib/web/src/components/comment-share-button.tsx
+#: ../../../lib/web/src/components/share-menu.tsx
 #: ../../../lib/web/src/components/ui/copy-button.tsx
 #: ../../../lib/web/src/lib/toast-utils.ts
 #: src/features/chats/index.tsx
@@ -1456,7 +1458,8 @@ msgid "Failed to create chat"
 msgstr "چیٹ بنانے میں ناکامی"
 
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx
-#: ../../../lib/web/src/components/options-menu.tsx
+#: ../../../lib/web/src/components/share-menu.tsx
+#: ../../../lib/web/src/components/share-menu.tsx
 msgid "Failed to create link"
 msgstr "لنک بنانے میں ناکامی"
 
@@ -1866,10 +1869,6 @@ msgstr "لائٹ"
 msgid "Like"
 msgstr "پسند"
 
-#: ../../../lib/web/src/components/options-menu.tsx
-msgid "Link"
-msgstr "لنک"
-
 #: ../../../lib/web/src/components/entity/entity-activity-list.tsx
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx
 msgid "Links"
@@ -2143,6 +2142,7 @@ msgstr "تازہ ترین"
 #: src/features/chats/components/chat-empty-state.tsx
 #: src/features/chats/components/chat-empty-state.tsx
 #: src/features/chats/components/new-chat.tsx
+#: src/features/chats/share-page.tsx
 msgid "New chat"
 msgstr "نئی چیٹ"
 
@@ -2189,6 +2189,8 @@ msgid "No changes to display"
 msgstr "ظاہر کرنے کے لیے کوئی تبدیلیاں نہیں"
 
 #: src/components/layout/chat-list-filters.tsx
+#: src/features/chats/share-page.tsx
+#: src/features/chats/share-page.tsx
 msgid "No chats"
 msgstr "کوئی چیٹ نہیں"
 
@@ -2883,6 +2885,7 @@ msgstr "تلاش کریں"
 #: src/components/layout/chat-list-filters.tsx
 #: src/components/layout/chat-list-filters.tsx
 #: src/features/chats/components/forward-dialog.tsx
+#: src/features/chats/share-page.tsx
 msgid "Search chats"
 msgstr "چیٹس تلاش کریں"
 
@@ -3024,6 +3027,11 @@ msgstr "ای میل بھیجیں"
 msgid "Send friend request"
 msgstr "دوستی کی درخواست بھیجیں"
 
+#: src/features/chats/share-page.tsx
+#: src/features/chats/share-page.tsx
+msgid "Send in a chat"
+msgstr "چیٹ میں بھیجیں"
+
 #: ../../../lib/web/src/components/game/game-chat-input.tsx
 #: ../../../lib/web/src/components/game/game-chat-input.tsx
 #: src/features/chats/components/chat-input.tsx
@@ -3035,6 +3043,12 @@ msgstr "پیغام بھیجیں"
 msgid "Send read receipts"
 msgstr "پڑھنے کی رسیدیں بھیجیں"
 
+#: src/features/chats/components/chat-input.tsx
+#: src/features/chats/components/thread-panel.tsx
+#: src/features/chats/components/unsent-message.tsx
+msgid "Send unencrypted"
+msgstr "انکرپشن کے بغیر بھیجیں"
+
 #: src/features/chats/components/message-bubble.tsx
 msgctxt "receipt"
 msgid "Sent"
@@ -3045,6 +3059,7 @@ msgid "Sent from a device whose keys do not match"
 msgstr "ایسے آلے سے بھیجا گیا جس کی کلیدیں مماثل نہیں ہیں"
 
 #: src/features/chats/components/message-bubble.tsx
+#: src/features/chats/components/sealed-text.tsx
 msgid "Sent from a device you distrusted"
 msgstr "ایسے آلے سے بھیجا گیا جس پر آپ نے اعتماد نہیں کیا"
 
@@ -3092,6 +3107,7 @@ msgstr "سیٹنگز محفوظ ہو گئیں"
 
 #: ../../../lib/web/src/components/comment-share-button.tsx
 #: ../../../lib/web/src/components/comment-share-button.tsx
+#: ../../../lib/web/src/components/share-menu.tsx
 msgid "Share"
 msgstr "شیئر کریں"
 
@@ -3314,6 +3330,10 @@ msgstr "پاس ورڈ قبول نہیں کیا گیا"
 #: ../../../lib/web/src/features/errors/general-error.tsx
 msgid "The requested content could not be found."
 msgstr "مطلوبہ مواد نہیں مل سکا۔"
+
+#: src/features/chats/components/sealed-text.tsx
+msgid "The sender's encryption key changed"
+msgstr "بھیجنے والے کی انکرپشن کلید تبدیل ہو گئی ہے"
 
 #: ../../../lib/web/src/lib/api-response-interceptors.ts
 msgid "The server returned a web page instead of data."

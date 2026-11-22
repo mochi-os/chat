@@ -15,11 +15,12 @@ import {
   SidePanelTitle,
   Skeleton,
   Textarea,
+  extractStatus,
   getErrorMessage,
   toast,
   useFormat,
 } from '@mochi/web'
-import { Send } from 'lucide-react'
+import { LockOpen, Send } from 'lucide-react'
 import { chatsApi, type ChatMessage } from '@/api/chats'
 import { chatKeys, useThreadMessagesQuery } from '@/hooks/useChats'
 import { MessageAttachments } from './message-attachments'
@@ -28,6 +29,10 @@ import { MessageBody } from './message-body'
 // How long the websocket gets to bring the user's own reply before the
 // thread is fetched again, as the main timeline's send path waits.
 const SOCKET_DELIVERY_GRACE = 1500
+
+// The send's refusal of a reply that would go unencrypted in a conversation
+// that was encrypted, as the main composer reads it.
+const ENCRYPTION_REFUSED = 409
 
 interface ThreadPanelProps {
   chatId: string
@@ -58,8 +63,12 @@ export function ThreadPanel({
   const writable = canWrite && !root?.deleted
 
   const send = useMutation({
-    mutationFn: (text: string) =>
-      chatsApi.sendMessage(chatId, { body: text, thread: root!.id }),
+    mutationFn: ({ text, unencrypted }: { text: string; unencrypted: boolean }) =>
+      chatsApi.sendMessage(chatId, {
+        body: text,
+        thread: root!.id,
+        unencrypted,
+      }),
     onSuccess: (data) => {
       setBody('')
       window.setTimeout(() => {
@@ -80,11 +89,18 @@ export function ThreadPanel({
     },
   })
 
-  const submit = (event: React.FormEvent) => {
-    event.preventDefault()
+  // The reply goes unencrypted only by the user's choice, after the send
+  // refused it for want of encryption.
+  const reply = (unencrypted: boolean) => {
     const text = body.trim()
     if (!text || send.isPending) return
-    send.mutate(text)
+    send.mutate({ text, unencrypted })
+  }
+  const refused = extractStatus(send.error) === ENCRYPTION_REFUSED
+
+  const submit = (event: React.FormEvent) => {
+    event.preventDefault()
+    reply(false)
   }
 
   return (
@@ -161,6 +177,20 @@ export function ThreadPanel({
               <Trans>Send</Trans>
             </Button>
           </form>
+          {refused ? (
+            <div className='flex justify-end'>
+              <Button
+                type='button'
+                variant='ghost'
+                size='sm'
+                onClick={() => reply(true)}
+                disabled={!body.trim() || send.isPending}
+              >
+                <LockOpen className='size-4' />
+                <Trans>Send unencrypted</Trans>
+              </Button>
+            </div>
+          ) : null}
         </SidePanelFooter>
       ) : null}
     </SidePanel>

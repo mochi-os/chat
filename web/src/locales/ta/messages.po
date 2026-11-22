@@ -634,6 +634,7 @@ msgstr "கேமரா கிடைக்கவில்லை"
 #: src/features/chats/components/verification-watcher.tsx
 #: src/features/chats/components/verification-watcher.tsx
 #: src/features/chats/index.tsx
+#: src/features/chats/share-page.tsx
 msgid "Cancel"
 msgstr "ரத்துசெய்"
 
@@ -824,6 +825,7 @@ msgstr "அனைத்தையும் அழி"
 #: ../../../lib/web/src/components/search-input.tsx
 #: src/components/layout/chat-list-filters.tsx
 #: src/features/chats/components/forward-dialog.tsx
+#: src/features/chats/share-page.tsx
 #: src/routes/_authenticated/$chatId_.settings.tsx
 msgid "Clear search"
 msgstr "தேடலை அழி"
@@ -971,6 +973,7 @@ msgid "Copied"
 msgstr "நகலெடுக்கப்பட்டது"
 
 #: ../../../lib/web/src/components/comment-share-button.tsx
+#: ../../../lib/web/src/components/share-menu.tsx
 #: ../../../lib/web/src/components/ui/copy-button.tsx
 msgid "Copied to clipboard"
 msgstr "கிளிப்போர்டுக்கு நகலெடுக்கப்பட்டது"
@@ -1369,13 +1372,11 @@ msgstr "மின்னஞ்சல்"
 msgid "Email code"
 msgstr "மின்னஞ்சல் குறியீடு"
 
-#: src/features/chats/components/message-bubble.tsx
-#: src/features/chats/components/thread-replies.tsx
+#: src/features/chats/components/sealed-text.tsx
 msgid "Encrypted for other devices only"
 msgstr "பிற சாதனங்களுக்கு மட்டும் மறையாக்கப்பட்டது"
 
-#: src/features/chats/components/message-bubble.tsx
-#: src/features/chats/components/thread-replies.tsx
+#: src/features/chats/components/sealed-text.tsx
 msgid "Encrypted message"
 msgstr "மறையாக்கப்பட்ட செய்தி"
 
@@ -1438,6 +1439,7 @@ msgid "Failed to add member"
 msgstr "உறுப்பினரைச் சேர்க்க முடியவில்லை"
 
 #: ../../../lib/web/src/components/comment-share-button.tsx
+#: ../../../lib/web/src/components/share-menu.tsx
 #: ../../../lib/web/src/components/ui/copy-button.tsx
 #: ../../../lib/web/src/lib/toast-utils.ts
 #: src/features/chats/index.tsx
@@ -1456,7 +1458,8 @@ msgid "Failed to create chat"
 msgstr "சாட்டை உருவாக்க முடியவில்லை"
 
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx
-#: ../../../lib/web/src/components/options-menu.tsx
+#: ../../../lib/web/src/components/share-menu.tsx
+#: ../../../lib/web/src/components/share-menu.tsx
 msgid "Failed to create link"
 msgstr "இணைப்பை உருவாக்க முடியவில்லை"
 
@@ -1866,10 +1869,6 @@ msgstr "லைட்"
 msgid "Like"
 msgstr "லைக்"
 
-#: ../../../lib/web/src/components/options-menu.tsx
-msgid "Link"
-msgstr "இணைப்பு"
-
 #: ../../../lib/web/src/components/entity/entity-activity-list.tsx
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx
 msgid "Links"
@@ -2143,6 +2142,7 @@ msgstr "சமீபத்தியவை"
 #: src/features/chats/components/chat-empty-state.tsx
 #: src/features/chats/components/chat-empty-state.tsx
 #: src/features/chats/components/new-chat.tsx
+#: src/features/chats/share-page.tsx
 msgid "New chat"
 msgstr "புதிய அரட்டை"
 
@@ -2189,6 +2189,8 @@ msgid "No changes to display"
 msgstr "காட்ட மாற்றங்கள் எதுவும் இல்லை"
 
 #: src/components/layout/chat-list-filters.tsx
+#: src/features/chats/share-page.tsx
+#: src/features/chats/share-page.tsx
 msgid "No chats"
 msgstr "அரட்டைகள் இல்லை"
 
@@ -2883,6 +2885,7 @@ msgstr "தேடு"
 #: src/components/layout/chat-list-filters.tsx
 #: src/components/layout/chat-list-filters.tsx
 #: src/features/chats/components/forward-dialog.tsx
+#: src/features/chats/share-page.tsx
 msgid "Search chats"
 msgstr "அரட்டைகளைத் தேடு"
 
@@ -3024,6 +3027,11 @@ msgstr "மின்னஞ்சல் அனுப்பு"
 msgid "Send friend request"
 msgstr "நட்பு கோரிக்கையை அனுப்பு"
 
+#: src/features/chats/share-page.tsx
+#: src/features/chats/share-page.tsx
+msgid "Send in a chat"
+msgstr "அரட்டையில் அனுப்பு"
+
 #: ../../../lib/web/src/components/game/game-chat-input.tsx
 #: ../../../lib/web/src/components/game/game-chat-input.tsx
 #: src/features/chats/components/chat-input.tsx
@@ -3035,6 +3043,12 @@ msgstr "செய்தியை அனுப்பு"
 msgid "Send read receipts"
 msgstr "படித்த அறிவிப்புகளை அனுப்பு"
 
+#: src/features/chats/components/chat-input.tsx
+#: src/features/chats/components/thread-panel.tsx
+#: src/features/chats/components/unsent-message.tsx
+msgid "Send unencrypted"
+msgstr "மறையாக்கம் இல்லாமல் அனுப்பு"
+
 #: src/features/chats/components/message-bubble.tsx
 msgctxt "receipt"
 msgid "Sent"
@@ -3045,6 +3059,7 @@ msgid "Sent from a device whose keys do not match"
 msgstr "விசைகள் பொருந்தாத சாதனத்திலிருந்து அனுப்பப்பட்டது"
 
 #: src/features/chats/components/message-bubble.tsx
+#: src/features/chats/components/sealed-text.tsx
 msgid "Sent from a device you distrusted"
 msgstr "நீங்கள் நம்பகமற்றதாகக் குறித்த சாதனத்திலிருந்து அனுப்பப்பட்டது"
 
@@ -3092,6 +3107,7 @@ msgstr "அமைப்புகள் சேமிக்கப்பட்ட�
 
 #: ../../../lib/web/src/components/comment-share-button.tsx
 #: ../../../lib/web/src/components/comment-share-button.tsx
+#: ../../../lib/web/src/components/share-menu.tsx
 msgid "Share"
 msgstr "பகிர்"
 
@@ -3314,6 +3330,10 @@ msgstr "கடவுச்சொல் ஏற்கப்படவில்ல�
 #: ../../../lib/web/src/features/errors/general-error.tsx
 msgid "The requested content could not be found."
 msgstr "கோரப்பட்ட உள்ளடக்கத்தைக் கண்டறிய முடியவில்லை."
+
+#: src/features/chats/components/sealed-text.tsx
+msgid "The sender's encryption key changed"
+msgstr "அனுப்புநரின் மறையாக்க விசை மாறியுள்ளது"
 
 #: ../../../lib/web/src/lib/api-response-interceptors.ts
 msgid "The server returned a web page instead of data."

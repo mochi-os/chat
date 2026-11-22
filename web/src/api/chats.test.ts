@@ -61,4 +61,15 @@ describe('chatsApi.sendMessage', () => {
     await chatsApi.sendMessage('c1', { body: 'Hi' })
     expect(warning).not.toHaveBeenCalled()
   })
+
+  it('carries the choice to send unencrypted, files and all', async () => {
+    post.mockResolvedValue({ data: { id: 'm1', unsent: [] } })
+    const file = new File(['x'], 'x.png', { type: 'image/png' })
+    await chatsApi.sendMessage('c1', { body: 'Hi', attachments: [file], unencrypted: true })
+    expect((post.mock.calls[0][1] as FormData).get('unencrypted')).toBe('true')
+    await chatsApi.sendMessage('c1', { body: 'Hi', unencrypted: true })
+    expect(post.mock.calls[1][1]).toMatchObject({ unencrypted: true })
+    await chatsApi.sendMessage('c1', { body: 'Hi', attachments: [file] })
+    expect((post.mock.calls[2][1] as FormData).get('unencrypted')).toBeNull()
+  })
 })

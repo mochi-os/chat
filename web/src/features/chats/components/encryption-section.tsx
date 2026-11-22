@@ -303,8 +303,10 @@ function DeviceRow({
   const trust = trustOf(device)
   const change = useMutation({
     mutationFn: (value: Trust) =>
-      encryptionApi.trust(chatId, person, device.id, value),
-    onSuccess: () =>
+      encryptionApi.trust(chatId, person, device.id, value, device.fingerprint),
+    // Refused too, where the device's identity changed since it was shown:
+    // the list shows the new one.
+    onSettled: () =>
       void queryClient.invalidateQueries({
         queryKey: keys.devices(chatId, person),
       }),

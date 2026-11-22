@@ -8,6 +8,7 @@ import {
   useState,
   useCallback,
   useEffect,
+  useRef,
   type ReactNode,
 } from 'react'
 import { getWebsocketStatusMeta, type WebsocketStatusMeta } from '@mochi/web'
@@ -27,6 +28,13 @@ type SidebarContextValue = {
   setChat: (id: string | null, name?: string) => void
   newChatDialogOpen: boolean
   openNewChatDialog: () => void
+  /**
+   * The new chat dialog, for a chat that wants something of whichever chat it
+   * ends on before that chat opens: Share fills its message box.
+   */
+  openNewChatFor: (chosen: (chatId: string) => Promise<void>) => void
+  /** The dialog ends on a chat, which opens once this answers. */
+  newChatChosen: (chatId: string) => Promise<void>
   closeNewChatDialog: () => void
   websocketStatus: WebsocketConnectionStatus
   websocketStatusMeta: WebsocketStatusMeta
@@ -147,8 +155,27 @@ export function SidebarProvider({ children }: { children: ReactNode }) {
     setChatName(name ?? null)
   }, [])
 
+  // What the dialog's opener wants of the chat it ends on, until it is next
+  // opened.
+  const chosen = useRef<((chatId: string) => Promise<void>) | null>(null)
+
   const openNewChatDialog = useCallback(() => {
+    chosen.current = null
     setNewChatDialogOpen(true)
+  }, [])
+
+  const openNewChatFor = useCallback(
+    (wanted: (chatId: string) => Promise<void>) => {
+      chosen.current = wanted
+      setNewChatDialogOpen(true)
+    },
+    []
+  )
+
+  const newChatChosen = useCallback(async (chatId: string) => {
+    const wanted = chosen.current
+    chosen.current = null
+    await wanted?.(chatId)
   }, [])
 
   const closeNewChatDialog = useCallback(() => {
@@ -176,6 +203,8 @@ export function SidebarProvider({ children }: { children: ReactNode }) {
         setChat,
         newChatDialogOpen,
         openNewChatDialog,
+        openNewChatFor,
+        newChatChosen,
         closeNewChatDialog,
         websocketStatus,
         websocketStatusMeta,

@@ -129,6 +129,9 @@ export const chatsApi = {
       if (payload.thread) {
         formData.append('thread', payload.thread)
       }
+      if (payload.unencrypted) {
+        formData.append('unencrypted', 'true')
+      }
       payload.attachments.forEach((file) => {
         formData.append('files', file)
       })

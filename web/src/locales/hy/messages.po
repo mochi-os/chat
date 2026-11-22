@@ -634,6 +634,7 @@ msgstr "Տեսախցիկը հասանելի չէ"
 #: src/features/chats/components/verification-watcher.tsx
 #: src/features/chats/components/verification-watcher.tsx
 #: src/features/chats/index.tsx
+#: src/features/chats/share-page.tsx
 msgid "Cancel"
 msgstr "Չեղարկել"
 
@@ -824,6 +825,7 @@ msgstr "Մաքրել ամենը"
 #: ../../../lib/web/src/components/search-input.tsx
 #: src/components/layout/chat-list-filters.tsx
 #: src/features/chats/components/forward-dialog.tsx
+#: src/features/chats/share-page.tsx
 #: src/routes/_authenticated/$chatId_.settings.tsx
 msgid "Clear search"
 msgstr "Մաքրել որոնումը"
@@ -971,6 +973,7 @@ msgid "Copied"
 msgstr "Պատճենվեց"
 
 #: ../../../lib/web/src/components/comment-share-button.tsx
+#: ../../../lib/web/src/components/share-menu.tsx
 #: ../../../lib/web/src/components/ui/copy-button.tsx
 msgid "Copied to clipboard"
 msgstr "Պատճենվեց սեղմատախտակին"
@@ -1369,13 +1372,11 @@ msgstr "Էլ․ փոստ"
 msgid "Email code"
 msgstr "Էլ․ փոստի կոդ"
 
-#: src/features/chats/components/message-bubble.tsx
-#: src/features/chats/components/thread-replies.tsx
+#: src/features/chats/components/sealed-text.tsx
 msgid "Encrypted for other devices only"
 msgstr "Գաղտնագրված է միայն այլ սարքերի համար"
 
-#: src/features/chats/components/message-bubble.tsx
-#: src/features/chats/components/thread-replies.tsx
+#: src/features/chats/components/sealed-text.tsx
 msgid "Encrypted message"
 msgstr "Գաղտնագրված հաղորդագրություն"
 
@@ -1438,6 +1439,7 @@ msgid "Failed to add member"
 msgstr "Չհաջողվեց ավելացնել անդամին"
 
 #: ../../../lib/web/src/components/comment-share-button.tsx
+#: ../../../lib/web/src/components/share-menu.tsx
 #: ../../../lib/web/src/components/ui/copy-button.tsx
 #: ../../../lib/web/src/lib/toast-utils.ts
 #: src/features/chats/index.tsx
@@ -1456,7 +1458,8 @@ msgid "Failed to create chat"
 msgstr "Չհաջողվեց ստեղծել զրույցը"
 
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx
-#: ../../../lib/web/src/components/options-menu.tsx
+#: ../../../lib/web/src/components/share-menu.tsx
+#: ../../../lib/web/src/components/share-menu.tsx
 msgid "Failed to create link"
 msgstr "Չհաջողվեց ստեղծել հղումը"
 
@@ -1866,10 +1869,6 @@ msgstr "Լուսավոր"
 msgid "Like"
 msgstr "Հավանել"
 
-#: ../../../lib/web/src/components/options-menu.tsx
-msgid "Link"
-msgstr "Հղում"
-
 #: ../../../lib/web/src/components/entity/entity-activity-list.tsx
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx
 msgid "Links"
@@ -2143,6 +2142,7 @@ msgstr "Նորերը"
 #: src/features/chats/components/chat-empty-state.tsx
 #: src/features/chats/components/chat-empty-state.tsx
 #: src/features/chats/components/new-chat.tsx
+#: src/features/chats/share-page.tsx
 msgid "New chat"
 msgstr "Նոր զրույց"
 
@@ -2189,6 +2189,8 @@ msgid "No changes to display"
 msgstr "Ցուցադրելու փոփոխություններ չկան"
 
 #: src/components/layout/chat-list-filters.tsx
+#: src/features/chats/share-page.tsx
+#: src/features/chats/share-page.tsx
 msgid "No chats"
 msgstr "Զրույցներ չկան"
 
@@ -2883,6 +2885,7 @@ msgstr "Որոնել"
 #: src/components/layout/chat-list-filters.tsx
 #: src/components/layout/chat-list-filters.tsx
 #: src/features/chats/components/forward-dialog.tsx
+#: src/features/chats/share-page.tsx
 msgid "Search chats"
 msgstr "Որոնել զրույցներ"
 
@@ -3024,6 +3027,11 @@ msgstr "Ուղարկել էլ. փոստ"
 msgid "Send friend request"
 msgstr "Ուղարկել ընկերության հարցում"
 
+#: src/features/chats/share-page.tsx
+#: src/features/chats/share-page.tsx
+msgid "Send in a chat"
+msgstr "Ուղարկել զրույցում"
+
 #: ../../../lib/web/src/components/game/game-chat-input.tsx
 #: ../../../lib/web/src/components/game/game-chat-input.tsx
 #: src/features/chats/components/chat-input.tsx
@@ -3035,6 +3043,12 @@ msgstr "Ուղարկել հաղորդագրությունը"
 msgid "Send read receipts"
 msgstr "Ուղարկել կարդալու հաստատումներ"
 
+#: src/features/chats/components/chat-input.tsx
+#: src/features/chats/components/thread-panel.tsx
+#: src/features/chats/components/unsent-message.tsx
+msgid "Send unencrypted"
+msgstr "Ուղարկել առանց գաղտնագրման"
+
 #: src/features/chats/components/message-bubble.tsx
 msgctxt "receipt"
 msgid "Sent"
@@ -3045,6 +3059,7 @@ msgid "Sent from a device whose keys do not match"
 msgstr "Ուղարկվել է սարքից, որի բանալիները չեն համընկնում"
 
 #: src/features/chats/components/message-bubble.tsx
+#: src/features/chats/components/sealed-text.tsx
 msgid "Sent from a device you distrusted"
 msgstr "Ուղարկվել է սարքից, որին դուք չեք վստահում"
 
@@ -3092,6 +3107,7 @@ msgstr "Կարգավորումները պահպանվեցին"
 
 #: ../../../lib/web/src/components/comment-share-button.tsx
 #: ../../../lib/web/src/components/comment-share-button.tsx
+#: ../../../lib/web/src/components/share-menu.tsx
 msgid "Share"
 msgstr "Կիսվել"
 
@@ -3314,6 +3330,10 @@ msgstr "Գաղտնաբառը չընդունվեց"
 #: ../../../lib/web/src/features/errors/general-error.tsx
 msgid "The requested content could not be found."
 msgstr "Հնարավոր չեղավ գտնել պահանջված բովանդակությունը։"
+
+#: src/features/chats/components/sealed-text.tsx
+msgid "The sender's encryption key changed"
+msgstr "Ուղարկողի գաղտնագրման բանալին փոխվել է"
 
 #: ../../../lib/web/src/lib/api-response-interceptors.ts
 msgid "The server returned a web page instead of data."

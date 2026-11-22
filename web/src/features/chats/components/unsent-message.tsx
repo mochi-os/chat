@@ -4,11 +4,19 @@
 // Mochi Application Interface Exception - see license.txt and license-exception.md.
 
 // A message whose send failed while the composer already held the next one:
-// its text, why it failed, and Retry, Copy and Discard.
+// its text, why it failed, and Retry, Copy and Discard; and where it was
+// refused for want of encryption, Send unencrypted.
 
 import { Trans } from '@lingui/react/macro'
 import { Button, useFormat } from '@mochi/web'
-import { AlertCircle, Copy, Paperclip, RotateCcw, X } from 'lucide-react'
+import {
+  AlertCircle,
+  Copy,
+  LockOpen,
+  Paperclip,
+  RotateCcw,
+  X,
+} from 'lucide-react'
 
 interface UnsentMessageProps {
   body: string
@@ -16,6 +24,7 @@ interface UnsentMessageProps {
   error: string
   retryDisabled: boolean
   onRetry: () => void
+  onSendUnencrypted?: () => void
   onCopy: () => void
   onDiscard: () => void
 }
@@ -26,6 +35,7 @@ export function UnsentMessage({
   error,
   retryDisabled,
   onRetry,
+  onSendUnencrypted,
   onCopy,
   onDiscard,
 }: UnsentMessageProps) {
@@ -59,6 +69,18 @@ export function UnsentMessage({
           <RotateCcw className='size-4' />
           <Trans>Retry</Trans>
         </Button>
+        {onSendUnencrypted ? (
+          <Button
+            type='button'
+            variant='ghost'
+            size='sm'
+            onClick={onSendUnencrypted}
+            disabled={retryDisabled}
+          >
+            <LockOpen className='size-4' />
+            <Trans>Send unencrypted</Trans>
+          </Button>
+        ) : null}
         {text ? (
           <Button type='button' variant='ghost' size='sm' onClick={onCopy}>
             <Copy className='size-4' />

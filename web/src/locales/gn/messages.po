@@ -634,6 +634,7 @@ msgstr "Cámara ndaipóri"
 #: src/features/chats/components/verification-watcher.tsx
 #: src/features/chats/components/verification-watcher.tsx
 #: src/features/chats/index.tsx
+#: src/features/chats/share-page.tsx
 msgid "Cancel"
 msgstr "Heja"
 
@@ -824,6 +825,7 @@ msgstr "Embopotĩ opaite"
 #: ../../../lib/web/src/components/search-input.tsx
 #: src/components/layout/chat-list-filters.tsx
 #: src/features/chats/components/forward-dialog.tsx
+#: src/features/chats/share-page.tsx
 #: src/routes/_authenticated/$chatId_.settings.tsx
 msgid "Clear search"
 msgstr "Embopotĩ jeheka"
@@ -971,6 +973,7 @@ msgid "Copied"
 msgstr "Oñekopiáma"
 
 #: ../../../lib/web/src/components/comment-share-button.tsx
+#: ../../../lib/web/src/components/share-menu.tsx
 #: ../../../lib/web/src/components/ui/copy-button.tsx
 msgid "Copied to clipboard"
 msgstr "Oñekopiáma clipboard-pe"
@@ -1369,13 +1372,11 @@ msgstr "Email"
 msgid "Email code"
 msgstr "Código email"
 
-#: src/features/chats/components/message-bubble.tsx
-#: src/features/chats/components/thread-replies.tsx
+#: src/features/chats/components/sealed-text.tsx
 msgid "Encrypted for other devices only"
 msgstr "Ñemiguáva ambue dispositivo-pe ĝuarãnte"
 
-#: src/features/chats/components/message-bubble.tsx
-#: src/features/chats/components/thread-replies.tsx
+#: src/features/chats/components/sealed-text.tsx
 msgid "Encrypted message"
 msgstr "Ñe'ẽmondo ñemiguáva"
 
@@ -1438,6 +1439,7 @@ msgid "Failed to add member"
 msgstr "Ndaikatúi oñembojuaju irũ"
 
 #: ../../../lib/web/src/components/comment-share-button.tsx
+#: ../../../lib/web/src/components/share-menu.tsx
 #: ../../../lib/web/src/components/ui/copy-button.tsx
 #: ../../../lib/web/src/lib/toast-utils.ts
 #: src/features/chats/index.tsx
@@ -1456,7 +1458,8 @@ msgid "Failed to create chat"
 msgstr "Ndaikatúi oñemoheñói ñomongeta"
 
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx
-#: ../../../lib/web/src/components/options-menu.tsx
+#: ../../../lib/web/src/components/share-menu.tsx
+#: ../../../lib/web/src/components/share-menu.tsx
 msgid "Failed to create link"
 msgstr "Ndaikatúi oñemoheñói juajuha"
 
@@ -1866,10 +1869,6 @@ msgstr "Hesakã"
 msgid "Like"
 msgstr "Aikose"
 
-#: ../../../lib/web/src/components/options-menu.tsx
-msgid "Link"
-msgstr "Juajuha"
-
 #: ../../../lib/web/src/components/entity/entity-activity-list.tsx
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx
 msgid "Links"
@@ -2143,6 +2142,7 @@ msgstr "Ipyahuvéva"
 #: src/features/chats/components/chat-empty-state.tsx
 #: src/features/chats/components/chat-empty-state.tsx
 #: src/features/chats/components/new-chat.tsx
+#: src/features/chats/share-page.tsx
 msgid "New chat"
 msgstr "Chat pyahu"
 
@@ -2189,6 +2189,8 @@ msgid "No changes to display"
 msgstr "Ndaipóri ñemoambue ojechauka haguã"
 
 #: src/components/layout/chat-list-filters.tsx
+#: src/features/chats/share-page.tsx
+#: src/features/chats/share-page.tsx
 msgid "No chats"
 msgstr "Ndaipóri ñomongeta"
 
@@ -2883,6 +2885,7 @@ msgstr "Eheka"
 #: src/components/layout/chat-list-filters.tsx
 #: src/components/layout/chat-list-filters.tsx
 #: src/features/chats/components/forward-dialog.tsx
+#: src/features/chats/share-page.tsx
 msgid "Search chats"
 msgstr "Eheka ñomongetakuéra"
 
@@ -3024,6 +3027,11 @@ msgstr "Emondo email"
 msgid "Send friend request"
 msgstr "Emondo angirũ jerure"
 
+#: src/features/chats/share-page.tsx
+#: src/features/chats/share-page.tsx
+msgid "Send in a chat"
+msgstr "Emondo peteĩ chat-pe"
+
 #: ../../../lib/web/src/components/game/game-chat-input.tsx
 #: ../../../lib/web/src/components/game/game-chat-input.tsx
 #: src/features/chats/components/chat-input.tsx
@@ -3035,6 +3043,12 @@ msgstr "Emondo ñe'ẽmondo"
 msgid "Send read receipts"
 msgstr "Emondo marandu moñe'ẽmbyre rehegua"
 
+#: src/features/chats/components/chat-input.tsx
+#: src/features/chats/components/thread-panel.tsx
+#: src/features/chats/components/unsent-message.tsx
+msgid "Send unencrypted"
+msgstr "Emondo ñemigua'ỹre"
+
 #: src/features/chats/components/message-bubble.tsx
 msgctxt "receipt"
 msgid "Sent"
@@ -3045,6 +3059,7 @@ msgid "Sent from a device whose keys do not match"
 msgstr "Oñemondo peteĩ dispositivo ilave ndojojoguáiva guive"
 
 #: src/features/chats/components/message-bubble.tsx
+#: src/features/chats/components/sealed-text.tsx
 msgid "Sent from a device you distrusted"
 msgstr "Oñemondo peteĩ dispositivo nderejeroviáiva guive"
 
@@ -3092,6 +3107,7 @@ msgstr "Ñemboheko oñeñongatúma"
 
 #: ../../../lib/web/src/components/comment-share-button.tsx
 #: ../../../lib/web/src/components/comment-share-button.tsx
+#: ../../../lib/web/src/components/share-menu.tsx
 msgid "Share"
 msgstr "Emboja'o"
 
@@ -3314,6 +3330,10 @@ msgstr "Ñe'ẽñemi noñemoneĩri"
 #: ../../../lib/web/src/features/errors/general-error.tsx
 msgid "The requested content could not be found."
 msgstr "Ndaikatúi ojejuhu tetepy ojejeruréva."
+
+#: src/features/chats/components/sealed-text.tsx
+msgid "The sender's encryption key changed"
+msgstr "Omondóva ñemoñemi llave oñemoambue"
 
 #: ../../../lib/web/src/lib/api-response-interceptors.ts
 msgid "The server returned a web page instead of data."

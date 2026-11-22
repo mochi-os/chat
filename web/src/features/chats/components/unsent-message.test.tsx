@@ -11,7 +11,7 @@ import { UnsentMessage } from './unsent-message'
 // A message whose send failed while the composer held the next one stays on
 // screen with why, to send again, copy out or let go.
 describe('UnsentMessage', () => {
-  function mount(body: string) {
+  function mount(body: string, onSendUnencrypted?: () => void) {
     const actions = { onRetry: vi.fn(), onCopy: vi.fn(), onDiscard: vi.fn() }
     render(
       <I18nProvider i18n={i18n}>
@@ -20,12 +20,25 @@ describe('UnsentMessage', () => {
           files={0}
           error='Unable to connect'
           retryDisabled={false}
+          onSendUnencrypted={onSendUnencrypted}
           {...actions}
         />
       </I18nProvider>
     )
     return actions
   }
+
+  it('offers Send unencrypted only for a message refused for want of encryption', () => {
+    mount('Plain')
+    expect(screen.queryByRole('button', { name: 'Send unencrypted' })).toBeNull()
+  })
+
+  it('sends it unencrypted where the user chooses so', () => {
+    const unencrypted = vi.fn()
+    mount('Refused', unencrypted)
+    fireEvent.click(screen.getByRole('button', { name: 'Send unencrypted' }))
+    expect(unencrypted).toHaveBeenCalledTimes(1)
+  })
 
   it('shows the message and why it failed, with Retry, Copy and Discard', () => {
     const actions = mount('The message that did not go')

@@ -634,6 +634,7 @@ msgstr "क्यामेरा उपलब्ध छैन"
 #: src/features/chats/components/verification-watcher.tsx
 #: src/features/chats/components/verification-watcher.tsx
 #: src/features/chats/index.tsx
+#: src/features/chats/share-page.tsx
 msgid "Cancel"
 msgstr "रद्द गर्नुहोस्"
 
@@ -824,6 +825,7 @@ msgstr "सबै खाली गर्नुहोस्"
 #: ../../../lib/web/src/components/search-input.tsx
 #: src/components/layout/chat-list-filters.tsx
 #: src/features/chats/components/forward-dialog.tsx
+#: src/features/chats/share-page.tsx
 #: src/routes/_authenticated/$chatId_.settings.tsx
 msgid "Clear search"
 msgstr "खोजी खाली गर्नुहोस्"
@@ -971,6 +973,7 @@ msgid "Copied"
 msgstr "कपी गरियो"
 
 #: ../../../lib/web/src/components/comment-share-button.tsx
+#: ../../../lib/web/src/components/share-menu.tsx
 #: ../../../lib/web/src/components/ui/copy-button.tsx
 msgid "Copied to clipboard"
 msgstr "क्लिपबोर्डमा प्रतिलिपि गरियो"
@@ -1369,13 +1372,11 @@ msgstr "इमेल"
 msgid "Email code"
 msgstr "इमेल कोड"
 
-#: src/features/chats/components/message-bubble.tsx
-#: src/features/chats/components/thread-replies.tsx
+#: src/features/chats/components/sealed-text.tsx
 msgid "Encrypted for other devices only"
 msgstr "अन्य उपकरणहरूका लागि मात्र इन्क्रिप्ट गरिएको"
 
-#: src/features/chats/components/message-bubble.tsx
-#: src/features/chats/components/thread-replies.tsx
+#: src/features/chats/components/sealed-text.tsx
 msgid "Encrypted message"
 msgstr "इन्क्रिप्ट गरिएको सन्देश"
 
@@ -1438,6 +1439,7 @@ msgid "Failed to add member"
 msgstr "सदस्य थप्न असफल"
 
 #: ../../../lib/web/src/components/comment-share-button.tsx
+#: ../../../lib/web/src/components/share-menu.tsx
 #: ../../../lib/web/src/components/ui/copy-button.tsx
 #: ../../../lib/web/src/lib/toast-utils.ts
 #: src/features/chats/index.tsx
@@ -1456,7 +1458,8 @@ msgid "Failed to create chat"
 msgstr "च्याट सिर्जना गर्न असफल"
 
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx
-#: ../../../lib/web/src/components/options-menu.tsx
+#: ../../../lib/web/src/components/share-menu.tsx
+#: ../../../lib/web/src/components/share-menu.tsx
 msgid "Failed to create link"
 msgstr "लिङ्क सिर्जना गर्न असफल"
 
@@ -1866,10 +1869,6 @@ msgstr "उज्यालो"
 msgid "Like"
 msgstr "मन पर्यो"
 
-#: ../../../lib/web/src/components/options-menu.tsx
-msgid "Link"
-msgstr "लिङ्क"
-
 #: ../../../lib/web/src/components/entity/entity-activity-list.tsx
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx
 msgid "Links"
@@ -2143,6 +2142,7 @@ msgstr "सबैभन्दा नयाँ"
 #: src/features/chats/components/chat-empty-state.tsx
 #: src/features/chats/components/chat-empty-state.tsx
 #: src/features/chats/components/new-chat.tsx
+#: src/features/chats/share-page.tsx
 msgid "New chat"
 msgstr "नयाँ च्याट"
 
@@ -2189,6 +2189,8 @@ msgid "No changes to display"
 msgstr "देखाउन कुनै परिवर्तन छैन"
 
 #: src/components/layout/chat-list-filters.tsx
+#: src/features/chats/share-page.tsx
+#: src/features/chats/share-page.tsx
 msgid "No chats"
 msgstr "कुनै च्याट छैन"
 
@@ -2883,6 +2885,7 @@ msgstr "खोज्नुहोस्"
 #: src/components/layout/chat-list-filters.tsx
 #: src/components/layout/chat-list-filters.tsx
 #: src/features/chats/components/forward-dialog.tsx
+#: src/features/chats/share-page.tsx
 msgid "Search chats"
 msgstr "च्याटहरू खोज्नुहोस्"
 
@@ -3024,6 +3027,11 @@ msgstr "इमेल पठाउनुहोस्"
 msgid "Send friend request"
 msgstr "मित्रता अनुरोध पठाउनुहोस्"
 
+#: src/features/chats/share-page.tsx
+#: src/features/chats/share-page.tsx
+msgid "Send in a chat"
+msgstr "च्याटमा पठाउनुहोस्"
+
 #: ../../../lib/web/src/components/game/game-chat-input.tsx
 #: ../../../lib/web/src/components/game/game-chat-input.tsx
 #: src/features/chats/components/chat-input.tsx
@@ -3035,6 +3043,12 @@ msgstr "सन्देश पठाउनुहोस्"
 msgid "Send read receipts"
 msgstr "पढेको सूचना पठाउनुहोस्"
 
+#: src/features/chats/components/chat-input.tsx
+#: src/features/chats/components/thread-panel.tsx
+#: src/features/chats/components/unsent-message.tsx
+msgid "Send unencrypted"
+msgstr "इन्क्रिप्सनबिना पठाउनुहोस्"
+
 #: src/features/chats/components/message-bubble.tsx
 msgctxt "receipt"
 msgid "Sent"
@@ -3045,6 +3059,7 @@ msgid "Sent from a device whose keys do not match"
 msgstr "कुञ्जीहरू मेल नखाने यन्त्रबाट पठाइएको"
 
 #: src/features/chats/components/message-bubble.tsx
+#: src/features/chats/components/sealed-text.tsx
 msgid "Sent from a device you distrusted"
 msgstr "तपाईंले विश्वास नगरेको यन्त्रबाट पठाइएको"
 
@@ -3092,6 +3107,7 @@ msgstr "सेटिङहरू सुरक्षित गरियो"
 
 #: ../../../lib/web/src/components/comment-share-button.tsx
 #: ../../../lib/web/src/components/comment-share-button.tsx
+#: ../../../lib/web/src/components/share-menu.tsx
 msgid "Share"
 msgstr "साझा गर्नुहोस्"
 
@@ -3314,6 +3330,10 @@ msgstr "पासवर्ड स्वीकार गरिएन"
 #: ../../../lib/web/src/features/errors/general-error.tsx
 msgid "The requested content could not be found."
 msgstr "अनुरोध गरिएको सामग्री फेला परेन।"
+
+#: src/features/chats/components/sealed-text.tsx
+msgid "The sender's encryption key changed"
+msgstr "पठाउनेको इन्क्रिप्सन कुञ्जी परिवर्तन भएको छ"
 
 #: ../../../lib/web/src/lib/api-response-interceptors.ts
 msgid "The server returned a web page instead of data."

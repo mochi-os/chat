@@ -99,7 +99,15 @@ export const encryptionApi = {
       )
       .then((res) => res.data.devices),
 
-  trust: async (chatId: string, person: string, device: string, trust: Trust) =>
+  // fingerprint is the one the user compared: an XMPP device whose identity
+  // changed since is refused rather than decided on unseen.
+  trust: async (
+    chatId: string,
+    person: string,
+    device: string,
+    trust: Trust,
+    fingerprint?: string
+  ) =>
     client
       .post<{ data: Record<string, never> }>(
         path`/${chatId}/-/encryption/trust`,
@@ -107,6 +115,7 @@ export const encryptionApi = {
           person,
           device,
           trust,
+          ...(fingerprint ? { fingerprint } : {}),
         }
       )
       .then(() => undefined),
