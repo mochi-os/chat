@@ -98,15 +98,20 @@ export function SharePage() {
   }
 
   const cancel = () => {
-    // Back to the app the share came from. A page reached from another app
-    // starts this frame's history afresh, so the window's own history says
-    // whether there is anywhere to go back to; with nowhere, Chat's home.
-    if (router.history.canGoBack() || window.history.length > 1) {
-      if (isInShell()) shellNavigateBack()
-      else router.history.back()
+    // Back to the app the share came from; with nowhere to go back to,
+    // Chat's home. In the shell the shell knows, and says so: a page reached
+    // from another app starts this frame's history afresh, and the window's
+    // own history counts pages of other sites the shell will not go back to.
+    const home = () => void navigate({ to: '/', replace: true })
+    if (isInShell()) {
+      shellNavigateBack(home)
       return
     }
-    void navigate({ to: '/', replace: true })
+    if (router.history.canGoBack() || window.history.length > 1) {
+      router.history.back()
+      return
+    }
+    home()
   }
 
   const newChat = (

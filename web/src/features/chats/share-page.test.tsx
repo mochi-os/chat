@@ -56,7 +56,7 @@ vi.mock('@tanstack/react-router', async (importOriginal) => ({
 vi.mock('@mochi/web', async (importOriginal) => ({
   ...(await importOriginal<typeof import('@mochi/web')>()),
   isInShell: () => state.shell,
-  shellNavigateBack: () => state.shellBack(),
+  shellNavigateBack: (otherwise?: () => void) => state.shellBack(otherwise),
 }))
 
 const message = 'Launch party\n\nhttps://example.org/e1'
@@ -191,6 +191,18 @@ describe('Send in a chat', () => {
     fireEvent.click(screen.getByRole('button', { name: 'Cancel' }))
     await waitFor(() => expect(state.shellBack).toHaveBeenCalledTimes(1))
     expect(state.back).not.toHaveBeenCalled()
+    expect(state.navigate).not.toHaveBeenCalled()
+  })
+
+  it("opens Chat's home when the shell has nowhere to go back to", async () => {
+    state.shell = true
+    show()
+    fireEvent.click(screen.getByRole('button', { name: 'Cancel' }))
+    await waitFor(() => expect(state.shellBack).toHaveBeenCalledTimes(1))
+    // THE POINT: the shell's refusal runs the page's way out, not nothing.
+    const otherwise = state.shellBack.mock.calls[0][0] as () => void
+    otherwise()
+    expect(state.navigate).toHaveBeenCalledWith({ to: '/', replace: true })
   })
 
   it('offers a new chat to a user who has none', () => {
