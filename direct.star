@@ -82,13 +82,48 @@ def function_direct_messages(context, account, chat="", person="", limit=20, bef
 		out.append(direct_message(row, identity["id"], reads[row["chat"]]))
 	return out
 
-def function_direct_send(context, account, body, people=None, chat="", kind=""):
+DIRECT_FILES_MAXIMUM = 4
+
+def direct_files(media):
+	"""The files a message is sent with, each {name, type, description,
+	data} with its bytes, as core's Mastodon interface gives them; None for
+	media that is not such a list, or holds a file larger than one may be."""
+	if media == None:
+		return []
+	if type(media) != "list" or len(media) > DIRECT_FILES_MAXIMUM:
+		return None
+	files = []
+	for m in media:
+		if type(m) != "dict" or type(m.get("data")) != "bytes" or not m["data"] or len(m["data"]) > mochi.file.maximum():
+			return None
+		files.append({"name": str(m.get("name", "") or "file"), "type": str(m.get("type", "") or ""), "description": str(m.get("description", "") or ""), "data": m["data"]})
+	return files
+
+def direct_files_save(files):
+	"""What keeps a new message's files, given with their bytes, or None for
+	a message with none."""
+	if not files:
+		return None
+	def save(object):
+		saved = []
+		for f in files:
+			att = attachment_create(object, f["name"], f["data"], content_type=f["type"], description=f["description"])
+			if att:
+				saved.append(att)
+		return saved
+	return save
+
+def function_direct_send(context, account, body, people=None, chat="", kind="", media=None):
 	"""Send a message as the account: to a conversation, or to people by
 	their address or id, in the one with them or a new one; kind ChatMessage
-	makes a new one as Lemmy's private messages are."""
+	makes a new one as Lemmy's private messages are. media is its files,
+	each {name, type, description, data}."""
 	identity = direct_identity()
 	if not identity or not direct_account(account):
 		return {"error": mochi.app.label("errors.invalid_account")}
+	files = direct_files(media)
+	if files == None:
+		return {"error": mochi.app.label("errors.invalid_message")}
 	if not chat:
 		made, failure = remote_create(account, "", [str(p) for p in (people or [])], identity["id"], identity["name"], "ChatMessage" if kind == "ChatMessage" else "")
 		if failure:
@@ -96,7 +131,7 @@ def function_direct_send(context, account, body, people=None, chat="", kind=""):
 		chat = made["id"]
 	elif chat not in direct_chats(account):
 		return {"error": mochi.app.label("errors.chat_not_found")}
-	result, failure = message_send(chat, identity["id"], identity["name"], body, "", "", [], None)
+	result, failure = message_send(chat, identity["id"], identity["name"], body, "", "", [], direct_files_save(files))
 	if failure:
 		return {"error": mochi.app.label(failure[1], **(failure[2] if len(failure) > 2 else {}))}
 	row = mochi.db.row("select * from messages where id=?", result["id"])

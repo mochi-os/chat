@@ -3025,13 +3025,28 @@ def remote_note(chat, acc, message):
 	note["source"] = {"content": body or "", "mediaType": "text/plain"}
 	return note
 
+def remote_type(name, data):
+	"""The media type a file is uploaded through an account as, which its
+	copy is then served under: one established, never the uploading
+	browser's word. A raster image's by its bytes' signature (an SVG, which
+	can carry script, is not one); an audio or video file's by its name's
+	extension, where that names a container; anything else a download."""
+	sniffed = attachment_sniff(data)
+	if sniffed.startswith("image/") and sniffed != "image/svg+xml":
+		return sniffed
+	named = mochi.file.type(name)
+	if named.startswith("audio/") or named.startswith("video/"):
+		return named
+	return "application/octet-stream"
+
 def remote_documents(acc, attachments, unsent=None):
 	"""The message's files uploaded through the account, as the documents the
-	Note lists; one that does not upload goes into unsent (unsent_entry)."""
+	Note lists, each under the type remote_type establishes; one that does
+	not upload goes into unsent (unsent_entry)."""
 	documents = []
 	for att in attachments or []:
-		kind = str(att.get("type", "") or att.get("content_type", "") or "")
-		data = mochi.file.read(attachment_filename(att["id"], att["name"]), mochi.file.maximum()) if kind else None
+		data = mochi.file.read(attachment_filename(att["id"], att["name"]), mochi.file.maximum())
+		kind = remote_type(att["name"], data) if data != None else ""
 		uploaded = mochi.account.upload(acc["id"], data, kind, name=att["name"], description=att.get("caption", "")) if data != None else None
 		if uploaded and type(uploaded.get("data")) == "dict":
 			documents.append(uploaded["data"])
