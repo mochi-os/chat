@@ -29,7 +29,6 @@ import {
   TooltipTrigger,
   cn,
   Skeleton,
-  authenticatedUrl,
   MentionTextarea,
   BubbleGroup,
   useFormat,
@@ -178,13 +177,6 @@ export function ChatMessageList({
 }: ChatMessageListProps) {
   const { t } = useLingui()
   const { formatDate, formatNumber, formatList } = useFormat()
-
-  // The asset route is member-only, so the <img> carries the app token: cookies
-  // are refused, and none are sent inside the shell's sandboxed iframe.
-  // authenticatedUrl() in both windows. Core also accepts ?token=, but that
-  // puts the raw app JWT in access logs, the Referer header and browser
-  // history, and the shell branch was already avoiding it.
-  const assetUrl = (path: string) => authenticatedUrl(path)
 
   // What the bubbles offer, and the callbacks behind it: the page makes the
   // callbacks anew on every render, so the bubbles read them from here when
@@ -654,12 +646,11 @@ export function ChatMessageList({
                                   !isSent &&
                                   (index === 0 ? (
                                     <EntityAvatar
-                                      src={assetUrl(
-                                        `${avatarFor(message)}/avatar`
-                                      )}
-                                      styleUrl={assetUrl(
-                                        `${avatarFor(message)}/style`
-                                      )}
+                                      // The asset route is member-only: the
+                                      // avatar and its style fetch it with the
+                                      // asset token in a header (EntityAvatar).
+                                      src={`${avatarFor(message)}/avatar`}
+                                      styleUrl={`${avatarFor(message)}/style`}
                                       seed={message.member}
                                       name={message.name}
                                       size='xs'

@@ -17,6 +17,7 @@ import {
   isImage,
   isVideo,
   normalizeEntityUrl,
+  shellDownload,
   useFormat,
   type GalleryAttachment,
 } from '@mochi/web'
@@ -102,14 +103,17 @@ function MessageFileList({
             className='w-full max-w-full min-w-0'
           >
             <AttachmentTrigger asChild>
-              <a
-                href={getUrl(attachment)}
-                onClick={(e) => e.stopPropagation()}
-                target='_blank'
-                rel='noopener noreferrer'
+              {/* A button, not an <a href>: the address carries the asset
+                token, which must not sit in the DOM or a copied link. */}
+              <button
+                type='button'
+                onClick={(e) => {
+                  e.stopPropagation()
+                  void shellDownload(getUrl(attachment), attachment.name) // method-ok: an attachment's address, an asset route
+                }}
               >
                 <span className='sr-only'>{attachment.name}</span>
-              </a>
+              </button>
             </AttachmentTrigger>
             <AttachmentMedia>
               <FileIcon />
