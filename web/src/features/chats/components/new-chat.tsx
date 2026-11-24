@@ -35,9 +35,13 @@ import {
 import { MessageCircle, UserPlus } from 'lucide-react'
 import { chatsApi } from '@/api/chats'
 import type { ChatAccount, ChatNetwork } from '@/api/types/chats'
-import { useSidebarContext } from '@/context/sidebar-context'
+import {
+  useSidebarContext,
+  type NewChatProposal,
+} from '@/context/sidebar-context'
 import { useNewChatFriendsQuery, useCreateChatMutation } from '@/hooks/useChats'
 import { personAsset } from '../addresses'
+import { proposed } from '../hooks/use-chat-link'
 import {
   CHAT_NAME_FORBIDDEN,
   CHAT_NAME_MAX_LENGTH,
@@ -99,6 +103,7 @@ export function NewChat() {
     newChatDialogOpen: open,
     closeNewChatDialog,
     newChatChosen,
+    newChatProposal: proposal,
   } = useSidebarContext()
   const onOpenChange = (isOpen: boolean) => {
     if (!isOpen) closeNewChatDialog()
@@ -371,14 +376,35 @@ export function NewChat() {
     }
   }, [open])
 
-  // Auto-open friends picker when dialog opens and friends are loaded
+  // A link's proposal fills the form in once, after the name autofill has run
+  // over the loaded friends; the chat is made only by Create chat.
+  const filled = useRef<NewChatProposal | null>(null)
   useEffect(() => {
-    if (open && !isLoading) {
+    if (!open || !proposal || !data || filled.current === proposal) return
+    filled.current = proposal
+    const fill = proposed(proposal, data)
+    if (!fill) return
+    if ('chat' in fill) {
+      closeNewChatDialog()
+      void navigate({ to: '/$chatId', params: { chatId: fill.chat } })
+    } else if ('friend' in fill) {
+      setSelectedFriends([fill.friend])
+    } else {
+      setAccount(fill.account)
+      setAddresses(fill.address)
+      setChatName(fill.name.slice(0, CHAT_NAME_MAX_LENGTH))
+    }
+  }, [open, proposal, data, closeNewChatDialog, navigate])
+
+  // Auto-open friends picker when dialog opens and friends are loaded, unless
+  // a link filled the form in.
+  useEffect(() => {
+    if (open && !isLoading && !proposal) {
       // Small delay to ensure dialog is rendered
       const timer = setTimeout(() => setFriendsPickerOpen(true), 50)
       return () => clearTimeout(timer)
     }
-  }, [open, isLoading, friends.length])
+  }, [open, isLoading, friends.length, proposal])
 
   return (
     <ResponsiveDialog

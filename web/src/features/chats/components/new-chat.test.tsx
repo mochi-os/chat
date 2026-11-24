@@ -24,6 +24,14 @@ const calls = vi.hoisted(() => ({
   // The router's navigation, and what the dialog's opener was handed.
   route: vi.fn(),
   chosen: vi.fn((_chatId: string) => Promise.resolve()),
+  // The user's friends, and what a link opened the dialog with.
+  friends: [] as { id: string; name: string; chat?: string }[],
+  proposal: null as null | {
+    friend?: string
+    account?: string
+    address?: string
+    name?: string
+  },
 }))
 
 vi.mock('@tanstack/react-router', () => ({
@@ -40,19 +48,24 @@ vi.mock('@mochi/web', async (importOriginal) => ({
       calls.toasted.push(messages.error?.(error))
       throw error
     }),
-  // The picker is lib/web's; here it finds Tien in the directory and picks him.
+  // The picker is lib/web's; here it finds Tien in the directory and picks
+  // him, and says who is picked.
   PersonPicker: (props: {
+    value: string[]
     directoryFn: (query: string) => Promise<unknown>
     onChange: (value: string[]) => void
   }) => (
-    <button
-      onClick={async () => {
-        await props.directoryFn('tien')
-        props.onChange([STRANGER])
-      }}
-    >
-      Pick Tien
-    </button>
+    <>
+      <button
+        onClick={async () => {
+          await props.directoryFn('tien')
+          props.onChange([STRANGER])
+        }}
+      >
+        Pick Tien
+      </button>
+      <output aria-label='Picked'>{props.value.join(',')}</output>
+    </>
   ),
 }))
 vi.mock('@/context/sidebar-context', () => ({
@@ -60,12 +73,13 @@ vi.mock('@/context/sidebar-context', () => ({
     newChatDialogOpen: true,
     closeNewChatDialog: calls.close,
     newChatChosen: (chatId: string) => calls.chosen(chatId),
+    newChatProposal: calls.proposal,
   }),
 }))
 vi.mock('@/hooks/useChats', () => ({
   useNewChatFriendsQuery: () => ({
     data: {
-      friends: [],
+      friends: calls.friends,
       name: 'Me',
       accounts: calls.accounts,
       offered: calls.offered,
@@ -121,6 +135,8 @@ beforeEach(() => {
   calls.toasted = []
   calls.route = vi.fn()
   calls.chosen = vi.fn(() => Promise.resolve())
+  calls.friends = []
+  calls.proposal = null
 })
 
 describe('NewChat', () => {
@@ -178,6 +194,106 @@ describe('NewChat', () => {
       expect(calls.toasted).toEqual(['This member could not be reached'])
     )
     expect(screen.queryByText('Chat refused')).toBeNull()
+  })
+})
+
+describe('NewChat opened by a link', () => {
+  // THE POINT: anyone can put a link in a post, so what it proposes is only
+  // filled in, and nothing is made until the user presses Create chat.
+  const FRIEND = 'friend-identity'
+
+  function opened() {
+    render(
+      <I18nProvider i18n={i18n}>
+        <NewChat />
+      </I18nProvider>
+    )
+  }
+
+  it('picks the friend it proposes and makes nothing until Create chat', async () => {
+    calls.friends = [{ id: FRIEND, name: 'Ann Lee' }]
+    calls.proposal = { friend: FRIEND, name: 'Chosen by the link' }
+    calls.create.mockResolvedValue({ id: 'c1' })
+    opened()
+    await waitFor(() =>
+      expect(screen.getByLabelText('Chat name')).toHaveValue('Ann Lee')
+    )
+    expect(screen.getByLabelText('Picked')).toHaveTextContent(FRIEND)
+    const button = screen.getByRole('button', { name: /Create chat/ })
+    expect(button).toBeEnabled()
+    expect(calls.create).not.toHaveBeenCalled()
+
+    fireEvent.click(button)
+    await waitFor(() =>
+      expect(calls.create).toHaveBeenCalledWith({
+        members: FRIEND,
+        name: 'Ann Lee',
+      })
+    )
+  })
+
+  it('picks no one where the person it names is not a friend', async () => {
+    calls.friends = [{ id: FRIEND, name: 'Ann Lee' }]
+    calls.proposal = { friend: STRANGER, name: 'Tien Hoang' }
+    opened()
+    await waitFor(() =>
+      expect(screen.getByRole('button', { name: /Create chat/ })).toBeDisabled()
+    )
+    expect(screen.getByLabelText('Picked')).toBeEmptyDOMElement()
+    expect(screen.getByLabelText('Chat name')).toHaveValue('')
+    expect(calls.create).not.toHaveBeenCalled()
+  })
+
+  it('opens the chat there already is with the friend it proposes', async () => {
+    calls.friends = [{ id: FRIEND, name: 'Ann Lee', chat: 'c7' }]
+    calls.proposal = { friend: FRIEND }
+    opened()
+    await waitFor(() =>
+      expect(calls.route).toHaveBeenCalledWith({
+        to: '/$chatId',
+        params: { chatId: 'c7' },
+      })
+    )
+    expect(calls.close).toHaveBeenCalled()
+    expect(calls.create).not.toHaveBeenCalled()
+  })
+
+  it('fills in an address on one of the user’s accounts and makes nothing until Create chat', async () => {
+    calls.accounts = [
+      { id: 'a1', identifier: '@me:example.org', network: 'matrix' },
+    ]
+    calls.proposal = {
+      account: 'a1',
+      address: '@ann:example.org',
+      name: 'Ann Lee',
+    }
+    calls.create.mockResolvedValue({ id: 'c2' })
+    opened()
+    const people = await screen.findByRole('textbox', { name: 'Addresses' })
+    expect(people).toHaveValue('@ann:example.org')
+    expect(calls.create).not.toHaveBeenCalled()
+
+    fireEvent.click(screen.getByRole('button', { name: /Create chat/ }))
+    await waitFor(() =>
+      expect(calls.create).toHaveBeenCalledWith({
+        account: 'a1',
+        members: '@ann:example.org',
+        name: 'Ann Lee',
+      })
+    )
+  })
+
+  it('fills in nothing for an account that is not the user’s', async () => {
+    calls.accounts = [
+      { id: 'a1', identifier: '@me:example.org', network: 'matrix' },
+    ]
+    calls.proposal = { account: 'elsewhere', address: '@ann:example.org' }
+    opened()
+    await waitFor(() =>
+      expect(screen.getByRole('button', { name: /Create chat/ })).toBeDisabled()
+    )
+    expect(screen.queryByRole('textbox', { name: 'Addresses' })).toBeNull()
+    expect(calls.create).not.toHaveBeenCalled()
   })
 })
 

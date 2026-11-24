@@ -22,12 +22,30 @@ import {
   setPinnedChats,
 } from '@/hooks/useChatStorage'
 
+/**
+ * Whom a link proposes chatting with: a friend, or an address on another
+ * network with the user's account that reaches it.
+ */
+export interface NewChatProposal {
+  friend?: string
+  account?: string
+  address?: string
+  name?: string
+}
+
 type SidebarContextValue = {
   chatId: string | null
   chatName: string | null
   setChat: (id: string | null, name?: string) => void
   newChatDialogOpen: boolean
   openNewChatDialog: () => void
+  /**
+   * The new chat dialog filled in with what a link proposes, which only the
+   * user's Create chat makes.
+   */
+  openNewChatWith: (proposal: NewChatProposal) => void
+  /** What the dialog was opened with, if a link opened it. */
+  newChatProposal: NewChatProposal | null
   /**
    * The new chat dialog, for a chat that wants something of whichever chat it
    * ends on before that chat opens: Share fills its message box.
@@ -158,15 +176,25 @@ export function SidebarProvider({ children }: { children: ReactNode }) {
   // What the dialog's opener wants of the chat it ends on, until it is next
   // opened.
   const chosen = useRef<((chatId: string) => Promise<void>) | null>(null)
+  const [newChatProposal, setNewChatProposal] =
+    useState<NewChatProposal | null>(null)
 
   const openNewChatDialog = useCallback(() => {
     chosen.current = null
+    setNewChatProposal(null)
+    setNewChatDialogOpen(true)
+  }, [])
+
+  const openNewChatWith = useCallback((proposal: NewChatProposal) => {
+    chosen.current = null
+    setNewChatProposal(proposal)
     setNewChatDialogOpen(true)
   }, [])
 
   const openNewChatFor = useCallback(
     (wanted: (chatId: string) => Promise<void>) => {
       chosen.current = wanted
+      setNewChatProposal(null)
       setNewChatDialogOpen(true)
     },
     []
@@ -203,6 +231,8 @@ export function SidebarProvider({ children }: { children: ReactNode }) {
         setChat,
         newChatDialogOpen,
         openNewChatDialog,
+        openNewChatWith,
+        newChatProposal,
         openNewChatFor,
         newChatChosen,
         closeNewChatDialog,

@@ -44,3 +44,15 @@ describe('the new chat dialog for a chosen chat', () => {
     expect(wanted).not.toHaveBeenCalled()
   })
 })
+
+describe('the new chat dialog opened by a link', () => {
+  it('holds what the link proposed until opened plainly', () => {
+    const { result } = renderHook(() => useSidebarContext(), { wrapper })
+    act(() => result.current.openNewChatWith({ friend: 'f1' }))
+    expect(result.current.newChatDialogOpen).toBe(true)
+    expect(result.current.newChatProposal).toEqual({ friend: 'f1' })
+    act(() => result.current.closeNewChatDialog())
+    act(() => result.current.openNewChatDialog())
+    expect(result.current.newChatProposal).toBeNull()
+  })
+})

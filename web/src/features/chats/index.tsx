@@ -80,7 +80,6 @@ import {
   useChatMembersQuery,
   useLeaveChatMutation,
   useDeleteChatMutation,
-  useCreateChatMutation,
   useMarkChatReadMutation,
   useDeleteMessagesMutation,
   useEditMessageMutation,
@@ -104,6 +103,7 @@ import {
   MESSAGE_MAX_LENGTH,
   messageLength,
 } from './constants/limits'
+import { useChatLink } from './hooks/use-chat-link'
 import { useChatMessageSearch } from './hooks/use-chat-message-search'
 import {
   type PendingAttachment,
@@ -245,113 +245,8 @@ export function Chats() {
     [chatsQuery.data?.chats]
   )
 
-  // Deep-link from another app: ?with=<friend-id>&name=<chat-name>
-  // Find or create a 1-on-1 chat with that friend, then jump straight in.
-  const createChatMutation = useCreateChatMutation()
-  const deepLinkHandled = useRef(false)
-  useEffect(() => {
-    if (selectedChatId) return // already viewing a chat
-    if (!search.with || deepLinkHandled.current) return
-    if (chatsQuery.isLoading) return // wait until we know existing chats
-    const memberId = search.with
-    deepLinkHandled.current = true
-
-    const existing = chats.find(
-      (c) => c.members === 2 && c.other === memberId && chatActive(c)
-    )
-    if (existing) {
-      void navigate({
-        to: '/$chatId',
-        params: { chatId: existing.id },
-        replace: true,
-      })
-      return
-    }
-
-    void (async () => {
-      try {
-        const data = await toastAction(
-          createChatMutation.mutateAsync({
-            members: memberId,
-            name: (search.name || t`Chat`).trim() || t`Chat`,
-          }),
-          {
-            loading: t`Starting chat...`,
-            success: false,
-            error: (error) => getErrorMessage(error, t`Failed to start chat`),
-          }
-        )
-        if (data?.id) {
-          void navigate({
-            to: '/$chatId',
-            params: { chatId: data.id },
-            replace: true,
-          })
-        }
-      } catch {
-        // toastAction already showed error. The flag stays set: clearing it
-        // re-ran this effect (createChatMutation changes identity on every
-        // state change) and retried the refused create in a loop.
-      }
-    })()
-  }, [
-    search.with,
-    search.name,
-    selectedChatId,
-    chats,
-    chatsQuery.isLoading,
-    createChatMutation,
-    navigate,
-    t,
-  ])
-
-  // Deep-link from people: ?account=<id>&address=<address>, a contact's
-  // messaging address on another network. The server answers with the
-  // conversation there already is, or makes one.
-  const addressLinkHandled = useRef(false)
-  useEffect(() => {
-    if (selectedChatId) return
-    if (!search.account || !search.address || addressLinkHandled.current)
-      return
-    addressLinkHandled.current = true
-    const account = search.account
-    const address = search.address
-    void (async () => {
-      try {
-        const data = await toastAction(
-          createChatMutation.mutateAsync({
-            account,
-            members: address,
-            name: (search.name || '').trim(),
-          }),
-          {
-            loading: t`Starting chat...`,
-            success: false,
-            error: (error) => getErrorMessage(error, t`Failed to start chat`),
-          }
-        )
-        if (data?.id) {
-          void navigate({
-            to: '/$chatId',
-            params: { chatId: data.id },
-            replace: true,
-          })
-        }
-      } catch {
-        // toastAction already showed error. The flag stays set: clearing it
-        // re-ran this effect (createChatMutation changes identity on every
-        // state change) and retried the refused create in a loop.
-      }
-    })()
-  }, [
-    search.account,
-    search.address,
-    search.name,
-    selectedChatId,
-    createChatMutation,
-    navigate,
-    t,
-  ])
+  // A link from another app, such as People's Message, proposes a chat.
+  useChatLink(search, Boolean(selectedChatId))
 
   const selectedChat = useMemo(
     () => chats.find((c) => c.id === selectedChatId) ?? null,
