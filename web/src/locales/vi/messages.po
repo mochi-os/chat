@@ -94,11 +94,6 @@ msgstr "{0, plural, one {# đã chọn} other {# đã chọn}}"
 msgid "{0, plural, one {+# nested} other {+# nested}}"
 msgstr "{0, plural, other {+# lồng nhau}}"
 
-#. placeholder {0}: size - maximum
-#: src/features/chats/utils.ts
-msgid "{0, plural, one {Message is # byte too long} other {Message is # bytes too long}}"
-msgstr ""
-
 #. placeholder {0}: r.label
 #: src/features/chats/components/message-reaction-bar.tsx
 msgid "{0} (includes you)"
@@ -161,6 +156,10 @@ msgstr "{newMessageCount, plural, other {Chuyển đến # tin nhắn mới}}"
 #: ../../../lib/web/src/components/game/game-draw-offer-banner.tsx
 msgid "{opponentName} offered a draw"
 msgstr "{opponentName} đã đề nghị hòa"
+
+#: src/features/chats/utils.ts
+msgid "{over, plural, one {Message is {count} character too long} other {Message is {count} characters too long}}"
+msgstr "{over, plural, other {Tin nhắn dài quá {count} ký tự}}"
 
 #: ../../../lib/web/src/components/attachment-composer.tsx
 #: ../../../lib/web/src/components/ui/upload-progress.tsx
@@ -568,6 +567,7 @@ msgstr "Không hiển thị tệp nhị phân"
 msgid "Block {name}"
 msgstr "Chặn {name}"
 
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx
 msgid "Blocked by"
@@ -578,6 +578,7 @@ msgstr "Bị chặn bởi"
 msgid "Blocked navigation to untrusted link"
 msgstr "Đã chặn điều hướng tới liên kết không tin cậy"
 
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx
 msgid "Blocks"
 msgstr "Chặn"
@@ -647,6 +648,7 @@ msgstr "Camera không khả dụng"
 #: src/features/chats/components/verification-watcher.tsx
 #: src/features/chats/components/verification-watcher.tsx
 #: src/features/chats/index.tsx
+#: src/features/chats/share-page.tsx
 msgid "Cancel"
 msgstr "Hủy"
 
@@ -692,6 +694,10 @@ msgstr "Đã thay đổi"
 #: ../../../lib/web/src/components/entity/entity-activity-list.tsx
 msgid "Changed {field}"
 msgstr "Đã thay đổi {field}"
+
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx
+msgid "Changed class"
+msgstr "Đã thay đổi lớp"
 
 #: ../../../lib/web/src/components/calendar/month-grid.tsx
 #: ../../../lib/web/src/components/calendar/time-grid.tsx
@@ -833,6 +839,7 @@ msgstr "Xóa tất cả"
 #: ../../../lib/web/src/components/search-input.tsx
 #: src/components/layout/chat-list-filters.tsx
 #: src/features/chats/components/forward-dialog.tsx
+#: src/features/chats/share-page.tsx
 #: src/routes/_authenticated/$chatId_.settings.tsx
 msgid "Clear search"
 msgstr "Xóa tìm kiếm"
@@ -983,10 +990,12 @@ msgstr "Tiếp tục với {providerLabel}"
 
 #: ../../../lib/web/src/lib/toast-utils.ts
 #: src/features/chats/index.tsx
+#: src/features/chats/index.tsx
 msgid "Copied"
 msgstr "Đã sao chép"
 
 #: ../../../lib/web/src/components/comment-share-button.tsx
+#: ../../../lib/web/src/components/share-menu.tsx
 #: ../../../lib/web/src/components/ui/copy-button.tsx
 #: src/features/chats/components/thread-panel.tsx
 msgid "Copied to clipboard"
@@ -1001,6 +1010,7 @@ msgstr "Đã sao chép vào bộ nhớ tạm"
 #: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx
 #: ../../../lib/web/src/components/ui/copy-button.tsx
 #: src/features/chats/components/message-hover-actions.tsx
+#: src/features/chats/components/unsent-message.tsx
 #: src/features/chats/index.tsx
 msgid "Copy"
 msgstr "Sao chép"
@@ -1256,6 +1266,7 @@ msgid "Disagree"
 msgstr "Không đồng ý"
 
 #: ../../../lib/web/src/components/comment-composer.tsx
+#: src/features/chats/components/unsent-message.tsx
 msgid "Discard"
 msgstr "Loại bỏ"
 
@@ -1323,6 +1334,7 @@ msgstr "Tải xuống thất bại"
 msgid "Draft"
 msgstr "Bản nháp"
 
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx
 msgid "Duplicates"
 msgstr "Trùng lặp"
@@ -1395,13 +1407,11 @@ msgstr "Email"
 msgid "Email code"
 msgstr "Mã email"
 
-#: src/features/chats/components/message-bubble.tsx
-#: src/features/chats/components/thread-replies.tsx
+#: src/features/chats/components/sealed-text.tsx
 msgid "Encrypted for other devices only"
 msgstr "Chỉ được mã hóa cho các thiết bị khác"
 
-#: src/features/chats/components/message-bubble.tsx
-#: src/features/chats/components/thread-replies.tsx
+#: src/features/chats/components/sealed-text.tsx
 msgid "Encrypted message"
 msgstr "Tin nhắn được mã hóa"
 
@@ -1464,9 +1474,11 @@ msgid "Failed to add member"
 msgstr "Không thêm thành viên được"
 
 #: ../../../lib/web/src/components/comment-share-button.tsx
+#: ../../../lib/web/src/components/share-menu.tsx
 #: ../../../lib/web/src/components/ui/copy-button.tsx
 #: ../../../lib/web/src/lib/toast-utils.ts
 #: src/features/chats/components/thread-panel.tsx
+#: src/features/chats/index.tsx
 #: src/features/chats/index.tsx
 msgid "Failed to copy"
 msgstr "Không sao chép được"
@@ -1482,7 +1494,8 @@ msgid "Failed to create chat"
 msgstr "Không tạo cuộc trò chuyện được"
 
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx
-#: ../../../lib/web/src/components/options-menu.tsx
+#: ../../../lib/web/src/components/share-menu.tsx
+#: ../../../lib/web/src/components/share-menu.tsx
 msgid "Failed to create link"
 msgstr "Không tạo liên kết được"
 
@@ -1903,12 +1916,12 @@ msgstr "Sáng"
 msgid "Like"
 msgstr "Thích"
 
-#: ../../../lib/web/src/components/options-menu.tsx
 #: src/features/chats/components/formatting-toolbar.tsx
 #: src/features/chats/components/link-dialog.tsx
 msgid "Link"
 msgstr "Liên kết"
 
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx
 msgid "Links"
 msgstr "Liên kết"
@@ -2126,10 +2139,6 @@ msgstr "Tùy chọn khác"
 msgid "Moved"
 msgstr "Đã di chuyển"
 
-#: ../../../lib/web/src/components/entity/entity-activity-list.tsx
-msgid "Moved {field}"
-msgstr "Đã di chuyển {field}"
-
 #. placeholder {0}: dayName(dragging.day)
 #. placeholder {0}: dayName(opening(current, format.zonedDay))
 #: ../../../lib/web/src/components/calendar/month-grid.tsx
@@ -2187,6 +2196,7 @@ msgstr "Mới nhất"
 #: src/features/chats/components/chat-empty-state.tsx
 #: src/features/chats/components/chat-empty-state.tsx
 #: src/features/chats/components/new-chat.tsx
+#: src/features/chats/share-page.tsx
 msgid "New chat"
 msgstr "Trò chuyện mới"
 
@@ -2212,6 +2222,10 @@ msgstr "Tháng sau"
 msgid "Next year"
 msgstr "Năm sau"
 
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx
+msgid "No"
+msgstr "Không"
+
 #: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx
 msgid "No {parentClassNames} to add to"
 msgstr "Không có {parentClassNames} để thêm vào"
@@ -2229,6 +2243,8 @@ msgid "No changes to display"
 msgstr "Không có thay đổi để hiển thị"
 
 #: src/components/layout/chat-list-filters.tsx
+#: src/features/chats/share-page.tsx
+#: src/features/chats/share-page.tsx
 msgid "No chats"
 msgstr "Không có cuộc trò chuyện"
 
@@ -2693,6 +2709,7 @@ msgstr "Đang chuyển hướng đến đăng nhập."
 msgid "Reduce interest"
 msgstr "Giảm sự quan tâm"
 
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx
 msgid "Relates"
 msgstr "Liên quan đến"
@@ -2858,6 +2875,7 @@ msgid "Restore"
 msgstr "Khôi phục"
 
 #: ../../../lib/web/src/components/attachment-composer.tsx
+#: src/features/chats/components/unsent-message.tsx
 msgid "Retry"
 msgstr "Thử lại"
 
@@ -2940,6 +2958,7 @@ msgstr "Tìm kiếm"
 #: src/components/layout/chat-list-filters.tsx
 #: src/components/layout/chat-list-filters.tsx
 #: src/features/chats/components/forward-dialog.tsx
+#: src/features/chats/share-page.tsx
 msgid "Search chats"
 msgstr "Tìm kiếm cuộc trò chuyện"
 
@@ -3081,6 +3100,11 @@ msgstr "Gửi email"
 msgid "Send friend request"
 msgstr "Gửi lời mời kết bạn"
 
+#: src/features/chats/share-page.tsx
+#: src/features/chats/share-page.tsx
+msgid "Send in a chat"
+msgstr "Gửi trong cuộc trò chuyện"
+
 #: ../../../lib/web/src/components/game/game-chat-input.tsx
 #: ../../../lib/web/src/components/game/game-chat-input.tsx
 #: src/features/chats/components/chat-input.tsx
@@ -3092,10 +3116,25 @@ msgstr "Gửi tin nhắn"
 msgid "Send read receipts"
 msgstr "Gửi thông báo đã đọc"
 
+#: src/features/chats/components/chat-input.tsx
+#: src/features/chats/components/thread-panel.tsx
+#: src/features/chats/components/unsent-message.tsx
+msgid "Send unencrypted"
+msgstr "Gửi không mã hóa"
+
 #: src/features/chats/components/message-bubble.tsx
 msgctxt "receipt"
 msgid "Sent"
 msgstr "Đã gửi"
+
+#: src/features/chats/components/message-bubble.tsx
+msgid "Sent from a device whose keys do not match"
+msgstr "Được gửi từ một thiết bị có khoá không khớp"
+
+#: src/features/chats/components/message-bubble.tsx
+#: src/features/chats/components/sealed-text.tsx
+msgid "Sent from a device you distrusted"
+msgstr "Được gửi từ một thiết bị bạn đã đánh dấu không tin cậy"
 
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Serif"
@@ -3119,6 +3158,10 @@ msgstr "Phiên đã hết hạn. Vui lòng đăng nhập lại."
 msgid "Set origin and destination"
 msgstr "Đặt điểm xuất phát và điểm đến"
 
+#: src/features/chats/components/new-chat.tsx
+msgid "Set up"
+msgstr "Thiết lập"
+
 #: src/features/chats/components/encryption-section.tsx
 #: src/features/chats/components/encryption-section.tsx
 #: src/features/chats/components/encryption-section.tsx
@@ -3137,6 +3180,7 @@ msgstr "Đã lưu cài đặt"
 
 #: ../../../lib/web/src/components/comment-share-button.tsx
 #: ../../../lib/web/src/components/comment-share-button.tsx
+#: ../../../lib/web/src/components/share-menu.tsx
 msgid "Share"
 msgstr "Chia sẻ"
 
@@ -3365,6 +3409,10 @@ msgstr "Mật khẩu không được chấp nhận"
 msgid "The requested content could not be found."
 msgstr "Không tìm thấy nội dung được yêu cầu."
 
+#: src/features/chats/components/sealed-text.tsx
+msgid "The sender's encryption key changed"
+msgstr "Khoá mã hóa của người gửi đã thay đổi"
+
 #: ../../../lib/web/src/lib/api-response-interceptors.ts
 msgid "The server returned a web page instead of data."
 msgstr "Máy chủ đã trả về một trang web thay vì dữ liệu."
@@ -3491,6 +3539,10 @@ msgstr "Quá nhiều yêu cầu"
 msgid "Top"
 msgstr "Hàng đầu"
 
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx
+msgid "Top level"
+msgstr "Cấp cao nhất"
+
 #: ../../../lib/web/src/components/travelling-picker.tsx
 msgid "Travelling"
 msgstr "Đang di chuyển"
@@ -3564,6 +3616,11 @@ msgid "United States"
 msgstr "Hoa Kỳ"
 
 #: ../../../lib/web/src/components/audit-timeline.tsx
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx
+#: ../../../lib/web/src/components/entity/entity-board-card.tsx
 #: ../../../lib/web/src/components/entity/entity-field-dialog.tsx
 #: ../../../lib/web/src/components/tree-row.tsx
 #: ../../../lib/web/src/components/tree-row.tsx
@@ -3729,6 +3786,10 @@ msgstr "Thứ tư"
 #: ../../../lib/web/src/components/calendar/date-header.tsx
 msgid "Year"
 msgstr "Năm"
+
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx
+msgid "Yes"
+msgstr "Có"
 
 #: src/features/chats/index.tsx
 msgid "You"

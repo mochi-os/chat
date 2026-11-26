@@ -2,7 +2,9 @@
 // SPDX-License-Identifier: AGPL-3.0-only
 // This file is part of Mochi, licensed under the GNU AGPL v3 with the
 // Mochi Application Interface Exception - see license.txt and license-exception.md.
+
 import { plural } from '@lingui/core/macro'
+import { messageLength } from './constants/limits'
 
 type AttachmentKind = 'image' | 'video' | 'file'
 
@@ -214,29 +216,64 @@ function fold(value: string): string {
  */
 export type SendRefusal = 'empty' | 'length'
 
-const encoder = new TextEncoder()
-
 /**
- * A message body's size as the server measures it. Starlark's len() counts
- * UTF-8 bytes, and String.length counts UTF-16 units, so a body of Cyrillic,
- * Chinese or emoji passed here and was refused there. The client counts bytes
- * rather than the server counting characters, since every member's server
- * applies the same byte limit to what it receives, older ones included.
+ * Whether a message whose send failed goes back into the composer: only into
+ * its own chat's, and only while that holds nothing, no text, files or reply
+ * target. One typed meanwhile keeps the composer, and the failed message is
+ * listed apart instead.
  */
-export function messageSize(text: string): number {
-  return encoder.encode(text).length
+export function restoresInto(
+  composer: {
+    chatId: string
+    newMessage: string
+    pendingAttachments: readonly unknown[]
+    replyTo: unknown
+  },
+  chatId: string
+): boolean {
+  return (
+    composer.chatId === chatId &&
+    !composer.newMessage.trim() &&
+    composer.pendingAttachments.length === 0 &&
+    !composer.replyTo
+  )
 }
 
 /**
- * The refusal for a body over the limit, saying by how much. Counted in the
- * bytes messageSize measures, the server's own unit, so the figure is the
- * amount to cut: a count in characters would undershoot for Cyrillic, Chinese
- * or emoji. One message for every place that refuses a body.
+ * The message a search match's thread is under, for a match that is a reply
+ * in one: from the messages loaded, else as the search sent it. Null for a
+ * match of the main timeline, or a root neither holds.
  */
-export function tooLongMessage(size: number, maximum: number): string {
-  return plural(size - maximum, {
-    one: 'Message is # byte too long',
-    other: 'Message is # bytes too long',
+export function matchRoot<T extends { id: string }>(
+  thread: string | null | undefined,
+  loaded: readonly T[],
+  roots: ReadonlyMap<string, T>
+): T | null {
+  if (!thread) return null
+  return loaded.find((m) => m.id === thread) ?? roots.get(thread) ?? null
+}
+
+/**
+ * The open thread's root as the list now holds it - deleted since the thread
+ * was opened, say - else as it was opened.
+ */
+export function heldRoot<T extends { id: string }>(
+  open: T | null,
+  loaded: readonly T[]
+): T | null {
+  if (!open) return null
+  return loaded.find((m) => m.id === open.id) ?? open
+}
+
+/** By how much a message is over the limit, said with [formatNumber]'s digits. */
+export function tooLong(
+  over: number,
+  formatNumber: (value: number) => string
+): string {
+  const count = formatNumber(over)
+  return plural(over, {
+    one: `Message is ${count} character too long`,
+    other: `Message is ${count} characters too long`,
   })
 }
 
@@ -245,7 +282,7 @@ export function sendRefusal(
   attachments: number,
   maximum: number
 ): SendRefusal | null {
-  if (messageSize(text) > maximum) return 'length'
+  if (messageLength(text) > maximum) return 'length'
   if (!text.trim() && attachments === 0) return 'empty'
   return null
 }

@@ -94,11 +94,6 @@ msgstr "{0, plural, one {# выбрана} few {# выбрана} many {# выб
 msgid "{0, plural, one {+# nested} other {+# nested}}"
 msgstr "{0, plural, one {+# укладзены} few {+# укладзеныя} many {+# укладзеных} other {+# укладзенага}}"
 
-#. placeholder {0}: size - maximum
-#: src/features/chats/utils.ts
-msgid "{0, plural, one {Message is # byte too long} other {Message is # bytes too long}}"
-msgstr ""
-
 #. placeholder {0}: r.label
 #: src/features/chats/components/message-reaction-bar.tsx
 msgid "{0} (includes you)"
@@ -161,6 +156,10 @@ msgstr "{newMessageCount, plural, one {Перайсці да # новага па
 #: ../../../lib/web/src/components/game/game-draw-offer-banner.tsx
 msgid "{opponentName} offered a draw"
 msgstr "{opponentName} прапанаваў нічыю"
+
+#: src/features/chats/utils.ts
+msgid "{over, plural, one {Message is {count} character too long} other {Message is {count} characters too long}}"
+msgstr "{over, plural, one {Паведамленне даўжэйшае за ліміт на {count} сімвал} few {Паведамленне даўжэйшае за ліміт на {count} сімвалы} many {Паведамленне даўжэйшае за ліміт на {count} сімвалаў} other {Паведамленне даўжэйшае за ліміт на {count} сімвала}}"
 
 #: ../../../lib/web/src/components/attachment-composer.tsx
 #: ../../../lib/web/src/components/ui/upload-progress.tsx
@@ -568,6 +567,7 @@ msgstr "Двайковы файл не паказваецца"
 msgid "Block {name}"
 msgstr "Заблакаваць {name}"
 
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx
 msgid "Blocked by"
@@ -578,6 +578,7 @@ msgstr "Заблакавана"
 msgid "Blocked navigation to untrusted link"
 msgstr "Заблакаваны пераход па ненадзейнай спасылцы"
 
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx
 msgid "Blocks"
 msgstr "Блокі"
@@ -647,6 +648,7 @@ msgstr "Камера недаступная"
 #: src/features/chats/components/verification-watcher.tsx
 #: src/features/chats/components/verification-watcher.tsx
 #: src/features/chats/index.tsx
+#: src/features/chats/share-page.tsx
 msgid "Cancel"
 msgstr "Адмена"
 
@@ -692,6 +694,10 @@ msgstr "Зменена"
 #: ../../../lib/web/src/components/entity/entity-activity-list.tsx
 msgid "Changed {field}"
 msgstr "Зменена {field}"
+
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx
+msgid "Changed class"
+msgstr "Клас зменены"
 
 #: ../../../lib/web/src/components/calendar/month-grid.tsx
 #: ../../../lib/web/src/components/calendar/time-grid.tsx
@@ -833,6 +839,7 @@ msgstr "Ачысціць усё"
 #: ../../../lib/web/src/components/search-input.tsx
 #: src/components/layout/chat-list-filters.tsx
 #: src/features/chats/components/forward-dialog.tsx
+#: src/features/chats/share-page.tsx
 #: src/routes/_authenticated/$chatId_.settings.tsx
 msgid "Clear search"
 msgstr "Ачысціць пошук"
@@ -983,10 +990,12 @@ msgstr "Працягнуць з {providerLabel}"
 
 #: ../../../lib/web/src/lib/toast-utils.ts
 #: src/features/chats/index.tsx
+#: src/features/chats/index.tsx
 msgid "Copied"
 msgstr "Скапіявана"
 
 #: ../../../lib/web/src/components/comment-share-button.tsx
+#: ../../../lib/web/src/components/share-menu.tsx
 #: ../../../lib/web/src/components/ui/copy-button.tsx
 #: src/features/chats/components/thread-panel.tsx
 msgid "Copied to clipboard"
@@ -1001,6 +1010,7 @@ msgstr "Скапіравана ў буфер абмену"
 #: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx
 #: ../../../lib/web/src/components/ui/copy-button.tsx
 #: src/features/chats/components/message-hover-actions.tsx
+#: src/features/chats/components/unsent-message.tsx
 #: src/features/chats/index.tsx
 msgid "Copy"
 msgstr "Капіраваць"
@@ -1256,6 +1266,7 @@ msgid "Disagree"
 msgstr "Не згодны"
 
 #: ../../../lib/web/src/components/comment-composer.tsx
+#: src/features/chats/components/unsent-message.tsx
 msgid "Discard"
 msgstr "Адхіліць"
 
@@ -1323,6 +1334,7 @@ msgstr "Не ўдалося спампаваць"
 msgid "Draft"
 msgstr "Чарнавік"
 
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx
 msgid "Duplicates"
 msgstr "Дублікаты"
@@ -1395,13 +1407,11 @@ msgstr "Эл. пошта"
 msgid "Email code"
 msgstr "Код па эл. пошце"
 
-#: src/features/chats/components/message-bubble.tsx
-#: src/features/chats/components/thread-replies.tsx
+#: src/features/chats/components/sealed-text.tsx
 msgid "Encrypted for other devices only"
 msgstr "Зашыфравана толькі для іншых прылад"
 
-#: src/features/chats/components/message-bubble.tsx
-#: src/features/chats/components/thread-replies.tsx
+#: src/features/chats/components/sealed-text.tsx
 msgid "Encrypted message"
 msgstr "Зашыфраванае паведамленне"
 
@@ -1464,9 +1474,11 @@ msgid "Failed to add member"
 msgstr "Не ўдалося дадаць удзельніка"
 
 #: ../../../lib/web/src/components/comment-share-button.tsx
+#: ../../../lib/web/src/components/share-menu.tsx
 #: ../../../lib/web/src/components/ui/copy-button.tsx
 #: ../../../lib/web/src/lib/toast-utils.ts
 #: src/features/chats/components/thread-panel.tsx
+#: src/features/chats/index.tsx
 #: src/features/chats/index.tsx
 msgid "Failed to copy"
 msgstr "Не ўдалося скапіяваць"
@@ -1482,7 +1494,8 @@ msgid "Failed to create chat"
 msgstr "Не ўдалося стварыць чат"
 
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx
-#: ../../../lib/web/src/components/options-menu.tsx
+#: ../../../lib/web/src/components/share-menu.tsx
+#: ../../../lib/web/src/components/share-menu.tsx
 msgid "Failed to create link"
 msgstr "Не ўдалося стварыць спасылку"
 
@@ -1903,12 +1916,12 @@ msgstr "Светлая"
 msgid "Like"
 msgstr "Падабаецца"
 
-#: ../../../lib/web/src/components/options-menu.tsx
 #: src/features/chats/components/formatting-toolbar.tsx
 #: src/features/chats/components/link-dialog.tsx
 msgid "Link"
 msgstr "Спасылка"
 
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx
 msgid "Links"
 msgstr "Спасылкі"
@@ -2126,10 +2139,6 @@ msgstr "Больш параметраў"
 msgid "Moved"
 msgstr "Перамешчана"
 
-#: ../../../lib/web/src/components/entity/entity-activity-list.tsx
-msgid "Moved {field}"
-msgstr "Перамешчана {field}"
-
 #. placeholder {0}: dayName(dragging.day)
 #. placeholder {0}: dayName(opening(current, format.zonedDay))
 #: ../../../lib/web/src/components/calendar/month-grid.tsx
@@ -2187,6 +2196,7 @@ msgstr "Новае"
 #: src/features/chats/components/chat-empty-state.tsx
 #: src/features/chats/components/chat-empty-state.tsx
 #: src/features/chats/components/new-chat.tsx
+#: src/features/chats/share-page.tsx
 msgid "New chat"
 msgstr "Новы чат"
 
@@ -2212,6 +2222,10 @@ msgstr "Наступны месяц"
 msgid "Next year"
 msgstr "Наступны год"
 
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx
+msgid "No"
+msgstr "Не"
+
 #: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx
 msgid "No {parentClassNames} to add to"
 msgstr "Няма {parentClassNames} для дадання"
@@ -2229,6 +2243,8 @@ msgid "No changes to display"
 msgstr "Няма змен для адлюстравання"
 
 #: src/components/layout/chat-list-filters.tsx
+#: src/features/chats/share-page.tsx
+#: src/features/chats/share-page.tsx
 msgid "No chats"
 msgstr "Чатаў няма"
 
@@ -2693,6 +2709,7 @@ msgstr "Перанакіраванне на ўваход."
 msgid "Reduce interest"
 msgstr "Зменшыць цікавасць"
 
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx
 msgid "Relates"
 msgstr "Звязана"
@@ -2858,6 +2875,7 @@ msgid "Restore"
 msgstr "Аднавіць"
 
 #: ../../../lib/web/src/components/attachment-composer.tsx
+#: src/features/chats/components/unsent-message.tsx
 msgid "Retry"
 msgstr "Паўтарыць"
 
@@ -2940,6 +2958,7 @@ msgstr "Пошук"
 #: src/components/layout/chat-list-filters.tsx
 #: src/components/layout/chat-list-filters.tsx
 #: src/features/chats/components/forward-dialog.tsx
+#: src/features/chats/share-page.tsx
 msgid "Search chats"
 msgstr "Пошук чатаў"
 
@@ -3081,6 +3100,11 @@ msgstr "Адправіць эл. пошту"
 msgid "Send friend request"
 msgstr "Адправіць запыт у сябры"
 
+#: src/features/chats/share-page.tsx
+#: src/features/chats/share-page.tsx
+msgid "Send in a chat"
+msgstr "Адправіць у чаце"
+
 #: ../../../lib/web/src/components/game/game-chat-input.tsx
 #: ../../../lib/web/src/components/game/game-chat-input.tsx
 #: src/features/chats/components/chat-input.tsx
@@ -3092,10 +3116,25 @@ msgstr "Адправіць паведамленне"
 msgid "Send read receipts"
 msgstr "Адпраўляць апавяшчэнні аб прачытанні"
 
+#: src/features/chats/components/chat-input.tsx
+#: src/features/chats/components/thread-panel.tsx
+#: src/features/chats/components/unsent-message.tsx
+msgid "Send unencrypted"
+msgstr "Адправіць без шыфравання"
+
 #: src/features/chats/components/message-bubble.tsx
 msgctxt "receipt"
 msgid "Sent"
 msgstr "Адпраўлена"
+
+#: src/features/chats/components/message-bubble.tsx
+msgid "Sent from a device whose keys do not match"
+msgstr "Адпраўлена з прылады, ключы якой не супадаюць"
+
+#: src/features/chats/components/message-bubble.tsx
+#: src/features/chats/components/sealed-text.tsx
+msgid "Sent from a device you distrusted"
+msgstr "Адпраўлена з прылады, якой вы не давяраеце"
 
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Serif"
@@ -3119,6 +3158,10 @@ msgstr "Сеанс скончыўся. Калі ласка, увайдзіце �
 msgid "Set origin and destination"
 msgstr "Задаць адпраўленне і прызначэнне"
 
+#: src/features/chats/components/new-chat.tsx
+msgid "Set up"
+msgstr "Наладзіць"
+
 #: src/features/chats/components/encryption-section.tsx
 #: src/features/chats/components/encryption-section.tsx
 #: src/features/chats/components/encryption-section.tsx
@@ -3137,6 +3180,7 @@ msgstr "Налады захаваны"
 
 #: ../../../lib/web/src/components/comment-share-button.tsx
 #: ../../../lib/web/src/components/comment-share-button.tsx
+#: ../../../lib/web/src/components/share-menu.tsx
 msgid "Share"
 msgstr "Падзяліцца"
 
@@ -3365,6 +3409,10 @@ msgstr "Пароль не прыняты"
 msgid "The requested content could not be found."
 msgstr "Запытанае змесціва не знойдзена."
 
+#: src/features/chats/components/sealed-text.tsx
+msgid "The sender's encryption key changed"
+msgstr "Ключ шыфравання адпраўніка змяніўся"
+
 #: ../../../lib/web/src/lib/api-response-interceptors.ts
 msgid "The server returned a web page instead of data."
 msgstr "Сервер вярнуў вэб-старонку замест даных."
@@ -3491,6 +3539,10 @@ msgstr "Занадта шмат запытаў"
 msgid "Top"
 msgstr "Лепшае"
 
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx
+msgid "Top level"
+msgstr "Верхні ўзровень"
+
 #: ../../../lib/web/src/components/travelling-picker.tsx
 msgid "Travelling"
 msgstr "У дарозе"
@@ -3564,6 +3616,11 @@ msgid "United States"
 msgstr "Злучаныя Штаты"
 
 #: ../../../lib/web/src/components/audit-timeline.tsx
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx
+#: ../../../lib/web/src/components/entity/entity-board-card.tsx
 #: ../../../lib/web/src/components/entity/entity-field-dialog.tsx
 #: ../../../lib/web/src/components/tree-row.tsx
 #: ../../../lib/web/src/components/tree-row.tsx
@@ -3729,6 +3786,10 @@ msgstr "Серада"
 #: ../../../lib/web/src/components/calendar/date-header.tsx
 msgid "Year"
 msgstr "Год"
+
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx
+msgid "Yes"
+msgstr "Так"
 
 #: src/features/chats/index.tsx
 msgid "You"

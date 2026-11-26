@@ -94,11 +94,6 @@ msgstr "{0, plural, one {# sélectionné} other {# sélectionnés}}"
 msgid "{0, plural, one {+# nested} other {+# nested}}"
 msgstr "{0, plural, one {+# imbriqué} other {+# imbriqués}}"
 
-#. placeholder {0}: size - maximum
-#: src/features/chats/utils.ts
-msgid "{0, plural, one {Message is # byte too long} other {Message is # bytes too long}}"
-msgstr ""
-
 #. placeholder {0}: r.label
 #: src/features/chats/components/message-reaction-bar.tsx
 msgid "{0} (includes you)"
@@ -161,6 +156,10 @@ msgstr "{newMessageCount, plural, one {Aller à # nouveau message} other {Aller 
 #: ../../../lib/web/src/components/game/game-draw-offer-banner.tsx
 msgid "{opponentName} offered a draw"
 msgstr "{opponentName} a proposé la nulle"
+
+#: src/features/chats/utils.ts
+msgid "{over, plural, one {Message is {count} character too long} other {Message is {count} characters too long}}"
+msgstr "{over, plural, one {Le message dépasse la limite de {count} caractère} other {Le message dépasse la limite de {count} caractères}}"
 
 #: ../../../lib/web/src/components/attachment-composer.tsx
 #: ../../../lib/web/src/components/ui/upload-progress.tsx
@@ -568,6 +567,7 @@ msgstr "Fichier binaire non affiché"
 msgid "Block {name}"
 msgstr "Bloquer {name}"
 
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx
 msgid "Blocked by"
@@ -578,6 +578,7 @@ msgstr "Bloqué par"
 msgid "Blocked navigation to untrusted link"
 msgstr "Navigation vers un lien non fiable bloquée"
 
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx
 msgid "Blocks"
 msgstr "Bloque"
@@ -647,6 +648,7 @@ msgstr "Caméra indisponible"
 #: src/features/chats/components/verification-watcher.tsx
 #: src/features/chats/components/verification-watcher.tsx
 #: src/features/chats/index.tsx
+#: src/features/chats/share-page.tsx
 msgid "Cancel"
 msgstr "Annuler"
 
@@ -692,6 +694,10 @@ msgstr "Modifié"
 #: ../../../lib/web/src/components/entity/entity-activity-list.tsx
 msgid "Changed {field}"
 msgstr "{field} modifié"
+
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx
+msgid "Changed class"
+msgstr "Classe modifiée"
 
 #: ../../../lib/web/src/components/calendar/month-grid.tsx
 #: ../../../lib/web/src/components/calendar/time-grid.tsx
@@ -833,6 +839,7 @@ msgstr "Tout effacer"
 #: ../../../lib/web/src/components/search-input.tsx
 #: src/components/layout/chat-list-filters.tsx
 #: src/features/chats/components/forward-dialog.tsx
+#: src/features/chats/share-page.tsx
 #: src/routes/_authenticated/$chatId_.settings.tsx
 msgid "Clear search"
 msgstr "Effacer la recherche"
@@ -983,10 +990,12 @@ msgstr "Continuer avec {providerLabel}"
 
 #: ../../../lib/web/src/lib/toast-utils.ts
 #: src/features/chats/index.tsx
+#: src/features/chats/index.tsx
 msgid "Copied"
 msgstr "Copié"
 
 #: ../../../lib/web/src/components/comment-share-button.tsx
+#: ../../../lib/web/src/components/share-menu.tsx
 #: ../../../lib/web/src/components/ui/copy-button.tsx
 #: src/features/chats/components/thread-panel.tsx
 msgid "Copied to clipboard"
@@ -1001,6 +1010,7 @@ msgstr "Copié dans le presse-papiers"
 #: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx
 #: ../../../lib/web/src/components/ui/copy-button.tsx
 #: src/features/chats/components/message-hover-actions.tsx
+#: src/features/chats/components/unsent-message.tsx
 #: src/features/chats/index.tsx
 msgid "Copy"
 msgstr "Copier"
@@ -1256,6 +1266,7 @@ msgid "Disagree"
 msgstr "Pas d'accord"
 
 #: ../../../lib/web/src/components/comment-composer.tsx
+#: src/features/chats/components/unsent-message.tsx
 msgid "Discard"
 msgstr "Abandonner"
 
@@ -1323,6 +1334,7 @@ msgstr "Échec du téléchargement"
 msgid "Draft"
 msgstr "Brouillon"
 
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx
 msgid "Duplicates"
 msgstr "Duplique"
@@ -1395,13 +1407,11 @@ msgstr "E-mail"
 msgid "Email code"
 msgstr "Code par e-mail"
 
-#: src/features/chats/components/message-bubble.tsx
-#: src/features/chats/components/thread-replies.tsx
+#: src/features/chats/components/sealed-text.tsx
 msgid "Encrypted for other devices only"
 msgstr "Chiffré uniquement pour d'autres appareils"
 
-#: src/features/chats/components/message-bubble.tsx
-#: src/features/chats/components/thread-replies.tsx
+#: src/features/chats/components/sealed-text.tsx
 msgid "Encrypted message"
 msgstr "Message chiffré"
 
@@ -1464,9 +1474,11 @@ msgid "Failed to add member"
 msgstr "Échec de l'ajout du membre"
 
 #: ../../../lib/web/src/components/comment-share-button.tsx
+#: ../../../lib/web/src/components/share-menu.tsx
 #: ../../../lib/web/src/components/ui/copy-button.tsx
 #: ../../../lib/web/src/lib/toast-utils.ts
 #: src/features/chats/components/thread-panel.tsx
+#: src/features/chats/index.tsx
 #: src/features/chats/index.tsx
 msgid "Failed to copy"
 msgstr "Échec de la copie"
@@ -1482,7 +1494,8 @@ msgid "Failed to create chat"
 msgstr "Échec de la création du chat"
 
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx
-#: ../../../lib/web/src/components/options-menu.tsx
+#: ../../../lib/web/src/components/share-menu.tsx
+#: ../../../lib/web/src/components/share-menu.tsx
 msgid "Failed to create link"
 msgstr "Échec de la création du lien"
 
@@ -1903,12 +1916,12 @@ msgstr "Clair"
 msgid "Like"
 msgstr "J'aime"
 
-#: ../../../lib/web/src/components/options-menu.tsx
 #: src/features/chats/components/formatting-toolbar.tsx
 #: src/features/chats/components/link-dialog.tsx
 msgid "Link"
 msgstr "Lien"
 
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx
 msgid "Links"
 msgstr "Liens"
@@ -2126,10 +2139,6 @@ msgstr "Plus d'options"
 msgid "Moved"
 msgstr "Déplacé"
 
-#: ../../../lib/web/src/components/entity/entity-activity-list.tsx
-msgid "Moved {field}"
-msgstr "{field} déplacé"
-
 #. placeholder {0}: dayName(dragging.day)
 #. placeholder {0}: dayName(opening(current, format.zonedDay))
 #: ../../../lib/web/src/components/calendar/month-grid.tsx
@@ -2187,6 +2196,7 @@ msgstr "Récent"
 #: src/features/chats/components/chat-empty-state.tsx
 #: src/features/chats/components/chat-empty-state.tsx
 #: src/features/chats/components/new-chat.tsx
+#: src/features/chats/share-page.tsx
 msgid "New chat"
 msgstr "Nouveau chat"
 
@@ -2212,6 +2222,10 @@ msgstr "Mois suivant"
 msgid "Next year"
 msgstr "Année suivante"
 
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx
+msgid "No"
+msgstr "Non"
+
 #: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx
 msgid "No {parentClassNames} to add to"
 msgstr "Aucun {parentClassNames} auquel ajouter"
@@ -2229,6 +2243,8 @@ msgid "No changes to display"
 msgstr "Aucun changement à afficher"
 
 #: src/components/layout/chat-list-filters.tsx
+#: src/features/chats/share-page.tsx
+#: src/features/chats/share-page.tsx
 msgid "No chats"
 msgstr "Aucune discussion"
 
@@ -2693,6 +2709,7 @@ msgstr "Redirection vers la connexion."
 msgid "Reduce interest"
 msgstr "Réduire l'intérêt"
 
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx
 msgid "Relates"
 msgstr "Se rapporte à"
@@ -2858,6 +2875,7 @@ msgid "Restore"
 msgstr "Restaurer"
 
 #: ../../../lib/web/src/components/attachment-composer.tsx
+#: src/features/chats/components/unsent-message.tsx
 msgid "Retry"
 msgstr "Réessayer"
 
@@ -2940,6 +2958,7 @@ msgstr "Rechercher"
 #: src/components/layout/chat-list-filters.tsx
 #: src/components/layout/chat-list-filters.tsx
 #: src/features/chats/components/forward-dialog.tsx
+#: src/features/chats/share-page.tsx
 msgid "Search chats"
 msgstr "Rechercher des discussions"
 
@@ -3081,6 +3100,11 @@ msgstr "Envoyer l'e-mail"
 msgid "Send friend request"
 msgstr "Envoyer une invitation d'ami"
 
+#: src/features/chats/share-page.tsx
+#: src/features/chats/share-page.tsx
+msgid "Send in a chat"
+msgstr "Envoyer dans un chat"
+
 #: ../../../lib/web/src/components/game/game-chat-input.tsx
 #: ../../../lib/web/src/components/game/game-chat-input.tsx
 #: src/features/chats/components/chat-input.tsx
@@ -3092,10 +3116,25 @@ msgstr "Envoyer un message"
 msgid "Send read receipts"
 msgstr "Envoyer les confirmations de lecture"
 
+#: src/features/chats/components/chat-input.tsx
+#: src/features/chats/components/thread-panel.tsx
+#: src/features/chats/components/unsent-message.tsx
+msgid "Send unencrypted"
+msgstr "Envoyer sans chiffrement"
+
 #: src/features/chats/components/message-bubble.tsx
 msgctxt "receipt"
 msgid "Sent"
 msgstr "Envoyé"
+
+#: src/features/chats/components/message-bubble.tsx
+msgid "Sent from a device whose keys do not match"
+msgstr "Envoyé depuis un appareil dont les clés ne correspondent pas"
+
+#: src/features/chats/components/message-bubble.tsx
+#: src/features/chats/components/sealed-text.tsx
+msgid "Sent from a device you distrusted"
+msgstr "Envoyé depuis un appareil auquel vous ne faites pas confiance"
 
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Serif"
@@ -3119,6 +3158,10 @@ msgstr "Session expirée. Veuillez vous reconnecter."
 msgid "Set origin and destination"
 msgstr "Définir l'origine et la destination"
 
+#: src/features/chats/components/new-chat.tsx
+msgid "Set up"
+msgstr "Configurer"
+
 #: src/features/chats/components/encryption-section.tsx
 #: src/features/chats/components/encryption-section.tsx
 #: src/features/chats/components/encryption-section.tsx
@@ -3137,6 +3180,7 @@ msgstr "Paramètres enregistrés"
 
 #: ../../../lib/web/src/components/comment-share-button.tsx
 #: ../../../lib/web/src/components/comment-share-button.tsx
+#: ../../../lib/web/src/components/share-menu.tsx
 msgid "Share"
 msgstr "Partager"
 
@@ -3365,6 +3409,10 @@ msgstr "Le mot de passe n'a pas été accepté"
 msgid "The requested content could not be found."
 msgstr "Le contenu demandé est introuvable."
 
+#: src/features/chats/components/sealed-text.tsx
+msgid "The sender's encryption key changed"
+msgstr "La clé de chiffrement de l'expéditeur a changé"
+
 #: ../../../lib/web/src/lib/api-response-interceptors.ts
 msgid "The server returned a web page instead of data."
 msgstr "Le serveur a renvoyé une page web au lieu de données."
@@ -3491,6 +3539,10 @@ msgstr "Trop de requêtes"
 msgid "Top"
 msgstr "Meilleur"
 
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx
+msgid "Top level"
+msgstr "Niveau supérieur"
+
 #: ../../../lib/web/src/components/travelling-picker.tsx
 msgid "Travelling"
 msgstr "En déplacement"
@@ -3564,6 +3616,11 @@ msgid "United States"
 msgstr "États-Unis"
 
 #: ../../../lib/web/src/components/audit-timeline.tsx
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx
+#: ../../../lib/web/src/components/entity/entity-board-card.tsx
 #: ../../../lib/web/src/components/entity/entity-field-dialog.tsx
 #: ../../../lib/web/src/components/tree-row.tsx
 #: ../../../lib/web/src/components/tree-row.tsx
@@ -3729,6 +3786,10 @@ msgstr "Mercredi"
 #: ../../../lib/web/src/components/calendar/date-header.tsx
 msgid "Year"
 msgstr "Année"
+
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx
+msgid "Yes"
+msgstr "Oui"
 
 #: src/features/chats/index.tsx
 msgid "You"

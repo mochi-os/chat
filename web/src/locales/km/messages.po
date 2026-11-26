@@ -94,11 +94,6 @@ msgstr "{0, plural, other {# បានជ្រើសរើស}}"
 msgid "{0, plural, one {+# nested} other {+# nested}}"
 msgstr "{0, plural, other {+# ជាន់ក្នុង}}"
 
-#. placeholder {0}: size - maximum
-#: src/features/chats/utils.ts
-msgid "{0, plural, one {Message is # byte too long} other {Message is # bytes too long}}"
-msgstr ""
-
 #. placeholder {0}: r.label
 #: src/features/chats/components/message-reaction-bar.tsx
 msgid "{0} (includes you)"
@@ -161,6 +156,10 @@ msgstr "{newMessageCount, plural, other {ទៅកាន់សារថ្មី
 #: ../../../lib/web/src/components/game/game-draw-offer-banner.tsx
 msgid "{opponentName} offered a draw"
 msgstr "{opponentName} បានស្នើស្មើ"
+
+#: src/features/chats/utils.ts
+msgid "{over, plural, one {Message is {count} character too long} other {Message is {count} characters too long}}"
+msgstr "{over, plural, other {សារវែងលើស {count} តួអក្សរ}}"
 
 #: ../../../lib/web/src/components/attachment-composer.tsx
 #: ../../../lib/web/src/components/ui/upload-progress.tsx
@@ -568,6 +567,7 @@ msgstr "ឯកសារ​គោលពីរ​មិន​ត្រូវ​ប
 msgid "Block {name}"
 msgstr "រារាំង {name}"
 
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx
 msgid "Blocked by"
@@ -578,6 +578,7 @@ msgstr "ត្រូវបានរារាំងដោយ"
 msgid "Blocked navigation to untrusted link"
 msgstr "បានរារាំងការរុករកទៅតំណមិនគួរឱ្យទុកចិត្ត"
 
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx
 msgid "Blocks"
 msgstr "ប្លុក"
@@ -647,6 +648,7 @@ msgstr "កាមេរ៉ាមិនអាចប្រើបាន"
 #: src/features/chats/components/verification-watcher.tsx
 #: src/features/chats/components/verification-watcher.tsx
 #: src/features/chats/index.tsx
+#: src/features/chats/share-page.tsx
 msgid "Cancel"
 msgstr "បោះបង់"
 
@@ -692,6 +694,10 @@ msgstr "បានផ្លាស់ប្ដូរ"
 #: ../../../lib/web/src/components/entity/entity-activity-list.tsx
 msgid "Changed {field}"
 msgstr "បានផ្លាស់ប្ដូរ {field}"
+
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx
+msgid "Changed class"
+msgstr "បានប្ដូរថ្នាក់"
 
 #: ../../../lib/web/src/components/calendar/month-grid.tsx
 #: ../../../lib/web/src/components/calendar/time-grid.tsx
@@ -833,6 +839,7 @@ msgstr "សម្អាតទាំងអស់"
 #: ../../../lib/web/src/components/search-input.tsx
 #: src/components/layout/chat-list-filters.tsx
 #: src/features/chats/components/forward-dialog.tsx
+#: src/features/chats/share-page.tsx
 #: src/routes/_authenticated/$chatId_.settings.tsx
 msgid "Clear search"
 msgstr "សម្អាតការស្វែងរក"
@@ -983,10 +990,12 @@ msgstr "បន្តជាមួយ {providerLabel}"
 
 #: ../../../lib/web/src/lib/toast-utils.ts
 #: src/features/chats/index.tsx
+#: src/features/chats/index.tsx
 msgid "Copied"
 msgstr "បានចម្លង"
 
 #: ../../../lib/web/src/components/comment-share-button.tsx
+#: ../../../lib/web/src/components/share-menu.tsx
 #: ../../../lib/web/src/components/ui/copy-button.tsx
 #: src/features/chats/components/thread-panel.tsx
 msgid "Copied to clipboard"
@@ -1001,6 +1010,7 @@ msgstr "បានចម្លងទៅក្ដារតម្បៀតខ្ទ
 #: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx
 #: ../../../lib/web/src/components/ui/copy-button.tsx
 #: src/features/chats/components/message-hover-actions.tsx
+#: src/features/chats/components/unsent-message.tsx
 #: src/features/chats/index.tsx
 msgid "Copy"
 msgstr "ចម្លង"
@@ -1256,6 +1266,7 @@ msgid "Disagree"
 msgstr "មិនយល់ព្រម"
 
 #: ../../../lib/web/src/components/comment-composer.tsx
+#: src/features/chats/components/unsent-message.tsx
 msgid "Discard"
 msgstr "បោះចោល"
 
@@ -1323,6 +1334,7 @@ msgstr "ការទាញយកបានបរាជ័យ"
 msgid "Draft"
 msgstr "សេចក្ដីព្រាង"
 
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx
 msgid "Duplicates"
 msgstr "ស្ទួន"
@@ -1395,13 +1407,11 @@ msgstr "អ៊ីមែល"
 msgid "Email code"
 msgstr "កូដអ៊ីមែល"
 
-#: src/features/chats/components/message-bubble.tsx
-#: src/features/chats/components/thread-replies.tsx
+#: src/features/chats/components/sealed-text.tsx
 msgid "Encrypted for other devices only"
 msgstr "បានអ៊ិនគ្រីបសម្រាប់ឧបករណ៍ផ្សេងទៀតតែប៉ុណ្ណោះ"
 
-#: src/features/chats/components/message-bubble.tsx
-#: src/features/chats/components/thread-replies.tsx
+#: src/features/chats/components/sealed-text.tsx
 msgid "Encrypted message"
 msgstr "សារដែលបានអ៊ិនគ្រីប"
 
@@ -1464,9 +1474,11 @@ msgid "Failed to add member"
 msgstr "បរាជ័យក្នុងការបន្ថែមសមាជិក"
 
 #: ../../../lib/web/src/components/comment-share-button.tsx
+#: ../../../lib/web/src/components/share-menu.tsx
 #: ../../../lib/web/src/components/ui/copy-button.tsx
 #: ../../../lib/web/src/lib/toast-utils.ts
 #: src/features/chats/components/thread-panel.tsx
+#: src/features/chats/index.tsx
 #: src/features/chats/index.tsx
 msgid "Failed to copy"
 msgstr "បរាជ័យក្នុងការចម្លង"
@@ -1482,7 +1494,8 @@ msgid "Failed to create chat"
 msgstr "បរាជ័យក្នុងការបង្កើតការជជែក"
 
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx
-#: ../../../lib/web/src/components/options-menu.tsx
+#: ../../../lib/web/src/components/share-menu.tsx
+#: ../../../lib/web/src/components/share-menu.tsx
 msgid "Failed to create link"
 msgstr "បរាជ័យក្នុងការបង្កើតតំណ"
 
@@ -1903,12 +1916,12 @@ msgstr "ភ្លឺ"
 msgid "Like"
 msgstr "ចូលចិត្ត"
 
-#: ../../../lib/web/src/components/options-menu.tsx
 #: src/features/chats/components/formatting-toolbar.tsx
 #: src/features/chats/components/link-dialog.tsx
 msgid "Link"
 msgstr "តំណ"
 
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx
 msgid "Links"
 msgstr "តំណ"
@@ -2126,10 +2139,6 @@ msgstr "ជម្រើសច្រើនទៀត"
 msgid "Moved"
 msgstr "បានផ្លាស់ទី"
 
-#: ../../../lib/web/src/components/entity/entity-activity-list.tsx
-msgid "Moved {field}"
-msgstr "បានផ្លាស់ទី {field}"
-
 #. placeholder {0}: dayName(dragging.day)
 #. placeholder {0}: dayName(opening(current, format.zonedDay))
 #: ../../../lib/web/src/components/calendar/month-grid.tsx
@@ -2187,6 +2196,7 @@ msgstr "ថ្មីបំផុត"
 #: src/features/chats/components/chat-empty-state.tsx
 #: src/features/chats/components/chat-empty-state.tsx
 #: src/features/chats/components/new-chat.tsx
+#: src/features/chats/share-page.tsx
 msgid "New chat"
 msgstr "ការសន្ទនាថ្មី"
 
@@ -2212,6 +2222,10 @@ msgstr "ខែក្រោយ"
 msgid "Next year"
 msgstr "ឆ្នាំក្រោយ"
 
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx
+msgid "No"
+msgstr "ទេ"
+
 #: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx
 msgid "No {parentClassNames} to add to"
 msgstr "មិនមាន {parentClassNames} ដើម្បីបន្ថែមទៅ"
@@ -2229,6 +2243,8 @@ msgid "No changes to display"
 msgstr "មិនមានការផ្លាស់ប្តូរដើម្បីបង្ហាញ"
 
 #: src/components/layout/chat-list-filters.tsx
+#: src/features/chats/share-page.tsx
+#: src/features/chats/share-page.tsx
 msgid "No chats"
 msgstr "មិនមានការជជែក"
 
@@ -2693,6 +2709,7 @@ msgstr "កំពុងបញ្ជូនបន្តទៅការចូល។
 msgid "Reduce interest"
 msgstr "កាត់បន្ថយចំណាប់អារម្មណ៍"
 
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx
 msgid "Relates"
 msgstr "ទាក់ទង"
@@ -2858,6 +2875,7 @@ msgid "Restore"
 msgstr "ស្តារ"
 
 #: ../../../lib/web/src/components/attachment-composer.tsx
+#: src/features/chats/components/unsent-message.tsx
 msgid "Retry"
 msgstr "ព្យាយាមម្ដងទៀត"
 
@@ -2940,6 +2958,7 @@ msgstr "ស្វែងរក"
 #: src/components/layout/chat-list-filters.tsx
 #: src/components/layout/chat-list-filters.tsx
 #: src/features/chats/components/forward-dialog.tsx
+#: src/features/chats/share-page.tsx
 msgid "Search chats"
 msgstr "ស្វែងរកការជជែក"
 
@@ -3081,6 +3100,11 @@ msgstr "ផ្ញើអ៊ីមែល"
 msgid "Send friend request"
 msgstr "ផ្ញើសំណើមិត្តភក្តិ"
 
+#: src/features/chats/share-page.tsx
+#: src/features/chats/share-page.tsx
+msgid "Send in a chat"
+msgstr "ផ្ញើក្នុងការសន្ទនា"
+
 #: ../../../lib/web/src/components/game/game-chat-input.tsx
 #: ../../../lib/web/src/components/game/game-chat-input.tsx
 #: src/features/chats/components/chat-input.tsx
@@ -3092,10 +3116,25 @@ msgstr "ផ្ញើសារ"
 msgid "Send read receipts"
 msgstr "ផ្ញើការជូនដំណឹងថាបានអាន"
 
+#: src/features/chats/components/chat-input.tsx
+#: src/features/chats/components/thread-panel.tsx
+#: src/features/chats/components/unsent-message.tsx
+msgid "Send unencrypted"
+msgstr "ផ្ញើដោយមិនអ៊ិនគ្រីប"
+
 #: src/features/chats/components/message-bubble.tsx
 msgctxt "receipt"
 msgid "Sent"
 msgstr "បានផ្ញើ"
+
+#: src/features/chats/components/message-bubble.tsx
+msgid "Sent from a device whose keys do not match"
+msgstr "បានផ្ញើពីឧបករណ៍ដែលកូនសោមិនត្រូវគ្នា"
+
+#: src/features/chats/components/message-bubble.tsx
+#: src/features/chats/components/sealed-text.tsx
+msgid "Sent from a device you distrusted"
+msgstr "បានផ្ញើពីឧបករណ៍ដែលអ្នកមិនទុកចិត្ត"
 
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Serif"
@@ -3119,6 +3158,10 @@ msgstr "សម័យប្រើប្រាស់បានផុតកំណត
 msgid "Set origin and destination"
 msgstr "កំណត់ចំណុចចេញដំណើរ និងគោលដៅ"
 
+#: src/features/chats/components/new-chat.tsx
+msgid "Set up"
+msgstr "រៀបចំ"
+
 #: src/features/chats/components/encryption-section.tsx
 #: src/features/chats/components/encryption-section.tsx
 #: src/features/chats/components/encryption-section.tsx
@@ -3137,6 +3180,7 @@ msgstr "បានរក្សាទុកការកំណត់"
 
 #: ../../../lib/web/src/components/comment-share-button.tsx
 #: ../../../lib/web/src/components/comment-share-button.tsx
+#: ../../../lib/web/src/components/share-menu.tsx
 msgid "Share"
 msgstr "ចែករំលែក"
 
@@ -3365,6 +3409,10 @@ msgstr "ពាក្យសម្ងាត់មិនត្រូវបានទ
 msgid "The requested content could not be found."
 msgstr "រកមិនឃើញខ្លឹមសារដែលបានស្នើសុំទេ។"
 
+#: src/features/chats/components/sealed-text.tsx
+msgid "The sender's encryption key changed"
+msgstr "កូនសោអ៊ិនគ្រីបរបស់អ្នកផ្ញើបានផ្លាស់ប្ដូរ"
+
 #: ../../../lib/web/src/lib/api-response-interceptors.ts
 msgid "The server returned a web page instead of data."
 msgstr "ម៉ាស៊ីនមេបានបញ្ជូនត្រឡប់ទំព័របណ្តាញជំនួសឱ្យទិន្នន័យ។"
@@ -3491,6 +3539,10 @@ msgstr "សំណើច្រើនពេក"
 msgid "Top"
 msgstr "កំពូល"
 
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx
+msgid "Top level"
+msgstr "កម្រិតកំពូល"
+
 #: ../../../lib/web/src/components/travelling-picker.tsx
 msgid "Travelling"
 msgstr "កំពុងធ្វើដំណើរ"
@@ -3564,6 +3616,11 @@ msgid "United States"
 msgstr "សហរដ្ឋអាមេរិក"
 
 #: ../../../lib/web/src/components/audit-timeline.tsx
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx
+#: ../../../lib/web/src/components/entity/entity-board-card.tsx
 #: ../../../lib/web/src/components/entity/entity-field-dialog.tsx
 #: ../../../lib/web/src/components/tree-row.tsx
 #: ../../../lib/web/src/components/tree-row.tsx
@@ -3729,6 +3786,10 @@ msgstr "ថ្ងៃពុធ"
 #: ../../../lib/web/src/components/calendar/date-header.tsx
 msgid "Year"
 msgstr "ឆ្នាំ"
+
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx
+msgid "Yes"
+msgstr "បាទ/ចាស"
 
 #: src/features/chats/index.tsx
 msgid "You"

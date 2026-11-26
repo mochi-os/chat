@@ -77,6 +77,7 @@ vi.mock('@/hooks/useChats', () => ({
     },
   }),
   useMarkChatReadMutation: () => ({ mutateAsync: markRead }),
+  useChatListLive: () => false,
 }))
 vi.mock('@/features/chats/components/new-chat', () => ({ NewChat: () => null }))
 vi.mock('@/features/chats/components/verification-watcher', () => ({

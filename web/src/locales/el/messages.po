@@ -94,11 +94,6 @@ msgstr "{0, plural, one {# επιλεγμένο} other {# επιλεγμένα}}
 msgid "{0, plural, one {+# nested} other {+# nested}}"
 msgstr "{0, plural, one {+# ένθετο} other {+# ένθετα}}"
 
-#. placeholder {0}: size - maximum
-#: src/features/chats/utils.ts
-msgid "{0, plural, one {Message is # byte too long} other {Message is # bytes too long}}"
-msgstr ""
-
 #. placeholder {0}: r.label
 #: src/features/chats/components/message-reaction-bar.tsx
 msgid "{0} (includes you)"
@@ -161,6 +156,10 @@ msgstr "{newMessageCount, plural, one {Μετάβαση σε # νέο μήνυμ
 #: ../../../lib/web/src/components/game/game-draw-offer-banner.tsx
 msgid "{opponentName} offered a draw"
 msgstr "Ο/Η {opponentName} πρότεινε ισοπαλία"
+
+#: src/features/chats/utils.ts
+msgid "{over, plural, one {Message is {count} character too long} other {Message is {count} characters too long}}"
+msgstr "{over, plural, one {Το μήνυμα υπερβαίνει το όριο κατά {count} χαρακτήρα} other {Το μήνυμα υπερβαίνει το όριο κατά {count} χαρακτήρες}}"
 
 #: ../../../lib/web/src/components/attachment-composer.tsx
 #: ../../../lib/web/src/components/ui/upload-progress.tsx
@@ -568,6 +567,7 @@ msgstr "Το δυαδικό αρχείο δεν εμφανίζεται"
 msgid "Block {name}"
 msgstr "Αποκλεισμός {name}"
 
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx
 msgid "Blocked by"
@@ -578,6 +578,7 @@ msgstr "Αποκλείεται από"
 msgid "Blocked navigation to untrusted link"
 msgstr "Αποκλείστηκε η πλοήγηση σε μη αξιόπιστο σύνδεσμο"
 
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx
 msgid "Blocks"
 msgstr "Αποκλείει"
@@ -647,6 +648,7 @@ msgstr "Η κάμερα δεν είναι διαθέσιμη"
 #: src/features/chats/components/verification-watcher.tsx
 #: src/features/chats/components/verification-watcher.tsx
 #: src/features/chats/index.tsx
+#: src/features/chats/share-page.tsx
 msgid "Cancel"
 msgstr "Ακύρωση"
 
@@ -692,6 +694,10 @@ msgstr "Άλλαξε"
 #: ../../../lib/web/src/components/entity/entity-activity-list.tsx
 msgid "Changed {field}"
 msgstr "Άλλαξε {field}"
+
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx
+msgid "Changed class"
+msgstr "Η κλάση άλλαξε"
 
 #: ../../../lib/web/src/components/calendar/month-grid.tsx
 #: ../../../lib/web/src/components/calendar/time-grid.tsx
@@ -833,6 +839,7 @@ msgstr "Εκκαθάριση όλων"
 #: ../../../lib/web/src/components/search-input.tsx
 #: src/components/layout/chat-list-filters.tsx
 #: src/features/chats/components/forward-dialog.tsx
+#: src/features/chats/share-page.tsx
 #: src/routes/_authenticated/$chatId_.settings.tsx
 msgid "Clear search"
 msgstr "Εκκαθάριση αναζήτησης"
@@ -983,10 +990,12 @@ msgstr "Συνέχεια με {providerLabel}"
 
 #: ../../../lib/web/src/lib/toast-utils.ts
 #: src/features/chats/index.tsx
+#: src/features/chats/index.tsx
 msgid "Copied"
 msgstr "Αντιγράφηκε"
 
 #: ../../../lib/web/src/components/comment-share-button.tsx
+#: ../../../lib/web/src/components/share-menu.tsx
 #: ../../../lib/web/src/components/ui/copy-button.tsx
 #: src/features/chats/components/thread-panel.tsx
 msgid "Copied to clipboard"
@@ -1001,6 +1010,7 @@ msgstr "Αντιγράφηκε στο πρόχειρο"
 #: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx
 #: ../../../lib/web/src/components/ui/copy-button.tsx
 #: src/features/chats/components/message-hover-actions.tsx
+#: src/features/chats/components/unsent-message.tsx
 #: src/features/chats/index.tsx
 msgid "Copy"
 msgstr "Αντιγραφή"
@@ -1256,6 +1266,7 @@ msgid "Disagree"
 msgstr "Διαφωνώ"
 
 #: ../../../lib/web/src/components/comment-composer.tsx
+#: src/features/chats/components/unsent-message.tsx
 msgid "Discard"
 msgstr "Απόρριψη"
 
@@ -1323,6 +1334,7 @@ msgstr "Η λήψη απέτυχε"
 msgid "Draft"
 msgstr "Πρόχειρο"
 
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx
 msgid "Duplicates"
 msgstr "Διπλότυπο"
@@ -1395,13 +1407,11 @@ msgstr "Email"
 msgid "Email code"
 msgstr "Κωδικός email"
 
-#: src/features/chats/components/message-bubble.tsx
-#: src/features/chats/components/thread-replies.tsx
+#: src/features/chats/components/sealed-text.tsx
 msgid "Encrypted for other devices only"
 msgstr "Κρυπτογραφημένο μόνο για άλλες συσκευές"
 
-#: src/features/chats/components/message-bubble.tsx
-#: src/features/chats/components/thread-replies.tsx
+#: src/features/chats/components/sealed-text.tsx
 msgid "Encrypted message"
 msgstr "Κρυπτογραφημένο μήνυμα"
 
@@ -1464,9 +1474,11 @@ msgid "Failed to add member"
 msgstr "Αποτυχία προσθήκης μέλους"
 
 #: ../../../lib/web/src/components/comment-share-button.tsx
+#: ../../../lib/web/src/components/share-menu.tsx
 #: ../../../lib/web/src/components/ui/copy-button.tsx
 #: ../../../lib/web/src/lib/toast-utils.ts
 #: src/features/chats/components/thread-panel.tsx
+#: src/features/chats/index.tsx
 #: src/features/chats/index.tsx
 msgid "Failed to copy"
 msgstr "Αποτυχία αντιγραφής"
@@ -1482,7 +1494,8 @@ msgid "Failed to create chat"
 msgstr "Αποτυχία δημιουργίας συνομιλίας"
 
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx
-#: ../../../lib/web/src/components/options-menu.tsx
+#: ../../../lib/web/src/components/share-menu.tsx
+#: ../../../lib/web/src/components/share-menu.tsx
 msgid "Failed to create link"
 msgstr "Αποτυχία δημιουργίας συνδέσμου"
 
@@ -1903,12 +1916,12 @@ msgstr "Φωτεινό"
 msgid "Like"
 msgstr "Μου αρέσει"
 
-#: ../../../lib/web/src/components/options-menu.tsx
 #: src/features/chats/components/formatting-toolbar.tsx
 #: src/features/chats/components/link-dialog.tsx
 msgid "Link"
 msgstr "Σύνδεσμος"
 
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx
 msgid "Links"
 msgstr "Σύνδεσμοι"
@@ -2126,10 +2139,6 @@ msgstr "Περισσότερες επιλογές"
 msgid "Moved"
 msgstr "Μετακινήθηκε"
 
-#: ../../../lib/web/src/components/entity/entity-activity-list.tsx
-msgid "Moved {field}"
-msgstr "Μετακινήθηκε {field}"
-
 #. placeholder {0}: dayName(dragging.day)
 #. placeholder {0}: dayName(opening(current, format.zonedDay))
 #: ../../../lib/web/src/components/calendar/month-grid.tsx
@@ -2187,6 +2196,7 @@ msgstr "Νεότερα"
 #: src/features/chats/components/chat-empty-state.tsx
 #: src/features/chats/components/chat-empty-state.tsx
 #: src/features/chats/components/new-chat.tsx
+#: src/features/chats/share-page.tsx
 msgid "New chat"
 msgstr "Νέα συνομιλία"
 
@@ -2212,6 +2222,10 @@ msgstr "Επόμενος μήνας"
 msgid "Next year"
 msgstr "Επόμενο έτος"
 
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx
+msgid "No"
+msgstr "Όχι"
+
 #: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx
 msgid "No {parentClassNames} to add to"
 msgstr "Δεν υπάρχουν {parentClassNames} για προσθήκη"
@@ -2229,6 +2243,8 @@ msgid "No changes to display"
 msgstr "Δεν υπάρχουν αλλαγές προς εμφάνιση"
 
 #: src/components/layout/chat-list-filters.tsx
+#: src/features/chats/share-page.tsx
+#: src/features/chats/share-page.tsx
 msgid "No chats"
 msgstr "Καμία συνομιλία"
 
@@ -2693,6 +2709,7 @@ msgstr "Ανακατεύθυνση στη σύνδεση."
 msgid "Reduce interest"
 msgstr "Μείωση ενδιαφέροντος"
 
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx
 msgid "Relates"
 msgstr "Σχετίζεται"
@@ -2858,6 +2875,7 @@ msgid "Restore"
 msgstr "Επαναφορά"
 
 #: ../../../lib/web/src/components/attachment-composer.tsx
+#: src/features/chats/components/unsent-message.tsx
 msgid "Retry"
 msgstr "Δοκιμή ξανά"
 
@@ -2940,6 +2958,7 @@ msgstr "Αναζήτηση"
 #: src/components/layout/chat-list-filters.tsx
 #: src/components/layout/chat-list-filters.tsx
 #: src/features/chats/components/forward-dialog.tsx
+#: src/features/chats/share-page.tsx
 msgid "Search chats"
 msgstr "Αναζήτηση συνομιλιών"
 
@@ -3081,6 +3100,11 @@ msgstr "Αποστολή email"
 msgid "Send friend request"
 msgstr "Αποστολή αιτήματος φιλίας"
 
+#: src/features/chats/share-page.tsx
+#: src/features/chats/share-page.tsx
+msgid "Send in a chat"
+msgstr "Αποστολή σε συνομιλία"
+
 #: ../../../lib/web/src/components/game/game-chat-input.tsx
 #: ../../../lib/web/src/components/game/game-chat-input.tsx
 #: src/features/chats/components/chat-input.tsx
@@ -3092,10 +3116,25 @@ msgstr "Αποστολή μηνύματος"
 msgid "Send read receipts"
 msgstr "Αποστολή επιβεβαιώσεων ανάγνωσης"
 
+#: src/features/chats/components/chat-input.tsx
+#: src/features/chats/components/thread-panel.tsx
+#: src/features/chats/components/unsent-message.tsx
+msgid "Send unencrypted"
+msgstr "Αποστολή χωρίς κρυπτογράφηση"
+
 #: src/features/chats/components/message-bubble.tsx
 msgctxt "receipt"
 msgid "Sent"
 msgstr "Στάλθηκε"
+
+#: src/features/chats/components/message-bubble.tsx
+msgid "Sent from a device whose keys do not match"
+msgstr "Στάλθηκε από συσκευή της οποίας τα κλειδιά δεν ταιριάζουν"
+
+#: src/features/chats/components/message-bubble.tsx
+#: src/features/chats/components/sealed-text.tsx
+msgid "Sent from a device you distrusted"
+msgstr "Στάλθηκε από συσκευή που σημειώσατε ως μη αξιόπιστη"
 
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Serif"
@@ -3119,6 +3158,10 @@ msgstr "Η συνεδρία έληξε. Συνδεθείτε ξανά."
 msgid "Set origin and destination"
 msgstr "Ορίστε αφετηρία και προορισμό"
 
+#: src/features/chats/components/new-chat.tsx
+msgid "Set up"
+msgstr "Ρύθμιση"
+
 #: src/features/chats/components/encryption-section.tsx
 #: src/features/chats/components/encryption-section.tsx
 #: src/features/chats/components/encryption-section.tsx
@@ -3137,6 +3180,7 @@ msgstr "Οι ρυθμίσεις αποθηκεύτηκαν"
 
 #: ../../../lib/web/src/components/comment-share-button.tsx
 #: ../../../lib/web/src/components/comment-share-button.tsx
+#: ../../../lib/web/src/components/share-menu.tsx
 msgid "Share"
 msgstr "Κοινοποίηση"
 
@@ -3365,6 +3409,10 @@ msgstr "Ο κωδικός πρόσβασης δεν έγινε δεκτός"
 msgid "The requested content could not be found."
 msgstr "Το περιεχόμενο που ζητήσατε δεν βρέθηκε."
 
+#: src/features/chats/components/sealed-text.tsx
+msgid "The sender's encryption key changed"
+msgstr "Το κλειδί κρυπτογράφησης του αποστολέα άλλαξε"
+
 #: ../../../lib/web/src/lib/api-response-interceptors.ts
 msgid "The server returned a web page instead of data."
 msgstr "Ο διακομιστής επέστρεψε ιστοσελίδα αντί για δεδομένα."
@@ -3491,6 +3539,10 @@ msgstr "Πάρα πολλά αιτήματα"
 msgid "Top"
 msgstr "Κορυφαία"
 
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx
+msgid "Top level"
+msgstr "Ανώτατο επίπεδο"
+
 #: ../../../lib/web/src/components/travelling-picker.tsx
 msgid "Travelling"
 msgstr "Σε ταξίδι"
@@ -3564,6 +3616,11 @@ msgid "United States"
 msgstr "Ηνωμένες Πολιτείες"
 
 #: ../../../lib/web/src/components/audit-timeline.tsx
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx
+#: ../../../lib/web/src/components/entity/entity-board-card.tsx
 #: ../../../lib/web/src/components/entity/entity-field-dialog.tsx
 #: ../../../lib/web/src/components/tree-row.tsx
 #: ../../../lib/web/src/components/tree-row.tsx
@@ -3729,6 +3786,10 @@ msgstr "Τετάρτη"
 #: ../../../lib/web/src/components/calendar/date-header.tsx
 msgid "Year"
 msgstr "Έτος"
+
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx
+msgid "Yes"
+msgstr "Ναι"
 
 #: src/features/chats/index.tsx
 msgid "You"

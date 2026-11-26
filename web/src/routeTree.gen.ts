@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as AuthenticatedIndexRouteImport } from './routes/_authenticated/index'
 import { Route as AuthenticatedChatIdRouteImport } from './routes/_authenticated/$chatId'
+import { Route as AuthenticatedShareRouteImport } from './routes/_authenticated/share'
 import { Route as ChatIdThreadMessageIdRouteImport } from './routes/$chatId_.thread.$messageId'
 import { Route as AuthenticatedChatIdSettingsRouteImport } from './routes/_authenticated/$chatId_.settings'
 
@@ -29,6 +30,11 @@ const AuthenticatedChatIdRoute = AuthenticatedChatIdRouteImport.update({
   path: '/$chatId',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedShareRoute = AuthenticatedShareRouteImport.update({
+  id: '/share',
+  path: '/share',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 const ChatIdThreadMessageIdRoute = ChatIdThreadMessageIdRouteImport.update({
   id: '/$chatId_/thread/$messageId',
   path: '/$chatId/thread/$messageId',
@@ -44,11 +50,13 @@ const AuthenticatedChatIdSettingsRoute =
 export interface FileRoutesByFullPath {
   '/': typeof AuthenticatedIndexRoute
   '/$chatId': typeof AuthenticatedChatIdRoute
+  '/share': typeof AuthenticatedShareRoute
   '/$chatId/thread/$messageId': typeof ChatIdThreadMessageIdRoute
   '/$chatId/settings': typeof AuthenticatedChatIdSettingsRoute
 }
 export interface FileRoutesByTo {
   '/$chatId': typeof AuthenticatedChatIdRoute
+  '/share': typeof AuthenticatedShareRoute
   '/': typeof AuthenticatedIndexRoute
   '/$chatId/thread/$messageId': typeof ChatIdThreadMessageIdRoute
   '/$chatId/settings': typeof AuthenticatedChatIdSettingsRoute
@@ -57,6 +65,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/_authenticated/$chatId': typeof AuthenticatedChatIdRoute
+  '/_authenticated/share': typeof AuthenticatedShareRoute
   '/_authenticated/': typeof AuthenticatedIndexRoute
   '/$chatId_/thread/$messageId': typeof ChatIdThreadMessageIdRoute
   '/_authenticated/$chatId_/settings': typeof AuthenticatedChatIdSettingsRoute
@@ -64,13 +73,23 @@ export interface FileRoutesById {
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
-    '/' | '/$chatId' | '/$chatId/thread/$messageId' | '/$chatId/settings'
+    | '/'
+    | '/$chatId'
+    | '/share'
+    | '/$chatId/thread/$messageId'
+    | '/$chatId/settings'
   fileRoutesByTo: FileRoutesByTo
-  to: '/$chatId' | '/' | '/$chatId/thread/$messageId' | '/$chatId/settings'
+  to:
+    | '/$chatId'
+    | '/share'
+    | '/'
+    | '/$chatId/thread/$messageId'
+    | '/$chatId/settings'
   id:
     | '__root__'
     | '/_authenticated'
     | '/_authenticated/$chatId'
+    | '/_authenticated/share'
     | '/_authenticated/'
     | '/$chatId_/thread/$messageId'
     | '/_authenticated/$chatId_/settings'
@@ -104,6 +123,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedChatIdRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/share': {
+      id: '/_authenticated/share'
+      path: '/share'
+      fullPath: '/share'
+      preLoaderRoute: typeof AuthenticatedShareRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/$chatId_/thread/$messageId': {
       id: '/$chatId_/thread/$messageId'
       path: '/$chatId/thread/$messageId'
@@ -123,12 +149,14 @@ declare module '@tanstack/react-router' {
 
 interface AuthenticatedRouteRouteChildren {
   AuthenticatedChatIdRoute: typeof AuthenticatedChatIdRoute
+  AuthenticatedShareRoute: typeof AuthenticatedShareRoute
   AuthenticatedIndexRoute: typeof AuthenticatedIndexRoute
   AuthenticatedChatIdSettingsRoute: typeof AuthenticatedChatIdSettingsRoute
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedChatIdRoute: AuthenticatedChatIdRoute,
+  AuthenticatedShareRoute: AuthenticatedShareRoute,
   AuthenticatedIndexRoute: AuthenticatedIndexRoute,
   AuthenticatedChatIdSettingsRoute: AuthenticatedChatIdSettingsRoute,
 }

@@ -46,6 +46,7 @@ import {
 import { EditorContent } from '@tiptap/react'
 // Image is aliased: the bare name shadows the DOM Image constructor.
 import {
+  LockOpen,
   Paperclip,
   Send,
   X,
@@ -56,17 +57,16 @@ import {
   Music,
   Image as ImageIcon,
 } from 'lucide-react'
-import { MESSAGE_MAX_LENGTH } from '../constants/limits'
+import { MESSAGE_MAX_LENGTH, messageLength } from '../constants/limits'
 import { useMessageEditor } from '../editor/use-message-editor'
-import { messageSize, tooLongMessage, type PendingAttachment } from '../utils'
+import { tooLong, type PendingAttachment } from '../utils'
 import type { ReplyTarget } from '../utils/reply'
 import { VoiceNotePlayer } from './audio-player'
 import { FormattingToolbar } from './formatting-toolbar'
 import { ReplyQuoteContent } from './reply-quote-content'
 import { VoiceWaveform } from './voice-waveform'
 
-/** The size counter appears this close to the limit, not before. It counts
- *  UTF-8 bytes, the server's measure, so it carries no unit. */
+/** Character count appears this close to the limit, not before. */
 const MESSAGE_COUNTER_FROM = MESSAGE_MAX_LENGTH - 500
 
 /** Soft cap for voice notes — auto-stop and keep the clip. */
@@ -97,6 +97,8 @@ interface ChatInputProps {
   onAudioAttachmentSelection: (e: ChangeEvent<HTMLInputElement>) => void
   onAddVoiceNote?: (file: File, durationSecs: number) => void
   sendMessageErrorMessage: string | null
+  /** Where the send was refused for want of encryption: send it unencrypted. */
+  onSendUnencrypted?: () => void
   replyTo?: ReplyTarget | null
   onClearReply?: () => void
 }
@@ -120,6 +122,7 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(
       onAudioAttachmentSelection,
       onAddVoiceNote,
       sendMessageErrorMessage,
+      onSendUnencrypted,
       replyTo,
       onClearReply,
     },
@@ -127,6 +130,8 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(
   ) {
     const { t } = useLingui()
     const { formatNumber } = useFormat()
+    // Counted as the server counts it, in code points.
+    const length = messageLength(newMessage)
     const fileInputRef = useRef<HTMLInputElement | null>(null)
     const mediaInputRef = useRef<HTMLInputElement | null>(null)
     const audioInputRef = useRef<HTMLInputElement | null>(null)
@@ -169,7 +174,6 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(
     const stoppingRef = useRef(false)
     const startingRef = useRef(false)
     const autoStoppedRef = useRef(false)
-    const size = messageSize(newMessage)
     /** True after unmount — mic starts resolving late must cancel, not record. */
     const disposedRef = useRef(false)
     const stopRecordingRef = useRef<(cancel?: boolean) => Promise<void>>(
@@ -863,24 +867,38 @@ export const ChatInput = forwardRef<ChatInputHandle, ChatInputProps>(
         {isSending && <UploadProgress progress={sendProgress ?? null} />}
         {/* Shown only as the limit approaches, so it isn't noise on every
           message, and turns red once the send is actually blocked. */}
-        {size >= MESSAGE_COUNTER_FROM && (
+        {length >= MESSAGE_COUNTER_FROM && (
           <p
             className={cn(
               'w-full pe-2 text-end text-xs tabular-nums',
-              size > MESSAGE_MAX_LENGTH
+              length > MESSAGE_MAX_LENGTH
                 ? 'text-destructive'
                 : 'text-muted-foreground'
             )}
           >
-            {size > MESSAGE_MAX_LENGTH
-              ? tooLongMessage(size, MESSAGE_MAX_LENGTH)
-              : `${formatNumber(size)}/${formatNumber(MESSAGE_MAX_LENGTH)}`}
+            {length > MESSAGE_MAX_LENGTH
+              ? tooLong(length - MESSAGE_MAX_LENGTH, formatNumber)
+              : `${formatNumber(length)}/${formatNumber(MESSAGE_MAX_LENGTH)}`}
           </p>
         )}
         {sendMessageErrorMessage && (
           <p className='text-destructive w-full pe-2 text-end text-xs'>
             {sendMessageErrorMessage}
           </p>
+        )}
+        {onSendUnencrypted && (
+          <div className='flex w-full justify-end pe-2'>
+            <Button
+              type='button'
+              variant='ghost'
+              size='sm'
+              onClick={onSendUnencrypted}
+              disabled={isSending}
+            >
+              <LockOpen className='size-4' />
+              <Trans>Send unencrypted</Trans>
+            </Button>
+          </div>
         )}
       </form>
     )

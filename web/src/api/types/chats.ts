@@ -121,10 +121,16 @@ export interface ChatMessage {
   answers?: ChatMessage[]
   // How it came: 0 readable; 1 encrypted, with no text or files while its
   // keys have not come; 2 encrypted before the account was added to Mochi,
-  // and 3 encrypted for other devices only, neither of which can ever be
-  // read here.
+  // 3 encrypted for other devices only, 4 from a device whose key changed
+  // from the one the user decided on, and 5 from a device the user
+  // distrusted, none of which can be read here.
   encrypted?: number
+  // A Matrix message read from a device the user distrusted, or from one
+  // whose keys do not match those it was sent with: shown with the warning.
+  warning?: MessageWarning
 }
+
+export type MessageWarning = '' | 'distrusted' | 'mismatched'
 
 // How far a member has received and read the conversation: every message up
 // to each time.
@@ -160,11 +166,16 @@ export interface ChatSearchResult {
   name: string
   body: string
   created: number
+  // A reply in a thread: the message the thread is under. Empty, or absent
+  // from an older server, on the main timeline.
+  thread?: string
 }
 
 export interface SearchMessagesResponse {
   query: string
   results: ChatSearchResult[]
+  // The messages the threads of the results that are replies are under.
+  roots?: ChatMessage[]
 }
 
 export interface CreateChatRequest {
@@ -201,6 +212,8 @@ export interface GetNewChatResponse {
   friends: NewChatFriend[]
   name: string
   accounts?: ChatAccount[]
+  // The networks the server offers an account on that chats are had on.
+  offered?: string[]
 }
 
 type SendMessageAttachment = File | Blob
@@ -212,6 +225,9 @@ export interface SendMessageRequest {
   mentions?: string[]
   captions?: string[]
   thread?: string
+  // The user's choice to send it unencrypted where the conversation was
+  // encrypted and can no longer be encrypted to everyone in it.
+  unencrypted?: boolean
 }
 
 export interface SendMessageResponse {

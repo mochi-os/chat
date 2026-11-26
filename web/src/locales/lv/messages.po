@@ -94,11 +94,6 @@ msgstr "{0, plural, zero {# atlasīti} one {# atlasīts} other {# atlasīti}}"
 msgid "{0, plural, one {+# nested} other {+# nested}}"
 msgstr "{0, plural, zero {+# ligzdoti} one {+# ligzdots} other {+# ligzdoti}}"
 
-#. placeholder {0}: size - maximum
-#: src/features/chats/utils.ts
-msgid "{0, plural, one {Message is # byte too long} other {Message is # bytes too long}}"
-msgstr ""
-
 #. placeholder {0}: r.label
 #: src/features/chats/components/message-reaction-bar.tsx
 msgid "{0} (includes you)"
@@ -161,6 +156,10 @@ msgstr "{newMessageCount, plural, zero {Pāriet uz # jaunām ziņām} one {Pāri
 #: ../../../lib/web/src/components/game/game-draw-offer-banner.tsx
 msgid "{opponentName} offered a draw"
 msgstr "{opponentName} piedāvāja neizšķirtu"
+
+#: src/features/chats/utils.ts
+msgid "{over, plural, one {Message is {count} character too long} other {Message is {count} characters too long}}"
+msgstr "{over, plural, zero {Ziņa ir par {count} rakstzīmēm par garu} one {Ziņa ir par {count} rakstzīmi par garu} other {Ziņa ir par {count} rakstzīmēm par garu}}"
 
 #: ../../../lib/web/src/components/attachment-composer.tsx
 #: ../../../lib/web/src/components/ui/upload-progress.tsx
@@ -568,6 +567,7 @@ msgstr "Binārais fails netiek rādīts"
 msgid "Block {name}"
 msgstr "Bloķēt {name}"
 
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx
 msgid "Blocked by"
@@ -578,6 +578,7 @@ msgstr "Bloķēja"
 msgid "Blocked navigation to untrusted link"
 msgstr "Navigācija uz neuzticamu saiti bloķēta"
 
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx
 msgid "Blocks"
 msgstr "Bloki"
@@ -647,6 +648,7 @@ msgstr "Kamera nav pieejama"
 #: src/features/chats/components/verification-watcher.tsx
 #: src/features/chats/components/verification-watcher.tsx
 #: src/features/chats/index.tsx
+#: src/features/chats/share-page.tsx
 msgid "Cancel"
 msgstr "Atcelt"
 
@@ -692,6 +694,10 @@ msgstr "Mainīts"
 #: ../../../lib/web/src/components/entity/entity-activity-list.tsx
 msgid "Changed {field}"
 msgstr "Mainīts {field}"
+
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx
+msgid "Changed class"
+msgstr "Klase mainīta"
 
 #: ../../../lib/web/src/components/calendar/month-grid.tsx
 #: ../../../lib/web/src/components/calendar/time-grid.tsx
@@ -833,6 +839,7 @@ msgstr "Notīrīt visu"
 #: ../../../lib/web/src/components/search-input.tsx
 #: src/components/layout/chat-list-filters.tsx
 #: src/features/chats/components/forward-dialog.tsx
+#: src/features/chats/share-page.tsx
 #: src/routes/_authenticated/$chatId_.settings.tsx
 msgid "Clear search"
 msgstr "Notīrīt meklēšanu"
@@ -983,10 +990,12 @@ msgstr "Turpināt ar {providerLabel}"
 
 #: ../../../lib/web/src/lib/toast-utils.ts
 #: src/features/chats/index.tsx
+#: src/features/chats/index.tsx
 msgid "Copied"
 msgstr "Nokopēts"
 
 #: ../../../lib/web/src/components/comment-share-button.tsx
+#: ../../../lib/web/src/components/share-menu.tsx
 #: ../../../lib/web/src/components/ui/copy-button.tsx
 #: src/features/chats/components/thread-panel.tsx
 msgid "Copied to clipboard"
@@ -1001,6 +1010,7 @@ msgstr "Nokopēts starpliktuvē"
 #: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx
 #: ../../../lib/web/src/components/ui/copy-button.tsx
 #: src/features/chats/components/message-hover-actions.tsx
+#: src/features/chats/components/unsent-message.tsx
 #: src/features/chats/index.tsx
 msgid "Copy"
 msgstr "Kopēt"
@@ -1256,6 +1266,7 @@ msgid "Disagree"
 msgstr "Nepiekrist"
 
 #: ../../../lib/web/src/components/comment-composer.tsx
+#: src/features/chats/components/unsent-message.tsx
 msgid "Discard"
 msgstr "Atmest"
 
@@ -1323,6 +1334,7 @@ msgstr "Lejupielāde neizdevās"
 msgid "Draft"
 msgstr "Melnraksts"
 
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx
 msgid "Duplicates"
 msgstr "Dublikāti"
@@ -1395,13 +1407,11 @@ msgstr "E-pasts"
 msgid "Email code"
 msgstr "E-pasta kods"
 
-#: src/features/chats/components/message-bubble.tsx
-#: src/features/chats/components/thread-replies.tsx
+#: src/features/chats/components/sealed-text.tsx
 msgid "Encrypted for other devices only"
 msgstr "Šifrēts tikai citām ierīcēm"
 
-#: src/features/chats/components/message-bubble.tsx
-#: src/features/chats/components/thread-replies.tsx
+#: src/features/chats/components/sealed-text.tsx
 msgid "Encrypted message"
 msgstr "Šifrēts ziņojums"
 
@@ -1464,9 +1474,11 @@ msgid "Failed to add member"
 msgstr "Neizdevās pievienot dalībnieku"
 
 #: ../../../lib/web/src/components/comment-share-button.tsx
+#: ../../../lib/web/src/components/share-menu.tsx
 #: ../../../lib/web/src/components/ui/copy-button.tsx
 #: ../../../lib/web/src/lib/toast-utils.ts
 #: src/features/chats/components/thread-panel.tsx
+#: src/features/chats/index.tsx
 #: src/features/chats/index.tsx
 msgid "Failed to copy"
 msgstr "Neizdevās kopēt"
@@ -1482,7 +1494,8 @@ msgid "Failed to create chat"
 msgstr "Neizdevās izveidot tērzēšanu"
 
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx
-#: ../../../lib/web/src/components/options-menu.tsx
+#: ../../../lib/web/src/components/share-menu.tsx
+#: ../../../lib/web/src/components/share-menu.tsx
 msgid "Failed to create link"
 msgstr "Neizdevās izveidot saiti"
 
@@ -1903,12 +1916,12 @@ msgstr "Gaišs"
 msgid "Like"
 msgstr "Patīk"
 
-#: ../../../lib/web/src/components/options-menu.tsx
 #: src/features/chats/components/formatting-toolbar.tsx
 #: src/features/chats/components/link-dialog.tsx
 msgid "Link"
 msgstr "Saite"
 
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx
 msgid "Links"
 msgstr "Saites"
@@ -2126,10 +2139,6 @@ msgstr "Vairāk opciju"
 msgid "Moved"
 msgstr "Pārvietots"
 
-#: ../../../lib/web/src/components/entity/entity-activity-list.tsx
-msgid "Moved {field}"
-msgstr "Pārvietots {field}"
-
 #. placeholder {0}: dayName(dragging.day)
 #. placeholder {0}: dayName(opening(current, format.zonedDay))
 #: ../../../lib/web/src/components/calendar/month-grid.tsx
@@ -2187,6 +2196,7 @@ msgstr "Jaunākie"
 #: src/features/chats/components/chat-empty-state.tsx
 #: src/features/chats/components/chat-empty-state.tsx
 #: src/features/chats/components/new-chat.tsx
+#: src/features/chats/share-page.tsx
 msgid "New chat"
 msgstr "Jauns čats"
 
@@ -2212,6 +2222,10 @@ msgstr "Nākamais mēnesis"
 msgid "Next year"
 msgstr "Nākamais gads"
 
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx
+msgid "No"
+msgstr "Nē"
+
 #: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx
 msgid "No {parentClassNames} to add to"
 msgstr "Nav {parentClassNames}, kam pievienot"
@@ -2229,6 +2243,8 @@ msgid "No changes to display"
 msgstr "Nav izmaiņu, ko parādīt"
 
 #: src/components/layout/chat-list-filters.tsx
+#: src/features/chats/share-page.tsx
+#: src/features/chats/share-page.tsx
 msgid "No chats"
 msgstr "Nav sarunu"
 
@@ -2693,6 +2709,7 @@ msgstr "Pāradresē uz pieteikšanos."
 msgid "Reduce interest"
 msgstr "Samazināt interesi"
 
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx
 msgid "Relates"
 msgstr "Saistīts"
@@ -2858,6 +2875,7 @@ msgid "Restore"
 msgstr "Atjaunot"
 
 #: ../../../lib/web/src/components/attachment-composer.tsx
+#: src/features/chats/components/unsent-message.tsx
 msgid "Retry"
 msgstr "Mēģināt vēlreiz"
 
@@ -2940,6 +2958,7 @@ msgstr "Meklēt"
 #: src/components/layout/chat-list-filters.tsx
 #: src/components/layout/chat-list-filters.tsx
 #: src/features/chats/components/forward-dialog.tsx
+#: src/features/chats/share-page.tsx
 msgid "Search chats"
 msgstr "Meklēt sarunas"
 
@@ -3081,6 +3100,11 @@ msgstr "Sūtīt e-pastu"
 msgid "Send friend request"
 msgstr "Sūtīt drauga pieprasījumu"
 
+#: src/features/chats/share-page.tsx
+#: src/features/chats/share-page.tsx
+msgid "Send in a chat"
+msgstr "Sūtīt čatā"
+
 #: ../../../lib/web/src/components/game/game-chat-input.tsx
 #: ../../../lib/web/src/components/game/game-chat-input.tsx
 #: src/features/chats/components/chat-input.tsx
@@ -3092,10 +3116,25 @@ msgstr "Sūtīt ziņu"
 msgid "Send read receipts"
 msgstr "Sūtīt izlasīšanas apstiprinājumus"
 
+#: src/features/chats/components/chat-input.tsx
+#: src/features/chats/components/thread-panel.tsx
+#: src/features/chats/components/unsent-message.tsx
+msgid "Send unencrypted"
+msgstr "Sūtīt nešifrētu"
+
 #: src/features/chats/components/message-bubble.tsx
 msgctxt "receipt"
 msgid "Sent"
 msgstr "Nosūtīts"
+
+#: src/features/chats/components/message-bubble.tsx
+msgid "Sent from a device whose keys do not match"
+msgstr "Nosūtīts no ierīces, kuras atslēgas nesakrīt"
+
+#: src/features/chats/components/message-bubble.tsx
+#: src/features/chats/components/sealed-text.tsx
+msgid "Sent from a device you distrusted"
+msgstr "Nosūtīts no ierīces, kurai jūs neuzticaties"
 
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Serif"
@@ -3119,6 +3158,10 @@ msgstr "Sesija ir beigusies. Lūdzu, piesakieties vēlreiz."
 msgid "Set origin and destination"
 msgstr "Iestatīt sākuma un galapunktu"
 
+#: src/features/chats/components/new-chat.tsx
+msgid "Set up"
+msgstr "Iestatīt"
+
 #: src/features/chats/components/encryption-section.tsx
 #: src/features/chats/components/encryption-section.tsx
 #: src/features/chats/components/encryption-section.tsx
@@ -3137,6 +3180,7 @@ msgstr "Iestatījumi saglabāti"
 
 #: ../../../lib/web/src/components/comment-share-button.tsx
 #: ../../../lib/web/src/components/comment-share-button.tsx
+#: ../../../lib/web/src/components/share-menu.tsx
 msgid "Share"
 msgstr "Kopīgot"
 
@@ -3365,6 +3409,10 @@ msgstr "Parole netika pieņemta"
 msgid "The requested content could not be found."
 msgstr "Pieprasīto saturu neizdevās atrast."
 
+#: src/features/chats/components/sealed-text.tsx
+msgid "The sender's encryption key changed"
+msgstr "Sūtītāja šifrēšanas atslēga ir mainījusies"
+
 #: ../../../lib/web/src/lib/api-response-interceptors.ts
 msgid "The server returned a web page instead of data."
 msgstr "Serveris atgrieza tīmekļa lapu, nevis datus."
@@ -3491,6 +3539,10 @@ msgstr "Pārāk daudz pieprasījumu"
 msgid "Top"
 msgstr "Labākie"
 
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx
+msgid "Top level"
+msgstr "Augšējais līmenis"
+
 #: ../../../lib/web/src/components/travelling-picker.tsx
 msgid "Travelling"
 msgstr "Ceļojums"
@@ -3564,6 +3616,11 @@ msgid "United States"
 msgstr "Amerikas Savienotās Valstis"
 
 #: ../../../lib/web/src/components/audit-timeline.tsx
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx
+#: ../../../lib/web/src/components/entity/entity-board-card.tsx
 #: ../../../lib/web/src/components/entity/entity-field-dialog.tsx
 #: ../../../lib/web/src/components/tree-row.tsx
 #: ../../../lib/web/src/components/tree-row.tsx
@@ -3729,6 +3786,10 @@ msgstr "Trešdiena"
 #: ../../../lib/web/src/components/calendar/date-header.tsx
 msgid "Year"
 msgstr "Gads"
+
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx
+msgid "Yes"
+msgstr "Jā"
 
 #: src/features/chats/index.tsx
 msgid "You"

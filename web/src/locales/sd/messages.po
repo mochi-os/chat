@@ -94,11 +94,6 @@ msgstr "{0, plural, one {# چونڊيل} other {# چونڊيل}}"
 msgid "{0, plural, one {+# nested} other {+# nested}}"
 msgstr "{0, plural, one {+# ذيلي} other {+# ذيلي}}"
 
-#. placeholder {0}: size - maximum
-#: src/features/chats/utils.ts
-msgid "{0, plural, one {Message is # byte too long} other {Message is # bytes too long}}"
-msgstr ""
-
 #. placeholder {0}: r.label
 #: src/features/chats/components/message-reaction-bar.tsx
 msgid "{0} (includes you)"
@@ -161,6 +156,10 @@ msgstr "{newMessageCount, plural, one {# نئين پيغام ڏانهن وڃو} 
 #: ../../../lib/web/src/components/game/game-draw-offer-banner.tsx
 msgid "{opponentName} offered a draw"
 msgstr "{opponentName} ڊرا جي پيشڪش ڪئي"
+
+#: src/features/chats/utils.ts
+msgid "{over, plural, one {Message is {count} character too long} other {Message is {count} characters too long}}"
+msgstr "{over, plural, one {پيغام {count} اکر وڌيڪ ڊگهو آهي} other {پيغام {count} اکر وڌيڪ ڊگهو آهي}}"
 
 #: ../../../lib/web/src/components/attachment-composer.tsx
 #: ../../../lib/web/src/components/ui/upload-progress.tsx
@@ -568,6 +567,7 @@ msgstr "بائنري فائل نه ڏيکاري وئي"
 msgid "Block {name}"
 msgstr "{name} کي بلاڪ ڪريو"
 
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx
 msgid "Blocked by"
@@ -578,6 +578,7 @@ msgstr "بلاڪ ڪندڙ"
 msgid "Blocked navigation to untrusted link"
 msgstr "غير قابل اعتماد لنڪ ڏانهن ناقابل اعتماد ناقابل تشريح روڪي"
 
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx
 msgid "Blocks"
 msgstr "بلاڪ"
@@ -647,6 +648,7 @@ msgstr "ڪئميرا موجود ناهي"
 #: src/features/chats/components/verification-watcher.tsx
 #: src/features/chats/components/verification-watcher.tsx
 #: src/features/chats/index.tsx
+#: src/features/chats/share-page.tsx
 msgid "Cancel"
 msgstr "منسوخ ڪريو"
 
@@ -692,6 +694,10 @@ msgstr "تبديل ٿيو"
 #: ../../../lib/web/src/components/entity/entity-activity-list.tsx
 msgid "Changed {field}"
 msgstr "{field} تبديل ٿيو"
+
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx
+msgid "Changed class"
+msgstr "ڪلاس تبديل ٿيو"
 
 #: ../../../lib/web/src/components/calendar/month-grid.tsx
 #: ../../../lib/web/src/components/calendar/time-grid.tsx
@@ -833,6 +839,7 @@ msgstr "سڀ صاف ڪريو"
 #: ../../../lib/web/src/components/search-input.tsx
 #: src/components/layout/chat-list-filters.tsx
 #: src/features/chats/components/forward-dialog.tsx
+#: src/features/chats/share-page.tsx
 #: src/routes/_authenticated/$chatId_.settings.tsx
 msgid "Clear search"
 msgstr "ڳولا صاف ڪريو"
@@ -983,10 +990,12 @@ msgstr "{providerLabel} سان جاري رکو"
 
 #: ../../../lib/web/src/lib/toast-utils.ts
 #: src/features/chats/index.tsx
+#: src/features/chats/index.tsx
 msgid "Copied"
 msgstr "ڪاپي ٿيو"
 
 #: ../../../lib/web/src/components/comment-share-button.tsx
+#: ../../../lib/web/src/components/share-menu.tsx
 #: ../../../lib/web/src/components/ui/copy-button.tsx
 #: src/features/chats/components/thread-panel.tsx
 msgid "Copied to clipboard"
@@ -1001,6 +1010,7 @@ msgstr "ڪلپ بورڊ تي ڪاپي ٿيو"
 #: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx
 #: ../../../lib/web/src/components/ui/copy-button.tsx
 #: src/features/chats/components/message-hover-actions.tsx
+#: src/features/chats/components/unsent-message.tsx
 #: src/features/chats/index.tsx
 msgid "Copy"
 msgstr "ڪاپي ڪريو"
@@ -1256,6 +1266,7 @@ msgid "Disagree"
 msgstr "غير متفق"
 
 #: ../../../lib/web/src/components/comment-composer.tsx
+#: src/features/chats/components/unsent-message.tsx
 msgid "Discard"
 msgstr "رد ڪريو"
 
@@ -1323,6 +1334,7 @@ msgstr "ڊائون لوڊ ناڪام ٿيو"
 msgid "Draft"
 msgstr "مسودو"
 
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx
 msgid "Duplicates"
 msgstr "ڊپليڪيٽ"
@@ -1395,13 +1407,11 @@ msgstr "اي ميل"
 msgid "Email code"
 msgstr "اي ميل ڪوڊ"
 
-#: src/features/chats/components/message-bubble.tsx
-#: src/features/chats/components/thread-replies.tsx
+#: src/features/chats/components/sealed-text.tsx
 msgid "Encrypted for other devices only"
 msgstr "صرف ٻين ڊوائيسز لاءِ انڪرپٽ ٿيل"
 
-#: src/features/chats/components/message-bubble.tsx
-#: src/features/chats/components/thread-replies.tsx
+#: src/features/chats/components/sealed-text.tsx
 msgid "Encrypted message"
 msgstr "انڪرپٽ ٿيل پيغام"
 
@@ -1464,9 +1474,11 @@ msgid "Failed to add member"
 msgstr "ميمبر شامل ڪرڻ ۾ ناڪام"
 
 #: ../../../lib/web/src/components/comment-share-button.tsx
+#: ../../../lib/web/src/components/share-menu.tsx
 #: ../../../lib/web/src/components/ui/copy-button.tsx
 #: ../../../lib/web/src/lib/toast-utils.ts
 #: src/features/chats/components/thread-panel.tsx
+#: src/features/chats/index.tsx
 #: src/features/chats/index.tsx
 msgid "Failed to copy"
 msgstr "نقل ڪرڻ ۾ ناڪام"
@@ -1482,7 +1494,8 @@ msgid "Failed to create chat"
 msgstr "چيٽ ٺاهڻ ۾ ناڪام"
 
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx
-#: ../../../lib/web/src/components/options-menu.tsx
+#: ../../../lib/web/src/components/share-menu.tsx
+#: ../../../lib/web/src/components/share-menu.tsx
 msgid "Failed to create link"
 msgstr "لنڪ ٺاهڻ ۾ ناڪام"
 
@@ -1903,12 +1916,12 @@ msgstr "روشن"
 msgid "Like"
 msgstr "پسند"
 
-#: ../../../lib/web/src/components/options-menu.tsx
 #: src/features/chats/components/formatting-toolbar.tsx
 #: src/features/chats/components/link-dialog.tsx
 msgid "Link"
 msgstr "لنڪ"
 
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx
 msgid "Links"
 msgstr "لنڪس"
@@ -2126,10 +2139,6 @@ msgstr "وڌيڪ اختيار"
 msgid "Moved"
 msgstr "منتقل ٿيو"
 
-#: ../../../lib/web/src/components/entity/entity-activity-list.tsx
-msgid "Moved {field}"
-msgstr "{field} منتقل ٿيو"
-
 #. placeholder {0}: dayName(dragging.day)
 #. placeholder {0}: dayName(opening(current, format.zonedDay))
 #: ../../../lib/web/src/components/calendar/month-grid.tsx
@@ -2187,6 +2196,7 @@ msgstr "سڀ کان نوان"
 #: src/features/chats/components/chat-empty-state.tsx
 #: src/features/chats/components/chat-empty-state.tsx
 #: src/features/chats/components/new-chat.tsx
+#: src/features/chats/share-page.tsx
 msgid "New chat"
 msgstr "نئين چيٽ"
 
@@ -2212,6 +2222,10 @@ msgstr "ايندڙ مهينو"
 msgid "Next year"
 msgstr "ايندڙ سال"
 
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx
+msgid "No"
+msgstr "نه"
+
 #: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx
 msgid "No {parentClassNames} to add to"
 msgstr "شامل ڪرڻ لاءِ ڪي {parentClassNames} نه آهن"
@@ -2229,6 +2243,8 @@ msgid "No changes to display"
 msgstr "ڏيکارڻ لاءِ ڪا تبديلي نه آهي"
 
 #: src/components/layout/chat-list-filters.tsx
+#: src/features/chats/share-page.tsx
+#: src/features/chats/share-page.tsx
 msgid "No chats"
 msgstr "ڪا چيٽ ناهي"
 
@@ -2693,6 +2709,7 @@ msgstr "لاگ ان ڏانهن ريڊائريڪٽ ٿي رهيو آهي."
 msgid "Reduce interest"
 msgstr "دلچسپي گهٽايو"
 
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx
 msgid "Relates"
 msgstr "تعلق رکي ٿو"
@@ -2858,6 +2875,7 @@ msgid "Restore"
 msgstr "بحال ڪريو"
 
 #: ../../../lib/web/src/components/attachment-composer.tsx
+#: src/features/chats/components/unsent-message.tsx
 msgid "Retry"
 msgstr "ٻيهر ڪوشش ڪريو"
 
@@ -2940,6 +2958,7 @@ msgstr "ڳوليو"
 #: src/components/layout/chat-list-filters.tsx
 #: src/components/layout/chat-list-filters.tsx
 #: src/features/chats/components/forward-dialog.tsx
+#: src/features/chats/share-page.tsx
 msgid "Search chats"
 msgstr "چيٽ ڳوليو"
 
@@ -3081,6 +3100,11 @@ msgstr "اي ميل موڪليو"
 msgid "Send friend request"
 msgstr "دوستي جي درخواست موڪليو"
 
+#: src/features/chats/share-page.tsx
+#: src/features/chats/share-page.tsx
+msgid "Send in a chat"
+msgstr "چيٽ ۾ موڪليو"
+
 #: ../../../lib/web/src/components/game/game-chat-input.tsx
 #: ../../../lib/web/src/components/game/game-chat-input.tsx
 #: src/features/chats/components/chat-input.tsx
@@ -3092,10 +3116,25 @@ msgstr "پيغام موڪليو"
 msgid "Send read receipts"
 msgstr "پڙهڻ جون رسيدون موڪليو"
 
+#: src/features/chats/components/chat-input.tsx
+#: src/features/chats/components/thread-panel.tsx
+#: src/features/chats/components/unsent-message.tsx
+msgid "Send unencrypted"
+msgstr "انڪرپشن کان سواءِ موڪليو"
+
 #: src/features/chats/components/message-bubble.tsx
 msgctxt "receipt"
 msgid "Sent"
 msgstr "موڪليو ويو"
+
+#: src/features/chats/components/message-bubble.tsx
+msgid "Sent from a device whose keys do not match"
+msgstr "ان ڊوائيس تان موڪليل جنهن جون ڪنجيون نٿيون ملن"
+
+#: src/features/chats/components/message-bubble.tsx
+#: src/features/chats/components/sealed-text.tsx
+msgid "Sent from a device you distrusted"
+msgstr "ان ڊوائيس تان موڪليل جنهن تي توهان ڀروسو نه ڪيو"
 
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Serif"
@@ -3119,6 +3158,10 @@ msgstr "سيشن ختم ٿي ويو. مهرباني ڪري ٻيهر لاگ ان 
 msgid "Set origin and destination"
 msgstr "اصل ۽ منزل مقرر ڪريو"
 
+#: src/features/chats/components/new-chat.tsx
+msgid "Set up"
+msgstr "ترتيب ڏيو"
+
 #: src/features/chats/components/encryption-section.tsx
 #: src/features/chats/components/encryption-section.tsx
 #: src/features/chats/components/encryption-section.tsx
@@ -3137,6 +3180,7 @@ msgstr "سيٽنگون محفوظ ٿي ويون"
 
 #: ../../../lib/web/src/components/comment-share-button.tsx
 #: ../../../lib/web/src/components/comment-share-button.tsx
+#: ../../../lib/web/src/components/share-menu.tsx
 msgid "Share"
 msgstr "شيئر ڪريو"
 
@@ -3365,6 +3409,10 @@ msgstr "پاسورڊ قبول نه ڪيو ويو"
 msgid "The requested content could not be found."
 msgstr "گهربل مواد نه ملي سگهيو."
 
+#: src/features/chats/components/sealed-text.tsx
+msgid "The sender's encryption key changed"
+msgstr "موڪليندڙ جي انڪرپشن ڪنجي بدلجي وئي آهي"
+
 #: ../../../lib/web/src/lib/api-response-interceptors.ts
 msgid "The server returned a web page instead of data."
 msgstr "سرور ڊيٽا جي بجاءِ ويب پيج موٽايو."
@@ -3491,6 +3539,10 @@ msgstr "تمام گهڻيون درخواستون"
 msgid "Top"
 msgstr "بهترين"
 
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx
+msgid "Top level"
+msgstr "مٿين سطح"
+
 #: ../../../lib/web/src/components/travelling-picker.tsx
 msgid "Travelling"
 msgstr "سفر ڪرڻ"
@@ -3564,6 +3616,11 @@ msgid "United States"
 msgstr "آمريڪا"
 
 #: ../../../lib/web/src/components/audit-timeline.tsx
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx
+#: ../../../lib/web/src/components/entity/entity-board-card.tsx
 #: ../../../lib/web/src/components/entity/entity-field-dialog.tsx
 #: ../../../lib/web/src/components/tree-row.tsx
 #: ../../../lib/web/src/components/tree-row.tsx
@@ -3729,6 +3786,10 @@ msgstr "اربع"
 #: ../../../lib/web/src/components/calendar/date-header.tsx
 msgid "Year"
 msgstr "سال"
+
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx
+msgid "Yes"
+msgstr "ها"
 
 #: src/features/chats/index.tsx
 msgid "You"

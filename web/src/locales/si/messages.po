@@ -94,11 +94,6 @@ msgstr "{0, plural, one {# තෝරාගත්} other {# තෝරාගත්
 msgid "{0, plural, one {+# nested} other {+# nested}}"
 msgstr "{0, plural, one {+# කැදැලි} other {+# කැදැලි}}"
 
-#. placeholder {0}: size - maximum
-#: src/features/chats/utils.ts
-msgid "{0, plural, one {Message is # byte too long} other {Message is # bytes too long}}"
-msgstr ""
-
 #. placeholder {0}: r.label
 #: src/features/chats/components/message-reaction-bar.tsx
 msgid "{0} (includes you)"
@@ -161,6 +156,10 @@ msgstr "{newMessageCount, plural, one {නව පණිවිඩ #ක් වෙ�
 #: ../../../lib/web/src/components/game/game-draw-offer-banner.tsx
 msgid "{opponentName} offered a draw"
 msgstr "{opponentName} ජය පරාජය ඉදිරිපත් කළා"
+
+#: src/features/chats/utils.ts
+msgid "{over, plural, one {Message is {count} character too long} other {Message is {count} characters too long}}"
+msgstr "{over, plural, one {පණිවිඩය අකුරු {count} කින් දිග වැඩියි} other {පණිවිඩය අකුරු {count} කින් දිග වැඩියි}}"
 
 #: ../../../lib/web/src/components/attachment-composer.tsx
 #: ../../../lib/web/src/components/ui/upload-progress.tsx
@@ -568,6 +567,7 @@ msgstr "ද්විමය ගොනුව නොපෙන්වයි"
 msgid "Block {name}"
 msgstr "{name} අවහිර කරන්න"
 
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx
 msgid "Blocked by"
@@ -578,6 +578,7 @@ msgstr "අවහිර කළ"
 msgid "Blocked navigation to untrusted link"
 msgstr "විශ්වාස නොකළ සබැඳියකට සංචාලනය අවහිර කරන ලදී"
 
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx
 msgid "Blocks"
 msgstr "අවහිර කරයි"
@@ -647,6 +648,7 @@ msgstr "කැමරාව නොමැත"
 #: src/features/chats/components/verification-watcher.tsx
 #: src/features/chats/components/verification-watcher.tsx
 #: src/features/chats/index.tsx
+#: src/features/chats/share-page.tsx
 msgid "Cancel"
 msgstr "අවලංගු කරන්න"
 
@@ -692,6 +694,10 @@ msgstr "වෙනස් කරන ලදී"
 #: ../../../lib/web/src/components/entity/entity-activity-list.tsx
 msgid "Changed {field}"
 msgstr "{field} වෙනස් කරන ලදී"
+
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx
+msgid "Changed class"
+msgstr "පංතිය වෙනස් කරන ලදී"
 
 #: ../../../lib/web/src/components/calendar/month-grid.tsx
 #: ../../../lib/web/src/components/calendar/time-grid.tsx
@@ -833,6 +839,7 @@ msgstr "සියල්ල හිස් කරන්න"
 #: ../../../lib/web/src/components/search-input.tsx
 #: src/components/layout/chat-list-filters.tsx
 #: src/features/chats/components/forward-dialog.tsx
+#: src/features/chats/share-page.tsx
 #: src/routes/_authenticated/$chatId_.settings.tsx
 msgid "Clear search"
 msgstr "සෙවුම හිස් කරන්න"
@@ -983,10 +990,12 @@ msgstr "{providerLabel} සමඟ ඉදිරියට"
 
 #: ../../../lib/web/src/lib/toast-utils.ts
 #: src/features/chats/index.tsx
+#: src/features/chats/index.tsx
 msgid "Copied"
 msgstr "පිටපත් කළා"
 
 #: ../../../lib/web/src/components/comment-share-button.tsx
+#: ../../../lib/web/src/components/share-menu.tsx
 #: ../../../lib/web/src/components/ui/copy-button.tsx
 #: src/features/chats/components/thread-panel.tsx
 msgid "Copied to clipboard"
@@ -1001,6 +1010,7 @@ msgstr "ක්ලිප්බෝඩ් වෙත පිටපත් කරන �
 #: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx
 #: ../../../lib/web/src/components/ui/copy-button.tsx
 #: src/features/chats/components/message-hover-actions.tsx
+#: src/features/chats/components/unsent-message.tsx
 #: src/features/chats/index.tsx
 msgid "Copy"
 msgstr "පිටපත් කරන්න"
@@ -1256,6 +1266,7 @@ msgid "Disagree"
 msgstr "එකඟ නොවේ"
 
 #: ../../../lib/web/src/components/comment-composer.tsx
+#: src/features/chats/components/unsent-message.tsx
 msgid "Discard"
 msgstr "ඉවත ලන්න"
 
@@ -1323,6 +1334,7 @@ msgstr "බාගත කිරීම අසාර්ථක විය"
 msgid "Draft"
 msgstr "කෙටුම්පත"
 
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx
 msgid "Duplicates"
 msgstr "අනුපිටපත්"
@@ -1395,13 +1407,11 @@ msgstr "ඊමේල්"
 msgid "Email code"
 msgstr "ඊමේල් කේතය"
 
-#: src/features/chats/components/message-bubble.tsx
-#: src/features/chats/components/thread-replies.tsx
+#: src/features/chats/components/sealed-text.tsx
 msgid "Encrypted for other devices only"
 msgstr "වෙනත් උපාංග සඳහා පමණක් සංකේතනය කර ඇත"
 
-#: src/features/chats/components/message-bubble.tsx
-#: src/features/chats/components/thread-replies.tsx
+#: src/features/chats/components/sealed-text.tsx
 msgid "Encrypted message"
 msgstr "සංකේතනය කළ පණිවිඩය"
 
@@ -1464,9 +1474,11 @@ msgid "Failed to add member"
 msgstr "සාමාජිකයා එක් කිරීමට අසමත් විය"
 
 #: ../../../lib/web/src/components/comment-share-button.tsx
+#: ../../../lib/web/src/components/share-menu.tsx
 #: ../../../lib/web/src/components/ui/copy-button.tsx
 #: ../../../lib/web/src/lib/toast-utils.ts
 #: src/features/chats/components/thread-panel.tsx
+#: src/features/chats/index.tsx
 #: src/features/chats/index.tsx
 msgid "Failed to copy"
 msgstr "පිටපත් කිරීමට අසමත් විය"
@@ -1482,7 +1494,8 @@ msgid "Failed to create chat"
 msgstr "කතාබහක් සෑදීමට අසමත් විය"
 
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx
-#: ../../../lib/web/src/components/options-menu.tsx
+#: ../../../lib/web/src/components/share-menu.tsx
+#: ../../../lib/web/src/components/share-menu.tsx
 msgid "Failed to create link"
 msgstr "සබැඳියක් සෑදීමට අසමත් විය"
 
@@ -1903,12 +1916,12 @@ msgstr "ලා"
 msgid "Like"
 msgstr "කැමති"
 
-#: ../../../lib/web/src/components/options-menu.tsx
 #: src/features/chats/components/formatting-toolbar.tsx
 #: src/features/chats/components/link-dialog.tsx
 msgid "Link"
 msgstr "සබැඳිය"
 
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx
 msgid "Links"
 msgstr "සබැඳි"
@@ -2126,10 +2139,6 @@ msgstr "තවත් විකල්ප"
 msgid "Moved"
 msgstr "ගෙන යන ලදී"
 
-#: ../../../lib/web/src/components/entity/entity-activity-list.tsx
-msgid "Moved {field}"
-msgstr "{field} ගෙන යන ලදී"
-
 #. placeholder {0}: dayName(dragging.day)
 #. placeholder {0}: dayName(opening(current, format.zonedDay))
 #: ../../../lib/web/src/components/calendar/month-grid.tsx
@@ -2187,6 +2196,7 @@ msgstr "නවතම"
 #: src/features/chats/components/chat-empty-state.tsx
 #: src/features/chats/components/chat-empty-state.tsx
 #: src/features/chats/components/new-chat.tsx
+#: src/features/chats/share-page.tsx
 msgid "New chat"
 msgstr "නව චැට්"
 
@@ -2212,6 +2222,10 @@ msgstr "ඊළඟ මාසය"
 msgid "Next year"
 msgstr "ඊළඟ වර්ෂය"
 
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx
+msgid "No"
+msgstr "නැත"
+
 #: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx
 msgid "No {parentClassNames} to add to"
 msgstr "එක් කිරීමට {parentClassNames} නොමැත"
@@ -2229,6 +2243,8 @@ msgid "No changes to display"
 msgstr "පෙන්වීමට වෙනස්කම් නැත"
 
 #: src/components/layout/chat-list-filters.tsx
+#: src/features/chats/share-page.tsx
+#: src/features/chats/share-page.tsx
 msgid "No chats"
 msgstr "චැට් නැත"
 
@@ -2693,6 +2709,7 @@ msgstr "පිවිසුම වෙත redirect කරමින්."
 msgid "Reduce interest"
 msgstr "උනන්දුව අඩු කරන්න"
 
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx
 msgid "Relates"
 msgstr "සම්බන්ධ වේ"
@@ -2858,6 +2875,7 @@ msgid "Restore"
 msgstr "ප්‍රතිසාධනය කරන්න"
 
 #: ../../../lib/web/src/components/attachment-composer.tsx
+#: src/features/chats/components/unsent-message.tsx
 msgid "Retry"
 msgstr "නැවත උත්සාහ කරන්න"
 
@@ -2940,6 +2958,7 @@ msgstr "සොයන්න"
 #: src/components/layout/chat-list-filters.tsx
 #: src/components/layout/chat-list-filters.tsx
 #: src/features/chats/components/forward-dialog.tsx
+#: src/features/chats/share-page.tsx
 msgid "Search chats"
 msgstr "චැට් සොයන්න"
 
@@ -3081,6 +3100,11 @@ msgstr "ඊමේල් යවන්න"
 msgid "Send friend request"
 msgstr "මිතුරු ඉල්ලීමක් යවන්න"
 
+#: src/features/chats/share-page.tsx
+#: src/features/chats/share-page.tsx
+msgid "Send in a chat"
+msgstr "චැට් එකක යවන්න"
+
 #: ../../../lib/web/src/components/game/game-chat-input.tsx
 #: ../../../lib/web/src/components/game/game-chat-input.tsx
 #: src/features/chats/components/chat-input.tsx
@@ -3092,10 +3116,25 @@ msgstr "පණිවිඩය යවන්න"
 msgid "Send read receipts"
 msgstr "කියවීමේ තහවුරු කිරීම් යවන්න"
 
+#: src/features/chats/components/chat-input.tsx
+#: src/features/chats/components/thread-panel.tsx
+#: src/features/chats/components/unsent-message.tsx
+msgid "Send unencrypted"
+msgstr "සංකේතනයකින් තොරව යවන්න"
+
 #: src/features/chats/components/message-bubble.tsx
 msgctxt "receipt"
 msgid "Sent"
 msgstr "යවා ඇත"
+
+#: src/features/chats/components/message-bubble.tsx
+msgid "Sent from a device whose keys do not match"
+msgstr "යතුරු නොගැළපෙන උපාංගයකින් යවන ලදී"
+
+#: src/features/chats/components/message-bubble.tsx
+#: src/features/chats/components/sealed-text.tsx
+msgid "Sent from a device you distrusted"
+msgstr "ඔබ විශ්වාස නොකළ උපාංගයකින් යවන ලදී"
 
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Serif"
@@ -3119,6 +3158,10 @@ msgstr "සැසිය කල් ඉකුත් වී ඇත. කරුණා
 msgid "Set origin and destination"
 msgstr "මූලාරම්භය සහ ගමනාන්තය සකසන්න"
 
+#: src/features/chats/components/new-chat.tsx
+msgid "Set up"
+msgstr "සකසන්න"
+
 #: src/features/chats/components/encryption-section.tsx
 #: src/features/chats/components/encryption-section.tsx
 #: src/features/chats/components/encryption-section.tsx
@@ -3137,6 +3180,7 @@ msgstr "සැකසුම් සුරකින ලදී"
 
 #: ../../../lib/web/src/components/comment-share-button.tsx
 #: ../../../lib/web/src/components/comment-share-button.tsx
+#: ../../../lib/web/src/components/share-menu.tsx
 msgid "Share"
 msgstr "බෙදාගන්න"
 
@@ -3365,6 +3409,10 @@ msgstr "මුරපදය පිළිගනු නොලැබීය"
 msgid "The requested content could not be found."
 msgstr "ඉල්ලූ අන්තර්ගතය සොයාගත නොහැකි විය."
 
+#: src/features/chats/components/sealed-text.tsx
+msgid "The sender's encryption key changed"
+msgstr "යවන්නාගේ සංකේතන යතුර වෙනස් වී ඇත"
+
 #: ../../../lib/web/src/lib/api-response-interceptors.ts
 msgid "The server returned a web page instead of data."
 msgstr "සේවාදායකය දත්ත වෙනුවට වෙබ් පිටුවක් ලබා දුන්නේය."
@@ -3491,6 +3539,10 @@ msgstr "ඉල්ලීම් ඕනෑවට වඩා වැඩියි"
 msgid "Top"
 msgstr "හොඳම"
 
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx
+msgid "Top level"
+msgstr "ඉහළ මට්ටම"
+
 #: ../../../lib/web/src/components/travelling-picker.tsx
 msgid "Travelling"
 msgstr "ගමන් කරමින්"
@@ -3564,6 +3616,11 @@ msgid "United States"
 msgstr "එක්සත් ජනපදය"
 
 #: ../../../lib/web/src/components/audit-timeline.tsx
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx
+#: ../../../lib/web/src/components/entity/entity-board-card.tsx
 #: ../../../lib/web/src/components/entity/entity-field-dialog.tsx
 #: ../../../lib/web/src/components/tree-row.tsx
 #: ../../../lib/web/src/components/tree-row.tsx
@@ -3729,6 +3786,10 @@ msgstr "බදාදා"
 #: ../../../lib/web/src/components/calendar/date-header.tsx
 msgid "Year"
 msgstr "වර්ෂය"
+
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx
+msgid "Yes"
+msgstr "ඔව්"
 
 #: src/features/chats/index.tsx
 msgid "You"

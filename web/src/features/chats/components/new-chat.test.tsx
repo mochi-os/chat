@@ -6,7 +6,7 @@ import { i18n } from '@lingui/core'
 import { I18nProvider } from '@lingui/react'
 import { fireEvent, render, screen, waitFor } from '@testing-library/react'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
-import { NewChat, friendRequest, refusal } from './new-chat'
+import { NewChat, friendRequest, refusal, unset } from './new-chat'
 
 const STRANGER = '1sfEACmTnQhBVgquGhaCs8Jw4SXKF9XY2apnUwJ63duq2QSxh5'
 
@@ -19,10 +19,15 @@ const calls = vi.hoisted(() => ({
   toasted: [] as unknown[],
   // The user's accounts on other networks.
   accounts: [] as { id: string; identifier: string; network: string }[],
+  // The networks the server offers an account on.
+  offered: [] as string[],
+  // The router's navigation, and what the dialog's opener was handed.
+  route: vi.fn(),
+  chosen: vi.fn((_chatId: string) => Promise.resolve()),
 }))
 
 vi.mock('@tanstack/react-router', () => ({
-  useNavigate: () => vi.fn(),
+  useNavigate: () => calls.route,
 }))
 vi.mock('@mochi/web', async (importOriginal) => ({
   ...(await importOriginal<typeof import('@mochi/web')>()),
@@ -54,11 +59,17 @@ vi.mock('@/context/sidebar-context', () => ({
   useSidebarContext: () => ({
     newChatDialogOpen: true,
     closeNewChatDialog: calls.close,
+    newChatChosen: (chatId: string) => calls.chosen(chatId),
   }),
 }))
 vi.mock('@/hooks/useChats', () => ({
   useNewChatFriendsQuery: () => ({
-    data: { friends: [], name: 'Me', accounts: calls.accounts },
+    data: {
+      friends: [],
+      name: 'Me',
+      accounts: calls.accounts,
+      offered: calls.offered,
+    },
     isLoading: false,
     error: null,
     refetch: vi.fn(),
@@ -103,13 +114,34 @@ Element.prototype.scrollIntoView = () => {}
 
 beforeEach(() => {
   calls.accounts = []
+  calls.offered = []
   calls.create = vi.fn()
   calls.close = vi.fn()
   calls.navigate = vi.fn()
   calls.toasted = []
+  calls.route = vi.fn()
+  calls.chosen = vi.fn(() => Promise.resolve())
 })
 
 describe('NewChat', () => {
+  it('opens the chat it made once its opener has had it, as Share fills its message box', async () => {
+    let release = () => {}
+    calls.chosen = vi.fn(
+      () => new Promise<void>((resolve) => (release = resolve))
+    )
+    calls.create.mockResolvedValue({ id: 'c9' })
+    await create()
+    await waitFor(() => expect(calls.chosen).toHaveBeenCalledWith('c9'))
+    expect(calls.route).not.toHaveBeenCalled()
+    release()
+    await waitFor(() =>
+      expect(calls.route).toHaveBeenCalledWith({
+        to: '/$chatId',
+        params: { chatId: 'c9' },
+      })
+    )
+  })
+
   it('says who refused the chat and opens their page in People for a friend request', async () => {
     // THE POINT: a refusal is a dialog naming the person, not an error toast,
     // and its button lands on the page where the request is one tap.
@@ -199,5 +231,65 @@ describe('NewChat on another network', () => {
       target: { value: '@ann:example.org, @bob:example.org' },
     })
     expect(screen.getByLabelText('Chat name')).toBeInTheDocument()
+  })
+})
+
+describe('NewChat where the user has no account on a network the server offers', () => {
+  it('offers the network, and a way to set an account up in place of the people', async () => {
+    calls.accounts = [
+      { id: 'a1', identifier: '@me:example.org', network: 'matrix' },
+    ]
+    calls.offered = ['fediverse', 'matrix', 'xmpp']
+    render(
+      <I18nProvider i18n={i18n}>
+        <NewChat />
+      </I18nProvider>
+    )
+    fireEvent.keyDown(screen.getByRole('combobox'), { key: 'Enter' })
+    // Matrix has an account, so it is offered once, as that account.
+    expect(
+      await screen.findByRole('option', { name: /@me:example\.org/ })
+    ).toBeInTheDocument()
+    expect(screen.queryByRole('option', { name: 'Matrix' })).toBeNull()
+    expect(
+      screen.getByRole('option', { name: 'ActivityPub' })
+    ).toBeInTheDocument()
+    fireEvent.click(screen.getByRole('option', { name: 'XMPP' }))
+    expect(
+      await screen.findByRole('button', { name: 'Set up' })
+    ).toBeInTheDocument()
+    expect(screen.queryByRole('button', { name: 'Pick Tien' })).toBeNull()
+    expect(screen.queryByLabelText('Chat name')).toBeNull()
+    expect(screen.getByRole('button', { name: /Create chat/ })).toBeDisabled()
+  })
+
+  it('shows the network choice where the user has no account anywhere yet', () => {
+    calls.offered = ['xmpp']
+    render(
+      <I18nProvider i18n={i18n}>
+        <NewChat />
+      </I18nProvider>
+    )
+    expect(screen.getByRole('combobox')).toBeInTheDocument()
+  })
+
+  it('shows no network choice where the server offers none and there is no account', () => {
+    render(
+      <I18nProvider i18n={i18n}>
+        <NewChat />
+      </I18nProvider>
+    )
+    expect(screen.queryByRole('combobox')).toBeNull()
+  })
+})
+
+describe('unset', () => {
+  it('counts a linked Mastodon account as being on the fediverse', () => {
+    expect(
+      unset(
+        ['fediverse', 'xmpp'],
+        [{ id: 'm1', identifier: '@me@mastodon.social', network: 'mastodon' }]
+      )
+    ).toEqual(['xmpp'])
   })
 })

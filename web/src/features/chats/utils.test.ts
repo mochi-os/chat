@@ -5,13 +5,16 @@
 import { describe, it, expect } from 'vitest'
 import {
   formatCountBadge,
+  heldRoot,
+  matchRoot,
   matrixAddress,
   resolveChatView,
-  messageSize,
+  restoresInto,
   sendRefusal,
-  tooLongMessage,
+  tooLong,
   xmppAddress,
 } from './utils'
+import { MESSAGE_MAX_LENGTH, messageLength } from './constants/limits'
 
 describe('sendRefusal', () => {
   it('refuses a body over the maximum, which the Enter path used to skip', () => {
@@ -27,32 +30,69 @@ describe('sendRefusal', () => {
     expect(sendRefusal('hello', 0, 10)).toBeNull()
     expect(sendRefusal('a'.repeat(10), 0, 10)).toBeNull()
   })
+})
 
-  it('measures in UTF-8 bytes, as the server does', () => {
-    // 6 Cyrillic letters are 12 bytes, 4 Chinese characters 12, 3 emoji 12.
-    expect(sendRefusal('привет', 0, 10)).toBe('length')
-    expect(sendRefusal('你好世界', 0, 10)).toBe('length')
-    expect(sendRefusal('😀😀😀', 0, 10)).toBe('length')
-    expect(sendRefusal('привет', 0, 12)).toBeNull()
+describe('the message limit, in code points as the server counts it', () => {
+  it('counts a character past the Basic Multilingual Plane once', () => {
+    expect(messageLength('😀')).toBe(1)
+    expect(messageLength('é😀a')).toBe(3)
+  })
+
+  it('takes a full message of emoji, twice as long in UTF-16 units', () => {
+    const full = '😀'.repeat(MESSAGE_MAX_LENGTH)
+    expect(full.length).toBe(2 * MESSAGE_MAX_LENGTH)
+    expect(sendRefusal(full, 0, MESSAGE_MAX_LENGTH)).toBeNull()
+    expect(sendRefusal(full + 'a', 0, MESSAGE_MAX_LENGTH)).toBe('length')
+  })
+
+  it('says by how much a message is over, in the singular for one', () => {
+    const digits = (value: number) => String(value)
+    expect(tooLong(1, digits)).toBe('Message is 1 character too long')
+    expect(tooLong(12, digits)).toBe('Message is 12 characters too long')
   })
 })
 
-describe('tooLongMessage', () => {
-  it('says by how many bytes the body is over', () => {
-    // 6 Cyrillic letters are 12 bytes, 2 over a maximum of 10.
-    expect(tooLongMessage(messageSize('привет'), 10)).toBe(
-      'Message is 2 bytes too long'
-    )
-    expect(tooLongMessage(11, 10)).toBe('Message is 1 byte too long')
+describe('restoresInto', () => {
+  const empty = { chatId: 'c1', newMessage: '', pendingAttachments: [], replyTo: null }
+
+  it('puts a failed message back into its own chat\'s empty composer', () => {
+    expect(restoresInto(empty, 'c1')).toBe(true)
+    expect(restoresInto({ ...empty, newMessage: '   ' }, 'c1')).toBe(true)
+  })
+
+  it('leaves a composer holding the next message, its files or a reply target', () => {
+    expect(restoresInto({ ...empty, newMessage: 'next' }, 'c1')).toBe(false)
+    expect(restoresInto({ ...empty, pendingAttachments: [{}] }, 'c1')).toBe(false)
+    expect(restoresInto({ ...empty, replyTo: { id: 'm1' } }, 'c1')).toBe(false)
+  })
+
+  it('never puts it into another chat\'s composer', () => {
+    expect(restoresInto(empty, 'c2')).toBe(false)
   })
 })
 
-describe('messageSize', () => {
-  it('counts UTF-8 bytes, not UTF-16 units', () => {
-    expect(messageSize('abc')).toBe(3)
-    expect(messageSize('é')).toBe(2)
-    expect(messageSize('你')).toBe(3)
-    expect(messageSize('😀')).toBe(4)
+describe('matchRoot', () => {
+  const loaded = [{ id: 'm1', body: 'loaded' }]
+  const roots = new Map([['m2', { id: 'm2', body: 'from the search' }]])
+
+  it('finds the message a reply match\'s thread is under, loaded or from the search', () => {
+    expect(matchRoot('m1', loaded, roots)?.body).toBe('loaded')
+    expect(matchRoot('m2', loaded, roots)?.body).toBe('from the search')
+  })
+
+  it('has none for a match of the main timeline, or a root neither holds', () => {
+    expect(matchRoot('', loaded, roots)).toBeNull()
+    expect(matchRoot(undefined, loaded, roots)).toBeNull()
+    expect(matchRoot('m3', loaded, roots)).toBeNull()
+  })
+})
+
+describe('heldRoot', () => {
+  it('is the open thread\'s root as the list now holds it, deleted since included', () => {
+    const opened = { id: 'm1', deleted: false }
+    expect(heldRoot(opened, [{ id: 'm1', deleted: true }])?.deleted).toBe(true)
+    expect(heldRoot(opened, [])).toBe(opened)
+    expect(heldRoot(null, [opened])).toBeNull()
   })
 })
 

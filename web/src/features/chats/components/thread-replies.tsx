@@ -3,10 +3,11 @@
 // This file is part of Mochi, licensed under the GNU AGPL v3 with the
 // Mochi Application Interface Exception - see license.txt and license-exception.md.
 import type { MouseEvent } from 'react'
-import { Plural, Trans } from '@lingui/react/macro'
+import { Plural } from '@lingui/react/macro'
 import { stripFormatting } from '@mochi/web/lib/text-format'
 import type { ChatMessage } from '@/api/chats'
 import { MessageAttachments } from './message-attachments'
+import { SealedText } from './sealed-text'
 
 interface ThreadRepliesProps {
   // The thread's newest replies, oldest first: the server sends a root's
@@ -70,11 +71,7 @@ export function ThreadReplies({
               </span>
             ) : answer.encrypted && !answer.attachments?.length ? (
               <span className='block italic opacity-80'>
-                {answer.encrypted === 3 ? (
-                  <Trans>Encrypted for other devices only</Trans>
-                ) : (
-                  <Trans>Encrypted message</Trans>
-                )}
+                <SealedText encrypted={answer.encrypted} />
               </span>
             ) : null}
           </button>

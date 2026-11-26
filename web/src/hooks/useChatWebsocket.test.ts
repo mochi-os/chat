@@ -157,6 +157,30 @@ describe('handleWebsocketEvent', () => {
     expect(held.find((m) => m.id === 'm3')?.encrypted ?? 0).toBe(0)
   })
 
+  it('keeps the warning a message comes with, and the one its edit comes with', () => {
+    const client = seeded()
+    appendMessageToCache(
+      'c1',
+      { id: 'm2', member: 'them', name: 'Them', body: 'beware', created: 2, attachments: [], warning: 'mismatched' },
+      client,
+      'Unknown',
+      'me'
+    )
+    const held = () =>
+      client
+        .getQueryData<{ pages: GetMessagesResponse[] }>(chatKeys.messages('c1'))
+        ?.pages[0].messages.find((m) => m.id === 'm2')
+    expect(held()?.warning).toBe('mismatched')
+    handleWebsocketEvent(
+      'c1',
+      { event: 'edit', message: 'm2', body: 'beware, edited', edited: 5, warning: '' },
+      client,
+      'me'
+    )
+    expect(held()?.body).toBe('beware, edited')
+    expect(held()?.warning).toBe('')
+  })
+
   it('invalidates the list and detail keys exactly on a rename, not every loaded page', () => {
     const client = seeded()
     const invalidate = vi.spyOn(client, 'invalidateQueries')

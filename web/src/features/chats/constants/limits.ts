@@ -7,8 +7,19 @@
 // the server would refuse - and refuses it before an upload, not after. Each
 // one is enforced in chat.star; changing a number here alone changes nothing.
 
-/** action_send / action_message_edit: `len(body) > 10000`. */
+/** action_send / action_message_edit: `message_long(body)`, in code points. */
 export const MESSAGE_MAX_LENGTH = 10000
+
+/**
+ * A message's length as the server counts it: in code points, so an emoji or
+ * any other character past the Basic Multilingual Plane counts once, not as
+ * the two UTF-16 units of `text.length`.
+ */
+export function messageLength(text: string): number {
+  let count = 0
+  for (const _ of text) count++
+  return count
+}
 
 /** mochi.text.valid(name, "name") is ^[^<>\r\n]{1,1000}$ - hence both rules. */
 export const CHAT_NAME_MAX_LENGTH = 1000

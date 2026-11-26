@@ -14,7 +14,7 @@ import {
   cn,
   useFormat,
 } from '@mochi/web'
-import { Check, CheckCheck } from 'lucide-react'
+import { Check, CheckCheck, ShieldAlert } from 'lucide-react'
 import type { ChatMessage } from '@/api/chats'
 import type { ReactionId } from '../constants/reactions'
 import {
@@ -28,6 +28,7 @@ import { MessageAttachments } from './message-attachments'
 import { MessageBody } from './message-body'
 import { MessageHoverActions } from './message-hover-actions'
 import { MessageQuote } from './message-quote'
+import { SealedText } from './sealed-text'
 import {
   MessageReactionPicker,
   MessageReactionSummary,
@@ -113,12 +114,11 @@ export const MessageBubble = memo(function MessageBubble({
   const isEncrypted =
     Boolean(message.encrypted) && !message.body && !message.attachments?.length
   // Photos in the bubble, its own or its thread's, give it the photo column's
-  // width.
+  // width. A deleted message keeps its thread, and so its thread's photos.
   const hasPhotos =
     attachmentsHaveVisualMedia(message.attachments) ||
     Boolean(
       offers.thread &&
-      !isDeleted &&
       message.answers?.some((answer) =>
         attachmentsHaveVisualMedia(answer.attachments)
       )
@@ -164,11 +164,7 @@ export const MessageBubble = memo(function MessageBubble({
           </p>
         ) : isEncrypted ? (
           <p className='text-muted-foreground text-sm italic'>
-            {message.encrypted === 3 ? (
-              <Trans>Encrypted for other devices only</Trans>
-            ) : (
-              <Trans>Encrypted message</Trans>
-            )}
+            <SealedText encrypted={message.encrypted} />
           </p>
         ) : (
           <>
@@ -217,8 +213,26 @@ export const MessageBubble = memo(function MessageBubble({
             ) : null}
           </>
         )}
-        {/* The thread, in the message's own bubble below a rule. */}
-        {offers.thread && message.answers?.length && !isDeleted ? (
+        {/* A Matrix message read from a device the user distrusted, or one
+            whose keys do not match: shown, with the warning. */}
+        {message.warning && !isDeleted ? (
+          <p
+            className={cn(
+              'mt-1 flex items-center gap-1 text-xs not-italic',
+              isSent ? 'text-primary-foreground/80' : 'text-destructive'
+            )}
+          >
+            <ShieldAlert className='size-3.5 shrink-0' aria-hidden='true' />
+            {message.warning === 'distrusted' ? (
+              <Trans>Sent from a device you distrusted</Trans>
+            ) : (
+              <Trans>Sent from a device whose keys do not match</Trans>
+            )}
+          </p>
+        ) : null}
+        {/* The thread, in the message's own bubble below a rule: under a
+            deleted message too, whose replies are still there to read. */}
+        {offers.thread && message.answers?.length ? (
           <ThreadReplies
             answers={message.answers}
             replies={message.replies ?? message.answers.length}

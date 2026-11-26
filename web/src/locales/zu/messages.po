@@ -94,11 +94,6 @@ msgstr "{0, plural, one {# kukhethiwe} other {# kukhethiwe}}"
 msgid "{0, plural, one {+# nested} other {+# nested}}"
 msgstr "{0, plural, one {+# elifakiwe} other {+# afakiwe}}"
 
-#. placeholder {0}: size - maximum
-#: src/features/chats/utils.ts
-msgid "{0, plural, one {Message is # byte too long} other {Message is # bytes too long}}"
-msgstr ""
-
 #. placeholder {0}: r.label
 #: src/features/chats/components/message-reaction-bar.tsx
 msgid "{0} (includes you)"
@@ -161,6 +156,10 @@ msgstr "{newMessageCount, plural, one {Yeqela kumlayezo omusha ongu-#} other {Ye
 #: ../../../lib/web/src/components/game/game-draw-offer-banner.tsx
 msgid "{opponentName} offered a draw"
 msgstr "{opponentName} unikeze idrowu"
+
+#: src/features/chats/utils.ts
+msgid "{over, plural, one {Message is {count} character too long} other {Message is {count} characters too long}}"
+msgstr "{over, plural, one {Umlayezo ude kakhulu ngohlamvu olungu-{count}} other {Umlayezo ude kakhulu ngezinhlamvu ezingu-{count}}}"
 
 #: ../../../lib/web/src/components/attachment-composer.tsx
 #: ../../../lib/web/src/components/ui/upload-progress.tsx
@@ -568,6 +567,7 @@ msgstr "Ifayela le-binary alibonisiwe"
 msgid "Block {name}"
 msgstr "Vimbela u-{name}"
 
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx
 msgid "Blocked by"
@@ -578,6 +578,7 @@ msgstr "Ivinjelwe ngu"
 msgid "Blocked navigation to untrusted link"
 msgstr "Kuvinjelwe ukuya esixhumanisini esingathembekile"
 
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx
 msgid "Blocks"
 msgstr "Iyavimba"
@@ -647,6 +648,7 @@ msgstr "Ikhamera ayitholakali"
 #: src/features/chats/components/verification-watcher.tsx
 #: src/features/chats/components/verification-watcher.tsx
 #: src/features/chats/index.tsx
+#: src/features/chats/share-page.tsx
 msgid "Cancel"
 msgstr "Khansela"
 
@@ -692,6 +694,10 @@ msgstr "Kushintshiwe"
 #: ../../../lib/web/src/components/entity/entity-activity-list.tsx
 msgid "Changed {field}"
 msgstr "Kushintshiwe {field}"
+
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx
+msgid "Changed class"
+msgstr "Iklasi lishintshiwe"
 
 #: ../../../lib/web/src/components/calendar/month-grid.tsx
 #: ../../../lib/web/src/components/calendar/time-grid.tsx
@@ -833,6 +839,7 @@ msgstr "Sula konke"
 #: ../../../lib/web/src/components/search-input.tsx
 #: src/components/layout/chat-list-filters.tsx
 #: src/features/chats/components/forward-dialog.tsx
+#: src/features/chats/share-page.tsx
 #: src/routes/_authenticated/$chatId_.settings.tsx
 msgid "Clear search"
 msgstr "Sula usesho"
@@ -983,10 +990,12 @@ msgstr "Qhubeka nge-{providerLabel}"
 
 #: ../../../lib/web/src/lib/toast-utils.ts
 #: src/features/chats/index.tsx
+#: src/features/chats/index.tsx
 msgid "Copied"
 msgstr "Kukopishiwe"
 
 #: ../../../lib/web/src/components/comment-share-button.tsx
+#: ../../../lib/web/src/components/share-menu.tsx
 #: ../../../lib/web/src/components/ui/copy-button.tsx
 #: src/features/chats/components/thread-panel.tsx
 msgid "Copied to clipboard"
@@ -1001,6 +1010,7 @@ msgstr "Kukopishelwe kwi-clipboard"
 #: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx
 #: ../../../lib/web/src/components/ui/copy-button.tsx
 #: src/features/chats/components/message-hover-actions.tsx
+#: src/features/chats/components/unsent-message.tsx
 #: src/features/chats/index.tsx
 msgid "Copy"
 msgstr "Kopisha"
@@ -1256,6 +1266,7 @@ msgid "Disagree"
 msgstr "Ngiyaphikisa"
 
 #: ../../../lib/web/src/components/comment-composer.tsx
+#: src/features/chats/components/unsent-message.tsx
 msgid "Discard"
 msgstr "Lahla"
 
@@ -1323,6 +1334,7 @@ msgstr "Ukulanda kuhlulekile"
 msgid "Draft"
 msgstr "Idrafu"
 
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx
 msgid "Duplicates"
 msgstr "Iphinda kabili"
@@ -1395,13 +1407,11 @@ msgstr "I-imeyili"
 msgid "Email code"
 msgstr "Ikhodi ye-imeyili"
 
-#: src/features/chats/components/message-bubble.tsx
-#: src/features/chats/components/thread-replies.tsx
+#: src/features/chats/components/sealed-text.tsx
 msgid "Encrypted for other devices only"
 msgstr "Kubethelwe ezinye izisetshenziswa kuphela"
 
-#: src/features/chats/components/message-bubble.tsx
-#: src/features/chats/components/thread-replies.tsx
+#: src/features/chats/components/sealed-text.tsx
 msgid "Encrypted message"
 msgstr "Umyalezo obethelwe"
 
@@ -1464,9 +1474,11 @@ msgid "Failed to add member"
 msgstr "Kuhlulekile ukungeza ilungu"
 
 #: ../../../lib/web/src/components/comment-share-button.tsx
+#: ../../../lib/web/src/components/share-menu.tsx
 #: ../../../lib/web/src/components/ui/copy-button.tsx
 #: ../../../lib/web/src/lib/toast-utils.ts
 #: src/features/chats/components/thread-panel.tsx
+#: src/features/chats/index.tsx
 #: src/features/chats/index.tsx
 msgid "Failed to copy"
 msgstr "Kuhlulekile ukukopisha"
@@ -1482,7 +1494,8 @@ msgid "Failed to create chat"
 msgstr "Kuhlulekile ukudala ingxoxo"
 
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx
-#: ../../../lib/web/src/components/options-menu.tsx
+#: ../../../lib/web/src/components/share-menu.tsx
+#: ../../../lib/web/src/components/share-menu.tsx
 msgid "Failed to create link"
 msgstr "Kuhlulekile ukudala isixhumanisi"
 
@@ -1903,12 +1916,12 @@ msgstr "Okukhanyayo"
 msgid "Like"
 msgstr "Yithanda"
 
-#: ../../../lib/web/src/components/options-menu.tsx
 #: src/features/chats/components/formatting-toolbar.tsx
 #: src/features/chats/components/link-dialog.tsx
 msgid "Link"
 msgstr "Isixhumanisi"
 
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx
 msgid "Links"
 msgstr "Izixhumanisi"
@@ -2126,10 +2139,6 @@ msgstr "Eziningi izinketho"
 msgid "Moved"
 msgstr "Kuhanjiswe"
 
-#: ../../../lib/web/src/components/entity/entity-activity-list.tsx
-msgid "Moved {field}"
-msgstr "Kuhanjiswe {field}"
-
 #. placeholder {0}: dayName(dragging.day)
 #. placeholder {0}: dayName(opening(current, format.zonedDay))
 #: ../../../lib/web/src/components/calendar/month-grid.tsx
@@ -2187,6 +2196,7 @@ msgstr "Okusha kakhulu"
 #: src/features/chats/components/chat-empty-state.tsx
 #: src/features/chats/components/chat-empty-state.tsx
 #: src/features/chats/components/new-chat.tsx
+#: src/features/chats/share-page.tsx
 msgid "New chat"
 msgstr "Ingxoxo entsha"
 
@@ -2212,6 +2222,10 @@ msgstr "Inyanga ezayo"
 msgid "Next year"
 msgstr "Unyaka ozayo"
 
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx
+msgid "No"
+msgstr "Cha"
+
 #: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx
 msgid "No {parentClassNames} to add to"
 msgstr "Asikho i-{parentClassNames} okufanele kwengezwe kuyo"
@@ -2229,6 +2243,8 @@ msgid "No changes to display"
 msgstr "Akukho ukushintsha okuzoboniswa"
 
 #: src/components/layout/chat-list-filters.tsx
+#: src/features/chats/share-page.tsx
+#: src/features/chats/share-page.tsx
 msgid "No chats"
 msgstr "Azikho izingxoxo"
 
@@ -2693,6 +2709,7 @@ msgstr "Iqondisa kabusha ekungeneni."
 msgid "Reduce interest"
 msgstr "Yehlisa intshisekelo"
 
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx
 msgid "Relates"
 msgstr "Iyahlobana"
@@ -2858,6 +2875,7 @@ msgid "Restore"
 msgstr "Buyisela"
 
 #: ../../../lib/web/src/components/attachment-composer.tsx
+#: src/features/chats/components/unsent-message.tsx
 msgid "Retry"
 msgstr "Zama futhi"
 
@@ -2940,6 +2958,7 @@ msgstr "Sesha"
 #: src/components/layout/chat-list-filters.tsx
 #: src/components/layout/chat-list-filters.tsx
 #: src/features/chats/components/forward-dialog.tsx
+#: src/features/chats/share-page.tsx
 msgid "Search chats"
 msgstr "Sesha izingxoxo"
 
@@ -3081,6 +3100,11 @@ msgstr "Thumela i-imeyili"
 msgid "Send friend request"
 msgstr "Thumela isicelo sobungane"
 
+#: src/features/chats/share-page.tsx
+#: src/features/chats/share-page.tsx
+msgid "Send in a chat"
+msgstr "Thumela engxoxweni"
+
 #: ../../../lib/web/src/components/game/game-chat-input.tsx
 #: ../../../lib/web/src/components/game/game-chat-input.tsx
 #: src/features/chats/components/chat-input.tsx
@@ -3092,10 +3116,25 @@ msgstr "Thumela umyalezo"
 msgid "Send read receipts"
 msgstr "Thumela izaziso zokufundwa"
 
+#: src/features/chats/components/chat-input.tsx
+#: src/features/chats/components/thread-panel.tsx
+#: src/features/chats/components/unsent-message.tsx
+msgid "Send unencrypted"
+msgstr "Thumela ngaphandle kokubethela"
+
 #: src/features/chats/components/message-bubble.tsx
 msgctxt "receipt"
 msgid "Sent"
 msgstr "Uthunyelwe"
+
+#: src/features/chats/components/message-bubble.tsx
+msgid "Sent from a device whose keys do not match"
+msgstr "Ithunyelwe kudivayisi okhiye bayo abangafani"
+
+#: src/features/chats/components/message-bubble.tsx
+#: src/features/chats/components/sealed-text.tsx
+msgid "Sent from a device you distrusted"
+msgstr "Ithunyelwe kudivayisi ongayithembi"
 
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Serif"
@@ -3119,6 +3158,10 @@ msgstr "Iseshini iphelelwe yisikhathi. Sicela uphinde ungene ngemvume."
 msgid "Set origin and destination"
 msgstr "Misa indawo yokuqala neyokuya"
 
+#: src/features/chats/components/new-chat.tsx
+msgid "Set up"
+msgstr "Setha"
+
 #: src/features/chats/components/encryption-section.tsx
 #: src/features/chats/components/encryption-section.tsx
 #: src/features/chats/components/encryption-section.tsx
@@ -3137,6 +3180,7 @@ msgstr "Izilungiselelo zilondoloziwe"
 
 #: ../../../lib/web/src/components/comment-share-button.tsx
 #: ../../../lib/web/src/components/comment-share-button.tsx
+#: ../../../lib/web/src/components/share-menu.tsx
 msgid "Share"
 msgstr "Yabelana"
 
@@ -3365,6 +3409,10 @@ msgstr "Iphasiwedi ayamukelwanga"
 msgid "The requested content could not be found."
 msgstr "Okuqukethwe okuceliwe akutholakalanga."
 
+#: src/features/chats/components/sealed-text.tsx
+msgid "The sender's encryption key changed"
+msgstr "Ukhiye wokubethela womthumeli ushintshile"
+
 #: ../../../lib/web/src/lib/api-response-interceptors.ts
 msgid "The server returned a web page instead of data."
 msgstr "Iseva ibuyise ikhasi lewebhu esikhundleni sedatha."
@@ -3491,6 +3539,10 @@ msgstr "Izicelo eziningi kakhulu"
 msgid "Top"
 msgstr "Okuhamba phambili"
 
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx
+msgid "Top level"
+msgstr "Izinga eliphezulu"
+
 #: ../../../lib/web/src/components/travelling-picker.tsx
 msgid "Travelling"
 msgstr "Kuyahanjwa"
@@ -3564,6 +3616,11 @@ msgid "United States"
 msgstr "I-United States"
 
 #: ../../../lib/web/src/components/audit-timeline.tsx
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx
+#: ../../../lib/web/src/components/entity/entity-board-card.tsx
 #: ../../../lib/web/src/components/entity/entity-field-dialog.tsx
 #: ../../../lib/web/src/components/tree-row.tsx
 #: ../../../lib/web/src/components/tree-row.tsx
@@ -3729,6 +3786,10 @@ msgstr "ULwesithathu"
 #: ../../../lib/web/src/components/calendar/date-header.tsx
 msgid "Year"
 msgstr "Unyaka"
+
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx
+msgid "Yes"
+msgstr "Yebo"
 
 #: src/features/chats/index.tsx
 msgid "You"

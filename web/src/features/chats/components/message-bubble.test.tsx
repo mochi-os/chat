@@ -99,6 +99,18 @@ describe('a thread in its root bubble', () => {
     expect(opened).toHaveBeenCalledWith(shown)
   })
 
+  it('stays under a deleted message, still opening the thread', () => {
+    // THE POINT: the members' replies under a message deleted for everyone
+    // are still there, so its thread is too.
+    const opened = vi.fn()
+    const gone = { ...root(4), body: '', deleted: true } as ChatMessage
+    render(list([gone], opened))
+    expect(screen.getByText('This message was deleted')).toBeInTheDocument()
+    expect(screen.queryByText('Answer r3')).toBeInTheDocument()
+    fireEvent.click(screen.getByText('1 earlier reply'))
+    expect(opened).toHaveBeenCalledWith(gone)
+  })
+
   it('says one earlier reply in the singular, and nothing when all are shown', () => {
     const { unmount } = render(list([root(4)], () => {}))
     expect(screen.getByText('1 earlier reply')).toBeInTheDocument()
@@ -152,5 +164,35 @@ describe('the bubbles are memoised', () => {
     fireEvent.click(screen.getByText('2 earlier replies'))
     expect(latest).toHaveBeenCalledWith(shown)
     expect(first).not.toHaveBeenCalled()
+  })
+})
+
+// A Matrix message read from a device the user distrusted, or from one whose
+// keys do not match, is shown with a warning naming which; another with none.
+describe('a message read from a device to warn of', () => {
+  it('says which warning it came with, and none for a message without one', () => {
+    render(
+      list(
+        [
+          {
+            ...message('m1', 'From a distrusted device'),
+            warning: 'distrusted',
+          },
+          {
+            ...message('m2', 'From a mismatched device', 1700000100),
+            warning: 'mismatched',
+          },
+          message('m3', 'From a device in good standing', 1700000200),
+        ],
+        () => {}
+      )
+    )
+    expect(
+      screen.getByText('Sent from a device you distrusted')
+    ).toBeInTheDocument()
+    expect(
+      screen.getByText('Sent from a device whose keys do not match')
+    ).toBeInTheDocument()
+    expect(screen.getAllByText(/Sent from a device/)).toHaveLength(2)
   })
 })

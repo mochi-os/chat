@@ -64,6 +64,24 @@ def error_message_timeout(e):
 def chat_websocket(key, payload):
 	if key:
 		mochi.websocket.write(key, payload)
+	if payload.get("event") in LISTED:
+		chats_changed()
+
+# The user's own websocket key, which every page of chat the user has open
+# listens on, apart from each chat's: what changes outside any one chat. Core
+# keeps a user's connections apart from every other user's, so one constant
+# names each user's own.
+USER_KEY = "chat"
+
+# The events on a chat's key that change how the user's chat list shows it:
+# its name, its members, whether the user is still in it.
+LISTED = ("rename", "leave", "member/add", "member/remove", "removed")
+
+def chats_changed():
+	"""Tell the user's open pages that their chat list changed - a chat came
+	or went, or its name, members, status, order or unread count moved - so
+	each reads the list again."""
+	mochi.websocket.write(USER_KEY, {"event": "list"})
 
 def chat_commit_hook(table, kind, row_uid):
 	if not row_uid:
@@ -83,7 +101,7 @@ def chat_commit_hook(table, kind, row_uid):
 		if message.get("encrypted") and not message.get("edited"):
 			chat_websocket(chat["key"], {"event": "decrypted", "message": row_uid})
 			return
-		chat_websocket(chat["key"], {"event": "edit", "message": row_uid, "body": message["body"], "edited": message.get("edited", 0)})
+		chat_websocket(chat["key"], {"event": "edit", "message": row_uid, "body": message["body"], "edited": message.get("edited", 0), "warning": message.get("warning", "") or ""})
 		return
 	if kind != "insert":
 		return
@@ -150,11 +168,15 @@ def chat_commit_hook(table, kind, row_uid):
 		# A message whose keys have not come carries no text: the flag is what
 		# shows it as one, where it would otherwise show as an empty bubble.
 		"encrypted": message.get("encrypted", 0),
+		# Read from a device the user distrusted, or one whose keys do not
+		# match: shown with the warning.
+		"warning": message.get("warning", "") or "",
 	}
 	# A reply carries its root's thread as it now stands, as the delete does.
 	if message.get("thread", ""):
 		payload["root"] = thread_summary(message["chat"], message["thread"])
 	chat_websocket(chat["key"], payload)
+	chats_changed()
 
 # --- Quotes -----------------------------------------------------------------
 #
@@ -266,6 +288,7 @@ def database_create():
 	chat_schema_xmpp()
 	chat_schema_encryption()
 	chat_schema_names()
+	chat_schema_warning()
 
 def database_upgrade(version):
 	if version == 2:
@@ -313,6 +336,10 @@ def database_upgrade(version):
 		# Attachment rows name the kind of thing they belong to. Every chat
 		# attachment is a message's, which the column's default already says.
 		attachment_schema_kind()
+	if version == 18:
+		# The warning a Matrix message is read with: from a device the user
+		# distrusted, or one whose keys do not match.
+		chat_schema_warning()
 	if version == 5 or version == 6 or version == 7:
 		# Attachments move into this database, owned by the shared library: create the
 		# table and copy rows out of core's store (bridge or export file). Versions 6
@@ -635,6 +662,7 @@ def action_create(a):
 			if len(prospective_members) == 2:
 				chat_name_for_member = a.user.identity.name
 			mochi.message.send({"from": a.user.identity.id, "to": member["id"], "service": "chat", "event": "new"}, {"id": chat, "name": chat_name_for_member}, prospective_members)
+	chats_changed()
 
 	return {
 		"data": {"id": chat, "name": name, "members": prospective_members}
@@ -711,7 +739,7 @@ def action_new(a):
 			friend["chat"] = existing_chats[friend["id"]]
 
 	return {
-		"data": {"name": a.user.identity.name, "friends": friends, "accounts": [account_entry(acc) for acc in chat_accounts()]}
+		"data": {"name": a.user.identity.name, "friends": friends, "accounts": [account_entry(acc) for acc in chat_accounts()], "offered": networks_offered(["fediverse", "matrix", "xmpp"])}
 	}
 
 # Attachment routes (bytes, thumbnail, preview). attachment_serve performs no
@@ -847,9 +875,10 @@ def action_messages(a):
 			m["reactions"] = {}
 			m["reaction"] = None
 
-	# How many replies each message has in its thread, and the replies.
+	# How many replies each message has in its thread, and the replies: a
+	# deleted message's too, whose thread stays to be read.
 	if not thread:
-		counts = thread_counts(chat["id"], [m["id"] for m in messages if not m["deleted"]])
+		counts = thread_counts(chat["id"], [m["id"] for m in messages])
 		for m in messages:
 			m["replies"] = counts.get(m["id"], {}).get("replies", 0)
 			m["latest"] = counts.get(m["id"], {}).get("latest", 0)
@@ -863,6 +892,27 @@ def action_messages(a):
 			"receipts": chat_receipts(chat["id"]),
 		}
 	}
+
+# The longest a message may be, in code points, as every client counts it.
+MESSAGE_LIMIT = 10000
+
+def message_long(body):
+	"""Whether body is longer than a message may be. A code point is one to
+	four bytes, so only a body between the limit and four times it in bytes
+	is counted."""
+	if len(body) <= MESSAGE_LIMIT:
+		return False
+	if len(body) > 4 * MESSAGE_LIMIT:
+		return True
+	return len(list(body.codepoints())) > MESSAGE_LIMIT
+
+def message_cut(body):
+	"""body cut to the longest a message may be, between code points: the
+	first MESSAGE_LIMIT of them lie within its first four times as many
+	bytes."""
+	if not message_long(body):
+		return body
+	return "".join(list(body[:4 * MESSAGE_LIMIT].codepoints())[:MESSAGE_LIMIT])
 
 # Send a message
 def action_send(a):
@@ -899,18 +949,20 @@ def action_send(a):
 			captions.append(caption)
 
 	save = (lambda object: attachment_save(a, object, captions=captions)) if has_files else None
-	result, failure = message_send(a.input("chat"), a.user.identity.id, a.user.identity.name, body, a.input("reply", ""), a.input("thread", "") or "", mentions, save)
+	result, failure = message_send(a.input("chat"), a.user.identity.id, a.user.identity.name, body, a.input("reply", ""), a.input("thread", "") or "", mentions, save, unencrypted=str(a.input("unencrypted", "")) in ("true", "True", "1"))
 	if failure:
 		fail(a, failure)
 		return
 	return {"data": result}
 
-def message_send(chat_input, user_id, user_name, body, reply, thread, mentions, save):
+def message_send(chat_input, user_id, user_name, body, reply, thread, mentions, save, unencrypted=False):
 	"""Send a message to a conversation as the user: checked as the send
 	action checks it, kept, sent through the conversation's account where it
 	is on another network, and told to the other members. save keeps the
-	message's files, or is None for a message with none. Answers ({id},
-	None) or (None, failure)."""
+	message's files, or is None for a message with none. unencrypted is the
+	user's choice to send it so where its conversation was encrypted and can
+	no longer be encrypted to everyone in it, which refuses it otherwise.
+	Answers ({id}, None) or (None, failure)."""
 	if not mochi.text.valid(chat_input, "id"):
 		return None, (400, "errors.invalid_chat_id")
 	chat = mochi.db.row("select * from chats where id=?", chat_input)
@@ -923,7 +975,7 @@ def message_send(chat_input, user_id, user_name, body, reply, thread, mentions, 
 
 	if not mochi.text.valid(body, "text"):
 		return None, (400, "errors.invalid_message")
-	if len(body) > 10000:
+	if message_long(body):
 		return None, (400, "errors.message_too_long")
 
 	if not body.strip() and not save:
@@ -977,10 +1029,15 @@ def message_send(chat_input, user_id, user_name, body, reply, thread, mentions, 
 	# A conversation on another network takes the message through its
 	# account; one that cannot go is not kept.
 	unsent = []
-	if chat.get("account") and not remote_send(chat, id, body, attachments, unsent):
+	refused = []
+	if chat.get("account") and not remote_send(chat, id, body, attachments, unsent, unencrypted, refused):
 		mochi.db.execute("delete from messages where id=?", id)
 		for att in attachments:
 			attachment_delete(att["id"])
+		# One that would have gone unencrypted where the conversation was
+		# encrypted, which the user may choose to send so.
+		if refused:
+			return None, (409, "errors.encryption_lost")
 		# A message of files alone, none of which went, says why.
 		if unsent and unsent[0]["reason"]:
 			return None, (502, "errors.file_unsent_because", {"name": unsent[0]["name"], "reason": unsent[0]["reason"]})
@@ -1030,6 +1087,7 @@ def chat_last_read(chat_id):
 
 def chat_set_last_read(chat_id, ts):
 	mochi.db.execute("insert or replace into chat_read ( chat, last_read ) values ( ?, ? )", chat_id, ts)
+	chats_changed()
 
 # Mark a chat read up to a timestamp watermark (defaults to the latest
 # message). The watermark only moves forward. Local-only, not synced.
@@ -1247,8 +1305,26 @@ def action_search(a):
 	# Escape LIKE wildcards in the user's term so they match literally.
 	escaped = query.replace("\\", "\\\\").replace("%", "\\%").replace("_", "\\_")
 	pattern = "%" + escaped + "%"
-	results = mochi.db.rows("select id, member, name, body, created from messages where chat=? and body like ? escape '\\' and id not in (select message from deletions where chat=?) order by created desc limit 100", chat["id"], pattern, chat["id"])
-	return {"data": {"query": query, "results": results or []}}
+	results = mochi.db.rows("select id, member, name, body, created, thread from messages where chat=? and body like ? escape '\\' and id not in (select message from deletions where chat=?) order by created desc limit 100", chat["id"], pattern, chat["id"]) or []
+	# A reply in a thread is not on the main timeline: a client opens its
+	# thread, under the message its match's thread names, which roots holds.
+	threads = {}
+	for r in results:
+		if r["thread"]:
+			threads[r["thread"]] = True
+	roots = []
+	if threads:
+		ids = list(threads.keys())
+		gone = messages_deleted_set(chat["id"], ids)
+		places = ", ".join(["?" for _ in ids])
+		for m in mochi.db.rows("select id, chat, member, name, body, created, encrypted from messages where chat=? and id in (" + places + ")", chat["id"], *ids) or []:
+			if m["id"] in gone:
+				m["deleted"] = True
+				m["body"] = ""
+			else:
+				m["deleted"] = False
+			roots.append(m)
+	return {"data": {"query": query, "results": results, "roots": roots}}
 
 # Purge a chat's local rows but keep a 'deleted' tombstone row: it lets
 # event_message tell "we deleted this chat" (drop and leave-back) from "never a
@@ -1266,6 +1342,7 @@ def chat_delete_local(chat_id):
 	mochi.db.execute("delete from members where chat=?", chat_id)
 	mochi.db.execute("delete from chat_read where chat=?", chat_id)
 	mochi.db.execute("update chats set status='deleted', updated=? where id=?", mochi.time.now(), chat_id)
+	chats_changed()
 
 # Return the subset of message_ids that are tombstoned (deleted for everyone).
 def messages_deleted_set(chat_id, message_ids):
@@ -1418,7 +1495,7 @@ def message_edit(chat_input, message_id, user_id, body):
 
 	if not mochi.text.valid(body, "text"):
 		return None, (400, "errors.invalid_message")
-	if len(body) > 10000:
+	if message_long(body):
 		return None, (400, "errors.message_too_long")
 	if not body.strip():
 		return None, (400, "errors.message_empty")
@@ -1466,7 +1543,7 @@ def event_message_edit(e):
 	body = content_text(e, "body", None)
 	if body == None or not mochi.text.valid(body, "text"):
 		return
-	if len(body) > 10000 or not body.strip():
+	if message_long(body) or not body.strip():
 		return
 
 	row = mochi.db.row("select member, edited from messages where id=? and chat=?", message_id, chat["id"])
@@ -1660,6 +1737,7 @@ def action_messages_forward_friend(a):
 		mochi.db.execute("insert into members ( chat, member, name ) values ( ?, ?, ? ) on conflict ( chat, member ) do update set name=excluded.name", target_id, member_id, member_name)
 		# Tell the friend about the new chat; they see our name as its title.
 		mochi.message.send({"from": a.user.identity.id, "to": member_id, "service": "chat", "event": "new"}, {"id": target_id, "name": a.user.identity.name}, [{"id": a.user.identity.id, "name": a.user.identity.name}, {"id": member_id, "name": member_name}])
+		chats_changed()
 
 	forwarded = chat_forward_into(a, source["id"], target_id, source_messages, listed)
 	if not forwarded:
@@ -1810,6 +1888,8 @@ def request_resync(chat_id, peer_member, minimum=_RESYNC_AUTOMATIC):
 		if m["relay"] and m["relay"] not in listed_ids:
 			continue
 		mochi.db.execute("insert or ignore into members ( chat, member, name, relay ) values ( ?, ?, ?, ? )", chat_id, m["id"], m["name"], m["relay"])
+	if not existing:
+		chats_changed()
 	return True
 
 # Answer a member's resync request with the chat's name and roster; non-members
@@ -1883,7 +1963,7 @@ def event_message(e):
 	body = content_text(e, "body", None)
 	if body == None or not mochi.text.valid(body, "text"):
 		return
-	if len(body) > 10000:
+	if message_long(body):
 		return
 
 	# Name from the local members row, never the payload: a sender could otherwise
@@ -2063,6 +2143,7 @@ def event_new(e):
 	# included) and every later message would carry the label.
 	for member in roster:
 		mochi.db.execute("insert or ignore into members ( chat, member, name, relay ) values ( ?, ?, ?, ? )", chat, member["id"], member["name"], member.get("relay") or "")
+	chats_changed()
 
 # Would-you-accept probe: answers from the same rule as event_new (friendship or
 # chat_policy "anyone") and carries the display name so the sender needs no
@@ -2395,6 +2476,7 @@ def action_leave(a):
 		else:
 			# Mark chat as left; kept read-only in the list.
 			mochi.db.execute("update chats set status='left', updated=? where id=?", mochi.time.now(), chat["id"])
+			chats_changed()
 
 	return {"data": {"success": True}}
 
@@ -2918,6 +3000,7 @@ def remote_chat_make(acc, name, kind, me, my_name, people):
 	mochi.db.execute("insert or ignore into members ( chat, member, name ) values ( ?, ?, ? )", chat, me, my_name)
 	for person in people:
 		mochi.db.execute("insert or ignore into members ( chat, member, name ) values ( ?, ?, ? )", chat, person[0], person[1])
+	chats_changed()
 	return chat
 
 def remote_note(chat, acc, message):
@@ -2968,10 +3051,12 @@ def unsent_text(entry):
 		return mochi.app.label("messages.unsent_because", name=entry["name"], reason=entry["reason"])
 	return mochi.app.label("messages.unsent", name=entry["name"])
 
-def remote_send(chat, message_id, body, attachments, unsent=None):
+def remote_send(chat, message_id, body, attachments, unsent=None, unencrypted=False, refused=None):
 	"""Send a message of a conversation on another network through its
-	account, and keep its record; a file that does not go goes into unsent.
-	Answers False where it could not go."""
+	account, and keep its record; a file that does not go goes into unsent,
+	and a message refused for want of encryption says so in refused.
+	unencrypted is the user's choice to send it so where encryption can no
+	longer be had. Answers False where it could not go."""
 	acc = chat_account(chat)
 	if not acc:
 		return False
@@ -2979,7 +3064,7 @@ def remote_send(chat, message_id, body, attachments, unsent=None):
 		message = mochi.db.row("select * from messages where id=?", message_id)
 		if acc["network"] == "mastodon":
 			return mastodon_send(chat, acc, message, attachments, unsent)
-		return linked_send(chat, acc, message, attachments, unsent)
+		return linked_send(chat, acc, message, attachments, unsent, unencrypted, refused)
 	note = remote_note(chat, acc, {"id": message_id, "body": body, "created": mochi.time.now()})
 	if not note:
 		return False
@@ -3149,7 +3234,7 @@ def direct_received(acc, identity, actor, activity, object):
 			body = (body + "\n" + link).strip()
 	if not body or not mochi.text.valid(body, "text"):
 		return
-	body = body[:10000]
+	body = message_cut(body)
 	created = mochi.time.parse(str(object.get("published", "") or "")) or mochi.time.now()
 	now = mochi.time.now()
 	if created > now + 86400 or created < now - 31536000:
@@ -3178,7 +3263,7 @@ def direct_updated(actor, object):
 	body = html_text(object.get("content", ""))
 	if not body or not mochi.text.valid(body, "text"):
 		return
-	mochi.db.execute("update messages set body=?, edited=? where id=?", body[:10000], edit_time(message["edited"]), message["id"])
+	mochi.db.execute("update messages set body=?, edited=? where id=?", message_cut(body), edit_time(message["edited"]), message["id"])
 	chat_ensure_commit_hook()
 	mochi.db.commit.fire("messages", "update", message["id"])
 
@@ -3271,6 +3356,13 @@ def chat_schema_names():
 	column_add("chats", "renamed", "integer not null default 0")
 	column_add("chats", "renamer", "text not null default ''")
 
+def chat_schema_warning():
+	"""The warning a message from a Matrix conversation is shown with, at
+	creation and by the migration alike: "distrusted" where it was read from
+	a device the user distrusted, "mismatched" from one whose keys are not
+	those it was sent with, else empty."""
+	column_add("messages", "warning", "text not null default ''")
+
 def chat_schema_encryption():
 	"""The column of phase 27, at creation and by the migration alike: the
 	encrypted content a file went as to an XMPP conversation, which a hosted
@@ -3316,6 +3408,18 @@ def chat_accounts():
 			acc["network"] = network
 			out.append(acc)
 	return out
+
+# The provider an existing account on a network is linked through, where it
+# is not the network's own name.
+LINKED_THROUGH = {"fediverse": "mastodon"}
+
+def networks_offered(names):
+	"""Of the networks named, those the server offers the user an account on:
+	it hosts accounts there, or an existing one there may be linked. New chat
+	shows a way to set one up on each the user has no account on."""
+	hosted = mochi.account.networks() or []
+	linkable = [p.get("type") for p in (mochi.account.providers() or []) if p.get("link")]
+	return [n for n in names if n in hosted or LINKED_THROUGH.get(n, n) in linkable]
 
 def account_entry(acc):
 	"""An account as the client lists it."""
@@ -3407,6 +3511,7 @@ def linked_chat_make(acc, name, room, me, my_name, people, status="active"):
 	mochi.db.execute("insert or ignore into members ( chat, member, name ) values ( ?, ?, ? )", chat, me, my_name)
 	for person in people:
 		mochi.db.execute("insert or ignore into members ( chat, member, name ) values ( ?, ?, ? )", chat, person[0], person[1][:200])
+	chats_changed()
 	return mochi.db.row("select * from chats where id=?", chat)
 
 def linked_join(a, acc, address):
@@ -3569,6 +3674,7 @@ def linked_rejoin(chat, me, my_name):
 	again."""
 	mochi.db.execute("update chats set status='active' where id=?", chat["id"])
 	mochi.db.execute("insert or ignore into members ( chat, member, name ) values ( ?, ?, ? )", chat["id"], me, my_name)
+	chats_changed()
 
 def linked_find(acc, conversation):
 	"""The conversation on an account an id names: a room by its id, else a
@@ -3675,6 +3781,10 @@ def function_linked_receive(context, account, network, events):
 			linked_member(acc, event)
 		elif kind == "invite":
 			linked_invite(acc, identity, event)
+		elif kind == "named":
+			linked_named(acc, event)
+		elif kind == "verification":
+			linked_verification(acc, event)
 	return None
 
 def function_linked_accept(context, account, network, person):
@@ -3772,6 +3882,14 @@ def linked_body(acc, chat, event):
 			break
 	return text
 
+# The warnings core reads a Matrix message with.
+WARNINGS = ("distrusted", "mismatched")
+
+def linked_warning(event):
+	"""The warning a message from another network is shown with, or empty."""
+	warning = str(event.get("warning", "") or "")
+	return warning if warning in WARNINGS else ""
+
 def linked_received(acc, identity, event):
 	"""A message: kept in its conversation, which is made where it is new, and
 	the user told; one the user sent from elsewhere is theirs."""
@@ -3819,12 +3937,13 @@ def linked_received(acc, identity, event):
 	name = name["name"] if name else ""
 	encrypted = event.get("encrypted") == True
 	# How it came: 0 readable, 1 encrypted, 2 encrypted before the account's
-	# device was made, 3 encrypted for other devices only. The last two can
-	# never be read here.
+	# device was made, 3 encrypted for other devices only, 4 from a device
+	# whose key changed from the one the user decided on, 5 from a device the
+	# user distrusted. The last four are not read here.
 	sealed = 1 if encrypted else 0
 	if encrypted and network == "xmpp":
-		sealed = {"before": 2, "excluded": 3}.get(event.get("unreadable"), 1)
-	body = linked_body(acc, chat, event)[:10000]
+		sealed = {"before": 2, "excluded": 3, "changed": 4, "distrusted": 5}.get(event.get("unreadable"), 1)
+	body = message_cut(linked_body(acc, chat, event))
 	if body and not mochi.text.valid(body, "text"):
 		return
 	created = event.get("created", 0)
@@ -3839,7 +3958,7 @@ def linked_received(acc, identity, event):
 			return
 	id = mochi.uid()
 	files = [f for f in listed(event.get("files")) if type(f) == "dict"][:FILES_MAXIMUM]
-	body = linked_fetched(acc, chat, id, files, body)
+	body = linked_fetched(acc, chat, id, remote, files, body)
 	if not body and not files and not encrypted:
 		return
 	thread = ""
@@ -3852,7 +3971,7 @@ def linked_received(acc, identity, event):
 	payload = str(event.get("payload", "") or "") if encrypted and network == "xmpp" else ""
 	if len(payload) > PAYLOAD_MAXIMUM:
 		payload = ""
-	mochi.db.execute("insert into messages ( id, chat, member, name, body, created, reply, remote, encrypted, thread, payload ) values ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )", id, chat["id"], member, name, body, created, reply["id"] if reply else None, remote, sealed, thread, payload)
+	mochi.db.execute("insert into messages ( id, chat, member, name, body, created, reply, remote, encrypted, thread, payload, warning ) values ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )", id, chat["id"], member, name, body, created, reply["id"] if reply else None, remote, sealed, thread, payload, linked_warning(event))
 	if network == "xmpp":
 		for f in files:
 			link = str(f.get("url", "") or "")
@@ -3876,21 +3995,22 @@ def linked_received(acc, identity, event):
 		excerpt = body.strip()[:80] if body or files else mochi.app.label("messages.encrypted")
 		notify("message", chat["id"], mochi.app.label("notifications.title.message"), mochi.app.label("notifications.body.message", author=name, excerpt=excerpt), "/chat/" + chat["id"], chat["name"], event_id="message:" + id)
 
-def linked_fetched(acc, chat, id, files, body):
+def linked_fetched(acc, chat, id, remote, files, body):
 	"""The files a message came with, fetched through the account and kept as
 	the message's attachments; the address of one that could not be is added
-	to its text, which is answered."""
+	to its text, which is answered. The message is named by its id on the
+	network, so a file it carried encrypted opens with its own key."""
 	object = "chat/" + chat["id"] + "/" + id
 	for f in files:
 		link = str(f.get("url", "") or "")
 		if not remote_ok(link):
 			continue
-		fetched = mochi.account.media(acc["id"], link)
+		fetched = mochi.account.media(acc["id"], link, event=remote)
 		kept = None
 		if fetched and fetched.get("status") == 200 and fetched.get("data"):
 			kept = attachment_create(object, str(f.get("name", "") or "file")[:200], fetched["data"], content_type=str(fetched.get("type", "") or f.get("type", "") or "").split(";")[0], description=str(f.get("description", "") or "")[:1000])
 		if not kept:
-			body = (body + "\n" + link).strip()[:10000]
+			body = message_cut((body + "\n" + link).strip())
 	return body
 
 def linked_decrypted(acc, identity, event):
@@ -3904,40 +4024,59 @@ def linked_decrypted(acc, identity, event):
 	chat = mochi.db.row("select * from chats where id=?", message["chat"])
 	if not chat:
 		return
-	body = linked_body(acc, chat, event)[:10000]
+	body = message_cut(linked_body(acc, chat, event))
 	if body and not mochi.text.valid(body, "text"):
 		return
 	files = [f for f in listed(event.get("files")) if type(f) == "dict"][:FILES_MAXIMUM]
-	body = linked_fetched(acc, chat, message["id"], files, body)
+	body = linked_fetched(acc, chat, message["id"], message["remote"], files, body)
 	if not body and not files:
 		return
-	mochi.db.execute("update messages set body=? where id=?", body, message["id"])
+	mochi.db.execute("update messages set body=?, warning=? where id=?", body, linked_warning(event), message["id"])
 	chat_ensure_commit_hook()
 	mochi.db.commit.fire("messages", "update", message["id"])
+
+def linked_verification(acc, event):
+	"""A Matrix account's emoji verification changed, as core tells it: the
+	user's open pages are told to read the verifications again, rather than
+	asking every few seconds. A frame of its own, like typing, since chat
+	keeps no row for it."""
+	flow = str(event.get("flow", "") or "")
+	phase = str(event.get("phase", "") or "")
+	if not flow or phase not in ("requested", "ready", "compare", "confirmed", "done", "cancelled"):
+		return
+	chat_websocket(USER_KEY, {"event": "verification", "account": acc["id"], "flow": flow, "phase": phase})
 
 def linked_sender(identity, event):
 	"""Who an event says acted: the user where it was them."""
 	return identity["id"] if event.get("own") == True else str(event.get("from", "") or "")
 
 def linked_edited(acc, identity, event):
-	"""A new version of a message, from whoever sent it."""
+	"""A new version of a message, from whoever sent it. An XMPP message that
+	came encrypted is changed only by a version that came encrypted too: one
+	in the clear is anyone's on the way. Core says how each came."""
 	message = linked_message_of(acc, event.get("id"))
 	if not message or mochi.db.exists("select 1 from deletions where message=?", message["id"]):
 		return
 	sender = linked_sender(identity, event)
 	if sender and message["member"] != sender:
 		return
+	if acc["network"] == "xmpp" and message.get("encrypted") and event.get("encrypted") == False:
+		return
 	chat = mochi.db.row("select * from chats where id=?", message["chat"])
-	body = linked_body(acc, chat, event)[:10000]
+	body = message_cut(linked_body(acc, chat, event))
 	if not body or not mochi.text.valid(body, "text") or body == message["body"]:
 		return
-	mochi.db.execute("update messages set body=?, edited=? where id=?", body, edit_time(message["edited"]), message["id"])
+	# The warning is the new version's: the text shown is the one it came
+	# with.
+	mochi.db.execute("update messages set body=?, edited=?, warning=? where id=?", body, edit_time(message["edited"]), linked_warning(event), message["id"])
 	chat_ensure_commit_hook()
 	mochi.db.commit.fire("messages", "update", message["id"])
 
 def linked_withdrawn(acc, identity, event):
-	"""A message withdrawn: by whoever sent it, or in a room by whoever the
-	room lets; or a reaction withdrawn, by the id it has on Matrix."""
+	"""A message withdrawn: by whoever sent it, or in a room by the room's
+	moderation, which core marks (moderated) where the room said so from its
+	own address, or on Matrix where the room's rules allowed its sender; or a
+	reaction withdrawn, by the id it has on Matrix."""
 	remote = str(event.get("id", "") or "")
 	reacted = mochi.db.row("select r.chat, r.message, r.member from reactions r join chats c on c.id=r.chat where c.account=? and r.remote=?", acc["id"], remote) if remote else None
 	if reacted:
@@ -3948,7 +4087,17 @@ def linked_withdrawn(acc, identity, event):
 		return
 	chat = mochi.db.row("select * from chats where id=?", message["chat"])
 	sender = linked_sender(identity, event)
-	if sender and message["member"] != sender and not chat.get("room"):
+	moderated = event.get("moderated")
+	if moderated == True:
+		# The room's own word, for a message of that room alone.
+		if not chat.get("room") or chat["room"] != str(event.get("conversation", "") or ""):
+			return
+	elif moderated == None:
+		# A core that does not yet say which withdrawals are moderation: the
+		# rule before it did.
+		if sender and message["member"] != sender and not chat.get("room"):
+			return
+	elif sender and message["member"] != sender:
 		return
 	message_delete_apply(message["chat"], message["id"], sender or message["member"], mochi.time.now())
 
@@ -3974,14 +4123,26 @@ def linked_reacted(acc, identity, event):
 		mochi.db.execute("update reactions set remote=? where chat=? and message=? and member=?", str(event.get("event", "") or "")[:REMOTE_MAXIMUM], message["chat"], message["id"], member)
 
 def linked_sent(acc, event):
-	"""The id a room gave a message the user sent, by which the room knows it."""
+	"""The id a room gave a message the user sent, by which the room knows it.
+	The room's copy can come back before the send has kept the message's own
+	id, so the message is also found by the key chat sent it under."""
 	chat = linked_find(acc, event.get("conversation"))
 	archive = str(event.get("archive", "") or "")[:REMOTE_MAXIMUM]
 	if not chat or not archive:
 		return
-	message = linked_local(chat["id"], str(event.get("id", "") or ""))
+	remote = str(event.get("id", "") or "")
+	message = linked_local(chat["id"], remote) or linked_keyed(chat["id"], remote)
 	if message:
 		mochi.db.execute("insert or ignore into parts ( message, remote, kind ) values ( ?, ?, 'archive' )", message["id"], archive)
+
+def linked_keyed(chat_id, remote):
+	"""The message of a conversation an id names that chat sent it under -
+	chat| and the message's id, then a file's - which XMPP keeps as the
+	message's id; or None."""
+	keyed = remote.split("|")
+	if len(keyed) < 2 or keyed[0] != "chat" or not mochi.text.valid(keyed[1], "id"):
+		return None
+	return mochi.db.row("select id, thread from messages where chat=? and id=?", chat_id, keyed[1])
 
 def linked_typing(acc, event):
 	"""Someone typing in a conversation, or stopped: shown on its open tabs."""
@@ -4099,6 +4260,21 @@ def linked_invite(acc, identity, event):
 		mochi.db.execute("update chats set kind='direct' where id=?", chat["id"])
 	notify("invite", chat["id"], mochi.app.label("notifications.title.invite"), mochi.app.label("notifications.body.invite", name=name), "/chat/" + chat["id"], name, event_id="invite:" + acc["id"] + ":" + conversation)
 
+def linked_named(acc, event):
+	"""The name a room gave once asked, which its invitation, delivered
+	without waiting for it, did not carry: the invitation still waiting for
+	the user takes it."""
+	conversation = str(event.get("conversation", "") or "")[:REMOTE_MAXIMUM]
+	name = linked_name(event.get("name"), "")
+	if not conversation or not name:
+		return
+	chat = mochi.db.row("select * from chats where account=? and room=? and status='invited'", acc["id"], conversation)
+	if not chat or name == chat["name"]:
+		return
+	mochi.db.execute("update chats set name=? where id=?", name, chat["id"])
+	chat_websocket(chat["key"], {"event": "rename", "name": name})
+	chats_changed()
+
 # --- What goes out ---
 
 def linked_mentions(chat):
@@ -4131,13 +4307,17 @@ def mastodon_send(chat, acc, message, attachments, unsent=None):
 	mochi.db.execute("update messages set remote=? where id=?", str(result["id"]), message["id"])
 	return True
 
-def linked_send(chat, acc, message, attachments, unsent=None):
+def linked_send(chat, acc, message, attachments, unsent=None, unencrypted=False, refused=None):
 	"""A message of an XMPP or Matrix conversation: its text, then each file
 	as one more message, the first kept as the message's id there and the
-	rest as its further ids."""
+	rest as its further ids. An XMPP conversation that was encrypted and can
+	no longer be encrypted to everyone in it refuses the message, which
+	refused is told of, unless the user chose to send it unencrypted: its
+	files then go up unencrypted too."""
 	target = linked_target(chat)
 	if not target:
 		return False
+	clear = unencrypted and acc["network"] == "xmpp"
 	sent = ""
 	if message["body"]:
 		object = {"conversation": target, "content": message["body"]}
@@ -4147,7 +4327,11 @@ def linked_send(chat, acc, message, attachments, unsent=None):
 		thread = linked_remote(chat["id"], message.get("thread"))
 		if thread:
 			object["thread"] = thread
+		if clear:
+			object["unencrypted"] = True
 		result = mochi.account.object.create(acc["id"], object, key="chat|" + message["id"])
+		if result and result.get("refused") == "unencrypted" and refused != None:
+			refused.append("unencrypted")
 		if not result or not result.get("id"):
 			return False
 		sent = str(result["id"])
@@ -4157,13 +4341,19 @@ def linked_send(chat, acc, message, attachments, unsent=None):
 			mochi.db.execute("update messages set encrypted=1, payload=? where id=?", str(result["payload"])[:PAYLOAD_MAXIMUM], message["id"])
 	for att in attachments or []:
 		data = mochi.file.read(attachment_filename(att["id"], att["name"]), mochi.file.maximum())
-		# A file for an encrypted conversation is uploaded encrypted.
-		uploaded = mochi.account.upload(acc["id"], data, str(att.get("type", "") or att.get("content_type", "") or ""), name=att["name"], conversation=target) if data != None else None
+		# A file for an encrypted conversation is uploaded encrypted, unless
+		# the user chose to send it unencrypted.
+		uploaded = mochi.account.upload(acc["id"], data, str(att.get("type", "") or att.get("content_type", "") or ""), name=att["name"], conversation="" if clear else target) if data != None else None
 		if not uploaded or uploaded.get("error"):
 			if unsent != None:
 				unsent.append(unsent_entry(att, uploaded))
 			uploaded = None
-		result = mochi.account.object.create(acc["id"], {"conversation": target, "file": uploaded}, key="chat|" + message["id"] + "|" + att["id"]) if uploaded else None
+		object = {"conversation": target, "file": uploaded}
+		if clear:
+			object["unencrypted"] = True
+		result = mochi.account.object.create(acc["id"], object, key="chat|" + message["id"] + "|" + att["id"]) if uploaded else None
+		if result and result.get("refused") == "unencrypted" and refused != None and not sent:
+			refused.append("unencrypted")
 		if not result or not result.get("id"):
 			if not sent:
 				return False
@@ -4252,7 +4442,16 @@ def action_encryption_trust(a):
 	if trust not in ("verified", "distrusted", "undecided"):
 		a.error.label(400, "errors.invalid_preference")
 		return
-	mochi.account.encryption.trust(acc["id"], person, a.input("device", ""), trust)
+	# The fingerprint the user compared, which an XMPP device's word is held
+	# to: one whose identity changed since is not decided on unseen.
+	fingerprint = a.input("fingerprint", "")
+	if fingerprint:
+		result = mochi.account.encryption.trust(acc["id"], person, a.input("device", ""), trust, fingerprint=fingerprint)
+	else:
+		result = mochi.account.encryption.trust(acc["id"], person, a.input("device", ""), trust)
+	if type(result) == "dict" and result.get("refused") == "changed":
+		a.error.label(409, "errors.identity_changed")
+		return
 	return {"data": {}}
 
 def action_encryption_verify(a):
@@ -4303,6 +4502,13 @@ def action_encryption_recover(a):
 		a.error.label(400, "errors.recovery_refused")
 		return
 	result = mochi.account.encryption.recover(acc["id"], key)
+	# Read before refused, which core also gives with them for one release.
+	if result.get("missing"):
+		a.error.label(409, "errors.recovery_missing")
+		return
+	if result.get("failed"):
+		a.error.label(502, "errors.recovery_failed", reason=str(result["failed"])[:500])
+		return
 	if result.get("refused"):
 		a.error.label(400, "errors.recovery_refused")
 		return
@@ -4429,6 +4635,7 @@ def action_accept(a):
 		a.error.label(502, "errors.join_failed")
 		return
 	mochi.db.execute("update chats set status='active', updated=? where id=?", mochi.time.now(), chat["id"])
+	chats_changed()
 	return {"data": {"id": chat["id"]}}
 
 def action_decline(a):
@@ -4684,7 +4891,7 @@ def bridge_received(chat, identity, event):
 	if mochi.db.exists("select 1 from messages where chat=? and remote=?", chat["id"], remote):
 		return
 	name = mochi.db.row("select name from members where chat=? and member=?", chat["id"], sender)["name"]
-	body = str(event.get("body", "") or "")[:10000]
+	body = message_cut(str(event.get("body", "") or ""))
 	if body and not mochi.text.valid(body, "text"):
 		return
 	created = event.get("created", 0)
@@ -4733,7 +4940,7 @@ def bridge_edited(chat, identity, event):
 	"""A person from Matrix or XMPP's edit of their message, passed on."""
 	sender = str(event.get("from", "") or "")
 	message = bridge_message(chat, event.get("id"))
-	body = str(event.get("body", "") or "")[:10000]
+	body = message_cut(str(event.get("body", "") or ""))
 	if not message or message["member"] != sender or not body or not mochi.text.valid(body, "text") or body == message["body"]:
 		return
 	if mochi.db.exists("select 1 from deletions where message=?", message["id"]):
@@ -4909,7 +5116,7 @@ def event_bridge_message(e):
 	if created == None or created > now + 86400 or created < now - 31536000 * 20:
 		return
 	body = content_text(e, "body", "")
-	if not mochi.text.valid(body, "text") or len(body) > 10000:
+	if not mochi.text.valid(body, "text") or message_long(body):
 		return
 	reply = content_text(e, "reply", "")
 	if reply and not mochi.db.exists("select 1 from messages where id=? and chat=?", reply, chat["id"]):
@@ -4937,7 +5144,7 @@ def event_bridge_edit(e):
 	message = mochi.db.row("select * from messages where id=? and chat=?", content_text(e, "message", ""), chat["id"])
 	body = content_text(e, "body", "")
 	edited = content_number(e, "edited", 0)
-	if not message or message["member"] != member or not body or not mochi.text.valid(body, "text") or len(body) > 10000 or edited <= (message["edited"] or 0):
+	if not message or message["member"] != member or not body or not mochi.text.valid(body, "text") or message_long(body) or edited <= (message["edited"] or 0):
 		return
 	if mochi.db.exists("select 1 from deletions where message=?", message["id"]):
 		return

@@ -94,11 +94,6 @@ msgstr "{0, plural, one {# ఎంచుకోబడింది} other {# ఎం
 msgid "{0, plural, one {+# nested} other {+# nested}}"
 msgstr "{0, plural, one {+# లోపలిది} other {+# లోపలివి}}"
 
-#. placeholder {0}: size - maximum
-#: src/features/chats/utils.ts
-msgid "{0, plural, one {Message is # byte too long} other {Message is # bytes too long}}"
-msgstr ""
-
 #. placeholder {0}: r.label
 #: src/features/chats/components/message-reaction-bar.tsx
 msgid "{0} (includes you)"
@@ -161,6 +156,10 @@ msgstr "{newMessageCount, plural, one {# కొత్త సందేశాన�
 #: ../../../lib/web/src/components/game/game-draw-offer-banner.tsx
 msgid "{opponentName} offered a draw"
 msgstr "{opponentName} డ్రా అందించారు"
+
+#: src/features/chats/utils.ts
+msgid "{over, plural, one {Message is {count} character too long} other {Message is {count} characters too long}}"
+msgstr "{over, plural, one {సందేశం {count} అక్షరం ఎక్కువగా ఉంది} other {సందేశం {count} అక్షరాలు ఎక్కువగా ఉంది}}"
 
 #: ../../../lib/web/src/components/attachment-composer.tsx
 #: ../../../lib/web/src/components/ui/upload-progress.tsx
@@ -568,6 +567,7 @@ msgstr "బైనరీ ఫైల్ చూపబడలేదు"
 msgid "Block {name}"
 msgstr "{name}ని బ్లాక్ చేయండి"
 
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx
 msgid "Blocked by"
@@ -578,6 +578,7 @@ msgstr "నిరోధించినది"
 msgid "Blocked navigation to untrusted link"
 msgstr "నమ్మదగని లింక్‌కి నావిగేషన్ నిరోధించబడింది"
 
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx
 msgid "Blocks"
 msgstr "నిరోధిస్తుంది"
@@ -647,6 +648,7 @@ msgstr "కెమెరా అందుబాటులో లేదు"
 #: src/features/chats/components/verification-watcher.tsx
 #: src/features/chats/components/verification-watcher.tsx
 #: src/features/chats/index.tsx
+#: src/features/chats/share-page.tsx
 msgid "Cancel"
 msgstr "రద్దు చేయండి"
 
@@ -692,6 +694,10 @@ msgstr "మార్చబడింది"
 #: ../../../lib/web/src/components/entity/entity-activity-list.tsx
 msgid "Changed {field}"
 msgstr "{field} మార్చబడింది"
+
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx
+msgid "Changed class"
+msgstr "తరగతి మార్చబడింది"
 
 #: ../../../lib/web/src/components/calendar/month-grid.tsx
 #: ../../../lib/web/src/components/calendar/time-grid.tsx
@@ -833,6 +839,7 @@ msgstr "అన్నీ క్లియర్ చేయండి"
 #: ../../../lib/web/src/components/search-input.tsx
 #: src/components/layout/chat-list-filters.tsx
 #: src/features/chats/components/forward-dialog.tsx
+#: src/features/chats/share-page.tsx
 #: src/routes/_authenticated/$chatId_.settings.tsx
 msgid "Clear search"
 msgstr "శోధనను క్లియర్ చేయండి"
@@ -983,10 +990,12 @@ msgstr "{providerLabel} తో కొనసాగించండి"
 
 #: ../../../lib/web/src/lib/toast-utils.ts
 #: src/features/chats/index.tsx
+#: src/features/chats/index.tsx
 msgid "Copied"
 msgstr "కాపీ అయింది"
 
 #: ../../../lib/web/src/components/comment-share-button.tsx
+#: ../../../lib/web/src/components/share-menu.tsx
 #: ../../../lib/web/src/components/ui/copy-button.tsx
 #: src/features/chats/components/thread-panel.tsx
 msgid "Copied to clipboard"
@@ -1001,6 +1010,7 @@ msgstr "క్లిప్‌బోర్డ్‌కి కాపీ చేయ�
 #: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx
 #: ../../../lib/web/src/components/ui/copy-button.tsx
 #: src/features/chats/components/message-hover-actions.tsx
+#: src/features/chats/components/unsent-message.tsx
 #: src/features/chats/index.tsx
 msgid "Copy"
 msgstr "కాపీ చేయండి"
@@ -1256,6 +1266,7 @@ msgid "Disagree"
 msgstr "ఏకీభవించను"
 
 #: ../../../lib/web/src/components/comment-composer.tsx
+#: src/features/chats/components/unsent-message.tsx
 msgid "Discard"
 msgstr "విస్మరించు"
 
@@ -1323,6 +1334,7 @@ msgstr "డౌన్‌లోడ్ విఫలమైంది"
 msgid "Draft"
 msgstr "డ్రాఫ్ట్"
 
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx
 msgid "Duplicates"
 msgstr "నకలు చేస్తుంది"
@@ -1395,13 +1407,11 @@ msgstr "ఇమెయిల్"
 msgid "Email code"
 msgstr "ఇమెయిల్ కోడ్"
 
-#: src/features/chats/components/message-bubble.tsx
-#: src/features/chats/components/thread-replies.tsx
+#: src/features/chats/components/sealed-text.tsx
 msgid "Encrypted for other devices only"
 msgstr "ఇతర పరికరాల కోసం మాత్రమే ఎన్‌క్రిప్ట్ చేయబడింది"
 
-#: src/features/chats/components/message-bubble.tsx
-#: src/features/chats/components/thread-replies.tsx
+#: src/features/chats/components/sealed-text.tsx
 msgid "Encrypted message"
 msgstr "ఎన్‌క్రిప్ట్ చేసిన సందేశం"
 
@@ -1464,9 +1474,11 @@ msgid "Failed to add member"
 msgstr "సభ్యుని జోడించడంలో విఫలమైంది"
 
 #: ../../../lib/web/src/components/comment-share-button.tsx
+#: ../../../lib/web/src/components/share-menu.tsx
 #: ../../../lib/web/src/components/ui/copy-button.tsx
 #: ../../../lib/web/src/lib/toast-utils.ts
 #: src/features/chats/components/thread-panel.tsx
+#: src/features/chats/index.tsx
 #: src/features/chats/index.tsx
 msgid "Failed to copy"
 msgstr "కాపీ చేయడంలో విఫలమైంది"
@@ -1482,7 +1494,8 @@ msgid "Failed to create chat"
 msgstr "చాట్‌ను సృష్టించడంలో విఫలమైంది"
 
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx
-#: ../../../lib/web/src/components/options-menu.tsx
+#: ../../../lib/web/src/components/share-menu.tsx
+#: ../../../lib/web/src/components/share-menu.tsx
 msgid "Failed to create link"
 msgstr "లింక్‌ను సృష్టించడంలో విఫలమైంది"
 
@@ -1903,12 +1916,12 @@ msgstr "లైట్"
 msgid "Like"
 msgstr "ఇష్టం"
 
-#: ../../../lib/web/src/components/options-menu.tsx
 #: src/features/chats/components/formatting-toolbar.tsx
 #: src/features/chats/components/link-dialog.tsx
 msgid "Link"
 msgstr "లింక్"
 
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx
 msgid "Links"
 msgstr "లింక్‌లు"
@@ -2126,10 +2139,6 @@ msgstr "మరిన్ని ఎంపికలు"
 msgid "Moved"
 msgstr "తరలించబడింది"
 
-#: ../../../lib/web/src/components/entity/entity-activity-list.tsx
-msgid "Moved {field}"
-msgstr "{field} తరలించబడింది"
-
 #. placeholder {0}: dayName(dragging.day)
 #. placeholder {0}: dayName(opening(current, format.zonedDay))
 #: ../../../lib/web/src/components/calendar/month-grid.tsx
@@ -2187,6 +2196,7 @@ msgstr "సరికొత్తవి"
 #: src/features/chats/components/chat-empty-state.tsx
 #: src/features/chats/components/chat-empty-state.tsx
 #: src/features/chats/components/new-chat.tsx
+#: src/features/chats/share-page.tsx
 msgid "New chat"
 msgstr "కొత్త చాట్"
 
@@ -2212,6 +2222,10 @@ msgstr "తదుపరి నెల"
 msgid "Next year"
 msgstr "తదుపరి సంవత్సరం"
 
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx
+msgid "No"
+msgstr "కాదు"
+
 #: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx
 msgid "No {parentClassNames} to add to"
 msgstr "జోడించడానికి {parentClassNames} లేదు"
@@ -2229,6 +2243,8 @@ msgid "No changes to display"
 msgstr "ప్రదర్శించడానికి మార్పులు లేవు"
 
 #: src/components/layout/chat-list-filters.tsx
+#: src/features/chats/share-page.tsx
+#: src/features/chats/share-page.tsx
 msgid "No chats"
 msgstr "చాట్‌లు లేవు"
 
@@ -2693,6 +2709,7 @@ msgstr "లాగిన్‌కు రీడైరెక్ట్ చేస్�
 msgid "Reduce interest"
 msgstr "ఆసక్తిని తగ్గించండి"
 
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx
 msgid "Relates"
 msgstr "సంబంధితం"
@@ -2858,6 +2875,7 @@ msgid "Restore"
 msgstr "పునరుద్ధరించండి"
 
 #: ../../../lib/web/src/components/attachment-composer.tsx
+#: src/features/chats/components/unsent-message.tsx
 msgid "Retry"
 msgstr "మళ్లీ ప్రయత్నించండి"
 
@@ -2940,6 +2958,7 @@ msgstr "శోధన"
 #: src/components/layout/chat-list-filters.tsx
 #: src/components/layout/chat-list-filters.tsx
 #: src/features/chats/components/forward-dialog.tsx
+#: src/features/chats/share-page.tsx
 msgid "Search chats"
 msgstr "చాట్‌లను శోధించండి"
 
@@ -3081,6 +3100,11 @@ msgstr "ఇమెయిల్ పంపండి"
 msgid "Send friend request"
 msgstr "స్నేహ అభ్యర్థనను పంపండి"
 
+#: src/features/chats/share-page.tsx
+#: src/features/chats/share-page.tsx
+msgid "Send in a chat"
+msgstr "చాట్‌లో పంపండి"
+
 #: ../../../lib/web/src/components/game/game-chat-input.tsx
 #: ../../../lib/web/src/components/game/game-chat-input.tsx
 #: src/features/chats/components/chat-input.tsx
@@ -3092,10 +3116,25 @@ msgstr "సందేశాన్ని పంపండి"
 msgid "Send read receipts"
 msgstr "చదివిన రసీదులను పంపండి"
 
+#: src/features/chats/components/chat-input.tsx
+#: src/features/chats/components/thread-panel.tsx
+#: src/features/chats/components/unsent-message.tsx
+msgid "Send unencrypted"
+msgstr "ఎన్‌క్రిప్షన్ లేకుండా పంపండి"
+
 #: src/features/chats/components/message-bubble.tsx
 msgctxt "receipt"
 msgid "Sent"
 msgstr "పంపబడింది"
+
+#: src/features/chats/components/message-bubble.tsx
+msgid "Sent from a device whose keys do not match"
+msgstr "కీలు సరిపోలని పరికరం నుండి పంపబడింది"
+
+#: src/features/chats/components/message-bubble.tsx
+#: src/features/chats/components/sealed-text.tsx
+msgid "Sent from a device you distrusted"
+msgstr "మీరు విశ్వసించని పరికరం నుండి పంపబడింది"
 
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Serif"
@@ -3119,6 +3158,10 @@ msgstr "సెషన్ గడువు ముగిసింది. దయచ�
 msgid "Set origin and destination"
 msgstr "మూలం మరియు గమ్యస్థానాన్ని సెట్ చేయండి"
 
+#: src/features/chats/components/new-chat.tsx
+msgid "Set up"
+msgstr "సెటప్ చేయండి"
+
 #: src/features/chats/components/encryption-section.tsx
 #: src/features/chats/components/encryption-section.tsx
 #: src/features/chats/components/encryption-section.tsx
@@ -3137,6 +3180,7 @@ msgstr "సెట్టింగ్‌లు సేవ్ చేయబడ్డ�
 
 #: ../../../lib/web/src/components/comment-share-button.tsx
 #: ../../../lib/web/src/components/comment-share-button.tsx
+#: ../../../lib/web/src/components/share-menu.tsx
 msgid "Share"
 msgstr "పంచుకోండి"
 
@@ -3365,6 +3409,10 @@ msgstr "పాస్‌వర్డ్ అంగీకరించబడలే�
 msgid "The requested content could not be found."
 msgstr "అభ్యర్థించిన కంటెంట్ కనుగొనబడలేదు."
 
+#: src/features/chats/components/sealed-text.tsx
+msgid "The sender's encryption key changed"
+msgstr "పంపినవారి ఎన్‌క్రిప్షన్ కీ మారింది"
+
 #: ../../../lib/web/src/lib/api-response-interceptors.ts
 msgid "The server returned a web page instead of data."
 msgstr "సర్వర్ డేటాకు బదులుగా వెబ్ పేజీని అందించింది."
@@ -3491,6 +3539,10 @@ msgstr "చాలా ఎక్కువ అభ్యర్థనలు"
 msgid "Top"
 msgstr "ఉత్తమమైనవి"
 
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx
+msgid "Top level"
+msgstr "టాప్ లెవల్"
+
 #: ../../../lib/web/src/components/travelling-picker.tsx
 msgid "Travelling"
 msgstr "ప్రయాణిస్తోంది"
@@ -3564,6 +3616,11 @@ msgid "United States"
 msgstr "యునైటెడ్ స్టేట్స్"
 
 #: ../../../lib/web/src/components/audit-timeline.tsx
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx
+#: ../../../lib/web/src/components/entity/entity-board-card.tsx
 #: ../../../lib/web/src/components/entity/entity-field-dialog.tsx
 #: ../../../lib/web/src/components/tree-row.tsx
 #: ../../../lib/web/src/components/tree-row.tsx
@@ -3729,6 +3786,10 @@ msgstr "బుధవారం"
 #: ../../../lib/web/src/components/calendar/date-header.tsx
 msgid "Year"
 msgstr "సంవత్సరం"
+
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx
+msgid "Yes"
+msgstr "అవును"
 
 #: src/features/chats/index.tsx
 msgid "You"

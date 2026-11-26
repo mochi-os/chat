@@ -26,13 +26,15 @@ import {
   Skeleton,
   PersonPicker,
   GeneralError,
+  NetworkSetup,
+  providerName,
   shellNavigateExternal,
   type Person,
   naturalCompare,
 } from '@mochi/web'
 import { MessageCircle, UserPlus } from 'lucide-react'
 import { chatsApi } from '@/api/chats'
-import type { ChatNetwork } from '@/api/types/chats'
+import type { ChatAccount, ChatNetwork } from '@/api/types/chats'
 import { useSidebarContext } from '@/context/sidebar-context'
 import { useNewChatFriendsQuery, useCreateChatMutation } from '@/hooks/useChats'
 import { personAsset } from '../addresses'
@@ -59,6 +61,19 @@ const ADDRESS_FORMS: Record<ChatNetwork, string> = {
   matrix: '@name:server.example',
 }
 
+// The networks the server offers that none of the user's accounts is on: a
+// linked Mastodon account is on the fediverse, as a hosted one is.
+export function unset(offered: string[], accounts: ChatAccount[]): string[] {
+  return offered.filter(
+    (network) =>
+      !accounts.some(
+        (account) =>
+          (account.network === 'mastodon' ? 'fediverse' : account.network) ===
+          network
+      )
+  )
+}
+
 // A create refused by a member's chat policy (403), which admits only their
 // friends, so a friend request is the way in. It names the one person picked
 // who is not a friend - a friend may always be chatted with - and no one
@@ -81,7 +96,11 @@ export function friendRequest(person: string): string {
 export function NewChat() {
   const { t } = useLingui()
   const navigate = useNavigate()
-  const { newChatDialogOpen: open, closeNewChatDialog } = useSidebarContext()
+  const {
+    newChatDialogOpen: open,
+    closeNewChatDialog,
+    newChatChosen,
+  } = useSidebarContext()
   const onOpenChange = (isOpen: boolean) => {
     if (!isOpen) closeNewChatDialog()
   }
@@ -96,6 +115,8 @@ export function NewChat() {
   // A conversation on one of the user's accounts on another network, with
   // people there by their addresses; '' for Mochi.
   const [account, setAccount] = useState('')
+  // A network chosen that the user has no account on yet, set up from here.
+  const [setup, setSetup] = useState<string | null>(null)
   const [addresses, setAddresses] = useState('')
   // A create the member's chat policy refused, shown in place of the form.
   const [refused, setRefused] = useState<{
@@ -103,9 +124,16 @@ export function NewChat() {
     message: string
   } | null>(null)
 
+  // The chat the dialog ends on opens once its opener has had what it wants
+  // of it.
+  const openChat = async (chatId: string) => {
+    await newChatChosen(chatId)
+    void navigate({ to: '/$chatId', params: { chatId } })
+  }
+
   const handleOpenChat = (chatId: string) => {
     onOpenChange(false)
-    navigate({ to: '/$chatId', params: { chatId } })
+    void openChat(chatId)
   }
 
   const { data, isLoading, error, refetch } = useNewChatFriendsQuery({
@@ -115,6 +143,7 @@ export function NewChat() {
   const createChatMutation = useCreateChatMutation()
 
   const accounts = data?.accounts ?? []
+  const missing = unset(data?.offered ?? [], accounts)
   const network = accounts.find((option) => option.id === account)?.network
   const addressList = addresses
     .split(/[\s,]+/)
@@ -136,9 +165,7 @@ export function NewChat() {
         }
       )
       onOpenChange(false)
-      if (result.id) {
-        void navigate({ to: '/$chatId', params: { chatId: result.id } })
-      }
+      if (result.id) void openChat(result.id)
     } catch {
       // toastAction already showed error
     }
@@ -316,12 +343,7 @@ export function NewChat() {
       }
 
       onOpenChange(false)
-      if (data.id) {
-        void navigate({
-          to: '/$chatId',
-          params: { chatId: data.id },
-        })
-      }
+      if (data.id) void openChat(data.id)
     } catch (error) {
       // toastAction showed anything but a refusal.
       const found = refusal(error, firstBatch)
@@ -344,6 +366,7 @@ export function NewChat() {
       setChatName('')
       setFriendsPickerOpen(false)
       setAccount('')
+      setSetup(null)
       setAddresses('')
       setRefused(null)
     }
@@ -410,15 +433,21 @@ export function NewChat() {
             </ResponsiveDialogHeader>
 
             <div className='space-y-4'>
-              {accounts.length > 0 ? (
+              {accounts.length > 0 || missing.length > 0 ? (
                 <div className='space-y-2'>
                   <label htmlFor='chat-network' className='text-sm font-medium'>
                     <Trans>Network</Trans>
                   </label>
                   <Select
-                    value={account || 'mochi'}
+                    value={setup ? `setup:${setup}` : account || 'mochi'}
                     onValueChange={(value) => {
-                      setAccount(value === 'mochi' ? '' : value)
+                      if (value.startsWith('setup:')) {
+                        setSetup(value.slice('setup:'.length))
+                        setAccount('')
+                      } else {
+                        setSetup(null)
+                        setAccount(value === 'mochi' ? '' : value)
+                      }
                       setSelectedFriends([])
                     }}
                   >
@@ -434,72 +463,80 @@ export function NewChat() {
                             : option.identifier}
                         </SelectItem>
                       ))}
+                      {missing.map((name) => (
+                        <SelectItem key={name} value={`setup:${name}`}>
+                          {providerName(name)}
+                        </SelectItem>
+                      ))}
                     </SelectContent>
                   </Select>
                 </div>
               ) : null}
 
-              {/* Friend Picker */}
-              <div className='space-y-2'>
-                <label className='text-sm font-medium'>
-                  <Trans>People</Trans>
-                </label>
-                {account ? (
-                  <Input
-                    aria-label={t`Addresses`}
-                    placeholder={ADDRESS_FORMS[network ?? 'fediverse']}
-                    value={addresses}
-                    onChange={(event) => setAddresses(event.target.value)}
-                  />
-                ) : isLoading ? (
-                  <Skeleton className='h-9 w-full' />
-                ) : error ? (
-                  <GeneralError
-                    error={error}
-                    minimal
-                    mode='inline'
-                    reset={refetch}
-                  />
-                ) : (
-                  <>
-                    <PersonPicker
-                      presentation='combobox'
-                      mode='multiple'
-                      value={selectedFriends}
-                      onChange={handleFriendsChange}
-                      local={friendsAsPeople}
-                      localLabel={t`Friends`}
-                      directoryFn={searchDirectory}
-                      assetUrl={(person, asset) =>
-                        personAsset(person.id, asset)
-                      }
-                      placeholder=''
-                      label={t`People`}
-                      emptyMessage={t`No people found`}
-                      open={friendsPickerOpen}
-                      onOpenChange={setFriendsPickerOpen}
+              {setup ? (
+                <NetworkSetup network={setup} label={t`Set up`} />
+              ) : (
+                <div className='space-y-2'>
+                  <label className='text-sm font-medium'>
+                    <Trans>People</Trans>
+                  </label>
+                  {account ? (
+                    <Input
+                      aria-label={t`Addresses`}
+                      placeholder={ADDRESS_FORMS[network ?? 'fediverse']}
+                      value={addresses}
+                      onChange={(event) => setAddresses(event.target.value)}
                     />
-                    {friends.length === 0 && (
-                      <div className='flex items-center justify-between rounded-lg border px-3 py-2'>
-                        <p className='text-muted-foreground text-xs'>
-                          <Trans>No friends yet</Trans>
-                        </p>
-                        <Button
-                          variant='outline'
-                          size='xs'
-                          onClick={() => {
-                            onOpenChange(false)
-                            shellNavigateExternal('/people/')
-                          }}
-                        >
-                          <UserPlus className='size-3.5' />
-                          <Trans>Open people</Trans>
-                        </Button>
-                      </div>
-                    )}
-                  </>
-                )}
-              </div>
+                  ) : isLoading ? (
+                    <Skeleton className='h-9 w-full' />
+                  ) : error ? (
+                    <GeneralError
+                      error={error}
+                      minimal
+                      mode='inline'
+                      reset={refetch}
+                    />
+                  ) : (
+                    <>
+                      <PersonPicker
+                        presentation='combobox'
+                        mode='multiple'
+                        value={selectedFriends}
+                        onChange={handleFriendsChange}
+                        local={friendsAsPeople}
+                        localLabel={t`Friends`}
+                        directoryFn={searchDirectory}
+                        assetUrl={(person, asset) =>
+                          personAsset(person.id, asset)
+                        }
+                        placeholder=''
+                        label={t`People`}
+                        emptyMessage={t`No people found`}
+                        open={friendsPickerOpen}
+                        onOpenChange={setFriendsPickerOpen}
+                      />
+                      {friends.length === 0 && (
+                        <div className='flex items-center justify-between rounded-lg border px-3 py-2'>
+                          <p className='text-muted-foreground text-xs'>
+                            <Trans>No friends yet</Trans>
+                          </p>
+                          <Button
+                            variant='outline'
+                            size='xs'
+                            onClick={() => {
+                              onOpenChange(false)
+                              shellNavigateExternal('/people/')
+                            }}
+                          >
+                            <UserPlus className='size-3.5' />
+                            <Trans>Open people</Trans>
+                          </Button>
+                        </div>
+                      )}
+                    </>
+                  )}
+                </div>
+              )}
 
               {/* Existing conversations notice */}
               {existingChats.length > 0 && (
@@ -530,7 +567,7 @@ export function NewChat() {
 
               {/* Chat Name: on another network only a group's, as one
                   person's conversation is named by the server after them. */}
-              {!account || addressList.length > 1 ? (
+              {!setup && (!account || addressList.length > 1) ? (
                 <div className='space-y-2'>
                   <label htmlFor='chat-name' className='text-sm font-medium'>
                     <Trans>Chat name</Trans>

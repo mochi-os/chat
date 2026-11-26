@@ -160,6 +160,7 @@ describe('ThreadPanel', () => {
     expect(calls.send).toHaveBeenCalledWith('c1', {
       body: 'Hello',
       thread: 'r1',
+      unencrypted: false,
     })
     close()
     answer({ id: 'm2' })
@@ -209,12 +210,14 @@ describe('ThreadPanel', () => {
     expect(box()).toHaveTextContent(/^$/)
   })
 
-  it('refuses a reply over the server limit in bytes, not characters', () => {
+  it('refuses a reply over the server limit in code points', () => {
     const { invalidate } = setup()
-    // 3400 Chinese characters are 10200 bytes.
-    type(screen.getByLabelText('Reply in thread'), '你'.repeat(3400))
+    // 10200 emoji are 10200 code points, and twice that in UTF-16 units.
+    type(screen.getByLabelText('Reply in thread'), '😀'.repeat(10200))
     fireEvent.click(screen.getByRole('button', { name: 'Send' }))
-    expect(calls.error).toHaveBeenCalledWith('Message is 200 bytes too long')
+    expect(calls.error).toHaveBeenCalledWith(
+      'Message is 200 characters too long'
+    )
     expect(calls.send).not.toHaveBeenCalled()
     expect(invalidate).not.toHaveBeenCalled()
   })
@@ -456,5 +459,72 @@ describe('ThreadPanel redrawing', () => {
     const before = query.mock.calls.length
     same()
     expect(query.mock.calls.length).toBe(before)
+  })
+})
+
+// A thread stays to read under a message deleted for everyone, but the
+// server takes no reply under it, so the panel offers no box to write one.
+describe('ThreadPanel under a deleted message', () => {
+  it('takes replies under a message that stands', () => {
+    setup()
+    expect(screen.getByLabelText('Reply in thread')).toBeInTheDocument()
+  })
+
+  it('offers no reply box under a deleted message', () => {
+    const { open } = setup()
+    open({ ...root, body: '', deleted: true } as ChatMessage)
+    expect(screen.getByText('This message was deleted')).toBeInTheDocument()
+    expect(screen.queryByLabelText('Reply in thread')).toBeNull()
+  })
+})
+
+// A reply the server refuses for want of encryption goes unencrypted only
+// by the user's choice, as one from the main composer does.
+describe('ThreadPanel reply refused for want of encryption', () => {
+  beforeEach(() => {
+    calls.replies = []
+    calls.send.mockReset()
+    calls.error.mockReset()
+  })
+
+  const refuse = (status: number) => {
+    calls.send
+      .mockRejectedValueOnce(
+        Object.assign(new Error('refused'), { response: { status } })
+      )
+      .mockResolvedValue({ id: 'a1' })
+    setup()
+    type(screen.getByLabelText('Reply in thread'), 'Psst')
+    fireEvent.click(screen.getByRole('button', { name: 'Send' }))
+  }
+
+  it('offers Send unencrypted, and sends unencrypted only when chosen', async () => {
+    refuse(409)
+    const button = await screen.findByRole('button', {
+      name: 'Send unencrypted',
+    })
+    expect(calls.send).toHaveBeenCalledWith('c1', {
+      body: 'Psst',
+      thread: 'r1',
+      unencrypted: false,
+    })
+    fireEvent.click(button)
+    await waitFor(() => expect(calls.send).toHaveBeenCalledTimes(2))
+    expect(calls.send).toHaveBeenLastCalledWith('c1', {
+      body: 'Psst',
+      thread: 'r1',
+      unencrypted: true,
+    })
+  })
+
+  it('offers nothing of the kind for any other refusal', async () => {
+    refuse(500)
+    await waitFor(() => expect(calls.send).toHaveBeenCalledTimes(1))
+    await waitFor(() =>
+      expect(screen.getByRole('button', { name: 'Send' })).toBeEnabled()
+    )
+    expect(
+      screen.queryByRole('button', { name: 'Send unencrypted' })
+    ).toBeNull()
   })
 })

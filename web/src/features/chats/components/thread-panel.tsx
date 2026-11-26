@@ -31,6 +31,7 @@ import {
   absoluteRouteUrl,
   actionPillExpandOpacityMap,
   cn,
+  extractStatus,
   getErrorMessage,
   shellClipboardWrite,
   shellOpenExternal,
@@ -42,6 +43,7 @@ import {
   Check,
   ExternalLink,
   Link as LinkIcon,
+  LockOpen,
   MoreHorizontal,
   Send,
 } from 'lucide-react'
@@ -51,9 +53,9 @@ import {
   useEditMessageMutation,
   useThreadMessagesQuery,
 } from '@/hooks/useChats'
-import { MESSAGE_MAX_LENGTH } from '../constants/limits'
+import { MESSAGE_MAX_LENGTH, messageLength } from '../constants/limits'
 import { useMessageEditor } from '../editor/use-message-editor'
-import { messageSize, tooLongMessage } from '../utils'
+import { tooLong } from '../utils'
 import {
   CHAT_MEDIA_BUBBLE_CLASS,
   CHAT_MEDIA_GRID_BUBBLE_CLASS,
@@ -73,6 +75,10 @@ import { MessageText } from './message-text'
 // How long the websocket gets to bring the user's own reply before the
 // thread is fetched again, as the main timeline's send path waits.
 const SOCKET_DELIVERY_GRACE = 1500
+
+// The send's refusal of a reply that would go unencrypted in a conversation
+// that was encrypted, as the main composer reads it.
+const ENCRYPTION_REFUSED = 409
 
 interface ThreadPanelProps {
   chatId: string
@@ -250,6 +256,7 @@ export function ThreadView({
 }: ThreadViewProps) {
   const setBody = (next: string) => onDraftChange(next, rootId)
   const { t } = useLingui()
+  const { formatNumber } = useFormat()
   const queryClient = useQueryClient()
   const query = useThreadMessagesQuery(chatId, rootId)
   const replies = useMemo(
@@ -288,6 +295,8 @@ export function ThreadView({
   const [editing, setEditing] = useState<{ id: string; body: string } | null>(
     null
   )
+  // No reply goes under a deleted message, though its thread stays to read.
+  const writable = canWrite && !root?.deleted
 
   // A reply's reaction or edit changes the thread's own query, which the
   // main timeline's patches do not reach.
@@ -323,8 +332,10 @@ export function ThreadView({
       setEditing(null)
       return
     }
-    if (messageSize(text) > MESSAGE_MAX_LENGTH) {
-      toast.error(tooLongMessage(messageSize(text), MESSAGE_MAX_LENGTH))
+    if (messageLength(text) > MESSAGE_MAX_LENGTH) {
+      toast.error(
+        tooLong(messageLength(text) - MESSAGE_MAX_LENGTH, formatNumber)
+      )
       return
     }
     edit.mutate({ chatId, messageId: message.id, body: text })
@@ -334,8 +345,15 @@ export function ThreadView({
   // is null once the panel closes and another message once a different thread
   // opens: the grace check below runs after both can have happened.
   const send = useMutation({
-    mutationFn: ({ text, thread }: { text: string; thread: string }) =>
-      chatsApi.sendMessage(chatId, { body: text, thread }),
+    mutationFn: ({
+      text,
+      thread,
+      unencrypted,
+    }: {
+      text: string
+      thread: string
+      unencrypted: boolean
+    }) => chatsApi.sendMessage(chatId, { body: text, thread, unencrypted }),
     onSuccess: (data, { thread }) => {
       onDraftChange('', thread)
       window.setTimeout(() => {
@@ -356,16 +374,25 @@ export function ThreadView({
     },
   })
 
-  const submit = (event?: React.FormEvent) => {
-    event?.preventDefault()
+  // The reply goes unencrypted only by the user's choice, after the send
+  // refused it for want of encryption.
+  const reply = (unencrypted: boolean) => {
     const text = body.trim()
     if (!text || send.isPending) return
-    // The main composer's rule: the server measures the body in bytes.
-    if (messageSize(text) > MESSAGE_MAX_LENGTH) {
-      toast.error(tooLongMessage(messageSize(text), MESSAGE_MAX_LENGTH))
+    // The main composer's rule: the server counts the body in code points.
+    if (messageLength(text) > MESSAGE_MAX_LENGTH) {
+      toast.error(
+        tooLong(messageLength(text) - MESSAGE_MAX_LENGTH, formatNumber)
+      )
       return
     }
-    send.mutate({ text, thread: rootId })
+    send.mutate({ text, thread: rootId, unencrypted })
+  }
+  const refused = extractStatus(send.error) === ENCRYPTION_REFUSED
+
+  const submit = (event?: React.FormEvent) => {
+    event?.preventDefault()
+    reply(false)
   }
 
   const { editor: replyEditor } = useMessageEditor({
@@ -485,7 +512,7 @@ export function ThreadView({
           )}
         </div>
       </Body>
-      {canWrite ? (
+      {writable ? (
         <Footer>
           <form onSubmit={submit} className='flex flex-col gap-1'>
             <FormattingToolbar editor={replyEditor} className='-ms-1.5' />
@@ -504,6 +531,20 @@ export function ThreadView({
               </Button>
             </div>
           </form>
+          {refused ? (
+            <div className='flex justify-end'>
+              <Button
+                type='button'
+                variant='ghost'
+                size='sm'
+                onClick={() => reply(true)}
+                disabled={!body.trim() || send.isPending}
+              >
+                <LockOpen className='size-4' />
+                <Trans>Send unencrypted</Trans>
+              </Button>
+            </div>
+          ) : null}
         </Footer>
       ) : null}
     </>

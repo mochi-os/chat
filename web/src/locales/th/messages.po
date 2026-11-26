@@ -94,11 +94,6 @@ msgstr "{0, plural, one {เลือกแล้ว #} other {เลือก�
 msgid "{0, plural, one {+# nested} other {+# nested}}"
 msgstr "{0, plural, other {+# ที่ซ้อนอยู่}}"
 
-#. placeholder {0}: size - maximum
-#: src/features/chats/utils.ts
-msgid "{0, plural, one {Message is # byte too long} other {Message is # bytes too long}}"
-msgstr ""
-
 #. placeholder {0}: r.label
 #: src/features/chats/components/message-reaction-bar.tsx
 msgid "{0} (includes you)"
@@ -161,6 +156,10 @@ msgstr "{newMessageCount, plural, other {ไปที่ # ข้อความ
 #: ../../../lib/web/src/components/game/game-draw-offer-banner.tsx
 msgid "{opponentName} offered a draw"
 msgstr "{opponentName} เสนอเสมอ"
+
+#: src/features/chats/utils.ts
+msgid "{over, plural, one {Message is {count} character too long} other {Message is {count} characters too long}}"
+msgstr "{over, plural, other {ข้อความยาวเกิน {count} ตัวอักษร}}"
 
 #: ../../../lib/web/src/components/attachment-composer.tsx
 #: ../../../lib/web/src/components/ui/upload-progress.tsx
@@ -568,6 +567,7 @@ msgstr "ไม่แสดงไฟล์ไบนารี"
 msgid "Block {name}"
 msgstr "บล็อก {name}"
 
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx
 msgid "Blocked by"
@@ -578,6 +578,7 @@ msgstr "ถูกบล็อกโดย"
 msgid "Blocked navigation to untrusted link"
 msgstr "บล็อกการนำทางไปยังลิงก์ที่ไม่น่าเชื่อถือ"
 
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx
 msgid "Blocks"
 msgstr "บล็อก"
@@ -647,6 +648,7 @@ msgstr "กล้องไม่พร้อมใช้งาน"
 #: src/features/chats/components/verification-watcher.tsx
 #: src/features/chats/components/verification-watcher.tsx
 #: src/features/chats/index.tsx
+#: src/features/chats/share-page.tsx
 msgid "Cancel"
 msgstr "ยกเลิก"
 
@@ -692,6 +694,10 @@ msgstr "เปลี่ยนแล้ว"
 #: ../../../lib/web/src/components/entity/entity-activity-list.tsx
 msgid "Changed {field}"
 msgstr "เปลี่ยน {field}"
+
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx
+msgid "Changed class"
+msgstr "เปลี่ยนคลาสแล้ว"
 
 #: ../../../lib/web/src/components/calendar/month-grid.tsx
 #: ../../../lib/web/src/components/calendar/time-grid.tsx
@@ -833,6 +839,7 @@ msgstr "ล้างทั้งหมด"
 #: ../../../lib/web/src/components/search-input.tsx
 #: src/components/layout/chat-list-filters.tsx
 #: src/features/chats/components/forward-dialog.tsx
+#: src/features/chats/share-page.tsx
 #: src/routes/_authenticated/$chatId_.settings.tsx
 msgid "Clear search"
 msgstr "ล้างการค้นหา"
@@ -983,10 +990,12 @@ msgstr "ดำเนินการต่อด้วย {providerLabel}"
 
 #: ../../../lib/web/src/lib/toast-utils.ts
 #: src/features/chats/index.tsx
+#: src/features/chats/index.tsx
 msgid "Copied"
 msgstr "คัดลอกแล้ว"
 
 #: ../../../lib/web/src/components/comment-share-button.tsx
+#: ../../../lib/web/src/components/share-menu.tsx
 #: ../../../lib/web/src/components/ui/copy-button.tsx
 #: src/features/chats/components/thread-panel.tsx
 msgid "Copied to clipboard"
@@ -1001,6 +1010,7 @@ msgstr "คัดลอกไปยังคลิปบอร์ดแล้ว
 #: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx
 #: ../../../lib/web/src/components/ui/copy-button.tsx
 #: src/features/chats/components/message-hover-actions.tsx
+#: src/features/chats/components/unsent-message.tsx
 #: src/features/chats/index.tsx
 msgid "Copy"
 msgstr "คัดลอก"
@@ -1256,6 +1266,7 @@ msgid "Disagree"
 msgstr "ไม่เห็นด้วย"
 
 #: ../../../lib/web/src/components/comment-composer.tsx
+#: src/features/chats/components/unsent-message.tsx
 msgid "Discard"
 msgstr "ละทิ้ง"
 
@@ -1323,6 +1334,7 @@ msgstr "ดาวน์โหลดไม่สำเร็จ"
 msgid "Draft"
 msgstr "ฉบับร่าง"
 
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx
 msgid "Duplicates"
 msgstr "ทำซ้ำ"
@@ -1395,13 +1407,11 @@ msgstr "อีเมล"
 msgid "Email code"
 msgstr "รหัสอีเมล"
 
-#: src/features/chats/components/message-bubble.tsx
-#: src/features/chats/components/thread-replies.tsx
+#: src/features/chats/components/sealed-text.tsx
 msgid "Encrypted for other devices only"
 msgstr "เข้ารหัสสำหรับอุปกรณ์อื่นเท่านั้น"
 
-#: src/features/chats/components/message-bubble.tsx
-#: src/features/chats/components/thread-replies.tsx
+#: src/features/chats/components/sealed-text.tsx
 msgid "Encrypted message"
 msgstr "ข้อความที่เข้ารหัส"
 
@@ -1464,9 +1474,11 @@ msgid "Failed to add member"
 msgstr "ไม่สามารถเพิ่มสมาชิกได้"
 
 #: ../../../lib/web/src/components/comment-share-button.tsx
+#: ../../../lib/web/src/components/share-menu.tsx
 #: ../../../lib/web/src/components/ui/copy-button.tsx
 #: ../../../lib/web/src/lib/toast-utils.ts
 #: src/features/chats/components/thread-panel.tsx
+#: src/features/chats/index.tsx
 #: src/features/chats/index.tsx
 msgid "Failed to copy"
 msgstr "ไม่สามารถคัดลอกได้"
@@ -1482,7 +1494,8 @@ msgid "Failed to create chat"
 msgstr "ไม่สามารถสร้างแชทได้"
 
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx
-#: ../../../lib/web/src/components/options-menu.tsx
+#: ../../../lib/web/src/components/share-menu.tsx
+#: ../../../lib/web/src/components/share-menu.tsx
 msgid "Failed to create link"
 msgstr "ไม่สามารถสร้างลิงก์ได้"
 
@@ -1903,12 +1916,12 @@ msgstr "สว่าง"
 msgid "Like"
 msgstr "ถูกใจ"
 
-#: ../../../lib/web/src/components/options-menu.tsx
 #: src/features/chats/components/formatting-toolbar.tsx
 #: src/features/chats/components/link-dialog.tsx
 msgid "Link"
 msgstr "ลิงก์"
 
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx
 msgid "Links"
 msgstr "ลิงก์"
@@ -2126,10 +2139,6 @@ msgstr "ตัวเลือกเพิ่มเติม"
 msgid "Moved"
 msgstr "ย้ายแล้ว"
 
-#: ../../../lib/web/src/components/entity/entity-activity-list.tsx
-msgid "Moved {field}"
-msgstr "ย้าย {field}"
-
 #. placeholder {0}: dayName(dragging.day)
 #. placeholder {0}: dayName(opening(current, format.zonedDay))
 #: ../../../lib/web/src/components/calendar/month-grid.tsx
@@ -2187,6 +2196,7 @@ msgstr "ใหม่ล่าสุด"
 #: src/features/chats/components/chat-empty-state.tsx
 #: src/features/chats/components/chat-empty-state.tsx
 #: src/features/chats/components/new-chat.tsx
+#: src/features/chats/share-page.tsx
 msgid "New chat"
 msgstr "แชตใหม่"
 
@@ -2212,6 +2222,10 @@ msgstr "เดือนถัดไป"
 msgid "Next year"
 msgstr "ปีถัดไป"
 
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx
+msgid "No"
+msgstr "ไม่"
+
 #: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx
 msgid "No {parentClassNames} to add to"
 msgstr "ไม่มี {parentClassNames} ให้เพิ่ม"
@@ -2229,6 +2243,8 @@ msgid "No changes to display"
 msgstr "ไม่มีการเปลี่ยนแปลงให้แสดง"
 
 #: src/components/layout/chat-list-filters.tsx
+#: src/features/chats/share-page.tsx
+#: src/features/chats/share-page.tsx
 msgid "No chats"
 msgstr "ไม่มีแชท"
 
@@ -2693,6 +2709,7 @@ msgstr "กำลังเปลี่ยนเส้นทางไปยัง
 msgid "Reduce interest"
 msgstr "ลดความสนใจ"
 
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx
 msgid "Relates"
 msgstr "เกี่ยวข้อง"
@@ -2858,6 +2875,7 @@ msgid "Restore"
 msgstr "กู้คืน"
 
 #: ../../../lib/web/src/components/attachment-composer.tsx
+#: src/features/chats/components/unsent-message.tsx
 msgid "Retry"
 msgstr "ลองอีกครั้ง"
 
@@ -2940,6 +2958,7 @@ msgstr "ค้นหา"
 #: src/components/layout/chat-list-filters.tsx
 #: src/components/layout/chat-list-filters.tsx
 #: src/features/chats/components/forward-dialog.tsx
+#: src/features/chats/share-page.tsx
 msgid "Search chats"
 msgstr "ค้นหาแชท"
 
@@ -3081,6 +3100,11 @@ msgstr "ส่งอีเมล"
 msgid "Send friend request"
 msgstr "ส่งคำขอเป็นเพื่อน"
 
+#: src/features/chats/share-page.tsx
+#: src/features/chats/share-page.tsx
+msgid "Send in a chat"
+msgstr "ส่งในแชต"
+
 #: ../../../lib/web/src/components/game/game-chat-input.tsx
 #: ../../../lib/web/src/components/game/game-chat-input.tsx
 #: src/features/chats/components/chat-input.tsx
@@ -3092,10 +3116,25 @@ msgstr "ส่งข้อความ"
 msgid "Send read receipts"
 msgstr "ส่งการแจ้งว่าอ่านแล้ว"
 
+#: src/features/chats/components/chat-input.tsx
+#: src/features/chats/components/thread-panel.tsx
+#: src/features/chats/components/unsent-message.tsx
+msgid "Send unencrypted"
+msgstr "ส่งโดยไม่เข้ารหัส"
+
 #: src/features/chats/components/message-bubble.tsx
 msgctxt "receipt"
 msgid "Sent"
 msgstr "ส่งแล้ว"
+
+#: src/features/chats/components/message-bubble.tsx
+msgid "Sent from a device whose keys do not match"
+msgstr "ส่งจากอุปกรณ์ที่คีย์ไม่ตรงกัน"
+
+#: src/features/chats/components/message-bubble.tsx
+#: src/features/chats/components/sealed-text.tsx
+msgid "Sent from a device you distrusted"
+msgstr "ส่งจากอุปกรณ์ที่คุณไม่เชื่อถือ"
 
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Serif"
@@ -3119,6 +3158,10 @@ msgstr "เซสชันหมดอายุ โปรดเข้าสู�
 msgid "Set origin and destination"
 msgstr "ตั้งค่าต้นทางและปลายทาง"
 
+#: src/features/chats/components/new-chat.tsx
+msgid "Set up"
+msgstr "ตั้งค่า"
+
 #: src/features/chats/components/encryption-section.tsx
 #: src/features/chats/components/encryption-section.tsx
 #: src/features/chats/components/encryption-section.tsx
@@ -3137,6 +3180,7 @@ msgstr "บันทึกการตั้งค่าแล้ว"
 
 #: ../../../lib/web/src/components/comment-share-button.tsx
 #: ../../../lib/web/src/components/comment-share-button.tsx
+#: ../../../lib/web/src/components/share-menu.tsx
 msgid "Share"
 msgstr "แชร์"
 
@@ -3365,6 +3409,10 @@ msgstr "รหัสผ่านไม่ได้รับการยอมร
 msgid "The requested content could not be found."
 msgstr "ไม่พบเนื้อหาที่ร้องขอ"
 
+#: src/features/chats/components/sealed-text.tsx
+msgid "The sender's encryption key changed"
+msgstr "คีย์เข้ารหัสของผู้ส่งเปลี่ยนไปแล้ว"
+
 #: ../../../lib/web/src/lib/api-response-interceptors.ts
 msgid "The server returned a web page instead of data."
 msgstr "เซิร์ฟเวอร์ส่งคืนหน้าเว็บแทนข้อมูล"
@@ -3491,6 +3539,10 @@ msgstr "คำขอมากเกินไป"
 msgid "Top"
 msgstr "คะแนนสูงสุด"
 
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx
+msgid "Top level"
+msgstr "ระดับบนสุด"
+
 #: ../../../lib/web/src/components/travelling-picker.tsx
 msgid "Travelling"
 msgstr "กำลังเดินทาง"
@@ -3564,6 +3616,11 @@ msgid "United States"
 msgstr "สหรัฐอเมริกา"
 
 #: ../../../lib/web/src/components/audit-timeline.tsx
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx
+#: ../../../lib/web/src/components/entity/entity-board-card.tsx
 #: ../../../lib/web/src/components/entity/entity-field-dialog.tsx
 #: ../../../lib/web/src/components/tree-row.tsx
 #: ../../../lib/web/src/components/tree-row.tsx
@@ -3729,6 +3786,10 @@ msgstr "วันพุธ"
 #: ../../../lib/web/src/components/calendar/date-header.tsx
 msgid "Year"
 msgstr "ปี"
+
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx
+msgid "Yes"
+msgstr "ใช่"
 
 #: src/features/chats/index.tsx
 msgid "You"

@@ -2,10 +2,14 @@
 // SPDX-License-Identifier: AGPL-3.0-only
 // This file is part of Mochi, licensed under the GNU AGPL v3 with the
 // Mochi Application Interface Exception - see license.txt and license-exception.md.
+
 // Matrix's emoji verification, which the server runs for the device it holds
 // on each of the user's Matrix accounts: a request from someone or from the
 // user's other clients, the emoji to compare, and how it ended. Read while
-// the user has a Matrix conversation; often while one is under way.
+// the user has a Matrix conversation: once, and again whenever the user's own
+// websocket says one changed. Only while that socket is down is it asked for
+// on a timer.
+
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { Trans, useLingui } from '@lingui/react/macro'
@@ -23,6 +27,8 @@ import {
 } from '@mochi/web'
 import { Check, Smile, X } from 'lucide-react'
 import { encryptionApi, type VerificationAction } from '@/api/encryption'
+import { USER_KEY } from '@/lib/websocket-manager'
+import { useWebsocketManager } from '@/hooks/useWebsocketManager'
 import { verificationShown } from '@/features/chats/utils/encryption'
 
 const key = ['encryption', 'verifications'] as const
@@ -34,16 +40,52 @@ export function VerificationWatcher({ enabled }: { enabled: boolean }) {
   // The verifications seen under way, and those whose end was said.
   const seen = useRef<Set<string>>(new Set())
   const told = useRef<Set<string>>(new Set())
+  const manager = useWebsocketManager()
+  // Whether the user's own socket is open, which tells of each change.
+  const [live, setLive] = useState(false)
+  useEffect(() => {
+    if (!enabled || !manager) return undefined
+    let opened = false
+    let lost = false
+    const unsubscribe = manager.subscribe(USER_KEY, {
+      chatKey: USER_KEY,
+      onMessage: (event) => {
+        if (event.payload.event === 'verification') {
+          void queryClient.invalidateQueries({ queryKey: key })
+        }
+      },
+      onStatusChange: (snapshot) => {
+        const ready = snapshot.status === 'ready'
+        if (ready) {
+          // Open again: what changed while it was down is read once.
+          if (lost) void queryClient.invalidateQueries({ queryKey: key })
+          opened = true
+          lost = false
+        } else if (opened) {
+          lost = true
+        }
+        setLive(ready)
+      },
+    })
+    return () => {
+      unsubscribe()
+      setLive(false)
+    }
+  }, [enabled, manager, queryClient])
   const { data } = useQueryWithError({
     queryKey: key,
     queryFn: encryptionApi.verifications,
     enabled,
+    // Asked again on a timer only while the socket is down: briskly while
+    // a verification is under way, slowly otherwise.
     refetchInterval: (query) =>
-      (query.state.data ?? []).some(
-        (v) => v.phase !== 'done' && v.phase !== 'cancelled'
-      )
-        ? 1500
-        : 6000,
+      live
+        ? false
+        : (query.state.data ?? []).some(
+              (v) => v.phase !== 'done' && v.phase !== 'cancelled'
+            )
+          ? 5000
+          : 30_000,
   })
   const verifications = useMemo(() => data ?? [], [data])
   const shown = verificationShown(verifications, dismissed)

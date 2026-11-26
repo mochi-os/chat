@@ -94,11 +94,6 @@ msgstr "{0, plural, one {# air a thaghadh} two {# air an taghadh} few {# air an 
 msgid "{0, plural, one {+# nested} other {+# nested}}"
 msgstr "{0, plural, one {+# neadaichte} two {+# neadaichte} few {+# neadaichte} other {+# neadaichte}}"
 
-#. placeholder {0}: size - maximum
-#: src/features/chats/utils.ts
-msgid "{0, plural, one {Message is # byte too long} other {Message is # bytes too long}}"
-msgstr ""
-
 #. placeholder {0}: r.label
 #: src/features/chats/components/message-reaction-bar.tsx
 msgid "{0} (includes you)"
@@ -161,6 +156,10 @@ msgstr "{newMessageCount, plural, one {Leum gu # teachdaireachd ùr} two {Leum g
 #: ../../../lib/web/src/components/game/game-draw-offer-banner.tsx
 msgid "{opponentName} offered a draw"
 msgstr "Thairg {opponentName} co-ionann"
+
+#: src/features/chats/utils.ts
+msgid "{over, plural, one {Message is {count} character too long} other {Message is {count} characters too long}}"
+msgstr "{over, plural, one {Tha an teachdaireachd {count} charactar ro fhada} two {Tha an teachdaireachd {count} charactar ro fhada} few {Tha an teachdaireachd {count} caractaran ro fhada} other {Tha an teachdaireachd {count} caractar ro fhada}}"
 
 #: ../../../lib/web/src/components/attachment-composer.tsx
 #: ../../../lib/web/src/components/ui/upload-progress.tsx
@@ -568,6 +567,7 @@ msgstr "Cha dèid am faidhle dà-fhillte a shealltainn"
 msgid "Block {name}"
 msgstr "Bac {name}"
 
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx
 msgid "Blocked by"
@@ -578,6 +578,7 @@ msgstr "Bacte le"
 msgid "Blocked navigation to untrusted link"
 msgstr "Chaidh seòladaireachd gu ceangal neo-earbsach a bhacadh"
 
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx
 msgid "Blocks"
 msgstr "Blocaichean"
@@ -647,6 +648,7 @@ msgstr "Chan eil an camara ri fhaighinn"
 #: src/features/chats/components/verification-watcher.tsx
 #: src/features/chats/components/verification-watcher.tsx
 #: src/features/chats/index.tsx
+#: src/features/chats/share-page.tsx
 msgid "Cancel"
 msgstr "Sguir dheth"
 
@@ -692,6 +694,10 @@ msgstr "Air atharrachadh"
 #: ../../../lib/web/src/components/entity/entity-activity-list.tsx
 msgid "Changed {field}"
 msgstr "Chaidh {field} atharrachadh"
+
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx
+msgid "Changed class"
+msgstr "Clas air atharrachadh"
 
 #: ../../../lib/web/src/components/calendar/month-grid.tsx
 #: ../../../lib/web/src/components/calendar/time-grid.tsx
@@ -833,6 +839,7 @@ msgstr "Falamhaich a h-uile"
 #: ../../../lib/web/src/components/search-input.tsx
 #: src/components/layout/chat-list-filters.tsx
 #: src/features/chats/components/forward-dialog.tsx
+#: src/features/chats/share-page.tsx
 #: src/routes/_authenticated/$chatId_.settings.tsx
 msgid "Clear search"
 msgstr "Falamhaich an lorg"
@@ -983,10 +990,12 @@ msgstr "Lean air adhart le {providerLabel}"
 
 #: ../../../lib/web/src/lib/toast-utils.ts
 #: src/features/chats/index.tsx
+#: src/features/chats/index.tsx
 msgid "Copied"
 msgstr "Chaidh lethbhreac a dhèanamh"
 
 #: ../../../lib/web/src/components/comment-share-button.tsx
+#: ../../../lib/web/src/components/share-menu.tsx
 #: ../../../lib/web/src/components/ui/copy-button.tsx
 #: src/features/chats/components/thread-panel.tsx
 msgid "Copied to clipboard"
@@ -1001,6 +1010,7 @@ msgstr "Air a chopaigeadh chun a' chliopaboird"
 #: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx
 #: ../../../lib/web/src/components/ui/copy-button.tsx
 #: src/features/chats/components/message-hover-actions.tsx
+#: src/features/chats/components/unsent-message.tsx
 #: src/features/chats/index.tsx
 msgid "Copy"
 msgstr "Dèan lethbhreac"
@@ -1256,6 +1266,7 @@ msgid "Disagree"
 msgstr "Eas-aontaich"
 
 #: ../../../lib/web/src/components/comment-composer.tsx
+#: src/features/chats/components/unsent-message.tsx
 msgid "Discard"
 msgstr "Tilg air falbh"
 
@@ -1323,6 +1334,7 @@ msgstr "Dh’fhàillig an luchdadh a-nuas"
 msgid "Draft"
 msgstr "Dreachd"
 
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx
 msgid "Duplicates"
 msgstr "Dùblaichean"
@@ -1395,13 +1407,11 @@ msgstr "Post-d"
 msgid "Email code"
 msgstr "Còd puist-d"
 
-#: src/features/chats/components/message-bubble.tsx
-#: src/features/chats/components/thread-replies.tsx
+#: src/features/chats/components/sealed-text.tsx
 msgid "Encrypted for other devices only"
 msgstr "Crioptaichte airson uidheaman eile a-mhàin"
 
-#: src/features/chats/components/message-bubble.tsx
-#: src/features/chats/components/thread-replies.tsx
+#: src/features/chats/components/sealed-text.tsx
 msgid "Encrypted message"
 msgstr "Teachdaireachd chrioptaichte"
 
@@ -1464,9 +1474,11 @@ msgid "Failed to add member"
 msgstr "Cha b' urrainn ball a chur ris"
 
 #: ../../../lib/web/src/components/comment-share-button.tsx
+#: ../../../lib/web/src/components/share-menu.tsx
 #: ../../../lib/web/src/components/ui/copy-button.tsx
 #: ../../../lib/web/src/lib/toast-utils.ts
 #: src/features/chats/components/thread-panel.tsx
+#: src/features/chats/index.tsx
 #: src/features/chats/index.tsx
 msgid "Failed to copy"
 msgstr "Cha b' urrainn copaigeadh"
@@ -1482,7 +1494,8 @@ msgid "Failed to create chat"
 msgstr "Cha b' urrainn còmhradh a chruthachadh"
 
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx
-#: ../../../lib/web/src/components/options-menu.tsx
+#: ../../../lib/web/src/components/share-menu.tsx
+#: ../../../lib/web/src/components/share-menu.tsx
 msgid "Failed to create link"
 msgstr "Cha b' urrainn ceangal a chruthachadh"
 
@@ -1903,12 +1916,12 @@ msgstr "Soilleir"
 msgid "Like"
 msgstr "Toil"
 
-#: ../../../lib/web/src/components/options-menu.tsx
 #: src/features/chats/components/formatting-toolbar.tsx
 #: src/features/chats/components/link-dialog.tsx
 msgid "Link"
 msgstr "Ceangal"
 
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx
 msgid "Links"
 msgstr "Ceanglaichean"
@@ -2126,10 +2139,6 @@ msgstr "Barrachd roghainnean"
 msgid "Moved"
 msgstr "Air a ghluasad"
 
-#: ../../../lib/web/src/components/entity/entity-activity-list.tsx
-msgid "Moved {field}"
-msgstr "Chaidh {field} a ghluasad"
-
 #. placeholder {0}: dayName(dragging.day)
 #. placeholder {0}: dayName(opening(current, format.zonedDay))
 #: ../../../lib/web/src/components/calendar/month-grid.tsx
@@ -2187,6 +2196,7 @@ msgstr "As ùire"
 #: src/features/chats/components/chat-empty-state.tsx
 #: src/features/chats/components/chat-empty-state.tsx
 #: src/features/chats/components/new-chat.tsx
+#: src/features/chats/share-page.tsx
 msgid "New chat"
 msgstr "Cabadaich ùr"
 
@@ -2212,6 +2222,10 @@ msgstr "An ath-mhìos"
 msgid "Next year"
 msgstr "An ath-bhliadhna"
 
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx
+msgid "No"
+msgstr "Chan eil"
+
 #: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx
 msgid "No {parentClassNames} to add to"
 msgstr "Chan eil {parentClassNames} ann ri chur ris"
@@ -2229,6 +2243,8 @@ msgid "No changes to display"
 msgstr "Chan eil atharrachaidhean ri shealltainn"
 
 #: src/components/layout/chat-list-filters.tsx
+#: src/features/chats/share-page.tsx
+#: src/features/chats/share-page.tsx
 msgid "No chats"
 msgstr "Gun chòmhraidhean"
 
@@ -2693,6 +2709,7 @@ msgstr "Ag ath-stiùireadh dhan log a-steach."
 msgid "Reduce interest"
 msgstr "Lùghdaich an ùidh"
 
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx
 msgid "Relates"
 msgstr "A' buntainn"
@@ -2858,6 +2875,7 @@ msgid "Restore"
 msgstr "Aiseag"
 
 #: ../../../lib/web/src/components/attachment-composer.tsx
+#: src/features/chats/components/unsent-message.tsx
 msgid "Retry"
 msgstr "Feuch ris a-rithist"
 
@@ -2940,6 +2958,7 @@ msgstr "Lorg"
 #: src/components/layout/chat-list-filters.tsx
 #: src/components/layout/chat-list-filters.tsx
 #: src/features/chats/components/forward-dialog.tsx
+#: src/features/chats/share-page.tsx
 msgid "Search chats"
 msgstr "Lorg còmhraidhean"
 
@@ -3081,6 +3100,11 @@ msgstr "Cuir post-d"
 msgid "Send friend request"
 msgstr "Cuir iarrtas caraid"
 
+#: src/features/chats/share-page.tsx
+#: src/features/chats/share-page.tsx
+msgid "Send in a chat"
+msgstr "Cuir ann an cabadaich"
+
 #: ../../../lib/web/src/components/game/game-chat-input.tsx
 #: ../../../lib/web/src/components/game/game-chat-input.tsx
 #: src/features/chats/components/chat-input.tsx
@@ -3092,10 +3116,25 @@ msgstr "Cuir teachdaireachd"
 msgid "Send read receipts"
 msgstr "Cuir cuidhteasan leughaidh"
 
+#: src/features/chats/components/chat-input.tsx
+#: src/features/chats/components/thread-panel.tsx
+#: src/features/chats/components/unsent-message.tsx
+msgid "Send unencrypted"
+msgstr "Cuir gun chrioptachadh"
+
 #: src/features/chats/components/message-bubble.tsx
 msgctxt "receipt"
 msgid "Sent"
 msgstr "Air a cur"
+
+#: src/features/chats/components/message-bubble.tsx
+msgid "Sent from a device whose keys do not match"
+msgstr "Air a chur o uidheam nach eil na h-iuchraichean aige a' freagairt"
+
+#: src/features/chats/components/message-bubble.tsx
+#: src/features/chats/components/sealed-text.tsx
+msgid "Sent from a device you distrusted"
+msgstr "Air a chur o uidheam anns nach eil earbsa agad"
 
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Serif"
@@ -3119,6 +3158,10 @@ msgstr "Dh'fhalbh an ùine air an t-seisean. Log a-steach a-rithist."
 msgid "Set origin and destination"
 msgstr "Suidhich tùs is ceann-uidhe"
 
+#: src/features/chats/components/new-chat.tsx
+msgid "Set up"
+msgstr "Suidhich"
+
 #: src/features/chats/components/encryption-section.tsx
 #: src/features/chats/components/encryption-section.tsx
 #: src/features/chats/components/encryption-section.tsx
@@ -3137,6 +3180,7 @@ msgstr "Roghainnean air an sàbhaladh"
 
 #: ../../../lib/web/src/components/comment-share-button.tsx
 #: ../../../lib/web/src/components/comment-share-button.tsx
+#: ../../../lib/web/src/components/share-menu.tsx
 msgid "Share"
 msgstr "Co-roinn"
 
@@ -3365,6 +3409,10 @@ msgstr "Cha deach gabhail ris an fhacal-fhaire"
 msgid "The requested content could not be found."
 msgstr "Cha b' urrainn dhuinn an t-susbaint a chaidh iarraidh a lorg."
 
+#: src/features/chats/components/sealed-text.tsx
+msgid "The sender's encryption key changed"
+msgstr "Tha iuchair crioptachaidh an t-seòladair air atharrachadh"
+
 #: ../../../lib/web/src/lib/api-response-interceptors.ts
 msgid "The server returned a web page instead of data."
 msgstr "Thill am frithealaiche duilleag-lìn an àite dàta."
@@ -3491,6 +3539,10 @@ msgstr "Cus iarrtasan"
 msgid "Top"
 msgstr "As fheàrr"
 
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx
+msgid "Top level"
+msgstr "Ìre àrd"
+
 #: ../../../lib/web/src/components/travelling-picker.tsx
 msgid "Travelling"
 msgstr "A' siubhal"
@@ -3564,6 +3616,11 @@ msgid "United States"
 msgstr "Stàitean Aonaichte"
 
 #: ../../../lib/web/src/components/audit-timeline.tsx
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx
+#: ../../../lib/web/src/components/entity/entity-board-card.tsx
 #: ../../../lib/web/src/components/entity/entity-field-dialog.tsx
 #: ../../../lib/web/src/components/tree-row.tsx
 #: ../../../lib/web/src/components/tree-row.tsx
@@ -3729,6 +3786,10 @@ msgstr "Diciadain"
 #: ../../../lib/web/src/components/calendar/date-header.tsx
 msgid "Year"
 msgstr "Bliadhna"
+
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx
+msgid "Yes"
+msgstr "Tha"
 
 #: src/features/chats/index.tsx
 msgid "You"

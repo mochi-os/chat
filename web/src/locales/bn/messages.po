@@ -94,11 +94,6 @@ msgstr "{0, plural, one {# নির্বাচিত} other {# নির্ব
 msgid "{0, plural, one {+# nested} other {+# nested}}"
 msgstr "{0, plural, one {+# নেস্টেড} other {+# নেস্টেড}}"
 
-#. placeholder {0}: size - maximum
-#: src/features/chats/utils.ts
-msgid "{0, plural, one {Message is # byte too long} other {Message is # bytes too long}}"
-msgstr ""
-
 #. placeholder {0}: r.label
 #: src/features/chats/components/message-reaction-bar.tsx
 msgid "{0} (includes you)"
@@ -161,6 +156,10 @@ msgstr "{newMessageCount, plural, one {#টি নতুন বার্তা�
 #: ../../../lib/web/src/components/game/game-draw-offer-banner.tsx
 msgid "{opponentName} offered a draw"
 msgstr "{opponentName} ড্র প্রস্তাব করেছে"
+
+#: src/features/chats/utils.ts
+msgid "{over, plural, one {Message is {count} character too long} other {Message is {count} characters too long}}"
+msgstr "{over, plural, one {বার্তাটি সীমার চেয়ে {count} অক্ষর বেশি দীর্ঘ} other {বার্তাটি সীমার চেয়ে {count} অক্ষর বেশি দীর্ঘ}}"
 
 #: ../../../lib/web/src/components/attachment-composer.tsx
 #: ../../../lib/web/src/components/ui/upload-progress.tsx
@@ -568,6 +567,7 @@ msgstr "বাইনারি ফাইল দেখানো হয়নি"
 msgid "Block {name}"
 msgstr "{name}-কে ব্লক করুন"
 
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx
 msgid "Blocked by"
@@ -578,6 +578,7 @@ msgstr "ব্লক করেছে"
 msgid "Blocked navigation to untrusted link"
 msgstr "অবিশ্বস্ত লিঙ্কে নেভিগেশন ব্লক করা হয়েছে"
 
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx
 msgid "Blocks"
 msgstr "ব্লক করে"
@@ -647,6 +648,7 @@ msgstr "ক্যামেরা অনুপলব্ধ"
 #: src/features/chats/components/verification-watcher.tsx
 #: src/features/chats/components/verification-watcher.tsx
 #: src/features/chats/index.tsx
+#: src/features/chats/share-page.tsx
 msgid "Cancel"
 msgstr "বাতিল করুন"
 
@@ -692,6 +694,10 @@ msgstr "পরিবর্তন করা হয়েছে"
 #: ../../../lib/web/src/components/entity/entity-activity-list.tsx
 msgid "Changed {field}"
 msgstr "{field} পরিবর্তন করা হয়েছে"
+
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx
+msgid "Changed class"
+msgstr "শ্রেণী পরিবর্তন করা হয়েছে"
 
 #: ../../../lib/web/src/components/calendar/month-grid.tsx
 #: ../../../lib/web/src/components/calendar/time-grid.tsx
@@ -833,6 +839,7 @@ msgstr "সব পরিষ্কার করুন"
 #: ../../../lib/web/src/components/search-input.tsx
 #: src/components/layout/chat-list-filters.tsx
 #: src/features/chats/components/forward-dialog.tsx
+#: src/features/chats/share-page.tsx
 #: src/routes/_authenticated/$chatId_.settings.tsx
 msgid "Clear search"
 msgstr "অনুসন্ধান পরিষ্কার করুন"
@@ -983,10 +990,12 @@ msgstr "{providerLabel} দিয়ে চালিয়ে যান"
 
 #: ../../../lib/web/src/lib/toast-utils.ts
 #: src/features/chats/index.tsx
+#: src/features/chats/index.tsx
 msgid "Copied"
 msgstr "কপি করা হয়েছে"
 
 #: ../../../lib/web/src/components/comment-share-button.tsx
+#: ../../../lib/web/src/components/share-menu.tsx
 #: ../../../lib/web/src/components/ui/copy-button.tsx
 #: src/features/chats/components/thread-panel.tsx
 msgid "Copied to clipboard"
@@ -1001,6 +1010,7 @@ msgstr "ক্লিপবোর্ডে কপি করা হয়েছে
 #: ../../../lib/web/src/components/entity/entity-object-detail-panel.tsx
 #: ../../../lib/web/src/components/ui/copy-button.tsx
 #: src/features/chats/components/message-hover-actions.tsx
+#: src/features/chats/components/unsent-message.tsx
 #: src/features/chats/index.tsx
 msgid "Copy"
 msgstr "কপি করুন"
@@ -1256,6 +1266,7 @@ msgid "Disagree"
 msgstr "দ্বিমত"
 
 #: ../../../lib/web/src/components/comment-composer.tsx
+#: src/features/chats/components/unsent-message.tsx
 msgid "Discard"
 msgstr "বাদ দিন"
 
@@ -1323,6 +1334,7 @@ msgstr "ডাউনলোড ব্যর্থ হয়েছে"
 msgid "Draft"
 msgstr "খসড়া"
 
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx
 msgid "Duplicates"
 msgstr "নকল"
@@ -1395,13 +1407,11 @@ msgstr "ইমেইল"
 msgid "Email code"
 msgstr "ইমেইল কোড"
 
-#: src/features/chats/components/message-bubble.tsx
-#: src/features/chats/components/thread-replies.tsx
+#: src/features/chats/components/sealed-text.tsx
 msgid "Encrypted for other devices only"
 msgstr "শুধু অন্যান্য ডিভাইসের জন্য এনক্রিপ্ট করা"
 
-#: src/features/chats/components/message-bubble.tsx
-#: src/features/chats/components/thread-replies.tsx
+#: src/features/chats/components/sealed-text.tsx
 msgid "Encrypted message"
 msgstr "এনক্রিপ্ট করা বার্তা"
 
@@ -1464,9 +1474,11 @@ msgid "Failed to add member"
 msgstr "সদস্য যোগ করতে ব্যর্থ"
 
 #: ../../../lib/web/src/components/comment-share-button.tsx
+#: ../../../lib/web/src/components/share-menu.tsx
 #: ../../../lib/web/src/components/ui/copy-button.tsx
 #: ../../../lib/web/src/lib/toast-utils.ts
 #: src/features/chats/components/thread-panel.tsx
+#: src/features/chats/index.tsx
 #: src/features/chats/index.tsx
 msgid "Failed to copy"
 msgstr "কপি করতে ব্যর্থ"
@@ -1482,7 +1494,8 @@ msgid "Failed to create chat"
 msgstr "চ্যাট তৈরি করতে ব্যর্থ"
 
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx
-#: ../../../lib/web/src/components/options-menu.tsx
+#: ../../../lib/web/src/components/share-menu.tsx
+#: ../../../lib/web/src/components/share-menu.tsx
 msgid "Failed to create link"
 msgstr "লিঙ্ক তৈরি করতে ব্যর্থ"
 
@@ -1903,12 +1916,12 @@ msgstr "হালকা"
 msgid "Like"
 msgstr "পছন্দ"
 
-#: ../../../lib/web/src/components/options-menu.tsx
 #: src/features/chats/components/formatting-toolbar.tsx
 #: src/features/chats/components/link-dialog.tsx
 msgid "Link"
 msgstr "লিঙ্ক"
 
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx
 msgid "Links"
 msgstr "লিঙ্কসমূহ"
@@ -2126,10 +2139,6 @@ msgstr "আরও বিকল্প"
 msgid "Moved"
 msgstr "সরানো হয়েছে"
 
-#: ../../../lib/web/src/components/entity/entity-activity-list.tsx
-msgid "Moved {field}"
-msgstr "{field} সরানো হয়েছে"
-
 #. placeholder {0}: dayName(dragging.day)
 #. placeholder {0}: dayName(opening(current, format.zonedDay))
 #: ../../../lib/web/src/components/calendar/month-grid.tsx
@@ -2187,6 +2196,7 @@ msgstr "নতুনতম"
 #: src/features/chats/components/chat-empty-state.tsx
 #: src/features/chats/components/chat-empty-state.tsx
 #: src/features/chats/components/new-chat.tsx
+#: src/features/chats/share-page.tsx
 msgid "New chat"
 msgstr "নতুন চ্যাট"
 
@@ -2212,6 +2222,10 @@ msgstr "পরবর্তী মাস"
 msgid "Next year"
 msgstr "পরবর্তী বছর"
 
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx
+msgid "No"
+msgstr "না"
+
 #: ../../../lib/web/src/components/entity/entity-create-object-dialog.tsx
 msgid "No {parentClassNames} to add to"
 msgstr "যোগ করার জন্য কোনো {parentClassNames} নেই"
@@ -2229,6 +2243,8 @@ msgid "No changes to display"
 msgstr "প্রদর্শন করার মতো কোনো পরিবর্তন নেই"
 
 #: src/components/layout/chat-list-filters.tsx
+#: src/features/chats/share-page.tsx
+#: src/features/chats/share-page.tsx
 msgid "No chats"
 msgstr "কোনো চ্যাট নেই"
 
@@ -2693,6 +2709,7 @@ msgstr "লগইনে রিডাইরেক্ট করা হচ্ছে
 msgid "Reduce interest"
 msgstr "আগ্রহ কমান"
 
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx
 #: ../../../lib/web/src/components/entity/entity-object-links.tsx
 msgid "Relates"
 msgstr "সম্পর্কিত"
@@ -2858,6 +2875,7 @@ msgid "Restore"
 msgstr "পুনরুদ্ধার করুন"
 
 #: ../../../lib/web/src/components/attachment-composer.tsx
+#: src/features/chats/components/unsent-message.tsx
 msgid "Retry"
 msgstr "আবার চেষ্টা করুন"
 
@@ -2940,6 +2958,7 @@ msgstr "অনুসন্ধান"
 #: src/components/layout/chat-list-filters.tsx
 #: src/components/layout/chat-list-filters.tsx
 #: src/features/chats/components/forward-dialog.tsx
+#: src/features/chats/share-page.tsx
 msgid "Search chats"
 msgstr "চ্যাট অনুসন্ধান করুন"
 
@@ -3081,6 +3100,11 @@ msgstr "ইমেইল পাঠান"
 msgid "Send friend request"
 msgstr "বন্ধুত্বের অনুরোধ পাঠান"
 
+#: src/features/chats/share-page.tsx
+#: src/features/chats/share-page.tsx
+msgid "Send in a chat"
+msgstr "চ্যাটে পাঠান"
+
 #: ../../../lib/web/src/components/game/game-chat-input.tsx
 #: ../../../lib/web/src/components/game/game-chat-input.tsx
 #: src/features/chats/components/chat-input.tsx
@@ -3092,10 +3116,25 @@ msgstr "বার্তা পাঠান"
 msgid "Send read receipts"
 msgstr "পড়ার রসিদ পাঠান"
 
+#: src/features/chats/components/chat-input.tsx
+#: src/features/chats/components/thread-panel.tsx
+#: src/features/chats/components/unsent-message.tsx
+msgid "Send unencrypted"
+msgstr "এনক্রিপশন ছাড়াই পাঠান"
+
 #: src/features/chats/components/message-bubble.tsx
 msgctxt "receipt"
 msgid "Sent"
 msgstr "পাঠানো হয়েছে"
+
+#: src/features/chats/components/message-bubble.tsx
+msgid "Sent from a device whose keys do not match"
+msgstr "এমন একটি ডিভাইস থেকে পাঠানো যার কী মেলে না"
+
+#: src/features/chats/components/message-bubble.tsx
+#: src/features/chats/components/sealed-text.tsx
+msgid "Sent from a device you distrusted"
+msgstr "এমন একটি ডিভাইস থেকে পাঠানো যাকে আপনি অবিশ্বাস করেছেন"
 
 #: ../../../lib/web/src/lib/preference-utils.ts
 msgid "Serif"
@@ -3119,6 +3158,10 @@ msgstr "সেশনের মেয়াদ শেষ হয়ে গেছ�
 msgid "Set origin and destination"
 msgstr "উৎস ও গন্তব্য সেট করুন"
 
+#: src/features/chats/components/new-chat.tsx
+msgid "Set up"
+msgstr "সেট আপ করুন"
+
 #: src/features/chats/components/encryption-section.tsx
 #: src/features/chats/components/encryption-section.tsx
 #: src/features/chats/components/encryption-section.tsx
@@ -3137,6 +3180,7 @@ msgstr "সেটিংস সংরক্ষিত হয়েছে"
 
 #: ../../../lib/web/src/components/comment-share-button.tsx
 #: ../../../lib/web/src/components/comment-share-button.tsx
+#: ../../../lib/web/src/components/share-menu.tsx
 msgid "Share"
 msgstr "শেয়ার করুন"
 
@@ -3365,6 +3409,10 @@ msgstr "পাসওয়ার্ডটি গ্রহণ করা হয়
 msgid "The requested content could not be found."
 msgstr "অনুরোধ করা কনটেন্ট খুঁজে পাওয়া যায়নি।"
 
+#: src/features/chats/components/sealed-text.tsx
+msgid "The sender's encryption key changed"
+msgstr "প্রেরকের এনক্রিপশন কী পরিবর্তিত হয়েছে"
+
 #: ../../../lib/web/src/lib/api-response-interceptors.ts
 msgid "The server returned a web page instead of data."
 msgstr "সার্ভার ডেটার পরিবর্তে একটি ওয়েব পেজ ফেরত দিয়েছে।"
@@ -3491,6 +3539,10 @@ msgstr "অনেক বেশি অনুরোধ"
 msgid "Top"
 msgstr "সেরা"
 
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx
+msgid "Top level"
+msgstr "শীর্ষ স্তর"
+
 #: ../../../lib/web/src/components/travelling-picker.tsx
 msgid "Travelling"
 msgstr "ভ্রমণরত"
@@ -3564,6 +3616,11 @@ msgid "United States"
 msgstr "যুক্তরাষ্ট্র"
 
 #: ../../../lib/web/src/components/audit-timeline.tsx
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx
+#: ../../../lib/web/src/components/entity/entity-board-card.tsx
 #: ../../../lib/web/src/components/entity/entity-field-dialog.tsx
 #: ../../../lib/web/src/components/tree-row.tsx
 #: ../../../lib/web/src/components/tree-row.tsx
@@ -3729,6 +3786,10 @@ msgstr "বুধবার"
 #: ../../../lib/web/src/components/calendar/date-header.tsx
 msgid "Year"
 msgstr "বছর"
+
+#: ../../../lib/web/src/components/entity/entity-activity-list.tsx
+msgid "Yes"
+msgstr "হ্যাঁ"
 
 #: src/features/chats/index.tsx
 msgid "You"
