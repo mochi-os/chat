@@ -1031,6 +1031,8 @@ def message_send(chat_input, user_id, user_name, body, reply, thread, mentions, 
 	unsent = []
 	refused = []
 	if chat.get("account") and not remote_send(chat, id, body, attachments, unsent, unencrypted, refused):
+		mochi.db.execute("delete from links where message=?", id)
+		mochi.db.execute("delete from parts where message=?", id)
 		mochi.db.execute("delete from messages where id=?", id)
 		for att in attachments:
 			attachment_delete(att["id"])
@@ -1338,6 +1340,10 @@ def chat_delete_local(chat_id):
 		attachment_clear("chat/" + chat_id + "/" + _row["id"])
 	mochi.db.execute("delete from reactions where chat=?", chat_id)
 	mochi.db.execute("delete from deletions where chat=?", chat_id)
+	# What the messages went or came as on another network: each file's
+	# address and document, and the network's ids of their parts.
+	mochi.db.execute("delete from links where message in (select id from messages where chat=?)", chat_id)
+	mochi.db.execute("delete from parts where message in (select id from messages where chat=?)", chat_id)
 	mochi.db.execute("delete from messages where chat=?", chat_id)
 	mochi.db.execute("delete from members where chat=?", chat_id)
 	mochi.db.execute("delete from chat_read where chat=?", chat_id)
@@ -3128,13 +3134,15 @@ def remote_edit(chat, message):
 		# The new version is the whole object, so a message's files go again
 		# with its new text: a server takes an edit without them as their
 		# removal. A message sent before its files' documents were kept has
-		# them uploaded again, and kept from then on.
+		# them uploaded again, and kept from then on once every one went, so
+		# an edit after one that failed tries them all again.
 		documents = remote_files(message["id"])
 		if not documents:
 			attachments = attachment_list("chat/" + chat["id"] + "/" + message["id"])
 			if attachments:
 				documents = remote_documents(acc, attachments)
-				remote_keep(message["id"], message["remote"], documents)
+				if len(documents) == len(attachments):
+					remote_keep(message["id"], message["remote"], documents)
 		if documents:
 			note["attachment"] = documents
 		mochi.account.object.update(acc["id"], message["remote"], note)
