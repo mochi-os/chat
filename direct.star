@@ -28,11 +28,13 @@ def direct_chats(account):
 
 def direct_message(row, me, read):
 	"""A message as the functions answer it: whether it is the user's own
-	and whether the user has read it."""
+	and whether the user has read it; and files, the address each of its
+	files went with on the account's network, where it went there with any."""
 	mine = row["member"] == me
+	files = [{"url": link["url"]} for link in mochi.db.rows("select url from links where message=? order by rowid", row["id"]) or []]
 	return {"id": row["id"], "chat": row["chat"], "member": row["member"], "name": row["name"], "body": row["body"],
 		"created": row["created"], "edited": row.get("edited", 0) or 0, "remote": row.get("remote", "") or "",
-		"mine": mine, "read": mine or row["created"] <= read}
+		"mine": mine, "read": mine or row["created"] <= read, "files": files}
 
 def direct_members(chat, me):
 	return [{"id": m["member"], "name": m["name"]} for m in mochi.db.rows("select member, name from members where chat=? and member!=?", chat, me) or []]

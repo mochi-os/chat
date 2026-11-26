@@ -3041,13 +3041,16 @@ def remote_type(name, data):
 
 def remote_documents(acc, attachments, unsent=None):
 	"""The message's files uploaded through the account, as the documents the
-	Note lists, each under the type remote_type establishes; one that does
-	not upload goes into unsent (unsent_entry)."""
+	Note lists, each under the type remote_type establishes and described by
+	its caption, or the description a file sent through the account came with
+	(direct_files_save); one that does not upload goes into unsent
+	(unsent_entry)."""
 	documents = []
 	for att in attachments or []:
 		data = mochi.file.read(attachment_filename(att["id"], att["name"]), mochi.file.maximum())
 		kind = remote_type(att["name"], data) if data != None else ""
-		uploaded = mochi.account.upload(acc["id"], data, kind, name=att["name"], description=att.get("caption", "")) if data != None else None
+		described = att.get("caption", "") or att.get("description", "")
+		uploaded = mochi.account.upload(acc["id"], data, kind, name=att["name"], description=described) if data != None else None
 		if uploaded and type(uploaded.get("data")) == "dict":
 			documents.append(uploaded["data"])
 		elif unsent != None:
@@ -3090,7 +3093,29 @@ def remote_send(chat, message_id, body, attachments, unsent=None, unencrypted=Fa
 	if not result or not result.get("id"):
 		return False
 	mochi.db.execute("update messages set remote=? where id=?", str(result["id"]), message_id)
+	remote_keep(message_id, str(result["id"]), documents)
 	return True
+
+def remote_keep(message_id, remote, documents):
+	"""Keep the address each of a message's files went with, which the account
+	serves it at, and the document it went as: named wherever the message is
+	read, and listed again when the message is edited."""
+	for document in documents:
+		link = document.get("url")
+		if type(link) != "string" or not link or len(link) > REMOTE_MAXIMUM:
+			continue
+		encoded = json.encode(document)
+		mochi.db.execute("insert or ignore into links ( message, remote, url, payload ) values ( ?, ?, ?, ? )", message_id, remote, link, encoded if len(encoded) <= PAYLOAD_MAXIMUM else "")
+
+def remote_files(message_id):
+	"""The documents a message's files went as to the fediverse, in the order
+	they went, as remote_send kept them."""
+	documents = []
+	for link in mochi.db.rows("select payload from links where message=? order by rowid", message_id) or []:
+		document = json.decode(link["payload"], None) if link["payload"] else None
+		if type(document) == "dict" and type(document.get("url")) == "string":
+			documents.append(document)
+	return documents
 
 def remote_edit(chat, message):
 	acc = chat_account(chat)
@@ -3100,6 +3125,18 @@ def remote_edit(chat, message):
 		return
 	note = remote_note(chat, acc, message) if acc and message.get("remote") else None
 	if note:
+		# The new version is the whole object, so a message's files go again
+		# with its new text: a server takes an edit without them as their
+		# removal. A message sent before its files' documents were kept has
+		# them uploaded again, and kept from then on.
+		documents = remote_files(message["id"])
+		if not documents:
+			attachments = attachment_list("chat/" + chat["id"] + "/" + message["id"])
+			if attachments:
+				documents = remote_documents(acc, attachments)
+				remote_keep(message["id"], message["remote"], documents)
+		if documents:
+			note["attachment"] = documents
 		mochi.account.object.update(acc["id"], message["remote"], note)
 
 def remote_delete(chat, message_id, remote):
